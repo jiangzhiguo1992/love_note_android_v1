@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Base</string>
+
+    <string name="select_email_sender">请先设定一个默认的Email地址</string>
+    <string name="prompt">提示</string>
+    <string name="exit_app">您确定要退出？</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="wait">等待…</string>
+    <string name="no_network_title">网络不能访问</string>
+
+    <string name="http_error_connect">网络连接错误</string>
+    <string name="http_error_time">网络连接超时</string>
+    <string name="http_error_request">网络请求异常</string>
+    <string name="cannot_location_please_open_service">无法定位，请打开定位服务</string>
+
+    <string name="day1">一</string>
+    <string name="day2">二</string>
+    <string name="day3">三</string>
+    <string name="day4">四</string>
+    <string name="day5">五</string>
+    <string name="day6">六</string>
+    <string name="day7">日</string>
+
+    <string name="second">秒</string>
+    <string name="minute">分钟</string>
+    <string name="hour">小时</string>
+    <string name="day">天</string>
+    <string name="month">月</string>
+    <string name="year">年</string>
+
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.jiangzg.project">
+
+    <!-- 分享 -->
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+
+    <application
+        android:name=".base.MyApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- 友盟统计 -->
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="umeng"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
+
+        <!-- 高德地图 -->
+        <!--<meta-data-->
+            <!--android:name="com.amap.api.v2.apikey"-->
+            <!--android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>-->
+
+        <!--<service android:name="com.amap.api.location.APSService"/>-->
+        <!-- 启动页 -->
+        <activity android:name=".activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <!-- 主页面 -->
+        <activity
+            android:name=".activity.HomeActivity"
+            android:launchMode="singleTask"/>
+        <!-- 更新服务 -->
+        <service
+            android:name=".service.UpdateService"
+            android:enabled="true"
+            android:exported="true"/>
+        <!-- 地图服务 -->
+        <!--<service-->
+            <!--android:name=".service.LocationService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true"/>-->
+
+        <activity android:name=".activity.SecondActivity">
+        </activity>
+        <activity android:name=".activity.FragActivity">
+        </activity>
+    </application>
+
+</manifest>

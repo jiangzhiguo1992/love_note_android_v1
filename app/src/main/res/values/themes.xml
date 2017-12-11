@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 应用亮色调，标题栏默认颜色 -->
+        <item name="colorPrimary">@color/color_primary</item>
+        <!-- 应用暗色调，状态栏默认颜色 -->
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <!-- 控件选中颜色 -->
+        <item name="colorAccent">@color/color_accent</item>
+        <!-- 控件按压颜色 -->
+        <item name="colorControlHighlight">@color/color_control_highlight</item>
+        <!-- 按钮颜色 -->
+        <item name="colorButtonNormal">@color/button_color</item>
+        <!-- 字体颜色 -->
+        <item name="android:textColor">@color/text_color</item>
+        <!-- 标题文字的颜色 -->
+        <item name="android:textColorPrimary">@color/text_color</item>
+        <!-- 背景颜色 -->
+        <item name="android:windowBackground">@color/window_color</item>
+        <!-- 字体允许小写 -->
+        <item name="android:textAllCaps">false</item>
+        <!-- 整体跳转动画,也可在BaseActivity中动态设置 -->
+        <item name="android:windowAnimationStyle">@style/mAlphaAnim</item>
+    </style>
+
+    <!-- activity跳转动画 -->
+    <style name="mSlideAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
+    </style>
+
+    <!-- activity跳转动画 -->
+    <style name="mAlphaAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/alpha_show</item>
+        <item name="android:activityOpenExitAnimation">@anim/alpha_hide</item>
+    </style>
+
+</resources>

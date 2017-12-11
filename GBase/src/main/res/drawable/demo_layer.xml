@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 叠加的效果(用处很多) -->
+    <!-- bottom之类的相当于margin -->
+    <item
+        android:width="50dp"
+        android:height="50dp"
+        android:bottom="10dp"
+        android:drawable="@mipmap/ic_launcher"
+        android:end="10dp"
+        android:gravity="center"
+        android:left="10dp"
+        android:right="10dp"
+        android:start="10dp"
+        android:top="10dp"/>
+    <!-- layer/selector/shape 可以相互嵌套 -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0000ff"/>
+            <!-- ... -->
+        </shape>
+        <!-- 也可以放图片 -->
+        <!--<bitmap-->
+        <!--android:alpha="50"-->
+        <!--android:src=""/>-->
+    </item>
+
+</layer-list>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 内边距 -->
+    <padding
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp"
+        android:top="1dp"/>
+    <!-- 大小 -->
+    <size
+        android:width="1dp"
+        android:height="1dp"/>
+    <!-- 渐变 -->
+    <gradient
+        android:centerColor="@android:color/white"
+        android:endColor="@android:color/white"
+        android:startColor="@android:color/white"/>
+    <!-- 圆角 -->
+    <corners
+        android:radius="5dp"/>
+    <!-- 填充 -->
+    <solid
+        android:color="@android:color/white"/>
+    <!-- 描边 -->
+    <stroke
+        android:width="1px"
+        android:color="@android:color/white"/>
+</shape>

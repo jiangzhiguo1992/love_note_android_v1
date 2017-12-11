@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 主题颜色 -->
+    <color name="color_primary">#046dcf</color>
+    <color name="color_primary_dark">#0460b6</color>
+    <color name="color_accent">#087be6</color>
+    <color name="color_control_highlight">@color/color_primary</color>
+    <color name="button_color">@color/color_primary</color>
+    <color name="text_color">#333333</color><!-- 最好是黑色 -->
+    <color name="window_color">#F5F5F5</color>
+
+    <!--iosDialog中按钮字体颜色 -->
+    <color name="dialog_ios_text_color">@color/color_primary</color>
+
+    <color name="trans">#00ffffff</color>
+    <color name="font_black">@color/text_color</color>
+    <color name="font_white">#ffffff</color>
+    <color name="font_gray">#7F7F7F</color>
+    <color name="font_primary">@color/color_primary</color>
+    <color name="font_hint">#cbcbcb</color>
+    <color name="line_gray">#cbcbcb</color>
+
+</resources>

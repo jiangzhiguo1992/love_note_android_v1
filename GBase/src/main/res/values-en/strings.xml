@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Base</string>
+
+    <string name="select_email_sender">Please configure a default email address first.</string>
+    <string name="prompt">Prompt</string>
+    <string name="exit_app">Are you sure that you want to exit?</string>
+    <string name="confirm">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="wait">Waiting…</string>
+    <string name="no_network_title">Network can not access.</string>
+
+    <string name="http_error_connect">An unexpected network error occurred</string>
+    <string name="http_error_time">Connection timed out</string>
+    <string name="http_error_request">Network error request</string>
+    <string name="cannot_location_please_open_service">Cannot location please open service</string>
+
+    <string name="day1">MON</string>
+    <string name="day2">TUE</string>
+    <string name="day3">WED</string>
+    <string name="day4">THU</string>
+    <string name="day5">FRI</string>
+    <string name="day6">SAT</string>
+    <string name="day7">SUN</string>
+
+    <string name="second">second</string>
+    <string name="minute">minute</string>
+    <string name="hour">hour</string>
+    <string name="day">day</string>
+    <string name="month">month</string>
+    <string name="year">year</string>
+
+</resources>

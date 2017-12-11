@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 记得在xml引用时加命名空间 -->
+    <!--xmlns:my="http://schemas.android.com/apk/res-auto"-->
+    <declare-styleable name="JZoomScrollView">
+        <attr name="layout_index" format="integer" />
+    </declare-styleable>
+
+</resources>

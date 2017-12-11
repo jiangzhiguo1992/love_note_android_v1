@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">AndroidBase</string>
+
+    <string name="press_again_exit">再按一次退出</string>
+    <string name="find_new_version" formatted="false">有新版本:%s</string>
+    <string name="update_now">立即更新</string>
+    <string name="update_delay">以后再说</string>
+    <string name="http_response_error">网络响应异常</string>
+    <string name="http_response_error_401">用户验证失败</string>
+    <string name="http_response_error_403">Key错误</string>
+    <string name="http_response_error_404">资源未找到</string>
+    <string name="http_response_error_409">用户版本过低</string>
+    <string name="http_response_error_410">用户被禁用</string>
+    <string name="http_response_error_500">服务器异常</string>
+    <string name="location_error">定位失败</string>
+
+</resources>
