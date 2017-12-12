@@ -1,13 +1,12 @@
 package com.android.base.component.fragment;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 /**
  * Created by Jiang on 2016/0/01
@@ -21,10 +20,11 @@ public class FragmentTrans {
      * 添加，会遮挡主后面的
      */
     public static void add(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId) {
-        add(manager, fragment, viewId, "", false);
+        add(manager, fragment, viewId, null, false);
     }
 
-    public static void add(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId, String tag, boolean stack) {
+    public static void add(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId,
+                           @Nullable String tag, boolean stack) {
         if (fragment.isAdded()) return;
         Log.d(LOG_TAG, "-->add");
         FragmentTransaction transaction = manager.beginTransaction();
@@ -51,10 +51,11 @@ public class FragmentTrans {
      * 使用另一个Fragment替换当前的，实际上就是remove()然后add()的合体
      */
     public static void replace(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId) {
-        replace(manager, fragment, viewId, "", false);
+        replace(manager, fragment, viewId, null, false);
     }
 
-    public static void replace(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId, String tag, boolean stack) {
+    public static void replace(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId,
+                               @Nullable String tag, boolean stack) {
         if (fragment.isVisible()) return;
         if (fragment.isAdded()) { // isAdd 则显示(但不会刷新)
             show(manager, fragment, stack);

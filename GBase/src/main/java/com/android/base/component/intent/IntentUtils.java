@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import com.android.base.component.application.AppContext;
@@ -21,6 +24,8 @@ import java.io.File;
  */
 public class IntentUtils {
 
+    private static final String LOG_TAG = "IntentUtils";
+
     /**
      * activity跳转intent,也可以setClass来设置
      *
@@ -29,7 +34,7 @@ public class IntentUtils {
      * @param bundle      可为null
      * @return 直接startActivity即可
      */
-    private static Intent getComponent(String packageName, String className, Bundle bundle) {
+    private static Intent getComponent(@NonNull String packageName, @NonNull String className, @Nullable Bundle bundle) {
         Intent intent = new Intent(IntentCons.action_view);
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -42,7 +47,7 @@ public class IntentUtils {
      * 拍照 ,不加保存路径，图片会被压缩
      * (Permission)
      */
-    public static Intent getCamera(File cameraFile) {
+    public static Intent getCamera(@Nullable File cameraFile) {
         Intent intent = new Intent(IntentCons.action_capture);
         intent.putExtra(IntentCons.extra_image_orientation, 0);
         if (cameraFile == null) return intent;
@@ -56,14 +61,10 @@ public class IntentUtils {
      */
     public static Intent getPicture() {
         Intent intent = new Intent();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            intent.setAction(IntentCons.action_open_document);
-            intent.addCategory(IntentCons.category_openable);
-            if (intent.resolveActivity(AppContext.get().getPackageManager()) == null) {
-                intent.setAction(IntentCons.action_get_content);
-            }
-        } else {
-            intent.setAction(IntentCons.action_get_content);
+        intent.setAction(IntentCons.action_open_document);
+        intent.addCategory(IntentCons.category_openable);
+        if (intent.resolveActivity(AppContext.get().getPackageManager()) == null) {
+            intent.setAction(IntentCons.action_get_content); //4.4以下也走这个方法
         }
         intent.setType(IntentCons.type_image);
         return intent;
@@ -80,11 +81,12 @@ public class IntentUtils {
      * @param outputY 输出宽
      * @return intent
      */
-    public static Intent getCrop(File from, File save, int aspectX, int aspectY,
-                                 int outputX, int outputY) {
+    public static Intent getCrop(@NonNull File from, @NonNull File save,
+                                 int aspectX, int aspectY, int outputX, int outputY) {
         if (FileUtils.isFileEmpty(from)) { // 源文件不存在
             FileUtils.deleteFile(from);
             FileUtils.deleteFile(save);
+            Log.e(LOG_TAG, "getCrop-->from/save == empty");
             return null;
         }
         Uri uriFrom = ConvertUtils.File2URI(from);
@@ -92,8 +94,8 @@ public class IntentUtils {
         return getCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
     }
 
-    public static Intent getCrop(Uri from, Uri save, int aspectX, int aspectY,
-                                 int outputX, int outputY) {
+    public static Intent getCrop(@NonNull Uri from, @NonNull Uri save,
+                                 int aspectX, int aspectY, int outputX, int outputY) {
         Intent intent = new Intent(IntentCons.action_crop);
         intent.setDataAndType(from, IntentCons.type_image);
         intent.putExtra(IntentCons.extra_crop, "true");
@@ -120,7 +122,7 @@ public class IntentUtils {
     /**
      * 获取打开当前App的意图
      */
-    public static Intent getApp(String appPackageName) {
+    public static Intent getApp(@NonNull String appPackageName) {
         return AppContext.getPackageManager().getLaunchIntentForPackage(appPackageName);
     }
 
@@ -137,8 +139,7 @@ public class IntentUtils {
     /**
      * 获取安装App的意图
      */
-    public static Intent getInstall(File file) {
-        if (file == null) return null;
+    public static Intent getInstall(@NonNull File file) {
         Intent intent = new Intent(IntentCons.action_view);
         intent.addCategory(IntentCons.category_default);
         intent.addFlags(IntentCons.flag_new_task);
@@ -146,8 +147,7 @@ public class IntentUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             type = IntentCons.type_archive;
         } else {
-            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils
-                    .getFileExtension(file));
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
         return intent.setDataAndType(Uri.fromFile(file), type);
     }
@@ -155,7 +155,7 @@ public class IntentUtils {
     /**
      * 获取卸载App的意图
      */
-    public static Intent getUninstall(String packageName) {
+    public static Intent getUninstall(@NonNull String packageName) {
         Intent intent = new Intent(IntentCons.action_delete);
         intent.setData(Uri.parse("package:" + packageName));
         return intent.addFlags(IntentCons.flag_new_task);
@@ -164,13 +164,12 @@ public class IntentUtils {
     /**
      * 获取分享意图
      */
-    public static Intent getShare(String content, File image) {
+    public static Intent getShare(@NonNull String content, @NonNull File image) {
         if (!FileUtils.isFileExists(image)) return null;
         return getShare(content, Uri.fromFile(image));
     }
 
-    public static Intent getShare(String content, Uri uri) {
-        if (uri == null) return getShare(content);
+    public static Intent getShare(@NonNull String content, @NonNull Uri uri) {
         Intent intent = new Intent(IntentCons.action_send);
         intent.putExtra(IntentCons.extra_text, content);
         intent.putExtra(IntentCons.extra_stream, uri);
@@ -178,7 +177,7 @@ public class IntentUtils {
         return intent;
     }
 
-    public static Intent getShare(String content) {
+    public static Intent getShare(@NonNull String content) {
         Intent intent = new Intent(IntentCons.action_send);
         intent.setType(IntentCons.type_text);
         intent.putExtra(IntentCons.extra_text, content); // 设置分享信息
@@ -188,7 +187,7 @@ public class IntentUtils {
     /**
      * 跳至填充好phoneNumber的拨号界面
      */
-    public static Intent getDial(String phoneNumber) {
+    public static Intent getDial(@NonNull String phoneNumber) {
         return new Intent(IntentCons.action_dial, Uri.parse("tel:" + phoneNumber));
     }
 
@@ -196,7 +195,7 @@ public class IntentUtils {
      * 直接拨打phoneNumber
      * (Permission)
      */
-    public static Intent getCall(String phoneNumber) {
+    public static Intent getCall(@NonNull String phoneNumber) {
         Intent intent = new Intent();
         intent.setAction(IntentCons.action_call);
         intent.setData(Uri.parse("tel:" + phoneNumber));
@@ -206,7 +205,7 @@ public class IntentUtils {
     /**
      * 短信发送界面
      */
-    public static Intent getSMS(String phoneNumber, String content) {
+    public static Intent getSMS(@Nullable String phoneNumber, @Nullable String content) {
         Uri uri = Uri.parse("smsto:" + (TextUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
         Intent intent = new Intent(IntentCons.action_send_to, uri);
         intent.putExtra(IntentCons.extra_sms_body, TextUtils.isEmpty(content) ? "" : content);
@@ -216,7 +215,7 @@ public class IntentUtils {
     /**
      * 彩信发送界面
      */
-    public static Intent getSMS(String phoneNumber, String content, File img) {
+    public static Intent getSMS(@Nullable String phoneNumber, @Nullable String content, @NonNull File img) {
         Intent intent = getSMS(phoneNumber, content);
         intent.putExtra(IntentCons.extra_stream, Uri.fromFile(img));
         intent.setType(IntentCons.type_png);
@@ -246,7 +245,7 @@ public class IntentUtils {
     /**
      * 获取打开浏览器的意图
      */
-    public static Intent getWebBrowse(String url) {
+    public static Intent getWebBrowse(@NonNull String url) {
         Uri address = Uri.parse(url);
         return new Intent(IntentCons.action_view, address);
     }
@@ -261,7 +260,7 @@ public class IntentUtils {
     /**
      * 获取App系统设置
      */
-    public static Intent getSetings(String packageName) {
+    public static Intent getSetings(@NonNull String packageName) {
         Intent intent = new Intent(IntentCons.action_app_settings);
         return intent.setData(Uri.parse("package:" + packageName));
     }

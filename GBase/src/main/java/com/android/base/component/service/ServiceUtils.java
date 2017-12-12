@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.support.annotation.NonNull;
 
 import com.android.base.component.application.AppContext;
 
@@ -17,14 +18,16 @@ import java.util.Set;
  */
 public class ServiceUtils {
 
+    private static final String LOG_TAG = "ServiceUtils";
+
     /**
      * 判断服务是否运行
      */
-    public static boolean isServiceRunning(Class<?> cls) {
-        List<ActivityManager.RunningServiceInfo> myList = AppContext
+    public static boolean isServiceRunning(@NonNull Class<?> cls) {
+        List<ActivityManager.RunningServiceInfo> services = AppContext
                 .getActivityManager().getRunningServices(Integer.MAX_VALUE);
-        if (myList == null || myList.size() < 1) return false;
-        for (ActivityManager.RunningServiceInfo serviceInfo : myList) {
+        if (services == null || services.size() < 1) return false;
+        for (ActivityManager.RunningServiceInfo serviceInfo : services) {
             if (serviceInfo.service.getClassName().equals(cls.getName())) return true;
         }
         return false;
@@ -34,12 +37,11 @@ public class ServiceUtils {
      * 获取所有运行的服务
      */
     public static Set getRunningService() {
-        ActivityManager activityManager = AppContext.getActivityManager();
-        List<ActivityManager.RunningServiceInfo> infos = activityManager
-                .getRunningServices(Integer.MAX_VALUE);
+        List<ActivityManager.RunningServiceInfo> services = AppContext
+                .getActivityManager().getRunningServices(Integer.MAX_VALUE);
         Set<String> names = new HashSet<>();
-        if (infos == null || infos.size() == 0) return names;
-        for (ActivityManager.RunningServiceInfo info : infos) {
+        if (services == null || services.size() == 0) return names;
+        for (ActivityManager.RunningServiceInfo info : services) {
             names.add(info.service.getClassName());
         }
         return names;
@@ -48,7 +50,7 @@ public class ServiceUtils {
     /**
      * 启动服务 onCreate -> onStartCommand(onStart一般为1.0以下时使用)
      */
-    public static void startService(Class<?> cls) {
+    public static void startService(@NonNull Class<?> cls) {
         Intent intent = new Intent(AppContext.get(), cls);
         AppContext.get().startService(intent);
     }
@@ -56,7 +58,7 @@ public class ServiceUtils {
     /**
      * 停止服务
      */
-    public static boolean stopService(Class<?> cls) {
+    public static boolean stopService(@NonNull Class<?> cls) {
         Intent intent = new Intent(AppContext.get(), cls);
         return AppContext.get().stopService(intent);
     }
@@ -76,7 +78,7 @@ public class ServiceUtils {
      *              <li>{@link Context#BIND_WAIVE_PRIORITY}</li>
      *              </ul>
      */
-    public static void bindService(Class<?> cls, ServiceConnection conn, int flags) {
+    public static void bindService(@NonNull Class<?> cls, @NonNull ServiceConnection conn, int flags) {
         Intent intent = new Intent(AppContext.get(), cls);
         AppContext.get().bindService(intent, conn, flags);
     }
@@ -86,7 +88,7 @@ public class ServiceUtils {
      *
      * @param conn 服务连接对象
      */
-    public static void unbindService(ServiceConnection conn) {
+    public static void unbindService(@NonNull ServiceConnection conn) {
         AppContext.get().unbindService(conn);
     }
 

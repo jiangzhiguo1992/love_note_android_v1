@@ -20,7 +20,7 @@ import android.view.View;
  */
 public class ActivityTrans {
 
-    private static final String LOG_TAG = "AppBase";
+    private static final String LOG_TAG = "ActivityTrans";
 
     /**
      * 分享元素过渡动画，一般在目标activity里的setContentView后调用

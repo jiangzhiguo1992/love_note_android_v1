@@ -19,7 +19,7 @@ public class FragmentUtils {
     /**
      * 通过tag发现存在的fragment
      */
-    public static Fragment find(@NonNull FragmentManager manager, String tag) {
+    public static Fragment find(@NonNull FragmentManager manager, @NonNull String tag) {
         return manager.findFragmentByTag(tag);
     }
 

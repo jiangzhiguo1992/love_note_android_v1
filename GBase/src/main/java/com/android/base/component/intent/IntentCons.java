@@ -11,7 +11,7 @@ import android.provider.Settings;
  */
 public class IntentCons {
 
-    /**
+    /*
      * 1.显式方式 直接设置目标组件的ComponentName，用于一个应用内部的消息传递，比如启动另一个Activity或者一个services。
      *           通过Intent的setComponent和setClass来制定目标组件的ComponentName。
      * 2.隐式方式 ComponentName为空，用于调用其他应用中的组件。
