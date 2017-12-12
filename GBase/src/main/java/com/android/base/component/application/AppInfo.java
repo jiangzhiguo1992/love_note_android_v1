@@ -43,8 +43,8 @@ public class AppInfo {
     /**
      * 获取当前App信息
      */
-    @SuppressLint("PackageManagerGetSignatures")
-    public static AppInfo get() throws SecurityException {
+    @SuppressLint({"PackageManagerGetSignatures", "MissingPermission"})
+    public static AppInfo get() {
         if (instance == null) {
             instance = new AppInfo();
         } else {

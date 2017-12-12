@@ -25,6 +25,8 @@ import java.util.Locale;
  */
 public class LocationUtils {
 
+    private static final String LOG_TAG = "LocationUtils";
+
     private static LocationUtils instance;
     private static OnLocationChangeListener mListener; // 外部实现的listener
     private static MyLocationListener myLocationListener;  // 内部处理的listener

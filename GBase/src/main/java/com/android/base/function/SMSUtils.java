@@ -21,6 +21,8 @@ import java.util.Map;
  */
 public class SMSUtils {
 
+    private static final String LOG_TAG = "SMSUtils";
+
     /**
      * 查询SMS ( date为long，type = 1 为接受的短信， 2 为发送的短信 )
      * <uses-permission android:name="android.permission.READ_SMS"/>

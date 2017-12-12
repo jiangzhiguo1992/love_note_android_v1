@@ -1,5 +1,6 @@
 package com.android.base.component.intent;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -45,8 +46,8 @@ public class IntentUtils {
 
     /**
      * 拍照 ,不加保存路径，图片会被压缩
-     * (Permission)
      */
+    @SuppressLint("MissingPermission")
     public static Intent getCamera(@Nullable File cameraFile) {
         Intent intent = new Intent(IntentCons.action_capture);
         intent.putExtra(IntentCons.extra_image_orientation, 0);

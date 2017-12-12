@@ -2,13 +2,13 @@ package com.android.base.function;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.android.base.component.application.AppContext;
 import com.android.base.string.StringUtils;
@@ -19,6 +19,8 @@ import com.android.base.string.StringUtils;
  * describe  设备相关工具类
  */
 public class DeviceUtils {
+
+    private static final String LOG_TAG = "DeviceUtils";
 
     private static DeviceUtils instance;
 
@@ -43,44 +45,42 @@ public class DeviceUtils {
     /**
      * 获取手机的IMIE(DeviceId)
      */
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "MissingPermission"})
     public String getDeviceId() {
-        if (!StringUtils.isEmpty(deviceId)) return deviceId;
-        String deviceId;
+        if (!StringUtils.isEmpty(deviceId)) {
+            Log.d(LOG_TAG, "getDeviceId--->" + deviceId);
+            return deviceId;
+        }
         if (isPhone()) {
             deviceId = AppContext.getTelephonyManager().getDeviceId();
         } else {
             ContentResolver contentResolver = AppContext.get().getContentResolver();
             deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
         }
-        setDeviceId(deviceId);
+        Log.d(LOG_TAG, "getDeviceId--->" + deviceId);
         return deviceId;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
-    }
-
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "MissingPermission"})
     public String getPhoneNumber() {
-        if (!StringUtils.isEmpty(phoneNumber)) return phoneNumber;
-        setPhoneNumber(AppContext.getTelephonyManager().getLine1Number());
+        if (!StringUtils.isEmpty(phoneNumber)) {
+            Log.d(LOG_TAG, "getPhoneNumber--->" + phoneNumber);
+            return phoneNumber;
+        }
+        phoneNumber = AppContext.getTelephonyManager().getLine1Number();
+        Log.d(LOG_TAG, "getPhoneNumber--->" + phoneNumber);
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    @SuppressLint("HardwareIds")
+    @SuppressLint({"HardwareIds", "MissingPermission"})
     public String getSimSerial() {
-        if (!StringUtils.isEmpty(simSerial)) return simSerial;
-        setSimSerial(AppContext.getTelephonyManager().getSimSerialNumber());
+        if (!StringUtils.isEmpty(simSerial)) {
+            Log.d(LOG_TAG, "getSimSerial--->" + simSerial);
+            return simSerial;
+        }
+        simSerial = AppContext.getTelephonyManager().getSimSerialNumber();
+        Log.d(LOG_TAG, "getSimSerial--->" + simSerial);
         return simSerial;
-    }
-
-    public void setSimSerial(String simSerial) {
-        this.simSerial = simSerial;
     }
 
     /**
@@ -88,81 +88,72 @@ public class DeviceUtils {
      */
     @SuppressLint("HardwareIds")
     public String getMacAddress() {
-        if (!StringUtils.isEmpty(macAddress)) return macAddress;
-        WifiManager wifi = (WifiManager) AppContext.get()
-                .getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        WifiInfo info = wifi.getConnectionInfo();
-        if (info != null) {
-            setMacAddress(info.getMacAddress());
+        if (!StringUtils.isEmpty(macAddress)) {
+            Log.d(LOG_TAG, "getMacAddress--->" + macAddress);
+            return macAddress;
         }
+        WifiManager wifiManager = AppContext.getWifiManager();
+        WifiInfo info = wifiManager.getConnectionInfo();
+        if (info != null) {
+            macAddress = info.getMacAddress();
+        }
+        Log.d(LOG_TAG, "getMacAddress--->" + macAddress);
         return macAddress;
     }
 
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
-    }
-
     public boolean isPhone() {
-        setPhone(AppContext.getTelephonyManager().getPhoneType()
-                != TelephonyManager.PHONE_TYPE_NONE);
+        isPhone = AppContext.getTelephonyManager().getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
+        Log.d(LOG_TAG, "isPhone--->" + isPhone);
         return isPhone;
-    }
-
-    public void setPhone(boolean phone) {
-        isPhone = phone;
     }
 
     public boolean isTable() {
         int screenLayout = AppContext.get().getResources().getConfiguration().screenLayout;
         boolean xlarge = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
-        boolean large = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) ==
-                Configuration.SCREENLAYOUT_SIZE_LARGE);
-        setTable((xlarge || large));
+        boolean large = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+        isTable = (xlarge || large);
+        Log.d(LOG_TAG, "isTable--->" + isTable);
         return isTable;
     }
 
-    public void setTable(boolean table) {
-        isTable = table;
-    }
-
     public String getManufacturer() {
-        if (!StringUtils.isEmpty(manufacturer)) return manufacturer;
-        setManufacturer(Build.MANUFACTURER);
+        if (!StringUtils.isEmpty(manufacturer)) {
+            Log.d(LOG_TAG, "getManufacturer--->" + manufacturer);
+            return manufacturer;
+        }
+        manufacturer = Build.MANUFACTURER;
+        Log.d(LOG_TAG, "getManufacturer--->" + manufacturer);
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
     public String getModel() {
-        if (!StringUtils.isEmpty(model)) return model;
-        setModel(Build.MODEL);
+        if (!StringUtils.isEmpty(model)) {
+            Log.d(LOG_TAG, "getModel--->" + model);
+            return model;
+        }
+        model = Build.MODEL;
+        Log.d(LOG_TAG, "getModel--->" + model);
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public String getPlatform() {
-        if (!StringUtils.isEmpty(platform)) return platform;
-        setPlatform("Android");
+        if (!StringUtils.isEmpty(platform)) {
+            Log.d(LOG_TAG, "getPlatform--->" + platform);
+            return platform;
+        }
+        platform = "Android";
+        Log.d(LOG_TAG, "getPlatform--->" + platform);
         return platform;
     }
 
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
     public String getOsVersion() {
-        if (!StringUtils.isEmpty(osVersion)) return osVersion;
-        setOsVersion(Build.VERSION.RELEASE);
+        if (!StringUtils.isEmpty(osVersion)) {
+            Log.d(LOG_TAG, "getOsVersion--->" + osVersion);
+            return osVersion;
+        }
+        osVersion = Build.VERSION.RELEASE;
+        Log.d(LOG_TAG, "getOsVersion--->" + osVersion);
         return osVersion;
-    }
-
-    public void setOsVersion(String osVersion) {
-        this.osVersion = osVersion;
     }
 
 }

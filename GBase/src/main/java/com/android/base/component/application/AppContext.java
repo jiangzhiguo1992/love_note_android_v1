@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.PowerManager;
 import android.telephony.TelephonyManager;
 import android.view.WindowManager;
@@ -37,6 +38,10 @@ public class AppContext {
 
     public static ActivityManager getActivityManager() {
         return (ActivityManager) get().getSystemService(Context.ACTIVITY_SERVICE);
+    }
+
+    public static WifiManager getWifiManager() {
+        return (WifiManager) get().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     }
 
     public static WindowManager getWindowManager() {

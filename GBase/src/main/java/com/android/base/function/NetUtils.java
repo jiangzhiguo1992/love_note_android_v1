@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.android.base.R;
 import com.android.base.component.application.AppContext;
@@ -27,6 +29,8 @@ import static com.android.base.component.application.AppContext.getConnectivityM
  */
 public class NetUtils {
 
+    private static final String LOG_TAG = "NetUtils";
+
     private static NetUtils instance;
     private ConnectListener mListener;
 
@@ -42,25 +46,20 @@ public class NetUtils {
     }
 
     /**
-     * 网络状态监听器
-     */
-    public interface ConnectListener {
-        void onStateChange(int type, String name, NetworkInfo.State state,
-                           String operator);
-    }
-
-    /**
      * 注册网络监听,listener监听回调（网络状态变化）
      */
-    public void registerReceiver(Context context, ConnectListener listener) {
+    public void addListener(@NonNull Context context, @NonNull ConnectListener listener) {
         mListener = listener;
+        Log.d(LOG_TAG, "addListener");
         context.registerReceiver(receiver, new IntentFilter(IntentCons.action_connectivity));
     }
 
     /**
      * 注销网络监听
      */
-    public void unregisterReceiver(Context context) {
+    public void removeListener(@NonNull Context context) {
+        mListener = null;
+        Log.d(LOG_TAG, "removeListener");
         context.unregisterReceiver(receiver);
     }
 
@@ -78,6 +77,13 @@ public class NetUtils {
             mListener.onStateChange(type, name, state, operator);
         }
     };
+
+    /**
+     * 网络状态监听器
+     */
+    public interface ConnectListener {
+        void onStateChange(int type, String name, NetworkInfo.State state, String operator);
+    }
 
     /**
      * 网络是否可用
@@ -125,7 +131,7 @@ public class NetUtils {
         int networkType = getNetworkType();
         String name;
         if (networkType == ConnectivityManager.TYPE_MOBILE) {
-            name = "移动";
+            name = "流量";
         } else if (networkType == ConnectivityManager.TYPE_WIFI) {
             name = "WIFI";
         } else if (networkType == ConnectivityManager.TYPE_BLUETOOTH) {

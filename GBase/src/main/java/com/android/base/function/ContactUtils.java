@@ -8,6 +8,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.android.base.component.application.AppContext;
 
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 public class ContactUtils {
 
+    private static final String LOG_TAG = "ContactUtils";
 
     /**
      * ********************************联系人相关*********************************
@@ -73,7 +76,7 @@ public class ContactUtils {
     /**
      * 添加联系人  <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
      */
-    public static boolean insertContact(String name, String number, String email) {
+    public static boolean insertContact(@Nullable String name, @Nullable String number, @Nullable String email) {
         ArrayList<ContentProviderOperation> list = new ArrayList<>();
 
         ContentProviderOperation addAccount = ContentProviderOperation
@@ -120,14 +123,15 @@ public class ContactUtils {
      * IntentUtils.getContacts返回时调用
      * 在onActivityResult中调用，获取选中的号码
      */
-    public static String getContactSelect(Intent data) {
-        String num = "";
-        if (data == null) return num;
+    public static String getContactSelect(@NonNull Intent data) {
         Uri uri = data.getData();
-        // 创建内容解析者
-        ContentResolver contentResolver = AppContext.get().getContentResolver();
-        Cursor cursor = contentResolver.query(uri, null, null, null, null);
-        if (cursor == null) return num;
+        Cursor cursor = null;
+        if (uri != null) {
+            ContentResolver contentResolver = AppContext.get().getContentResolver();
+            cursor = contentResolver.query(uri, null, null, null, null);
+        }
+        if (cursor == null) return "";
+        String num = "";
         while (cursor.moveToNext()) {
             num = cursor.getString(cursor.getColumnIndex("data1"));
         }
