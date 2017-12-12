@@ -6,6 +6,7 @@ import com.android.base.R;
 import com.android.base.component.application.AppContext;
 import com.android.base.file.FileUtils;
 import com.android.base.component.application.AppInfo;
+import com.android.base.string.StringUtils;
 import com.android.base.time.TimeUtils;
 import com.orhanobut.logger.LogLevel;
 import com.orhanobut.logger.Logger;
@@ -18,6 +19,7 @@ import java.io.File;
  * 日志管理工具类
  */
 public class LogUtils {
+    private static String logDir; // SDCard/包名/log/
 
     public static void initApp() {
         String logTag = AppContext.get().getString(R.string.app_name);
@@ -69,11 +71,20 @@ public class LogUtils {
      */
     public static void writeLog2File(String content) {
         if (TextUtils.isEmpty(content)) return;
-        String logDir = AppInfo.get().getLogDir();
+        String logDir = getLogDir();
         String logFileName = TimeUtils.genBillTime() + ".txt";
         File logFile = new File(logDir, logFileName);
         FileUtils.createFileByDeleteOldFile(logFile);
         FileUtils.writeFileFromString(logFile, content, true);
+    }
+
+    /**
+     * 自定义Log路径
+     */
+    public static String getLogDir() {
+        logDir = AppInfo.get().getResDir() + "log" + File.separator;
+        FileUtils.createOrExistsDir(logDir); // 并创建
+        return logDir;
     }
 
 }

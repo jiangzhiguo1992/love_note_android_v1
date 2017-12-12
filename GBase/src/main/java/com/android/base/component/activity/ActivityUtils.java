@@ -23,6 +23,8 @@ import java.util.Map;
  */
 public class ActivityUtils {
 
+    private static final String LOG_TAG = "ActivityUtils";
+
     /**
      * 获取栈顶Activity
      */

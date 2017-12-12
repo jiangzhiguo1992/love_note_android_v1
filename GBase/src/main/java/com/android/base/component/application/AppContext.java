@@ -20,10 +20,13 @@ import android.view.inputmethod.InputMethodManager;
  */
 public class AppContext {
 
+    private static final String LOG_TAG = "AppContext";
+
     public static Application get() {
         return AppBase.get();
     }
 
+    //这个获取的是GBaseModule的res，注意不是app的
 //    public static Resources getResources() {
 //        return get().getResources();
 //    }

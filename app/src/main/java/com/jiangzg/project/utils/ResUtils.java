@@ -14,7 +14,7 @@ public class ResUtils {
 
     public static File createJPGInFiles() {
         String fileName = StringUtils.getUUID(8) + ".jpg";
-        File jpgFile = new File(AppInfo.get().getFilesDir(""), fileName);
+        File jpgFile = new File(AppInfo.get().getFilesDir(), fileName);
         FileUtils.createFileByDeleteOldFile(jpgFile);
         return jpgFile;
     }

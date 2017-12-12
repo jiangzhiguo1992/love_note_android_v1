@@ -2,7 +2,10 @@ package com.jiangzg.project.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.Signature;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.android.base.component.activity.ActivityTrans;
@@ -47,11 +50,19 @@ public class FragActivity extends BaseActivity<FragActivity> {
         FragmentTrans.replace(mFragmentManager, smallFragment, R.id.rlFragment);
 
         AppInfo appInfo = AppInfo.get();
+        String name = appInfo.getName();
+        Drawable icon = appInfo.getIcon();
         String packageName = appInfo.getPackageName();
-        String cacheDir = appInfo.getCacheDir();
-        String filesDir = appInfo.getFilesDir("");
+        String packagePath = appInfo.getPackagePath();
+        String versionName = appInfo.getVersionName();
+        int versionCode = appInfo.getVersionCode();
+        boolean system = appInfo.isSystem();
+        Signature[] signature = appInfo.getSignature();
+        String sha1 = appInfo.getSHA1();
         String resDir = appInfo.getResDir();
-        String logDir = appInfo.getLogDir();
+        String filesDir = appInfo.getFilesDir();
+        String cacheDir = appInfo.getCacheDir();
+        Log.e("---", "");
     }
 
     @OnClick(R.id.btnTrans)

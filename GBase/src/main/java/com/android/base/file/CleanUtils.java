@@ -49,7 +49,7 @@ public class CleanUtils {
      * 获取具有缓存的文件夹
      */
     public static List<String> getCacheFiles() {
-        String filesDir = AppInfo.get().getFilesDir("");
+        String filesDir = AppInfo.get().getFilesDir();
         String cacheDir = AppInfo.get().getCacheDir();
         File internalFilesDir = AppContext.get().getFilesDir();
         File internalCacheDir = AppContext.get().getCacheDir();
