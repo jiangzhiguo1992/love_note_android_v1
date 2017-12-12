@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.ArrayMap;
 
 import com.android.base.component.application.AppContext;
@@ -33,12 +34,7 @@ public class ActivityUtils {
             Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
             Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
             activitiesField.setAccessible(true);
-            Map activities;
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                activities = (HashMap) activitiesField.get(activityThread);
-            } else {
-                activities = (ArrayMap) activitiesField.get(activityThread);
-            }
+            Map activities = (ArrayMap) activitiesField.get(activityThread);
             for (Object activityRecord : activities.values()) {
                 Class activityRecordClass = activityRecord.getClass();
                 Field pausedField = activityRecordClass.getDeclaredField("paused");
@@ -61,8 +57,7 @@ public class ActivityUtils {
      * @param packageName 项目包名
      * @param className   activity全路径类名
      */
-    public static boolean isExists(String packageName, String className) {
-        if (packageName == null || className == null) return false;
+    public static boolean isExists(@NonNull String packageName, @NonNull String className) {
         PackageManager packageManager = AppContext.getPackageManager();
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
@@ -78,8 +73,7 @@ public class ActivityUtils {
      * @param packageName 项目包名
      * @return launcher activity全路径类名
      */
-    public static String getLauncher(String packageName) {
-        if (packageName == null) return "";
+    public static String getLauncher(@NonNull String packageName) {
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -96,8 +90,7 @@ public class ActivityUtils {
     /**
      * 关闭activity
      */
-    public static void finish(Activity activity) {
-        if (activity == null) return;
+    public static void finish(@NonNull Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.finishAndRemoveTask();
         } else {

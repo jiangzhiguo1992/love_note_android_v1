@@ -1,5 +1,6 @@
 package com.android.base.component.application;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 
 import com.android.base.component.activity.ActivityStack;
@@ -35,6 +36,7 @@ public class AppUtils {
     /**
      * 退出应用程序
      */
+    @SuppressLint("MissingPermission")
     public void appExit() {
         try {
             ActivityStack.finishAll();

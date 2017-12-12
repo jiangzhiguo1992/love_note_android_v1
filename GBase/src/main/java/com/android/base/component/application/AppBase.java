@@ -10,7 +10,7 @@ import android.support.multidex.MultiDexApplication;
  */
 public class AppBase extends MultiDexApplication {
 
-    public static final String LOG_TAG = "AppBase";
+    private static final String LOG_TAG = "AppBase";
 
     private static AppBase instance;
 

@@ -20,16 +20,18 @@ import java.util.List;
  */
 public class CleanUtils {
 
+    private static final String LOG_TAG = "CleanUtils";
+
     public static void initApp() {
         AppListener.addComponentListener("CleanUtils", new AppListener.ComponentListener() {
             @Override
             public void onTrimMemory(int level) {
-                Log.d(AppBase.LOG_TAG, "清理内存，级别:" + level);
+                Log.d(LOG_TAG, "清理内存，级别:" + level);
             }
 
             @Override
             public void onLowMemory() {
-                Log.e(AppBase.LOG_TAG, "内存警告!");
+                Log.e(LOG_TAG, "内存警告!");
                 // System.gc();
                 Runtime.getRuntime().gc();
             }
@@ -37,7 +39,7 @@ public class CleanUtils {
             @Override
             public void onConfigurationChanged(Configuration cfg) {
                 String log = ConfigUtils.getLog(cfg);
-                Log.d(AppBase.LOG_TAG, "App配置发生变化:" + log);
+                Log.d(LOG_TAG, "App配置发生变化:" + log);
             }
         });
     }
