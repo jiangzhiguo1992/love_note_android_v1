@@ -8,10 +8,11 @@ import com.android.base.component.application.AppContext;
 
 /**
  * Created by gg on 2017/5/9.
- * 广播工具类
+ * todo 广播工具类
  */
 public class BroadCastUtils {
 
+    private static final String LOG_TAG = "BroadCastUtils";
 
     public static void register(BroadcastReceiver receiver, IntentFilter filter) {
 //        IntentFilter intentFilter = new IntentFilter();

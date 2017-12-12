@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.android.base.component.activity.ActivityTrans;
 import com.android.base.component.application.AppInfo;
 import com.android.base.component.fragment.FragmentTrans;
+import com.android.base.component.fragment.FragmentUtils;
 import com.jiangzg.project.R;
 import com.jiangzg.project.base.BaseActivity;
 import com.jiangzg.project.fragment.BigFragment;
@@ -47,30 +49,23 @@ public class FragActivity extends BaseActivity<FragActivity> {
     protected void initData(Bundle state) {
         bigFragment = BigFragment.newFragment();
         smallFragment = SmallFragment.newFragment();
-        FragmentTrans.replace(mFragmentManager, smallFragment, R.id.rlFragment);
+        FragmentTrans.add(mFragmentManager, smallFragment, R.id.rlFragment);
+        FragmentTrans.add(mFragmentManager, bigFragment, R.id.rlFragment);
 
-        AppInfo appInfo = AppInfo.get();
-        String name = appInfo.getName();
-        Drawable icon = appInfo.getIcon();
-        String packageName = appInfo.getPackageName();
-        String packagePath = appInfo.getPackagePath();
-        String versionName = appInfo.getVersionName();
-        int versionCode = appInfo.getVersionCode();
-        boolean system = appInfo.isSystem();
-        Signature[] signature = appInfo.getSignature();
-        String sha1 = appInfo.getSHA1();
-        String resDir = appInfo.getResDir();
-        String filesDir = appInfo.getFilesDir();
-        String cacheDir = appInfo.getCacheDir();
-        Log.e("---", "");
+
     }
 
     @OnClick(R.id.btnTrans)
     public void onViewClicked() {
+        FragmentManager m = getSupportFragmentManager();
         if (bigFragment.isVisible()) {
-            smallFragment = bigFragment.replace();
+            FragmentTrans.show(m, smallFragment, false);
+            //FragmentTrans.hide(m, bigFragment, false);
+            //smallFragment = bigFragment.replace();
         } else {
-            bigFragment = smallFragment.replace();
+            FragmentTrans.show(m, bigFragment, false);
+            //FragmentTrans.hide(m, smallFragment, false);
+            //bigFragment = smallFragment.replace();
         }
     }
 }
