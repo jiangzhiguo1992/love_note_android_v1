@@ -80,6 +80,7 @@ public class AppInfo {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+        Log.d(LOG_TAG, instance.toString());
         return instance;
     }
 
@@ -217,4 +218,22 @@ public class AppInfo {
         return resCacheDir;
     }
 
+    @Override
+    public String toString() {
+        return "AppInfo{" +
+                "name='" + name + '\'' +
+                ", icon=" + icon +
+                ", packageName='" + packageName + '\'' +
+                ", packagePath='" + packagePath + '\'' +
+                ", versionName='" + versionName + '\'' +
+                ", versionCode=" + versionCode +
+                ", isSystem=" + isSystem +
+                ", signature=" + Arrays.toString(signature) +
+                ", SHA1='" + SHA1 + '\'' +
+                ", appFilesDir='" + appFilesDir + '\'' +
+                ", appCacheDir='" + appCacheDir + '\'' +
+                ", resFilesDir='" + resFilesDir + '\'' +
+                ", resCacheDir='" + resCacheDir + '\'' +
+                '}';
+    }
 }

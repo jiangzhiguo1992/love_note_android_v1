@@ -104,8 +104,10 @@ public class PermUtils {
         if (mRequestCode != -1 && requestCode == mRequestCode) {
             if (mOnPermissionListener != null) {
                 if (verifyPermissions(grantResults)) {
+                    Log.d(LOG_TAG, "onRequestPermissionsResult-->onPermissionGranted");
                     mOnPermissionListener.onPermissionGranted(permissions);
                 } else {
+                    Log.d(LOG_TAG, "onRequestPermissionsResult-->onPermissionDenied");
                     mOnPermissionListener.onPermissionDenied(permissions);
                 }
             }
