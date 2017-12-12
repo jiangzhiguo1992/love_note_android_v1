@@ -3,11 +3,8 @@ package com.android.base.file;
 import android.content.res.Configuration;
 import android.util.Log;
 
-import com.android.base.component.application.AppContext;
 import com.android.base.component.application.AppInfo;
 import com.android.base.component.application.AppListener;
-import com.android.base.component.application.AppBase;
-import com.android.base.function.ConfigUtils;
 import com.android.base.string.ConvertUtils;
 
 import java.io.File;
@@ -16,14 +13,14 @@ import java.util.List;
 
 /**
  * Created by gg on 2017/4/9.
- * 清理工具类 todo wait test
+ * 清理工具类
  */
 public class CleanUtils {
 
     private static final String LOG_TAG = "CleanUtils";
 
     public static void initApp() {
-        AppListener.addComponentListener("CleanUtils", new AppListener.ComponentListener() {
+        AppListener.addComponentListener(LOG_TAG, new AppListener.ComponentListener() {
             @Override
             public void onTrimMemory(int level) {
                 Log.d(LOG_TAG, "清理内存，级别:" + level);
@@ -38,8 +35,6 @@ public class CleanUtils {
 
             @Override
             public void onConfigurationChanged(Configuration cfg) {
-                String log = ConfigUtils.getLog(cfg);
-                Log.d(LOG_TAG, "App配置发生变化:" + log);
             }
         });
     }
@@ -49,16 +44,11 @@ public class CleanUtils {
      * 获取具有缓存的文件夹
      */
     public static List<String> getCacheFiles() {
-        String filesDir = AppInfo.get().getFilesDir();
-        String cacheDir = AppInfo.get().getCacheDir();
-        File internalFilesDir = AppContext.get().getFilesDir();
-        File internalCacheDir = AppContext.get().getCacheDir();
-
+        String appCacheDir = AppInfo.get().getAppCacheDir();
+        String resCacheDir = AppInfo.get().getResCacheDir();
         List<String> filesList = new ArrayList<>();
-        filesList.add(filesDir);
-        filesList.add(cacheDir);
-        filesList.add(internalFilesDir.getAbsolutePath());
-        filesList.add(internalCacheDir.getAbsolutePath());
+        filesList.add(appCacheDir);
+        filesList.add(resCacheDir);
         return filesList;
     }
 
@@ -75,7 +65,7 @@ public class CleanUtils {
     }
 
     /**
-     * 获取具有缓存的文件大小
+     * 获取具有缓存的文件大小,带fmt
      */
     public static String getCacheSize() {
         long cacheLength = getCacheLength();
@@ -96,16 +86,25 @@ public class CleanUtils {
      * **********************************资源**********************************
      * 获取资源文件夹
      */
-    public static String getResFile() {
-        return AppInfo.get().getResDir();
+    public static List<String> getResFile() {
+        String appFilesDir = AppInfo.get().getAppFilesDir();
+        String resFilesDir = AppInfo.get().getResFilesDir();
+        List<String> filesList = new ArrayList<>();
+        filesList.add(appFilesDir);
+        filesList.add(resFilesDir);
+        return filesList;
     }
 
     /**
      * 获取资源的文件大小
      */
     public static long getResLength() {
-        File resDir = new File(getResFile());
-        return resDir.length();
+        List<String> resFiles = getResFile();
+        long size = 0;
+        for (String res : resFiles) {
+            size += new File(res).length();
+        }
+        return size;
     }
 
     /**
@@ -120,8 +119,10 @@ public class CleanUtils {
      * 清除所有资源
      */
     public static void clearRes() {
-        String resDir = getResFile();
-        FileUtils.deleteFilesAndDirInDir(resDir);
+        List<String> resFile = getResFile();
+        for (String res : resFile) {
+            FileUtils.deleteFilesAndDirInDir(new File(res));
+        }
     }
 
 }

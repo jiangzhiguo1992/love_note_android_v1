@@ -123,7 +123,6 @@ public class ActivityTrans {
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
-//                startElement(activity, intent, requestCode);
             activity.startActivityFromFragment(from, intent, requestCode);
         } else {
             try {
@@ -144,16 +143,14 @@ public class ActivityTrans {
     /* 5.0过渡跳转(有分享元素) */
     @SafeVarargs
     private static void startWithElement(@NonNull Activity from, @NonNull Intent intent, Pair<View, String>... sharedElements) throws Exception {
-        ActivityOptionsCompat options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(from, sharedElements);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, sharedElements);
         from.startActivity(intent, options.toBundle());
     }
 
     /* 5.0过渡跳转(有分享元素) */
     @SafeVarargs
     private static void startWithElement(@NonNull Activity from, @NonNull Intent intent, int requestCode, Pair<View, String>... sharedElements) throws Exception {
-        ActivityOptionsCompat options = ActivityOptionsCompat
-                .makeSceneTransitionAnimation(from, sharedElements);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, sharedElements);
         ActivityCompat.startActivityForResult(from, intent, requestCode, options.toBundle());
     }
 

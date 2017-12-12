@@ -82,7 +82,8 @@ public class LogUtils {
      * 自定义Log路径
      */
     public static String getLogDir() {
-        logDir = AppInfo.get().getResDir() + "log" + File.separator;
+        //logDir = AppInfo.get().getResDir() + "log" + File.separator;
+        logDir = "";
         FileUtils.createOrExistsDir(logDir); // 并创建
         return logDir;
     }

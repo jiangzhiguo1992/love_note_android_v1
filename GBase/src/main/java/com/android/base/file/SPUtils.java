@@ -3,6 +3,7 @@ package com.android.base.file;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.base.component.application.AppContext;
@@ -17,18 +18,19 @@ import java.util.Map;
  */
 public class SPUtils {
 
+    private static final String LOG_TAG = "SPUtils";
+
     /* SP集合 */
     private static Map<String, SharedPreferences> map = new HashMap<>();
 
-    public static SharedPreferences getSharedPreferences(String name) {
+    public static SharedPreferences getSharedPreferences(@Nullable String name) {
         SharedPreferences sharedPreferences;
         if (TextUtils.isEmpty(name)) { // 获取默认Preferences
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.get());
         } else { // 创建以name为名称的Preferences
             sharedPreferences = map.get(name);
             if (sharedPreferences == null) {
-                sharedPreferences = AppContext.get()
-                        .getSharedPreferences(name, Context.MODE_PRIVATE);
+                sharedPreferences = AppContext.get().getSharedPreferences(name, Context.MODE_PRIVATE);
                 map.put(name, sharedPreferences);
             }
         }

@@ -3,7 +3,6 @@ package com.android.base.file;
 import android.text.TextUtils;
 
 import com.android.base.string.ConvertUtils;
-import com.android.base.string.EncryptUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -31,6 +30,8 @@ import static com.android.base.string.ConstantUtils.KB;
  * 文件相关工具类
  */
 public class FileUtils {
+
+    private static final String LOG_TAG = "FileUtils";
 
     /**
      * 根据文件路径获取文件

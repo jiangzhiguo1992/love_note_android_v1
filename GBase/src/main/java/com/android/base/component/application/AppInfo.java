@@ -35,18 +35,20 @@ public class AppInfo {
     private boolean isSystem; // 是否是系统级别
     private Signature[] signature; // 签名
     private String SHA1; // 地图的sha1值
-    private String resDir; // SDCard/包名/
-    private String filesDir; // SDCard/Android/data/包名/files/ 或者是sys的
-    private String cacheDir; // SDCard/Android/data/包名/cache/ 或者是sys的
+    private String appFilesDir; // /data/user/0/packageName/files
+    private String appCacheDir; // /data/user/0/packageName/cache
+    private String resFilesDir; // /storage/emulated/0/Android/data/packageName/files
+    private String resCacheDir; // /storage/emulated/0/Android/data/packageName/cache
 
     /**
      * 获取当前App信息
      */
     @SuppressLint("PackageManagerGetSignatures")
     public static AppInfo get() throws SecurityException {
-        //if (instance != null) return instance;
         if (instance == null) {
             instance = new AppInfo();
+        } else {
+            return instance;
         }
         String packageName = AppContext.get().getPackageName();
         PackageManager pm = AppContext.get().getPackageManager();
@@ -161,52 +163,58 @@ public class AppInfo {
         return versionName;
     }
 
-    /**
-     * 自定义资源路径(部分手机有差别)
-     */
-    public String getResDir() {
-        if (!StringUtils.isEmpty(resDir)) return resDir;
-        resDir = EnvironUtils.getRealSDCardPath() + packageName + File.separator;
-        FileUtils.createOrExistsDir(resDir); // 并创建
-        Log.d(LOG_TAG, "getResDir-->" + resDir);
-        return resDir;
+    public String getAppFilesDir() {
+        if (!StringUtils.isEmpty(appFilesDir)) {
+            Log.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
+            return appFilesDir;
+        }
+        File filesDir = AppContext.get().getFilesDir();
+        appFilesDir = filesDir.getAbsolutePath();
+        Log.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
+        return appFilesDir;
     }
 
-    /**
-     * 如果SD卡存在，则获取 SDCard/Android/data/你的应用的包名/
-     * 如果不存在，则获取 /data/data/<application package>/
-     */
-    public String getFilesDir() {
-        File dir;
-        if (EnvironUtils.isSDCardEnable()) {
-            dir = AppContext.get().getExternalFilesDir("");
-        } else {
-            dir = AppContext.get().getFilesDir();
+    public String getAppCacheDir() {
+        if (!StringUtils.isEmpty(appCacheDir)) {
+            Log.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
+            return appCacheDir;
         }
-        if (dir != null) {
-            filesDir = dir.getAbsolutePath();
-        }
-        Log.d(LOG_TAG, "getFilesDir-->" + filesDir);
-        return filesDir;
+        File cacheDir = AppContext.get().getCacheDir();
+        appCacheDir = cacheDir.getAbsolutePath();
+        Log.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
+        return appCacheDir;
     }
 
-    /**
-     * 如果SD卡存在，则获取 SDCard/Android/data/你的应用包名/cache/
-     * 如果不存在，则获取 /data/data/<application package>/cache
-     */
-    public String getCacheDir() {
-        if (!StringUtils.isEmpty(cacheDir)) return cacheDir;
-        File dir;
-        if (EnvironUtils.isSDCardEnable()) {
-            dir = AppContext.get().getExternalCacheDir();
+    public String getResFilesDir() {
+        if (!StringUtils.isEmpty(resFilesDir)) {
+            Log.d(LOG_TAG, "getResFilesDir-->" + resFilesDir);
+            return resFilesDir;
+        }
+        File externalFilesDir = AppContext.get().getExternalFilesDir("");
+        if (externalFilesDir != null) {
+            resFilesDir = externalFilesDir.getAbsolutePath();
         } else {
-            dir = AppContext.get().getCacheDir();
+            resFilesDir = EnvironUtils.getRealSDCardPath() + packageName + "/files/";
+            FileUtils.createOrExistsDir(resFilesDir); // 并创建
         }
-        if (dir != null) {
-            cacheDir = dir.getAbsolutePath();
+        Log.d(LOG_TAG, "getResFilesDir-->" + resFilesDir);
+        return resFilesDir;
+    }
+
+    public String getResCacheDir() {
+        if (!StringUtils.isEmpty(resCacheDir)) {
+            Log.d(LOG_TAG, "getResCacheDir-->" + resCacheDir);
+            return resCacheDir;
         }
-        Log.d(LOG_TAG, "getCacheDir-->" + cacheDir);
-        return cacheDir;
+        File externalCacheDir = AppContext.get().getExternalCacheDir();
+        if (externalCacheDir != null) {
+            resCacheDir = externalCacheDir.getAbsolutePath();
+        } else {
+            resCacheDir = EnvironUtils.getRealSDCardPath() + packageName + "/cache/";
+            FileUtils.createOrExistsDir(resCacheDir); // 并创建
+        }
+        Log.d(LOG_TAG, "getResCacheDir-->" + resCacheDir);
+        return resCacheDir;
     }
 
 }
