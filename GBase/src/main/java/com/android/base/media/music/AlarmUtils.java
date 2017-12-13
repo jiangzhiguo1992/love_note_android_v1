@@ -3,9 +3,11 @@ package com.android.base.media.music;
 /**
  * author cipherGG
  * Created by Administrator on 2016/4/10.
- * describe
+ * todo describe AlarmUtils
  */
 public class AlarmUtils {
+
+    private static final String LOG_TAG = "ImgUtils";
 
 //    public static void test(){
 //        //AlarmManager.setInexactRepeating

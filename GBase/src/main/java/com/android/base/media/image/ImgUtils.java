@@ -44,6 +44,8 @@ import java.io.InputStream;
  */
 public class ImgUtils {
 
+    private static final String LOG_TAG = "ImgUtils";
+
     /**
      * 剪切view , 还有设置四大属性的方法，太多了 不封装了
      */
@@ -374,7 +376,6 @@ public class ImgUtils {
      * @return 模糊后的图片
      */
     public static Bitmap renderScriptBlur(Context context, Bitmap src, float radius) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) return null;
         if (isEmptyBitmap(src)) return null;
         RenderScript rs = null;
         try {

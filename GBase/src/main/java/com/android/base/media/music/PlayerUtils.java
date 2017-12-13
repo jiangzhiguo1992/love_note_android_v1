@@ -2,9 +2,12 @@ package com.android.base.media.music;
 
 /**
  * Created by gg on 2017/4/3.
- * 多媒体播放
+ * todo 多媒体播放
  */
 public class PlayerUtils {
+
+    private static final String LOG_TAG = "ImgUtils";
+
 //
 //    public static boolean isInit = false;
 //    public static boolean isPrepare = false;

@@ -10,6 +10,8 @@ import java.io.IOException;
  */
 public class RecordUtils {
 
+    private static final String LOG_TAG = "RecordUtils";
+
     /**
      * 开始录音
      */
