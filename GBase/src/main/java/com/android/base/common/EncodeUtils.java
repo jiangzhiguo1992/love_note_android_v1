@@ -1,6 +1,5 @@
 package com.android.base.common;
 
-import android.os.Build;
 import android.text.Html;
 import android.util.Base64;
 
