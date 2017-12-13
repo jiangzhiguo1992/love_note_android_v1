@@ -11,7 +11,12 @@ import java.lang.ref.WeakReference;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * todo HandlerUtils
+ */
 public class HandlerUtils {
+
+    private static final String LOG_TAG = "HandlerUtils";
 
     private final Handler.Callback mCallback; // hard reference to Callback. We need to keep callback in memory
     private final ExecHandler mExec;

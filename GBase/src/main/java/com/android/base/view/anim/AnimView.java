@@ -21,6 +21,8 @@ import java.util.List;
  */
 public class AnimView {
 
+    private static final String LOG_TAG = "AnimView";
+
     /**
      * **********************************切换动画**********************************
      * <p>

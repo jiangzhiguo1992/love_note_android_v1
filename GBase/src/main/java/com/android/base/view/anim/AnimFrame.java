@@ -16,6 +16,8 @@ import android.view.animation.DecelerateInterpolator;
  */
 public class AnimFrame {
 
+    private static final String LOG_TAG = "AnimFrame";
+
     // 渐变property
     public static final String ALPHA = "alpha";
     // 缩放property
@@ -102,11 +104,9 @@ public class AnimFrame {
      * @param startRadius 圆形开始的半径
      * @param endRadius   结束时候的半径
      */
-    public static Animator getCircular(View view, int centerX, int centerY,
-                                       float startRadius, float endRadius) {
+    public static Animator getCircular(View view, int centerX, int centerY, float startRadius, float endRadius) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return null;
-        return ViewAnimationUtils.createCircularReveal(view,
-                centerX, centerY, startRadius, endRadius);
+        return ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, endRadius);
     }
 
 }

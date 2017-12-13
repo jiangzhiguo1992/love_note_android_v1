@@ -1,6 +1,5 @@
 package com.android.base.view.anim;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.transition.ChangeBounds;
@@ -25,6 +24,8 @@ import android.view.animation.LinearInterpolator;
  */
 public class AnimTrans {
 
+    private static final String LOG_TAG = "AnimTrans";
+
     // trans的标志
     public static final int TRANS_EXPLODE = 1;  // 随机边缘进出
     public static final int TRANS_SLIDE = 2;    // 指定边缘进出
@@ -36,7 +37,6 @@ public class AnimTrans {
      * 用于切换的场景,就是布局
      */
     public static Scene getScene(ViewGroup parent, int layoutID, Context context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return null;
         return Scene.getSceneForLayout(parent, layoutID, context);
     }
 
@@ -73,7 +73,6 @@ public class AnimTrans {
     /**
      * 监听开始、结束、取消、暂停、结束
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void addTransListener(Transition transition, Transition.TransitionListener listener) {
         transition.addListener(listener);
     }
@@ -81,7 +80,6 @@ public class AnimTrans {
     /**
      * 使用默认的new AutoTransition()来启动的
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void goTrans(Scene scene) {
         TransitionManager.go(scene);
     }
@@ -89,7 +87,6 @@ public class AnimTrans {
     /**
      * 使用的自定义的Transition来启动的
      */
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public static void goTrans(Scene scene, Transition transition) {
         TransitionManager.go(scene, transition);
     }

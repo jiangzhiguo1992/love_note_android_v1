@@ -12,6 +12,8 @@ import com.android.base.component.application.AppContext;
  */
 public class ToastUtils {
 
+    private static final String LOG_TAG = "ToastUtils";
+
     private static Toast toast;
 
     public static void show(final CharSequence message) {

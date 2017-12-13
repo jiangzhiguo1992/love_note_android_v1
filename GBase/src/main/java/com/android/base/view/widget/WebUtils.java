@@ -21,6 +21,8 @@ import java.util.Map;
  */
 public class WebUtils {
 
+    private static final String LOG_TAG = "WebUtils";
+
     private WebView mWebView;
     private String cacheDir;
     private String cookie;
@@ -30,7 +32,8 @@ public class WebUtils {
     }
 
     public void init(boolean js, boolean zoom, boolean cache) {
-        String resDir = AppInfo.get().getCacheDir();
+        //String resDir = AppInfo.get().getCacheDir();
+        String resDir = "";
         cacheDir = resDir + "web_cache";
         FileUtils.createOrExistsFile(cacheDir);
         mWebView.requestFocusFromTouch(); // 支持获取手势焦点

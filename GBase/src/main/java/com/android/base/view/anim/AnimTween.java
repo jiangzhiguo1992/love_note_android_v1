@@ -18,6 +18,8 @@ import android.view.animation.TranslateAnimation;
  */
 public class AnimTween {
 
+    private static final String LOG_TAG = "AnimTween";
+
     /**
      * 渐变动画
      */

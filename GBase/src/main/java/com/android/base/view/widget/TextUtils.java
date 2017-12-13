@@ -17,6 +17,8 @@ import android.widget.TextView;
  */
 public class TextUtils {
 
+    private static final String LOG_TAG = "TextUtils";
+
     /**
      * textView.setCompoundDrawables(null, null, null, null);
      */

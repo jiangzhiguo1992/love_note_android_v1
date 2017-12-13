@@ -11,6 +11,8 @@ import android.widget.ImageView;
  */
 public class AnimDrawable {
 
+    private static final String LOG_TAG = "AnimDrawable";
+
     /**
      * **********************************帧动画**********************************
      *

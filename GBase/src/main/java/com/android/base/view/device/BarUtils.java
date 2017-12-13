@@ -18,6 +18,8 @@ import android.view.WindowManager;
  */
 public class BarUtils {
 
+    private static final String LOG_TAG = "BarUtils";
+
     /**
      * 无actionBar, 要在setContentView之前调用
      */
@@ -52,9 +54,7 @@ public class BarUtils {
      * 动态显示Status , 会遮挡top布局
      */
     public static void fitStatus(View view) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        }
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
     /**

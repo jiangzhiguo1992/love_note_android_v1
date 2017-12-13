@@ -17,6 +17,8 @@ import android.widget.PopupWindow;
  */
 public class PopUtils {
 
+    private static final String LOG_TAG = "PopUtils";
+
     /**
      * @param window LayoutInflater.from(activity).inflate(R.layout.id, null);
      * @param width  WindowManager.LayoutParams.WRAP_CONTENT

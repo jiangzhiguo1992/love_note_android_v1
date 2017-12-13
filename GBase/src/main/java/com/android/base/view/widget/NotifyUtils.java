@@ -14,6 +14,8 @@ import com.android.base.component.application.AppContext;
  */
 public class NotifyUtils {
 
+    private static final String LOG_TAG = "NotifyUtils";
+
     /**
      * @param id 显示通知，唯一标识
      */

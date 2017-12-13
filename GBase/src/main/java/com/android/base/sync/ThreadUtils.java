@@ -8,9 +8,11 @@ import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * Created by gg on 2017/5/8.
- * 线程管理类
+ * todo 线程管理类
  */
 public class ThreadUtils {
+
+    private static final String LOG_TAG = "ThreadUtils";
 
     private void test() {
         ExecutorService executorService = Executors.newCachedThreadPool();

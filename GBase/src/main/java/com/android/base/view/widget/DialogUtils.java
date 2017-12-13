@@ -1,5 +1,6 @@
 package com.android.base.view.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -24,6 +25,8 @@ import java.util.Calendar;
  * DialogUtils: 对话框管理工具类
  */
 public class DialogUtils {
+
+    private static final String LOG_TAG = "DialogUtils";
 
     /**
      * 自定义对话框
@@ -208,17 +211,13 @@ public class DialogUtils {
     /**
      * 后台弹框
      */
-    public static void showInContext(final Dialog dialog) {
-//        RxPermUtils.requestContextDialog(new RxPermUtils.PermissionListener() {
-//            @Override
-//            public void onAgree() {
-//                Window window = dialog.getWindow();
-//                if (window != null) {
-//                    window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-//                }
-//                dialog.show();
-//            }
-//        });
+    @SuppressLint("MissingPermission")
+    public static void showInContext(Dialog dialog) {
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        }
+        dialog.show();
     }
 
 }
