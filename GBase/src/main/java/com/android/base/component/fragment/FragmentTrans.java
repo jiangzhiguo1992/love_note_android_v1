@@ -1,7 +1,5 @@
 package com.android.base.component.fragment;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,12 +17,15 @@ public class FragmentTrans {
     /**
      * 添加，会遮挡主后面的
      */
-    public static void add(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId) {
+    public static void add(FragmentManager manager, Fragment fragment, int viewId) {
         add(manager, fragment, viewId, null, false);
     }
 
-    public static void add(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId,
-                           @Nullable String tag, boolean stack) {
+    public static void add(FragmentManager manager, Fragment fragment, int viewId, String tag, boolean stack) {
+        if (manager == null || fragment == null) {
+            Log.e(LOG_TAG, "add: manager == null || fragment == null");
+            return;
+        }
         if (fragment.isAdded()) return;
         Log.d(LOG_TAG, "-->add");
         FragmentTransaction transaction = manager.beginTransaction();
@@ -39,7 +40,11 @@ public class FragmentTrans {
     /**
      * remove会执行到detach
      */
-    public static void remove(@NonNull FragmentManager manager, @NonNull Fragment fragment, boolean stack) {
+    public static void remove(FragmentManager manager, Fragment fragment, boolean stack) {
+        if (manager == null || fragment == null) {
+            Log.e(LOG_TAG, "remove: manager == null || fragment == null");
+            return;
+        }
         if (!fragment.isAdded() || fragment.isRemoving()) return;
         Log.d(LOG_TAG, "-->remove");
         FragmentTransaction transaction = manager.beginTransaction();
@@ -50,12 +55,15 @@ public class FragmentTrans {
     /**
      * 使用另一个Fragment替换当前的，实际上就是remove()然后add()的合体
      */
-    public static void replace(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId) {
+    public static void replace(FragmentManager manager, Fragment fragment, int viewId) {
         replace(manager, fragment, viewId, null, false);
     }
 
-    public static void replace(@NonNull FragmentManager manager, @NonNull Fragment fragment, int viewId,
-                               @Nullable String tag, boolean stack) {
+    public static void replace(FragmentManager manager, Fragment fragment, int viewId, String tag, boolean stack) {
+        if (manager == null || fragment == null) {
+            Log.e(LOG_TAG, "replace: manager == null || fragment == null");
+            return;
+        }
         if (fragment.isVisible()) return;
         if (fragment.isAdded()) { // isAdd 则显示(但不会刷新)
             show(manager, fragment, stack);
@@ -75,7 +83,11 @@ public class FragmentTrans {
      * show出来之后还是之前的状态, 先hide后show，不hide的话，相当于只是遮挡
      * 只执行onPrepareOptionsMenu和onResume
      */
-    public static void show(@NonNull FragmentManager manager, @NonNull Fragment fragment, boolean stack) {
+    public static void show(FragmentManager manager, Fragment fragment, boolean stack) {
+        if (manager == null || fragment == null) {
+            Log.e(LOG_TAG, "show: manager == null || fragment == null");
+            return;
+        }
         if (!fragment.isAdded() || !fragment.isHidden()) return;
         Log.d(LOG_TAG, "-->hide");
         FragmentTransaction transaction = manager.beginTransaction();
@@ -87,7 +99,11 @@ public class FragmentTrans {
      * 可以保存状态, 先add/replace/show再hide
      * 只执行onPrepareOptionsMenu
      */
-    public static void hide(@NonNull FragmentManager manager, @NonNull Fragment fragment, boolean stack) {
+    public static void hide(FragmentManager manager, Fragment fragment, boolean stack) {
+        if (manager == null || fragment == null) {
+            Log.e(LOG_TAG, "hide: manager == null || fragment == null");
+            return;
+        }
         if (!fragment.isAdded() || !fragment.isVisible()) return;
         Log.d(LOG_TAG, "-->hide");
         FragmentTransaction transaction = manager.beginTransaction();
@@ -108,7 +124,11 @@ public class FragmentTrans {
     //}
 
     /* 事物提交 最后要commit */
-    private static void commit(@NonNull FragmentTransaction transaction, boolean stack) {
+    private static void commit(FragmentTransaction transaction, boolean stack) {
+        if (transaction == null) {
+            Log.e(LOG_TAG, "commit: transaction == null");
+            return;
+        }
         if (stack) {
             transaction.addToBackStack(null); // 加入栈
             //commit并不立即执行transaction中包含的动作,而是把它加入到UI线程队列中.
@@ -124,7 +144,11 @@ public class FragmentTrans {
     }
 
     /* onBackPress里已经处理了 */
-    public static boolean goBack(@NonNull FragmentManager manager) {
+    public static boolean goBack(FragmentManager manager) {
+        if (manager == null) {
+            Log.e(LOG_TAG, "commit: manager == null");
+            return false;
+        }
         if (manager.getBackStackEntryCount() > 0) {
             Log.d(LOG_TAG, "-->goBack");
             manager.popBackStack(); // fragment栈中有fragment时，回退fragment

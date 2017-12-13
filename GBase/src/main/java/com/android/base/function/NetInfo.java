@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -48,7 +47,11 @@ public class NetInfo {
     /**
      * 注册网络监听,listener监听回调（网络状态变化）
      */
-    public void addListener(@NonNull Context context, @NonNull ConnectListener listener) {
+    public void addListener(Context context, ConnectListener listener) {
+        if (context == null || listener == null) {
+            Log.e(LOG_TAG, "addListener: context == null || listener == null");
+            return;
+        }
         mListener = listener;
         Log.d(LOG_TAG, "addListener");
         context.registerReceiver(receiver, new IntentFilter(IntentCons.action_connectivity));
@@ -57,7 +60,11 @@ public class NetInfo {
     /**
      * 注销网络监听
      */
-    public void removeListener(@NonNull Context context) {
+    public void removeListener(Context context) {
+        if (context == null) {
+            Log.e(LOG_TAG, "removeListener: context == null");
+            return;
+        }
         mListener = null;
         Log.d(LOG_TAG, "removeListener");
         context.unregisterReceiver(receiver);

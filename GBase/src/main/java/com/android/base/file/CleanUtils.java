@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.android.base.component.application.AppInfo;
 import com.android.base.component.application.AppListener;
-import com.android.base.string.ConvertUtils;
+import com.android.base.common.ConvertUtils;
 
 import java.io.File;
 import java.util.ArrayList;

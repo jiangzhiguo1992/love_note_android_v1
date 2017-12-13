@@ -12,7 +12,7 @@ import android.provider.MediaStore;
 
 import com.android.base.component.application.AppContext;
 import com.android.base.file.FileUtils;
-import com.android.base.string.ConvertUtils;
+import com.android.base.common.ConvertUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;

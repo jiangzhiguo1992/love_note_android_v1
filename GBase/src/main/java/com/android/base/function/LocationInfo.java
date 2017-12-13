@@ -9,7 +9,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -142,9 +141,7 @@ public class LocationInfo {
             provider = LocationManager.NETWORK_PROVIDER;
             location = mLocationManager.getLastKnownLocation(provider);
         }
-        if (location != null) {
-            setNativeInfo(location);
-        }
+        setNativeInfo(location);
         if (mListener != null) {
             mListener.onLocation(location);
         }
@@ -155,7 +152,11 @@ public class LocationInfo {
     }
 
     /* 设置本地缓存地址信息 */
-    private static void setNativeInfo(@NonNull Location location) {
+    private static void setNativeInfo(Location location) {
+        if (location == null) {
+            Log.e(LOG_TAG, "setNativeInfo: location == null");
+            return;
+        }
         //经纬度
         double latitude = location.getLatitude();
         double longitude = location.getLongitude();

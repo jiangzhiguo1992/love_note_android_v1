@@ -11,7 +11,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.android.base.component.application.AppContext;
-import com.android.base.string.StringUtils;
+import com.android.base.common.StringUtils;
 
 /**
  * Created by jiang on 2016/10/12

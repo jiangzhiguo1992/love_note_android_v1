@@ -2,7 +2,7 @@ package com.android.base.file;
 
 import android.text.TextUtils;
 
-import com.android.base.string.ConvertUtils;
+import com.android.base.common.ConvertUtils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.android.base.string.ConstantUtils.KB;
+import static com.android.base.common.ConstantUtils.KB;
 
 /**
  * Created by Jiang on 2016/10/12

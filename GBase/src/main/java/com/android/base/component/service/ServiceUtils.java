@@ -4,7 +4,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.android.base.component.application.AppContext;
 
@@ -23,7 +23,11 @@ public class ServiceUtils {
     /**
      * 判断服务是否运行
      */
-    public static boolean isServiceRunning(@NonNull Class<?> cls) {
+    public static boolean isServiceRunning(Class<?> cls) {
+        if (cls == null) {
+            Log.e(LOG_TAG, "isServiceRunning: cls == null");
+            return false;
+        }
         List<ActivityManager.RunningServiceInfo> services = AppContext
                 .getActivityManager().getRunningServices(Integer.MAX_VALUE);
         if (services == null || services.size() < 1) return false;
@@ -50,7 +54,11 @@ public class ServiceUtils {
     /**
      * 启动服务 onCreate -> onStartCommand(onStart一般为1.0以下时使用)
      */
-    public static void startService(@NonNull Class<?> cls) {
+    public static void startService(Class<?> cls) {
+        if (cls == null) {
+            Log.e(LOG_TAG, "startService: cls == null");
+            return;
+        }
         Intent intent = new Intent(AppContext.get(), cls);
         AppContext.get().startService(intent);
     }
@@ -58,7 +66,11 @@ public class ServiceUtils {
     /**
      * 停止服务
      */
-    public static boolean stopService(@NonNull Class<?> cls) {
+    public static boolean stopService(Class<?> cls) {
+        if (cls == null) {
+            Log.e(LOG_TAG, "stopService: cls == null");
+            return false;
+        }
         Intent intent = new Intent(AppContext.get(), cls);
         return AppContext.get().stopService(intent);
     }
@@ -78,7 +90,11 @@ public class ServiceUtils {
      *              <li>{@link Context#BIND_WAIVE_PRIORITY}</li>
      *              </ul>
      */
-    public static void bindService(@NonNull Class<?> cls, @NonNull ServiceConnection conn, int flags) {
+    public static void bindService(Class<?> cls, ServiceConnection conn, int flags) {
+        if (cls == null || conn == null) {
+            Log.e(LOG_TAG, "bindService: cls == null || conn == null");
+            return;
+        }
         Intent intent = new Intent(AppContext.get(), cls);
         AppContext.get().bindService(intent, conn, flags);
     }
@@ -88,7 +104,11 @@ public class ServiceUtils {
      *
      * @param conn 服务连接对象
      */
-    public static void unbindService(@NonNull ServiceConnection conn) {
+    public static void unbindService(ServiceConnection conn) {
+        if (conn == null) {
+            Log.e(LOG_TAG, "unbindService: cls == null");
+            return;
+        }
         AppContext.get().unbindService(conn);
     }
 

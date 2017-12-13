@@ -7,15 +7,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
+import com.android.base.common.ConvertUtils;
+import com.android.base.common.StringUtils;
 import com.android.base.component.application.AppContext;
 import com.android.base.file.FileUtils;
-import com.android.base.string.ConvertUtils;
 
 import java.io.File;
 
@@ -35,7 +34,11 @@ public class IntentUtils {
      * @param bundle      可为null
      * @return 直接startActivity即可
      */
-    private static Intent getComponent(@NonNull String packageName, @NonNull String className, @Nullable Bundle bundle) {
+    private static Intent getComponent(String packageName, String className, Bundle bundle) {
+        if (StringUtils.isEmpty(packageName) || StringUtils.isEmpty(className)) {
+            Log.e(LOG_TAG, "getComponent: packageName == null || className == null");
+            return null;
+        }
         Intent intent = new Intent(IntentCons.action_view);
         if (bundle != null) {
             intent.putExtras(bundle);
@@ -48,7 +51,7 @@ public class IntentUtils {
      * 拍照 ,不加保存路径，图片会被压缩
      */
     @SuppressLint("MissingPermission")
-    public static Intent getCamera(@Nullable File cameraFile) {
+    public static Intent getCamera(File cameraFile) {
         Intent intent = new Intent(IntentCons.action_capture);
         intent.putExtra(IntentCons.extra_image_orientation, 0);
         if (cameraFile == null) return intent;
@@ -82,8 +85,7 @@ public class IntentUtils {
      * @param outputY 输出宽
      * @return intent
      */
-    public static Intent getCrop(@NonNull File from, @NonNull File save,
-                                 int aspectX, int aspectY, int outputX, int outputY) {
+    public static Intent getCrop(File from, File save, int aspectX, int aspectY, int outputX, int outputY) {
         if (FileUtils.isFileEmpty(from)) { // 源文件不存在
             FileUtils.deleteFile(from);
             FileUtils.deleteFile(save);
@@ -95,8 +97,11 @@ public class IntentUtils {
         return getCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
     }
 
-    public static Intent getCrop(@NonNull Uri from, @NonNull Uri save,
-                                 int aspectX, int aspectY, int outputX, int outputY) {
+    public static Intent getCrop(Uri from, Uri save, int aspectX, int aspectY, int outputX, int outputY) {
+        if (from == null || save == null) {
+            Log.e(LOG_TAG, "getCrop: from == null || save == null");
+            return null;
+        }
         Intent intent = new Intent(IntentCons.action_crop);
         intent.setDataAndType(from, IntentCons.type_image);
         intent.putExtra(IntentCons.extra_crop, "true");
@@ -123,7 +128,11 @@ public class IntentUtils {
     /**
      * 获取打开当前App的意图
      */
-    public static Intent getApp(@NonNull String appPackageName) {
+    public static Intent getApp(String appPackageName) {
+        if (StringUtils.isEmpty(appPackageName)) {
+            Log.e(LOG_TAG, "getApp: appPackageName == null");
+            return null;
+        }
         return AppContext.getPackageManager().getLaunchIntentForPackage(appPackageName);
     }
 
@@ -140,7 +149,11 @@ public class IntentUtils {
     /**
      * 获取安装App的意图
      */
-    public static Intent getInstall(@NonNull File file) {
+    public static Intent getInstall(File file) {
+        if (FileUtils.isFileEmpty(file)) {
+            Log.e(LOG_TAG, "getInstall: file == null");
+            return null;
+        }
         Intent intent = new Intent(IntentCons.action_view);
         intent.addCategory(IntentCons.category_default);
         intent.addFlags(IntentCons.flag_new_task);
@@ -154,23 +167,22 @@ public class IntentUtils {
     }
 
     /**
-     * 获取卸载App的意图
-     */
-    public static Intent getUninstall(@NonNull String packageName) {
-        Intent intent = new Intent(IntentCons.action_delete);
-        intent.setData(Uri.parse("package:" + packageName));
-        return intent.addFlags(IntentCons.flag_new_task);
-    }
-
-    /**
      * 获取分享意图
      */
-    public static Intent getShare(@NonNull String content, @NonNull File image) {
+    public static Intent getShare(String content, File image) {
+        if (StringUtils.isEmpty(content) || FileUtils.isFileEmpty(image)) {
+            Log.e(LOG_TAG, "getShare: content == null || image == null");
+            return null;
+        }
         if (!FileUtils.isFileExists(image)) return null;
         return getShare(content, Uri.fromFile(image));
     }
 
-    public static Intent getShare(@NonNull String content, @NonNull Uri uri) {
+    public static Intent getShare(String content, Uri uri) {
+        if (StringUtils.isEmpty(content) || uri == null) {
+            Log.e(LOG_TAG, "getShare: content == null || uri == null");
+            return null;
+        }
         Intent intent = new Intent(IntentCons.action_send);
         intent.putExtra(IntentCons.extra_text, content);
         intent.putExtra(IntentCons.extra_stream, uri);
@@ -178,7 +190,11 @@ public class IntentUtils {
         return intent;
     }
 
-    public static Intent getShare(@NonNull String content) {
+    public static Intent getShare(String content) {
+        if (StringUtils.isEmpty(content)) {
+            Log.e(LOG_TAG, "getShare: content == null");
+            return null;
+        }
         Intent intent = new Intent(IntentCons.action_send);
         intent.setType(IntentCons.type_text);
         intent.putExtra(IntentCons.extra_text, content); // 设置分享信息
@@ -188,15 +204,15 @@ public class IntentUtils {
     /**
      * 跳至填充好phoneNumber的拨号界面
      */
-    public static Intent getDial(@NonNull String phoneNumber) {
+    public static Intent getDial(String phoneNumber) {
         return new Intent(IntentCons.action_dial, Uri.parse("tel:" + phoneNumber));
     }
 
     /**
      * 直接拨打phoneNumber
-     * (Permission)
      */
-    public static Intent getCall(@NonNull String phoneNumber) {
+    @SuppressLint("MissingPermission")
+    public static Intent getCall(String phoneNumber) {
         Intent intent = new Intent();
         intent.setAction(IntentCons.action_call);
         intent.setData(Uri.parse("tel:" + phoneNumber));
@@ -206,20 +222,10 @@ public class IntentUtils {
     /**
      * 短信发送界面
      */
-    public static Intent getSMS(@Nullable String phoneNumber, @Nullable String content) {
+    public static Intent getSMS(String phoneNumber, String content) {
         Uri uri = Uri.parse("smsto:" + (TextUtils.isEmpty(phoneNumber) ? "" : phoneNumber));
         Intent intent = new Intent(IntentCons.action_send_to, uri);
         intent.putExtra(IntentCons.extra_sms_body, TextUtils.isEmpty(content) ? "" : content);
-        return intent;
-    }
-
-    /**
-     * 彩信发送界面
-     */
-    public static Intent getSMS(@Nullable String phoneNumber, @Nullable String content, @NonNull File img) {
-        Intent intent = getSMS(phoneNumber, content);
-        intent.putExtra(IntentCons.extra_stream, Uri.fromFile(img));
-        intent.setType(IntentCons.type_png);
         return intent;
     }
 
@@ -246,7 +252,11 @@ public class IntentUtils {
     /**
      * 获取打开浏览器的意图
      */
-    public static Intent getWebBrowse(@NonNull String url) {
+    public static Intent getWebBrowse(String url) {
+        if (StringUtils.isEmpty(url)) {
+            Log.e(LOG_TAG, "getWebBrowse: url == null");
+            return null;
+        }
         Uri address = Uri.parse(url);
         return new Intent(IntentCons.action_view, address);
     }
@@ -261,7 +271,7 @@ public class IntentUtils {
     /**
      * 获取App系统设置
      */
-    public static Intent getSetings(@NonNull String packageName) {
+    public static Intent getSetings(String packageName) {
         Intent intent = new Intent(IntentCons.action_app_settings);
         return intent.setData(Uri.parse("package:" + packageName));
     }

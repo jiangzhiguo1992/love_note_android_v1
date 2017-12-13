@@ -3,7 +3,6 @@ package com.android.base.component.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.base.component.application.AppListener;
@@ -28,7 +27,11 @@ public class ActivityStack {
      * 3.launchMode 决定新的任务栈的启动模式 根activity需要
      * 4.FLAG_ACTIVITY_NO_ANIMATION rootActivity不能有切换动画
      */
-    public static void changeTask(@NonNull Intent intent) {
+    public static void changeTask(Intent intent) {
+        if (intent == null) {
+            Log.e(LOG_TAG, "changeTask: intent == null");
+            return;
+        }
         intent.addFlags(IntentCons.flag_new_task);
         intent.addFlags(IntentCons.flag_no_anim);
     }
@@ -85,8 +88,12 @@ public class ActivityStack {
     /**
      * 获取Activity
      */
-    public List<Activity> getActivity(@NonNull Class<?> cls) {
+    public List<Activity> getActivity(Class<?> cls) {
         List<Activity> activities = new ArrayList<>();
+        if (cls == null) {
+            Log.e(LOG_TAG, "getActivity: cls == null");
+            return activities;
+        }
         for (Activity activity : getStack()) {
             if (activity.getClass().equals(cls)) {
                 activities.add(activity);
@@ -127,7 +134,11 @@ public class ActivityStack {
     /**
      * 关闭除了指定activity以外的全部activity
      */
-    public void finishOthersActivity(@NonNull Class<?> cls) {
+    public void finishOthersActivity(Class<?> cls) {
+        if (cls == null) {
+            Log.e(LOG_TAG, "finishOthersActivity: cls == null");
+            return;
+        }
         for (Activity activity : getStack()) {
             if (!(activity.getClass().equals(cls))) {
                 finishActivity(activity);
@@ -159,7 +170,11 @@ public class ActivityStack {
     /**
      * 关闭activity
      */
-    private static void finishActivity(@NonNull Activity activity) {
+    private static void finishActivity(Activity activity) {
+        if (activity == null) {
+            Log.e(LOG_TAG, "finishActivity: activity == null");
+            return;
+        }
         getStack().remove(activity);
         ActivityUtils.finish(activity);
     }

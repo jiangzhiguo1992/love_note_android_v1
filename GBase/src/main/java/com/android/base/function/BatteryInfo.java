@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.android.base.component.application.AppContext;
@@ -36,7 +35,11 @@ public class BatteryInfo {
     /**
      * 注册 设置电量广播监听器
      */
-    public void addListener(@NonNull Context context, @NonNull BatteryListener listener) {
+    public void addListener(Context context, BatteryListener listener) {
+        if (context == null || listener == null) {
+            Log.e(LOG_TAG, "addListener: context == null || listener == null");
+            return;
+        }
         mListener = listener;
         Log.d(LOG_TAG, "addListener");
         IntentFilter intentFilter = new IntentFilter(IntentCons.action_battery);
@@ -46,7 +49,11 @@ public class BatteryInfo {
     /**
      * 注销
      */
-    public void removeListener(@NonNull Context context) {
+    public void removeListener(Context context) {
+        if (context == null) {
+            Log.e(LOG_TAG, "removeListener: context == null");
+            return;
+        }
         mListener = null;
         Log.d(LOG_TAG, "removeListener");
         context.unregisterReceiver(batteryReceiver);

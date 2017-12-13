@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -75,14 +74,21 @@ public class PermUtils {
     /**
      * 检查权限
      */
-    public static boolean isPermissionOK(@NonNull Context context, String... permissions) {
+    public static boolean isPermissionOK(Context context, String... permissions) {
+        if (context == null) {
+            Log.e(LOG_TAG, "isPermissionOK: context == null");
+            return false;
+        }
         List<String> deniedPermissions = getDeniedPermissions(context, permissions);
         return deniedPermissions.size() <= 0;
     }
 
     @TargetApi(Build.VERSION_CODES.M)
-    public static void requestPermissions(@NonNull Activity activity, int requestCode,
-                                          String[] permissions, @NonNull OnPermissionListener listener) {
+    public static void requestPermissions(Activity activity, int requestCode, String[] permissions, OnPermissionListener listener) {
+        if (activity == null) {
+            Log.e(LOG_TAG, "requestPermissions: activity == null");
+            return;
+        }
         mOnPermissionListener = listener;
         List<String> deniedPermissions = getDeniedPermissions(activity, permissions);
         if (deniedPermissions.size() > 0) {
@@ -115,8 +121,12 @@ public class PermUtils {
     }
 
     /* 获取请求权限中需要授权的权限 */
-    private static List<String> getDeniedPermissions(@NonNull Context context, String... permissions) {
+    private static List<String> getDeniedPermissions(Context context, String... permissions) {
         List<String> deniedPermissions = new ArrayList<>();
+        if (context == null) {
+            Log.e(LOG_TAG, "getDeniedPermissions: context == null");
+            return deniedPermissions;
+        }
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_DENIED) {
                 deniedPermissions.add(permission);

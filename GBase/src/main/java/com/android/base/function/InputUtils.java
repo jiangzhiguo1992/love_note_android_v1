@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -24,7 +23,11 @@ public class InputUtils {
     /**
      * 软键盘设置, 要在setContentView之前调用
      */
-    public static void initActivity(@NonNull Activity activity) {
+    public static void initActivity(Activity activity) {
+        if (activity == null) {
+            Log.e(LOG_TAG, "initActivity: activity == null");
+            return;
+        }
         Window window = activity.getWindow();
         // 键盘不会遮挡输入框
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -37,7 +40,11 @@ public class InputUtils {
     /**
      * 动态隐藏软键盘
      */
-    public static boolean hideSoftInput(@NonNull View focus) {
+    public static boolean hideSoftInput(View focus) {
+        if (focus == null) {
+            Log.e(LOG_TAG, "hideSoftInput: focus == null");
+            return false;
+        }
         focus.clearFocus();
         Log.d(LOG_TAG, "hideSoftInput");
         InputMethodManager inputManager = AppContext.getInputManager();
@@ -47,7 +54,11 @@ public class InputUtils {
     /**
      * 动态显示软键盘
      */
-    public static boolean showSoftInput(@NonNull View focus) {
+    public static boolean showSoftInput(View focus) {
+        if (focus == null) {
+            Log.e(LOG_TAG, "showSoftInput: focus == null");
+            return false;
+        }
         focus.setFocusable(true);
         focus.setFocusableInTouchMode(true);
         focus.requestFocus();
@@ -59,7 +70,11 @@ public class InputUtils {
     /**
      * 切换键盘显示与否状态
      */
-    public static void toggleSoftInput(@NonNull View focus) {
+    public static void toggleSoftInput(View focus) {
+        if (focus == null) {
+            Log.e(LOG_TAG, "toggleSoftInput: focus == null");
+            return;
+        }
         focus.setFocusable(true);
         focus.setFocusableInTouchMode(true);
         focus.requestFocus();
@@ -72,7 +87,7 @@ public class InputUtils {
      * **********************************剪切板************************************
      * 复制文本到剪贴板
      */
-    public static void copyText(@NonNull String text) {
+    public static void copyText(String text) {
         ClipData myClip = ClipData.newPlainText("text", text);
         AppContext.getClipboardManager().setPrimaryClip(myClip);
     }
@@ -91,7 +106,7 @@ public class InputUtils {
     /**
      * 复制uri到剪贴板
      */
-    public static void copyUri(@NonNull Uri uri) {
+    public static void copyUri(Uri uri) {
         ClipData clipData = ClipData.newUri(AppContext.get().getContentResolver(), "uri", uri);
         AppContext.getClipboardManager().setPrimaryClip(clipData);
     }
@@ -108,7 +123,7 @@ public class InputUtils {
     /**
      * 复制意图到剪贴板
      */
-    public static void copyIntent(@NonNull Intent intent) {
+    public static void copyIntent(Intent intent) {
         ClipData clipData = ClipData.newIntent("intent", intent);
         AppContext.getClipboardManager().setPrimaryClip(clipData);
     }

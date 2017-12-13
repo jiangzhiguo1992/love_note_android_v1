@@ -5,10 +5,9 @@ import android.app.Application;
 import android.content.ComponentCallbacks2;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.android.base.string.StringUtils;
+import com.android.base.common.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,32 +26,52 @@ public class AppListener {
     /**
      * 添加其他监听器
      */
-    public static void addComponentListener(@NonNull String tag, @NonNull ComponentListener listener) {
+    public static void addComponentListener(String tag, ComponentListener listener) {
+        if (StringUtils.isEmpty(tag) || listener == null) {
+            Log.e(LOG_TAG, "addComponentListener: tag == null || listener == null");
+            return;
+        }
         componentListener.put(tag, listener);
     }
 
     /**
      * 移除其他监听器
      */
-    public static void removeComponentListener(@NonNull String tag) {
+    public static void removeComponentListener(String tag) {
+        if (StringUtils.isEmpty(tag)) {
+            Log.e(LOG_TAG, "removeComponentListener: tag == null");
+            return;
+        }
         componentListener.remove(tag);
     }
 
     /**
      * 添加生命周期监听器
      */
-    public static void addActivityListener(@NonNull String tag, @NonNull ActivityListener listener) {
+    public static void addActivityListener(String tag, ActivityListener listener) {
+        if (StringUtils.isEmpty(tag) || listener == null) {
+            Log.e(LOG_TAG, "addActivityListener: tag == null || listener == null");
+            return;
+        }
         activityListener.put(tag, listener);
     }
 
     /**
      * 移除生命周期监听器
      */
-    public static void removeActivityListener(@NonNull String tag) {
+    public static void removeActivityListener(String tag) {
+        if (StringUtils.isEmpty(tag)) {
+            Log.e(LOG_TAG, "removeActivityListener: tag == null");
+            return;
+        }
         activityListener.remove(tag);
     }
 
-    public static void initApp(@NonNull Application app) {
+    public static void initApp(Application app) {
+        if (app == null) {
+            Log.e(LOG_TAG, "initApp: app == null");
+            return;
+        }
         app.registerComponentCallbacks(new ComponentCallbacks2() {
             @Override
             public void onTrimMemory(int level) {

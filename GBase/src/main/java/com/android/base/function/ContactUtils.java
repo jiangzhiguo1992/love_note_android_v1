@@ -8,8 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.android.base.component.application.AppContext;
 
@@ -76,7 +75,7 @@ public class ContactUtils {
     /**
      * 添加联系人  <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
      */
-    public static boolean insertContact(@Nullable String name, @Nullable String number, @Nullable String email) {
+    public static boolean insertContact(String name, String number, String email) {
         ArrayList<ContentProviderOperation> list = new ArrayList<>();
 
         ContentProviderOperation addAccount = ContentProviderOperation
@@ -123,7 +122,11 @@ public class ContactUtils {
      * IntentUtils.getContacts返回时调用
      * 在onActivityResult中调用，获取选中的号码
      */
-    public static String getContactSelect(@NonNull Intent data) {
+    public static String getContactSelect(Intent data) {
+        if (data == null) {
+            Log.e(LOG_TAG, "getContactSelect: data == null");
+            return "";
+        }
         Uri uri = data.getData();
         Cursor cursor = null;
         if (uri != null) {

@@ -7,13 +7,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.ArrayMap;
+import android.util.Log;
 
+import com.android.base.common.StringUtils;
 import com.android.base.component.application.AppContext;
 
 import java.lang.reflect.Field;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,7 +59,11 @@ public class ActivityUtils {
      * @param packageName 项目包名
      * @param className   activity全路径类名
      */
-    public static boolean isExists(@NonNull String packageName, @NonNull String className) {
+    public static boolean isExists(String packageName, String className) {
+        if (StringUtils.isEmpty(packageName) || StringUtils.isEmpty(className)) {
+            Log.e(LOG_TAG, "isExists: packageName == null || className == null");
+            return false;
+        }
         PackageManager packageManager = AppContext.getPackageManager();
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
@@ -75,7 +79,11 @@ public class ActivityUtils {
      * @param packageName 项目包名
      * @return launcher activity全路径类名
      */
-    public static String getLauncher(@NonNull String packageName) {
+    public static String getLauncher(String packageName) {
+        if (StringUtils.isEmpty(packageName)) {
+            Log.e(LOG_TAG, "getLauncher: packageName == null");
+            return "";
+        }
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -92,7 +100,11 @@ public class ActivityUtils {
     /**
      * 关闭activity
      */
-    public static void finish(@NonNull Activity activity) {
+    public static void finish(Activity activity) {
+        if (activity == null) {
+            Log.e(LOG_TAG, "finish: activity == null");
+            return;
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.finishAndRemoveTask();
         } else {

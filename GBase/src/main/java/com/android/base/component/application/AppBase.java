@@ -3,6 +3,7 @@ package com.android.base.component.application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 /**
  * Created by JiangZhiGuo on 2016-12-2.
@@ -24,6 +25,7 @@ public class AppBase extends MultiDexApplication {
     public void onCreate() {
         instance = this;
         super.onCreate();
+        Log.d(LOG_TAG, "onCreate");
     }
 
     public static AppBase get() {

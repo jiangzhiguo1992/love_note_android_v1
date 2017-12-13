@@ -10,8 +10,8 @@ import android.util.Log;
 
 import com.android.base.file.EnvironUtils;
 import com.android.base.file.FileUtils;
-import com.android.base.string.EncryptUtils;
-import com.android.base.string.StringUtils;
+import com.android.base.common.EncryptUtils;
+import com.android.base.common.StringUtils;
 
 import java.io.File;
 import java.util.Arrays;

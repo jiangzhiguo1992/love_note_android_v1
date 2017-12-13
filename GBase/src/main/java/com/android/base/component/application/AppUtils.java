@@ -2,8 +2,9 @@ package com.android.base.component.application;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.android.base.common.StringUtils;
 import com.android.base.component.activity.ActivityStack;
 import com.android.base.component.intent.IntentUtils;
 
@@ -22,7 +23,11 @@ public class AppUtils {
      *
      * @param packageName 项目包名 context.getPackageName
      */
-    public static boolean isAppForeground(@NonNull String packageName) {
+    public static boolean isAppForeground(String packageName) {
+        if (StringUtils.isEmpty(packageName)) {
+            Log.e(LOG_TAG, "isAppForeground: packageName == null");
+            return false;
+        }
         ActivityManager activityManager = AppContext.getActivityManager();
         List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
         if (appProcesses == null || appProcesses.size() == 0) return false;
@@ -54,11 +59,16 @@ public class AppUtils {
      * @param packageName 包名
      * @return {@code true}: 已安装<br>{@code false}: 未安装
      */
-    public static boolean isAppInstall(@NonNull String packageName) {
+    public static boolean isAppInstall(String packageName) {
+        if (StringUtils.isEmpty(packageName)) {
+            Log.e(LOG_TAG, "isAppInstall: packageName == null");
+            return false;
+        }
         return !isSpace(packageName) && IntentUtils.getApp(packageName) != null;
     }
 
-    private static boolean isSpace(@NonNull String s) {
+    private static boolean isSpace(String s) {
+        if (s == null) return true;
         for (int i = 0, len = s.length(); i < len; ++i) {
             if (!Character.isWhitespace(s.charAt(i))) {
                 return false;

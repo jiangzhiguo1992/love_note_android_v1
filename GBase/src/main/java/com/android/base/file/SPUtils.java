@@ -3,7 +3,6 @@ package com.android.base.file;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.android.base.component.application.AppContext;
@@ -23,7 +22,7 @@ public class SPUtils {
     /* SP集合 */
     private static Map<String, SharedPreferences> map = new HashMap<>();
 
-    public static SharedPreferences getSharedPreferences(@Nullable String name) {
+    public static SharedPreferences getSharedPreferences(String name) {
         SharedPreferences sharedPreferences;
         if (TextUtils.isEmpty(name)) { // 获取默认Preferences
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppContext.get());
