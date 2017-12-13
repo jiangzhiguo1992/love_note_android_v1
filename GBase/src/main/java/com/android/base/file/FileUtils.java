@@ -1,6 +1,7 @@
 package com.android.base.file;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.base.common.ConvertUtils;
 
@@ -126,7 +127,10 @@ public class FileUtils {
      * 判断文件是否存在，不存在则判断是否创建成功
      */
     public static boolean createOrExistsFile(File file) {
-        if (file == null) return false;
+        if (file == null) {
+            Log.e(LOG_TAG, "createOrExistsFile: file == null");
+            return false;
+        }
         // 如果存在，是文件则返回true，是目录则返回false
         if (file.exists()) return file.isFile();
         if (!createOrExistsDir(file.getParentFile())) return false;
@@ -149,7 +153,10 @@ public class FileUtils {
      * 判断文件是否存在，存在则在创建之前删除
      */
     public static boolean createFileByDeleteOldFile(File file) {
-        if (file == null) return false;
+        if (file == null) {
+            Log.e(LOG_TAG, "createFileByDeleteOldFile: file == null");
+            return false;
+        }
         // 文件存在并且删除失败返回false
         if (file.exists() && file.isFile() && !file.delete()) return false;
         // 创建目录失败返回false
@@ -175,7 +182,10 @@ public class FileUtils {
      * 删除目录
      */
     public static boolean deleteDir(File dir) {
-        if (dir == null) return false;
+        if (dir == null) {
+            Log.e(LOG_TAG, "deleteDir: dir == null");
+            return false;
+        }
         // 目录不存在返回true
         if (!dir.exists()) return true;
         // 不是目录返回false
@@ -217,7 +227,10 @@ public class FileUtils {
      * 删除目录下的所有文件(包括目录)
      */
     public static boolean deleteFilesAndDirInDir(File dir) {
-        if (dir == null) return false;
+        if (dir == null) {
+            Log.e(LOG_TAG, "deleteFilesAndDirInDir: dir == null");
+            return false;
+        }
         // 目录不存在返回true
         if (!dir.exists()) return true;
         // 不是目录返回false
@@ -249,7 +262,10 @@ public class FileUtils {
      * 复制或移动目录
      */
     private static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) {
-        if (srcDir == null || destDir == null) return false;
+        if (srcDir == null || destDir == null) {
+            Log.e(LOG_TAG, "copyOrMoveDir: srcDir == null || destDir == null");
+            return false;
+        }
         // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
         // srcPath : F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res
         // destPath: F:\\MyGithub\\AndroidUtilCode\\utilcode\\src\\test\\res1
@@ -286,7 +302,10 @@ public class FileUtils {
      * 复制或移动文件
      */
     private static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) {
-        if (srcFile == null || destFile == null) return false;
+        if (srcFile == null || destFile == null) {
+            Log.e(LOG_TAG, "copyOrMoveFile: srcFile == null || destFile == null");
+            return false;
+        }
         // 源文件不存在或者不是文件则返回false
         if (!srcFile.exists() || !srcFile.isFile()) return false;
         // 目标文件存在且是文件则返回false
@@ -316,7 +335,10 @@ public class FileUtils {
      */
     public static List<File> listFilesAndDirInDir(File dir, boolean isRecursive) {
         if (isRecursive) return listFilesAndDirInDir(dir);
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "listFilesAndDirInDir: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         Collections.addAll(list, dir.listFiles());
         return list;
@@ -324,13 +346,17 @@ public class FileUtils {
 
     /*获取目录下所有文件包括子目录*/
     private static List<File> listFilesAndDirInDir(File dir) {
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "listFilesAndDirInDir: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {
             list.add(file);
             if (file.isDirectory()) {
-                list.addAll(listFilesAndDirInDir(file));
+                List<File> files1 = listFilesAndDirInDir(file);
+                if (files1 != null) list.addAll(files1);
             }
         }
         return list;
@@ -348,7 +374,10 @@ public class FileUtils {
      */
     public static List<File> listFilesAndDirInDirWithFilter(File dir, String suffix, boolean isRecursive) {
         if (isRecursive) return listFilesAndDirInDirWithFilter(dir, suffix);
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "listFilesAndDirInDirWithFilter: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {
@@ -361,7 +390,10 @@ public class FileUtils {
 
     /* 获取目录下所有后缀名为suffix的文件包括子目录*/
     private static List<File> listFilesAndDirInDirWithFilter(File dir, String suffix) {
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "listFilesAndDirInDirWithFilter: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {
@@ -369,7 +401,8 @@ public class FileUtils {
                 list.add(file);
             }
             if (file.isDirectory()) {
-                list.addAll(listFilesAndDirInDirWithFilter(file, suffix));
+                List<File> files1 = listFilesAndDirInDirWithFilter(file, suffix);
+                if (files1 != null) list.addAll(files1);
             }
         }
         return list;
@@ -387,7 +420,10 @@ public class FileUtils {
      */
     public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter, boolean isRecursive) {
         if (isRecursive) return listFilesInDirWithFilter(dir, filter);
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "listFilesInDirWithFilter: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {
@@ -400,7 +436,10 @@ public class FileUtils {
 
     /*获取目录下所有符合filter的文件包括子目录*/
     private static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter) {
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "listFilesInDirWithFilter: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {
@@ -408,7 +447,8 @@ public class FileUtils {
                 list.add(file);
             }
             if (file.isDirectory()) {
-                list.addAll(listFilesInDirWithFilter(file, filter));
+                List<File> files1 = listFilesInDirWithFilter(file, filter);
+                if (files1 != null) list.addAll(files1);
             }
         }
         return list;
@@ -425,7 +465,10 @@ public class FileUtils {
      * 获取目录(包括子目录)下指定文件名的文件/目录
      */
     public static List<File> searchFileAndDirInDir(File dir, String fileName) {
-        if (dir == null || !isDir(dir)) return null;
+        if (dir == null || !isDir(dir)) {
+            Log.e(LOG_TAG, "searchFileAndDirInDir: dir == null");
+            return null;
+        }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {
@@ -433,7 +476,8 @@ public class FileUtils {
                 list.add(file);
             }
             if (file.isDirectory()) {
-                list.addAll(listFilesAndDirInDirWithFilter(file, fileName));
+                List<File> files1 = listFilesAndDirInDirWithFilter(file, fileName);
+                if (files1 != null) list.addAll(files1);
             }
         }
         return list;
@@ -452,7 +496,10 @@ public class FileUtils {
      * 将输入流写入文件
      */
     public static boolean writeFileFromIS(File file, InputStream is, boolean append) {
-        if (file == null || is == null) return false;
+        if (file == null || is == null) {
+            Log.e(LOG_TAG, "writeFileFromIS: file == null || is == null");
+            return false;
+        }
         if (!createOrExistsFile(file)) return false;
         OutputStream os = null;
         try {
@@ -482,7 +529,10 @@ public class FileUtils {
      * 将字符串写入文件
      */
     public static boolean writeFileFromString(File file, String content, boolean append) {
-        if (file == null || content == null) return false;
+        if (file == null || content == null) {
+            Log.e(LOG_TAG, "writeFileFromString: file == null || content == null");
+            return false;
+        }
         if (!createOrExistsFile(file)) return false;
         FileWriter fileWriter = null;
         try {
@@ -510,7 +560,10 @@ public class FileUtils {
      * 指定编码按行读取文件到List
      */
     public static List<String> readFile2List(File file, int st, int end, String charsetName) {
-        if (file == null) return null;
+        if (file == null) {
+            Log.e(LOG_TAG, "readFile2List: file == null");
+            return null;
+        }
         if (st > end) return null;
         BufferedReader reader = null;
         try {
@@ -547,7 +600,10 @@ public class FileUtils {
      * 指定编码按行读取文件到字符串中
      */
     public static String readFile2String(File file, String charsetName) {
-        if (file == null) return null;
+        if (file == null) {
+            Log.e(LOG_TAG, "readFile2String: file == null");
+            return null;
+        }
         BufferedReader reader = null;
         try {
             StringBuilder sb = new StringBuilder();
@@ -581,7 +637,10 @@ public class FileUtils {
      * 指定编码按行读取文件到字节中
      */
     public static byte[] readFile2Bytes(File file) {
-        if (file == null) return null;
+        if (file == null) {
+            Log.e(LOG_TAG, "readFile2Bytes: file == null");
+            return null;
+        }
         try {
             return ConvertUtils.inputStream2Bytes(new FileInputStream(file));
         } catch (FileNotFoundException e) {
@@ -603,6 +662,10 @@ public class FileUtils {
      * 简单获取文件编码格式
      */
     public static String getFileCharsetSimple(File file) {
+        if (file == null) {
+            Log.e(LOG_TAG, "getFileCharsetSimple: file == null");
+            return "";
+        }
         int p = 0;
         InputStream is = null;
         try {
@@ -636,6 +699,10 @@ public class FileUtils {
      * 获取文件行数
      */
     public static int getFileLines(File file) {
+        if (file == null) {
+            Log.e(LOG_TAG, "getFileLines: file == null");
+            return 0;
+        }
         int count = 1;
         InputStream is = null;
         try {
@@ -659,7 +726,10 @@ public class FileUtils {
      * 关闭IO
      */
     public static void closeIO(Closeable... closeables) {
-        if (closeables == null) return;
+        if (closeables == null) {
+            Log.e(LOG_TAG, "closeIO: closeables == null");
+            return;
+        }
         try {
             for (Closeable closeable : closeables) {
                 if (closeable != null) {
@@ -675,7 +745,10 @@ public class FileUtils {
      * 获取全路径中的不带拓展名的文件名
      */
     public static String getFileNameNoExtension(File file) {
-        if (file == null) return null;
+        if (file == null) {
+            Log.e(LOG_TAG, "getFileNameNoExtension: file == null");
+            return null;
+        }
         return getFileNameNoExtension(file.getPath());
     }
 
@@ -699,7 +772,10 @@ public class FileUtils {
      * 获取全路径中的文件拓展名
      */
     public static String getFileExtension(File file) {
-        if (file == null) return null;
+        if (file == null) {
+            Log.e(LOG_TAG, "getFileExtension: file == null");
+            return null;
+        }
         return getFileExtension(file.getPath());
     }
 
