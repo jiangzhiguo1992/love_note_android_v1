@@ -22,7 +22,7 @@ import android.util.TypedValue;
 
 import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.file.FileUtils;
-import com.jiangzg.base.view.widget.ToastUtils;
+import com.jiangzg.base.view.ToastUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

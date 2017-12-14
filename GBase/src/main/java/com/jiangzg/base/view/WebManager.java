@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.widget;
+package com.jiangzg.base.view;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

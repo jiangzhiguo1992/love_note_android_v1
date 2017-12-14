@@ -17,8 +17,8 @@ import android.view.Window;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.function.InputUtils;
 import com.jiangzg.base.function.PermUtils;
-import com.jiangzg.base.view.device.BarUtils;
-import com.jiangzg.base.view.device.ScreenUtils;
+import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ScreenUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

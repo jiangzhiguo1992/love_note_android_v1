@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.anim;
+package com.jiangzg.base.anim;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;

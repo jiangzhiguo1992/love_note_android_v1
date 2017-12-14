@@ -15,7 +15,7 @@ import com.jiangzg.base.function.PermUtils;
 import com.jiangzg.base.media.image.BitmapMedia;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.widget.ToastUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.depend.utils.GlideUtils;
 import com.jiangzg.depend.utils.LogUtils;
 import com.jiangzg.depend.utils.LuBanUtils;

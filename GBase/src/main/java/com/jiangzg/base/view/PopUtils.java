@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.widget;
+package com.jiangzg.base.view;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -24,7 +24,7 @@ public class PopUtils {
      * @return 下面的代码放到onTouchEvent中来点击外部dismiss也行
      * if (popupWindow != null && popupWindow.isShowing()) {popupWindow.dismiss();}
      */
-    private static PopupWindow getPop(View window, int width, int height, int anim) {
+    public static PopupWindow createWindow(View window, int width, int height, int anim) {
         PopupWindow pop = new PopupWindow(window, width, height);
         pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         if (0 != anim) {
@@ -42,6 +42,7 @@ public class PopUtils {
         pop.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                // todo 测试一下true 回调view里面加监听
                 // 这里如果返回true的话，touch事件将被拦截
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
                 return false;
@@ -52,12 +53,12 @@ public class PopUtils {
 
     /* 创建适配的PopupWindow，不要多次创建 */
     public static PopupWindow createWindow(View window) {
-        return getPop(window, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0);
+        return createWindow(window, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0);
     }
 
     /* 创建指定宽高的PopupWindow，不要多次创建 */
     public static PopupWindow createWindow(View window, int width, int height) {
-        return getPop(window, width, height, 0);
+        return createWindow(window, width, height, 0);
     }
 
     /* 显示popupWindow ,location可用viewUtils获取 */

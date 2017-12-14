@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.device;
+package com.jiangzg.base.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

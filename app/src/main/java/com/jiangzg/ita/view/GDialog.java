@@ -2,12 +2,8 @@ package com.jiangzg.ita.view;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
 
-import com.jiangzg.base.view.widget.DialogUtils;
+import com.jiangzg.base.view.DialogUtils;
 
 /**
  * Created by gg on 2017/5/9.

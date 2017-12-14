@@ -14,7 +14,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jiangzg.base.view.widget.WebManager;
+import com.jiangzg.base.view.WebManager;
 
 /**
  * Created by JiangZhiGuo on 2016-11-7.

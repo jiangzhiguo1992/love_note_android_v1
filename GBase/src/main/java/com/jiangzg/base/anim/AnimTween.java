@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.anim;
+package com.jiangzg.base.anim;
 
 import android.view.View;
 import android.view.ViewGroup;

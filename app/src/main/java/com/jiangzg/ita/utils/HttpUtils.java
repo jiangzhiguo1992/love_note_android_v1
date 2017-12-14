@@ -2,7 +2,7 @@ package com.jiangzg.ita.utils;
 
 import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.view.widget.ToastUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.service.UpdateService;
 

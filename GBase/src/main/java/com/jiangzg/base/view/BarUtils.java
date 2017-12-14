@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.device;
+package com.jiangzg.base.view;
 
 import android.app.Activity;
 import android.content.Context;

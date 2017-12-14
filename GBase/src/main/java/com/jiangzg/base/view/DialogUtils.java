@@ -1,4 +1,4 @@
-package com.jiangzg.base.view.widget;
+package com.jiangzg.base.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,14 +15,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.jiangzg.base.view.device.BarUtils;
-
 import java.util.Calendar;
 
 /**
  * Created by Jiang on 2016/10/13
  * DialogUtils: 对话框管理工具类
- *
  */
 public class DialogUtils {
 
