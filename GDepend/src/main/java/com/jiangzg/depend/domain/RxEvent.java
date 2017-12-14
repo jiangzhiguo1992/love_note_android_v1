@@ -39,9 +39,7 @@ public class RxEvent<T> implements Serializable {
 
         RxEvent<?> rxEvent = (RxEvent<?>) o;
 
-        if (channel != rxEvent.channel) return false;
-        return data != null ? data.equals(rxEvent.data) : rxEvent.data == null;
-
+        return channel == rxEvent.channel && (data != null ? data.equals(rxEvent.data) : rxEvent.data == null);
     }
 
     @Override

@@ -54,9 +54,7 @@ public class GlideUtils {
                     .asBitmap()
                     .into(width, height)
                     .get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return null;
