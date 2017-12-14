@@ -11,7 +11,9 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by gg on 2017/5/9.
@@ -61,14 +63,56 @@ public class PermUtils {
     @SuppressLint("InlinedApi")
     public static final String[] sensors = new String[]{Manifest.permission.BODY_SENSORS};
 
-    private static int mRequestCode = -1;
-
-    private static OnPermissionListener mOnPermissionListener;
+    private static Map<Integer, OnPermissionListener> permListeners = new HashMap<>();
 
     public interface OnPermissionListener {
-        void onPermissionGranted(String[] permissions);
+        void onPermissionGranted(int requestCode, String[] permissions);
 
-        void onPermissionDenied(String[] permissions);
+        void onPermissionDenied(int requestCode, String[] permissions);
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    public static void requestPermissions(Activity activity, int requestCode, String[] permissions, OnPermissionListener listener) {
+        if (activity == null) {
+            Log.e(LOG_TAG, "requestPermissions: activity == null");
+            return;
+        }
+        if (listener != null) {
+            if (isPermissionOK(activity, permissions)) {
+                listener.onPermissionGranted(requestCode, permissions);
+                return;
+            } else { //加进去
+                permListeners.put(requestCode, listener);
+            }
+        }
+        List<String> deniedPermissions = getDeniedPermissions(activity, permissions);
+        if (deniedPermissions.size() > 0) {
+            String[] strings = deniedPermissions.toArray(new String[deniedPermissions.size()]);
+            activity.requestPermissions(strings, requestCode);
+        } else {
+            if (listener != null) {
+                Log.d(LOG_TAG, "requestPermissions-->onPermissionGranted");
+                listener.onPermissionGranted(requestCode, permissions);
+                permListeners.remove(requestCode); // 顺便移除
+            }
+        }
+    }
+
+    /**
+     * 请求权限结果，对应Activity中onRequestPermissionsResult()方法。
+     */
+    public static void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        OnPermissionListener listener = permListeners.get(requestCode);
+        if (listener != null) {
+            if (verifyPermissions(grantResults)) {
+                Log.d(LOG_TAG, "onRequestPermissionsResult-->onPermissionGranted");
+                listener.onPermissionGranted(requestCode, permissions);
+            } else {
+                Log.d(LOG_TAG, "onRequestPermissionsResult-->onPermissionDenied");
+                listener.onPermissionDenied(requestCode, permissions);
+            }
+            permListeners.remove(requestCode);
+        }
     }
 
     /**
@@ -81,43 +125,6 @@ public class PermUtils {
         }
         List<String> deniedPermissions = getDeniedPermissions(context, permissions);
         return deniedPermissions.size() <= 0;
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public static void requestPermissions(Activity activity, int requestCode, String[] permissions, OnPermissionListener listener) {
-        if (activity == null) {
-            Log.e(LOG_TAG, "requestPermissions: activity == null");
-            return;
-        }
-        mOnPermissionListener = listener;
-        List<String> deniedPermissions = getDeniedPermissions(activity, permissions);
-        if (deniedPermissions.size() > 0) {
-            mRequestCode = requestCode;
-            String[] strings = deniedPermissions.toArray(new String[deniedPermissions.size()]);
-            activity.requestPermissions(strings, requestCode);
-        } else {
-            if (mOnPermissionListener != null) {
-                Log.d(LOG_TAG, "requestPermissions-->onPermissionGranted");
-                mOnPermissionListener.onPermissionGranted(permissions);
-            }
-        }
-    }
-
-    /**
-     * 请求权限结果，对应Activity中onRequestPermissionsResult()方法。
-     */
-    public static void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (mRequestCode != -1 && requestCode == mRequestCode) {
-            if (mOnPermissionListener != null) {
-                if (verifyPermissions(grantResults)) {
-                    Log.d(LOG_TAG, "onRequestPermissionsResult-->onPermissionGranted");
-                    mOnPermissionListener.onPermissionGranted(permissions);
-                } else {
-                    Log.d(LOG_TAG, "onRequestPermissionsResult-->onPermissionDenied");
-                    mOnPermissionListener.onPermissionDenied(permissions);
-                }
-            }
-        }
     }
 
     /* 获取请求权限中需要授权的权限 */
