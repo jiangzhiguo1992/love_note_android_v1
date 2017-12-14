@@ -3,8 +3,8 @@ package com.jiangzg.ita.utils;
 import android.content.SharedPreferences;
 
 import com.jiangzg.base.file.SPUtils;
-import com.jiangzg.depend.utils.GsonUtils;
-import com.jiangzg.depend.utils.LogUtils;
+import com.jiangzg.ita.third.GsonUtils;
+import com.jiangzg.ita.third.LogUtils;
 import com.jiangzg.ita.domain.User;
 
 /**

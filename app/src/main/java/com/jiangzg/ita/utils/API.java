@@ -1,6 +1,6 @@
 package com.jiangzg.ita.utils;
 
-import com.jiangzg.depend.utils.RetroAPI;
+import com.jiangzg.ita.third.RetroAPI;
 import com.jiangzg.ita.domain.Version;
 
 import retrofit2.Call;

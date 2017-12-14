@@ -1,4 +1,4 @@
-package com.jiangzg.depend.utils;
+package com.jiangzg.ita.third;
 
 import android.app.Dialog;
 

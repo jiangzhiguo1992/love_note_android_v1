@@ -7,8 +7,7 @@ import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.application.AppListener;
 import com.jiangzg.base.component.application.AppBase;
 import com.jiangzg.base.file.CleanUtils;
-import com.jiangzg.depend.utils.AnalyUtils;
-import com.jiangzg.depend.utils.LogUtils;
+import com.jiangzg.ita.third.LogUtils;
 
 import java.util.Timer;
 import java.util.concurrent.ExecutorService;

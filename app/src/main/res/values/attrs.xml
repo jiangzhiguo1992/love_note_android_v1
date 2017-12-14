@@ -3,7 +3,7 @@
 
     <!-- 记得在xml引用时加命名空间 -->
     <!--xmlns:my="http://schemas.android.com/apk/res-auto"-->
-    <declare-styleable name="JZoomScrollView">
+    <declare-styleable name="GZoomScrollView">
         <attr name="layout_index" format="integer" />
     </declare-styleable>
 

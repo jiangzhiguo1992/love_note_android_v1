@@ -1,4 +1,4 @@
-package com.jiangzg.depend.utils;
+package com.jiangzg.ita.third;
 
 import android.app.Activity;
 import android.content.Context;
@@ -67,4 +67,5 @@ public class AnalyUtils {
     }
 
     /* 应该有账号之类的统计 */
+
 }

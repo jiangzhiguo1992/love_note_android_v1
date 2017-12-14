@@ -21,28 +21,28 @@ import com.jiangzg.base.view.WebManager;
  * 通用WebView
  * 4.4以后WebView的操作尽量放在ui线程中去执行
  */
-public class JWebView extends WebView {
+public class GWebView extends WebView {
 
     private Context mContext;
     private WebManager webManager;
 
-    public JWebView(Context context) {
+    public GWebView(Context context) {
         super(context);
         init(context);
     }
 
-    public JWebView(Context context, AttributeSet attrs) {
+    public GWebView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public JWebView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GWebView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public JWebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public GWebView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }

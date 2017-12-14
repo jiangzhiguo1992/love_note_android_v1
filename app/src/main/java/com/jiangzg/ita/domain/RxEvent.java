@@ -1,4 +1,4 @@
-package com.jiangzg.depend.domain;
+package com.jiangzg.ita.domain;
 
 import java.io.Serializable;
 

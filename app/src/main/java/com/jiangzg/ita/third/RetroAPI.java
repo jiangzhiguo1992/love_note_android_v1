@@ -1,6 +1,6 @@
-package com.jiangzg.depend.utils;
+package com.jiangzg.ita.third;
 
-import com.jiangzg.depend.domain.RxEvent;
+import com.jiangzg.ita.domain.RxEvent;
 
 import java.util.List;
 import java.util.Map;

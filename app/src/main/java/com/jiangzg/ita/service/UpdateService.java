@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.depend.utils.RetroManager;
+import com.jiangzg.ita.third.RetroManager;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.utils.API;
@@ -81,7 +81,7 @@ public class UpdateService extends Service {
                     public void onClick(DialogInterface dialog, int which) {
                         newThreadDown(version);
                     }
-                });
+                }, null);
         DialogUtils.showInContext(dialog);
     }
 

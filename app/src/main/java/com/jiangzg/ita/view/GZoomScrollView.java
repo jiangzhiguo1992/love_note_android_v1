@@ -16,7 +16,7 @@ import com.jiangzg.ita.R;
  * Created by JiangZhiGuo on 2016-11-3.
  * describe 顶部下拉伸缩View
  */
-public class JZoomScrollView extends ScrollView implements View.OnTouchListener {
+public class GZoomScrollView extends ScrollView implements View.OnTouchListener {
 
     private int layoutIndex = 2; // 第几层view的顶视图需要伸缩
     private float mFirstPosition = 0; // 记录首次按下位置
@@ -26,23 +26,23 @@ public class JZoomScrollView extends ScrollView implements View.OnTouchListener 
     private int dropZoomViewHeight;
 
     /* java构造时调用 */
-    public JZoomScrollView(Context context) {
+    public GZoomScrollView(Context context) {
         super(context);
     }
 
     /* xml构造时调用 */
-    public JZoomScrollView(Context context, AttributeSet set) {
+    public GZoomScrollView(Context context, AttributeSet set) {
         super(context, set, 0); // 有必要
     }
 
     /* xml构造，并有自定义style时调用 */
-    public JZoomScrollView(Context context, AttributeSet set, int defStyleAttr) {
+    public GZoomScrollView(Context context, AttributeSet set, int defStyleAttr) {
         super(context, set, defStyleAttr);
-        int[] attrs = R.styleable.JZoomScrollView;
+        int[] attrs = R.styleable.GZoomScrollView;
         // 1.获取attrs里定义的属性
         TypedArray typedArray = context.obtainStyledAttributes(set, attrs, defStyleAttr, 0);
         // 2.获取各项属性的值
-        layoutIndex = typedArray.getInteger(R.styleable.JZoomScrollView_layout_index, 2);
+        layoutIndex = typedArray.getInteger(R.styleable.GZoomScrollView_layout_index, 2);
         if (layoutIndex < 2) { // 最少为2
             layoutIndex = 2;
         }

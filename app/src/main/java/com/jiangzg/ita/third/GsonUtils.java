@@ -1,4 +1,4 @@
-package com.jiangzg.depend.utils;
+package com.jiangzg.ita.third;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

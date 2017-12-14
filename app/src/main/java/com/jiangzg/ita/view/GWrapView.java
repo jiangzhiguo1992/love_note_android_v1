@@ -14,22 +14,22 @@ import java.util.List;
  * describe 自动换行view
  */
 
-public class JWrapView extends ViewGroup {
+public class GWrapView extends ViewGroup {
     private static int MARGIN_LEFT = 20;
     private static int MARGIN_TOP = 20;
 
     /* java构造时调用 */
-    public JWrapView(Context context) {
+    public GWrapView(Context context) {
         super(context);
     }
 
     /* xml构造时调用 */
-    public JWrapView(Context context, AttributeSet attrs) {
+    public GWrapView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     /* xml构造，并有自定义style时调用 */
-    public JWrapView(Context context, AttributeSet attrs, int defStyle) {
+    public GWrapView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 

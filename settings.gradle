@@ -1,1 +1,1 @@
-include ':app', ':GBase', ':GDepend'
+include ':app', ':GBase'

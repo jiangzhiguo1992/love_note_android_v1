@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jiangzg.depend.utils.GlideUtils;
+import com.jiangzg.ita.third.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.List;

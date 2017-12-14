@@ -30,8 +30,8 @@
 
         <!-- 高德地图 -->
         <!--<meta-data-->
-            <!--android:name="com.amap.api.v2.apikey"-->
-            <!--android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>-->
+        <!--android:name="com.amap.api.v2.apikey"-->
+        <!--android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>-->
 
         <!--<service android:name="com.amap.api.location.APSService"/>-->
         <!-- 启动页 -->
@@ -53,9 +53,9 @@
             android:exported="true"/>
         <!-- 地图服务 -->
         <!--<service-->
-            <!--android:name=".service.LocationService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true"/>-->
+        <!--android:name=".service.LocationService"-->
+        <!--android:enabled="true"-->
+        <!--android:exported="true"/>-->
 
         <activity android:name="com.jiangzg.ita.activity.SecondActivity">
         </activity>
