@@ -141,13 +141,7 @@ public abstract class BaseFragment<T> extends Fragment {
                 args = new Bundle();
             }
             setArguments.invoke(fragment, args); // 执行setArguments方法
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (java.lang.InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InvocationTargetException | NoSuchMethodException | java.lang.InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return fragment;
@@ -160,8 +154,10 @@ public abstract class BaseFragment<T> extends Fragment {
             TransitionSet trans = new TransitionSet();
             trans.setOrdering(TransitionSet.ORDERING_TOGETHER)
                     .addTransition(new Fade(Fade.OUT))
+                    //.addTransition(new Slide(Gravity.START))
                     .addTransition(new ChangeBounds())
                     .addTransition(new Fade(Fade.IN));
+            //.addTransition(new Slide(Gravity.END));
             // 压栈
             fragment.setEnterTransition(trans);
             // fragment.setExitTransition(trans);

@@ -20,8 +20,8 @@ public class AppListener {
 
     private static final String LOG_TAG = "AppListener";
 
-    private static HashMap<String, ActivityListener> activityListener = new HashMap<>();
-    private static HashMap<String, ComponentListener> componentListener = new HashMap<>();
+    private static Map<String, ActivityListener> activityListener = new HashMap<>();
+    private static Map<String, ComponentListener> componentListener = new HashMap<>();
 
     /**
      * 添加其他监听器

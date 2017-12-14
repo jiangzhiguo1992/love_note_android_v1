@@ -71,27 +71,27 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn1:
-                PermUtils.requestPermissions(mActivity, 11, PermUtils.camera, new PermUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted(String[] permissions) {
-                        //jpgInRes = ResUtils.createJPGInRes();
-                        //Intent camera = IntentUtils.getCamera(jpgInRes);
-                        Intent camera = IntentUtils.getCamera(null);
-                        ActivityTrans.startResult(mActivity, camera, 11);
-                    }
-
-                    @Override
-                    public void onPermissionDenied(String[] permissions) {
-
-                    }
-                });
+                //PermUtils.requestPermissions(mActivity, 11, PermUtils.camera, new PermUtils.OnPermissionListener() {
+                //    @Override
+                //    public void onPermissionGranted(int permissions) {
+                //        //jpgInRes = ResUtils.createJPGInRes();
+                //        //Intent camera = IntentUtils.getCamera(jpgInRes);
+                //        Intent camera = IntentUtils.getCamera(null);
+                //        ActivityTrans.startResult(mActivity, camera, 11);
+                //    }
+                //
+                //    @Override
+                //    public void onPermissionDenied(int permissions) {
+                //
+                //    }
+                //});
                 break;
             case R.id.btn2:
                 Intent picture = IntentUtils.getPicture();
                 ActivityTrans.startResult(mActivity, picture, 22);
                 break;
             case R.id.btn3:
-               FragActivity.goActivity(mActivity);
+                FragActivity.goActivity(mActivity);
                 break;
         }
     }

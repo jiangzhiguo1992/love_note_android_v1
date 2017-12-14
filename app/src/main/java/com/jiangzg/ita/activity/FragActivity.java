@@ -57,29 +57,29 @@ public class FragActivity extends BaseActivity<FragActivity> {
 
     @OnClick(R.id.btnTrans)
     public void onViewClicked() {
-        PermUtils.requestPermissions(mActivity, 11, PermUtils.location, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(String[] permissions) {
-                LocationInfo info = LocationInfo.getInfo();
-                info.addListener(1000, 0, new LocationInfo.OnLocationChangeListener() {
-                    @Override
-                    public void onLocation(Location location) {
-                        Log.e("", "");
-                    }
-
-                    @Override
-                    public void onStatus(String provider, int status, Bundle extras) {
-                        Log.e("", "");
-                    }
-                });
-                Log.d("", "");
-            }
-
-            @Override
-            public void onPermissionDenied(String[] permissions) {
-                Log.d("", "");
-            }
-        });
+        //PermUtils.requestPermissions(mActivity, 11, PermUtils.location, new PermUtils.OnPermissionListener() {
+        //    @Override
+        //    public void onPermissionGranted(int permissions) {
+        //        LocationInfo info = LocationInfo.getInfo();
+        //        info.addListener(1000, 0, new LocationInfo.OnLocationChangeListener() {
+        //            @Override
+        //            public void onLocation(Location location) {
+        //                Log.e("", "");
+        //            }
+        //
+        //            @Override
+        //            public void onStatus(String provider, int status, Bundle extras) {
+        //                Log.e("", "");
+        //            }
+        //        });
+        //        Log.d("", "");
+        //    }
+        //
+        //    @Override
+        //    public void onPermissionDenied(int  permissions) {
+        //        Log.d("", "");
+        //    }
+        //});
 
 
         //FragmentManager m = getSupportFragmentManager();

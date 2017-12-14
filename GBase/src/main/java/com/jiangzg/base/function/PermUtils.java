@@ -63,6 +63,7 @@ public class PermUtils {
     @SuppressLint("InlinedApi")
     public static final String[] sensors = new String[]{Manifest.permission.BODY_SENSORS};
 
+    @SuppressLint("UseSparseArrays")
     private static Map<Integer, OnPermissionListener> permListeners = new HashMap<>();
 
     public interface OnPermissionListener {
