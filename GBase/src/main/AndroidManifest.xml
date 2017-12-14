@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.android.base">
+          package="com.jiangzg.base">
 
     <!-- 任务 -->
     <uses-permission android:name="android.permission.GET_TASKS"/>
