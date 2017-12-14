@@ -23,9 +23,9 @@ import java.io.InputStream;
  * Created by jiang on 2016/10/13
  * describe 多媒体里的图片获取工具类
  */
-public class ImgMedia {
+public class BitmapMedia {
 
-    private static final String LOG_TAG = "ImgMedia";
+    private static final String LOG_TAG = "BitmapMedia";
 
     /**
      * 获取拍照图片: 在onActivityResult中执行
@@ -45,9 +45,9 @@ public class ImgMedia {
             FileUtils.deleteFile(cameraFile); // 删除垃圾文件
             return null;
         }
-        Bitmap small = ImgCompress.compressBySize(cameraFile, maxByteSize); // File转Bitmap(压缩)
+        Bitmap small = BitmapCompress.compressBySize(cameraFile, maxByteSize); // File转Bitmap(压缩)
         FileUtils.createFileByDeleteOldFile(cameraFile); // 重置源文件
-        ImgConvert.save(small, cameraFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
+        BitmapConvert.save(small, cameraFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
         if (small != null && !small.isRecycled()) small.recycle();
         return getCameraBitmap(cameraFile);
     }
@@ -57,9 +57,9 @@ public class ImgMedia {
             FileUtils.deleteFile(cameraFile); // 删除垃圾文件
             return null;
         }
-        Bitmap small = ImgConvert.getBitmap(cameraFile, maxWidth, maxHeight); // File转Bitmap(压缩)
+        Bitmap small = BitmapConvert.getBitmap(cameraFile, maxWidth, maxHeight); // File转Bitmap(压缩)
         FileUtils.createFileByDeleteOldFile(cameraFile); // 重置源文件
-        ImgConvert.save(small, cameraFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
+        BitmapConvert.save(small, cameraFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
         if (small != null && !small.isRecycled()) small.recycle();
         return getCameraBitmap(cameraFile);
     }
@@ -90,7 +90,7 @@ public class ImgMedia {
         Uri uri = getPictureUri(data);
         if (uri != null) {
             File file = ConvertUtils.URI2File(uri);
-            picture = ImgCompress.compressBySize(file, maxByteSize);
+            picture = BitmapCompress.compressBySize(file, maxByteSize);
         } else {
             picture = data.getParcelableExtra("data");
         }
@@ -103,7 +103,7 @@ public class ImgMedia {
         Uri uri = getPictureUri(data);
         if (uri != null) {
             File file = ConvertUtils.URI2File(uri);
-            picture = ImgConvert.getBitmap(file, maxWidth, maxHeight);
+            picture = BitmapConvert.getBitmap(file, maxWidth, maxHeight);
         } else {
             picture = data.getParcelableExtra("data");
         }
@@ -127,9 +127,9 @@ public class ImgMedia {
             FileUtils.deleteFile(cropFile); // 删除垃圾文件
             return null;
         }
-        Bitmap small = ImgCompress.compressBySize(cropFile, maxByteSize); // File转Bitmap(压缩)
+        Bitmap small = BitmapCompress.compressBySize(cropFile, maxByteSize); // File转Bitmap(压缩)
         FileUtils.createFileByDeleteOldFile(cropFile); // 重置源文件
-        ImgConvert.save(small, cropFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
+        BitmapConvert.save(small, cropFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
         if (small != null && !small.isRecycled()) {
             small.recycle();
         }
@@ -141,9 +141,9 @@ public class ImgMedia {
             FileUtils.deleteFile(cropFile); // 重置源文件
             return null;
         }
-        Bitmap small = ImgConvert.getBitmap(cropFile, maxWidth, maxHeight); // File转Bitmap(压缩)
+        Bitmap small = BitmapConvert.getBitmap(cropFile, maxWidth, maxHeight); // File转Bitmap(压缩)
         FileUtils.createFileByDeleteOldFile(cropFile); // 删除源文件
-        ImgConvert.save(small, cropFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
+        BitmapConvert.save(small, cropFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
         if (small != null && !small.isRecycled()) {
             small.recycle();
         }

@@ -11,19 +11,11 @@ import android.widget.ImageView;
  */
 public class AnimDrawable {
 
-    private static final String LOG_TAG = "AnimDrawable";
-
     /**
      * **********************************帧动画**********************************
      *
      * @param image      加载帧动画的imageView
-     * @param animListID res的drawable目录下定义：下面的true为重复播放
-     *                   <animation-list android:oneshot="true" >
-     *                   <item
-     *                   android:drawable="@drawable/on_001"
-     *                   android:duration="100"/>
-     *                   .........
-     *                   </animation-list>
+     * @param animListID res的drawable里的帧动画id
      * @return Drawable可以强转成AnimationDrawable , animation.start(); animation.stop();
      */
     public static AnimationDrawable getAnimationDrawable(Context context, ImageView image, int animListID) {

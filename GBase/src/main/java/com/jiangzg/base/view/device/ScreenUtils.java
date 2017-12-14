@@ -19,8 +19,6 @@ import com.jiangzg.base.component.application.AppContext;
  */
 public class ScreenUtils {
 
-    private static final String LOG_TAG = "ScreenUtils";
-
     /**
      * 设置屏幕为竖屏
      * <p>还有一种就是在Activity中加属性android:screenOrientation="landscape"</p>

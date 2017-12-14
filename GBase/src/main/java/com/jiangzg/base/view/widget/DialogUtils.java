@@ -22,10 +22,20 @@ import java.util.Calendar;
 /**
  * Created by Jiang on 2016/10/13
  * DialogUtils: 对话框管理工具类
+ *
  */
 public class DialogUtils {
 
-    private static final String LOG_TAG = "DialogUtils";
+    /**
+     * @param height 百分比
+     * @param width  百分比
+     */
+    public static Dialog createCustom(Activity activity, View view, int theme, float height, float width) {
+        DisplayMetrics d = activity.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
+        int rHeight = (int) (d.heightPixels * height) - BarUtils.getStatusBarHeight(activity); // 高度设置为屏幕的0.x（减去statusBar高度）
+        int rWidth = (int) (d.widthPixels * width);  // 宽度设置为屏幕的0.x
+        return createCustom(activity, view, theme, rHeight, rWidth);
+    }
 
     /**
      * 自定义对话框
@@ -33,17 +43,13 @@ public class DialogUtils {
      * @param view  LayoutInflater.from(activity).inflate(layoutId, null);
      * @param theme R.style.DialogCustom
      */
-    public static Dialog createCustom(Activity activity, View view, int theme,
-                                      float height, float width) {
+    public static Dialog createCustom(Activity activity, View view, int theme, int height, int width) {
         final Dialog dialog = new Dialog(activity, theme);
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-        DisplayMetrics d = activity.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
-        if (height != 0) {  // 高度设置为屏幕的0.x（减去statusBar高度）
-            lp.height = (int) (d.heightPixels * height) - BarUtils.getStatusBarHeight(activity);
-        }
-        if (width != 0) {  // 宽度设置为屏幕的0.x
-            lp.width = (int) (d.widthPixels * width);
-        }
+        if (height != 0)   // 高度设置为屏幕的0.x（减去statusBar高度）
+            lp.height = height;
+        if (width != 0)   // 宽度设置为屏幕的0.x
+            lp.width = width;
         dialog.setContentView(view, lp);
         return dialog;
     }
@@ -53,12 +59,13 @@ public class DialogUtils {
      */
     public static AlertDialog createAlert(Context context, String title, String message,
                                           String positive, String negative,
-                                          final DialogInterface.OnClickListener positiveListener) {
+                                          DialogInterface.OnClickListener positiveListener,
+                                          DialogInterface.OnClickListener negativeListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(title);
         builder.setMessage(message);
         builder.setPositiveButton(positive, positiveListener);
-        builder.setNegativeButton(negative, null);
+        builder.setNegativeButton(negative, negativeListener);
         return builder.create();
     }
 
@@ -148,40 +155,22 @@ public class DialogUtils {
     }
 
     /**
-     * 创建系统日期选择对话框
+     * 创建系统日期选择对话框 picker.show();
      */
-    public static DatePickerDialog showDatePicker(Context context, Calendar calendar,
-                                                  DatePickerDialog.OnDateSetListener onDateSetListener) {
+    public static DatePickerDialog createDatePicker(Context context, Calendar calendar, DatePickerDialog.OnDateSetListener onDateSetListener) {
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog picker = new DatePickerDialog(context, onDateSetListener, year, month, day);
-        picker.show();
-        return picker;
+        return new DatePickerDialog(context, onDateSetListener, year, month, day);
     }
 
     /**
-     * 创建系统时间选择对话框 24小时
+     * 创建系统时间选择对话框 picker.show();
      */
-    public static TimePickerDialog show24TimePicker(Context context, Calendar calendar,
-                                                    TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+    public static TimePickerDialog createTimePicker(Context context, Calendar calendar, boolean is24, TimePickerDialog.OnTimeSetListener onTimeSetListener) {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
-        TimePickerDialog picker = new TimePickerDialog(context, onTimeSetListener, hour, minute, true);
-        picker.show();
-        return picker;
-    }
-
-    /**
-     * 创建系统时间选择对话框 12小时
-     */
-    public static TimePickerDialog show12TimePicker(Context context, Calendar calendar,
-                                                    TimePickerDialog.OnTimeSetListener onTimeSetListener) {
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-        TimePickerDialog picker = new TimePickerDialog(context, onTimeSetListener, hour, minute, false);
-        picker.show();
-        return picker;
+        return new TimePickerDialog(context, onTimeSetListener, hour, minute, is24);
     }
 
     /**

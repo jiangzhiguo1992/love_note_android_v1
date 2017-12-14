@@ -16,8 +16,6 @@ import android.view.animation.DecelerateInterpolator;
  */
 public class AnimFrame {
 
-    private static final String LOG_TAG = "AnimFrame";
-
     // 渐变property
     public static final String ALPHA = "alpha";
     // 缩放property
@@ -44,8 +42,7 @@ public class AnimFrame {
     /**
      * set.start(); set.pause(); set.cancel(); set.end(); ...
      */
-    public static AnimatorSet getAnimatorSet(boolean together, long startDelay,
-                                             long duration, Animator... items) {
+    public static AnimatorSet getAnimatorSet(long startDelay, long duration, boolean together, Animator... items) {
         AnimatorSet set = new AnimatorSet();
         set.setStartDelay(startDelay); // 开始延迟时间
         set.setDuration(duration); // 持续时间

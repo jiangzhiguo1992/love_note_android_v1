@@ -42,9 +42,9 @@ import java.io.InputStream;
  * Created by Jiang on 2016/10/12
  * 图片相关工具类
  */
-public class ImgUtils {
+public class BitmapUtils {
 
-    private static final String LOG_TAG = "ImgUtils";
+    private static final String LOG_TAG = "BitmapUtils";
 
     /**
      * 剪切view , 还有设置四大属性的方法，太多了 不封装了

@@ -1,5 +1,6 @@
 package com.jiangzg.base.view.widget;
 
+import android.annotation.SuppressLint;
 import android.text.TextUtils;
 import android.widget.Toast;
 
@@ -11,22 +12,15 @@ import com.jiangzg.base.component.application.AppContext;
  */
 public class ToastUtils {
 
-    private static final String LOG_TAG = "ToastUtils";
-
     private static Toast toast;
 
     public static void show(final CharSequence message) {
         if (TextUtils.isEmpty(message)) return;
-        //AppBase.get().getHandler().post(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //        if (toast == null) {
-        //            createToast();
-        //        }
-        //        toast.setText(message);
-        //        toast.show();
-        //    }
-        //});
+        if (toast == null) {
+            createToast();
+        }
+        toast.setText(message);
+        toast.show();
     }
 
     public static void show(int resId) {
@@ -36,16 +30,12 @@ public class ToastUtils {
     }
 
     public static void cancel() {
-//        AppNative.get().getHandler().post(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (toast == null) return;
-//                toast.cancel();
-//            }
-//        });
+        if (toast == null) return;
+        toast.cancel();
     }
 
     /* 自定义Toast */
+    @SuppressLint("ShowToast")
     private static void createToast() {
         if (toast != null) return;
         toast = Toast.makeText(AppContext.get(), "", Toast.LENGTH_SHORT);

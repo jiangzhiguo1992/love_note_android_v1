@@ -7,7 +7,7 @@ package com.jiangzg.base.media.music;
  */
 public class AlarmUtils {
 
-    private static final String LOG_TAG = "ImgUtils";
+    private static final String LOG_TAG = "BitmapUtils";
 
 //    public static void test(){
 //        //AlarmManager.setInexactRepeating

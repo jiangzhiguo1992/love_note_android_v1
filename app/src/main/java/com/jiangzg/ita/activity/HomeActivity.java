@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.intent.IntentUtils;
 import com.jiangzg.base.function.PermUtils;
-import com.jiangzg.base.media.image.ImgMedia;
+import com.jiangzg.base.media.image.BitmapMedia;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.widget.ToastUtils;
@@ -105,7 +105,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                 compress();
                 break;
             case 22:
-                Uri pictureUri = ImgMedia.getPictureUri(data);
+                Uri pictureUri = BitmapMedia.getPictureUri(data);
                 jpgInRes = ConvertUtils.URI2File(pictureUri);
                 compress();
                 break;

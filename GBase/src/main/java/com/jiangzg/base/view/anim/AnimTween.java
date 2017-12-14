@@ -18,8 +18,6 @@ import android.view.animation.TranslateAnimation;
  */
 public class AnimTween {
 
-    private static final String LOG_TAG = "AnimTween";
-
     /**
      * 渐变动画
      */
@@ -31,8 +29,7 @@ public class AnimTween {
      * 移动动画
      */
     public static TranslateAnimation getAnimationTranslate(float fromX, float toX, float fromY, float toY) {
-        return new TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, fromX, Animation.RELATIVE_TO_SELF, toX,
+        return new TranslateAnimation(Animation.RELATIVE_TO_SELF, fromX, Animation.RELATIVE_TO_SELF, toX,
                 Animation.RELATIVE_TO_SELF, fromY, Animation.RELATIVE_TO_SELF, toY);
     }
 
@@ -55,8 +52,7 @@ public class AnimTween {
     /**
      * 多种动画效果叠加, view.setAnimation(AnimationSet); set.start();
      */
-    public static AnimationSet getAnimationSet(long offset, long duration, int repeat,
-                                               boolean fill, int mode, Animation... items) {
+    public static AnimationSet getAnimationSet(long offset, long duration, int repeat, boolean fill, int mode, Animation... items) {
         AnimationSet set = new AnimationSet(true);
         for (Animation param : items) {
             set.addAnimation(param);

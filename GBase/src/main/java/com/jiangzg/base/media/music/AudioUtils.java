@@ -7,6 +7,6 @@ package com.jiangzg.base.media.music;
  */
 public class AudioUtils {
 
-    private static final String LOG_TAG = "ImgUtils";
+    private static final String LOG_TAG = "BitmapUtils";
 
 }

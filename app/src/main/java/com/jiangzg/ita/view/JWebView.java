@@ -14,7 +14,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jiangzg.base.view.widget.WebUtils;
+import com.jiangzg.base.view.widget.WebManager;
 
 /**
  * Created by JiangZhiGuo on 2016-11-7.
@@ -24,7 +24,7 @@ import com.jiangzg.base.view.widget.WebUtils;
 public class JWebView extends WebView {
 
     private Context mContext;
-    private WebUtils webUtils;
+    private WebManager webManager;
 
     public JWebView(Context context) {
         super(context);
@@ -50,10 +50,10 @@ public class JWebView extends WebView {
     @SuppressLint("SetJavaScriptEnabled")
     private void init(Context context) {
         mContext = context;
-        webUtils = new WebUtils(this);
-        webUtils.init(true, false, false);
-        webUtils.setViewClient(webViewClient);
-        webUtils.setChromeClient(webChromeClient);
+        webManager = new WebManager(this);
+        webManager.init(false, false);
+        webManager.setViewClient(webViewClient);
+        webManager.setChromeClient(webChromeClient);
     }
 
     private WebViewClient webViewClient = new WebViewClient() {
@@ -65,14 +65,14 @@ public class JWebView extends WebView {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            webUtils.setCookie(url);
+            webManager.setCookie(url);
             super.onPageFinished(view, url);
             // loadingHide
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            webUtils.load(url);
+            webManager.load(url);
             return true;
         }
 
@@ -80,7 +80,7 @@ public class JWebView extends WebView {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             String url = request.getUrl().toString();
-            webUtils.load(url);
+            webManager.load(url);
             return true;
         }
 

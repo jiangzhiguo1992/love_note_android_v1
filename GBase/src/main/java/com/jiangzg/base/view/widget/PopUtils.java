@@ -17,8 +17,6 @@ import android.widget.PopupWindow;
  */
 public class PopUtils {
 
-    private static final String LOG_TAG = "PopUtils";
-
     /**
      * @param window LayoutInflater.from(activity).inflate(R.layout.id, null);
      * @param width  WindowManager.LayoutParams.WRAP_CONTENT
@@ -54,8 +52,7 @@ public class PopUtils {
 
     /* 创建适配的PopupWindow，不要多次创建 */
     public static PopupWindow createWindow(View window) {
-        return getPop(window, WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT, 0);
+        return getPop(window, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0);
     }
 
     /* 创建指定宽高的PopupWindow，不要多次创建 */
@@ -97,8 +94,7 @@ public class PopUtils {
     }
 
     /* 创建PopMenu(显示位置只能是在anchor的下面) */
-    public static PopupMenu createMenu(Context context, View anchor, int menuID,
-                                       PopupMenu.OnMenuItemClickListener listener) {
+    public static PopupMenu createMenu(Context context, View anchor, int menuID, PopupMenu.OnMenuItemClickListener listener) {
         PopupMenu menu = new PopupMenu(context, anchor);
         menu.getMenuInflater().inflate(menuID, menu.getMenu());
         menu.setOnMenuItemClickListener(listener);

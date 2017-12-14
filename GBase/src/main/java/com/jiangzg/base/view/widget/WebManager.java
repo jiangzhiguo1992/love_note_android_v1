@@ -10,33 +10,32 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.base.file.FileUtils;
 
+import java.io.File;
 import java.util.Map;
 
 /**
  * Created by gg on 2017/5/4.
  * WebView工具类
  */
-public class WebUtils {
-
-    private static final String LOG_TAG = "WebUtils";
+public class WebManager {
 
     private WebView mWebView;
     private String cacheDir;
     private String cookie;
 
-    public WebUtils(WebView webView) {
+    public WebManager(WebView webView) {
         mWebView = webView;
     }
 
-    public void init(boolean js, boolean zoom, boolean cache) {
-        //String resDir = AppInfo.get().getCacheDir();
-        String resDir = "";
-        cacheDir = resDir + "web_cache";
+    public void init(boolean zoom, boolean cache) {
+        String appCacheDir = AppInfo.get().getAppCacheDir();
+        cacheDir = new File(appCacheDir, "web_cache").getAbsolutePath();
         FileUtils.createOrExistsFile(cacheDir);
         mWebView.requestFocusFromTouch(); // 支持获取手势焦点
-        setJs(js);
+        setJs();
         setZoom(zoom);
         setCache(cache);
         setImage();
@@ -79,10 +78,11 @@ public class WebUtils {
         }
     }
 
-    private void setJs(boolean support) {
+    @SuppressLint("SetJavaScriptEnabled")
+    private void setJs() {
         WebSettings settings = mWebView.getSettings();
-        settings.setJavaScriptEnabled(support);// 支持JS
-        settings.setJavaScriptCanOpenWindowsAutomatically(support);// 支持通过JS打开新窗口
+        settings.setJavaScriptEnabled(true);// 支持JS
+        settings.setJavaScriptCanOpenWindowsAutomatically(true);// 支持通过JS打开新窗口
     }
 
     /**

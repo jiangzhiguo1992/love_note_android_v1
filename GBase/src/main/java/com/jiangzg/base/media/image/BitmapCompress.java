@@ -10,9 +10,9 @@ import java.io.File;
  * Created by gg on 2017/4/11.
  * 图片压缩工具类
  */
-public class ImgCompress {
+public class BitmapCompress {
 
-    private static final String LOG_TAG = "ImgCompress";
+    private static final String LOG_TAG = "BitmapCompress";
 
     /**
      * 获取bitmap(带压缩) 真正的压缩到200KB左右（建议200KB）
@@ -49,7 +49,7 @@ public class ImgCompress {
      */
 
     public static Bitmap compressByScale(Bitmap src, int newWidth, int newHeight, boolean recycle) {
-        return ImgUtils.scale(src, newWidth, newHeight, recycle);
+        return BitmapUtils.scale(src, newWidth, newHeight, recycle);
     }
 
     /**
@@ -62,7 +62,7 @@ public class ImgCompress {
      * @return 缩放压缩后的图片
      */
     public static Bitmap compressByScale(Bitmap src, float scaleWidth, float scaleHeight, boolean recycle) {
-        return ImgUtils.scale(src, scaleWidth, scaleHeight, recycle);
+        return BitmapUtils.scale(src, scaleWidth, scaleHeight, recycle);
     }
 
     /**
@@ -74,7 +74,7 @@ public class ImgCompress {
      * @return 质量压缩后的图片
      */
     public static Bitmap compressByQuality(Bitmap src, int quality, boolean recycle) {
-        if (ImgUtils.isEmptyBitmap(src) || quality < 0 || quality > 100) return null;
+        if (BitmapUtils.isEmptyBitmap(src) || quality < 0 || quality > 100) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         src.compress(Bitmap.CompressFormat.JPEG, quality, baos);
         byte[] bytes = baos.toByteArray();
@@ -91,7 +91,7 @@ public class ImgCompress {
      * @return 按采样率压缩后的图片
      */
     public static Bitmap compressBySampleSize(Bitmap src, int sampleSize, boolean recycle) {
-        if (ImgUtils.isEmptyBitmap(src)) return null;
+        if (BitmapUtils.isEmptyBitmap(src)) return null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = sampleSize;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

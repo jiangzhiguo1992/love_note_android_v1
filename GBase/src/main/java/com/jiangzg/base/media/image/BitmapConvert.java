@@ -21,9 +21,9 @@ import java.io.OutputStream;
  * Created by gg on 2017/4/11.
  * Bitmap获取工具类
  */
-public class ImgConvert {
+public class BitmapConvert {
 
-    private static final String LOG_TAG = "ImgConvert";
+    private static final String LOG_TAG = "BitmapConvert";
 
     /**
      * 保存图片

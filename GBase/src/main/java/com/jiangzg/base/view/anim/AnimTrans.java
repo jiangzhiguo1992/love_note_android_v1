@@ -24,8 +24,6 @@ import android.view.animation.LinearInterpolator;
  */
 public class AnimTrans {
 
-    private static final String LOG_TAG = "AnimTrans";
-
     // trans的标志
     public static final int TRANS_EXPLODE = 1;  // 随机边缘进出
     public static final int TRANS_SLIDE = 2;    // 指定边缘进出

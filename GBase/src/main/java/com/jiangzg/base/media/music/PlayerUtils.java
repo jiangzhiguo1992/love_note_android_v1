@@ -6,7 +6,7 @@ package com.jiangzg.base.media.music;
  */
 public class PlayerUtils {
 
-    private static final String LOG_TAG = "ImgUtils";
+    private static final String LOG_TAG = "BitmapUtils";
 
 //
 //    public static boolean isInit = false;
