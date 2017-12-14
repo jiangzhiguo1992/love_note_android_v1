@@ -60,30 +60,30 @@ public class CalUtils {
         }
         return new SimpleDateFormat("EEEE", Locale.getDefault()).format(time);
     }
-
-    /**
-     * 根据Index获取星期
-     */
-    public static String getWeek(int index) {
-        switch (index) {
-            case Calendar.MONDAY:
-                return AppContext.get().getString(R.string.day1);
-            case Calendar.TUESDAY:
-                return AppContext.get().getString(R.string.day2);
-            case Calendar.WEDNESDAY:
-                return AppContext.get().getString(R.string.day3);
-            case Calendar.THURSDAY:
-                return AppContext.get().getString(R.string.day4);
-            case Calendar.FRIDAY:
-                return AppContext.get().getString(R.string.day5);
-            case Calendar.SATURDAY:
-                return AppContext.get().getString(R.string.day6);
-            case Calendar.SUNDAY:
-                return AppContext.get().getString(R.string.day7);
-            default:
-                return "";
-        }
-    }
+    //
+    ///**
+    // * 根据Index获取星期
+    // */
+    //public static String getWeek(int index) {
+    //    switch (index) {
+    //        case Calendar.MONDAY:
+    //            return AppContext.get().getString(R.string.day1);
+    //        case Calendar.TUESDAY:
+    //            return AppContext.get().getString(R.string.day2);
+    //        case Calendar.WEDNESDAY:
+    //            return AppContext.get().getString(R.string.day3);
+    //        case Calendar.THURSDAY:
+    //            return AppContext.get().getString(R.string.day4);
+    //        case Calendar.FRIDAY:
+    //            return AppContext.get().getString(R.string.day5);
+    //        case Calendar.SATURDAY:
+    //            return AppContext.get().getString(R.string.day6);
+    //        case Calendar.SUNDAY:
+    //            return AppContext.get().getString(R.string.day7);
+    //        default:
+    //            return "";
+    //    }
+    //}
 
     /**
      * 获取本周第一天的日期

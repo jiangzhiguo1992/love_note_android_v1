@@ -120,7 +120,7 @@ public class DialogUtils {
      * @return dialog（没有show）
      */
     public static AlertDialog createSingle(Context context, String title, String[] items,
-                                           int checkedIndex, String positive,
+                                           int checkedIndex, String positive, String negative,
                                            DialogInterface.OnClickListener choiceListener,
                                            DialogInterface.OnClickListener positiveListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -128,7 +128,7 @@ public class DialogUtils {
         // setSingleChoiceItems与setMessage冲突
         builder.setSingleChoiceItems(items, checkedIndex, choiceListener);
         builder.setPositiveButton(positive, positiveListener);
-        builder.setNegativeButton(R.string.cancel, null);
+        builder.setNegativeButton(negative, null);
         return builder.create();
     }
 
@@ -136,7 +136,7 @@ public class DialogUtils {
      * 多选对话框
      */
     public static AlertDialog createMulti(Context context, String title, String[] items,
-                                          final boolean[] checkedState, String positive,
+                                          final boolean[] checkedState, String positive, String negative,
                                           DialogInterface.OnMultiChoiceClickListener choiceListener,
                                           DialogInterface.OnClickListener positiveListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -144,7 +144,7 @@ public class DialogUtils {
         // setMultiChoiceItems与setMessage冲突
         builder.setMultiChoiceItems(items, checkedState, choiceListener);
         builder.setPositiveButton(positive, positiveListener);
-        builder.setNegativeButton(R.string.cancel, null);
+        builder.setNegativeButton(negative, null);
         return builder.create();
     }
 

@@ -9,10 +9,8 @@ import android.net.NetworkInfo;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.android.base.R;
 import com.android.base.component.application.AppContext;
 import com.android.base.component.intent.IntentCons;
-import com.android.base.view.widget.ToastUtils;
 
 import java.net.Inet6Address;
 import java.net.InetAddress;
@@ -98,14 +96,7 @@ public class NetInfo {
      */
     public static boolean isAvailable() {
         NetworkInfo networkInfo = getNetworkInfo();
-        boolean available = (networkInfo != null && getNetworkInfo().isAvailable());
-        if (!available) {
-            String show = AppContext.get().getString(R.string.no_network_title);
-            ToastUtils.show(show);
-            return false;
-        } else {
-            return true;
-        }
+        return (networkInfo != null && getNetworkInfo().isAvailable());
     }
 
     /**

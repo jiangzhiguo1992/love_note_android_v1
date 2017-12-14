@@ -2,10 +2,8 @@ package com.android.base.time;
 
 import android.util.Log;
 
-import com.android.base.R;
 import com.android.base.common.ConstantUtils;
 import com.android.base.common.StringUtils;
-import com.android.base.component.application.AppContext;
 
 import java.util.Calendar;
 
@@ -16,6 +14,13 @@ import java.util.Calendar;
 public class TimeUnit {
 
     private static final String LOG_TAG = "TimeUnit";
+
+    public static final int TYPE_SECOND = 1;
+    public static final int TYPE_MINUTE = 2;
+    public static final int TYPE_HOUR = 3;
+    public static final int TYPE_DAY = 4;
+    public static final int TYPE_MONTH = 5;
+    public static final int TYPE_YEAR = 6;
 
     private int year;
     private int month;
@@ -103,55 +108,58 @@ public class TimeUnit {
     /**
      * 获取时间单位 eg: 1分钟，1小时，1天
      */
-    public String getUnit() {
-        if (year > 0) return year + AppContext.get().getString(R.string.year);
-        if (month > 0) return month + AppContext.get().getString(R.string.month);
-        if (day > 0) return day + AppContext.get().getString(R.string.day);
-        if (hour > 0) return hour + AppContext.get().getString(R.string.hour);
-        if (minute > 0) return minute + AppContext.get().getString(R.string.minute);
-        if (second > 0) return second + AppContext.get().getString(R.string.second);
-        return "";
+    public int getUnitType() {
+        if (year > 0) return TYPE_YEAR;
+        if (month > 0) return TYPE_MONTH;
+        if (day > 0) return TYPE_DAY;
+        if (hour > 0) return TYPE_HOUR;
+        if (minute > 0) return TYPE_MINUTE;
+        if (second > 0) return TYPE_SECOND;
+        return TYPE_SECOND;
     }
 
     /**
      * 获取时间的所有单位
      */
-    public String getUnitFull(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s) {
+    public String getUnitFull(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
+                              String yearShow, String monthShow, String dayShow, String hourShow, String minuteShow, String secondShow) {
         String yea = "";
         if (year > 0 && y) {
-            yea = year + AppContext.get().getString(R.string.year);
+            yea = year + yearShow;
         }
         String mon = "";
         if (!StringUtils.isEmpty(yea) || (month > 0 && mo)) {
-            mon = month + AppContext.get().getString(R.string.month);
+            mon = month + monthShow;
         }
         String day = "";
         if (!StringUtils.isEmpty(mon) || (this.day > 0 && d)) {
-            day = this.day + AppContext.get().getString(R.string.day);
+            day = this.day + dayShow;
         }
         String hou = "";
         if (!StringUtils.isEmpty(hou) || (hour > 0 && h)) {
-            hou = hour + AppContext.get().getString(R.string.hour);
+            hou = hour + hourShow;
         }
         String min = "";
         if (!StringUtils.isEmpty(hou) || (minute > 0 && mi)) {
-            min = minute + AppContext.get().getString(R.string.minute);
+            min = minute + minuteShow;
         }
         String sec = "";
         if (!StringUtils.isEmpty(hou) || (second > 0 && s)) {
-            sec = second + AppContext.get().getString(R.string.second);
+            sec = second + secondShow;
         }
         return yea + mon + day + hou + min + sec;
     }
 
     @Override
     public String toString() {
-        return year + AppContext.get().getString(R.string.year) +
-                month + AppContext.get().getString(R.string.month) +
-                day + AppContext.get().getString(R.string.day) +
-                hour + AppContext.get().getString(R.string.hour) +
-                minute + AppContext.get().getString(R.string.minute) +
-                second + AppContext.get().getString(R.string.second);
+        return "TimeUnit{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", hour=" + hour +
+                ", minute=" + minute +
+                ", second=" + second +
+                '}';
     }
 
     public int getYear() {
