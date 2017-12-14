@@ -9,10 +9,10 @@ import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by gg on 2017/5/8.
+ * 鲁班算法图片压缩
  */
 
 public class LuBanUtils {
-
 
     /**
      * 鲁班算法压缩(推荐)

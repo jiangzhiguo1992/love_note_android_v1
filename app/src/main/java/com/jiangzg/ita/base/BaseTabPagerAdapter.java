@@ -1,4 +1,4 @@
-package com.jiangzg.depend.adapter;
+package com.jiangzg.ita.base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,12 +11,12 @@ import java.util.List;
  * Created by JiangZhiGuo on 2016-11-9.
  * describe 通用tab-pager适配器
  */
-public class GTabPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
+public class BaseTabPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
 
     private List<String> titleList;  // fragment
     private List<T> fragmentList; // tab标题
 
-    public GTabPagerAdapter(FragmentManager fm) {
+    public BaseTabPagerAdapter(FragmentManager fm) {
         super(fm);
         titleList = new ArrayList<>();
         fragmentList = new ArrayList<>();

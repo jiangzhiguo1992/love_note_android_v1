@@ -31,7 +31,7 @@ public class MyApp extends AppBase {
 
         ButterKnife.setDebug(true);
         LogUtils.initApp();
-        AnalyUtils.initApp();
+        //AnalyUtils.initApp();
     }
 
     private Handler mainHandler; // 主线程handler

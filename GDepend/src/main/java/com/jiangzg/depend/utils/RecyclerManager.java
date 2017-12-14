@@ -17,7 +17,7 @@ import java.util.List;
  * Created by JiangZhiGuo on 2016-11-9.
  * describe RecyclerViewAdapter管理类
  */
-public class RecyclerUtils {
+public class RecyclerManager {
 
     private Context mContext;
     private RecyclerView mRecycler;
@@ -29,14 +29,14 @@ public class RecyclerUtils {
     private LoadMoreView mLoading;
     private View mEmpty, mHead, mFoot;
 
-    public RecyclerUtils(Context context) {
+    public RecyclerManager(Context context) {
         mContext = context;
     }
 
     /**
      * ************************************初始化***************************************
      */
-    public RecyclerUtils initRecycler(RecyclerView recyclerView) {
+    public RecyclerManager initRecycler(RecyclerView recyclerView) {
         mRecycler = recyclerView;
         return this;
     }
@@ -44,7 +44,7 @@ public class RecyclerUtils {
     /**
      * 布局管理器
      */
-    public RecyclerUtils initLayoutManager(RecyclerView.LayoutManager layoutManager) {
+    public RecyclerManager initLayoutManager(RecyclerView.LayoutManager layoutManager) {
         if (mRecycler == null || layoutManager == null) return this;
         mLayoutManager = layoutManager;
         mRecycler.setLayoutManager(mLayoutManager);
@@ -54,7 +54,7 @@ public class RecyclerUtils {
     /**
      * SwipeRefreshLayout
      */
-    public RecyclerUtils initRefresh(SwipeRefreshLayout srl) {
+    public RecyclerManager initRefresh(SwipeRefreshLayout srl) {
         mRefresh = srl;
         return this;
     }
@@ -62,7 +62,7 @@ public class RecyclerUtils {
     /**
      * 设置适配器，http获取数据
      */
-    public RecyclerUtils initAdapter(BaseQuickAdapter adapter) {
+    public RecyclerManager initAdapter(BaseQuickAdapter adapter) {
         if (adapter == null) return this;
         mAdapter = adapter;
         return this;
@@ -71,7 +71,7 @@ public class RecyclerUtils {
     /**
      * 直接设置适配器，本地数据
      */
-    public RecyclerUtils setAdapter(BaseQuickAdapter adapter) {
+    public RecyclerManager setAdapter(BaseQuickAdapter adapter) {
         if (mRecycler == null || adapter == null) return this;
         mAdapter = adapter;
         mRecycler.setAdapter(mAdapter);
@@ -82,14 +82,14 @@ public class RecyclerUtils {
      * ************************************VIEW***************************************
      * 无Data时显示的view
      */
-    public RecyclerUtils viewEmpty(int emptyLayoutId) {
+    public RecyclerManager viewEmpty(int emptyLayoutId) {
         if (mRecycler == null || mContext == null || emptyLayoutId == 0) return this;
         View empty = LayoutInflater.from(mContext).inflate(emptyLayoutId, mRecycler, false);
         viewEmpty(empty);
         return this;
     }
 
-    public RecyclerUtils viewEmpty(View empty) {
+    public RecyclerManager viewEmpty(View empty) {
         if (mAdapter == null || empty == null) return this;
         mEmpty = empty;
         mAdapter.setEmptyView(mEmpty);
@@ -99,14 +99,14 @@ public class RecyclerUtils {
     /**
      * list顶部view（可remove）
      */
-    public RecyclerUtils viewHeader(int headLayoutId) {
+    public RecyclerManager viewHeader(int headLayoutId) {
         if (mContext == null || mRecycler == null) return this;
         View head = LayoutInflater.from(mContext).inflate(headLayoutId, mRecycler, false);
         viewHeader(head);
         return this;
     }
 
-    public RecyclerUtils viewHeader(View head) {
+    public RecyclerManager viewHeader(View head) {
         if (mAdapter == null || head == null) return this;
         mHead = head;
         mAdapter.setHeaderView(mHead);
@@ -116,14 +116,14 @@ public class RecyclerUtils {
     /**
      * list底部view（可remove）
      */
-    public RecyclerUtils viewFooter(int footLayoutId) {
+    public RecyclerManager viewFooter(int footLayoutId) {
         if (mContext == null || mRecycler == null) return this;
         View foot = LayoutInflater.from(mContext).inflate(footLayoutId, mRecycler, false);
         viewFooter(foot);
         return this;
     }
 
-    public RecyclerUtils viewFooter(View foot) {
+    public RecyclerManager viewFooter(View foot) {
         if (mAdapter == null || foot == null) return this;
         mFoot = foot;
         mAdapter.setFooterView(mFoot);
@@ -133,14 +133,14 @@ public class RecyclerUtils {
     /**
      * 加载更多视图
      */
-    public RecyclerUtils viewLoading(int loadingLayoutId) {
+    public RecyclerManager viewLoading(int loadingLayoutId) {
         if (mContext == null || mRecycler == null) return this;
         View head = LayoutInflater.from(mContext).inflate(loadingLayoutId, mRecycler, false);
         viewHeader(head);
         return this;
     }
 
-    public RecyclerUtils viewLoading(LoadMoreView loading) {
+    public RecyclerManager viewLoading(LoadMoreView loading) {
         if (mAdapter == null || loading == null) return this;
         mLoading = loading;
         mAdapter.setLoadMoreView(mLoading);
@@ -150,7 +150,7 @@ public class RecyclerUtils {
     /**
      * item动画
      */
-    public RecyclerUtils viewAnim(int animType) {
+    public RecyclerManager viewAnim(int animType) {
         if (mAdapter == null) return this;
         mAdapter.openLoadAnimation(animType);
         mAdapter.isFirstOnly(true);
@@ -161,7 +161,7 @@ public class RecyclerUtils {
      * ************************************监听器***************************************
      * RecyclerView的item点击监听
      */
-    public RecyclerUtils listenerClick(RecyclerView.OnItemTouchListener listener) {
+    public RecyclerManager listenerClick(RecyclerView.OnItemTouchListener listener) {
         if (mRecycler == null || listener == null) return this;
         mRecycler.addOnItemTouchListener(listener);
         return this;
@@ -174,7 +174,7 @@ public class RecyclerUtils {
     /**
      * 加载更多监听 回调时addData() 记得offset叠加
      */
-    public RecyclerUtils listenerMore(final MoreListener listener) {
+    public RecyclerManager listenerMore(final MoreListener listener) {
         if (mRecycler == null || mAdapter == null || listener == null) return this;
         mMoreListener = listener;
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -198,7 +198,7 @@ public class RecyclerUtils {
     /**
      * 刷新监听 回调时newData() 记得offset重置
      */
-    public RecyclerUtils listenerRefresh(RefreshListener listener) {
+    public RecyclerManager listenerRefresh(RefreshListener listener) {
         if (mRefresh == null || listener == null) return this;
         mRefreshListener = listener;
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

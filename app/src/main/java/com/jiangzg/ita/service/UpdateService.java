@@ -9,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.base.view.widget.DialogUtils;
-import com.jiangzg.depend.utils.RetroUtils;
+import com.jiangzg.depend.utils.RetroManager;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.utils.API;
@@ -42,13 +42,13 @@ public class UpdateService extends Service {
 
     private void checkUpdate() {
         final int code = AppInfo.get().getVersionCode();
-        Call<Version> versionCall = new RetroUtils(API.BASE_URL)
+        Call<Version> versionCall = new RetroManager(API.BASE_URL)
                 .log(HttpLoggingInterceptor.Level.BODY)
                 .head(HttpUtils.getHead())
-                .factory(RetroUtils.Factory.empty)
+                .factory(RetroManager.Factory.empty)
                 .call(API.class)
                 .checkUpdate(code);
-        RetroUtils.enqueue(versionCall, null, new RetroUtils.CallBack<Version>() {
+        RetroManager.enqueue(versionCall, null, new RetroManager.CallBack<Version>() {
             @Override
             public void onSuccess(Version result) {
                 if (result == null) {
@@ -97,11 +97,11 @@ public class UpdateService extends Service {
 
     /* 下载apk */
     private void downloadApk(final Version version) {
-        Call<ResponseBody> call = new RetroUtils(API.BASE_URL)
-                .factory(RetroUtils.Factory.empty)
+        Call<ResponseBody> call = new RetroManager(API.BASE_URL)
+                .factory(RetroManager.Factory.empty)
                 .call(API.class)
                 .downloadLargeFile(version.getUpdateUrl());
-        RetroUtils.enqueue(call, new RetroUtils.CallBack<ResponseBody>() {
+        RetroManager.enqueue(call, new RetroManager.CallBack<ResponseBody>() {
             @Override
             public void onSuccess(final ResponseBody body) { // 回调也是子线程
                 if (body == null || body.byteStream() == null) return;

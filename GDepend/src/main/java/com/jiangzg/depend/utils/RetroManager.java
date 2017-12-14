@@ -24,14 +24,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  * Created by gg on 2017/4/10.
  * Retrofit管理工具类
  */
-public class RetroUtils {
+public class RetroManager {
 
     private HashMap<String, String> mHeaders;
     private Factory mFactory;
     private HttpLoggingInterceptor.Level mLog;
     private String mBaseUrl;
 
-    public RetroUtils(String BaseUrl) {
+    public RetroManager(String BaseUrl) {
         this.mBaseUrl = BaseUrl;
         this.mHeaders = new HashMap<>(); // 默认无参
         this.mFactory = Factory.gson; // 默认gson
@@ -101,7 +101,7 @@ public class RetroUtils {
     /**
      * @param headers head参数
      */
-    public RetroUtils head(final HashMap<String, String> headers) {
+    public RetroManager head(final HashMap<String, String> headers) {
         if (headers == null) return this;
         mHeaders = headers;
         return this;
@@ -111,7 +111,7 @@ public class RetroUtils {
     /**
      * @param log 日志打印开关
      */
-    public RetroUtils log(HttpLoggingInterceptor.Level log) {
+    public RetroManager log(HttpLoggingInterceptor.Level log) {
         if (log == null) return this;
         mLog = log;
         return this;
@@ -120,7 +120,7 @@ public class RetroUtils {
     /**
      * @param factory 返回数据构造器
      */
-    public RetroUtils factory(Factory factory) {
+    public RetroManager factory(Factory factory) {
         if (factory == null) return this;
         mFactory = factory;
         return this;
