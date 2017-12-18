@@ -9,18 +9,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.function.PermUtils;
 import com.jiangzg.base.media.image.BitmapMedia;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.ita.R;
+import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.third.GlideUtils;
 import com.jiangzg.ita.third.LogUtils;
 import com.jiangzg.ita.third.LuBanUtils;
-import com.jiangzg.ita.R;
-import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.utils.ViewUtils;
 
 import java.io.File;
@@ -91,7 +90,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                 ActivityTrans.startResult(mActivity, picture, 22);
                 break;
             case R.id.btn3:
-                FragActivity.goActivity(mActivity);
+                LoginActivity.goActivity(mActivity);
                 break;
         }
     }

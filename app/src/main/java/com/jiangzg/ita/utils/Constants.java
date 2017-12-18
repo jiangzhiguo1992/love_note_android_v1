@@ -16,7 +16,10 @@ public class Constants {
     public static final int REQUEST_PICTURE = 192;  // 图库
     public static final int REQUEST_CROP = 193;  // 裁剪
     public static final int REQUEST_SCAN = 194;  // 扫描
+    public static final int REQUEST_PERM_ALERT = 195;  // perm
     // RxBus.ID
     public static final int EVENT_COMMON = 1;
+    // domain status
+
 
 }

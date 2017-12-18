@@ -9,7 +9,8 @@ public class Version extends BaseObj {
     private int versionCode;
     private String versionName;
     private String updateUrl;
-    private String changeLog;
+    private String updateLog;
+    private boolean forceUpdate;
 
     public int getVersionCode() {
         return versionCode;
@@ -35,11 +36,19 @@ public class Version extends BaseObj {
         this.updateUrl = updateUrl;
     }
 
-    public String getChangeLog() {
-        return changeLog;
+    public String getUpdateLog() {
+        return updateLog;
     }
 
-    public void setChangeLog(String changeLog) {
-        this.changeLog = changeLog;
+    public void setUpdateLog(String updateLog) {
+        this.updateLog = updateLog;
+    }
+
+    public boolean isForceUpdate() {
+        return forceUpdate;
+    }
+
+    public void setForceUpdate(boolean forceUpdate) {
+        this.forceUpdate = forceUpdate;
     }
 }

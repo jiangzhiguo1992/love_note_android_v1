@@ -3,6 +3,10 @@ package com.jiangzg.ita.third;
 import android.app.Dialog;
 
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.ita.R;
+import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.utils.UserUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -10,7 +14,6 @@ import java.util.HashMap;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,6 +29,10 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class RetroManager {
 
+    private static final String LOG_TAG = "RetroManager";
+
+    private static final String APP_KEY = "59fj48dj327fdl19fdi28cas5d20jd83";
+
     private HashMap<String, String> mHeaders;
     private Factory mFactory;
     private HttpLoggingInterceptor.Level mLog;
@@ -33,69 +40,104 @@ public class RetroManager {
 
     public RetroManager(String BaseUrl) {
         this.mBaseUrl = BaseUrl;
-        this.mHeaders = new HashMap<>(); // 默认无参
+        this.mHeaders = getHead(); // 默认全参
         this.mFactory = Factory.gson; // 默认gson
         this.mLog = HttpLoggingInterceptor.Level.BODY; // 默认打印全部
+    }
+
+    /* http请求回调 */
+    public interface CallBack<D> {
+        void onResponse(int code, D result);
+
+        void onFailure();
     }
 
     /**
      * @param call     请求体
      * @param callBack 请求回调
-     * @param <M>      返回数据类型
+     * @param <D>      返回数据类型
      */
-    public static <M> void enqueue(Call<M> call, CallBack<M> callBack) {
+    public static <D> void enqueue(Call<Result<D>> call, CallBack<D> callBack) {
         enqueue(call, null, callBack);
     }
 
-    public static <M> void enqueue(Call<M> call, final Dialog loading, final CallBack<M> callBack) {
+    public static <D> void enqueue(Call<Result<D>> call, final Dialog loading, final CallBack<D> callBack) {
         if (loading != null) {
             loading.show();
         }
-        call.enqueue(new Callback<M>() {
+        call.enqueue(new Callback<Result<D>>() {
             @Override
-            public void onResponse(Call<M> call, Response<M> response) {
-                if (loading != null) {
-                    loading.dismiss();
+            public void onResponse(Call<Result<D>> call, Response<Result<D>> response) {
+                if (loading != null) loading.dismiss();
+                int status = response.code();
+                Result<D> body = response.body();
+                if (body == null) { //我写的api都会有body返回的
+                    if (callBack != null) callBack.onFailure();
+                    return;
                 }
-                if (callBack == null) return;
-                int code = response.code();
-                M result = response.body();
-                // 响应处理
-                if (code == 200) { // 200成功
-                    callBack.onSuccess(result);
-                } else { // 响应非200
-                    String errorMessage = "";
-                    try {
-                        ResponseBody errorBody = response.errorBody();
-                        errorMessage = errorBody.string();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        callBack.onFailure(code, errorMessage);
+                String message = body.getMessage(); //toast
+                ToastUtils.show(message);
+                int code = body.getCode();
+                D data = body.getData();
+                if (callBack != null) {
+                    if (status == 200) {
+                        callBack.onResponse(code, data);
+                    } else {
+                        callBack.onFailure();
                     }
+                }
+                switch (status) { //httpCode
+                    case 200:
+                        break;
+                    case 401: // 用户验证失败
+                        // todo LoginActivity.goActivity(MyApp.get());
+                        break;
+                    case 409: // 用户版本过低, 应该禁止用户登录，并提示用户升级
+                        // todo checkUpdate
+                        break;
+                    case 410: // 用户被禁用,请求数据的时候得到该 ErrorCode, 应该退出应用
+                        // todo 先弹提示框，后退出
+                        break;
+                    case 417: // 逻辑错误，必须返回错误信息
+                        // todo switch code
+                        break;
+                    case 403: //禁止访问，key错误
+                    case 404: //资源异常
+                    case 408: //请求超时
+                    case 500: //服务器异常
+                    case 503: //服务器维护
+                    default: // 其他错误
+                        LogUtils.e(LOG_TAG, response.body().toString());
+                        break;
                 }
             }
 
             @Override
-            public void onFailure(Call<M> call, Throwable t) {
-                if (loading != null) {
-                    loading.dismiss();
+            public void onFailure(Call<Result<D>> call, Throwable t) {
+                if (loading != null) loading.dismiss();
+                if (callBack != null) callBack.onFailure();
+                Class<? extends Throwable> clz = t.getClass();
+                int error;
+                if (clz.equals(java.net.ConnectException.class)) { // 网络环境
+                    error = R.string.http_error_connect;
+                } else if (clz.equals(java.net.SocketTimeoutException.class)) { // 超时错误
+                    error = R.string.http_error_time;
+                } else { // 其他网络错误
+                    error = R.string.http_error_request;
+                    LogUtils.e(t.toString());
                 }
-                //Class<? extends Throwable> aClass = t.getClass();
-                //int error;
-                //if (aClass.equals(java.net.ConnectException.class)) { // 网络环境
-                //    error = R.string.http_error_connect;
-                //} else if (aClass.equals(java.net.SocketTimeoutException.class)) { // 超时错误
-                //    error = R.string.http_error_time;
-                //} else { // 其他网络错误
-                //    error = R.string.http_error_request;
-                //    LogUtils.e(t.toString());
-                //}
-                if (callBack == null) return;
-                //callBack.onFailure(-1, AppContext.get().getString(error));
-                callBack.onFailure(-1, "");
+                ToastUtils.show(error);
             }
         });
+    }
+
+    private HashMap<String, String> getHead() {
+        HashMap<String, String> options = new HashMap<>();
+        options.put("Content-Type", "application/json;charset=utf-8");
+        options.put("Accept", "application/json");
+        options.put("API_KEY", APP_KEY);
+        options.put("Authorization", UserUtils.getUser().getUserToken());
+        return options;
     }
 
     /**
@@ -129,7 +171,7 @@ public class RetroManager {
     /**
      * @return 获取call
      */
-    public <T extends RetroAPI> T call(Class<T> clz) {
+    public <T extends API> T call(Class<T> clz) {
         if (clz == null) return null;
         Interceptor head = getHead(mHeaders); // head
         Interceptor log = getLogInterceptor(mLog); // log
@@ -213,12 +255,6 @@ public class RetroManager {
         empty, string, gson
     }
 
-    /* http请求回调 */
-    public interface CallBack<M> {
-        void onSuccess(M result);
-
-        void onFailure(int code, String error);
-    }
 //
 //    public RequestBody string2PartBody(String body) {
 //        return RequestBody.create(MediaType.parse("text/plain"), body);

@@ -21,12 +21,6 @@ public class SmallFragment extends BaseFragment<SmallFragment> {
         return SmallFragment.newInstance(SmallFragment.class, bundle);
     }
 
-    public BigFragment replace() {
-        BigFragment bigFragment = BigFragment.newFragment();
-        FragmentTrans.replace(mFragmentManager, bigFragment, R.id.rlFragment);
-        return bigFragment;
-    }
-
     @Override
     protected int initObj(Bundle data) {
         return R.layout.fragment_small;

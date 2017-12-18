@@ -3,9 +3,9 @@ package com.jiangzg.ita.utils;
 import android.content.SharedPreferences;
 
 import com.jiangzg.base.file.SPUtils;
+import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.GsonUtils;
 import com.jiangzg.ita.third.LogUtils;
-import com.jiangzg.ita.domain.User;
 
 /**
  * Created by Fan on 2017/3/2.
@@ -26,7 +26,7 @@ public class UserUtils {
         LogUtils.json(GsonUtils.getGson().toJson(user));
         clearUser();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
-        editor.putString(id, user.getId());
+        editor.putLong(id, user.getId());
         editor.putString(userToken, user.getUserToken());
         editor.apply();
     }
@@ -37,7 +37,7 @@ public class UserUtils {
     public static User getUser() {
         SharedPreferences preference = SPUtils.getSharedPreferences(SHARE_USER);
         User user = new User();
-        user.setId(preference.getString(id, ""));
+        user.setId(preference.getLong(id, 0));
         user.setUserToken(preference.getString(userToken, ""));
         return user;
     }

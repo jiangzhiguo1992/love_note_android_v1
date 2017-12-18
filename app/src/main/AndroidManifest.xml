@@ -11,9 +11,11 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
-        android:name="com.jiangzg.ita.base.MyApp"
+        android:name=".base.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,13 +31,14 @@
             android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
 
         <!-- 高德地图 -->
-        <!--<meta-data-->
-        <!--android:name="com.amap.api.v2.apikey"-->
-        <!--android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>-->
+        <!-- <meta-data -->
+        <!-- android:name="com.amap.api.v2.apikey" -->
+        <!-- android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/> -->
 
-        <!--<service android:name="com.amap.api.location.APSService"/>-->
+
+        <!-- <service android:name="com.amap.api.location.APSService"/> -->
         <!-- 启动页 -->
-        <activity android:name="com.jiangzg.ita.activity.WelcomeActivity">
+        <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -44,22 +47,24 @@
         </activity>
         <!-- 主页面 -->
         <activity
-            android:name="com.jiangzg.ita.activity.HomeActivity"
+            android:name=".activity.HomeActivity"
             android:launchMode="singleTask"/>
         <!-- 更新服务 -->
-        <service
-            android:name="com.jiangzg.ita.service.UpdateService"
-            android:enabled="true"
-            android:exported="true"/>
-        <!-- 地图服务 -->
         <!--<service-->
-        <!--android:name=".service.LocationService"-->
+        <!--android:name=".service.UpdateService"-->
         <!--android:enabled="true"-->
         <!--android:exported="true"/>-->
+        <!-- 地图服务 -->
+        <!-- <service -->
+        <!-- android:name=".service.LocationService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"/> -->
 
-        <activity android:name="com.jiangzg.ita.activity.SecondActivity">
+        <activity android:name=".activity.SettingActivity">
         </activity>
-        <activity android:name="com.jiangzg.ita.activity.FragActivity">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login">
         </activity>
     </application>
 

@@ -1,6 +1,8 @@
 package com.jiangzg.ita.third;
 
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
+import com.jiangzg.ita.domain.Version;
 
 import java.util.List;
 import java.util.Map;
@@ -25,10 +27,11 @@ import retrofit2.http.Url;
  * Created by JiangZhiGuo on 2016/10/14.
  * describe Retrofit接口
  */
-public interface RetroAPI {
+public interface API {
 
     String HOST = "192.168.0.1";
-    String HTTP_HOST = "http://" + HOST + "/";
+    //String HOST = "47.94.224.110";
+    String HTTP_HOST = "http://" + HOST + "/ita/";
     String BASE_URL = HTTP_HOST + "api/v1/zh-CN/"; // BaseURL最好以/结尾
     String IMG_URL_ = ""; // 图片前缀
     String WEB_URL_ = ""; // 网站前缀
@@ -45,5 +48,8 @@ public interface RetroAPI {
     @Streaming
     @GET
     Call<ResponseBody> downloadLargeFile(@Url String url);
+
+    @GET("version")
+    Call<Result<Version>> checkUpdate(@Query("code") int limit);
 
 }

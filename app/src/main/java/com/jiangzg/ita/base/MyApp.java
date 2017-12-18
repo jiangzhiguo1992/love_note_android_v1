@@ -4,8 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.application.AppListener;
 import com.jiangzg.base.component.application.AppBase;
+import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.component.application.AppListener;
 import com.jiangzg.base.file.CleanUtils;
 import com.jiangzg.ita.third.LogUtils;
 
@@ -36,6 +37,10 @@ public class MyApp extends AppBase {
     private Handler mainHandler; // 主线程handler
     private ExecutorService threadPool; // 缓冲线程池
     private Timer timer; // timer
+
+    public static MyApp get() {
+        return (MyApp) AppContext.get();
+    }
 
     public Handler getHandler() {
         if (null == mainHandler) {

@@ -138,8 +138,16 @@ public class LocationInfo {
         String provider = mLocationManager.getBestProvider(getCriteria(), true);
         Location location = mLocationManager.getLastKnownLocation(provider);
         if (location == null) { //gps有时候不行
-            provider = LocationManager.NETWORK_PROVIDER;
-            location = mLocationManager.getLastKnownLocation(provider);
+            if (!provider.equals(LocationManager.GPS_PROVIDER)) {
+                provider = LocationManager.GPS_PROVIDER;
+                location = mLocationManager.getLastKnownLocation(provider);
+            } else {
+                provider = LocationManager.NETWORK_PROVIDER;
+                location = mLocationManager.getLastKnownLocation(provider);
+            }
+            if (location == null) { //原来没有定位过，用最好的
+                provider = mLocationManager.getBestProvider(getCriteria(), true);
+            }
         }
         setNativeInfo(location);
         if (mListener != null) {

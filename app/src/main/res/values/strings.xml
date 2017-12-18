@@ -32,12 +32,27 @@
     <string name="update_now">立即更新</string>
     <string name="update_delay">以后再说</string>
     <string name="http_response_error">网络响应异常</string>
-    <string name="http_response_error_401">用户验证失败</string>
     <string name="http_response_error_403">Key错误</string>
     <string name="http_response_error_404">资源未找到</string>
     <string name="http_response_error_409">用户版本过低</string>
     <string name="http_response_error_410">用户被禁用</string>
     <string name="http_response_error_500">服务器异常</string>
     <string name="location_error">定位失败</string>
+
+    <string name="update_perm_alert">检查更新失败，请开启对话框权限</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 </resources>

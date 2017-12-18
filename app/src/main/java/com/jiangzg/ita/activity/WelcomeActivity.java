@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.jiangzg.base.component.application.AppBase;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.base.MyApp;
 
 import butterknife.BindView;
 
@@ -44,7 +46,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     /* 跳转主页 */
     private void goHome() {
-        new Handler().postDelayed(new Runnable() {
+        MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 HomeActivity.goActivity(mActivity);
