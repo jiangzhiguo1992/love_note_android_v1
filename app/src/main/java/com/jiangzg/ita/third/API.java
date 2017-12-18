@@ -2,7 +2,6 @@ package com.jiangzg.ita.third;
 
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
-import com.jiangzg.ita.domain.Version;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Multipart;
+import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -29,8 +29,8 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    String HOST = "192.168.0.1";
-    //String HOST = "47.94.224.110";
+    //String HOST = "192.168.1.82";
+    String HOST = "47.94.224.110";
     String HTTP_HOST = "http://" + HOST + "/ita/";
     String BASE_URL = HTTP_HOST + "api/v1/zh-CN/"; // BaseURL最好以/结尾
     String IMG_URL_ = ""; // 图片前缀
@@ -50,6 +50,9 @@ public interface API {
     Call<ResponseBody> downloadLargeFile(@Url String url);
 
     @GET("version")
-    Call<Result<Version>> checkUpdate(@Query("code") int limit);
+    Call<Result> checkUpdate(@Query("code") int limit);
+
+    @POST("/user/login")
+    Call<Result> userLogin(@Query("code") int limit);
 
 }

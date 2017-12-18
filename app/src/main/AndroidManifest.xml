@@ -50,10 +50,10 @@
             android:name=".activity.HomeActivity"
             android:launchMode="singleTask"/>
         <!-- 更新服务 -->
-        <!--<service-->
-        <!--android:name=".service.UpdateService"-->
-        <!--android:enabled="true"-->
-        <!--android:exported="true"/>-->
+        <!-- <service -->
+        <!-- android:name=".service.UpdateService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true"/> -->
         <!-- 地图服务 -->
         <!-- <service -->
         <!-- android:name=".service.LocationService" -->
@@ -65,6 +65,11 @@
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login">
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme">
         </activity>
     </application>
 

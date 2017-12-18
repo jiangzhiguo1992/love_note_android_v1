@@ -31,23 +31,32 @@ public class RetroManager {
 
     private static final String LOG_TAG = "RetroManager";
 
-    private static final String APP_KEY = "59fj48dj327fdl19fdi28cas5d20jd83";
+    public static final String APP_KEY = "59fj48dj327fdl19fdi28cas5d20jd83";
 
     private HashMap<String, String> mHeaders;
     private Factory mFactory;
     private HttpLoggingInterceptor.Level mLog;
     private String mBaseUrl;
 
-    public RetroManager(String BaseUrl) {
-        this.mBaseUrl = BaseUrl;
+    public RetroManager() {
+        this.mBaseUrl = API.BASE_URL; //默认api
         this.mHeaders = getHead(); // 默认全参
         this.mFactory = Factory.gson; // 默认gson
         this.mLog = HttpLoggingInterceptor.Level.BODY; // 默认打印全部
     }
 
+    public static HashMap<String, String> getHead() {
+        HashMap<String, String> options = new HashMap<>();
+        options.put("Content-Type", "application/json;charset=utf-8");
+        options.put("Accept", "application/json");
+        options.put("APP_KEY", APP_KEY);
+        options.put("Authorization", UserUtils.getUser().getUserToken());
+        return options;
+    }
+
     /* http请求回调 */
-    public interface CallBack<D> {
-        void onResponse(int code, D result);
+    public interface CallBack {
+        void onResponse(int code, Result.Data data);
 
         void onFailure();
     }
@@ -55,30 +64,41 @@ public class RetroManager {
     /**
      * @param call     请求体
      * @param callBack 请求回调
-     * @param <D>      返回数据类型
      */
-    public static <D> void enqueue(Call<Result<D>> call, CallBack<D> callBack) {
+    public static void enqueue(Call<Result> call, CallBack callBack) {
         enqueue(call, null, callBack);
     }
 
-    public static <D> void enqueue(Call<Result<D>> call, final Dialog loading, final CallBack<D> callBack) {
+    public static void enqueue(Call<Result> call, final Dialog loading, final CallBack callBack) {
         if (loading != null) {
             loading.show();
         }
-        call.enqueue(new Callback<Result<D>>() {
+        call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Result<D>> call, Response<Result<D>> response) {
+            public void onResponse(Call<Result> call, Response<Result> response) {
                 if (loading != null) loading.dismiss();
                 int status = response.code();
-                Result<D> body = response.body();
-                if (body == null) { //我写的api都会有body返回的
-                    if (callBack != null) callBack.onFailure();
-                    return;
+                String errorStr = "";
+                Result body;
+                if (status == 200) {
+                    body = response.body();
+                } else {
+                    try {
+                        errorStr = response.errorBody().string();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    body = GsonUtils.getGson().fromJson(errorStr, Result.class);
                 }
-                String message = body.getMessage(); //toast
-                ToastUtils.show(message);
-                int code = body.getCode();
-                D data = body.getData();
+                String message;
+                int code = Result.ResultStatusSuc;
+                Result.Data data = null;
+                if (body != null) { //我写的api都会有body返回的
+                    message = body.getMessage(); //toast
+                    ToastUtils.show(message);
+                    code = body.getCode();
+                    data = body.getData();
+                }
                 if (callBack != null) {
                     if (status == 200) {
                         callBack.onResponse(code, data);
@@ -107,13 +127,13 @@ public class RetroManager {
                     case 500: //服务器异常
                     case 503: //服务器维护
                     default: // 其他错误
-                        LogUtils.e(LOG_TAG, response.body().toString());
+                        LogUtils.json(errorStr);
                         break;
                 }
             }
 
             @Override
-            public void onFailure(Call<Result<D>> call, Throwable t) {
+            public void onFailure(Call call, Throwable t) {
                 if (loading != null) loading.dismiss();
                 if (callBack != null) callBack.onFailure();
                 Class<? extends Throwable> clz = t.getClass();
@@ -131,32 +151,24 @@ public class RetroManager {
         });
     }
 
-    private HashMap<String, String> getHead() {
-        HashMap<String, String> options = new HashMap<>();
-        options.put("Content-Type", "application/json;charset=utf-8");
-        options.put("Accept", "application/json");
-        options.put("API_KEY", APP_KEY);
-        options.put("Authorization", UserUtils.getUser().getUserToken());
-        return options;
+    /**
+     * @param baseURL head参数
+     */
+    public RetroManager baseURL(String baseURL) {
+        if (StringUtils.isEmpty(baseURL)) return this;
+        this.mBaseUrl = baseURL;
+        return this;
+
     }
 
     /**
      * @param headers head参数
      */
-    public RetroManager head(final HashMap<String, String> headers) {
+    public RetroManager head(HashMap<String, String> headers) {
         if (headers == null) return this;
         mHeaders = headers;
         return this;
 
-    }
-
-    /**
-     * @param log 日志打印开关
-     */
-    public RetroManager log(HttpLoggingInterceptor.Level log) {
-        if (log == null) return this;
-        mLog = log;
-        return this;
     }
 
     /**
@@ -165,6 +177,15 @@ public class RetroManager {
     public RetroManager factory(Factory factory) {
         if (factory == null) return this;
         mFactory = factory;
+        return this;
+    }
+
+    /**
+     * @param log 日志打印开关
+     */
+    public RetroManager log(HttpLoggingInterceptor.Level log) {
+        if (log == null) return this;
+        mLog = log;
         return this;
     }
 

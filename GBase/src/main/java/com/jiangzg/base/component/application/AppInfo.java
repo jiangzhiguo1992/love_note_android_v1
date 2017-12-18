@@ -41,7 +41,7 @@ public class AppInfo {
     private String resCacheDir; // /storage/emulated/0/Android/data/packageName/cache
 
     /**
-     * 获取当前App信息
+     * 获取当前App信息，4个Dir需要权限
      */
     @SuppressLint({"PackageManagerGetSignatures", "MissingPermission"})
     public static AppInfo get() {
