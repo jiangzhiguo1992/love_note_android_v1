@@ -2,11 +2,14 @@ package com.jiangzg.ita.utils;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.jiangzg.base.media.image.DrawableUtils;
 import com.jiangzg.base.view.DialogUtils;
@@ -17,29 +20,6 @@ import com.jiangzg.ita.R;
  * describe 符合项目样式的View管理类
  */
 public class ViewUtils {
-
-    private ProgressDialog loading;
-    private ProgressDialog progress;
-
-    /**
-     * @return 对话框(静态会混乱)
-     */
-    public ProgressDialog getLoading(Activity mActivity,String text) {
-        if (loading != null) return loading;
-        loading = DialogUtils.createLoading(mActivity,
-                0, "", text, true);
-        return loading;
-    }
-
-    /**
-     * @return 进度框(静态会混乱)
-     */
-    public ProgressDialog getProgress(Activity mActivity,String text) {
-        if (progress != null) return progress;
-        progress = DialogUtils.createProgress(mActivity,
-                0, text, true, 100, 0, null);
-        return progress;
-    }
 
     public static void initTop(Activity activity, String title) {
         TextView tvCenter = (TextView) activity.findViewById(R.id.tvCenter);
@@ -79,6 +59,15 @@ public class ViewUtils {
      */
     public static void setLinkClick(TextView view) {
         view.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    public static ViewSwitcher.ViewFactory getViewFactory(final Context context) {
+        return new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                return new ImageView(context);
+            }
+        };
     }
 
 }

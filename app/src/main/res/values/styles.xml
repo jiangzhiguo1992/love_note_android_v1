@@ -1,10 +1,10 @@
 <resources>
 
-    <!--&lt;!&ndash; AppBarLayout(android:theme里加,可调整字体颜色)&ndash;&gt;-->
-    <!--<style name="appBarStyle" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>-->
+    <!-- AppBarLayout(android:theme里加,可调整字体颜色)-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <!--&lt;!&ndash; ToolBarLayout(上面加了,这里可以不加) &ndash;&gt;-->
-    <!--<style name="toolBarStyle" parent="ThemeOverlay.AppCompat.Light"/>-->
+    <!-- ToolBarLayout(上面加了,这里可以不加) -->
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <!-- 自定义对话框样式 -->
     <style name="DialogCustom" parent="@android:style/Theme.Dialog">
@@ -16,15 +16,21 @@
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
     </style>
 
+    <!-- 对话框出入动画 -->
+    <style name="DialogAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/alpha_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/alpha_dialog_out</item>
+    </style>
+
     <!-- 横线 -->
-    <style name="mLineHorizontal">
+    <style name="LineHorizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/line_gray</item>
     </style>
 
     <!-- 竖线 -->
-    <style name="mLineVertical">
+    <style name="LineVertical">
         <item name="android:layout_width">1px</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/line_gray</item>
@@ -113,9 +119,5 @@
         <item name="android:textColor">@color/font_primary</item>
         <item name="android:textSize">@dimen/font_huge</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

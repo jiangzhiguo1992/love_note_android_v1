@@ -1,13 +1,14 @@
 package com.jiangzg.ita.base;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.transition.Fade;
 import android.transition.Slide;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -19,13 +20,17 @@ import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.function.InputUtils;
 import com.jiangzg.base.function.PermUtils;
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.ita.R;
+import com.jiangzg.ita.domain.Result;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import retrofit2.Call;
 
 /**
  * Created by JiangZhiGuo on 2016-12-2.
@@ -37,6 +42,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public FragmentManager mFragmentManager;
     public View rootView;
     private Unbinder unbinder;
+    private ProgressDialog loading;
 
     /* activity跳转demo */
     private static void goActivity(Activity from) {
@@ -46,13 +52,35 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     }
 
     /* 初始layout(setContent之前调用) */
-    protected abstract int initObj(Intent intent);
+    protected abstract int getView(Intent intent);
 
     /* 实例化View */
     protected abstract void initView(Bundle state);
 
     /* 初始Data */
     protected abstract void initData(Bundle state);
+
+    public ProgressDialog getLoading(String msg, final Call call, final Activity activity) {
+        if (loading != null) {
+            loading.setMessage(msg);
+        } else {
+            loading = DialogUtils.createLoading(mActivity, 0, "", msg, true);
+            DialogUtils.setAnim(loading, R.style.DialogAnim);
+        }
+        if (call == null && activity == null) return loading;
+        loading.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                if (call != null && !call.isCanceled()) {
+                    call.cancel();
+                }
+                if (activity != null) {
+                    activity.finish();
+                }
+            }
+        });
+        return loading;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +91,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         initTransAnim(this); //  过渡动画
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
-        setContentView(initObj(getIntent()));
+        setContentView(getView(getIntent()));
         // 每次setContentView之后都要bind一下
         unbinder = ButterKnife.bind(this);
         initView(savedInstanceState);

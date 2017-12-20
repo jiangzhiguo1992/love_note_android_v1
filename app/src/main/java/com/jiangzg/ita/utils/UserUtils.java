@@ -47,7 +47,7 @@ public class UserUtils {
         LogUtils.json(GsonUtils.getGson().toJson(user));
         editor.putLong(FIELD_ID, user.getId());
         editor.putString(FIELD_PHONE, user.getPhone());
-        editor.putBoolean(FIELD_SEX, user.isSex());
+        editor.putInt(FIELD_SEX, user.getSex());
         editor.putLong(FIELD_BIRTHDAY, user.getBirthday());
         editor.putString(FIELD_USERTOKEN, user.getUserToken());
         editor.putLong(FIELD_CP_ID, couple.getId());
@@ -68,7 +68,7 @@ public class UserUtils {
         User user = new User();
         user.setId(preference.getLong(FIELD_ID, 0));
         user.setPhone(preference.getString(FIELD_PHONE, ""));
-        user.setSex(preference.getBoolean(FIELD_SEX, false));
+        user.setSex(preference.getInt(FIELD_SEX, 0));
         user.setBirthday(preference.getLong(FIELD_BIRTHDAY, 0));
         user.setUserToken(preference.getString(FIELD_USERTOKEN, ""));
         Couple couple = new Couple();

@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.StyleRes;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -168,6 +169,13 @@ public class DialogUtils {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
         return new TimePickerDialog(context, onTimeSetListener, hour, minute, is24);
+    }
+
+    public static void setAnim(Dialog dialog, @StyleRes int resId) {
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setWindowAnimations(resId);
+        }
     }
 
     /**

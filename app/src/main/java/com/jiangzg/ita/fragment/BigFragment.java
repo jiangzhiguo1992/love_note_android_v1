@@ -22,7 +22,7 @@ public class BigFragment extends BaseFragment<BigFragment> {
     }
 
     @Override
-    protected int initObj(Bundle data) {
+    protected int getView(Bundle data) {
         return R.layout.fragment_big;
     }
 

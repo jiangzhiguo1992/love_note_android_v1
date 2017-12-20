@@ -9,7 +9,7 @@ import com.jiangzg.ita.base.BaseActivity;
 public class SettingActivity extends BaseActivity<SettingActivity> {
 
     @Override
-    protected int initObj(Intent intent) {
+    protected int getView(Intent intent) {
         return R.layout.activity_setting;
     }
 

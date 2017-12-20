@@ -70,6 +70,10 @@ public class RetroManager {
     }
 
     public static void enqueue(Call<Result> call, final Dialog loading, final CallBack callBack) {
+        if (call == null) {
+            LogUtils.e(LOG_TAG, "call == null");
+            return;
+        }
         if (loading != null) {
             loading.show();
         }
@@ -79,26 +83,23 @@ public class RetroManager {
                 if (loading != null) loading.dismiss();
                 int status = response.code();
                 String errorStr = "";
-                Result body;
+                Result body = new Result();
                 if (status == 200) {
                     body = response.body();
                 } else {
                     try {
                         errorStr = response.errorBody().string();
+                        if (!StringUtils.isEmpty(errorStr) && errorStr.startsWith("{")) {
+                            body = GsonUtils.getGson().fromJson(errorStr, Result.class);
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    body = GsonUtils.getGson().fromJson(errorStr, Result.class);
                 }
-                String message;
-                int code = Result.ResultStatusSuc;
-                Result.Data data = null;
-                if (body != null) { //我写的api都会有body返回的
-                    message = body.getMessage(); //toast
-                    ToastUtils.show(message);
-                    code = body.getCode();
-                    data = body.getData();
-                }
+                String message = body.getMessage();
+                int code = body.getCode();
+                Result.Data data = body.getData();
+                ToastUtils.show(message); //toast
                 if (callBack != null) {
                     if (status == 200) {
                         callBack.onResponse(code, data);

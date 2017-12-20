@@ -2,6 +2,7 @@ package com.jiangzg.ita.third;
 
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
+import com.jiangzg.ita.domain.User;
 
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    //String HOST = "192.168.1.82";
+    //String HOST = "192.168.1.82:30011";
     String HOST = "47.94.224.110";
     String HTTP_HOST = "http://" + HOST + "/ita/";
     String BASE_URL = HTTP_HOST + "api/v1/zh-CN/"; // BaseURL最好以/结尾
@@ -52,7 +53,7 @@ public interface API {
     @GET("version")
     Call<Result> checkUpdate(@Query("code") int limit);
 
-    @POST("/user/login")
-    Call<Result> userLogin(@Query("code") int limit);
+    @POST("user/login")
+    Call<Result> userLogin(@Body User user);
 
 }

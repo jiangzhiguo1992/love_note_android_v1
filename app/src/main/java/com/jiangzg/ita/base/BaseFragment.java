@@ -44,7 +44,7 @@ public abstract class BaseFragment<T> extends Fragment {
     /**
      * 初始layout
      */
-    protected abstract int initObj(Bundle data);
+    protected abstract int getView(Bundle data);
 
     /**
      * 实例化View/设置监听器
@@ -79,7 +79,7 @@ public abstract class BaseFragment<T> extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
-            int layoutId = initObj(getArguments()); // 取出Bundle
+            int layoutId = getView(getArguments()); // 取出Bundle
             rootView = inflater.inflate(layoutId, container, false);
             unbinder = ButterKnife.bind(mFragment, rootView);
         }

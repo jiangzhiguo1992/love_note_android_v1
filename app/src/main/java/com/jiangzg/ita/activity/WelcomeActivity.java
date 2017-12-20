@@ -22,7 +22,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     ImageView ivWelcome;
 
     @Override
-    protected int initObj(Intent intent) {
+    protected int getView(Intent intent) {
         BarUtils.hideStatusBar(this);
         return R.layout.activity_welcome;
     }

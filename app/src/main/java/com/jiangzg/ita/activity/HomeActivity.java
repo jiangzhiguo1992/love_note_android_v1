@@ -52,7 +52,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     @Override
-    protected int initObj(Intent intent) {
+    protected int getView(Intent intent) {
         return R.layout.activity_home;
     }
 
