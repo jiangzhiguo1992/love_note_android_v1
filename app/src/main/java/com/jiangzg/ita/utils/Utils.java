@@ -36,7 +36,6 @@ public class Utils {
 
     public static void checkUpdate(Dialog dialog) {
         Call<Result> call = new RetroManager()
-                .factory(RetroManager.Factory.gson)
                 .call(API.class)
                 .checkUpdate(AppInfo.get().getVersionCode());
         RetroManager.enqueue(call, dialog, new RetroManager.CallBack() {

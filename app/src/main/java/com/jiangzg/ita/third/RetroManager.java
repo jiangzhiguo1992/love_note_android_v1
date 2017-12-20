@@ -65,10 +65,6 @@ public class RetroManager {
      * @param call     请求体
      * @param callBack 请求回调
      */
-    public static void enqueue(Call<Result> call, CallBack callBack) {
-        enqueue(call, null, callBack);
-    }
-
     public static void enqueue(Call<Result> call, final Dialog loading, final CallBack callBack) {
         if (call == null) {
             LogUtils.e(LOG_TAG, "call == null");

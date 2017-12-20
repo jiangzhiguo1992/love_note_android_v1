@@ -36,7 +36,6 @@ public class MyApp extends AppBase {
 
     private Handler mainHandler; // 主线程handler
     private ExecutorService threadPool; // 缓冲线程池
-    private Timer timer; // timer
 
     public static MyApp get() {
         return (MyApp) AppContext.get();
@@ -54,13 +53,6 @@ public class MyApp extends AppBase {
             threadPool = Executors.newCachedThreadPool();
         }
         return threadPool;
-    }
-
-    public Timer getTimer() {
-        if (null == timer) {
-            timer = new Timer();
-        }
-        return timer;
     }
 
 }

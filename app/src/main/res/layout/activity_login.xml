@@ -76,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="30dp">
+                    android:layout_marginTop="20dp">
 
                     <EditText
                         android:id="@+id/etPhone"
@@ -90,10 +90,10 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColorHint="@color/font_hint"/>
-
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilPwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
@@ -111,8 +111,65 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColorHint="@color/font_hint"/>
-
                 </android.support.design.widget.TextInputLayout>
+
+                <LinearLayout
+                    android:id="@+id/llVerify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/etVerify"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:drawableStart="@mipmap/ic_login_password_default"
+                            android:hint="@string/input_hint_verify"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:textColorHint="@color/font_hint"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnSendCode"
+                        style="@style/FontWhiteNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/selector_btn_login"
+                        android:enabled="false"
+                        android:text="@string/send_validate_code"/>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvLoginType"
+                        style="@style/FontPrimaryBig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="10dp"
+                        android:paddingEnd="30dp"
+                        android:paddingStart="30dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/verify_login"/>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

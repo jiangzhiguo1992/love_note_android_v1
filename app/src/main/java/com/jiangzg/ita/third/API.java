@@ -56,4 +56,7 @@ public interface API {
     @POST("user/login")
     Call<Result> userLogin(@Body User user);
 
+    @POST("validate/{type}")
+    Call<Result> validate(@Path("type") int type, @Body User user);
+
 }
