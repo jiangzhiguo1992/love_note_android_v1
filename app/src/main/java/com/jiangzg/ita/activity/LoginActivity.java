@@ -289,6 +289,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 if (code == BaseObj.CODE_OK && data != null && data.getUser() != null) {
                     User user = data.getUser();
                     ToastUtils.show(user.toString());
+                    //todo setUser
                 }
             }
 
