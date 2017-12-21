@@ -1,10 +1,12 @@
 package com.jiangzg.ita.utils;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +14,6 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import com.jiangzg.base.media.image.DrawableUtils;
-import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.ita.R;
 
 /**
@@ -25,6 +26,23 @@ public class ViewUtils {
         TextView tvCenter = (TextView) activity.findViewById(R.id.tvCenter);
         tvCenter.setVisibility(View.VISIBLE);
         tvCenter.setText(title);
+    }
+
+    public static void initToolbar(final AppCompatActivity activity, Toolbar tb) {
+        activity.setSupportActionBar(tb);
+        ActionBar actionBar = activity.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+        }
+        tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.finish();
+            }
+        });
     }
 
     /**

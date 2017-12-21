@@ -1,23 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                tools:context="com.jiangzg.ita.activity.LoginActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              tools:context="com.jiangzg.ita.activity.LoginActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color_primary"
-        app:title="@string/login"/>
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_primary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <TextView
+                style="@style/FontWhiteHuge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/login"/>
+
+            <TextView
+                android:id="@+id/tvForget"
+                style="@style/FontWhiteNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="10dp"
+                android:text="@string/forget_pwd"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tb">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -31,7 +54,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp">
+                    android:layout_marginTop="30dp"
+                    android:background="?android:attr/selectableItemBackground">
 
                     <ImageSwitcher
                         android:id="@+id/isLeft"
@@ -82,7 +106,7 @@
                         style="@style/FontBlackNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@mipmap/ic_login_username_default"
                         android:hint="@string/input_hint_phone"
                         android:inputType="phone"
@@ -102,7 +126,7 @@
                         style="@style/FontBlackNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="15dp"
                         android:drawableStart="@mipmap/ic_login_password_default"
                         android:hint="@string/input_hint_pwd"
                         android:inputType="textPassword"
@@ -131,7 +155,7 @@
                             style="@style/FontBlackNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="15dp"
                             android:drawableStart="@mipmap/ic_login_password_default"
                             android:hint="@string/input_hint_verify"
                             android:inputType="number"
@@ -161,10 +185,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:paddingBottom="20dp"
+                        android:layout_margin="10dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:paddingBottom="10dp"
                         android:paddingEnd="30dp"
                         android:paddingStart="30dp"
-                        android:paddingTop="20dp"
+                        android:paddingTop="10dp"
                         android:text="@string/verify_login"/>
                 </RelativeLayout>
 
@@ -202,4 +228,4 @@
             </LinearLayout>
         </ScrollView>
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

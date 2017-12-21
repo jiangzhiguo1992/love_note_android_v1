@@ -1,10 +1,15 @@
 <resources>
 
-    <!-- AppBarLayout(android:theme里加,可调整字体颜色)-->
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <!-- AppBarLayout(android:theme里加,可调整字体颜色) app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
+    <style name="MyAppBarLayout" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <!-- ToolBarLayout(上面加了,这里可以不加) -->
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <!-- Toolbar(上面加了,这里可以不加) app:popupTheme="@style/ThemeOverlay.AppCompat.Light" -->
+    <style name="MyToolbar" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!-- 水波纹 -->
+    <style name="BackRipple">
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
 
     <!-- 自定义对话框样式 -->
     <style name="DialogCustom" parent="@android:style/Theme.Dialog">

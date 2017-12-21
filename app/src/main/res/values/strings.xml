@@ -65,5 +65,6 @@
     <string name="verify_login">验证码登录</string>
     <string name="pwd_login">密码登录</string>
     <string name="send_validate_code">发送验证码</string>
+    <string name="forget_pwd">忘记密码</string>
 
 </resources>

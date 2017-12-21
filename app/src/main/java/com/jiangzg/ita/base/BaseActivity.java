@@ -23,7 +23,6 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.domain.Result;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

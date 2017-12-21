@@ -67,6 +67,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     TextInputLayout tilPwd;
     @BindView(R.id.llVerify)
     LinearLayout llVerify;
+    @BindView(R.id.tvForget)
+    TextView tvForget;
 
     private int logType = User.LOG_PWD;
     private int countDownGo = 0;
@@ -84,7 +86,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initView(Bundle state) {
-
+        ViewUtils.initToolbar(mActivity, tb);
         //左右输入框焦点图片
         isLeft.setFactory(ViewUtils.getViewFactory(mActivity));
         isRight.setFactory(ViewUtils.getViewFactory(mActivity));
@@ -165,6 +167,13 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             @Override
             public void onClick(View v) {
                 RegisterActivity.goActivity(mActivity);
+            }
+        });
+        //忘记密码
+        tvForget.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //todo 忘记密码
             }
         });
     }

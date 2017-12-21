@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
@@ -110,9 +111,10 @@ public class BarUtils {
     /**
      * ***************************************沉浸式******************************************
      * 着色模式: 为status着色 ContextCompat.getColor(id)
+     * 其实theme里可以指定status颜色 但是4.4以下不行，记得
      * Status底部为白色,所以这个不能全屏模式,下同
      */
-    public static void setStatusColor(Activity activity, int color) {
+    public static void setStatusColor(Activity activity, @ColorInt int color) {
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0
             // 清除Status透明的状态
