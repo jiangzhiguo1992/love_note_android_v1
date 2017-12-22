@@ -37,11 +37,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         // todo 非网络性init操作
         // todo check SplashActivity
         // todo check login user+cp
-        if (UserUtils.noLogin()) {
-            LoginActivity.goActivity(mActivity);
-        } else {
+        //if (UserUtils.noLogin()) {
+        //    LoginActivity.goActivity(mActivity);
+        //} else {
             HomeActivity.goActivity(mActivity);
-        }
+        //}
         //goHome();
     }
 

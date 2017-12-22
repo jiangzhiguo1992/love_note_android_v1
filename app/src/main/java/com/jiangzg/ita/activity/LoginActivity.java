@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageSwitcher;
@@ -34,6 +33,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 
 /**
@@ -141,41 +141,27 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 else onInputPhone();
             }
         });
-        //登录类型
-        tvLoginType.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
+
+    @OnClick({R.id.tvLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvForget})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tvLoginType: //登录类型
                 toggleType();
-            }
-        });
-        //验证码
-        btnSendCode.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.btnSendCode: //验证码
                 sendCode();
-            }
-        });
-        //登录
-        btnLogin.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                break;
+            case R.id.btnLogin: //登录
                 login();
-            }
-        });
-        //注册
-        btnRegister.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.btnRegister: //注册
                 RegisterActivity.goActivity(mActivity);
-            }
-        });
-        //忘记密码
-        tvForget.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //todo 忘记密码
-            }
-        });
+                break;
+            case R.id.tvForget: //忘记密码
+                ForgetActivity.goActivity(mActivity);
+                break;
+        }
     }
 
     @Override

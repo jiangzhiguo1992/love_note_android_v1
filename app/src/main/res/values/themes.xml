@@ -19,7 +19,7 @@
         </item>
         <!-- 底部导航栏颜色 -->
         <item name="android:navigationBarColor" tools:targetApi="lollipop">
-            @color/color_primary_dark
+            @color/color_primary
         </item>
 
         <!-- 控制控件的默认颜色 -->
