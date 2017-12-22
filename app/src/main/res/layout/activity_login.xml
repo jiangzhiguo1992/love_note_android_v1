@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -8,16 +7,15 @@
               tools:context="com.jiangzg.ita.activity.LoginActivity">
 
     <android.support.design.widget.AppBarLayout
+        style="@style/AppBarLayoutTheme"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb"
+            style="@style/ToolbarTheme"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_primary"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:layout_height="?attr/actionBarSize">
 
             <TextView
                 style="@style/FontWhiteHuge"
@@ -54,8 +52,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:background="?android:attr/selectableItemBackground">
+                    android:layout_marginTop="30dp">
 
                     <ImageSwitcher
                         android:id="@+id/isLeft"
@@ -99,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/etPhone"
@@ -172,6 +169,7 @@
                         android:layout_marginStart="10dp"
                         android:background="@drawable/selector_btn_login"
                         android:enabled="false"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:text="@string/send_validate_code"/>
                 </LinearLayout>
 
@@ -187,6 +185,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
                         android:background="?android:attr/selectableItemBackground"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:paddingBottom="10dp"
                         android:paddingEnd="30dp"
                         android:paddingStart="30dp"
@@ -203,14 +202,15 @@
 
                     <Button
                         android:id="@+id/btnRegister"
+                        style="@style/FontPrimaryNormal"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:background="@drawable/selector_btn_register"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:text="@string/register"
                         android:textColor="@drawable/selector_text_primary"
-                        android:textSize="@dimen/font_normal"
                         android:textStyle="bold"/>
 
                     <Button
@@ -222,6 +222,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/selector_btn_login"
                         android:enabled="false"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:text="@string/login"
                         android:textStyle="bold"/>
                 </LinearLayout>
