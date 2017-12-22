@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +33,8 @@ import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
+import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 /**
@@ -90,61 +91,21 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         //左右输入框焦点图片
         isLeft.setFactory(ViewUtils.getViewFactory(mActivity));
         isRight.setFactory(ViewUtils.getViewFactory(mActivity));
-        //输入框文本监听
-        etPhone.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
+    }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
+    @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etVerify})
+    public void afterTextChanged(Editable s) {
+        onInputChange();
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-                onInputChange();
-            }
-        });
-        etPwd.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                onInputChange();
-            }
-        });
-        etVerify.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                onInputChange();
-            }
-        });
-        //密码框焦点监听
-        etPwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) onInputPwd();
-                else onInputPhone();
-            }
-        });
+    @OnFocusChange({R.id.etPwd})
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) onInputPwd();
+        else onInputPhone();
     }
 
     @OnClick({R.id.tvLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvForget})
-    public void onViewClicked(View view) {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvLoginType: //登录类型
                 toggleType();
