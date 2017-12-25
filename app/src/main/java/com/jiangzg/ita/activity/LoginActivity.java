@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -12,9 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
+import com.jiangzg.base.anim.AnimView;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -87,10 +91,10 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initToolbar(mActivity, tb);
+        ViewUtils.initToolbar(mActivity, tb, false);
         //左右输入框焦点图片
-        isLeft.setFactory(ViewUtils.getViewFactory(mActivity));
-        isRight.setFactory(ViewUtils.getViewFactory(mActivity));
+        isLeft.setFactory(getViewFactory(mActivity));
+        isRight.setFactory(getViewFactory(mActivity));
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etVerify})
@@ -253,6 +257,15 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             public void onFailure() {
             }
         });
+    }
+
+    public ViewSwitcher.ViewFactory getViewFactory(final Context context) {
+        return new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                return new ImageView(context);
+            }
+        };
     }
 
 }

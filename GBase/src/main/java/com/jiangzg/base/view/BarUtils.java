@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 /**
  * Created by gg on 2017/4/19.
@@ -113,7 +114,9 @@ public class BarUtils {
 
     /**
      * ***************************************沉浸式******************************************
-     * 沉浸式状态栏 ContextCompat.getColor(id)
+     * 沉浸式状态栏
+     *
+     * @param color ContextCompat.getColor(id) 如果color!=TRANSPARENT 则不是沉浸式
      */
     public static void setStatusColor(Activity activity, @ColorInt int color) {
         Window window = activity.getWindow();
@@ -130,13 +133,16 @@ public class BarUtils {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             // 开始着色Status
             window.setStatusBarColor(color);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            if (color == Color.TRANSPARENT) {
+                setRootView(activity);
+            }
         }
-        if (color == Color.TRANSPARENT) {
-            setRootView(activity);
-        }
+        //else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4
+        //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //if (color == Color.TRANSPARENT) {
+        //    setRootView(activity);
+        //}
+        //}
     }
 
     /**
@@ -157,13 +163,16 @@ public class BarUtils {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             // 开始着色Navigation
             window.setNavigationBarColor(color);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4
-            activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
-                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            if (color == Color.TRANSPARENT) {
+                setRootView(activity);
+            }
         }
-        if (color == Color.TRANSPARENT) {
-            setRootView(activity);
-        }
+        //else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4
+        //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        //if (color == Color.TRANSPARENT) {
+        //    setRootView(activity);
+        //}
+        //}
     }
 
     /**
@@ -178,6 +187,23 @@ public class BarUtils {
                 ((ViewGroup) childView).setClipToPadding(true);
             }
         }
+    }
+
+    /**
+     * 创建半透明矩形 View
+     *
+     * @param alpha 透明值
+     * @return 半透明 View
+     */
+    public static View createStatusView(Activity activity, int alpha) {
+        // 绘制一个和状态栏一样高的矩形
+        View statusBarView = new View(activity);
+        LinearLayout.LayoutParams params = new LinearLayout
+                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+        statusBarView.setLayoutParams(params);
+        //statusBarView.setBackgroundColor(Color.argb(alpha, 0, 125, 0));
+        statusBarView.setBackgroundColor(alpha);
+        return statusBarView;
     }
 
 }

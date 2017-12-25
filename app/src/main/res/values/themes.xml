@@ -13,7 +13,7 @@
             @color/color_primary_dark
         </item>
 
-        <!-- 状态栏颜色，默认使用colorPrimaryDark -->
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
         <item name="android:statusBarColor" tools:targetApi="lollipop">
             @color/color_primary
         </item>

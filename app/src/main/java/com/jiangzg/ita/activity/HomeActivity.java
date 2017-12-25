@@ -2,52 +2,58 @@ package com.jiangzg.ita.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.media.image.BitmapMedia;
+import com.jiangzg.base.component.fragment.FragmentTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.third.GlideUtils;
-import com.jiangzg.ita.third.LogUtils;
-import com.jiangzg.ita.third.LuBanUtils;
+import com.jiangzg.ita.fragment.BookFragment;
+import com.jiangzg.ita.fragment.ShowFragment;
+import com.jiangzg.ita.fragment.WeFragment;
 import com.jiangzg.ita.utils.ViewUtils;
 
-import java.io.File;
-
 import butterknife.BindView;
-import butterknife.OnClick;
-import top.zibin.luban.OnCompressListener;
 
-/**
- * Created by JiangZhiGuo on 2016/06/01
- * describe 主界面
- */
 public class HomeActivity extends BaseActivity<HomeActivity> {
 
-    @BindView(R.id.btn1)
-    Button btn1;
-    @BindView(R.id.btn2)
-    Button btn2;
-    @BindView(R.id.btn3)
-    Button btn3;
-    @BindView(R.id.ivMain)
-    ImageView ivMain;
+    @BindView(R.id.dl)
+    DrawerLayout dl;
+    @BindView(R.id.tb)
+    Toolbar tb;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.rlContent)
+    RelativeLayout rlContent;
+    @BindView(R.id.rbBook)
+    RadioButton rbBook;
+    @BindView(R.id.rbWe)
+    RadioButton rbWe;
+    @BindView(R.id.rbShow)
+    RadioButton rbShow;
+    @BindView(R.id.rgBottom)
+    RadioGroup rgBottom;
 
-    private File jpgInRes;
+    private BookFragment bookFragment;
+    private WeFragment weFragment;
+    private ShowFragment showFragment;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
-        // TODO: 2017/5/27  clearTop???
+        // intent.putExtra();
         ActivityTrans.start(from, intent);
     }
 
@@ -58,95 +64,115 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTop(mActivity, "主页面");
+        //沉浸式状态栏
+        BarUtils.setStatusColor(mActivity, Color.TRANSPARENT);
+        //toolbar + drawer
+        ViewUtils.initToolbar(mActivity, tb, false);
+        ViewUtils.initDrawerLayout(mActivity, dl, tb);
+
+        bookFragment = BookFragment.newFragment();
+        weFragment = WeFragment.newFragment();
+        showFragment = ShowFragment.newFragment();
+
     }
 
     @Override
     protected void initData(Bundle state) {
-        LogUtils.e("----------------");
-    }
-
-    @OnClick({R.id.btn1, R.id.btn2, R.id.btn3})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn1:
-                //PermUtils.requestPermissions(mActivity, 11, PermUtils.camera, new PermUtils.OnPermissionListener() {
-                //    @Override
-                //    public void onPermissionGranted(int permissions) {
-                //        //jpgInRes = ResUtils.createJPGInRes();
-                //        //Intent camera = IntentUtils.getCamera(jpgInRes);
-                //        Intent camera = IntentUtils.getCamera(null);
-                //        ActivityTrans.startResult(mActivity, camera, 11);
-                //    }
-                //
-                //    @Override
-                //    public void onPermissionDenied(int permissions) {
-                //
-                //    }
-                //});
-                break;
-            case R.id.btn2:
-                Intent picture = IntentUtils.getPicture();
-                ActivityTrans.startResult(mActivity, picture, 22);
-                break;
-            case R.id.btn3:
-                LoginActivity.goActivity(mActivity);
-                break;
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) return;
-        switch (requestCode) {
-            case 11:
-                compress();
-                break;
-            case 22:
-                Uri pictureUri = BitmapMedia.getPictureUri(data);
-                jpgInRes = ConvertUtils.URI2File(pictureUri);
-                compress();
-                break;
-        }
-    }
-
-    private void compress() {
-        LuBanUtils.compress(mActivity, jpgInRes, new OnCompressListener() {
+        rgBottom.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onStart() {
-//                getLoading().show();
-            }
-
-            @Override
-            public void onSuccess(File file) {
-//                getLoading().dismiss();
-                ToastUtils.show(file.getAbsolutePath());
-                GlideUtils.load(mActivity, file, ivMain);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-//                getLoading().dismiss();
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rbBook: // 首页
+                        String textBook = rbBook.getText().toString();
+                        tvTitle.setText(textBook);
+                        if (bookFragment.isAdded()) {
+                            FragmentTrans.show(mFragmentManager, bookFragment, false);
+                        } else {
+                            FragmentTrans.add(mFragmentManager, bookFragment, R.id.rlContent);
+                        }
+                        FragmentTrans.hide(mFragmentManager, weFragment, false);
+                        FragmentTrans.hide(mFragmentManager, showFragment, false);
+                        break;
+                    case R.id.rbWe: // 分类
+                        String textWe = rbWe.getText().toString();
+                        tvTitle.setText(textWe);
+                        if (weFragment.isAdded()) {
+                            FragmentTrans.show(mFragmentManager, weFragment, false);
+                        } else {
+                            FragmentTrans.add(mFragmentManager, weFragment, R.id.rlContent);
+                        }
+                        FragmentTrans.hide(mFragmentManager, bookFragment, false);
+                        FragmentTrans.hide(mFragmentManager, showFragment, false);
+                        break;
+                    case R.id.rbShow: // 购物
+                        String textShow = rbShow.getText().toString();
+                        tvTitle.setText(textShow);
+                        if (showFragment.isAdded()) {
+                            FragmentTrans.show(mFragmentManager, showFragment, false);
+                        } else {
+                            FragmentTrans.add(mFragmentManager, showFragment, R.id.rlContent);
+                        }
+                        FragmentTrans.hide(mFragmentManager, bookFragment, false);
+                        FragmentTrans.hide(mFragmentManager, weFragment, false);
+                        break;
+                }
             }
         });
+        rbWe.setChecked(true);
     }
 
-    private Long lastExitTime = 0L; //最后一次退出时间
-
-    /* 手机返回键 */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.home, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (dl.isDrawerOpen(GravityCompat.START)) {
+            dl.closeDrawer(GravityCompat.START);
+        } else {
             Long nowTime = DateUtils.getCurrentLong();
             if (nowTime - lastExitTime > 2000) { // 第一次按
                 ToastUtils.show(R.string.press_again_exit);
             } else { // 返回键连按两次
-                System.exit(0); // 真正退出程序
+                //AppUtils.appExit();
+                super.onBackPressed();
             }
             lastExitTime = nowTime;
         }
-        return true;
+    }
+
+    //
+    ///* 手机返回键 */
+    //@Override
+    //public boolean onKeyDown(int keyCode, KeyEvent event) {
+    //    if (keyCode == KeyEvent.KEYCODE_BACK) {
+    //        exit();
+    //    }
+    //    return true;
+    //}
+
+    private Long lastExitTime = 0L; //最后一次退出时间
+
+    private void exit() {
+
     }
 
 }

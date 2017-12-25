@@ -66,5 +66,19 @@
     <string name="pwd_login">密码登录</string>
     <string name="send_validate_code">发送验证码</string>
     <string name="forget_pwd">忘记密码</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="i_and_ta">我和Ta</string>
+    <string name="small_book">小本本</string>
+    <string name="show_affection">秀恩爱</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -42,7 +42,7 @@ public class Utils {
             @Override
             public void onResponse(int code, Result.Data data) {
                 if (data != null && data.getVersion() != null) {
-                    showUpdateDialog(data.getVersion());
+                    ViewUtils.showUpdateDialog(data.getVersion());
                 }
             }
 
@@ -51,23 +51,6 @@ public class Utils {
             }
         });
 
-    }
-
-    private static void showUpdateDialog(Version version) {
-        final Activity top = ActivityStack.getTop();
-        if (top == null) return;
-        String title = String.format(top.getString(R.string.find_new_version), version.getVersionName());
-        String message = version.getUpdateLog();
-        String positive = top.getString(R.string.update_now);
-        String negative = top.getString(R.string.update_delay);
-        AlertDialog dialog = DialogUtils.createAlert(top, title, message, positive, negative,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        UpdateService.goService(top);
-                    }
-                }, null);
-        dialog.show();
     }
 
 }

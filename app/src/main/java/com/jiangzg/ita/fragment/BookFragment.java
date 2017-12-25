@@ -4,26 +4,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.jiangzg.base.component.fragment.FragmentTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 
 import butterknife.BindView;
 
-public class SmallFragment extends BaseFragment<SmallFragment> {
+public class BookFragment extends BaseFragment<BookFragment> {
 
-    @BindView(R.id.ivLauncher)
-    ImageView ivLauncher;
-
-    public static SmallFragment newFragment() {
+    public static BookFragment newFragment() {
         Bundle bundle = new Bundle();
         // bundle.putData();
-        return SmallFragment.newInstance(SmallFragment.class, bundle);
+        return BaseFragment.newInstance(BookFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_small;
+        return R.layout.fragment_book;
     }
 
     @Override

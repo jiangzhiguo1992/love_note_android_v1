@@ -23,12 +23,13 @@
         android:theme="@style/AppTheme">
 
         <!-- 友盟统计 -->
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="umeng"/>
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/>
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_CHANNEL" -->
+        <!-- android:value="umeng"/> -->
+        <!-- <meta-data -->
+        <!-- android:name="UMENG_APPKEY" -->
+        <!-- android:value="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"/> -->
+
 
         <!-- 高德地图 -->
         <!-- <meta-data -->
@@ -37,7 +38,6 @@
 
 
         <!-- <service android:name="com.amap.api.location.APSService"/> -->
-        <!-- 启动页 -->
         <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -45,10 +45,26 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!-- 主页面 -->
         <activity
             android:name=".activity.HomeActivity"
-            android:launchMode="singleTask"/>
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".activity.SplashActivity"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:label="@string/title_activity_login">
+        </activity>
+        <activity android:name=".activity.RegisterActivity">
+        </activity>
+        <activity android:name=".activity.ForgetActivity">
+        </activity>
+        <activity android:name=".activity.SettingActivity">
+        </activity>
         <!-- 更新服务 -->
         <!-- <service -->
         <!-- android:name=".service.UpdateService" -->
@@ -60,20 +76,9 @@
         <!-- android:enabled="true" -->
         <!-- android:exported="true"/> -->
 
-        <activity android:name=".activity.SettingActivity">
-        </activity>
         <activity
-            android:name=".activity.LoginActivity"
-            android:label="@string/title_activity_login">
-        </activity>
-        <activity
-            android:name=".activity.SplashActivity"
-            android:label="@string/title_activity_splash"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".activity.RegisterActivity">
-        </activity>
-        <activity android:name=".activity.ForgetActivity">
+            android:name=".activity.BottomActivity"
+            android:label="@string/title_activity_bottom">
         </activity>
     </application>
 
