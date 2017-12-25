@@ -42,12 +42,12 @@ public class AppUtils {
      * 退出应用程序
      */
     @SuppressLint("MissingPermission")
-    public void appExit() {
+    public static void appExit() {
         try {
             ActivityStack.finishAll();
-            ActivityManager activityManager = AppContext.getActivityManager();
-            activityManager.killBackgroundProcesses(AppContext.get().getPackageName());
-            System.exit(0);
+            //ActivityManager activityManager = AppContext.getActivityManager();
+            //activityManager.killBackgroundProcesses(AppContext.get().getPackageName());
+            System.exit(0); // 真正退出程序
         } catch (Exception e) { // 退出JVM(java虚拟机),释放所占内存资源,非0的都为异常退出
             System.exit(-1);
         }
