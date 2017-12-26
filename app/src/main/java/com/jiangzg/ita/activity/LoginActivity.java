@@ -18,10 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
-import com.jiangzg.base.anim.AnimView;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
@@ -30,6 +28,7 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetroManager;
+import com.jiangzg.ita.utils.UserUtils;
 import com.jiangzg.ita.utils.ViewUtils;
 
 import java.util.Timer;
@@ -246,10 +245,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
             @Override
             public void onResponse(int code, Result.Data data) {
-                if (code == BaseObj.CODE_OK && data != null && data.getUser() != null) {
+                if (code == BaseObj.CODE_OK && data != null) {
                     User user = data.getUser();
-                    ToastUtils.show(user.toString());
-                    //todo setUser
+                    UserUtils.setUser(user);
                 }
             }
 

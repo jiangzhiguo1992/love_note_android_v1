@@ -80,6 +80,11 @@
             android:name=".activity.BottomActivity"
             android:label="@string/title_activity_bottom">
         </activity>
+        <activity
+            android:name=".activity.NoCpActivity"
+            android:label="@string/title_activity_no_cp"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

@@ -37,6 +37,10 @@ public class UserUtils {
      * 存取User
      */
     public static void setUser(User user) {
+        if (user == null) {
+            LogUtils.e(LOG_TAG, "user == null");
+            return;
+        }
         Couple couple = user.getCouple();
         if (couple == null || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
             LogUtils.e(LOG_TAG, user.toString());

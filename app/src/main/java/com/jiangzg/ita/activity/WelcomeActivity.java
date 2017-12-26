@@ -38,9 +38,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         // todo check SplashActivity
         // todo check login user+cp
         //if (UserUtils.noLogin()) {
-        //    LoginActivity.goActivity(mActivity);
+            LoginActivity.goActivity(mActivity);
         //} else {
-            HomeActivity.goActivity(mActivity);
+        //    HomeActivity.goActivity(mActivity);
         //}
         //goHome();
     }

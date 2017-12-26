@@ -82,7 +82,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.rbBook: // 首页
+                    case R.id.rbBook: // 小本本
                         String textBook = rbBook.getText().toString();
                         tvTitle.setText(textBook);
                         if (bookFragment.isAdded()) {
@@ -93,7 +93,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                         FragmentTrans.hide(mFragmentManager, weFragment, false);
                         FragmentTrans.hide(mFragmentManager, showFragment, false);
                         break;
-                    case R.id.rbWe: // 分类
+                    case R.id.rbWe: // 我和他
                         String textWe = rbWe.getText().toString();
                         tvTitle.setText(textWe);
                         if (weFragment.isAdded()) {
@@ -104,7 +104,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                         FragmentTrans.hide(mFragmentManager, bookFragment, false);
                         FragmentTrans.hide(mFragmentManager, showFragment, false);
                         break;
-                    case R.id.rbShow: // 购物
+                    case R.id.rbShow: // 秀恩爱
                         String textShow = rbShow.getText().toString();
                         tvTitle.setText(textShow);
                         if (showFragment.isAdded()) {
@@ -159,7 +159,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         }
     }
 
-    //
     ///* 手机返回键 */
     //@Override
     //public boolean onKeyDown(int keyCode, KeyEvent event) {

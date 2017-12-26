@@ -3,8 +3,12 @@ package com.jiangzg.ita.third;
 import android.app.Dialog;
 
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.LoginActivity;
+import com.jiangzg.ita.activity.NoCpActivity;
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.utils.UserUtils;
 
@@ -107,7 +111,7 @@ public class RetroManager {
                     case 200:
                         break;
                     case 401: // 用户验证失败
-                        // todo LoginActivity.goActivity(MyApp.get());
+                        LoginActivity.goActivity(ActivityStack.getTop());
                         break;
                     case 409: // 用户版本过低, 应该禁止用户登录，并提示用户升级
                         // todo checkUpdate
@@ -117,6 +121,11 @@ public class RetroManager {
                         break;
                     case 417: // 逻辑错误，必须返回错误信息
                         // todo switch code
+                        switch (code) {
+                            case Result.ResultStatusNoCp:
+                                NoCpActivity.goActivity(ActivityStack.getTop());
+                                break;
+                        }
                         break;
                     case 403: //禁止访问，key错误
                     case 404: //资源异常

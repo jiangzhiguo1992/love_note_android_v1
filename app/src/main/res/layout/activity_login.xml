@@ -176,7 +176,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/tvLoginType"
@@ -184,14 +185,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:background="@drawable/selector_btn_register"
                         android:foreground="?android:attr/selectableItemBackground"
-                        android:paddingBottom="10dp"
-                        android:paddingEnd="30dp"
-                        android:paddingStart="30dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/verify_login"/>
+                        android:paddingBottom="8dp"
+                        android:paddingEnd="14dp"
+                        android:paddingStart="14dp"
+                        android:paddingTop="8dp"
+                        android:text="@string/verify_login"
+                        android:textColor="@drawable/selector_text_primary"/>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -199,19 +200,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnRegister"
-                        style="@style/FontPrimaryNormal"
+                        style="@style/FontWhiteNormal"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_btn_register"
+                        android:background="@drawable/selector_btn_login"
                         android:foreground="?android:attr/selectableItemBackground"
                         android:text="@string/register"
-                        android:textColor="@drawable/selector_text_primary"
                         android:textStyle="bold"/>
 
                     <Button
