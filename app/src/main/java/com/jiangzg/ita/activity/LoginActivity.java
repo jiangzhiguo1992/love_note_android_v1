@@ -248,6 +248,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 if (code == BaseObj.CODE_OK && data != null) {
                     User user = data.getUser();
                     UserUtils.setUser(user);
+                    HomeActivity.goActivity(mActivity);
                 }
             }
 
@@ -255,6 +256,10 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             public void onFailure() {
             }
         });
+    }
+
+    public void goHome() {
+
     }
 
     public ViewSwitcher.ViewFactory getViewFactory(final Context context) {

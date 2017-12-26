@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
@@ -114,65 +113,79 @@ public class BarUtils {
 
     /**
      * ***************************************沉浸式******************************************
-     * 沉浸式状态栏
-     *
-     * @param color ContextCompat.getColor(id) 如果color!=TRANSPARENT 则不是沉浸式
+     * 着色模式
+     * ContextCompat.getColor(id)
+     * color = 0 不设置
      */
-    public static void setStatusColor(Activity activity, @ColorInt int color) {
+    public static void setStatusColor(Activity activity, int staColor, int navColor) {
         Window window = activity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // 清除Status和navigation透明的状态
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            if (color == Color.TRANSPARENT) {
-                // 让DecorView填充Status和Navigation，这样他们的底色就不是白色，而是我们的Layout的背景色
-                // setSystemUiVisibility就是用来操作Status的方法
-                int options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-                window.getDecorView().setSystemUiVisibility(options);
+            if (staColor != 0) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            if (navColor != 0) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             }
             // 添加Status可以着色的状态
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             // 开始着色Status
-            window.setStatusBarColor(color);
-            if (color == Color.TRANSPARENT) {
-                setRootView(activity);
+            if (staColor != 0) {
+                window.setStatusBarColor(staColor);
+            }
+            if (navColor != 0) {
+                window.setNavigationBarColor(navColor);
+            }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (staColor != 0) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            }
+            if (navColor != 0) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             }
         }
-        //else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4
-        //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //if (color == Color.TRANSPARENT) {
-        //    setRootView(activity);
-        //}
-        //}
     }
 
     /**
-     * 全屏模式：这里只负责Navigation的透明
+     * 全屏模式：注意在setContent之前调用，否则填充不到bar里
      */
-    public static void setNavigationColor(Activity activity, @ColorInt int color) {
+    public static void setBarTrans(Activity activity, boolean navTrans) {
         Window window = activity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { // 5.0
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int options;
             // 清除Status和navigation透明的状态
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            if (color == Color.TRANSPARENT) {
-                // 让DecorView填充Status和Navigation，这样他们的底色就不是白色，而是我们的Layout的背景色
-                // setSystemUiVisibility就是用来操作Status的方法
-                int options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
-                window.getDecorView().setSystemUiVisibility(options);
+            if (navTrans) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             }
+            if (navTrans) {
+                options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+                //刚开始隐藏，点击消失
+                //| View.SYSTEM_UI_FLAG_FULLSCREEN
+                //| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            } else {
+                options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            }
+            // 让DecorView填充Status和Navigation，这样他们的底色就不是白色，而是我们的Layout的背景色
+            // setSystemUiVisibility就是用来操作Status的方法
+            window.getDecorView().setSystemUiVisibility(options);
             // 添加Status可以着色的状态
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            // 开始着色Navigation
-            window.setNavigationBarColor(color);
-            if (color == Color.TRANSPARENT) {
-                setRootView(activity);
+            // 开始着色
+            window.setStatusBarColor(Color.TRANSPARENT);
+            if (navTrans) {
+                window.setNavigationBarColor(Color.TRANSPARENT);
             }
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //if (navTrans) {
+            //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            //}
         }
-        //else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // 4.4
-        //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        //if (color == Color.TRANSPARENT) {
-        //    setRootView(activity);
-        //}
-        //}
+        setRootView(activity);
     }
 
     /**

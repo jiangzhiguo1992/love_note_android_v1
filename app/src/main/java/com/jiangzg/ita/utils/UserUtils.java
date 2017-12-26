@@ -41,11 +41,6 @@ public class UserUtils {
             LogUtils.e(LOG_TAG, "user == null");
             return;
         }
-        Couple couple = user.getCouple();
-        if (couple == null || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
-            LogUtils.e(LOG_TAG, user.toString());
-            return; //只存带cp的user
-        }
         clearUser();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
         LogUtils.json(GsonUtils.getGson().toJson(user));
@@ -54,6 +49,15 @@ public class UserUtils {
         editor.putInt(FIELD_SEX, user.getSex());
         editor.putLong(FIELD_BIRTHDAY, user.getBirthday());
         editor.putString(FIELD_USERTOKEN, user.getUserToken());
+        editor.apply();
+    }
+
+    public static void setCouple(Couple couple) {
+        if (couple == null || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
+            LogUtils.e(LOG_TAG, "couple == null");
+            return; //只存带cp的user
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
         editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
         editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());

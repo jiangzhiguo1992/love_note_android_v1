@@ -1,6 +1,7 @@
 package com.jiangzg.ita.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -23,7 +24,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        BarUtils.hideStatusBar(this);
+        //BarUtils.hideStatusBar(this);
+        BarUtils.setStatusColor(mActivity, Color.TRANSPARENT);
+        BarUtils.setBarTrans(mActivity, true);
         return R.layout.activity_welcome;
     }
 
@@ -34,31 +37,28 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        // todo 非网络性init操作
-        // todo check SplashActivity
-        // todo check login user+cp
-        //if (UserUtils.noLogin()) {
-            LoginActivity.goActivity(mActivity);
-        //} else {
-        //    HomeActivity.goActivity(mActivity);
-        //}
-        //goHome();
+        // todo ...非网络性init操作
+        //goNext();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        finish();
+        finish(); //记得关闭欢迎页
     }
 
-    /* 跳转主页 */
-    private void goHome() {
+    private void goNext() {
         MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                HomeActivity.goActivity(mActivity);
+                if (UserUtils.noLogin()) {
+                    LoginActivity.goActivity(mActivity);
+                } else {
+                    HomeActivity.goActivity(mActivity);
+                }
             }
-        }, 1000);
+        }, 500); // todo 欢迎页展示时间
+
     }
 
 }

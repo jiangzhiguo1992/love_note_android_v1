@@ -65,7 +65,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void initView(Bundle state) {
         //沉浸式状态栏
-        BarUtils.setStatusColor(mActivity, Color.TRANSPARENT);
+        //BarUtils.setStatusColor(mActivity, Color.TRANSPARENT);
         //toolbar + drawer
         ViewUtils.initToolbar(mActivity, tb, false);
         ViewUtils.initDrawerLayout(mActivity, dl, tb);
