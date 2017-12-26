@@ -53,7 +53,7 @@ public class UserUtils {
     }
 
     public static void setCouple(Couple couple) {
-        if (couple == null || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
+        if (couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
             LogUtils.e(LOG_TAG, "couple == null");
             return; //只存带cp的user
         }
@@ -102,6 +102,23 @@ public class UserUtils {
     public static boolean noLogin() {
         String userToken = UserUtils.getUser().getUserToken();
         return StringUtils.isEmpty(userToken);
+    }
+
+    public static boolean noCouple() {
+        Couple couple = getUser().getCouple();
+        if (couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
+            LogUtils.e(LOG_TAG, "couple == null");
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean noCouple(Couple couple) {
+        if (couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0) {
+            LogUtils.e(LOG_TAG, "couple == null");
+            return true;
+        }
+        return false;
     }
 
 }

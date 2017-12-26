@@ -7,7 +7,6 @@
     tools:context="com.jiangzg.ita.activity.WelcomeActivity">
 
     <ImageView
-        android:id="@+id/ivWelcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"

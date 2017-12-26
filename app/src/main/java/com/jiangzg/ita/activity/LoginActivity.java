@@ -18,12 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.BaseObj;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.API;
@@ -190,7 +190,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         user.setPhone(phone);
 
         Call<Result> call = new RetroManager().call(API.class).validate(User.VALIDATE_REGISTER, user);
-        ProgressDialog loading = getLoading("正在发送...", call, null);
+        ProgressDialog loading = getLoading(getString(R.string.loading_sending), call, null);
         RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
             @Override
             public void onResponse(int code, Result.Data data) {
@@ -225,7 +225,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                     }
                 });
             }
-        }, 0, 1000);
+        }, 0, ConstantUtils.SEC);
     }
 
     private void login() {
@@ -241,14 +241,20 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         user.setType(logType);
 
         Call<Result> call = new RetroManager().call(API.class).userLogin(user);
-        ProgressDialog loading = getLoading("正在登录...", call, null);
+        ProgressDialog loading = getLoading(getString(R.string.loading_loging), call, null);
         RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
             @Override
             public void onResponse(int code, Result.Data data) {
-                if (code == BaseObj.CODE_OK && data != null) {
-                    User user = data.getUser();
-                    UserUtils.setUser(user);
-                    HomeActivity.goActivity(mActivity);
+                User user = data.getUser();
+                UserUtils.setUser(user);
+                switch (code) {
+                    case Result.ResultStatusSuc: //home
+                        UserUtils.setCouple(user.getCouple());
+                        HomeActivity.goActivity(mActivity);
+                        break;
+                    case Result.ResultStatusNoCp: //couple
+                        NoCpActivity.goActivity(mActivity);
+                        break;
                 }
             }
 
@@ -256,10 +262,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             public void onFailure() {
             }
         });
-    }
-
-    public void goHome() {
-
     }
 
     public ViewSwitcher.ViewFactory getViewFactory(final Context context) {

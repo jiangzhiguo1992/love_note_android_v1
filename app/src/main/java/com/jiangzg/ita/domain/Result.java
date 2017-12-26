@@ -9,6 +9,8 @@ public class Result {
 
     public static final int ResultStatusSuc = 0;
     public static final int ResultStatusNoCp = 1;
+    public static final int ResultCodeToast = 2;
+    public static final int ResultCodeDialog = 3;
 
     private int code;
     private String message;

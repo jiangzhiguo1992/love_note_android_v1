@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
@@ -18,9 +19,6 @@ import butterknife.BindView;
  * describe 启动界面
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
-
-    @BindView(R.id.ivWelcome)
-    ImageView ivWelcome;
 
     @Override
     protected int getView(Intent intent) {
@@ -46,7 +44,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     }
 
     private void httpEntry() {
-        Long waitTime = 2000L; //todo 等待时间
+        Long waitTime = ConstantUtils.SEC; //todo 等待时间
         long entryTime = DateUtils.getCurrentLong();
         // todo ...httpEntry
         long between = DateUtils.getCurrentLong() - entryTime;

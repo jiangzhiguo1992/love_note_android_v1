@@ -40,23 +40,7 @@
     <string name="location_error">定位失败</string>
 
     <string name="update_perm_alert">检查更新失败，请开启对话框权限</string>
-    <string name="title_activity_login">Sign in</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
     <string name="input_hint_phone">请输入手机号</string>
     <string name="input_hint_verify">请输入验证码</string>
     <string name="login">登录</string>
@@ -78,8 +62,33 @@
     <string name="small_book">小本本</string>
     <string name="show_affection">秀恩爱</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_no_cp">NoCpActivity</string>
 
+    <string name="err_un_know">未知错误 (把这个bug提交给我们吧)</string>
+
+    <string name="err_data_null">空数据异常</string>
+    <string name="err_data_parse">数据解析异常</string>
+
+    <string name="loading_sending">正在发送...</string>
+    <string name="loading_loging">正在登录...</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="title_activity_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

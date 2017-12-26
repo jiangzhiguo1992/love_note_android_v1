@@ -89,8 +89,12 @@ public class RetroManager {
                 } else {
                     try {
                         errorStr = response.errorBody().string();
-                        if (!StringUtils.isEmpty(errorStr) && errorStr.startsWith("{")) {
+                        if (StringUtils.isEmpty(errorStr)) {
+                            body.setMessage(MyApp.get().getString(R.string.err_data_null));
+                        } else if (errorStr.startsWith("{")) {
                             body = GsonUtils.getGson().fromJson(errorStr, Result.class);
+                        } else {
+                            body.setMessage(MyApp.get().getString(R.string.err_data_parse));
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -107,19 +111,26 @@ public class RetroManager {
                         callBack.onFailure();
                     }
                 }
+                // status基本为统一处理的逻辑 code为私有处理逻辑
                 switch (status) { //httpCode
                     case 200:
                         break;
-                    case 401: // 用户验证失败
+                    case 401: //用户验证失败
                         LoginActivity.goActivity(ActivityStack.getTop());
                         break;
-                    case 409: // 用户版本过低, 应该禁止用户登录，并提示用户升级
+                    case 403: //禁止访问,key错误
+                        //todo 提示并退出
+                        break;
+                    case 408: //请求超时
+                        // todo 网络设置界面
+                        break;
+                    case 410: //用户被禁用,应该退出应用
+                        //todo 提示并退出
+                        break;
+                    case 409: //用户版本过低,应该禁止用户登录,并提示用户升级
                         // todo checkUpdate
                         break;
-                    case 410: // 用户被禁用,请求数据的时候得到该 ErrorCode, 应该退出应用
-                        // todo 先弹提示框，后退出
-                        break;
-                    case 417: // 逻辑错误，必须返回错误信息
+                    case 417: //逻辑错误，必须返回错误信息
                         // todo switch code
                         switch (code) {
                             case Result.ResultStatusNoCp:
@@ -127,12 +138,10 @@ public class RetroManager {
                                 break;
                         }
                         break;
-                    case 403: //禁止访问，key错误
                     case 404: //资源异常
-                    case 408: //请求超时
                     case 500: //服务器异常
                     case 503: //服务器维护
-                    default: // 其他错误
+                    default: //其他错误
                         LogUtils.json(errorStr);
                         break;
                 }
