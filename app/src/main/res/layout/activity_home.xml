@@ -1,22 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/dl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:openDrawer="start">
+    android:orientation="vertical"
+    tools:context="com.jiangzg.ita.activity.HomeActivity">
 
-    <include
-        layout="@layout/content_home"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <include
-        layout="@layout/nav_home"
-        android:layout_width="250dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
-</android.support.v4.widget.DrawerLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/FontWhiteHuge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:text="@string/i_and_ta"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View style="@style/LineHorizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:tint="@color/foreground_color"
+            app:srcCompat="@drawable/ic_book"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:tint="@color/foreground_color"
+            app:srcCompat="@drawable/ic_home"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            app:srcCompat="@drawable/ic_book"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            app:srcCompat="@drawable/ic_book"/>
+
+    </LinearLayout>
+
+</LinearLayout>

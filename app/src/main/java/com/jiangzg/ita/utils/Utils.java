@@ -1,17 +1,9 @@
 package com.jiangzg.ita.utils;
 
-import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 
-import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.application.AppInfo;
-import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.ita.R;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.service.UpdateService;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetroManager;
 

@@ -1,5 +1,6 @@
 package com.jiangzg.ita.utils;
 
+import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.base.file.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 
@@ -10,6 +11,12 @@ import java.io.File;
  * describe 文件管理
  */
 public class ResUtils {
+
+    //public static boolean saveImgToWelcome(File img) {
+    //    String resFilesDir = AppInfo.get().getResFilesDir();
+    //
+    //    return FileUtils.createFileByDeleteOldFile(img);
+    //}
 
     public static File createJPGInFiles() {
         String fileName = StringUtils.getUUID(8) + ".jpg";

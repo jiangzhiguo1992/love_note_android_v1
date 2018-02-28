@@ -43,7 +43,7 @@ public class AppInfo {
     /**
      * 获取当前App信息，4个Dir需要权限
      */
-    @SuppressLint({"PackageManagerGetSignatures", "MissingPermission"})
+    @SuppressLint({"PackageManagerGetSignatures"})
     public static AppInfo get() {
         if (instance == null) {
             instance = new AppInfo();
@@ -164,6 +164,7 @@ public class AppInfo {
         return versionName;
     }
 
+    @SuppressLint("MissingPermission")
     public String getAppFilesDir() {
         if (!StringUtils.isEmpty(appFilesDir)) {
             Log.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
@@ -175,6 +176,7 @@ public class AppInfo {
         return appFilesDir;
     }
 
+    @SuppressLint("MissingPermission")
     public String getAppCacheDir() {
         if (!StringUtils.isEmpty(appCacheDir)) {
             Log.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
@@ -186,6 +188,7 @@ public class AppInfo {
         return appCacheDir;
     }
 
+    @SuppressLint("MissingPermission")
     public String getResFilesDir() {
         if (!StringUtils.isEmpty(resFilesDir)) {
             Log.d(LOG_TAG, "getResFilesDir-->" + resFilesDir);
@@ -202,6 +205,7 @@ public class AppInfo {
         return resFilesDir;
     }
 
+    @SuppressLint("MissingPermission")
     public String getResCacheDir() {
         if (!StringUtils.isEmpty(resCacheDir)) {
             Log.d(LOG_TAG, "getResCacheDir-->" + resCacheDir);

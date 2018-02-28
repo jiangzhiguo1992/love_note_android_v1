@@ -7,9 +7,25 @@
     tools:context="com.jiangzg.ita.activity.WelcomeActivity">
 
     <ImageView
+        android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/bg_default_music_lockscreen_cover"/>
+        android:src="@mipmap/bg_welcome_offical"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp"
+        android:src="@mipmap/text_welcome_title"/>
+
+    <TextView
+        style="@style/FontWhiteSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        tools:text="联网才可以进入哦"/>
 </RelativeLayout>

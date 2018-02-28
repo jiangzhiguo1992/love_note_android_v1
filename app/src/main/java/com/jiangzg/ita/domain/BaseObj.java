@@ -11,10 +11,8 @@ public class BaseObj implements Serializable {
     public static final int STATUS_NOL = 0;
     public static final int STATUS_DEL = -1;
 
-    public static final int CODE_OK = 0;
-
     private long id;
-    private int code;
+    private int status;
     private long updatedAt;
     private long createdAt;
 
@@ -42,11 +40,11 @@ public class BaseObj implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public int getCode() {
-        return code;
+    public int getStatus() {
+        return status;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

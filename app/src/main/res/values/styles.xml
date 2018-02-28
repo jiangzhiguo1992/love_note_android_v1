@@ -1,10 +1,10 @@
 <resources>
 
     <!-- AppBarLayout(android:theme里加,可调整字体颜色) app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
-    <style name="AppBarLayoutTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <!-- Toolbar(上面加了,这里可以不加) app:popupTheme="@style/ThemeOverlay.AppCompat.Light" -->
-    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <!-- 水波纹,点击效果(setClickListener还会有声音),CardView要加以下 -->
     <!--<item name="android:clickable">true</item>-->
@@ -126,9 +126,5 @@
         <item name="android:textColor">@color/font_primary</item>
         <item name="android:textSize">@dimen/font_huge</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 </resources>

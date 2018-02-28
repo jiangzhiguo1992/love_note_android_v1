@@ -16,16 +16,21 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
+import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.application.AppUtils;
 import com.jiangzg.base.function.InputUtils;
 import com.jiangzg.base.function.PermUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Stack;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -42,6 +47,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public View rootView;
     private Unbinder unbinder;
     private ProgressDialog loading;
+    private Long lastExitTime = 0L; //最后一次退出时间
 
     /* activity跳转demo */
     private static void goActivity(Activity from) {
@@ -132,6 +138,24 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             return InputUtils.hideSoftInput(focus);
         }
         return super.onTouchEvent(event);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Stack<Activity> stack = ActivityStack.getStack();
+        if (stack.size() <= 1) {
+            long nowTime = DateUtils.getCurrentLong();
+            if (nowTime - lastExitTime > 2000) { // 第一次按
+                ToastUtils.show(R.string.press_again_exit);
+            } else { // 返回键连按两次
+                //AppUtils.appExit();
+                super.onBackPressed();
+            }
+            lastExitTime = nowTime;
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /* 手机返回键 */

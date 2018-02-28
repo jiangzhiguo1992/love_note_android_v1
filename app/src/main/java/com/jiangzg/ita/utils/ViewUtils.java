@@ -30,16 +30,16 @@ import com.jiangzg.ita.service.UpdateService;
  */
 public class ViewUtils {
 
-    public static void initToolbar(final AppCompatActivity activity, Toolbar tb, boolean enable) {
+    public static void initToolbar(final AppCompatActivity activity, Toolbar tb, boolean navBack) {
         activity.setSupportActionBar(tb);
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false); //不用默认的title
-            actionBar.setDisplayHomeAsUpEnabled(enable);
-            actionBar.setHomeButtonEnabled(enable);
-            actionBar.setDisplayShowHomeEnabled(enable);
+            actionBar.setDisplayShowTitleEnabled(false); // 不用默认的title
+            actionBar.setDisplayHomeAsUpEnabled(navBack);
+            actionBar.setHomeButtonEnabled(navBack);
+            actionBar.setDisplayShowHomeEnabled(navBack);
         }
-        if (enable) {
+        if (navBack) {
             //tb.setNavigationIcon(R.drawable.ab_android);
             tb.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override

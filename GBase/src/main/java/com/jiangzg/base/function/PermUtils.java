@@ -28,7 +28,7 @@ public class PermUtils {
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     // 设备信息
-    public static final String[] device = new String[]{Manifest.permission.READ_PHONE_STATE};
+    public static final String[] deviceInfo = new String[]{Manifest.permission.READ_PHONE_STATE};
 
     // 拍照
     public static final String[] camera = new String[]{Manifest.permission.CAMERA};

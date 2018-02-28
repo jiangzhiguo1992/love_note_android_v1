@@ -6,11 +6,10 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.LoginActivity;
-import com.jiangzg.ita.activity.NoCpActivity;
+import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.utils.UserUtils;
+import com.jiangzg.ita.utils.UserPreference;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,8 +52,8 @@ public class RetroManager {
         HashMap<String, String> options = new HashMap<>();
         options.put("Content-Type", "application/json;charset=utf-8");
         options.put("Accept", "application/json");
-        options.put("APP_KEY", APP_KEY);
-        options.put("Authorization", UserUtils.getUser().getUserToken());
+        options.put("app_key", APP_KEY);
+        options.put("access_token", UserPreference.getUser().getUserToken());
         return options;
     }
 
@@ -133,8 +132,8 @@ public class RetroManager {
                     case 417: //逻辑错误，必须返回错误信息
                         // todo switch code
                         switch (code) {
-                            case Result.ResultStatusNoCp:
-                                NoCpActivity.goActivity(ActivityStack.getTop());
+                            case Result.ResultCodeNoCP:
+
                                 break;
                         }
                         break;

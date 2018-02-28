@@ -13,13 +13,13 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppBarLayoutTheme">
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/ToolbarTheme">
+            app:popupTheme="@style/AppTheme.PopupOverlay">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -56,7 +56,6 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:button="@null"
-            android:drawableTop="@mipmap/music_ic__section_video"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:paddingBottom="5dp"
@@ -71,7 +70,6 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:button="@null"
-            android:drawableTop="@mipmap/music_ic__section_video"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:paddingBottom="5dp"
@@ -86,7 +84,6 @@
             android:layout_weight="1"
             android:background="?android:attr/selectableItemBackground"
             android:button="@null"
-            android:drawableTop="@mipmap/music_ic__section_video"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:paddingBottom="5dp"

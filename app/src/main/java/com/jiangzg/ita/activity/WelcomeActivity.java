@@ -8,9 +8,10 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.utils.UserUtils;
+import com.jiangzg.ita.utils.UserPreference;
 
 import butterknife.BindView;
 
@@ -20,52 +21,97 @@ import butterknife.BindView;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
+    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
+
+    @BindView(R.id.ivBg)
+    ImageView ivBg;
+
     @Override
     protected int getView(Intent intent) {
-        BarUtils.setBarTrans(mActivity, true);
+        BarUtils.setBarTrans(mActivity, true); //全屏模式
+        // todo logo要换
         return R.layout.activity_welcome;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        // todo 开屏页本地获取并加载
+        //ivBg.setImageResource();
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         // todo ...非网络性init操作
-        httpEntry();
+        checkUser();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        finish(); //记得关闭欢迎页
+        finish(); // 记得关闭欢迎页
     }
 
-    private void httpEntry() {
-        Long waitTime = ConstantUtils.SEC; //todo 等待时间
-        long entryTime = DateUtils.getCurrentLong();
-        // todo ...httpEntry
-        long between = DateUtils.getCurrentLong() - entryTime;
-        if (between >= waitTime) {
-            goNext();
-        } else {
-            long newWait = waitTime - between;
+    // 检查用户
+    private void checkUser() {
+        if (UserPreference.noLogin()) {
+            // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    goNext();
+                    LoginActivity.goActivity(mActivity);
                 }
-            }, newWait);
+            }, TransPageMillis);
+        } else {
+            // 有token
+            final long startTime = DateUtils.getCurrentLong();
+            // todo entry获取并存到本地
+            goHome(startTime);
+            //Entry entry = Entry.getEntry();
+            //Call<Result> call = new RetroManager().call(API.class).entry(entry);
+            //RetroManager.enqueue(call, null, new RetroManager.CallBack() {
+            //    @Override
+            //    public void onResponse(int code, Result.Data data) {
+            //        User user = data.getUser();
+            //        Couple couple = data.getCouple();
+            //        Version version = data.getVersion();
+            //        if (user == null) {
+            //            UserPreference.clearUser();
+            //            LoginActivity.goActivity(mActivity);
+            //        } else {
+            //            UserPreference.setUser(user);
+            //        }
+            //        if (!UserPreference.noCouple(couple)) {
+            //             UserPreference.setCouple(couple);
+            //        }
+            //        if (version != null) {
+            //            // todo 升级
+            //        }
+            //        goHome(startTime);
+            //    }
+            //
+            //    @Override
+            //    public void onFailure() {
+            //        LogUtils.e("---->");
+            //    }
+            //});
         }
     }
 
-    private void goNext() {
-        if (UserUtils.noLogin()) {
-            LoginActivity.goActivity(mActivity);
-        } else {
+    // 跳转home页面
+    private void goHome(long startTime) {
+        long endTime = DateUtils.getCurrentLong();
+        long between = endTime - startTime;
+        if (between >= TransPageMillis) {
+            // 间隔时间太大
             HomeActivity.goActivity(mActivity);
+        } else {
+            // 间隔时间太小
+            MyApp.get().getHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    HomeActivity.goActivity(mActivity);
+                }
+            }, TransPageMillis - between);
         }
     }
 

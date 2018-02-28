@@ -1,5 +1,6 @@
 package com.jiangzg.ita.third;
 
+import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
@@ -30,10 +31,10 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    //String HOST = "192.168.1.82:30011";
-    String HOST = "47.94.224.110";
-    String HTTP_HOST = "http://" + HOST + "/ita/";
-    String BASE_URL = HTTP_HOST + "api/v1/zh-CN/"; // BaseURL最好以/结尾
+    String HOST = "10.0.2.2:30011";
+    //String HOST = "47.94.224.110";
+    String HTTP_HOST = "http://" + HOST;
+    String BASE_URL = HTTP_HOST + "/api/v1/zh-CN/"; // BaseURL最好以/结尾
     String IMG_URL_ = ""; // 图片前缀
     String WEB_URL_ = ""; // 网站前缀
 
@@ -50,12 +51,16 @@ public interface API {
     @GET
     Call<ResponseBody> downloadLargeFile(@Url String url);
 
-    @GET("version")
-    Call<Result> checkUpdate(@Query("code") int limit);
-
     @POST("user/login")
     Call<Result> userLogin(@Body User user);
 
+    @POST("entry")
+    Call<Result> entry(@Body Entry entry);
+
+    @GET("version")
+    Call<Result> checkUpdate(@Query("code") int limit);
+
+    // todo
     @POST("validate/{type}")
     Call<Result> validate(@Path("type") int type, @Body User user);
 

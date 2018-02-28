@@ -12,14 +12,19 @@ public class Constants {
     // imgFileSize
     public static final long IMG_SIZE = ConstantUtils.KB * 200; // 图片最大尺寸
     // requestCode
-    public static final int REQUEST_CAMERA = 191;  // 相机
-    public static final int REQUEST_PICTURE = 192;  // 图库
-    public static final int REQUEST_CROP = 193;  // 裁剪
-    public static final int REQUEST_SCAN = 194;  // 扫描
-    public static final int REQUEST_PERM_ALERT = 195;  // perm
-    public static final int REQUEST_APP = 196;  // perm
+    public static final int REQUEST_CAMERA = 1001;  // 相机
+    public static final int REQUEST_PICTURE = 1002;  // 图库
+    public static final int REQUEST_CROP = 1003;  // 裁剪
+    public static final int REQUEST_SCAN = 1004;  // 扫描
+    public static final int REQUEST_PERM_ALERT = 1005;  // perm
+    public static final int REQUEST_APP_INFO = 1006;  // app
+    public static final int REQUEST_DEVICE_INFO = 1007;  // device
     // RxBus.ID
-    public static final int EVENT_COMMON = 1;
+    public static final int EVENT_COMMON = 0;
+    public static final int EVENT_LOGIN_NO = 1;
+    public static final int EVENT_LOGIN_YES = 2;
+    public static final int EVENT_COUPLE_NO = 3;
+    public static final int EVENT_COUPLE_YES = 4;
     // domain status
 
 

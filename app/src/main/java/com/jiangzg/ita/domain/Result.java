@@ -7,10 +7,12 @@ package com.jiangzg.ita.domain;
 
 public class Result {
 
-    public static final int ResultStatusSuc = 0;
-    public static final int ResultStatusNoCp = 1;
-    public static final int ResultCodeToast = 2;
-    public static final int ResultCodeDialog = 3;
+    public static final int ResultCodeSuc = 0;
+    public static final int ResultCodeNoUser = 101;
+    public static final int ResultCodeNoCP = 102;
+    public static final int ResultCodeNoVIP = 103;
+    public static final int ResultCodeToast = 201;
+    public static final int ResultCodeDialog = 202;
 
     private int code;
     private String message;
