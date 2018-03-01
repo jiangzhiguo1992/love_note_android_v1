@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/selector_btn_login"
+        android:background="@drawable/selector_btn_normal"
         android:text="@string/login"/>
 
     <Button
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnLogin"
         android:layout_marginTop="10dp"
-        android:background="@drawable/selector_btn_register"
+        android:background="@drawable/selector_btn_border"
         android:text="@string/register"/>
 
 </RelativeLayout>

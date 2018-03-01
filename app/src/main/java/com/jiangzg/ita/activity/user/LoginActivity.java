@@ -2,7 +2,6 @@ package com.jiangzg.ita.activity.user;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -20,14 +19,12 @@ import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
+import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
-import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetroManager;
 import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.utils.Constants;
 import com.jiangzg.ita.utils.UserPreference;
@@ -39,7 +36,6 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
-import retrofit2.Call;
 
 /**
  * A login screen that offers login via email/password.
@@ -56,8 +52,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     EditText etCode;
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
-    @BindView(R.id.tvLoginType)
-    TextView tvLoginType;
+    @BindView(R.id.btnLoginType)
+    Button btnLoginType;
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.btnRegister)
@@ -90,6 +86,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewUtils.initToolbar(mActivity, tb, false);
+        ViewUtils.setLineBottom(tvProtocol);
     }
 
     @Override
@@ -97,28 +94,37 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        stopTimer();
+    }
+
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etCode})
     public void afterTextChanged(Editable s) {
         onInputChange();
     }
 
-    @OnClick({R.id.tvLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvForget})
+    @OnClick({R.id.btnLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvForget, R.id.tvProtocol})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tvLoginType: //登录类型
+            case R.id.btnLoginType: // 登录类型
                 toggleType();
                 break;
-            case R.id.btnSendCode: //验证码
+            case R.id.btnSendCode: // 验证码
                 sendCode();
                 break;
-            case R.id.btnLogin: //登录
+            case R.id.btnLogin: // 登录
                 login();
                 break;
-            case R.id.btnRegister: //注册
+            case R.id.btnRegister: // 注册
                 RegisterActivity.goActivity(mActivity);
                 break;
-            case R.id.tvForget: //忘记密码
-                //todo
+            case R.id.tvForget: // 忘记密码
+                ForgetActivity.goActivity(mActivity);
+                break;
+            case R.id.tvProtocol: // 用户协议
+                WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
                 break;
         }
     }
@@ -151,12 +157,12 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         onInputChange();
         switch (logType) {
             case User.LOG_PWD: // 显示密码
-                tvLoginType.setText(R.string.verify_login);
+                btnLoginType.setText(R.string.verify_login);
                 tilPwd.setVisibility(View.VISIBLE);
                 llVerify.setVisibility(View.GONE);
                 break;
             case User.LOG_VER: // 显示验证码
-                tvLoginType.setText(R.string.pwd_login);
+                btnLoginType.setText(R.string.pwd_login);
                 tilPwd.setVisibility(View.GONE);
                 llVerify.setVisibility(View.VISIBLE);
                 break;
@@ -165,11 +171,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     private void sendCode() {
         String phone = etPhone.getText().toString().trim();
+        User user = new User();
+        user.setPhone(phone);
         // todo 发送验证码
-        validateCountDown(60);
-        //User user = new User();
-        //user.setPhone(phone);
-        //
         //Call<Result> call = new RetroManager().call(API.class).validate(User.VALIDATE_REGISTER, user);
         //ProgressDialog loading = getLoading(getString(R.string.loading_sending), call, null);
         //RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
@@ -182,6 +186,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         //    public void onFailure() {
         //    }
         //});
+        // todo 发送成功执行 validateCountDown 失败误操作
+        validateCountDown(60);
     }
 
     private void validateCountDown(final int countDownSec) {
@@ -202,6 +208,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                             btnSendCode.setText(R.string.send_validate_code);
                             countDownGo = -1;
                             onInputChange();
+                            stopTimer();
                         }
                     }
                 });
@@ -209,21 +216,25 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         }, 0, ConstantUtils.SEC);
     }
 
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
     private void login() {
         if (!cbProtocol.isChecked()) {
             ToastUtils.show(getString(R.string.please_check_agree_protocol));
             return;
         }
-        // todo 登录处理
-        HomeActivity.goActivity(mActivity);
-        mActivity.finish();
+        String phone = etPhone.getText().toString().trim();
+        String password = etPwd.getText().toString().trim();
+        String validateCode = etCode.getText().toString().trim();
 
-        //String phone = etPhone.getText().toString().trim();
-        //String password = etPwd.getText().toString().trim();
-        //String validateCode = etCode.getText().toString().trim();
-        //
-        //User user = User.getLogin(phone, password, validateCode, logType);
-        //
+        User user = User.getLogin(phone, password, validateCode, logType);
+
+        // todo api调用
         //Call<Result> call = new RetroManager().call(API.class).userLogin(user);
         //ProgressDialog loading = getLoading(getString(R.string.loading_loging), call, null);
         //RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
@@ -236,6 +247,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         //    public void onFailure() {
         //    }
         //});
+        HomeActivity.goActivity(mActivity);
+        mActivity.finish();
     }
 
     private void logSuc(User user) {
@@ -251,9 +264,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         if (!UserPreference.noCouple(couple)) { // 有配对
             UserPreference.setCouple(couple);
         }
-        if (timer != null) {
-            timer.cancel();
-        }
+        stopTimer();
         HomeActivity.goActivity(mActivity);
         mActivity.finish();
     }

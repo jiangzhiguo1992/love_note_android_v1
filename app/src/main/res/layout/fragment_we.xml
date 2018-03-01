@@ -42,7 +42,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="10dp">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.jiangzg.ita.view.CircleImageView
                         android:id="@+id/civHeadLeft"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"/>
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.jiangzg.ita.view.CircleImageView
                         android:id="@+id/civHeadRight"
                         android:layout_width="100dp"
                         android:layout_height="100dp"

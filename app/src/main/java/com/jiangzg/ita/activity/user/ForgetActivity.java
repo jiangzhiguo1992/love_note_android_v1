@@ -1,4 +1,4 @@
-package com.jiangzg.ita.activity;
+package com.jiangzg.ita.activity.user;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +12,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ForgetActivity.class);
-        // intent.putExtra();
         ActivityTrans.start(from, intent);
     }
 
@@ -31,4 +30,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_forget);
+    }
 }

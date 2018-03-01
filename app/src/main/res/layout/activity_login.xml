@@ -51,21 +51,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/text_welcome_title"
-                        android:tint="@color/color_primary"/>
-
-                </RelativeLayout>
+                    android:layout_marginTop="30dp"
+                    android:src="@mipmap/text_welcome_title"
+                    android:tint="@color/color_primary"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -143,50 +137,36 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginStart="10dp"
-                        android:background="@drawable/selector_btn_login"
+                        android:background="@drawable/selector_btn_normal"
                         android:enabled="false"
-                        android:foreground="?android:attr/selectableItemBackground"
                         android:text="@string/send_validate_code"/>
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:id="@+id/tvLoginType"
-                        style="@style/FontPrimaryNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:background="@drawable/selector_btn_register"
-                        android:foreground="?android:attr/selectableItemBackground"
-                        android:paddingBottom="12dp"
-                        android:paddingEnd="18dp"
-                        android:paddingStart="18dp"
-                        android:paddingTop="12dp"
-                        android:text="@string/verify_login"
-                        android:textColor="@drawable/selector_text_primary"/>
-                </RelativeLayout>
+                <Button
+                    android:id="@+id/btnLoginType"
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/selector_btn_border"
+                    android:text="@string/verify_login"
+                    android:textColor="@drawable/selector_text_primary_dark"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_height="100dp"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnRegister"
                         style="@style/FontWhiteBig"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
+                        android:layout_marginStart="20dp"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_btn_login"
-                        android:foreground="?android:attr/selectableItemBackground"
+                        android:background="@drawable/selector_btn_normal"
                         android:text="@string/register"
                         android:textStyle="bold"/>
 
@@ -194,12 +174,12 @@
                         android:id="@+id/btnLogin"
                         style="@style/FontWhiteBig"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
-                        android:background="@drawable/selector_btn_login"
+                        android:background="@drawable/selector_btn_normal"
                         android:enabled="false"
-                        android:foreground="?android:attr/selectableItemBackground"
                         android:text="@string/login"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -228,6 +208,7 @@
                 style="@style/FontBlackSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
                 android:padding="5dp"
                 android:text="@string/user_protocol"/>
         </LinearLayout>

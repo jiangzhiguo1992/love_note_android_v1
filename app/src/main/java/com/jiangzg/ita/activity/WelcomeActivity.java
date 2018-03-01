@@ -64,8 +64,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         } else {
             // 有token
             final long startTime = DateUtils.getCurrentLong();
-            // todo entry获取并存到本地
-            goHome(startTime);
+            // todo 登录api调用 + 本地数据存储
             //Entry entry = Entry.getEntry();
             //Call<Result> call = new RetroManager().call(API.class).entry(entry);
             //RetroManager.enqueue(call, null, new RetroManager.CallBack() {
@@ -84,7 +83,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             //             UserPreference.setCouple(couple);
             //        }
             //        if (version != null) {
-            //            // todo 升级
+            //
             //        }
             //        goHome(startTime);
             //    }
@@ -94,6 +93,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             //        LogUtils.e("---->");
             //    }
             //});
+            goHome(startTime);
         }
     }
 
