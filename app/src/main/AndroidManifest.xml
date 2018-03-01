@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jiangzg.ita">
 
+    <meta-data
+        android:name="UMENG_CHANNEL"
+        android:value="${UMENG_CHANNEL_VALUE}"/>
     <application
         android:name=".base.MyApp"
         android:allowBackup="true"

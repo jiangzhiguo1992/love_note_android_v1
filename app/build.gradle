@@ -10,7 +10,8 @@ android {
         applicationId "com.jiangzg.ita" // 要和manifest一致
         versionCode 1
         versionName "1.0.0"
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
+        flavorDimensions "release" // 多渠道打包分支
     }
     signingConfigs { // 签名信息
         jzg_01 {
@@ -35,15 +36,110 @@ android {
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
                 def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        // 输出apk名称为app_code_date.apk
-                        def date = new Date().format("yyyy-MM-dd-HH-mm")
-                        outputFileName = "app_${android.defaultConfig.versionCode}_${date}.apk"
-                    }
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    // 输出apk名称为app_code_date.apk
+                    def date = new Date().format("yyyy-MM-dd-HH-mm")
+                    outputFileName = "ita_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}.apk"
+                }
             }
         }
     }
-    productFlavors { // todo 发布渠道
+    productFlavors { // 发布渠道
+        //---------------------手机市场----------------------
+        sanxing { // 三星应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "sanxing"]
+        }
+        xiaomi { // 小米应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
+        }
+        huawei { // 华为应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "huawei"]
+        }
+        vivo { // vivo应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "vivo"]
+        }
+        oppo { // oppo应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "oppo"]
+        }
+        meizu { // 魅族应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "meizu"]
+        }
+        nubiya { // 努比亚应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "nubiya"]
+        }
+        yijia { // 一加应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yijia"]
+        }
+        jinli { // 金立应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jinli"]
+        }
+        nuojiya { // 诺基亚应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "nuojiya"]
+        }
+        //---------------------附属市场----------------------
+        yingyongbao { // 应用宝
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyongbao"]
+        }
+        qh360 { // 360手机助手
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "qh360"]
+        }
+        baidu { // 百度助手
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        taobao { // 淘宝手机助手
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "taobao"]
+        }
+        sougou { // 搜狗应用市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "sougou"]
+        }
+        wo { // 沃商店
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wo"]
+        }
+        //---------------------专职市场----------------------
+        wandoujia { // 豌豆荚
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        ku { // 酷市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "ku"]
+        }
+        yingyonghui { // 应用汇
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "yingyonghui"]
+        }
+        mumayi { // 木蚂蚁
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "mumayi"]
+        }
+        nineone { // 91手机助手
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "nineone"]
+        }
+        anzhi { // 安智市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anzhi"]
+        }
+        anzhuo { // 安卓市场
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "anzhuo"]
+        }
     }
     sourceSets { // 源码设置
         main {
@@ -56,6 +152,8 @@ android {
     }
     compileOptions { // 编码/JDK等
         encoding "UTF-8"
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
     }
     lintOptions { // 编译的lint检查
         disable 'MissingTranslation' // 防止在发布的时候出现因MissingTranslation导致Build Failed!
