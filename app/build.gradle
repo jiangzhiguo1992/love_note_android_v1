@@ -13,10 +13,10 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     signingConfigs { // 签名信息
-        jzg_01 { // todo 新建key
-            storeFile file('/Users/gg/Documents/mine/android/key/jiangzg_debug.jks')
+        jzg_01 {
+            storeFile file('/Users/gg/Documents/mine/android/key/jzg_01')
             storePassword 'laojiang1'
-            keyAlias 'jiangzg'
+            keyAlias 'jzg_01'
             keyPassword 'laojiang1'
         }
     }
@@ -24,23 +24,24 @@ android {
         debug { // 测试
             signingConfig signingConfigs.jzg_01 // 设置签名信息
             minifyEnabled true // 混淆开关
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro' // 混淆规则文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 混淆规则文件
         }
         release { // 正式
             signingConfig signingConfigs.jzg_01 // 可以只用一个签名信息
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-//        applicationVariants.all { variant ->
-//            variant.outputs.each { output ->
-//                def outputFile = output.outputFile
-//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
-//                    // 输出apk名称为app_1.0.1.apk
-//                    def fileName = "app_${defaultConfig.versionName}.apk"
-//                    output.outputFile = new File(outputFile.parent, fileName)
-//                }
-//            }
-//        }
+        applicationVariants.all { variant ->
+            variant.outputs.all { output ->
+                def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        // 输出apk名称为app_code_date.apk
+                        def date = new Date().format("yyyy-MM-dd-HH-mm")
+                        outputFileName = "app_${android.defaultConfig.versionCode}_${date}.apk"
+                    }
+            }
+        }
     }
     productFlavors { // todo 发布渠道
     }
