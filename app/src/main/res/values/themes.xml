@@ -76,6 +76,9 @@
         <!-- 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色 -->
         <item name="android:colorForeground">@color/foreground_color</item>
 
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertDialog</item>
+
         <!-- 整体跳转动画,也可在BaseActivity中动态设置 -->
         <!--<item name="android:windowAnimationStyle">@style/mSlideAnim</item>-->
 

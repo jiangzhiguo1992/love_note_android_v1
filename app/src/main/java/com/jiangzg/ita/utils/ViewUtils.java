@@ -1,7 +1,6 @@
 package com.jiangzg.ita.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -13,9 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.media.image.DrawableUtils;
@@ -30,11 +27,13 @@ import com.jiangzg.ita.service.UpdateService;
  */
 public class ViewUtils {
 
-    public static void initToolbar(final AppCompatActivity activity, Toolbar tb, boolean navBack) {
+    public static void initTopBar(final AppCompatActivity activity, Toolbar tb, String title, boolean navBack) {
+        if (activity == null || tb == null) return;
+        tb.setTitle(title);
         activity.setSupportActionBar(tb);
         ActionBar actionBar = activity.getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false); // 不用默认的title
+            actionBar.setDisplayShowTitleEnabled(!title.trim().isEmpty());
             actionBar.setDisplayHomeAsUpEnabled(navBack);
             actionBar.setHomeButtonEnabled(navBack);
             actionBar.setDisplayShowHomeEnabled(navBack);
@@ -47,6 +46,8 @@ public class ViewUtils {
                     activity.finish();
                 }
             });
+        } else {
+            tb.setTitleMarginStart(50);
         }
     }
 

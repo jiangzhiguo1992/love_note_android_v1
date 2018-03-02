@@ -145,21 +145,6 @@ public class CalUtils {
     }
 
     /**
-     * ***********************************月********************************8
-     * 传入月份的天数
-     */
-    public static int getDaysNumOfMonth(Calendar c) {
-        if (c == null) {
-            Log.e(LOG_TAG, "getDaysNumOfMonth: c == null");
-            return 0;
-        }
-        Calendar tmp = Calendar.getInstance();
-        tmp.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), 1);
-        tmp.roll(Calendar.DATE, false); // 将临时Calendar设置成当月最后一天
-        return tmp.get(Calendar.DATE); // 获取最后一天
-    }
-
-    /**
      * 获取月份中的第几周
      * <p>注意：国外周日才是新的一周的开始</p>
      *

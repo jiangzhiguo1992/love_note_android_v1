@@ -10,16 +10,17 @@
     <color name="foreground_color">#CBCBCB</color>
     <!-- 字体颜色 -->
     <color name="font_black">#333333</color>
-    <color name="font_white">@color/color_white</color>
+    <color name="font_white">#FFFFFF</color>
     <color name="font_gray">#7F7F7F</color>
     <color name="font_primary">@color/color_primary</color>
     <color name="font_hint">#CBCBCB</color>
     <color name="line_gray">#CBCBCB</color>
     <!-- 常用颜色 -->
-    <color name="color_white">#FFFFFF</color>
     <color name="trans_00">#00FFFFFF</color>
-    <color name="trans_25">#3fffffff</color>
-    <color name="trans_50">#7fffffff</color>
-    <color name="trans_75">#beffffff</color>
-
+    <color name="white_trans_25">#3fffffff</color>
+    <color name="white_trans_50">#7fffffff</color>
+    <color name="white_trans_75">#beffffff</color>
+    <color name="black_trans_25">#3f000000</color>
+    <color name="black_trans_50">#7f000000</color>
+    <color name="black_trans_75">#be000000</color>
 </resources>

@@ -45,6 +45,7 @@
     <string name="input_hint_verify">请输入验证码</string>
     <string name="login">登录</string>
     <string name="input_hint_pwd">请输入密码</string>
+    <string name="input_hint_pwd_confirm">请再次输入密码</string>
     <string name="register">注册</string>
     <string name="verify_login">验证码登录</string>
     <string name="pwd_login">密码登录</string>
@@ -172,4 +173,9 @@
     <string name="agree">同意</string>
     <string name="user_protocol">用户协议</string>
     <string name="please_check_agree_protocol">请勾选下方的同意用户协议</string>
+    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
+    <string name="set_ok">设置好了</string>
+    <string name="user_info">用户信息</string>
+    <string name="please_select_sex">请选择性别</string>
+    <string name="please_select_birth">请选择生日</string>
 </resources>

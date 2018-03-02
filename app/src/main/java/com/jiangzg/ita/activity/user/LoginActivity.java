@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,8 +64,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     TextInputLayout tilPwd;
     @BindView(R.id.llVerify)
     LinearLayout llVerify;
-    @BindView(R.id.tvForget)
-    TextView tvForget;
     @BindView(R.id.cbProtocol)
     CheckBox cbProtocol;
     @BindView(R.id.tvProtocol)
@@ -85,8 +85,19 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initToolbar(mActivity, tb, false);
+        ViewUtils.initTopBar(mActivity, tb, getString(R.string.login), false);
         ViewUtils.setLineBottom(tvProtocol);
+        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menuForget: // 忘记密码
+                        ForgetActivity.goActivity(mActivity);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -100,12 +111,18 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         stopTimer();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etCode})
     public void afterTextChanged(Editable s) {
         onInputChange();
     }
 
-    @OnClick({R.id.btnLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvForget, R.id.tvProtocol})
+    @OnClick({R.id.btnLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvProtocol})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLoginType: // 登录类型
@@ -119,9 +136,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 break;
             case R.id.btnRegister: // 注册
                 RegisterActivity.goActivity(mActivity);
-                break;
-            case R.id.tvForget: // 忘记密码
-                ForgetActivity.goActivity(mActivity);
                 break;
             case R.id.tvProtocol: // 用户协议
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
@@ -230,9 +244,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         }
         String phone = etPhone.getText().toString().trim();
         String password = etPwd.getText().toString().trim();
-        String validateCode = etCode.getText().toString().trim();
+        String code = etCode.getText().toString().trim();
 
-        User user = User.getLogin(phone, password, validateCode, logType);
+        User user = User.getLogin(phone, password, code, logType);
 
         // todo api调用
         //Call<Result> call = new RetroManager().call(API.class).userLogin(user);
@@ -247,6 +261,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         //    public void onFailure() {
         //    }
         //});
+        stopTimer();
         HomeActivity.goActivity(mActivity);
         mActivity.finish();
     }

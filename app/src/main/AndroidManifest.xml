@@ -5,6 +5,7 @@
     <meta-data
         android:name="UMENG_CHANNEL"
         android:value="${UMENG_CHANNEL_VALUE}"/>
+
     <application
         android:name=".base.MyApp"
         android:allowBackup="true"
@@ -47,6 +48,8 @@
         <activity android:name=".activity.user.ForgetActivity">
         </activity>
         <activity android:name=".activity.common.WebActivity">
+        </activity>
+        <activity android:name=".activity.user.UserInfoActivity">
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- AppBarLayout(android:theme里加,可调整字体颜色) app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
@@ -11,6 +11,14 @@
     <style name="SelectRipple">
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <!-- 自定义对话框样式 -->
+    <style name="AlertDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/color_primary_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/font_primary</item>
     </style>
 
     <!-- 自定义对话框样式 -->

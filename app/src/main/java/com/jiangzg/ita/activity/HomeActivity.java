@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.fragment.FragmentTrans;
 import com.jiangzg.ita.R;
@@ -18,6 +19,8 @@ import com.jiangzg.ita.fragment.ShowFragment;
 import com.jiangzg.ita.fragment.WeFragment;
 import com.jiangzg.ita.utils.UserPreference;
 import com.jiangzg.ita.utils.ViewUtils;
+
+import java.util.Stack;
 
 import butterknife.BindView;
 
@@ -64,7 +67,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         //ImageView imageview= (ImageView) findViewById(R.id.imageview);
         //imageview.setImageDrawable(a);
 
-        ViewUtils.initToolbar(mActivity, tb, false);
+        //ViewUtils.initTopBar(mActivity, tb, "", false);
 
         bookFragment = BookFragment.newFragment();
         weFragment = WeFragment.newFragment();
@@ -91,7 +94,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         //                if (weFragment.isAdded()) {
         //                    FragmentTrans.show(mFragmentManager, weFragment, false);
         //                } else {
-                            FragmentTrans.add(mFragmentManager, weFragment, R.id.rlContent);
+        FragmentTrans.add(mFragmentManager, weFragment, R.id.rlContent);
         //                }
         //                FragmentTrans.hide(mFragmentManager, bookFragment, false);
         //                FragmentTrans.hide(mFragmentManager, showFragment, false);
@@ -116,6 +119,18 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void initData(Bundle state) {
         initUser();
+    }
+
+    // 关闭其他栈底activity，栈顶由singleTask来关闭
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Stack<Activity> stack = ActivityStack.getStack();
+        for (Activity activity : stack) {
+            if (activity != mActivity) {
+                activity.finish();
+            }
+        }
     }
 
     //@Override

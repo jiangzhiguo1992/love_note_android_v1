@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.jiangzg.ita.activity.user.UserInfoActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/FontPrimaryHuge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/please_select_sex"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:id="@+id/rlGirl"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/ic_girl_rect"/>
+
+                    <ImageView
+                        android:id="@+id/ivGirl"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/black_trans_50"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_done"
+                        tools:visibility="visible"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlBoy"
+                    android:layout_width="0dp"
+                    android:layout_height="180dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitCenter"
+                        android:src="@mipmap/ic_boy_rect"/>
+
+                    <ImageView
+                        android:id="@+id/ivBoy"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/black_trans_50"
+                        android:scaleType="fitCenter"
+                        android:visibility="gone"
+                        app:srcCompat="@drawable/ic_done"
+                        tools:visibility="gone"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <TextView
+                style="@style/FontPrimaryHuge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="@string/please_select_birth"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <NumberPicker
+                    android:id="@+id/npYear"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"/>
+
+                <NumberPicker
+                    android:id="@+id/npMonth"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"/>
+
+                <NumberPicker
+                    android:id="@+id/npDay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:descendantFocusability="blocksDescendants"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOk"
+                style="@style/FontWhiteHuge"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/selector_btn_normal"
+                android:text="@string/set_ok"/>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
