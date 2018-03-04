@@ -3,16 +3,13 @@ package com.jiangzg.ita.activity.user;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
@@ -22,11 +19,12 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
+import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.view.GNumberPicker;
 
-import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import butterknife.BindView;
@@ -45,11 +43,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.rlBoy)
     RelativeLayout rlBoy;
     @BindView(R.id.npYear)
-    NumberPicker npYear;
+    GNumberPicker npYear;
     @BindView(R.id.npMonth)
-    NumberPicker npMonth;
+    GNumberPicker npMonth;
     @BindView(R.id.npDay)
-    NumberPicker npDay;
+    GNumberPicker npDay;
     @BindView(R.id.btnOk)
     Button btnOk;
 
@@ -66,11 +64,25 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.user_info), false);
-        int color = ContextCompat.getColor(mActivity, R.color.color_primary);
         // 时间选择器
-        setNumberPickerStyle(npYear, color);
-        setNumberPickerStyle(npMonth, color);
-        setNumberPickerStyle(npDay, color);
+        npYear.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.valueOf(value) + mActivity.getString(R.string.dayR);
+            }
+        });
+        npMonth.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.valueOf(value) + mActivity.getString(R.string.month);
+            }
+        });
+        npDay.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int value) {
+                return String.valueOf(value) + mActivity.getString(R.string.year);
+            }
+        });
         setYeas();
         setMonths();
         setDays();
@@ -80,7 +92,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuHelp: // 帮助
-                        // todo
+                        HelpActivity.goActivity(mActivity, HelpActivity.TYPE_USER_INFO_SET);
                         break;
                 }
                 return true;
@@ -126,30 +138,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
                 checkUserInfo();
                 break;
         }
-    }
-
-    /**
-     * 过反射改变文字的颜色
-     */
-    public static boolean setNumberPickerStyle(NumberPicker numberPicker, int color) {
-        numberPicker.setWrapSelectorWheel(false);
-        final int count = numberPicker.getChildCount();
-        for (int i = 0; i < count; i++) {
-            View child = numberPicker.getChildAt(i);
-            if (child instanceof EditText) {
-                try {
-                    Field selectorWheelPaintField = numberPicker.getClass().getDeclaredField("mSelectorWheelPaint");
-                    selectorWheelPaintField.setAccessible(true);
-                    ((Paint) selectorWheelPaintField.get(numberPicker)).setColor(color);
-                    ((EditText) child).setTextColor(color);
-                    numberPicker.invalidate();
-                    return true;
-                } catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return false;
     }
 
     private void checkUserInfo() {

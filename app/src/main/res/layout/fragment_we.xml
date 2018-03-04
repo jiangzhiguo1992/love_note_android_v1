@@ -42,7 +42,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="10dp">
 
-                    <com.jiangzg.ita.view.CircleImageView
+                    <com.jiangzg.ita.view.GCircleImageView
                         android:id="@+id/civHeadLeft"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -53,7 +53,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"/>
 
-                    <com.jiangzg.ita.view.CircleImageView
+                    <com.jiangzg.ita.view.GCircleImageView
                         android:id="@+id/civHeadRight"
                         android:layout_width="100dp"
                         android:layout_height="100dp"

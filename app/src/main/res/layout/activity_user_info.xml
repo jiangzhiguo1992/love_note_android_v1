@@ -46,14 +46,14 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitCenter"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/ic_girl_rect"/>
 
                     <ImageView
                         android:id="@+id/ivGirl"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/black_trans_50"
+                        android:background="@drawable/shape_bg_sex_select"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:srcCompat="@drawable/ic_done"
@@ -72,14 +72,14 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="fitCenter"
+                        android:scaleType="fitXY"
                         android:src="@mipmap/ic_boy_rect"/>
 
                     <ImageView
                         android:id="@+id/ivBoy"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/black_trans_50"
+                        android:background="@drawable/shape_bg_sex_select"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:srcCompat="@drawable/ic_done"
@@ -102,38 +102,35 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <NumberPicker
+                <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npYear"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="30dp"
                     android:layout_weight="1"
-                    android:descendantFocusability="blocksDescendants"
-                    android:focusable="true"
-                    android:focusableInTouchMode="false"/>
+                    app:divider_color="@color/color_primary"
+                    app:text_color="@color/color_primary"/>
 
-                <NumberPicker
+                <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npMonth"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:descendantFocusability="blocksDescendants"
-                    android:focusable="true"
-                    android:focusableInTouchMode="false"/>
+                    app:divider_color="@color/color_primary"
+                    app:text_color="@color/color_primary"/>
 
-                <NumberPicker
+                <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:descendantFocusability="blocksDescendants"
-                    android:focusable="true"
-                    android:focusableInTouchMode="false"/>
+                    app:divider_color="@color/color_primary"
+                    app:text_color="@color/color_primary"/>
             </LinearLayout>
 
             <Button

@@ -46,7 +46,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     private WeFragment weFragment;
     private ShowFragment showFragment;
 
-    // todo 启动模式调一下(唯一的那种)
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
         // intent.putExtra();

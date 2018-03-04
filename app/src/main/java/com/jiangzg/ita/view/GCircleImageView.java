@@ -33,7 +33,7 @@ import android.view.ViewOutlineProvider;
 
 import com.jiangzg.ita.R;
 
-public class CircleImageView extends android.support.v7.widget.AppCompatImageView {
+public class GCircleImageView extends android.support.v7.widget.AppCompatImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
@@ -72,31 +72,28 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     private boolean mBorderOverlay;
     private boolean mDisableCircularTransformation;
 
-    public CircleImageView(Context context) {
+    public GCircleImageView(Context context) {
         super(context);
 
         init();
     }
 
-    public CircleImageView(Context context, AttributeSet attrs) {
+    public GCircleImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleImageView(Context context, AttributeSet attrs, int defStyle) {
+    public GCircleImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GCircleImageView, defStyle, 0);
 
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_civ_border_width, DEFAULT_BORDER_WIDTH);
-        mBorderColor = a.getColor(R.styleable.CircleImageView_civ_border_color, DEFAULT_BORDER_COLOR);
-        mBorderOverlay = a.getBoolean(R.styleable.CircleImageView_civ_border_overlay, DEFAULT_BORDER_OVERLAY);
+        mBorderWidth = a.getDimensionPixelSize(R.styleable.GCircleImageView_border_width, DEFAULT_BORDER_WIDTH);
+        mBorderColor = a.getColor(R.styleable.GCircleImageView_border_color, DEFAULT_BORDER_COLOR);
+        mBorderOverlay = a.getBoolean(R.styleable.GCircleImageView_border_overlay, DEFAULT_BORDER_OVERLAY);
 
         // Look for deprecated civ_fill_color if civ_circle_background_color is not set
-        if (a.hasValue(R.styleable.CircleImageView_civ_circle_background_color)) {
-            mCircleBackgroundColor = a.getColor(R.styleable.CircleImageView_civ_circle_background_color,
-                    DEFAULT_CIRCLE_BACKGROUND_COLOR);
-        } else if (a.hasValue(R.styleable.CircleImageView_civ_fill_color)) {
-            mCircleBackgroundColor = a.getColor(R.styleable.CircleImageView_civ_fill_color,
+        if (a.hasValue(R.styleable.GCircleImageView_circle_background_color)) {
+            mCircleBackgroundColor = a.getColor(R.styleable.GCircleImageView_circle_background_color,
                     DEFAULT_CIRCLE_BACKGROUND_COLOR);
         }
 
