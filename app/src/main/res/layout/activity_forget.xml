@@ -1,10 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.jiangzg.ita.activity.user.ForgetActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/text_welcome_title"
+                android:tint="@color/color_primary"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp">
+
+                <EditText
+                    android:id="@+id/etPhone"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="15dp"
+                    android:drawableStart="@mipmap/ic_login_phone"
+                    android:hint="@string/input_hint_phone"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/line_gray">
+
+                <EditText
+                    android:id="@+id/etPwd"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="15dp"
+                    android:drawableStart="@mipmap/ic_login_pwd"
+                    android:hint="@string/input_hint_new_pwd"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/line_gray">
+
+                <EditText
+                    android:id="@+id/etPwdConfirm"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="15dp"
+                    android:drawableStart="@mipmap/ic_login_pwd"
+                    android:hint="@string/input_hint_new_pwd_confirm"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginStart="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/etCode"
+                        style="@style/FontBlackNormal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="15dp"
+                        android:drawableStart="@mipmap/ic_login_verify"
+                        android:hint="@string/input_hint_verify"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true"
+                        android:textColorHint="@color/font_hint"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <Button
+                    android:id="@+id/btnSendCode"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/selector_btn_normal"
+                    android:enabled="false"
+                    android:text="@string/send_validate_code"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnOk"
+                style="@style/FontWhiteBig"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_btn_normal"
+                android:enabled="false"
+                android:text="@string/set_ok"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

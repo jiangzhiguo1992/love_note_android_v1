@@ -46,7 +46,9 @@
     <string name="input_hint_verify">请输入验证码</string>
     <string name="login">登录</string>
     <string name="input_hint_pwd">请输入密码</string>
+    <string name="input_hint_new_pwd">请输入新密码</string>
     <string name="input_hint_pwd_confirm">请再次输入密码</string>
+    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
     <string name="register">注册</string>
     <string name="verify_login">验证码登录</string>
     <string name="pwd_login">密码登录</string>
