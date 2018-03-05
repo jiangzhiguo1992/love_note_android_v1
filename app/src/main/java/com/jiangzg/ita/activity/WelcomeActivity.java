@@ -21,7 +21,7 @@ import butterknife.BindView;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
-    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
+    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 1); // todo 修改
 
     @BindView(R.id.ivBg)
     ImageView ivBg;
@@ -58,7 +58,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LoginActivity.goActivity(mActivity);
+                    //LoginActivity.goActivity(mActivity);
+                    HomeActivity.goActivity(mActivity); // todo 修改
                 }
             }, TransPageMillis);
         } else {

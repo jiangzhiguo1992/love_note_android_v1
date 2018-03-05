@@ -2,12 +2,13 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.jiangzg.ita.fragment.ShowFragment">
+             tools:context="com.jiangzg.ita.fragment.TopicFragment">
 
     <TextView
+        style="@style/FontBlackBig"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="秀恩爱"/>
+        android:text="大广场"/>
 
 </FrameLayout>

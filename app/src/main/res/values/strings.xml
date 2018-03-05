@@ -59,6 +59,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_bottom">BottomActivity</string>
+    <string name="title_nav_we">我和Ta</string>
+    <string name="title_nav_book">小本本</string>
+    <string name="title_nav_topic">话题</string>
+    <string name="title_nav_square">广场</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>

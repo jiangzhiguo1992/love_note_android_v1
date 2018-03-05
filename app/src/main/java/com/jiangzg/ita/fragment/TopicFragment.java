@@ -11,17 +11,17 @@ import com.jiangzg.ita.base.BaseFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShowFragment extends BaseFragment<ShowFragment> {
+public class TopicFragment extends BaseFragment<TopicFragment> {
 
-    public static ShowFragment newFragment() {
+    public static TopicFragment newFragment() {
         Bundle bundle = new Bundle();
         // bundle.putData();
-        return BaseFragment.newInstance(ShowFragment.class, bundle);
+        return BaseFragment.newInstance(TopicFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_show;
+        return R.layout.fragment_topic;
     }
 
     @Override

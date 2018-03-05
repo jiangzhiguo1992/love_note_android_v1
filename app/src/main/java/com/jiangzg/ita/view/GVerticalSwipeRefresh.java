@@ -10,20 +10,20 @@ import android.view.ViewConfiguration;
  * Created by JiangZhiGuo on 2016/8/11.
  * describe 只监听垂直下拉的SwipeRefreshLayout
  */
-public class VerticalSwipeRefresh extends SwipeRefreshLayout {
+public class GVerticalSwipeRefresh extends SwipeRefreshLayout {
 
     private int mTouchSlop;
     // 上一次触摸时的X坐标
     private float mPrevX;
 
-    public VerticalSwipeRefresh(Context context) {
+    public GVerticalSwipeRefresh(Context context) {
         super(context);
 
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
-    public VerticalSwipeRefresh(Context context, AttributeSet attrs) {
+    public GVerticalSwipeRefresh(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件

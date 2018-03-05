@@ -3,22 +3,23 @@ package com.jiangzg.ita.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.fragment.FragmentTrans;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.adapter.BaseFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.fragment.BookFragment;
-import com.jiangzg.ita.fragment.ShowFragment;
+import com.jiangzg.ita.fragment.SquareFragment;
+import com.jiangzg.ita.fragment.TopicFragment;
 import com.jiangzg.ita.fragment.WeFragment;
 import com.jiangzg.ita.utils.UserPreference;
-import com.jiangzg.ita.utils.ViewUtils;
 
 import java.util.Stack;
 
@@ -26,25 +27,12 @@ import butterknife.BindView;
 
 public class HomeActivity extends BaseActivity<HomeActivity> {
 
-    @BindView(R.id.tb)
-    Toolbar tb;
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
-    @BindView(R.id.rlContent)
-    RelativeLayout rlContent;
-    //@BindView(R.id.rbBook)
-    //RadioButton rbBook;
-    //@BindView(R.id.rbWe)
-    //RadioButton rbWe;
-    //@BindView(R.id.rbShow)
-    //RadioButton rbShow;
-    //@BindView(R.id.rgBottom)
-    //RadioGroup rgBottom;
+    @BindView(R.id.vpContent)
+    ViewPager vpContent;
+    @BindView(R.id.bnvBottom)
+    BottomNavigationView bnvBottom;
 
-
-    private BookFragment bookFragment;
-    private WeFragment weFragment;
-    private ShowFragment showFragment;
+    private int[] menuIdArray = new int[]{R.id.menu_we, R.id.menu_book, R.id.menu_topic, R.id.menu_square};
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
@@ -60,64 +48,40 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        //VectorDrawableCompat a=VectorDrawableCompat.create(getResources(), R.drawable.ic_group, getTheme());
-        //a.setTintMode();
-        //a.setTint(Color.RED);
-        //ImageView imageview= (ImageView) findViewById(R.id.imageview);
-        //imageview.setImageDrawable(a);
+        // viewPager
+        BaseFragmentPagerAdapter<BaseFragment> viewPagerAdapter = getViewPagerAdapter();
+        vpContent.setAdapter(viewPagerAdapter);
+        // listener
+        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //LogUtils.e(position + "-->" + positionOffset + "<--" + positionOffsetPixels);
+            }
 
-        //ViewUtils.initTopBar(mActivity, tb, "", false);
+            @Override
+            public void onPageSelected(int position) {
+                bnvBottom.setSelectedItemId(menuIdArray[position]);
+            }
 
-        bookFragment = BookFragment.newFragment();
-        weFragment = WeFragment.newFragment();
-        showFragment = ShowFragment.newFragment();
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-        //rgBottom.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-        //    @Override
-        //    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        //        switch (checkedId) {
-        //            case R.id.rbBook: // 小本本
-        //                String textBook = rbBook.getText().toString();
-        //                tvTitle.setText(textBook);
-        //                if (bookFragment.isAdded()) {
-        //                    FragmentTrans.show(mFragmentManager, bookFragment, false);
-        //                } else {
-        //                    FragmentTrans.add(mFragmentManager, bookFragment, R.id.rlContent);
-        //                }
-        //                FragmentTrans.hide(mFragmentManager, weFragment, false);
-        //                FragmentTrans.hide(mFragmentManager, showFragment, false);
-        //                break;
-        //            case R.id.rbWe: // 我和他
-        //                String textWe = rbWe.getText().toString();
-        //                tvTitle.setText(textWe);
-        //                if (weFragment.isAdded()) {
-        //                    FragmentTrans.show(mFragmentManager, weFragment, false);
-        //                } else {
-        FragmentTrans.add(mFragmentManager, weFragment, R.id.rlContent);
-        //                }
-        //                FragmentTrans.hide(mFragmentManager, bookFragment, false);
-        //                FragmentTrans.hide(mFragmentManager, showFragment, false);
-        //                break;
-        //            case R.id.rbShow: // 秀恩爱
-        //                String textShow = rbShow.getText().toString();
-        //                tvTitle.setText(textShow);
-        //                if (showFragment.isAdded()) {
-        //                    FragmentTrans.show(mFragmentManager, showFragment, false);
-        //                } else {
-        //                    FragmentTrans.add(mFragmentManager, showFragment, R.id.rlContent);
-        //                }
-        //                FragmentTrans.hide(mFragmentManager, bookFragment, false);
-        //                FragmentTrans.hide(mFragmentManager, weFragment, false);
-        //                break;
-        //        }
-        //    }
-        //});
-        //goInitTab();
+            }
+        });
+        bnvBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                changeFragment2(item.getItemId());
+                return true;
+            }
+        });
+        // firstFragment
+        bnvBottom.setSelectedItemId(menuIdArray[0]);
+
     }
 
     @Override
     protected void initData(Bundle state) {
-        initUser();
     }
 
     // 关闭其他栈底activity，栈顶由singleTask来关闭
@@ -130,17 +94,35 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                 activity.finish();
             }
         }
+        initUser();
     }
 
-    //@Override
-    //protected void onRestart() {
-    //    super.onRestart();
-    //    initUser();
-    //}
+    public BaseFragmentPagerAdapter<BaseFragment> getViewPagerAdapter() {
+        FragmentManager manager = mActivity.getSupportFragmentManager();
+        BaseFragmentPagerAdapter<BaseFragment> fragmentAdapter = new BaseFragmentPagerAdapter<>(manager);
 
-    //public void goInitTab() {
-    //    rbWe.setChecked(true);
-    //}
+        WeFragment weFragment = WeFragment.newFragment();
+        BookFragment bookFragment = BookFragment.newFragment();
+        TopicFragment topicFragment = TopicFragment.newFragment();
+        SquareFragment squareFragment = SquareFragment.newFragment();
+
+        fragmentAdapter.addData("", weFragment);
+        fragmentAdapter.addData("", bookFragment);
+        fragmentAdapter.addData("", topicFragment);
+        fragmentAdapter.addData("", squareFragment);
+        return fragmentAdapter;
+    }
+
+    private void changeFragment2(int menuId) {
+        int selectItemIndex = 0;
+        for (int i = 0; i < menuIdArray.length; i++) {
+            if (menuId == menuIdArray[i]) {
+                selectItemIndex = i;
+                break;
+            }
+        }
+        vpContent.setCurrentItem(selectItemIndex, true);
+    }
 
     private void initUser() {
         if (UserPreference.noLogin()) {
@@ -151,23 +133,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             } else {
                 //todo
             }
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuSettings: //设置
-
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 

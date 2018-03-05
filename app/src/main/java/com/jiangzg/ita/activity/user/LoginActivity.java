@@ -2,6 +2,7 @@ package com.jiangzg.ita.activity.user;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -74,6 +76,14 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private Timer timer;
 
     public static void goActivity(Activity from) {
+        // 顶部已经是LoginActivity时，不再跳转
+        Activity top = ActivityStack.getTop();
+        if (top != null) {
+            ComponentName name = top.getComponentName();
+            if (name.getClassName().equals("LoginActivity")) {
+                return;
+            }
+        }
         Intent intent = new Intent(from, LoginActivity.class);
         ActivityTrans.start(from, intent);
     }

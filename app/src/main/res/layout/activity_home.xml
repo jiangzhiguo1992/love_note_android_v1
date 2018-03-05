@@ -5,86 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.jiangzg.ita.activity.HomeActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tb"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <TextView
-                android:id="@+id/tvTitle"
-                style="@style/FontWhiteHuge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                tools:text="@string/i_and_ta"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlContent"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <View style="@style/LineHorizontal"/>
-
-    <LinearLayout
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bnvBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:tint="@color/foreground_color"
-            app:srcCompat="@drawable/ic_book"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:tint="@color/foreground_color"
-            app:srcCompat="@drawable/ic_home"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            app:srcCompat="@drawable/ic_book"/>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            app:srcCompat="@drawable/ic_book"/>
-
-    </LinearLayout>
+        app:itemBackground="@color/window_color"
+        app:menu="@menu/home_nav"/>
 
 </LinearLayout>

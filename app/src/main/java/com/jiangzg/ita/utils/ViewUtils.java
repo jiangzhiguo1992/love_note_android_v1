@@ -27,6 +27,9 @@ import com.jiangzg.ita.service.UpdateService;
  */
 public class ViewUtils {
 
+    //VectorDrawableCompat a=VectorDrawableCompat.create(getResources(), R.drawable.ic_group, getTheme());
+    //a.setTint(Color.RED);
+
     public static void initTopBar(final AppCompatActivity activity, Toolbar tb, String title, boolean navBack) {
         if (activity == null || tb == null) return;
         tb.setTitle(title);

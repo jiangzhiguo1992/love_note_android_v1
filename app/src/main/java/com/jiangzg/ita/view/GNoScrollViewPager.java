@@ -10,12 +10,12 @@ import android.view.MotionEvent;
  * 取消侧滑的viewPager
  */
 
-public class NoScrollViewPager extends ViewPager {
-    public NoScrollViewPager(Context context) {
+public class GNoScrollViewPager extends ViewPager {
+    public GNoScrollViewPager(Context context) {
         super(context);
     }
 
-    public NoScrollViewPager(Context context, AttributeSet attrs) {
+    public GNoScrollViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
