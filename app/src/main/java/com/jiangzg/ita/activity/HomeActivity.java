@@ -14,7 +14,7 @@ import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.BaseFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.base.BaseFragment;
+import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.fragment.BookFragment;
 import com.jiangzg.ita.fragment.SquareFragment;
 import com.jiangzg.ita.fragment.TopicFragment;
@@ -49,8 +49,9 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void initView(Bundle state) {
         // viewPager
-        BaseFragmentPagerAdapter<BaseFragment> viewPagerAdapter = getViewPagerAdapter();
+        BaseFragmentPagerAdapter<BasePagerFragment> viewPagerAdapter = getViewPagerAdapter();
         vpContent.setAdapter(viewPagerAdapter);
+        vpContent.setOffscreenPageLimit(0);
         // listener
         vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -97,9 +98,9 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         initUser();
     }
 
-    public BaseFragmentPagerAdapter<BaseFragment> getViewPagerAdapter() {
+    public BaseFragmentPagerAdapter<BasePagerFragment> getViewPagerAdapter() {
         FragmentManager manager = mActivity.getSupportFragmentManager();
-        BaseFragmentPagerAdapter<BaseFragment> fragmentAdapter = new BaseFragmentPagerAdapter<>(manager);
+        BaseFragmentPagerAdapter<BasePagerFragment> fragmentAdapter = new BaseFragmentPagerAdapter<>(manager);
 
         WeFragment weFragment = WeFragment.newFragment();
         BookFragment bookFragment = BookFragment.newFragment();
@@ -126,13 +127,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     private void initUser() {
         if (UserPreference.noLogin()) {
-            //todo
-        } else {
-            if (UserPreference.noCouple()) {
-                //todo
-            } else {
-                //todo
-            }
+            //LoginActivity.goActivity(mActivity);
         }
     }
 

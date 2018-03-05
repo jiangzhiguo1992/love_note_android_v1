@@ -1,17 +1,14 @@
 package com.jiangzg.ita.fragment;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
+import com.jiangzg.ita.base.BasePagerFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class TopicFragment extends BaseFragment<TopicFragment> {
+public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     public static TopicFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -29,9 +26,8 @@ public class TopicFragment extends BaseFragment<TopicFragment> {
 
     }
 
-    @Override
-    protected void initData(Bundle state) {
-
+    protected void refreshData() {
+        ToastUtils.show("Topic加载数据");
     }
 
 }

@@ -56,6 +56,12 @@ public abstract class BaseFragment<T> extends Fragment {
      */
     protected abstract void initData(Bundle state);
 
+    /* 最先调用的，是否展示在界面上 */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     @Override
     public void onAttach(Context context) {
         mFragment = this;
@@ -100,7 +106,7 @@ public abstract class BaseFragment<T> extends Fragment {
         initData(savedInstanceState);
     }
 
-    /*Fragment中的布局被移除时调用*/
+    /* Fragment中的布局被移除时调用 */
     @Override
     public void onDestroyView() {
         rootView = getView();

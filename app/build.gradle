@@ -24,7 +24,7 @@ android {
     buildTypes { // 打包选项
         debug { // 测试
             signingConfig signingConfigs.jzg_01 // 设置签名信息
-            minifyEnabled true // 混淆开关
+            minifyEnabled false // 混淆开关(测试最好关掉，否则会影响断点调试)
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 混淆规则文件
         }

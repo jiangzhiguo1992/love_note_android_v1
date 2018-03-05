@@ -34,6 +34,7 @@ import com.jiangzg.ita.utils.Constants;
 import com.jiangzg.ita.utils.UserPreference;
 import com.jiangzg.ita.utils.ViewUtils;
 
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -113,6 +114,18 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @Override
     protected void initData(Bundle state) {
 
+    }
+
+    // 关闭其他activity
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Stack<Activity> stack = ActivityStack.getStack();
+        for (Activity activity : stack) {
+            if (activity != mActivity) {
+                activity.finish();
+            }
+        }
     }
 
     @Override

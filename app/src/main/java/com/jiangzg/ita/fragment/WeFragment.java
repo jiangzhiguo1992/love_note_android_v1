@@ -6,19 +6,17 @@ import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.user.LoginActivity;
-import com.jiangzg.ita.activity.user.RegisterActivity;
 import com.jiangzg.ita.base.BaseFragment;
+import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.utils.UserPreference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class WeFragment extends BaseFragment<WeFragment> {
+public class WeFragment extends BasePagerFragment<WeFragment> {
 
-    @BindView(R.id.rlNoUser)
-    RelativeLayout rlNoUser;
     @BindView(R.id.rlNoCouple)
     RelativeLayout rlNoCouple;
     @BindView(R.id.rlLoading)
@@ -41,20 +39,13 @@ public class WeFragment extends BaseFragment<WeFragment> {
         refreshView();
     }
 
-    @Override
-    protected void initData(Bundle state) {
-
+    protected void refreshData() {
+        ToastUtils.show("We加载数据");
     }
 
-    @OnClick({R.id.btnLogin, R.id.btnRegister, R.id.btnCouple})
+    @OnClick({R.id.btnCouple})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnLogin: //登录类型
-                LoginActivity.goActivity(mActivity);
-                break;
-            case R.id.btnRegister: //验证码
-                RegisterActivity.goActivity(mActivity);
-                break;
             case R.id.btnCouple: //登录
 
                 break;
@@ -62,40 +53,26 @@ public class WeFragment extends BaseFragment<WeFragment> {
     }
 
     public void refreshView() {
-        if (UserPreference.noLogin()) {
-            viewNoLogin();
+        if (UserPreference.noCouple()) {
+            viewNoCouple();
         } else {
-            if (UserPreference.noCouple()) {
-                viewNoCouple();
-            } else {
-                viewIsCouple();
-            }
+            viewIsCouple();
         }
     }
 
-    private void viewNoLogin() {
-        rlNoUser.setVisibility(View.VISIBLE);
-        rlNoCouple.setVisibility(View.GONE);
-        rlLoading.setVisibility(View.GONE);
-        nsvCouple.setVisibility(View.GONE);
-    }
-
     private void viewNoCouple() {
-        rlNoUser.setVisibility(View.GONE);
         rlNoCouple.setVisibility(View.VISIBLE);
         rlLoading.setVisibility(View.GONE);
         nsvCouple.setVisibility(View.GONE);
     }
 
     private void viewIsCouple() {
-        rlNoUser.setVisibility(View.GONE);
         rlNoCouple.setVisibility(View.GONE);
         rlLoading.setVisibility(View.GONE);
         nsvCouple.setVisibility(View.VISIBLE);
     }
 
     private void viewLoading() {
-        rlNoUser.setVisibility(View.GONE);
         rlNoCouple.setVisibility(View.GONE);
         rlLoading.setVisibility(View.VISIBLE);
         nsvCouple.setVisibility(View.GONE);

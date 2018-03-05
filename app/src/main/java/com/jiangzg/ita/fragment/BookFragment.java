@@ -2,14 +2,13 @@ package com.jiangzg.ita.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
 
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
+import com.jiangzg.ita.base.BasePagerFragment;
 
-import butterknife.BindView;
-
-public class BookFragment extends BaseFragment<BookFragment> {
+public class BookFragment extends BasePagerFragment<BookFragment> {
 
     public static BookFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -27,9 +26,8 @@ public class BookFragment extends BaseFragment<BookFragment> {
 
     }
 
-    @Override
-    protected void initData(Bundle state) {
-
+    protected void refreshData() {
+        ToastUtils.show("Book加载数据");
     }
 
 }
