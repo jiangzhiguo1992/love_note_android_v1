@@ -19,6 +19,7 @@ public class Constants {
     public static final int REQUEST_PERM_ALERT = 1005;  // perm
     public static final int REQUEST_APP_INFO = 1006;  // app
     public static final int REQUEST_DEVICE_INFO = 1007;  // device
+    public static final int REQUEST_CONTACT = 1008;  // 联系人
     // RxBus.ID
     public static final int EVENT_USER = 1;
     public static final int EVENT_COUPLE = 2;

@@ -1,5 +1,7 @@
 package com.jiangzg.ita.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -16,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.intent.IntentUtils;
+import com.jiangzg.base.function.ContactUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseFragment;
@@ -163,6 +168,15 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
         inflater.inflate(R.menu.help, menu);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK&&requestCode == Constants.REQUEST_CONTACT){
+            String select = ContactUtils.getContactSelect(data);
+            etPhone.setText(select);
+        }
+    }
+
     @OnTextChanged({R.id.etPhone})
     public void afterTextChanged(Editable s) {
         onInputChange();
@@ -175,7 +189,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivContact: // 联系人
-                // todo
+                selectContact();
                 break;
             case R.id.btnFind: // 开始寻找
                 findTa();
@@ -236,6 +250,11 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     private void onInputChange() {
         boolean phone = etPhone.getText().toString().trim().length() > 0;
         btnFind.setEnabled(phone);
+    }
+
+    private void selectContact() {
+        Intent contacts = IntentUtils.getContacts();
+        ActivityTrans.startResult(mFragment,contacts,Constants.REQUEST_CONTACT);
     }
 
     private void changeViewShow() {

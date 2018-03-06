@@ -140,6 +140,7 @@ public class ContactUtils {
         }
         cursor.close();
         num = num.replaceAll("-", "");//替换的操作,555-6 -> 5556
+        num = num.replaceAll(" ", "");//替换的操作,555-6 -> 5556
         return num;
     }
 
