@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -13,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -50,11 +50,11 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.etPhone)
-    EditText etPhone;
+    TextInputEditText etPhone;
     @BindView(R.id.etPwd)
-    EditText etPwd;
+    TextInputEditText etPwd;
     @BindView(R.id.etCode)
-    EditText etCode;
+    TextInputEditText etCode;
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
     @BindView(R.id.btnLoginType)
@@ -296,7 +296,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             return;
         }
         UserPreference.setUser(user);
-        RxBus.post(new RxEvent<>(Constants.EVENT_LOGIN_YES, user));
+        RxBus.post(new RxEvent<>(Constants.EVENT_USER, user));
         // 检查couple
         Couple couple = user.getCouple();
         if (!UserPreference.noCouple(couple)) { // 有配对

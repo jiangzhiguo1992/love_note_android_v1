@@ -20,12 +20,8 @@ public class Constants {
     public static final int REQUEST_APP_INFO = 1006;  // app
     public static final int REQUEST_DEVICE_INFO = 1007;  // device
     // RxBus.ID
-    public static final int EVENT_COMMON = 0;
-    public static final int EVENT_LOGIN_NO = 1;
-    public static final int EVENT_LOGIN_YES = 2;
-    public static final int EVENT_COUPLE_NO = 3;
-    public static final int EVENT_COUPLE_YES = 4;
-    // domain status
+    public static final int EVENT_USER = 1;
+    public static final int EVENT_COUPLE = 2;
 
 
 }

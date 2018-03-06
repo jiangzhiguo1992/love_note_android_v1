@@ -18,26 +18,22 @@ public class GVerticalSwipeRefresh extends SwipeRefreshLayout {
 
     public GVerticalSwipeRefresh(Context context) {
         super(context);
-
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     public GVerticalSwipeRefresh(Context context, AttributeSet attrs) {
         super(context, attrs);
-
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mPrevX = event.getX();
                 break;
-
             case MotionEvent.ACTION_MOVE:
                 final float eventX = event.getX();
                 float xDiff = Math.abs(eventX - mPrevX);
@@ -47,7 +43,6 @@ public class GVerticalSwipeRefresh extends SwipeRefreshLayout {
                     return false;
                 }
         }
-
         return super.onInterceptTouchEvent(event);
     }
 }

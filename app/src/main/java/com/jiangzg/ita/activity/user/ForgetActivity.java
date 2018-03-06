@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.View;
@@ -32,13 +33,13 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.etPhone)
-    EditText etPhone;
+    TextInputEditText etPhone;
     @BindView(R.id.etPwd)
-    EditText etPwd;
+    TextInputEditText etPwd;
     @BindView(R.id.etPwdConfirm)
-    EditText etPwdConfirm;
+    TextInputEditText etPwdConfirm;
     @BindView(R.id.etCode)
-    EditText etCode;
+    TextInputEditText etCode;
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
     @BindView(R.id.btnOk)

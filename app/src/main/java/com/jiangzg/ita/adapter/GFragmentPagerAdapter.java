@@ -3,6 +3,7 @@ package com.jiangzg.ita.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,12 @@ import java.util.List;
  * Created by JiangZhiGuo on 2016-11-9.
  * describe 通用tab-pager适配器
  */
-public class BaseFragmentPagerAdapter<T extends Fragment> extends FragmentPagerAdapter {
+public class GFragmentPagerAdapter<T extends Fragment> extends FragmentStatePagerAdapter {
 
     private List<String> titleList;  // tab标题
     private List<T> fragmentList; // fragment
 
-    public BaseFragmentPagerAdapter(FragmentManager fm) {
+    public GFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         titleList = new ArrayList<>();
         fragmentList = new ArrayList<>();
@@ -45,6 +46,24 @@ public class BaseFragmentPagerAdapter<T extends Fragment> extends FragmentPagerA
             titleList.add(titles);
         }
         fragmentList.add(fragment);
+        //notifyDataSetChanged();
+    }
+
+    public void addData(int index, String titles, T fragment) {
+        if (titles != null) {
+            titleList.add(index, titles);
+        }
+        fragmentList.add(index, fragment);
+        //notifyDataSetChanged();
+    }
+
+    public void removeData(int index) {
+        if (titleList.size() > index) {
+            titleList.remove(index);
+        }
+        if (fragmentList.size() > index) {
+            fragmentList.remove(index);
+        }
         notifyDataSetChanged();
     }
 
@@ -58,7 +77,7 @@ public class BaseFragmentPagerAdapter<T extends Fragment> extends FragmentPagerA
 
     @Override
     public int getCount() {
-        if (titleList.size() <= 0) {
+        if (titleList == null || titleList.size() <= 0) {
             return fragmentList.size();
         } else {
             return titleList.size();
@@ -72,7 +91,7 @@ public class BaseFragmentPagerAdapter<T extends Fragment> extends FragmentPagerA
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (titleList.size() > position) {
+        if (titleList != null && titleList.size() > position) {
             return titleList.get(position);
         } else {
             return "";

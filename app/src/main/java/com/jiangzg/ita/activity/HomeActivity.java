@@ -12,18 +12,24 @@ import android.view.MenuItem;
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.adapter.BaseFragmentPagerAdapter;
+import com.jiangzg.ita.adapter.GFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.BasePagerFragment;
+import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.fragment.BookFragment;
+import com.jiangzg.ita.fragment.PairFragment;
 import com.jiangzg.ita.fragment.SquareFragment;
 import com.jiangzg.ita.fragment.TopicFragment;
 import com.jiangzg.ita.fragment.WeFragment;
-import com.jiangzg.ita.utils.UserPreference;
+import com.jiangzg.ita.third.RxBus;
+import com.jiangzg.ita.utils.Constants;
 
+import java.util.List;
 import java.util.Stack;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class HomeActivity extends BaseActivity<HomeActivity> {
 
@@ -32,7 +38,9 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
-    private int[] menuIdArray = new int[]{R.id.menu_we, R.id.menu_book, R.id.menu_topic, R.id.menu_square};
+    private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuSquare};
+    private Observable<Couple> coupleObservable;
+    private GFragmentPagerAdapter<BasePagerFragment> pagerAdapter;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
@@ -49,9 +57,8 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void initView(Bundle state) {
         // viewPager
-        BaseFragmentPagerAdapter<BasePagerFragment> viewPagerAdapter = getViewPagerAdapter();
-        vpContent.setAdapter(viewPagerAdapter);
-        vpContent.setOffscreenPageLimit(0);
+        changePagerAdapter();
+        vpContent.setOffscreenPageLimit(menuIdArray.length - 1);
         // listener
         vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -72,13 +79,19 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         bnvBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                changeFragment2(item.getItemId());
+                changeFragment(item.getItemId());
                 return true;
             }
         });
         // firstFragment
         bnvBottom.setSelectedItemId(menuIdArray[0]);
-
+        // event
+        coupleObservable = RxBus.register(Constants.EVENT_COUPLE, new Action1<Couple>() {
+            @Override
+            public void call(Couple couple) {
+                changePagerAdapter();
+            }
+        });
     }
 
     @Override
@@ -95,26 +108,15 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                 activity.finish();
             }
         }
-        initUser();
     }
 
-    public BaseFragmentPagerAdapter<BasePagerFragment> getViewPagerAdapter() {
-        FragmentManager manager = mActivity.getSupportFragmentManager();
-        BaseFragmentPagerAdapter<BasePagerFragment> fragmentAdapter = new BaseFragmentPagerAdapter<>(manager);
-
-        WeFragment weFragment = WeFragment.newFragment();
-        BookFragment bookFragment = BookFragment.newFragment();
-        TopicFragment topicFragment = TopicFragment.newFragment();
-        SquareFragment squareFragment = SquareFragment.newFragment();
-
-        fragmentAdapter.addData("", weFragment);
-        fragmentAdapter.addData("", bookFragment);
-        fragmentAdapter.addData("", topicFragment);
-        fragmentAdapter.addData("", squareFragment);
-        return fragmentAdapter;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(Constants.EVENT_COUPLE, coupleObservable);
     }
 
-    private void changeFragment2(int menuId) {
+    private void changeFragment(int menuId) {
         int selectItemIndex = 0;
         for (int i = 0; i < menuIdArray.length; i++) {
             if (menuId == menuIdArray[i]) {
@@ -125,10 +127,30 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         vpContent.setCurrentItem(selectItemIndex, true);
     }
 
-    private void initUser() {
-        if (UserPreference.noLogin()) {
-            //LoginActivity.goActivity(mActivity);
+    public void changePagerAdapter() {
+        if (pagerAdapter == null) {
+            FragmentManager manager = mActivity.getSupportFragmentManager();
+            pagerAdapter = new GFragmentPagerAdapter<>(manager);
         }
+        // fragmentList的size是0或4
+        List<BasePagerFragment> fragmentList = pagerAdapter.getFragmentList();
+        if (fragmentList == null || fragmentList.size() <= 0) {
+            pagerAdapter.addData(null, BookFragment.newFragment());
+            pagerAdapter.addData(null, TopicFragment.newFragment());
+            pagerAdapter.addData(null, SquareFragment.newFragment());
+        } else {
+            pagerAdapter.removeData(0);
+        }
+        // 这里之后fragmentList的size是3
+        // todo if (UserPreference.noCouple()) {
+        if (false) {
+            pagerAdapter.addData(0, null, PairFragment.newFragment());
+        } else {
+            pagerAdapter.addData(0, null, WeFragment.newFragment());
+        }
+        // 底下一个都不能少
+        pagerAdapter.notifyDataSetChanged();
+        vpContent.setAdapter(pagerAdapter);
     }
 
 }
