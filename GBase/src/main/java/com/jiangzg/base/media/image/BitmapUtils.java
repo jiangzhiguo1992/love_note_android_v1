@@ -354,14 +354,13 @@ public class BitmapUtils {
         paint.setColorFilter(filter);
         canvas.scale(scale, scale);
         canvas.drawBitmap(scaleBitmap, 0, 0, paint);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            scaleBitmap = renderScriptBlur(context, scaleBitmap, radius);
-        } else {
-            scaleBitmap = stackBlur(scaleBitmap, (int) radius, true);
-        }
+        scaleBitmap = renderScriptBlur(context, scaleBitmap, radius);
         if (scale == 1) return scaleBitmap;
-        Bitmap ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
-        if (scaleBitmap != null && !scaleBitmap.isRecycled()) scaleBitmap.recycle();
+        Bitmap ret = null;
+        if (scaleBitmap != null) {
+            ret = Bitmap.createScaledBitmap(scaleBitmap, width, height, true);
+            if (!scaleBitmap.isRecycled()) scaleBitmap.recycle();
+        }
         if (recycle && !src.isRecycled()) src.recycle();
         return ret;
     }

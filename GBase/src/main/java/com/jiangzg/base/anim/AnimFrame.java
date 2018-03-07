@@ -102,7 +102,6 @@ public class AnimFrame {
      * @param endRadius   结束时候的半径
      */
     public static Animator getCircular(View view, int centerX, int centerY, float startRadius, float endRadius) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return null;
         return ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, endRadius);
     }
 

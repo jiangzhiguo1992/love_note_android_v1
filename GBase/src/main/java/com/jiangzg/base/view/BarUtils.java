@@ -1,17 +1,17 @@
 package com.jiangzg.base.view;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.LinearLayout;
+
+import com.jiangzg.base.R;
 
 /**
  * Created by gg on 2017/4/19.
@@ -71,27 +71,18 @@ public class BarUtils {
     }
 
     /**
-     * 获取状态栏高度
-     */
-    public static int getStatusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0)
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        return result;
-    }
-
-    /**
      * 获取状态栏高度, 和getStatusBarHeight()效果一样
      */
     public static int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        if (result > 0) {
+            return result;
+        }
         return getTopBarHeight(activity) - getActionBarHeight(activity);
-    }
-
-    private static int getStatusBarHeight2(Context context) {
-        // 获得状态栏高度
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        return context.getResources().getDimensionPixelSize(resourceId);
     }
 
     /**
@@ -117,106 +108,99 @@ public class BarUtils {
      * ContextCompat.getColor(id)
      * color = 0 不设置
      */
-    public static void setStatusColor(Activity activity, int staColor, int navColor) {
+    public static void setStatusBarColor(Activity activity, int color) {
         Window window = activity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            // 清除Status和navigation透明的状态
-            if (staColor != 0) {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            }
-            if (navColor != 0) {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            }
-            // 添加Status可以着色的状态
+        if (color != 0) {
+            // 清除Status透明的状态
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // 添加Status可以着色的状态，并开始着色
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            // 开始着色Status
-            if (staColor != 0) {
-                window.setStatusBarColor(staColor);
-            }
-            if (navColor != 0) {
-                window.setNavigationBarColor(navColor);
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (staColor != 0) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            }
-            if (navColor != 0) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            }
+            window.setStatusBarColor(color);
+        }
+    }
+
+    public static void setNavigationBarColor(Activity activity, int color) {
+        Window window = activity.getWindow();
+        if (color != 0) {
+            // 清除navigation透明的状态
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            // 添加navigation可以着色的状态，并开始着色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setNavigationBarColor(color);
         }
     }
 
     /**
      * 全屏模式：注意在setContent之前调用，否则填充不到bar里
      */
-    public static void setBarTrans(Activity activity, boolean navTrans) {
+    public static void setStatusBarTrans(Activity activity, boolean trans) {
         Window window = activity.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int options;
-            // 清除Status和navigation透明的状态
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            if (navTrans) {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            }
-            if (navTrans) {
-                options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-                //刚开始隐藏，点击消失
-                //| View.SYSTEM_UI_FLAG_FULLSCREEN
-                //| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
-            } else {
-                options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            }
-            // 让DecorView填充Status和Navigation，这样他们的底色就不是白色，而是我们的Layout的背景色
-            // setSystemUiVisibility就是用来操作Status的方法
+        // 清除themes中指定的statusTrans带来的Status半透明的状态
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (trans) {
+            // 让DecorView填充Status，相当于fitSystemWindows=true
+            int options = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             window.getDecorView().setSystemUiVisibility(options);
-            // 添加Status可以着色的状态
+            // 添加Status可以着色的状态，并开始设置透明颜色
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            // 开始着色
             window.setStatusBarColor(Color.TRANSPARENT);
-            if (navTrans) {
-                window.setNavigationBarColor(Color.TRANSPARENT);
-            }
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //if (navTrans) {
-            //    window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            //}
+            //setRootViewFit(activity, false);
+        } else {
+            // 获取默认colorPrimary的颜色
+            TypedValue typedValue = new TypedValue();
+            activity.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            // 获取themes里的statusBarColor属性
+            int[] attrsArray = {android.R.attr.statusBarColor};
+            TypedArray typedArray = activity.obtainStyledAttributes(attrsArray);
+            int statusBarColor = typedArray.getColor(0, typedValue.data);
+            typedArray.recycle();
+            // 添加Status可以着色的状态，并开始着色
+            setStatusBarColor(activity, statusBarColor);
+            //setRootViewFit(activity, true);
         }
-        setRootView(activity);
+    }
+
+    public static void setNavigationBarTrans(Activity activity, boolean trans) {
+        Window window = activity.getWindow();
+        // 清除navigation半透明的状态
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        if (trans) {
+            // 让DecorView填充Navigation，其实就是隐藏掉Navigation
+            int options = View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
+            // 刚开始隐藏，点击消失 | View.SYSTEM_UI_FLAG_FULLSCREEN| View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            window.getDecorView().setSystemUiVisibility(options);
+            // 添加Navigation可以着色的状态，并开始设置透明颜色
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+            //setRootViewFit(activity, false);
+        } else {
+            // 获取默认colorPrimary的颜色
+            TypedValue typedValue = new TypedValue();
+            activity.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            // 获取themes里的statusBarColor属性
+            int[] attrsArray = {android.R.attr.statusBarColor};
+            TypedArray typedArray = activity.obtainStyledAttributes(attrsArray);
+            int statusBarColor = typedArray.getColor(0, typedValue.data);
+            typedArray.recycle();
+            // 添加Status可以着色的状态，并开始着色
+            setNavigationBarColor(activity, statusBarColor);
+            //setRootViewFit(activity, false);
+        }
     }
 
     /**
      * 设置根布局参数 相当于最顶部view要设置 fitsSystemWindows="true"
      */
-    private static void setRootView(Activity activity) {
+    private static void setRootViewFit(Activity activity, boolean fit) {
         ViewGroup parent = activity.findViewById(android.R.id.content);
-        for (int i = 0, count = parent.getChildCount(); i < count; i++) {
+        for (int i = 0; i < parent.getChildCount(); i++) {
             View childView = parent.getChildAt(i);
             if (childView instanceof ViewGroup) {
-                childView.setFitsSystemWindows(true);
-                ((ViewGroup) childView).setClipToPadding(true);
+                childView.setFitsSystemWindows(fit);
+                ((ViewGroup) childView).setClipToPadding(fit);
+                //((ViewGroup) childView).setClipChildren(clip);
             }
         }
-    }
-
-    /**
-     * 创建半透明矩形 View
-     *
-     * @param alpha 透明值
-     * @return 半透明 View
-     */
-    public static View createStatusView(Activity activity, int alpha) {
-        // 绘制一个和状态栏一样高的矩形
-        View statusBarView = new View(activity);
-        LinearLayout.LayoutParams params = new LinearLayout
-                .LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
-        statusBarView.setLayoutParams(params);
-        //statusBarView.setBackgroundColor(Color.argb(alpha, 0, 125, 0));
-        statusBarView.setBackgroundColor(alpha);
-        return statusBarView;
     }
 
 }

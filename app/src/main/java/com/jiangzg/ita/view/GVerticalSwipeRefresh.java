@@ -6,6 +6,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
+import com.jiangzg.ita.utils.ViewUtils;
+
 /**
  * Created by JiangZhiGuo on 2016/8/11.
  * describe 只监听垂直下拉的SwipeRefreshLayout
@@ -20,12 +22,22 @@ public class GVerticalSwipeRefresh extends SwipeRefreshLayout {
         super(context);
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        init(context);
     }
 
     public GVerticalSwipeRefresh(Context context, AttributeSet attrs) {
         super(context, attrs);
         // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        init(context);
+    }
+
+    private void init(Context context) {
+        int colorDark = ViewUtils.getColorDark(context);
+        int colorPrimary = ViewUtils.getColorPrimary(context);
+        int colorAccent = ViewUtils.getColorAccent(context);
+        int colorLight = ViewUtils.getColorLight(context);
+        this.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight);
     }
 
     @Override

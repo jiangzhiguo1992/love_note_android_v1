@@ -3,7 +3,7 @@
 
     <!-- 圆角 -->
     <corners
-        android:radius="5dp"/>
+        android:radius="3dp"/>
     <!-- 填充 -->
     <solid android:color="@color/trans_00"/>
     <!-- 描边 -->

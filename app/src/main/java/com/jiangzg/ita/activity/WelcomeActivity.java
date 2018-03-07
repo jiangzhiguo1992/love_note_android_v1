@@ -8,7 +8,6 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.utils.UserPreference;
@@ -28,7 +27,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        BarUtils.setBarTrans(mActivity, true); //全屏模式
+        BarUtils.setStatusBarTrans(mActivity, true);
+        BarUtils.setNavigationBarTrans(mActivity, true);
         // todo logo要换
         return R.layout.activity_welcome;
     }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.GFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
@@ -69,6 +70,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             @Override
             public void onPageSelected(int position) {
                 bnvBottom.setSelectedItemId(menuIdArray[position]);
+                onTabChange();
             }
 
             @Override
@@ -85,6 +87,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         });
         // firstFragment
         bnvBottom.setSelectedItemId(menuIdArray[0]);
+        onTabChange();
         // event
         coupleObservable = RxBus.register(Constants.EVENT_COUPLE, new Action1<Couple>() {
             @Override
@@ -151,6 +154,11 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         // 底下一个都不能少
         pagerAdapter.notifyDataSetChanged();
         vpContent.setAdapter(pagerAdapter);
+    }
+
+    private void onTabChange() {
+        boolean trans = (vpContent.getCurrentItem() == 0); // todo pairFragment不要忘记屏蔽
+        BarUtils.setStatusBarTrans(mActivity, trans);
     }
 
 }

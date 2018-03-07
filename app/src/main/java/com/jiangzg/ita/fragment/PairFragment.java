@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.intent.IntentUtils;
 import com.jiangzg.base.function.ContactUtils;
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseFragment;
@@ -125,11 +127,11 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     @Override
     protected void initView(@Nullable Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.pair), false);
-        int colorDark = ViewUtils.getColorDark(mActivity);
-        int colorPrimary = ViewUtils.getColorPrimary(mActivity);
-        int colorAccent = ViewUtils.getColorAccent(mActivity);
-        int colorLight = ViewUtils.getColorLight(mActivity);
-        vsr.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight);
+        // 沉浸式状态栏适配
+        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) tb.getLayoutParams();
+        params.setMargins(params.leftMargin, params.topMargin + statusBarHeight, params.rightMargin, params.bottomMargin);
+        tb.setLayoutParams(params);
         // listener
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

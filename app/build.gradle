@@ -5,7 +5,7 @@ android {
     compileSdkVersion 27 // 最高运行版本
     defaultConfig {
         targetSdkVersion 27 // 最高效果版本
-        minSdkVersion 19 // 最低运行版本
+        minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
         applicationId "com.jiangzg.ita" // 要和manifest一致
         versionCode 1

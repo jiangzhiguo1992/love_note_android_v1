@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
@@ -132,11 +135,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     public void refreshView() {
         root.setVisibility(View.VISIBLE);
-        int colorDark = ViewUtils.getColorDark(mActivity);
-        int colorPrimary = ViewUtils.getColorPrimary(mActivity);
-        int colorAccent = ViewUtils.getColorAccent(mActivity);
-        int colorLight = ViewUtils.getColorLight(mActivity);
-        vsr.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight);
+        // 沉浸式状态栏适配
+        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
+        params.setMargins(params.leftMargin, params.topMargin + statusBarHeight, params.rightMargin, params.bottomMargin);
+        ivHelp.setLayoutParams(params);
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
+        params2.setMargins(params2.leftMargin, params2.topMargin + statusBarHeight, params2.rightMargin, params2.bottomMargin);
+        ivSettings.setLayoutParams(params2);
     }
 
 }

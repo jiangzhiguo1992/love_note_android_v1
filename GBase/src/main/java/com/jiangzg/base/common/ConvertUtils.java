@@ -11,7 +11,6 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -65,8 +64,7 @@ public class ConvertUtils {
         String data = null;
         if (scheme == null) {
             data = uri.getPath();
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
-                DocumentsContract.isDocumentUri(AppContext.get(), uri)) { // KITKAT
+        } else if (DocumentsContract.isDocumentUri(AppContext.get(), uri)) { // KITKAT
             String docId = DocumentsContract.getDocumentId(uri);
             String[] split = docId.split(":");
             String type = split[0];
@@ -332,7 +330,11 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] inputStream2Bytes(InputStream is) {
-        return input2OutputStream(is).toByteArray();
+        ByteArrayOutputStream stream = input2OutputStream(is);
+        if (stream == null) {
+            return new byte[]{};
+        }
+        return stream.toByteArray();
     }
 
     /**
