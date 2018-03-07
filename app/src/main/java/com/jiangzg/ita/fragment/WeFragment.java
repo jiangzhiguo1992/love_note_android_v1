@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
@@ -48,6 +47,38 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     GMarqueeText tvPlaceRight;
     @BindView(R.id.cardPlace)
     CardView cardPlace;
+    @BindView(R.id.tvWeatherLeft)
+    GMarqueeText tvWeatherLeft;
+    @BindView(R.id.tvWeatherForecast)
+    TextView tvWeatherForecast;
+    @BindView(R.id.tvWeatherRight)
+    GMarqueeText tvWeatherRight;
+    @BindView(R.id.cardWeather)
+    CardView cardWeather;
+    @BindView(R.id.tvMenses)
+    TextView tvMenses;
+    @BindView(R.id.cardMenses)
+    CardView cardMenses;
+    @BindView(R.id.tvSleep)
+    TextView tvSleep;
+    @BindView(R.id.cardSleep)
+    CardView cardSleep;
+    @BindView(R.id.tvTrends)
+    TextView tvTrends;
+    @BindView(R.id.cardTrends)
+    CardView cardTrends;
+    @BindView(R.id.tvSign)
+    TextView tvSign;
+    @BindView(R.id.cardSign)
+    CardView cardSign;
+    @BindView(R.id.tvCoin)
+    TextView tvCoin;
+    @BindView(R.id.cardCoin)
+    CardView cardCoin;
+    @BindView(R.id.tvVip)
+    TextView tvVip;
+    @BindView(R.id.cardVip)
+    CardView cardVip;
 
     public static WeFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -67,11 +98,34 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     protected void refreshData() {
     }
 
-    @OnClick({R.id.cardPlace})
+    @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.civAvatarLeft, R.id.civAvatarRight,
+            R.id.cardPlace, R.id.cardWeather, R.id.cardMenses, R.id.cardSleep, R.id.cardTrends,
+            R.id.cardSign, R.id.cardCoin, R.id.cardVip})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cardPlace:
-                ToastUtils.show("点击");
+            case R.id.ivHelp: // 帮助文档
+                break;
+            case R.id.ivSettings: // 设置
+                break;
+            case R.id.civAvatarLeft: // 我的头像
+                break;
+            case R.id.civAvatarRight: // ta的头像
+                break;
+            case R.id.cardPlace: // 地理信息
+                break;
+            case R.id.cardWeather: // 天气信息
+                break;
+            case R.id.cardMenses: // 姨妈
+                break;
+            case R.id.cardSleep: // 睡觉
+                break;
+            case R.id.cardTrends: // 动态
+                break;
+            case R.id.cardSign: // 签到
+                break;
+            case R.id.cardCoin: // 金币
+                break;
+            case R.id.cardVip: // 会员
                 break;
         }
     }

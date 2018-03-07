@@ -220,4 +220,10 @@
     <string name="pleasure_accept">欣然接受</string>
     <string name="ta_already_couple">Ta已经心有所属了</string>
     <string name="and_u_not_let_go">而你还没有放下手吗？</string>
+    <string name="menses">姨妈</string>
+    <string name="sleep">睡眠</string>
+    <string name="trends">动态</string>
+    <string name="sign">签到</string>
+    <string name="coin">金币</string>
+    <string name="vip">会员</string>
 </resources>
