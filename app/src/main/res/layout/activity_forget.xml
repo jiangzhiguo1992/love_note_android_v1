@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:src="@mipmap/text_welcome_title"
-                android:tint="@color/color_primary"/>
+                android:tint="?attr/colorPrimary"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="15dp"
-                    android:drawableStart="@mipmap/ic_login_phone"
+                    android:drawableStart="@drawable/ic_phone_grey"
                     android:hint="@string/input_hint_phone"
                     android:inputType="phone"
                     android:maxLines="1"
@@ -55,7 +55,7 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginStart="50dp"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/line_gray">
+                app:passwordToggleTint="@color/icon_grey">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etPwd"
@@ -63,7 +63,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="15dp"
-                    android:drawableStart="@mipmap/ic_login_pwd"
+                    android:drawableStart="@drawable/ic_lock_grey"
                     android:hint="@string/input_hint_new_pwd"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -76,7 +76,7 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginStart="50dp"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/line_gray">
+                app:passwordToggleTint="@color/icon_grey">
 
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/etPwdConfirm"
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawablePadding="15dp"
-                    android:drawableStart="@mipmap/ic_login_pwd"
+                    android:drawableStart="@drawable/ic_lock_grey"
                     android:hint="@string/input_hint_new_pwd_confirm"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -110,7 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="15dp"
-                        android:drawableStart="@mipmap/ic_login_verify"
+                        android:drawableStart="@drawable/ic_verified_grey"
                         android:hint="@string/input_hint_verify"
                         android:inputType="number"
                         android:maxLines="1"

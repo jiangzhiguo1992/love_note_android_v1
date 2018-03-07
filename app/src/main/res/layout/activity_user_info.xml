@@ -56,7 +56,7 @@
                         android:background="@drawable/shape_bg_sex_select"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
-                        app:srcCompat="@drawable/ic_done"
+                        app:srcCompat="@drawable/ic_done_primary"
                         tools:visibility="visible"/>
                 </RelativeLayout>
 
@@ -82,7 +82,7 @@
                         android:background="@drawable/shape_bg_sex_select"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
-                        app:srcCompat="@drawable/ic_done"
+                        app:srcCompat="@drawable/ic_done_primary"
                         tools:visibility="gone"/>
                 </RelativeLayout>
 
@@ -109,8 +109,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="30dp"
                     android:layout_weight="1"
-                    app:divider_color="@color/color_primary"
-                    app:text_color="@color/color_primary"/>
+                    app:divider_color="?attr/colorPrimary"
+                    app:text_color="?attr/colorPrimary"/>
 
                 <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npMonth"
@@ -119,8 +119,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    app:divider_color="@color/color_primary"
-                    app:text_color="@color/color_primary"/>
+                    app:divider_color="?attr/colorPrimary"
+                    app:text_color="?attr/colorPrimary"/>
 
                 <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npDay"
@@ -129,8 +129,8 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    app:divider_color="@color/color_primary"
-                    app:text_color="@color/color_primary"/>
+                    app:divider_color="?attr/colorPrimary"
+                    app:text_color="?attr/colorPrimary"/>
             </LinearLayout>
 
             <Button

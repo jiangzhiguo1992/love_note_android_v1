@@ -1,53 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 基本样式 -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
-        <item name="colorPrimary">@color/color_primary</item>
-        <item name="android:colorPrimary" tools:targetApi="lollipop">
-            @color/color_primary
-        </item>
-        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
-        <item name="colorPrimaryDark">@color/color_primary_dark</item>
-        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
-            @color/color_primary_dark
-        </item>
-
-        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
-        <item name="android:statusBarColor" tools:targetApi="lollipop">
-            @color/color_primary
-        </item>
-        <!-- 底部导航栏颜色 -->
-        <item name="android:navigationBarColor" tools:targetApi="lollipop">
-            @color/color_primary
-        </item>
-
-        <!-- 控制控件的默认颜色 -->
-        <item name="colorControlNormal">@color/color_primary</item>
-        <item name="android:colorControlNormal" tools:targetApi="lollipop">
-            @color/color_primary
-        </item>
-        <!-- 控件按压时的色调 -->
-        <item name="colorControlHighlight">@color/color_primary_dark</item>
-        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
-            @color/color_primary_dark
-        </item>
-        <!-- 获取焦点颜色 -->
-        <item name="colorControlActivated">@color/color_primary</item>
-        <item name="android:colorControlActivated" tools:targetApi="lollipop">
-            @color/color_primary
-        </item>
-        <!-- 控件的选种效果默认采用该颜色 -->
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="android:colorAccent" tools:targetApi="lollipop">
-            @color/color_accent
-        </item>
-        <!-- 默认按钮的背景颜色 -->
-        <item name="colorButtonNormal">@color/color_primary</item>
-        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
-            @color/color_primary
-        </item>
-
         <!-- title 标题栏字体设置-->
         <item name="titleTextAppearance">@color/font_white</item>
         <item name="android:titleTextAppearance" tools:targetApi="lollipop">
@@ -64,24 +19,21 @@
         <!-- ToolBar上的Title颜色 -->
         <item name="android:textColorPrimaryInverse">@color/font_white</item>
         <!-- RadioButton checkbox等控件的文字 -->
-        <item name="android:textColorPrimaryDisableOnly">@color/font_primary</item>
+        <item name="android:textColorPrimaryDisableOnly">@color/font_black</item>
+
         <!-- 字体允许小写 -->
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
 
         <!-- 页面背景颜色 -->
-        <item name="android:windowBackground">@color/window_color</item>
+        <item name="android:windowBackground">@color/background_color</item>
         <!-- 应用的背景色，popMenu的背景默认使用该颜色 -->
         <item name="android:colorBackground">@color/font_white</item>
         <!-- 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色 -->
         <item name="android:colorForeground">@color/foreground_color</item>
 
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertDialog</item>
-
         <!-- 整体跳转动画,也可在BaseActivity中动态设置 -->
         <!--<item name="android:windowAnimationStyle">@style/mSlideAnim</item>-->
-
     </style>
 
     <!-- activity跳转动画 -->
@@ -96,6 +48,1166 @@
     <style name="mAlphaAnim" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/alpha_show</item>
         <item name="android:activityOpenExitAnimation">@anim/alpha_hide</item>
+    </style>
+
+    <style name="AppThemeRed" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_red_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_red_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_red_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_red_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_red_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_red_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_red_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_red_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_red_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_red_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_red_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_red_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_red_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_red_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_red_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_red_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeRed</item>
+    </style>
+
+    <style name="AlertThemeRed" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_red_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_red_primary</item>
+    </style>
+
+    <style name="AppThemePink" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_pink_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_pink_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_pink_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_pink_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_pink_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_pink_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_pink_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_pink_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_pink_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_pink_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_pink_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_pink_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_pink_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_pink_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_pink_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_pink_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemePink</item>
+    </style>
+
+    <style name="AlertThemePink" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_pink_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_pink_primary</item>
+    </style>
+
+    <style name="AppThemePinkLight" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_pink_light_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_pink_light_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_pink_light_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_pink_light_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_pink_light_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_pink_light_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_pink_light_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_pink_light_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_pink_light_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_pink_light_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_pink_light_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_pink_light_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_pink_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_pink_light_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_pink_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_pink_light_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemePinkLight</item>
+    </style>
+
+    <style name="AlertThemePinkLight" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_pink_light_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_pink_light_primary</item>
+    </style>
+
+    <style name="AppThemePurple" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_purple_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_purple_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_purple_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_purple_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_purple_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_purple_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_purple_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_purple_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_purple_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_purple_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_purple_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_purple_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_purple_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_purple_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_purple_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_purple_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemePurple</item>
+    </style>
+
+    <style name="AlertThemePurple" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_purple_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_purple_primary</item>
+    </style>
+
+    <style name="AppThemePurpleDeep" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_purple_deep_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_purple_deep_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_purple_deep_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_purple_deep_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_purple_deep_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_purple_deep_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_purple_deep_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_purple_deep_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_purple_deep_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_purple_deep_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_purple_deep_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_purple_deep_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_purple_deep_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_purple_deep_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_purple_deep_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_purple_deep_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemePurpleDeep</item>
+    </style>
+
+    <style name="AlertThemePurpleDeep" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_purple_deep_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_purple_deep_primary</item>
+    </style>
+
+    <style name="AppThemeIndigo" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_indigo_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_indigo_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_indigo_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_indigo_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_indigo_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_indigo_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_indigo_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_indigo_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_indigo_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_indigo_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_indigo_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_indigo_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_indigo_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_indigo_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_indigo_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_indigo_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeIndigo</item>
+    </style>
+
+    <style name="AlertThemeIndigo" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_indigo_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_indigo_primary</item>
+    </style>
+
+    <style name="AppThemeBlue" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_blue_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_blue_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_blue_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_blue_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_blue_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_blue_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_blue_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_blue_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_blue_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_blue_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_blue_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_blue_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_blue_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_blue_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_blue_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_blue_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeBlue</item>
+    </style>
+
+    <style name="AlertThemeBlue" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_blue_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_blue_primary</item>
+    </style>
+
+    <style name="AppThemeBlueLight" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_blue_light_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_blue_light_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_blue_light_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_blue_light_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_blue_light_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_blue_light_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_blue_light_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_blue_light_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_blue_light_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_blue_light_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_blue_light_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_blue_light_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_blue_light_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_blue_light_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_blue_light_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_blue_light_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeBlueLight</item>
+    </style>
+
+    <style name="AlertThemeBlueLight" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_blue_light_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_blue_light_primary</item>
+    </style>
+
+    <style name="AppThemeCyan" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_cyan_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_cyan_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_cyan_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_cyan_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_cyan_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_cyan_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_cyan_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_cyan_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_cyan_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_cyan_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_cyan_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_cyan_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_cyan_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_cyan_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_cyan_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_cyan_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeCyan</item>
+    </style>
+
+    <style name="AlertThemeCyan" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_cyan_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_cyan_primary</item>
+    </style>
+
+    <style name="AppThemeTeal" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_teal_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_teal_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_teal_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_teal_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_teal_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_teal_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_teal_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_teal_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_teal_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_teal_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_teal_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_teal_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_teal_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_teal_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_teal_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_teal_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeTeal</item>
+    </style>
+
+    <style name="AlertThemeTeal" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_teal_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_teal_primary</item>
+    </style>
+
+    <style name="AppThemeGreen" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_green_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_green_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_green_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_green_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_green_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_green_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_green_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_green_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_green_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_green_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_green_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_green_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_green_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_green_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_green_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_green_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeGreen</item>
+    </style>
+
+    <style name="AlertThemeGreen" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_green_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_green_primary</item>
+    </style>
+
+    <style name="AppThemeGreenLight" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_green_light_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_green_light_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_green_light_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_green_light_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_green_light_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_green_light_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_green_light_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_green_light_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_green_light_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_green_light_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_green_light_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_green_light_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_green_light_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_green_light_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_green_light_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_green_light_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeGreenLight</item>
+    </style>
+
+    <style name="AlertThemeGreenLight" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_green_light_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_green_light_primary</item>
+    </style>
+
+    <style name="AppThemeLime" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_lime_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_lime_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_lime_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_lime_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_lime_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_lime_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_lime_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_lime_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_lime_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_lime_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_lime_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_lime_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_lime_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_lime_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_lime_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_lime_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeLime</item>
+    </style>
+
+    <style name="AlertThemeLime" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_lime_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_lime_primary</item>
+    </style>
+
+    <style name="AppThemeYellow" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_yellow_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_yellow_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_yellow_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_yellow_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_yellow_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_yellow_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_yellow_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_yellow_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_yellow_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_yellow_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_yellow_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_yellow_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_yellow_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_yellow_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_yellow_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_yellow_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeYellow</item>
+    </style>
+
+    <style name="AlertThemeYellow" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_yellow_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_yellow_primary</item>
+    </style>
+
+    <style name="AppThemeAmber" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_amber_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_amber_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_amber_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_amber_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_amber_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_amber_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_amber_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_amber_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_amber_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_amber_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_amber_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_amber_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_amber_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_amber_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_amber_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_amber_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeAmber</item>
+    </style>
+
+    <style name="AlertThemeAmber" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_amber_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_amber_primary</item>
+    </style>
+
+    <style name="AppThemeOrange" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_orange_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_orange_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_orange_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_orange_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_orange_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_orange_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_orange_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_orange_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_orange_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_orange_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_orange_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_orange_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_orange_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_orange_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_orange_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_orange_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeOrange</item>
+    </style>
+
+    <style name="AlertThemeOrange" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_orange_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_orange_primary</item>
+    </style>
+
+    <style name="AppThemeOrangeDeep" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_orange_deep_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_orange_deep_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_orange_deep_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_orange_deep_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_orange_deep_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_orange_deep_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_orange_deep_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_orange_deep_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_orange_deep_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_orange_deep_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_orange_deep_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_orange_deep_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_orange_deep_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_orange_deep_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_orange_deep_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_orange_deep_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeOrangeDeep</item>
+    </style>
+
+    <style name="AlertThemeOrangeDeep" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_orange_deep_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_orange_deep_primary</item>
+    </style>
+
+    <style name="AppThemeBrown" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_brown_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_brown_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_brown_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_brown_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_brown_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_brown_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_brown_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_brown_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_brown_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_brown_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_brown_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_brown_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_brown_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_brown_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_brown_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_brown_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeBrown</item>
+    </style>
+
+    <style name="AlertThemeBrown" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_brown_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_brown_primary</item>
+    </style>
+
+    <style name="AppThemeGrey" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_grey_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_grey_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_grey_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_grey_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_grey_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_grey_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_grey_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_grey_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_grey_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_grey_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_grey_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_grey_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_grey_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_grey_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_grey_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_grey_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeGrey</item>
+    </style>
+
+    <style name="AlertThemeGrey" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_grey_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_grey_primary</item>
+    </style>
+
+    <style name="AppThemeGreyBlue" parent="AppTheme">
+        <!-- Appbar背景色，应用的主要色调，actionBar默认使用该颜色 -->
+        <item name="colorPrimary">@color/theme_grey_blue_primary</item>
+        <item name="android:colorPrimary" tools:targetApi="lollipop">
+            @color/theme_grey_blue_primary
+        </item>
+        <!-- 状态栏颜色，应用的主要暗色调，statusBarColor默认使用该颜色 -->
+        <item name="colorPrimaryDark">@color/theme_grey_blue_dark</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">
+            @color/theme_grey_blue_dark
+        </item>
+        <!-- 控件的选种效果默认采用该颜色 -->
+        <item name="colorAccent">@color/theme_grey_blue_accent</item>
+        <item name="android:colorAccent" tools:targetApi="lollipop">
+            @color/theme_grey_blue_accent
+        </item>
+
+        <!-- 状态栏颜色，默认使用colorPrimaryDark 直接在status中覆盖dark，所以trans会漏出dark-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">
+            @color/theme_grey_blue_primary
+        </item>
+        <!-- 底部导航栏颜色 -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">
+            @color/theme_grey_blue_primary
+        </item>
+
+        <!-- 默认按钮的背景颜色 -->
+        <item name="colorButtonNormal">@color/theme_grey_blue_primary</item>
+        <item name="android:colorButtonNormal" tools:targetApi="lollipop">
+            @color/theme_grey_blue_primary
+        </item>
+        <!-- 控制控件的默认颜色 -->
+        <item name="colorControlNormal">@color/theme_grey_blue_light</item>
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">
+            @color/theme_grey_blue_light
+        </item>
+        <!-- 控件按压时的色调 -->
+        <item name="colorControlHighlight">@color/theme_grey_blue_accent</item>
+        <item name="android:colorControlHighlight" tools:targetApi="lollipop">
+            @color/theme_grey_blue_accent
+        </item>
+        <!-- 获取焦点颜色 -->
+        <item name="colorControlActivated">@color/theme_grey_blue_accent</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">
+            @color/theme_grey_blue_accent
+        </item>
+
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/AlertThemeGreyBlue</item>
+    </style>
+
+    <style name="AlertThemeGreyBlue" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/theme_grey_blue_dark</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/theme_grey_blue_primary</item>
     </style>
 
 </resources>

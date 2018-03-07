@@ -7,11 +7,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.utils.ViewUtils;
 
 import java.lang.reflect.Field;
 
@@ -37,7 +39,7 @@ public class GNumberPicker extends NumberPicker {
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GNumberPicker);
-        int color = ContextCompat.getColor(context, R.color.color_primary);
+        int color = ViewUtils.getColorPrimary(context);
         // 获取参数
         mTextColor = a.getColor(R.styleable.GNumberPicker_text_color, color);
         mDividerColor = a.getColor(R.styleable.GNumberPicker_divider_color, color);

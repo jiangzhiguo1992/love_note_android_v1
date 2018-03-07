@@ -105,8 +105,8 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     LinearLayout llPairCan;
     @BindView(R.id.card)
     CardView card;
-    @BindView(R.id.gvsp)
-    GVerticalSwipeRefresh gvsp;
+    @BindView(R.id.vsr)
+    GVerticalSwipeRefresh vsr;
 
     private String taPhone;
     private int showType = SHOW_NULL;
@@ -125,7 +125,11 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     @Override
     protected void initView(@Nullable Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.pair), false);
-        gvsp.setColorSchemeResources(R.color.color_accent, R.color.color_primary, R.color.color_primary_dark);
+        int colorDark = ViewUtils.getColorDark(mActivity);
+        int colorPrimary = ViewUtils.getColorPrimary(mActivity);
+        int colorAccent = ViewUtils.getColorAccent(mActivity);
+        int colorLight = ViewUtils.getColorLight(mActivity);
+        vsr.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight);
         // listener
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -138,7 +142,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
                 return true;
             }
         });
-        gvsp.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        vsr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshData();
@@ -148,14 +152,14 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
 
     @Override
     protected void refreshData() {
-        if (!gvsp.isRefreshing()) {
-            gvsp.setRefreshing(true);
+        if (!vsr.isRefreshing()) {
+            vsr.setRefreshing(true);
         }
         // todo api获取home数据
         MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                gvsp.setRefreshing(false);
+                vsr.setRefreshing(false);
                 showType = SHOW_INPUT_ONLY;
                 changeViewShow();
             }
@@ -171,7 +175,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK&&requestCode == Constants.REQUEST_CONTACT){
+        if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_CONTACT) {
             String select = ContactUtils.getContactSelect(data);
             etPhone.setText(select);
         }
@@ -254,7 +258,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
 
     private void selectContact() {
         Intent contacts = IntentUtils.getContacts();
-        ActivityTrans.startResult(mFragment,contacts,Constants.REQUEST_CONTACT);
+        ActivityTrans.startResult(mFragment, contacts, Constants.REQUEST_CONTACT);
     }
 
     private void changeViewShow() {

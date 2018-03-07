@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/menuHelp"
-        android:icon="@drawable/ic_help_circle"
+        android:icon="@drawable/ic_help_circle_white"
         android:title=""
         app:showAsAction="always"/>
 

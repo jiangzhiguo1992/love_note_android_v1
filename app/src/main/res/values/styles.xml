@@ -14,14 +14,6 @@
     </style>
 
     <!-- 自定义对话框样式 -->
-    <style name="AlertDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/color_primary_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/font_primary</item>
-    </style>
-
-    <!-- 自定义对话框样式 -->
     <style name="DialogCustom" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item><!--边框-->
         <item name="android:windowNoTitle">true</item><!--无标题-->
@@ -41,14 +33,14 @@
     <style name="LineHorizontal">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/line_gray</item>
+        <item name="android:background">@color/line_grey</item>
     </style>
 
     <!-- 竖线 -->
     <style name="LineVertical">
         <item name="android:layout_width">1px</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:background">@color/line_gray</item>
+        <item name="android:background">@color/line_grey</item>
     </style>
 
     <!-- 黑色字体 -->
@@ -94,44 +86,44 @@
     </style>
 
     <!-- 灰色字体 -->
-    <style name="FontGraySmall">
-        <item name="android:textColor">@color/font_gray</item>
+    <style name="FontGreySmall">
+        <item name="android:textColor">@color/font_grey</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
-    <style name="FontGrayNormal">
-        <item name="android:textColor">@color/font_gray</item>
+    <style name="FontGreyNormal">
+        <item name="android:textColor">@color/font_grey</item>
         <item name="android:textSize">@dimen/font_normal</item>
     </style>
 
-    <style name="FontGrayBig">
-        <item name="android:textColor">@color/font_gray</item>
+    <style name="FontGreyBig">
+        <item name="android:textColor">@color/font_grey</item>
         <item name="android:textSize">@dimen/font_big</item>
     </style>
 
-    <style name="FontGrayHuge">
-        <item name="android:textColor">@color/font_gray</item>
+    <style name="FontGreyHuge">
+        <item name="android:textColor">@color/font_grey</item>
         <item name="android:textSize">@dimen/font_huge</item>
     </style>
 
     <!-- 主题色字体 -->
     <style name="FontPrimarySmall">
-        <item name="android:textColor">@color/font_primary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
     <style name="FontPrimaryNormal">
-        <item name="android:textColor">@color/font_primary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/font_normal</item>
     </style>
 
     <style name="FontPrimaryBig">
-        <item name="android:textColor">@color/font_primary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/font_big</item>
     </style>
 
     <style name="FontPrimaryHuge">
-        <item name="android:textColor">@color/font_primary</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/font_huge</item>
     </style>
 

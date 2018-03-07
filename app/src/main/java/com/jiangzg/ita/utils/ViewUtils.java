@@ -1,6 +1,7 @@
 package com.jiangzg.ita.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -10,7 +11,9 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
@@ -110,6 +113,30 @@ public class ViewUtils {
      */
     public static void setLinkClick(TextView view) {
         view.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    public static int getColorPrimary(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        return typedValue.resourceId;
+    }
+
+    public static int getColorDark(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        return typedValue.resourceId;
+    }
+
+    public static int getColorAccent(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorAccent, typedValue, true);
+        return typedValue.resourceId;
+    }
+
+    public static int getColorLight(Context context) {
+        TypedValue typedValue = new TypedValue();
+        context.getTheme().resolveAttribute(R.attr.colorControlNormal, typedValue, true);
+        return typedValue.resourceId;
     }
 
 }
