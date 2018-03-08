@@ -5,9 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.LayoutTransition;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.os.Build;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 
 /**
@@ -87,22 +85,6 @@ public class AnimFrame {
 
     public static void removeAnimatorUpdateListeners(ValueAnimator animator) {
         animator.removeAllUpdateListeners();
-    }
-
-    /**
-     * android5.0的水波纹效果也是用的Animator实现的
-     * android:background="?android:attr/selectableItemBackground"波纹有边界
-     * android:background="?android:attr/selectableItemBackgroundBorderless"波纹超出边界
-     * android:colorControlHighlight：设置波纹颜色
-     *
-     * @param view        可以在View上做水波纹
-     * @param centerX     这里的(0,0)是view的左上角
-     * @param centerY     (view.getWidth() / 2，view.getHeight() / 2)为中心点
-     * @param startRadius 圆形开始的半径
-     * @param endRadius   结束时候的半径
-     */
-    public static Animator getCircular(View view, int centerX, int centerY, float startRadius, float endRadius) {
-        return ViewAnimationUtils.createCircularReveal(view, centerX, centerY, startRadius, endRadius);
     }
 
 }

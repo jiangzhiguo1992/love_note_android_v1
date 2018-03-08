@@ -1,6 +1,10 @@
 package com.jiangzg.ita.base;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.Toolbar;
+
+import com.jiangzg.base.view.BarUtils;
 
 /**
  * Created by JZG on 2018/3/5.
@@ -39,5 +43,13 @@ public abstract class BasePagerFragment<M> extends BaseFragment<M> {
     public void onDestroyView() {
         super.onDestroyView();
         canLoad = false;
+    }
+
+    // 沉浸式状态栏适配
+    protected void fitToolBar(Toolbar tb) {
+        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) tb.getLayoutParams();
+        params.setMargins(params.leftMargin, params.topMargin + statusBarHeight, params.rightMargin, params.bottomMargin);
+        tb.setLayoutParams(params);
     }
 }

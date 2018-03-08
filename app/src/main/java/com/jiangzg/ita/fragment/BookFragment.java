@@ -39,11 +39,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     @Override
     protected void initView(@Nullable Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, "小本本", false);
-        // 沉浸式状态栏适配
-        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) tb.getLayoutParams();
-        params.setMargins(params.leftMargin, params.topMargin + statusBarHeight, params.rightMargin, params.bottomMargin);
-        tb.setLayoutParams(params);
+        fitToolBar(tb);
     }
 
     protected void refreshData() {

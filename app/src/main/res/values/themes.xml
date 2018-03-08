@@ -33,7 +33,7 @@
         <item name="android:colorForeground">@color/foreground_color</item>
 
         <!-- 整体跳转动画,也可在BaseActivity中动态设置 -->
-        <!--<item name="android:windowAnimationStyle">@style/mSlideAnim</item>-->
+        <item name="android:windowAnimationStyle">@style/mSlideAnim</item>
     </style>
 
     <!-- activity跳转动画 -->

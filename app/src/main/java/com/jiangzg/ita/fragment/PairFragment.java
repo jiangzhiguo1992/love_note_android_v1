@@ -127,11 +127,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     @Override
     protected void initView(@Nullable Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.pair), false);
-        // 沉浸式状态栏适配
-        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) tb.getLayoutParams();
-        params.setMargins(params.leftMargin, params.topMargin + statusBarHeight, params.rightMargin, params.bottomMargin);
-        tb.setLayoutParams(params);
+        fitToolBar(tb);
         // listener
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

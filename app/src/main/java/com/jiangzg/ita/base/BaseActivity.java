@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Fade;
 import android.transition.Slide;
+import android.transition.Visibility;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,7 +21,6 @@ import android.view.Window;
 
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.application.AppUtils;
 import com.jiangzg.base.function.InputUtils;
 import com.jiangzg.base.function.PermUtils;
 import com.jiangzg.base.time.DateUtils;
@@ -193,16 +195,14 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
      * 5.0以下的过渡动画已在themes里添加
      */
     private void initTransAnim(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-            // 压栈
-            window.setEnterTransition(new Slide()); // 下一个activity进场
-            window.setExitTransition(new Slide()); // 当前activity向后时退场
-            // 弹栈
-            // window.setReenterTransition(new Fade()); // 上一个activity进场
-            // window.setReturnTransition(new Fade()); // 当前activity向前时退场
-        }
+        Window window = activity.getWindow();
+        window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        // 压栈
+        window.setEnterTransition(new Fade()); // 下一个activity进场
+        window.setExitTransition(new Fade()); // 当前activity向后时退场
+        // 弹栈
+        // window.setReenterTransition(new Fade()); // 上一个activity进场
+        // window.setReturnTransition(new Fade()); // 当前activity向前时退场
     }
 
 }

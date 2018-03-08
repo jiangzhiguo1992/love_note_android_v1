@@ -20,13 +20,11 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/ivTopBg"
+            <ViewFlipper
+                android:id="@+id/vfTopBg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="35dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/test_bg"/>
+                android:layout_marginBottom="35dp"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -132,6 +130,7 @@
                 android:layout_marginTop="10dp"
                 android:background="#fff"
                 android:foreground="?attr/selectableItemBackground"
+                android:stateListAnimator="@animator/demo_selector"
                 app:cardCornerRadius="3dp">
 
                 <LinearLayout

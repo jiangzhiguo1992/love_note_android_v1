@@ -5,16 +5,17 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
-import com.jiangzg.ita.utils.ViewUtils;
 import com.jiangzg.ita.view.GCircleImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GVerticalSwipeRefresh;
@@ -28,8 +29,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     GVerticalSwipeRefresh vsr;
     @BindView(R.id.root)
     LinearLayout root;
-    @BindView(R.id.ivTopBg)
-    ImageView ivTopBg;
+    @BindView(R.id.vfTopBg)
+    ViewFlipper vfTopBg;
     @BindView(R.id.ivHelp)
     ImageView ivHelp;
     @BindView(R.id.ivSettings)
@@ -137,12 +138,64 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         root.setVisibility(View.VISIBLE);
         // 沉浸式状态栏适配
         int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
-        params.setMargins(params.leftMargin, params.topMargin + statusBarHeight, params.rightMargin, params.bottomMargin);
-        ivHelp.setLayoutParams(params);
-        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
-        params2.setMargins(params2.leftMargin, params2.topMargin + statusBarHeight, params2.rightMargin, params2.bottomMargin);
-        ivSettings.setLayoutParams(params2);
+        RelativeLayout.LayoutParams paramsHelp = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
+        paramsHelp.setMargins(paramsHelp.leftMargin, paramsHelp.topMargin + statusBarHeight, paramsHelp.rightMargin, paramsHelp.bottomMargin);
+        ivHelp.setLayoutParams(paramsHelp);
+        RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
+        paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
+        ivSettings.setLayoutParams(paramsSettings);
+        // 开始背景动画
+        ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ImageView image1 = new ImageView(mActivity);
+        image1.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image1.setImageResource(R.mipmap.test_bg_01);
+        image1.setLayoutParams(paramsImage);
+        vfTopBg.addView(image1);
+        ImageView image2 = new ImageView(mActivity);
+        image2.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image2.setImageResource(R.mipmap.test_bg_02);
+        image2.setLayoutParams(paramsImage);
+        vfTopBg.addView(image2);
+        ImageView image3 = new ImageView(mActivity);
+        image3.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image3.setImageResource(R.mipmap.test_bg_03);
+        image3.setLayoutParams(paramsImage);
+        vfTopBg.addView(image3);
+        ImageView image4 = new ImageView(mActivity);
+        image4.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image4.setImageResource(R.mipmap.test_bg_04);
+        image4.setLayoutParams(paramsImage);
+        vfTopBg.addView(image4);
+        ImageView image5 = new ImageView(mActivity);
+        image5.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image5.setImageResource(R.mipmap.test_bg_05);
+        image5.setLayoutParams(paramsImage);
+        vfTopBg.addView(image5);
+        ImageView image6 = new ImageView(mActivity);
+        image6.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image6.setImageResource(R.mipmap.test_bg_06);
+        image6.setLayoutParams(paramsImage);
+        vfTopBg.addView(image6);
+        ImageView image7 = new ImageView(mActivity);
+        image7.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image7.setImageResource(R.mipmap.test_bg_07);
+        image7.setLayoutParams(paramsImage);
+        vfTopBg.addView(image7);
+        ImageView image8 = new ImageView(mActivity);
+        image8.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image8.setImageResource(R.mipmap.test_bg_08);
+        image8.setLayoutParams(paramsImage);
+        vfTopBg.addView(image8);
+        ImageView image9 = new ImageView(mActivity);
+        image9.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image9.setImageResource(R.mipmap.test_bg_09);
+        image9.setLayoutParams(paramsImage);
+        vfTopBg.addView(image9);
+        vfTopBg.setInAnimation(AnimationUtils.makeInAnimation(mActivity, false));
+        vfTopBg.setOutAnimation(AnimationUtils.makeOutAnimation(mActivity, false));
+        vfTopBg.setAutoStart(true);
+        vfTopBg.setFlipInterval(3000);
+        vfTopBg.startFlipping();
     }
 
 }
