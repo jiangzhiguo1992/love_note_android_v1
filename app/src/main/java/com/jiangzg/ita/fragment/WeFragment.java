@@ -14,14 +14,16 @@ import android.widget.ViewFlipper;
 
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.common.HelpActivity;
+import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
-import com.jiangzg.ita.view.GCircleImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GVerticalSwipeRefresh;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WeFragment extends BasePagerFragment<WeFragment> {
 
@@ -36,9 +38,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.ivSettings)
     ImageView ivSettings;
     @BindView(R.id.civAvatarLeft)
-    GCircleImageView civAvatarLeft;
+    CircleImageView civAvatarLeft;
     @BindView(R.id.civAvatarRight)
-    GCircleImageView civAvatarRight;
+    CircleImageView civAvatarRight;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvNameRight)
@@ -108,8 +110,10 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
+                HelpActivity.goActivity(mActivity, HelpActivity.TYPE_COUPLE_HOME);
                 break;
             case R.id.ivSettings: // 设置
+                SettingsActivity.goActivity(mActivity);
                 break;
             case R.id.civAvatarLeft: // 我的头像
                 break;

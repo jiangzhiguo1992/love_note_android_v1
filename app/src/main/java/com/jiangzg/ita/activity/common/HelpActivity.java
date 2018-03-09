@@ -12,6 +12,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     public static final int TYPE_USER_INFO_SET = 1;
     public static final int TYPE_COUPLE_PAIR = 2;
+    public static final int TYPE_COUPLE_HOME = 3;
 
     public static void goActivity(Activity from, int type) {
         Intent intent = new Intent(from, HelpActivity.class);

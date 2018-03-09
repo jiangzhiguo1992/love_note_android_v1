@@ -202,6 +202,8 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'
     compile 'com.orhanobut:logger:1.15'
     compile 'top.zibin:Luban:1.0.9'
+    // UI
+    compile 'de.hdodenhof:circleimageview:2.2.0'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
     // 三方
     compile 'com.aliyun.dpa:oss-android-sdk:2.5.0'

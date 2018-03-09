@@ -3,7 +3,7 @@
 
     <!-- 通用颜色 -->
     <color name="background_color">#F8F8F8</color>
-    <color name="foreground_color">#BDBDBD</color>
+    <color name="foreground_color">#DDDDDD</color>
     <color name="line_grey">@color/foreground_color</color>
     <color name="icon_grey">#DDDDDD</color>
 

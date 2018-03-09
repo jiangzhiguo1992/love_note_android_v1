@@ -5,12 +5,7 @@
     <declare-styleable name="GZoomScrollView">
         <attr name="layout_index" format="integer"/>
     </declare-styleable>
-    <declare-styleable name="GCircleImageView">
-        <attr name="border_width" format="dimension"/>
-        <attr name="border_color" format="color"/>
-        <attr name="border_overlay" format="boolean"/>
-        <attr name="circle_background_color" format="color"/>
-    </declare-styleable>
+
     <declare-styleable name="GNumberPicker">
         <attr name="divider_color" format="color"/>
         <attr name="text_color" format="color"/>

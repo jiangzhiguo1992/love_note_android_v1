@@ -15,7 +15,7 @@
         <!-- Button，textView的文字颜色 -->
         <item name="android:textColor">@color/font_black</item>
         <!-- 应用的主要文字颜色，actionBar的标题文字默认使用该颜色 -->
-        <item name="android:textColorPrimary">@color/font_white</item>
+        <item name="android:textColorPrimary">@color/font_grey</item>
         <!-- ToolBar上的Title颜色 -->
         <item name="android:textColorPrimaryInverse">@color/font_white</item>
         <!-- RadioButton checkbox等控件的文字 -->
@@ -32,8 +32,18 @@
         <!-- 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色 -->
         <item name="android:colorForeground">@color/foreground_color</item>
 
+        <!-- alert -->
+        <item name="alertDialogTheme">@style/mAlertTheme</item>
+
         <!-- 整体跳转动画,也可在BaseActivity中动态设置 -->
         <item name="android:windowAnimationStyle">@style/mSlideAnim</item>
+    </style>
+
+    <style name="mAlertTheme" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <!-- title 和 button 的颜色 -->
+        <item name="android:textColor">@color/font_black</item>
+        <!-- message 的颜色 -->
+        <item name="android:textColorPrimary">@color/font_grey</item>
     </style>
 
     <!-- activity跳转动画 -->
@@ -97,15 +107,6 @@
             @color/theme_red_accent
         </item>
 
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeRed</item>
-    </style>
-
-    <style name="AlertThemeRed" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_red_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_red_primary</item>
     </style>
 
     <style name="AppThemePink" parent="AppTheme">
@@ -154,16 +155,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_pink_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemePink</item>
-    </style>
-
-    <style name="AlertThemePink" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_pink_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_pink_primary</item>
     </style>
 
     <style name="AppThemePinkLight" parent="AppTheme">
@@ -213,15 +204,6 @@
             @color/theme_pink_light_accent
         </item>
 
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemePinkLight</item>
-    </style>
-
-    <style name="AlertThemePinkLight" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_pink_light_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_pink_light_primary</item>
     </style>
 
     <style name="AppThemePurple" parent="AppTheme">
@@ -270,16 +252,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_purple_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemePurple</item>
-    </style>
-
-    <style name="AlertThemePurple" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_purple_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_purple_primary</item>
     </style>
 
     <style name="AppThemePurpleDeep" parent="AppTheme">
@@ -328,16 +300,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_purple_deep_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemePurpleDeep</item>
-    </style>
-
-    <style name="AlertThemePurpleDeep" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_purple_deep_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_purple_deep_primary</item>
     </style>
 
     <style name="AppThemeIndigo" parent="AppTheme">
@@ -386,16 +348,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_indigo_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeIndigo</item>
-    </style>
-
-    <style name="AlertThemeIndigo" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_indigo_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_indigo_primary</item>
     </style>
 
     <style name="AppThemeBlue" parent="AppTheme">
@@ -444,16 +396,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_blue_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeBlue</item>
-    </style>
-
-    <style name="AlertThemeBlue" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_blue_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_blue_primary</item>
     </style>
 
     <style name="AppThemeBlueLight" parent="AppTheme">
@@ -502,16 +444,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_blue_light_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeBlueLight</item>
-    </style>
-
-    <style name="AlertThemeBlueLight" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_blue_light_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_blue_light_primary</item>
     </style>
 
     <style name="AppThemeCyan" parent="AppTheme">
@@ -560,16 +492,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_cyan_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeCyan</item>
-    </style>
-
-    <style name="AlertThemeCyan" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_cyan_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_cyan_primary</item>
     </style>
 
     <style name="AppThemeTeal" parent="AppTheme">
@@ -618,16 +540,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_teal_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeTeal</item>
-    </style>
-
-    <style name="AlertThemeTeal" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_teal_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_teal_primary</item>
     </style>
 
     <style name="AppThemeGreen" parent="AppTheme">
@@ -676,16 +588,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_green_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeGreen</item>
-    </style>
-
-    <style name="AlertThemeGreen" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_green_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_green_primary</item>
     </style>
 
     <style name="AppThemeGreenLight" parent="AppTheme">
@@ -734,16 +636,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_green_light_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeGreenLight</item>
-    </style>
-
-    <style name="AlertThemeGreenLight" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_green_light_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_green_light_primary</item>
     </style>
 
     <style name="AppThemeLime" parent="AppTheme">
@@ -792,16 +684,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_lime_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeLime</item>
-    </style>
-
-    <style name="AlertThemeLime" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_lime_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_lime_primary</item>
     </style>
 
     <style name="AppThemeYellow" parent="AppTheme">
@@ -850,16 +732,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_yellow_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeYellow</item>
-    </style>
-
-    <style name="AlertThemeYellow" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_yellow_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_yellow_primary</item>
     </style>
 
     <style name="AppThemeAmber" parent="AppTheme">
@@ -908,16 +780,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_amber_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeAmber</item>
-    </style>
-
-    <style name="AlertThemeAmber" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_amber_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_amber_primary</item>
     </style>
 
     <style name="AppThemeOrange" parent="AppTheme">
@@ -966,16 +828,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_orange_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeOrange</item>
-    </style>
-
-    <style name="AlertThemeOrange" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_orange_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_orange_primary</item>
     </style>
 
     <style name="AppThemeOrangeDeep" parent="AppTheme">
@@ -1024,16 +876,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_orange_deep_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeOrangeDeep</item>
-    </style>
-
-    <style name="AlertThemeOrangeDeep" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_orange_deep_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_orange_deep_primary</item>
     </style>
 
     <style name="AppThemeBrown" parent="AppTheme">
@@ -1082,16 +924,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_brown_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeBrown</item>
-    </style>
-
-    <style name="AlertThemeBrown" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_brown_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_brown_primary</item>
     </style>
 
     <style name="AppThemeGrey" parent="AppTheme">
@@ -1140,16 +972,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_grey_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeGrey</item>
-    </style>
-
-    <style name="AlertThemeGrey" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_grey_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_grey_primary</item>
     </style>
 
     <style name="AppThemeGreyBlue" parent="AppTheme">
@@ -1198,16 +1020,6 @@
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @color/theme_grey_blue_accent
         </item>
-
-        <!-- alert -->
-        <item name="alertDialogTheme">@style/AlertThemeGreyBlue</item>
-    </style>
-
-    <style name="AlertThemeGreyBlue" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
-        <!-- title 和 button 的颜色 -->
-        <item name="android:textColor">@color/theme_grey_blue_dark</item>
-        <!-- message 的颜色 -->
-        <item name="android:textColorPrimary">@color/theme_grey_blue_primary</item>
     </style>
 
 </resources>

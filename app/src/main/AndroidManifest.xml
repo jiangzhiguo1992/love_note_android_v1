@@ -42,6 +42,10 @@
         <activity android:name=".activity.common.WebActivity"/>
         <activity android:name=".activity.user.UserInfoActivity"/>
         <activity android:name=".activity.common.HelpActivity"/>
+        <activity
+            android:name=".activity.settings.SettingsActivity"
+            android:label="@string/title_activity_settings">
+        </activity>
     </application>
 
 </manifest>
