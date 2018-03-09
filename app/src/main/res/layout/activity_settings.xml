@@ -24,26 +24,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="基本设置"
+                android:text="@string/base_settings"
                 android:textStyle="bold"/>
 
-            <!-- 主题选项，自动更换。。。 -->
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvTheme"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvThemeTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="主题"/>
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/theme"/>
 
             <View
                 style="@style/LineHorizontal"
@@ -51,6 +45,7 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
+                android:id="@+id/rlWifi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -65,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchWifi"
-                    android:text="省流量模式"/>
+                    android:text="@string/less_flux_mode"/>
 
                 <TextView
                     android:id="@+id/tvWifiSummary"
@@ -74,14 +69,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvWifiTitle"
                     android:layout_toStartOf="@+id/switchWifi"
-                    android:text="仅在wifi模式下才会自动加载图片"/>
+                    android:text="@string/only_wifi_mode_auto_load_image"/>
 
                 <Switch
                     android:id="@+id/switchWifi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:enabled="false"/>
             </RelativeLayout>
 
             <View
@@ -90,6 +86,7 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
+                android:id="@+id/rlDownload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -104,7 +101,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchDownland"
-                    android:text="自动下载更新"/>
+                    android:text="@string/auto_download_update"/>
 
                 <TextView
                     android:id="@+id/tvDownlandSummary"
@@ -113,14 +110,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvDownlandTitle"
                     android:layout_toStartOf="@+id/switchDownland"
-                    android:text="仅在wifi模式下会自动下载"/>
+                    android:text="@string/only_wifi_mode_auto_download"/>
 
                 <Switch
                     android:id="@+id/switchDownland"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:enabled="false"/>
             </RelativeLayout>
 
             <View
@@ -129,6 +127,7 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
+                android:id="@+id/rlCache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -143,7 +142,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchCache"
-                    android:text="清除缓存"/>
+                    android:text="@string/clear_cache"/>
 
                 <TextView
                     android:id="@+id/tvCacheSummary"
@@ -152,14 +151,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvCacheTitle"
                     android:layout_toStartOf="@+id/switchCache"
-                    android:text="包括图片、音频、视频缓存(共:holder)"/>
+                    android:text="@string/contain_image_audio_video_total"/>
 
                 <Switch
                     android:id="@+id/switchCache"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:enabled="false"/>
             </RelativeLayout>
 
             <View
@@ -172,10 +172,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="通知设置"
+                android:text="@string/notice_settings"
                 android:textStyle="bold"/>
 
             <RelativeLayout
+                android:id="@+id/rlSystem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -190,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchSystem"
-                    android:text="系统通知"/>
+                    android:text="@string/system_notice"/>
 
                 <TextView
                     android:id="@+id/tvSystemSummary"
@@ -199,14 +200,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvSystemTitle"
                     android:layout_toStartOf="@+id/switchSystem"
-                    android:text="接受系统发送的重要通知"/>
+                    android:text="@string/receive_system_send_import_notice"/>
 
                 <Switch
                     android:id="@+id/switchSystem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:enabled="false"/>
             </RelativeLayout>
 
             <View
@@ -215,6 +217,7 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
+                android:id="@+id/rlTa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -229,7 +232,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchTa"
-                    android:text="Ta的通知"/>
+                    android:text="@string/ta_notice"/>
 
                 <TextView
                     android:id="@+id/tvTaSummary"
@@ -238,14 +241,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTaTitle"
                     android:layout_toStartOf="@+id/switchTa"
-                    android:text="接受来自Ta发送的重要通知"/>
+                    android:text="@string/receive_about_ta_import_notice"/>
 
                 <Switch
                     android:id="@+id/switchTa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:enabled="false"/>
             </RelativeLayout>
 
             <View
@@ -254,6 +258,7 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
+                android:id="@+id/rlOther"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -268,7 +273,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toStartOf="@+id/switchOther"
-                    android:text="其他人的通知"/>
+                    android:text="@string/other_notice"/>
 
                 <TextView
                     android:id="@+id/tvOtherSummary"
@@ -277,14 +282,15 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvOtherTitle"
                     android:layout_toStartOf="@+id/switchOther"
-                    android:text="接受来自其他人发送的重要通知"/>
+                    android:text="@string/receive_from_other_notice"/>
 
                 <Switch
                     android:id="@+id/switchOther"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:enabled="false"/>
             </RelativeLayout>
 
             <View
@@ -297,47 +303,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="账号设置"
+                android:text="@string/account_settings"
                 android:textStyle="bold"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvPhone"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvPhoneTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="更换手机"/>
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/change_phone"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvPassword"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvPwdTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="修改密码"/>
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/modify_password"/>
 
             <View
                 style="@style/LineHorizontal"
@@ -349,10 +345,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="关于与帮助"
+                android:text="@string/about_and_help"
                 android:textStyle="bold"/>
 
             <RelativeLayout
+                android:id="@+id/rlUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -366,7 +363,7 @@
                     style="@style/FontBlackNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="检查更新"/>
+                    android:text="@string/check_update"/>
 
                 <TextView
                     android:id="@+id/tvUpdateSummary"
@@ -374,8 +371,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUpdateTitle"
-                    android:text="当前版本 :holder"/>
-
+                    android:text="@string/current_version_holder"/>
             </RelativeLayout>
 
             <View
@@ -383,168 +379,122 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvHelp"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvHelpTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="帮助文档"/>
-
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/help_document"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvSuggest"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvSuggestTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="意见反馈"/>
-
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/suggest_feedback"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvRate"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvRateTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="去评价"/>
-
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/go_rate"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvOpen"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvOpenTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="开源许可"/>
-
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/open_protocol"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvProtocol"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvProtocolTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="我和Ta协议"/>
-
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/ita_protocol"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvContact"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvContactTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="联系我们"/>
-
-            </RelativeLayout>
+                android:paddingTop="16dp"
+                android:text="@string/contact_us"/>
 
             <View
                 style="@style/LineHorizontal"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvExist"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackground"
+                android:gravity="center"
                 android:paddingBottom="16dp"
                 android:paddingEnd="16dp"
                 android:paddingStart="16dp"
-                android:paddingTop="16dp">
-
-                <TextView
-                    android:id="@+id/tvExitTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="退出账号"
-                    android:textColor="@color/theme_red_dark"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
+                android:paddingTop="16dp"
+                android:text="@string/exist_account"
+                android:textColor="@color/theme_red_dark"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
