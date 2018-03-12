@@ -254,4 +254,13 @@
     <string name="ita_protocol">我和Ta协议</string>
     <string name="contact_us">联系我们</string>
     <string name="exist_account">退出账号</string>
+    <string name="settings">设置</string>
+    <string name="girl_pink">少女粉</string>
+    <string name="menses_red">姨妈红</string>
+    <string name="gay_purple">基佬紫</string>
+    <string name="briefs_blue">胖次蓝</string>
+    <string name="sapling_green">草苗绿</string>
+    <string name="egg_yellow">咸蛋黄</string>
+    <string name="fruit_orange">鲜果橙</string>
+    <string name="coffee_brown">咖啡棕</string>
 </resources>

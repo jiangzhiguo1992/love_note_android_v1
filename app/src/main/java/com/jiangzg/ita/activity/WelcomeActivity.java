@@ -8,10 +8,9 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.utils.UserPreference;
+import com.jiangzg.ita.utils.PreferenceUser;
 
 import butterknife.BindView;
 
@@ -54,7 +53,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 检查用户
     private void checkUser() {
-        if (UserPreference.noLogin()) {
+        if (PreferenceUser.noLogin()) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
@@ -76,13 +75,13 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             //        Couple couple = data.getCouple();
             //        Version version = data.getVersion();
             //        if (user == null) {
-            //            UserPreference.clearUser();
+            //            PreferenceUser.clearUser();
             //            LoginActivity.goActivity(mActivity);
             //        } else {
-            //            UserPreference.setUser(user);
+            //            PreferenceUser.setUser(user);
             //        }
-            //        if (!UserPreference.noCouple(couple)) {
-            //             UserPreference.setCouple(couple);
+            //        if (!PreferenceUser.noCouple(couple)) {
+            //             PreferenceUser.setCouple(couple);
             //        }
             //        if (version != null) {
             //

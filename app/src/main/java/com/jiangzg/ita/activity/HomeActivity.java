@@ -145,7 +145,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             pagerAdapter.removeData(0);
         }
         // 这里之后fragmentList的size是3
-        // todo if (UserPreference.noCouple()) {
+        // todo if (PreferenceUser.noCouple()) {
         if (false) {
             pagerAdapter.addData(0, null, PairFragment.newFragment());
         } else {
