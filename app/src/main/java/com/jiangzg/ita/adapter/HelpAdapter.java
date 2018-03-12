@@ -32,7 +32,6 @@ public class HelpAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public HelpAdapter(FragmentActivity activity) {
         this.activity = activity;
         help = new Help();
-
     }
 
     public void setData(Help help) {

@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<item-->
-    <!--android:gravity="bottom"-->
-    <!--android:height="1px"-->
-    <!--android:drawable="@color/line_gray"/>-->
     <item>
         <shape>
             <stroke
@@ -11,4 +7,10 @@
                 android:color="@color/line_grey"/>
         </shape>
     </item>
+    <!--<item-->
+        <!--android:bottom="1px"-->
+        <!--android:drawable="#ffffff"-->
+        <!--android:left="0dp"-->
+        <!--android:right="0dp"-->
+        <!--android:top="0dp"/>-->
 </layer-list>

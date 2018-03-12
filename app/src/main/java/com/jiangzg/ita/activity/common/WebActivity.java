@@ -12,6 +12,7 @@ import com.jiangzg.ita.base.BaseActivity;
 public class WebActivity extends BaseActivity<WebActivity> {
 
     public static final int TYPE_USER_PROTOCOL = 1; // 用户协议
+    public static final int TYPE_CONTACT_US = 2; // 联系我们
 
     public static void goActivity(Activity from, int type) {
         Intent intent = new Intent(from, WebActivity.class);

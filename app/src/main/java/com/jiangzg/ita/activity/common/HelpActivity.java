@@ -49,8 +49,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.help_document), true);
-
-        rv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false));
+        // recycler
+        rv.setLayoutManager(new LinearLayoutManager(mActivity));
         HelpAdapter adapter = new HelpAdapter(mActivity);
         rv.setAdapter(adapter);
     }

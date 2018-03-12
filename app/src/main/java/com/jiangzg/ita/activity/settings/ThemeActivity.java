@@ -110,40 +110,40 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     }
 
     private void initThemeUI() {
-        ivPink.setImageResource(R.drawable.ic_circle);
-        ivRed.setImageResource(R.drawable.ic_circle);
-        ivPurple.setImageResource(R.drawable.ic_circle);
-        ivBlue.setImageResource(R.drawable.ic_circle);
-        ivGreen.setImageResource(R.drawable.ic_circle);
-        ivYellow.setImageResource(R.drawable.ic_circle);
-        ivOrange.setImageResource(R.drawable.ic_circle);
-        ivBrown.setImageResource(R.drawable.ic_circle);
+        ivPink.setImageResource(R.drawable.ic_circle_primary);
+        ivRed.setImageResource(R.drawable.ic_circle_primary);
+        ivPurple.setImageResource(R.drawable.ic_circle_primary);
+        ivBlue.setImageResource(R.drawable.ic_circle_primary);
+        ivGreen.setImageResource(R.drawable.ic_circle_primary);
+        ivYellow.setImageResource(R.drawable.ic_circle_primary);
+        ivOrange.setImageResource(R.drawable.ic_circle_primary);
+        ivBrown.setImageResource(R.drawable.ic_circle_primary);
         // 获取已选择的theme
         int settingsTheme = PreferenceUser.getSettingsTheme();
         switch (settingsTheme) {
             case ThemeUtils.THEME_PINK:
-                ivPink.setImageResource(R.drawable.ic_check_circle);
+                ivPink.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_RED:
-                ivRed.setImageResource(R.drawable.ic_check_circle);
+                ivRed.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_PURPLE:
-                ivPurple.setImageResource(R.drawable.ic_check_circle);
+                ivPurple.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_BLUE:
-                ivBlue.setImageResource(R.drawable.ic_check_circle);
+                ivBlue.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_GREEN:
-                ivGreen.setImageResource(R.drawable.ic_check_circle);
+                ivGreen.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_YELLOW:
-                ivYellow.setImageResource(R.drawable.ic_check_circle);
+                ivYellow.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_ORANGE:
-                ivOrange.setImageResource(R.drawable.ic_check_circle);
+                ivOrange.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeUtils.THEME_BROWN:
-                ivBrown.setImageResource(R.drawable.ic_check_circle);
+                ivBrown.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
         }
     }

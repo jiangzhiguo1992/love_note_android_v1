@@ -54,6 +54,8 @@
         </activity>
         <activity android:name=".activity.common.HelpListActivity">
         </activity>
+        <activity android:name=".activity.common.SuggestListActivity">
+        </activity>
     </application>
 
 </manifest>

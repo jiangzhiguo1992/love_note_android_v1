@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
+import com.jiangzg.ita.activity.common.SuggestListActivity;
+import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
@@ -146,19 +148,21 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 HelpActivity.goActivity(mActivity);
                 break;
             case R.id.tvSuggest:
-                // todo-----
+                SuggestListActivity.goActivity(mActivity);
                 break;
             case R.id.tvRate:
                 // todo
+                //Intent intent = IntentUtils.getMarket();
+                //ActivityTrans.start(mActivity, intent);
                 break;
             case R.id.tvOpen:
                 // todo
                 break;
             case R.id.tvProtocol:
-                // todo
+                WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
                 break;
             case R.id.tvContact:
-                // todo
+                WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
             case R.id.tvExist:
                 PreferenceUser.clearUser();
