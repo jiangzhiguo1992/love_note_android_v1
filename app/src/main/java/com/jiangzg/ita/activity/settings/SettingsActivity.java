@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.user.LoginActivity;
+import com.jiangzg.ita.activity.user.PasswordActivity;
+import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.utils.PreferenceUser;
 import com.jiangzg.ita.utils.ViewUtils;
@@ -131,10 +133,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 switchOther.setChecked(!switchOther.isChecked());
                 break;
             case R.id.tvPhone:
-                // todo
+                PhoneActivity.goActivity(mActivity);
                 break;
             case R.id.tvPassword:
-                // todo
+                PasswordActivity.goActivity(mActivity);
                 break;
             case R.id.rlUpdate:
                 // todo

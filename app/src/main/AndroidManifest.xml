@@ -48,6 +48,10 @@
         </activity>
         <activity android:name=".activity.settings.ThemeActivity">
         </activity>
+        <activity android:name=".activity.user.PhoneActivity">
+        </activity>
+        <activity android:name=".activity.user.PasswordActivity">
+        </activity>
     </application>
 
 </manifest>
