@@ -12,12 +12,12 @@ import java.util.List;
  * Created by JiangZhiGuo on 2016-11-9.
  * describe 通用tab-pager适配器
  */
-public class GFragmentPagerAdapter<T extends Fragment> extends FragmentStatePagerAdapter {
+public class CommonFragmentPagerAdapter<T extends Fragment> extends FragmentStatePagerAdapter {
 
     private List<String> titleList;  // tab标题
     private List<T> fragmentList; // fragment
 
-    public GFragmentPagerAdapter(FragmentManager fm) {
+    public CommonFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
         titleList = new ArrayList<>();
         fragmentList = new ArrayList<>();

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
@@ -22,13 +21,13 @@ import android.widget.TextView;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.intent.IntentUtils;
 import com.jiangzg.base.function.ContactUtils;
-import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.utils.Constants;
@@ -134,7 +133,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, HelpActivity.TYPE_COUPLE_PAIR);
+                        HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_PAIR);
                         break;
                 }
                 return true;

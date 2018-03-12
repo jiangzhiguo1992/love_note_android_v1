@@ -13,7 +13,7 @@ import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.adapter.GFragmentPagerAdapter;
+import com.jiangzg.ita.adapter.CommonFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.domain.Couple;
@@ -41,7 +41,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuSquare};
     private Observable<Couple> coupleObservable;
-    private GFragmentPagerAdapter<BasePagerFragment> pagerAdapter;
+    private CommonFragmentPagerAdapter<BasePagerFragment> pagerAdapter;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
@@ -133,7 +133,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     public void changePagerAdapter() {
         if (pagerAdapter == null) {
             FragmentManager manager = mActivity.getSupportFragmentManager();
-            pagerAdapter = new GFragmentPagerAdapter<>(manager);
+            pagerAdapter = new CommonFragmentPagerAdapter<>(manager);
         }
         // fragmentList的size是0或4
         List<BasePagerFragment> fragmentList = pagerAdapter.getFragmentList();

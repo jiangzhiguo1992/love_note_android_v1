@@ -18,6 +18,7 @@ import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GVerticalSwipeRefresh;
 
@@ -110,7 +111,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
-                HelpActivity.goActivity(mActivity, HelpActivity.TYPE_COUPLE_HOME);
+                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_HOME);
                 break;
             case R.id.ivSettings: // 设置
                 SettingsActivity.goActivity(mActivity);

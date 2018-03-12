@@ -52,6 +52,8 @@
         </activity>
         <activity android:name=".activity.user.PasswordActivity">
         </activity>
+        <activity android:name=".activity.common.HelpListActivity">
+        </activity>
     </application>
 
 </manifest>

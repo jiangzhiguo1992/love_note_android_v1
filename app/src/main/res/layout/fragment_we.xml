@@ -40,7 +40,7 @@
                     android:alpha="0.7"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/ic_help_circle_white"/>
+                    app:srcCompat="@drawable/ic_help_circle_solid_white"/>
 
                 <ImageView
                     android:id="@+id/ivSettings"

@@ -15,7 +15,7 @@ import java.util.List;
  * Created by JiangZhiGuo on 2016-11-9.
  * describe 通用ViewPager适配器
  */
-public class GPagerAdapter<T> extends PagerAdapter {
+public class CommonPagerAdapter<T> extends PagerAdapter {
 
     private Context mContext;
     private int itemId;
@@ -25,7 +25,7 @@ public class GPagerAdapter<T> extends PagerAdapter {
     private View.OnLongClickListener longClickListener;
     private int errorRes = 0;
 
-    public GPagerAdapter(Context context, int itemLayoutId) {
+    public CommonPagerAdapter(Context context, int itemLayoutId) {
         mContext = context;
         itemId = itemLayoutId;
         mData = new ArrayList<>();

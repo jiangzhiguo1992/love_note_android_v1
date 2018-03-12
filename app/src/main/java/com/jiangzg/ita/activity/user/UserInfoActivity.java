@@ -21,6 +21,7 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.utils.ViewUtils;
 import com.jiangzg.ita.view.GNumberPicker;
@@ -92,7 +93,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, HelpActivity.TYPE_USER_INFO_SET);
+                        HelpActivity.goActivity(mActivity, Help.TYPE_USER_INFO_SET);
                         break;
                 }
                 return true;
