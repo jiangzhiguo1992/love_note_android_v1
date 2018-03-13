@@ -21,7 +21,7 @@ public class ThemeUtils {
     public static final int THEME_BROWN = 7;
 
     public static void initTheme(Activity activity) {
-        int settingsTheme = PreferenceUser.getSettingsTheme();
+        int settingsTheme = PrefUtils.getSettingsTheme();
         switch (settingsTheme) {
             case THEME_PINK:
                 activity.setTheme(R.style.AppThemePink);
@@ -51,7 +51,7 @@ public class ThemeUtils {
     }
 
     public static void setTheme(Activity activity, int theme) {
-        PreferenceUser.setSettingsTheme(theme);
+        PrefUtils.setSettingsTheme(theme);
         //initTheme(activity);
     }
 

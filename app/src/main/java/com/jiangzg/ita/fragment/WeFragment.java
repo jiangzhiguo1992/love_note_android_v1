@@ -20,7 +20,7 @@ import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.view.GMarqueeText;
-import com.jiangzg.ita.view.GVerticalSwipeRefresh;
+import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -28,8 +28,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WeFragment extends BasePagerFragment<WeFragment> {
 
-    @BindView(R.id.vsr)
-    GVerticalSwipeRefresh vsr;
+    @BindView(R.id.srl)
+    GSwipeRefreshLayout srl;
     @BindView(R.id.root)
     LinearLayout root;
     @BindView(R.id.vfTopBg)

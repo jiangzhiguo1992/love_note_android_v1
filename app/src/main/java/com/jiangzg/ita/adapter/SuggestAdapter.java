@@ -49,6 +49,12 @@ public class SuggestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void addData(List<Suggest> suggestList) {
+        int insert = this.suggestList.size();
+        this.suggestList.addAll(suggestList);
+        notifyItemInserted(insert);
+    }
+
     @Override
     public int getItemCount() {
         if (suggestList == null) {

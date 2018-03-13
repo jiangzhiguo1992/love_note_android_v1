@@ -31,7 +31,7 @@ import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.utils.Constants;
-import com.jiangzg.ita.utils.PreferenceUser;
+import com.jiangzg.ita.utils.PrefUtils;
 import com.jiangzg.ita.utils.ViewUtils;
 
 import java.util.Stack;
@@ -295,12 +295,12 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             ToastUtils.show(R.string.err_un_know_client);
             return;
         }
-        PreferenceUser.setUser(user);
+        PrefUtils.setUser(user);
         RxBus.post(new RxEvent<>(Constants.EVENT_USER, user));
         // 检查couple
         Couple couple = user.getCouple();
-        if (!PreferenceUser.noCouple(couple)) { // 有配对
-            PreferenceUser.setCouple(couple);
+        if (!PrefUtils.noCouple(couple)) { // 有配对
+            PrefUtils.setCouple(couple);
         }
         stopTimer();
         HomeActivity.goActivity(mActivity);

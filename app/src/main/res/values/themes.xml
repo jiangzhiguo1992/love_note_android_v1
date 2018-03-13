@@ -32,10 +32,12 @@
         <!-- 应用的前景色，ListView的分割线，switch滑动区默认使用该颜色 -->
         <item name="android:colorForeground">@color/foreground_color</item>
 
-        <!-- alert -->
+        <!--对话框的背景是否变暗-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 对话框样式 -->
         <item name="alertDialogTheme">@style/mAlertTheme</item>
 
-        <!-- 整体跳转动画,也可在BaseActivity中动态设置 -->
+        <!-- 整体跳转动画，也可在BaseActivity中动态设置 -->
         <item name="android:windowAnimationStyle">@style/mSlideAnim</item>
     </style>
 

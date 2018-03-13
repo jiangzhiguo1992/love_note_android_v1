@@ -19,7 +19,7 @@ import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.utils.PreferenceUser;
+import com.jiangzg.ita.utils.PrefUtils;
 import com.jiangzg.ita.utils.ViewUtils;
 
 import butterknife.BindView;
@@ -97,15 +97,15 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        boolean onlyWifi = PreferenceUser.getSettingsOnlyWifi();
+        boolean onlyWifi = PrefUtils.getSettingsOnlyWifi();
         switchWifi.setChecked(onlyWifi);
-        boolean autoDownload = PreferenceUser.getSettingsAutoDownload();
+        boolean autoDownload = PrefUtils.getSettingsAutoDownload();
         switchDownland.setChecked(autoDownload);
-        boolean noticeSystem = PreferenceUser.getSettingsNoticeSystem();
+        boolean noticeSystem = PrefUtils.getSettingsNoticeSystem();
         switchSystem.setChecked(noticeSystem);
-        boolean noticeTa = PreferenceUser.getSettingsNoticeTa();
+        boolean noticeTa = PrefUtils.getSettingsNoticeTa();
         switchTa.setChecked(noticeTa);
-        boolean noticeOther = PreferenceUser.getSettingsNoticeOther();
+        boolean noticeOther = PrefUtils.getSettingsNoticeOther();
         switchOther.setChecked(noticeOther);
     }
 
@@ -165,8 +165,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
             case R.id.tvExist:
-                PreferenceUser.clearUser();
-                PreferenceUser.clearCouple();
+                PrefUtils.clearUser();
+                PrefUtils.clearCouple();
                 LoginActivity.goActivity(mActivity);
                 break;
         }
@@ -176,19 +176,19 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.switchWifi:
-                PreferenceUser.setSettingsOnlyWifi(isChecked);
+                PrefUtils.setSettingsOnlyWifi(isChecked);
                 break;
             case R.id.switchDownland:
-                PreferenceUser.setSettingsAutoDownload(isChecked);
+                PrefUtils.setSettingsAutoDownload(isChecked);
                 break;
             case R.id.switchSystem:
-                PreferenceUser.setSettingsNoticeSystem(isChecked);
+                PrefUtils.setSettingsNoticeSystem(isChecked);
                 break;
             case R.id.switchTa:
-                PreferenceUser.setSettingsNoticeTa(isChecked);
+                PrefUtils.setSettingsNoticeTa(isChecked);
                 break;
             case R.id.switchOther:
-                PreferenceUser.setSettingsNoticeOther(isChecked);
+                PrefUtils.setSettingsNoticeOther(isChecked);
                 break;
         }
     }

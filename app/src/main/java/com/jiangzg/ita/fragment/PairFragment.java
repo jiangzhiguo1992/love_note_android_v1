@@ -32,7 +32,7 @@ import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.utils.Constants;
 import com.jiangzg.ita.utils.ViewUtils;
-import com.jiangzg.ita.view.GVerticalSwipeRefresh;
+import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -106,8 +106,8 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     LinearLayout llPairCan;
     @BindView(R.id.card)
     CardView card;
-    @BindView(R.id.vsr)
-    GVerticalSwipeRefresh vsr;
+    @BindView(R.id.srl)
+    GSwipeRefreshLayout srl;
 
     private String taPhone;
     private int showType = SHOW_NULL;
@@ -139,7 +139,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
                 return true;
             }
         });
-        vsr.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshData();
@@ -149,14 +149,14 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
 
     @Override
     protected void refreshData() {
-        if (!vsr.isRefreshing()) {
-            vsr.setRefreshing(true);
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
         }
         // todo api获取home数据
         MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                vsr.setRefreshing(false);
+                srl.setRefreshing(false);
                 showType = SHOW_INPUT_ONLY;
                 changeViewShow();
             }

@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.utils.PreferenceUser;
+import com.jiangzg.ita.utils.PrefUtils;
 import com.jiangzg.ita.utils.ThemeUtils;
 import com.jiangzg.ita.utils.ViewUtils;
 
@@ -119,7 +119,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
         ivOrange.setImageResource(R.drawable.ic_circle_primary);
         ivBrown.setImageResource(R.drawable.ic_circle_primary);
         // 获取已选择的theme
-        int settingsTheme = PreferenceUser.getSettingsTheme();
+        int settingsTheme = PrefUtils.getSettingsTheme();
         switch (settingsTheme) {
             case ThemeUtils.THEME_PINK:
                 ivPink.setImageResource(R.drawable.ic_check_circle_primary);

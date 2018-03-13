@@ -12,27 +12,26 @@ import com.jiangzg.ita.utils.ViewUtils;
  * Created by JiangZhiGuo on 2016/8/11.
  * describe 只监听垂直下拉的SwipeRefreshLayout
  */
-public class GVerticalSwipeRefresh extends SwipeRefreshLayout {
+public class GSwipeRefreshLayout extends SwipeRefreshLayout {
 
     private int mTouchSlop;
     // 上一次触摸时的X坐标
     private float mPrevX;
 
-    public GVerticalSwipeRefresh(Context context) {
+    public GSwipeRefreshLayout(Context context) {
         super(context);
-        // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         init(context);
     }
 
-    public GVerticalSwipeRefresh(Context context, AttributeSet attrs) {
+    public GSwipeRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         init(context);
     }
 
     private void init(Context context) {
+        // 触发移动事件的最短距离，如果小于这个距离就不触发移动控件
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        // 设置颜色
         int colorDark = ViewUtils.getColorDark(context);
         int colorPrimary = ViewUtils.getColorPrimary(context);
         int colorAccent = ViewUtils.getColorAccent(context);

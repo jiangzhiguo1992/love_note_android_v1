@@ -10,8 +10,8 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <com.jiangzg.ita.view.GVerticalSwipeRefresh
-        android:id="@+id/vsr"
+    <com.jiangzg.ita.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -564,5 +564,5 @@
                 </android.support.v7.widget.CardView>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.jiangzg.ita.view.GVerticalSwipeRefresh>
+    </com.jiangzg.ita.view.GSwipeRefreshLayout>
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.jiangzg.ita.utils;
 import android.content.SharedPreferences;
 
 import com.jiangzg.base.file.SPUtils;
-import com.jiangzg.ita.R;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.GsonUtils;
@@ -13,9 +12,9 @@ import com.jiangzg.ita.third.LogUtils;
  * Created by Fan on 2017/3/2.
  * Preferences 帮助类
  */
-public class PreferenceUser {
+public class PrefUtils {
 
-    private static final String LOG_TAG = "PreferenceUser";
+    private static final String LOG_TAG = "PrefUtils";
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
@@ -116,7 +115,7 @@ public class PreferenceUser {
     }
 
     public static boolean noLogin() {
-        String userToken = PreferenceUser.getUser().getUserToken();
+        String userToken = getUser().getUserToken();
         //return StringUtils.isEmpty(userToken);
         return true;
     }

@@ -1,6 +1,7 @@
 package com.jiangzg.ita.service;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetroManager;
 import com.jiangzg.ita.utils.Constants;
 import com.jiangzg.ita.utils.ResUtils;
+import com.jiangzg.ita.utils.ViewUtils;
 
 import java.io.File;
 import java.util.HashMap;
@@ -35,6 +37,25 @@ import retrofit2.Call;
 public class UpdateService extends Service {
 
     private static final String EXTRA_VER = "version";
+
+    public static void checkUpdate(Dialog dialog) {
+        Call<Result> call = new RetroManager()
+                .call(API.class)
+                .checkUpdate(AppInfo.get().getVersionCode());
+        RetroManager.enqueue(call, dialog, new RetroManager.CallBack() {
+            @Override
+            public void onResponse(int code, Result.Data data) {
+                if (data != null && data.getVersion() != null) {
+                    ViewUtils.showUpdateDialog(data.getVersion());
+                }
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
+
+    }
 
     public static void goService(Context from) {
         Intent intent = new Intent(from, UpdateService.class);

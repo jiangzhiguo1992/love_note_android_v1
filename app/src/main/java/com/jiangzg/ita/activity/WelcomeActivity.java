@@ -10,7 +10,7 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.utils.PreferenceUser;
+import com.jiangzg.ita.utils.PrefUtils;
 
 import butterknife.BindView;
 
@@ -53,7 +53,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 检查用户
     private void checkUser() {
-        if (PreferenceUser.noLogin()) {
+        if (PrefUtils.noLogin()) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
@@ -75,13 +75,13 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             //        Couple couple = data.getCouple();
             //        Version version = data.getVersion();
             //        if (user == null) {
-            //            PreferenceUser.clearUser();
+            //            PrefUtils.clearUser();
             //            LoginActivity.goActivity(mActivity);
             //        } else {
-            //            PreferenceUser.setUser(user);
+            //            PrefUtils.setUser(user);
             //        }
-            //        if (!PreferenceUser.noCouple(couple)) {
-            //             PreferenceUser.setCouple(couple);
+            //        if (!PrefUtils.noCouple(couple)) {
+            //             PrefUtils.setCouple(couple);
             //        }
             //        if (version != null) {
             //
