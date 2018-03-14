@@ -101,7 +101,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
             willWatchCount = 0;
         }
         item.setWatchCount(willWatchCount);
-        notifyItemChanged(position);
+        notifyItemChanged(position + getHeaderLayoutCount());
         // todo api
     }
 

@@ -17,6 +17,7 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.third.RecyclerManager;
+import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.utils.ViewUtils;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
@@ -50,34 +51,14 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     protected void initView(Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // recycler
-        //rv.setLayoutManager(new LinearLayoutManager(mActivity));
-        //SuggestAdapter adapter = new SuggestAdapter(mActivity);
-        //rv.setAdapter(adapter);
-        // refresh
-        //srl.setProgressViewEndTarget();
-        //srl.onInterceptTouchEvent();
-        //srl.offsetTopAndBottom();
-        //srl.setOnDragListener(new View.OnDragListener() {
-        //    @Override
-        //    public boolean onDrag(View v, DragEvent event) {
-        //        return false;
-        //    }
-        //});
-        //srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-        //    @Override
-        //    public void onRefresh() {
-        //        getData(true);
-        //    }
-        //});
-
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl)
-                .setAdapter(new SuggestAdapter(mActivity))
+                .initAdapter(new SuggestAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_common)
                 .viewHeader(R.layout.list_head_suggest) // todo head
-                //.viewLoading() // todo load
-                //.viewEmpty() // todo empty
+                .viewLoadMore(new RecyclerMoreView())
                 .listenerRefresh(new RecyclerManager.RefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -122,6 +103,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             @Override
             public void run() {
                 srl.setRefreshing(false);
+                List<Suggest> suggestList = new ArrayList<>();
                 if (more) {
                     Suggest s0 = new Suggest();
                     s0.setTitle("下拉出来的！");
@@ -132,11 +114,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s0.setComment(false);
                     s0.setWatchCount(0);
                     s0.setCommentCount(0);
-                    List<Suggest> list = new ArrayList<>();
-                    list.add(s0);
-                    recyclerManager.data(list, more);
+                    suggestList.add(s0);
                 } else {
-                    List<Suggest> suggestList = new ArrayList<>();
                     Suggest s1 = new Suggest();
                     s1.setTitle("我发现了一个bug！");
                     s1.setCreatedAt(1520866299);
@@ -173,8 +152,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     suggestList.add(s1);
                     suggestList.add(s2);
                     suggestList.add(s3);
-                    recyclerManager.data(suggestList, more);
                 }
+                recyclerManager.data(suggestList, 12, more);
+                recyclerManager.viewEmptyShow(R.id.tvShow, "我靠，这什么情况啊我靠，这什么情况啊我靠，这什么情况啊我靠，这什么情况啊");
             }
         }, 1000);
     }

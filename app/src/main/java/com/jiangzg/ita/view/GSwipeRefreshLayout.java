@@ -36,7 +36,7 @@ public class GSwipeRefreshLayout extends SwipeRefreshLayout {
         int colorPrimary = ViewUtils.getColorPrimary(context);
         int colorAccent = ViewUtils.getColorAccent(context);
         int colorLight = ViewUtils.getColorLight(context);
-        this.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight);
+        this.setColorSchemeResources(colorDark, colorPrimary, colorAccent, colorLight, colorAccent, colorPrimary);
     }
 
     @Override

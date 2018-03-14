@@ -10,28 +10,15 @@ import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
 
 import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.application.AppInfo;
-import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.file.FileUtils;
-import com.jiangzg.base.function.PermUtils;
 import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetroManager;
-import com.jiangzg.ita.utils.Constants;
-import com.jiangzg.ita.utils.ResUtils;
-import com.jiangzg.ita.utils.ViewUtils;
 
-import java.io.File;
-import java.util.HashMap;
-
-import okhttp3.ResponseBody;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 
 public class UpdateService extends Service {
@@ -46,7 +33,7 @@ public class UpdateService extends Service {
             @Override
             public void onResponse(int code, Result.Data data) {
                 if (data != null && data.getVersion() != null) {
-                    ViewUtils.showUpdateDialog(data.getVersion());
+                    showUpdateDialog(data.getVersion());
                 }
             }
 
@@ -55,6 +42,23 @@ public class UpdateService extends Service {
             }
         });
 
+    }
+
+    public static void showUpdateDialog(Version version) {
+        final Activity top = ActivityStack.getTop();
+        if (top == null) return;
+        String title = String.format(top.getString(R.string.find_new_version), version.getVersionName());
+        String message = version.getUpdateLog();
+        String positive = top.getString(R.string.update_now);
+        String negative = top.getString(R.string.update_delay);
+        AlertDialog dialog = DialogUtils.createAlert(top, title, message, positive, negative,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        UpdateService.goService(top);
+                    }
+                }, null);
+        dialog.show();
     }
 
     public static void goService(Context from) {

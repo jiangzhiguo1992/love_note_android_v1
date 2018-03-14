@@ -1,10 +1,12 @@
 package com.jiangzg.ita.third;
 
 import android.content.Context;
+import android.support.annotation.IdRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -26,7 +28,7 @@ public class RecyclerManager {
     private SwipeRefreshLayout mRefresh;
     private RefreshListener mRefreshListener;
     private MoreListener mMoreListener;
-    private LoadMoreView mLoading;
+    private LoadMoreView mLoadMore;
     private View mEmpty, mHead, mFoot;
 
     public RecyclerManager(Context context) {
@@ -60,21 +62,10 @@ public class RecyclerManager {
     }
 
     /**
-     * 设置适配器，http获取数据
+     * 设置适配器
      */
     public RecyclerManager initAdapter(BaseQuickAdapter adapter) {
-        if (adapter == null) return this;
         mAdapter = adapter;
-        return this;
-    }
-
-    /**
-     * 直接设置适配器，本地数据
-     */
-    public RecyclerManager setAdapter(BaseQuickAdapter adapter) {
-        if (mRecycler == null || adapter == null) return this;
-        mAdapter = adapter;
-        mRecycler.setAdapter(mAdapter);
         return this;
     }
 
@@ -85,8 +76,7 @@ public class RecyclerManager {
     public RecyclerManager viewEmpty(int emptyLayoutId) {
         if (mRecycler == null || mContext == null || emptyLayoutId == 0) return this;
         View empty = LayoutInflater.from(mContext).inflate(emptyLayoutId, mRecycler, false);
-        viewEmpty(empty);
-        return this;
+        return viewEmpty(empty);
     }
 
     public RecyclerManager viewEmpty(View empty) {
@@ -96,20 +86,31 @@ public class RecyclerManager {
         return this;
     }
 
+    public RecyclerManager viewEmptyShow(@IdRes int tvId, String show) {
+        if (mAdapter == null) return this;
+        View emptyView = mAdapter.getEmptyView();
+        if (emptyView == null) return this;
+        TextView tvShow = emptyView.findViewById(tvId);
+        if (tvShow == null) return this;
+        tvShow.setText(show);
+        return this;
+    }
+
     /**
      * list顶部view（可remove）
      */
     public RecyclerManager viewHeader(int headLayoutId) {
         if (mContext == null || mRecycler == null) return this;
         View head = LayoutInflater.from(mContext).inflate(headLayoutId, mRecycler, false);
-        viewHeader(head);
-        return this;
+        return viewHeader(head);
     }
 
     public RecyclerManager viewHeader(View head) {
         if (mAdapter == null || head == null) return this;
         mHead = head;
         mAdapter.setHeaderView(mHead);
+        mAdapter.setHeaderFooterEmpty(mEmpty != null, (mFoot != null && mEmpty != null));
+        //mAdapter.setHeaderViewAsFlow(true);
         return this;
     }
 
@@ -119,31 +120,25 @@ public class RecyclerManager {
     public RecyclerManager viewFooter(int footLayoutId) {
         if (mContext == null || mRecycler == null) return this;
         View foot = LayoutInflater.from(mContext).inflate(footLayoutId, mRecycler, false);
-        viewFooter(foot);
-        return this;
+        return viewFooter(foot);
     }
 
     public RecyclerManager viewFooter(View foot) {
         if (mAdapter == null || foot == null) return this;
         mFoot = foot;
         mAdapter.setFooterView(mFoot);
+        mAdapter.setHeaderFooterEmpty((mHead != null && mEmpty != null), mEmpty != null);
+        //mAdapter.setFooterViewAsFlow(true);
         return this;
     }
 
     /**
      * 加载更多视图
      */
-    public RecyclerManager viewLoading(int loadingLayoutId) {
-        if (mContext == null || mRecycler == null) return this;
-        View head = LayoutInflater.from(mContext).inflate(loadingLayoutId, mRecycler, false);
-        viewHeader(head);
-        return this;
-    }
-
-    public RecyclerManager viewLoading(LoadMoreView loading) {
-        if (mAdapter == null || loading == null) return this;
-        mLoading = loading;
-        mAdapter.setLoadMoreView(mLoading);
+    public RecyclerManager viewLoadMore(LoadMoreView loadMore) {
+        if (mAdapter == null || loadMore == null) return this;
+        mLoadMore = loadMore;
+        mAdapter.setLoadMoreView(mLoadMore);
         return this;
     }
 
@@ -177,6 +172,7 @@ public class RecyclerManager {
     public RecyclerManager listenerMore(final MoreListener listener) {
         if (mRecycler == null || mAdapter == null || listener == null) return this;
         mMoreListener = listener;
+        mAdapter.setEnableLoadMore(true);
         mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -255,11 +251,11 @@ public class RecyclerManager {
         if (mAdapter == null) return;
         if (null == list) {
             mAdapter.setNewData(new ArrayList());
-            mAdapter.loadMoreEnd(true); // 关闭更多
+            mAdapter.loadMoreEnd(false); // 显示没有更多
         } else {
             mAdapter.setNewData(list);
             if (list.size() >= totalCount) {
-                mAdapter.loadMoreEnd(true); // 关闭更多
+                mAdapter.loadMoreEnd(false); // 显示没有更多
             }
         }
         if (null != mRefresh) { // 停止刷新
@@ -284,13 +280,21 @@ public class RecyclerManager {
         mAdapter.loadMoreComplete();
         if (null != list) {
             mAdapter.addData(list);
-            if (mAdapter.getItemCount() >= totalCount) {
-                mAdapter.loadMoreEnd(); // 关闭更多
+            if (mAdapter.getData().size() >= totalCount) {
+                mAdapter.loadMoreEnd(false); // 显示没有更多
             }
         }
         if (null != mRefresh) { // 停止刷新
             mRefresh.setRefreshing(false);
         }
+        if (mRecycler == null) return; // 提前加载空adapter会有loadMore的标示
+        if (mRecycler.getAdapter() == null) {
+            mRecycler.setAdapter(mAdapter);
+        }
+    }
+
+    public void dataAddFail() {
+        mAdapter.loadMoreFail();
     }
 
     /**
@@ -311,7 +315,7 @@ public class RecyclerManager {
         if (mRecycler == null || adapter == null) return;
         mAdapter = adapter;
         mRecycler.setAdapter(mAdapter);
-        viewLoading(mLoading);
+        viewLoadMore(mLoadMore);
 //        viewEmpty(mEmpty); 重新设置
         viewHeader(mHead);
         viewFooter(mFoot);

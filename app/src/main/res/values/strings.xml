@@ -82,8 +82,8 @@
     <string name="err_data_null">空数据异常</string>
     <string name="err_data_parse">数据解析异常</string>
 
-    <string name="loading_sending">正在发送...</string>
-    <string name="loading_loging">正在登录...</string>
+    <string name="loading_sending">正在发送…</string>
+    <string name="loading_loging">正在登录…</string>
     <string name="please_access_permission">请大人尽快开启此权限，否则影响功能使用</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -271,4 +271,8 @@
     <string name="update_at_holder">更新于:%s</string>
     <string name="follow">关注</string>
     <string name="comment">评论</string>
+    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
+    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
+    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
+    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
 </resources>
