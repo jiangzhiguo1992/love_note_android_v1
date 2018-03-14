@@ -10,7 +10,6 @@ public class Version extends BaseObj {
     private String versionName;
     private String updateUrl;
     private String updateLog;
-    private boolean forceUpdate;
 
     public int getVersionCode() {
         return versionCode;
@@ -44,11 +43,4 @@ public class Version extends BaseObj {
         this.updateLog = updateLog;
     }
 
-    public boolean isForceUpdate() {
-        return forceUpdate;
-    }
-
-    public void setForceUpdate(boolean forceUpdate) {
-        this.forceUpdate = forceUpdate;
-    }
 }

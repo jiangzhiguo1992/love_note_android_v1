@@ -86,14 +86,13 @@ public class RecyclerManager {
         return this;
     }
 
-    public RecyclerManager viewEmptyShow(@IdRes int tvId, String show) {
-        if (mAdapter == null) return this;
+    public void viewEmptyShow(@IdRes int tvId, String show) {
+        if (mAdapter == null) return;
         View emptyView = mAdapter.getEmptyView();
-        if (emptyView == null) return this;
+        if (emptyView == null) return;
         TextView tvShow = emptyView.findViewById(tvId);
-        if (tvShow == null) return this;
+        if (tvShow == null) return;
         tvShow.setText(show);
-        return this;
     }
 
     /**
@@ -112,6 +111,10 @@ public class RecyclerManager {
         mAdapter.setHeaderFooterEmpty(mEmpty != null, (mFoot != null && mEmpty != null));
         //mAdapter.setHeaderViewAsFlow(true);
         return this;
+    }
+
+    public View getViewHead() {
+        return mHead;
     }
 
     /**

@@ -2,16 +2,16 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/shape_btn_border_enable_no"
+        android:drawable="@drawable/shape_r3_solid_light"
         android:state_enabled="false"/>
 
     <item
-        android:drawable="@drawable/shape_btn_border_enable"
+        android:drawable="@drawable/shape_r3_solid_primary"
         android:state_enabled="true"
         android:state_pressed="false"/>
 
     <item
-        android:drawable="@drawable/shape_btn_border_press"
+        android:drawable="@drawable/shape_r3_solid_dark"
         android:state_enabled="true"
         android:state_pressed="true"/>
 

@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestAdapter;
 import com.jiangzg.ita.base.BaseActivity;
@@ -57,7 +59,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 .initRefresh(srl)
                 .initAdapter(new SuggestAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common)
-                .viewHeader(R.layout.list_head_suggest) // todo head
+                .viewHeader(R.layout.list_head_suggest)
                 .viewLoadMore(new RecyclerMoreView())
                 .listenerRefresh(new RecyclerManager.RefreshListener() {
                     @Override
@@ -88,6 +90,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                         }
                     }
                 });
+        // head
+        initHead(recyclerManager.getViewHead());
+
         // todo behavior
     }
 
@@ -96,6 +101,25 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         recyclerManager.dataRefresh();
     }
 
+    // head
+    private void initHead(View head) {
+        CardView cvFollow = head.findViewById(R.id.cvFollow);
+        CardView cvAdd = head.findViewById(R.id.cvAdd);
+        cvFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show("我参与的");
+                // todo 我参与的
+            }
+        });
+        cvAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show("提意见");
+                // todo 提意见
+            }
+        });
+    }
 
     public void getData(final boolean more) {
         // todo api
@@ -109,11 +133,13 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s0.setTitle("下拉出来的！");
                     s0.setCreatedAt(1520866299);
                     s0.setUpdatedAt(1520866299);
-                    //s1.setContent();
-                    s0.setWatch(false);
+                    s0.setFollow(false);
                     s0.setComment(false);
-                    s0.setWatchCount(0);
+                    s0.setFollowCount(0);
                     s0.setCommentCount(0);
+                    s0.setContentType(Suggest.TYPE_OTHER);
+                    s0.setOfficial(false);
+                    s0.setTop(false);
                     suggestList.add(s0);
                 } else {
                     Suggest s1 = new Suggest();
@@ -121,28 +147,37 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s1.setCreatedAt(1520866299);
                     s1.setUpdatedAt(1520866299);
                     //s1.setContent();
-                    s1.setWatch(false);
+                    s1.setFollow(false);
                     s1.setComment(false);
-                    s1.setWatchCount(0);
+                    s1.setFollowCount(0);
                     s1.setCommentCount(0);
+                    s1.setContentType(Suggest.TYPE_BUG);
+                    s1.setOfficial(true);
+                    s1.setTop(true);
                     Suggest s2 = new Suggest();
                     s2.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
                     s2.setCreatedAt(1520010299);
                     s2.setUpdatedAt(1520866299);
                     //s2.setContent();
-                    s2.setWatch(true);
+                    s2.setFollow(true);
                     s2.setComment(false);
-                    s2.setWatchCount(111111111);
+                    s2.setFollowCount(111111111);
                     s2.setCommentCount(0);
+                    s2.setContentType(Suggest.TYPE_FUNCTION);
+                    s2.setOfficial(true);
+                    s2.setTop(false);
                     Suggest s3 = new Suggest();
                     s3.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
                     s3.setCreatedAt(1520010299);
                     s3.setUpdatedAt(1520010299);
                     //s3.setContent();
-                    s3.setWatch(true);
+                    s3.setFollow(true);
                     s3.setComment(true);
-                    s3.setWatchCount(111111111);
+                    s3.setFollowCount(111111111);
                     s3.setCommentCount(2);
+                    s3.setContentType(Suggest.TYPE_EXPERIENCE);
+                    s3.setOfficial(false);
+                    s3.setTop(true);
                     suggestList.add(s1);
                     suggestList.add(s2);
                     suggestList.add(s3);

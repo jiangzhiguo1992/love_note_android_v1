@@ -1,22 +1,30 @@
 package com.jiangzg.ita.adapter;
 
 import android.content.res.ColorStateList;
+import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.utils.TimeUtils;
 import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.view.GWrapView;
 
 /**
  * Created by JZG on 2018/3/13.
  * 意见反馈适配器
  */
-
 public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private FragmentActivity mActivity;
@@ -41,29 +49,33 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         long updatedAt = item.getUpdatedAt();
         String update = TimeUtils.getSuggestShowBySecond(updatedAt);
         String updatedShow = String.format(mActivity.getString(R.string.update_at_holder), update);
-        final int watchCount = item.getWatchCount();
-        String watchShow;
-        if (watchCount <= 0) {
-            watchShow = mActivity.getString(R.string.follow);
+        final int followCount = item.getFollowCount();
+        String followShow;
+        if (followCount <= 0) {
+            followShow = mActivity.getString(R.string.follow);
         } else {
-            watchShow = String.format("%d", watchCount);
+            followShow = followCount + "";
         }
         int commentCount = item.getCommentCount();
         String commentShow;
         if (commentCount <= 0) {
             commentShow = mActivity.getString(R.string.comment);
         } else {
-            commentShow = String.format("%d", commentCount);
+            commentShow = commentCount + "";
         }
-        final boolean watch = item.isWatch();
+        final boolean follow = item.isFollow();
         boolean comment = item.isComment();
+        boolean official = item.isOfficial();
+        boolean top = item.isTop();
+        String typeShow = item.getTypeShow();
+        String statusShow = item.getStatusShow();
         // view
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvCreateAt, createShow);
         helper.setText(R.id.tvUpdateAt, updatedShow);
-        helper.setText(R.id.tvWatch, watchShow);
+        helper.setText(R.id.tvWatch, followShow);
         helper.setText(R.id.tvComment, commentShow);
-        if (watch) {
+        if (follow) {
             helper.setImageResource(R.id.ivWatch, R.drawable.ic_visibility_on_primary);
         } else {
             helper.setImageResource(R.id.ivWatch, R.drawable.ic_visibility_off_grey);
@@ -74,10 +86,41 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         } else {
             ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
         }
+
+        GWrapView wvTag = helper.getView(R.id.wvTag);
+        wvTag.removeAllChild();
+        if (official) {
+            wvTag.addChild(getTagView(mActivity.getString(R.string.official), R.drawable.shape_r2_solid_red));
+        }
+        if (top) {
+            wvTag.addChild(getTagView(mActivity.getString(R.string.top), R.drawable.shape_r2_solid_orange));
+        }
+        wvTag.addChild(getTagView(typeShow, R.drawable.shape_r2_solid_blue));
+        wvTag.addChild(getTagView(statusShow, R.drawable.shape_r2_solid_green));
         // listener
         helper.addOnClickListener(R.id.llTitle);
         helper.addOnClickListener(R.id.llWatch);
         helper.addOnClickListener(R.id.llComment);
+    }
+
+    private View getTagView(String show, @DrawableRes int resId) {
+        TextView textView = new TextView(mActivity);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        int dp7 = ConvertUtils.dp2px(7);
+        layoutParams.setMarginEnd(dp7);
+        textView.setLayoutParams(layoutParams);
+        textView.setBackgroundResource(resId);
+        int dp5 = ConvertUtils.dp2px(5);
+        int dp2 = ConvertUtils.dp2px(2);
+        textView.setPadding(dp5, dp2, dp5, dp2);
+        textView.setGravity(Gravity.CENTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textView.setTextAppearance(R.style.FontWhiteSmall);
+        } else {
+            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
+        }
+        textView.setText(show);
+        return textView;
     }
 
     public void goSuggestDetail(int position) {
@@ -87,20 +130,20 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     public void toggleWatch(int position) {
         Suggest item = getItem(position);
-        boolean watch = item.isWatch();
-        int watchCount = item.getWatchCount();
-        boolean willWatch = !watch;
-        item.setWatch(willWatch);
+        boolean follow = item.isFollow();
+        int followCount = item.getFollowCount();
+        boolean willWatch = !follow;
+        item.setFollow(willWatch);
         int willWatchCount;
         if (willWatch) {
-            willWatchCount = watchCount + 1;
+            willWatchCount = followCount + 1;
         } else {
-            willWatchCount = watchCount - 1;
+            willWatchCount = followCount - 1;
         }
         if (willWatchCount <= 0) {
             willWatchCount = 0;
         }
-        item.setWatchCount(willWatchCount);
+        item.setFollowCount(willWatchCount);
         notifyItemChanged(position + getHeaderLayoutCount());
         // todo api
     }

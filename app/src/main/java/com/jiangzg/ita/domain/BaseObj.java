@@ -11,10 +11,10 @@ public class BaseObj implements Serializable {
     public static final int STATUS_NOL = 0;
     public static final int STATUS_DEL = -1;
 
-    private long id;
-    private int status;
-    private long updatedAt;
-    private long createdAt;
+    protected long id;
+    protected int status;
+    protected long updatedAt;
+    protected long createdAt;
 
     public long getId() {
         return id;

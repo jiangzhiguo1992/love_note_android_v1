@@ -26,7 +26,14 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <!-- todo 流布局 置顶 精华 管理员 已处理 -->
+            <com.jiangzg.ita.view.GWrapView
+                android:id="@+id/wvTag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"/>
+
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/FontBlackNormal"
@@ -34,7 +41,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:padding="10dp"
+                android:paddingBottom="7dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
                 tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容"/>
 
             <LinearLayout

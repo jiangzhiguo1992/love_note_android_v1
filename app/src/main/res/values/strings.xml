@@ -275,4 +275,6 @@
     <string name="master_we_worry">主人，咱们…好像…出错了！</string>
     <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
     <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
+    <string name="official">官方</string>
+    <string name="top">置顶</string>
 </resources>

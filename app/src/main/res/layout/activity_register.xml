@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/selector_btn_normal"
+                    android:background="@drawable/selector_btn_solid_primary"
                     android:enabled="false"
                     android:text="@string/send_validate_code"/>
             </LinearLayout>
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/selector_btn_normal"
+                android:background="@drawable/selector_btn_solid_primary"
                 android:enabled="false"
                 android:text="@string/register"
                 android:textStyle="bold"/>
