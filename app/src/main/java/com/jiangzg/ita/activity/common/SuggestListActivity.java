@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -93,7 +94,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         // head
         initHead(recyclerManager.getViewHead());
 
-        // todo behavior
+        // todo behavior 标题栏 回到顶部浮动按钮
     }
 
     @Override
@@ -105,6 +106,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     private void initHead(View head) {
         CardView cvFollow = head.findViewById(R.id.cvFollow);
         CardView cvAdd = head.findViewById(R.id.cvAdd);
+        RadioGroup rgType = head.findViewById(R.id.rgType);
         cvFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +121,26 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 // todo 提意见
             }
         });
+        // todo 换 checkBox 可多选
+        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rbBug:
+                        // todo api切换数据类型
+                        break;
+                    case R.id.rbFunction:
+                        // todo api切换数据类型
+                        break;
+                    case R.id.rbExperience:
+                        // todo api切换数据类型
+                        break;
+                    case R.id.rbOther:
+                        // todo api切换数据类型
+                        break;
+                }
+            }
+        });
     }
 
     public void getData(final boolean more) {
@@ -130,7 +152,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 List<Suggest> suggestList = new ArrayList<>();
                 if (more) {
                     Suggest s0 = new Suggest();
-                    s0.setTitle("下拉出来的！");
+                    s0.setTitle("上拉加载出来的！");
                     s0.setCreatedAt(1520866299);
                     s0.setUpdatedAt(1520866299);
                     s0.setFollow(false);
@@ -144,6 +166,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 } else {
                     Suggest s1 = new Suggest();
                     s1.setTitle("我发现了一个bug！");
+                    s1.setStatus(Suggest.STATUE_ACCEPT);
                     s1.setCreatedAt(1520866299);
                     s1.setUpdatedAt(1520866299);
                     //s1.setContent();
@@ -156,6 +179,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s1.setTop(true);
                     Suggest s2 = new Suggest();
                     s2.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
+                    s2.setStatus(Suggest.STATUE_COMPLETE);
                     s2.setCreatedAt(1520010299);
                     s2.setUpdatedAt(1520866299);
                     //s2.setContent();
@@ -168,6 +192,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s2.setTop(false);
                     Suggest s3 = new Suggest();
                     s3.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
+                    s3.setStatus(Suggest.STATUE_REPLY);
                     s3.setCreatedAt(1520010299);
                     s3.setUpdatedAt(1520010299);
                     //s3.setContent();

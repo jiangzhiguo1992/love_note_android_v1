@@ -53,7 +53,7 @@
                         android:id="@+id/ivGirl"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/shape_bg_sex_select"
+                        android:background="@drawable/shape_sex_select_bg"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:srcCompat="@drawable/ic_done_primary"
@@ -79,7 +79,7 @@
                         android:id="@+id/ivBoy"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/shape_bg_sex_select"
+                        android:background="@drawable/shape_sex_select_bg"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
                         app:srcCompat="@drawable/ic_done_primary"
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/selector_btn_solid_primary"
+                android:background="@drawable/selector_btn_r3_solid_primary"
                 android:text="@string/set_ok"/>
         </LinearLayout>
 

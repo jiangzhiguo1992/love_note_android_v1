@@ -1,5 +1,8 @@
 package com.jiangzg.ita.domain;
 
+import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.ita.R;
+
 import java.util.List;
 
 /**
@@ -37,17 +40,17 @@ public class Suggest extends BaseObj {
         String show;
         switch (contentType) {
             case TYPE_BUG:
-                show = "程序错误";
+                show = AppContext.get().getString(R.string.program_error);
                 break;
             case TYPE_FUNCTION:
-                show = "功能添加";
+                show = AppContext.get().getString(R.string.function_add);
                 break;
             case TYPE_EXPERIENCE:
-                show = "体验优化";
+                show = AppContext.get().getString(R.string.experience_optimize);
                 break;
             case TYPE_OTHER:
             default:
-                show = "其他";
+                show = AppContext.get().getString(R.string.other);
                 break;
         }
         return show;
@@ -58,22 +61,22 @@ public class Suggest extends BaseObj {
         switch (status) {
             default:
             case STATUE_START:
-                show = "未回复";
+                show = AppContext.get().getString(R.string.no_reply);
                 break;
             case STATUE_REPLY:
-                show = "已回复";
+                show = AppContext.get().getString(R.string.already_reply);
                 break;
             case STATUE_REFUSE:
-                show = "未采纳";
+                show = AppContext.get().getString(R.string.no_accept);
                 break;
             case STATUE_ACCEPT:
-                show = "已采纳";
+                show = AppContext.get().getString(R.string.already_accept);
                 break;
             case STATUE_DEVELOP:
-                show = "处理中";
+                show = AppContext.get().getString(R.string.handle_ing);
                 break;
             case STATUE_COMPLETE:
-                show = "处理完";
+                show = AppContext.get().getString(R.string.handle_over);
                 break;
         }
         return show;

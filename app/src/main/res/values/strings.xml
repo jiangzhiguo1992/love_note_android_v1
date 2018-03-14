@@ -277,4 +277,16 @@
     <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
     <string name="official">官方</string>
     <string name="top">置顶</string>
+    <string name="i_want_push_suggest">朕要提意见</string>
+    <string name="follow_suggest">关注的意见</string>
+    <string name="program_error">程序错误</string>
+    <string name="function_add">功能添加</string>
+    <string name="experience_optimize">体验优化</string>
+    <string name="other">其他</string>
+    <string name="no_reply">未回复</string>
+    <string name="already_reply">已回复</string>
+    <string name="no_accept">未采纳</string>
+    <string name="already_accept">已采纳</string>
+    <string name="handle_ing">处理中</string>
+    <string name="handle_over">处理完</string>
 </resources>

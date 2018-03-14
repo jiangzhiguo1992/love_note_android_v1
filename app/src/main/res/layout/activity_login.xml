@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginStart="10dp"
-                    android:background="@drawable/selector_btn_solid_primary"
+                    android:background="@drawable/selector_btn_r3_solid_primary"
                     android:enabled="false"
                     android:text="@string/send_validate_code"/>
             </LinearLayout>
@@ -114,9 +114,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/selector_btn_stroke_primary"
+                android:background="@drawable/selector_btn_r3_stroke_primary"
                 android:text="@string/verify_login"
-                android:textColor="@drawable/selector_text_primary_dark"/>
+                android:textColor="@drawable/selector_text_press_primary_dark"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -132,7 +132,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="20dp"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_btn_solid_primary"
+                    android:background="@drawable/selector_btn_r3_solid_primary"
                     android:text="@string/register"
                     android:textStyle="bold"/>
 
@@ -144,7 +144,7 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_btn_solid_primary"
+                    android:background="@drawable/selector_btn_r3_solid_primary"
                     android:enabled="false"
                     android:text="@string/login"
                     android:textStyle="bold"/>
