@@ -47,7 +47,7 @@ public class UpdateService extends Service {
     public static void showUpdateDialog(Version version) {
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
-        String title = String.format(top.getString(R.string.find_new_version), version.getVersionName());
+        String title = String.format(top.getString(R.string.find_new_version_colon_holder), version.getVersionName());
         String message = version.getUpdateLog();
         String positive = top.getString(R.string.update_now);
         String negative = top.getString(R.string.update_delay);

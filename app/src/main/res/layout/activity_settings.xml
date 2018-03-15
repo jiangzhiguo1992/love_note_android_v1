@@ -137,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvCacheTitle"
-                    android:text="@string/contain_image_audio_video_total"/>
+                    android:text="@string/contain_image_audio_video_total_colon_holder"/>
             </RelativeLayout>
 
             <View
@@ -331,7 +331,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUpdateTitle"
-                    android:text="@string/current_version_holder"/>
+                    android:text="@string/current_version_colon_holder"/>
             </RelativeLayout>
 
             <View

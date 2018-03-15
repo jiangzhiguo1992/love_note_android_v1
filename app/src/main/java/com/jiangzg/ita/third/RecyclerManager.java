@@ -70,19 +70,29 @@ public class RecyclerManager {
     }
 
     /**
+     * 加载适配器，最后调用，也可以等data加载完后自动调用
+     */
+    public RecyclerManager setAdapter() {
+        if (mRecycler == null || mAdapter == null) return this;
+        mRecycler.setAdapter(mAdapter);
+        return this;
+    }
+
+    /**
      * ************************************VIEW***************************************
      * 无Data时显示的view
      */
-    public RecyclerManager viewEmpty(int emptyLayoutId) {
+    public RecyclerManager viewEmpty(int emptyLayoutId, boolean head, boolean foot) {
         if (mRecycler == null || mContext == null || emptyLayoutId == 0) return this;
         View empty = LayoutInflater.from(mContext).inflate(emptyLayoutId, mRecycler, false);
-        return viewEmpty(empty);
+        return viewEmpty(empty, head, foot);
     }
 
-    public RecyclerManager viewEmpty(View empty) {
+    public RecyclerManager viewEmpty(View empty, boolean head, boolean foot) {
         if (mAdapter == null || empty == null) return this;
         mEmpty = empty;
         mAdapter.setEmptyView(mEmpty);
+        mAdapter.setHeaderFooterEmpty(head, foot); // Empty、Head、Foot共存
         return this;
     }
 
@@ -108,7 +118,6 @@ public class RecyclerManager {
         if (mAdapter == null || head == null) return this;
         mHead = head;
         mAdapter.setHeaderView(mHead);
-        mAdapter.setHeaderFooterEmpty(mEmpty != null, (mFoot != null && mEmpty != null));
         //mAdapter.setHeaderViewAsFlow(true);
         return this;
     }
@@ -130,7 +139,6 @@ public class RecyclerManager {
         if (mAdapter == null || foot == null) return this;
         mFoot = foot;
         mAdapter.setFooterView(mFoot);
-        mAdapter.setHeaderFooterEmpty((mHead != null && mEmpty != null), mEmpty != null);
         //mAdapter.setFooterViewAsFlow(true);
         return this;
     }

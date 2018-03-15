@@ -29,7 +29,7 @@
     <string name="year">年</string>
 
     <string name="press_again_exit">再按一次退出</string>
-    <string name="find_new_version" formatted="false">有新版本:%s</string>
+    <string name="find_new_version_colon_holder" formatted="false">有新版本:%s</string>
     <string name="update_now">立即更新</string>
     <string name="update_delay">以后再说</string>
     <string name="http_response_error">网络响应异常</string>
@@ -201,7 +201,7 @@
     <string name="find_ta">寻找Ta</string>
     <string name="input_phone_to_pair">输入Ta的手机号就可以配对哦！</string>
     <string name="send_pair_request">发送配对请求</string>
-    <string name="ta_phone_2">Ta: phone</string>
+    <string name="ta_colon_holder">Ta: %s</string>
     <string name="want_find_back_once_time">想要找回原来那段时光吗？</string>
     <string name="complex_can_find_once_all">复合可找回原来的点点滴滴</string>
     <string name="send_complex_request">发送复合请求</string>
@@ -236,7 +236,7 @@
     <string name="auto_download_update">自动下载更新</string>
     <string name="only_wifi_mode_auto_download">仅在wifi模式下会自动下载</string>
     <string name="clear_cache">清除缓存</string>
-    <string name="contain_image_audio_video_total">包括图片、音频、视频缓存(共:holder)</string>
+    <string name="contain_image_audio_video_total_colon_holder">包括图片、音频、视频缓存(共:%s)</string>
     <string name="notice_settings">通知设置</string>
     <string name="system_notice">系统通知</string>
     <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
@@ -250,7 +250,7 @@
     <string name="modify_password">修改密码</string>
     <string name="about_and_help">关于与帮助</string>
     <string name="check_update">检查更新</string>
-    <string name="current_version_holder">当前版本 :holder</string>
+    <string name="current_version_colon_holder">当前版本 :%d</string>
     <string name="help_document">帮助文档</string>
     <string name="suggest_feedback">意见反馈</string>
     <string name="go_rate">去评价</string>
@@ -267,8 +267,8 @@
     <string name="egg_yellow">咸蛋黄</string>
     <string name="fruit_orange">鲜果橙</string>
     <string name="coffee_brown">咖啡棕</string>
-    <string name="create_at_holder">创建于:%s</string>
-    <string name="update_at_holder">更新于:%s</string>
+    <string name="create_at_colon_holder">创建于:%s</string>
+    <string name="update_at_colon_holder">更新于:%s</string>
     <string name="follow">关注</string>
     <string name="comment">评论</string>
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
@@ -289,4 +289,9 @@
     <string name="already_accept">已采纳</string>
     <string name="handle_ing">处理中</string>
     <string name="handle_over">处理完</string>
+    <string name="all">全部</string>
+    <string name="search_condition_line">————搜索条件————</string>
+    <string name="type_colon">类型:</string>
+    <string name="status_colon">状态:</string>
+    <string name="start_search">开始搜索</string>
 </resources>

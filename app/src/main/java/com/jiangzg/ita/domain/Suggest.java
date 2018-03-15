@@ -12,12 +12,12 @@ import java.util.List;
 public class Suggest extends BaseObj {
 
     // status
-    public static final int STATUE_START = 1; // 未回复
-    public static final int STATUE_REPLY = 2; // 已回复
-    public static final int STATUE_REFUSE = 3; // 未采纳
-    public static final int STATUE_ACCEPT = 4; // 已采纳
-    public static final int STATUE_DEVELOP = 5; // 处理中
-    public static final int STATUE_COMPLETE = 6; // 处理完
+    public static final int STATUE_REPLY_NO = 1; // 未回复
+    public static final int STATUE_REPLY_YES = 2; // 已回复
+    public static final int STATUE_ACCEPT_NO = 3; // 未采纳
+    public static final int STATUE_ACCEPT_YES = 4; // 已采纳
+    public static final int STATUE_HANDLE_ING = 5; // 处理中
+    public static final int STATUE_HANDLE_OVER = 6; // 处理完
     // contentType
     public static final int TYPE_BUG = 1; // 程序错误
     public static final int TYPE_FUNCTION = 2; // 功能添加
@@ -60,22 +60,22 @@ public class Suggest extends BaseObj {
         String show;
         switch (status) {
             default:
-            case STATUE_START:
+            case STATUE_REPLY_NO:
                 show = AppContext.get().getString(R.string.no_reply);
                 break;
-            case STATUE_REPLY:
+            case STATUE_REPLY_YES:
                 show = AppContext.get().getString(R.string.already_reply);
                 break;
-            case STATUE_REFUSE:
+            case STATUE_ACCEPT_NO:
                 show = AppContext.get().getString(R.string.no_accept);
                 break;
-            case STATUE_ACCEPT:
+            case STATUE_ACCEPT_YES:
                 show = AppContext.get().getString(R.string.already_accept);
                 break;
-            case STATUE_DEVELOP:
+            case STATUE_HANDLE_ING:
                 show = AppContext.get().getString(R.string.handle_ing);
                 break;
-            case STATUE_COMPLETE:
+            case STATUE_HANDLE_OVER:
                 show = AppContext.get().getString(R.string.handle_over);
                 break;
         }
