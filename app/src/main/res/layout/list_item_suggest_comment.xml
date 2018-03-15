@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingBottom="10dp"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp">
+
+    <View style="@style/LineHorizontal"/>
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvTag"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/shape_r2_solid_primary"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:visibility="gone"
+            tools:text="我"
+            tools:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="%d楼于%S说到:"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvContent"
+        style="@style/FontBlackNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llTop"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="5dp"
+        tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对"/>
+</RelativeLayout>

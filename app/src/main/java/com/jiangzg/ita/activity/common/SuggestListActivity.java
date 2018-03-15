@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.adapter.SuggestAdapter;
+import com.jiangzg.ita.adapter.SuggestListAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
@@ -66,10 +66,11 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl)
-                .initAdapter(new SuggestAdapter(mActivity))
+                .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
-                .viewHeader(R.layout.list_head_suggest)
+                .viewHeader(R.layout.list_head_suggest_list)
                 .viewLoadMore(new RecyclerMoreView())
+                .setAdapter()
                 .listenerRefresh(new RecyclerManager.RefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -85,20 +86,19 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        SuggestAdapter suggestAdapter = (SuggestAdapter) adapter;
-                        suggestAdapter.goSuggestDetail(position);
+                        SuggestListAdapter suggestListAdapter = (SuggestListAdapter) adapter;
+                        suggestListAdapter.goSuggestDetail(position);
                     }
-                })
-                .setAdapter();
+                });
         // head
-        initHead(recyclerManager.getViewHead());
+        initHead();
         // menu
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST);
+                        HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_LIST);
                         break;
                     case R.id.menuTop: // 返回顶部
                         rv.smoothScrollToPosition(0);
@@ -121,7 +121,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     }
 
     // head
-    private void initHead(View head) {
+    private void initHead() {
+        View head = recyclerManager.getViewHead();
         CardView cvMy = head.findViewById(R.id.cvMy);
         CardView cvFollow = head.findViewById(R.id.cvFollow);
         CardView cvAdd = head.findViewById(R.id.cvAdd);
@@ -275,7 +276,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     suggestList.add(s3);
                 }
                 recyclerManager.data(suggestList, 12, more);
-                recyclerManager.viewEmptyShow(R.id.tvEmptyShow, getString(R.string.master_there_nothing));
+                recyclerManager.viewEmptyShow();
             }
         }, 1000);
     }

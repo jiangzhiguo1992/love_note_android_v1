@@ -26,14 +26,14 @@ import com.jiangzg.ita.view.GWrapView;
  * Created by JZG on 2018/3/13.
  * 意见反馈适配器
  */
-public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
+public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private FragmentActivity mActivity;
     private final int colorGrey;
     private final int colorPrimary;
 
-    public SuggestAdapter(FragmentActivity activity) {
-        super(R.layout.list_item_suggest);
+    public SuggestListAdapter(FragmentActivity activity) {
+        super(R.layout.list_item_suggest_list);
         mActivity = activity;
         colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
         int rId = ViewUtils.getColorPrimary(activity);
@@ -45,10 +45,10 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         // data
         String title = item.getTitle();
         long createdAt = item.getCreatedAt();
-        String create = TimeUtils.getSuggestShowBySecond(createdAt);
+        String create = TimeUtils.getDiffDayShowBySecond(createdAt);
         String createShow = String.format(mActivity.getString(R.string.create_at_colon_holder), create);
         long updatedAt = item.getUpdatedAt();
-        String update = TimeUtils.getSuggestShowBySecond(updatedAt);
+        String update = TimeUtils.getDiffDayShowBySecond(updatedAt);
         String updatedShow = String.format(mActivity.getString(R.string.update_at_colon_holder), update);
         final int followCount = item.getFollowCount();
         String followShow;
@@ -125,25 +125,4 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         SuggestDetailActivity.goActivity(mActivity, item);
     }
 
-    //public void toggleWatch(int position) {
-    //    Suggest item = getItem(position);
-    //    boolean follow = item.isFollow();
-    //    int followCount = item.getFollowCount();
-    //    boolean willWatch = !follow;
-    //    item.setFollow(willWatch);
-    //    int willWatchCount;
-    //    if (willWatch) {
-    //        willWatchCount = followCount + 1;
-    //    } else {
-    //        willWatchCount = followCount - 1;
-    //    }
-    //    if (willWatchCount <= 0) {
-    //        willWatchCount = 0;
-    //    }
-    //    item.setFollowCount(willWatchCount);
-    //    notifyItemChanged(position + getHeaderLayoutCount());
-    //}
-    //
-    //public void comment(int position) {
-    //}
 }

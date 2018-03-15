@@ -295,4 +295,7 @@
     <string name="status_colon">状态:</string>
     <string name="start_search">开始搜索</string>
     <string name="my_push">我的发布</string>
+    <string name="holder_storey_in_holder_say">%d楼于%s说:</string>
+    <string name="me">我</string>
+    <string name="comment_colon_holder">评论:%d</string>
 </resources>

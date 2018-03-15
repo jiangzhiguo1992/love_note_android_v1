@@ -125,7 +125,7 @@
                     android:layout_width="16dp"
                     android:layout_height="16dp"
                     android:layout_marginEnd="6dp"
-                    android:src="@drawable/ic_comment_grey"
+                    android:src="@drawable/ic_comment_point_grey"
                     android:tint="@color/icon_grey"/>
 
                 <TextView

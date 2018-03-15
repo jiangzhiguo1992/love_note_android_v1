@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class TimeUtils {
 
-    public static String getSuggestShowBySecond(long time) {
+    public static String getDiffDayShowBySecond(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
         cTime.setTime(new Date(time * 1000));

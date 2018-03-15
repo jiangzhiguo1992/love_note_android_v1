@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.jiangzg.ita.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,7 @@ public class RecyclerManager {
     }
 
     /**
-     * 设置适配器
+     * 在viewFunc之前设置
      */
     public RecyclerManager initAdapter(BaseQuickAdapter adapter) {
         mAdapter = adapter;
@@ -70,7 +71,7 @@ public class RecyclerManager {
     }
 
     /**
-     * 加载适配器，最后调用，也可以等data加载完后自动调用
+     * 在viewFunc之后设置，也可以等data加载完后自动调用
      */
     public RecyclerManager setAdapter() {
         if (mRecycler == null || mAdapter == null) return this;
@@ -101,6 +102,10 @@ public class RecyclerManager {
         TextView tvShow = mEmpty.findViewById(tvId);
         if (tvShow == null) return;
         tvShow.setText(show);
+    }
+
+    public void viewEmptyShow() {
+        viewEmptyShow(R.id.tvEmptyShow, mContext.getString(R.string.master_there_nothing));
     }
 
     /**

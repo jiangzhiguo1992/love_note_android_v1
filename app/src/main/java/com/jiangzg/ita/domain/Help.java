@@ -13,7 +13,8 @@ public class Help extends BaseObj {
     public static final int TYPE_USER_INFO_SET = 1;
     public static final int TYPE_COUPLE_PAIR = 2;
     public static final int TYPE_COUPLE_HOME = 3;
-    public static final int TYPE_SUGGEST = 4;
+    public static final int TYPE_SUGGEST_LIST = 4;
+    public static final int TYPE_SUGGEST_DETAIL = 5;
 
     private int contentType;
     private String title;
