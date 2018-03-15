@@ -42,12 +42,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        type = getIntent().getIntExtra("type", Help.TYPE_ALL);
         return R.layout.activity_help;
     }
 
     @Override
     protected void initView(Bundle state) {
+        type = getIntent().getIntExtra("type", Help.TYPE_ALL);
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.help_document), true);
         // recycler
         rv.setLayoutManager(new LinearLayoutManager(mActivity));

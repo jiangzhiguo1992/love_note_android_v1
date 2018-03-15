@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.common.SuggestDetailActivity;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.utils.TimeUtils;
 import com.jiangzg.ita.utils.ViewUtils;
@@ -97,10 +98,6 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         }
         wvTag.addChild(getTagView(typeShow, R.drawable.shape_r2_solid_blue));
         wvTag.addChild(getTagView(statusShow, R.drawable.shape_r2_solid_green));
-        // listener
-        helper.addOnClickListener(R.id.llTitle);
-        helper.addOnClickListener(R.id.llWatch);
-        helper.addOnClickListener(R.id.llComment);
     }
 
     private View getTagView(String show, @DrawableRes int resId) {
@@ -125,30 +122,28 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     public void goSuggestDetail(int position) {
         Suggest item = getItem(position);
-        // todo 详情页跳转
+        SuggestDetailActivity.goActivity(mActivity, item);
     }
 
-    public void toggleWatch(int position) {
-        Suggest item = getItem(position);
-        boolean follow = item.isFollow();
-        int followCount = item.getFollowCount();
-        boolean willWatch = !follow;
-        item.setFollow(willWatch);
-        int willWatchCount;
-        if (willWatch) {
-            willWatchCount = followCount + 1;
-        } else {
-            willWatchCount = followCount - 1;
-        }
-        if (willWatchCount <= 0) {
-            willWatchCount = 0;
-        }
-        item.setFollowCount(willWatchCount);
-        notifyItemChanged(position + getHeaderLayoutCount());
-        // todo api
-    }
-
-    public void comment(int position) {
-        // todo 详情页跳转 位置到评论
-    }
+    //public void toggleWatch(int position) {
+    //    Suggest item = getItem(position);
+    //    boolean follow = item.isFollow();
+    //    int followCount = item.getFollowCount();
+    //    boolean willWatch = !follow;
+    //    item.setFollow(willWatch);
+    //    int willWatchCount;
+    //    if (willWatch) {
+    //        willWatchCount = followCount + 1;
+    //    } else {
+    //        willWatchCount = followCount - 1;
+    //    }
+    //    if (willWatchCount <= 0) {
+    //        willWatchCount = 0;
+    //    }
+    //    item.setFollowCount(willWatchCount);
+    //    notifyItemChanged(position + getHeaderLayoutCount());
+    //}
+    //
+    //public void comment(int position) {
+    //}
 }

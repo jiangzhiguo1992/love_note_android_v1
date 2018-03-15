@@ -126,7 +126,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 break;
             case R.id.cardMenses: // 姨妈
                 break;
-            case R.id.cardSleep: // 睡觉
+            case R.id.cardSleep: // todo 去掉睡觉 添加戳ta
                 break;
             case R.id.cardTrends: // 动态
                 break;

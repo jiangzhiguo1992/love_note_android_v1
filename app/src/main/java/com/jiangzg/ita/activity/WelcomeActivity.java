@@ -29,12 +29,12 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     protected int getView(Intent intent) {
         BarUtils.setStatusBarTrans(mActivity, true);
         BarUtils.setNavigationBarTrans(mActivity, true);
-        // todo logo要换
         return R.layout.activity_welcome;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        // todo logo要换
         // todo 开屏页本地获取并加载
         //ivBg.setImageResource();
     }

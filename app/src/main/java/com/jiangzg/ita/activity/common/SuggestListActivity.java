@@ -7,18 +7,21 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
@@ -79,28 +82,31 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                         getData(true);
                     }
                 })
-                .listenerClick(new OnItemChildClickListener() {
+                .listenerClick(new OnItemClickListener() {
                     @Override
-                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         SuggestAdapter suggestAdapter = (SuggestAdapter) adapter;
-                        switch (view.getId()) {
-                            case R.id.llTitle:
-                                suggestAdapter.goSuggestDetail(position);
-                                break;
-                            case R.id.llWatch:
-                                suggestAdapter.toggleWatch(position);
-                                break;
-                            case R.id.llComment:
-                                suggestAdapter.comment(position);
-                                break;
-                        }
+                        suggestAdapter.goSuggestDetail(position);
                     }
                 })
                 .setAdapter();
         // head
         initHead(recyclerManager.getViewHead());
-
-        // todo behavior 标题栏 回到顶部浮动按钮
+        // menu
+        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menuHelp: // 帮助
+                        HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST);
+                        break;
+                    case R.id.menuTop: // 返回顶部
+                        rv.smoothScrollToPosition(0);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -108,13 +114,27 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         recyclerManager.dataRefresh();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help_top, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     // head
     private void initHead(View head) {
+        CardView cvMy = head.findViewById(R.id.cvMy);
         CardView cvFollow = head.findViewById(R.id.cvFollow);
         CardView cvAdd = head.findViewById(R.id.cvAdd);
         RadioGroup rgType = head.findViewById(R.id.rgType);
         RadioGroup rgStatus = head.findViewById(R.id.rgStatus);
         Button btnSearch = head.findViewById(R.id.btnSearch);
+        cvMy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show("我发布的");
+                // todo 我发布的
+            }
+        });
         cvFollow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,7 +233,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s1.setStatus(Suggest.STATUE_ACCEPT_NO);
                     s1.setCreatedAt(1520866299);
                     s1.setUpdatedAt(1520866299);
-                    //s1.setContent();
                     s1.setFollow(false);
                     s1.setComment(false);
                     s1.setFollowCount(0);
@@ -226,7 +245,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s2.setStatus(Suggest.STATUE_HANDLE_OVER);
                     s2.setCreatedAt(1520010299);
                     s2.setUpdatedAt(1520866299);
-                    //s2.setContent();
                     s2.setFollow(true);
                     s2.setComment(false);
                     s2.setFollowCount(111111111);
@@ -239,7 +257,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s3.setStatus(Suggest.STATUE_REPLY_YES);
                     s3.setCreatedAt(1520010299);
                     s3.setUpdatedAt(1520010299);
-                    //s3.setContent();
                     s3.setFollow(true);
                     s3.setComment(true);
                     s3.setFollowCount(111111111);

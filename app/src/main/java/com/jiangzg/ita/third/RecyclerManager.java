@@ -97,10 +97,8 @@ public class RecyclerManager {
     }
 
     public void viewEmptyShow(@IdRes int tvId, String show) {
-        if (mAdapter == null) return;
-        View emptyView = mAdapter.getEmptyView();
-        if (emptyView == null) return;
-        TextView tvShow = emptyView.findViewById(tvId);
+        if (mAdapter == null || mEmpty == null) return;
+        TextView tvShow = mEmpty.findViewById(tvId);
         if (tvShow == null) return;
         tvShow.setText(show);
     }

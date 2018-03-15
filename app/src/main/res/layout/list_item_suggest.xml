@@ -10,6 +10,8 @@
     android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="4dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="#fff"
     app:cardCornerRadius="3dp">
 
@@ -19,11 +21,8 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/llTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
@@ -86,12 +85,9 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/llWatch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
@@ -116,12 +112,9 @@
             <View style="@style/LineVertical"/>
 
             <LinearLayout
-                android:id="@+id/llComment"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"

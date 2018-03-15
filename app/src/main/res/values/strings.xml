@@ -278,7 +278,7 @@
     <string name="official">官方</string>
     <string name="top">置顶</string>
     <string name="i_want_push_suggest">朕要提意见</string>
-    <string name="follow_suggest">关注的意见</string>
+    <string name="my_follow">我的关注</string>
     <string name="program_error">程序错误</string>
     <string name="function_add">功能添加</string>
     <string name="experience_optimize">体验优化</string>
@@ -294,4 +294,5 @@
     <string name="type_colon">类型:</string>
     <string name="status_colon">状态:</string>
     <string name="start_search">开始搜索</string>
+    <string name="my_push">我的发布</string>
 </resources>
