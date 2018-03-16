@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jiangzg.ita.third.GlideUtils;
+import com.jiangzg.ita.third.GlideManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class CommonPagerAdapter<T> extends PagerAdapter {
         ImageView view = (ImageView) View.inflate(mContext, itemId, null);
         T data = mData.get(position);
         // setImage
-        GlideUtils.load(mContext, data, errorRes, view);
+        //GlideManager.load(mContext, data, errorRes, view);
         // setListener
         if (clickListener != null) {
             view.setOnClickListener(clickListener);

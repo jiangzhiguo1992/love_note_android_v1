@@ -50,11 +50,10 @@
   **[] $VALUES;
   public *;
 }
-
-# ---Retrofit
 # for DexGuard only
 # -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
+# ---Retrofit
 # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
 # Retain service method parameters.

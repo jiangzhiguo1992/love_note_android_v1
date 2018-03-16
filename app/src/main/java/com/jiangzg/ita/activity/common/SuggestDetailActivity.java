@@ -2,6 +2,7 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +23,7 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
-import com.jiangzg.ita.third.GlideUtils;
+import com.jiangzg.ita.third.GlideManager;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.utils.TimeUtils;
@@ -192,12 +193,40 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         View head = recyclerManager.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        ImageView ivContent = head.findViewById(R.id.ivContent);
+        final ImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
         TextView tvCommentTotal = head.findViewById(R.id.tvCommentTotal);
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
-        GlideUtils.load(mActivity, contentImgUrl, ivContent);
+
+        // oss
+        suggest.setContentImgUrl("http://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/bg/4-18%3A01%3A30%2021%3A47%3A46-51775.jpg?Expires=1521191177&OSSAccessKeyId=TMP.AQE8CEVTjwupqBgtGA0kBCfSPP_b8uGSE8gGODF7TSdrFlyN6d4TEeOGYNngADAtAhUAuYUl2tLPLT5cZIG6TpJM3AMjL7UCFHPM2LtYsEApPAN8ug1gSNCvM1hM&Signature=gq41pRWTlqoNS%2BEDXJTd0poJuGg%3D");
+        // gif
+        //suggest.setContentImgUrl("http://img.zcool.cn/community/01574e581d5811a84a0d304ffd83d1.gif");
+        // err
+        //suggest.setContentImgUrl("sasasasa");
+        final GlideManager glide = new GlideManager(mActivity)
+                .bitmap(contentImgUrl)
+                .holder(R.drawable.shape_r2_solid_blue)
+                .progress(true)
+                .error(R.drawable.shape_r2_solid_red)
+                .thumbnail(0.1f)
+                .fade(100)
+                .feature(100, 100);
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                final Bitmap bitmap = glide.getFeature();
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ivContent.setImageBitmap(bitmap);
+                    }
+                });
+            }
+        });
+
+
         tvContent.setText(contentText);
         tvCommentTotal.setText(commentTotal);
     }
