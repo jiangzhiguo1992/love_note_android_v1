@@ -146,8 +146,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         cvAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show("提意见");
-                // todo 提意见
+                SuggestAddActivity.goActivity(mActivity);
             }
         });
         rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

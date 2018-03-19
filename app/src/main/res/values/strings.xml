@@ -303,4 +303,11 @@
     <string name="commit">提交</string>
     <string name="holder_sprit_holder">%d/%d</string>
     <string name="please_input_comment_content">请输入评论内容</string>
+    <string name="click_me_choose_type">点我选分类</string>
+    <string name="title">标题</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="content">内容</string>
+    <string name="please_input_content">请输入内容</string>
+    <string name="click_me_add_image">点我添加图片</string>
+    <string name="push">发布</string>
 </resources>
