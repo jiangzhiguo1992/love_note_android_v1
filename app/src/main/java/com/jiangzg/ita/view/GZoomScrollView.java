@@ -41,7 +41,7 @@ public class GZoomScrollView extends ScrollView implements View.OnTouchListener 
         // 1.获取attrs里定义的属性
         TypedArray a = context.obtainStyledAttributes(set, R.styleable.GZoomScrollView, defStyleAttr, 0);
         // 2.获取各项属性的值
-        layoutIndex = a.getInteger(R.styleable.GZoomScrollView_layout_index, 2);
+        layoutIndex = a.getInteger(R.styleable.GZoomScrollView_custom_layout_index, 2);
         if (layoutIndex < 2) { // 最少为2
             layoutIndex = 2;
         }

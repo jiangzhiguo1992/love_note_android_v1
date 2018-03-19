@@ -109,8 +109,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="30dp"
                     android:layout_weight="1"
-                    app:divider_color="?attr/colorPrimary"
-                    app:text_color="?attr/colorPrimary"/>
+                    app:custom_divider_color="?attr/colorPrimary"
+                    app:custom_text_color="?attr/colorPrimary"/>
 
                 <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npMonth"
@@ -119,8 +119,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    app:divider_color="?attr/colorPrimary"
-                    app:text_color="?attr/colorPrimary"/>
+                    app:custom_divider_color="?attr/colorPrimary"
+                    app:custom_text_color="?attr/colorPrimary"/>
 
                 <com.jiangzg.ita.view.GNumberPicker
                     android:id="@+id/npDay"
@@ -129,8 +129,8 @@
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    app:divider_color="?attr/colorPrimary"
-                    app:text_color="?attr/colorPrimary"/>
+                    app:custom_divider_color="?attr/colorPrimary"
+                    app:custom_text_color="?attr/colorPrimary"/>
             </LinearLayout>
 
             <Button

@@ -94,9 +94,9 @@ public class GlideManager {
                 .cacheMemory(true)
                 //todo 优先根据标识加载缓存
                 .priority(Priority.LOW) // 优先级
-                .holder() // 占位图
+                //.holder() // 占位图
                 .progress(true) // 圆形进度条
-                .error(a) // 错误图
+                //.error(a) // 错误图
                 .thumbnail(0.5f) // 开始缩略图
                 .fade(100) // 渐进时间
                 .listener(new RequestListener() {
@@ -112,7 +112,7 @@ public class GlideManager {
                     }
                 })
                 .intoView(view);
-        manager.reLoad(a); // 点击重新加载
+        //manager.reLoad(a); // 点击重新加载
     }
 
     public static <T> void loadTarget(GlideManager manager, T data, Target target) {
@@ -146,7 +146,7 @@ public class GlideManager {
         //manager.reLoad(a); // 点击重新加载
     }
 
-    public static <T> void loadFull(GlideManager manager, T data, ImageView view) {
+    public static <T> void loadScreen(GlideManager manager, T data, ImageView view) {
         //if (data instanceof String) {
         //    // todo 先获取标识，用于获取缓存
         //}
@@ -178,11 +178,10 @@ public class GlideManager {
 
     public static <T> void getBitmap(T data, boolean tag, ImageView view) {
         //Bitmap bitmap = new GlideManager(AppContext.get())
-        //        .drawable(data)
+        //        .bitmap(data)
         //        .cacheDisk(DiskCacheStrategy.ALL)
         //        .cacheMemory(true)
         //        .priority(Priority.IMMEDIATE)
-        //        .transform(tag) // 水印
         //        .listener()// todo
         //        .intoGet(); // 原始尺寸
     }

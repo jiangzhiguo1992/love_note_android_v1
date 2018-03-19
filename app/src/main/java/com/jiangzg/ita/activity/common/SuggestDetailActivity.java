@@ -44,8 +44,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.fabComment)
-    FloatingActionButton fabComment;
+    //@BindView(R.id.fabComment)
+    //FloatingActionButton fabComment;
 
     private Suggest suggest;
     private RecyclerManager recyclerManager;
@@ -102,6 +102,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 return true;
             }
         });
+        // todo 关注+评论
     }
 
     @Override
@@ -115,14 +116,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick({R.id.fabComment})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.fabComment: // todo 评论
-                ToastUtils.show("点击");
-                break;
-        }
-    }
+    //@OnClick({R.id.fabComment})
+    //public void onViewClicked(View view) {
+    //    switch (view.getId()) {
+    //        case R.id.fabComment: // todo 评论
+    //            ToastUtils.show("点击");
+    //            break;
+    //    }
+    //}
 
     private void getData(final boolean more) {
         // todo tpi
@@ -134,7 +135,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 suggest.setContentText("这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。");
                 suggest.setContentImgUrl("https://timgsa.baidu.com/timg?image");
                 if (!more) { // 在请求成功里执行
-                    fabComment.setVisibility(View.VISIBLE);
+                    //fabComment.setVisibility(View.VISIBLE);
                     recyclerManager.viewHeader(R.layout.list_head_suggest_comment);
                     initHead();
                 }
@@ -182,6 +183,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void initHead() {
+        // oss
+        //suggest.setContentImgUrl("http://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/bg/4-18%3A01%3A30%2021%3A47%3A46-51775.jpg?Expires=1521191177&OSSAccessKeyId=TMP.AQE8CEVTjwupqBgtGA0kBCfSPP_b8uGSE8gGODF7TSdrFlyN6d4TEeOGYNngADAtAhUAuYUl2tLPLT5cZIG6TpJM3AMjL7UCFHPM2LtYsEApPAN8ug1gSNCvM1hM&Signature=gq41pRWTlqoNS%2BEDXJTd0poJuGg%3D");
+        // gif
+        //suggest.setContentImgUrl("http://img.zcool.cn/community/01574e581d5811a84a0d304ffd83d1.gif");
+        // err
+        //suggest.setContentImgUrl("sasasasa");
+
         // data
         String title = suggest.getTitle();
         String create = TimeUtils.getDiffDayShowBySecond(suggest.getCreatedAt());
@@ -189,46 +197,27 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String contentImgUrl = suggest.getContentImgUrl();
         String contentText = suggest.getContentText();
         String commentTotal = String.format(getString(R.string.comment_colon_holder), suggest.getCommentCount());
-        // view todo 图片加载框架 图片显示控件+点击放大
+        // view
         View head = recyclerManager.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        final ImageView ivContent = head.findViewById(R.id.ivContent);
+        ImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
         TextView tvCommentTotal = head.findViewById(R.id.tvCommentTotal);
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
 
-        // oss
-        suggest.setContentImgUrl("http://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/bg/4-18%3A01%3A30%2021%3A47%3A46-51775.jpg?Expires=1521191177&OSSAccessKeyId=TMP.AQE8CEVTjwupqBgtGA0kBCfSPP_b8uGSE8gGODF7TSdrFlyN6d4TEeOGYNngADAtAhUAuYUl2tLPLT5cZIG6TpJM3AMjL7UCFHPM2LtYsEApPAN8ug1gSNCvM1hM&Signature=gq41pRWTlqoNS%2BEDXJTd0poJuGg%3D");
-        // gif
-        //suggest.setContentImgUrl("http://img.zcool.cn/community/01574e581d5811a84a0d304ffd83d1.gif");
-        // err
-        //suggest.setContentImgUrl("sasasasa");
-        final GlideManager glide = new GlideManager(mActivity)
-                .bitmap(contentImgUrl)
-                .holder(R.drawable.shape_r2_solid_blue)
-                .progress(true)
-                .error(R.drawable.shape_r2_solid_red)
-                .thumbnail(0.1f)
-                .fade(100)
-                .feature(100, 100);
-        MyApp.get().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                final Bitmap bitmap = glide.getFeature();
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        ivContent.setImageBitmap(bitmap);
-                    }
-                });
-            }
-        });
-
+        GlideManager.loadView(new GlideManager(mActivity), contentImgUrl, ivContent);
 
         tvContent.setText(contentText);
         tvCommentTotal.setText(commentTotal);
+        ivContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // todo 点击放大，错误重新加载
+
+            }
+        });
     }
 
 }

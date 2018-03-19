@@ -11,6 +11,9 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.utils.PrefUtils;
+import com.jiangzg.ita.view.GMultiLoveUpLayout;
+
+import java.util.Timer;
 
 import butterknife.BindView;
 
@@ -24,6 +27,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @BindView(R.id.ivBg)
     ImageView ivBg;
+    @BindView(R.id.mlul)
+    GMultiLoveUpLayout mlul;
 
     @Override
     protected int getView(Intent intent) {
@@ -46,8 +51,15 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mlul.startUp();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+        mlul.cancelUp();
         finish(); // 记得关闭欢迎页
     }
 
@@ -59,7 +71,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 @Override
                 public void run() {
                     //LoginActivity.goActivity(mActivity);
-                    HomeActivity.goActivity(mActivity); // todo 修改
+                    //HomeActivity.goActivity(mActivity); // todo 修改
                 }
             }, TransPageMillis);
         } else {

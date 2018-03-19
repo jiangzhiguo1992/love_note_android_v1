@@ -10,7 +10,24 @@
     android:orientation="vertical"
     tools:context="com.jiangzg.ita.activity.common.SuggestDetailActivity">
 
-    <include layout="@layout/view_top_bar"/>
+    <!--<include layout="@layout/view_top_bar"/>-->
+    <android.support.design.widget.AppBarLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/abl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            tools:title="title"/>
+    </android.support.design.widget.AppBarLayout>
 
     <com.jiangzg.ita.view.GSwipeRefreshLayout
         android:id="@+id/srl"
@@ -26,17 +43,81 @@
             tools:visibility="visible"/>
     </com.jiangzg.ita.view.GSwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabComment"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        android:src="@drawable/ic_comment_solid_white"
-        android:visibility="gone"
-        app:borderWidth="0dp"
-        app:fabSize="mini"
-        app:rippleColor="?attr/colorPrimaryDark"
-        tools:visibility="visible"/>
+        android:layout_gravity="bottom"
+        android:background="@drawable/layer_line_border_grey_in_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_behavior="com.jiangzg.ita.view.FooterBehaviorDependAppBar">
+
+        <LinearLayout
+            android:id="@+id/llWatch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/ivWatch"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                tools:src="@drawable/ic_visibility_off_grey"/>
+
+            <TextView
+                android:id="@+id/tvWatch"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="11"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llComment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:id="@+id/ivComment"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_comment_point_grey"
+                android:tint="@color/icon_grey"/>
+
+            <TextView
+                android:id="@+id/tvComment"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="11"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fabComment"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="20dp"-->
+    <!--android:src="@drawable/ic_comment_solid_white"-->
+    <!--android:visibility="gone"-->
+    <!--app:borderWidth="0dp"-->
+    <!--app:fabSize="mini"-->
+    <!--app:rippleColor="?attr/colorPrimaryDark"-->
+    <!--tools:visibility="visible"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

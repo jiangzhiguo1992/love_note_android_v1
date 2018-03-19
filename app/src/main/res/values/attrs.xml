@@ -3,11 +3,17 @@
 
     <!-- 记得在xml引用时加命名空间 xmlns:my="http://schemas.android.com/apk/res-auto"-->
     <declare-styleable name="GZoomScrollView">
-        <attr name="layout_index" format="integer"/>
+        <attr name="custom_layout_index" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="GNumberPicker">
-        <attr name="divider_color" format="color"/>
-        <attr name="text_color" format="color"/>
+        <attr name="custom_divider_color" format="color"/>
+        <attr name="custom_text_color" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="GMultiLoveUpLayout">
+        <attr name="custom_auto_start" format="boolean"/>
+        <attr name="custom_up_interval" format="integer"/>
+        <attr name="custom_point_count" format="integer"/>
     </declare-styleable>
 </resources>

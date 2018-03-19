@@ -4,10 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -41,8 +39,8 @@ public class GNumberPicker extends NumberPicker {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GNumberPicker);
         int color = ViewUtils.getColorPrimary(context);
         // 获取参数
-        mTextColor = a.getColor(R.styleable.GNumberPicker_text_color, color);
-        mDividerColor = a.getColor(R.styleable.GNumberPicker_divider_color, color);
+        mTextColor = a.getColor(R.styleable.GNumberPicker_custom_text_color, color);
+        mDividerColor = a.getColor(R.styleable.GNumberPicker_custom_divider_color, color);
         a.recycle();
         // 设置属性
         setCustomStyle();
