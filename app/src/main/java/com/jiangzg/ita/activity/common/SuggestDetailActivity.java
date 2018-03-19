@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.activity.ActivityTrans;
@@ -35,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
@@ -52,11 +57,18 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     TextView tvFollow;
     @BindView(R.id.ivComment)
     ImageView ivComment;
+    @BindView(R.id.tvCommentLimit)
+    TextView tvCommentLimit;
     @BindView(R.id.tvComment)
     TextView tvComment;
+    @BindView(R.id.rlComment)
+    RelativeLayout rlComment;
+    @BindView(R.id.etComment)
+    EditText etComment;
 
     private Suggest suggest;
     private RecyclerManager recyclerManager;
+    private BottomSheetBehavior behaviorComment;
 
     public static void goActivity(Activity from, Suggest suggest) {
         Intent intent = new Intent(from, SuggestDetailActivity.class);
@@ -74,6 +86,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest = (Suggest) getIntent().getSerializableExtra("suggest");
         String title = (suggest == null) ? getString(R.string.suggest_feedback) : suggest.getTitle();
         ViewUtils.initTopBar(mActivity, tb, title, true);
+        // comment
+        commentShow(false);
         // recycler
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
@@ -107,6 +121,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 return true;
             }
         });
+        // comment
+        onCommentInput("");
     }
 
     @Override
@@ -120,14 +136,25 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick({R.id.llFollow, R.id.llComment})
+    @OnTextChanged({R.id.etComment})
+    public void afterTextChanged(Editable s) {
+        onCommentInput(s.toString());
+    }
+
+    @OnClick({R.id.llFollow, R.id.llComment, R.id.ivCommentClose, R.id.tvCommentCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llFollow: // 关注
                 follow();
                 break;
-            case R.id.llComment: // 评论
-                commentShow();
+            case R.id.llComment: // 评论打开
+                commentShow(true);
+                break;
+            case R.id.ivCommentClose: // 评论关闭
+                commentShow(false);
+                break;
+            case R.id.tvCommentCommit: // 评论提交
+                comment();
                 break;
         }
     }
@@ -137,16 +164,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                rv.setVisibility(View.VISIBLE);
-                llBottom.setVisibility(View.VISIBLE);
-
-                initWatchView();
-                initFollowView();
-
                 suggest.setContentText("这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。");
                 suggest.setContentImgUrl("https://timgsa.baidu.com/timg?image");
                 if (!more) { // 在请求成功里执行
-                    //fabComment.setVisibility(View.VISIBLE);
+                    rv.setVisibility(View.VISIBLE);
+                    llBottom.setVisibility(View.VISIBLE);
+                    initWatchView();
+                    initFollowView();
                     recyclerManager.viewHeader(R.layout.list_head_suggest_comment);
                     initHead();
                 }
@@ -246,6 +270,19 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         }
     }
 
+    private void onCommentInput(String input) {
+        int commentLimit = 200;
+        int length = input.length();
+        if (length > commentLimit) {
+            CharSequence charSequence = input.subSequence(0, commentLimit);
+            etComment.setText(charSequence);
+            etComment.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(getString(R.string.holder_sprit_holder), length, commentLimit);
+        tvCommentLimit.setText(limitShow);
+    }
+
     private void initFollowView() {
         boolean follow = suggest.isFollow();
         String followCount = String.valueOf(suggest.getFollowCount());
@@ -269,11 +306,22 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollow(newFollow);
         suggest.setFollowCount(newFollowCount);
         initFollowView();
+
+    }
+
+    // 评论视图
+    private void commentShow(boolean show) {
+        if (behaviorComment == null) {
+            behaviorComment = BottomSheetBehavior.from(rlComment);
+        }
+        int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
+        behaviorComment.setState(state);
     }
 
     // 评论
-    private void commentShow() {
-        // todo 从bottomSheet弹出
+    private void comment() {
+        // todo api refresh
+        commentShow(false);
     }
 
 }
