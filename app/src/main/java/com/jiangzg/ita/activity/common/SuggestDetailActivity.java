@@ -2,9 +2,7 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
@@ -34,7 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
@@ -95,14 +91,15 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     case R.id.menuHelp: // 评论
                         HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_DETAIL);
                         break;
-                    case R.id.menuTop: // 回到顶部
-                        rv.smoothScrollToPosition(0);
-                        break;
+                    //case R.id.menuTop: // 回到顶部
+                    //    rv.smoothScrollToPosition(0);
+                    //    break;
                 }
                 return true;
             }
         });
         // todo 关注+评论
+        // todo 评论从bottomSheet弹出
     }
 
     @Override
@@ -112,7 +109,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_top, menu);
+        getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -126,7 +123,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     //}
 
     private void getData(final boolean more) {
-        // todo tpi
+        // todo api
         MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {

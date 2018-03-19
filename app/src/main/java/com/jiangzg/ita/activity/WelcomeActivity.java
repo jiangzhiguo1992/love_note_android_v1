@@ -71,7 +71,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 @Override
                 public void run() {
                     //LoginActivity.goActivity(mActivity);
-                    //HomeActivity.goActivity(mActivity); // todo 修改
+                    HomeActivity.goActivity(mActivity); // todo 修改
                 }
             }, TransPageMillis);
         } else {
