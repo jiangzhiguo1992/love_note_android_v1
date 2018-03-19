@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
@@ -104,15 +103,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     case R.id.menuHelp: // 评论
                         HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_DETAIL);
                         break;
-                    //case R.id.menuTop: // 回到顶部
-                    //    rv.smoothScrollToPosition(0);
-                    //    break;
                 }
                 return true;
             }
         });
-        // todo 关注+评论
-        // todo 评论从bottomSheet弹出
     }
 
     @Override
@@ -129,11 +123,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     @OnClick({R.id.llFollow, R.id.llComment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.llFollow: // todo 关注
-                ToastUtils.show("关注");
+            case R.id.llFollow: // 关注
+                follow();
                 break;
-            case R.id.llComment: // todo 评论
-                ToastUtils.show("评论");
+            case R.id.llComment: // 评论
+                commentShow();
                 break;
         }
     }
@@ -146,21 +140,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 rv.setVisibility(View.VISIBLE);
                 llBottom.setVisibility(View.VISIBLE);
 
-                tvFollow.setText(String.valueOf(suggest.getFollowCount()));
-                tvComment.setText(String.valueOf(suggest.getCommentCount()));
-                if (suggest.isFollow()) {
-                    ivFollow.setImageResource(R.drawable.ic_visibility_on_primary);
-                } else {
-                    ivFollow.setImageResource(R.drawable.ic_visibility_off_grey);
-                }
-                int rId = ViewUtils.getColorPrimary(mActivity);
-                int colorPrimary = ContextCompat.getColor(mActivity, rId);
-                int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
-                if (suggest.isComment()) {
-                    ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
-                } else {
-                    ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
-                }
+                initWatchView();
+                initFollowView();
 
                 suggest.setContentText("这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。");
                 suggest.setContentImgUrl("https://timgsa.baidu.com/timg?image");
@@ -248,6 +229,51 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
             }
         });
+    }
+
+    private void initWatchView() {
+        boolean isComment = suggest.isComment();
+        String commentCount = String.valueOf(suggest.getCommentCount());
+
+        tvComment.setText(commentCount);
+        if (isComment) {
+            int rId = ViewUtils.getColorPrimary(mActivity);
+            int colorPrimary = ContextCompat.getColor(mActivity, rId);
+            ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
+        } else {
+            int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
+            ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
+        }
+    }
+
+    private void initFollowView() {
+        boolean follow = suggest.isFollow();
+        String followCount = String.valueOf(suggest.getFollowCount());
+
+        tvFollow.setText(followCount);
+        if (follow) {
+            ivFollow.setImageResource(R.drawable.ic_visibility_on_primary);
+        } else {
+            ivFollow.setImageResource(R.drawable.ic_visibility_off_grey);
+        }
+    }
+
+    // 关注
+    private void follow() {
+        // todo api
+        boolean newFollow = !suggest.isFollow();
+        int newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
+        if (newFollowCount < 0) {
+            newFollowCount = 0;
+        }
+        suggest.setFollow(newFollow);
+        suggest.setFollowCount(newFollowCount);
+        initFollowView();
+    }
+
+    // 评论
+    private void commentShow() {
+        // todo 从bottomSheet弹出
     }
 
 }

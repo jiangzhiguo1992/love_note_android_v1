@@ -29,7 +29,7 @@ import com.jiangzg.ita.view.GWrapView;
 public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private FragmentActivity mActivity;
-    private final FrameLayout.LayoutParams mTextlayoutParams;
+    private final FrameLayout.LayoutParams mTextLayoutParams;
     private final int dp5;
     private final int dp2;
     private final ColorStateList colorPrimaryStateList;
@@ -48,8 +48,8 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         int dp7 = ConvertUtils.dp2px(7);
         dp5 = ConvertUtils.dp2px(5);
         dp2 = ConvertUtils.dp2px(2);
-        mTextlayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextlayoutParams.setMarginEnd(dp7);
+        mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTextLayoutParams.setMarginEnd(dp7);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
 
     private View getTagView(String show, @DrawableRes int resId) {
         TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(mTextlayoutParams);
+        textView.setLayoutParams(mTextLayoutParams);
         textView.setBackgroundResource(resId);
         textView.setPadding(dp5, dp2, dp5, dp2);
         textView.setGravity(Gravity.CENTER);
