@@ -12,10 +12,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.intent.IntentUtils;
+import com.jiangzg.base.function.PermUtils;
+import com.jiangzg.base.media.image.BitmapMedia;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.third.GlideManager;
+import com.jiangzg.ita.utils.Constants;
 import com.jiangzg.ita.utils.ViewUtils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,8 +51,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.btnPush)
     Button btnPush;
 
-    private int titleLimit = 20;
-    private int contentLimit = 200;
+    private int contentType = 0;
+    private File pictureFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestAddActivity.class);
@@ -58,8 +68,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.i_want_push_suggest), true);
-
-
+        // input
         etTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -71,15 +80,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int length = s.length();
-                if (length > titleLimit) {
-                    CharSequence charSequence = s.subSequence(0, titleLimit);
-                    etTitle.setText(charSequence);
-                    etTitle.setSelection(charSequence.length());
-                    length = charSequence.length();
-                }
-                String limitShow = String.format(getString(R.string.holder_sprit_holder), length, titleLimit);
-                tvTitleLimit.setText(limitShow);
+                onTitleInput(s.toString());
             }
         });
         etContent.addTextChangedListener(new TextWatcher() {
@@ -93,37 +94,188 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
             @Override
             public void afterTextChanged(Editable s) {
-                int length = s.length();
-                if (length > contentLimit) {
-                    CharSequence charSequence = s.subSequence(0, contentLimit);
-                    etContent.setText(charSequence);
-                    etContent.setSelection(charSequence.length());
-                    length = charSequence.length();
-                }
-                String limitShow = String.format(getString(R.string.holder_sprit_holder), length, contentLimit);
-                tvContentLimit.setText(limitShow);
+                onContentInput(s.toString());
             }
         });
+        onTitleInput("");
+        onContentInput("");
     }
 
     @Override
     protected void initData(Bundle state) {
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICTURE) {
+            ivImage.setVisibility(View.VISIBLE);
+            pictureFile = BitmapMedia.getPictureFile(data);
+            GlideManager.loadNative(new GlideManager(mActivity), pictureFile, ivImage);
+        }
     }
 
     @OnClick({R.id.tvType, R.id.tvAddImage, R.id.btnPush})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvType: // todo 选分类
-
+            case R.id.tvType: // 选分类
+                showTypeDialog();
                 break;
-            case R.id.tvAddImage: // todo 添加照片
-
+            case R.id.tvAddImage: // 添加照片
+                requestPermission();
                 break;
-            case R.id.btnPush: // todo 发布
-
+            case R.id.btnPush: // 发布
+                push();
                 break;
         }
+    }
+
+    // 请求文件(相册)获取权限
+    private void requestPermission() {
+        PermUtils.requestPermissions(mActivity, Constants.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentUtils.getPicture();
+                ActivityTrans.startResult(mActivity, picture, Constants.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+            }
+        });
+    }
+
+    private void onTitleInput(String s) {
+        int titleLimit = 20;
+        int length = s.length();
+        if (length > titleLimit) {
+            CharSequence charSequence = s.subSequence(0, titleLimit);
+            etTitle.setText(charSequence);
+            etTitle.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(getString(R.string.holder_sprit_holder), length, titleLimit);
+        tvTitleLimit.setText(limitShow);
+    }
+
+    private void onContentInput(String s) {
+        int contentLimit = 200;
+        int length = s.length();
+        if (length > contentLimit) {
+            CharSequence charSequence = s.subSequence(0, contentLimit);
+            etContent.setText(charSequence);
+            etContent.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(getString(R.string.holder_sprit_holder), length, contentLimit);
+        tvContentLimit.setText(limitShow);
+    }
+
+    private void showTypeDialog() {
+        String bug = getString(R.string.program_error);
+        String func = getString(R.string.function_add);
+        String optimize = getString(R.string.experience_optimize);
+        String other = getString(R.string.other);
+        CharSequence[] items = new CharSequence[]{bug, func, optimize, other};
+        int selectIndex = getItemsSelectByType(contentType);
+        new MaterialDialog.Builder(this)
+                .title(R.string.please_choose_classify)
+                .items(items)
+                .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        contentType = getTypeByItemSelect(which);
+                        tvType.setText(getSelectShowByType(contentType));
+                        return true;
+                    }
+                })
+                .positiveText(R.string.i_choose_ok)
+                .negativeText(R.string.i_think_again)
+                .show();
+    }
+
+    private String getSelectShowByType(int contentType) {
+        String selectShow;
+        switch (contentType) {
+            case Suggest.TYPE_BUG:
+                selectShow = getString(R.string.program_error);
+                break;
+            case Suggest.TYPE_FUNCTION:
+                selectShow = getString(R.string.function_add);
+                break;
+            case Suggest.TYPE_EXPERIENCE:
+                selectShow = getString(R.string.experience_optimize);
+                break;
+            case Suggest.TYPE_OTHER:
+                selectShow = getString(R.string.other);
+                break;
+            default:
+                selectShow = getString(R.string.click_me_choose_type);
+                break;
+        }
+        return selectShow;
+    }
+
+    private int getItemsSelectByType(int contentType) {
+        int selectIndex;
+        switch (contentType) {
+            case Suggest.TYPE_BUG:
+                selectIndex = 0;
+                break;
+            case Suggest.TYPE_FUNCTION:
+                selectIndex = 1;
+                break;
+            case Suggest.TYPE_EXPERIENCE:
+                selectIndex = 2;
+                break;
+            case Suggest.TYPE_OTHER:
+                selectIndex = 3;
+                break;
+            default:
+                selectIndex = -1;
+                break;
+        }
+        return selectIndex;
+    }
+
+    private int getTypeByItemSelect(int select) {
+        int contentType = 0;
+        switch (select) {
+            case 0:
+                contentType = Suggest.TYPE_BUG;
+                break;
+            case 1:
+                contentType = Suggest.TYPE_FUNCTION;
+                break;
+            case 2:
+                contentType = Suggest.TYPE_EXPERIENCE;
+                break;
+            case 3:
+                contentType = Suggest.TYPE_OTHER;
+                break;
+        }
+        return contentType;
+    }
+
+    // 发布
+    private void push() {
+        if (contentType != Suggest.TYPE_BUG && contentType != Suggest.TYPE_FUNCTION && contentType != Suggest.TYPE_EXPERIENCE && contentType != Suggest.TYPE_OTHER) {
+            ToastUtils.show(getString(R.string.please_choose_classify));
+            return;
+        }
+        String title = etTitle.getText().toString();
+        if (title.trim().length() <= 0) {
+            ToastUtils.show(getString(R.string.please_input_title));
+            return;
+        }
+        String content = etContent.getText().toString();
+        if (content.trim().length() <= 0) {
+            ToastUtils.show(getString(R.string.please_input_content));
+            return;
+        }
+        // todo api
+        ToastUtils.show(getString(R.string.push_success));
+        mActivity.finish();
     }
 
 }

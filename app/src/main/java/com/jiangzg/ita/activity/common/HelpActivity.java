@@ -6,12 +6,18 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.HelpAdapter;
+import com.jiangzg.ita.adapter.HelpContentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.utils.ViewUtils;
 
 import java.util.ArrayList;
@@ -27,6 +33,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     RecyclerView rv;
 
     private int type;
+    private RecyclerManager recyclerManager;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
@@ -50,9 +57,18 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         type = getIntent().getIntExtra("type", Help.TYPE_ALL);
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.help_document), true);
         // recycler
-        rv.setLayoutManager(new LinearLayoutManager(mActivity));
-        HelpAdapter adapter = new HelpAdapter(mActivity);
-        rv.setAdapter(adapter);
+        recyclerManager = new RecyclerManager(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new HelpAdapter())
+                .setAdapter()
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        HelpAdapter helpAdapter = (HelpAdapter) adapter;
+                        helpAdapter.goSubHelp(mActivity, position);
+                    }
+                });
     }
 
     @Override
@@ -83,9 +99,28 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         list.add(sub3);
         help.setSubList(list);
         // todo 拿着type去请求api
+
         tb.setTitle(help.getTitle());
-        HelpAdapter adapter = (HelpAdapter) rv.getAdapter();
-        adapter.setData(help);
+        recyclerManager.viewHeader(R.layout.list_head_help);
+        initHead(help);
+        recyclerManager.dataNew(help.getSubList());
+    }
+
+    private void initHead(Help help) {
+        // data
+        String desc = help.getDesc();
+        List<Help.Content> contentList = help.getContentList();
+        // view
+        View head = recyclerManager.getViewHead();
+        TextView tvDesc = head.findViewById(R.id.tvDesc);
+        tvDesc.setText(desc);
+        RecyclerView rv = head.findViewById(R.id.rv);
+        // list
+        RecyclerManager recyclerManager = new RecyclerManager(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new HelpContentAdapter());
+        recyclerManager.dataNew(contentList);
     }
 
 }

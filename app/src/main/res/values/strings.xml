@@ -310,4 +310,8 @@
     <string name="please_input_content">请输入内容</string>
     <string name="click_me_add_image">点我添加图片</string>
     <string name="push">发布</string>
+    <string name="please_choose_classify">请选择分类</string>
+    <string name="i_choose_ok">我选好了</string>
+    <string name="i_think_again">我再想想</string>
+    <string name="push_success">发布成功</string>
 </resources>

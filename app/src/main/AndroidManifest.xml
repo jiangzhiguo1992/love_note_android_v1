@@ -54,11 +54,13 @@
         </activity>
         <activity android:name=".activity.common.HelpListActivity">
         </activity>
-        <activity android:name=".activity.common.SuggestListActivity">
+        <activity android:name=".activity.common.SuggestHomeActivity">
         </activity>
         <activity android:name=".activity.common.SuggestDetailActivity">
         </activity>
         <activity android:name=".activity.common.SuggestAddActivity">
+        </activity>
+        <activity android:name=".activity.common.SuggestListActivity">
         </activity>
     </application>
 

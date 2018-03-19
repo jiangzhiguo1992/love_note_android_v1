@@ -10,14 +10,16 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.jiangzg.base.component.application.AppContext;
-import com.jiangzg.base.file.FileUtils;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.component.application.AppInfo;
+import com.jiangzg.base.file.FileUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 /**
  * Created by jiang on 2016/10/13
@@ -26,6 +28,7 @@ import java.io.InputStream;
 public class BitmapMedia {
 
     private static final String LOG_TAG = "BitmapMedia";
+    private File file;
 
     /**
      * 获取拍照图片: 在onActivityResult中执行
@@ -62,6 +65,21 @@ public class BitmapMedia {
         BitmapConvert.save(small, cameraFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true); // 保存图像
         if (small != null && !small.isRecycled()) small.recycle();
         return getCameraBitmap(cameraFile);
+    }
+
+    public static File getPictureFile(Intent data) {
+        if (data == null) return null;
+        Uri uri = getPictureUri(data);
+        File file;
+        if (uri != null) {
+            file = ConvertUtils.URI2File(uri);
+        } else {
+            long time = new Date().getTime();
+            file = new File(AppInfo.get().getAppCacheDir(), time + ".jpg");
+            Bitmap picture = data.getParcelableExtra("data");
+            BitmapConvert.save(picture, file.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
+        }
+        return file;
     }
 
     /**

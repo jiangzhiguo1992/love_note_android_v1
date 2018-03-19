@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
-import com.jiangzg.ita.activity.common.SuggestListActivity;
+import com.jiangzg.ita.activity.common.SuggestHomeActivity;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
@@ -148,7 +148,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 HelpActivity.goActivity(mActivity);
                 break;
             case R.id.tvSuggest:
-                SuggestListActivity.goActivity(mActivity);
+                SuggestHomeActivity.goActivity(mActivity);
                 break;
             case R.id.tvRate:
                 // todo

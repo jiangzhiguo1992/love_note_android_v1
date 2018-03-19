@@ -36,7 +36,7 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
     private final ColorStateList colorGreyStateList;
 
     public SuggestListAdapter(FragmentActivity activity) {
-        super(R.layout.list_item_suggest_list);
+        super(R.layout.list_item_suggest_home);
         mActivity = activity;
         // color
         int rId = ViewUtils.getColorPrimary(activity);

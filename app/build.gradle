@@ -207,13 +207,12 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
     // UI
-
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     // 三方
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0'
     // todo 要删的
     implementation 'com.orhanobut:logger:1.15'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 //    implementation 'com.facebook.fresco:fresco:1.8.1'
 //    implementation 'com.facebook.fresco:animated-gif:0.13.0'
 

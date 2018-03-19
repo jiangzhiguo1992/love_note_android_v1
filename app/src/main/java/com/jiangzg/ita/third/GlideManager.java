@@ -52,6 +52,16 @@ public class GlideManager {
     //request.clear();
     //request.signature();
 
+    public static <T> void loadNative(GlideManager manager, T data, ImageView view) {
+        manager = manager.drawable(data)
+                .cacheDisk(DiskCacheStrategy.NONE)
+                .cacheMemory(false)
+                .priority(Priority.IMMEDIATE) // 优先级
+                .thumbnail(0.5f) // 开始缩略图
+                .fade(100) // 渐进时间
+                .intoView(view);
+    }
+
     public static <T> void loadAvatar(GlideManager manager, T data, ImageView view) {
         //if (data instanceof String) {
         //    // todo 先获取标识，用于获取缓存
