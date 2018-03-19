@@ -29,15 +29,27 @@ import com.jiangzg.ita.view.GWrapView;
 public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private FragmentActivity mActivity;
-    private final int colorGrey;
-    private final int colorPrimary;
+    private final FrameLayout.LayoutParams mTextlayoutParams;
+    private final int dp5;
+    private final int dp2;
+    private final ColorStateList colorPrimaryStateList;
+    private final ColorStateList colorGreyStateList;
 
     public SuggestListAdapter(FragmentActivity activity) {
         super(R.layout.list_item_suggest_list);
         mActivity = activity;
-        colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
+        // color
         int rId = ViewUtils.getColorPrimary(activity);
-        colorPrimary = ContextCompat.getColor(activity, rId);
+        int colorPrimary = ContextCompat.getColor(activity, rId);
+        int colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
+        colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
+        colorGreyStateList = ColorStateList.valueOf(colorGrey);
+        // wrap
+        int dp7 = ConvertUtils.dp2px(7);
+        dp5 = ConvertUtils.dp2px(5);
+        dp2 = ConvertUtils.dp2px(2);
+        mTextlayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTextlayoutParams.setMarginEnd(dp7);
     }
 
     @Override
@@ -55,14 +67,14 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         if (followCount <= 0) {
             followShow = mActivity.getString(R.string.follow);
         } else {
-            followShow = followCount + "";
+            followShow = String.valueOf(followCount);
         }
         int commentCount = item.getCommentCount();
         String commentShow;
         if (commentCount <= 0) {
             commentShow = mActivity.getString(R.string.comment);
         } else {
-            commentShow = commentCount + "";
+            commentShow = String.valueOf(commentCount);
         }
         final boolean follow = item.isFollow();
         boolean comment = item.isComment();
@@ -74,18 +86,18 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvCreateAt, createShow);
         helper.setText(R.id.tvUpdateAt, updatedShow);
-        helper.setText(R.id.tvWatch, followShow);
+        helper.setText(R.id.tvFollow, followShow);
         helper.setText(R.id.tvComment, commentShow);
         if (follow) {
-            helper.setImageResource(R.id.ivWatch, R.drawable.ic_visibility_on_primary);
+            helper.setImageResource(R.id.ivFollow, R.drawable.ic_visibility_on_primary);
         } else {
-            helper.setImageResource(R.id.ivWatch, R.drawable.ic_visibility_off_grey);
+            helper.setImageResource(R.id.ivFollow, R.drawable.ic_visibility_off_grey);
         }
         ImageView ivComment = helper.getView(R.id.ivComment);
         if (comment) {
-            ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
+            ivComment.setImageTintList(colorPrimaryStateList);
         } else {
-            ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
+            ivComment.setImageTintList(colorGreyStateList);
         }
 
         GWrapView wvTag = helper.getView(R.id.wvTag);
@@ -102,13 +114,8 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
 
     private View getTagView(String show, @DrawableRes int resId) {
         TextView textView = new TextView(mActivity);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int dp7 = ConvertUtils.dp2px(7);
-        layoutParams.setMarginEnd(dp7);
-        textView.setLayoutParams(layoutParams);
+        textView.setLayoutParams(mTextlayoutParams);
         textView.setBackgroundResource(resId);
-        int dp5 = ConvertUtils.dp2px(5);
-        int dp2 = ConvertUtils.dp2px(2);
         textView.setPadding(dp5, dp2, dp5, dp2);
         textView.setGravity(Gravity.CENTER);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

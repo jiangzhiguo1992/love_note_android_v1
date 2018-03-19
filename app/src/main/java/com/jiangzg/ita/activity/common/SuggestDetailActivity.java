@@ -2,7 +2,9 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,9 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
@@ -40,8 +45,16 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    //@BindView(R.id.fabComment)
-    //FloatingActionButton fabComment;
+    @BindView(R.id.llBottom)
+    LinearLayout llBottom;
+    @BindView(R.id.ivFollow)
+    ImageView ivFollow;
+    @BindView(R.id.tvFollow)
+    TextView tvFollow;
+    @BindView(R.id.ivComment)
+    ImageView ivComment;
+    @BindView(R.id.tvComment)
+    TextView tvComment;
 
     private Suggest suggest;
     private RecyclerManager recyclerManager;
@@ -113,14 +126,17 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         return super.onCreateOptionsMenu(menu);
     }
 
-    //@OnClick({R.id.fabComment})
-    //public void onViewClicked(View view) {
-    //    switch (view.getId()) {
-    //        case R.id.fabComment: // todo 评论
-    //            ToastUtils.show("点击");
-    //            break;
-    //    }
-    //}
+    @OnClick({R.id.llFollow, R.id.llComment})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.llFollow: // todo 关注
+                ToastUtils.show("关注");
+                break;
+            case R.id.llComment: // todo 评论
+                ToastUtils.show("评论");
+                break;
+        }
+    }
 
     private void getData(final boolean more) {
         // todo api
@@ -128,6 +144,23 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void run() {
                 rv.setVisibility(View.VISIBLE);
+                llBottom.setVisibility(View.VISIBLE);
+
+                tvFollow.setText(String.valueOf(suggest.getFollowCount()));
+                tvComment.setText(String.valueOf(suggest.getCommentCount()));
+                if (suggest.isFollow()) {
+                    ivFollow.setImageResource(R.drawable.ic_visibility_on_primary);
+                } else {
+                    ivFollow.setImageResource(R.drawable.ic_visibility_off_grey);
+                }
+                int rId = ViewUtils.getColorPrimary(mActivity);
+                int colorPrimary = ContextCompat.getColor(mActivity, rId);
+                int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
+                if (suggest.isComment()) {
+                    ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
+                } else {
+                    ivComment.setImageTintList(ColorStateList.valueOf(colorGrey));
+                }
 
                 suggest.setContentText("这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。");
                 suggest.setContentImgUrl("https://timgsa.baidu.com/timg?image");
