@@ -11,9 +11,4 @@
         <attr name="custom_text_color" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="GMultiLoveUpLayout">
-        <attr name="custom_auto_start" format="boolean"/>
-        <attr name="custom_up_interval" format="integer"/>
-        <attr name="custom_point_count" format="integer"/>
-    </declare-styleable>
 </resources>

@@ -7,11 +7,11 @@ import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -33,7 +33,6 @@ import java.util.TimerTask;
  */
 public class GMultiLoveUpLayout extends RelativeLayout {
 
-    private boolean mAutoStart;
     private Drawable[] mDrawables;
     private Random mRandom;
     private LayoutParams mLoveLayoutParams;
@@ -43,8 +42,6 @@ public class GMultiLoveUpLayout extends RelativeLayout {
     private int mHeight;
     private Interpolator[] mInterpolators;
     private Timer mTimer;
-    private int mUpInterval;
-    private int mPointCount;
 
     public GMultiLoveUpLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,11 +59,11 @@ public class GMultiLoveUpLayout extends RelativeLayout {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.GMultiLoveUpLayout);
-        mAutoStart = a.getBoolean(R.styleable.GMultiLoveUpLayout_custom_auto_start, false);
-        mUpInterval = a.getInt(R.styleable.GMultiLoveUpLayout_custom_up_interval, 200);
-        mPointCount = a.getInt(R.styleable.GMultiLoveUpLayout_custom_point_count, 4);
-        a.recycle();
+        //TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.GMultiLoveUpLayout);
+        //mAutoStart = a.getBoolean(R.styleable.GMultiLoveUpLayout_custom_auto_start, false);
+        //mUpInterval = a.getInt(R.styleable.GMultiLoveUpLayout_custom_up_interval, 200);
+        //mPointCount = a.getInt(R.styleable.GMultiLoveUpLayout_custom_point_count, 4);
+        //a.recycle();
 
         mRandom = new Random();
         mDrawables = new Drawable[12];
@@ -102,25 +99,34 @@ public class GMultiLoveUpLayout extends RelativeLayout {
     }
 
     // 外部可以 getViewTreeObserver().addOnGlobalLayoutListener
-    @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        if (mAutoStart) {
-            startUp();
-        }
-    }
+    //@Override
+    //protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    //    super.onLayout(changed, l, t, r, b);
+    //    if (mAutoStart) {
+    //        startUp();
+    //    }
+    //}
 
-    public void startUp() {
+    public void startUp(final long interval) {
         cancelUp();
-        if (mTimer == null) {
-            mTimer = new Timer();
-        }
-        mTimer.schedule(new TimerTask() {
+        getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
-            public void run() {
-                addLove();
+            public void onGlobalLayout() {
+                // 记得注销 要不会一直回调
+                GMultiLoveUpLayout.this.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                // 开始定时器
+                if (mTimer == null) {
+                    mTimer = new Timer();
+                }
+                mTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        addLove();
+                    }
+                }, interval, interval);
             }
-        }, mUpInterval, mUpInterval);
+        });
+
     }
 
     public void cancelUp() {
@@ -143,8 +149,7 @@ public class GMultiLoveUpLayout extends RelativeLayout {
                 animatorSet.addListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        removeView(love);
+                        GMultiLoveUpLayout.this.removeView(love);
                     }
                 });
                 animatorSet.start();
@@ -159,7 +164,7 @@ public class GMultiLoveUpLayout extends RelativeLayout {
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(love, "scaleY", 0f, 1f);
         ObjectAnimator alpha = ObjectAnimator.ofFloat(love, "alpha", 0f, 1f);
         AnimatorSet enterSet = new AnimatorSet();
-        enterSet.setDuration(500);
+        enterSet.setDuration(300);
         enterSet.playTogether(scaleX, scaleY, alpha);
         // bezierAnim
         ValueAnimator bezierAnimator = getBezierAnimator(love);
@@ -182,7 +187,7 @@ public class GMultiLoveUpLayout extends RelativeLayout {
         BezierEvaluator evaluator = new BezierEvaluator(pointF1, pointF2);
         // 贝塞尔曲线动画
         ValueAnimator animator = ValueAnimator.ofObject(evaluator, pointF0, pointF3);
-        animator.setDuration(3000);
+        animator.setDuration(2000);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {

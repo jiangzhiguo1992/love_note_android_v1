@@ -26,10 +26,7 @@
     <com.jiangzg.ita.view.GMultiLoveUpLayout
         android:id="@+id/mlul"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:custom_auto_start="true"
-        app:custom_point_count="4"
-        app:custom_up_interval="200"/>
+        android:layout_height="match_parent"/>
 
     <TextView
         style="@style/FontWhiteSmall"

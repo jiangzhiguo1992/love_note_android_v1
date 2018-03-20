@@ -53,7 +53,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        mlul.startUp();
+        mlul.startUp(300);
     }
 
     @Override

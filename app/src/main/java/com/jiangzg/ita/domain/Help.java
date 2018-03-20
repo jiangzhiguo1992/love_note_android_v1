@@ -15,6 +15,9 @@ public class Help extends BaseObj {
     public static final int TYPE_COUPLE_HOME = 3;
     public static final int TYPE_SUGGEST_HOME = 4;
     public static final int TYPE_SUGGEST_DETAIL = 5;
+    public static final int TYPE_SUGGEST_ADD = 6;
+    public static final int TYPE_SUGGEST_MINE = 7;
+    public static final int TYPE_SUGGEST_FOLLOW = 8;
 
     private int contentType;
     private String title;

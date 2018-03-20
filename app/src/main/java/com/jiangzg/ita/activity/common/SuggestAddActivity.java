@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import com.jiangzg.base.media.image.BitmapMedia;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.third.GlideManager;
 import com.jiangzg.ita.utils.Constants;
@@ -99,10 +102,28 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         });
         onTitleInput("");
         onContentInput("");
+        // menu
+        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menuHelp: // 评论
+                        HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_ADD);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     protected void initData(Bundle state) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
