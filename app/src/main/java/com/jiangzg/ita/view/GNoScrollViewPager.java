@@ -1,5 +1,6 @@
 package com.jiangzg.ita.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -9,8 +10,8 @@ import android.view.MotionEvent;
  * Created by gg on 2017/4/3.
  * 取消侧滑的viewPager
  */
-
 public class GNoScrollViewPager extends ViewPager {
+
     public GNoScrollViewPager(Context context) {
         super(context);
     }
@@ -34,6 +35,7 @@ public class GNoScrollViewPager extends ViewPager {
     }
 
     // 事件处理，表示什么也不做
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         // return super.onTouchEvent(ev);

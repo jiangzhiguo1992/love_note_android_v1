@@ -242,7 +242,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
 
-        GlideManager.loadView(new GlideManager(mActivity), contentImgUrl, ivContent);
+        GlideManager.loadNet(new GlideManager(mActivity), contentImgUrl, ivContent);
 
         tvContent.setText(contentText);
         tvCommentTotal.setText(commentTotal);

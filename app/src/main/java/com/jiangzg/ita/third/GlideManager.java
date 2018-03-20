@@ -58,8 +58,38 @@ public class GlideManager {
                 .cacheMemory(false)
                 .priority(Priority.IMMEDIATE) // 优先级
                 .thumbnail(0.5f) // 开始缩略图
-                .fade(100) // 渐进时间
                 .intoView(view);
+    }
+
+    public static <T> void loadNet(GlideManager manager, T data, ImageView view) {
+        if (data instanceof String) {
+            // todo 先获取标识，用于获取缓存
+        }
+        // todo 判断图片是否是gif，用于后续加载
+        manager = manager.drawable(data)
+                .cacheDisk(DiskCacheStrategy.ALL)
+                .cacheMemory(true)
+                //todo 优先根据标识加载缓存
+                .priority(Priority.LOW) // 优先级
+                //.holder() // 占位图
+                .progress(true) // 圆形进度条
+                //.error(a) // 错误图
+                .thumbnail(0.5f) // 开始缩略图
+                .fade(200) // 渐进时间
+                .listener(new RequestListener() {
+                    @Override
+                    public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
+                        // 网络不好不处理，交给点击重新加载，oss过期问题，在这里处理
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .intoView(view);
+        //manager.reLoad(a); // 点击重新加载
     }
 
     public static <T> void loadAvatar(GlideManager manager, T data, ImageView view) {
@@ -94,34 +124,33 @@ public class GlideManager {
         //manager.reLoad(a); // 点击重新加载
     }
 
-    public static <T> void loadView(GlideManager manager, T data, ImageView view) {
-        if (data instanceof String) {
-            // todo 先获取标识，用于获取缓存
-        }
-        // todo 判断图片是否是gif，用于后续加载
-        manager = manager.drawable(data)
-                .cacheDisk(DiskCacheStrategy.ALL)
-                .cacheMemory(true)
-                //todo 优先根据标识加载缓存
-                .priority(Priority.LOW) // 优先级
-                //.holder() // 占位图
-                .progress(true) // 圆形进度条
-                //.error(a) // 错误图
-                .thumbnail(0.5f) // 开始缩略图
-                .fade(100) // 渐进时间
-                .listener(new RequestListener() {
-                    @Override
-                    public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
-                        // 网络不好不处理，交给点击重新加载，oss过期问题，在这里处理
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        return false;
-                    }
-                })
-                .intoView(view);
+    public static <T> void loadScreen(GlideManager manager, T data, ImageView view) {
+        //if (data instanceof String) {
+        //    // todo 先获取标识，用于获取缓存
+        //}
+        //// todo 判断图片是否是gif，用于后续加载
+        //manager = manager.drawable(data)
+        //        .cacheDisk(DiskCacheStrategy.ALL)
+        //        .cacheMemory(true)
+        //        //todo 优先根据标识加载缓存
+        //        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+        //        .priority(Priority.HIGH) // 优先级
+        //        .holder() // 占位图
+        //        .progress(true) // 圆形进度条
+        //        .error(a) // 错误图
+        //        .thumbnail(0.5f) // 开始缩略图
+        //        .listener(new RequestListener<T, GlideDrawable>() {
+        //            @Override
+        //            public boolean onException(Exception e, T model, Target<GlideDrawable> target, boolean isFirstResource) {
+        //                return false;
+        //            }
+        //
+        //            @Override
+        //            public boolean onResourceReady(GlideDrawable resource, T model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+        //                return false;
+        //            }
+        //        })
+        //        .intoView(view);
         //manager.reLoad(a); // 点击重新加载
     }
 
@@ -153,36 +182,6 @@ public class GlideManager {
         //            }
         //        })
         //        .intoView(target);
-        //manager.reLoad(a); // 点击重新加载
-    }
-
-    public static <T> void loadScreen(GlideManager manager, T data, ImageView view) {
-        //if (data instanceof String) {
-        //    // todo 先获取标识，用于获取缓存
-        //}
-        //// todo 判断图片是否是gif，用于后续加载
-        //manager = manager.drawable(data)
-        //        .cacheDisk(DiskCacheStrategy.ALL)
-        //        .cacheMemory(true)
-        //        //todo 优先根据标识加载缓存
-        //        .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-        //        .priority(Priority.HIGH) // 优先级
-        //        .holder() // 占位图
-        //        .progress(true) // 圆形进度条
-        //        .error(a) // 错误图
-        //        .thumbnail(0.5f) // 开始缩略图
-        //        .listener(new RequestListener<T, GlideDrawable>() {
-        //            @Override
-        //            public boolean onException(Exception e, T model, Target<GlideDrawable> target, boolean isFirstResource) {
-        //                return false;
-        //            }
-        //
-        //            @Override
-        //            public boolean onResourceReady(GlideDrawable resource, T model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-        //                return false;
-        //            }
-        //        })
-        //        .intoView(view);
         //manager.reLoad(a); // 点击重新加载
     }
 

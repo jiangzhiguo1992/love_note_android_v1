@@ -1,15 +1,21 @@
 package com.jiangzg.ita.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.third.GlideManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by JiangZhiGuo on 2016-11-9.
@@ -18,47 +24,35 @@ import java.util.List;
 public class CommonPagerAdapter<T> extends PagerAdapter {
 
     private Context mContext;
-    private int itemId;
+    private ViewPager mPager;
     private List<T> mData;
+    private Timer timer;
 
-    private View.OnClickListener clickListener;
-    private View.OnLongClickListener longClickListener;
-    private int errorRes = 0;
-
-    public CommonPagerAdapter(Context context, int itemLayoutId) {
+    public CommonPagerAdapter(Context context, ViewPager pager) {
         mContext = context;
-        itemId = itemLayoutId;
+        mPager = pager;
         mData = new ArrayList<>();
-    }
-
-    /* setData之前调用 */
-    public void setOnClickListener(View.OnClickListener listener) {
-        clickListener = listener;
-    }
-
-    /* setData之前调用 */
-    public void setOnLongClickListener(View.OnLongClickListener listener) {
-        longClickListener = listener;
-    }
-
-    /* 错误占位图片 */
-    public void setErrorImgRes(int errorImgRes) {
-        errorRes = errorImgRes;
     }
 
     public void newData(List<T> data) {
         mData.clear();
-        mData.addAll(data);
+        if (data != null) {
+            mData.addAll(data);
+        }
         notifyDataSetChanged();
     }
 
     public void addData(List<T> data) {
-        mData.addAll(data);
+        if (data != null) {
+            mData.addAll(data);
+        }
         notifyDataSetChanged();
     }
 
     public void addData(T data) {
-        mData.add(data);
+        if (data != null) {
+            mData.add(data);
+        }
         notifyDataSetChanged();
     }
 
@@ -72,30 +66,62 @@ public class CommonPagerAdapter<T> extends PagerAdapter {
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((View) object);
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        ImageView view = (ImageView) View.inflate(mContext, itemId, null);
-        T data = mData.get(position);
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        ImageView view = new ImageView(mContext);
+        view.setScaleType(ImageView.ScaleType.CENTER_CROP);
         // setImage
-        //GlideManager.load(mContext, data, errorRes, view);
-        // setListener
-        if (clickListener != null) {
-            view.setOnClickListener(clickListener);
-        }
-        if (longClickListener != null) {
-            view.setOnLongClickListener(longClickListener);
+        T data = mData.get(position);
+        if (data instanceof String) {
+            GlideManager.loadNet(new GlideManager(mContext), data, view);
+        } else {
+            GlideManager.loadNative(new GlideManager(mContext), data, view);
         }
         // addView
         container.addView(view);
         return view;
     }
+
+    public void startAutoNext(long interval) {
+        stopAutoNext();
+        if (timer == null) {
+            timer = new Timer();
+        }
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int currentItem = mPager.getCurrentItem();
+                final int nextItem;
+                if (currentItem >= CommonPagerAdapter.this.getCount() - 1) {
+                    nextItem = 0;
+                } else {
+                    nextItem = currentItem + 1;
+                }
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPager.setCurrentItem(nextItem, true);
+                    }
+                });
+            }
+        }, interval, interval);
+    }
+
+    public void stopAutoNext() {
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
+
 }
