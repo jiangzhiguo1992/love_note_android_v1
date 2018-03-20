@@ -59,8 +59,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
-        srl.setEnabled(false);
         // recycler
+        srl.setEnabled(false);
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))

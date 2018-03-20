@@ -22,6 +22,7 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.srl)
+    GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -63,12 +66,20 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         }
         ViewUtils.initTopBar(mActivity, tb, title, true);
         // recycler
+        srl.setEnabled(false);
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initRefresh(srl)
                 .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewLoadMore(new RecyclerMoreView())
+                .listenerRefresh(new RecyclerManager.RefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        getData(false);
+                    }
+                })
                 .listenerMore(new RecyclerManager.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
@@ -105,7 +116,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        getData(false);
+        recyclerManager.dataRefresh();
     }
 
     @Override
