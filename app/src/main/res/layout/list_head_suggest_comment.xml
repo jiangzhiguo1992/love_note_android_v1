@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,15 +29,14 @@
         android:maxLines="1"
         tools:text="创建于:2017-01-12"/>
 
-    <ImageView
+    <com.jiangzg.ita.view.GImageView
         android:id="@+id/ivContent"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:scaleType="centerCrop"
-        tools:src="@mipmap/test_bg_01"/>
+        app:actualImageScaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/tvContent"

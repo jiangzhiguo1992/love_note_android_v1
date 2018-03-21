@@ -2,25 +2,27 @@ package com.jiangzg.ita.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
+import com.jiangzg.ita.activity.couple.BgGridActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
-import com.jiangzg.ita.adapter.CommonPagerAdapter;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.third.GlideManager;
 import com.jiangzg.ita.view.GMarqueeText;
-import com.jiangzg.ita.view.GNoScrollViewPager;
-import com.jiangzg.ita.view.GPageTransFormer;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WeFragment extends BasePagerFragment<WeFragment> {
@@ -36,8 +39,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.root)
     LinearLayout root;
-    @BindView(R.id.vpBg)
-    GNoScrollViewPager vpBg;
+    @BindView(R.id.vfTopBg)
+    ViewFlipper vfTopBg;
     @BindView(R.id.ivHelp)
     ImageView ivHelp;
     @BindView(R.id.ivSettings)
@@ -103,8 +106,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        refreshView();
-        // todo 原型图替换
+        root.setVisibility(View.VISIBLE);
+        // 沉浸式状态栏适配
+        initBar();
+        // 开始背景动画
+        initViewFlipper();
+        // todo circleImageView替换
+
     }
 
     protected void refreshData() {
@@ -145,9 +153,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
-    public void refreshView() {
-        root.setVisibility(View.VISIBLE);
-        // 沉浸式状态栏适配
+    @OnLongClick({R.id.vfTopBg})
+    public boolean onLongClick(View view) {
+        BgGridActivity.goActivity(mActivity);
+        return true;
+    }
+
+    private void initBar() {
         int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
         RelativeLayout.LayoutParams paramsHelp = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
         paramsHelp.setMargins(paramsHelp.leftMargin, paramsHelp.topMargin + statusBarHeight, paramsHelp.rightMargin, paramsHelp.bottomMargin);
@@ -155,23 +167,38 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
         paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
         ivSettings.setLayoutParams(paramsSettings);
-        // 开始背景动画
-        vpBg.setPageTransformer(true, new GPageTransFormer(GPageTransFormer.TYPE_SCALE_FADE));
-        CommonPagerAdapter<Integer> pagerAdapter = new CommonPagerAdapter<>(mActivity, vpBg);
-        vpBg.setAdapter(pagerAdapter);
-        List<Integer> pagerList = new ArrayList<>();
-        pagerList.add(R.mipmap.test_bg_01);
-        pagerList.add(R.mipmap.test_bg_02);
-        pagerList.add(R.mipmap.test_bg_03);
-        pagerList.add(R.mipmap.test_bg_04);
-        pagerList.add(R.mipmap.test_bg_05);
-        pagerList.add(R.mipmap.test_bg_06);
-        pagerList.add(R.mipmap.test_bg_07);
-        pagerList.add(R.mipmap.test_bg_08);
-        pagerList.add(R.mipmap.test_bg_09);
-        pagerAdapter.addData(pagerList);
-        pagerAdapter.startAutoNext(3000);
+    }
 
+    private void initViewFlipper() {
+        List<Integer> imageList = new ArrayList<>();
+        imageList.add(R.mipmap.test_bg_01);
+        imageList.add(R.mipmap.test_bg_02);
+        imageList.add(R.mipmap.test_bg_03);
+        imageList.add(R.mipmap.test_bg_04);
+        imageList.add(R.mipmap.test_bg_05);
+        imageList.add(R.mipmap.test_bg_06);
+        imageList.add(R.mipmap.test_bg_07);
+        imageList.add(R.mipmap.test_bg_08);
+        imageList.add(R.mipmap.test_bg_09);
+        for (Integer resId : imageList) {
+            ImageView image = getViewFlipperImage();
+            //GlideManager.loadNative(new GlideManager(mActivity), resId, image);
+            image.setImageResource(resId);
+            vfTopBg.addView(image);
+        }
+        vfTopBg.setInAnimation(AnimationUtils.makeInAnimation(mActivity, false));
+        vfTopBg.setOutAnimation(AnimationUtils.makeOutAnimation(mActivity, false));
+        vfTopBg.setAutoStart(true);
+        vfTopBg.setFlipInterval(3000);
+        vfTopBg.startFlipping();
+    }
+
+    private ImageView getViewFlipperImage() {
+        ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        ImageView image = new ImageView(mActivity);
+        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        image.setLayoutParams(paramsImage);
+        return image;
     }
 
 }

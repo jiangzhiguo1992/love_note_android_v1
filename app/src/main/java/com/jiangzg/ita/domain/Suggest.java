@@ -2,6 +2,7 @@ package com.jiangzg.ita.domain;
 
 import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.base.MyApp;
 
 import java.util.List;
 
@@ -40,17 +41,17 @@ public class Suggest extends BaseObj {
         String show;
         switch (contentType) {
             case TYPE_BUG:
-                show = AppContext.get().getString(R.string.program_error);
+                show = MyApp.get().getString(R.string.program_error);
                 break;
             case TYPE_FUNCTION:
-                show = AppContext.get().getString(R.string.function_add);
+                show = MyApp.get().getString(R.string.function_add);
                 break;
             case TYPE_EXPERIENCE:
-                show = AppContext.get().getString(R.string.experience_optimize);
+                show = MyApp.get().getString(R.string.experience_optimize);
                 break;
             case TYPE_OTHER:
             default:
-                show = AppContext.get().getString(R.string.other);
+                show = MyApp.get().getString(R.string.other);
                 break;
         }
         return show;
@@ -61,22 +62,22 @@ public class Suggest extends BaseObj {
         switch (status) {
             default:
             case STATUE_REPLY_NO:
-                show = AppContext.get().getString(R.string.no_reply);
+                show = MyApp.get().getString(R.string.no_reply);
                 break;
             case STATUE_REPLY_YES:
-                show = AppContext.get().getString(R.string.already_reply);
+                show = MyApp.get().getString(R.string.already_reply);
                 break;
             case STATUE_ACCEPT_NO:
-                show = AppContext.get().getString(R.string.no_accept);
+                show = MyApp.get().getString(R.string.no_accept);
                 break;
             case STATUE_ACCEPT_YES:
-                show = AppContext.get().getString(R.string.already_accept);
+                show = MyApp.get().getString(R.string.already_accept);
                 break;
             case STATUE_HANDLE_ING:
-                show = AppContext.get().getString(R.string.handle_ing);
+                show = MyApp.get().getString(R.string.handle_ing);
                 break;
             case STATUE_HANDLE_OVER:
-                show = AppContext.get().getString(R.string.handle_over);
+                show = MyApp.get().getString(R.string.handle_over);
                 break;
         }
         return show;

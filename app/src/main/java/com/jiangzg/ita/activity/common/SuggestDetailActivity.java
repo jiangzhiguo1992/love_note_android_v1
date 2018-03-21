@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +33,7 @@ import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.utils.TimeUtils;
 import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -236,13 +238,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         View head = recyclerManager.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        ImageView ivContent = head.findViewById(R.id.ivContent);
+        GImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
         TextView tvCommentTotal = head.findViewById(R.id.tvCommentTotal);
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
 
-        GlideManager.loadNet(new GlideManager(mActivity), contentImgUrl, ivContent);
+        //ivContent.setImageURI(Uri.parse(contentImgUrl));
+        //GlideManager.loadNet(new GlideManager(mActivity), contentImgUrl, ivContent);
 
         tvContent.setText(contentText);
         tvCommentTotal.setText(commentTotal);

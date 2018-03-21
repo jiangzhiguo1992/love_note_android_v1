@@ -11,4 +11,9 @@
         <attr name="custom_text_color" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="GImageView">
+        <attr name="is_circle" format="boolean"/>
+        <attr name="is_full" format="boolean"/>
+    </declare-styleable>
+
 </resources>

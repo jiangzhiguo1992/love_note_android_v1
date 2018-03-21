@@ -1,6 +1,7 @@
 package com.jiangzg.ita.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -11,9 +12,8 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.utils.PrefUtils;
+import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMultiLoveUpLayout;
-
-import java.util.Timer;
 
 import butterknife.BindView;
 
@@ -25,6 +25,12 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     private static final long TransPageMillis = (long) (ConstantUtils.SEC * 1); // todo 修改
 
+    @BindView(R.id.iv1)
+    GImageView iv1;
+    @BindView(R.id.iv2)
+    GImageView iv2;
+    @BindView(R.id.iv3)
+    GImageView iv3;
     @BindView(R.id.ivBg)
     ImageView ivBg;
     @BindView(R.id.mlul)
@@ -42,6 +48,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         // todo logo要换
         // todo 开屏页本地获取并加载
         //ivBg.setImageResource();
+
+        iv1.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521648592&OSSAccessKeyId=TMP.AQEoc9WqoeCmLiGjl26VcmE94pPVNAdq12o8DuNpf5gXyaTO1tnFSSRjj5iDADAtAhQvRJU2Mp2JBHYZEw-xdMJRlsMiNwIVAMRJEj8Ym70QrWeE6-GDn0aNC1hQ&Signature=DORCFBKGY3gYf3LpvjvXZyjceg0%3D"));
+        iv1.setClickFull(true);
+        iv2.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521648592&OSSAccessKeyId=TMP.AQEoc9WqoeCmLiGjl26VcmE94pPVNAdq12o8DuNpf5gXyaTO1tnFSSRjj5iDADAtAhQvRJU2Mp2JBHYZEw-xdMJRlsMiNwIVAMRJEj8Ym70QrWeE6-GDn0aNC1hQ&Signature=DORCFBKGY3gYf3LpvjvXZyjceg0%3D"));
+        iv3.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521648592&OSSAccessKeyId=TMP.AQEoc9WqoeCmLiGjl26VcmE94pPVNAdq12o8DuNpf5gXyaTO1tnFSSRjj5iDADAtAhQvRJU2Mp2JBHYZEw-xdMJRlsMiNwIVAMRJEj8Ym70QrWeE6-GDn0aNC1hQ&Signature=DORCFBKGY3gYf3LpvjvXZyjceg0%3D"));
     }
 
     @Override
@@ -53,13 +64,13 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void onStart() {
         super.onStart();
-        mlul.startUp(300);
+        //mlul.startUp(300); // todo 删除注释
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mlul.cancelUp();
+        //mlul.cancelUp();
         finish(); // 记得关闭欢迎页
     }
 
@@ -71,7 +82,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 @Override
                 public void run() {
                     //LoginActivity.goActivity(mActivity);
-                    HomeActivity.goActivity(mActivity); // todo 修改
+                    //HomeActivity.goActivity(mActivity); // todo 修改
                 }
             }, TransPageMillis);
         } else {

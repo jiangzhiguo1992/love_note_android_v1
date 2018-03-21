@@ -736,14 +736,14 @@ public class GlideManager {
         MyApp.get().getHandler().post(new Runnable() {
             @Override
             public void run() {
-                Glide.get(AppContext.get()).clearMemory();
+                Glide.get(MyApp.get()).clearMemory();
             }
         });
     }
 
     /* 获取缓存目录 */
     public static File getCacheFile() {
-        return new File(AppContext.get().getCacheDir(), DiskCache.Factory.DEFAULT_DISK_CACHE_DIR);
+        return new File(MyApp.get().getCacheDir(), DiskCache.Factory.DEFAULT_DISK_CACHE_DIR);
     }
 
     /* 清除磁盘缓存，后台线程中调用 */
@@ -751,7 +751,7 @@ public class GlideManager {
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
-                Glide.get(AppContext.get()).clearDiskCache();
+                Glide.get(MyApp.get()).clearDiskCache();
             }
         });
     }

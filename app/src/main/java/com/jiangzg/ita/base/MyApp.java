@@ -8,6 +8,7 @@ import com.jiangzg.base.component.application.AppBase;
 import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.component.application.AppListener;
 import com.jiangzg.base.file.CleanUtils;
+import com.jiangzg.ita.third.FrescoUtils;
 import com.jiangzg.ita.third.LogUtils;
 
 import java.util.Timer;
@@ -31,6 +32,7 @@ public class MyApp extends AppBase {
 
         ButterKnife.setDebug(true);
         LogUtils.initApp();
+        FrescoUtils.init();
         //AnalyUtils.initApp();
     }
 
