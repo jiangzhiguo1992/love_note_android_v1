@@ -8,10 +8,9 @@ import com.jiangzg.base.component.application.AppBase;
 import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.component.application.AppListener;
 import com.jiangzg.base.file.CleanUtils;
-import com.jiangzg.ita.third.FrescoUtils;
 import com.jiangzg.ita.third.LogUtils;
+import com.jiangzg.ita.view.GImageView;
 
-import java.util.Timer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,7 +31,7 @@ public class MyApp extends AppBase {
 
         ButterKnife.setDebug(true);
         LogUtils.initApp();
-        FrescoUtils.init();
+        GImageView.init();
         //AnalyUtils.initApp();
     }
 

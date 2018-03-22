@@ -2,6 +2,7 @@ package com.jiangzg.ita.view;
 
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -18,26 +19,90 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.facebook.common.executors.UiThreadImmediateExecutorService;
+import com.facebook.datasource.BaseDataSubscriber;
+import com.facebook.datasource.DataSource;
+import com.facebook.datasource.DataSubscriber;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
+import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.drawable.DrawableUtils;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.generic.RoundingParams;
-import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.cache.CacheKeyFactory;
+import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
+import com.facebook.imagepipeline.common.RotationOptions;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.component.application.AppListener;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
+
+import java.io.File;
 
 /**
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
  */
 public class GImageView extends SimpleDraweeView {
+
+    public static void init() {
+        MyApp myApp = MyApp.get();
+        // 自定义网络图的缓存key
+        CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
+            @Override
+            protected Uri getCacheKeySourceUri(Uri sourceUri) {
+                String url = sourceUri.toString();
+                if (url != null && (url.startsWith("http"))) {
+                    String[] split = url.trim().split("\\?");
+                    if (split.length > 0) {
+                        String key = split[0];
+                        return Uri.parse(key);
+                    }
+                }
+                return super.getCacheKeySourceUri(sourceUri);
+            }
+        };
+        // 初始化配置
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(myApp)
+                .setCacheKeyFactory(keyFactory)
+                .setDownsampleEnabled(true)
+                .build();
+        // 开始初始化
+        Fresco.initialize(myApp, config);
+        // 设置全局缓存监听
+        AppListener.addComponentListener("GImageView", new AppListener.ComponentListener() {
+            @Override
+            public void onTrimMemory(int level) {
+            }
+
+            @Override
+            public void onConfigurationChanged(Configuration newConfig) {
+            }
+
+            @Override
+            public void onLowMemory() {
+                clearMemoryCaches();
+            }
+        });
+    }
+
+    public static void clearMemoryCaches() {
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        imagePipeline.clearMemoryCaches();
+    }
+
+    public static void clearDiskCaches() {
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        imagePipeline.clearDiskCaches();
+    }
 
     private boolean isCircle;
     private boolean isFull;
@@ -96,15 +161,15 @@ public class GImageView extends SimpleDraweeView {
             hierarchy.setRoundingParams(RoundingParams.asCircle());
             hierarchy.setPlaceholderImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
             hierarchy.setProgressBarImage(new ImageProgressCircleDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
-            hierarchy.setRetryImage(R.drawable.ic_cancel_circle_grey, ScalingUtils.ScaleType.FIT_XY);
-            hierarchy.setFailureImage(R.drawable.ic_cancel_circle_grey, ScalingUtils.ScaleType.FIT_XY);
+            hierarchy.setRetryImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
+            hierarchy.setFailureImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
         } else if (isFull) { // 全屏
             hierarchy.setFadeDuration(0);
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
             hierarchy.setPlaceholderImage(android.R.color.black, ScalingUtils.ScaleType.CENTER_CROP);
             hierarchy.setProgressBarImage(new ImageProgressFullDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
-            hierarchy.setRetryImage(new ImageRetryReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
-            hierarchy.setFailureImage(new ImageFailureReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
+            hierarchy.setRetryImage(new ImageRetryFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
+            hierarchy.setFailureImage(new ImageFailureFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
         } else { // 其他
             hierarchy.setFadeDuration(300);
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
@@ -115,14 +180,62 @@ public class GImageView extends SimpleDraweeView {
         }
     }
 
-    private DraweeController createController(Uri uri) {
-        ControllerListener listener = new BaseControllerListener();
+    private void checkCache(final Uri uri) {
+        if (uri.toString().startsWith("http") || uri.toString().startsWith("http")) {
+            // 是否在内存缓存中
+            ImagePipeline imagePipeline = Fresco.getImagePipeline();
+            if (imagePipeline.isInBitmapMemoryCache(uri)) {
+                setController(uri);
+                return;
+            }
+            // 是否在硬盘缓存中
+            DataSource<Boolean> inDiskCacheSource = imagePipeline.isInDiskCache(uri);
+            DataSubscriber<Boolean> subscriber = new BaseDataSubscriber<Boolean>() {
+                @Override
+                protected void onNewResultImpl(DataSource<Boolean> dataSource) {
+                    if (!dataSource.isFinished()) return;
+                    if (dataSource.getResult()) {
+                        setController(uri);
+                    } else {
+                        getOssImgUrl(uri);
+                    }
+                }
 
-        return Fresco.newDraweeControllerBuilder()
-                .setUri(uri)
-                .setTapToRetryEnabled(true)
-                .setOldController(this.getController())
-                //.setControllerListener(listener)
+                @Override
+                protected void onFailureImpl(DataSource<Boolean> dataSource) {
+                    getOssImgUrl(uri);
+                }
+            };
+            inDiskCacheSource.subscribe(subscriber, UiThreadImmediateExecutorService.getInstance());
+        }
+    }
+
+    private void getOssImgUrl(Uri uri) {
+        // todo 1.加载前看看oss的token是否快过期
+        // todo 2.不在缓存中，需要现场获取oss的url
+
+        setController(uri);
+    }
+
+    private void setController(Uri uri) {
+        PipelineDraweeControllerBuilder builder = Fresco.newDraweeControllerBuilder()
+                .setOldController(this.getController()) // 减少内存消耗
+                .setImageRequest(createImageRequest(uri))  // 优先加载内存->磁盘->文件->网络
+                .setAutoPlayAnimations(true);// gif自动播放
+        if (uri != null && uri.toString().startsWith("http")) {
+            builder = builder.setTapToRetryEnabled(true); // 点击重新加载
+            //.setControllerListener(createControllerListener()); // 加载成功/失败监听
+        }
+        AbstractDraweeController controller = builder.build();
+        this.setController(controller);
+    }
+
+    private ImageRequest createImageRequest(Uri uri) {
+        return ImageRequestBuilder
+                .newBuilderWithSource(uri)
+                .setProgressiveRenderingEnabled(true) // 网络图渐进式jpeg
+                .setLocalThumbnailPreviewsEnabled(true) // 本地图缩略图
+                .setRotationOptions(RotationOptions.autoRotate())
                 .build();
     }
 
@@ -149,21 +262,12 @@ public class GImageView extends SimpleDraweeView {
 
     // 设置数据源
     public void setUri(Uri uri) {
-        //构建Controller
-        DraweeController controller = createController(uri);
-
-        //设置Controller
-        this.setController(controller);
+        checkCache(uri);
     }
 
-    // todo 先获取标识，用于获取缓存
-    // todo 判断图片是否是gif，用于后续加载
-
-    private String getUrlKey(String url) {
-        if (url == null) return "";
-        String[] split = url.trim().split("/?");
-        if (split.length <= 0) return "";
-        return split[0];
+    // todo 获取文件
+    public File getFile() {
+        return null;
     }
 
     public class ImageLoadingReactDrawable extends Drawable {
@@ -204,6 +308,46 @@ public class GImageView extends SimpleDraweeView {
         @Override
         public void setColorFilter(@Nullable ColorFilter colorFilter) {
             mTextPaint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+        }
+    }
+
+    public class ImageLoadingCircleDrawable extends Drawable {
+
+        private Paint mFillPaint;
+
+        public ImageLoadingCircleDrawable() {
+            mFillPaint = new Paint();
+            mFillPaint.setAntiAlias(true);
+            mFillPaint.setColor(Color.parseColor("#FF000000"));
+            mFillPaint.setStyle(Paint.Style.FILL);
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            drawBar(canvas, mFillPaint);
+        }
+
+        private void drawBar(Canvas canvas, Paint paint) {
+            Rect bound = getBounds();
+            int mXCenter = bound.centerX();
+            int mYCenter = bound.centerY();
+            int radius = getWidth() / 2;
+            canvas.drawCircle(mXCenter, mYCenter, radius, paint);
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            mFillPaint.setAlpha(alpha);
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            mFillPaint.setColorFilter(colorFilter);
         }
 
         @Override
@@ -267,138 +411,6 @@ public class GImageView extends SimpleDraweeView {
         @Override
         public void setColorFilter(@Nullable ColorFilter colorFilter) {
             mTextTopPaint.setColorFilter(colorFilter);
-        }
-
-        @Override
-        public int getOpacity() {
-            return PixelFormat.TRANSLUCENT;
-        }
-    }
-
-    public class ImageRetryReactDrawable extends Drawable {
-
-        private int mBackgroundColor;
-        private Paint mTextPaint;
-        private String mText;
-
-        public ImageRetryReactDrawable() {
-            mBackgroundColor = ContextCompat.getColor(MyApp.get(), R.color.img_grey);
-            int mTextColor = ContextCompat.getColor(MyApp.get(), R.color.font_grey);
-
-            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mTextPaint.setAntiAlias(true);
-            mTextPaint.setStyle(Paint.Style.FILL);
-            mTextPaint.setColor(mTextColor);
-
-            mTextPaint.setTextAlign(Paint.Align.CENTER);
-            mTextPaint.setTextSize(ConvertUtils.sp2px(11));
-
-            mText = getContext().getString(R.string.click_retry_load);
-        }
-
-        @Override
-        public void draw(@NonNull Canvas canvas) {
-            canvas.drawColor(mBackgroundColor);
-            //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
-            //myStaticLayout.draw(canvas);
-
-            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
-        }
-
-        @Override
-        public void setAlpha(int alpha) {
-            mTextPaint.setAlpha(alpha);
-        }
-
-        @Override
-        public void setColorFilter(@Nullable ColorFilter colorFilter) {
-            mTextPaint.setColorFilter(colorFilter);
-        }
-
-        @Override
-        public int getOpacity() {
-            return PixelFormat.TRANSLUCENT;
-        }
-    }
-
-    public class ImageFailureReactDrawable extends Drawable {
-
-        private int mBackgroundColor;
-        private Paint mTextPaint;
-        private String mText;
-
-        public ImageFailureReactDrawable() {
-            mBackgroundColor = ContextCompat.getColor(MyApp.get(), R.color.img_grey);
-            int mTextColor = ContextCompat.getColor(MyApp.get(), R.color.font_grey);
-
-            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-            mTextPaint.setAntiAlias(true);
-            mTextPaint.setStyle(Paint.Style.FILL);
-            mTextPaint.setColor(mTextColor);
-
-            mTextPaint.setTextAlign(Paint.Align.CENTER);
-            mTextPaint.setTextSize(ConvertUtils.sp2px(11));
-
-            mText = getContext().getString(R.string.image_load_fail);
-        }
-
-        @Override
-        public void draw(@NonNull Canvas canvas) {
-            canvas.drawColor(mBackgroundColor);
-            //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
-            //myStaticLayout.draw(canvas);
-
-            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
-        }
-
-        @Override
-        public void setAlpha(int alpha) {
-            mTextPaint.setAlpha(alpha);
-        }
-
-        @Override
-        public void setColorFilter(@Nullable ColorFilter colorFilter) {
-            mTextPaint.setColorFilter(colorFilter);
-        }
-
-        @Override
-        public int getOpacity() {
-            return PixelFormat.TRANSLUCENT;
-        }
-    }
-
-    public class ImageLoadingCircleDrawable extends Drawable {
-
-        private Paint mFillPaint;
-
-        public ImageLoadingCircleDrawable() {
-            mFillPaint = new Paint();
-            mFillPaint.setAntiAlias(true);
-            mFillPaint.setColor(Color.parseColor("#77FFFFFF"));
-            mFillPaint.setStyle(Paint.Style.FILL);
-        }
-
-        @Override
-        public void draw(@NonNull Canvas canvas) {
-            drawBar(canvas, mFillPaint);
-        }
-
-        private void drawBar(Canvas canvas, Paint paint) {
-            Rect bound = getBounds();
-            int mXCenter = bound.centerX();
-            int mYCenter = bound.centerY();
-            int radius = getWidth() / 2;
-            canvas.drawCircle(mXCenter, mYCenter, radius, paint);
-        }
-
-        @Override
-        public void setAlpha(int alpha) {
-            mFillPaint.setAlpha(alpha);
-        }
-
-        @Override
-        public void setColorFilter(@Nullable ColorFilter colorFilter) {
-            mFillPaint.setColorFilter(colorFilter);
         }
 
         @Override
@@ -563,6 +575,190 @@ public class GImageView extends SimpleDraweeView {
         @Override
         public int getOpacity() {
             return DrawableUtils.getOpacityFromColor(this.mRingPaint.getColor());
+        }
+    }
+
+    public class ImageRetryReactDrawable extends Drawable {
+
+        private int mBackgroundColor;
+        private Paint mTextPaint;
+        private String mText;
+
+        public ImageRetryReactDrawable() {
+            mBackgroundColor = ContextCompat.getColor(MyApp.get(), R.color.img_grey);
+            int mTextColor = ContextCompat.getColor(MyApp.get(), R.color.font_grey);
+
+            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mTextPaint.setAntiAlias(true);
+            mTextPaint.setStyle(Paint.Style.FILL);
+            mTextPaint.setColor(mTextColor);
+
+            mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.setTextSize(ConvertUtils.sp2px(11));
+
+            mText = getContext().getString(R.string.click_retry_load);
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            canvas.drawColor(mBackgroundColor);
+            //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
+            //myStaticLayout.draw(canvas);
+
+            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            mTextPaint.setAlpha(alpha);
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            mTextPaint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+        }
+    }
+
+    public class ImageRetryFullDrawable extends Drawable {
+
+        private int mBackgroundColor;
+        private Paint mTextPaint;
+        private String mText;
+
+        public ImageRetryFullDrawable() {
+            mBackgroundColor = ContextCompat.getColor(MyApp.get(), android.R.color.black);
+            int mTextColor = ContextCompat.getColor(MyApp.get(), android.R.color.white);
+
+            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mTextPaint.setAntiAlias(true);
+            mTextPaint.setStyle(Paint.Style.FILL);
+            mTextPaint.setColor(mTextColor);
+
+            mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.setTextSize(ConvertUtils.sp2px(11));
+
+            mText = getContext().getString(R.string.click_retry_load);
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            canvas.drawColor(mBackgroundColor);
+            //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
+            //myStaticLayout.draw(canvas);
+
+            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            mTextPaint.setAlpha(alpha);
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            mTextPaint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+        }
+    }
+
+    public class ImageFailureReactDrawable extends Drawable {
+
+        private int mBackgroundColor;
+        private Paint mTextPaint;
+        private String mText;
+
+        public ImageFailureReactDrawable() {
+            mBackgroundColor = ContextCompat.getColor(MyApp.get(), R.color.img_grey);
+            int mTextColor = ContextCompat.getColor(MyApp.get(), R.color.font_grey);
+
+            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mTextPaint.setAntiAlias(true);
+            mTextPaint.setStyle(Paint.Style.FILL);
+            mTextPaint.setColor(mTextColor);
+
+            mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.setTextSize(ConvertUtils.sp2px(11));
+
+            mText = getContext().getString(R.string.image_load_fail);
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            canvas.drawColor(mBackgroundColor);
+            //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
+            //myStaticLayout.draw(canvas);
+
+            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            mTextPaint.setAlpha(alpha);
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            mTextPaint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
+        }
+    }
+
+    public class ImageFailureFullDrawable extends Drawable {
+
+        private int mBackgroundColor;
+        private Paint mTextPaint;
+        private String mText;
+
+        public ImageFailureFullDrawable() {
+            mBackgroundColor = ContextCompat.getColor(MyApp.get(), android.R.color.black);
+            int mTextColor = ContextCompat.getColor(MyApp.get(), android.R.color.white);
+
+            mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mTextPaint.setAntiAlias(true);
+            mTextPaint.setStyle(Paint.Style.FILL);
+            mTextPaint.setColor(mTextColor);
+
+            mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.setTextSize(ConvertUtils.sp2px(11));
+
+            mText = getContext().getString(R.string.image_load_fail);
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            canvas.drawColor(mBackgroundColor);
+            //StaticLayout myStaticLayout = new StaticLayout(mText, getWidth() / 2, getHeight() / 2,mTextPaint, canvas.getWidth(), Layout.Alignment.ALIGN_NORMAL, 1.0F, 0.0F, false);
+            //myStaticLayout.draw(canvas);
+
+            canvas.drawText(mText, getWidth() / 2, getHeight() / 2, mTextPaint);
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            mTextPaint.setAlpha(alpha);
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            mTextPaint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.TRANSLUCENT;
         }
     }
 

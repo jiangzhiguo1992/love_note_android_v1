@@ -49,10 +49,10 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         // todo 开屏页本地获取并加载
         //ivBg.setImageResource();
 
-        iv1.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521648592&OSSAccessKeyId=TMP.AQEoc9WqoeCmLiGjl26VcmE94pPVNAdq12o8DuNpf5gXyaTO1tnFSSRjj5iDADAtAhQvRJU2Mp2JBHYZEw-xdMJRlsMiNwIVAMRJEj8Ym70QrWeE6-GDn0aNC1hQ&Signature=DORCFBKGY3gYf3LpvjvXZyjceg0%3D"));
+        iv1.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521697260&OSSAccessKeyId=TMP.AQEtWlX6JVaz3QJC_I1kLao0VkDfKpgU6C4bAyWKiIwnnjLbP7Q0uBDB1rx9MC4CFQDPUf4rgdXPSMeNgiAuH4rBRkPSMQIVAKMCLIF-3sTPEergscZuq59imKIf&Signature=44GjCtSU0T1kZRec1N9epAKcrmM%3D"));
         iv1.setClickFull(true);
-        iv2.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521648592&OSSAccessKeyId=TMP.AQEoc9WqoeCmLiGjl26VcmE94pPVNAdq12o8DuNpf5gXyaTO1tnFSSRjj5iDADAtAhQvRJU2Mp2JBHYZEw-xdMJRlsMiNwIVAMRJEj8Ym70QrWeE6-GDn0aNC1hQ&Signature=DORCFBKGY3gYf3LpvjvXZyjceg0%3D"));
-        iv3.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_192104.jpg?Expires=1521648592&OSSAccessKeyId=TMP.AQEoc9WqoeCmLiGjl26VcmE94pPVNAdq12o8DuNpf5gXyaTO1tnFSSRjj5iDADAtAhQvRJU2Mp2JBHYZEw-xdMJRlsMiNwIVAMRJEj8Ym70QrWeE6-GDn0aNC1hQ&Signature=DORCFBKGY3gYf3LpvjvXZyjceg0%3D"));
+        iv2.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_201829.jpg?Expires=1521697270&OSSAccessKeyId=TMP.AQEtWlX6JVaz3QJC_I1kLao0VkDfKpgU6C4bAyWKiIwnnjLbP7Q0uBDB1rx9MC4CFQDPUf4rgdXPSMeNgiAuH4rBRkPSMQIVAKMCLIF-3sTPEergscZuq59imKIf&Signature=wHKKvFS%2FhZrC1kMr%2B4felTRFu70%3D"));
+        iv3.setUri(Uri.parse("https://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/cid-1/avatar/IMG_20171001_201953_1.jpg?Expires=1521693743&OSSAccessKeyId=TMP.AQEtWlX6JVaz3QJC_I1kLao0VkDfKpgU6C4bAyWKiIwnnjLbP7Q0uBDB1rx9MC4CFQDPUf4rgdXPSMeNgiAuH4rBRkPSMQIVAKMCLIF-3sTPEergscZuq59imKIf&Signature=c7B%2B01CzQ2ArRYjBG%2BrKBzVgJyw%3D"));
     }
 
     @Override
