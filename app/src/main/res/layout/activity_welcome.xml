@@ -15,29 +15,6 @@
         android:scaleType="centerCrop"
         tools:src="@mipmap/bg_welcome_offical"/>
 
-    <com.jiangzg.ita.view.GImageView
-        android:id="@+id/iv1"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
-
-    <com.jiangzg.ita.view.GImageView
-        android:id="@+id/iv2"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="190dp"
-        app:is_full="true"/>
-
-    <com.jiangzg.ita.view.GImageView
-        android:id="@+id/iv3"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="350dp"
-        app:is_circle="true"/>
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

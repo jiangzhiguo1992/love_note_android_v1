@@ -13,6 +13,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.AnyRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -45,8 +47,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 
-import java.io.File;
-
 /**
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
@@ -59,13 +59,9 @@ public class GImageView extends SimpleDraweeView {
         CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
             @Override
             protected Uri getCacheKeySourceUri(Uri sourceUri) {
-                String url = sourceUri.toString();
-                if (url != null && (url.startsWith("http"))) {
-                    String[] split = url.trim().split("\\?");
-                    if (split.length > 0) {
-                        String key = split[0];
-                        return Uri.parse(key);
-                    }
+                Uri cacheKey = getCacheKey(sourceUri);
+                if (cacheKey != null) {
+                    return cacheKey;
                 }
                 return super.getCacheKeySourceUri(sourceUri);
             }
@@ -181,7 +177,7 @@ public class GImageView extends SimpleDraweeView {
     }
 
     private void checkCache(final Uri uri) {
-        if (uri.toString().startsWith("http") || uri.toString().startsWith("http")) {
+        if (uri.toString().startsWith("http")) {
             // 是否在内存缓存中
             ImagePipeline imagePipeline = Fresco.getImagePipeline();
             if (imagePipeline.isInBitmapMemoryCache(uri)) {
@@ -207,6 +203,8 @@ public class GImageView extends SimpleDraweeView {
                 }
             };
             inDiskCacheSource.subscribe(subscriber, UiThreadImmediateExecutorService.getInstance());
+        } else {
+            setController(uri);
         }
     }
 
@@ -239,6 +237,18 @@ public class GImageView extends SimpleDraweeView {
                 .build();
     }
 
+    private static Uri getCacheKey(Uri uri) {
+        String url = uri.toString();
+        if (url != null && (url.startsWith("http"))) {
+            String[] split = url.trim().split("\\?");
+            if (split.length > 0) {
+                String key = split[0];
+                return Uri.parse(key);
+            }
+        }
+        return null;
+    }
+
     // 设置圆形图/是全屏模式
     public void setCircleAndFull(boolean circle, boolean full) {
         isCircle = circle;
@@ -265,10 +275,29 @@ public class GImageView extends SimpleDraweeView {
         checkCache(uri);
     }
 
-    // todo 获取文件
-    public File getFile() {
-        return null;
+    public void setRes(@AnyRes int id) {
+        checkCache(Uri.parse("res:///" + id));
     }
+
+    // todo 获取文件
+    //public File getFile(Uri uri) {
+    //    File file = null;
+    //    Uri cacheKey = getCacheKey(uri);
+    //    if (cacheKey != null) {
+    //        FileCache fileCache = Fresco.getImagePipelineFactory().getMainFileCache();
+    //        FileBinaryResource resource = (FileBinaryResource) fileCache.getResource(new SimpleCacheKey(cacheKey.toString()));
+    //        file = resource.getFile();
+    //    } else {
+    //        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
+    //                .setRotationOptions(RotationOptions.autoRotate())
+    //                .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
+    //                .setProgressiveRenderingEnabled(false)
+    //                .build();
+    //        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+    //        imagePipeline.prefetchToDiskCache(request, MyApp.get());
+    //    }
+    //    return file;
+    //}
 
     public class ImageLoadingReactDrawable extends Drawable {
 

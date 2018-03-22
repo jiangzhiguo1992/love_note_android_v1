@@ -61,25 +61,20 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civAvatarLeft"
+                <com.jiangzg.ita.view.GImageView
+                    android:id="@+id/ivAvatarLeft"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_alignParentStart="true"
-                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_boy_circle"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="2dp"/>
+                    app:is_circle="true"/>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civAvatarRight"
+                <com.jiangzg.ita.view.GImageView
+                    android:id="@+id/ivAvatarRight"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_alignParentEnd="true"
-                    android:scaleType="centerCrop"
                     android:src="@mipmap/ic_girl_circle"
-                    app:civ_border_color="#fff"
-                    app:civ_border_width="2dp"/>
+                    app:is_circle="true"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -88,8 +83,8 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="40dp"
-                    android:layout_toEndOf="@+id/civAvatarLeft"
-                    android:layout_toStartOf="@+id/civAvatarRight"
+                    android:layout_toEndOf="@+id/ivAvatarLeft"
+                    android:layout_toStartOf="@+id/ivAvatarRight"
                     android:orientation="horizontal">
 
                     <TextView

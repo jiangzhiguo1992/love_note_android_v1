@@ -2,6 +2,7 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -11,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -24,9 +24,9 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
-import com.jiangzg.ita.third.GlideManager;
 import com.jiangzg.ita.utils.Constants;
 import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.view.GImageView;
 
 import java.io.File;
 
@@ -50,7 +50,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.tvAddImage)
     TextView tvAddImage;
     @BindView(R.id.ivImage)
-    ImageView ivImage;
+    GImageView ivImage;
     @BindView(R.id.btnPush)
     Button btnPush;
 
@@ -132,7 +132,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICTURE) {
             ivImage.setVisibility(View.VISIBLE);
             pictureFile = BitmapMedia.getPictureFile(data);
-            GlideManager.loadNative(new GlideManager(mActivity), pictureFile, ivImage);
+            ivImage.setUri(Uri.fromFile(pictureFile));
         }
     }
 

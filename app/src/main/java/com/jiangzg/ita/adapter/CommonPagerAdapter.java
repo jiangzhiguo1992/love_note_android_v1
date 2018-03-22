@@ -4,13 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.third.GlideManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +81,9 @@ public class CommonPagerAdapter<T> extends PagerAdapter {
         // setImage
         T data = mData.get(position);
         if (data instanceof String) {
-            GlideManager.loadNet(new GlideManager(mContext), data, view);
+            //GlideManager.loadNet(new GlideManager(mContext), data, view);
         } else {
-            GlideManager.loadNative(new GlideManager(mContext), data, view);
+            //GlideManager.loadNative(new GlideManager(mContext), data, view);
         }
         // addView
         container.addView(view);

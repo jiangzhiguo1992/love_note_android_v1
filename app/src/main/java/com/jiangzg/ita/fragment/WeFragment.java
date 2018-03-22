@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.jiangzg.base.view.BarUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.couple.BgGridActivity;
@@ -21,7 +20,7 @@ import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.domain.Help;
-import com.jiangzg.ita.third.GlideManager;
+import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
@@ -31,7 +30,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnLongClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WeFragment extends BasePagerFragment<WeFragment> {
 
@@ -45,10 +43,10 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     ImageView ivHelp;
     @BindView(R.id.ivSettings)
     ImageView ivSettings;
-    @BindView(R.id.civAvatarLeft)
-    CircleImageView civAvatarLeft;
-    @BindView(R.id.civAvatarRight)
-    CircleImageView civAvatarRight;
+    @BindView(R.id.ivAvatarLeft)
+    GImageView ivAvatarLeft;
+    @BindView(R.id.ivAvatarRight)
+    GImageView ivAvatarRight;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvNameRight)
@@ -111,15 +109,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         initBar();
         // 开始背景动画
         initViewFlipper();
-        // todo circleImageView替换
 
     }
 
     protected void refreshData() {
-
+        getData();
     }
 
-    @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.civAvatarLeft, R.id.civAvatarRight,
+    @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.ivAvatarLeft, R.id.ivAvatarRight,
             R.id.cardPlace, R.id.cardWeather, R.id.cardMenses, R.id.cardSleep, R.id.cardTrends,
             R.id.cardSign, R.id.cardCoin, R.id.cardVip})
     public void onViewClicked(View view) {
@@ -130,9 +127,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             case R.id.ivSettings: // 设置
                 SettingsActivity.goActivity(mActivity);
                 break;
-            case R.id.civAvatarLeft: // 我的头像
+            case R.id.ivAvatarLeft: // 我的头像
                 break;
-            case R.id.civAvatarRight: // ta的头像
+            case R.id.ivAvatarRight: // ta的头像
                 break;
             case R.id.cardPlace: // 地理信息
                 break;
@@ -199,6 +196,12 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setLayoutParams(paramsImage);
         return image;
+    }
+
+    private void getData() {
+
+        ivAvatarLeft.setRes(R.mipmap.ic_boy_circle);
+        ivAvatarRight.setRes(R.mipmap.ic_girl_circle);
     }
 
 }
