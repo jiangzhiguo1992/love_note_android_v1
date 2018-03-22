@@ -2,10 +2,13 @@ package com.jiangzg.ita.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -109,10 +112,19 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         initBar();
         // 开始背景动画
         initViewFlipper();
-
+        // listener
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
     }
 
     protected void refreshData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
         getData();
     }
 
@@ -178,27 +190,37 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         imageList.add(R.mipmap.test_bg_08);
         imageList.add(R.mipmap.test_bg_09);
         for (Integer resId : imageList) {
-            ImageView image = getViewFlipperImage();
-            //GlideManager.loadNative(new GlideManager(mActivity), resId, image);
-            image.setImageResource(resId);
+            GImageView image = getViewFlipperImage();
+            image.setRes(resId);
             vfTopBg.addView(image);
         }
-        vfTopBg.setInAnimation(AnimationUtils.makeInAnimation(mActivity, false));
-        vfTopBg.setOutAnimation(AnimationUtils.makeOutAnimation(mActivity, false));
+
+        Animation in = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_in);
+        Animation out = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_out);
+        in.setInterpolator(new DecelerateInterpolator());
+        out.setInterpolator(new DecelerateInterpolator());
+        in.setStartTime(AnimationUtils.currentAnimationTimeMillis());
+        out.setStartTime(AnimationUtils.currentAnimationTimeMillis());
+
+        vfTopBg.setInAnimation(in);
+        vfTopBg.setOutAnimation(out);
         vfTopBg.setAutoStart(true);
-        vfTopBg.setFlipInterval(3000);
+        vfTopBg.setFlipInterval(10000);
         vfTopBg.startFlipping();
     }
 
-    private ImageView getViewFlipperImage() {
+    private GImageView getViewFlipperImage() {
+        GImageView image = new GImageView(mActivity);
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        ImageView image = new ImageView(mActivity);
-        image.setScaleType(ImageView.ScaleType.CENTER_CROP);
         image.setLayoutParams(paramsImage);
+        image.setCircleAndFull(false, false);
         return image;
     }
 
     private void getData() {
+        srl.setRefreshing(false);
+
+        // todo api
 
         ivAvatarLeft.setRes(R.mipmap.ic_boy_circle);
         ivAvatarRight.setRes(R.mipmap.ic_girl_circle);
