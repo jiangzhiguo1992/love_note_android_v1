@@ -209,8 +209,7 @@ public class GImageView extends SimpleDraweeView {
     }
 
     private void getOssImgUrl(Uri uri) {
-        // todo 1.加载前看看oss的token是否快过期
-        // todo 2.不在缓存中，需要现场获取oss的url
+        // todo 不在缓存中，需要现场获取oss的url
 
         setController(uri);
     }
@@ -279,7 +278,7 @@ public class GImageView extends SimpleDraweeView {
         checkCache(Uri.parse("res:///" + id));
     }
 
-    // todo 获取文件
+    // todo 获取文件 + 添加水印
     //public File getFile(Uri uri) {
     //    File file = null;
     //    Uri cacheKey = getCacheKey(uri);

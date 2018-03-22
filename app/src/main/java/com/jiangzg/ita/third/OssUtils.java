@@ -13,6 +13,7 @@ import com.jiangzg.ita.domain.OssInfo;
  * 阿里Oss管理类
  */
 public class OssUtils {
+    // todo 1.加载前看看oss的token是否快过期
 
     // oos 对象
     private static OSS oss;

@@ -3,22 +3,29 @@ package com.jiangzg.ita.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestCommentAdapter;
@@ -33,6 +40,7 @@ import com.jiangzg.ita.utils.TimeUtils;
 import com.jiangzg.ita.utils.ViewUtils;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
+import com.jiangzg.ita.view.GWrapView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -227,6 +235,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
         // data
         String title = suggest.getTitle();
+        boolean official = suggest.isOfficial();
+        boolean top = suggest.isTop();
+        String typeShow = suggest.getTypeShow();
+        String statusShow = suggest.getStatusShow();
         String create = TimeUtils.getDiffDayShowBySecond(suggest.getCreatedAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
         String contentImgUrl = suggest.getContentImgUrl();
@@ -236,24 +248,55 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         View head = recyclerManager.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        GImageView ivContent = head.findViewById(R.id.ivContent);
+        GWrapView wvTag = head.findViewById(R.id.wvTag);
+        final GImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
         TextView tvCommentTotal = head.findViewById(R.id.tvCommentTotal);
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
-
-        //ivContent.setImageURI(Uri.parse(contentImgUrl));
-        //GlideManager.loadNet(new GlideManager(mActivity), contentImgUrl, ivContent);
-
         tvContent.setText(contentText);
         tvCommentTotal.setText(commentTotal);
+
+        wvTag.removeAllChild();
+        if (official) {
+            wvTag.addChild(getTagView(mActivity.getString(R.string.official), R.drawable.shape_r2_solid_red));
+        }
+        if (top) {
+            wvTag.addChild(getTagView(mActivity.getString(R.string.top), R.drawable.shape_r2_solid_orange));
+        }
+        wvTag.addChild(getTagView(typeShow, R.drawable.shape_r2_solid_blue));
+        wvTag.addChild(getTagView(statusShow, R.drawable.shape_r2_solid_green));
+
+
+        final Uri uri = Uri.parse(contentImgUrl);
+        ivContent.setUri(uri);
         ivContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // todo 点击放大，错误重新加载
-
+                ImgScreenActivity.goActivity(mActivity, uri, ivContent);
             }
         });
+    }
+
+    private View getTagView(String show, @DrawableRes int resId) {
+        int dp7 = ConvertUtils.dp2px(7);
+        int dp5 = ConvertUtils.dp2px(5);
+        int dp2 = ConvertUtils.dp2px(2);
+        FrameLayout.LayoutParams mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTextLayoutParams.setMarginEnd(dp7);
+
+        TextView textView = new TextView(mActivity);
+        textView.setLayoutParams(mTextLayoutParams);
+        textView.setBackgroundResource(resId);
+        textView.setPadding(dp5, dp2, dp5, dp2);
+        textView.setGravity(Gravity.CENTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textView.setTextAppearance(R.style.FontWhiteSmall);
+        } else {
+            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
+        }
+        textView.setText(show);
+        return textView;
     }
 
     private void initWatchView() {
