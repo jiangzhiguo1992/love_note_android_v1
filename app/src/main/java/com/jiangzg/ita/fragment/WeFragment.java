@@ -18,7 +18,7 @@ import android.widget.ViewFlipper;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
-import com.jiangzg.ita.activity.couple.BgGridActivity;
+import com.jiangzg.ita.activity.couple.WallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
@@ -40,8 +40,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.root)
     LinearLayout root;
-    @BindView(R.id.vfTopBg)
-    ViewFlipper vfTopBg;
+    @BindView(R.id.vfWallPaper)
+    ViewFlipper vfWallPaper;
     @BindView(R.id.ivHelp)
     ImageView ivHelp;
     @BindView(R.id.ivSettings)
@@ -162,10 +162,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
-    @OnLongClick({R.id.vfTopBg})
+    @OnLongClick({R.id.vfWallPaper})
     public boolean onLongClick(View view) {
-        BgGridActivity.goActivity(mActivity);
-        return true;
+        switch (view.getId()) {
+            case R.id.vfWallPaper: // 背景图
+                WallPaperActivity.goActivity(mActivity);
+                return true;
+        }
+        return false;
     }
 
     private void initBar() {
@@ -192,7 +196,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         for (Integer resId : imageList) {
             GImageView image = getViewFlipperImage();
             image.setRes(resId);
-            vfTopBg.addView(image);
+            vfWallPaper.addView(image);
         }
 
         Animation in = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_in);
@@ -202,11 +206,11 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         in.setStartTime(AnimationUtils.currentAnimationTimeMillis());
         out.setStartTime(AnimationUtils.currentAnimationTimeMillis());
 
-        vfTopBg.setInAnimation(in);
-        vfTopBg.setOutAnimation(out);
-        vfTopBg.setAutoStart(true);
-        vfTopBg.setFlipInterval(10000);
-        vfTopBg.startFlipping();
+        vfWallPaper.setInAnimation(in);
+        vfWallPaper.setOutAnimation(out);
+        vfWallPaper.setAutoStart(true);
+        vfWallPaper.setFlipInterval(10000);
+        vfWallPaper.startFlipping();
     }
 
     private GImageView getViewFlipperImage() {

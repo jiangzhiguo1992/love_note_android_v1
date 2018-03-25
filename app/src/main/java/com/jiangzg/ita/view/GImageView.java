@@ -177,6 +177,7 @@ public class GImageView extends SimpleDraweeView {
     }
 
     private void checkCache(final Uri uri) {
+        // todo 给进来的网络uri不带domain，先按路径检查本地文件是否存在，不存在则添加domain往下传
         if (uri.toString().startsWith("http")) {
             // 是否在内存缓存中
             ImagePipeline imagePipeline = Fresco.getImagePipeline();

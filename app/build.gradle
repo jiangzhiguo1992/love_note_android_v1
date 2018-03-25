@@ -211,7 +211,5 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     // 三方
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0'
-    // todo 要删的
-    implementation 'com.orhanobut:logger:1.15'
 
 }

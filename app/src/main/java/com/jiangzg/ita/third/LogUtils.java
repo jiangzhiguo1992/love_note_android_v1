@@ -1,13 +1,10 @@
 package com.jiangzg.ita.third;
 
 import android.text.TextUtils;
+import android.util.Log;
 
-import com.jiangzg.base.R;
-import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.file.FileUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.orhanobut.logger.LogLevel;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
 
@@ -20,48 +17,55 @@ public class LogUtils {
     private static String logDir; // SDCard/包名/log/
 
     public static void initApp() {
-        String logTag = AppContext.get().getString(R.string.app_name);
-        Logger.init(logTag) // 打印tag
-                .methodCount(0)// 3以上才能显示调用方法
-                .hideThreadInfo() // 隐藏线程显示
-                .logLevel(LogLevel.FULL);// 打印开关
+        //String logTag = AppContext.get().getString(R.string.app_name);
+        //Logger.init(logTag) // 打印tag
+        //        .methodCount(0)// 3以上才能显示调用方法
+        //        .hideThreadInfo() // 隐藏线程显示
+        //        .logLevel(LogLevel.FULL);// 打印开关
     }
 
     /**
      * 调试
      */
     public static void d(String print) {
-        Logger.d(print);
+        Log.d("", print);
+        //Logger.d(print);
     }
 
     public static void d(String tag, String print) {
-        Logger.d(tag, print);
+        Log.d("", print);
+        //Logger.d(tag, print);
     }
 
     public static void d(String print, int methodCount) {
-        Logger.d(print, methodCount);
+        Log.d("", print);
+        //Logger.d(print, methodCount);
     }
 
     /**
      * 警告
      */
     public static void e(String print) {
-        Logger.e(print);
+        Log.e("", print);
+        //Logger.e(print);
     }
 
     public static void e(String tag, String print) {
-        Logger.e(tag, print);
+        Log.e("", print);
+        //Logger.e(tag, print);
     }
 
     public static void e(String print, int methodCount) {
-        Logger.e(print, methodCount);
+        Log.e("", print);
+        //Logger.e(print, methodCount);
     }
 
     /**
      * 实体类
      */
     public static void json(String json) {
-        Logger.json(json);
+        Log.e("", json);
+        //Logger.json(json);
     }
 
     /**
