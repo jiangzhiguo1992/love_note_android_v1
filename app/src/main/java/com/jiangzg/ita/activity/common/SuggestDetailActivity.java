@@ -100,7 +100,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl)
+                .initRefresh(srl, false)
                 .initAdapter(new SuggestCommentAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewLoadMore(new RecyclerMoreView())

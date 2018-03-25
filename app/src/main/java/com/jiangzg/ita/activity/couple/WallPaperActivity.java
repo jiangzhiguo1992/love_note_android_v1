@@ -16,6 +16,7 @@ import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.WallPaperAdapter;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.utils.ViewUtils;
@@ -52,11 +53,11 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewUtils.initTopBar(mActivity, tb, getString(R.string.wall_paper), true);
-
+        // recycler
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 3, LinearLayoutManager.VERTICAL, false))
-                .initRefresh(srl)
+                .initRefresh(srl, false)
                 .initAdapter(new WallPaperAdapter(mActivity))
                 .listenerRefresh(new RecyclerManager.RefreshListener() {
                     @Override
@@ -89,20 +90,25 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
     private void getData() {
         // todo api
-        WallPaper wallPaper = new WallPaper();
-        List<String> list = new ArrayList<>();
-        list.add("http://img4.imgtn.bdimg.com/it/u=169060927,1884911313&fm=27&gp=0.jpg");
-        list.add("http://img0.imgtn.bdimg.com/it/u=1369711964,515430964&fm=200&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=2879331571,3181036945&fm=200&gp=0.jpg");
-        list.add("http://img3.imgtn.bdimg.com/it/u=1489756078,3073908939&fm=27&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=2879331571,3181036945&fm=200&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=2324935939,3139070251&fm=27&gp=0.jpg");
-        list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
-        list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
-        list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
-        wallPaper.setImageList(list);
+        MyApp.get().getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                WallPaper wallPaper = new WallPaper();
+                List<String> list = new ArrayList<>();
+                list.add("http://img4.imgtn.bdimg.com/it/u=169060927,1884911313&fm=27&gp=0.jpg");
+                list.add("http://img0.imgtn.bdimg.com/it/u=1369711964,515430964&fm=200&gp=0.jpg");
+                list.add("http://img4.imgtn.bdimg.com/it/u=2879331571,3181036945&fm=200&gp=0.jpg");
+                list.add("http://img3.imgtn.bdimg.com/it/u=1489756078,3073908939&fm=27&gp=0.jpg");
+                list.add("http://img1.imgtn.bdimg.com/it/u=2800834159,1959441958&fm=27&gp=0.jpg");
+                list.add("http://img4.imgtn.bdimg.com/it/u=2324935939,3139070251&fm=27&gp=0.jpg");
+                list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
+                list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
+                list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
+                wallPaper.setImageList(list);
 
-        recyclerManager.dataNew(list);
+                recyclerManager.dataNew(list);
+            }
+        }, 1000);
     }
 
 }

@@ -64,7 +64,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl)
+                .initRefresh(srl, true)
                 .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewHeader(R.layout.list_head_suggest_home)

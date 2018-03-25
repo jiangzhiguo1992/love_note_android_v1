@@ -57,8 +57,10 @@ public class RecyclerManager {
     /**
      * SwipeRefreshLayout
      */
-    public RecyclerManager initRefresh(SwipeRefreshLayout srl) {
+    public RecyclerManager initRefresh(SwipeRefreshLayout srl,boolean enable) {
+        if (srl == null) return this;
         mRefresh = srl;
+        mRefresh.setEnabled(enable);
         return this;
     }
 

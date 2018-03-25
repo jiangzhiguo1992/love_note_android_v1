@@ -66,11 +66,10 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         }
         ViewUtils.initTopBar(mActivity, tb, title, true);
         // recycler
-        srl.setEnabled(false);
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl)
+                .initRefresh(srl, false)
                 .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewLoadMore(new RecyclerMoreView())

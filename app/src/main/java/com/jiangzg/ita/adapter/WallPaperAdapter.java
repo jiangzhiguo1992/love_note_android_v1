@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.ImgScreenActivity;
@@ -21,15 +22,20 @@ import java.util.List;
 public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private final Activity mActivity;
+    private final float screenWidth;
+    private final float screenHeight;
 
     public WallPaperAdapter(Activity activity) {
         super(R.layout.list_item_wall_paper);
         mActivity = activity;
+        screenWidth = ScreenUtils.getScreenWidth(activity);
+        screenHeight = ScreenUtils.getScreenHeight(activity);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
+        ivWallPaper.setAspectRatio(screenWidth / screenHeight);
         ivWallPaper.setUri(Uri.parse(item));
     }
 
