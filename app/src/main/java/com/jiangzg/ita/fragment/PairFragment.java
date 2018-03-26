@@ -30,8 +30,8 @@ import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.third.RxBus;
-import com.jiangzg.ita.utils.Constants;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -125,7 +125,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.pair), false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.pair), false);
         fitToolBar(tb);
         // listener
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -172,7 +172,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == Constants.REQUEST_CONTACT) {
+        if (resultCode == Activity.RESULT_OK && requestCode == ConsHelper.REQUEST_CONTACT) {
             String select = ContactUtils.getContactSelect(data);
             etPhone.setText(select);
         }
@@ -255,7 +255,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
 
     private void selectContact() {
         Intent contacts = IntentUtils.getContacts();
-        ActivityTrans.startResult(mFragment, contacts, Constants.REQUEST_CONTACT);
+        ActivityTrans.startResult(mFragment, contacts, ConsHelper.REQUEST_CONTACT);
     }
 
     private void changeViewShow() {
@@ -388,7 +388,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
         // todo api获取Ta信息
         //showType = ++showType;
         //changeViewShow();
-        RxEvent<Couple> event = new RxEvent<>(Constants.EVENT_COUPLE, new Couple());
+        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE, new Couple());
         RxBus.post(event);
     }
 

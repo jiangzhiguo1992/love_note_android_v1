@@ -1,31 +1,26 @@
 package com.jiangzg.ita.base;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Visibility;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.function.InputUtils;
 import com.jiangzg.base.function.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
-import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -36,7 +31,6 @@ import java.util.Stack;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import retrofit2.Call;
 
 /**
  * Created by JiangZhiGuo on 2016-12-2.
@@ -46,10 +40,10 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     public BaseActivity mActivity;
     public FragmentManager mFragmentManager;
-    public View rootView;
-    private Unbinder unbinder;
-    private ProgressDialog loading;
-    private Long lastExitTime = 0L; //最后一次退出时间
+    public View mRootView;
+    private Unbinder mUnbinder;
+    private MaterialDialog mLoading;
+    private Long mLastExitTime = 0L; //最后一次退出时间
 
     /* activity跳转demo */
     private static void goActivity(Activity from) {
@@ -67,26 +61,26 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     /* 初始Data */
     protected abstract void initData(Bundle state);
 
-    public ProgressDialog getLoading(String msg, final Call call, final Activity activity) {
-        if (loading != null) {
-            loading.setMessage(msg);
+    public MaterialDialog getLoading() {
+        return mLoading;
+    }
+
+    public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
+        if (mLoading == null) {
+            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                    .cancelable(cancelable)
+                    .canceledOnTouchOutside(cancelable)
+                    .content(msg)
+                    .progress(true, 0)
+                    .progressIndeterminateStyle(true);
+            mLoading = builder.build();
         } else {
-            loading = DialogUtils.createLoading(mActivity, 0, "", msg, true);
-            DialogUtils.setAnim(loading, R.style.DialogAnim);
+            mLoading.setCancelable(cancelable);
+            mLoading.setCanceledOnTouchOutside(cancelable);
+            mLoading.setContent(msg);
         }
-        if (call == null && activity == null) return loading;
-        loading.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (call != null && !call.isCanceled()) {
-                    call.cancel();
-                }
-                if (activity != null) {
-                    activity.finish();
-                }
-            }
-        });
-        return loading;
+        mLoading.setOnDismissListener(listener);
+        return mLoading;
     }
 
     @Override
@@ -100,7 +94,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         mFragmentManager = getSupportFragmentManager();
         setContentView(getView(getIntent()));
         // 每次setContentView之后都要bind一下
-        unbinder = ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
         initView(savedInstanceState);
         initData(savedInstanceState);
     }
@@ -120,15 +114,15 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         // 控制DecorView的大小来控制activity的大小，可做窗口activity
-        rootView = getWindow().getDecorView();
+        mRootView = getWindow().getDecorView();
         // setFinishOnTouchOutside(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (unbinder != null) {
-            unbinder.unbind();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
         }
     }
 
@@ -148,13 +142,13 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         Stack<Activity> stack = ActivityStack.getStack();
         if (stack.size() <= 1) {
             long nowTime = DateUtils.getCurrentLong();
-            if (nowTime - lastExitTime > 2000) { // 第一次按
+            if (nowTime - mLastExitTime > 2000) { // 第一次按
                 ToastUtils.show(R.string.press_again_exit);
             } else { // 返回键连按两次
                 //AppUtils.appExit();
                 super.onBackPressed();
             }
-            lastExitTime = nowTime;
+            mLastExitTime = nowTime;
         } else {
             super.onBackPressed();
         }

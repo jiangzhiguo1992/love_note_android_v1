@@ -1,34 +1,27 @@
-package com.jiangzg.ita.utils;
+package com.jiangzg.ita.helper;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.media.image.DrawableUtils;
-import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.service.UpdateService;
 
 /**
  * Created by JiangZhiGuo on 2016-10-31.
  * describe 符合项目样式的View管理类
  */
-public class ViewUtils {
+public class ViewHelper {
 
     //VectorDrawableCompat a=VectorDrawableCompat.create(getResources(), R.drawable.ic_group, getTheme());
     //a.setTint(Color.RED);

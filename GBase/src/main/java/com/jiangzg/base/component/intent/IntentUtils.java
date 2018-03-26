@@ -2,11 +2,13 @@ package com.jiangzg.base.component.intent;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -55,8 +57,14 @@ public class IntentUtils {
         Intent intent = new Intent(IntentCons.action_capture);
         intent.putExtra(IntentCons.extra_image_orientation, 0);
         if (cameraFile == null) return intent;
-        Uri uri = ConvertUtils.File2URI(cameraFile);
-        intent.putExtra(IntentCons.extra_media_output, uri);
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            intent.putExtra(IntentCons.extra_media_output, Uri.fromFile(cameraFile));
+        } else {
+            ContentValues contentValues = new ContentValues(1);
+            contentValues.put(MediaStore.Images.Media.DATA, cameraFile.getAbsolutePath());
+            Uri uri = AppContext.get().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            intent.putExtra(IntentCons.extra_media_output, uri);
+        }
         return intent;
     }
 

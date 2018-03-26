@@ -18,8 +18,8 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.SuggestDetailActivity;
 import com.jiangzg.ita.domain.Suggest;
-import com.jiangzg.ita.utils.Convert;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ConvertHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GWrapView;
 
 /**
@@ -39,7 +39,7 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         super(R.layout.list_item_suggest_list);
         mActivity = activity;
         // color
-        int rId = ViewUtils.getColorPrimary(activity);
+        int rId = ViewHelper.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);
         int colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
@@ -57,10 +57,10 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         // data
         String title = item.getTitle();
         long createdAt = item.getCreatedAt();
-        String create = Convert.ConvertSecond2Day(createdAt);
+        String create = ConvertHelper.ConvertSecond2Day(createdAt);
         String createShow = String.format(mActivity.getString(R.string.create_at_colon_holder), create);
         long updatedAt = item.getUpdatedAt();
-        String update = Convert.ConvertSecond2Day(updatedAt);
+        String update = ConvertHelper.ConvertSecond2Day(updatedAt);
         String updatedShow = String.format(mActivity.getString(R.string.update_at_colon_holder), update);
         final int followCount = item.getFollowCount();
         String followShow;

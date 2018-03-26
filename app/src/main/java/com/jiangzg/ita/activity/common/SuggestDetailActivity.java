@@ -36,8 +36,8 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
-import com.jiangzg.ita.utils.Convert;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ConvertHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
@@ -93,7 +93,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     protected void initView(Bundle state) {
         suggest = (Suggest) getIntent().getSerializableExtra("suggest");
         String title = (suggest == null) ? getString(R.string.suggest_feedback) : suggest.getTitle();
-        ViewUtils.initTopBar(mActivity, tb, title, true);
+        ViewHelper.initTopBar(mActivity, tb, title, true);
         // comment
         commentShow(false);
         // recycler
@@ -239,7 +239,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         String typeShow = suggest.getTypeShow();
         String statusShow = suggest.getStatusShow();
-        String create = Convert.ConvertSecond2Day(suggest.getCreatedAt());
+        String create = ConvertHelper.ConvertSecond2Day(suggest.getCreatedAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
         String contentImgUrl = suggest.getContentImgUrl();
         String contentText = suggest.getContentText();
@@ -305,7 +305,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
         tvComment.setText(commentCount);
         if (isComment) {
-            int rId = ViewUtils.getColorPrimary(mActivity);
+            int rId = ViewHelper.getColorPrimary(mActivity);
             int colorPrimary = ContextCompat.getColor(mActivity, rId);
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {

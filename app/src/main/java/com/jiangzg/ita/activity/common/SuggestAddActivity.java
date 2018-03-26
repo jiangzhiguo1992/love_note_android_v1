@@ -24,8 +24,8 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
-import com.jiangzg.ita.utils.Constants;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 
 import java.io.File;
@@ -70,7 +70,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.i_want_push_suggest), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.i_want_push_suggest), true);
         // input
         etTitle.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,7 +129,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICTURE) {
+        if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
             ivImage.setVisibility(View.VISIBLE);
             pictureFile = BitmapMedia.getPictureFile(data);
             ivImage.setDataUri(Uri.fromFile(pictureFile));
@@ -153,11 +153,11 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     // 请求文件(相册)获取权限
     private void requestPermission() {
-        PermUtils.requestPermissions(mActivity, Constants.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 Intent picture = IntentUtils.getPicture();
-                ActivityTrans.startResult(mActivity, picture, Constants.REQUEST_PICTURE);
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
             }
 
             @Override

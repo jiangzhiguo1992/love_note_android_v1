@@ -17,7 +17,13 @@
         android:background="@drawable/shape_r5_top_solid_white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_book_grey"/>
 
         <TextView
             style="@style/FontGreyNormal"
@@ -25,13 +31,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:drawableStart="@drawable/ic_book_accent"
-            android:gravity="center_vertical"
             android:text="@string/small_book"/>
 
-        <View style="@style/LineHorizontal"/>
     </LinearLayout>
+
+    <View
+        style="@style/LineHorizontal"
+        android:layout_above="@id/llAlbum"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"/>
 
     <LinearLayout
         android:id="@+id/llAlbum"
@@ -43,7 +51,13 @@
         android:background="#fff"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_gallery_grey"/>
 
         <TextView
             style="@style/FontGreyNormal"
@@ -51,13 +65,15 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:drawableStart="@drawable/ic_gallery_accent"
-            android:gravity="center_vertical"
             android:text="@string/album"/>
 
-        <View style="@style/LineHorizontal"/>
     </LinearLayout>
+
+    <View
+        style="@style/LineHorizontal"
+        android:layout_above="@id/llCamera"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"/>
 
     <LinearLayout
         android:id="@+id/llCamera"
@@ -70,7 +86,13 @@
         android:background="@drawable/shape_r5_bottom_solid_white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_camera_grey"/>
 
         <TextView
             style="@style/FontGreyNormal"
@@ -78,9 +100,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:drawableStart="@drawable/ic_camera_accent"
-            android:gravity="center_vertical"
             android:text="@string/take_picture"/>
     </LinearLayout>
 
@@ -96,7 +115,13 @@
         android:background="@drawable/shape_r5_solid_white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_cancel_circle_grey"/>
 
         <TextView
             style="@style/FontGreyNormal"
@@ -104,9 +129,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:drawablePadding="10dp"
-            android:drawableStart="@drawable/ic_cancel_circle_grey"
-            android:gravity="center_vertical"
             android:text="@string/cancel"/>
     </LinearLayout>
 

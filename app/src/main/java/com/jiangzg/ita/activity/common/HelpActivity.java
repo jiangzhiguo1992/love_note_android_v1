@@ -18,7 +18,7 @@ import com.jiangzg.ita.adapter.HelpContentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.third.RecyclerManager;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     @Override
     protected void initView(Bundle state) {
         type = getIntent().getIntExtra("type", Help.TYPE_ALL);
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.help_document), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.help_document), true);
         // recycler
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)

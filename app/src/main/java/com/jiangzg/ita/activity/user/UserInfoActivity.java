@@ -23,7 +23,7 @@ import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GNumberPicker;
 
 import java.util.Calendar;
@@ -64,7 +64,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.user_info), false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.user_info), false);
         // 时间选择器
         npYear.setFormatter(new NumberPicker.Formatter() {
             @Override

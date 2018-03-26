@@ -1,4 +1,4 @@
-package com.jiangzg.ita.utils;
+package com.jiangzg.ita.helper;
 
 import android.net.Uri;
 
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by JZG on 2018/3/25.
  * 常用工具类
  */
-public class Convert {
+public class ConvertHelper {
 
     public static ArrayList<Uri> convertListString2uri(List<String> strings) {
         ArrayList<Uri> uriList = new ArrayList<>();

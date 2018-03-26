@@ -19,8 +19,8 @@ import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.utils.PrefUtils;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -92,20 +92,20 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.settings), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.settings), true);
     }
 
     @Override
     protected void initData(Bundle state) {
-        boolean onlyWifi = PrefUtils.getSettingsOnlyWifi();
+        boolean onlyWifi = PrefHelper.getSettingsOnlyWifi();
         switchWifi.setChecked(onlyWifi);
-        boolean autoDownload = PrefUtils.getSettingsAutoDownload();
+        boolean autoDownload = PrefHelper.getSettingsAutoDownload();
         switchDownland.setChecked(autoDownload);
-        boolean noticeSystem = PrefUtils.getSettingsNoticeSystem();
+        boolean noticeSystem = PrefHelper.getSettingsNoticeSystem();
         switchSystem.setChecked(noticeSystem);
-        boolean noticeTa = PrefUtils.getSettingsNoticeTa();
+        boolean noticeTa = PrefHelper.getSettingsNoticeTa();
         switchTa.setChecked(noticeTa);
-        boolean noticeOther = PrefUtils.getSettingsNoticeOther();
+        boolean noticeOther = PrefHelper.getSettingsNoticeOther();
         switchOther.setChecked(noticeOther);
     }
 
@@ -165,8 +165,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
             case R.id.tvExist:
-                PrefUtils.clearUser();
-                PrefUtils.clearCouple();
+                PrefHelper.clearUser();
+                PrefHelper.clearCouple();
                 LoginActivity.goActivity(mActivity);
                 break;
         }
@@ -176,19 +176,19 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.switchWifi:
-                PrefUtils.setSettingsOnlyWifi(isChecked);
+                PrefHelper.setSettingsOnlyWifi(isChecked);
                 break;
             case R.id.switchDownland:
-                PrefUtils.setSettingsAutoDownload(isChecked);
+                PrefHelper.setSettingsAutoDownload(isChecked);
                 break;
             case R.id.switchSystem:
-                PrefUtils.setSettingsNoticeSystem(isChecked);
+                PrefHelper.setSettingsNoticeSystem(isChecked);
                 break;
             case R.id.switchTa:
-                PrefUtils.setSettingsNoticeTa(isChecked);
+                PrefHelper.setSettingsNoticeTa(isChecked);
                 break;
             case R.id.switchOther:
-                PrefUtils.setSettingsNoticeOther(isChecked);
+                PrefHelper.setSettingsNoticeOther(isChecked);
                 break;
         }
     }

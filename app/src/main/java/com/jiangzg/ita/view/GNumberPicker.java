@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import java.lang.reflect.Field;
 
@@ -37,7 +37,7 @@ public class GNumberPicker extends NumberPicker {
 
     private void init(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GNumberPicker);
-        int color = ViewUtils.getColorPrimary(context);
+        int color = ViewHelper.getColorPrimary(context);
         // 获取参数
         mTextColor = a.getColor(R.styleable.GNumberPicker_custom_text_color, color);
         mDividerColor = a.getColor(R.styleable.GNumberPicker_custom_divider_color, color);

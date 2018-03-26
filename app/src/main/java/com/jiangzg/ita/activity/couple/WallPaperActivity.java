@@ -14,20 +14,28 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.file.FileUtils;
+import com.jiangzg.base.media.image.BitmapMedia;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.WallPaperAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.WallPaper;
+import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ResHelper;
+import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.LuBanUtils;
 import com.jiangzg.ita.third.RecyclerManager;
-import com.jiangzg.ita.utils.ViewUtils;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import top.zibin.luban.OnCompressListener;
 
 public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
@@ -41,6 +49,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     RecyclerView rv;
 
     private RecyclerManager recyclerManager;
+    private File cameraFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WallPaperActivity.class);
@@ -55,7 +64,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.wall_paper), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.wall_paper), true);
         // recycler
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
@@ -74,7 +83,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                         WallPaperAdapter wallPaperAdapter = (WallPaperAdapter) adapter;
                         GImageView ivWallPaper = view.findViewById(R.id.ivWallPaper);
                         if (wallPaperAdapter.isAddItem(position)) {
-                            wallPaperAdapter.showAddPop(root);
+                            wallPaperAdapter.showAddPop(root, cameraFile);
                         } else {
                             wallPaperAdapter.goImgScreen(position, ivWallPaper);
                         }
@@ -94,6 +103,21 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     @Override
     protected void initData(Bundle state) {
         recyclerManager.dataRefresh();
+        cameraFile = ResHelper.createJPEGInFiles();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_BOOK_PICTURE) {
+            // todo api
+        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+            File pictureFile = BitmapMedia.getPictureFile(data);
+            compressFile(pictureFile);
+        } else if (requestCode == ConsHelper.REQUEST_CAMERA) {
+            compressFile(cameraFile);
+        }
     }
 
     private void getData() {
@@ -120,14 +144,42 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
         }, 1000);
     }
-    //
-    //private void initFoot() {
-    //    foot = LayoutInflater.from(mActivity).inflate(R.layout.list_foot_wall_paper, rv, false);
-    //    GImageView ivAdd = foot.findViewById(R.id.ivAdd);
-    //    float screenWidth = ScreenUtils.getScreenWidth(mActivity);
-    //    float screenHeight = ScreenUtils.getScreenHeight(mActivity);
-    //    ivAdd.setAspectRatio(screenWidth / screenHeight);
-    //    ivAdd.setDataRes(R.drawable.ic_add_grey);
-    //}
+
+    private void compressFile(final File original) {
+        if (FileUtils.isFileEmpty(original)) {
+            ToastUtils.show(getString(R.string.image_get_error));
+            return;
+        }
+        LuBanUtils.compress(mActivity, original, new OnCompressListener() {
+            @Override
+            public void onStart() {
+                getLoading(getString(R.string.image_is_compress), false, null).show();
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                FileUtils.deleteFile(original);
+                uploadOss(file);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getLoading().dismiss();
+                ToastUtils.show(getString(R.string.image_compress_fail));
+                FileUtils.deleteFile(original);
+            }
+        });
+    }
+
+    private void uploadOss(File jpeg) {
+        getLoading("正在上传中", true, null).show();
+        // todo oss
+        pushData();
+    }
+
+    private void pushData() {
+        // todo api
+        // todo refresh data
+    }
 
 }

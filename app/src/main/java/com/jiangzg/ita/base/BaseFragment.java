@@ -31,8 +31,8 @@ public abstract class BaseFragment<T> extends Fragment {
     public BaseActivity mActivity;
     public BaseFragment mFragment;
     public FragmentManager mFragmentManager;
-    public View rootView;
-    private Unbinder unbinder;
+    public View mRootView;
+    private Unbinder mUnbinder;
 
     /* 获取fragment实例demo */
     private static BaseFragment newFragment() {
@@ -83,13 +83,13 @@ public abstract class BaseFragment<T> extends Fragment {
     /* 在这里返回绑定并View,从stack返回的时候也是先执行这个方法,相当于onStart */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = super.onCreateView(inflater, container, savedInstanceState);
-        if (rootView == null) {
+        mRootView = super.onCreateView(inflater, container, savedInstanceState);
+        if (mRootView == null) {
             int layoutId = getView(getArguments()); // 取出Bundle
-            rootView = inflater.inflate(layoutId, container, false);
-            unbinder = ButterKnife.bind(mFragment, rootView);
+            mRootView = inflater.inflate(layoutId, container, false);
+            mUnbinder = ButterKnife.bind(mFragment, mRootView);
         }
-        return rootView;
+        return mRootView;
     }
 
     /* 一般在这里进行控件的实例化,加载监听器, 参数view就是fragment的layout */
@@ -109,11 +109,11 @@ public abstract class BaseFragment<T> extends Fragment {
     /* Fragment中的布局被移除时调用 */
     @Override
     public void onDestroyView() {
-        rootView = getView();
-        if (rootView != null) {
-            ViewGroup parent = (ViewGroup) rootView.getParent();
+        mRootView = getView();
+        if (mRootView != null) {
+            ViewGroup parent = (ViewGroup) mRootView.getParent();
             if (parent != null) {
-                parent.removeView(rootView);
+                parent.removeView(mRootView);
             }
         }
         super.onDestroyView();
@@ -122,8 +122,8 @@ public abstract class BaseFragment<T> extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        if (unbinder != null) {
-            unbinder.unbind();
+        if (mUnbinder != null) {
+            mUnbinder.unbind();
         }
     }
 

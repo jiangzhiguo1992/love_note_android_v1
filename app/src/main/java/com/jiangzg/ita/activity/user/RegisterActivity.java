@@ -20,7 +20,7 @@ import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -65,8 +65,8 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.register), true);
-        ViewUtils.setLineBottom(tvProtocol);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.register), true);
+        ViewHelper.setLineBottom(tvProtocol);
     }
 
     @Override

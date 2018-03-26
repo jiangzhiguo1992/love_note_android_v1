@@ -9,7 +9,7 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.utils.PrefUtils;
+import com.jiangzg.ita.helper.PrefHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -53,7 +53,7 @@ public class RetroManager {
         options.put("Content-Type", "application/json;charset=utf-8");
         options.put("Accept", "application/json");
         options.put("app_key", APP_KEY);
-        options.put("access_token", PrefUtils.getUser().getUserToken());
+        options.put("access_token", PrefHelper.getUser().getUserToken());
         return options;
     }
 

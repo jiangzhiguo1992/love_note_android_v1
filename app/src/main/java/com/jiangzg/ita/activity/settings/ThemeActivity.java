@@ -11,9 +11,9 @@ import android.widget.LinearLayout;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.utils.PrefUtils;
-import com.jiangzg.ita.utils.ThemeUtils;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.ThemeHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -68,7 +68,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.theme), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.theme), true);
 
         initThemeUI();
     }
@@ -82,28 +82,28 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlPink:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_PINK);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_PINK);
                 break;
             case R.id.rlRed:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_RED);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_RED);
                 break;
             case R.id.rlPurple:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_PURPLE);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_PURPLE);
                 break;
             case R.id.rlBlue:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_BLUE);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_BLUE);
                 break;
             case R.id.rlGreen:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_GREEN);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_GREEN);
                 break;
             case R.id.rlYellow:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_YELLOW);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_YELLOW);
                 break;
             case R.id.rlOrange:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_ORANGE);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_ORANGE);
                 break;
             case R.id.rlBrown:
-                ThemeUtils.setTheme(mActivity, ThemeUtils.THEME_BROWN);
+                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_BROWN);
                 break;
         }
         initThemeUI();
@@ -119,30 +119,30 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
         ivOrange.setImageResource(R.drawable.ic_circle_primary);
         ivBrown.setImageResource(R.drawable.ic_circle_primary);
         // 获取已选择的theme
-        int settingsTheme = PrefUtils.getSettingsTheme();
+        int settingsTheme = PrefHelper.getSettingsTheme();
         switch (settingsTheme) {
-            case ThemeUtils.THEME_PINK:
+            case ThemeHelper.THEME_PINK:
                 ivPink.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_RED:
+            case ThemeHelper.THEME_RED:
                 ivRed.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_PURPLE:
+            case ThemeHelper.THEME_PURPLE:
                 ivPurple.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_BLUE:
+            case ThemeHelper.THEME_BLUE:
                 ivBlue.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_GREEN:
+            case ThemeHelper.THEME_GREEN:
                 ivGreen.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_YELLOW:
+            case ThemeHelper.THEME_YELLOW:
                 ivYellow.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_ORANGE:
+            case ThemeHelper.THEME_ORANGE:
                 ivOrange.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
-            case ThemeUtils.THEME_BROWN:
+            case ThemeHelper.THEME_BROWN:
                 ivBrown.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
         }

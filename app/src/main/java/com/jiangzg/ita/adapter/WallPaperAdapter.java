@@ -14,10 +14,12 @@ import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.ImgScreenActivity;
-import com.jiangzg.ita.utils.Convert;
-import com.jiangzg.ita.utils.PopHelper;
+import com.jiangzg.ita.helper.ConvertHelper;
+import com.jiangzg.ita.helper.PopHelper;
+import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.view.GImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,13 +59,13 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     public void goImgScreen(int position, GImageView view) {
         List<String> data = getData();
-        ArrayList<Uri> uriList = Convert.convertListString2uri(data);
+        ArrayList<Uri> uriList = ConvertHelper.convertListString2uri(data);
         ImgScreenActivity.goActivity(mActivity, uriList, position, view);
     }
 
-    public void showAddPop(ViewGroup parent) {
+    public void showAddPop(ViewGroup parent, File cameraFile) {
         if (popupWindow == null) {
-            popupWindow = PopHelper.createBookAlbumCamera(mActivity);
+            popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
         }
         PopUtils.show(popupWindow, parent);
     }

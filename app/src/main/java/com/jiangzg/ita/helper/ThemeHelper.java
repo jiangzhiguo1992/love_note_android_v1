@@ -1,4 +1,4 @@
-package com.jiangzg.ita.utils;
+package com.jiangzg.ita.helper;
 
 import android.app.Activity;
 
@@ -9,7 +9,7 @@ import com.jiangzg.ita.R;
  * 主题工具类
  */
 
-public class ThemeUtils {
+public class ThemeHelper {
 
     public static final int THEME_PINK = 0;
     public static final int THEME_RED = 1;
@@ -21,7 +21,7 @@ public class ThemeUtils {
     public static final int THEME_BROWN = 7;
 
     public static void initTheme(Activity activity) {
-        int settingsTheme = PrefUtils.getSettingsTheme();
+        int settingsTheme = PrefHelper.getSettingsTheme();
         switch (settingsTheme) {
             case THEME_PINK:
                 activity.setTheme(R.style.AppThemePink);
@@ -51,7 +51,7 @@ public class ThemeUtils {
     }
 
     public static void setTheme(Activity activity, int theme) {
-        PrefUtils.setSettingsTheme(theme);
+        PrefHelper.setSettingsTheme(theme);
         //initTheme(activity);
     }
 

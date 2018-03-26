@@ -1,4 +1,4 @@
-package com.jiangzg.ita.utils;
+package com.jiangzg.ita.helper;
 
 import android.content.SharedPreferences;
 
@@ -12,9 +12,9 @@ import com.jiangzg.ita.third.LogUtils;
  * Created by Fan on 2017/3/2.
  * Preferences 帮助类
  */
-public class PrefUtils {
+public class PrefHelper {
 
-    private static final String LOG_TAG = "PrefUtils";
+    private static final String LOG_TAG = "PrefHelper";
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
@@ -140,7 +140,7 @@ public class PrefUtils {
 
     public static int getSettingsTheme() {
         SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getInt(FIELD_SET_THEME, ThemeUtils.THEME_PINK);
+        return preferences.getInt(FIELD_SET_THEME, ThemeHelper.THEME_PINK);
     }
 
     public static void setSettingsOnlyWifi(boolean onlyWifi) {

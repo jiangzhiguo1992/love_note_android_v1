@@ -15,12 +15,10 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.media.image.BitmapConvert;
 import com.jiangzg.base.media.image.BitmapMedia;
-import com.jiangzg.base.media.image.BitmapUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.utils.Constants;
+import com.jiangzg.ita.helper.ConsHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,7 +56,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         switch (view.getId()) {
             case R.id.ivAvatar: //选取
                 Intent picture = IntentUtils.getPicture();
-                ActivityTrans.startResult(mActivity, picture, Constants.REQUEST_PICTURE);
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
                 break;
             case R.id.btnAlbum: // 上传
                 break;
@@ -68,7 +66,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICTURE) {
+        if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
             Bitmap bitmap = BitmapMedia.getPictureBitmap(data);
             ivAvatar.setImageBitmap(bitmap);
             //BitmapConvert.save();

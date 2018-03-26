@@ -114,7 +114,7 @@ public class UpdateService extends Service {
     //            MyApp.get().getThread().execute(new Runnable() {
     //                @Override
     //                public void run() {
-    //                    File apkFile = ResUtils.createAPKInRes(version.getVersionName());
+    //                    File apkFile = ResHelper.createAPKInRes(version.getVersionName());
     //                    FileUtils.writeFileFromIS(apkFile, body.byteStream(), false);
     //                    // 启动安装
     //                    Intent installIntent = IntentUtils.getInstall(apkFile);

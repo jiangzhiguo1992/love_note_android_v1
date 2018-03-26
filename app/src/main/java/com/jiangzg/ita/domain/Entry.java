@@ -2,7 +2,7 @@ package com.jiangzg.ita.domain;
 
 import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.base.function.DeviceInfo;
-import com.jiangzg.ita.utils.PrefUtils;
+import com.jiangzg.ita.helper.PrefHelper;
 
 /**
  * Created by JZG on 2017/12/26.
@@ -20,7 +20,7 @@ public class Entry extends BaseObj {
 
     public static Entry getEntry() {
         Entry entry = new Entry();
-        User user = PrefUtils.getUser();
+        User user = PrefHelper.getUser();
         entry.setUserId(user.getId());
         entry.setUserToken(user.getUserToken());
         String manufacturer = DeviceInfo.get().getManufacturer();

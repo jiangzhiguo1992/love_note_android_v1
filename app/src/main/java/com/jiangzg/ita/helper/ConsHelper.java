@@ -1,4 +1,4 @@
-package com.jiangzg.ita.utils;
+package com.jiangzg.ita.helper;
 
 import com.jiangzg.base.common.ConstantUtils;
 
@@ -6,7 +6,7 @@ import com.jiangzg.base.common.ConstantUtils;
  * Created by Jiang on 5/26/16.
  * 常量类
  */
-public class Constants {
+public class ConsHelper {
     // 测试模式(上线为false)
     public static boolean DEBUG = true;
     // imgFileSize
@@ -20,6 +20,7 @@ public class Constants {
     public static final int REQUEST_APP_INFO = 1006;  // app
     public static final int REQUEST_DEVICE_INFO = 1007;  // device
     public static final int REQUEST_CONTACT = 1008;  // 联系人
+    public static final int REQUEST_BOOK_PICTURE = 1009;  // 联系人
     // RxBus.ID
     public static final int EVENT_USER = 1;
     public static final int EVENT_COUPLE = 2;

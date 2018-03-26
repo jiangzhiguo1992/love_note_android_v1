@@ -30,9 +30,9 @@ import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.RxBus;
-import com.jiangzg.ita.utils.Constants;
-import com.jiangzg.ita.utils.PrefUtils;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import java.util.Stack;
 import java.util.Timer;
@@ -96,8 +96,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.login), false);
-        ViewUtils.setLineBottom(tvProtocol);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), false);
+        ViewHelper.setLineBottom(tvProtocol);
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -295,12 +295,12 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             ToastUtils.show(R.string.err_un_know_client);
             return;
         }
-        PrefUtils.setUser(user);
-        RxBus.post(new RxEvent<>(Constants.EVENT_USER, user));
+        PrefHelper.setUser(user);
+        RxBus.post(new RxEvent<>(ConsHelper.EVENT_USER, user));
         // 检查couple
         Couple couple = user.getCouple();
-        if (!PrefUtils.noCouple(couple)) { // 有配对
-            PrefUtils.setCouple(couple);
+        if (!PrefHelper.noCouple(couple)) { // 有配对
+            PrefHelper.setCouple(couple);
         }
         stopTimer();
         HomeActivity.goActivity(mActivity);

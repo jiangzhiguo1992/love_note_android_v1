@@ -13,7 +13,7 @@ import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,7 +45,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.modify_password), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.modify_password), true);
     }
 
     @Override

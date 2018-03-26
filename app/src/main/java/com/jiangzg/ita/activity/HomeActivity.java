@@ -23,7 +23,7 @@ import com.jiangzg.ita.fragment.SquareFragment;
 import com.jiangzg.ita.fragment.TopicFragment;
 import com.jiangzg.ita.fragment.WeFragment;
 import com.jiangzg.ita.third.RxBus;
-import com.jiangzg.ita.utils.Constants;
+import com.jiangzg.ita.helper.ConsHelper;
 
 import java.util.List;
 import java.util.Stack;
@@ -89,7 +89,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         bnvBottom.setSelectedItemId(menuIdArray[0]);
         onTabChange();
         // event
-        coupleObservable = RxBus.register(Constants.EVENT_COUPLE, new Action1<Couple>() {
+        coupleObservable = RxBus.register(ConsHelper.EVENT_COUPLE, new Action1<Couple>() {
             @Override
             public void call(Couple couple) {
                 changePagerAdapter();
@@ -116,7 +116,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(Constants.EVENT_COUPLE, coupleObservable);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE, coupleObservable);
     }
 
     private void changeFragment(int menuId) {
@@ -145,7 +145,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             pagerAdapter.removeData(0);
         }
         // 这里之后fragmentList的size是3
-        // todo if (PrefUtils.noCouple()) {
+        // todo if (PrefHelper.noCouple()) {
         if (false) {
             pagerAdapter.addData(0, null, PairFragment.newFragment());
         } else {

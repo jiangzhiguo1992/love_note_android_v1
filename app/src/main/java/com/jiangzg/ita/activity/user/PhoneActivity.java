@@ -16,7 +16,7 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -54,7 +54,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewUtils.initTopBar(mActivity, tb, getString(R.string.change_phone), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.change_phone), true);
 
     }
 

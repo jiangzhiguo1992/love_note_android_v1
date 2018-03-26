@@ -21,7 +21,7 @@ import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
-import com.jiangzg.ita.utils.ViewUtils;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         } else {
             title = getString(R.string.my_push);
         }
-        ViewUtils.initTopBar(mActivity, tb, title, true);
+        ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
         recyclerManager = new RecyclerManager(mActivity)
                 .initRecycler(rv)
