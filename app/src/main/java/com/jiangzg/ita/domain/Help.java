@@ -18,6 +18,7 @@ public class Help extends BaseObj {
     public static final int TYPE_SUGGEST_ADD = 6;
     public static final int TYPE_SUGGEST_MINE = 7;
     public static final int TYPE_SUGGEST_FOLLOW = 8;
+    public static final int TYPE_WALL_PAPER_ADD = 9;
 
     private int contentType;
     private String title;

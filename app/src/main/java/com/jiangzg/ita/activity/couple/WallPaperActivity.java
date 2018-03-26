@@ -7,8 +7,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -16,13 +19,17 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.file.FileUtils;
 import com.jiangzg.base.media.image.BitmapMedia;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.adapter.WallPaperAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.LuBanUtils;
@@ -50,6 +57,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
     private RecyclerManager recyclerManager;
     private File cameraFile;
+    private PopupWindow popupWindow;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WallPaperActivity.class);
@@ -82,28 +90,45 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         WallPaperAdapter wallPaperAdapter = (WallPaperAdapter) adapter;
                         GImageView ivWallPaper = view.findViewById(R.id.ivWallPaper);
-                        if (wallPaperAdapter.isAddItem(position)) {
-                            wallPaperAdapter.showAddPop(root, cameraFile);
-                        } else {
-                            wallPaperAdapter.goImgScreen(position, ivWallPaper);
-                        }
+                        wallPaperAdapter.goImgScreen(position, ivWallPaper);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         WallPaperAdapter wallPaperAdapter = (WallPaperAdapter) adapter;
-                        if (wallPaperAdapter.isAddItem(position)) {
-                            wallPaperAdapter.showDeleteDialog(position);
-                        }
+                        wallPaperAdapter.showDeleteDialog(position);
                     }
                 });
+        // menu
+        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menuHelp: // 评论
+                        HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
+                        break;
+                    case R.id.menuAdd: // 添加
+                        if (cameraFile == null) {
+                            cameraFile = ResHelper.createJPEGInFiles();
+                        }
+                        showAddPop();
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     protected void initData(Bundle state) {
         recyclerManager.dataRefresh();
-        cameraFile = ResHelper.createJPEGInFiles();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help_add, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -111,7 +136,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_BOOK_PICTURE) {
-            // todo api
+            pushData();
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             File pictureFile = BitmapMedia.getPictureFile(data);
             compressFile(pictureFile);
@@ -133,16 +158,23 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                 list.add("http://img3.imgtn.bdimg.com/it/u=1489756078,3073908939&fm=27&gp=0.jpg");
                 list.add("http://img1.imgtn.bdimg.com/it/u=2800834159,1959441958&fm=27&gp=0.jpg");
                 list.add("http://img4.imgtn.bdimg.com/it/u=2324935939,3139070251&fm=27&gp=0.jpg");
-                //list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
-                //list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
-                //list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
-                list.add(""); // 有一个占位的
+                list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
+                list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
+                list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
+                // 位的
                 wallPaper.setImageList(list);
 
                 recyclerManager.dataNew(list);
             }
 
         }, 1000);
+    }
+
+    public void showAddPop() {
+        if (popupWindow == null) {
+            popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
+        }
+        PopUtils.show(popupWindow, root);
     }
 
     private void compressFile(final File original) {
