@@ -1,5 +1,6 @@
 package com.jiangzg.base.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -24,27 +25,26 @@ public class PopUtils {
      * @return 下面的代码放到onTouchEvent中来点击外部dismiss也行
      * if (popupWindow != null && popupWindow.isShowing()) {popupWindow.dismiss();}
      */
-    public static PopupWindow createWindow(View window, int width, int height, int anim) {
-        PopupWindow pop = new PopupWindow(window, width, height);
+    public static PopupWindow createWindow(View window, int width, int height) {
+        final PopupWindow pop = new PopupWindow(window, width, height);
         pop.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        if (0 != anim) {
-            pop.setAnimationStyle(anim);
-        }
+        pop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             pop.setEnterTransition(new AutoTransition());
             pop.setExitTransition(new AutoTransition());
         }
-        pop.setOutsideTouchable(true); // 点击其他地方消失
-        // 这些为了点击非PopupWindow区域，PopupWindow会消失的，如果没有下面的
-        // 代码的话，你会发现，当你把PopupWindow显示出来了，无论你按多少次后退键
-        // PopupWindow并不会关闭，而且退不出程序，加上下述代码可以解决这个问题
+        pop.setFocusable(true);
+        pop.setOutsideTouchable(true); // 点击外部区域消失
         pop.setTouchable(true);
         pop.setTouchInterceptor(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // todo 测试一下true 回调view里面加监听
-                // 这里如果返回true的话，touch事件将被拦截
-                // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
+                // 返回键消失，不会退出activity
+                if (event.getAction() == MotionEvent.BUTTON_BACK) {
+                    pop.dismiss();
+                    return true;
+                }
                 return false;
             }
         });
@@ -53,12 +53,7 @@ public class PopUtils {
 
     /* 创建适配的PopupWindow，不要多次创建 */
     public static PopupWindow createWindow(View window) {
-        return createWindow(window, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, 0);
-    }
-
-    /* 创建指定宽高的PopupWindow，不要多次创建 */
-    public static PopupWindow createWindow(View window, int width, int height) {
-        return createWindow(window, width, height, 0);
+        return createWindow(window, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
     }
 
     /* 显示popupWindow ,location可用viewUtils获取 */

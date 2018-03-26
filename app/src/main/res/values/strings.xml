@@ -317,4 +317,7 @@
     <string name="image_load_fail">图片加载失败</string>
     <string name="click_retry_load">点击重新加载</string>
     <string name="wall_paper">墙纸</string>
+    <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
+    <string name="take_picture">拍照</string>
+    <string name="album">相册</string>
 </resources>

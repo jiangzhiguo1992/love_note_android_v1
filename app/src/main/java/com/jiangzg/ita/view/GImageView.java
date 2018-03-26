@@ -14,7 +14,6 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.AnyRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -166,7 +165,7 @@ public class GImageView extends SimpleDraweeView {
             hierarchy.setProgressBarImage(new ImageProgressFullDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
             hierarchy.setRetryImage(new ImageRetryFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
             hierarchy.setFailureImage(new ImageFailureFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
-        } else { // 其他
+        } else { // 正常网络
             hierarchy.setFadeDuration(300);
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
             hierarchy.setPlaceholderImage(new ImageLoadingReactDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
@@ -219,7 +218,7 @@ public class GImageView extends SimpleDraweeView {
         PipelineDraweeControllerBuilder builder = Fresco.newDraweeControllerBuilder()
                 .setOldController(this.getController()) // 减少内存消耗
                 .setImageRequest(createImageRequest(uri))  // 优先加载内存->磁盘->文件->网络
-                .setAutoPlayAnimations(true);// gif自动播放
+                .setAutoPlayAnimations(true);// todo gif自动播放
         if (uri != null && uri.toString().startsWith("http")) {
             builder = builder.setTapToRetryEnabled(true); // 点击重新加载
             //.setControllerListener(createControllerListener()); // 加载成功/失败监听
@@ -250,8 +249,12 @@ public class GImageView extends SimpleDraweeView {
     }
 
     // 设置圆形图/是全屏模式
-    public void setCircleAndFull(boolean circle, boolean full) {
+    public void setCircle(boolean circle) {
         isCircle = circle;
+        initHierarchy(null);
+    }
+
+    public void setFull(boolean full) {
         isFull = full;
         initHierarchy(null);
     }
@@ -271,12 +274,13 @@ public class GImageView extends SimpleDraweeView {
     }
 
     // 设置数据源
-    public void setUri(Uri uri) {
+    public void setDataUri(Uri uri) {
         checkCache(uri);
     }
 
-    public void setRes(@AnyRes int id) {
-        checkCache(Uri.parse("res:///" + id));
+    public void setDataRes(@AnyRes int id) {
+        setImageResource(id);
+        //checkCache(Uri.parse("res://" + AppInfo.get().getPackageName() + "/" + id));
     }
 
     // todo 获取文件 + 添加水印

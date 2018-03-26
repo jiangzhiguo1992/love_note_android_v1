@@ -2,14 +2,20 @@ package com.jiangzg.ita.adapter;
 
 import android.app.Activity;
 import android.net.Uri;
-import android.view.View;
+import android.support.annotation.NonNull;
+import android.view.ViewGroup;
+import android.widget.PopupWindow;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.ImgScreenActivity;
+import com.jiangzg.ita.utils.Convert;
+import com.jiangzg.ita.utils.PopHelper;
 import com.jiangzg.ita.view.GImageView;
 
 import java.util.ArrayList;
@@ -24,6 +30,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private final Activity mActivity;
     private final float screenWidth;
     private final float screenHeight;
+    private PopupWindow popupWindow;
 
     public WallPaperAdapter(Activity activity) {
         super(R.layout.list_item_wall_paper);
@@ -33,29 +40,56 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
     protected void convert(BaseViewHolder helper, String item) {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(screenWidth / screenHeight);
-        ivWallPaper.setUri(Uri.parse(item));
+        if (isAddItem(helper.getLayoutPosition())) {
+            ivWallPaper.setDataRes(R.drawable.ic_add_2_grey);
+        } else {
+            ivWallPaper.setDataUri(Uri.parse(item));
+        }
     }
 
     public void goImgScreen(int position, GImageView view) {
         List<String> data = getData();
-        ArrayList<Uri> uriList = convertListString2uri(data);
+        ArrayList<Uri> uriList = Convert.convertListString2uri(data);
         ImgScreenActivity.goActivity(mActivity, uriList, position, view);
     }
 
-    public void showDeleteDialog(int position) {
-        ToastUtils.show("" + position);
+    public void showAddPop(ViewGroup parent) {
+        if (popupWindow == null) {
+            popupWindow = PopHelper.createBookAlbumCamera(mActivity);
+        }
+        PopUtils.show(popupWindow, parent);
     }
 
-    private ArrayList<Uri> convertListString2uri(List<String> strings) {
-        ArrayList<Uri> uriList = new ArrayList<>();
-        if (strings == null || strings.size() <= 0) return uriList;
-        for (String s : strings) {
-            uriList.add(Uri.parse(s));
-        }
-        return uriList;
+    public void showDeleteDialog(final int position) {
+        new MaterialDialog.Builder(mActivity)
+                .title(R.string.confirm_delete_this_image)
+                .positiveText(R.string.confirm)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // todo api
+                        List<String> data = getData();
+                        data.remove(position);
+                        WallPaperAdapter.this.notifyItemRemoved(position);
+                    }
+                })
+                .negativeText(R.string.cancel)
+                .show();
+    }
+
+    public boolean isAddItem(int position) {
+        List<String> data = getData();
+        String item = data.get(position);
+        int size = data.size();
+        return (item == null || item.isEmpty()) && size <= 9 && position == size - 1;
     }
 
 }

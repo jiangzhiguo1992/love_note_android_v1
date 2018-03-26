@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.domain.SuggestComment;
-import com.jiangzg.ita.utils.TimeUtils;
+import com.jiangzg.ita.utils.Convert;
 
 /**
  * Created by JZG on 2018/3/15.
@@ -26,7 +26,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         // data
         int layoutPosition = helper.getLayoutPosition();
         long createdAt = item.getCreatedAt();
-        String create = TimeUtils.getDiffDayShowBySecond(createdAt);
+        String create = Convert.ConvertSecond2Day(createdAt);
         String title = String.format(mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
         String contentText = item.getContentText();
         boolean official = item.isOfficial();

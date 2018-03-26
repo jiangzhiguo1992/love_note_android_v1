@@ -195,7 +195,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         imageList.add(R.mipmap.test_bg_09);
         for (Integer resId : imageList) {
             GImageView image = getViewFlipperImage();
-            image.setRes(resId);
+            image.setDataRes(resId);
             vfWallPaper.addView(image);
         }
 
@@ -217,7 +217,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         GImageView image = new GImageView(mActivity);
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         image.setLayoutParams(paramsImage);
-        image.setCircleAndFull(false, false);
         return image;
     }
 
@@ -226,8 +225,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
         // todo api
 
-        ivAvatarLeft.setRes(R.mipmap.ic_boy_circle);
-        ivAvatarRight.setRes(R.mipmap.ic_girl_circle);
+        ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
+        ivAvatarRight.setDataRes(R.mipmap.ic_girl_circle);
     }
 
 }

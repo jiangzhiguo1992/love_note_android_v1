@@ -1,19 +1,32 @@
 package com.jiangzg.ita.utils;
 
+import android.net.Uri;
+
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
- * Created by JZG on 2018/3/12.
- * 时间管理类
+ * Created by JZG on 2018/3/25.
+ * 常用工具类
  */
-public class TimeUtils {
+public class Convert {
 
-    public static String getDiffDayShowBySecond(long time) {
+    public static ArrayList<Uri> convertListString2uri(List<String> strings) {
+        ArrayList<Uri> uriList = new ArrayList<>();
+        if (strings == null || strings.size() <= 0) return uriList;
+        for (String s : strings) {
+            uriList.add(Uri.parse(s));
+        }
+        return uriList;
+    }
+
+    public static String ConvertSecond2Day(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
         cTime.setTime(new Date(time * 1000));

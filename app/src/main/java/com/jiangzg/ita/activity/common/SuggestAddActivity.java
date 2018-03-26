@@ -132,7 +132,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICTURE) {
             ivImage.setVisibility(View.VISIBLE);
             pictureFile = BitmapMedia.getPictureFile(data);
-            ivImage.setUri(Uri.fromFile(pictureFile));
+            ivImage.setDataUri(Uri.fromFile(pictureFile));
         }
     }
 

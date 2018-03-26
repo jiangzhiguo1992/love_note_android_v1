@@ -36,7 +36,7 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.third.RecyclerManager;
 import com.jiangzg.ita.third.RecyclerMoreView;
-import com.jiangzg.ita.utils.TimeUtils;
+import com.jiangzg.ita.utils.Convert;
 import com.jiangzg.ita.utils.ViewUtils;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -239,7 +239,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         String typeShow = suggest.getTypeShow();
         String statusShow = suggest.getStatusShow();
-        String create = TimeUtils.getDiffDayShowBySecond(suggest.getCreatedAt());
+        String create = Convert.ConvertSecond2Day(suggest.getCreatedAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
         String contentImgUrl = suggest.getContentImgUrl();
         String contentText = suggest.getContentText();
@@ -269,7 +269,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
 
         final Uri uri = Uri.parse(contentImgUrl);
-        ivContent.setUri(uri);
+        ivContent.setDataUri(uri);
         ivContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,6 +2,7 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -54,7 +55,8 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         getWindow().setSharedElementReturnTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.FIT_CENTER, ScalingUtils.ScaleType.CENTER_CROP)); // 返回
 
         BarUtils.setStatusBarTrans(mActivity, true);
-        BarUtils.setNavigationBarTrans(mActivity, true);
+        BarUtils.setNavigationBarColor(mActivity, Color.BLACK);
+        //BarUtils.setNavigationBarTrans(mActivity, true);
         return R.layout.activity_img_screen;
     }
 
@@ -80,12 +82,12 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         int showIndex = getIntent().getIntExtra("showIndex", 0);
 
         Uri uri = imgMulti.get(showIndex);
-        ivScreen.setUri(uri);
+        ivScreen.setDataUri(uri);
     }
 
     private void initSingle() {
         Uri imgSingle = getIntent().getParcelableExtra("imgSingle");
-        ivScreen.setUri(imgSingle);
+        ivScreen.setDataUri(imgSingle);
     }
 
 }

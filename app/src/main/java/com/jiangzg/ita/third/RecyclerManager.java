@@ -57,7 +57,7 @@ public class RecyclerManager {
     /**
      * SwipeRefreshLayout
      */
-    public RecyclerManager initRefresh(SwipeRefreshLayout srl,boolean enable) {
+    public RecyclerManager initRefresh(SwipeRefreshLayout srl, boolean enable) {
         if (srl == null) return this;
         mRefresh = srl;
         mRefresh.setEnabled(enable);
@@ -146,6 +146,16 @@ public class RecyclerManager {
         mAdapter.setFooterView(mFoot);
         //mAdapter.setFooterViewAsFlow(true);
         return this;
+    }
+
+    public void removeFoot(View foot) {
+        if (mAdapter == null) return;
+        mAdapter.removeFooterView(foot);
+        mFoot = null;
+    }
+
+    public View getViewFoot() {
+        return mFoot;
     }
 
     /**
