@@ -185,20 +185,13 @@ public class RetrofitHelper {
         int code = body.getCode();
         String message = body.getMessage();
         Result.Data data = body.getData();
-        // 回调
-        if (callBack != null) {
-            if (status == 200) {
-                callBack.onResponse(code, message, data);
-            } else {
-                callBack.onFailure();
-            }
-        }
         // status处理
         final Activity top = ActivityStack.getTop();
         switch (status) {
             case 200: // 成功,和417的区别就是有回调
-            case 417: // 逻辑错误，必须返回错误信息
-                checkCode(body);
+                if (!StringUtils.isEmpty(message)) {
+                    ToastUtils.show(message);
+                }
                 break;
             case 401: // 用户验证失败
                 if (top == null) return;
@@ -246,6 +239,9 @@ public class RetrofitHelper {
                 List<Version> versionList = data.getVersionList();
                 UpdateService.showUpdateDialog(versionList);
                 break;
+            case 417: // 逻辑错误，必须返回错误信息
+                check417Code(body);
+                break;
             case 500: // 服务器异常
                 if (top == null) return;
                 new MaterialDialog.Builder(top)
@@ -281,11 +277,18 @@ public class RetrofitHelper {
                         .show();
                 break;
         }
+        // 回调
+        if (callBack != null) {
+            if (status == 200) {
+                callBack.onResponse(code, message, data);
+            } else {
+                callBack.onFailure();
+            }
+        }
     }
 
     private static void onFailureCall(Call call, Dialog loading, Throwable t, CallBack callBack) {
         if (loading != null) loading.dismiss();
-        if (callBack != null) callBack.onFailure();
         Class<? extends Throwable> clz = t.getClass();
         int error;
         if (clz.equals(java.net.ConnectException.class)) { // 网络环境
@@ -297,6 +300,7 @@ public class RetrofitHelper {
             LogUtils.e(t.toString());
         }
         ToastUtils.show(error);
+        if (callBack != null) callBack.onFailure();
     }
 
     private static Result checkBody(Response<Result> response) {
@@ -325,7 +329,7 @@ public class RetrofitHelper {
         return body;
     }
 
-    private static void checkCode(Result body) {
+    private static void check417Code(Result body) {
         Activity top = ActivityStack.getTop();
         int code = body.getCode();
         String message = body.getMessage();

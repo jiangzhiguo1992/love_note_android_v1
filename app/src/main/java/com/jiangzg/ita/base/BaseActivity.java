@@ -27,6 +27,7 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.HomeActivity;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -150,7 +151,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Stack<Activity> stack = ActivityStack.getStack();
-        if (stack.size() <= 1) {
+        if (stack.size() <= 1 || this.getSubClass() == HomeActivity.class) {
             long nowTime = DateUtils.getCurrentLong();
             if (nowTime - mLastExitTime > 2000) { // 第一次按
                 ToastUtils.show(R.string.press_again_exit);
@@ -188,7 +189,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
      * @return 获取当前类
      */
     @SuppressWarnings("unchecked")
-    public Class<T> getCls() {
+    public Class<T> getSubClass() {
         Type type = this.getClass().getGenericSuperclass();
         return (Class<T>) (((ParameterizedType) (type)).getActualTypeArguments()[0]);
     }

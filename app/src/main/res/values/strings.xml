@@ -338,4 +338,5 @@
     <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
     <string name="sex_colon">性别:</string>
     <string name="birthday_colon">生日:</string>
+    <string name="have_new_version">有新版本啦！</string>
 </resources>

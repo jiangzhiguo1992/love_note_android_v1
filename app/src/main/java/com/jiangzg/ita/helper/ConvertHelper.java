@@ -26,7 +26,7 @@ public class ConvertHelper {
         return uriList;
     }
 
-    public static String ConvertSecond2Day(long time) {
+    public static String ConvertSecond2DiffDay(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
         cTime.setTime(new Date(time * 1000));
@@ -39,4 +39,5 @@ public class ConvertHelper {
         }
         return DateUtils.getString(time * 1000, format);
     }
+
 }

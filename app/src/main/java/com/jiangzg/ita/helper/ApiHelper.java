@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class ApiHelper {
 
-    public static void onEntryFinish(Activity mActivity, Result.Data data) {
+    public static void onEntryFinish(Activity mActivity, int code, Result.Data data) {
         // user
         User user = data.getUser();
         Couple couple = data.getCouple();

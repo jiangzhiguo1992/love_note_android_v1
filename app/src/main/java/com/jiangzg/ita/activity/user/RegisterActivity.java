@@ -17,12 +17,14 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
@@ -59,6 +61,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     private int countDownGo = -1;
     private Timer timer;
+    private boolean autoFinish = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, RegisterActivity.class);
@@ -85,6 +88,9 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     protected void onStop() {
         super.onStop();
         stopTimer();
+        if (autoFinish) {
+            finish();
+        }
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})
@@ -192,9 +198,15 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                autoFinish = true;
                 stopTimer();
                 User user = data.getUser();
                 PrefHelper.setUser(user);
+                if (code == Result.ResultCodeNoUserInfo) {
+                    UserInfoActivity.goActivity(mActivity);
+                } else {
+                    ApiHelper.onEntryFinish(mActivity, code, data);
+                }
             }
 
             @Override

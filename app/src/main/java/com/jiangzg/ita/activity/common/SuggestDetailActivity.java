@@ -238,7 +238,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         String typeShow = suggest.getTypeShow();
         String statusShow = suggest.getStatusShow();
-        String create = ConvertHelper.ConvertSecond2Day(suggest.getCreatedAt());
+        String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreatedAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
         String contentImgUrl = suggest.getContentImgUrl();
         String contentText = suggest.getContentText();

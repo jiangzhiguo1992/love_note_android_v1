@@ -4,81 +4,74 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.application.AppInfo;
-import com.jiangzg.base.view.DialogUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetrofitHelper;
 
 import java.util.List;
-
-import retrofit2.Call;
 
 public class UpdateService extends Service {
 
     private static final String EXTRA_VER = "version";
 
     public static void checkUpdate(Dialog dialog) {
-        Call<Result> call = new RetrofitHelper()
-                .call(API.class)
-                .checkUpdate(AppInfo.get().getVersionCode());
-        RetrofitHelper.enqueue(call, dialog, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (data != null && data.getVersion() != null) {
-                    showUpdateDialog(data.getVersion());
-                }
-            }
-
-            @Override
-            public void onFailure() {
-            }
-        });
+        //Call<Result> call = new RetrofitHelper()
+        //        .call(API.class)
+        //        .checkUpdate(AppInfo.get().getVersionCode());
+        //RetrofitHelper.enqueue(call, dialog, new RetrofitHelper.CallBack() {
+        //    @Override
+        //    public void onResponse(int code, String message, Result.Data data) {
+        //        if (data != null && data.getVersion() != null) {
+        //            showUpdateDialog(data.getVersion());
+        //        }
+        //    }
+        //
+        //    @Override
+        //    public void onFailure() {
+        //    }
+        //});
 
     }
 
-    public static void showUpdateDialog(List<Version> versionList) {
+    public static void showUpdateDialog(final List<Version> versionList) {
         if (versionList == null || versionList.size() <= 0) return;
-        //final Activity top = ActivityStack.getTop();
-        //if (top == null) return;
-        //String title = String.format(top.getString(R.string.find_new_version_colon_holder), version.getVersionName());
-        //String message = version.getUpdateLog();
-        //String positive = top.getString(R.string.update_now);
-        //String negative = top.getString(R.string.update_delay);
-        //AlertDialog dialog = DialogUtils.createAlert(top, title, message, positive, negative,
-        //        new DialogInterface.OnClickListener() {
-        //            @Override
-        //            public void onClick(DialogInterface dialog, int which) {
-        //                UpdateService.goService(top);
-        //            }
-        //        }, null);
-        //dialog.show();
-    }
-
-    public static void showUpdateDialog(Version version) {
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
-        String title = String.format(top.getString(R.string.find_new_version_colon_holder), version.getVersionName());
-        String message = version.getUpdateLog();
-        String positive = top.getString(R.string.update_now);
-        String negative = top.getString(R.string.update_delay);
-        AlertDialog dialog = DialogUtils.createAlert(top, title, message, positive, negative,
-                new DialogInterface.OnClickListener() {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < versionList.size(); i++) {
+            Version version = versionList.get(i);
+            String versionName = version.getVersionName();
+            long createdAt = version.getCreatedAt();
+            String create = DateUtils.getString(createdAt * 1000, ConstantUtils.FORMAT_CHINA_M_D);
+            String updateLog = version.getUpdateLog();
+            builder.append(versionName).append("(").append(create).append(")\n").append(updateLog).append("\n\n");
+        }
+        String content = builder.toString();
+        new MaterialDialog.Builder(top)
+                .title(R.string.have_new_version)
+                .content(content)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .autoDismiss(true)
+                .positiveText(R.string.update_now)
+                .negativeText(R.string.update_delay)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        UpdateService.goService(top);
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        UpdateService.goService(top, versionList.get(0));
                     }
-                }, null);
-        dialog.show();
+                })
+                .build()
+                .show();
     }
 
     public static void goService(Context from) {

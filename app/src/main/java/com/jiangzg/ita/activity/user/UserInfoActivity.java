@@ -59,6 +59,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
+    private boolean autoFinish = false;
+
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
         ActivityTrans.start(from, intent);
@@ -137,6 +139,14 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (autoFinish) {
+            finish();
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
@@ -209,6 +219,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                autoFinish = true;
                 User user = data.getUser();
                 PrefHelper.setUser(user);
                 HomeActivity.goActivity(mActivity);

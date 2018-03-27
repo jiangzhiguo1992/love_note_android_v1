@@ -23,6 +23,7 @@ import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
@@ -295,7 +296,11 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                ApiHelper.onEntryFinish(mActivity, data);
+                if (code == Result.ResultCodeNoUserInfo) {
+                    UserInfoActivity.goActivity(mActivity);
+                } else {
+                    ApiHelper.onEntryFinish(mActivity, code, data);
+                }
             }
 
             @Override

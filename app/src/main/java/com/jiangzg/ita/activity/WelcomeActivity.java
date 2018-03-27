@@ -1,7 +1,10 @@
 package com.jiangzg.ita.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.jiangzg.base.common.ConstantUtils;
@@ -16,7 +19,6 @@ import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
-import com.jiangzg.ita.view.GMultiLoveUpLayout;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -27,12 +29,10 @@ import retrofit2.Call;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
-    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 3);
+    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
 
     @BindView(R.id.ivBg)
     ImageView ivBg;
-    @BindView(R.id.mlul)
-    GMultiLoveUpLayout mlul;
 
     @Override
     protected int getView(Intent intent) {
@@ -45,6 +45,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     protected void initView(Bundle savedInstanceState) {
         // todo 开屏页本地获取并加载
         //ivBg.setImageResource();
+        startAnim();
     }
 
     @Override
@@ -53,16 +54,19 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         checkUser();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mlul.startUp(300);
+    private void startAnim() {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.1F, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.1F, 1f);
+        AnimatorSet set = new AnimatorSet();
+        set.setDuration(4000);
+        set.playTogether(scaleX, scaleY);
+        set.setInterpolator(new AccelerateDecelerateInterpolator());
+        set.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mlul.cancelUp();
         finish(); // 记得关闭欢迎页
     }
 
@@ -83,7 +87,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             RetrofitHelper.enqueueDelay(call, TransPageMillis, new RetrofitHelper.CallBack() {
                 @Override
                 public void onResponse(int code, String message, Result.Data data) {
-                    ApiHelper.onEntryFinish(mActivity, data);
+                    ApiHelper.onEntryFinish(mActivity, code, data);
                 }
 
                 @Override

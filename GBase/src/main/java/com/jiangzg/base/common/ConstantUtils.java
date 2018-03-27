@@ -15,6 +15,7 @@ public class ConstantUtils {
     public static final String FORMAT_LINE_Y_M_D = "yyyy-MM-dd";
     public static final String FORMAT_POINT_Y_M_D = "yyyy.MM.dd";
     public static final String FORMAT_CHINA_Y_M_D = "yyyy年MM月dd日";
+    public static final String FORMAT_CHINA_M_D = "MM月dd日";
     public static final String FORMAT_LINE_M_D = "MM-dd";
     public static final String FORMAT_POINT_M_D = "yyyy.MM";
     public static final String FORMAT_H_M_S = "HH:mm:ss";

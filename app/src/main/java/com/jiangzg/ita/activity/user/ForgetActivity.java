@@ -53,6 +53,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
     private int countDownGo = -1;
     private Timer timer;
+    private boolean autoFinish = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ForgetActivity.class);
@@ -78,6 +79,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     protected void onStop() {
         super.onStop();
         stopTimer();
+        if (autoFinish) {
+            finish();
+        }
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})
@@ -178,6 +182,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                autoFinish = true;
                 stopTimer();
                 User user = data.getUser();
                 PrefHelper.setUser(user);
