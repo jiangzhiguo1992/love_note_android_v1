@@ -9,15 +9,22 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.API;
+import com.jiangzg.ita.third.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import retrofit2.Call;
 
 public class PasswordActivity extends BaseActivity<PasswordActivity> {
 
@@ -83,8 +90,23 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             ToastUtils.show(getString(R.string.twice_pwd_no_equals));
             return;
         }
-        // todo api调用
-        mActivity.finish();
+        // api调用
+        User user = User.getPasswordBody(oldPwd, newPwd);
+        // api调用
+        final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
+        MaterialDialog loading = getLoading("", true);
+        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                User user = data.getUser();
+                PrefHelper.setUser(user);
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
 }

@@ -61,6 +61,24 @@ public class User extends BaseObj {
         return user;
     }
 
+    public static User getPasswordBody(String oldPwd, String newPwd) {
+        User user = new User();
+        String md5OldPwd = EncryptUtils.encryptMD5ToString(oldPwd);
+        user.setOldPassWord(md5OldPwd);
+        String md5NewPwd = EncryptUtils.encryptMD5ToString(newPwd);
+        user.setPassword(md5NewPwd);
+        user.setType(MODIFY_PASSWORD);
+        return user;
+    }
+
+    public static User getPhoneBody(String phone, String code) {
+        User user = new User();
+        user.setPhone(phone);
+        user.setValidateCode(code);
+        user.setType(MODIFY_PHONE);
+        return user;
+    }
+
     public static User getInfoBody(int sex, long birthday) {
         User user = new User();
         user.setSex(sex);

@@ -57,7 +57,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
-    private boolean canFinish = true;
+    private boolean canFinish = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
@@ -100,7 +100,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuHelp: // 帮助
-                        canFinish = false;
                         HelpActivity.goActivity(mActivity, Help.TYPE_USER_INFO_SET);
                         break;
                 }
@@ -124,12 +123,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @Override
     protected void initData(Bundle state) {
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        canFinish = true;
     }
 
     @Override
@@ -213,6 +206,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                canFinish = true;
                 User user = data.getUser();
                 PrefHelper.setUser(user);
                 HomeActivity.goActivity(mActivity);
