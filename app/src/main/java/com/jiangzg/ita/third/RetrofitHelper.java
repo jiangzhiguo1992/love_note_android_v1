@@ -134,8 +134,9 @@ public class RetrofitHelper {
                 // status处理
                 final Activity top = ActivityStack.getTop();
                 switch (status) {
-                    case 200:
-                        check200Code(body);
+                    case 200: // 成功,和417的区别就是有回调
+                    case 417: // 逻辑错误，必须返回错误信息
+                        checkCode(body);
                         break;
                     case 401: // 用户验证失败
                         if (top == null) return;
@@ -182,9 +183,6 @@ public class RetrofitHelper {
                         if (data == null) return;
                         List<Version> versionList = data.getVersionList();
                         UpdateService.showUpdateDialog(versionList);
-                        break;
-                    case 417: // 逻辑错误，必须返回错误信息
-                        check417Code(body);
                         break;
                     case 500: // 服务器异常
                         if (top == null) return;
@@ -268,28 +266,7 @@ public class RetrofitHelper {
         return body;
     }
 
-    private static void check200Code(Result body) {
-        Activity top = ActivityStack.getTop();
-        int code = body.getCode();
-        String message = body.getMessage();
-        if (code == Result.ResultCodeOK) {
-            return;
-        } else if (code == Result.ResultCodeToast) { // toast
-            ToastUtils.show(message);
-        } else if (code == Result.ResultCodeDialog) { // dialog
-            if (top == null) return;
-            new MaterialDialog.Builder(top)
-                    .content(message)
-                    .positiveText(top.getString(R.string.i_know))
-                    .cancelable(true)
-                    .canceledOnTouchOutside(true)
-                    .autoDismiss(true)
-                    .build()
-                    .show();
-        }
-    }
-
-    private static void check417Code(Result body) {
+    private static void checkCode(Result body) {
         Activity top = ActivityStack.getTop();
         int code = body.getCode();
         String message = body.getMessage();
@@ -308,12 +285,15 @@ public class RetrofitHelper {
                     .build()
                     .show();
         } else if (code == Result.ResultCodeNoUserInfo) { // userInfo
+            ToastUtils.show(message);
             if (top == null) return;
             UserInfoActivity.goActivity(top);
-        } else if (code == Result.ResultCodeNoCP) { // todo cp
-
-        } else if (code == Result.ResultCodeNoVIP) { // todo vip
-
+        } else if (code == Result.ResultCodeNoCP) { // cp
+            ToastUtils.show(message);
+            // todo
+        } else if (code == Result.ResultCodeNoVIP) { // vip
+            ToastUtils.show(message);
+            // todo
         }
     }
 

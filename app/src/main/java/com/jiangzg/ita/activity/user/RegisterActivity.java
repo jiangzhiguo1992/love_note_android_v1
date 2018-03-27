@@ -22,6 +22,8 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
+import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
@@ -138,6 +140,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     }
 
     private void validateCountDown(final int countDownSec) {
+        countDownGo = 0;
         btnSendCode.setEnabled(false);
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -151,7 +154,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                             ++countDownGo;
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
                         } else {
-                            timer.cancel();
                             btnSendCode.setText(R.string.send_validate_code);
                             countDownGo = -1;
                             onInputChange();
@@ -183,23 +185,23 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         }
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        // todo api调用
-        //final Call<Result> call = new RetrofitHelper().call(API.class).userPost(user);
-        //MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);
-        //RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, String message, Result.Data data) {
-        //        validateCountDown(data.getCountDownSec());
-        //    }
-        //
-        //    @Override
-        //    public void onFailure() {
-        //    }
-        //});
+        User user = User.getRegister(phone, pwd, code);
+        // api调用
+        final Call<Result> call = new RetrofitHelper().call(API.class).userRegister(user);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);
+        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                stopTimer();
+                User user = data.getUser();
+                PrefHelper.setUser(user);
+                mActivity.finish();
+            }
 
-        stopTimer();
-        UserInfoActivity.goActivity(mActivity);
-        mActivity.finish();
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
 }

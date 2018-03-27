@@ -27,6 +27,15 @@ public class User extends BaseObj {
     private String validateCode;
     private int type;
 
+    public static User getRegister(String phone, String pwd, String validateCode) {
+        User user = new User();
+        user.setPhone(phone);
+        String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
+        user.setPassword(md5Pwd);
+        user.setValidateCode(validateCode);
+        return user;
+    }
+
     public static User getLogin(String phone, String pwd, String validateCode, int type) {
         User user = new User();
         user.setPhone(phone);
