@@ -5,27 +5,18 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.user.LoginActivity;
-import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Entry;
-import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.domain.VipPower;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.PrefHelper;
-import com.jiangzg.ita.service.UpdateService;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
 import com.jiangzg.ita.view.GMultiLoveUpLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -87,28 +78,12 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             }, TransPageMillis);
         } else {
             // 有token
-            final long startTime = DateUtils.getCurrentLong();
             Entry entry = Entry.getEntry();
             Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
             RetrofitHelper.enqueueDelay(call, TransPageMillis, new RetrofitHelper.CallBack() {
                 @Override
                 public void onResponse(int code, String message, Result.Data data) {
-                    // user
-                    User user = data.getUser();
-                    Couple couple = data.getCouple();
-                    PrefHelper.setUser(user);
-                    PrefHelper.setCouple(couple);
-                    // version
-                    List<Version> versionList = data.getVersionList();
-                    UpdateService.showUpdateDialog(versionList);
-                    // todo oss
-                    OssInfo ossInfo = data.getOssInfo();
-                    // todo notice
-                    int noticeNoRead = data.getNoticeNoRead();
-                    // todo vip
-                    VipPower vipPower = data.getVipPower();
-
-                    HomeActivity.goActivity(mActivity);
+                    ApiHelper.onEntryFinish(mActivity, data);
                 }
 
                 @Override
@@ -117,23 +92,5 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             });
         }
     }
-
-    // 跳转home页面
-    //private void goHome(long startTime) {
-    //    long endTime = DateUtils.getCurrentLong();
-    //    long between = endTime - startTime;
-    //    if (between >= TransPageMillis) {
-    //        // 间隔时间太大
-    //        HomeActivity.goActivity(mActivity);
-    //    } else {
-    //        // 间隔时间太小
-    //        MyApp.get().getHandler().postDelayed(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //                HomeActivity.goActivity(mActivity);
-    //            }
-    //        }, TransPageMillis - between);
-    //    }
-    //}
 
 }

@@ -159,7 +159,9 @@ public class RetrofitHelper {
             LogUtils.e(LOG_TAG, "call == null");
             return;
         }
-        if (loading != null && !loading.isShowing()) loading.show();
+        if (loading != null && !loading.isShowing()) {
+            loading.show();
+        }
 
         call.enqueue(new Callback<Result>() {
             @Override

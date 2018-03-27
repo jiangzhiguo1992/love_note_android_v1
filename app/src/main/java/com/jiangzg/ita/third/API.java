@@ -65,6 +65,7 @@ public interface API {
     @POST("user/login")
     Call<Result> userLogin(@Body User user);
 
+    // 三个地方会用到 welcome login userInfo
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
 

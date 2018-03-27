@@ -23,25 +23,19 @@ import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Entry;
-import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.domain.VipPower;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.service.UpdateService;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
 
-import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -281,7 +275,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         User user = User.getLoginBody(phone, password, code, logType);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);
+        MaterialDialog loading = getLoading("", true);
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -306,22 +300,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // user
-                User user = data.getUser();
-                Couple couple = data.getCouple();
-                PrefHelper.setUser(user);
-                PrefHelper.setCouple(couple);
-                // version
-                List<Version> versionList = data.getVersionList();
-                UpdateService.showUpdateDialog(versionList);
-                // todo oss
-                OssInfo ossInfo = data.getOssInfo();
-                // todo notice
-                int noticeNoRead = data.getNoticeNoRead();
-                // todo vip
-                VipPower vipPower = data.getVipPower();
-
-                HomeActivity.goActivity(mActivity);
+                ApiHelper.onEntryFinish(mActivity, data);
             }
 
             @Override

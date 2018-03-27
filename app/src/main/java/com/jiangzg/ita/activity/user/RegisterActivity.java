@@ -188,7 +188,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         User user = User.getRegisterBody(phone, pwd, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userRegister(user);
-        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);
+        MaterialDialog loading = getLoading("", true);
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

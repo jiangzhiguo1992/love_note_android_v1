@@ -61,6 +61,14 @@ public class User extends BaseObj {
         return user;
     }
 
+    public static User getInfoBody(int sex, long birthday) {
+        User user = new User();
+        user.setSex(sex);
+        user.setBirthday(birthday);
+        user.setType(MODIFY_INFO);
+        return user;
+    }
+
     public String getOldPassWord() {
         return oldPassWord;
     }

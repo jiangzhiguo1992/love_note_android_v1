@@ -1,10 +1,9 @@
 package com.jiangzg.ita.activity.user;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,22 +13,28 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.API;
+import com.jiangzg.ita.third.RetrofitHelper;
 import com.jiangzg.ita.view.GNumberPicker;
 
 import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
@@ -52,6 +57,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
+    private boolean canFinish = true;
+
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
         ActivityTrans.start(from, intent);
@@ -69,7 +76,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         npYear.setFormatter(new NumberPicker.Formatter() {
             @Override
             public String format(int value) {
-                return String.valueOf(value) + mActivity.getString(R.string.dayR);
+                return String.valueOf(value) + mActivity.getString(R.string.year);
             }
         });
         npMonth.setFormatter(new NumberPicker.Formatter() {
@@ -81,7 +88,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         npDay.setFormatter(new NumberPicker.Formatter() {
             @Override
             public String format(int value) {
-                return String.valueOf(value) + mActivity.getString(R.string.year);
+                return String.valueOf(value) + mActivity.getString(R.string.dayR);
             }
         });
         setYeas();
@@ -93,6 +100,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menuHelp: // 帮助
+                        canFinish = false;
                         HelpActivity.goActivity(mActivity, Help.TYPE_USER_INFO_SET);
                         break;
                 }
@@ -116,6 +124,20 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @Override
     protected void initData(Bundle state) {
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        canFinish = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (canFinish) {
+            finish();
+        }
     }
 
     @Override
@@ -158,25 +180,48 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             return;
         }
         final int sex = (isGirl == View.VISIBLE) ? User.SEX_GIRL : User.SEX_BOY;
-        String sexShow = (sex == User.SEX_GIRL) ? "女" : "男";
+        String sexShow = (sex == User.SEX_GIRL) ? getString(R.string.girl) : getString(R.string.boy);
         Calendar calendar = Calendar.getInstance();
-        calendar.set(year, month, day);
+        calendar.set(year, month - 1, day, 0, 0, 0);
         final long birth = calendar.getTimeInMillis() / 1000;
-        String birthShow = year + "年 " + month + "月 " + day + "日";
-        String message = "性别: " + sexShow + "\n生日: " + birthShow;
-        AlertDialog alert = DialogUtils.createAlert(mActivity, "一旦提交，将不允许修改！", message, "确认无误", "我再想想", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                pushUserInfo(sex, birth);
-            }
-        }, null);
-        alert.show();
+        String title = getString(R.string.once_push_never_modify);
+        String birthShow = year + getString(R.string.year_space) + month + getString(R.string.month_space) + day + getString(R.string.dayR);
+        String message = getString(R.string.sex_colon) + sexShow +
+                "\n" + getString(R.string.birthday_colon) + birthShow;
+        new MaterialDialog.Builder(mActivity)
+                .title(title)
+                .content(message)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        pushUserInfo(sex, birth);
+                    }
+                })
+                .build().show();
     }
 
     private void pushUserInfo(int sex, long birth) {
-        // todo http请求
-        HomeActivity.goActivity(mActivity);
-        mActivity.finish();
+        User user = User.getInfoBody(sex, birth);
+        // api调用
+        final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
+        MaterialDialog loading = getLoading("", true);
+        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                User user = data.getUser();
+                PrefHelper.setUser(user);
+                HomeActivity.goActivity(mActivity);
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
     private void setYeas() {

@@ -185,7 +185,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
         LuBanUtils.compress(mActivity, original, new OnCompressListener() {
             @Override
             public void onStart() {
-                getLoading(getString(R.string.image_is_compress), false, null).show();
+                getLoading(getString(R.string.image_is_compress), false).show();
             }
 
             @Override
@@ -204,7 +204,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     }
 
     private void uploadOss(File jpeg) {
-        getLoading("正在上传中", true, null).show();
+        getLoading("正在上传中", true).show();
         // todo oss
         pushData();
     }

@@ -319,6 +319,7 @@
     <string name="please_choose_classify">请选择分类</string>
     <string name="i_choose_ok">我选好了</string>
     <string name="i_think_again">我再想想</string>
+    <string name="confirm_no_wrong">确认无误</string>
     <string name="push_success">发布成功</string>
     <string name="image_load_fail">图片加载失败</string>
     <string name="click_retry_load">点击重新加载</string>
@@ -326,8 +327,15 @@
     <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
     <string name="take_picture">拍照</string>
     <string name="album">相册</string>
-    <string name="image_is_compress">图片正在压缩中...</string>
+    <string name="image_is_compress">图片正在压缩中…</string>
     <string name="image_compress_fail">图片压缩失败</string>
     <string name="image_get_error">图片获取出错</string>
     <string name="confirm_exist_account">确定要退出账号吗？</string>
+    <string name="year_space">年</string>
+    <string name="month_space">月</string>
+    <string name="girl">女</string>
+    <string name="boy">男</string>
+    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
+    <string name="sex_colon">性别:</string>
+    <string name="birthday_colon">生日:</string>
 </resources>

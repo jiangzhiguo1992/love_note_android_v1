@@ -17,6 +17,7 @@ import android.view.Window;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.DraweeTransition;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.function.InputUtils;
@@ -72,7 +73,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     }
 
     public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
-        if (msg == null || msg.isEmpty()) {
+        if (StringUtils.isEmpty(msg)) {
             msg = getString(R.string.please_wait);
         }
         if (mLoading == null) {
