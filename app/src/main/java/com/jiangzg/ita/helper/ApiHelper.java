@@ -9,9 +9,8 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.domain.VipPower;
-import com.jiangzg.ita.service.UpdateService;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by JZG on 2018/3/27.
@@ -26,8 +25,7 @@ public class ApiHelper {
         PrefHelper.setUser(user);
         PrefHelper.setCouple(couple);
         // version
-        List<Version> versionList = data.getVersionList();
-        UpdateService.showUpdateDialog(versionList);
+        ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         // todo oss
         OssInfo ossInfo = data.getOssInfo();
         // todo notice
@@ -35,6 +33,6 @@ public class ApiHelper {
         // todo vip
         VipPower vipPower = data.getVipPower();
 
-        HomeActivity.goActivity(mActivity);
+        HomeActivity.goActivity(mActivity, versionList);
     }
 }

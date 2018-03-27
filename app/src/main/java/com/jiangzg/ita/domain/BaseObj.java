@@ -1,12 +1,13 @@
 package com.jiangzg.ita.domain;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by gg on 2017/2/27.
  * 基类
  */
-public class BaseObj implements Serializable {
+public class BaseObj implements Parcelable {
 
     public static final int STATUS_NOL = 0;
     public static final int STATUS_DEL = -1;
@@ -46,5 +47,40 @@ public class BaseObj implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public BaseObj() {
+    }
+
+    protected BaseObj(Parcel in) {
+        id = in.readLong();
+        status = in.readInt();
+        updatedAt = in.readLong();
+        createdAt = in.readLong();
+    }
+
+    public static final Creator<BaseObj> CREATOR = new Creator<BaseObj>() {
+        @Override
+        public BaseObj createFromParcel(Parcel in) {
+            return new BaseObj(in);
+        }
+
+        @Override
+        public BaseObj[] newArray(int size) {
+            return new BaseObj[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeInt(status);
+        dest.writeLong(updatedAt);
+        dest.writeLong(createdAt);
     }
 }

@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
@@ -17,14 +18,17 @@ import com.jiangzg.ita.adapter.CommonFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.fragment.BookFragment;
 import com.jiangzg.ita.fragment.PairFragment;
 import com.jiangzg.ita.fragment.SquareFragment;
 import com.jiangzg.ita.fragment.TopicFragment;
 import com.jiangzg.ita.fragment.WeFragment;
+import com.jiangzg.ita.service.UpdateService;
 import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.helper.ConsHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -46,6 +50,12 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
         // intent.putExtra();
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, ArrayList<Version> versionList) {
+        Intent intent = new Intent(from, HomeActivity.class);
+        intent.putParcelableArrayListExtra("versionList", versionList);
         ActivityTrans.start(from, intent);
     }
 
@@ -99,6 +109,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        checkUpdate();
     }
 
     // 关闭其他栈底activity，栈顶由singleTask来关闭
@@ -117,6 +128,12 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RxBus.unregister(ConsHelper.EVENT_COUPLE, coupleObservable);
+    }
+
+    private void checkUpdate() {
+        ArrayList<Version> versionList = getIntent().getParcelableArrayListExtra("versionList");
+        if (versionList == null || versionList.size() <= 0) return;
+        UpdateService.showUpdateDialog(versionList);
     }
 
     private void changeFragment(int menuId) {

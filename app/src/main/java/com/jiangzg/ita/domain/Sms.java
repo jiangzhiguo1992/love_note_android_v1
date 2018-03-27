@@ -1,10 +1,13 @@
 package com.jiangzg.ita.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JZG on 2018/3/27.
  * 短信
  */
-public class Sms extends BaseObj {
+public class Sms extends BaseObj implements Parcelable {
     // 验证码类型
     public static final int TYPE_REGISTER = 1;
     public static final int TYPE_LOGIN = 2;
@@ -66,4 +69,40 @@ public class Sms extends BaseObj {
     public void setContent(String content) {
         Content = content;
     }
+
+    public Sms() {
+    }
+
+    protected Sms(Parcel in) {
+        super(in);
+        phone = in.readString();
+        SendType = in.readInt();
+        Content = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(phone);
+        dest.writeInt(SendType);
+        dest.writeString(Content);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Sms> CREATOR = new Creator<Sms>() {
+        @Override
+        public Sms createFromParcel(Parcel in) {
+            return new Sms(in);
+        }
+
+        @Override
+        public Sms[] newArray(int size) {
+            return new Sms[size];
+        }
+    };
+
 }

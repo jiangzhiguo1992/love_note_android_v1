@@ -55,10 +55,10 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     }
 
     private void startAnim() {
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.1F, 1f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.1F, 1f);
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.2F, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.2F, 1f);
         AnimatorSet set = new AnimatorSet();
-        set.setDuration(4000);
+        set.setDuration(10000);
         set.playTogether(scaleX, scaleY);
         set.setInterpolator(new AccelerateDecelerateInterpolator());
         set.start();

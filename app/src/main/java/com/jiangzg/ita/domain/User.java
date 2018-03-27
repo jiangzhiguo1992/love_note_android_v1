@@ -1,12 +1,15 @@
 package com.jiangzg.ita.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.jiangzg.base.common.EncryptUtils;
 
 /**
  * Created by JiangZhiGuo on 2016/9/30.
  * describe 用户实体类
  */
-public class User extends BaseObj {
+public class User extends BaseObj implements Parcelable {
 
     // 用户登录类型
     public static final int LOG_PWD = 1;
@@ -158,4 +161,52 @@ public class User extends BaseObj {
     public void setUserToken(String userToken) {
         this.userToken = userToken;
     }
+
+    public User() {
+    }
+
+    protected User(Parcel in) {
+        super(in);
+        phone = in.readString();
+        password = in.readString();
+        sex = in.readInt();
+        birthday = in.readLong();
+        userToken = in.readString();
+        couple = in.readParcelable(Couple.class.getClassLoader());
+        validateCode = in.readString();
+        type = in.readInt();
+        oldPassWord = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(phone);
+        dest.writeString(password);
+        dest.writeInt(sex);
+        dest.writeLong(birthday);
+        dest.writeString(userToken);
+        dest.writeParcelable(couple, flags);
+        dest.writeString(validateCode);
+        dest.writeInt(type);
+        dest.writeString(oldPassWord);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
 }
