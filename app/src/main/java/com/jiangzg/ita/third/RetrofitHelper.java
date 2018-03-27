@@ -13,6 +13,7 @@ import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.component.application.AppUtils;
 import com.jiangzg.base.component.intent.IntentUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.SuggestAddActivity;
@@ -65,6 +66,8 @@ public class RetrofitHelper {
     private static HashMap<String, String> getHeadBase() {
         HashMap<String, String> options = new HashMap<>();
         options.put("Accept", "application/json");
+        options.put("platform", "android");
+        options.put("sign", ""); // todo
         options.put("app_key", APP_KEY);
         options.put("access_token", PrefHelper.getUser().getUserToken());
         return options;
@@ -101,6 +104,52 @@ public class RetrofitHelper {
         enqueue(call, dialog, callBack);
     }
 
+    public static void enqueueDelay(Call<Result> call, final long totalWait, final CallBack callBack) {
+        if (call == null) {
+            LogUtils.e(LOG_TAG, "call == null");
+            return;
+        }
+        final long startTime = DateUtils.getCurrentLong();
+
+        call.enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(final Call<Result> call, final Response<Result> response) {
+                long endTime = DateUtils.getCurrentLong();
+                long between = endTime - startTime;
+                if (between >= totalWait) {
+                    // 间隔时间太大
+                    onResponseCall(call, null, response, callBack);
+                } else {
+                    // 间隔时间太小
+                    MyApp.get().getHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onResponseCall(call, null, response, callBack);
+                        }
+                    }, totalWait - between);
+                }
+            }
+
+            @Override
+            public void onFailure(final Call call, final Throwable t) {
+                long endTime = DateUtils.getCurrentLong();
+                long between = endTime - startTime;
+                if (between >= totalWait) {
+                    // 间隔时间太大
+                    onFailureCall(call, null, t, callBack);
+                } else {
+                    // 间隔时间太小
+                    MyApp.get().getHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            onFailureCall(call, null, t, callBack);
+                        }
+                    }, totalWait - between);
+                }
+            }
+        });
+    }
+
     /**
      * @param call     请求体
      * @param callBack 请求回调
@@ -115,129 +164,137 @@ public class RetrofitHelper {
         call.enqueue(new Callback<Result>() {
             @Override
             public void onResponse(Call<Result> call, Response<Result> response) {
-                if (loading != null) loading.dismiss();
-                // 获取body
-                Result body = checkBody(response);
-                // status基本为统一处理的逻辑 code为私有处理逻辑
-                int status = response.code();
-                int code = body.getCode();
-                String message = body.getMessage();
-                Result.Data data = body.getData();
-                // 回调
-                if (callBack != null) {
-                    if (status == 200) {
-                        callBack.onResponse(code, message, data);
-                    } else {
-                        callBack.onFailure();
-                    }
-                }
-                // status处理
-                final Activity top = ActivityStack.getTop();
-                switch (status) {
-                    case 200: // 成功,和417的区别就是有回调
-                    case 417: // 逻辑错误，必须返回错误信息
-                        checkCode(body);
-                        break;
-                    case 401: // 用户验证失败
-                        if (top == null) return;
-                        LoginActivity.goActivity(top);
-                        break;
-                    case 403: // 禁止访问,key错误
-                    case 410: // 用户被禁用,应该退出应用
-                    case 503: // 服务器维护
-                        if (top == null) return;
-                        new MaterialDialog.Builder(top)
-                                .content(message)
-                                .cancelable(false)
-                                .canceledOnTouchOutside(false)
-                                .autoDismiss(true)
-                                .positiveText(top.getString(R.string.i_know))
-                                .dismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        AppUtils.appExit();
-                                    }
-                                })
-                                .build().show();
-                        break;
-                    case 408: // 请求超时
-                        if (top == null) return;
-                        new MaterialDialog.Builder(top)
-                                .content(top.getString(R.string.http_error_time_maybe_setting_wrong))
-                                .cancelable(true)
-                                .canceledOnTouchOutside(true)
-                                .autoDismiss(true)
-                                .positiveText(top.getString(R.string.go_to_setting))
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        Intent netSettings = IntentUtils.getNetSettings();
-                                        ActivityTrans.start(top, netSettings);
-                                    }
-                                })
-                                .negativeText(top.getString(R.string.i_know))
-                                .build()
-                                .show();
-                        break;
-                    case 409: // 用户版本过低,提示用户升级
-                        if (data == null) return;
-                        List<Version> versionList = data.getVersionList();
-                        UpdateService.showUpdateDialog(versionList);
-                        break;
-                    case 500: // 服务器异常
-                        if (top == null) return;
-                        new MaterialDialog.Builder(top)
-                                .content(top.getString(R.string.server_error))
-                                .cancelable(false)
-                                .canceledOnTouchOutside(false)
-                                .autoDismiss(true)
-                                .positiveText(top.getString(R.string.i_know))
-                                .dismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        AppUtils.appExit();
-                                    }
-                                })
-                                .build().show();
-                        break;
-                    default: // 404,405...其他错误
-                        if (top == null) return;
-                        new MaterialDialog.Builder(top)
-                                .content(message)
-                                .cancelable(true)
-                                .canceledOnTouchOutside(true)
-                                .autoDismiss(true)
-                                .positiveText(top.getString(R.string.i_want_feedback))
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        SuggestAddActivity.goActivity(top);
-                                    }
-                                })
-                                .negativeText(top.getString(R.string.i_know))
-                                .build()
-                                .show();
-                        break;
-                }
+                onResponseCall(call, loading, response, callBack);
             }
 
             @Override
             public void onFailure(Call call, Throwable t) {
-                if (loading != null) loading.dismiss();
-                if (callBack != null) callBack.onFailure();
-                Class<? extends Throwable> clz = t.getClass();
-                int error;
-                if (clz.equals(java.net.ConnectException.class)) { // 网络环境
-                    error = R.string.http_error_connect;
-                } else if (clz.equals(java.net.SocketTimeoutException.class)) { // 超时错误
-                    error = R.string.http_error_time;
-                } else { // 其他网络错误
-                    error = R.string.http_error_request;
-                    LogUtils.e(t.toString());
-                }
-                ToastUtils.show(error);
+                onFailureCall(call, loading, t, callBack);
             }
         });
+    }
+
+    private static void onResponseCall(Call<Result> call, Dialog loading, Response<Result> response, CallBack callBack) {
+        if (loading != null) loading.dismiss();
+        // 获取body
+        Result body = checkBody(response);
+        // status基本为统一处理的逻辑 code为私有处理逻辑
+        int status = response.code();
+        int code = body.getCode();
+        String message = body.getMessage();
+        Result.Data data = body.getData();
+        // 回调
+        if (callBack != null) {
+            if (status == 200) {
+                callBack.onResponse(code, message, data);
+            } else {
+                callBack.onFailure();
+            }
+        }
+        // status处理
+        final Activity top = ActivityStack.getTop();
+        switch (status) {
+            case 200: // 成功,和417的区别就是有回调
+            case 417: // 逻辑错误，必须返回错误信息
+                checkCode(body);
+                break;
+            case 401: // 用户验证失败
+                if (top == null) return;
+                LoginActivity.goActivity(top);
+                break;
+            case 403: // 禁止访问,key错误
+            case 410: // 用户被禁用,应该退出应用
+            case 503: // 服务器维护
+                if (top == null) return;
+                new MaterialDialog.Builder(top)
+                        .content(message)
+                        .cancelable(false)
+                        .canceledOnTouchOutside(false)
+                        .autoDismiss(true)
+                        .positiveText(top.getString(R.string.i_know))
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                AppUtils.appExit();
+                            }
+                        })
+                        .build().show();
+                break;
+            case 408: // 请求超时
+                if (top == null) return;
+                new MaterialDialog.Builder(top)
+                        .content(top.getString(R.string.http_error_time_maybe_setting_wrong))
+                        .cancelable(true)
+                        .canceledOnTouchOutside(true)
+                        .autoDismiss(true)
+                        .positiveText(top.getString(R.string.go_to_setting))
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                Intent netSettings = IntentUtils.getNetSettings();
+                                ActivityTrans.start(top, netSettings);
+                            }
+                        })
+                        .negativeText(top.getString(R.string.i_know))
+                        .build()
+                        .show();
+                break;
+            case 409: // 用户版本过低,提示用户升级
+                if (data == null) return;
+                List<Version> versionList = data.getVersionList();
+                UpdateService.showUpdateDialog(versionList);
+                break;
+            case 500: // 服务器异常
+                if (top == null) return;
+                new MaterialDialog.Builder(top)
+                        .content(top.getString(R.string.server_error))
+                        .cancelable(false)
+                        .canceledOnTouchOutside(false)
+                        .autoDismiss(true)
+                        .positiveText(top.getString(R.string.i_know))
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                AppUtils.appExit();
+                            }
+                        })
+                        .build().show();
+                break;
+            default: // 404,405...其他错误
+                if (top == null) return;
+                new MaterialDialog.Builder(top)
+                        .content(message)
+                        .cancelable(true)
+                        .canceledOnTouchOutside(true)
+                        .autoDismiss(true)
+                        .positiveText(top.getString(R.string.i_want_feedback))
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                SuggestAddActivity.goActivity(top);
+                            }
+                        })
+                        .negativeText(top.getString(R.string.i_know))
+                        .build()
+                        .show();
+                break;
+        }
+    }
+
+    private static void onFailureCall(Call call, Dialog loading, Throwable t, CallBack callBack) {
+        if (loading != null) loading.dismiss();
+        if (callBack != null) callBack.onFailure();
+        Class<? extends Throwable> clz = t.getClass();
+        int error;
+        if (clz.equals(java.net.ConnectException.class)) { // 网络环境
+            error = R.string.http_error_connect;
+        } else if (clz.equals(java.net.SocketTimeoutException.class)) { // 超时错误
+            error = R.string.http_error_time;
+        } else { // 其他网络错误
+            error = R.string.http_error_request;
+            LogUtils.e(t.toString());
+        }
+        ToastUtils.show(error);
     }
 
     private static Result checkBody(Response<Result> response) {

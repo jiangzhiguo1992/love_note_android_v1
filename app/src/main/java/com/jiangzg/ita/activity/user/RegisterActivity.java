@@ -185,7 +185,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         }
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        User user = User.getRegister(phone, pwd, code);
+        User user = User.getRegisterBody(phone, pwd, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userRegister(user);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);

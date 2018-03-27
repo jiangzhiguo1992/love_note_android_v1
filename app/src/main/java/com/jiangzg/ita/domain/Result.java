@@ -50,6 +50,33 @@ public class Result {
         private User user;
         private Couple couple;
         private int countDownSec;
+        private OssInfo ossInfo;
+        private int noticeNoRead;
+        private VipPower vipPower;
+
+        public VipPower getVipPower() {
+            return vipPower;
+        }
+
+        public void setVipPower(VipPower vipPower) {
+            this.vipPower = vipPower;
+        }
+
+        public int getNoticeNoRead() {
+            return noticeNoRead;
+        }
+
+        public void setNoticeNoRead(int noticeNoRead) {
+            this.noticeNoRead = noticeNoRead;
+        }
+
+        public OssInfo getOssInfo() {
+            return ossInfo;
+        }
+
+        public void setOssInfo(OssInfo ossInfo) {
+            this.ossInfo = ossInfo;
+        }
 
         public List<Version> getVersionList() {
             return versionList;

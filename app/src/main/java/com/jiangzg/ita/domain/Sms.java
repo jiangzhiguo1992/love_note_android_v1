@@ -15,9 +15,23 @@ public class Sms extends BaseObj {
     private int SendType;
     private String Content;
 
+    public static Sms getLoginBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(TYPE_LOGIN);
+        sms.setPhone(phone);
+        return sms;
+    }
+
     public static Sms getRegisterBody(String phone) {
         Sms sms = new Sms();
         sms.setSendType(TYPE_REGISTER);
+        sms.setPhone(phone);
+        return sms;
+    }
+
+    public static Sms getForgetBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(TYPE_FORGET);
         sms.setPhone(phone);
         return sms;
     }

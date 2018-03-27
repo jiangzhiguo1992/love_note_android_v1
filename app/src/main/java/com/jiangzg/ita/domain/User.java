@@ -11,7 +11,11 @@ public class User extends BaseObj {
     // 用户登录类型
     public static final int LOG_PWD = 1;
     public static final int LOG_VER = 2;
-
+    // 修改类型
+    public static final int MODIFY_FORGET = 1;
+    public static final int MODIFY_PASSWORD = 2;
+    public static final int MODIFY_PHONE = 3;
+    public static final int MODIFY_INFO = 4;
     // 性别
     public static final int SEX_GIRL = 1;
     public static final int SEX_BOY = 2;
@@ -21,13 +25,14 @@ public class User extends BaseObj {
     private int sex; // 0女生，1男生
     private long birthday;
     private String userToken;
-    //实体
+    // 实体
     private Couple couple;
-    //http
+    // http
     private String validateCode;
     private int type;
+    private String oldPassWord;
 
-    public static User getRegister(String phone, String pwd, String validateCode) {
+    public static User getRegisterBody(String phone, String pwd, String validateCode) {
         User user = new User();
         user.setPhone(phone);
         String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
@@ -36,7 +41,17 @@ public class User extends BaseObj {
         return user;
     }
 
-    public static User getLogin(String phone, String pwd, String validateCode, int type) {
+    public static User getForgetBody(String phone, String pwd, String validateCode) {
+        User user = new User();
+        user.setPhone(phone);
+        String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
+        user.setPassword(md5Pwd);
+        user.setValidateCode(validateCode);
+        user.setType(MODIFY_FORGET);
+        return user;
+    }
+
+    public static User getLoginBody(String phone, String pwd, String validateCode, int type) {
         User user = new User();
         user.setPhone(phone);
         String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
@@ -44,6 +59,14 @@ public class User extends BaseObj {
         user.setValidateCode(validateCode);
         user.setType(type);
         return user;
+    }
+
+    public String getOldPassWord() {
+        return oldPassWord;
+    }
+
+    public void setOldPassWord(String oldPassWord) {
+        this.oldPassWord = oldPassWord;
     }
 
     public String getValidateCode() {

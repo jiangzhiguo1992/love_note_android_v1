@@ -1,5 +1,11 @@
 package com.jiangzg.ita.domain;
 
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
+import android.provider.Settings;
+
+import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.base.function.DeviceInfo;
 import com.jiangzg.ita.helper.PrefHelper;
@@ -13,16 +19,24 @@ public class Entry extends BaseObj {
 
     private long userId;
     private String userToken;
+    private String deviceId;
     private String deviceName;
     private String platform;
     private String osVersion;
     private int appVersion;
 
+    @SuppressLint("HardwareIds")
     public static Entry getEntry() {
         Entry entry = new Entry();
         User user = PrefHelper.getUser();
         entry.setUserId(user.getId());
         entry.setUserToken(user.getUserToken());
+        ContentResolver contentResolver = AppContext.get().getContentResolver();
+        String deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+        if (StringUtils.isEmpty(deviceId)) {
+            deviceId = DeviceInfo.get().getMacAddress();
+        }
+        entry.setDeviceId(deviceId);
         String manufacturer = DeviceInfo.get().getManufacturer();
         String model = DeviceInfo.get().getModel();
         entry.setDeviceName(manufacturer + " : " + model);
@@ -30,6 +44,14 @@ public class Entry extends BaseObj {
         entry.setOsVersion(DeviceInfo.get().getOsVersion());
         entry.setAppVersion(AppInfo.get().getVersionCode());
         return entry;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public long getUserId() {

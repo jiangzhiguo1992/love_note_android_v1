@@ -33,7 +33,7 @@ public class UpdateService extends Service {
                 .checkUpdate(AppInfo.get().getVersionCode());
         RetrofitHelper.enqueue(call, dialog, new RetrofitHelper.CallBack() {
             @Override
-            public void onResponse(int code, String message,Result.Data data) {
+            public void onResponse(int code, String message, Result.Data data) {
                 if (data != null && data.getVersion() != null) {
                     showUpdateDialog(data.getVersion());
                 }
@@ -46,7 +46,8 @@ public class UpdateService extends Service {
 
     }
 
-    public static void showUpdateDialog(List<Version> version) {
+    public static void showUpdateDialog(List<Version> versionList) {
+        if (versionList == null || versionList.size() <= 0) return;
         //final Activity top = ActivityStack.getTop();
         //if (top == null) return;
         //String title = String.format(top.getString(R.string.find_new_version_colon_holder), version.getVersionName());

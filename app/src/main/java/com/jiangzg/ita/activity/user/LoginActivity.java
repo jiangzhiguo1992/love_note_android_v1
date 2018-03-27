@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
@@ -27,13 +28,20 @@ import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
-import com.jiangzg.ita.domain.RxEvent;
+import com.jiangzg.ita.domain.Entry;
+import com.jiangzg.ita.domain.OssInfo;
+import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.third.RxBus;
-import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.domain.Version;
+import com.jiangzg.ita.domain.VipPower;
 import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.service.UpdateService;
+import com.jiangzg.ita.third.API;
+import com.jiangzg.ita.third.RetrofitHelper;
 
+import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,6 +49,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import retrofit2.Call;
 
 /**
  * A login screen that offers login via email/password.
@@ -75,6 +84,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private int logType = User.LOG_PWD;
     private int countDownGo = -1;
     private Timer timer;
+    private boolean logSuccess = false;
 
     public static void goActivity(Activity from) {
         // 顶部已经是LoginActivity时，不再跳转
@@ -132,6 +142,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     protected void onStop() {
         super.onStop();
         stopTimer();
+        if (logSuccess) {
+            finish();
+        }
     }
 
     @Override
@@ -208,26 +221,24 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     private void sendCode() {
         String phone = etPhone.getText().toString().trim();
-        User user = new User();
-        user.setPhone(phone);
-        // todo 发送验证码
-        //Call<Result> call = new RetrofitHelper().call(API.class).validate(User.VALIDATE_REGISTER, user);
-        //ProgressDialog loading = getLoading(getString(R.string.loading_sending), call, null);
-        //RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, Result.Data data) {
-        //        validateCountDown();
-        //    }
-        //
-        //    @Override
-        //    public void onFailure() {
-        //    }
-        //});
-        // todo 发送成功执行 validateCountDown 失败误操作
-        validateCountDown(60);
+        // 发送验证码
+        Sms body = Sms.getLoginBody(phone);
+        final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
+        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                validateCountDown(data.getCountDownSec());
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
     private void validateCountDown(final int countDownSec) {
+        countDownGo = 0;
         btnSendCode.setEnabled(false);
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -241,7 +252,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                             ++countDownGo;
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
                         } else {
-                            timer.cancel();
                             btnSendCode.setText(R.string.send_validate_code);
                             countDownGo = -1;
                             onInputChange();
@@ -268,43 +278,56 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         String phone = etPhone.getText().toString().trim();
         String password = etPwd.getText().toString().trim();
         String code = etCode.getText().toString().trim();
+        User user = User.getLoginBody(phone, password, code, logType);
+        // api调用
+        final Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);
+        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                logSuccess = true;
+                stopTimer();
+                User user = data.getUser();
+                PrefHelper.setUser(user);
+                PrefHelper.setCouple(user.getCouple());
+                // 跳转
+                postEntry();
+            }
 
-        User user = User.getLogin(phone, password, code, logType);
-
-        // todo api调用
-        //Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
-        //ProgressDialog loading = getLoading(getString(R.string.loading_loging), call, null);
-        //RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, Result.Data data) {
-        //        logSuc(data.getUser());
-        //    }
-        //
-        //    @Override
-        //    public void onFailure() {
-        //    }
-        //});
-        stopTimer();
-        HomeActivity.goActivity(mActivity);
-        mActivity.finish();
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
-    private void logSuc(User user) {
-        // 检查user
-        if (user == null) {
-            ToastUtils.show(R.string.err_un_know_client);
-            return;
-        }
-        PrefHelper.setUser(user);
-        RxBus.post(new RxEvent<>(ConsHelper.EVENT_USER, user));
-        // 检查couple
-        Couple couple = user.getCouple();
-        if (!PrefHelper.noCouple(couple)) { // 有配对
-            PrefHelper.setCouple(couple);
-        }
-        stopTimer();
-        HomeActivity.goActivity(mActivity);
-        mActivity.finish();
+    private void postEntry() {
+        Entry entry = Entry.getEntry();
+        Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // user
+                User user = data.getUser();
+                Couple couple = data.getCouple();
+                PrefHelper.setUser(user);
+                PrefHelper.setCouple(couple);
+                // version
+                List<Version> versionList = data.getVersionList();
+                UpdateService.showUpdateDialog(versionList);
+                // todo oss
+                OssInfo ossInfo = data.getOssInfo();
+                // todo notice
+                int noticeNoRead = data.getNoticeNoRead();
+                // todo vip
+                VipPower vipPower = data.getVipPower();
+
+                HomeActivity.goActivity(mActivity);
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
 }

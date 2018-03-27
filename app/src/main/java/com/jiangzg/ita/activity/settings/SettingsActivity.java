@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -10,6 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
@@ -165,11 +168,30 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
             case R.id.tvExist:
-                PrefHelper.clearUser();
-                PrefHelper.clearCouple();
-                LoginActivity.goActivity(mActivity);
+                existDialogShow();
                 break;
         }
+    }
+
+    private void existDialogShow() {
+        new MaterialDialog.Builder(mActivity)
+                .title(R.string.exist_account)
+                .content(R.string.confirm_exist_account)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .positiveText(R.string.confirm)
+                .negativeText(R.string.cancel)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        PrefHelper.clearUser();
+                        PrefHelper.clearCouple();
+                        LoginActivity.goActivity(mActivity);
+                    }
+                })
+                .build()
+                .show();
     }
 
     @OnCheckedChanged({R.id.switchWifi, R.id.switchDownland, R.id.switchSystem, R.id.switchTa, R.id.switchOther})

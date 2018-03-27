@@ -329,4 +329,5 @@
     <string name="image_is_compress">图片正在压缩中...</string>
     <string name="image_compress_fail">图片压缩失败</string>
     <string name="image_get_error">图片获取出错</string>
+    <string name="confirm_exist_account">确定要退出账号吗？</string>
 </resources>
