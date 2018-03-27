@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -31,6 +32,7 @@ import com.jiangzg.ita.third.RetrofitHelper;
 import com.jiangzg.ita.view.GNumberPicker;
 
 import java.util.Calendar;
+import java.util.Stack;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,8 +58,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     GNumberPicker npDay;
     @BindView(R.id.btnOk)
     Button btnOk;
-
-    private boolean canFinish = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
@@ -126,10 +126,13 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        if (canFinish) {
-            finish();
+    protected void onStart() {
+        super.onStart();
+        Stack<Activity> stack = ActivityStack.getStack();
+        for (Activity activity : stack) {
+            if (activity != mActivity) {
+                activity.finish();
+            }
         }
     }
 
@@ -206,7 +209,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                canFinish = true;
                 User user = data.getUser();
                 PrefHelper.setUser(user);
                 HomeActivity.goActivity(mActivity);

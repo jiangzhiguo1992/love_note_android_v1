@@ -78,7 +78,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private int logType = User.LOG_PWD;
     private int countDownGo = -1;
     private Timer timer;
-    private boolean logSuccess = false;
 
     public static void goActivity(Activity from) {
         // 顶部已经是LoginActivity时，不再跳转
@@ -136,9 +135,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     protected void onStop() {
         super.onStop();
         stopTimer();
-        if (logSuccess) {
-            finish();
-        }
     }
 
     @Override
@@ -279,7 +275,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                logSuccess = true;
                 stopTimer();
                 User user = data.getUser();
                 PrefHelper.setUser(user);

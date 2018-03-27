@@ -182,7 +182,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
                 User user = data.getUser();
                 PrefHelper.setUser(user);
                 HomeActivity.goActivity(mActivity);
-                mActivity.finish();
             }
 
             @Override

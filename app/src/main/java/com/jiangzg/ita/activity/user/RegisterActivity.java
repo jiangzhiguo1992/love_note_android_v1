@@ -195,7 +195,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 stopTimer();
                 User user = data.getUser();
                 PrefHelper.setUser(user);
-                mActivity.finish();
             }
 
             @Override

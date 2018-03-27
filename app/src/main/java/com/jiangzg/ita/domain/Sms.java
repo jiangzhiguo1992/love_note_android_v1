@@ -36,6 +36,13 @@ public class Sms extends BaseObj {
         return sms;
     }
 
+    public static Sms getPhoneBody(String phone) {
+        Sms sms = new Sms();
+        sms.setSendType(TYPE_PHONE);
+        sms.setPhone(phone);
+        return sms;
+    }
+
     public String getPhone() {
         return phone;
     }
