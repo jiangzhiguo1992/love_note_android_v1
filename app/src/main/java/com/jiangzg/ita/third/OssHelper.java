@@ -12,7 +12,7 @@ import com.jiangzg.ita.domain.OssInfo;
  * Created by JZG on 2018/3/16.
  * 阿里Oss管理类
  */
-public class OssUtils {
+public class OssHelper {
     // todo 1.加载前看看oss的token是否快过期
 
     // oos 对象

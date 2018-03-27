@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -19,8 +20,11 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.API;
+import com.jiangzg.ita.third.RetrofitHelper;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -28,6 +32,7 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import retrofit2.Call;
 
 public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
@@ -116,23 +121,20 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     private void sendCode() {
         String phone = etPhone.getText().toString().trim();
-        User user = new User();
-        user.setPhone(phone);
-        // todo 发送验证码
-        //Call<Result> call = new RetroManager().call(API.class).validate(User.VALIDATE_REGISTER, user);
-        //ProgressDialog loading = getLoading(getString(R.string.loading_sending), call, null);
-        //RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, Result.Data data) {
-        //        validateCountDown();
-        //    }
-        //
-        //    @Override
-        //    public void onFailure() {
-        //    }
-        //});
-        // todo 发送成功执行 validateCountDown 失败误操作
-        validateCountDown(60);
+        // 发送验证码
+        Sms body = Sms.getRegisterBody(phone);
+        final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
+        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                validateCountDown(data.getCountDownSec());
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
     private void validateCountDown(final int countDownSec) {
@@ -182,6 +184,19 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
         // todo api调用
+        //final Call<Result> call = new RetrofitHelper().call(API.class).userPost(user);
+        //MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true, null);
+        //RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+        //    @Override
+        //    public void onResponse(int code, String message, Result.Data data) {
+        //        validateCountDown(data.getCountDownSec());
+        //    }
+        //
+        //    @Override
+        //    public void onFailure() {
+        //    }
+        //});
+
         stopTimer();
         UserInfoActivity.goActivity(mActivity);
         mActivity.finish();

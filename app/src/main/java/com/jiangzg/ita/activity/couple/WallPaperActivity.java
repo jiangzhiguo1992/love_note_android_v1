@@ -33,7 +33,7 @@ import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.LuBanUtils;
-import com.jiangzg.ita.third.RecyclerManager;
+import com.jiangzg.ita.third.RecyclerHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
@@ -55,7 +55,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private RecyclerManager recyclerManager;
+    private RecyclerHelper recyclerHelper;
     private File cameraFile;
     private PopupWindow popupWindow;
 
@@ -74,12 +74,12 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.wall_paper), true);
         // recycler
-        recyclerManager = new RecyclerManager(mActivity)
+        recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 3, LinearLayoutManager.VERTICAL, false))
                 .initRefresh(srl, false)
                 .initAdapter(new WallPaperAdapter(mActivity))
-                .listenerRefresh(new RecyclerManager.RefreshListener() {
+                .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
                         getData();
@@ -122,7 +122,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        recyclerManager.dataRefresh();
+        recyclerHelper.dataRefresh();
     }
 
     @Override
@@ -164,7 +164,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                 // 位的
                 wallPaper.setImageList(list);
 
-                recyclerManager.dataNew(list);
+                recyclerHelper.dataNew(list);
             }
 
         }, 1000);

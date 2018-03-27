@@ -17,7 +17,9 @@
         android:background="@drawable/shape_r5_top_solid_white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -29,8 +31,7 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+
             android:text="@string/small_book"/>
 
     </LinearLayout>
@@ -51,7 +52,9 @@
         android:background="#fff"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -63,8 +66,6 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:text="@string/album"/>
 
     </LinearLayout>
@@ -86,7 +87,9 @@
         android:background="@drawable/shape_r5_bottom_solid_white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -98,8 +101,6 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:text="@string/take_picture"/>
     </LinearLayout>
 
@@ -115,7 +116,9 @@
         android:background="@drawable/shape_r5_solid_white"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -127,8 +130,6 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
             android:text="@string/cancel"/>
     </LinearLayout>
 

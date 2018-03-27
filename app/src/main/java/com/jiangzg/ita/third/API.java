@@ -3,6 +3,7 @@ package com.jiangzg.ita.third;
 import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
+import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -32,11 +34,9 @@ import retrofit2.http.Url;
 public interface API {
 
     String HOST = "10.0.2.2:30011";
-    //String HOST = "47.94.224.110";
+    //String HOST = "47.94.224.110:30011";
     String HTTP_HOST = "http://" + HOST;
     String BASE_URL = HTTP_HOST + "/api/v1/zh-CN/"; // BaseURL最好以/结尾
-    String IMG_URL_ = ""; // 图片前缀
-    String WEB_URL_ = ""; // 网站前缀
 
     @Streaming // 下载大文件(请求需要放在子线程中)
     @Multipart // 上传文件
@@ -49,19 +49,26 @@ public interface API {
 
     @Streaming
     @GET
-    Call<ResponseBody> downloadLargeFile(@Url String url);
+    Call<ResponseBody> download(@Url String url);
+
+    // 短信
+    @POST("sms")
+    Call<Result> smsSend(@Body Sms sms);
+
+    // 用户注册
+    @POST("user")
+    Call<Result> userRegister(@Body User user);
+
+    @PUT("user")
+    Call<Result> userModify(@Body User user);
 
     @POST("user/login")
     Call<Result> userLogin(@Body User user);
 
     @POST("entry")
-    Call<Result> entry(@Body Entry entry);
+    Call<Result> entryPush(@Body Entry entry);
 
     @GET("version")
     Call<Result> checkUpdate(@Query("code") int limit);
-
-    // todo
-    @POST("validate/{type}")
-    Call<Result> validate(@Path("type") int type, @Body User user);
 
 }

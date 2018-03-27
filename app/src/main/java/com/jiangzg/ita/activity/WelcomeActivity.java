@@ -8,6 +8,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.PrefHelper;
@@ -21,7 +22,7 @@ import butterknife.BindView;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
-    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 1); // todo 修改
+    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
 
     @BindView(R.id.ivBg)
     ImageView ivBg;
@@ -37,7 +38,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        // todo logo要换
         // todo 开屏页本地获取并加载
         //ivBg.setImageResource();
     }
@@ -68,8 +68,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    //LoginActivity.goActivity(mActivity);
-                    HomeActivity.goActivity(mActivity); // todo 修改
+                    LoginActivity.goActivity(mActivity);
                 }
             }, TransPageMillis);
         } else {
@@ -77,8 +76,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             final long startTime = DateUtils.getCurrentLong();
             // todo 登录api调用 + 本地数据存储
             //Entry entry = Entry.getEntry();
-            //Call<Result> call = new RetroManager().call(API.class).entry(entry);
-            //RetroManager.enqueue(call, null, new RetroManager.CallBack() {
+            //Call<Result> call = new RetrofitHelper().call(API.class).entry(entry);
+            //RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             //    @Override
             //    public void onResponse(int code, Result.Data data) {
             //        User user = data.getUser();

@@ -19,9 +19,8 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
-import com.jiangzg.ita.third.RecyclerManager;
-import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.RecyclerHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     RecyclerView rv;
 
     private int entry;
-    private RecyclerManager recyclerManager;
+    private RecyclerHelper recyclerHelper;
 
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
@@ -66,20 +65,20 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
-        recyclerManager = new RecyclerManager(mActivity)
+        recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
-                .viewLoadMore(new RecyclerMoreView())
-                .listenerRefresh(new RecyclerManager.RefreshListener() {
+                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
+                .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
                         getData(false);
                     }
                 })
-                .listenerMore(new RecyclerManager.MoreListener() {
+                .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
                         getData(true);
@@ -115,7 +114,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        recyclerManager.dataRefresh();
+        recyclerHelper.dataRefresh();
     }
 
     @Override
@@ -190,8 +189,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     suggestList.add(s2);
                     suggestList.add(s3);
                 }
-                recyclerManager.data(suggestList, 12, more);
-                recyclerManager.viewEmptyShow();
+                recyclerHelper.data(suggestList, 12, more);
+                recyclerHelper.viewEmptyShow();
             }
         }, 1000);
     }

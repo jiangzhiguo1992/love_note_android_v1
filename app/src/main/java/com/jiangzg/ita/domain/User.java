@@ -11,10 +11,7 @@ public class User extends BaseObj {
     // 用户登录类型
     public static final int LOG_PWD = 1;
     public static final int LOG_VER = 2;
-    // 验证码类型
-    public static final int VALIDATE_REGISTER = 1;
-    public static final int VALIDATE_LOGIN = 2;
-    public static final int VALIDATE_PHONE = 3;
+
     // 性别
     public static final int SEX_GIRL = 1;
     public static final int SEX_BOY = 2;

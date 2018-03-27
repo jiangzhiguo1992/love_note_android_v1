@@ -215,21 +215,27 @@ public class GImageView extends SimpleDraweeView {
     }
 
     private void setController(Uri uri) {
+        ImageRequest imageRequest = createImageRequest(uri);
+
         PipelineDraweeControllerBuilder builder = Fresco.newDraweeControllerBuilder()
                 .setOldController(this.getController()) // 减少内存消耗
-                .setImageRequest(createImageRequest(uri))  // 优先加载内存->磁盘->文件->网络
-                .setAutoPlayAnimations(true);// todo gif自动播放
+                .setImageRequest(imageRequest);  // 优先加载内存->磁盘->文件->网络
+        //.setAutoPlayAnimations(true);// gif自动播放
+
         if (uri != null && uri.toString().startsWith("http")) {
             builder = builder.setTapToRetryEnabled(true); // 点击重新加载
             //.setControllerListener(createControllerListener()); // 加载成功/失败监听
         }
+
         AbstractDraweeController controller = builder.build();
+
         this.setController(controller);
     }
 
     private ImageRequest createImageRequest(Uri uri) {
         return ImageRequestBuilder
                 .newBuilderWithSource(uri)
+                //.setResizeOptions(new ResizeOptions(ConvertUtils.dp2px(measuredWidth), ConvertUtils.dp2px(measuredHeight)))
                 .setProgressiveRenderingEnabled(true) // 网络图渐进式jpeg
                 .setLocalThumbnailPreviewsEnabled(true) // 本地图缩略图
                 .setRotationOptions(RotationOptions.autoRotate())

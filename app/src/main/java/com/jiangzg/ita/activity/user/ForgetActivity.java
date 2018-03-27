@@ -109,9 +109,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         User user = new User();
         user.setPhone(phone);
         // todo 发送验证码
-        //Call<Result> call = new RetroManager().call(API.class).validate(User.VALIDATE_REGISTER, user);
+        //Call<Result> call = new RetrofitHelper().call(API.class).validate(User.VALIDATE_REGISTER, user);
         //ProgressDialog loading = getLoading(getString(R.string.loading_sending), call, null);
-        //RetroManager.enqueue(call, loading, new RetroManager.CallBack() {
+        //RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
         //    @Override
         //    public void onResponse(int code, Result.Data data) {
         //        validateCountDown();

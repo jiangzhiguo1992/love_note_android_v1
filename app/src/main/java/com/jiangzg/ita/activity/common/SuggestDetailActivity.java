@@ -34,10 +34,9 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
-import com.jiangzg.ita.third.RecyclerManager;
-import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.RecyclerHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
@@ -75,7 +74,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     EditText etComment;
 
     private Suggest suggest;
-    private RecyclerManager recyclerManager;
+    private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
 
     public static void goActivity(Activity from, Suggest suggest) {
@@ -97,21 +96,21 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // comment
         commentShow(false);
         // recycler
-        recyclerManager = new RecyclerManager(mActivity)
+        recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestCommentAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
-                .viewLoadMore(new RecyclerMoreView())
+                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerManager.RefreshListener() {
+                .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
                         getData(false);
                     }
                 })
-                .listenerMore(new RecyclerManager.MoreListener() {
+                .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
                         getData(true);
@@ -135,7 +134,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        recyclerManager.dataRefresh();
+        recyclerHelper.dataRefresh();
     }
 
     @Override
@@ -179,7 +178,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     llBottom.setVisibility(View.VISIBLE);
                     initWatchView();
                     initFollowView();
-                    recyclerManager.viewHeader(R.layout.list_head_suggest_comment);
+                    recyclerHelper.viewHeader(R.layout.list_head_suggest_comment);
                     initHead();
                 }
 
@@ -219,8 +218,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     commentList.add(c3);
                 }
                 suggest.setCommentList(commentList);
-                recyclerManager.data(commentList, 13, more);
-                recyclerManager.viewEmptyShow();
+                recyclerHelper.data(commentList, 13, more);
+                recyclerHelper.viewEmptyShow();
             }
         }, 1000);
     }
@@ -245,7 +244,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String contentText = suggest.getContentText();
         String commentTotal = String.format(getString(R.string.comment_colon_holder), suggest.getCommentCount());
         // view
-        View head = recyclerManager.getViewHead();
+        View head = recyclerHelper.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);

@@ -9,11 +9,21 @@
     android:fitsSystemWindows="false"
     tools:context="com.jiangzg.ita.activity.common.ImgScreenActivity">
 
-    <com.jiangzg.ita.view.GImageView
-        android:id="@+id/ivScreen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/test_bg_04"
-        app:is_full="true"/>
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/shape_used_img_screen_top"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_used_img_screen_bottom"/>
 </RelativeLayout>

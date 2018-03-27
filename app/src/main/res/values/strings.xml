@@ -6,10 +6,13 @@
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
     <string name="wait">等待…</string>
+    <string name="please_wait">请等待…</string>
     <string name="no_network_title">网络不能访问</string>
 
+    <string name="server_error">服务器异常</string>
     <string name="http_error_connect">网络连接错误</string>
     <string name="http_error_time">网络连接超时</string>
+    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
     <string name="http_error_request">网络请求异常</string>
 
     <string name="day1">一</string>
@@ -56,6 +59,7 @@
     <string name="verify_login">验证码登录</string>
     <string name="pwd_login">密码登录</string>
     <string name="send_validate_code">发送验证码</string>
+    <string name="are_send_validate_code">正在发送验证码…</string>
     <string name="forget_pwd">忘记密码</string>
     <string name="title_activity_home">HomeActivity</string>
 
@@ -209,6 +213,7 @@
     <string name="been_invitee_one_sync">同时只能被一个人邀请哦！</string>
     <string name="wait_ta_refuse_other_invitee_u_come">等Ta拒绝了别人的邀请后你再来吧！</string>
     <string name="i_know">我知道了</string>
+    <string name="go_to_setting">前往设置</string>
     <string name="complex_request_send_please_wait">复合请求已发出，请耐心等待!</string>
     <string name="a_love_will_be_take_u_ready">一段恋情即将被拾起，你准备好了吗？</string>
     <string name="pair_request_send_please_wait">配对请求已发出，请耐心等待!</string>
@@ -278,6 +283,7 @@
     <string name="official">官方</string>
     <string name="top">置顶</string>
     <string name="i_want_push_suggest">朕要提意见</string>
+    <string name="i_want_feedback">我要反馈</string>
     <string name="my_follow">我的关注</string>
     <string name="program_error">程序错误</string>
     <string name="function_add">功能添加</string>

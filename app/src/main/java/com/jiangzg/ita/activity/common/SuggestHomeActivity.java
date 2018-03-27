@@ -22,9 +22,8 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
-import com.jiangzg.ita.third.RecyclerManager;
-import com.jiangzg.ita.third.RecyclerMoreView;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.RecyclerHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private RecyclerManager recyclerManager;
+    private RecyclerHelper recyclerHelper;
     private int searchType = 0; // 0是所有
     private int searchStatus = 0; // 0是所有
 
@@ -61,22 +60,22 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // recycler
         srl.setEnabled(false);
-        recyclerManager = new RecyclerManager(mActivity)
+        recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
                 .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewHeader(R.layout.list_head_suggest_home)
-                .viewLoadMore(new RecyclerMoreView())
+                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerManager.RefreshListener() {
+                .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
                         getData(false);
                     }
                 })
-                .listenerMore(new RecyclerManager.MoreListener() {
+                .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
                         getData(true);
@@ -110,7 +109,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        recyclerManager.dataRefresh();
+        recyclerHelper.dataRefresh();
     }
 
     @Override
@@ -121,7 +120,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     // head
     private void initHead() {
-        View head = recyclerManager.getViewHead();
+        View head = recyclerHelper.getViewHead();
         CardView cvMy = head.findViewById(R.id.cvMy);
         CardView cvFollow = head.findViewById(R.id.cvFollow);
         CardView cvAdd = head.findViewById(R.id.cvAdd);
@@ -199,7 +198,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recyclerManager.dataRefresh();
+                recyclerHelper.dataRefresh();
             }
         });
     }
@@ -271,8 +270,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                     suggestList.add(s2);
                     suggestList.add(s3);
                 }
-                recyclerManager.data(suggestList, 12, more);
-                recyclerManager.viewEmptyShow();
+                recyclerHelper.data(suggestList, 12, more);
+                recyclerHelper.viewEmptyShow();
             }
         }, 1000);
     }

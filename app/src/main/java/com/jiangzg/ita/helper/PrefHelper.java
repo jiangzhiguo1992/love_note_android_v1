@@ -2,6 +2,7 @@ package com.jiangzg.ita.helper;
 
 import android.content.SharedPreferences;
 
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.file.SPUtils;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.User;
@@ -116,8 +117,7 @@ public class PrefHelper {
 
     public static boolean noLogin() {
         String userToken = getUser().getUserToken();
-        //return StringUtils.isEmpty(userToken);
-        return true;
+        return StringUtils.isEmpty(userToken);
     }
 
     public static boolean noCouple() {

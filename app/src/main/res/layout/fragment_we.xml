@@ -29,7 +29,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_use_we_top">
+                android:background="@drawable/shape_used_we_top">
 
                 <ImageView
                     android:id="@+id/ivHelp"

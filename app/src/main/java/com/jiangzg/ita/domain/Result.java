@@ -1,5 +1,7 @@
 package com.jiangzg.ita.domain;
 
+import java.util.List;
+
 /**
  * Created by JZG on 2017/12/15.
  * httpResult
@@ -7,12 +9,12 @@ package com.jiangzg.ita.domain;
 
 public class Result {
 
-    public static final int ResultCodeSuc = 0;
-    public static final int ResultCodeNoUser = 101;
-    public static final int ResultCodeNoCP = 102;
-    public static final int ResultCodeNoVIP = 103;
-    public static final int ResultCodeToast = 201;
-    public static final int ResultCodeDialog = 202;
+    public static final int ResultCodeOK = 0;
+    public static final int ResultCodeToast = 1;
+    public static final int ResultCodeDialog = 2;
+    public static final int ResultCodeNoUserInfo = 3;
+    public static final int ResultCodeNoCP = 4;
+    public static final int ResultCodeNoVIP = 5;
 
     private int code;
     private String message;
@@ -43,9 +45,27 @@ public class Result {
     }
 
     public static class Data {
+        private List<Version> versionList;
         private Version version;
         private User user;
         private Couple couple;
+        private int countDownSec;
+
+        public List<Version> getVersionList() {
+            return versionList;
+        }
+
+        public void setVersionList(List<Version> versionList) {
+            this.versionList = versionList;
+        }
+
+        public int getCountDownSec() {
+            return countDownSec;
+        }
+
+        public void setCountDownSec(int countDownSec) {
+            this.countDownSec = countDownSec;
+        }
 
         public Version getVersion() {
             return version;

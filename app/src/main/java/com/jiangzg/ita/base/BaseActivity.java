@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.Window;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.view.DraweeTransition;
 import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.function.InputUtils;
@@ -65,7 +67,14 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         return mLoading;
     }
 
+    public MaterialDialog getLoading(String msg, boolean cancelable) {
+        return getLoading(msg, cancelable, null);
+    }
+
     public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
+        if (msg == null || msg.isEmpty()) {
+            msg = getString(R.string.please_wait);
+        }
         if (mLoading == null) {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                     .cancelable(cancelable)
@@ -192,11 +201,14 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         Window window = activity.getWindow();
         window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         // 压栈
-        window.setEnterTransition(new Fade()); // 下一个activity进场
-        window.setExitTransition(new Fade()); // 当前activity向后时退场
+        window.setEnterTransition(new Fade(0)); // 下一个activity进场
+        window.setExitTransition(new Fade(0)); // 当前activity向后时退场
         // 弹栈
-        // window.setReenterTransition(new Fade()); // 上一个activity进场
-        // window.setReturnTransition(new Fade()); // 当前activity向前时退场
+        //window.setReenterTransition(new Fade(0)); // 上一个activity进场
+        //window.setReturnTransition(new Fade(0)); // 当前activity向前时退场
+        // fresco动画
+        getWindow().setSharedElementEnterTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.CENTER_CROP, ScalingUtils.ScaleType.FIT_CENTER)); // 进入
+        getWindow().setSharedElementReturnTransition(DraweeTransition.createTransitionSet(ScalingUtils.ScaleType.FIT_CENTER, ScalingUtils.ScaleType.CENTER_CROP)); // 返回
     }
 
 }

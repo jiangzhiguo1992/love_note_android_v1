@@ -17,7 +17,9 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetroManager;
+import com.jiangzg.ita.third.RetrofitHelper;
+
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -26,12 +28,12 @@ public class UpdateService extends Service {
     private static final String EXTRA_VER = "version";
 
     public static void checkUpdate(Dialog dialog) {
-        Call<Result> call = new RetroManager()
+        Call<Result> call = new RetrofitHelper()
                 .call(API.class)
                 .checkUpdate(AppInfo.get().getVersionCode());
-        RetroManager.enqueue(call, dialog, new RetroManager.CallBack() {
+        RetrofitHelper.enqueue(call, dialog, new RetrofitHelper.CallBack() {
             @Override
-            public void onResponse(int code, Result.Data data) {
+            public void onResponse(int code, String message,Result.Data data) {
                 if (data != null && data.getVersion() != null) {
                     showUpdateDialog(data.getVersion());
                 }
@@ -42,6 +44,23 @@ public class UpdateService extends Service {
             }
         });
 
+    }
+
+    public static void showUpdateDialog(List<Version> version) {
+        //final Activity top = ActivityStack.getTop();
+        //if (top == null) return;
+        //String title = String.format(top.getString(R.string.find_new_version_colon_holder), version.getVersionName());
+        //String message = version.getUpdateLog();
+        //String positive = top.getString(R.string.update_now);
+        //String negative = top.getString(R.string.update_delay);
+        //AlertDialog dialog = DialogUtils.createAlert(top, title, message, positive, negative,
+        //        new DialogInterface.OnClickListener() {
+        //            @Override
+        //            public void onClick(DialogInterface dialog, int which) {
+        //                UpdateService.goService(top);
+        //            }
+        //        }, null);
+        //dialog.show();
     }
 
     public static void showUpdateDialog(Version version) {
@@ -103,11 +122,11 @@ public class UpdateService extends Service {
 
     /* 下载apk */
     //private void downloadApk(final Version version) {
-    //    Call<ResponseBody> call = new RetroManager(API.BASE_URL)
-    //            .factory(RetroManager.Factory.empty)
+    //    Call<ResponseBody> call = new RetrofitHelper(API.BASE_URL)
+    //            .factory(RetrofitHelper.Factory.empty)
     //            .call(API.class)
     //            .downloadLargeFile(version.getUpdateUrl());
-    //    RetroManager.enqueue(call, new RetroManager.CallBack<ResponseBody>() {
+    //    RetrofitHelper.enqueue(call, new RetrofitHelper.CallBack<ResponseBody>() {
     //        @Override
     //        public void onSuccess(final ResponseBody body) { // 回调也是子线程
     //            if (body == null || body.byteStream() == null) return;

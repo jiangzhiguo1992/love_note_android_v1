@@ -17,7 +17,7 @@ import com.jiangzg.ita.adapter.HelpAdapter;
 import com.jiangzg.ita.adapter.HelpContentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
-import com.jiangzg.ita.third.RecyclerManager;
+import com.jiangzg.ita.third.RecyclerHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     RecyclerView rv;
 
     private int type;
-    private RecyclerManager recyclerManager;
+    private RecyclerHelper recyclerHelper;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
@@ -57,7 +57,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         type = getIntent().getIntExtra("type", Help.TYPE_ALL);
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.help_document), true);
         // recycler
-        recyclerManager = new RecyclerManager(mActivity)
+        recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new HelpAdapter())
@@ -101,9 +101,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // todo 拿着type去请求api
 
         tb.setTitle(help.getTitle());
-        recyclerManager.viewHeader(R.layout.list_head_help);
+        recyclerHelper.viewHeader(R.layout.list_head_help);
         initHead(help);
-        recyclerManager.dataNew(help.getSubList());
+        recyclerHelper.dataNew(help.getSubList());
     }
 
     private void initHead(Help help) {
@@ -111,16 +111,16 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         String desc = help.getDesc();
         List<Help.Content> contentList = help.getContentList();
         // view
-        View head = recyclerManager.getViewHead();
+        View head = this.recyclerHelper.getViewHead();
         TextView tvDesc = head.findViewById(R.id.tvDesc);
         tvDesc.setText(desc);
         RecyclerView rv = head.findViewById(R.id.rv);
         // list
-        RecyclerManager recyclerManager = new RecyclerManager(mActivity)
+        RecyclerHelper recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new HelpContentAdapter());
-        recyclerManager.dataNew(contentList);
+        recyclerHelper.dataNew(contentList);
     }
 
 }
