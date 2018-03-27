@@ -121,7 +121,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         Sms body = Sms.getForgetBody(phone);
         final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 validateCountDown(data.getCountDownSec());
@@ -179,7 +179,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading("", true);
-        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 autoFinish = true;

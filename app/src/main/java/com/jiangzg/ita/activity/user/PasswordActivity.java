@@ -95,7 +95,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading("", true);
-        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 User user = data.getUser();

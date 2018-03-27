@@ -70,6 +70,6 @@ public interface API {
     Call<Result> entryPush(@Body Entry entry);
 
     @GET("version")
-    Call<Result> checkUpdate(@Query("code") int limit);
+    Call<Result> checkUpdate(@Query("code") int code);
 
 }

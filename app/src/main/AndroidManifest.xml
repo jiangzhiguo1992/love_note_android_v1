@@ -22,10 +22,10 @@
         </activity>
 
         <!-- 更新服务 -->
-        <!-- <service -->
-        <!-- android:name=".service.UpdateService" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="true"/> -->
+        <service
+            android:name=".service.UpdateService"
+            android:enabled="true"
+            android:exported="true"/>
         <!-- 地图服务 -->
         <!-- <service -->
         <!-- android:name=".service.LocationService" -->
@@ -51,8 +51,6 @@
         <activity android:name=".activity.user.PhoneActivity">
         </activity>
         <activity android:name=".activity.user.PasswordActivity">
-        </activity>
-        <activity android:name=".activity.common.HelpListActivity">
         </activity>
         <activity android:name=".activity.common.SuggestHomeActivity">
         </activity>

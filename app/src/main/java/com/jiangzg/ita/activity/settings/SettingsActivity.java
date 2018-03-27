@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.application.AppInfo;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.common.SuggestHomeActivity;
@@ -24,6 +25,7 @@ import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.helper.PrefHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.service.UpdateService;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -110,6 +112,9 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         switchTa.setChecked(noticeTa);
         boolean noticeOther = PrefHelper.getSettingsNoticeOther();
         switchOther.setChecked(noticeOther);
+
+        String versionName = String.format(getString(R.string.current_version_colon_holder), AppInfo.get().getVersionName());
+        tvUpdateSummary.setText(versionName);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlWifi, R.id.rlDownload, R.id.rlCache, R.id.rlSystem, R.id.rlTa,
@@ -145,7 +150,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 PasswordActivity.goActivity(mActivity);
                 break;
             case R.id.rlUpdate:
-                // todo
+                UpdateService.checkUpdate(mActivity);
                 break;
             case R.id.tvHelp:
                 HelpActivity.goActivity(mActivity);

@@ -23,7 +23,6 @@ import com.jiangzg.base.component.activity.ActivityStack;
 import com.jiangzg.base.component.activity.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
@@ -216,7 +215,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         Sms body = Sms.getLoginBody(phone);
         final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 validateCountDown(data.getCountDownSec());
@@ -273,7 +272,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
         MaterialDialog loading = getLoading("", true);
-        RetrofitHelper.enqueueLoading(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 stopTimer();

@@ -255,7 +255,7 @@
     <string name="modify_password">修改密码</string>
     <string name="about_and_help">关于与帮助</string>
     <string name="check_update">检查更新</string>
-    <string name="current_version_colon_holder">当前版本 :%d</string>
+    <string name="current_version_colon_holder">当前版本: %s</string>
     <string name="help_document">帮助文档</string>
     <string name="suggest_feedback">意见反馈</string>
     <string name="go_rate">去评价</string>
@@ -339,4 +339,5 @@
     <string name="sex_colon">性别:</string>
     <string name="birthday_colon">生日:</string>
     <string name="have_new_version">有新版本啦！</string>
+    <string name="are_update_check">正在检查更新</string>
 </resources>

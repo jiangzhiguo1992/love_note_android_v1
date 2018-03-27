@@ -92,18 +92,6 @@ public class RetrofitHelper {
         void onFailure();
     }
 
-    public static void enqueueLoading(final Call<Result> call, MaterialDialog dialog, final CallBack callBack) {
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                if (call != null && !call.isCanceled()) {
-                    call.cancel();
-                }
-            }
-        });
-        enqueue(call, dialog, callBack);
-    }
-
     public static void enqueueDelay(Call<Result> call, final long totalWait, final CallBack callBack) {
         if (call == null) {
             LogUtils.e(LOG_TAG, "call == null");
@@ -154,13 +142,23 @@ public class RetrofitHelper {
      * @param call     请求体
      * @param callBack 请求回调
      */
-    public static void enqueue(Call<Result> call, final Dialog loading, final CallBack callBack) {
+    public static void enqueue(final Call<Result> call, final MaterialDialog loading, final CallBack callBack) {
         if (call == null) {
             LogUtils.e(LOG_TAG, "call == null");
             return;
         }
-        if (loading != null && !loading.isShowing()) {
-            loading.show();
+        if (loading != null) {
+            loading.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (!call.isCanceled()) {
+                        call.cancel();
+                    }
+                }
+            });
+            if (!loading.isShowing()) {
+                loading.show();
+            }
         }
 
         call.enqueue(new Callback<Result>() {
