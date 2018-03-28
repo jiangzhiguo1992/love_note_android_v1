@@ -8,6 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.user.LoginActivity;
@@ -82,12 +83,13 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             }, TransPageMillis);
         } else {
             // 有token
+            final long startTime = DateUtils.getCurrentLong();
             Entry entry = Entry.getEntry();
             Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
-            RetrofitHelper.enqueueDelay(call, TransPageMillis, new RetrofitHelper.CallBack() {
+            RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
                 @Override
                 public void onResponse(int code, String message, Result.Data data) {
-                    ApiHelper.onEntryFinish(mActivity, code, data);
+                    ApiHelper.onEntryFinish(startTime, TransPageMillis, mActivity, code, data);
                 }
 
                 @Override

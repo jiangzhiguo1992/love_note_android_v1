@@ -1,5 +1,6 @@
 package com.jiangzg.ita.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * httpResult
  */
 
-public class Result {
+public class Result implements Serializable {
 
     public static final int ResultCodeOK = 0;
     public static final int ResultCodeToast = 1;

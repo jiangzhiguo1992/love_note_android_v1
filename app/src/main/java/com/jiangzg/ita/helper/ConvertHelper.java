@@ -3,8 +3,10 @@ package com.jiangzg.ita.helper;
 import android.net.Uri;
 
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.ita.third.OssHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +40,35 @@ public class ConvertHelper {
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
         return DateUtils.getString(time * 1000, format);
+    }
+
+    // url转oss路径
+    public static String convertUrl2OssPath(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return "";
+        }
+        // 先剔除http:// 和 https://
+        if (url.startsWith("http")) {
+            String[] split = url.trim().split("//");
+            if (split.length >= 2) {
+                url = split[1];
+            }
+        }
+        // 再剔除get参数
+        if (url.contains("?")) {
+            String[] split = url.trim().split("\\?");
+            if (split.length > 0) {
+                url = split[0];
+            }
+        }
+        // 再剔除oss的endpoint
+        if (url.contains(OssHelper.endpoint + "/")) {
+            String[] split = url.trim().split(OssHelper.endpoint + "/");
+            if (split.length >= 2) {
+                url = split[1];
+            }
+        }
+        return url;
     }
 
 }

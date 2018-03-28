@@ -2,8 +2,6 @@ package com.jiangzg.ita.domain;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.provider.Settings;
 
 import com.jiangzg.base.common.StringUtils;
@@ -17,7 +15,7 @@ import com.jiangzg.ita.helper.PrefHelper;
  * Entry
  */
 
-public class Entry extends BaseObj implements Parcelable {
+public class Entry extends BaseObj {
 
     private long userId;
     private String userToken;
@@ -103,48 +101,5 @@ public class Entry extends BaseObj implements Parcelable {
     public void setAppVersion(int appVersion) {
         this.appVersion = appVersion;
     }
-
-    public Entry() {
-    }
-
-    protected Entry(Parcel in) {
-        super(in);
-        userId = in.readLong();
-        userToken = in.readString();
-        deviceId = in.readString();
-        deviceName = in.readString();
-        platform = in.readString();
-        osVersion = in.readString();
-        appVersion = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeLong(userId);
-        dest.writeString(userToken);
-        dest.writeString(deviceId);
-        dest.writeString(deviceName);
-        dest.writeString(platform);
-        dest.writeString(osVersion);
-        dest.writeInt(appVersion);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Entry> CREATOR = new Creator<Entry>() {
-        @Override
-        public Entry createFromParcel(Parcel in) {
-            return new Entry(in);
-        }
-
-        @Override
-        public Entry[] newArray(int size) {
-            return new Entry[size];
-        }
-    };
 
 }

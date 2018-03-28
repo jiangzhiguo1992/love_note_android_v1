@@ -1,8 +1,5 @@
 package com.jiangzg.ita.domain;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 
@@ -12,7 +9,7 @@ import java.util.List;
  * Created by JZG on 2018/3/12.
  * 意见反馈
  */
-public class Suggest extends BaseObj implements Parcelable {
+public class Suggest extends BaseObj {
 
     // status
     public static final int STATUE_REPLY_NO = 1; // 未回复
@@ -172,56 +169,5 @@ public class Suggest extends BaseObj implements Parcelable {
     public void setContentType(int contentType) {
         this.contentType = contentType;
     }
-
-    public Suggest() {
-    }
-
-    protected Suggest(Parcel in) {
-        super(in);
-        title = in.readString();
-        contentText = in.readString();
-        contentImgUrl = in.readString();
-        contentType = in.readInt();
-        followCount = in.readInt();
-        commentCount = in.readInt();
-        official = in.readByte() != 0;
-        top = in.readByte() != 0;
-        commentList = in.createTypedArrayList(SuggestComment.CREATOR);
-        follow = in.readByte() != 0;
-        comment = in.readByte() != 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeString(title);
-        dest.writeString(contentText);
-        dest.writeString(contentImgUrl);
-        dest.writeInt(contentType);
-        dest.writeInt(followCount);
-        dest.writeInt(commentCount);
-        dest.writeByte((byte) (official ? 1 : 0));
-        dest.writeByte((byte) (top ? 1 : 0));
-        dest.writeTypedList(commentList);
-        dest.writeByte((byte) (follow ? 1 : 0));
-        dest.writeByte((byte) (comment ? 1 : 0));
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Suggest> CREATOR = new Creator<Suggest>() {
-        @Override
-        public Suggest createFromParcel(Parcel in) {
-            return new Suggest(in);
-        }
-
-        @Override
-        public Suggest[] newArray(int size) {
-            return new Suggest[size];
-        }
-    };
 
 }

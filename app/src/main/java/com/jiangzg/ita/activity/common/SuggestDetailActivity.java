@@ -267,12 +267,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         wvTag.addChild(getTagView(statusShow, R.drawable.shape_r2_solid_green));
 
 
-        final Uri uri = Uri.parse(contentImgUrl);
-        ivContent.setDataUri(uri);
+        ivContent.setDataOss(contentImgUrl);
         ivContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImgScreenActivity.goActivity(mActivity, uri, ivContent);
+                //ImgScreenActivity.goActivity(mActivity, uri, ivContent);
             }
         });
     }

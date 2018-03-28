@@ -6,60 +6,178 @@ package com.jiangzg.ita.domain;
  */
 public class OssInfo {
 
+    // sts
+    private String securityToken;
+    private String accessKeyId;
+    private String accessKeySecret;
+    // oss
+    private String region;
+    private String endpoint;
+    private String domain;
+    private String bucket;
+    private long expiration;
+    // path
+    private String pathVersion;
+    private String pathSuggest;
+    private String pathCoupleAvatar;
+    private String pathCoupleWall;
+    private String pathBookAlbum;
+    private String pathBookPicture;
+    private String pathBookDiary;
+    private String pathBookGift;
+    private String pathBookAudio;
+    private String pathBookVideo;
+    private String pathBookThumb;
 
-    private String Region;
-    private String Path;
-    private String Bucket;
-
-    private String SecurityToken;
-    private String AccessKeyId;
-    private String AccessKeySecret;
-
-    public String getRegion() {
-        return Region;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setRegion(String region) {
-        Region = region;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
-    public String getPath() {
-        return Path;
+    public String getEndpoint() {
+        return endpoint;
     }
 
-    public void setPath(String path) {
-        Path = path;
-    }
-
-    public String getBucket() {
-        return Bucket;
-    }
-
-    public void setBucket(String bucket) {
-        Bucket = bucket;
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 
     public String getSecurityToken() {
-        return SecurityToken;
+        return securityToken;
     }
 
     public void setSecurityToken(String securityToken) {
-        SecurityToken = securityToken;
+        this.securityToken = securityToken;
     }
 
     public String getAccessKeyId() {
-        return AccessKeyId;
+        return accessKeyId;
     }
 
     public void setAccessKeyId(String accessKeyId) {
-        AccessKeyId = accessKeyId;
+        this.accessKeyId = accessKeyId;
     }
 
     public String getAccessKeySecret() {
-        return AccessKeySecret;
+        return accessKeySecret;
     }
 
     public void setAccessKeySecret(String accessKeySecret) {
-        AccessKeySecret = accessKeySecret;
+        this.accessKeySecret = accessKeySecret;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getBucket() {
+        return bucket;
+    }
+
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+    public long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(long expiration) {
+        this.expiration = expiration;
+    }
+
+    public String getPathVersion() {
+        return pathVersion;
+    }
+
+    public void setPathVersion(String pathVersion) {
+        this.pathVersion = pathVersion;
+    }
+
+    public String getPathSuggest() {
+        return pathSuggest;
+    }
+
+    public void setPathSuggest(String pathSuggest) {
+        this.pathSuggest = pathSuggest;
+    }
+
+    public String getPathCoupleAvatar() {
+        return pathCoupleAvatar;
+    }
+
+    public void setPathCoupleAvatar(String pathCoupleAvatar) {
+        this.pathCoupleAvatar = pathCoupleAvatar;
+    }
+
+    public String getPathCoupleWall() {
+        return pathCoupleWall;
+    }
+
+    public void setPathCoupleWall(String pathCoupleWall) {
+        this.pathCoupleWall = pathCoupleWall;
+    }
+
+    public String getPathBookAlbum() {
+        return pathBookAlbum;
+    }
+
+    public void setPathBookAlbum(String pathBookAlbum) {
+        this.pathBookAlbum = pathBookAlbum;
+    }
+
+    public String getPathBookPicture() {
+        return pathBookPicture;
+    }
+
+    public void setPathBookPicture(String pathBookPicture) {
+        this.pathBookPicture = pathBookPicture;
+    }
+
+    public String getPathBookDiary() {
+        return pathBookDiary;
+    }
+
+    public void setPathBookDiary(String pathBookDiary) {
+        this.pathBookDiary = pathBookDiary;
+    }
+
+    public String getPathBookGift() {
+        return pathBookGift;
+    }
+
+    public void setPathBookGift(String pathBookGift) {
+        this.pathBookGift = pathBookGift;
+    }
+
+    public String getPathBookAudio() {
+        return pathBookAudio;
+    }
+
+    public void setPathBookAudio(String pathBookAudio) {
+        this.pathBookAudio = pathBookAudio;
+    }
+
+    public String getPathBookVideo() {
+        return pathBookVideo;
+    }
+
+    public void setPathBookVideo(String pathBookVideo) {
+        this.pathBookVideo = pathBookVideo;
+    }
+
+    public String getPathBookThumb() {
+        return pathBookThumb;
+    }
+
+    public void setPathBookThumb(String pathBookThumb) {
+        this.pathBookThumb = pathBookThumb;
     }
 }

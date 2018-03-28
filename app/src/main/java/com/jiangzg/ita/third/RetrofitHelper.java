@@ -92,52 +92,6 @@ public class RetrofitHelper {
         void onFailure();
     }
 
-    public static void enqueueDelay(Call<Result> call, final long totalWait, final CallBack callBack) {
-        if (call == null) {
-            LogUtils.e(LOG_TAG, "call == null");
-            return;
-        }
-        final long startTime = DateUtils.getCurrentLong();
-
-        call.enqueue(new Callback<Result>() {
-            @Override
-            public void onResponse(final Call<Result> call, final Response<Result> response) {
-                long endTime = DateUtils.getCurrentLong();
-                long between = endTime - startTime;
-                if (between >= totalWait) {
-                    // 间隔时间太大
-                    onResponseCall(call, null, response, callBack);
-                } else {
-                    // 间隔时间太小
-                    MyApp.get().getHandler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onResponseCall(call, null, response, callBack);
-                        }
-                    }, totalWait - between);
-                }
-            }
-
-            @Override
-            public void onFailure(final Call call, final Throwable t) {
-                long endTime = DateUtils.getCurrentLong();
-                long between = endTime - startTime;
-                if (between >= totalWait) {
-                    // 间隔时间太大
-                    onFailureCall(call, null, t, callBack);
-                } else {
-                    // 间隔时间太小
-                    MyApp.get().getHandler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            onFailureCall(call, null, t, callBack);
-                        }
-                    }, totalWait - between);
-                }
-            }
-        });
-    }
-
     /**
      * @param call     请求体
      * @param callBack 请求回调

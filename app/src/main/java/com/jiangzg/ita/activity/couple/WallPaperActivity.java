@@ -152,15 +152,22 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
             public void run() {
                 WallPaper wallPaper = new WallPaper();
                 List<String> list = new ArrayList<>();
-                list.add("http://img4.imgtn.bdimg.com/it/u=169060927,1884911313&fm=27&gp=0.jpg");
-                list.add("http://img0.imgtn.bdimg.com/it/u=1369711964,515430964&fm=200&gp=0.jpg");
-                list.add("http://img4.imgtn.bdimg.com/it/u=2879331571,3181036945&fm=200&gp=0.jpg");
-                list.add("http://img3.imgtn.bdimg.com/it/u=1489756078,3073908939&fm=27&gp=0.jpg");
-                list.add("http://img1.imgtn.bdimg.com/it/u=2800834159,1959441958&fm=27&gp=0.jpg");
-                list.add("http://img4.imgtn.bdimg.com/it/u=2324935939,3139070251&fm=27&gp=0.jpg");
-                list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
-                list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
-                list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
+                //list.add("http://img4.imgtn.bdimg.com/it/u=169060927,1884911313&fm=27&gp=0.jpg");
+                //list.add("http://img0.imgtn.bdimg.com/it/u=1369711964,515430964&fm=200&gp=0.jpg");
+                //list.add("http://img4.imgtn.bdimg.com/it/u=2879331571,3181036945&fm=200&gp=0.jpg");
+                //list.add("http://img3.imgtn.bdimg.com/it/u=1489756078,3073908939&fm=27&gp=0.jpg");
+                //list.add("http://img1.imgtn.bdimg.com/it/u=2800834159,1959441958&fm=27&gp=0.jpg");
+                //list.add("http://img4.imgtn.bdimg.com/it/u=2324935939,3139070251&fm=27&gp=0.jpg");
+                //list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
+                //list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
+                //list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_192104.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_201829.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_201953_1.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_202111.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_202111.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_205613.jpg");
+                list.add("ita-couple/cid-1/avatar/IMG_20171001_210151.jpg");
                 // 位的
                 wallPaper.setImageList(list);
 

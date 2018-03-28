@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.file.SPUtils;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.third.GsonUtils;
 import com.jiangzg.ita.third.LogUtils;
@@ -19,14 +20,17 @@ public class PrefHelper {
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
+    private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_SETTINGS = "shareSettings";
 
     /* 储存字段 */
+    // user
     private static final String FIELD_USER_ID = "id";
     private static final String FIELD_USER_PHONE = "phone";
     private static final String FIELD_USER_SEX = "sex";
     private static final String FIELD_USER_BIRTHDAY = "birthday";
     private static final String FIELD_USER_TOKEN = "userToken";
+    // couple
     private static final String FIELD_CP_ID = "coupleId";
     private static final String FIELD_CP_CREATOR_ID = "creatorId";
     private static final String FIELD_CP_CREATOR_NAME = "creatorName";
@@ -34,7 +38,28 @@ public class PrefHelper {
     private static final String FIELD_CP_INVITEE_ID = "inviteeId";
     private static final String FIELD_CP_INVITEE_NAME = "inviteeName";
     private static final String FIELD_CP_INVITEE_AVATAR = "inviteeAvatar";
+    // ossInfo
+    private static final String FIELD_OSS_SECURITY_TOKEN = "securityToken";
+    private static final String FIELD_OSS_KEY_ID = "accessKeyId";
+    private static final String FIELD_OSS_KEY_SECRET = "accessKeySecret";
+    private static final String FIELD_OSS_REGION = "region";
+    private static final String FIELD_OSS_ENDPOINT = "endpoint";
+    private static final String FIELD_OSS_DOMAIN = "domain";
+    private static final String FIELD_OSS_BUCKET = "bucket";
+    private static final String FIELD_OSS_EXPIRATION = "expiration";
+    private static final String FIELD_OSS_PATH_VERSION = "pathVersion";
+    private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
+    private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
+    private static final String FIELD_OSS_PATH_COUPLE_WALL = "pathCoupleWall";
+    private static final String FIELD_OSS_PATH_BOOK_ALBUM = "pathBookAlbum";
+    private static final String FIELD_OSS_PATH_BOOK_PICTURE = "pathBookPicture";
+    private static final String FIELD_OSS_PATH_BOOK_DIARY = "pathBookDiary";
+    private static final String FIELD_OSS_PATH_BOOK_GIFT = "pathBookGift";
+    private static final String FIELD_OSS_PATH_BOOK_AUDIO = "pathBookAudio";
+    private static final String FIELD_OSS_PATH_BOOK_VIDEO = "pathBookVideo";
+    private static final String FIELD_OSS_PATH_BOOK_THUMB = "pathBookThumb";
 
+    // settings
     private static final String FIELD_SET_THEME = "theme";
     private static final String FIELD_SET_ONLY_WIFI = "phone";
     private static final String FIELD_SET_AUTO_DOWNLOAD = "sex";
@@ -108,6 +133,65 @@ public class PrefHelper {
         couple.setInviteeName(preCouple.getString(FIELD_CP_INVITEE_NAME, ""));
         couple.setInviteeAvatar(preCouple.getString(FIELD_CP_INVITEE_AVATAR, ""));
         return couple;
+    }
+
+    public static void setOssInfo(OssInfo ossInfo) {
+        if (ossInfo == null) {
+            LogUtils.e(LOG_TAG, "ossInfo == null");
+            return;
+        }
+        clearOssInfo();
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
+        editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
+        editor.putString(FIELD_OSS_KEY_ID, ossInfo.getAccessKeyId());
+        editor.putString(FIELD_OSS_KEY_SECRET, ossInfo.getAccessKeySecret());
+        editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
+        editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
+        editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
+        editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
+        editor.putLong(FIELD_OSS_EXPIRATION, ossInfo.getExpiration());
+        editor.putString(FIELD_OSS_PATH_VERSION, ossInfo.getPathVersion());
+        editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
+        editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
+        editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
+        editor.putString(FIELD_OSS_PATH_BOOK_ALBUM, ossInfo.getPathBookAlbum());
+        editor.putString(FIELD_OSS_PATH_BOOK_PICTURE, ossInfo.getPathBookPicture());
+        editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
+        editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
+        editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
+        editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
+        editor.putString(FIELD_OSS_PATH_BOOK_THUMB, ossInfo.getPathBookThumb());
+        editor.apply();
+    }
+
+    public static OssInfo getOssInfo() {
+        SharedPreferences preOss = SPUtils.getSharedPreferences(SHARE_OSS_INFO);
+        OssInfo ossInfo = new OssInfo();
+        ossInfo.setSecurityToken(preOss.getString(FIELD_OSS_SECURITY_TOKEN, ""));
+        ossInfo.setAccessKeyId(preOss.getString(FIELD_OSS_KEY_ID, ""));
+        ossInfo.setAccessKeySecret(preOss.getString(FIELD_OSS_KEY_SECRET, ""));
+        ossInfo.setRegion(preOss.getString(FIELD_OSS_REGION, ""));
+        ossInfo.setEndpoint(preOss.getString(FIELD_OSS_ENDPOINT, ""));
+        ossInfo.setDomain(preOss.getString(FIELD_OSS_DOMAIN, ""));
+        ossInfo.setBucket(preOss.getString(FIELD_OSS_BUCKET, ""));
+        ossInfo.setExpiration(preOss.getLong(FIELD_OSS_EXPIRATION, 0));
+        ossInfo.setPathVersion(preOss.getString(FIELD_OSS_PATH_VERSION, ""));
+        ossInfo.setPathSuggest(preOss.getString(FIELD_OSS_PATH_SUGGEST, ""));
+        ossInfo.setPathCoupleAvatar(preOss.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
+        ossInfo.setPathCoupleWall(preOss.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
+        ossInfo.setPathBookAlbum(preOss.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
+        ossInfo.setPathBookPicture(preOss.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
+        ossInfo.setPathBookDiary(preOss.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
+        ossInfo.setPathBookGift(preOss.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
+        ossInfo.setPathBookAudio(preOss.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
+        ossInfo.setPathBookVideo(preOss.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
+        ossInfo.setPathBookThumb(preOss.getString(FIELD_OSS_PATH_BOOK_THUMB, ""));
+        return ossInfo;
+    }
+
+    public static void clearOssInfo() {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
+        editor.clear().apply();
     }
 
     public static void clearCouple() {

@@ -68,7 +68,7 @@ public class ImgScreenPagerAdapter extends PagerAdapter {
         GImageView ivScreen = root.findViewById(R.id.ivScreen);
         // setImage
         Uri data = mData.get(position);
-        ivScreen.setDataUri(data);
+        //ivScreen.setDataUri(data);
         // addView
         container.addView(root);
         root.requestLayout();

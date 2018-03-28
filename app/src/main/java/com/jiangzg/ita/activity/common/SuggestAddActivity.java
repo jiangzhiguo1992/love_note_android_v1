@@ -2,7 +2,6 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -132,7 +131,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
             ivImage.setVisibility(View.VISIBLE);
             pictureFile = BitmapMedia.getPictureFile(data);
-            ivImage.setDataUri(Uri.fromFile(pictureFile));
+            ivImage.setDataFile(pictureFile);
         }
     }
 

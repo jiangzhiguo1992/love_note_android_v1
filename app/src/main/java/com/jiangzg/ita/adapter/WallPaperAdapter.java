@@ -44,7 +44,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, String item) {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(screenWidth / screenHeight);
-        ivWallPaper.setDataUri(Uri.parse(item));
+        ivWallPaper.setDataOss(item);
     }
 
     public void goImgScreen(int position, GImageView view) {
