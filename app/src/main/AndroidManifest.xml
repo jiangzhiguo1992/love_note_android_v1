@@ -66,10 +66,16 @@
         </activity>
 
         <service
-            android:name=".service.CountDownService"
+            android:name=".service.TimerService"
             android:enabled="true"
             android:exported="true">
         </service>
+
+        <receiver
+            android:name=".broadcast.OssReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
     </application>
 
 </manifest>

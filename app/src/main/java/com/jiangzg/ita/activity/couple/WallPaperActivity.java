@@ -161,10 +161,12 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                 //list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
                 //list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
                 //list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
+                list.add("ita-book/cid-0/IMG_20171002_095707.jpg");
+                list.add("ita-book/cid-1/B612咔叽_20171003_152437.jpg");
+                list.add("ita-square/IMG_20171003_153719.jpg");
                 list.add("ita-couple/cid-1/avatar/IMG_20171001_192104.jpg");
                 list.add("ita-couple/cid-1/avatar/IMG_20171001_201829.jpg");
                 list.add("ita-couple/cid-1/avatar/IMG_20171001_201953_1.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_202111.jpg");
                 list.add("ita-couple/cid-1/avatar/IMG_20171001_202111.jpg");
                 list.add("ita-couple/cid-1/avatar/IMG_20171001_205613.jpg");
                 list.add("ita-couple/cid-1/avatar/IMG_20171001_210151.jpg");

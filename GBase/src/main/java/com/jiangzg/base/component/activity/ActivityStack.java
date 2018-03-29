@@ -19,24 +19,7 @@ import java.util.Stack;
 public class ActivityStack {
 
     private static final String LOG_TAG = "ActivityStack";
-
-    /**
-     * 转变前台的activity栈(开启和改变栈都需要调用)
-     * 1.FLAG_ACTIVITY_NEW_TASK 决定是否需要开启新的任务栈
-     * 2.taskAffinity 决定是否可以开启新的任务栈 每个activity都声明 不写或一样则不开启新的
-     * 3.launchMode 决定新的任务栈的启动模式 根activity需要
-     * 4.FLAG_ACTIVITY_NO_ANIMATION rootActivity不能有切换动画
-     */
-    public static void changeTask(Intent intent) {
-        if (intent == null) {
-            Log.e(LOG_TAG, "changeTask: intent == null");
-            return;
-        }
-        intent.addFlags(IntentCons.flag_new_task);
-        intent.addFlags(IntentCons.flag_no_anim);
-    }
-
-    private static Stack<Activity> STACK; // 任务栈
+    private static Stack<Activity> STACK; // 任务栈(不会内存泄露)
 
     public static Stack<Activity> getStack() {
         if (STACK == null) {
@@ -51,11 +34,11 @@ public class ActivityStack {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 getStack().add(activity);
+                Log.d(LOG_TAG, "Activity栈数量:" + getStack().size() + "--taskId:" + activity.getTaskId());
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
-                Log.d(LOG_TAG, "Activity栈数量:" + getStack().size() + "--taskId:" + activity.getTaskId());
             }
 
             @Override
@@ -81,6 +64,7 @@ public class ActivityStack {
             @Override
             public void onActivityDestroyed(Activity activity) {
                 getStack().remove(activity);
+                Log.d(LOG_TAG, "Activity栈数量:" + getStack().size() + "--taskId:" + activity.getTaskId());
             }
         });
     }

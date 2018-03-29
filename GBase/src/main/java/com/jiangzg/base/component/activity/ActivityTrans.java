@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.intent.IntentCons;
 
 /**
  * Created by JiangZhiGuo on 2016/10/13.
@@ -164,7 +165,8 @@ public class ActivityTrans {
             Log.e(LOG_TAG, "startByContext: from == null || intent == null");
             return;
         }
-        ActivityStack.changeTask(intent);
+        intent.addFlags(IntentCons.flag_new_task);
+        intent.addFlags(IntentCons.flag_no_anim);
         from.startActivity(intent);
     }
 

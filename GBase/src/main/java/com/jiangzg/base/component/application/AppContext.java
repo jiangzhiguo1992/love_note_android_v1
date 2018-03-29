@@ -1,6 +1,7 @@
 package com.jiangzg.base.component.application;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Application;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
@@ -78,6 +79,10 @@ public class AppContext {
 
     public static NotificationManager getNotificationManager() {
         return (NotificationManager) get().getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    public static AlarmManager getAlarmManager() {
+        return (AlarmManager) get().getSystemService(Context.ALARM_SERVICE);
     }
 
 }

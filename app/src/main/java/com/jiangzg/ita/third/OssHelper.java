@@ -33,7 +33,7 @@ public class OssHelper {
 
     // oos 对象
     private static OSS ossClient;
-    private static String bucket;
+    public static String bucket;
     public static String endpoint;
     private static long urlExpire = 60 * 10; // 10分钟
 
@@ -44,7 +44,6 @@ public class OssHelper {
         OssInfo ossInfo = PrefHelper.getOssInfo();
         bucket = ossInfo.getBucket();
         endpoint = ossInfo.getEndpoint();
-        //String endpoint = "http://" + ossInfo.getRegion() + ".aliyuncs.com";
 
         OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider
                 (ossInfo.getAccessKeyId(), ossInfo.getAccessKeySecret(), ossInfo.getSecurityToken());

@@ -21,6 +21,7 @@ public class ConsHelper {
     public static final int REQUEST_DEVICE_INFO = 1007;  // device
     public static final int REQUEST_CONTACT = 1008;  // 联系人
     public static final int REQUEST_BOOK_PICTURE = 1009;  // 联系人
+    public static final int REQUEST_OSS_REFRESH = 1010;  // 联系人
     // RxBus.ID
     public static final int EVENT_USER = 1;
     public static final int EVENT_COUPLE = 2;

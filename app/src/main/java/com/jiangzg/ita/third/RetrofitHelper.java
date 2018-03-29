@@ -249,7 +249,7 @@ public class RetrofitHelper {
             error = R.string.http_error_time;
         } else { // 其他网络错误
             error = R.string.http_error_request;
-            LogUtils.e(t.toString());
+            LogUtils.e(LOG_TAG, t.toString());
         }
         ToastUtils.show(error);
         if (callBack != null) callBack.onFailure();
@@ -387,9 +387,9 @@ public class RetrofitHelper {
                         String log = message.trim();
                         if (StringUtils.isEmpty(log)) return;
                         if (log.startsWith("{") || log.startsWith("[")) {
-                            LogUtils.json(log);
+                            LogUtils.i(LOG_TAG, log);
                         } else {
-                            LogUtils.d(log);
+                            LogUtils.d(LOG_TAG, log);
                         }
                     }
                 });

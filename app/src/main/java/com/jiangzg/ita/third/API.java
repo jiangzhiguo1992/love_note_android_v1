@@ -72,4 +72,7 @@ public interface API {
     @GET("version")
     Call<Result> checkUpdate(@Query("code") int code);
 
+    @GET("oss")
+    Call<Result> ossGet();
+
 }

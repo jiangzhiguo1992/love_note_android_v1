@@ -3,7 +3,6 @@ package com.jiangzg.ita.adapter;
 import android.app.Activity;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.widget.PopupWindow;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -25,14 +24,18 @@ import java.util.List;
 public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private final Activity mActivity;
-    private final float screenWidth;
-    private final float screenHeight;
+    private final float ratio;
+    private final int imageWidth;
+    private final int imageHeight;
 
     public WallPaperAdapter(Activity activity) {
         super(R.layout.list_item_wall_paper);
         mActivity = activity;
-        screenWidth = ScreenUtils.getScreenWidth(activity);
-        screenHeight = ScreenUtils.getScreenHeight(activity);
+        float screenWidth = ScreenUtils.getScreenWidth(activity);
+        float screenHeight = ScreenUtils.getScreenHeight(activity);
+        ratio = screenWidth / screenHeight;
+        imageWidth = (int) (screenWidth / 3);
+        imageHeight = (int) (imageWidth / ratio);
     }
 
     @Override
@@ -43,7 +46,8 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
-        ivWallPaper.setAspectRatio(screenWidth / screenHeight);
+        ivWallPaper.setAspectRatio(ratio);
+        ivWallPaper.setWidthAndHeight(imageWidth, imageHeight);
         ivWallPaper.setDataOss(item);
     }
 

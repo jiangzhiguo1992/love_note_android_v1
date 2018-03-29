@@ -16,6 +16,7 @@ public class OssInfo {
     private String domain;
     private String bucket;
     private long expiration;
+    private long interval;
     // path
     private String pathVersion;
     private String pathSuggest;
@@ -28,6 +29,14 @@ public class OssInfo {
     private String pathBookAudio;
     private String pathBookVideo;
     private String pathBookThumb;
+
+    public long getInterval() {
+        return interval;
+    }
+
+    public void setInterval(long interval) {
+        this.interval = interval;
+    }
 
     public String getDomain() {
         return domain;

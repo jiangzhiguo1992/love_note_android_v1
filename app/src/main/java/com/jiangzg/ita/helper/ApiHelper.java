@@ -5,13 +5,13 @@ import android.app.Activity;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.base.MyApp;
+import com.jiangzg.ita.broadcast.OssReceiver;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.domain.VipPower;
-import com.jiangzg.ita.service.CountDownService;
 import com.jiangzg.ita.third.OssHelper;
 
 import java.util.ArrayList;
@@ -23,6 +23,7 @@ import java.util.ArrayList;
 public class ApiHelper {
 
     public static void toRefreshOss() {
+
         // todo api
         OssHelper.refreshOssClient();
     }
@@ -43,6 +44,7 @@ public class ApiHelper {
         OssInfo ossInfo = data.getOssInfo();
         PrefHelper.setOssInfo(ossInfo);
         OssHelper.refreshOssClient();
+        OssReceiver.startAlarm();
         // todo notice
         int noticeNoRead = data.getNoticeNoRead();
         // todo vip

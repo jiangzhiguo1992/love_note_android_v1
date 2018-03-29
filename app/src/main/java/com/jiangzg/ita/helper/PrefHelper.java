@@ -47,6 +47,7 @@ public class PrefHelper {
     private static final String FIELD_OSS_DOMAIN = "domain";
     private static final String FIELD_OSS_BUCKET = "bucket";
     private static final String FIELD_OSS_EXPIRATION = "expiration";
+    private static final String FIELD_OSS_INTERVAL = "inverval";
     private static final String FIELD_OSS_PATH_VERSION = "pathVersion";
     private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
@@ -74,7 +75,7 @@ public class PrefHelper {
         }
         clearUser();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
-        LogUtils.json(GsonUtils.getGson().toJson(user));
+        LogUtils.i(LOG_TAG, GsonUtils.getGson().toJson(user));
         editor.putLong(FIELD_USER_ID, user.getId());
         editor.putString(FIELD_USER_PHONE, user.getPhone());
         editor.putInt(FIELD_USER_SEX, user.getSex());
@@ -150,6 +151,7 @@ public class PrefHelper {
         editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
         editor.putLong(FIELD_OSS_EXPIRATION, ossInfo.getExpiration());
+        editor.putLong(FIELD_OSS_INTERVAL, ossInfo.getInterval());
         editor.putString(FIELD_OSS_PATH_VERSION, ossInfo.getPathVersion());
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
@@ -175,6 +177,7 @@ public class PrefHelper {
         ossInfo.setDomain(preOss.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(preOss.getString(FIELD_OSS_BUCKET, ""));
         ossInfo.setExpiration(preOss.getLong(FIELD_OSS_EXPIRATION, 0));
+        ossInfo.setInterval(preOss.getLong(FIELD_OSS_INTERVAL, 0));
         ossInfo.setPathVersion(preOss.getString(FIELD_OSS_PATH_VERSION, ""));
         ossInfo.setPathSuggest(preOss.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(preOss.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));

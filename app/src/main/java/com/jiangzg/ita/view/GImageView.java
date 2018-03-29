@@ -240,6 +240,7 @@ public class GImageView extends SimpleDraweeView {
         initHierarchy(null);
     }
 
+    // 一般只有grid需要传
     public void setWidthAndHeight(int width, int height) {
         mWidth = width;
         mHeight = height;
