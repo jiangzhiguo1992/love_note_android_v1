@@ -49,7 +49,7 @@ public class AlarmUtils {
         }
         AlarmManager alarmManager = AppBase.getAlarmManager();
         Intent intent = new Intent(context, cls);
-        PendingIntent pendingIntent = PendingIntent.getActivity(AppBase.get(), requestCode, intent, flags);
+        PendingIntent pendingIntent = PendingIntent.getActivity(AppBase.getInstance(), requestCode, intent, flags);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 防止低电量不发广播
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
         } else {
@@ -83,8 +83,8 @@ public class AlarmUtils {
             LogUtils.i(LOG_TAG, "将在 " + time + " 发送Broadcast");
         }
         AlarmManager alarmManager = AppBase.getAlarmManager();
-        Intent intent = new Intent(AppBase.get(), cls);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(AppBase.get(), requestCode, intent, flags);
+        Intent intent = new Intent(AppBase.getInstance(), cls);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(AppBase.getInstance(), requestCode, intent, flags);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 防止低电量不发广播
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
         } else {
@@ -118,8 +118,8 @@ public class AlarmUtils {
             LogUtils.i(LOG_TAG, "将在 " + time + " 启动Service");
         }
         AlarmManager alarmManager = AppBase.getAlarmManager();
-        Intent intent = new Intent(AppBase.get(), cls);
-        PendingIntent pendingIntent = PendingIntent.getService(AppBase.get(), requestCode, intent, flags);
+        Intent intent = new Intent(AppBase.getInstance(), cls);
+        PendingIntent pendingIntent = PendingIntent.getService(AppBase.getInstance(), requestCode, intent, flags);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 防止低电量不发广播
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
         } else {

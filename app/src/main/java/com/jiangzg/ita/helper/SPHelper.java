@@ -73,7 +73,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "user == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, GsonUtils.getGson().toJson(user));
+            LogUtils.d(LOG_TAG, "setUser: " + GsonUtils.get().toJson(user));
         }
         clearUser();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
@@ -107,7 +107,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "couple == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, GsonUtils.getGson().toJson(couple));
+            LogUtils.d(LOG_TAG, "setCouple: " + GsonUtils.get().toJson(couple));
         }
         clearCouple();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
@@ -139,7 +139,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "ossInfo == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, GsonUtils.getGson().toJson(ossInfo));
+            LogUtils.d(LOG_TAG, "setOssInfo: " + GsonUtils.get().toJson(ossInfo));
         }
         clearOssInfo();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();

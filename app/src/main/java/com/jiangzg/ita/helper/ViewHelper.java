@@ -74,6 +74,7 @@ public class ViewHelper {
      */
     public static Drawable getDrawable(Context context, int draResId) {
         Drawable icon = ContextCompat.getDrawable(context, draResId);
+        if (icon == null) return null;
         icon.setBounds(0, 0, icon.getMinimumWidth(), icon.getMinimumHeight());
         return icon;
     }

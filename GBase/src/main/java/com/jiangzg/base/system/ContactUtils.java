@@ -39,7 +39,7 @@ public class ContactUtils {
      */
     @SuppressLint("MissingPermission")
     public static List<Map<String, String>> getContacts() {
-        ContentResolver resolver = AppBase.get().getContentResolver();
+        ContentResolver resolver = AppBase.getInstance().getContentResolver();
 
         List<Map<String, String>> list = new ArrayList<>();
         Cursor cursorID = resolver.query(ContactsContract.Contacts.CONTENT_URI,
@@ -118,7 +118,7 @@ public class ContactUtils {
         list.add(addEmail);
 
         try {
-            AppBase.get().getContentResolver().applyBatch("com.android.contacts", list);
+            AppBase.getInstance().getContentResolver().applyBatch("com.android.contacts", list);
             return true;
         } catch (RemoteException | OperationApplicationException e) {
             LogUtils.e(LOG_TAG, "insertContact", e);

@@ -53,7 +53,7 @@ public class DeviceInfo {
         if (isPhone()) {
             deviceId = AppBase.getTelephonyManager().getDeviceId();
         } else {
-            ContentResolver contentResolver = AppBase.get().getContentResolver();
+            ContentResolver contentResolver = AppBase.getInstance().getContentResolver();
             deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
         }
         LogUtils.i(LOG_TAG, "getDeviceId: " + deviceId);
@@ -107,7 +107,7 @@ public class DeviceInfo {
     }
 
     public boolean isTable() {
-        int screenLayout = AppBase.get().getResources().getConfiguration().screenLayout;
+        int screenLayout = AppBase.getInstance().getResources().getConfiguration().screenLayout;
         boolean xlarge = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
         boolean large = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
         isTable = (xlarge || large);

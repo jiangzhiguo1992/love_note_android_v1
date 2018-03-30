@@ -26,7 +26,7 @@ public class SPUtils {
     public static SharedPreferences getSharedPreferences(String name) {
         SharedPreferences sharedPreferences;
         if (TextUtils.isEmpty(name)) { // 获取默认Preferences
-            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppBase.get());
+            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(AppBase.getInstance());
         } else { // 创建以name为名称的Preferences
             if (mapShare == null) {
                 mapShare = new ArrayMap<>();
@@ -34,7 +34,7 @@ public class SPUtils {
             sharedPreferences = mapShare.get(name);
             if (sharedPreferences == null) {
                 LogUtils.i(LOG_TAG, "装载sharedPreferences: " + name);
-                sharedPreferences = AppBase.get().getSharedPreferences(name, Context.MODE_PRIVATE);
+                sharedPreferences = AppBase.getInstance().getSharedPreferences(name, Context.MODE_PRIVATE);
                 mapShare.put(name, sharedPreferences);
             }
         }

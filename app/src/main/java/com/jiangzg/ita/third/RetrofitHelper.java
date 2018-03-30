@@ -8,12 +8,12 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.application.AppUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.component.IntentSend;
-import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.SuggestAddActivity;
@@ -271,7 +271,7 @@ public class RetrofitHelper {
                 body.setCode(Result.ResultCodeToast);
                 body.setMessage(MyApp.get().getString(R.string.err_data_null));
             } else if (errorStr.startsWith("{")) {
-                body = GsonUtils.getGson().fromJson(errorStr, Result.class);
+                body = GsonUtils.get().fromJson(errorStr, Result.class);
             } else {
                 body.setCode(Result.ResultCodeToast);
                 body.setMessage(MyApp.get().getString(R.string.err_data_parse));
@@ -386,11 +386,7 @@ public class RetrofitHelper {
                     public void log(String message) {
                         String log = message.trim();
                         if (StringUtils.isEmpty(log)) return;
-                        if (log.startsWith("{") || log.startsWith("[")) {
-                            LogUtils.i(LOG_TAG, log);
-                        } else {
-                            LogUtils.w(LOG_TAG, log);
-                        }
+                        LogUtils.i(LOG_TAG, log);
                     }
                 });
         loggingInterceptor.setLevel(log);

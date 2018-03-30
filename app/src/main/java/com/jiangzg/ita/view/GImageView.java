@@ -1,6 +1,7 @@
 package com.jiangzg.ita.view;
 
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -38,8 +39,8 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.application.AppListener;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.ConvertHelper;
@@ -176,8 +177,7 @@ public class GImageView extends SimpleDraweeView {
     }
 
     // 初始化
-    public static void init() {
-        MyApp myApp = MyApp.get();
+    public static void init(Application app) {
         // 网络图的缓存key
         CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
             @Override
@@ -189,13 +189,13 @@ public class GImageView extends SimpleDraweeView {
             }
         };
         // 初始化配置
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(myApp)
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
                 .setCacheKeyFactory(keyFactory)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
                 .setDownsampleEnabled(true) // 向下采样
                 .build();
         // 开始初始化
-        Fresco.initialize(myApp, config);
+        Fresco.initialize(app, config);
         // 设置全局缓存监听
         AppListener.addComponentListener("GImageView", new AppListener.ComponentListener() {
             @Override

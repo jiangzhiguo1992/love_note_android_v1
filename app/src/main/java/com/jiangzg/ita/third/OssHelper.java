@@ -9,6 +9,7 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
+import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
@@ -16,6 +17,7 @@ import com.alibaba.sdk.android.oss.model.GetObjectRequest;
 import com.alibaba.sdk.android.oss.model.GetObjectResult;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.helper.SPHelper;
@@ -28,6 +30,8 @@ import java.io.InputStream;
  * 阿里Oss管理类
  */
 public class OssHelper {
+
+    private static final String LOG_TAG = "OssHelper";
     // todo 1.加载前看看oss的token是否快过期
 
     // oos 对象
@@ -59,9 +63,11 @@ public class OssHelper {
 
     public static String getUrl(final String objKey) {
         try {
-            return ossClient.presignConstrainedObjectURL(bucket, objKey, urlExpire);
+            String url = ossClient.presignConstrainedObjectURL(bucket, objKey, urlExpire);
+            LogUtils.i(LOG_TAG, "getUrl: " + url);
+            return url;
         } catch (ClientException e) {
-            e.printStackTrace();
+            LogUtils.e(LOG_TAG, "refreshOssClient", e);
         }
         return "";
     }

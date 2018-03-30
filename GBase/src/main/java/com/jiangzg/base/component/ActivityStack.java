@@ -102,7 +102,7 @@ public class ActivityStack {
             LogUtils.w(LOG_TAG, "findInSystem: packageName == null || className == null");
             return false;
         }
-        PackageManager packageManager = AppBase.get().getPackageManager();
+        PackageManager packageManager = AppBase.getInstance().getPackageManager();
         Intent intent = new Intent();
         intent.setClassName(packageName, className);
         ResolveInfo resolveInfo = packageManager.resolveActivity(intent, 0);

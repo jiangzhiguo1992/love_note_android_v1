@@ -17,9 +17,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.ita.base.MyApp;
 
 import java.io.File;
 import java.util.Map;
@@ -250,7 +250,7 @@ public class GWebView extends WebView {
          * 带cookie的加载url
          */
         public void loadCookie(String url) {
-            CookieSyncManager.createInstance(AppBase.get());
+            CookieSyncManager.createInstance(MyApp.get());
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.setCookie(url, cookie);  // cookies是要设置的cookie字符串

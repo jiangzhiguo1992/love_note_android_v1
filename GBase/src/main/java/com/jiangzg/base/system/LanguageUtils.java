@@ -18,7 +18,7 @@ public class LanguageUtils {
 
     /* 语言环境 */
     private static Locale getLocale() {
-        return AppBase.get().getResources().getConfiguration().locale;
+        return AppBase.getInstance().getResources().getConfiguration().locale;
     }
 
     /* 是否为英语环境 */
@@ -37,7 +37,7 @@ public class LanguageUtils {
      * 设置默认语言 eg:"en" 应在app中初始化调用
      */
     public static void setDefault(String name) {
-        Resources resources = AppBase.get().getResources();
+        Resources resources = AppBase.getInstance().getResources();
         String language = resources.getConfiguration().locale.getLanguage();
         Configuration config = resources.getConfiguration();
         String languageToLoad;

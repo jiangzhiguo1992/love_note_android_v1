@@ -187,7 +187,7 @@ public class LocationInfo {
         instance.latitude = latitude;
         instance.longitude = longitude;
         //address
-        Geocoder geocoder = new Geocoder(AppBase.get(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(AppBase.getInstance(), Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {

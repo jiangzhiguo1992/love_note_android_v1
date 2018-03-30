@@ -72,8 +72,8 @@ public class ServiceUtils {
             LogUtils.w(LOG_TAG, "startService: cls == null");
             return;
         }
-        Intent intent = new Intent(AppBase.get(), cls);
-        AppBase.get().startService(intent);
+        Intent intent = new Intent(AppBase.getInstance(), cls);
+        AppBase.getInstance().startService(intent);
     }
 
     /**
@@ -84,8 +84,8 @@ public class ServiceUtils {
             LogUtils.w(LOG_TAG, "stopService: cls == null");
             return false;
         }
-        Intent intent = new Intent(AppBase.get(), cls);
-        return AppBase.get().stopService(intent);
+        Intent intent = new Intent(AppBase.getInstance(), cls);
+        return AppBase.getInstance().stopService(intent);
     }
 
     /**
@@ -108,8 +108,8 @@ public class ServiceUtils {
             LogUtils.w(LOG_TAG, "bindService: cls == null || conn == null");
             return;
         }
-        Intent intent = new Intent(AppBase.get(), cls);
-        AppBase.get().bindService(intent, conn, flags);
+        Intent intent = new Intent(AppBase.getInstance(), cls);
+        AppBase.getInstance().bindService(intent, conn, flags);
     }
 
     /**
@@ -122,7 +122,7 @@ public class ServiceUtils {
             LogUtils.w(LOG_TAG, "unbindService: cls == null");
             return;
         }
-        AppBase.get().unbindService(conn);
+        AppBase.getInstance().unbindService(conn);
     }
 
 }

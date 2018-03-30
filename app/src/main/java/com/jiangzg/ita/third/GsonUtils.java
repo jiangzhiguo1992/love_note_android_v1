@@ -18,7 +18,7 @@ public class GsonUtils {
 
     private static Gson instance;
 
-    public static Gson getGson() {
+    public static Gson get() {
         if (instance == null) {
             synchronized (GsonUtils.class) {
                 if (instance == null) {

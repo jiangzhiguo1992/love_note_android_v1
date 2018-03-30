@@ -18,9 +18,9 @@ public class CalUtils {
     /**
      * ********************************天*****************************
      * 判断是否是同一天
-     * int year = c.get(Calendar.YEAR);
-     * int month = c.get(Calendar.MONTH);
-     * int day = c.get(Calendar.DAY_OF_MONTH);
+     * int year = c.getInstance(Calendar.YEAR);
+     * int month = c.getInstance(Calendar.MONTH);
+     * int day = c.getInstance(Calendar.DAY_OF_MONTH);
      */
     public static boolean isSameDay(Calendar c1, Calendar c2) {
         if (c1 == null || c2 == null) {

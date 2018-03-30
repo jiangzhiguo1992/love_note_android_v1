@@ -101,7 +101,7 @@ public class InputUtils {
         CharSequence copy = "";
         ClipData clip = AppBase.getClipboardManager().getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0)
-            copy = clip.getItemAt(0).coerceToText(AppBase.get());
+            copy = clip.getItemAt(0).coerceToText(AppBase.getInstance());
         return copy;
     }
 
@@ -113,7 +113,7 @@ public class InputUtils {
             LogUtils.w(LOG_TAG, "copyUri: uri == null");
             return;
         }
-        ClipData clipData = ClipData.newUri(AppBase.get().getContentResolver(), "uri", uri);
+        ClipData clipData = ClipData.newUri(AppBase.getInstance().getContentResolver(), "uri", uri);
         AppBase.getClipboardManager().setPrimaryClip(clipData);
     }
 

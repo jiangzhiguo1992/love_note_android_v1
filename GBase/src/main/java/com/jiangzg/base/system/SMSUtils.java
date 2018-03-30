@@ -34,7 +34,7 @@ public class SMSUtils {
         List<Map<String, String>> list = new ArrayList<>();
         String[] pros = new String[]{"_id", "address", "person", "body", "date", "type"};
         Uri sms_uri = Uri.parse("content://sms");
-        Cursor cursor = AppBase.get().getContentResolver().query(sms_uri, pros, null, null, "date desc");
+        Cursor cursor = AppBase.getInstance().getContentResolver().query(sms_uri, pros, null, null, "date desc");
 
         if (cursor == null) return null;
         while (cursor.moveToNext()) {
@@ -71,7 +71,7 @@ public class SMSUtils {
         values.put("date", String.valueOf(date));
         try {
             Uri sms_uri = Uri.parse("content://sms");
-            AppBase.get().getContentResolver().insert(sms_uri, values);
+            AppBase.getInstance().getContentResolver().insert(sms_uri, values);
             return true;
         } catch (Exception e) {
             LogUtils.e(LOG_TAG, "insertSMS", e);
@@ -89,7 +89,7 @@ public class SMSUtils {
             LogUtils.w(LOG_TAG, "sendSMS: content == null");
             return;
         }
-        PendingIntent sentIntent = PendingIntent.getBroadcast(AppBase.get(), 0, new Intent(), 0);
+        PendingIntent sentIntent = PendingIntent.getBroadcast(AppBase.getInstance(), 0, new Intent(), 0);
         SmsManager smsManager = SmsManager.getDefault();
         if (content.length() >= 70) { // 分片发送
             List<String> ms = smsManager.divideMessage(content);

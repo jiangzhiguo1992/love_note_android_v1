@@ -19,7 +19,7 @@ public class ToastUtils {
 
     public static void show(int resId) {
         if (resId == 0) return;
-        String toast = AppBase.get().getString(resId);
+        String toast = AppBase.getInstance().getString(resId);
         show(toast);
     }
 
@@ -49,7 +49,7 @@ public class ToastUtils {
     /* 自定义Toast */
     @SuppressLint("ShowToast")
     private static Toast createToast(CharSequence meg) {
-        return Toast.makeText(AppBase.get(), meg, Toast.LENGTH_SHORT);
+        return Toast.makeText(AppBase.getInstance(), meg, Toast.LENGTH_SHORT);
     }
 
 }

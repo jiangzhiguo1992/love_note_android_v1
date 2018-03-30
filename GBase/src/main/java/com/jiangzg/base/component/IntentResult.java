@@ -38,7 +38,7 @@ public class IntentResult {
         Uri uri = data.getData();
         Cursor cursor = null;
         if (uri != null) {
-            ContentResolver contentResolver = AppBase.get().getContentResolver();
+            ContentResolver contentResolver = AppBase.getInstance().getContentResolver();
             cursor = contentResolver.query(uri, null, null, null, null);
         }
         if (cursor == null) return "";
@@ -87,7 +87,7 @@ public class IntentResult {
             String path = uri.getEncodedPath();
             if (path != null) {
                 path = Uri.decode(path);
-                ContentResolver cr = AppBase.get().getContentResolver();
+                ContentResolver cr = AppBase.getInstance().getContentResolver();
                 String buff = "(" + MediaStore.Images.ImageColumns.DATA + "=" +
                         "'" + path + "'" + ")";
                 Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,

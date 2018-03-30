@@ -3,10 +3,10 @@ package com.jiangzg.ita.base;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.ita.helper.CleanHelper;
 import com.jiangzg.ita.view.GImageView;
 
@@ -27,18 +27,18 @@ public class MyApp extends AppBase {
     @Override
     public void onCreate() {
         super.onCreate();
+        LogUtils.initApp();
         AppListener.initApp(this);
         ActivityStack.initApp();
         CleanHelper.initApp();
 
         ButterKnife.setDebug(true);
-        LogUtils.initApp();
-        GImageView.init();
+        GImageView.init(this);
         //AnalyUtils.initApp();
     }
 
     public static MyApp get() {
-        return get();
+        return (MyApp) getInstance();
     }
 
     public Handler getHandler() {

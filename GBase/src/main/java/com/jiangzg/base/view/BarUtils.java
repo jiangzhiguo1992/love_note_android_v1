@@ -98,7 +98,9 @@ public class BarUtils {
             LogUtils.w(LOG_TAG, "getTopBarHeight: activity == null");
             return 0;
         }
-        return ScreenUtils.getMainLayout(activity).getBottom();
+        View mainLayout = ScreenUtils.getMainLayout(activity);
+        if (mainLayout == null) return 0;
+        return mainLayout.getBottom();
     }
 
     /**

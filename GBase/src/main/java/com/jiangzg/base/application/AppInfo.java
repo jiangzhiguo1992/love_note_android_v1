@@ -49,8 +49,8 @@ public class AppInfo {
         } else {
             return instance;
         }
-        String packageName = AppBase.get().getPackageName();
-        PackageManager pm = AppBase.get().getPackageManager();
+        String packageName = AppBase.getInstance().getPackageName();
+        PackageManager pm = AppBase.getInstance().getPackageManager();
         try { // packageName可换成其他的app包名
             PackageInfo pi = pm.getPackageInfo(packageName, 0);
             if (pi != null) {
@@ -168,7 +168,7 @@ public class AppInfo {
             LogUtils.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
             return appFilesDir;
         }
-        File filesDir = AppBase.get().getFilesDir();
+        File filesDir = AppBase.getInstance().getFilesDir();
         appFilesDir = filesDir.getAbsolutePath();
         LogUtils.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
         return appFilesDir;
@@ -180,7 +180,7 @@ public class AppInfo {
             LogUtils.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
             return appCacheDir;
         }
-        File cacheDir = AppBase.get().getCacheDir();
+        File cacheDir = AppBase.getInstance().getCacheDir();
         appCacheDir = cacheDir.getAbsolutePath();
         LogUtils.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
         return appCacheDir;
@@ -192,7 +192,7 @@ public class AppInfo {
             LogUtils.d(LOG_TAG, "getResFilesDir-->" + resFilesDir);
             return resFilesDir;
         }
-        File externalFilesDir = AppBase.get().getExternalFilesDir("");
+        File externalFilesDir = AppBase.getInstance().getExternalFilesDir("");
         if (externalFilesDir != null) {
             resFilesDir = externalFilesDir.getAbsolutePath();
         } else {
@@ -209,7 +209,7 @@ public class AppInfo {
             LogUtils.d(LOG_TAG, "getResCacheDir-->" + resCacheDir);
             return resCacheDir;
         }
-        File externalCacheDir = AppBase.get().getExternalCacheDir();
+        File externalCacheDir = AppBase.getInstance().getExternalCacheDir();
         if (externalCacheDir != null) {
             resCacheDir = externalCacheDir.getAbsolutePath();
         } else {

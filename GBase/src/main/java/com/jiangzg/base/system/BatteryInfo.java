@@ -26,7 +26,7 @@ public class BatteryInfo {
      */
     public static int getPercent() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-        Intent intent = AppBase.get().registerReceiver(null, filter);
+        Intent intent = AppBase.getInstance().registerReceiver(null, filter);
         if (intent == null) return 0;
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 0);

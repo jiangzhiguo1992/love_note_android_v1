@@ -53,7 +53,7 @@ public class ConvertUtils {
         String data = null;
         if (scheme == null) {
             data = uri.getPath();
-        } else if (DocumentsContract.isDocumentUri(AppBase.get(), uri)) { // KITKAT
+        } else if (DocumentsContract.isDocumentUri(AppBase.getInstance(), uri)) { // KITKAT
             String docId = DocumentsContract.getDocumentId(uri);
             String[] split = docId.split(":");
             String type = split[0];
@@ -98,7 +98,7 @@ public class ConvertUtils {
 
     private static String getProviderColumnTop(Uri uri, String[] projection, String selection,
                                                String[] selectionArgs, String orderBy) {
-        Cursor cursor = AppBase.get().getContentResolver()
+        Cursor cursor = AppBase.getInstance().getContentResolver()
                 .query(uri, projection, selection, selectionArgs, orderBy);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -554,7 +554,7 @@ public class ConvertUtils {
      * @param type eg: TypedValue.COMPLEX_UNIT_DIP
      */
     public static int getpx(int type, float value) {
-        DisplayMetrics metrics = AppBase.get().getResources().getDisplayMetrics();
+        DisplayMetrics metrics = AppBase.getInstance().getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(type, value, metrics);
     }
 
@@ -565,7 +565,7 @@ public class ConvertUtils {
      * @return px值
      */
     public static int dp2px(float dpValue) {
-        final float scale = AppBase.get().getResources().getDisplayMetrics().density;
+        final float scale = AppBase.getInstance().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -576,7 +576,7 @@ public class ConvertUtils {
      * @return dp值
      */
     public static int px2dp(float pxValue) {
-        final float scale = AppBase.get().getResources().getDisplayMetrics().density;
+        final float scale = AppBase.getInstance().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -587,7 +587,7 @@ public class ConvertUtils {
      * @return px值
      */
     public static int sp2px(float spValue) {
-        final float fontScale = AppBase.get().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = AppBase.getInstance().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -598,7 +598,7 @@ public class ConvertUtils {
      * @return sp值
      */
     public static int px2sp(float pxValue) {
-        final float fontScale = AppBase.get().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = AppBase.getInstance().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 

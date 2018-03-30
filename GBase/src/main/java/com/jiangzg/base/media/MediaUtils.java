@@ -78,7 +78,7 @@ public class MediaUtils {
                                                               String[] selectionArgs,
                                                               String orderBy) {
         List<Map<String, String>> list = new ArrayList<>();
-        Cursor cursor = AppBase.get().getContentResolver()
+        Cursor cursor = AppBase.getInstance().getContentResolver()
                 .query(uri, projection, selection, selectionArgs, orderBy);
         if (null == cursor) return list;
         while (cursor.moveToNext()) {

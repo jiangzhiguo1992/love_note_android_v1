@@ -71,7 +71,7 @@ public class IntentSend {
             // android 8.0需要
             ContentValues contentValues = new ContentValues(1);
             contentValues.put(MediaStore.Images.Media.DATA, cameraFile.getAbsolutePath());
-            Uri uri = AppBase.get().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
+            Uri uri = AppBase.getInstance().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }
         return intent;
@@ -155,7 +155,7 @@ public class IntentSend {
             LogUtils.w(LOG_TAG, "getApp: appPackageName == null");
             return null;
         }
-        return AppBase.get().getPackageManager().getLaunchIntentForPackage(appPackageName);
+        return AppBase.getInstance().getPackageManager().getLaunchIntentForPackage(appPackageName);
     }
 
     /**
@@ -265,7 +265,7 @@ public class IntentSend {
      * 跳转应用市场的意图
      */
     public static Intent getMarket() {
-        String str = "market://details?id=" + AppBase.get().getPackageName();
+        String str = "market://details?id=" + AppBase.getInstance().getPackageName();
         return new Intent(Intent.ACTION_VIEW, Uri.parse(str));
     }
 

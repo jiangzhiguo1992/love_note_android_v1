@@ -236,7 +236,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(File file, int maxWidth, int maxHeight) {
         if (FileUtils.isFileEmpty(file)) {
-            LogUtils.w(LOG_TAG, "get: file == null");
+            LogUtils.w(LOG_TAG, "getInstance: file == null");
             return null;
         }
         InputStream is = null;
@@ -249,7 +249,7 @@ public class BitmapUtils {
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeStream(is, null, options);
         } catch (FileNotFoundException e) {
-            LogUtils.e(LOG_TAG, "get", e);
+            LogUtils.e(LOG_TAG, "getInstance", e);
         } finally {
             FileUtils.closeIO(is);
         }
@@ -266,7 +266,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(String filePath, int maxWidth, int maxHeight) {
         if (FileUtils.isFileEmpty(filePath)) {
-            LogUtils.w(LOG_TAG, "get: filePath == null");
+            LogUtils.w(LOG_TAG, "getInstance: filePath == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -287,7 +287,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(InputStream is, int maxWidth, int maxHeight) {
         if (is == null) {
-            LogUtils.w(LOG_TAG, "get: is == null");
+            LogUtils.w(LOG_TAG, "getInstance: is == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -309,7 +309,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(byte[] data, int offset, int maxWidth, int maxHeight) {
         if (data == null || data.length == 0) {
-            LogUtils.w(LOG_TAG, "get: data == null");
+            LogUtils.w(LOG_TAG, "getInstance: data == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -331,7 +331,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(Resources res, int id, int maxWidth, int maxHeight) {
         if (res == null || id == 0) {
-            LogUtils.w(LOG_TAG, "get: res == null || id == 0");
+            LogUtils.w(LOG_TAG, "getInstance: res == null || id == 0");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();

@@ -7,6 +7,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,12 +25,12 @@ public class CleanHelper {
         AppListener.addComponentListener(LOG_TAG, new AppListener.ComponentListener() {
             @Override
             public void onTrimMemory(int level) {
-                Log.d(LOG_TAG, "清理内存，级别:" + level);
+                LogUtils.d(LOG_TAG, "清理内存，级别:" + level);
             }
 
             @Override
             public void onLowMemory() {
-                Log.e(LOG_TAG, "内存警告!");
+                LogUtils.w(LOG_TAG, "内存警告!");
                 // System.gc();
                 //Runtime.getRuntime().gc();
             }

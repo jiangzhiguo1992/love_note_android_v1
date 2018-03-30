@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.jiangzg.base.application.AppInfo;
-import com.jiangzg.base.time.DateUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -13,7 +12,7 @@ import java.util.Locale;
 
 /**
  * Created by Jiang on 2016/10/08
- * 日志管理工具类 todo 对应级别上线打印开关 打印堆栈 打印线程 日志文件读写 全局异常补货
+ * 日志管理工具类 todo 对应级别上线打印开关 打印堆栈 打印线程 日志文件读写 全局异常补货 json打印
  */
 public class LogUtils {
     private static String logDir; // SDCard/包名/log/
@@ -62,7 +61,7 @@ public class LogUtils {
      * 自定义Log路径
      */
     public static String getLogDir() {
-        //logDir = AppInfo.get().getResDir() + "log" + File.separator;
+        //logDir = AppInfo.getInstance().getResDir() + "log" + File.separator;
         logDir = "";
         FileUtils.createOrExistsDir(logDir); // 并创建
         return logDir;
