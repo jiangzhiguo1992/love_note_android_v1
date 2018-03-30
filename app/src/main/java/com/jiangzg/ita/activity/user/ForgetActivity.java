@@ -18,9 +18,11 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
+import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
@@ -179,7 +181,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         User user = User.getForgetBody(phone, pwd, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
-        MaterialDialog loading = getLoading("", true);
+        MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -187,7 +189,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
                 stopTimer();
                 User user = data.getUser();
                 SPHelper.setUser(user);
-                HomeActivity.goActivity(mActivity);
+                ApiHelper.postEntry(mActivity);
             }
 
             @Override

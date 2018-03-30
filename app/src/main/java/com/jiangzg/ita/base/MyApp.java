@@ -12,6 +12,7 @@ import com.jiangzg.ita.view.GImageView;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import butterknife.ButterKnife;
 
@@ -25,16 +26,17 @@ public class MyApp extends AppBase {
 
     private Handler mainHandler; // 主线程handler
     private ExecutorService threadPool; // 缓冲线程池
+    //private ScheduledExecutorService schedule; // 定时线程池
 
     @Override
     public void onCreate() {
         super.onCreate();
-        LogUtils.initApp();
+        LogUtils.initApp(DEBUG);
         AppListener.initApp(this);
         ActivityStack.initApp();
         CleanHelper.initApp();
 
-        ButterKnife.setDebug(true);
+        ButterKnife.setDebug(DEBUG);
         GImageView.init(this);
         //AnalyUtils.initApp();
     }
@@ -56,5 +58,12 @@ public class MyApp extends AppBase {
         }
         return threadPool;
     }
+
+    //public ScheduledExecutorService getSchedule() {
+    //    if (null == schedule) {
+    //        schedule = Executors.newScheduledThreadPool(1);
+    //    }
+    //    return schedule;
+    //}
 
 }

@@ -214,6 +214,7 @@ public class SPHelper {
         return noCouple(couple);
     }
 
+    // todo status重构
     public static boolean noCouple(Couple couple) {
         return couple == null || couple.getId() <= 0
                 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0

@@ -87,7 +87,7 @@ public class AppInfo {
     }
 
     public String getSHA1() {
-        LogUtils.d(LOG_TAG, "getSHA1-->" + SHA1);
+        LogUtils.d(LOG_TAG, "getSHA1: " + SHA1);
         return SHA1;
     }
 
@@ -96,7 +96,7 @@ public class AppInfo {
     }
 
     public Signature[] getSignature() {
-        LogUtils.d(LOG_TAG, "getSignature-->" + Arrays.toString(signature));
+        LogUtils.d(LOG_TAG, "getSignature: " + Arrays.toString(signature));
         return signature;
     }
 
@@ -113,7 +113,7 @@ public class AppInfo {
     }
 
     public String getPackageName() {
-        LogUtils.d(LOG_TAG, "getPackageName-->" + packageName);
+        LogUtils.d(LOG_TAG, "getPackageName: " + packageName);
         return packageName;
     }
 
@@ -122,7 +122,7 @@ public class AppInfo {
     }
 
     public String getPackagePath() {
-        LogUtils.d(LOG_TAG, "getPackagePath-->" + packagePath);
+        LogUtils.d(LOG_TAG, "getPackagePath: " + packagePath);
         return packagePath;
     }
 
@@ -131,7 +131,7 @@ public class AppInfo {
     }
 
     public boolean isSystem() {
-        LogUtils.d(LOG_TAG, "isSystem-->" + isSystem);
+        LogUtils.d(LOG_TAG, "isSystem: " + isSystem);
         return isSystem;
     }
 
@@ -140,7 +140,7 @@ public class AppInfo {
     }
 
     public String getName() {
-        LogUtils.d(LOG_TAG, "getName-->" + name);
+        LogUtils.d(LOG_TAG, "getName: " + name);
         return name;
     }
 
@@ -149,7 +149,7 @@ public class AppInfo {
     }
 
     public int getVersionCode() {
-        LogUtils.d(LOG_TAG, "getVersionCode-->" + versionCode);
+        LogUtils.d(LOG_TAG, "getVersionCode: " + versionCode);
         return versionCode;
     }
 
@@ -158,26 +158,26 @@ public class AppInfo {
     }
 
     public String getVersionName() {
-        LogUtils.d(LOG_TAG, "getVersionName-->" + versionName);
+        LogUtils.d(LOG_TAG, "getVersionNam: " + versionName);
         return versionName;
     }
 
     @SuppressLint("MissingPermission")
     public String getAppFilesDir() {
         if (!StringUtils.isEmpty(appFilesDir)) {
-            LogUtils.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
+            LogUtils.d(LOG_TAG, "getAppFilesDir: " + appFilesDir);
             return appFilesDir;
         }
         File filesDir = AppBase.getInstance().getFilesDir();
         appFilesDir = filesDir.getAbsolutePath();
-        LogUtils.d(LOG_TAG, "getAppFilesDir-->" + appFilesDir);
+        LogUtils.d(LOG_TAG, "getAppFilesDir: " + appFilesDir);
         return appFilesDir;
     }
 
     @SuppressLint("MissingPermission")
     public String getAppCacheDir() {
         if (!StringUtils.isEmpty(appCacheDir)) {
-            LogUtils.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
+            LogUtils.d(LOG_TAG, "getAppCacheDir: " + appCacheDir);
             return appCacheDir;
         }
         File cacheDir = AppBase.getInstance().getCacheDir();
@@ -189,7 +189,7 @@ public class AppInfo {
     @SuppressLint("MissingPermission")
     public String getResFilesDir() {
         if (!StringUtils.isEmpty(resFilesDir)) {
-            LogUtils.d(LOG_TAG, "getResFilesDir-->" + resFilesDir);
+            LogUtils.d(LOG_TAG, "getResFilesDir: " + resFilesDir);
             return resFilesDir;
         }
         File externalFilesDir = AppBase.getInstance().getExternalFilesDir("");
@@ -199,14 +199,14 @@ public class AppInfo {
             resFilesDir = getRealSDCardPath() + packageName + "/files/";
             FileUtils.createOrExistsDir(resFilesDir); // 并创建
         }
-        LogUtils.d(LOG_TAG, "getResFilesDir-->" + resFilesDir);
+        LogUtils.d(LOG_TAG, "getResFilesDir: " + resFilesDir);
         return resFilesDir;
     }
 
     @SuppressLint("MissingPermission")
     public String getResCacheDir() {
         if (!StringUtils.isEmpty(resCacheDir)) {
-            LogUtils.d(LOG_TAG, "getResCacheDir-->" + resCacheDir);
+            LogUtils.d(LOG_TAG, "getResCacheDir: " + resCacheDir);
             return resCacheDir;
         }
         File externalCacheDir = AppBase.getInstance().getExternalCacheDir();
@@ -216,7 +216,7 @@ public class AppInfo {
             resCacheDir = getRealSDCardPath() + packageName + "/cache/";
             FileUtils.createOrExistsDir(resCacheDir); // 并创建
         }
-        LogUtils.d(LOG_TAG, "getResCacheDir-->" + resCacheDir);
+        LogUtils.d(LOG_TAG, "getResCacheDir: " + resCacheDir);
         return resCacheDir;
     }
 

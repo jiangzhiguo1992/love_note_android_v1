@@ -18,7 +18,7 @@ public class LogUtils {
     private static String logDir; // SDCard/包名/log/
     private static String LOG_TAG_PREFIX = ">";
 
-    public static void initApp() {
+    public static void initApp(boolean debug) {
         LOG_TAG_PREFIX = "<" + AppInfo.get().getName() + ">";
     }
 

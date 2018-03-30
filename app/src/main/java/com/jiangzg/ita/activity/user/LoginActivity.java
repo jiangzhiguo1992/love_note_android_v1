@@ -26,7 +26,6 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.WebActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
@@ -272,35 +271,14 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         User user = User.getLoginBody(phone, password, code, logType);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
-        MaterialDialog loading = getLoading("", true);
+        MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 stopTimer();
                 User user = data.getUser();
                 SPHelper.setUser(user);
-                SPHelper.setCouple(user.getCouple());
-                // 跳转
-                postEntry();
-            }
-
-            @Override
-            public void onFailure() {
-            }
-        });
-    }
-
-    private void postEntry() {
-        Entry entry = Entry.getEntry();
-        Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (code == Result.ResultCodeNoUserInfo) {
-                    UserInfoActivity.goActivity(mActivity);
-                } else {
-                    ApiHelper.onEntryFinish(mActivity, code, data);
-                }
+                ApiHelper.postEntry(mActivity);
             }
 
             @Override

@@ -195,7 +195,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         User user = User.getRegisterBody(phone, pwd, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userRegister(user);
-        MaterialDialog loading = getLoading("", true);
+        MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -204,6 +204,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 User user = data.getUser();
                 SPHelper.setUser(user);
                 if (code == Result.ResultCodeNoUserInfo) {
+                    // 一般是会进到这个页面，不排除以后后台会控制
                     UserInfoActivity.goActivity(mActivity);
                 } else {
                     ApiHelper.onEntryFinish(mActivity, code, data);

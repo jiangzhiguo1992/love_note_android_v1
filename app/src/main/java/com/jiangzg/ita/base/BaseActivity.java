@@ -75,6 +75,10 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         return getLoading(msg, cancelable, null);
     }
 
+    public MaterialDialog getLoading(boolean cancelable) {
+        return getLoading("", cancelable, null);
+    }
+
     public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
         if (StringUtils.isEmpty(msg)) {
             msg = getString(R.string.please_wait);

@@ -19,12 +19,12 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
@@ -58,8 +58,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     GNumberPicker npDay;
     @BindView(R.id.btnOk)
     Button btnOk;
-
-    //private boolean autoFinish = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
@@ -139,14 +137,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         }
     }
 
-    //@Override
-    //protected void onStop() {
-    //    super.onStop();
-    //    if (autoFinish) {
-    //        finish();
-    //    }
-    //}
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
@@ -216,14 +206,13 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         User user = User.getInfoBody(sex, birth);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
-        MaterialDialog loading = getLoading("", true);
+        MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                //autoFinish = true;
                 User user = data.getUser();
                 SPHelper.setUser(user);
-                HomeActivity.goActivity(mActivity);
+                ApiHelper.postEntry(mActivity);
             }
 
             @Override
