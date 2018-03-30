@@ -3,11 +3,12 @@ package com.jiangzg.base.media;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.ArrayMap;
 
-import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.common.LogUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class MediaUtils {
     /**
      * 获取设备里的所有图片信息
      */
-    public static List<Map<String, String>> getImage() {
+    public static List<Map<String, String>> getImageList() {
         String[] projection = {MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.TITLE,
@@ -37,7 +38,7 @@ public class MediaUtils {
     /**
      * 获取设备里的所有音频信息
      */
-    public static List<Map<String, String>> getAudio() {
+    public static List<Map<String, String>> getAudioList() {
         String[] projection = {MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.DISPLAY_NAME,
                 MediaStore.Audio.Media.TITLE,
@@ -53,7 +54,7 @@ public class MediaUtils {
     /**
      * 获取设备里的所有视频信息
      */
-    public static List<Map<String, String>> getVideo() {
+    public static List<Map<String, String>> getVideoList() {
         String[] projection = {MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.DISPLAY_NAME,
                 MediaStore.Video.Media.TITLE,
@@ -77,13 +78,16 @@ public class MediaUtils {
                                                               String[] selectionArgs,
                                                               String orderBy) {
         List<Map<String, String>> list = new ArrayList<>();
-        Cursor cursor = AppContext.get().getContentResolver()
+        Cursor cursor = AppBase.get().getContentResolver()
                 .query(uri, projection, selection, selectionArgs, orderBy);
         if (null == cursor) return list;
         while (cursor.moveToNext()) {
-            HashMap<String, String> map = new HashMap<>();
+            Map<String, String> map = new ArrayMap<>();
             for (int i = 0; i < projection.length; i++) {
-                map.put(projection[i], cursor.getString(i));
+                String key = projection[i];
+                String value = cursor.getString(i);
+                LogUtils.d(LOG_TAG, "getProviderColumn: key = " + key + " | value = " + value);
+                map.put(key, value);
             }
             list.add(map);
         }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,9 +13,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.TextView;
 
-import com.jiangzg.base.media.image.DrawableUtils;
 import com.jiangzg.ita.R;
 
 /**
@@ -61,11 +62,20 @@ public class ViewHelper {
      * 边图
      */
     public static void setDrawables(TextView textView, int leftId, int topId, int rightId, int bottomId) {
-        Drawable left = DrawableUtils.getDrawable(textView.getContext(), leftId);
-        Drawable top = DrawableUtils.getDrawable(textView.getContext(), topId);
-        Drawable right = DrawableUtils.getDrawable(textView.getContext(), rightId);
-        Drawable bottom = DrawableUtils.getDrawable(textView.getContext(), bottomId);
+        Drawable left = getDrawable(textView.getContext(), leftId);
+        Drawable top = getDrawable(textView.getContext(), topId);
+        Drawable right = getDrawable(textView.getContext(), rightId);
+        Drawable bottom = getDrawable(textView.getContext(), bottomId);
         textView.setCompoundDrawables(left, top, right, bottom);
+    }
+
+    /**
+     * textView.setCompoundDrawables(null, null, null, null);
+     */
+    public static Drawable getDrawable(Context context, int draResId) {
+        Drawable icon = ContextCompat.getDrawable(context, draResId);
+        icon.setBounds(0, 0, icon.getMinimumWidth(), icon.getMinimumHeight());
+        return icon;
     }
 
     /**
@@ -113,6 +123,16 @@ public class ViewHelper {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorControlNormal, typedValue, true);
         return typedValue.resourceId;
+    }
+
+    /**
+     * 剪切view , 还有设置四大属性的方法，太多了 不封装了
+     */
+    public static void clipView(View view, ViewOutlineProvider provider) {
+        // 设置Outline , provider在外部自己实现
+        view.setOutlineProvider(provider);
+        // 剔除Outline以外的view ,可以起裁剪作用
+        view.setClipToOutline(true);
     }
 
 }

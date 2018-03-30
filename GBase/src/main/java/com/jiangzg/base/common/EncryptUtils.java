@@ -1,17 +1,19 @@
 package com.jiangzg.base.common;
 
-import com.jiangzg.base.file.FileUtils;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
 import static com.jiangzg.base.common.ConvertUtils.bytes2HexString;
@@ -96,6 +98,10 @@ public class EncryptUtils {
      * @return 16进制加盐密文
      */
     public static String encryptMD5ToString(byte[] data, byte[] salt) {
+        if (data == null || data.length <= 0 || salt == null || salt.length <= 0) {
+            LogUtils.w(LOG_TAG, "encryptMD5ToString: data/salt == null");
+            return "";
+        }
         byte[] dataSalt = new byte[data.length + salt.length];
         System.arraycopy(data, 0, dataSalt, 0, data.length);
         System.arraycopy(salt, 0, dataSalt, data.length, salt.length);
@@ -149,6 +155,10 @@ public class EncryptUtils {
      * @return 文件的MD5校验码
      */
     public static byte[] encryptMD5File(File file) {
+        if (file == null) {
+            LogUtils.w(LOG_TAG, "encryptMD5File: file == null");
+            return new byte[0];
+        }
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(file);
@@ -158,11 +168,11 @@ public class EncryptUtils {
             md.update(buffer);
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
-            e.printStackTrace();
+            LogUtils.e(LOG_TAG, "", e);
         } finally {
             FileUtils.closeIO(fis);
         }
-        return null;
+        return new byte[0];
     }
 
     /**
@@ -323,13 +333,16 @@ public class EncryptUtils {
      * @return 密文字节数组
      */
     private static byte[] encryptAlgorithm(byte[] data, String algorithm) {
-        if (data == null || data.length <= 0) return null;
+        if (data == null || data.length <= 0) {
+            LogUtils.w(LOG_TAG, "encryptAlgorithm: data == null");
+            return new byte[]{};
+        }
         try {
             MessageDigest md = MessageDigest.getInstance(algorithm);
             md.update(data);
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LogUtils.e(LOG_TAG, "encryptAlgorithm", e);
         }
         return new byte[0];
     }
@@ -359,10 +372,11 @@ public class EncryptUtils {
             SecureRandom random = new SecureRandom();
             cipher.init(isEncrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, keySpec, random);
             return cipher.doFinal(data);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException
+                | BadPaddingException | IllegalBlockSizeException e) {
+            LogUtils.e(LOG_TAG, "DESTemplet", e);
         }
-        return null;
+        return new byte[0];
     }
 
     /**

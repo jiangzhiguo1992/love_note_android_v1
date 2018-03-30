@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.function.ContactUtils;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.system.ContactUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseFragment;
@@ -173,7 +173,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == ConsHelper.REQUEST_CONTACT) {
-            String select = ContactUtils.getContactSelect(data);
+            String select = ContactUtils.getContactFromIntentSelect(data);
             etPhone.setText(select);
         }
     }
@@ -254,7 +254,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     }
 
     private void selectContact() {
-        Intent contacts = IntentUtils.getContacts();
+        Intent contacts = IntentSend.getContacts();
         ActivityTrans.startResult(mFragment, contacts, ConsHelper.REQUEST_CONTACT);
     }
 

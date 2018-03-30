@@ -14,10 +14,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.function.PermUtils;
-import com.jiangzg.base.media.image.BitmapMedia;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.media.MediaBitmap;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
@@ -130,7 +130,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
             ivImage.setVisibility(View.VISIBLE);
-            pictureFile = BitmapMedia.getPictureFile(data);
+            pictureFile = MediaBitmap.getPictureFile(data);
             ivImage.setDataFile(pictureFile);
         }
     }
@@ -155,7 +155,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentUtils.getPicture();
+                Intent picture = IntentSend.getPicture();
                 ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
             }
 

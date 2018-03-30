@@ -2,10 +2,9 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 

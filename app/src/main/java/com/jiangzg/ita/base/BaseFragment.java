@@ -156,21 +156,19 @@ public abstract class BaseFragment<T> extends Fragment {
     /* 过渡动画 */
     private void initTransAnim(Fragment fragment) {
         // 只要进的动画就好，出的有时候执行不完全会bug
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            TransitionSet trans = new TransitionSet();
-            trans.setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .addTransition(new Fade(Fade.OUT))
-                    //.addTransition(new Slide(Gravity.START))
-                    .addTransition(new ChangeBounds())
-                    .addTransition(new Fade(Fade.IN));
-            //.addTransition(new Slide(Gravity.END));
-            // 压栈
-            fragment.setEnterTransition(trans);
-            // fragment.setExitTransition(trans);
-            // 弹栈
-            fragment.setReenterTransition(trans);
-            // fragment.setReturnTransition(trans);
-        }
+        TransitionSet trans = new TransitionSet();
+        trans.setOrdering(TransitionSet.ORDERING_TOGETHER)
+                .addTransition(new Fade(Fade.OUT))
+                //.addTransition(new Slide(Gravity.START))
+                .addTransition(new ChangeBounds())
+                .addTransition(new Fade(Fade.IN));
+        //.addTransition(new Slide(Gravity.END));
+        // 压栈
+        fragment.setEnterTransition(trans);
+        // fragment.setExitTransition(trans);
+        // 弹栈
+        fragment.setReenterTransition(trans);
+        // fragment.setReturnTransition(trans);
     }
 
 }

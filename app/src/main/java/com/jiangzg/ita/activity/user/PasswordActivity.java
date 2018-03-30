@@ -10,13 +10,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
@@ -99,7 +99,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 User user = data.getUser();
-                PrefHelper.setUser(user);
+                SPHelper.setUser(user);
                 mActivity.finish();
             }
 

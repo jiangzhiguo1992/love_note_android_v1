@@ -39,7 +39,7 @@ import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.component.application.AppListener;
+import com.jiangzg.base.application.AppListener;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.ConvertHelper;

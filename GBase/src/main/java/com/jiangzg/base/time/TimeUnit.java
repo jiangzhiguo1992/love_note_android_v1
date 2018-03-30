@@ -1,8 +1,7 @@
 package com.jiangzg.base.time;
 
-import android.util.Log;
-
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 
 import java.util.Calendar;
@@ -15,13 +14,6 @@ public class TimeUnit {
 
     private static final String LOG_TAG = "TimeUnit";
 
-    public static final int TYPE_SECOND = 1;
-    public static final int TYPE_MINUTE = 2;
-    public static final int TYPE_HOUR = 3;
-    public static final int TYPE_DAY = 4;
-    public static final int TYPE_MONTH = 5;
-    public static final int TYPE_YEAR = 6;
-
     private int year;
     private int month;
     private int day;
@@ -29,8 +21,8 @@ public class TimeUnit {
     private int minute;
     private int second;
 
-    public static TimeUnit get(long time) {
-        Calendar c = DateUtils.getCalendar(time);
+    public static TimeUnit getByDate(long date) {
+        Calendar c = DateUtils.getCalendar(date);
         TimeUnit unit = new TimeUnit();
         unit.setYear(c.get(Calendar.YEAR));
         unit.setMonth(c.get(Calendar.MONTH));
@@ -38,12 +30,12 @@ public class TimeUnit {
         unit.setHour(c.get(Calendar.HOUR));
         unit.setMinute(c.get(Calendar.MINUTE));
         unit.setSecond(c.get(Calendar.SECOND));
-        Log.d(LOG_TAG, unit.toString());
+        LogUtils.i(LOG_TAG, unit.toString());
         return unit;
     }
 
     /* between是时间间隔 */
-    public static TimeUnit getBetween(long between) {
+    public static TimeUnit getByBetween(long between) {
         TimeUnit unit = new TimeUnit();
         // year
         int year = (int) (between / ConstantUtils.YEAR);
@@ -101,28 +93,29 @@ public class TimeUnit {
             second = (int) (between / ConstantUtils.SEC);
         }
         unit.setSecond(second);
-        Log.d(LOG_TAG, unit.toString());
+        LogUtils.i(LOG_TAG, unit.toString());
         return unit;
     }
 
     /**
      * 获取时间单位 eg: 1分钟，1小时，1天
      */
-    public int getUnitType() {
-        if (year > 0) return TYPE_YEAR;
-        if (month > 0) return TYPE_MONTH;
-        if (day > 0) return TYPE_DAY;
-        if (hour > 0) return TYPE_HOUR;
-        if (minute > 0) return TYPE_MINUTE;
-        if (second > 0) return TYPE_SECOND;
-        return TYPE_SECOND;
+    public ConstantUtils.TimeUnit getUnitType() {
+        if (year > 0) return ConstantUtils.TimeUnit.YEAR;
+        if (month > 0) return ConstantUtils.TimeUnit.MONTH;
+        if (day > 0) return ConstantUtils.TimeUnit.DAY;
+        if (hour > 0) return ConstantUtils.TimeUnit.HOUR;
+        if (minute > 0) return ConstantUtils.TimeUnit.MIN;
+        if (second > 0) return ConstantUtils.TimeUnit.SEC;
+        return ConstantUtils.TimeUnit.MSEC;
     }
 
     /**
-     * 获取时间的所有单位
+     * 获取所有有效时间的显示
      */
-    public String getUnitFull(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
-                              String yearShow, String monthShow, String dayShow, String hourShow, String minuteShow, String secondShow) {
+    public String getAllShow(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
+                             String yearShow, String monthShow, String dayShow,
+                             String hourShow, String minuteShow, String secondShow) {
         String yea = "";
         if (year > 0 && y) {
             yea = year + yearShow;
@@ -148,6 +141,45 @@ public class TimeUnit {
             sec = second + secondShow;
         }
         return yea + mon + day + hou + min + sec;
+    }
+
+    /**
+     * 获取最大有效时间的显示
+     */
+    public String getMaxShow(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
+                             String yearShow, String monthShow, String dayShow,
+                             String hourShow, String minuteShow, String secondShow) {
+        String yea = "";
+        if (year > 0 && y) {
+            yea = year + yearShow;
+            return yea;
+        }
+        String mon = "";
+        if (!StringUtils.isEmpty(yea) || (month > 0 && mo)) {
+            mon = month + monthShow;
+            return mon;
+        }
+        String day = "";
+        if (!StringUtils.isEmpty(mon) || (this.day > 0 && d)) {
+            day = this.day + dayShow;
+            return day;
+        }
+        String hou = "";
+        if (!StringUtils.isEmpty(hou) || (hour > 0 && h)) {
+            hou = hour + hourShow;
+            return hou;
+        }
+        String min = "";
+        if (!StringUtils.isEmpty(hou) || (minute > 0 && mi)) {
+            min = minute + minuteShow;
+            return min;
+        }
+        String sec = "";
+        if (!StringUtils.isEmpty(hou) || (second > 0 && s)) {
+            sec = second + secondShow;
+            return sec;
+        }
+        return "";
     }
 
     @Override

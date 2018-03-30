@@ -3,15 +3,14 @@ package com.jiangzg.ita.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
-import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.CommonFragmentPagerAdapter;
@@ -162,7 +161,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             pagerAdapter.removeData(0);
         }
         // 这里之后fragmentList的size是3
-        // todo if (PrefHelper.noCouple()) {
+        // todo if (SPHelper.noCouple()) {
         if (false) {
             pagerAdapter.addData(0, null, PairFragment.newFragment());
         } else {

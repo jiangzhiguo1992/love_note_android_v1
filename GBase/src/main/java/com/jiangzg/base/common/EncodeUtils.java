@@ -36,11 +36,16 @@ public class EncodeUtils {
      * @return 编码为字符集的字符串
      */
     public static String urlEncode(String input, String charset) {
+        if (StringUtils.isEmpty(input)) {
+            LogUtils.w(LOG_TAG, "urlEncode: input == null");
+            return "";
+        }
         try {
             return URLEncoder.encode(input, charset);
         } catch (UnsupportedEncodingException e) {
-            return input;
+            LogUtils.e(LOG_TAG, "urlEncode", e);
         }
+        return input;
     }
 
     /**
@@ -63,11 +68,16 @@ public class EncodeUtils {
      * @return URL解码为指定字符集的字符串
      */
     public static String urlDecode(String input, String charset) {
+        if (StringUtils.isEmpty(input)) {
+            LogUtils.w(LOG_TAG, "urlDecode: input == null");
+            return "";
+        }
         try {
             return URLDecoder.decode(input, charset);
         } catch (UnsupportedEncodingException e) {
-            return input;
+            LogUtils.e(LOG_TAG, "urlDecode", e);
         }
+        return input;
     }
 
     /**
@@ -87,6 +97,10 @@ public class EncodeUtils {
      * @return Base64编码后的字符串
      */
     public static byte[] base64Encode(byte[] input) {
+        if (input == null || input.length <= 0) {
+            LogUtils.w(LOG_TAG, "base64Encode: input == null");
+            return new byte[]{};
+        }
         return Base64.encode(input, Base64.NO_WRAP);
     }
 
@@ -97,6 +111,10 @@ public class EncodeUtils {
      * @return Base64编码后的字符串
      */
     public static String base64Encode2String(byte[] input) {
+        if (input == null || input.length <= 0) {
+            LogUtils.w(LOG_TAG, "base64Encode2String: input == null");
+            return "";
+        }
         return Base64.encodeToString(input, Base64.NO_WRAP);
     }
 
@@ -107,6 +125,10 @@ public class EncodeUtils {
      * @return Base64解码后的字符串
      */
     public static byte[] base64Decode(String input) {
+        if (StringUtils.isEmpty(input)) {
+            LogUtils.w(LOG_TAG, "base64Decode: input == null");
+            return new byte[]{};
+        }
         return Base64.decode(input, Base64.NO_WRAP);
     }
 
@@ -117,6 +139,10 @@ public class EncodeUtils {
      * @return Base64解码后的字符串
      */
     public static byte[] base64Decode(byte[] input) {
+        if (input == null || input.length <= 0) {
+            LogUtils.w(LOG_TAG, "base64Decode: input == null");
+            return new byte[]{};
+        }
         return Base64.decode(input, Base64.NO_WRAP);
     }
 
@@ -128,6 +154,10 @@ public class EncodeUtils {
      * @return Base64URL安全编码后的字符串
      */
     public static byte[] base64UrlSafeEncode(String input) {
+        if (StringUtils.isEmpty(input)) {
+            LogUtils.w(LOG_TAG, "base64UrlSafeEncode: input == null");
+            return new byte[]{};
+        }
         return Base64.encode(input.getBytes(), Base64.URL_SAFE);
     }
 
@@ -138,6 +168,10 @@ public class EncodeUtils {
      * @return Html编码后的字符串
      */
     public static String htmlEncode(String input) {
+        if (StringUtils.isEmpty(input)) {
+            LogUtils.w(LOG_TAG, "htmlEncode: input == null");
+            return "";
+        }
         //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         return Html.escapeHtml(input);
         //} else {
@@ -183,6 +217,10 @@ public class EncodeUtils {
      * @return Html解码后的字符串
      */
     public static String htmlDecode(String input) {
+        if (StringUtils.isEmpty(input)) {
+            LogUtils.w(LOG_TAG, "htmlDecode: input == null");
+            return "";
+        }
         return Html.fromHtml(input).toString();
     }
 

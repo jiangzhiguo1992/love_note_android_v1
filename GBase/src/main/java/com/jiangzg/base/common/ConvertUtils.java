@@ -19,8 +19,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 
-import com.jiangzg.base.component.application.AppContext;
-import com.jiangzg.base.file.FileUtils;
+import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.view.ToastUtils;
 
 import java.io.ByteArrayInputStream;
@@ -39,24 +38,14 @@ import java.util.Locale;
 public class ConvertUtils {
 
     private static final String LOG_TAG = "ConvertUtils";
+    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
-     * file转uri（拍照时调用）
+     * uri转file
      */
-    public static Uri File2URI(File file) {
-        if (file == null) {
-            Log.e(LOG_TAG, "File2URI: file == null");
-            return null;
-        }
-        return Uri.fromFile(file);
-    }
-
-    /**
-     * uri转file（相册返回调用）
-     */
-    public static File URI2File(Uri uri) {
+    public static File Uri2File(Uri uri) {
         if (uri == null) {
-            Log.e(LOG_TAG, "URI2File: uri == null");
+            Log.w(LOG_TAG, "Uri2File: uri == null");
             return null;
         }
         String[] project = new String[]{MediaStore.Images.ImageColumns.DATA}; // 字段名
@@ -64,7 +53,7 @@ public class ConvertUtils {
         String data = null;
         if (scheme == null) {
             data = uri.getPath();
-        } else if (DocumentsContract.isDocumentUri(AppContext.get(), uri)) { // KITKAT
+        } else if (DocumentsContract.isDocumentUri(AppBase.get(), uri)) { // KITKAT
             String docId = DocumentsContract.getDocumentId(uri);
             String[] split = docId.split(":");
             String type = split[0];
@@ -109,7 +98,7 @@ public class ConvertUtils {
 
     private static String getProviderColumnTop(Uri uri, String[] projection, String selection,
                                                String[] selectionArgs, String orderBy) {
-        Cursor cursor = AppContext.get().getContentResolver()
+        Cursor cursor = AppBase.get().getContentResolver()
                 .query(uri, projection, selection, selectionArgs, orderBy);
 
         if (cursor != null && cursor.moveToFirst()) {
@@ -120,7 +109,13 @@ public class ConvertUtils {
         return null;
     }
 
-    private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    public static Uri file2Uri(File file) {
+        if (!FileUtils.isFileExists(file)) {
+            LogUtils.w(LOG_TAG, "file2Uri: file == null");
+            return null;
+        }
+        return Uri.fromFile(file);
+    }
 
     /**
      * byteArr转hexString
@@ -132,8 +127,8 @@ public class ConvertUtils {
      */
     public static String bytes2HexString(byte[] bytes) {
         if (bytes == null || bytes.length <= 0) {
-            Log.e(LOG_TAG, "bytes2HexString: bytes == null || bytes.length <= 0");
-            return null;
+            LogUtils.w(LOG_TAG, "bytes2HexString: bytes == null || bytes.length <= 0");
+            return "";
         }
         int len = bytes.length;
         char[] ret = new char[len << 1];
@@ -154,12 +149,12 @@ public class ConvertUtils {
      */
     public static byte[] hexString2Bytes(String hexString) {
         if (StringUtils.isEmpty(hexString)) {
-            Log.e(LOG_TAG, "hexString2Bytes: hexString == null");
-            return null;
+            LogUtils.w(LOG_TAG, "hexString2Bytes: hexString == null");
+            return new byte[]{};
         }
         int len = hexString.length();
         if (len % 2 != 0) {
-            throw new IllegalArgumentException("长度不是偶数");
+            LogUtils.e(LOG_TAG, "hexString2Bytes", new IllegalArgumentException("长度不是偶数"));
         }
         char[] hexBytes = hexString.toUpperCase().toCharArray();
         byte[] ret = new byte[len >>> 1];
@@ -181,7 +176,7 @@ public class ConvertUtils {
         } else if (hexChar >= 'A' && hexChar <= 'F') {
             return hexChar - 'A' + 10;
         } else {
-            throw new IllegalArgumentException();
+            return 0;
         }
     }
 
@@ -192,9 +187,9 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] chars2Bytes(char[] chars) {
-        if (chars == null) {
-            Log.e(LOG_TAG, "chars2Bytes: chars == null");
-            return null;
+        if (chars == null || chars.length <= 0) {
+            LogUtils.w(LOG_TAG, "chars2Bytes: chars == null");
+            return new byte[]{};
         }
         int len = chars.length;
         byte[] bytes = new byte[len];
@@ -211,9 +206,9 @@ public class ConvertUtils {
      * @return 字符数组
      */
     public static char[] bytes2Chars(byte[] bytes) {
-        if (bytes == null) {
-            Log.e(LOG_TAG, "bytes2Chars: bytes == null");
-            return null;
+        if (bytes == null || bytes.length <= 0) {
+            LogUtils.w(LOG_TAG, "bytes2Chars: bytes == null");
+            return new char[]{};
         }
         int len = bytes.length;
         char[] chars = new char[len];
@@ -227,7 +222,6 @@ public class ConvertUtils {
      * 字节数转以unit为单位的size
      */
     public static double byte2Size(long byteNum, ConstantUtils.MemoryUnit unit) {
-        if (byteNum < 0) return -1;
         switch (unit) {
             default:
             case BYTE:
@@ -247,7 +241,6 @@ public class ConvertUtils {
      * @param size 大小
      */
     public static long size2Byte(long size, ConstantUtils.MemoryUnit unit) {
-        if (size < 0) return -1;
         switch (unit) {
             default:
             case BYTE:
@@ -270,7 +263,7 @@ public class ConvertUtils {
      */
     public static String byte2FitSize(long byteNum) {
         if (byteNum < 0) {
-            return "shouldn't be less than zero!";
+            return "";
         } else if (byteNum < ConstantUtils.KB) {
             return String.format(Locale.getDefault(), "%.3fB", (double) byteNum);
         } else if (byteNum < ConstantUtils.MB) {
@@ -290,7 +283,7 @@ public class ConvertUtils {
      */
     public static ByteArrayOutputStream input2OutputStream(InputStream is) {
         if (is == null) {
-            Log.e(LOG_TAG, "input2OutputStream: is == null");
+            LogUtils.w(LOG_TAG, "input2OutputStream: is == null");
             return null;
         }
         try {
@@ -302,11 +295,11 @@ public class ConvertUtils {
             }
             return os;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            LogUtils.e(LOG_TAG, "input2OutputStream", e);
         } finally {
             FileUtils.closeIO(is);
         }
+        return null;
     }
 
     /**
@@ -317,7 +310,7 @@ public class ConvertUtils {
      */
     public ByteArrayInputStream output2InputStream(OutputStream out) {
         if (out == null) {
-            Log.e(LOG_TAG, "output2InputStream: out == null");
+            LogUtils.w(LOG_TAG, "output2InputStream: out == null");
             return null;
         }
         return new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
@@ -330,6 +323,10 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] inputStream2Bytes(InputStream is) {
+        if (is == null) {
+            LogUtils.w(LOG_TAG, "inputStream2Bytes: is == null");
+            return new byte[]{};
+        }
         ByteArrayOutputStream stream = input2OutputStream(is);
         if (stream == null) {
             return new byte[]{};
@@ -345,7 +342,7 @@ public class ConvertUtils {
      */
     public static InputStream bytes2InputStream(byte[] bytes) {
         if (bytes == null) {
-            Log.e(LOG_TAG, "bytes2InputStream: bytes == null");
+            LogUtils.w(LOG_TAG, "bytes2InputStream: bytes == null");
             return null;
         }
         return new ByteArrayInputStream(bytes);
@@ -358,7 +355,10 @@ public class ConvertUtils {
      * @return 字节数组
      */
     public static byte[] outputStream2Bytes(OutputStream out) {
-        if (out == null) return null;
+        if (out == null) {
+            LogUtils.w(LOG_TAG, "outputStream2Bytes: out == null");
+            return new byte[]{};
+        }
         return ((ByteArrayOutputStream) out).toByteArray();
     }
 
@@ -370,7 +370,7 @@ public class ConvertUtils {
      */
     public static OutputStream bytes2OutputStream(byte[] bytes) {
         if (bytes == null) {
-            Log.e(LOG_TAG, "bytes2OutputStream: bytes == null");
+            LogUtils.w(LOG_TAG, "bytes2OutputStream: bytes == null");
             return null;
         }
         ByteArrayOutputStream os = null;
@@ -379,11 +379,11 @@ public class ConvertUtils {
             os.write(bytes);
             return os;
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            LogUtils.e(LOG_TAG, "bytes2OutputStream", e);
         } finally {
             FileUtils.closeIO(os);
         }
+        return null;
     }
 
     /**
@@ -395,14 +395,14 @@ public class ConvertUtils {
      */
     public static String inputStream2String(InputStream is, String charsetName) {
         if (is == null || TextUtils.isEmpty(charsetName)) {
-            Log.e(LOG_TAG, "inputStream2String: bytes == null");
-            return null;
+            LogUtils.w(LOG_TAG, "inputStream2String: bytes == null");
+            return "";
         }
         try {
             return new String(inputStream2Bytes(is), charsetName);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
+            LogUtils.e(LOG_TAG, "inputStream2String", e);
+            return "";
         }
     }
 
@@ -415,13 +415,13 @@ public class ConvertUtils {
      */
     public static InputStream string2InputStream(String string, String charsetName) {
         if (TextUtils.isEmpty(charsetName)) {
-            Log.e(LOG_TAG, "string2InputStream: charsetName == null");
+            LogUtils.w(LOG_TAG, "string2InputStream: charsetName == null");
             return null;
         }
         try {
             return new ByteArrayInputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LogUtils.e(LOG_TAG, "string2InputStream", e);
             return null;
         }
     }
@@ -435,14 +435,14 @@ public class ConvertUtils {
      */
     public static String outputStream2String(OutputStream out, String charsetName) {
         if (out == null) {
-            Log.e(LOG_TAG, "outputStream2String: out == null");
-            return null;
+            LogUtils.w(LOG_TAG, "outputStream2String: out == null");
+            return "";
         }
         try {
             return new String(outputStream2Bytes(out), charsetName);
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
+            LogUtils.e(LOG_TAG, "outputStream2String", e);
+            return "";
         }
     }
 
@@ -455,13 +455,13 @@ public class ConvertUtils {
      */
     public static OutputStream string2OutputStream(String string, String charsetName) {
         if (StringUtils.isEmpty(string)) {
-            Log.e(LOG_TAG, "string2OutputStream: string == null");
+            LogUtils.w(LOG_TAG, "string2OutputStream: string == null");
             return null;
         }
         try {
             return bytes2OutputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LogUtils.e(LOG_TAG, "string2OutputStream", e);
             return null;
         }
     }
@@ -475,8 +475,8 @@ public class ConvertUtils {
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, Bitmap.CompressFormat format) {
         if (bitmap == null) {
-            Log.e(LOG_TAG, "bitmap2Bytes: bitmap == null");
-            return null;
+            LogUtils.w(LOG_TAG, "bitmap2Bytes: bitmap == null");
+            return new byte[]{};
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(format, 100, baos);
@@ -501,7 +501,7 @@ public class ConvertUtils {
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
         if (drawable == null) {
-            Log.e(LOG_TAG, "drawable2Bitmap: drawable == null");
+            LogUtils.w(LOG_TAG, "drawable2Bitmap: drawable == null");
             return null;
         }
         Bitmap bitmap = Bitmap.createBitmap(
@@ -554,7 +554,7 @@ public class ConvertUtils {
      * @param type eg: TypedValue.COMPLEX_UNIT_DIP
      */
     public static int getpx(int type, float value) {
-        DisplayMetrics metrics = AppContext.get().getResources().getDisplayMetrics();
+        DisplayMetrics metrics = AppBase.get().getResources().getDisplayMetrics();
         return (int) TypedValue.applyDimension(type, value, metrics);
     }
 
@@ -565,7 +565,7 @@ public class ConvertUtils {
      * @return px值
      */
     public static int dp2px(float dpValue) {
-        final float scale = AppContext.get().getResources().getDisplayMetrics().density;
+        final float scale = AppBase.get().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -576,7 +576,7 @@ public class ConvertUtils {
      * @return dp值
      */
     public static int px2dp(float pxValue) {
-        final float scale = AppContext.get().getResources().getDisplayMetrics().density;
+        final float scale = AppBase.get().getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
 
@@ -587,7 +587,7 @@ public class ConvertUtils {
      * @return px值
      */
     public static int sp2px(float spValue) {
-        final float fontScale = AppContext.get().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = AppBase.get().getResources().getDisplayMetrics().scaledDensity;
         return (int) (spValue * fontScale + 0.5f);
     }
 
@@ -598,7 +598,7 @@ public class ConvertUtils {
      * @return sp值
      */
     public static int px2sp(float pxValue) {
-        final float fontScale = AppContext.get().getResources().getDisplayMetrics().scaledDensity;
+        final float fontScale = AppBase.get().getResources().getDisplayMetrics().scaledDensity;
         return (int) (pxValue / fontScale + 0.5f);
     }
 

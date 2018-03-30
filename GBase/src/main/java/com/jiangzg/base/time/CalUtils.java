@@ -1,6 +1,6 @@
 package com.jiangzg.base.time;
 
-import android.util.Log;
+import com.jiangzg.base.common.LogUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,7 +24,7 @@ public class CalUtils {
      */
     public static boolean isSameDay(Calendar c1, Calendar c2) {
         if (c1 == null || c2 == null) {
-            Log.e(LOG_TAG, "isSameDay: c1 == null || c2 == null");
+            LogUtils.w(LOG_TAG, "isSameDay: c1 == null || c2 == null");
             return false;
         }
         boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
@@ -35,11 +35,11 @@ public class CalUtils {
 
     /**
      * ***********************************周******************************
-     * 获取星期 <p>注意：周日的Index才是1，周六为7</p>
+     * 获取星期几 <p>注意：周日的Index才是1，周六为7</p>
      */
     public static int getWeekIndex(Date time) {
         if (time == null) {
-            Log.e(LOG_TAG, "getWeekIndex: time == null");
+            LogUtils.w(LOG_TAG, "getWeekIndex: time == null");
             return 0;
         }
         Calendar cal = Calendar.getInstance();
@@ -48,39 +48,15 @@ public class CalUtils {
     }
 
     /**
-     * 获取星期
+     * 获取星期几
      */
     public static String getWeek(Date time) {
         if (time == null) {
-            Log.e(LOG_TAG, "getWeek: time == null");
+            LogUtils.w(LOG_TAG, "getWeek: time == null");
             return "";
         }
         return new SimpleDateFormat("EEEE", Locale.getDefault()).format(time);
     }
-    //
-    ///**
-    // * 根据Index获取星期
-    // */
-    //public static String getWeek(int index) {
-    //    switch (index) {
-    //        case Calendar.MONDAY:
-    //            return AppContext.get().getString(R.string.day1);
-    //        case Calendar.TUESDAY:
-    //            return AppContext.get().getString(R.string.day2);
-    //        case Calendar.WEDNESDAY:
-    //            return AppContext.get().getString(R.string.day3);
-    //        case Calendar.THURSDAY:
-    //            return AppContext.get().getString(R.string.day4);
-    //        case Calendar.FRIDAY:
-    //            return AppContext.get().getString(R.string.day5);
-    //        case Calendar.SATURDAY:
-    //            return AppContext.get().getString(R.string.day6);
-    //        case Calendar.SUNDAY:
-    //            return AppContext.get().getString(R.string.day7);
-    //        default:
-    //            return "";
-    //    }
-    //}
 
     /**
      * 获取本周第一天的日期
@@ -98,7 +74,7 @@ public class CalUtils {
      */
     public static Calendar getFirstDayOfWeek(Date date) {
         if (date == null) {
-            Log.e(LOG_TAG, "getFirstDayOfWeek: date == null");
+            LogUtils.w(LOG_TAG, "getFirstDayOfWeek: date == null");
             return null;
         }
         Calendar cal = Calendar.getInstance();
@@ -120,7 +96,7 @@ public class CalUtils {
      */
     public static Calendar getFirstDayOfWeek(Date date, int firstDayOfWeek) {
         if (date == null) {
-            Log.e(LOG_TAG, "getFirstDayOfWeek: date == null");
+            LogUtils.w(LOG_TAG, "getFirstDayOfWeek: date == null");
             return null;
         }
         Calendar cal = Calendar.getInstance();
@@ -153,7 +129,7 @@ public class CalUtils {
      */
     public static int getWeekOfMonth(Date time) {
         if (time == null) {
-            Log.e(LOG_TAG, "getWeekOfMonth: time == null");
+            LogUtils.w(LOG_TAG, "getWeekOfMonth: time == null");
             return 0;
         }
         Calendar cal = Calendar.getInstance();
@@ -166,7 +142,7 @@ public class CalUtils {
      */
     public static int getMonthsBetween(Calendar d1, Calendar d2) {
         if (d1 == null || d2 == null) {
-            Log.e(LOG_TAG, "getMonthsBetween: d1 == null || d2 == null");
+            LogUtils.w(LOG_TAG, "getMonthsBetween: d1 == null || d2 == null");
             return 0;
         }
         boolean swaped = false;
@@ -208,11 +184,12 @@ public class CalUtils {
      */
     public static int getWeekOfYear(Date time) {
         if (time == null) {
-            Log.e(LOG_TAG, "getWeekOfYear: time == null");
+            LogUtils.w(LOG_TAG, "getWeekOfYear: time == null");
             return 0;
         }
         Calendar cal = Calendar.getInstance();
         cal.setTime(time);
         return cal.get(Calendar.WEEK_OF_YEAR);
     }
+
 }

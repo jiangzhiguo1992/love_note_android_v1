@@ -1,8 +1,8 @@
 package com.jiangzg.ita.helper;
 
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.application.AppInfo;
-import com.jiangzg.base.file.FileUtils;
+import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.common.FileUtils;
 
 import java.io.File;
 
@@ -11,6 +11,15 @@ import java.io.File;
  * describe 文件管理
  */
 public class ResHelper {
+
+    /**
+     * 获取外存使用情况: getRealSDCardFile().getXXXXSpace()
+     */
+    public static File getRealSDCardFile() {
+        File dir = new File(AppInfo.getRealSDCardPath());
+        FileUtils.createOrExistsDir(dir);
+        return dir;
+    }
 
     public static boolean saveImgToWelcome(File img) {
         String resFilesDir = AppInfo.get().getResFilesDir();

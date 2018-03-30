@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.WebActivity;
@@ -24,7 +24,7 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.ApiHelper;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
@@ -140,6 +140,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
             @Override
             public void onFailure() {
+                mActivity.finish();
             }
         });
     }
@@ -200,7 +201,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 autoFinish = true;
                 stopTimer();
                 User user = data.getUser();
-                PrefHelper.setUser(user);
+                SPHelper.setUser(user);
                 if (code == Result.ResultCodeNoUserInfo) {
                     UserInfoActivity.goActivity(mActivity);
                 } else {

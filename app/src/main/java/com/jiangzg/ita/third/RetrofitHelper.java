@@ -9,11 +9,11 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.application.AppUtils;
-import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.application.AppUtils;
+import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.SuggestAddActivity;
@@ -22,7 +22,7 @@ import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.service.UpdateService;
 
 import java.io.IOException;
@@ -69,7 +69,7 @@ public class RetrofitHelper {
         options.put("platform", "android");
         options.put("sign", ""); // todo
         options.put("app_key", APP_KEY);
-        options.put("access_token", PrefHelper.getUser().getUserToken());
+        options.put("access_token", SPHelper.getUser().getUserToken());
         return options;
     }
 
@@ -98,7 +98,7 @@ public class RetrofitHelper {
      */
     public static void enqueue(final Call<Result> call, final MaterialDialog loading, final CallBack callBack) {
         if (call == null) {
-            LogUtils.e(LOG_TAG, "call == null");
+            LogUtils.w(LOG_TAG, "call == null");
             return;
         }
         if (loading != null) {
@@ -178,7 +178,7 @@ public class RetrofitHelper {
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Intent netSettings = IntentUtils.getNetSettings();
+                                Intent netSettings = IntentSend.getNetSettings();
                                 ActivityTrans.start(top, netSettings);
                             }
                         })
@@ -240,6 +240,7 @@ public class RetrofitHelper {
     }
 
     private static void onFailureCall(Call call, Dialog loading, Throwable t, CallBack callBack) {
+        LogUtils.w(LOG_TAG, t.toString());
         if (loading != null) loading.dismiss();
         Class<? extends Throwable> clz = t.getClass();
         int error;
@@ -249,7 +250,6 @@ public class RetrofitHelper {
             error = R.string.http_error_time;
         } else { // 其他网络错误
             error = R.string.http_error_request;
-            LogUtils.e(LOG_TAG, t.toString());
         }
         ToastUtils.show(error);
         if (callBack != null) callBack.onFailure();
@@ -275,7 +275,7 @@ public class RetrofitHelper {
             } else {
                 body.setCode(Result.ResultCodeToast);
                 body.setMessage(MyApp.get().getString(R.string.err_data_parse));
-                LogUtils.e(LOG_TAG, errorStr);
+                LogUtils.w(LOG_TAG, errorStr);
             }
         }
         return body;
@@ -389,7 +389,7 @@ public class RetrofitHelper {
                         if (log.startsWith("{") || log.startsWith("[")) {
                             LogUtils.i(LOG_TAG, log);
                         } else {
-                            LogUtils.d(LOG_TAG, log);
+                            LogUtils.w(LOG_TAG, log);
                         }
                     }
                 });

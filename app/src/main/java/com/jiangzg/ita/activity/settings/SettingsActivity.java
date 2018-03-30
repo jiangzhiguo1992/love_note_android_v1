@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.application.AppInfo;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.common.SuggestHomeActivity;
@@ -23,7 +23,7 @@ import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.service.UpdateService;
 
@@ -102,15 +102,15 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        boolean onlyWifi = PrefHelper.getSettingsOnlyWifi();
+        boolean onlyWifi = SPHelper.getSettingsOnlyWifi();
         switchWifi.setChecked(onlyWifi);
-        boolean autoDownload = PrefHelper.getSettingsAutoDownload();
+        boolean autoDownload = SPHelper.getSettingsAutoDownload();
         switchDownland.setChecked(autoDownload);
-        boolean noticeSystem = PrefHelper.getSettingsNoticeSystem();
+        boolean noticeSystem = SPHelper.getSettingsNoticeSystem();
         switchSystem.setChecked(noticeSystem);
-        boolean noticeTa = PrefHelper.getSettingsNoticeTa();
+        boolean noticeTa = SPHelper.getSettingsNoticeTa();
         switchTa.setChecked(noticeTa);
-        boolean noticeOther = PrefHelper.getSettingsNoticeOther();
+        boolean noticeOther = SPHelper.getSettingsNoticeOther();
         switchOther.setChecked(noticeOther);
 
         String versionName = String.format(getString(R.string.current_version_colon_holder), AppInfo.get().getVersionName());
@@ -160,7 +160,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.tvRate:
                 // todo
-                //Intent intent = IntentUtils.getMarket();
+                //Intent intent = IntentSend.getMarket();
                 //ActivityTrans.start(mActivity, intent);
                 break;
             case R.id.tvOpen:
@@ -190,8 +190,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        PrefHelper.clearUser();
-                        PrefHelper.clearCouple();
+                        SPHelper.clearUser();
+                        SPHelper.clearCouple();
                         LoginActivity.goActivity(mActivity);
                     }
                 })
@@ -203,19 +203,19 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.switchWifi:
-                PrefHelper.setSettingsOnlyWifi(isChecked);
+                SPHelper.setSettingsOnlyWifi(isChecked);
                 break;
             case R.id.switchDownland:
-                PrefHelper.setSettingsAutoDownload(isChecked);
+                SPHelper.setSettingsAutoDownload(isChecked);
                 break;
             case R.id.switchSystem:
-                PrefHelper.setSettingsNoticeSystem(isChecked);
+                SPHelper.setSettingsNoticeSystem(isChecked);
                 break;
             case R.id.switchTa:
-                PrefHelper.setSettingsNoticeTa(isChecked);
+                SPHelper.setSettingsNoticeTa(isChecked);
                 break;
             case R.id.switchOther:
-                PrefHelper.setSettingsNoticeOther(isChecked);
+                SPHelper.setSettingsNoticeOther(isChecked);
                 break;
         }
     }

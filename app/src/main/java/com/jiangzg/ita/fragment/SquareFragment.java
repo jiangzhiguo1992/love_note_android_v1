@@ -2,13 +2,11 @@ package com.jiangzg.ita.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
-import com.jiangzg.ita.third.LogUtils;
 
 public class SquareFragment extends BasePagerFragment<SquareFragment> {
 

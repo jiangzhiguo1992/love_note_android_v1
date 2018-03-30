@@ -9,6 +9,7 @@ public class ConstantUtils {
     /**
      * ****************************** 时间 **********************************
      */
+    public static final String FORMAT_CHINA_Y_M_D_H_M_S_S = "yyyyMMddHHmmssSSS"; // 一般用于流水号
     public static final String FORMAT_CHINA_Y_M_D_H_M = "yyyy年MM月dd日 HH:mm";
     public static final String FORMAT_LINE_Y_M_D_H_M_S = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_LINE_M_D_H_M = "MM-dd HH:mm";
@@ -65,7 +66,9 @@ public class ConstantUtils {
         SEC,
         MIN,
         HOUR,
-        DAY
+        DAY,
+        MONTH,
+        YEAR,
     }
 
     /**

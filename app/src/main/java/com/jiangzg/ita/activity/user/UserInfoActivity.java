@@ -15,8 +15,8 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
@@ -25,7 +25,7 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
@@ -221,7 +221,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 autoFinish = true;
                 User user = data.getUser();
-                PrefHelper.setUser(user);
+                SPHelper.setUser(user);
                 HomeActivity.goActivity(mActivity);
             }
 

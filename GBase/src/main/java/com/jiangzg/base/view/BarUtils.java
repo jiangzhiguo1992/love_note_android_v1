@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.jiangzg.base.R;
+import com.jiangzg.base.common.LogUtils;
 
 /**
  * Created by gg on 2017/4/19.
@@ -19,17 +20,27 @@ import com.jiangzg.base.R;
  */
 public class BarUtils {
 
+    private static final String LOG_TAG = "BarUtils";
+
     /**
      * 无actionBar, 要在setContentView之前调用
      */
     public static void requestNoTitle(AppCompatActivity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "requestNoTitle: activity == null");
+            return;
+        }
         activity.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
     }
 
     /**
-     * 隐藏状态栏 , 也就是设置全屏，一定要在setContentView之前调用，否则报错
+     * 隐藏状态栏 , 也就是设置全屏(不同于沉浸式)，一定要在setContentView之前调用，否则报错
      */
-    public static void hideStatusBar(Activity activity) {
+    public static void setStatusHide(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "hideStatusBar: activity == null");
+            return;
+        }
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
@@ -37,6 +48,10 @@ public class BarUtils {
      * 判断状态栏是否存在
      */
     public static boolean isStatusExists(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "isStatusExists: activity == null");
+            return true;
+        }
         WindowManager.LayoutParams params = activity.getWindow().getAttributes();
         return (params.flags & WindowManager.LayoutParams.FLAG_FULLSCREEN) != WindowManager.LayoutParams.FLAG_FULLSCREEN;
     }
@@ -44,21 +59,33 @@ public class BarUtils {
     /**
      * 动态显示Status
      */
-    public static void showStatus(View view) {
+    public static void fitStatus(View view) {
+        if (view == null) {
+            LogUtils.w(LOG_TAG, "fitStatus: view == null");
+            return;
+        }
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
     }
 
     /**
      * 动态显示Status , 会遮挡top布局
      */
-    public static void fitStatus(View view) {
+    public static void showStatus(View view) {
+        if (view == null) {
+            LogUtils.w(LOG_TAG, "showStatus: view == null");
+            return;
+        }
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }
 
     /**
      * 动态隐藏Status
      */
-    public static void disStatus(View view) {
+    public static void hideStatus(View view) {
+        if (view == null) {
+            LogUtils.w(LOG_TAG, "hideStatus: view == null");
+            return;
+        }
         view.setSystemUiVisibility(View.INVISIBLE);
     }
 
@@ -67,13 +94,41 @@ public class BarUtils {
      * 获取状态栏＋标题栏高度,如果没有ActionBar，那么只有状态栏的高度
      */
     public static int getTopBarHeight(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "getTopBarHeight: activity == null");
+            return 0;
+        }
         return ScreenUtils.getMainLayout(activity).getBottom();
+    }
+
+    /**
+     * 获取actionBar高度
+     */
+    public static int getActionBarHeight(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "getActionBarHeight: activity == null");
+            return 0;
+        }
+        Rect frame = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        if (frame.top > 0) {
+            return frame.top;
+        }
+        int height = 0;
+        TypedValue tv = new TypedValue();
+        if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+            height = TypedValue.complexToDimensionPixelSize(tv.data, activity.getResources().getDisplayMetrics());
+        return height;
     }
 
     /**
      * 获取状态栏高度, 和getStatusBarHeight()效果一样
      */
     public static int getStatusBarHeight(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "getStatusBarHeight: activity == null");
+            return 0;
+        }
         int result = 0;
         int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -86,29 +141,16 @@ public class BarUtils {
     }
 
     /**
-     * 获取actionBar高度
-     */
-    public static int getActionBarHeight(Activity activity) {
-        Rect frame = new Rect();
-        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
-        return frame.top;
-    }
-
-    public static int getActionBarHeight2(Activity activity) {
-        int height = 0;
-        TypedValue tv = new TypedValue();
-        if (activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
-            height = TypedValue.complexToDimensionPixelSize(tv.data, activity.getResources().getDisplayMetrics());
-        return height;
-    }
-
-    /**
      * ***************************************沉浸式******************************************
      * 着色模式
      * ContextCompat.getColor(id)
      * color = 0 不设置
      */
     public static void setStatusBarColor(Activity activity, int color) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "setStatusBarColor: activity == null");
+            return;
+        }
         Window window = activity.getWindow();
         if (color != 0) {
             // 清除Status透明的状态
@@ -120,6 +162,10 @@ public class BarUtils {
     }
 
     public static void setNavigationBarColor(Activity activity, int color) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "setNavigationBarColor: activity == null");
+            return;
+        }
         Window window = activity.getWindow();
         if (color != 0) {
             // 清除navigation透明的状态
@@ -134,6 +180,10 @@ public class BarUtils {
      * 全屏模式：注意在setContent之前调用，否则填充不到bar里
      */
     public static void setStatusBarTrans(Activity activity, boolean trans) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "setStatusBarTrans: activity == null");
+            return;
+        }
         Window window = activity.getWindow();
         // 清除themes中指定的statusTrans带来的Status半透明的状态
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -161,6 +211,10 @@ public class BarUtils {
     }
 
     public static void setNavigationBarTrans(Activity activity, boolean trans) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "setNavigationBarTrans: activity == null");
+            return;
+        }
         Window window = activity.getWindow();
         // 清除navigation半透明的状态
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -192,6 +246,10 @@ public class BarUtils {
      * 设置根布局参数 相当于最顶部view要设置 fitsSystemWindows="true"
      */
     private static void setRootViewFit(Activity activity, boolean fit) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "setRootViewFit: activity == null");
+            return;
+        }
         ViewGroup parent = activity.findViewById(android.R.id.content);
         for (int i = 0; i < parent.getChildCount(); i++) {
             View childView = parent.getChildAt(i);

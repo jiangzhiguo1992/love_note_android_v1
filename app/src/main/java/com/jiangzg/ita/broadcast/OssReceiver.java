@@ -1,21 +1,18 @@
 package com.jiangzg.ita.broadcast;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.system.AlarmUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.LogUtils;
 import com.jiangzg.ita.third.OssHelper;
 import com.jiangzg.ita.third.RetrofitHelper;
 
@@ -33,14 +30,14 @@ public class OssReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         LogUtils.i(LOG_TAG, "收到oss更新广播");
-        sendAlarm(interval); // 继续发送定时
+        AlarmUtils.sendWaitBroadcast(OssReceiver.class, interval); // 继续发送定时
         ossInfoUpdate();
     }
 
     // ossInfo获取到之后在开始
     public static void startAlarm() {
         // 初始化信息
-        OssInfo ossInfo = PrefHelper.getOssInfo();
+        OssInfo ossInfo = SPHelper.getOssInfo();
         initInfo(ossInfo);
         long advance = 5 * ConstantUtils.MIN; // 提前五分钟更新时间
         long currentLong = DateUtils.getCurrentLong();
@@ -53,22 +50,7 @@ public class OssReceiver extends BroadcastReceiver {
             wait = (expire - currentLong) - advance;
         }
         // 发送定时广播
-        sendAlarm(wait);
-    }
-
-    // 发送定时广播
-    private static void sendAlarm(long wait) {
-        AlarmManager alarmManager = AppContext.getAlarmManager();
-        Intent intent = new Intent(MyApp.get(), OssReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MyApp.get(), 0, intent, 0);
-        long trigger = System.currentTimeMillis() + wait;
-        String nextTime = DateUtils.getString(trigger, ConstantUtils.FORMAT_LINE_Y_M_D_H_M_S);
-        LogUtils.i(LOG_TAG, "oss广播将在 " + nextTime + " 发出");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
-        } else {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, trigger, pendingIntent);
-        }
+        AlarmUtils.sendWaitBroadcast(OssReceiver.class, wait);
     }
 
     // 更新oss信息
@@ -80,7 +62,7 @@ public class OssReceiver extends BroadcastReceiver {
                 LogUtils.i(LOG_TAG, "oss更新成功");
                 OssInfo ossInfo = data.getOssInfo();
                 initInfo(ossInfo);
-                PrefHelper.setOssInfo(ossInfo);
+                SPHelper.setOssInfo(ossInfo);
                 OssHelper.refreshOssClient();
             }
 

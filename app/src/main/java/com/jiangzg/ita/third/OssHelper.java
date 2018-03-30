@@ -9,7 +9,6 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
-import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
@@ -19,7 +18,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.OssInfo;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.ita.helper.SPHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +40,7 @@ public class OssHelper {
      * 刷新ossClient
      */
     public static void refreshOssClient() {
-        OssInfo ossInfo = PrefHelper.getOssInfo();
+        OssInfo ossInfo = SPHelper.getOssInfo();
         bucket = ossInfo.getBucket();
         endpoint = ossInfo.getEndpoint();
 

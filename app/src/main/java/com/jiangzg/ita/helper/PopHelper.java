@@ -8,9 +8,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
-import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.component.intent.IntentUtils;
-import com.jiangzg.base.function.PermUtils;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -48,7 +48,7 @@ public class PopHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent picture = IntentUtils.getPicture();
+                                Intent picture = IntentSend.getPicture();
                                 ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
                             }
 
@@ -63,7 +63,7 @@ public class PopHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent camera = IntentUtils.getCamera(cameraFile);
+                                Intent camera = IntentSend.getCamera(cameraFile);
                                 ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
                             }
 

@@ -90,8 +90,6 @@
     <string name="loading_loging">正在登录…</string>
     <string name="please_access_permission">请大人尽快开启此权限，否则影响功能使用</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-
     <string name="title_activity_login">Sign in</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

@@ -16,9 +16,9 @@ import android.widget.PopupWindow;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.component.activity.ActivityTrans;
-import com.jiangzg.base.file.FileUtils;
-import com.jiangzg.base.media.image.BitmapMedia;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.media.MediaBitmap;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -138,7 +138,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
         if (requestCode == ConsHelper.REQUEST_BOOK_PICTURE) {
             pushData();
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
-            File pictureFile = BitmapMedia.getPictureFile(data);
+            File pictureFile = MediaBitmap.getPictureFile(data);
             compressFile(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CAMERA) {
             compressFile(cameraFile);

@@ -7,8 +7,8 @@ import com.jiangzg.ita.R;
 /**
  * Created by JZG on 2018/3/12.
  * 主题工具类
+ * todo ContextThemeWrapper运行时修改主题
  */
-
 public class ThemeHelper {
 
     public static final int THEME_PINK = 0;
@@ -21,7 +21,7 @@ public class ThemeHelper {
     public static final int THEME_BROWN = 7;
 
     public static void initTheme(Activity activity) {
-        int settingsTheme = PrefHelper.getSettingsTheme();
+        int settingsTheme = SPHelper.getSettingsTheme();
         switch (settingsTheme) {
             case THEME_PINK:
                 activity.setTheme(R.style.AppThemePink);
@@ -51,7 +51,7 @@ public class ThemeHelper {
     }
 
     public static void setTheme(Activity activity, int theme) {
-        PrefHelper.setSettingsTheme(theme);
+        SPHelper.setSettingsTheme(theme);
         //initTheme(activity);
     }
 

@@ -3,7 +3,6 @@ package com.jiangzg.ita.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
@@ -26,7 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.component.activity.ActivityTrans;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;

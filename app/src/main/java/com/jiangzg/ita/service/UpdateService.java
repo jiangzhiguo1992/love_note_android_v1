@@ -10,8 +10,8 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.component.activity.ActivityStack;
-import com.jiangzg.base.component.application.AppInfo;
+import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
@@ -133,7 +133,7 @@ public class UpdateService extends Service {
         //                File apkFile = ResHelper.createAPKInRes(version.getVersionName());
         //                FileUtils.writeFileFromIS(apkFile, body.byteStream(), false);
         //                // 启动安装
-        //                Intent installIntent = IntentUtils.getInstall(apkFile);
+        //                Intent installIntent = IntentSend.getInstall(apkFile);
         //                ActivityTrans.start(UpdateService.this, installIntent);
         //            }
         //        });

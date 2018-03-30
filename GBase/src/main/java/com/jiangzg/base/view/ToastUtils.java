@@ -1,10 +1,12 @@
 package com.jiangzg.base.view;
 
 import android.annotation.SuppressLint;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.application.AppBase;
 
 /**
  * Created by JiangZhiGuo on 2016-10-31.
@@ -13,20 +15,30 @@ import com.jiangzg.base.component.application.AppContext;
 public class ToastUtils {
 
     private static Toast toast;
+    private static Handler handler;
+
+    public static void show(int resId) {
+        if (resId == 0) return;
+        String toast = AppBase.get().getString(resId);
+        show(toast);
+    }
 
     public static void show(final CharSequence message) {
         if (TextUtils.isEmpty(message)) return;
         if (toast == null) {
-            createToast();
+            toast = createToast(message);
+        } else {
+            toast.setText(message);
         }
-        toast.setText(message);
-        toast.show();
-    }
-
-    public static void show(int resId) {
-        if (resId == 0) return;
-        String toast = AppContext.get().getString(resId);
-        show(toast);
+        if (handler == null) {
+            handler = new Handler(Looper.getMainLooper());
+        }
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                toast.show();
+            }
+        });
     }
 
     public static void cancel() {
@@ -36,9 +48,8 @@ public class ToastUtils {
 
     /* 自定义Toast */
     @SuppressLint("ShowToast")
-    private static void createToast() {
-        if (toast != null) return;
-        toast = Toast.makeText(AppContext.get(), "", Toast.LENGTH_SHORT);
+    private static Toast createToast(CharSequence meg) {
+        return Toast.makeText(AppBase.get(), meg, Toast.LENGTH_SHORT);
     }
 
 }

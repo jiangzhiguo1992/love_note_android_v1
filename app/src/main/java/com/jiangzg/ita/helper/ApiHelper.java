@@ -36,13 +36,13 @@ public class ApiHelper {
         // user
         User user = data.getUser();
         Couple couple = data.getCouple();
-        PrefHelper.setUser(user);
-        PrefHelper.setCouple(couple);
+        SPHelper.setUser(user);
+        SPHelper.setCouple(couple);
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         // oss
         OssInfo ossInfo = data.getOssInfo();
-        PrefHelper.setOssInfo(ossInfo);
+        SPHelper.setOssInfo(ossInfo);
         OssHelper.refreshOssClient();
         OssReceiver.startAlarm();
         // todo notice

@@ -1,7 +1,5 @@
 package com.jiangzg.base.common;
 
-import android.util.Log;
-
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -33,20 +31,19 @@ public class StringUtils {
     /**
      * demo (num,4,3,*) 1860*********241
      */
-    public static String replace(String old, int left, int right, CharSequence replace) {
+    public static String replace(String old, int start, int end, CharSequence replace) {
         if (isEmpty(old)) {
-            Log.e(LOG_TAG, "replace: old == null");
+            LogUtils.w(LOG_TAG, "replace: old == null");
             return "";
         }
         StringBuilder result = new StringBuilder(old);
         int length = result.length();
-        if (length > left + right) { // 填充
+        if (length > start + end) { // 填充
             StringBuilder beReplace = new StringBuilder();
-            for (int i = 0; i < length - left + right; i++) {
+            for (int i = 0; i < length - start + end; i++) {
                 beReplace.append(replace);
             }
-            result.replace(left, result.length() - right, beReplace.toString());
-            Log.d(LOG_TAG, "replace->" + result.toString());
+            result.replace(start, result.length() - end, beReplace.toString());
             return result.toString();
         }
         return old;
@@ -57,7 +54,7 @@ public class StringUtils {
      */
     public static int getLength(String validateStr) {
         int valueLength = 0;
-        if (validateStr == null) return valueLength;
+        if (StringUtils.isEmpty(validateStr)) return valueLength;
         String chinese = "[\u0391-\uFFE5]";
         /* 获取字段值的长度，如果含中文字符，则每个中文字符长度为2，否则为1 */
         for (int i = 0; i < validateStr.length(); i++) {
@@ -77,6 +74,17 @@ public class StringUtils {
      */
     public static boolean isEmpty(String str) {
         return str == null || str.trim().isEmpty();
+    }
+
+    /**
+     * string是否匹配regex
+     *
+     * @param regex  正则表达式字符串
+     * @param string 要匹配的字符串
+     * @return {@code true}: 匹配<br>{@code false}: 不匹配
+     */
+    public static boolean isMatch(String regex, String string) {
+        return !isEmpty(string) && Pattern.matches(regex, string);
     }
 
     /**
@@ -168,17 +176,6 @@ public class StringUtils {
      */
     public static boolean isIP(String string) {
         return isMatch(ConstantUtils.REGEX_IP, string);
-    }
-
-    /**
-     * string是否匹配regex
-     *
-     * @param regex  正则表达式字符串
-     * @param string 要匹配的字符串
-     * @return {@code true}: 匹配<br>{@code false}: 不匹配
-     */
-    public static boolean isMatch(String regex, String string) {
-        return !isEmpty(string) && Pattern.matches(regex, string);
     }
 
     /**
@@ -290,7 +287,7 @@ public class StringUtils {
      * @return 如果字符串长度是1返回的是对应的ascii码，否则返回-1
      */
     private static int getASCII(String s) {
-        if (s.length() != 1) return -1;
+        if (s == null || s.length() != 1) return -1;
         int ascii = 0;
         try {
             byte[] bytes = s.getBytes("GB2312");
@@ -304,7 +301,7 @@ public class StringUtils {
                 throw new IllegalArgumentException("不是单个汉字");
             }
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            LogUtils.e(LOG_TAG, "getASCII", e);
         }
         return ascii;
     }

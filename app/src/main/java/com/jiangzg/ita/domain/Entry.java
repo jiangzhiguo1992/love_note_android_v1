@@ -6,9 +6,9 @@ import android.provider.Settings;
 
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.application.AppContext;
-import com.jiangzg.base.component.application.AppInfo;
-import com.jiangzg.base.function.DeviceInfo;
-import com.jiangzg.ita.helper.PrefHelper;
+import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.system.DeviceInfo;
+import com.jiangzg.ita.helper.SPHelper;
 
 /**
  * Created by JZG on 2017/12/26.
@@ -28,7 +28,7 @@ public class Entry extends BaseObj {
     @SuppressLint("HardwareIds")
     public static Entry getEntry() {
         Entry entry = new Entry();
-        User user = PrefHelper.getUser();
+        User user = SPHelper.getUser();
         entry.setUserId(user.getId());
         entry.setUserToken(user.getUserToken());
         ContentResolver contentResolver = AppContext.get().getContentResolver();

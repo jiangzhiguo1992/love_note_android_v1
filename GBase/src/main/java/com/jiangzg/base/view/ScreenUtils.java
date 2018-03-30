@@ -1,23 +1,23 @@
 package com.jiangzg.base.view;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.os.PowerManager;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 
-import com.jiangzg.base.component.application.AppContext;
+import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.common.LogUtils;
 
 /**
  * Created by JiangZhiGuo on 2016/10/12.
  * describe 屏幕工具类
  */
 public class ScreenUtils {
+
+    private static final String LOG_TAG = "ScreenUtils";
 
     /**
      * 设置屏幕为竖屏
@@ -28,6 +28,10 @@ public class ScreenUtils {
      * 切屏不会重新调用各个生命周期，只会执行onConfigurationChanged方法</p>
      */
     public static void requestPortrait(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "requestPortrait: activity == null");
+            return;
+        }
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -35,15 +39,28 @@ public class ScreenUtils {
      * 设置屏幕为横屏
      */
     public static void requestLandscape(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "requestLandscape: activity == null");
+            return;
+        }
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
     /**
      * 获取屏幕参数集
      */
-    public static DisplayMetrics getDisplay(Activity activity) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+    public static DisplayMetrics getDisplay(Context context) {
+        if (context == null) {
+            LogUtils.w(LOG_TAG, "getDisplay: context == null");
+            return null;
+        }
+        DisplayMetrics displayMetrics;
+        if (context instanceof Activity) {
+            displayMetrics = new DisplayMetrics();
+            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        } else {
+            displayMetrics = context.getResources().getDisplayMetrics();
+        }
         return displayMetrics;
     }
 
@@ -51,20 +68,28 @@ public class ScreenUtils {
      * 获取屏幕的宽度px
      */
     public static int getScreenWidth(Context context) {
-        return context.getResources().getDisplayMetrics().widthPixels;
+        DisplayMetrics display = getDisplay(context);
+        if (display == null) return 0;
+        return display.widthPixels;
     }
 
     /**
      * 获取屏幕的高度px
      */
     public static int getScreenHeight(Context context) {
-        return context.getResources().getDisplayMetrics().heightPixels;
+        DisplayMetrics display = getDisplay(context);
+        if (display == null) return 0;
+        return display.heightPixels;
     }
 
     /**
      * 获取activity的xml布局
      */
     public static View getMainLayout(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "getMainLayout: context == null");
+            return null;
+        }
         return activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT);
     }
 
@@ -72,6 +97,10 @@ public class ScreenUtils {
      * 获取当前屏幕截图，包含状态栏
      */
     public static Bitmap captureFullScreen(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "captureFullScreen: context == null");
+            return null;
+        }
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -87,6 +116,10 @@ public class ScreenUtils {
      * 获取当前屏幕截图，不包含状态栏
      */
     public static Bitmap captureNoStatus(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "captureNoStatus: context == null");
+            return null;
+        }
         View view = activity.getWindow().getDecorView();
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
@@ -103,23 +136,7 @@ public class ScreenUtils {
      * 判断当前手机是否处于锁屏(睡眠)状态
      */
     public static boolean isScreenLock() {
-        return AppContext.getKeyguardManager().inKeyguardRestrictedInputMode();
-    }
-
-    /**
-     * 唤醒屏幕并解锁
-     * <uses-permission android:name="android.permission.WAKE_LOCK" />
-     * <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-     */
-    @SuppressLint("MissingPermission")
-    public static void wakeUpAndUnlock(Context context) {
-        KeyguardManager.KeyguardLock kl = AppContext.getKeyguardManager().newKeyguardLock("unLock");
-        kl.disableKeyguard(); //解锁
-        //获取PowerManager.WakeLock对象,后面的参数|表示同时传入两个值,最后的是LogCat里用的Tag
-        PowerManager.WakeLock wl = AppContext.getPowerManager()
-                .newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.SCREEN_DIM_WAKE_LOCK, "bright");
-        wl.acquire(10 * 60 * 1000L /*10 minutes*/); //点亮屏幕
-        wl.release(); //释放
+        return AppBase.getKeyguardManager().inKeyguardRestrictedInputMode();
     }
 
 }
