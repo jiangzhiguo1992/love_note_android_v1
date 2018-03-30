@@ -49,6 +49,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 清除栈顶,类似于singTask
         ActivityTrans.start(from, intent);
     }
 

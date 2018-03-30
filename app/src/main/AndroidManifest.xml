@@ -31,10 +31,7 @@
         <!-- android:name=".service.LocationService" -->
         <!-- android:enabled="true" -->
         <!-- android:exported="true"/> -->
-        <activity
-            android:name=".activity.HomeActivity"
-            android:launchMode="singleTask">
-        </activity>
+        <activity android:name=".activity.HomeActivity"/>
         <activity android:name=".activity.user.LoginActivity"/>
         <activity android:name=".activity.user.RegisterActivity"/>
         <activity android:name=".activity.couple.CoupleInfoActivity"/>
@@ -42,9 +39,7 @@
         <activity android:name=".activity.common.WebActivity"/>
         <activity android:name=".activity.user.UserInfoActivity"/>
         <activity android:name=".activity.common.HelpActivity"/>
-        <activity
-            android:name=".activity.settings.SettingsActivity"
-            android:label="@string/title_activity_settings">
+        <activity android:name=".activity.settings.SettingsActivity">
         </activity>
         <activity android:name=".activity.settings.ThemeActivity">
         </activity>

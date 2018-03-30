@@ -34,6 +34,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         uris.add(uri);
         intent.putParcelableArrayListExtra("imgList", uris);
         intent.putExtra("showIndex", 0);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Pair<View, String> share = Pair.create((View) view, "imgAnim");
         ActivityTrans.start(from, intent, share);
     }
@@ -42,6 +43,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putParcelableArrayListExtra("imgList", uri);
         intent.putExtra("showIndex", startIndex);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Pair<View, String> share = Pair.create((View) view, "imgAnim");
         ActivityTrans.start(from, intent, share);
     }

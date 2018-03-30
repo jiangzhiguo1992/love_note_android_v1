@@ -51,6 +51,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PhoneActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

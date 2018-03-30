@@ -59,6 +59,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestAddActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

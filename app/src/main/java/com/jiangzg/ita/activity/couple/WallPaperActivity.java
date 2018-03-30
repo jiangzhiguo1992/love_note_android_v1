@@ -62,6 +62,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WallPaperActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

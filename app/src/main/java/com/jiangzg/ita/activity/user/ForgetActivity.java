@@ -57,6 +57,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ForgetActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

@@ -87,6 +87,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SettingsActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

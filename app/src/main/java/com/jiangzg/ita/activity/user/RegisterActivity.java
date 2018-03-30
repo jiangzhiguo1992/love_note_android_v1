@@ -64,6 +64,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, RegisterActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

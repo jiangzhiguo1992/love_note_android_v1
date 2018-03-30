@@ -54,6 +54,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     private static void goActivity(Activity from) {
         Intent intent = new Intent(from, BaseActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

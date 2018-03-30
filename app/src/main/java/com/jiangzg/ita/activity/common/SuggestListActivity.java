@@ -46,6 +46,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
         intent.putExtra("entry", entry);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

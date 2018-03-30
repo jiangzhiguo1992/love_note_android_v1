@@ -17,8 +17,8 @@ import com.jiangzg.ita.adapter.HelpAdapter;
 import com.jiangzg.ita.adapter.HelpContentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
-import com.jiangzg.ita.third.RecyclerHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.RecyclerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +38,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
         intent.putExtra("type", Help.TYPE_ALL);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Activity from, int type) {
         Intent intent = new Intent(from, HelpActivity.class);
         intent.putExtra("type", type);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
@@ -73,6 +75,13 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        getHelpData();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        type = getIntent().getIntExtra("type", Help.TYPE_ALL);
         getHelpData();
     }
 

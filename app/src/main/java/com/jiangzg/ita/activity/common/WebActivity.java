@@ -17,6 +17,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
     public static void goActivity(Activity from, int type) {
         Intent intent = new Intent(from, WebActivity.class);
         intent.putExtra("type", type);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

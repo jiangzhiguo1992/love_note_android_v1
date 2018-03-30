@@ -59,10 +59,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
-    private boolean autoFinish = false;
+    //private boolean autoFinish = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // 启动其他activity时消失
         ActivityTrans.start(from, intent);
     }
 
@@ -138,13 +139,13 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (autoFinish) {
-            finish();
-        }
-    }
+    //@Override
+    //protected void onStop() {
+    //    super.onStop();
+    //    if (autoFinish) {
+    //        finish();
+    //    }
+    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -219,7 +220,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                autoFinish = true;
+                //autoFinish = true;
                 User user = data.getUser();
                 SPHelper.setUser(user);
                 HomeActivity.goActivity(mActivity);

@@ -79,6 +79,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     public static void goActivity(Activity from, Suggest suggest) {
         Intent intent = new Intent(from, SuggestDetailActivity.class);
         intent.putExtra("suggest", suggest);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

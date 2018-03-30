@@ -33,6 +33,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, CoupleInfoActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 

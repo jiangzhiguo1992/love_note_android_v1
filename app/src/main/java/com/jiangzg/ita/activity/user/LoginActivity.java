@@ -89,6 +89,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             }
         }
         Intent intent = new Intent(from, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
