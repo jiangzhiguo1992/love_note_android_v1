@@ -28,6 +28,7 @@ import java.util.Map;
  * Created by JiangZhiGuo on 2016-11-7.
  * 通用WebView
  * 4.4以后WebView的操作尽量放在ui线程中去执行
+ * todo 搞一搞
  */
 public class GWebView extends WebView {
 

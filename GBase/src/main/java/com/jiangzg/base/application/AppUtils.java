@@ -47,7 +47,6 @@ public class AppUtils {
             ServiceUtils.stopAll();
         } catch (Exception e) {
             LogUtils.e(LOG_TAG, "appExit", e);
-        } finally {
             System.exit(0); // 非0的都为异常退出
         }
     }

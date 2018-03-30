@@ -51,6 +51,7 @@ import java.io.File;
 /**
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
+ * todo 整一整
  */
 public class GImageView extends SimpleDraweeView {
 
