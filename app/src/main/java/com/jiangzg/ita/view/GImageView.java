@@ -41,6 +41,7 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.ConvertHelper;
@@ -54,6 +55,59 @@ import java.io.File;
  * todo 整一整
  */
 public class GImageView extends SimpleDraweeView {
+
+    // 初始化
+    public static void init(Application app) {
+        // 网络图的缓存key
+        CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
+            @Override
+            protected Uri getCacheKeySourceUri(Uri sourceUri) {
+                if (sourceUri == null) return null;
+                String key = sourceUri.toString();
+                String cacheKey = ConvertHelper.convertUrl2OssPath(key);
+                return Uri.parse(cacheKey);
+            }
+        };
+        // 初始化配置
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
+                .setCacheKeyFactory(keyFactory)
+                .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
+                .setDownsampleEnabled(true) // 向下采样
+                .build();
+        // 开始初始化
+        Fresco.initialize(app, config);
+        // 设置全局缓存监听
+        AppListener.addComponentListener("GImageView", new AppListener.ComponentListener() {
+            @Override
+            public void onTrimMemory(int level) {
+            }
+
+            @Override
+            public void onConfigurationChanged(Configuration newConfig) {
+            }
+
+            @Override
+            public void onLowMemory() {
+                clearMemoryCaches();
+            }
+        });
+    }
+
+    public static void clearMemoryCaches() {
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        imagePipeline.clearMemoryCaches();
+    }
+
+    public static void clearDiskCaches() {
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        imagePipeline.clearDiskCaches();
+    }
+
+    public static long getDiskCachesSize() {
+        FileCache mainFileCache = Fresco.getImagePipelineFactory().getMainFileCache();
+        mainFileCache.trimToMinimum(); // 防止大小为-1
+        return mainFileCache.getSize();
+    }
 
     private int mWidth;
     private int mHeight;
@@ -133,13 +187,6 @@ public class GImageView extends SimpleDraweeView {
         }
     }
 
-    // 不在缓存中，需要现场获取oss的url
-    private void getOssImgUrl(String objPath) {
-        String url = OssHelper.getUrl(objPath);
-        Uri parse = Uri.parse(url);
-        setController(parse);
-    }
-
     private void setController(Uri uri) {
         ImageRequest imageRequest = createImageRequest(uri);
 
@@ -177,78 +224,29 @@ public class GImageView extends SimpleDraweeView {
         return requestBuilder.build();
     }
 
-    // 初始化
-    public static void init(Application app) {
-        // 网络图的缓存key
-        CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
-            @Override
-            protected Uri getCacheKeySourceUri(Uri sourceUri) {
-                if (sourceUri == null) return null;
-                String key = sourceUri.toString();
-                String cacheKey = ConvertHelper.convertUrl2OssPath(key);
-                return Uri.parse(cacheKey);
-            }
-        };
-        // 初始化配置
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
-                .setCacheKeyFactory(keyFactory)
-                .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
-                .setDownsampleEnabled(true) // 向下采样
-                .build();
-        // 开始初始化
-        Fresco.initialize(app, config);
-        // 设置全局缓存监听
-        AppListener.addComponentListener("GImageView", new AppListener.ComponentListener() {
-            @Override
-            public void onTrimMemory(int level) {
-            }
-
-            @Override
-            public void onConfigurationChanged(Configuration newConfig) {
-            }
-
-            @Override
-            public void onLowMemory() {
-                clearMemoryCaches();
-            }
-        });
-    }
-
-    public static void clearMemoryCaches() {
-        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        imagePipeline.clearMemoryCaches();
-    }
-
-    public static void clearDiskCaches() {
-        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        imagePipeline.clearDiskCaches();
-    }
-
-    public static long getDiskCachesSize() {
-        FileCache mainFileCache = Fresco.getImagePipelineFactory().getMainFileCache();
-        mainFileCache.trimToMinimum(); // 防止大小为-1
-        return mainFileCache.getSize();
-    }
-
     // 设置圆形图/是全屏模式
-    public void setCircle(boolean circle) {
+    public void setShowAs(boolean circle, boolean full) {
         isCircle = circle;
-        initHierarchy(null);
-    }
-
-    public void setFull(boolean full) {
         isFull = full;
         initHierarchy(null);
     }
 
-    // 一般只有grid需要传
+    // 一般只有grid需要传，在设置数据源之前调用
     public void setWidthAndHeight(int width, int height) {
         mWidth = width;
         mHeight = height;
     }
 
+    // http:// https:// 需要现场获取oss的url
     public void setDataOss(String objPath) {
-        getOssImgUrl(objPath);
+        String url = OssHelper.getUrl(objPath);
+        Uri parse;
+        if (StringUtils.isEmpty(url)) {
+            parse = Uri.parse("");
+        } else {
+            parse = Uri.parse(url);
+        }
+        setController(parse);
     }
 
     // file://

@@ -7,6 +7,9 @@ import android.os.IBinder;
 
 import com.jiangzg.ita.base.MyApp;
 
+/**
+ * 各种小东西啊之类的倒计时
+ */
 public class TimerService extends Service {
 
 

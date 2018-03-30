@@ -72,6 +72,7 @@ public class OssHelper {
         return "";
     }
 
+    // todo
     // task.cancel(); // 可以取消任务
     // task.waitUntilFinished(); // 等待直到任务完成
     // GetObjectResult result = task.getResult(); // 阻塞等待结果返回
@@ -111,6 +112,7 @@ public class OssHelper {
         });
     }
 
+    // todo
     // task.cancel(); // 可以取消任务
     // task.waitUntilFinished(); // 等待直到任务完成
     // GetObjectResult result = task.getResult(); // 阻塞等待结果返回

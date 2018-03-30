@@ -9,15 +9,16 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityStack;
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
 
@@ -61,10 +62,12 @@ public class UpdateService extends Service {
             long createdAt = version.getCreatedAt();
             String create = DateUtils.getString(createdAt * 1000, ConstantUtils.FORMAT_CHINA_M_D);
             String updateLog = version.getUpdateLog();
-            builder.append(versionName).append("(").append(create).append(")\n").append(updateLog).append("\n\n");
+            builder.append(MyApp.get().getString(R.string.version_colon)).append(versionName)
+                    .append("(").append(create).append(")\n")
+                    .append(updateLog).append("\n\n");
         }
         String content = builder.toString();
-        new MaterialDialog.Builder(top)
+        MaterialDialog dialog = new MaterialDialog.Builder(top)
                 .title(R.string.have_new_version)
                 .content(content)
                 .cancelable(false)
@@ -78,8 +81,9 @@ public class UpdateService extends Service {
                         UpdateService.goService(top, versionList.get(0));
                     }
                 })
-                .build()
-                .show();
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
     public static void goService(Context from, Version version) {
@@ -104,6 +108,7 @@ public class UpdateService extends Service {
 
     @Override
     public void onCreate() {
+        // todo oss下载
         newThreadDown(version);
     }
 

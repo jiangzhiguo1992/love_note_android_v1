@@ -28,6 +28,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
+import com.jiangzg.ita.helper.DialogHelper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -79,17 +80,18 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         }
         if (mLoading == null) {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+                    .content(msg)
                     .cancelable(cancelable)
                     .canceledOnTouchOutside(cancelable)
                     .autoDismiss(true)
-                    .content(msg)
                     .progress(true, 0)
                     .progressIndeterminateStyle(true);
             mLoading = builder.build();
+            DialogHelper.setAnim(mLoading);
         } else {
+            mLoading.setContent(msg);
             mLoading.setCancelable(cancelable);
             mLoading.setCanceledOnTouchOutside(cancelable);
-            mLoading.setContent(msg);
         }
         mLoading.setOnDismissListener(listener);
         return mLoading;
