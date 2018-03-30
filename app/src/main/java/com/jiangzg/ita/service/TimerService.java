@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.ita.base.MyApp;
 
 public class TimerService extends Service {

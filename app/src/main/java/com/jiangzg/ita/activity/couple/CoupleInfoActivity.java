@@ -14,8 +14,8 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
-import com.jiangzg.base.media.MediaBitmap;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.helper.ConsHelper;
@@ -67,8 +67,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
-            Bitmap bitmap = MediaBitmap.getPictureBitmap(data);
-            ivAvatar.setImageBitmap(bitmap);
+            //Bitmap bitmap = IntentResult.getPictureBitmap(data);
+            //ivAvatar.setImageBitmap(bitmap);
             //ImageConvert.save();
         }
     }

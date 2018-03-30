@@ -19,8 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
-import com.jiangzg.base.system.ContactUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.base.BaseFragment;
@@ -29,9 +29,9 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.RxEvent;
-import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -173,7 +173,7 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == ConsHelper.REQUEST_CONTACT) {
-            String select = ContactUtils.getContactFromIntentSelect(data);
+            String select = IntentResult.getContactSelect(data);
             etPhone.setText(select);
         }
     }

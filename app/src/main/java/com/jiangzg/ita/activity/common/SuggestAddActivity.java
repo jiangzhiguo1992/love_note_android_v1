@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
-import com.jiangzg.base.media.MediaBitmap;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -130,7 +130,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
             ivImage.setVisibility(View.VISIBLE);
-            pictureFile = MediaBitmap.getPictureFile(data);
+            pictureFile = IntentResult.getPictureFile(data);
             ivImage.setDataFile(pictureFile);
         }
     }

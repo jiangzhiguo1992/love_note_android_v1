@@ -5,9 +5,9 @@ import android.content.ContentResolver;
 import android.provider.Settings;
 
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.application.AppContext;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.system.DeviceInfo;
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.SPHelper;
 
 /**
@@ -31,7 +31,7 @@ public class Entry extends BaseObj {
         User user = SPHelper.getUser();
         entry.setUserId(user.getId());
         entry.setUserToken(user.getUserToken());
-        ContentResolver contentResolver = AppContext.get().getContentResolver();
+        ContentResolver contentResolver = MyApp.get().getContentResolver();
         String deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
         if (StringUtils.isEmpty(deviceId)) {
             deviceId = DeviceInfo.get().getMacAddress();
