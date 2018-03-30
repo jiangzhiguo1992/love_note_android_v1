@@ -21,6 +21,8 @@ import butterknife.ButterKnife;
  */
 public class MyApp extends AppBase {
 
+    public static boolean DEBUG = true; // 测试模式(上线为false)
+
     private Handler mainHandler; // 主线程handler
     private ExecutorService threadPool; // 缓冲线程池
 

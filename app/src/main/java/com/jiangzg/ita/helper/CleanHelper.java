@@ -1,11 +1,10 @@
 package com.jiangzg.ita.helper;
 
 import android.content.res.Configuration;
-import android.util.Log;
 
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 
@@ -16,6 +15,7 @@ import java.util.List;
 /**
  * Created by gg on 2017/4/9.
  * 清理工具类
+ * todo 搞一搞 注意fresco
  */
 public class CleanHelper {
 

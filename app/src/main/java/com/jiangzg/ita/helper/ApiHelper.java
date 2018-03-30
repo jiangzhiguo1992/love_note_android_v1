@@ -22,12 +22,6 @@ import java.util.ArrayList;
  */
 public class ApiHelper {
 
-    public static void toRefreshOss() {
-
-        // todo api
-        OssHelper.refreshOssClient();
-    }
-
     public static void onEntryFinish(Activity mActivity, int code, Result.Data data) {
         onEntryFinish(0, 0, mActivity, code, data);
     }

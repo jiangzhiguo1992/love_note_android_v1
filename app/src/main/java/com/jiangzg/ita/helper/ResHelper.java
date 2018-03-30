@@ -9,6 +9,7 @@ import java.io.File;
 /**
  * Created by JiangZhiGuo on 2016-10-31.
  * describe 文件管理
+ * todo 搞一搞 注意权限
  */
 public class ResHelper {
 

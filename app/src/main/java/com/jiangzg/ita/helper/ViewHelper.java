@@ -2,8 +2,11 @@ package com.jiangzg.ita.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,15 +20,13 @@ import android.view.ViewOutlineProvider;
 import android.widget.TextView;
 
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.base.MyApp;
 
 /**
  * Created by JiangZhiGuo on 2016-10-31.
  * describe 符合项目样式的View管理类
  */
 public class ViewHelper {
-
-    //VectorDrawableCompat a=VectorDrawableCompat.create(getResources(), R.drawable.ic_group, getTheme());
-    //a.setTint(Color.RED);
 
     public static void initTopBar(final AppCompatActivity activity, Toolbar tb, String title, boolean navBack) {
         if (activity == null || tb == null) return;
@@ -56,6 +57,12 @@ public class ViewHelper {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         dl.addDrawerListener(toggle);
         toggle.syncState();
+    }
+
+    public static void setVectorTint(@DrawableRes int resId) {
+        VectorDrawableCompat drawable = VectorDrawableCompat.create(MyApp.get().getResources(), resId, MyApp.get().getTheme());
+        if (drawable == null) return;
+        drawable.setTint(Color.RED);
     }
 
     /**
