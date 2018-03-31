@@ -142,13 +142,13 @@ public class PairFragment extends BasePagerFragment<PairFragment> {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshData();
+                loadData();
             }
         });
     }
 
     @Override
-    protected void refreshData() {
+    protected void loadData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }

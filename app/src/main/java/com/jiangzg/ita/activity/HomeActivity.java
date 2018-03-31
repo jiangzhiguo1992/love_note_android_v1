@@ -31,8 +31,6 @@ import butterknife.BindView;
 
 public class HomeActivity extends BaseActivity<HomeActivity> {
 
-    private static final String LOG_TAG = "HomeActivity";
-
     @BindView(R.id.vpContent)
     ViewPager vpContent;
     @BindView(R.id.bnvBottom)

@@ -339,4 +339,9 @@
     <string name="have_new_version">有新版本啦！</string>
     <string name="are_update_check">正在检查更新</string>
     <string name="version_colon">版本:</string>
+    <string name="horizontal_line_2">————</string>
+    <string name="distance_line_meter">相距——m</string>
+    <string name="liner_wave_liner_c">— ~ — ℃</string>
+    <string name="differ_line_c">相差—℃</string>
+    <string name="quick_invitee_ta_deblock_more_posture">快来邀请ta，解锁更多姿势</string>
 </resources>

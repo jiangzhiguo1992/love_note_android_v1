@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
@@ -34,7 +35,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         fitToolBar(tb);
     }
 
-    protected void refreshData() {
+    protected void loadData() {
         ToastUtils.show("Book加载数据");
     }
 

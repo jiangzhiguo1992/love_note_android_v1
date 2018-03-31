@@ -71,6 +71,9 @@
             android:enabled="true"
             android:exported="true">
         </receiver>
+
+        <activity android:name=".activity.couple.CoupleInviteeActivity">
+        </activity>
     </application>
 
 </manifest>

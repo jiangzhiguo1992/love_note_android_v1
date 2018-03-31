@@ -43,6 +43,8 @@ import butterknife.Unbinder;
  */
 public abstract class BaseActivity<T> extends AppCompatActivity {
 
+    public final String LOG_TAG = getCls().getSimpleName();
+
     public BaseActivity mActivity;
     public FragmentManager mFragmentManager;
     public View mRootView;
@@ -159,7 +161,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Stack<Activity> stack = ActivityStack.getStack();
-        if (stack.size() <= 1 || this.getSubClass() == HomeActivity.class) {
+        if (stack.size() <= 1 || this.getCls() == HomeActivity.class) {
             long nowTime = DateUtils.getCurrentLong();
             if (nowTime - mLastExitTime > 2000) { // 第一次按
                 ToastUtils.show(R.string.press_again_exit);
@@ -197,7 +199,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
      * @return 获取当前类
      */
     @SuppressWarnings("unchecked")
-    public Class<T> getSubClass() {
+    public Class<T> getCls() {
         Type type = this.getClass().getGenericSuperclass();
         return (Class<T>) (((ParameterizedType) (type)).getActualTypeArguments()[0]);
     }

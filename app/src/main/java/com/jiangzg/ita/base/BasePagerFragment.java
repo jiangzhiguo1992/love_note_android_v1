@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.BarUtils;
 
 /**
@@ -13,36 +14,39 @@ import com.jiangzg.base.view.BarUtils;
 
 public abstract class BasePagerFragment<M> extends BaseFragment<M> {
 
-    private boolean isFirst = true;
     private boolean canLoad = false;
+    private boolean loadOnce = false;
 
     /**
      * 刷新数据
      */
-    protected abstract void refreshData();
+    protected abstract void loadData();
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser && canLoad && isFirst) {
-            isFirst = false;
-            refreshData();
+        //if (isVisibleToUser && canLoad && !isLoaded) {
+        if (isVisibleToUser && canLoad && !loadOnce) {
+            LogUtils.i(LOG_TAG, "refreshData: " + LOG_TAG);
+            loadOnce = true;
+            loadData();
         }
     }
 
     @Override
     protected void initData(Bundle state) {
-        if (getUserVisibleHint() && isFirst) {
-            isFirst = false;
-            canLoad = true;
-            refreshData();
+        canLoad = true;
+        if (getUserVisibleHint() && !loadOnce) {
+            LogUtils.i(LOG_TAG, "refreshData: " + LOG_TAG);
+            loadOnce = true;
+            loadData();
         }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        canLoad = false;
+        loadOnce = false;
     }
 
     // 沉浸式状态栏适配

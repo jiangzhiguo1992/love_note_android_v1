@@ -28,6 +28,8 @@ import butterknife.Unbinder;
  */
 public abstract class BaseFragment<T> extends Fragment {
 
+    public final String LOG_TAG = getCls().getSimpleName();
+
     public BaseActivity mActivity;
     public BaseFragment mFragment;
     public FragmentManager mFragmentManager;

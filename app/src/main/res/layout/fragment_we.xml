@@ -7,116 +7,109 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/root"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/llCoupleYes"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <ViewFlipper
-                android:id="@+id/vfWallPaper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="35dp"/>
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_used_we_top">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/ivHelp"
-                    android:layout_width="wrap_content"
+                <ViewFlipper
+                    android:id="@+id/vfWallPaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="35dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:alpha="0.7"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/ic_help_circle_solid_white"/>
+                    android:background="@drawable/shape_used_we_top">
 
-                <ImageView
-                    android:id="@+id/ivSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:alpha="0.7"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/ic_settings_white"/>
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/ivHelp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:alpha="0.7"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/ic_help_circle_solid_white"/>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_alignParentBottom="true"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
-
-                <com.jiangzg.ita.view.GImageView
-                    android:id="@+id/ivAvatarLeft"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@mipmap/ic_boy_circle"
-                    app:is_circle="true"/>
-
-                <com.jiangzg.ita.view.GImageView
-                    android:id="@+id/ivAvatarRight"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@mipmap/ic_girl_circle"
-                    app:is_circle="true"/>
+                    <ImageView
+                        android:id="@+id/ivSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:alpha="0.7"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="10dp"
+                        app:srcCompat="@drawable/ic_settings_white"/>
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_toEndOf="@+id/ivAvatarLeft"
-                    android:layout_toStartOf="@+id/ivAvatarRight"
-                    android:orientation="horizontal">
+                    android:id="@+id/llCoupleInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp">
+
+                    <com.jiangzg.ita.view.GImageView
+                        android:id="@+id/ivAvatarLeft"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:is_circle="true"
+                        tools:src="@mipmap/ic_boy_circle"/>
 
                     <TextView
                         android:id="@+id/tvNameLeft"
                         style="@style/FontBlackNormal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="1dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="15dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:maxLines="1"
-                        android:text="我是你的谁谁谁"/>
+                        tools:text="此处应有名字"/>
 
                     <TextView
                         android:id="@+id/tvNameRight"
                         style="@style/FontBlackNormal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="15dp"
                         android:layout_weight="1"
                         android:gravity="end"
                         android:maxLines="1"
-                        android:text="你是我的小傻逼"/>
+                        tools:text="此处应有名字"/>
+
+                    <com.jiangzg.ita.view.GImageView
+                        android:id="@+id/ivAvatarRight"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:is_circle="true"
+                        tools:src="@mipmap/ic_girl_circle"/>
                 </LinearLayout>
             </RelativeLayout>
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardPlace"
@@ -147,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="北京三里屯温柔乡"/>
+                        android:text="@string/horizontal_line_2"/>
 
                     <TextView
                         android:id="@+id/tvDistance"
@@ -156,7 +149,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
-                        android:text="相距200米"/>
+                        android:text="@string/distance_line_meter"/>
 
                     <com.jiangzg.ita.view.GMarqueeText
                         android:id="@+id/tvPlaceRight"
@@ -165,7 +158,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="天津中环垃圾学院"/>
+                        android:text="@string/horizontal_line_2"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -175,7 +168,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="7dp"
+                android:layout_marginTop="6dp"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#fff"
                 app:cardCornerRadius="3dp">
@@ -197,16 +190,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="-13C~25C"/>
+                        android:text="@string/liner_wave_liner_c"/>
 
                     <TextView
-                        android:id="@+id/tvWeatherForecast"
+                        android:id="@+id/tvWeatherDiffer"
                         style="@style/FontBlackNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
-                        android:text="天气预报"/>
+                        android:text="@string/differ_line_c"/>
 
                     <com.jiangzg.ita.view.GMarqueeText
                         android:id="@+id/tvWeatherRight"
@@ -215,14 +208,14 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="-15C~14C"/>
+                        android:text="@string/liner_wave_liner_c"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="6dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -230,7 +223,7 @@
                     android:id="@+id/cardMenses"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginBottom="6dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="3dp"
@@ -246,47 +239,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_menses_yes_red"
+                        android:drawableStart="@drawable/ic_menses_red_accent"
                         android:gravity="center"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:text="@string/menses"/>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardSleep"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="3dp">
-
-                    <TextView
-                        android:id="@+id/tvSleep"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_sleep_yes_grey_blue"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/sleep"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardTrends"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="3dp"
                     android:layout_weight="1"
@@ -301,53 +266,19 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_trends_yes_blue_light"
+                        android:drawableStart="@drawable/ic_trends_teal_accent"
                         android:gravity="center"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:text="@string/trends"/>
-                </android.support.v7.widget.CardView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardSign"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="3dp">
-
-                    <TextView
-                        android:id="@+id/tvSign"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_sign_yes_green"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/sign"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cardCoin"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="3dp"
                     android:layout_weight="1"
@@ -362,40 +293,37 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_coin_yellow"
+                        android:drawableStart="@drawable/ic_coin_orange_accent"
                         android:gravity="center"
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:text="@string/coin"/>
                 </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardVip"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="3dp">
-
-                    <TextView
-                        android:id="@+id/tvVip"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_vip_yes_purple"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/vip"/>
-                </android.support.v7.widget.CardView>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCoupleNo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_trans_75"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:visibility="gone"
+            tools:visibility="gone">
+
+            <Button
+                android:id="@+id/btnInvitee"
+                style="@style/FontWhiteNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/quick_invitee_ta_deblock_more_posture"/>
+        </RelativeLayout>
+    </RelativeLayout>
 </com.jiangzg.ita.view.GSwipeRefreshLayout>
