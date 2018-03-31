@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
@@ -16,26 +17,21 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.CommonFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.BasePagerFragment;
-import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.fragment.BookFragment;
-import com.jiangzg.ita.fragment.PairFragment;
 import com.jiangzg.ita.fragment.SquareFragment;
 import com.jiangzg.ita.fragment.TopicFragment;
 import com.jiangzg.ita.fragment.WeFragment;
 import com.jiangzg.ita.service.UpdateService;
-import com.jiangzg.ita.third.RxBus;
-import com.jiangzg.ita.helper.ConsHelper;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 import butterknife.BindView;
-import rx.Observable;
-import rx.functions.Action1;
 
 public class HomeActivity extends BaseActivity<HomeActivity> {
+
+    private static final String LOG_TAG = "HomeActivity";
 
     @BindView(R.id.vpContent)
     ViewPager vpContent;
@@ -43,8 +39,11 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     BottomNavigationView bnvBottom;
 
     private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuSquare};
-    private Observable<Couple> coupleObservable;
     private CommonFragmentPagerAdapter<BasePagerFragment> pagerAdapter;
+    private WeFragment weFragment;
+    private BookFragment bookFragment;
+    private TopicFragment topicFragment;
+    private SquareFragment squareFragment;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
@@ -61,50 +60,20 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        //BarUtils.setBarTrans(mActivity, false);
+        // we界面采用沉浸式，其余界面自己填充statusBar
+        BarUtils.setStatusBarTrans(mActivity, true);
         return R.layout.activity_home;
     }
 
     @Override
     protected void initView(Bundle state) {
         // viewPager
-        changePagerAdapter();
-        vpContent.setOffscreenPageLimit(menuIdArray.length - 1);
-        // listener
-        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //LogUtils.e(position + "-->" + positionOffset + "<--" + positionOffsetPixels);
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                bnvBottom.setSelectedItemId(menuIdArray[position]);
-                onTabChange();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-        bnvBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                changeFragment(item.getItemId());
-                return true;
-            }
-        });
-        // firstFragment
-        bnvBottom.setSelectedItemId(menuIdArray[0]);
-        onTabChange();
-        // event
-        coupleObservable = RxBus.register(ConsHelper.EVENT_COUPLE, new Action1<Couple>() {
-            @Override
-            public void call(Couple couple) {
-                changePagerAdapter();
-            }
-        });
+        initFragment();
+        initViewPagerAdapter();
+        initViewPagerListener();
+        initViewPager();
+        // navBottom
+        initNavBottom();
     }
 
     @Override
@@ -124,16 +93,69 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_COUPLE, coupleObservable);
+    private void initFragment() {
+        if (weFragment == null) {
+            weFragment = WeFragment.newFragment();
+        }
+        if (bookFragment == null) {
+            bookFragment = BookFragment.newFragment();
+        }
+        if (topicFragment == null) {
+            topicFragment = TopicFragment.newFragment();
+        }
+        if (squareFragment == null) {
+            squareFragment = SquareFragment.newFragment();
+        }
     }
 
-    private void checkUpdate() {
-        ArrayList<Version> versionList = getIntent().getParcelableArrayListExtra("versionList");
-        if (versionList == null || versionList.size() <= 0) return;
-        UpdateService.showUpdateDialog(versionList);
+    private void initViewPagerAdapter() {
+        if (pagerAdapter == null) {
+            FragmentManager manager = mActivity.getSupportFragmentManager();
+            pagerAdapter = new CommonFragmentPagerAdapter<>(manager);
+            pagerAdapter.addData(0, null, weFragment);
+            pagerAdapter.addData(1, null, bookFragment);
+            pagerAdapter.addData(2, null, topicFragment);
+            pagerAdapter.addData(3, null, squareFragment);
+        }
+        if (vpContent.getAdapter() == null) {
+            vpContent.setAdapter(pagerAdapter);
+        }
+    }
+
+    private void initViewPagerListener() {
+        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                //LogUtils.i(LOG_TAG, "onPageScrolled: " + position);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                LogUtils.i(LOG_TAG, "onPageSelected: " + position);
+                bnvBottom.setSelectedItemId(menuIdArray[position]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                LogUtils.i(LOG_TAG, "onPageScrollStateChanged: " + state);
+            }
+        });
+    }
+
+    private void initViewPager() {
+        // 预加载全部，防止刷新
+        vpContent.setOffscreenPageLimit(menuIdArray.length - 1);
+    }
+
+    private void initNavBottom() {
+        bnvBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                changeFragment(item.getItemId());
+                return true;
+            }
+        });
+        bnvBottom.setSelectedItemId(menuIdArray[0]);
     }
 
     private void changeFragment(int menuId) {
@@ -147,35 +169,10 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         vpContent.setCurrentItem(selectItemIndex, true);
     }
 
-    public void changePagerAdapter() {
-        if (pagerAdapter == null) {
-            FragmentManager manager = mActivity.getSupportFragmentManager();
-            pagerAdapter = new CommonFragmentPagerAdapter<>(manager);
-        }
-        // fragmentList的size是0或4
-        List<BasePagerFragment> fragmentList = pagerAdapter.getFragmentList();
-        if (fragmentList == null || fragmentList.size() <= 0) {
-            pagerAdapter.addData(null, BookFragment.newFragment());
-            pagerAdapter.addData(null, TopicFragment.newFragment());
-            pagerAdapter.addData(null, SquareFragment.newFragment());
-        } else {
-            pagerAdapter.removeData(0);
-        }
-        // 这里之后fragmentList的size是3
-        // todo if (SPHelper.noCouple()) {
-        if (false) {
-            pagerAdapter.addData(0, null, PairFragment.newFragment());
-        } else {
-            pagerAdapter.addData(0, null, WeFragment.newFragment());
-        }
-        // 底下一个都不能少
-        pagerAdapter.notifyDataSetChanged();
-        vpContent.setAdapter(pagerAdapter);
-    }
-
-    private void onTabChange() {
-        boolean trans = (vpContent.getCurrentItem() == 0); // todo pairFragment不要忘记屏蔽
-        BarUtils.setStatusBarTrans(mActivity, trans);
+    private void checkUpdate() {
+        ArrayList<Version> versionList = getIntent().getParcelableArrayListExtra("versionList");
+        if (versionList == null || versionList.size() <= 0) return;
+        UpdateService.showUpdateDialog(versionList);
     }
 
 }

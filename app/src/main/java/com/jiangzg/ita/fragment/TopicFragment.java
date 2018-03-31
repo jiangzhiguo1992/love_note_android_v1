@@ -2,13 +2,20 @@ package com.jiangzg.ita.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
+import com.jiangzg.ita.helper.ViewHelper;
+
+import butterknife.BindView;
 
 public class TopicFragment extends BasePagerFragment<TopicFragment> {
+
+    @BindView(R.id.tb)
+    Toolbar tb;
 
     public static TopicFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -23,7 +30,8 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-
+        ViewHelper.initTopBar(mActivity, tb, "话题", false);
+        fitToolBar(tb);
     }
 
     protected void refreshData() {
