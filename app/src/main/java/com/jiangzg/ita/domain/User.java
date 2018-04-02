@@ -90,6 +90,46 @@ public class User extends BaseObj implements Parcelable {
         return user;
     }
 
+    public String getMyNameInCp() {
+        Couple couple = getCouple();
+        if (couple == null) return "";
+        if (this.getId() == couple.getCreatorId()) {
+            return couple.getCreatorName();
+        } else {
+            return couple.getInviteeName();
+        }
+    }
+
+    public String getTaNameInCp() {
+        Couple couple = getCouple();
+        if (couple == null) return "";
+        if (this.getId() == couple.getCreatorId()) {
+            return couple.getInviteeName();
+        } else {
+            return couple.getCreatorName();
+        }
+    }
+
+    public String getMyAvatarInCp() {
+        Couple couple = getCouple();
+        if (couple == null) return "";
+        if (this.getId() == couple.getCreatorId()) {
+            return couple.getCreatorAvatar();
+        } else {
+            return couple.getInviteeAvatar();
+        }
+    }
+
+    public String getTaAvatarInCp() {
+        Couple couple = getCouple();
+        if (couple == null) return "";
+        if (this.getId() == couple.getCreatorId()) {
+            return couple.getInviteeAvatar();
+        } else {
+            return couple.getCreatorAvatar();
+        }
+    }
+
     public String getOldPassWord() {
         return oldPassWord;
     }

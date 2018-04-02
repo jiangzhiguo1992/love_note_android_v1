@@ -7,323 +7,316 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/llCoupleYes"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="35dp">
 
                 <ViewFlipper
                     android:id="@+id/vfWallPaper"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="35dp"/>
+                    android:layout_height="match_parent"/>
 
                 <RelativeLayout
+                    android:id="@+id/rlPair"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/shape_used_we_top">
+                    android:layout_height="match_parent"
+                    android:background="#fff">
 
-                    <ImageView
-                        android:id="@+id/ivHelp"
-                        android:layout_width="wrap_content"
+                    <Button
+                        android:id="@+id/btnPair"
+                        style="@style/FontWhiteBig"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:alpha="0.7"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="10dp"
-                        app:srcCompat="@drawable/ic_help_circle_solid_white"/>
-
-                    <ImageView
-                        android:id="@+id/ivSettings"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
-                        android:alpha="0.7"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:padding="10dp"
-                        app:srcCompat="@drawable/ic_settings_white"/>
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/selector_btn_solid_dark"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:paddingEnd="10dp"
+                        android:paddingStart="10dp"
+                        android:text="@string/quick_pair_deblock_more_posture"/>
                 </RelativeLayout>
-
-                <LinearLayout
-                    android:id="@+id/llCoupleInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp">
-
-                    <com.jiangzg.ita.view.GImageView
-                        android:id="@+id/ivAvatarLeft"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:is_circle="true"
-                        tools:src="@mipmap/ic_boy_circle"/>
-
-                    <TextView
-                        android:id="@+id/tvNameLeft"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="2dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:maxLines="1"
-                        tools:text="此处应有名字"/>
-
-                    <TextView
-                        android:id="@+id/tvNameRight"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:maxLines="1"
-                        tools:text="此处应有名字"/>
-
-                    <com.jiangzg.ita.view.GImageView
-                        android:id="@+id/ivAvatarRight"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        app:is_circle="true"
-                        tools:src="@mipmap/ic_girl_circle"/>
-                </LinearLayout>
             </RelativeLayout>
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardPlace"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:foreground="?attr/selectableItemBackground"
-                android:stateListAnimator="@animator/demo_selector"
-                app:cardBackgroundColor="#fff"
-                app:cardCornerRadius="3dp">
+                android:background="@drawable/shape_used_we_top">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/ivHelp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="12dp"
-                    android:paddingEnd="5dp"
-                    android:paddingStart="5dp"
-                    android:paddingTop="12dp">
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:alpha="0.7"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/ic_help_circle_solid_white"/>
 
-                    <com.jiangzg.ita.view.GMarqueeText
-                        android:id="@+id/tvPlaceLeft"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/horizontal_line_2"/>
+                <ImageView
+                    android:id="@+id/ivSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:alpha="0.7"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/ic_settings_white"/>
+            </RelativeLayout>
 
-                    <TextView
-                        android:id="@+id/tvDistance"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:text="@string/distance_line_meter"/>
-
-                    <com.jiangzg.ita.view.GMarqueeText
-                        android:id="@+id/tvPlaceRight"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/horizontal_line_2"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardWeather"
+            <LinearLayout
+                android:id="@+id/llCoupleInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="6dp"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="#fff"
-                app:cardCornerRadius="3dp">
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.jiangzg.ita.view.GImageView
+                    android:id="@+id/ivAvatarLeft"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:is_circle="true"
+                    tools:src="@mipmap/ic_boy_circle"/>
+
+                <TextView
+                    android:id="@+id/tvNameLeft"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingBottom="12dp"
-                    android:paddingEnd="5dp"
-                    android:paddingStart="5dp"
-                    android:paddingTop="12dp">
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:maxLines="1"
+                    android:text="@string/horizontal_line_2"/>
 
-                    <com.jiangzg.ita.view.GMarqueeText
-                        android:id="@+id/tvWeatherLeft"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/liner_wave_liner_c"/>
+                <TextView
+                    android:id="@+id/tvNameRight"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="@string/horizontal_line_2"/>
 
-                    <TextView
-                        android:id="@+id/tvWeatherDiffer"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginStart="5dp"
-                        android:text="@string/differ_line_c"/>
+                <com.jiangzg.ita.view.GImageView
+                    android:id="@+id/ivAvatarRight"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    app:is_circle="true"
+                    tools:src="@mipmap/ic_girl_circle"/>
+            </LinearLayout>
+        </RelativeLayout>
 
-                    <com.jiangzg.ita.view.GMarqueeText
-                        android:id="@+id/tvWeatherRight"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/liner_wave_liner_c"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:stateListAnimator="@animator/demo_selector"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="3dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="12dp">
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardMenses"
+                <com.jiangzg.ita.view.GMarqueeText
+                    android:id="@+id/tvPlaceLeft"
+                    style="@style/FontGreyNormal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
                     android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="3dp">
+                    android:gravity="center"
+                    android:text="@string/horizontal_line_2"/>
 
-                    <TextView
-                        android:id="@+id/tvMenses"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_menses_red_accent"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/menses"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardTrends"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvDistance"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="3dp">
+                    android:text="@string/distance_line_meter"/>
 
-                    <TextView
-                        android:id="@+id/tvTrends"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_trends_teal_accent"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/trends"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cardCoin"
+                <com.jiangzg.ita.view.GMarqueeText
+                    android:id="@+id/tvPlaceRight"
+                    style="@style/FontGreyNormal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
                     android:layout_weight="1"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="#fff"
-                    app:cardCornerRadius="3dp">
-
-                    <TextView
-                        android:id="@+id/tvCoin"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@drawable/ic_coin_orange_accent"
-                        android:gravity="center"
-                        android:paddingBottom="10dp"
-                        android:paddingTop="10dp"
-                        android:text="@string/coin"/>
-                </android.support.v7.widget.CardView>
+                    android:gravity="center"
+                    android:text="@string/horizontal_line_2"/>
             </LinearLayout>
-        </LinearLayout>
+        </android.support.v7.widget.CardView>
 
-        <RelativeLayout
-            android:id="@+id/rlCoupleNo"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardWeather"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white_trans_75"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:visibility="gone"
-            tools:visibility="gone">
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="3dp">
 
-            <Button
-                android:id="@+id/btnInvitee"
-                style="@style/FontWhiteNormal"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginEnd="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="12dp"
+                android:paddingEnd="5dp"
+                android:paddingStart="5dp"
+                android:paddingTop="12dp">
+
+                <com.jiangzg.ita.view.GMarqueeText
+                    android:id="@+id/tvWeatherLeft"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/liner_wave_liner_c"/>
+
+                <TextView
+                    android:id="@+id/tvWeatherDiffer"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/differ_line_c"/>
+
+                <com.jiangzg.ita.view.GMarqueeText
+                    android:id="@+id/tvWeatherRight"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/liner_wave_liner_c"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardMenses"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginStart="10dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:text="@string/quick_invitee_ta_deblock_more_posture"/>
-        </RelativeLayout>
-    </RelativeLayout>
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="3dp">
+
+                <TextView
+                    android:id="@+id/tvMenses"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_menses_red_accent"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/menses"/>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardTrends"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="3dp">
+
+                <TextView
+                    android:id="@+id/tvTrends"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_trends_teal_accent"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/trends"/>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cardCoin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="#fff"
+                app:cardCornerRadius="3dp">
+
+                <TextView
+                    android:id="@+id/tvCoin"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="5dp"
+                    android:drawableStart="@drawable/ic_coin_orange_accent"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/coin"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
+
 </com.jiangzg.ita.view.GSwipeRefreshLayout>

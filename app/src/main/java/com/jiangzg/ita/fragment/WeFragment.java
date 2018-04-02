@@ -19,12 +19,15 @@ import android.widget.ViewFlipper;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
+import com.jiangzg.ita.activity.couple.CoupleInviteeActivity;
 import com.jiangzg.ita.activity.couple.WallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.base.MyApp;
+import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
@@ -42,14 +45,10 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-
-    @BindView(R.id.rlCoupleNo)
-    RelativeLayout rlCoupleNo;
-    @BindView(R.id.btnInvitee)
-    Button btnInvitee;
-
-    @BindView(R.id.llCoupleYes)
-    LinearLayout llCoupleYes;
+    @BindView(R.id.rlPair)
+    RelativeLayout rlPair;
+    @BindView(R.id.btnPair)
+    Button btnPair;
     @BindView(R.id.vfWallPaper)
     ViewFlipper vfWallPaper;
     @BindView(R.id.ivHelp)
@@ -113,8 +112,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     protected void initView(@Nullable Bundle state) {
         // 沉浸式状态栏适配
         initTransBar();
-        // 开始背景动画
-        initViewFlipper();
         // listener
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -128,17 +125,18 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         refreshData();
     }
 
-    @OnClick({R.id.btnInvitee, R.id.ivHelp, R.id.ivSettings, R.id.vfWallPaper, R.id.llCoupleInfo,
+    @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
             R.id.cardPlace, R.id.cardWeather, R.id.cardMenses, R.id.cardTrends, R.id.cardCoin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnInvitee: // todo 邀请
-                break;
             case R.id.ivHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_HOME);
                 break;
             case R.id.ivSettings: // 设置
                 SettingsActivity.goActivity(mActivity);
+                break;
+            case R.id.btnPair: // 配对
+                CoupleInviteeActivity.goActivity(mActivity);
                 break;
             case R.id.vfWallPaper: // 背景图
                 WallPaperActivity.goActivity(mActivity);
@@ -166,6 +164,52 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
         paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
         ivSettings.setLayoutParams(paramsSettings);
+    }
+
+    private void refreshData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        // todo api
+        MyApp.get().getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(false);
+                refreshView();
+
+            }
+        }, 1000);
+    }
+
+    private void refreshView() {
+        User user = SPHelper.getUser();
+        Couple couple = user.getCouple();
+        if (SPHelper.noCouple(couple)) {
+            rlPair.setVisibility(View.VISIBLE);
+            vfWallPaper.setVisibility(View.GONE);
+            // 默认头像
+            if (user.getSex() == User.SEX_BOY) {
+                ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
+                ivAvatarRight.setDataRes(R.mipmap.ic_girl_circle);
+            } else {
+                ivAvatarLeft.setDataRes(R.mipmap.ic_girl_circle);
+                ivAvatarRight.setDataRes(R.mipmap.ic_boy_circle);
+            }
+        } else {
+            rlPair.setVisibility(View.GONE);
+            vfWallPaper.setVisibility(View.VISIBLE);
+            // 开始墙纸动画 todo 数据
+            initViewFlipper();
+            // 头像 + 名称
+            String myAvatar = user.getMyAvatarInCp();
+            String taAvatar = user.getTaAvatarInCp();
+            String myName = user.getMyNameInCp();
+            String taName = user.getTaNameInCp();
+            ivAvatarLeft.setDataOss(myAvatar);
+            ivAvatarRight.setDataOss(taAvatar);
+            tvNameLeft.setText(myName);
+            tvNameRight.setText(taName);
+        }
     }
 
     private void initViewFlipper() {
@@ -204,34 +248,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         image.setLayoutParams(paramsImage);
         return image;
-    }
-
-    private void refreshData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // todo api
-        MyApp.get().getHandler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                srl.setRefreshing(false);
-                refreshView();
-
-            }
-        }, 1000);
-    }
-
-    private void refreshView() {
-        llCoupleYes.setVisibility(View.VISIBLE);
-        if (SPHelper.noCouple()) {
-            rlCoupleNo.setVisibility(View.VISIBLE);
-            // todo
-        } else {
-            rlCoupleNo.setVisibility(View.GONE);
-            // todo
-        }
-        ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
-        ivAvatarRight.setDataRes(R.mipmap.ic_girl_circle);
     }
 
 }
