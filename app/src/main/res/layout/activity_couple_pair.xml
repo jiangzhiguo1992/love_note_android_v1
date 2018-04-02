@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.ita.activity.couple.CoupleInviteeActivity">
+    tools:context="com.jiangzg.ita.activity.couple.CouplePairActivity">
 
     <include layout="@layout/view_top_bar"/>
 
@@ -34,8 +34,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
@@ -67,43 +67,65 @@
                         app:srcCompat="@drawable/ic_contact_accent"/>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btnFind"
-                    style="@style/FontWhiteNormal"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="30dp"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/selector_btn_r3_solid_primary"
-                    android:enabled="false"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:text="@string/find_ta"/>
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnInvitee"
+                        style="@style/FontWhiteSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/i_ta_first_come"/>
+
+                    <Button
+                        android:id="@+id/btnComplex"
+                        style="@style/FontWhiteSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:text="@string/i_ta_once_come"/>
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvUserCardTop"
+                android:id="@+id/tvTaPhone"
                 style="@style/FontPrimaryHuge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/ta_colon_holder"
                 android:textColor="?attr/colorPrimaryDark"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:text="@string/ta_colon_holder"
+                tools:visibility="visible"/>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cardSendCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorControlNormal"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="3dp"
                 tools:visibility="visible">
 
                 <!-- 复合他人中 -->

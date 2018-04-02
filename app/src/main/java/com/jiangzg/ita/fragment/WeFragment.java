@@ -19,7 +19,7 @@ import android.widget.ViewFlipper;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
-import com.jiangzg.ita.activity.couple.CoupleInviteeActivity;
+import com.jiangzg.ita.activity.couple.CouplePairActivity;
 import com.jiangzg.ita.activity.couple.WallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
@@ -154,53 +154,53 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 SettingsActivity.goActivity(mActivity);
                 break;
             case R.id.btnPair: // 配对
-                CoupleInviteeActivity.goActivity(mActivity);
+                CouplePairActivity.goActivity(mActivity);
                 break;
             case R.id.vfWallPaper: // 背景图
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     WallPaperActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llCoupleInfo: // cp信息
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardPlace: // 地理信息
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardWeather: // 天气信息
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardMenses: // 姨妈
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardTrends: // 动态
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardCoin: // 金币
                 if (SPHelper.noCouple()) {
-                    CoupleInviteeActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
