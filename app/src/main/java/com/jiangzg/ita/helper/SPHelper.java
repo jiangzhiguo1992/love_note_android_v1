@@ -69,13 +69,13 @@ public class SPHelper {
     private static final String FIELD_SET_NOTICE_OTHER = "coupleId";
 
     public static void setUser(User user) {
+        clearUser();
         if (user == null) {
             LogUtils.w(LOG_TAG, "user == null");
             return;
         } else {
             LogUtils.d(LOG_TAG, "setUser: " + GsonUtils.get().toJson(user));
         }
-        clearUser();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
         editor.putLong(FIELD_USER_ID, user.getId());
         editor.putString(FIELD_USER_PHONE, user.getPhone());
@@ -103,13 +103,13 @@ public class SPHelper {
     }
 
     public static void setCouple(Couple couple) {
+        clearCouple();
         if (noCouple(couple)) {
             LogUtils.w(LOG_TAG, "couple == null");
             return;
         } else {
             LogUtils.d(LOG_TAG, "setCouple: " + GsonUtils.get().toJson(couple));
         }
-        clearCouple();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
         editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
@@ -135,13 +135,13 @@ public class SPHelper {
     }
 
     public static void setOssInfo(OssInfo ossInfo) {
+        clearOssInfo();
         if (ossInfo == null) {
             LogUtils.w(LOG_TAG, "ossInfo == null");
             return;
         } else {
             LogUtils.d(LOG_TAG, "setOssInfo: " + GsonUtils.get().toJson(ossInfo));
         }
-        clearOssInfo();
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
         editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
         editor.putString(FIELD_OSS_KEY_ID, ossInfo.getAccessKeyId());
@@ -214,12 +214,9 @@ public class SPHelper {
         return noCouple(couple);
     }
 
-    // todo status重构
+    // status重构
     public static boolean noCouple(Couple couple) {
-        return couple == null || couple.getId() <= 0
-                || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0
-                || couple.getStatus() == Couple.CoupleStatusDel
-                || couple.getStatus() == Couple.CoupleStatusReg;
+        return couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0;
     }
 
     public static void setSettingsTheme(int themeId) {

@@ -57,9 +57,7 @@ public class ApiHelper {
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {
         // user
         User user = data.getUser();
-        Couple couple = data.getCouple();
         SPHelper.setUser(user);
-        SPHelper.setCouple(couple);
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         // oss

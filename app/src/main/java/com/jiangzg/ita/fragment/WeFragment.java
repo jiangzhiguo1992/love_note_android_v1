@@ -28,7 +28,9 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.SPHelper;
+import com.jiangzg.ita.third.RxBus;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -38,6 +40,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class WeFragment extends BasePagerFragment<WeFragment> {
 
@@ -97,6 +101,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     CardView cardCoin;
     @BindView(R.id.tvCoin)
     TextView tvCoin;
+    private Observable<Couple> observable;
 
     public static WeFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -119,10 +124,23 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 loadData();
             }
         });
+        // event
+        observable = RxBus.register(ConsHelper.EVENT_COUPLE, new Action1<Couple>() {
+            @Override
+            public void call(Couple couple) {
+                refreshView();
+            }
+        });
     }
 
     protected void loadData() {
         refreshData();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_COUPLE, observable);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
@@ -139,19 +157,53 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 CoupleInviteeActivity.goActivity(mActivity);
                 break;
             case R.id.vfWallPaper: // 背景图
-                WallPaperActivity.goActivity(mActivity);
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    WallPaperActivity.goActivity(mActivity);
+                }
                 break;
-            case R.id.llCoupleInfo: // todo cp信息
+            case R.id.llCoupleInfo: // cp信息
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    // todo
+                }
                 break;
-            case R.id.cardPlace: // todo 地理信息
+            case R.id.cardPlace: // 地理信息
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    // todo
+                }
                 break;
-            case R.id.cardWeather: // todo 天气信息
+            case R.id.cardWeather: // 天气信息
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    // todo
+                }
                 break;
-            case R.id.cardMenses: // todo 姨妈
+            case R.id.cardMenses: // 姨妈
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    // todo
+                }
                 break;
-            case R.id.cardTrends: // todo 动态
+            case R.id.cardTrends: // 动态
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    // todo
+                }
                 break;
-            case R.id.cardCoin: // todo 金币
+            case R.id.cardCoin: // 金币
+                if (SPHelper.noCouple()) {
+                    CoupleInviteeActivity.goActivity(mActivity);
+                } else {
+                    // todo
+                }
                 break;
         }
     }
@@ -195,6 +247,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 ivAvatarLeft.setDataRes(R.mipmap.ic_girl_circle);
                 ivAvatarRight.setDataRes(R.mipmap.ic_boy_circle);
             }
+        } else if (false) {
+            // todo 分手倒计时
         } else {
             rlPair.setVisibility(View.GONE);
             vfWallPaper.setVisibility(View.VISIBLE);

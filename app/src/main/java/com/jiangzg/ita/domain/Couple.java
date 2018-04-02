@@ -10,10 +10,6 @@ import android.os.Parcelable;
 
 public class Couple extends BaseObj implements Parcelable {
 
-    public static final int CoupleStatusDel = -1; //已删除
-    public static final int CoupleStatusReg = 0;  //
-    public static final int CoupleStatusSuc = 1;  //配对成功
-
     private long creatorId; //创建者id
     private long inviteeId; //受邀者id
     private String creatorName; //创建者昵称(对方修改)

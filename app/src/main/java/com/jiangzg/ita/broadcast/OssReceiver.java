@@ -36,7 +36,7 @@ public class OssReceiver extends BroadcastReceiver {
 
     // ossInfo获取到之后在开始
     public static void startAlarm() {
-        // 初始化信息
+        // 初始化信息，ossInfo是从entry中拿到的
         OssInfo ossInfo = SPHelper.getOssInfo();
         initInfo(ossInfo);
         long advance = 5 * ConstantUtils.MIN; // 提前五分钟更新时间
