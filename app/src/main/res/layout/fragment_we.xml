@@ -46,6 +46,17 @@
                         android:paddingStart="10dp"
                         android:text="@string/quick_pair_deblock_more_posture"/>
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvCoupleCountDown"
+                    style="@style/FontPrimaryHuge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    tools:text="20:12:23"/>
             </RelativeLayout>
 
             <RelativeLayout

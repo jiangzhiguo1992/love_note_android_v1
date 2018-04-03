@@ -59,7 +59,7 @@ public class UpdateService extends Service {
         for (int i = 0; i < versionList.size(); i++) {
             Version version = versionList.get(i);
             String versionName = version.getVersionName();
-            long createdAt = version.getCreatedAt();
+            long createdAt = version.getCreateAt();
             String create = DateUtils.getString(createdAt * 1000, ConstantUtils.FORMAT_CHINA_M_D);
             String updateLog = version.getUpdateLog();
             builder.append(MyApp.get().getString(R.string.version_colon)).append(versionName)

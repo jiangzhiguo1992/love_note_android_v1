@@ -214,8 +214,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 if (more) {
                     Suggest s0 = new Suggest();
                     s0.setTitle("上拉加载出来的！");
-                    s0.setCreatedAt(1520866299);
-                    s0.setUpdatedAt(1520866299);
+                    s0.setCreateAt(1520866299);
+                    s0.setUpdateAt(1520866299);
                     s0.setFollow(false);
                     s0.setComment(false);
                     s0.setFollowCount(0);
@@ -228,8 +228,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                     Suggest s1 = new Suggest();
                     s1.setTitle("我发现了一个bug！");
                     s1.setStatus(Suggest.STATUE_ACCEPT_NO);
-                    s1.setCreatedAt(1520866299);
-                    s1.setUpdatedAt(1520866299);
+                    s1.setCreateAt(1520866299);
+                    s1.setUpdateAt(1520866299);
                     s1.setFollow(false);
                     s1.setComment(false);
                     s1.setFollowCount(0);
@@ -240,8 +240,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                     Suggest s2 = new Suggest();
                     s2.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
                     s2.setStatus(Suggest.STATUE_HANDLE_OVER);
-                    s2.setCreatedAt(1520010299);
-                    s2.setUpdatedAt(1520866299);
+                    s2.setCreateAt(1520010299);
+                    s2.setUpdateAt(1520866299);
                     s2.setFollow(true);
                     s2.setComment(false);
                     s2.setFollowCount(111111111);
@@ -252,8 +252,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                     Suggest s3 = new Suggest();
                     s3.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
                     s3.setStatus(Suggest.STATUE_REPLY_YES);
-                    s3.setCreatedAt(1520010299);
-                    s3.setUpdatedAt(1520010299);
+                    s3.setCreateAt(1520010299);
+                    s3.setUpdateAt(1520010299);
                     s3.setFollow(true);
                     s3.setComment(true);
                     s3.setFollowCount(111111111);

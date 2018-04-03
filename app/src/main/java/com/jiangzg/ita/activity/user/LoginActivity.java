@@ -36,8 +36,6 @@ import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
 
 import java.util.Stack;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -77,7 +75,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private boolean isGo = false;
     private int logType = ApiHelper.LOG_PWD;
     private int countDownGo = -1;
-    private Timer timer;
+    private Runnable countDownTask;
 
     public static void goActivity(Activity from) {
         // 顶部已经是LoginActivity时，不再跳转
@@ -135,7 +133,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @Override
     protected void onStop() {
         super.onStop();
-        stopTimer();
+        stopCountDownTask();
     }
 
     @Override
@@ -220,7 +218,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                validateCountDown(data.getCountDownSec());
+                countDownGo = 0;
+                int countDownSec = data.getCountDownSec();
+                MyApp.get().getHandler().post(getCountDownTask(countDownSec));
             }
 
             @Override
@@ -230,37 +230,34 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         });
     }
 
-    private void validateCountDown(final int countDownSec) {
-        countDownGo = 0;
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void run() {
-                        if (!isGo) { // 防止跳转的时候，控件注销，空指针异常
-                            if (countDownGo < countDownSec) {
-                                ++countDownGo;
-                                btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                            } else {
-                                btnSendCode.setText(R.string.send_validate_code);
-                                countDownGo = -1;
-                                onInputChange();
-                                stopTimer();
-                            }
+    private Runnable getCountDownTask(final int countDownSec) {
+        if (countDownTask == null) {
+            countDownTask = new Runnable() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void run() {
+                    if (!isGo) { // 防止跳转的时候，控件注销，空指针异常
+                        if (countDownGo < countDownSec) {
+                            ++countDownGo;
+                            btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                            MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                        } else {
+                            btnSendCode.setText(R.string.send_validate_code);
+                            countDownGo = -1;
+                            onInputChange();
+                            MyApp.get().getHandler().removeCallbacks(this);
                         }
                     }
-                });
-            }
-        }, 0, ConstantUtils.SEC);
+                }
+            };
+        }
+        return countDownTask;
     }
 
-    private void stopTimer() {
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
+    private void stopCountDownTask() {
+        if (countDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(countDownTask);
+            countDownTask = null;
         }
     }
 
@@ -280,7 +277,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;
-                stopTimer();
+                stopCountDownTask();
                 User user = data.getUser();
                 SPHelper.setUser(user);
                 ApiHelper.postEntry(mActivity);

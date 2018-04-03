@@ -185,24 +185,24 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 List<SuggestComment> commentList = new ArrayList<>();
                 if (more) {
                     SuggestComment c1 = new SuggestComment();
-                    c1.setCreatedAt(1520866299);
+                    c1.setCreateAt(1520866299);
                     c1.setOfficial(false);
                     c1.setMine(false);
                     c1.setContentText("上拉刷新出来的");
                     commentList.add(c1);
                 } else {
                     SuggestComment c1 = new SuggestComment();
-                    c1.setCreatedAt(1521104791);
+                    c1.setCreateAt(1521104791);
                     c1.setOfficial(true);
                     c1.setMine(false);
                     c1.setContentText("官方已采纳，多谢亲的一片心意！");
                     SuggestComment c2 = new SuggestComment();
-                    c2.setCreatedAt(1520866299);
+                    c2.setCreateAt(1520866299);
                     c2.setOfficial(false);
                     c2.setMine(true);
                     c2.setContentText("我觉得可以接受");
                     SuggestComment c3 = new SuggestComment();
-                    c3.setCreatedAt(1520866299);
+                    c3.setCreateAt(1520866299);
                     c3.setOfficial(false);
                     c3.setMine(false);
                     c3.setContentText("我觉得是个不错的注意，我觉得是个不错的注意，我觉得");
@@ -238,7 +238,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         String typeShow = suggest.getTypeShow();
         String statusShow = suggest.getStatusShow();
-        String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreatedAt());
+        String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreateAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
         String contentImgUrl = suggest.getContentImgUrl();
         String contentText = suggest.getContentText();

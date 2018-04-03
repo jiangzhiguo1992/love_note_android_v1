@@ -15,8 +15,8 @@ public class BaseObj implements Parcelable {
 
     protected long id;
     protected int status;
-    protected long updatedAt;
-    protected long createdAt;
+    protected long updateAt;
+    protected long createAt;
 
     public long getId() {
         return id;
@@ -26,20 +26,20 @@ public class BaseObj implements Parcelable {
         this.id = id;
     }
 
-    public long getCreatedAt() {
-        return createdAt;
+    public long getCreateAt() {
+        return createAt;
     }
 
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
+    public void setCreateAt(long createdAt) {
+        this.createAt = createdAt;
     }
 
-    public long getUpdatedAt() {
-        return updatedAt;
+    public long getUpdateAt() {
+        return updateAt;
     }
 
-    public void setUpdatedAt(long updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdateAt(long updateAt) {
+        this.updateAt = updateAt;
     }
 
     public int getStatus() {
@@ -56,8 +56,8 @@ public class BaseObj implements Parcelable {
     protected BaseObj(Parcel in) {
         id = in.readLong();
         status = in.readInt();
-        updatedAt = in.readLong();
-        createdAt = in.readLong();
+        updateAt = in.readLong();
+        createAt = in.readLong();
     }
 
     public static final Creator<BaseObj> CREATOR = new Creator<BaseObj>() {
@@ -81,7 +81,7 @@ public class BaseObj implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeInt(status);
-        dest.writeLong(updatedAt);
-        dest.writeLong(createdAt);
+        dest.writeLong(updateAt);
+        dest.writeLong(createAt);
     }
 }

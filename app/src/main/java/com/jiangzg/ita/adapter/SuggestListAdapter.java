@@ -56,10 +56,10 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
     protected void convert(BaseViewHolder helper, Suggest item) {
         // data
         String title = item.getTitle();
-        long createdAt = item.getCreatedAt();
+        long createdAt = item.getCreateAt();
         String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
         String createShow = String.format(mActivity.getString(R.string.create_at_colon_holder), create);
-        long updatedAt = item.getUpdatedAt();
+        long updatedAt = item.getUpdateAt();
         String update = ConvertHelper.ConvertSecond2DiffDay(updatedAt);
         String updatedShow = String.format(mActivity.getString(R.string.update_at_colon_holder), update);
         final int followCount = item.getFollowCount();

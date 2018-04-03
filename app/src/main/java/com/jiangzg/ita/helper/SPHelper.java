@@ -31,6 +31,7 @@ public class SPHelper {
     private static final String FIELD_USER_TOKEN = "userToken";
     // couple
     private static final String FIELD_CP_ID = "coupleId";
+    private static final String FIELD_CP_UPDATE_AT = "updateAt";
     private static final String FIELD_CP_CREATOR_ID = "creatorId";
     private static final String FIELD_CP_CREATOR_NAME = "creatorName";
     private static final String FIELD_CP_CREATOR_AVATAR = "creatorAvatar";
@@ -69,6 +70,7 @@ public class SPHelper {
 
     public static void setUser(User user) {
         clearUser();
+        clearCouple();
         if (user == null) {
             LogUtils.w(LOG_TAG, "user == null");
             return;
@@ -111,6 +113,7 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
+        editor.putLong(FIELD_CP_UPDATE_AT, couple.getUpdateAt());
         editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
         editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());
         editor.putString(FIELD_CP_CREATOR_AVATAR, couple.getCreatorAvatar());
@@ -124,6 +127,7 @@ public class SPHelper {
         SharedPreferences preCouple = SPUtils.getSharedPreferences(SHARE_COUPLE);
         Couple couple = new Couple();
         couple.setId(preCouple.getLong(FIELD_CP_ID, 0));
+        couple.setUpdateAt(preCouple.getLong(FIELD_CP_UPDATE_AT, 0));
         couple.setCreatorId(preCouple.getLong(FIELD_CP_CREATOR_ID, 0));
         couple.setCreatorName(preCouple.getString(FIELD_CP_CREATOR_NAME, ""));
         couple.setCreatorAvatar(preCouple.getString(FIELD_CP_CREATOR_AVATAR, ""));

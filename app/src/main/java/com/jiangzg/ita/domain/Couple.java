@@ -3,12 +3,17 @@ package com.jiangzg.ita.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.time.DateUtils;
+
 /**
  * Created by JZG on 2017/12/18.
  * Couple
  */
 
 public class Couple extends BaseObj implements Parcelable {
+
+    public static final long BreakCountDown = ConstantUtils.DAY / ConstantUtils.SEC;
 
     public static final int CoupleStatusInviteeReject = -2;// 不可见，邀请失败
     public static final int CoupleStatusComplexReject = -1; // 复合才可见，复合失败
@@ -23,6 +28,23 @@ public class Couple extends BaseObj implements Parcelable {
     private String inviteeName; //受邀者昵称(对方修改)
     private String creatorAvatar; //创建者头像(对方修改)
     private String inviteeAvatar; //受邀者头像(对方修改)
+
+    public long getBreakCountDown() {
+        long breakAt = this.getUpdateAt() + Couple.BreakCountDown;
+        long currentLong = DateUtils.getCurrentLong() / ConstantUtils.SEC;
+        if (breakAt > currentLong) {
+            return breakAt - currentLong;
+        }
+        return 0;
+    }
+
+    public String getBreakCountDownShow() {
+        long breakCountDown = getBreakCountDown();
+        long hour = breakCountDown / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        long min = (breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC)) / (ConstantUtils.MIN / ConstantUtils.SEC);
+        long sec = breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC) - min * (ConstantUtils.MIN / ConstantUtils.SEC);
+        return hour + ":" + min + ":" + sec;
+    }
 
     public long getCreatorId() {
         return creatorId;

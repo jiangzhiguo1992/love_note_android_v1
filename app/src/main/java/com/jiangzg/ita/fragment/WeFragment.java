@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
@@ -28,6 +29,7 @@ import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
@@ -51,6 +53,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
+    @BindView(R.id.tvCoupleCountDown)
+    TextView tvCoupleCountDown;
     @BindView(R.id.rlPair)
     RelativeLayout rlPair;
     @BindView(R.id.btnPair)
@@ -103,7 +107,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     CardView cardCoin;
     @BindView(R.id.tvCoin)
     TextView tvCoin;
+
     private Observable<Couple> observable;
+    private Runnable coupleCountDownTask;
 
     public static WeFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -159,49 +165,49 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 CouplePairActivity.goActivity(mActivity);
                 break;
             case R.id.vfWallPaper: // 背景图
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     WallPaperActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llCoupleInfo: // cp信息
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.cardPlace: // 地理信息
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardWeather: // 天气信息
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardMenses: // 姨妈
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardTrends: // 动态
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardCoin: // 金币
-                if (CheckHelper.isNullCouple()) {
+                if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
@@ -237,11 +243,16 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
+        tvCoupleCountDown.setVisibility(View.GONE);
+        rlPair.setVisibility(View.GONE);
+        vfWallPaper.setVisibility(View.GONE);
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
-        if (CheckHelper.isNullCouple(couple)) {
+        if (CheckHelper.isCoupleBreaking()) {
+            tvCoupleCountDown.setVisibility(View.VISIBLE);
+            MyApp.get().getHandler().post(getCoupleCountDownTask());
+        } else if (CheckHelper.isCoupleBreak(couple)) {
             rlPair.setVisibility(View.VISIBLE);
-            vfWallPaper.setVisibility(View.GONE);
             // 默认头像
             if (user.getSex() == User.SEX_BOY) {
                 ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
@@ -250,10 +261,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 ivAvatarLeft.setDataRes(R.mipmap.ic_girl_circle);
                 ivAvatarRight.setDataRes(R.mipmap.ic_boy_circle);
             }
-        } else if (CheckHelper.isCoupleBreaking()) {
-            // todo 分手倒计时
         } else {
-            rlPair.setVisibility(View.GONE);
             vfWallPaper.setVisibility(View.VISIBLE);
             // 开始墙纸动画 todo 数据
             initViewFlipper();
@@ -267,6 +275,28 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             tvNameLeft.setText(myName);
             tvNameRight.setText(taName);
         }
+    }
+
+    private Runnable getCoupleCountDownTask() {
+        if (coupleCountDownTask == null) {
+            coupleCountDownTask = new Runnable() {
+                @Override
+                public void run() {
+                    Couple couple = SPHelper.getCouple();
+                    long breakCountDown = couple.getBreakCountDown();
+                    if (breakCountDown <= 0) {
+                        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE, new Couple());
+                        RxBus.post(event);
+                        MyApp.get().getHandler().removeCallbacks(this);
+                    } else {
+                        String breakCountDownShow = couple.getBreakCountDownShow();
+                        tvCoupleCountDown.setText(breakCountDownShow);
+                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                    }
+                }
+            };
+        }
+        return coupleCountDownTask;
     }
 
     private void initViewFlipper() {

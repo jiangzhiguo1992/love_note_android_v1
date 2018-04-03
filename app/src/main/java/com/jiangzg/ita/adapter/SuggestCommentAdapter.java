@@ -25,7 +25,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     protected void convert(BaseViewHolder helper, SuggestComment item) {
         // data
         int layoutPosition = helper.getLayoutPosition();
-        long createdAt = item.getCreatedAt();
+        long createdAt = item.getCreateAt();
         String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
         String title = String.format(mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
         String contentText = item.getContentText();
