@@ -203,7 +203,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     private void pushUserInfo(int sex, long birth) {
-        User user = User.getInfoBody(sex, birth);
+        User user = ApiHelper.getUserInfoBody(sex, birth);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading(true);

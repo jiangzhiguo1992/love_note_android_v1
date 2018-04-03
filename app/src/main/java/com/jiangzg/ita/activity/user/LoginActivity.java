@@ -75,7 +75,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     TextView tvProtocol;
 
     private boolean isGo = false;
-    private int logType = User.LOG_PWD;
+    private int logType = ApiHelper.LOG_PWD;
     private int countDownGo = -1;
     private Timer timer;
 
@@ -175,10 +175,10 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         boolean pwd = etPwd.getText().toString().trim().length() > 0;
         boolean code = etCode.getText().toString().trim().length() > 0;
         switch (logType) {
-            case User.LOG_PWD: // 密码
+            case ApiHelper.LOG_PWD: // 密码
                 btnLogin.setEnabled(phone && pwd);
                 break;
-            case User.LOG_VER: // 验证码
+            case ApiHelper.LOG_VER: // 验证码
                 btnLogin.setEnabled(phone && code);
                 if (countDownGo >= 0) {
                     btnSendCode.setEnabled(false);
@@ -190,19 +190,19 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
 
     private void toggleType() {
-        if (logType == User.LOG_VER) {
-            logType = User.LOG_PWD;
+        if (logType == ApiHelper.LOG_VER) {
+            logType = ApiHelper.LOG_PWD;
         } else {
-            logType = User.LOG_VER;
+            logType = ApiHelper.LOG_VER;
         }
         onInputChange();
         switch (logType) {
-            case User.LOG_PWD: // 显示密码
+            case ApiHelper.LOG_PWD: // 显示密码
                 btnLoginType.setText(R.string.verify_login);
                 tilPwd.setVisibility(View.VISIBLE);
                 llVerify.setVisibility(View.GONE);
                 break;
-            case User.LOG_VER: // 显示验证码
+            case ApiHelper.LOG_VER: // 显示验证码
                 btnLoginType.setText(R.string.pwd_login);
                 tilPwd.setVisibility(View.GONE);
                 llVerify.setVisibility(View.VISIBLE);
@@ -211,9 +211,10 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
 
     private void sendCode() {
+        btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
-        Sms body = Sms.getLoginBody(phone);
+        Sms body = ApiHelper.getSmsLoginBody(phone);
         final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
@@ -224,13 +225,13 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
             @Override
             public void onFailure() {
+                btnSendCode.setEnabled(true);
             }
         });
     }
 
     private void validateCountDown(final int countDownSec) {
         countDownGo = 0;
-        btnSendCode.setEnabled(false);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -271,7 +272,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         String phone = etPhone.getText().toString().trim();
         String password = etPwd.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        User user = User.getLoginBody(phone, password, code, logType);
+        User user = ApiHelper.getUserLoginBody(phone, password, code, logType);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
         MaterialDialog loading = getLoading(true);

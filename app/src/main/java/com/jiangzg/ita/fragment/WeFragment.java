@@ -19,6 +19,7 @@ import android.widget.ViewFlipper;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
+import com.jiangzg.ita.activity.couple.CoupleInfoActivity;
 import com.jiangzg.ita.activity.couple.CouplePairActivity;
 import com.jiangzg.ita.activity.couple.WallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
@@ -28,6 +29,7 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.third.RxBus;
@@ -157,49 +159,49 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 CouplePairActivity.goActivity(mActivity);
                 break;
             case R.id.vfWallPaper: // 背景图
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     WallPaperActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llCoupleInfo: // cp信息
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // todo
+                    CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.cardPlace: // 地理信息
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardWeather: // 天气信息
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardMenses: // 姨妈
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardTrends: // 动态
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
                 }
                 break;
             case R.id.cardCoin: // 金币
-                if (SPHelper.noCouple()) {
+                if (CheckHelper.isNullCouple()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     // todo
@@ -233,10 +235,11 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }, 1000);
     }
 
+    // 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
-        if (Couple.isNullCouple(couple)) {
+        if (CheckHelper.isNullCouple(couple)) {
             rlPair.setVisibility(View.VISIBLE);
             vfWallPaper.setVisibility(View.GONE);
             // 默认头像
@@ -247,7 +250,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 ivAvatarLeft.setDataRes(R.mipmap.ic_girl_circle);
                 ivAvatarRight.setDataRes(R.mipmap.ic_boy_circle);
             }
-        } else if (false) {
+        } else if (CheckHelper.isCoupleBreaking()) {
             // todo 分手倒计时
         } else {
             rlPair.setVisibility(View.GONE);

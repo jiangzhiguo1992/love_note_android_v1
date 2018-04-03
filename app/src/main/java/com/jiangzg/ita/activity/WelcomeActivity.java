@@ -17,7 +17,7 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.helper.ApiHelper;
-import com.jiangzg.ita.helper.SPHelper;
+import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.third.API;
 import com.jiangzg.ita.third.RetrofitHelper;
 
@@ -73,7 +73,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 检查用户
     private void checkUser() {
-        if (SPHelper.noLogin()) {
+        if (CheckHelper.noLogin()) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
@@ -84,7 +84,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         } else {
             // 有token
             final long startTime = DateUtils.getCurrentLong();
-            Entry entry = Entry.getEntry();
+            Entry entry = ApiHelper.getEntryBody();
             Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
             RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
                 @Override

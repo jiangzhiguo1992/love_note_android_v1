@@ -19,6 +19,7 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
@@ -108,9 +109,10 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     }
 
     private void sendCode() {
+        btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
-        Sms body = Sms.getPhoneBody(phone);
+        Sms body = ApiHelper.getSmsPhoneBody(phone);
         final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
@@ -121,13 +123,13 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
 
             @Override
             public void onFailure() {
+                btnSendCode.setEnabled(true);
             }
         });
     }
 
     private void validateCountDown(final int countDownSec) {
         countDownGo = 0;
-        btnSendCode.setEnabled(false);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -164,7 +166,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
         // api调用
-        User user = User.getPhoneBody(phone, code);
+        User user = ApiHelper.getUserPhoneBody(phone, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading("", true);

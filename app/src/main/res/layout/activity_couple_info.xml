@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     tools:context="com.jiangzg.ita.activity.couple.CoupleInfoActivity">
+
+    <include layout="@layout/view_top_bar"/>
 
     <ImageView
         android:id="@+id/ivAvatar"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_centerInParent="true"
         android:background="#0ff"/>
 
     <Button
         android:id="@+id/btnAlbum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivAvatar"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="上传"/>
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btnBreak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="分手"/>
+
+</LinearLayout>

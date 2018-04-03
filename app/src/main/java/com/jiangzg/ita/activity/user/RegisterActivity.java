@@ -128,9 +128,10 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     }
 
     private void sendCode() {
+        btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
-        Sms body = Sms.getRegisterBody(phone);
+        Sms body = ApiHelper.getSmsRegisterBody(phone);
         final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
@@ -141,14 +142,13 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
             @Override
             public void onFailure() {
-                mActivity.finish();
+                btnSendCode.setEnabled(true);
             }
         });
     }
 
     private void validateCountDown(final int countDownSec) {
         countDownGo = 0;
-        btnSendCode.setEnabled(false);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -194,7 +194,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         }
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        User user = User.getRegisterBody(phone, pwd, code);
+        User user = ApiHelper.getUserRegisterBody(phone, pwd, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userRegister(user);
         MaterialDialog loading = getLoading(true);

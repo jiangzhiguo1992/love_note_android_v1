@@ -17,20 +17,12 @@ public class Couple extends BaseObj implements Parcelable {
     public static final int CoupleStatusComplex = 2; // 只有自己可见，正在复合
     public static final int CoupleStatusTogether = 3; // 所有人可见，邀请成功，复合成功
 
-    public static final int CoupleUpdateGood = 1; // 更好
-    public static final int CoupleUpdateBad = 2; // 更坏
-    public static final int CoupleUpdateInfo = 3;// 信息
-
     private long creatorId; //创建者id
     private long inviteeId; //受邀者id
     private String creatorName; //创建者昵称(对方修改)
     private String inviteeName; //受邀者昵称(对方修改)
     private String creatorAvatar; //创建者头像(对方修改)
     private String inviteeAvatar; //受邀者头像(对方修改)
-
-    public static boolean isNullCouple(Couple couple) {
-        return couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0;
-    }
 
     public long getCreatorId() {
         return creatorId;

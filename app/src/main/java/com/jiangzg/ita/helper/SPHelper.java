@@ -3,7 +3,6 @@ package com.jiangzg.ita.helper;
 import android.content.SharedPreferences;
 
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.OssInfo;
@@ -104,7 +103,7 @@ public class SPHelper {
 
     public static void setCouple(Couple couple) {
         clearCouple();
-        if (Couple.isNullCouple(couple)) {
+        if (CheckHelper.isNullCouple(couple)) {
             LogUtils.w(LOG_TAG, "couple == null");
             return;
         } else {
@@ -202,16 +201,6 @@ public class SPHelper {
 
     public static void clearCouple() {
         SPUtils.clear(SHARE_COUPLE);
-    }
-
-    public static boolean noLogin() {
-        String userToken = getUser().getUserToken();
-        return StringUtils.isEmpty(userToken);
-    }
-
-    public static boolean noCouple() {
-        Couple couple = getUser().getCouple();
-        return Couple.isNullCouple(couple);
     }
 
     public static void setSettingsTheme(int themeId) {

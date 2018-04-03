@@ -16,6 +16,7 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.third.API;
@@ -92,7 +93,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             return;
         }
         // api调用
-        User user = User.getPasswordBody(oldPwd, newPwd);
+        User user = ApiHelper.getUserPasswordBody(oldPwd, newPwd);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading("", true);

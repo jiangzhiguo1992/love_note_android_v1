@@ -346,4 +346,5 @@
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_ta_first_come">我和Ta第一次来</string>
     <string name="i_ta_once_come">我和Ta以前来过</string>
+    <string name="couple_info">配对信息</string>
 </resources>

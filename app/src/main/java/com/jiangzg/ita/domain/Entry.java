@@ -1,15 +1,5 @@
 package com.jiangzg.ita.domain;
 
-import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.provider.Settings;
-
-import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.application.AppInfo;
-import com.jiangzg.base.system.DeviceInfo;
-import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.helper.SPHelper;
-
 /**
  * Created by JZG on 2017/12/26.
  * Entry
@@ -24,27 +14,6 @@ public class Entry extends BaseObj {
     private String platform;
     private String osVersion;
     private int appVersion;
-
-    @SuppressLint("HardwareIds")
-    public static Entry getEntry() {
-        Entry entry = new Entry();
-        User user = SPHelper.getUser();
-        entry.setUserId(user.getId());
-        entry.setUserToken(user.getUserToken());
-        ContentResolver contentResolver = MyApp.get().getContentResolver();
-        String deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
-        if (StringUtils.isEmpty(deviceId)) {
-            deviceId = DeviceInfo.get().getMacAddress();
-        }
-        entry.setDeviceId(deviceId);
-        String manufacturer = DeviceInfo.get().getManufacturer();
-        String model = DeviceInfo.get().getModel();
-        entry.setDeviceName(manufacturer + " : " + model);
-        entry.setPlatform(DeviceInfo.get().getPlatform());
-        entry.setOsVersion(DeviceInfo.get().getOsVersion());
-        entry.setAppVersion(AppInfo.get().getVersionCode());
-        return entry;
-    }
 
     public String getDeviceId() {
         return deviceId;

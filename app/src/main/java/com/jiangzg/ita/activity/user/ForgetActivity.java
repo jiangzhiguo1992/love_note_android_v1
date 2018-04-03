@@ -15,10 +15,8 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
@@ -119,9 +117,10 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     }
 
     private void sendCode() {
+        btnSendCode.setEnabled(false);
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
-        Sms body = Sms.getForgetBody(phone);
+        Sms body = ApiHelper.getSmsForgetBody(phone);
         final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
@@ -132,13 +131,13 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
             @Override
             public void onFailure() {
+                btnSendCode.setEnabled(true);
             }
         });
     }
 
     private void validateCountDown(final int countDownSec) {
         countDownGo = 0;
-        btnSendCode.setEnabled(false);
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -180,7 +179,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         }
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        User user = User.getForgetBody(phone, pwd, code);
+        User user = ApiHelper.getUserForgetBody(phone, pwd, code);
         // api调用
         final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading(true);

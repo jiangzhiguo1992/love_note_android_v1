@@ -28,6 +28,8 @@ import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
@@ -247,7 +249,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     }
 
     private void refreshSelfCoupleView(Result.Data data) {
-        if (data == null || Couple.isNullCouple(data.getCouple())) {
+        if (data == null || CheckHelper.isNullCouple(data.getCouple())) {
             // 没有等待处理的
             resultViewGone();
             return;
@@ -299,7 +301,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api
-        User body = User.getCoupleUpdate2GoodBody(coupleId);
+        User body = ApiHelper.getCoupleUpdate2GoodBody(coupleId);
         coupleUpdate(body);
     }
 
@@ -309,7 +311,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api
-        User body = User.getCoupleUpdate2BadBody(coupleId);
+        User body = ApiHelper.getCoupleUpdate2BadBody(coupleId);
         coupleUpdate(body);
     }
 
@@ -340,7 +342,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                if (data != null && !Couple.isNullCouple(data.getCouple())) {
+                if (data != null && !CheckHelper.isNullCouple(data.getCouple())) {
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);
                     RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE, new Couple());
