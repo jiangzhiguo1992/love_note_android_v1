@@ -7,7 +7,6 @@ import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.User;
-import com.jiangzg.ita.third.GsonUtils;
 
 /**
  * Created by Fan on 2017/3/2.

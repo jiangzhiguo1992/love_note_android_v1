@@ -23,11 +23,8 @@ import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetrofitHelper;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;

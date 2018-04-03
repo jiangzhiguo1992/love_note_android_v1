@@ -1,4 +1,4 @@
-package com.jiangzg.ita.third;
+package com.jiangzg.ita.helper;
 
 import android.util.Log;
 
@@ -47,20 +47,23 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         bucket = ossInfo.getBucket();
         endpoint = ossInfo.getEndpoint();
-
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider
-                (ossInfo.getAccessKeyId(), ossInfo.getAccessKeySecret(), ossInfo.getSecurityToken());
-
+        String accessKeyId = ossInfo.getAccessKeyId();
+        String accessKeySecret = ossInfo.getAccessKeySecret();
+        String securityToken = ossInfo.getSecurityToken();
+        // oss信息
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(accessKeyId, accessKeySecret, securityToken);
+        // oss配置
         ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000); // connction time out default 15s
-        conf.setSocketTimeout(15 * 1000); // socket timeout，default 15s
-        conf.setMaxConcurrentRequest(10); // synchronous request number，default 5
-        conf.setMaxErrorRetry(10); // retry，default 2
+        conf.setConnectionTimeout(15 * 1000);  // 连接超时，默认15秒
+        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
+        conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
+        conf.setMaxErrorRetry(5); // 失败后最大重试次数，默认2次
         //OSSLog.enableLog(); //write local log file ,path is SDCard_path\OSSLog\logs.csv
-
+        // oss客户端
         ossClient = new OSSClient(MyApp.get(), ossInfo.getEndpoint(), credentialProvider, conf);
     }
 
+    // 获取obj的访问url
     public static String getUrl(final String objKey) {
         try {
             String url = ossClient.presignConstrainedObjectURL(bucket, objKey, urlExpire);

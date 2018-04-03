@@ -18,7 +18,7 @@ import com.jiangzg.ita.adapter.HelpContentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.RecyclerHelper;
+import com.jiangzg.ita.helper.RecyclerHelper;
 
 import java.util.ArrayList;
 import java.util.List;

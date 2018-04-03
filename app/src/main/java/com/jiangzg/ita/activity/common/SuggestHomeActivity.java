@@ -23,7 +23,7 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.RecyclerHelper;
+import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;

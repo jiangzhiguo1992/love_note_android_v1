@@ -19,8 +19,8 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.helper.DialogHelper;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetrofitHelper;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
 
 import java.util.List;
 

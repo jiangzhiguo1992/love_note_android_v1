@@ -18,6 +18,7 @@ import android.widget.ViewFlipper;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.couple.CoupleInfoActivity;
@@ -31,10 +32,11 @@ import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.SPHelper;
-import com.jiangzg.ita.third.RxBus;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -48,8 +50,6 @@ import rx.Observable;
 import rx.functions.Action1;
 
 public class WeFragment extends BasePagerFragment<WeFragment> {
-
-    private static final String LOG_TAG = "WeFragment";
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
@@ -178,18 +178,18 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.cardPlace: // 地理信息
+            case R.id.cardPlace: // todo 地理信息
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // todo
+                    ToastUtils.show("正在开发中");
                 }
                 break;
-            case R.id.cardWeather: // 天气信息
+            case R.id.cardWeather: // todo 天气信息
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // todo
+                    ToastUtils.show("正在开发中");
                 }
                 break;
             case R.id.cardMenses: // 姨妈
@@ -216,6 +216,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
+    // 沉浸式状态栏
     private void initTransBar() {
         int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
         RelativeLayout.LayoutParams paramsHelp = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
@@ -226,6 +227,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         ivSettings.setLayoutParams(paramsSettings);
     }
 
+    // 数据刷新
     private void refreshData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
@@ -241,20 +243,18 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }, 1000);
     }
 
-    // 所有cp的更新都要放到sp里，集中存放
+    // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
         tvCoupleCountDown.setVisibility(View.GONE);
         rlPair.setVisibility(View.GONE);
         vfWallPaper.setVisibility(View.GONE);
+
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
-        if (CheckHelper.isCoupleBreaking()) {
-            tvCoupleCountDown.setVisibility(View.VISIBLE);
-            MyApp.get().getHandler().post(getCoupleCountDownTask());
-        } else if (CheckHelper.isCoupleBreak(couple)) {
+        if (CheckHelper.isCoupleBreak(couple)) {
+            // 已经分手，或者没有开始过
             rlPair.setVisibility(View.VISIBLE);
-            // 默认头像
-            if (user.getSex() == User.SEX_BOY) {
+            if (user.getSex() == User.SEX_BOY) { // 默认头像
                 ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
                 ivAvatarRight.setDataRes(R.mipmap.ic_girl_circle);
             } else {
@@ -262,9 +262,17 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 ivAvatarRight.setDataRes(R.mipmap.ic_boy_circle);
             }
         } else {
-            vfWallPaper.setVisibility(View.VISIBLE);
-            // 开始墙纸动画 todo 数据
-            initViewFlipper();
+            // 已经配对
+            if (CheckHelper.isCoupleBreaking(couple)) {
+                // 正在分手
+                tvCoupleCountDown.setVisibility(View.VISIBLE);
+                MyApp.get().getHandler().post(getCoupleCountDownTask());
+            } else {
+                // 没分手
+                vfWallPaper.setVisibility(View.VISIBLE);
+                // 开始墙纸动画 todo 数据
+                initViewFlipper(null);
+            }
             // 头像 + 名称
             String myAvatar = user.getMyAvatarInCp();
             String taAvatar = user.getTaAvatarInCp();
@@ -277,6 +285,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
+    // 分手倒计时
     private Runnable getCoupleCountDownTask() {
         if (coupleCountDownTask == null) {
             coupleCountDownTask = new Runnable() {
@@ -299,7 +308,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         return coupleCountDownTask;
     }
 
-    private void initViewFlipper() {
+    // 墙纸
+    private void initViewFlipper(WallPaper wallPaper) {
         List<Integer> imageList = new ArrayList<>();
         imageList.add(R.mipmap.test_bg_01);
         imageList.add(R.mipmap.test_bg_02);

@@ -26,9 +26,9 @@ import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetrofitHelper;
-import com.jiangzg.ita.third.RxBus;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -94,23 +94,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-
-    private void push() {
-        String endpoint = "http://itaoss.jiangzhiguo.com";
-        // 明文设置secret的方式建议只在测试时使用，更多鉴权模式请参考访问控制章节
-        // 也可查看sample 中 sts 使用方式了解更多(https://github.com/aliyun/aliyun-oss-android-sdk/tree/master/app/src/main/java/com/alibaba/sdk/android/oss/app)
-        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider("LTAIDPG7c8KCSC4S", "<StsToken.SecretKeyId>", "BcgE3j6MooLIvlqkc91IKuTnFYwiT2");
-        // 该配置类如果不设置，会有默认配置，具体可看该类
-        ClientConfiguration conf = new ClientConfiguration();
-        conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒
-        conf.setSocketTimeout(15 * 1000); // socket超时，默认15秒
-        conf.setMaxConcurrentRequest(5); // 最大并发请求数，默认5个
-        conf.setMaxErrorRetry(2); // 失败后最大重试次数，默认2次
-        OSS oss = new OSSClient(getApplicationContext(), endpoint, credentialProvider, conf);
-
-
-    }
-
+    // 分手
     private void coupleBreak() {
         MaterialDialog loading = getLoading(true);
         long cid = SPHelper.getCouple().getId();

@@ -1,4 +1,4 @@
-package com.jiangzg.ita.third;
+package com.jiangzg.ita.helper;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -22,8 +22,6 @@ import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.helper.DialogHelper;
-import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.service.UpdateService;
 
 import java.io.IOException;

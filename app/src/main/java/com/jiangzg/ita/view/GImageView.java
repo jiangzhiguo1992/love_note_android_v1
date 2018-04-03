@@ -45,7 +45,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.ConvertHelper;
-import com.jiangzg.ita.third.OssHelper;
+import com.jiangzg.ita.helper.OssHelper;
 
 import java.io.File;
 

@@ -35,7 +35,7 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.RecyclerHelper;
+import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;

@@ -32,8 +32,8 @@ import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.LuBanUtils;
-import com.jiangzg.ita.third.RecyclerHelper;
+import com.jiangzg.ita.helper.LuBanUtils;
+import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 

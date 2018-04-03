@@ -24,9 +24,6 @@ import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.domain.VipPower;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.OssHelper;
-import com.jiangzg.ita.third.RetrofitHelper;
 
 import java.util.ArrayList;
 

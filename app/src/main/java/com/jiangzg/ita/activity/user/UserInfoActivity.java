@@ -27,8 +27,8 @@ import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.RetrofitHelper;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.view.GNumberPicker;
 
 import java.util.Calendar;

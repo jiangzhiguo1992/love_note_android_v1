@@ -1,4 +1,4 @@
-package com.jiangzg.ita.third;
+package com.jiangzg.ita.helper;
 
 import android.content.Context;
 import android.support.annotation.IdRes;

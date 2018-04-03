@@ -11,10 +11,10 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.SPHelper;
-import com.jiangzg.ita.third.API;
-import com.jiangzg.ita.third.OssHelper;
-import com.jiangzg.ita.third.RetrofitHelper;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
 
 import retrofit2.Call;
 
