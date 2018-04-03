@@ -74,6 +74,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @BindView(R.id.tvProtocol)
     TextView tvProtocol;
 
+    private boolean isGo = false;
     private int logType = User.LOG_PWD;
     private int countDownGo = -1;
     private Timer timer;
@@ -238,14 +239,16 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
-                        if (countDownGo < countDownSec) {
-                            ++countDownGo;
-                            btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                        } else {
-                            btnSendCode.setText(R.string.send_validate_code);
-                            countDownGo = -1;
-                            onInputChange();
-                            stopTimer();
+                        if (!isGo) { // 防止跳转的时候，控件注销，空指针异常
+                            if (countDownGo < countDownSec) {
+                                ++countDownGo;
+                                btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                            } else {
+                                btnSendCode.setText(R.string.send_validate_code);
+                                countDownGo = -1;
+                                onInputChange();
+                                stopTimer();
+                            }
                         }
                     }
                 });
@@ -275,6 +278,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                isGo = true;
                 stopTimer();
                 User user = data.getUser();
                 SPHelper.setUser(user);

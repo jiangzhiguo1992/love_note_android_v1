@@ -45,6 +45,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     @BindView(R.id.btnChange)
     Button btnChange;
 
+    private boolean isGo = false;
     private int countDownGo = -1;
     private Timer timer;
 
@@ -135,14 +136,16 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
-                        if (countDownGo < countDownSec) {
-                            ++countDownGo;
-                            btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                        } else {
-                            btnSendCode.setText(R.string.send_validate_code);
-                            countDownGo = -1;
-                            onInputChange();
-                            stopTimer();
+                        if (!isGo) {
+                            if (countDownGo < countDownSec) {
+                                ++countDownGo;
+                                btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                            } else {
+                                btnSendCode.setText(R.string.send_validate_code);
+                                countDownGo = -1;
+                                onInputChange();
+                                stopTimer();
+                            }
                         }
                     }
                 });
@@ -168,6 +171,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                isGo = true;
                 stopTimer();
                 User user = data.getUser();
                 SPHelper.setUser(user);

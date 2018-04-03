@@ -110,462 +110,86 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:textColor="?attr/colorPrimaryDark"
+                android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
                 android:visibility="gone"
                 tools:text="@string/ta_colon_holder"
                 tools:visibility="visible"/>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cardSendCancel"
+                android:id="@+id/cardResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
-                app:cardBackgroundColor="?attr/colorControlNormal"
+                app:cardBackgroundColor="?attr/colorPrimaryDark"
                 app:cardCornerRadius="3dp"
                 tools:visibility="visible">
 
-                <!-- 复合他人中 -->
                 <LinearLayout
-                    android:id="@+id/llComplexTa"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    tools:visibility="visible">
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvCardTitle"
                         style="@style/FontWhiteBig"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/complex_request_send_please_wait"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="@string/a_love_will_be_take_u_ready"/>
+                        android:textStyle="bold"
+                        tools:text="title"/>
 
-                    <Button
-                        android:id="@+id/btnComplexTa"
+                    <TextView
+                        android:id="@+id/tvCardMessage"
                         style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:paddingEnd="20dp"
-                        android:paddingStart="20dp"
-                        android:text="@string/i_go_back_forget_it"/>
+                        android:gravity="center"
+                        tools:text="message"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnCardBad"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            tools:text="不超过六个字"/>
+
+                        <Button
+                            android:id="@+id/btnCardGood"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:paddingEnd="20dp"
+                            android:paddingStart="20dp"
+                            tools:text="不超过六个字"/>
+                    </LinearLayout>
                 </LinearLayout>
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical">-->
-
-                <!--&lt;!&ndash; 被他人复合中 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llComplexByTa"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/receive_ta_complex_request"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/complex_after_all_back"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/refuse_after_can_again_invitee_other"/>-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnComplexByTaRefuse"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/cruel_refuse"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnComplexByTaAccept"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/pleasure_accept"/>-->
-                <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-
-                <!--&lt;!&ndash; 邀请他人中 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llInviteeTa"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/pair_request_send_please_wait"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/new_trip_will_start_u_ready"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnInviteeTa"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/i_go_back_forget_it"/>-->
-                <!--</LinearLayout>-->
-
-                <!--&lt;!&ndash; 被他人邀请中 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llInviteeByTa"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/receive_ta_pair_request"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/accept_after_new_word_more_gesture"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/refuse_after_can_again_invitee_other"/>-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnInviteeByTaRefuse"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/cruel_refuse"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnInviteeByTaAccept"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/pleasure_accept"/>-->
-                <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-
-                <!--&lt;!&ndash; Ta正在被邀请 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llPairLate"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/u_late_ta_been_invitee"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/been_invitee_one_sync"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/wait_ta_refuse_other_invitee_u_come"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnPairLate"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/i_know"/>-->
-                <!--</LinearLayout>-->
-
-                <!--&lt;!&ndash; Ta已经配对了 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llCoupleExist"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/ta_already_couple"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/and_u_not_let_go"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnCoupleExist"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/i_know"/>-->
-                <!--</LinearLayout>-->
-
-                <!--&lt;!&ndash; 可以复合 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llComplexCan"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/want_find_back_once_time"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/complex_can_find_once_all"/>-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnComplexCanSend"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/send_complex_request"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnComplexCanCancel"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginStart="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/cancel"/>-->
-                <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-
-                <!--&lt;!&ndash; 可以配对 &ndash;&gt;-->
-                <!--<LinearLayout-->
-                <!--android:id="@+id/llPairCan"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:orientation="vertical"-->
-                <!--android:visibility="gone"-->
-                <!--tools:visibility="visible">-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteBig"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:text="@string/ta_already_no_couple"-->
-                <!--android:textStyle="bold"/>-->
-
-                <!--<TextView-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:gravity="center"-->
-                <!--android:text="@string/more_gesture_after_couple"/>-->
-
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:gravity="center"-->
-                <!--android:orientation="horizontal">-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnPairCanSend"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginEnd="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/send_pair_request"/>-->
-
-                <!--<Button-->
-                <!--android:id="@+id/btnPairCanCancel"-->
-                <!--style="@style/FontWhiteNormal"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="20dp"-->
-                <!--android:layout_marginStart="10dp"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:background="@drawable/selector_btn_r3_solid_primary"-->
-                <!--android:foreground="?attr/selectableItemBackground"-->
-                <!--android:paddingEnd="20dp"-->
-                <!--android:paddingStart="20dp"-->
-                <!--android:text="@string/cancel"/>-->
-                <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
-                <!--</LinearLayout>-->
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </com.jiangzg.ita.view.GSwipeRefreshLayout>

@@ -90,9 +90,25 @@ public class User extends BaseObj implements Parcelable {
         return user;
     }
 
+    public static User getCoupleUpdate2GoodBody(long coupleId) {
+        User user = new User();
+        user.setType(Couple.CoupleUpdateGood);
+        user.couple = new Couple();
+        user.couple.setId(coupleId);
+        return user;
+    }
+
+    public static User getCoupleUpdate2BadBody(long coupleId) {
+        User user = new User();
+        user.setType(Couple.CoupleUpdateBad);
+        user.couple = new Couple();
+        user.couple.setId(coupleId);
+        return user;
+    }
+
     public String getMyNameInCp() {
         Couple couple = getCouple();
-        if (couple == null) return "";
+        if (Couple.isNullCouple(couple)) return "";
         if (this.getId() == couple.getCreatorId()) {
             return couple.getCreatorName();
         } else {
@@ -102,7 +118,7 @@ public class User extends BaseObj implements Parcelable {
 
     public String getTaNameInCp() {
         Couple couple = getCouple();
-        if (couple == null) return "";
+        if (Couple.isNullCouple(couple)) return "";
         if (this.getId() == couple.getCreatorId()) {
             return couple.getInviteeName();
         } else {
@@ -112,7 +128,7 @@ public class User extends BaseObj implements Parcelable {
 
     public String getMyAvatarInCp() {
         Couple couple = getCouple();
-        if (couple == null) return "";
+        if (Couple.isNullCouple(couple)) return "";
         if (this.getId() == couple.getCreatorId()) {
             return couple.getCreatorAvatar();
         } else {
@@ -122,12 +138,18 @@ public class User extends BaseObj implements Parcelable {
 
     public String getTaAvatarInCp() {
         Couple couple = getCouple();
-        if (couple == null) return "";
+        if (Couple.isNullCouple(couple)) return "";
         if (this.getId() == couple.getCreatorId()) {
             return couple.getInviteeAvatar();
         } else {
             return couple.getCreatorAvatar();
         }
+    }
+
+    public boolean isCoupleCreator() {
+        Couple couple = getCouple();
+        if (Couple.isNullCouple(couple)) return false;
+        return couple.getCreatorId() == this.getId();
     }
 
     public String getOldPassWord() {

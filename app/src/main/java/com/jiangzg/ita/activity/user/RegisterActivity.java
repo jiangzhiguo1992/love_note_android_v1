@@ -60,7 +60,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     private int countDownGo = -1;
     private Timer timer;
-    private boolean autoFinish = false;
+    private boolean isGo = false;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, RegisterActivity.class);
@@ -88,7 +88,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     protected void onStop() {
         super.onStop();
         stopTimer();
-        if (autoFinish) {
+        if (isGo) {
             finish();
         }
     }
@@ -157,14 +157,16 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void run() {
-                        if (countDownGo < countDownSec) {
-                            ++countDownGo;
-                            btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
-                        } else {
-                            btnSendCode.setText(R.string.send_validate_code);
-                            countDownGo = -1;
-                            onInputChange();
-                            stopTimer();
+                        if (!isGo) {
+                            if (countDownGo < countDownSec) {
+                                ++countDownGo;
+                                btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                            } else {
+                                btnSendCode.setText(R.string.send_validate_code);
+                                countDownGo = -1;
+                                onInputChange();
+                                stopTimer();
+                            }
                         }
                     }
                 });
@@ -199,7 +201,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                autoFinish = true;
+                isGo = true;
                 stopTimer();
                 User user = data.getUser();
                 SPHelper.setUser(user);

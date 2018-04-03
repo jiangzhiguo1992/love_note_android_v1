@@ -75,4 +75,14 @@ public interface API {
     @GET("oss")
     Call<Result> ossGet();
 
+    @POST("couple")
+    Call<Result> coupleInvitee(@Body User user); // 主要用到user里phone
+
+    @PUT("couple")
+    Call<Result> coupleUpdate(@Body User user); // 主要用到user里的type和couple
+
+    @GET("couple")
+    Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
+                           @Query("cid") long cid, @Query("uid") long uid);
+
 }

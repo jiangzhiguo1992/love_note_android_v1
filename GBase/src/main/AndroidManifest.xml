@@ -1,10 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jiangzg.base">
 
-    <!-- 任务 -->
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <!-- 系统配置 -->
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     <!-- 访问网络 -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 网络状态 -->
@@ -22,12 +18,14 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 读取手机号码(动态) -->
     <uses-permission android:name="android.permission.READ_SMS"/>
-    <!-- 全局对话框权限(动态) -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 用于进行网络定位(动态) -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!-- 用于访问GPS定位(动态) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!-- 全局对话框权限(动态) -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <!-- 系统配置 -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     <!-- 相机(动态) -->
     <uses-permission android:name="android.permission.CAMERA"/>
 

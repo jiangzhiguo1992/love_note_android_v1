@@ -236,7 +236,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     private void refreshView() {
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
-        if (SPHelper.noCouple(couple)) {
+        if (Couple.isNullCouple(couple)) {
             rlPair.setVisibility(View.VISIBLE);
             vfWallPaper.setVisibility(View.GONE);
             // 默认头像

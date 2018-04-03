@@ -104,7 +104,7 @@ public class SPHelper {
 
     public static void setCouple(Couple couple) {
         clearCouple();
-        if (noCouple(couple)) {
+        if (Couple.isNullCouple(couple)) {
             LogUtils.w(LOG_TAG, "couple == null");
             return;
         } else {
@@ -211,12 +211,7 @@ public class SPHelper {
 
     public static boolean noCouple() {
         Couple couple = getUser().getCouple();
-        return noCouple(couple);
-    }
-
-    // status重构
-    public static boolean noCouple(Couple couple) {
-        return couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0;
+        return Couple.isNullCouple(couple);
     }
 
     public static void setSettingsTheme(int themeId) {

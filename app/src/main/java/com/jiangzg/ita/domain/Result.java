@@ -54,6 +54,51 @@ public class Result implements Serializable {
         private OssInfo ossInfo;
         private int noticeNoRead;
         private VipPower vipPower;
+        private String taPhone;
+        private String title;
+        private String message;
+        private String btnGood;
+        private String btnBad;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getBtnGood() {
+            return btnGood;
+        }
+
+        public void setBtnGood(String btnGood) {
+            this.btnGood = btnGood;
+        }
+
+        public String getBtnBad() {
+            return btnBad;
+        }
+
+        public void setBtnBad(String btnBad) {
+            this.btnBad = btnBad;
+        }
+
+        public String getTaPhone() {
+            return taPhone;
+        }
+
+        public void setTaPhone(String taPhone) {
+            this.taPhone = taPhone;
+        }
 
         public VipPower getVipPower() {
             return vipPower;
