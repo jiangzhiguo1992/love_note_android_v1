@@ -5,30 +5,37 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.alibaba.sdk.android.oss.ClientConfiguration;
-import com.alibaba.sdk.android.oss.OSS;
-import com.alibaba.sdk.android.oss.OSSClient;
-import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
-import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
+import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
-import com.jiangzg.ita.helper.SPHelper;
-import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.PopHelper;
+import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
+import com.jiangzg.ita.helper.SPHelper;
+import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.view.GImageView;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,15 +43,32 @@ import retrofit2.Call;
 
 public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
+    @BindView(R.id.root)
+    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.ivAvatarLeft)
+    GImageView ivAvatarLeft;
+    @BindView(R.id.tvNameLeft)
+    TextView tvNameLeft;
+    @BindView(R.id.tvPhoneLeft)
+    TextView tvPhoneLeft;
+    @BindView(R.id.tvBirthLeft)
+    TextView tvBirthLeft;
+    @BindView(R.id.ivAvatarRight)
+    GImageView ivAvatarRight;
+    @BindView(R.id.tvNameRight)
+    TextView tvNameRight;
+    @BindView(R.id.tvPhoneRight)
+    TextView tvPhoneRight;
+    @BindView(R.id.tvBirthRight)
+    TextView tvBirthRight;
+    @BindView(R.id.tvBreakAbout)
+    TextView tvBreakAbout;
 
-    @BindView(R.id.ivAvatar)
-    ImageView ivAvatar;
-    @BindView(R.id.btnAlbum)
-    Button btnAlbum;
-    @BindView(R.id.btnBreak)
-    Button btnBreak;
+    private File cameraFile;
+    private File pictureFile;
+    private File cropFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, CoupleInfoActivity.class);
@@ -69,29 +93,75 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     }
 
-    @OnClick({R.id.ivAvatar, R.id.btnAlbum, R.id.btnBreak})
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_CAMERA) {
+            // 拍照
+            //IntentSend.getCrop();
+        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+            // 相册
+            cropFile = ResHelper.createJPEGInCache();
+            pictureFile = IntentResult.getPictureFile(data);
+            if (pictureFile != null) {
+                Intent intent = IntentSend.getCrop(pictureFile, cropFile, 1, 1);
+                ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
+            } else {
+                ToastUtils.show(getString(R.string.picture_get_fail));
+                LogUtils.w(LOG_TAG, "IntentResult.getPictureFile: fail");
+            }
+        } else if (requestCode == ConsHelper.REQUEST_CROP) {
+            // 裁剪
+            deleteCameraAndPictureFile();
+            ivAvatarLeft.setDataFile(cropFile);
+        } else if (requestCode == ConsHelper.REQUEST_BOOK_PICTURE) {
+            // 小本本
+
+        }
+    }
+
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.tvBirthLeft, R.id.ivAvatarRight, R.id.tvNameRight, R.id.tvPhoneRight, R.id.tvBirthRight, R.id.tvBreakAbout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ivAvatar: //选取
-                Intent picture = IntentSend.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            case R.id.ivAvatarLeft:
+                // todo 标识
+                showImgSelect();
                 break;
-            case R.id.btnAlbum: // 上传
+            case R.id.ivAvatarRight:
+                // todo 标识
+                showImgSelect();
                 break;
-            case R.id.btnBreak: // 分手
-                coupleBreak();
+            case R.id.tvNameLeft:
+                break;
+            case R.id.tvNameRight:
+                break;
+            case R.id.tvPhoneLeft:
+                break;
+            case R.id.tvPhoneRight:
+                break;
+            case R.id.tvBirthLeft:
+                break;
+            case R.id.tvBirthRight:
+                break;
+            case R.id.tvBreakAbout:
                 break;
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
-            //Bitmap bitmap = IntentResult.getPictureBitmap(data);
-            //ivAvatar.setImageBitmap(bitmap);
-            //ImageConvert.save();
-        }
+    private void showImgSelect() {
+        PopupWindow popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
+        PopUtils.show(popupWindow, root);
+    }
+
+    private void deleteCameraAndPictureFile() {
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                FileUtils.deleteFile(cameraFile);
+                FileUtils.deleteFile(pictureFile);
+            }
+        });
     }
 
     // 分手

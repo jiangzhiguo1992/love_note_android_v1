@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -39,6 +40,18 @@ public class ConvertUtils {
 
     private static final String LOG_TAG = "ConvertUtils";
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+
+    /**
+     * file转uri
+     */
+    public static Uri file2Uri(File file) {
+        if (file == null) {
+            LogUtils.w(LOG_TAG, "file2Uri: file == null");
+            return null;
+        }
+        return FileProvider.getUriForFile(AppBase.getInstance(), "com.jiangzg.base.fileprovider", file);
+        //return Uri.fromFile(file);
+    }
 
     /**
      * uri转file
@@ -107,14 +120,6 @@ public class ConvertUtils {
             cursor.close();
         }
         return null;
-    }
-
-    public static Uri file2Uri(File file) {
-        if (!FileUtils.isFileExists(file)) {
-            LogUtils.w(LOG_TAG, "file2Uri: file == null");
-            return null;
-        }
-        return Uri.fromFile(file);
     }
 
     /**

@@ -46,11 +46,11 @@ public class CleanHelper {
      * 获取具有缓存的文件夹
      */
     public static List<String> getCacheFiles() {
-        String appCacheDir = AppInfo.get().getAppCacheDir();
-        String resCacheDir = AppInfo.get().getResCacheDir();
+        String appCacheDir = AppInfo.get().getCacheDir();
+        //String resCacheDir = AppInfo.get().getResCacheDir();
         List<String> filesList = new ArrayList<>();
         filesList.add(appCacheDir);
-        filesList.add(resCacheDir);
+        //filesList.add(resCacheDir);
         return filesList;
     }
 
@@ -89,11 +89,11 @@ public class CleanHelper {
      * 获取资源文件夹
      */
     public static List<String> getResFile() {
-        String appFilesDir = AppInfo.get().getAppFilesDir();
-        String resFilesDir = AppInfo.get().getResFilesDir();
+        String appFilesDir = AppInfo.get().getFilesDir();
+        //String resFilesDir = AppInfo.get().getResFilesDir();
         List<String> filesList = new ArrayList<>();
         filesList.add(appFilesDir);
-        filesList.add(resFilesDir);
+        //filesList.add(resFilesDir);
         return filesList;
     }
 

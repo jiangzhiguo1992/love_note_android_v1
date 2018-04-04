@@ -34,10 +34,8 @@ public class AppInfo {
     private boolean isSystem; // 是否是系统级别
     private Signature[] signature; // 签名
     private String SHA1; // 地图的sha1值
-    private String appFilesDir; // /data/user/0/packageName/files
-    private String appCacheDir; // /data/user/0/packageName/cache
-    private String resFilesDir; // /storage/emulated/0/Android/data/packageName/files
-    private String resCacheDir; // /storage/emulated/0/Android/data/packageName/cache
+    private String filesDir; // 文件目录
+    private String cacheDir; // 缓存目录
 
     /**
      * 获取当前App信息，4个Dir需要权限
@@ -162,75 +160,58 @@ public class AppInfo {
         return versionName;
     }
 
-    @SuppressLint("MissingPermission")
-    public String getAppFilesDir() {
-        if (!StringUtils.isEmpty(appFilesDir)) {
-            LogUtils.d(LOG_TAG, "getAppFilesDir: " + appFilesDir);
-            return appFilesDir;
-        }
-        File filesDir = AppBase.getInstance().getFilesDir();
-        appFilesDir = filesDir.getAbsolutePath();
-        LogUtils.d(LOG_TAG, "getAppFilesDir: " + appFilesDir);
-        return appFilesDir;
-    }
-
-    @SuppressLint("MissingPermission")
-    public String getAppCacheDir() {
-        if (!StringUtils.isEmpty(appCacheDir)) {
-            LogUtils.d(LOG_TAG, "getAppCacheDir: " + appCacheDir);
-            return appCacheDir;
-        }
-        File cacheDir = AppBase.getInstance().getCacheDir();
-        appCacheDir = cacheDir.getAbsolutePath();
-        LogUtils.d(LOG_TAG, "getAppCacheDir-->" + appCacheDir);
-        return appCacheDir;
-    }
-
-    @SuppressLint("MissingPermission")
-    public String getResFilesDir() {
-        if (!StringUtils.isEmpty(resFilesDir)) {
-            LogUtils.d(LOG_TAG, "getResFilesDir: " + resFilesDir);
-            return resFilesDir;
+    public String getFilesDir() {
+        if (!StringUtils.isEmpty(filesDir)) {
+            LogUtils.d(LOG_TAG, "getFilesDir: " + filesDir);
+            return filesDir;
         }
         File externalFilesDir = AppBase.getInstance().getExternalFilesDir("");
-        if (externalFilesDir != null) {
-            resFilesDir = externalFilesDir.getAbsolutePath();
+        if (isSDCardExits() && externalFilesDir != null) {
+            // 有sd卡 == /storage/emulated/0/Android/data/packageName/files
+            this.filesDir = externalFilesDir.getAbsolutePath();
         } else {
-            resFilesDir = getRealSDCardPath() + packageName + "/files/";
-            FileUtils.createOrExistsDir(resFilesDir); // 并创建
+            // 没sd卡 == /data/user/0/packageName/files
+            File filesDir = AppBase.getInstance().getFilesDir();
+            this.filesDir = filesDir.getAbsolutePath();
         }
-        LogUtils.d(LOG_TAG, "getResFilesDir: " + resFilesDir);
-        return resFilesDir;
+        LogUtils.d(LOG_TAG, "getFilesDir: " + this.filesDir);
+        return this.filesDir;
     }
 
-    @SuppressLint("MissingPermission")
-    public String getResCacheDir() {
-        if (!StringUtils.isEmpty(resCacheDir)) {
-            LogUtils.d(LOG_TAG, "getResCacheDir: " + resCacheDir);
-            return resCacheDir;
+    public String getCacheDir() {
+        if (!StringUtils.isEmpty(cacheDir)) {
+            LogUtils.d(LOG_TAG, "getCacheDir: " + cacheDir);
+            return cacheDir;
         }
         File externalCacheDir = AppBase.getInstance().getExternalCacheDir();
-        if (externalCacheDir != null) {
-            resCacheDir = externalCacheDir.getAbsolutePath();
+        if (isSDCardExits() && externalCacheDir != null) {
+            // 有sd卡 == /storage/emulated/0/Android/data/packageName/cache
+            this.cacheDir = externalCacheDir.getAbsolutePath();
         } else {
-            resCacheDir = getRealSDCardPath() + packageName + "/cache/";
-            FileUtils.createOrExistsDir(resCacheDir); // 并创建
+            // 没sd卡 == /data/user/0/packageName/cache
+            File cacheDir = AppBase.getInstance().getCacheDir();
+            this.cacheDir = cacheDir.getAbsolutePath();
         }
-        LogUtils.d(LOG_TAG, "getResCacheDir: " + resCacheDir);
-        return resCacheDir;
+        LogUtils.d(LOG_TAG, "getCacheDir-->" + this.cacheDir);
+        return this.cacheDir;
     }
 
     /**
      * 获取可用的SD卡路径
      */
-    public static String getRealSDCardPath() {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            // sdCard 一般是/storage/emulated/0/
+    @SuppressLint("MissingPermission")
+    public static String getSDCardPath() {
+        if (isSDCardExits()) {
+            // 有sd卡 == /storage/emulated/0/
             return Environment.getExternalStorageDirectory().getPath() + File.separator;
         } else {
-            // root
+            // 没sd卡 == /
             return Environment.getRootDirectory() + File.separator;
         }
+    }
+
+    public static boolean isSDCardExits() {
+        return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState());
     }
 
     @Override
@@ -245,10 +226,8 @@ public class AppInfo {
                 ", isSystem=" + isSystem +
                 ", signature=" + Arrays.toString(signature) +
                 ", SHA1='" + SHA1 + '\'' +
-                ", appFilesDir='" + appFilesDir + '\'' +
-                ", appCacheDir='" + appCacheDir + '\'' +
-                ", resFilesDir='" + resFilesDir + '\'' +
-                ", resCacheDir='" + resCacheDir + '\'' +
+                ", filesDir='" + filesDir + '\'' +
+                ", cacheDir='" + cacheDir + '\'' +
                 '}';
     }
 }

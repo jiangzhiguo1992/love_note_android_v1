@@ -347,4 +347,7 @@
     <string name="i_ta_first_come">我和Ta第一次来</string>
     <string name="i_ta_once_come">我和Ta以前来过</string>
     <string name="couple_info">配对信息</string>
+    <string name="break_relation">解除关系</string>
+    <string name="file_create_fail">文件创建失败</string>
+    <string name="picture_get_fail">照片获取失败</string>
 </resources>

@@ -20,6 +20,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
+import com.facebook.cache.disk.DefaultDiskStorage;
+import com.facebook.cache.disk.DiskStorageCache;
 import com.facebook.cache.disk.FileCache;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
@@ -48,6 +50,7 @@ import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.OssHelper;
 
 import java.io.File;
+import java.util.concurrent.Executors;
 
 /**
  * Created by JZG on 2018/3/21.
@@ -68,7 +71,22 @@ public class GImageView extends SimpleDraweeView {
                 return Uri.parse(cacheKey);
             }
         };
-        // 初始化配置
+        //// 初始化配置
+        //DefaultDiskStorage defaultDiskStorage=new DefaultDiskStorage(
+        //        diskCacheConfig.getBaseDirectoryPathSupplier().get(),
+        //        diskCacheConfig.getVersion(),
+        //        diskCacheConfig.getCacheErrorLogger());
+        //
+        //new DiskStorageCache(
+        //        defaultDiskStorage,
+        //        diskCacheConfig.getEntryEvictionComparatorSupplier(),
+        //        params,
+        //        cacheEventListener,
+        //        diskCacheConfig.getCacheErrorLogger(),
+        //        diskCacheConfig.getDiskTrimmableRegistry(),
+        //        diskCacheConfig.getContext(),
+        //        Executors.newSingleThreadExecutor(),
+        //        diskCacheConfig.getIndexPopulateAtStartupEnabled());
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
                 .setCacheKeyFactory(keyFactory)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
@@ -251,7 +269,7 @@ public class GImageView extends SimpleDraweeView {
 
     // file://
     public void setDataFile(File file) {
-        Uri parse = Uri.fromFile(file);
+        Uri parse = ConvertUtils.file2Uri(file);
         setController(parse);
     }
 

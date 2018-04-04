@@ -30,6 +30,9 @@ public class PermUtils {
     public static final String[] deviceInfo = new String[]{Manifest.permission.READ_PHONE_STATE};
     // 拍照
     public static final String[] camera = new String[]{Manifest.permission.CAMERA};
+    // 相册
+    public static final String[] picture = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
     // 地图定位
     public static final String[] location = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};

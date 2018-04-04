@@ -35,8 +35,8 @@ import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
-import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.RxBus;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -148,6 +148,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopCoupleCountDownTask();
         RxBus.unregister(ConsHelper.EVENT_COUPLE, observable);
     }
 
@@ -306,6 +307,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             };
         }
         return coupleCountDownTask;
+    }
+
+    private void stopCoupleCountDownTask() {
+        if (coupleCountDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(coupleCountDownTask);
+            coupleCountDownTask = null;
+        }
     }
 
     // 墙纸

@@ -7,16 +7,15 @@ package com.jiangzg.ita.helper;
 public class ConsHelper {
 
     // requestCode
-    public static final int REQUEST_CAMERA = 1001;  // 相机
-    public static final int REQUEST_PICTURE = 1002;  // 图库
-    public static final int REQUEST_CROP = 1003;  // 裁剪
-    public static final int REQUEST_SCAN = 1004;  // 扫描
-    public static final int REQUEST_PERM_ALERT = 1005;  // perm
-    public static final int REQUEST_APP_INFO = 1006;  // app
-    public static final int REQUEST_DEVICE_INFO = 1007;  // device
-    public static final int REQUEST_CONTACT = 1008;  // 联系人
-    public static final int REQUEST_BOOK_PICTURE = 1009;  // 联系人
-    public static final int REQUEST_OSS_REFRESH = 1010;  // 联系人
+    public static final int REQUEST_APP_INFO = 1001;
+    public static final int REQUEST_DEVICE_INFO = 1002;
+    public static final int REQUEST_CAMERA = 1003;
+    public static final int REQUEST_PICTURE = 1004;
+    public static final int REQUEST_CROP = 1005;
+    public static final int REQUEST_CONTEXT_ALERT = 1006;
+    public static final int REQUEST_SCAN = 1007;
+    public static final int REQUEST_CONTACT = 1008;
+    public static final int REQUEST_BOOK_PICTURE = 1009;
     // RxBus.ID
     public static final int EVENT_USER = 1;
     public static final int EVENT_COUPLE = 2;

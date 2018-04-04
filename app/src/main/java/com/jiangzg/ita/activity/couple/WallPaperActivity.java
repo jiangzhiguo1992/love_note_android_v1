@@ -111,7 +111,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                         break;
                     case R.id.menuAdd: // 添加
                         if (cameraFile == null) {
-                            cameraFile = ResHelper.createJPEGInFiles();
+                            //cameraFile = ResHelper.createJPEGInFiles();
                         }
                         showAddPop();
                         break;

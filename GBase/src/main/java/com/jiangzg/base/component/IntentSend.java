@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -80,6 +81,7 @@ public class IntentSend {
     /**
      * 相册 ,可以自定义保存路径
      */
+    @SuppressLint("MissingPermission")
     public static Intent getPicture() {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
@@ -95,15 +97,7 @@ public class IntentSend {
         return getCrop(from, save, 0, 0, 0, 0);
     }
 
-    public static Intent getCrop(Uri from, Uri save) {
-        return getCrop(from, save, 0, 0, 0, 0);
-    }
-
     public static Intent getCrop(File from, File save, int aspectX, int aspectY) {
-        return getCrop(from, save, aspectX, aspectY, 0, 0);
-    }
-
-    public static Intent getCrop(Uri from, Uri save, int aspectX, int aspectY) {
         return getCrop(from, save, aspectX, aspectY, 0, 0);
     }
 
@@ -114,8 +108,8 @@ public class IntentSend {
             LogUtils.w(LOG_TAG, "getCrop: from == empty || save == null");
             return null;
         }
-        Uri uriFrom = Uri.fromFile(from);
-        Uri uriTo = Uri.fromFile(save);
+        Uri uriFrom = ConvertUtils.file2Uri(from);
+        Uri uriTo = Uri.fromFile(save); // 照片 截取输出的outputUri，只能使用Uri.fromFile，不能用FileProvider
         return getCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
     }
 
@@ -126,6 +120,7 @@ public class IntentSend {
         }
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(from, "image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra("crop", "true");
         // 裁剪框比例
         if (aspectX != 0 && aspectY != 0) {
@@ -185,7 +180,7 @@ public class IntentSend {
         } else {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
-        return intent.setDataAndType(Uri.fromFile(file), type);
+        return intent.setDataAndType(ConvertUtils.file2Uri(file), type);
     }
 
     /**

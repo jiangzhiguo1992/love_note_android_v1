@@ -26,11 +26,6 @@ public class PopHelper {
     public static PopupWindow createBookAlbumCamera(final Activity activity, final File cameraFile) {
         View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_book_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);
-        RelativeLayout root = view.findViewById(R.id.root);
-        LinearLayout llBook = view.findViewById(R.id.llBook);
-        LinearLayout llAlbum = view.findViewById(R.id.llAlbum);
-        LinearLayout llCamera = view.findViewById(R.id.llCamera);
-        LinearLayout llCancel = view.findViewById(R.id.llCancel);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +40,7 @@ public class PopHelper {
                         break;
                     case R.id.llAlbum:
                         PopUtils.dismiss(window);
-                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
                                 Intent picture = IntentSend.getPicture();
@@ -79,6 +74,11 @@ public class PopHelper {
                 }
             }
         };
+        RelativeLayout root = view.findViewById(R.id.root);
+        LinearLayout llBook = view.findViewById(R.id.llBook);
+        LinearLayout llAlbum = view.findViewById(R.id.llAlbum);
+        LinearLayout llCamera = view.findViewById(R.id.llCamera);
+        LinearLayout llCancel = view.findViewById(R.id.llCancel);
         root.setOnClickListener(listener);
         llBook.setOnClickListener(listener);
         llAlbum.setOnClickListener(listener);
