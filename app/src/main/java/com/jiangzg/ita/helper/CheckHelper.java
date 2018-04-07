@@ -4,6 +4,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.User;
 
 /**
  * Created by JZG on 2018/4/3.
@@ -14,6 +15,15 @@ public class CheckHelper {
     public static boolean noLogin() {
         String userToken = SPHelper.getUser().getUserToken();
         return StringUtils.isEmpty(userToken);
+    }
+
+    public static boolean canUserInfo() {
+        User user = SPHelper.getUser();
+        int sex = user.getSex();
+        long birthday = user.getBirthday();
+        boolean noSex = sex != User.SEX_BOY && sex != User.SEX_GIRL;
+        boolean noBirth = birthday == 0;
+        return noSex || noBirth;
     }
 
     public static boolean isNullCouple(Couple couple) {

@@ -65,6 +65,9 @@ public interface API {
     @POST("user/login")
     Call<Result> userLogin(@Body User user);
 
+    @GET("user")
+    Call<Result> userGet(@Query("ta") boolean ta);
+
     // welcome login userInfo forget
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);

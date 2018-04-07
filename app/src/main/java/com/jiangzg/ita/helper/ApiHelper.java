@@ -225,4 +225,19 @@ public class ApiHelper {
         user.setCouple(couple);
         return user;
     }
+
+    public static User getCoupleUpdateInfo(String avatar, String name) {
+        User user = SPHelper.getUser();
+        user.setType(CoupleUpdateInfo);
+        Couple couple = user.getCouple();
+        boolean isCreator = user.isCoupleCreator();
+        if (isCreator) {
+            couple.setInviteeAvatar(avatar);
+            couple.setInviteeName(name);
+        } else {
+            couple.setCreatorAvatar(avatar);
+            couple.setCreatorName(name);
+        }
+        return user;
+    }
 }

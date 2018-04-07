@@ -49,7 +49,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-                                // todo 引导去开启权限
+
                             }
                         });
                         break;
@@ -64,7 +64,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-                                // todo 引导去开启权限
+
                             }
                         });
                         break;

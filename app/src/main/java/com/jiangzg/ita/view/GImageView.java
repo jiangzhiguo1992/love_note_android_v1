@@ -185,9 +185,9 @@ public class GImageView extends SimpleDraweeView {
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
             hierarchy.setRoundingParams(RoundingParams.asCircle());
             hierarchy.setPlaceholderImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
-            hierarchy.setProgressBarImage(new ImageProgressCircleDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
-            hierarchy.setRetryImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
-            hierarchy.setFailureImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
+            //hierarchy.setProgressBarImage(new ImageProgressCircleDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
+            //hierarchy.setRetryImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
+            //hierarchy.setFailureImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
         } else if (isFull) { // 全屏
             hierarchy.setFadeDuration(0);
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);

@@ -350,4 +350,5 @@
     <string name="break_relation">解除关系</string>
     <string name="file_create_fail">文件创建失败</string>
     <string name="picture_get_fail">照片获取失败</string>
+    <string name="please_input_nickname">请输入昵称</string>
 </resources>

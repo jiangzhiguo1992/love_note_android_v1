@@ -36,6 +36,7 @@ public class AppInfo {
     private String SHA1; // 地图的sha1值
     private String filesDir; // 文件目录
     private String cacheDir; // 缓存目录
+    private String sdCardDir; // sd卡路径
 
     /**
      * 获取当前App信息，4个Dir需要权限
@@ -197,17 +198,23 @@ public class AppInfo {
     }
 
     /**
-     * 获取可用的SD卡路径
+     * 获取可用的SD卡路径，需要动态权限
      */
     @SuppressLint("MissingPermission")
-    public static String getSDCardPath() {
+    public String getSDCardDir() {
+        if (!StringUtils.isEmpty(sdCardDir)) {
+            LogUtils.d(LOG_TAG, "getSDCardDir: " + sdCardDir);
+            return sdCardDir;
+        }
         if (isSDCardExits()) {
             // 有sd卡 == /storage/emulated/0/
-            return Environment.getExternalStorageDirectory().getPath() + File.separator;
+            this.sdCardDir = Environment.getExternalStorageDirectory().getPath() + File.separator;
         } else {
             // 没sd卡 == /
-            return Environment.getRootDirectory() + File.separator;
+            this.sdCardDir = Environment.getRootDirectory() + File.separator;
         }
+        LogUtils.d(LOG_TAG, "getSDCardDir: " + sdCardDir);
+        return this.sdCardDir;
     }
 
     public static boolean isSDCardExits() {
