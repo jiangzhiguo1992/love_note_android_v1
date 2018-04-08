@@ -12,138 +12,144 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <android.support.v4.widget.NestedScrollView
+    <com.jiangzg.ita.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                    <com.jiangzg.ita.view.GImageView
-                        android:id="@+id/ivAvatarLeft"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <com.jiangzg.ita.view.GImageView
+                            android:id="@+id/ivAvatarLeft"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="30dp"
+                            app:is_circle="true"/>
+
+                        <TextView
+                            android:id="@+id/tvNameLeft"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/shape_r3_stroke_grey"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingTop="7dp"
+                            tools:text="名字最多六字"/>
+
+                        <TextView
+                            android:id="@+id/tvPhoneLeft"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/shape_r3_stroke_grey"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingTop="7dp"
+                            tools:text="18600757123"/>
+
+                        <TextView
+                            android:id="@+id/tvBirthLeft"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/shape_r3_stroke_grey"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingTop="7dp"
+                            tools:text="92.07.12"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="30dp"
-                        app:is_circle="true"/>
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvNameLeft"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/shape_r3_stroke_grey"
-                        android:gravity="center"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        tools:text="名字最多六字"/>
+                        <com.jiangzg.ita.view.GImageView
+                            android:id="@+id/ivAvatarRight"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="30dp"
+                            app:is_circle="true"/>
 
-                    <TextView
-                        android:id="@+id/tvPhoneLeft"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/shape_r3_stroke_grey"
-                        android:gravity="center"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        tools:text="18600757123"/>
+                        <TextView
+                            android:id="@+id/tvNameRight"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/shape_r3_stroke_grey"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingTop="7dp"
+                            tools:text="名字最多六字"/>
 
-                    <TextView
-                        android:id="@+id/tvBirthLeft"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/shape_r3_stroke_grey"
-                        android:gravity="center"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        tools:text="92.07.12"/>
+                        <TextView
+                            android:id="@+id/tvPhoneRight"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/shape_r3_stroke_grey"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingTop="7dp"
+                            tools:text="18600757123"/>
+
+                        <TextView
+                            android:id="@+id/tvBirthRight"
+                            style="@style/FontBlackNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:background="@drawable/shape_r3_stroke_grey"
+                            android:gravity="center"
+                            android:paddingBottom="7dp"
+                            android:paddingTop="7dp"
+                            tools:text="92.07.12"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/tvBreakAbout"
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <com.jiangzg.ita.view.GImageView
-                        android:id="@+id/ivAvatarRight"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="30dp"
-                        app:is_circle="true"/>
-
-                    <TextView
-                        android:id="@+id/tvNameRight"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/shape_r3_stroke_grey"
-                        android:gravity="center"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        tools:text="名字最多六字"/>
-
-                    <TextView
-                        android:id="@+id/tvPhoneRight"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/shape_r3_stroke_grey"
-                        android:gravity="center"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        tools:text="18600757123"/>
-
-                    <TextView
-                        android:id="@+id/tvBirthRight"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:background="@drawable/shape_r3_stroke_grey"
-                        android:gravity="center"
-                        android:paddingBottom="7dp"
-                        android:paddingTop="7dp"
-                        tools:text="92.07.12"/>
-                </LinearLayout>
+                    android:layout_marginTop="40dp"
+                    tools:text="@string/break_relation"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvBreakAbout"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                tools:text="@string/break_relation"/>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+        </android.support.v4.widget.NestedScrollView>
+    </com.jiangzg.ita.view.GSwipeRefreshLayout>
 </LinearLayout>

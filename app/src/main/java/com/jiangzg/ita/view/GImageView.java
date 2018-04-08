@@ -256,6 +256,7 @@ public class GImageView extends SimpleDraweeView {
     }
 
     // http:// https:// 需要现场获取oss的url
+    // todo 加上长宽请求
     public void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
         Uri parse;

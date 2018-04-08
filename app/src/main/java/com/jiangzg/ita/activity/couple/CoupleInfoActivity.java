@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
@@ -40,6 +42,7 @@ import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
+import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.io.File;
 
@@ -51,6 +54,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @BindView(R.id.root)
     LinearLayout root;
+    @BindView(R.id.srl)
+    GSwipeRefreshLayout srl;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.ivAvatarLeft)
@@ -72,12 +77,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @BindView(R.id.tvBreakAbout)
     TextView tvBreakAbout;
 
+    private boolean isCreator;
+    private User me;
+    private User ta;
+
     private File cameraFile;
-    private File pictureFile;
     private File cropFile;
 
-    private boolean isCreator;
-    private String modifyName;
     private MaterialDialog dialogName;
 
     public static void goActivity(Activity from) {
@@ -95,60 +101,38 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.couple_info), true);
-
+        // 我的数据和身份
+        me = SPHelper.getUser();
+        isCreator = me.isCoupleCreator();
+        // srl
+        srl.setEnabled(false);
     }
 
     @Override
     protected void initData(Bundle state) {
-        User user = SPHelper.getUser();
-        Couple couple = user.getCouple();
-        isCreator = user.isCoupleCreator();
-        // meData
-        String phone = user.getPhone();
-        long birth = user.getBirthday() * 1000;
-        String birthShow = DateUtils.getString(birth, ConstantUtils.FORMAT_CHINA_Y_M_D);
-        // coupleData
-        String creatorAvatar = couple.getCreatorAvatar();
-        String creatorName = couple.getCreatorName();
-        String inviteeAvatar = couple.getInviteeAvatar();
-        String inviteeName = couple.getInviteeName();
-        // view
-        ivAvatarLeft.setDataOss(creatorAvatar);
-        tvNameLeft.setText(creatorName);
-        tvPhoneLeft.setText(phone);
-        tvBirthLeft.setText(birthShow);
-        ivAvatarRight.setDataOss(inviteeAvatar);
-        tvNameRight.setText(inviteeName);
-        // ta
         getTaInfo();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
+        if (resultCode != RESULT_OK) {
+            deleteCameraFile();
+            return;
+        }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
             goCropActivity(cameraFile);
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            pictureFile = IntentResult.getPictureFile(data);
+            File pictureFile = IntentResult.getPictureFile(data);
             goCropActivity(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
-            deleteCameraAndPictureFile();
-            // todo oss
-            coupleAvatar();
+            deleteCameraFile();
+            ossUploadAvatar();
         }
     }
-
-    //@Override
-    //protected void onDestroy() {
-    //    super.onDestroy();
-    //    cameraFile = null;
-    //    pictureFile = null;
-    //    cropFile = null;
-    //}
 
     @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.tvBirthLeft,
             R.id.ivAvatarRight, R.id.tvNameRight, R.id.tvPhoneRight, R.id.tvBirthRight,
@@ -202,29 +186,69 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void getTaInfo() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
         // api获取ta
         Call<Result> call = new RetrofitHelper().call(API.class).userGet(true);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                User user = data.getUser();
-                if (user == null) return;
-                String phone = user.getPhone();
-                long birth = user.getBirthday() * 1000;
-                String birthShow = DateUtils.getString(birth, ConstantUtils.FORMAT_CHINA_Y_M_D);
-                if (isCreator) {
-                    tvPhoneRight.setText(phone);
-                    tvBirthRight.setText(birthShow);
-                } else {
-                    tvPhoneLeft.setText(phone);
-                    tvBirthLeft.setText(birthShow);
-                }
+                srl.setRefreshing(false);
+                ta = data.getUser();
+                setViewData();
             }
 
             @Override
             public void onFailure() {
+                srl.setRefreshing(false);
             }
         });
+    }
+
+    private void setViewData() {
+        Couple couple = me.getCouple();
+        // meData
+        String mePhone = me.getPhone();
+        long meBirth = me.getBirthday() * 1000;
+        String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_CHINA_Y_M_D);
+        // taData
+        String taPhone = "";
+        if (ta != null) {
+            taPhone = ta.getPhone();
+        }
+        String tabBirthShow = "";
+        if (ta != null && ta.getBirthday() != 0) {
+            long taBirth = ta.getBirthday() * 1000;
+            tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_CHINA_Y_M_D);
+        }
+        // coupleData
+        String creatorAvatar = couple.getCreatorAvatar();
+        String creatorName = couple.getCreatorName();
+        String inviteeAvatar = couple.getInviteeAvatar();
+        String inviteeName = couple.getInviteeName();
+        // view
+        ivAvatarLeft.setDataOss(creatorAvatar);
+        ivAvatarRight.setDataOss(inviteeAvatar);
+        tvNameLeft.setText(creatorName);
+        tvNameRight.setText(inviteeName);
+        if (isCreator) {
+            tvPhoneLeft.setText(mePhone);
+            tvPhoneRight.setText(taPhone);
+            tvBirthLeft.setText(meBirthShow);
+            tvBirthRight.setText(tabBirthShow);
+        } else {
+            tvPhoneLeft.setText(taPhone);
+            tvPhoneRight.setText(mePhone);
+            tvBirthLeft.setText(tabBirthShow);
+            tvBirthRight.setText(meBirthShow);
+        }
+    }
+
+    private void showAvatarSelect() {
+        cameraFile = ResHelper.createJPEGInCache();
+        PopupWindow popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
+        PopUtils.show(popupWindow, root);
     }
 
     private void goCropActivity(File source) {
@@ -238,37 +262,49 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-    private void showAvatarSelect() {
-        cameraFile = ResHelper.createJPEGInCache();
-        PopupWindow popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root);
-    }
-
-    private void deleteCameraAndPictureFile() {
+    private void deleteCameraFile() {
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
+                // 不能删相册里的  会删除源文件
                 FileUtils.deleteFile(cameraFile);
-                FileUtils.deleteFile(pictureFile);
                 cameraFile = null;
-                pictureFile = null;
             }
         });
     }
 
-    // 修改名字
-    private void coupleAvatar() {
-        // todo api
-        //ApiHelper.getCoupleUpdateInfo(,)
-        //Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
-        if (isCreator) {
-            ivAvatarRight.setDataFile(cropFile);
-        } else {
-            ivAvatarLeft.setDataFile(cropFile);
-        }
+    // 上传头像
+    private void ossUploadAvatar() {
+        if (cropFile == null) return;
+        MaterialDialog process = getProcess();
+        // oss
+        String absolutePath = cropFile.getAbsolutePath();
+        OssHelper.uploadAvatar(process, absolutePath, new OssHelper.OssCallBack() {
+            @Override
+            public void success(String loadPath) {
+                deleteCropFile();
+                // api
+                apiCoupleInfo(loadPath, "");
+            }
+
+            @Override
+            public void failure(String errorPath) {
+                deleteCropFile();
+            }
+        });
     }
 
-    // 修改名称
+    private void deleteCropFile() {
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                FileUtils.deleteFile(cropFile);
+                cropFile = null;
+            }
+        });
+    }
+
+    // 修改名称对话框
     private void showNameInput() {
         String show = isCreator ? tvNameRight.getText().toString().trim() : tvNameLeft.getText().toString().trim();
         String hint = getString(R.string.please_input_nickname);
@@ -277,7 +313,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     .input(hint, show, false, new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                            modifyName = input.toString().trim();
+                            LogUtils.i(LOG_TAG, "showNameInput: onInput: " + input.toString());
                         }
                     })
                     .positiveText(R.string.confirm_no_wrong)
@@ -285,12 +321,39 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            coupleName();
+                            // api
+                            EditText editText = dialog.getInputEditText();
+                            if (editText != null) {
+                                String modifyName = editText.getText().toString();
+                                apiCoupleInfo("", modifyName);
+                            }
                         }
                     })
                     .build();
         }
         dialogName.show();
+    }
+
+    // api 修改couple
+    private void apiCoupleInfo(String avatar, String name) {
+        MaterialDialog loading = getLoading();
+        User body = ApiHelper.getCoupleUpdateInfo(avatar, name);
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                Couple couple = data.getCouple();
+                SPHelper.setCouple(couple);
+                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE, couple);
+                RxBus.post(event);
+                setViewData();
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
     // 拨打电话
@@ -304,16 +367,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void goUserInfo() {
         if (CheckHelper.canUserInfo()) {
             UserInfoActivity.goActivity(mActivity);
-        }
-    }
-
-    // 修改名字
-    private void coupleName() {
-        // todo api
-        if (isCreator) {
-            tvNameRight.setText(modifyName);
-        } else {
-            tvNameLeft.setText(modifyName);
         }
     }
 

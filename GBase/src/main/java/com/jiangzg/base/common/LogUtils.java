@@ -40,6 +40,7 @@ public class LogUtils {
     // err打印 会保存到文件，正式也开启
     public static void e(String tag, String print, Exception e) {
         //Log.e(LOG_TAG_PREFIX + tag, print);
+        if (e == null) return;
         e.printStackTrace();
     }
 

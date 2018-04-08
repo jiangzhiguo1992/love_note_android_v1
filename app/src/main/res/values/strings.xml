@@ -351,4 +351,6 @@
     <string name="file_create_fail">文件创建失败</string>
     <string name="picture_get_fail">照片获取失败</string>
     <string name="please_input_nickname">请输入昵称</string>
+    <string name="are_upload">正在上传</string>
+    <string name="cancel_upload">取消上传</string>
 </resources>
