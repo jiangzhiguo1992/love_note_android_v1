@@ -44,6 +44,14 @@ public class LogUtils {
         e.printStackTrace();
     }
 
+    // err打印 会保存到文件，正式也开启
+    public static void e(String tag, String print, Throwable t) {
+        //Log.e(LOG_TAG_PREFIX + tag, print);
+        if (t == null) return;
+        StackTraceElement[] stackTrace = t.getStackTrace();
+        // todo
+    }
+
     /**
      * 记录日志
      */

@@ -31,6 +31,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
+
 /**
  * Created by JZG on 2018/3/16.
  * 阿里Oss管理类
@@ -88,7 +91,7 @@ public class OssHelper {
         void failure(String errorPath);
     }
 
-    public static void uploadAvatar(MaterialDialog process, File source, final OssCallBack callBack) {
+    public static void uploadAvatar(final MaterialDialog process, final File source, final OssCallBack callBack) {
         // file
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.w(LOG_TAG, "uploadAvatar: source == null");
@@ -97,7 +100,6 @@ public class OssHelper {
             }
             return;
         }
-        String sourcePath = source.getAbsolutePath();
         // oss
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
@@ -105,9 +107,34 @@ public class OssHelper {
             LogUtils.w(LOG_TAG, "uploadAvatar: pathCoupleAvatar == null");
             return;
         }
-        String path = pathCoupleAvatar + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
-        // upload
-        uploadObject(process, path, sourcePath, callBack);
+        final String uploadPath = pathCoupleAvatar + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
+        // 启动压缩
+        Luban.get(MyApp.get())
+                .load(source) // 压缩源文件
+                .putGear(Luban.THIRD_GEAR) // 设定压缩档次，默认三挡
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        DialogHelper.show(process);
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // 保存在内部存储的cache文件，注意清理
+                        final String sourcePath = file.getAbsolutePath();
+                        // upload
+                        uploadObject(process, uploadPath, sourcePath, callBack);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtils.e(LOG_TAG, "Luban: onError: ", e);
+                        final String sourcePath = source.getAbsolutePath();
+                        // upload
+                        uploadObject(process, uploadPath, sourcePath, callBack);
+                    }
+                })
+                .launch();
     }
 
     // 上传任务
