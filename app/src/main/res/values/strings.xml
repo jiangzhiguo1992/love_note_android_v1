@@ -353,4 +353,7 @@
     <string name="please_input_nickname">请输入昵称</string>
     <string name="are_upload">正在上传</string>
     <string name="cancel_upload">取消上传</string>
+    <string name="i_want_break_pair_relation">我想解除配对关系</string>
+    <string name="i_regret_i_want_complex">我后悔了，我想复合</string>
+    <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
 </resources>

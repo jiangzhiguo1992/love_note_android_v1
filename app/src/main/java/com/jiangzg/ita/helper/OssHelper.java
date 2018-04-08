@@ -18,12 +18,16 @@ import com.alibaba.sdk.android.oss.model.GetObjectResult;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.OssInfo;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -37,8 +41,7 @@ public class OssHelper {
 
     // oos 对象
     private static OSS ossClient;
-    public static String bucket;
-    public static String endpoint;
+    private static String bucket;
 
     /**
      * 刷新ossClient
@@ -46,7 +49,6 @@ public class OssHelper {
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
         bucket = ossInfo.getBucket();
-        endpoint = ossInfo.getEndpoint();
         String accessKeyId = ossInfo.getAccessKeyId();
         String accessKeySecret = ossInfo.getAccessKeySecret();
         String securityToken = ossInfo.getSecurityToken();
@@ -86,33 +88,41 @@ public class OssHelper {
         void failure(String errorPath);
     }
 
-    public static OSSAsyncTask uploadAvatar(MaterialDialog process, String sourcePath, final OssCallBack callBack) {
+    public static void uploadAvatar(MaterialDialog process, File source, final OssCallBack callBack) {
+        // file
+        if (FileUtils.isFileEmpty(source)) {
+            LogUtils.w(LOG_TAG, "uploadAvatar: source == null");
+            if (FileUtils.isFileExists(source)) {
+                ResHelper.deleteFileInBackground(source);
+            }
+            return;
+        }
+        String sourcePath = source.getAbsolutePath();
+        // oss
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
-        if (StringUtils.isEmpty(pathCoupleAvatar)) return null;
-        String path = pathCoupleAvatar + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D_H_M_S_S);
-        return uploadImage(process, path, sourcePath, callBack);
+        if (StringUtils.isEmpty(pathCoupleAvatar)) {
+            LogUtils.w(LOG_TAG, "uploadAvatar: pathCoupleAvatar == null");
+            return;
+        }
+        String path = pathCoupleAvatar + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
+        // upload
+        uploadObject(process, path, sourcePath, callBack);
     }
 
     // 上传任务
-    public static OSSAsyncTask uploadImage(final MaterialDialog process, String objectKey, String sourcePath, final OssCallBack callBack) {
+    public static OSSAsyncTask uploadObject(final MaterialDialog process, String objectKey, String sourcePath, final OssCallBack callBack) {
+        LogUtils.i(LOG_TAG, "uploadImage: objectKey == " + objectKey);
         DialogHelper.show(process);
 
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, sourcePath);
 
-        //ObjectMetadata metadata = new ObjectMetadata();
-        //// 指定Content-Type
-        //metadata.setContentType("application/octet-stream");
-        //// user自定义metadata
-        //metadata.addUserMetadata("x-oss-meta-name1", "value1");
-        //put.setMetadata();
-
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
             @Override
             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                LogUtils.d(LOG_TAG, "uploadImage: currentSize: " + currentSize + " totalSize: " + totalSize);
+                //LogUtils.d(LOG_TAG, "uploadImage: currentSize: " + currentSize + " totalSize: " + totalSize);
                 if (process != null && process.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
                     process.setProgress(percent);
@@ -122,9 +132,7 @@ public class OssHelper {
         final OSSAsyncTask task = ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                if (process != null && process.isShowing()) {
-                    process.dismiss();
-                }
+                DialogHelper.dismiss(process);
                 String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadImage: onSuccess: getObjectKey == " + uploadKey);
                 if (callBack != null) {
@@ -134,9 +142,8 @@ public class OssHelper {
 
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                if (process != null && process.isShowing()) {
-                    process.dismiss();
-                }
+                DialogHelper.dismiss(process);
+                ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
                 String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadImage: onFailure: getObjectKey == " + uploadKey);
                 if (callBack != null) {
@@ -147,11 +154,9 @@ public class OssHelper {
                 LogUtils.e(LOG_TAG, "", serviceException);
                 // 服务异常
                 if (serviceException != null) {
-                    // todo toast
-                    LogUtils.w("ErrorCode", serviceException.getErrorCode());
-                    LogUtils.w("RequestId", serviceException.getRequestId());
-                    LogUtils.w("HostId", serviceException.getHostId());
-                    LogUtils.w("RawMessage", serviceException.getRawMessage());
+                    LogUtils.w(LOG_TAG, "RequestId: " + serviceException.getRequestId());
+                    LogUtils.w(LOG_TAG, "ErrorCode: " + serviceException.getErrorCode());
+                    LogUtils.w(LOG_TAG, "RawMessage: " + serviceException.getRawMessage());
                 }
             }
         });

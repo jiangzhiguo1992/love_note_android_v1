@@ -17,8 +17,8 @@ public class ConsHelper {
     public static final int REQUEST_CONTACT = 1008;
     public static final int REQUEST_BOOK_PICTURE = 1009;
     // RxBus.ID
-    public static final int EVENT_USER = 1;
-    public static final int EVENT_COUPLE = 2;
+    public static final int EVENT_USER_CHANGE = 1;
+    public static final int EVENT_COUPLE_CHANGE = 2;
 
 
 }

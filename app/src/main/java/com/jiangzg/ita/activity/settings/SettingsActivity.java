@@ -23,6 +23,11 @@ import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.RxEvent;
+import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.service.UpdateService;
@@ -193,6 +198,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         SPHelper.clearUser();
                         SPHelper.clearCouple();
+                        RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_CHANGE, null);
+                        RxBus.post(event);
                         LoginActivity.goActivity(mActivity);
                     }
                 })

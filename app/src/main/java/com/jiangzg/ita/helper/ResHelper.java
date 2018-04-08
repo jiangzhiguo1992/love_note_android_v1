@@ -3,6 +3,7 @@ package com.jiangzg.ita.helper;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.ita.base.MyApp;
 
 import java.io.File;
 
@@ -12,6 +13,15 @@ import java.io.File;
  * todo 搞一搞 注意权限
  */
 public class ResHelper {
+
+    public static void deleteFileInBackground(final File file) {
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                FileUtils.deleteFile(file);
+            }
+        });
+    }
 
     public static File createJPEGInCache() {
         String fileName = StringUtils.getUUID(8) + ".jpeg";

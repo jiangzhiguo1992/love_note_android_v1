@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
@@ -25,7 +24,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
@@ -117,7 +115,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            deleteCameraFile();
+            ResHelper.deleteFileInBackground(cameraFile);
+            ResHelper.deleteFileInBackground(cropFile);
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
@@ -129,7 +128,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             goCropActivity(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
-            deleteCameraFile();
+            ResHelper.deleteFileInBackground(cameraFile);
             ossUploadAvatar();
         }
     }
@@ -207,7 +206,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void setViewData() {
-        Couple couple = me.getCouple();
         // meData
         String mePhone = me.getPhone();
         long meBirth = me.getBirthday() * 1000;
@@ -223,10 +221,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_CHINA_Y_M_D);
         }
         // coupleData
+        Couple couple = SPHelper.getCouple();
         String creatorAvatar = couple.getCreatorAvatar();
         String creatorName = couple.getCreatorName();
         String inviteeAvatar = couple.getInviteeAvatar();
         String inviteeName = couple.getInviteeName();
+        boolean breaking = CheckHelper.isCoupleBreaking(couple);
         // view
         ivAvatarLeft.setDataOss(creatorAvatar);
         ivAvatarRight.setDataOss(inviteeAvatar);
@@ -243,11 +243,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             tvBirthLeft.setText(tabBirthShow);
             tvBirthRight.setText(meBirthShow);
         }
+        if (breaking) {
+            tvBreakAbout.setText(R.string.i_regret_i_want_complex);
+        } else {
+            tvBreakAbout.setText(R.string.i_want_break_pair_relation);
+        }
     }
 
     private void showAvatarSelect() {
         cameraFile = ResHelper.createJPEGInCache();
-        PopupWindow popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = PopHelper.createAlbumCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
 
@@ -262,44 +267,20 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-    private void deleteCameraFile() {
-        MyApp.get().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                // 不能删相册里的  会删除源文件
-                FileUtils.deleteFile(cameraFile);
-                cameraFile = null;
-            }
-        });
-    }
-
-    // 上传头像
+    // oss上传头像
     private void ossUploadAvatar() {
-        if (cropFile == null) return;
         MaterialDialog process = getProcess();
-        // oss
-        String absolutePath = cropFile.getAbsolutePath();
-        OssHelper.uploadAvatar(process, absolutePath, new OssHelper.OssCallBack() {
+        OssHelper.uploadAvatar(process, cropFile, new OssHelper.OssCallBack() {
             @Override
             public void success(String loadPath) {
-                deleteCropFile();
+                ResHelper.deleteFileInBackground(cropFile);
                 // api
                 apiCoupleInfo(loadPath, "");
             }
 
             @Override
             public void failure(String errorPath) {
-                deleteCropFile();
-            }
-        });
-    }
-
-    private void deleteCropFile() {
-        MyApp.get().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                FileUtils.deleteFile(cropFile);
-                cropFile = null;
+                ResHelper.deleteFileInBackground(cropFile);
             }
         });
     }
@@ -345,7 +326,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE, couple);
+                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_CHANGE, couple);
                 RxBus.post(event);
                 setViewData();
             }
@@ -365,6 +346,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 用户信息
     private void goUserInfo() {
+        // 也就改一次，所以直接修改完之后就跳转home吧
         if (CheckHelper.canUserInfo()) {
             UserInfoActivity.goActivity(mActivity);
         }
@@ -372,15 +354,18 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 分手/复合
     private void breakAbout() {
-        // todo 是分手还是复合
-        // coupleBreak();
+        long cid = SPHelper.getCouple().getId();
+        User body = ApiHelper.getCoupleUpdate2GoodBody(cid);
+        if (!CheckHelper.isCoupleBreaking()) {
+            // 要分手
+            body = ApiHelper.getCoupleUpdate2BadBody(cid);
+        }
+        coupleStatus(body);
     }
 
     // 分手
-    private void coupleBreak() {
+    private void coupleStatus(User body) {
         MaterialDialog loading = getLoading(true);
-        long cid = SPHelper.getCouple().getId();
-        User body = ApiHelper.getCoupleUpdate2BadBody(cid);
         // api
         Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
@@ -388,7 +373,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE, couple);
+                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_CHANGE, couple);
                 RxBus.post(event);
                 mActivity.finish();
             }

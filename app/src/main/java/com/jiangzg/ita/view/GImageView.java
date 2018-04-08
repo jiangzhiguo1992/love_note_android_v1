@@ -212,7 +212,7 @@ public class GImageView extends SimpleDraweeView {
                 .setOldController(this.getController()) // 减少内存消耗
                 .setImageRequest(imageRequest)
                 .setAutoPlayAnimations(false);// gif自动播放
-        if (uri != null && uri.toString().startsWith("http")) {
+        if (uri != null && uri.toString().startsWith("http") && !isCircle) {
             builder = builder.setTapToRetryEnabled(true); // 点击重新加载
             //.setControllerListener(createControllerListener()); // 加载成功/失败监听
         }
