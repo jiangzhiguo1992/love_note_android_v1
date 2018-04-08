@@ -91,15 +91,62 @@ public class OssHelper {
         void failure(String errorPath);
     }
 
-    public static void uploadAvatar(final MaterialDialog process, final File source, final OssCallBack callBack) {
-        // file
-        if (FileUtils.isFileEmpty(source)) {
-            LogUtils.w(LOG_TAG, "uploadAvatar: source == null");
-            if (FileUtils.isFileExists(source)) {
-                ResHelper.deleteFileInBackground(source);
+    // todo 下载任务
+    public static void downloadObject(String objectKey) {
+        // 构造下载文件请求
+        GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
+
+        OSSAsyncTask task = ossClient.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
+            @Override
+            public void onSuccess(GetObjectRequest request, GetObjectResult result) {
+                // 请求成功
+                LogUtils.d("Content-Length", "" + result.getContentLength());
+
+                InputStream inputStream = result.getObjectContent();
+
+                byte[] buffer = new byte[2048];
+                int len;
+
+                try {
+                    while ((len = inputStream.read(buffer)) != -1) {
+                        // 处理下载的数据
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
+            @Override
+            public void onFailure(GetObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                    LogUtils.w("ErrorCode", serviceException.getErrorCode());
+                    LogUtils.w("RequestId", serviceException.getRequestId());
+                    LogUtils.w("HostId", serviceException.getHostId());
+                    LogUtils.w("RawMessage", serviceException.getRawMessage());
+                }
+            }
+        });
+    }
+
+    public static void uploadWall(MaterialDialog process, File source, OssCallBack callBack) {
+        // oss
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathCoupleWall = ossInfo.getPathCoupleWall();
+        if (StringUtils.isEmpty(pathCoupleWall)) {
+            LogUtils.w(LOG_TAG, "uploadWall: pathCoupleWall == null");
             return;
         }
+        // 先压缩 再上传
+        compressObject(process, source, pathCoupleWall, callBack);
+    }
+
+    public static void uploadAvatar(MaterialDialog process, File source, OssCallBack callBack) {
         // oss
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
@@ -107,8 +154,23 @@ public class OssHelper {
             LogUtils.w(LOG_TAG, "uploadAvatar: pathCoupleAvatar == null");
             return;
         }
-        final String uploadPath = pathCoupleAvatar + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
-        // 启动压缩
+        // 先压缩 再上传
+        compressObject(process, source, pathCoupleAvatar, callBack);
+    }
+
+    // 启动压缩
+    private static void compressObject(final MaterialDialog process, final File source, final String uploadPath, final OssCallBack callBack) {
+        // file
+        if (FileUtils.isFileEmpty(source)) {
+            LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
+            if (FileUtils.isFileExists(source)) {
+                ResHelper.deleteFileInBackground(source);
+            }
+            return;
+        }
+        // objectKey
+        final String objectKey = uploadPath + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
+        // compress
         Luban.get(MyApp.get())
                 .load(source) // 压缩源文件
                 .putGear(Luban.THIRD_GEAR) // 设定压缩档次，默认三挡
@@ -123,7 +185,7 @@ public class OssHelper {
                         // 保存在内部存储的cache文件，注意清理
                         final String sourcePath = file.getAbsolutePath();
                         // upload
-                        uploadObject(process, uploadPath, sourcePath, callBack);
+                        uploadObject(process, objectKey, sourcePath, callBack);
                     }
 
                     @Override
@@ -131,14 +193,14 @@ public class OssHelper {
                         LogUtils.e(LOG_TAG, "Luban: onError: ", e);
                         final String sourcePath = source.getAbsolutePath();
                         // upload
-                        uploadObject(process, uploadPath, sourcePath, callBack);
+                        uploadObject(process, objectKey, sourcePath, callBack);
                     }
                 })
                 .launch();
     }
 
     // 上传任务
-    public static OSSAsyncTask uploadObject(final MaterialDialog process, String objectKey, String sourcePath, final OssCallBack callBack) {
+    private static OSSAsyncTask uploadObject(final MaterialDialog process, String objectKey, String sourcePath, final OssCallBack callBack) {
         LogUtils.i(LOG_TAG, "uploadImage: objectKey == " + objectKey);
         DialogHelper.show(process);
 
@@ -208,52 +270,6 @@ public class OssHelper {
             });
         }
         return task;
-    }
-
-    // todo
-    // task.cancel(); // 可以取消任务
-    // task.waitUntilFinished(); // 等待直到任务完成
-    // GetObjectResult result = task.getResult(); // 阻塞等待结果返回
-    public static void downloadObject(String objectKey) {
-        // 构造下载文件请求
-        GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
-
-        OSSAsyncTask task = ossClient.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
-            @Override
-            public void onSuccess(GetObjectRequest request, GetObjectResult result) {
-                // 请求成功
-                LogUtils.d("Content-Length", "" + result.getContentLength());
-
-                InputStream inputStream = result.getObjectContent();
-
-                byte[] buffer = new byte[2048];
-                int len;
-
-                try {
-                    while ((len = inputStream.read(buffer)) != -1) {
-                        // 处理下载的数据
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(GetObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
-                // 请求异常
-                if (clientExcepion != null) {
-                    // 本地异常如网络异常等
-                    clientExcepion.printStackTrace();
-                }
-                if (serviceException != null) {
-                    // 服务异常
-                    LogUtils.w("ErrorCode", serviceException.getErrorCode());
-                    LogUtils.w("RequestId", serviceException.getRequestId());
-                    LogUtils.w("HostId", serviceException.getHostId());
-                    LogUtils.w("RawMessage", serviceException.getRawMessage());
-                }
-            }
-        });
     }
 
     public static void taskCancel(OSSAsyncTask task) {
