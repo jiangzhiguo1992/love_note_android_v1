@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.jiangzg.base.common.EncryptUtils;
+import com.jiangzg.ita.R;
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 
@@ -28,6 +30,16 @@ public class User extends BaseObj implements Parcelable {
     private String validateCode;
     private int type;
     private String oldPassWord;
+
+    public String getSexShow() {
+        int sex = getSex();
+        if (sex == SEX_GIRL) {
+            return MyApp.get().getString(R.string.girl);
+        } else if (sex == SEX_BOY) {
+            return MyApp.get().getString(R.string.boy);
+        }
+        return "";
+    }
 
     public String getMyNameInCp() {
         Couple couple = getCouple();

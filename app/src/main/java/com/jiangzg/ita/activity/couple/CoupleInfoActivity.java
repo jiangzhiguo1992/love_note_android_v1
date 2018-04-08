@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -60,22 +61,33 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.tb)
     Toolbar tb;
+
     @BindView(R.id.ivAvatarLeft)
     GImageView ivAvatarLeft;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvPhoneLeft)
     TextView tvPhoneLeft;
+    @BindView(R.id.llUserInfoLeft)
+    LinearLayout llUserInfoLeft;
+    @BindView(R.id.ivSexLeft)
+    ImageView ivSexLeft;
     @BindView(R.id.tvBirthLeft)
     TextView tvBirthLeft;
+
     @BindView(R.id.ivAvatarRight)
     GImageView ivAvatarRight;
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
     @BindView(R.id.tvPhoneRight)
     TextView tvPhoneRight;
+    @BindView(R.id.llUserInfoRight)
+    LinearLayout llUserInfoRight;
+    @BindView(R.id.ivSexRight)
+    ImageView ivSexRight;
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
+
     @BindView(R.id.tvBreakAbout)
     TextView tvBreakAbout;
 
@@ -155,8 +167,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.tvBirthLeft,
-            R.id.ivAvatarRight, R.id.tvNameRight, R.id.tvPhoneRight, R.id.tvBirthRight,
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoLeft,
+            R.id.ivAvatarRight, R.id.tvNameRight, R.id.tvPhoneRight, R.id.llUserInfoRight,
             R.id.tvBreakAbout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -190,12 +202,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     showDial();
                 }
                 break;
-            case R.id.tvBirthLeft:
+            case R.id.llUserInfoLeft:
                 if (isCreator) {
                     goUserInfo();
                 }
                 break;
-            case R.id.tvBirthRight:
+            case R.id.llUserInfoRight:
                 if (!isCreator) {
                     goUserInfo();
                 }
@@ -230,17 +242,31 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void setViewData() {
         // meData
         String mePhone = me.getPhone();
+        int meSex = 0;
+        if (me.getSex() == User.SEX_BOY) {
+            meSex = R.mipmap.ic_sex_boy_circle;
+        } else if (me.getSex() == User.SEX_GIRL) {
+            meSex = R.mipmap.ic_sex_girl_circle;
+        }
         long meBirth = me.getBirthday() * 1000;
-        String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_CHINA_Y_M_D);
+        String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         // taData
         String taPhone = "";
         if (ta != null) {
             taPhone = ta.getPhone();
         }
+        int taSex = 0;
+        if (ta != null) {
+            if (ta.getSex() == User.SEX_BOY) {
+                taSex = R.mipmap.ic_sex_boy_circle;
+            } else if (ta.getSex() == User.SEX_GIRL) {
+                taSex = R.mipmap.ic_sex_girl_circle;
+            }
+        }
         String tabBirthShow = "";
         if (ta != null && ta.getBirthday() != 0) {
             long taBirth = ta.getBirthday() * 1000;
-            tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_CHINA_Y_M_D);
+            tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
         // coupleData
         Couple couple = SPHelper.getCouple();
@@ -257,11 +283,23 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         if (isCreator) {
             tvPhoneLeft.setText(mePhone);
             tvPhoneRight.setText(taPhone);
+            if (meSex != 0) {
+                ivSexLeft.setImageResource(meSex);
+            }
+            if (taSex != 0) {
+                ivSexRight.setImageResource(taSex);
+            }
             tvBirthLeft.setText(meBirthShow);
             tvBirthRight.setText(tabBirthShow);
         } else {
             tvPhoneLeft.setText(taPhone);
             tvPhoneRight.setText(mePhone);
+            if (taSex != 0) {
+                ivSexLeft.setImageResource(taSex);
+            }
+            if (meSex != 0) {
+                ivSexRight.setImageResource(meSex);
+            }
             tvBirthLeft.setText(tabBirthShow);
             tvBirthRight.setText(meBirthShow);
         }

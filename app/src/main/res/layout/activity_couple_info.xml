@@ -74,17 +74,33 @@
                             android:paddingTop="7dp"
                             tools:text="18600757123"/>
 
-                        <TextView
-                            android:id="@+id/tvBirthLeft"
-                            style="@style/FontBlackNormal"
+                        <LinearLayout
+                            android:id="@+id/llUserInfoLeft"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
                             android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingBottom="7dp"
-                            android:paddingTop="7dp"
-                            tools:text="92.07.12"/>
+                            android:paddingTop="7dp">
+
+                            <ImageView
+                                android:id="@+id/ivSexLeft"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:scaleType="centerCrop"
+                                tools:src="@mipmap/ic_sex_girl_circle"/>
+
+                            <TextView
+                                android:id="@+id/tvBirthLeft"
+                                style="@style/FontBlackNormal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:gravity="center"
+                                tools:text="92.07.12"/>
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
@@ -128,17 +144,33 @@
                             android:paddingTop="7dp"
                             tools:text="18600757123"/>
 
-                        <TextView
-                            android:id="@+id/tvBirthRight"
-                            style="@style/FontBlackNormal"
+                        <LinearLayout
+                            android:id="@+id/llUserInfoRight"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
                             android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
+                            android:orientation="horizontal"
                             android:paddingBottom="7dp"
-                            android:paddingTop="7dp"
-                            tools:text="92.07.12"/>
+                            android:paddingTop="7dp">
+
+                            <ImageView
+                                android:id="@+id/ivSexRight"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:scaleType="centerCrop"
+                                tools:src="@mipmap/ic_sex_boy_circle"/>
+
+                            <TextView
+                                android:id="@+id/tvBirthRight"
+                                style="@style/FontBlackNormal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:gravity="center"
+                                tools:text="92.07.12"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
