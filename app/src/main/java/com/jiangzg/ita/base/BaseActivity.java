@@ -124,7 +124,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                         }
                     })
                     .build();
-            DialogHelper.setAnim(mLoading);
+            DialogHelper.setAnim(mProgress);
         }
         return mProgress;
     }

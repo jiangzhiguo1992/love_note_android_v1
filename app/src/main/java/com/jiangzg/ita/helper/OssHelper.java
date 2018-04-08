@@ -133,10 +133,15 @@ public class OssHelper {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 DialogHelper.dismiss(process);
-                String uploadKey = request.getObjectKey();
+                final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadImage: onSuccess: getObjectKey == " + uploadKey);
                 if (callBack != null) {
-                    callBack.success(uploadKey);
+                    MyApp.get().getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.success(uploadKey);
+                        }
+                    });
                 }
             }
 
@@ -144,10 +149,15 @@ public class OssHelper {
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 DialogHelper.dismiss(process);
                 ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
-                String uploadKey = request.getObjectKey();
+                final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadImage: onFailure: getObjectKey == " + uploadKey);
                 if (callBack != null) {
-                    callBack.failure(uploadKey);
+                    MyApp.get().getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.failure(uploadKey);
+                        }
+                    });
                 }
                 // 本地异常如网络异常等
                 LogUtils.e(LOG_TAG, "", clientException);

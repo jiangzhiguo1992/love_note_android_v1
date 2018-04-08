@@ -22,6 +22,7 @@ public class Help extends BaseObj implements Parcelable {
     public static final int TYPE_SUGGEST_MINE = 7;
     public static final int TYPE_SUGGEST_FOLLOW = 8;
     public static final int TYPE_WALL_PAPER_ADD = 9;
+    public static final int TYPE_COUPLE_INFO = 10;
 
     private int contentType;
     private String title;

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,9 +24,11 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
@@ -104,11 +108,29 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         isCreator = me.isCoupleCreator();
         // srl
         srl.setEnabled(false);
+        // menu
+        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menuHelp: // 帮助
+                        HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_INFO);
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
     protected void initData(Bundle state) {
         getTaInfo();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -317,7 +339,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // api 修改couple
     private void apiCoupleInfo(String avatar, String name) {
-        MaterialDialog loading = getLoading();
+        MaterialDialog loading = getLoading(true);
         User body = ApiHelper.getCoupleUpdateInfo(avatar, name);
         // api
         Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
