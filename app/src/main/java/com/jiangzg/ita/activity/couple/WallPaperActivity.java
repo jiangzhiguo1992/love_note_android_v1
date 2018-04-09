@@ -13,13 +13,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
@@ -29,9 +32,11 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.PopHelper;
-import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
+import com.jiangzg.ita.helper.ResHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
@@ -40,7 +45,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import top.zibin.luban.OnCompressListener;
 
 public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
@@ -55,7 +59,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
     private RecyclerHelper recyclerHelper;
     private File cameraFile;
-    private PopupWindow popupWindow;
+    private File cropFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WallPaperActivity.class);
@@ -108,10 +112,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                         HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
                         break;
                     case R.id.menuAdd: // 添加
-                        if (cameraFile == null) {
-                            //cameraFile = ResHelper.createJPEGInFiles();
-                        }
-                        showAddPop();
+                        showImgSelect();
                         break;
                 }
                 return true;
@@ -133,14 +134,22 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
-        if (requestCode == ConsHelper.REQUEST_BOOK_PICTURE) {
-            pushData();
+        if (resultCode != RESULT_OK) {
+            ResHelper.deleteFileInBackground(cameraFile, true);
+            ResHelper.deleteFileInBackground(cropFile, false);
+            return;
+        }
+        if (requestCode == ConsHelper.REQUEST_CAMERA) {
+            // 拍照
+            goCropActivity(cameraFile);
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+            // 相册
             File pictureFile = IntentResult.getPictureFile(data);
-            compressFile(pictureFile);
-        } else if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            compressFile(cameraFile);
+            goCropActivity(pictureFile);
+        } else if (requestCode == ConsHelper.REQUEST_CROP) {
+            // 裁剪
+            ResHelper.deleteFileInBackground(cameraFile, true);
+            ossUploadWall();
         }
     }
 
@@ -151,25 +160,6 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
             public void run() {
                 WallPaper wallPaper = new WallPaper();
                 List<String> list = new ArrayList<>();
-                //list.add("http://img4.imgtn.bdimg.com/it/u=169060927,1884911313&fm=27&gp=0.jpg");
-                //list.add("http://img0.imgtn.bdimg.com/it/u=1369711964,515430964&fm=200&gp=0.jpg");
-                //list.add("http://img4.imgtn.bdimg.com/it/u=2879331571,3181036945&fm=200&gp=0.jpg");
-                //list.add("http://img3.imgtn.bdimg.com/it/u=1489756078,3073908939&fm=27&gp=0.jpg");
-                //list.add("http://img1.imgtn.bdimg.com/it/u=2800834159,1959441958&fm=27&gp=0.jpg");
-                //list.add("http://img4.imgtn.bdimg.com/it/u=2324935939,3139070251&fm=27&gp=0.jpg");
-                //list.add("http://img3.imgtn.bdimg.com/it/u=419152308,4151393995&fm=27&gp=0.jpg");
-                //list.add("http://img0.imgtn.bdimg.com/it/u=1745541687,3814417807&fm=200&gp=0.jpg");
-                //list.add("http://img4.imgtn.bdimg.com/it/u=2818615775,2778183477&fm=27&gp=0.jpg");
-                list.add("ita-book/cid-0/IMG_20171002_095707.jpg");
-                list.add("ita-book/cid-1/B612咔叽_20171003_152437.jpg");
-                list.add("ita-square/IMG_20171003_153719.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_192104.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_201829.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_201953_1.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_202111.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_205613.jpg");
-                list.add("ita-couple/cid-1/avatar/IMG_20171001_210151.jpg");
-                // 位的
                 wallPaper.setImageList(list);
 
                 recyclerHelper.dataNew(list);
@@ -178,46 +168,42 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
         }, 1000);
     }
 
-    public void showAddPop() {
-        if (popupWindow == null) {
-            popupWindow = PopHelper.createBookAlbumCamera(mActivity, cameraFile);
-        }
+    public void showImgSelect() {
+        // todo 检查数量 vip?
+        cameraFile = ResHelper.createJPEGInCache();
+        PopupWindow popupWindow = PopHelper.createAlbumCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
 
-    private void compressFile(final File original) {
-        if (FileUtils.isFileEmpty(original)) {
-            ToastUtils.show(getString(R.string.image_get_error));
-            return;
+    private void goCropActivity(File source) {
+        if (source != null) {
+            cropFile = ResHelper.createJPEGInCache();
+            int screenWidth = ScreenUtils.getScreenWidth(mActivity);
+            int screenHeight = ScreenUtils.getScreenHeight(mActivity);
+            Intent intent = IntentSend.getCrop(source, cropFile, screenWidth, screenHeight);
+            ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
+        } else {
+            ToastUtils.show(getString(R.string.picture_get_fail));
+            LogUtils.w(LOG_TAG, "IntentResult.getPictureFile: fail");
         }
-        //LuBanUtils.compress(mActivity, original, new OnCompressListener() {
-        //    @Override
-        //    public void onStart() {
-        //        getLoading(getString(R.string.image_is_compress), false).show();
-        //    }
-        //
-        //    @Override
-        //    public void onSuccess(File file) {
-        //        FileUtils.deleteFile(original);
-        //        uploadOss(file);
-        //    }
-        //
-        //    @Override
-        //    public void onError(Throwable e) {
-        //        getLoading().dismiss();
-        //        ToastUtils.show(getString(R.string.image_compress_fail));
-        //        FileUtils.deleteFile(original);
-        //    }
-        //});
     }
 
-    private void uploadOss(File jpeg) {
-        getLoading("正在上传中", true).show();
-        // todo oss
-        pushData();
+    // oss上传头像
+    private void ossUploadWall() {
+        MaterialDialog process = getProcess();
+        OssHelper.uploadWall(process, cropFile, new OssHelper.OssCallBack() {
+            @Override
+            public void success(String ossPath) {
+                apiPushData(ossPath);
+            }
+
+            @Override
+            public void failure(String ossPath) {
+            }
+        });
     }
 
-    private void pushData() {
+    private void apiPushData(String ossPath) {
         // todo api
         // todo refresh data
     }

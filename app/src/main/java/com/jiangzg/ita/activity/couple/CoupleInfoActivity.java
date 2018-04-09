@@ -333,12 +333,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         MaterialDialog process = getProcess();
         OssHelper.uploadAvatar(process, cropFile, new OssHelper.OssCallBack() {
             @Override
-            public void success(String loadPath) {
-                apiCoupleInfo(loadPath, "");
+            public void success(String ossPath) {
+                apiCoupleInfo(ossPath, "");
             }
 
             @Override
-            public void failure(String errorPath) {
+            public void failure(String ossPath) {
             }
         });
     }

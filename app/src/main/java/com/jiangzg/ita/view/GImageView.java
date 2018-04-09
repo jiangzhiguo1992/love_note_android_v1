@@ -20,8 +20,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
-import com.facebook.cache.disk.DefaultDiskStorage;
-import com.facebook.cache.disk.DiskStorageCache;
 import com.facebook.cache.disk.FileCache;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
@@ -43,6 +41,7 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
@@ -50,14 +49,14 @@ import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.OssHelper;
 
 import java.io.File;
-import java.util.concurrent.Executors;
 
 /**
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
- * todo 整一整
  */
 public class GImageView extends SimpleDraweeView {
+
+    private static final String LOG_TAG = "GImageView";
 
     // 初始化
     public static void init(Application app) {
@@ -71,7 +70,7 @@ public class GImageView extends SimpleDraweeView {
                 return Uri.parse(cacheKey);
             }
         };
-        //// 初始化配置
+        //// 初始化配置 todo 设置缓存目录
         //DefaultDiskStorage defaultDiskStorage=new DefaultDiskStorage(
         //        diskCacheConfig.getBaseDirectoryPathSupplier().get(),
         //        diskCacheConfig.getVersion(),
@@ -188,7 +187,7 @@ public class GImageView extends SimpleDraweeView {
             //hierarchy.setProgressBarImage(new ImageProgressCircleDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
             //hierarchy.setRetryImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
             //hierarchy.setFailureImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.FIT_XY);
-        } else if (isFull) { // 全屏
+        } else if (isFull) { // 全屏 todo 长图还需要设置大小吗
             hierarchy.setFadeDuration(0);
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
             hierarchy.setPlaceholderImage(android.R.color.black, ScalingUtils.ScaleType.CENTER_CROP);
@@ -213,7 +212,7 @@ public class GImageView extends SimpleDraweeView {
                 .setImageRequest(imageRequest)
                 .setAutoPlayAnimations(false);// gif自动播放
         if (uri != null && uri.toString().startsWith("http") && !isCircle) {
-            builder = builder.setTapToRetryEnabled(true); // 点击重新加载
+            builder = builder.setTapToRetryEnabled(true); // 点击重新加载 todo 此状态要拦截点击事件
             //.setControllerListener(createControllerListener()); // 加载成功/失败监听
         }
 
@@ -238,6 +237,8 @@ public class GImageView extends SimpleDraweeView {
         }
         if (mWidth > 0 && mHeight > 0) {
             requestBuilder.setResizeOptions(new ResizeOptions(mWidth, mHeight));
+        } else {
+            LogUtils.w(LOG_TAG, "createImageRequest: mWidth | mHeight <= 0");
         }
         return requestBuilder.build();
     }
@@ -256,7 +257,6 @@ public class GImageView extends SimpleDraweeView {
     }
 
     // http:// https:// 需要现场获取oss的url
-    // todo 加上长宽请求
     public void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
         Uri parse;
@@ -274,72 +274,9 @@ public class GImageView extends SimpleDraweeView {
         setController(parse);
     }
 
-    // content://
-    public void setDataContent(String path) {
-        Uri parse = Uri.parse("content://" + path);
-        setController(parse);
-    }
-
-    // asset://
-    public void setDataAsset(String path) {
-        Uri parse = Uri.parse("asset://" + path);
-        setController(parse);
-    }
-
     // "res://" + AppInfo.get().getPackageName() + "/" + id
     public void setDataRes(@AnyRes int id) {
         setImageResource(id);
-    }
-
-    // todo 获取文件 + 添加水印
-    public File getFile(Uri uri) {
-        File file = null;
-        //Uri cacheKey = getCacheKey(uri);
-        //if (cacheKey != null) {
-        //    FileCache fileCache = Fresco.getImagePipelineFactory().getMainFileCache();
-        //    FileBinaryResource resource = (FileBinaryResource) fileCache.getResource(new SimpleCacheKey(cacheKey.toString()));
-        //    file = resource.getFile();
-        //} else {
-        //    ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri)
-        //            .setRotationOptions(RotationOptions.autoRotate())
-        //            .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
-        //            .setProgressiveRenderingEnabled(false)
-        //            .build();
-        //    ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        //    imagePipeline.prefetchToDiskCache(request, MyApp.get());
-        //}
-        return file;
-    }
-
-    // 检查oss缓存
-    private void checkOssCache(final String objPath) {
-        //final Uri objPathUri = Uri.parse(objPath);
-        //// 是否在内存缓存中
-        //ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        //if (imagePipeline.isInBitmapMemoryCache(objPathUri)) {
-        //    setController(objPathUri);
-        //    return;
-        //}
-        //// 是否在硬盘缓存中
-        //DataSource<Boolean> inDiskCacheSource = imagePipeline.isInDiskCache(objPathUri);
-        //DataSubscriber<Boolean> subscriber = new BaseDataSubscriber<Boolean>() {
-        //    @Override
-        //    protected void onNewResultImpl(DataSource<Boolean> dataSource) {
-        //        if (!dataSource.isFinished()) return;
-        //        Boolean result = dataSource.getResult();
-        //        if (result != null && result) {
-        //            setController(objPathUri);
-        //        } else {
-        //            getOssImgUrl(objPath);
-        //        }
-        //    }
-        //
-        //    @Override
-        //    protected void onFailureImpl(DataSource<Boolean> dataSource) {
-        //        getOssImgUrl(objPath);
-        //    }
-        //};
-        //inDiskCacheSource.subscribe(subscriber, UiThreadImmediateExecutorService.getInstance());
     }
 
     public class ImageLoadingReactDrawable extends Drawable {
@@ -610,7 +547,7 @@ public class GImageView extends SimpleDraweeView {
 
         private void drawBar(Canvas canvas, int level, Paint paint) {
             if (level > 0) {
-                float mRingRadius = ConvertUtils.dp2px(12);
+                float mRingRadius = ConvertUtils.dp2px(20);
                 Rect bound = getBounds();
                 int mXCenter = bound.centerX();
                 int mYCenter = bound.centerY();

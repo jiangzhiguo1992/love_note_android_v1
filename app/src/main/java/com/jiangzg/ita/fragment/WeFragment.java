@@ -255,7 +255,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (CheckHelper.isCoupleBreak(couple)) {
             // 已经分手，或者没有开始过
             rlPair.setVisibility(View.VISIBLE);
-            if (user.getSex() == User.SEX_BOY) { // 默认头像
+            if (user.getSex() == User.SEX_BOY) { // todo 默认头像
                 ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
                 ivAvatarRight.setDataRes(R.mipmap.ic_girl_circle);
             } else {

@@ -58,6 +58,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     public void showDeleteDialog(final int position) {
+        // todo 不要 dialog
         new MaterialDialog.Builder(mActivity)
                 .title(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm)

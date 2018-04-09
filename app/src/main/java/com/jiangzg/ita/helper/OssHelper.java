@@ -86,12 +86,12 @@ public class OssHelper {
     }
 
     public interface OssCallBack {
-        void success(String loadPath);
+        void success(String ossPath);
 
-        void failure(String errorPath);
+        void failure(String ossPath);
     }
 
-    // todo 下载任务
+    // todo 下载任务 + 获取文件 + 添加水印
     public static void downloadObject(String objectKey) {
         // 构造下载文件请求
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
@@ -134,6 +134,7 @@ public class OssHelper {
         });
     }
 
+    // 墙纸
     public static void uploadWall(MaterialDialog process, File source, OssCallBack callBack) {
         // oss
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -142,10 +143,13 @@ public class OssHelper {
             LogUtils.w(LOG_TAG, "uploadWall: pathCoupleWall == null");
             return;
         }
-        // 先压缩 再上传
-        compressObject(process, source, pathCoupleWall, callBack);
+        // objectKey
+        final String objectKey = pathCoupleWall + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
+        // 不压缩 直接上传
+        uploadObject(process, objectKey, source, callBack);
     }
 
+    // 头像
     public static void uploadAvatar(MaterialDialog process, File source, OssCallBack callBack) {
         // oss
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -155,11 +159,11 @@ public class OssHelper {
             return;
         }
         // 先压缩 再上传
-        compressObject(process, source, pathCoupleAvatar, callBack);
+        compressJpeg(process, source, pathCoupleAvatar, callBack);
     }
 
     // 启动压缩
-    private static void compressObject(final MaterialDialog process, final File source, final String uploadPath, final OssCallBack callBack) {
+    private static void compressJpeg(final MaterialDialog process, final File source, final String uploadPath, final OssCallBack callBack) {
         // file
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
