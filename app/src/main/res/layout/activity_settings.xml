@@ -42,82 +42,6 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
-                android:id="@+id/rlWifi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvWifiTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/switchWifi"
-                    android:text="@string/less_flux_mode"/>
-
-                <TextView
-                    android:id="@+id/tvWifiSummary"
-                    style="@style/FontGreySmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvWifiTitle"
-                    android:layout_toStartOf="@+id/switchWifi"
-                    android:text="@string/only_wifi_mode_auto_load_image"/>
-
-                <Switch
-                    android:id="@+id/switchWifi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:focusableInTouchMode="false"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <RelativeLayout
-                android:id="@+id/rlDownload"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvDownlandTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/switchDownland"
-                    android:text="@string/auto_download_update"/>
-
-                <TextView
-                    android:id="@+id/tvDownlandSummary"
-                    style="@style/FontGreySmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvDownlandTitle"
-                    android:layout_toStartOf="@+id/switchDownland"
-                    android:text="@string/only_wifi_mode_auto_download"/>
-
-                <Switch
-                    android:id="@+id/switchDownland"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:focusableInTouchMode="false"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <RelativeLayout
                 android:id="@+id/rlCache"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -137,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvCacheTitle"
-                    android:text="@string/contain_image_audio_video_total_colon_holder"/>
+                    tools:text="@string/contain_image_audio_video_total_colon_holder"/>
             </RelativeLayout>
 
             <View
@@ -192,69 +116,31 @@
                 android:layout_marginStart="16dp"/>
 
             <RelativeLayout
-                android:id="@+id/rlTa"
+                android:id="@+id/rlSocial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/tvTaTitle"
+                    android:id="@+id/tvSocialTitle"
                     style="@style/FontBlackNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/switchTa"
-                    android:text="@string/ta_notice"/>
-
-                <TextView
-                    android:id="@+id/tvTaSummary"
-                    style="@style/FontGreySmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvTaTitle"
-                    android:layout_toStartOf="@+id/switchTa"
-                    android:text="@string/receive_about_ta_import_notice"/>
-
-                <Switch
-                    android:id="@+id/switchTa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:focusableInTouchMode="false"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <RelativeLayout
-                android:id="@+id/rlOther"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvOtherTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/switchOther"
-                    android:text="@string/other_notice"/>
+                    android:layout_toStartOf="@+id/switchSocial"
+                    android:text="@string/social_notice"/>
 
                 <TextView
                     android:id="@+id/tvOtherSummary"
                     style="@style/FontGreySmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvOtherTitle"
-                    android:layout_toStartOf="@+id/switchOther"
-                    android:text="@string/receive_from_other_notice"/>
+                    android:layout_below="@+id/tvSocialTitle"
+                    android:layout_toStartOf="@+id/switchSocial"
+                    android:text="@string/receive_from_social_notice"/>
 
                 <Switch
-                    android:id="@+id/switchOther"
+                    android:id="@+id/switchSocial"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -402,7 +288,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:padding="16dp"
-                android:text="@string/ita_protocol"/>
+                android:text="@string/software_protocol"/>
 
             <View
                 style="@style/LineHorizontal"
@@ -426,12 +312,13 @@
             <TextView
                 android:id="@+id/tvExist"
                 style="@style/FontBlackNormal"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:padding="16dp"
+                android:padding="5dp"
                 android:text="@string/exist_account"
                 android:textColor="@color/theme_red_dark"/>
         </LinearLayout>

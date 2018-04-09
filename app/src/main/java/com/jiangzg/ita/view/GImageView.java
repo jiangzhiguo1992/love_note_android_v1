@@ -3,7 +3,6 @@ package com.jiangzg.ita.view;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -39,7 +38,6 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -93,21 +91,6 @@ public class GImageView extends SimpleDraweeView {
                 .build();
         // 开始初始化
         Fresco.initialize(app, config);
-        // 设置全局缓存监听
-        AppListener.addComponentListener("GImageView", new AppListener.ComponentListener() {
-            @Override
-            public void onTrimMemory(int level) {
-            }
-
-            @Override
-            public void onConfigurationChanged(Configuration newConfig) {
-            }
-
-            @Override
-            public void onLowMemory() {
-                clearMemoryCaches();
-            }
-        });
     }
 
     public static void clearMemoryCaches() {

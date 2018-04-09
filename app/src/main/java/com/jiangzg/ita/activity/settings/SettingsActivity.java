@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.common.SuggestHomeActivity;
@@ -23,9 +23,9 @@ import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.CleanHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RxBus;
@@ -43,38 +43,29 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     Toolbar tb;
     @BindView(R.id.tvTheme)
     TextView tvTheme;
-    @BindView(R.id.switchWifi)
-    Switch switchWifi;
-    @BindView(R.id.rlWifi)
-    RelativeLayout rlWifi;
-    @BindView(R.id.switchDownland)
-    Switch switchDownland;
-    @BindView(R.id.rlDownload)
-    RelativeLayout rlDownload;
     @BindView(R.id.tvCacheSummary)
     TextView tvCacheSummary;
     @BindView(R.id.rlCache)
     RelativeLayout rlCache;
-    @BindView(R.id.switchSystem)
-    Switch switchSystem;
+
     @BindView(R.id.rlSystem)
     RelativeLayout rlSystem;
-    @BindView(R.id.switchTa)
-    Switch switchTa;
-    @BindView(R.id.rlTa)
-    RelativeLayout rlTa;
-    @BindView(R.id.switchOther)
-    Switch switchOther;
-    @BindView(R.id.rlOther)
-    RelativeLayout rlOther;
+    @BindView(R.id.switchSystem)
+    Switch switchSystem;
+    @BindView(R.id.rlSocial)
+    RelativeLayout rlSocial;
+    @BindView(R.id.switchSocial)
+    Switch switchSocial;
+
     @BindView(R.id.tvPhone)
     TextView tvPhone;
     @BindView(R.id.tvPassword)
     TextView tvPassword;
-    @BindView(R.id.tvUpdateSummary)
-    TextView tvUpdateSummary;
+
     @BindView(R.id.rlUpdate)
     RelativeLayout rlUpdate;
+    @BindView(R.id.tvUpdateSummary)
+    TextView tvUpdateSummary;
     @BindView(R.id.tvHelp)
     TextView tvHelp;
     @BindView(R.id.tvSuggest)
@@ -109,78 +100,79 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        boolean onlyWifi = SPHelper.getSettingsOnlyWifi();
-        switchWifi.setChecked(onlyWifi);
-        boolean autoDownload = SPHelper.getSettingsAutoDownload();
-        switchDownland.setChecked(autoDownload);
+        // 缓存大小
+        String cachesSize = CleanHelper.getCachesSizeFmt();
+        String cachesSizeShow = String.format(getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
+        tvCacheSummary.setText(cachesSizeShow);
+        // 系统通知
         boolean noticeSystem = SPHelper.getSettingsNoticeSystem();
         switchSystem.setChecked(noticeSystem);
-        boolean noticeTa = SPHelper.getSettingsNoticeTa();
-        switchTa.setChecked(noticeTa);
-        boolean noticeOther = SPHelper.getSettingsNoticeOther();
-        switchOther.setChecked(noticeOther);
-
-        String versionName = String.format(getString(R.string.current_version_colon_holder), AppInfo.get().getVersionName());
-        tvUpdateSummary.setText(versionName);
+        // 社交通知
+        boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
+        switchSocial.setChecked(noticeSocial);
+        // 版本信息
+        String versionName = AppInfo.get().getVersionName();
+        String versionNameShow = String.format(getString(R.string.current_version_colon_holder), versionName);
+        tvUpdateSummary.setText(versionNameShow);
     }
 
-    @OnClick({R.id.tvTheme, R.id.rlWifi, R.id.rlDownload, R.id.rlCache, R.id.rlSystem, R.id.rlTa,
-            R.id.rlOther, R.id.tvPhone, R.id.tvPassword, R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest,
+    @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial,
+            R.id.tvPhone, R.id.tvPassword, R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest,
             R.id.tvRate, R.id.tvOpen, R.id.tvProtocol, R.id.tvContact, R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvTheme:
+            case R.id.tvTheme: // 主题
                 ThemeActivity.goActivity(mActivity);
                 break;
-            case R.id.rlWifi:
-                switchWifi.setChecked(!switchWifi.isChecked());
+            case R.id.rlCache:// todo 缓存
                 break;
-            case R.id.rlDownload:
-                switchDownland.setChecked(!switchDownland.isChecked());
-                break;
-            case R.id.rlCache:
-                // todo
-                break;
-            case R.id.rlSystem:
+            case R.id.rlSystem: // 系统通知
                 switchSystem.setChecked(!switchSystem.isChecked());
                 break;
-            case R.id.rlTa:
-                switchTa.setChecked(!switchTa.isChecked());
+            case R.id.rlSocial: // 社交通知
+                switchSocial.setChecked(!switchSocial.isChecked());
                 break;
-            case R.id.rlOther:
-                switchOther.setChecked(!switchOther.isChecked());
-                break;
-            case R.id.tvPhone:
+            case R.id.tvPhone: // 电话
                 PhoneActivity.goActivity(mActivity);
                 break;
-            case R.id.tvPassword:
+            case R.id.tvPassword: // 密码
                 PasswordActivity.goActivity(mActivity);
                 break;
-            case R.id.rlUpdate:
+            case R.id.rlUpdate: // todo 版本更新
                 UpdateService.checkUpdate(mActivity);
                 break;
-            case R.id.tvHelp:
+            case R.id.tvHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity);
                 break;
-            case R.id.tvSuggest:
+            case R.id.tvSuggest: // 意见反馈
                 SuggestHomeActivity.goActivity(mActivity);
                 break;
-            case R.id.tvRate:
-                // todo
+            case R.id.tvRate: // todo 去评价
                 //Intent intent = IntentSend.getMarket();
                 //ActivityTrans.start(mActivity, intent);
                 break;
-            case R.id.tvOpen:
-                // todo
+            case R.id.tvOpen: // todo 开源许可
                 break;
-            case R.id.tvProtocol:
+            case R.id.tvProtocol: // 软件协议
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
                 break;
-            case R.id.tvContact:
+            case R.id.tvContact: // 联系我们
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
-            case R.id.tvExist:
+            case R.id.tvExist: // 退出账号
                 existDialogShow();
+                break;
+        }
+    }
+
+    @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial})
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.switchSystem:
+                SPHelper.setSettingsNoticeSystem(isChecked);
+                break;
+            case R.id.switchSocial:
+                SPHelper.setSettingsNoticeSocial(isChecked);
                 break;
         }
     }
@@ -207,27 +199,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .build();
         DialogHelper.setAnim(dialog);
         DialogHelper.show(dialog);
-    }
-
-    @OnCheckedChanged({R.id.switchWifi, R.id.switchDownland, R.id.switchSystem, R.id.switchTa, R.id.switchOther})
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.switchWifi:
-                SPHelper.setSettingsOnlyWifi(isChecked);
-                break;
-            case R.id.switchDownland:
-                SPHelper.setSettingsAutoDownload(isChecked);
-                break;
-            case R.id.switchSystem:
-                SPHelper.setSettingsNoticeSystem(isChecked);
-                break;
-            case R.id.switchTa:
-                SPHelper.setSettingsNoticeTa(isChecked);
-                break;
-            case R.id.switchOther:
-                SPHelper.setSettingsNoticeOther(isChecked);
-                break;
-        }
     }
 
 }

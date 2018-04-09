@@ -239,14 +239,12 @@
     <string name="auto_download_update">自动下载更新</string>
     <string name="only_wifi_mode_auto_download">仅在wifi模式下会自动下载</string>
     <string name="clear_cache">清除缓存</string>
-    <string name="contain_image_audio_video_total_colon_holder">包括图片、音频、视频缓存(共:%s)</string>
+    <string name="contain_image_audio_video_total_colon_holder">包括图片、音频、视频缓存 (共:%s)</string>
     <string name="notice_settings">通知设置</string>
     <string name="system_notice">系统通知</string>
     <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
-    <string name="ta_notice">Ta的通知</string>
-    <string name="receive_about_ta_import_notice">接受有关于Ta的重要通知</string>
-    <string name="other_notice">其他人的通知</string>
-    <string name="receive_from_other_notice">接受来自其他人的通知</string>
+    <string name="social_notice">社交通知</string>
+    <string name="receive_from_social_notice">接受来自其他用户的社交通知</string>
     <string name="account_settings">账号设置</string>
     <string name="change_phone">更换手机</string>
     <string name="change">更换</string>
@@ -258,7 +256,7 @@
     <string name="suggest_feedback">意见反馈</string>
     <string name="go_rate">去评价</string>
     <string name="open_protocol">开源许可</string>
-    <string name="ita_protocol">我和Ta协议</string>
+    <string name="software_protocol">软件协议</string>
     <string name="contact_us">联系我们</string>
     <string name="exist_account">退出账号</string>
     <string name="settings">设置</string>

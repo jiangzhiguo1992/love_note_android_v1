@@ -62,11 +62,8 @@ public class SPHelper {
 
     // settings
     private static final String FIELD_SET_THEME = "theme";
-    private static final String FIELD_SET_ONLY_WIFI = "phone";
-    private static final String FIELD_SET_AUTO_DOWNLOAD = "sex";
-    private static final String FIELD_SET_NOTICE_SYSTEM = "birthday";
-    private static final String FIELD_SET_NOTICE_TA = "userToken";
-    private static final String FIELD_SET_NOTICE_OTHER = "coupleId";
+    private static final String FIELD_SET_NOTICE_SYSTEM = "system";
+    private static final String FIELD_SET_NOTICE_SOCIAL = "social";
 
     public static void setUser(User user) {
         clearUser();
@@ -220,28 +217,6 @@ public class SPHelper {
         return preferences.getInt(FIELD_SET_THEME, ThemeHelper.THEME_PINK);
     }
 
-    public static void setSettingsOnlyWifi(boolean onlyWifi) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
-        editor.putBoolean(FIELD_SET_ONLY_WIFI, onlyWifi);
-        editor.apply();
-    }
-
-    public static boolean getSettingsOnlyWifi() {
-        SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getBoolean(FIELD_SET_ONLY_WIFI, false);
-    }
-
-    public static void setSettingsAutoDownload(boolean autoDownload) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
-        editor.putBoolean(FIELD_SET_AUTO_DOWNLOAD, autoDownload);
-        editor.apply();
-    }
-
-    public static boolean getSettingsAutoDownload() {
-        SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getBoolean(FIELD_SET_AUTO_DOWNLOAD, false);
-    }
-
     public static void setSettingsNoticeSystem(boolean system) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
         editor.putBoolean(FIELD_SET_NOTICE_SYSTEM, system);
@@ -253,26 +228,15 @@ public class SPHelper {
         return preferences.getBoolean(FIELD_SET_NOTICE_SYSTEM, true);
     }
 
-    public static void setSettingsNoticeTa(boolean ta) {
+    public static void setSettingsNoticeSocial(boolean ta) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
-        editor.putBoolean(FIELD_SET_NOTICE_TA, ta);
+        editor.putBoolean(FIELD_SET_NOTICE_SOCIAL, ta);
         editor.apply();
     }
 
-    public static boolean getSettingsNoticeTa() {
+    public static boolean getSettingsNoticeSocial() {
         SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getBoolean(FIELD_SET_NOTICE_TA, true);
-    }
-
-    public static void setSettingsNoticeOther(boolean ta) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
-        editor.putBoolean(FIELD_SET_NOTICE_OTHER, ta);
-        editor.apply();
-    }
-
-    public static boolean getSettingsNoticeOther() {
-        SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getBoolean(FIELD_SET_NOTICE_OTHER, false);
+        return preferences.getBoolean(FIELD_SET_NOTICE_SOCIAL, false);
     }
 
 }
