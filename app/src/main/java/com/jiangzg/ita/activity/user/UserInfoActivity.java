@@ -25,6 +25,7 @@ import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.helper.API;
@@ -185,7 +186,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         String birthShow = year + getString(R.string.year_space) + month + getString(R.string.month_space) + day + getString(R.string.dayR);
         String message = getString(R.string.sex_colon) + sexShow +
                 "\n" + getString(R.string.birthday_colon) + birthShow;
-        new MaterialDialog.Builder(mActivity)
+        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
                 .title(title)
                 .content(message)
                 .cancelable(true)
@@ -199,7 +200,9 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
                         pushUserInfo(sex, birth);
                     }
                 })
-                .build().show();
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
     private void pushUserInfo(int sex, long birth) {

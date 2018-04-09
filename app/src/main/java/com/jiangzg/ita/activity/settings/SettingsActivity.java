@@ -27,6 +27,7 @@ import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
@@ -185,7 +186,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void existDialogShow() {
-        new MaterialDialog.Builder(mActivity)
+        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
                 .title(R.string.exist_account)
                 .content(R.string.confirm_exist_account)
                 .cancelable(true)
@@ -203,8 +204,9 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                         LoginActivity.goActivity(mActivity);
                     }
                 })
-                .build()
-                .show();
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
     @OnCheckedChanged({R.id.switchWifi, R.id.switchDownland, R.id.switchSystem, R.id.switchTa, R.id.switchOther})

@@ -37,6 +37,7 @@ import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
@@ -371,8 +372,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                         }
                     })
                     .build();
+            DialogHelper.setAnim(dialogName);
         }
-        dialogName.show();
+        DialogHelper.show(dialogName);
     }
 
     // api 修改couple

@@ -24,6 +24,7 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 
@@ -199,7 +200,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         String other = getString(R.string.other);
         CharSequence[] items = new CharSequence[]{bug, func, optimize, other};
         int selectIndex = getItemsSelectByType(contentType);
-        new MaterialDialog.Builder(this)
+        MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title(R.string.please_choose_classify)
                 .items(items)
                 .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
@@ -212,7 +213,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 })
                 .positiveText(R.string.i_choose_ok)
                 .negativeText(R.string.i_think_again)
-                .show();
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
     private String getSelectShowByType(int contentType) {
