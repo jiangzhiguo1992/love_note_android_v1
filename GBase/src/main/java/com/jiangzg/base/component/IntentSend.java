@@ -67,7 +67,7 @@ public class IntentSend {
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         if (cameraFile == null) return intent; // 不加保存路径，图片会被压缩
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, ConvertUtils.file2Uri(cameraFile));
         } else {
             // android 8.0需要
             ContentValues contentValues = new ContentValues(1);

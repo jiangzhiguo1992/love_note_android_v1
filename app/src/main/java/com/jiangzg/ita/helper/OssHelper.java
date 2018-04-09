@@ -164,7 +164,7 @@ public class OssHelper {
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
             if (FileUtils.isFileExists(source)) {
-                ResHelper.deleteFileInBackground(source);
+                ResHelper.deleteFileInBackground(source, false);
             }
             return;
         }
@@ -182,31 +182,47 @@ public class OssHelper {
 
                     @Override
                     public void onSuccess(File file) {
-                        // 保存在内部存储的cache文件，注意清理
-                        final String sourcePath = file.getAbsolutePath();
-                        // upload
-                        uploadObject(process, objectKey, sourcePath, callBack);
+                        if (FileUtils.isFileExists(file)) {
+                            // 压缩文件有可能不存在
+                            if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
+                                // 压缩文件 != 源文件，删除源文件
+                                ResHelper.deleteFileInBackground(source, false);
+                            }
+                            // upload
+                            uploadObject(process, objectKey, file, callBack);
+                        } else {
+                            // upload
+                            uploadObject(process, objectKey, source, callBack);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         LogUtils.e(LOG_TAG, "Luban: onError: ", e);
-                        final String sourcePath = source.getAbsolutePath();
                         // upload
-                        uploadObject(process, objectKey, sourcePath, callBack);
+                        uploadObject(process, objectKey, source, callBack);
                     }
                 })
                 .launch();
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadObject(final MaterialDialog process, String objectKey, String sourcePath, final OssCallBack callBack) {
+    private static OSSAsyncTask uploadObject(final MaterialDialog process, String objectKey, final File source, final OssCallBack callBack) {
         LogUtils.i(LOG_TAG, "uploadImage: objectKey == " + objectKey);
+        // file
+        if (FileUtils.isFileEmpty(source)) {
+            LogUtils.w(LOG_TAG, "uploadObject: source == null");
+            if (FileUtils.isFileExists(source)) {
+                ResHelper.deleteFileInBackground(source, false);
+            }
+            ToastUtils.show(MyApp.get().getString(R.string.file_no_exists));
+            DialogHelper.dismiss(process);
+            return null;
+        }
+        // dialog
         DialogHelper.show(process);
-
         // 构造上传请求
-        PutObjectRequest put = new PutObjectRequest(bucket, objectKey, sourcePath);
-
+        PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
             @Override
@@ -222,6 +238,9 @@ public class OssHelper {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 DialogHelper.dismiss(process);
+                // 删除源文件
+                ResHelper.deleteFileInBackground(source, false);
+                // 回调
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadImage: onSuccess: getObjectKey == " + uploadKey);
                 if (callBack != null) {
@@ -237,9 +256,25 @@ public class OssHelper {
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 DialogHelper.dismiss(process);
-                ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
+                // 删除源文件
+                ResHelper.deleteFileInBackground(source, false);
+                // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadImage: onFailure: getObjectKey == " + uploadKey);
+                // 本地异常如网络异常等
+                if (clientException != null) {
+                    LogUtils.e(LOG_TAG, "", clientException);
+                    ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
+                }
+                // 服务异常
+                if (serviceException != null) {
+                    LogUtils.e(LOG_TAG, "", serviceException);
+                    ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
+                    LogUtils.w(LOG_TAG, "RequestId: " + serviceException.getRequestId());
+                    LogUtils.w(LOG_TAG, "ErrorCode: " + serviceException.getErrorCode());
+                    LogUtils.w(LOG_TAG, "RawMessage: " + serviceException.getRawMessage());
+                }
+                // 回调
                 if (callBack != null) {
                     MyApp.get().getHandler().post(new Runnable() {
                         @Override
@@ -247,15 +282,6 @@ public class OssHelper {
                             callBack.failure(uploadKey);
                         }
                     });
-                }
-                // 本地异常如网络异常等
-                LogUtils.e(LOG_TAG, "", clientException);
-                LogUtils.e(LOG_TAG, "", serviceException);
-                // 服务异常
-                if (serviceException != null) {
-                    LogUtils.w(LOG_TAG, "RequestId: " + serviceException.getRequestId());
-                    LogUtils.w(LOG_TAG, "ErrorCode: " + serviceException.getErrorCode());
-                    LogUtils.w(LOG_TAG, "RawMessage: " + serviceException.getRawMessage());
                 }
             }
         });

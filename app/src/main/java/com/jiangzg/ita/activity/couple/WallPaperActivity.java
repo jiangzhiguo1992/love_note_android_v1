@@ -30,9 +30,7 @@ import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.PopHelper;
-import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.helper.LuBanUtils;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -192,25 +190,25 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
             ToastUtils.show(getString(R.string.image_get_error));
             return;
         }
-        LuBanUtils.compress(mActivity, original, new OnCompressListener() {
-            @Override
-            public void onStart() {
-                getLoading(getString(R.string.image_is_compress), false).show();
-            }
-
-            @Override
-            public void onSuccess(File file) {
-                FileUtils.deleteFile(original);
-                uploadOss(file);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                getLoading().dismiss();
-                ToastUtils.show(getString(R.string.image_compress_fail));
-                FileUtils.deleteFile(original);
-            }
-        });
+        //LuBanUtils.compress(mActivity, original, new OnCompressListener() {
+        //    @Override
+        //    public void onStart() {
+        //        getLoading(getString(R.string.image_is_compress), false).show();
+        //    }
+        //
+        //    @Override
+        //    public void onSuccess(File file) {
+        //        FileUtils.deleteFile(original);
+        //        uploadOss(file);
+        //    }
+        //
+        //    @Override
+        //    public void onError(Throwable e) {
+        //        getLoading().dismiss();
+        //        ToastUtils.show(getString(R.string.image_compress_fail));
+        //        FileUtils.deleteFile(original);
+        //    }
+        //});
     }
 
     private void uploadOss(File jpeg) {

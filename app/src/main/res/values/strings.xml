@@ -356,4 +356,6 @@
     <string name="i_want_break_pair_relation">我想解除配对关系</string>
     <string name="i_regret_i_want_complex">我后悔了，我想复合</string>
     <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
+    <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
+    <string name="file_no_exists">文件不存在</string>
 </resources>
