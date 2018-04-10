@@ -12,6 +12,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
@@ -21,15 +23,15 @@ import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
+import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 
+import java.io.File;
 import java.util.List;
 
 import retrofit2.Call;
 
 public class UpdateService extends Service {
-
-    private Version version;
 
     public static void checkUpdate(BaseActivity activity) {
         MaterialDialog loading = null;
@@ -101,73 +103,54 @@ public class UpdateService extends Service {
         throw null;
     }
 
+    // 多次创建只会调用一次
+    @Override
+    public void onCreate() {
+    }
+
+    // 多次创建会调用多次
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        version = intent.getParcelableExtra("version");
+        Version version = intent.getParcelableExtra("version");
+        ossDownloadApk(version);
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
-    public void onCreate() {
-        ossDownloadApk();
+    public void onDestroy() {
+        super.onDestroy();
     }
 
-    private void ossDownloadApk() {
-        if (version == null || version.getVersionCode() <= 0) return;
+    private void ossDownloadApk(Version version) {
+        if (version == null || version.getVersionCode() <= 0) {
+            UpdateService.this.stopSelf();
+            return;
+        }
         Activity top = ActivityStack.getTop();
-        if (top == null || !(top instanceof BaseActivity)) return;
-        MaterialDialog process = ((BaseActivity) top).getProcess(getString(R.string.are_downloading_new_version_colon) + version.getVersionName());
-        String updateUrl = version.getUpdateUrl();
-        OssHelper.downloadApk(process, updateUrl, new OssHelper.OssDownloadCallBack() {
+        if (top == null || !(top instanceof BaseActivity)) {
+            UpdateService.this.stopSelf();
+            return;
+        }
+        // 获取下载地址
+        String updateUrl = version.getUpdateUrl().trim();
+        // 生成apk文件
+        final File apkFile = ResHelper.createFileInCache(version.getVersionName() + ".apk");
+        // 开始下载
+        OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override
             public void success(String ossPath) {
-
+                // 启动安装
+                Intent installIntent = IntentSend.getInstall(apkFile);
+                ActivityTrans.start(UpdateService.this, installIntent);
+                // 需要手动停止
+                //UpdateService.this.stopSelf();
             }
 
             @Override
             public void failure(String ossPath) {
-
+                UpdateService.this.stopSelf();
             }
         });
     }
-
-    /* 子线程下载 */
-    //private void newThreadDown(final Version version) {
-    //    MyApp.get().getThread().execute(new Runnable() {
-    //        @Override
-    //        public void run() {
-    //            downloadApk(version);
-    //        }
-    //    });
-    //}
-
-    /* 下载apk */
-    //private void downloadApk(final Version version) {
-    //Call<ResponseBody> call = new RetrofitHelper(API.BASE_URL)
-    //        .factory(RetrofitHelper.Factory.empty)
-    //        .call(API.class)
-    //        .downloadLargeFile(version.getUpdateUrl());
-    //RetrofitHelper.enqueue(call, new RetrofitHelper.CallBack<ResponseBody>() {
-    //    @Override
-    //    public void onSuccess(final ResponseBody body) { // 回调也是子线程
-    //        if (body == null || body.byteStream() == null) return;
-    //        MyApp.get().getThread().execute(new Runnable() {
-    //            @Override
-    //            public void run() {
-    //                File apkFile = ResHelper.createAPKInRes(version.getVersionName());
-    //                FileUtils.writeFileFromIS(apkFile, body.byteStream(), false);
-    //                // 启动安装
-    //                Intent installIntent = IntentSend.getInstall(apkFile);
-    //                ActivityTrans.start(UpdateService.this, installIntent);
-    //            }
-    //        });
-    //    }
-    //
-    //    @Override
-    //    public void onFailure(int httpCode, String errorMessage) {
-    //        HttpUtils.onResponseFail(httpCode, errorMessage);
-    //    }
-    //});
-    //}
 
 }

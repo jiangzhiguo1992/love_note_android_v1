@@ -1,7 +1,10 @@
 package com.jiangzg.ita.helper;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.ClientException;
@@ -97,45 +100,82 @@ public class OssHelper {
     }
 
     // 墙纸
-    public static void uploadWall(MaterialDialog process, File source, OssUploadCallBack callBack) {
+    public static void uploadWall(Activity activity, File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
         if (StringUtils.isEmpty(pathCoupleWall)) {
             LogUtils.w(LOG_TAG, "uploadWall: pathCoupleWall == null");
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure("");
+                    }
+                });
+            }
             return;
         }
         // objectKey
         final String objectKey = pathCoupleWall + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
         // 不压缩 直接上传
-        uploadObject(process, objectKey, source, callBack);
+        uploadObject(activity, objectKey, source, callBack);
     }
 
     // 头像
-    public static void uploadAvatar(MaterialDialog process, File source, OssUploadCallBack callBack) {
+    public static void uploadAvatar(Activity activity, File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
         if (StringUtils.isEmpty(pathCoupleAvatar)) {
             LogUtils.w(LOG_TAG, "uploadAvatar: pathCoupleAvatar == null");
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure("");
+                    }
+                });
+            }
             return;
         }
         // 先压缩 再上传
-        compressJpeg(process, source, pathCoupleAvatar, callBack);
+        compressJpeg(activity, source, pathCoupleAvatar, callBack);
     }
 
     // 启动压缩
-    private static void compressJpeg(final MaterialDialog process, final File source, final String uploadPath, final OssUploadCallBack callBack) {
+    private static void compressJpeg(final Activity activity, final File source, final String uploadPath, final OssUploadCallBack callBack) {
+        // objectKey
+        final String objectKey = uploadPath + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
         // file
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
             if (FileUtils.isFileExists(source)) {
                 ResHelper.deleteFileInBackground(source, false);
             }
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(objectKey);
+                    }
+                });
+            }
             return;
         }
-        // objectKey
-        final String objectKey = uploadPath + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
+        // dialog
+        final MaterialDialog progress = new MaterialDialog.Builder(activity)
+                .content(R.string.image_is_compress)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .autoDismiss(true)
+                .progress(true, 0)
+                .progressIndeterminateStyle(false)
+                .build();
+        DialogHelper.setAnim(progress);
         // compress
         Luban.get(MyApp.get())
                 .load(source) // 压缩源文件
@@ -143,11 +183,12 @@ public class OssHelper {
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
-                        DialogHelper.show(process);
+                        DialogHelper.show(progress);
                     }
 
                     @Override
                     public void onSuccess(File file) {
+                        DialogHelper.dismiss(progress);
                         if (FileUtils.isFileExists(file)) {
                             // 压缩文件有可能不存在
                             if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
@@ -155,37 +196,28 @@ public class OssHelper {
                                 ResHelper.deleteFileInBackground(source, false);
                             }
                             // upload
-                            uploadObject(process, objectKey, file, callBack);
+                            uploadObject(activity, objectKey, file, callBack);
                         } else {
                             // upload
-                            uploadObject(process, objectKey, source, callBack);
+                            uploadObject(activity, objectKey, source, callBack);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         LogUtils.e(LOG_TAG, "Luban: onError: ", e);
+                        DialogHelper.dismiss(progress);
                         // upload
-                        uploadObject(process, objectKey, source, callBack);
+                        uploadObject(activity, objectKey, source, callBack);
                     }
                 })
                 .launch();
     }
 
     // apk
-    public static void downloadApk(MaterialDialog process, String objectKey, OssDownloadCallBack callBack) {
-        // objectKey
-        if (StringUtils.isEmpty(objectKey)) {
-            LogUtils.w(LOG_TAG, "downloadApk: objectKey == null");
-            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            DialogHelper.dismiss(process);
-        }
-        // file
-        String[] split = objectKey.trim().split("/");
-        String versionName = split[split.length - 1];
-        File target = ResHelper.createFileInCache(versionName);
+    public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
         // 直接下载
-        downloadObject(process, objectKey, target, callBack);
+        downloadObject(activity, objectKey, target, callBack);
     }
 
     // 墙纸
@@ -199,7 +231,7 @@ public class OssHelper {
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadObject(final MaterialDialog process, String objectKey, final File source, final OssUploadCallBack callBack) {
+    private static OSSAsyncTask uploadObject(Activity activity, final String objectKey, final File source, final OssUploadCallBack callBack) {
         LogUtils.i(LOG_TAG, "uploadImage: objectKey == " + objectKey);
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
@@ -208,7 +240,15 @@ public class OssHelper {
                 ResHelper.deleteFileInBackground(source, false);
             }
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            DialogHelper.dismiss(process);
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(objectKey);
+                    }
+                });
+            }
             return null;
         }
         // file
@@ -218,11 +258,36 @@ public class OssHelper {
                 ResHelper.deleteFileInBackground(source, false);
             }
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
-            DialogHelper.dismiss(process);
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(objectKey);
+                    }
+                });
+            }
             return null;
         }
         // dialog
-        DialogHelper.show(process);
+        final MaterialDialog progress = new MaterialDialog.Builder(activity)
+                .content(R.string.are_upload)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .autoDismiss(true)
+                .progress(false, 100)
+                .negativeText(R.string.cancel_upload)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (!dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.setAnim(progress);
+        DialogHelper.show(progress);
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
@@ -230,9 +295,9 @@ public class OssHelper {
             @Override
             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
                 //LogUtils.d(LOG_TAG, "uploadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
-                if (process != null && process.isShowing()) {
+                if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
-                    process.setProgress(percent);
+                    progress.setProgress(percent);
                 }
             }
         });
@@ -240,7 +305,7 @@ public class OssHelper {
         final OSSAsyncTask task = ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                DialogHelper.dismiss(process);
+                DialogHelper.dismiss(progress);
                 // 删除源文件
                 ResHelper.deleteFileInBackground(source, false);
                 // 回调
@@ -258,7 +323,7 @@ public class OssHelper {
 
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                DialogHelper.dismiss(process);
+                DialogHelper.dismiss(progress);
                 // 删除源文件
                 ResHelper.deleteFileInBackground(source, false);
                 // 打印
@@ -289,8 +354,8 @@ public class OssHelper {
             }
         });
         // processDialog
-        if (process != null) {
-            process.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        if (progress != null) {
+            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     LogUtils.d(LOG_TAG, "uploadObject: cancel");
@@ -302,7 +367,7 @@ public class OssHelper {
     }
 
     // 下载任务
-    public static OSSAsyncTask downloadObject(final MaterialDialog process, String objectKey, final File target, final OssDownloadCallBack callBack) {
+    public static OSSAsyncTask downloadObject(Activity activity, final String objectKey, final File target, final OssDownloadCallBack callBack) {
         LogUtils.i(LOG_TAG, "downloadObject: objectKey == " + objectKey);
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
@@ -311,21 +376,54 @@ public class OssHelper {
                 ResHelper.deleteFileInBackground(target, false);
             }
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            DialogHelper.dismiss(process);
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(objectKey);
+                    }
+                });
+            }
             return null;
         }
         // file
-        if (FileUtils.isFileEmpty(target)) {
+        if (!FileUtils.isFileExists(target)) {
             LogUtils.w(LOG_TAG, "downloadObject: source == null");
             if (FileUtils.isFileExists(target)) {
                 ResHelper.deleteFileInBackground(target, false);
             }
             ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
-            DialogHelper.dismiss(process);
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(objectKey);
+                    }
+                });
+            }
             return null;
         }
         // dialog
-        DialogHelper.show(process);
+        final MaterialDialog progress = new MaterialDialog.Builder(activity)
+                .content(R.string.are_download)
+                .cancelable(false)
+                .canceledOnTouchOutside(false)
+                .autoDismiss(true)
+                .progress(false, 100)
+                .negativeText(R.string.cancel_download)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (!dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.setAnim(progress);
+        DialogHelper.show(progress);
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
         // 异步下载时可以设置进度回调
@@ -333,9 +431,9 @@ public class OssHelper {
             @Override
             public void onProgress(GetObjectRequest request, long currentSize, long totalSize) {
                 //LogUtils.d(LOG_TAG, "downloadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
-                if (process != null && process.isShowing()) {
+                if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
-                    process.setProgress(percent);
+                    progress.setProgress(percent);
                 }
             }
         });
@@ -351,7 +449,7 @@ public class OssHelper {
                 InputStream inputStream = result.getObjectContent();
                 boolean ok = FileUtils.writeFileFromIS(target, inputStream, false);
                 // 对话框
-                DialogHelper.dismiss(process);
+                DialogHelper.dismiss(progress);
                 // 回调
                 if (ok) {
                     // 解析成功
@@ -382,7 +480,7 @@ public class OssHelper {
 
             @Override
             public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                DialogHelper.dismiss(process);
+                DialogHelper.dismiss(progress);
                 // 删除源文件
                 ResHelper.deleteFileInBackground(target, false);
                 // 打印
@@ -413,8 +511,8 @@ public class OssHelper {
             }
         });
         // processDialog
-        if (process != null) {
-            process.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        if (progress != null) {
+            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     LogUtils.d(LOG_TAG, "downloadObject: cancel");

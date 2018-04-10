@@ -14,7 +14,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.DraweeTransition;
@@ -53,7 +52,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public int mRootViewId;
     private Unbinder mUnbinder;
     private MaterialDialog mLoading;
-    private MaterialDialog mProgress;
     private Long mLastExitTime = 0L; //最后一次退出时间
     private boolean isLoad = false; // 是否加载过数据，主要用于换肤
 
@@ -102,35 +100,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             DialogHelper.setAnim(mLoading);
         }
         return mLoading;
-    }
-
-    public MaterialDialog getProcess(String content) {
-        MaterialDialog process = getProcess();
-        process.setContent(content);
-        return process;
-    }
-
-    public MaterialDialog getProcess() {
-        if (mProgress == null) {
-            mProgress = new MaterialDialog.Builder(mActivity)
-                    .content(R.string.are_upload)
-                    .cancelable(false)
-                    .canceledOnTouchOutside(false)
-                    .autoDismiss(true)
-                    .progress(false, 100)
-                    .negativeText(R.string.cancel_upload)
-                    .onNegative(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            if (!dialog.isShowing()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    })
-                    .build();
-            DialogHelper.setAnim(mProgress);
-        }
-        return mProgress;
     }
 
     @Override

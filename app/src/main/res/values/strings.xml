@@ -350,7 +350,10 @@
     <string name="picture_get_fail">照片获取失败</string>
     <string name="please_input_nickname">请输入昵称</string>
     <string name="are_upload">正在上传</string>
+    <string name="are_task">正在任务</string>
     <string name="cancel_upload">取消上传</string>
+    <string name="cancel_download">取消下载</string>
+    <string name="cancel_task">取消任务</string>
     <string name="i_want_break_pair_relation">我想解除配对关系</string>
     <string name="i_regret_i_want_complex">我后悔了，我想复合</string>
     <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
@@ -363,5 +366,5 @@
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="cache_clear_success">缓存清理成功</string>
     <string name="already_is_latest_version">已是最新版本</string>
-    <string name="are_downloading_new_version_colon">正在下载新版本:</string>
+    <string name="are_download">正在下载</string>
 </resources>

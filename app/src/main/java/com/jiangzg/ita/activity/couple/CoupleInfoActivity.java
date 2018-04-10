@@ -330,8 +330,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // oss上传头像
     private void ossUploadAvatar() {
-        MaterialDialog process = getProcess();
-        OssHelper.uploadAvatar(process, cropFile, new OssHelper.OssUploadCallBack() {
+        OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(String ossPath) {
                 apiCoupleInfo(ossPath, "");
