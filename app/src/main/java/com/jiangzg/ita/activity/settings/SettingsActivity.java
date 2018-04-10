@@ -143,10 +143,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.rlUpdate: // 版本更新
                 UpdateService.checkUpdate(mActivity);
                 break;
-            case R.id.tvHelp: // 帮助文档
+            case R.id.tvHelp: // todo 帮助文档
                 HelpActivity.goActivity(mActivity);
                 break;
-            case R.id.tvSuggest: // 意见反馈
+            case R.id.tvSuggest: // todo 意见反馈
                 SuggestHomeActivity.goActivity(mActivity);
                 break;
             case R.id.tvRate: // todo 去评价
@@ -155,10 +155,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.tvOpen: // todo 开源许可
                 break;
-            case R.id.tvProtocol: // 软件协议
+            case R.id.tvProtocol: // todo 软件协议
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
                 break;
-            case R.id.tvContact: // 联系我们
+            case R.id.tvContact: // todo 联系我们
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
             case R.id.tvExist: // 退出账号

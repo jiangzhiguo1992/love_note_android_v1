@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.ArrayMap;
 
@@ -33,6 +34,9 @@ public class PermUtils {
     // 相册
     public static final String[] picture = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    // 安装apk
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public static final String[] installApk = new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES};
     // 地图定位
     public static final String[] location = new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION};

@@ -1,10 +1,13 @@
 package com.jiangzg.ita.service;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -14,13 +17,16 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.ResHelper;
@@ -126,7 +132,7 @@ public class UpdateService extends Service {
             UpdateService.this.stopSelf();
             return;
         }
-        Activity top = ActivityStack.getTop();
+        final Activity top = ActivityStack.getTop();
         if (top == null || !(top instanceof BaseActivity)) {
             UpdateService.this.stopSelf();
             return;
@@ -139,11 +145,7 @@ public class UpdateService extends Service {
         OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override
             public void success(String ossPath) {
-                // 启动安装
-                Intent installIntent = IntentSend.getInstall(apkFile);
-                ActivityTrans.start(UpdateService.this, installIntent);
-                // 需要手动停止
-                //UpdateService.this.stopSelf();
+                checkPerm(top, apkFile);
             }
 
             @Override
@@ -151,6 +153,42 @@ public class UpdateService extends Service {
                 UpdateService.this.stopSelf();
             }
         });
+    }
+
+    // 检查权限
+    private void checkPerm(final Activity activity, final File apkFile) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // 8.0需要允许未知应用安装
+            boolean canInstall = MyApp.get().getPackageManager().canRequestPackageInstalls();
+            if (canInstall) {
+                installApk(apkFile);
+            } else {
+                PermUtils.requestPermissions(activity, ConsHelper.REQUEST_INSTALL, PermUtils.installApk, new PermUtils.OnPermissionListener() {
+                    @Override
+                    public void onPermissionGranted(int requestCode, String[] permissions) {
+                        installApk(apkFile);
+                    }
+
+                    @SuppressLint("InlinedApi")
+                    @Override
+                    public void onPermissionDenied(int requestCode, String[] permissions) {
+                        ToastUtils.show(getString(R.string.need_check_some_perm_can_install));
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                        ActivityTrans.start(activity, intent);
+                        UpdateService.this.stopSelf();
+                    }
+                });
+            }
+        } else {
+            installApk(apkFile);
+        }
+    }
+
+    // 启动安装
+    private void installApk(File apkFile) {
+        Intent installIntent = IntentSend.getInstall(apkFile);
+        ActivityTrans.start(UpdateService.this, installIntent);
+        UpdateService.this.stopSelf();
     }
 
 }

@@ -26,6 +26,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <!-- 系统配置 -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <!-- 安装apk -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <!-- 相机(动态) -->
     <uses-permission android:name="android.permission.CAMERA"/>
 

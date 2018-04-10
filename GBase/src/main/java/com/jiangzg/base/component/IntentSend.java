@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -166,6 +167,7 @@ public class IntentSend {
     /**
      * 获取安装App的意图
      */
+    @SuppressLint("MissingPermission")
     public static Intent getInstall(File file) {
         if (FileUtils.isFileEmpty(file)) {
             LogUtils.w(LOG_TAG, "getInstall: file == null");
@@ -180,7 +182,14 @@ public class IntentSend {
         } else {
             type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(FileUtils.getFileExtension(file));
         }
-        return intent.setDataAndType(ConvertUtils.file2Uri(file), type);
+        // 高版本uri获取
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(ConvertUtils.file2Uri(file), type);
+        } else {
+            intent.setDataAndType(Uri.fromFile(file), type);
+        }
+        return intent;
     }
 
     /**

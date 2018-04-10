@@ -367,4 +367,5 @@
     <string name="cache_clear_success">缓存清理成功</string>
     <string name="already_is_latest_version">已是最新版本</string>
     <string name="are_download">正在下载</string>
+    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
 </resources>

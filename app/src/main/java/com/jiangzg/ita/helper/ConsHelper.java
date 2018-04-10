@@ -12,10 +12,11 @@ public class ConsHelper {
     public static final int REQUEST_CAMERA = 1003;
     public static final int REQUEST_PICTURE = 1004;
     public static final int REQUEST_CROP = 1005;
-    public static final int REQUEST_CONTEXT_ALERT = 1006;
-    public static final int REQUEST_SCAN = 1007;
-    public static final int REQUEST_CONTACT = 1008;
-    public static final int REQUEST_BOOK_PICTURE = 1009;
+    public static final int REQUEST_INSTALL = 1006;
+    public static final int REQUEST_CONTEXT_ALERT = 1007;
+    public static final int REQUEST_SCAN = 1008;
+    public static final int REQUEST_CONTACT = 1009;
+    public static final int REQUEST_BOOK_PICTURE = 1010;
     // RxBus.ID
     public static final int EVENT_USER_CHANGE = 1;
     public static final int EVENT_COUPLE_CHANGE = 2;
