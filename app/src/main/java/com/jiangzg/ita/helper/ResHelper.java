@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.ita.base.MyApp;
 
 import java.io.File;
@@ -45,9 +45,13 @@ public class ResHelper {
 
     public static File createJPEGInCache() {
         String fileName = StringUtils.getUUID(8) + ".jpeg";
-        File jpgFile = new File(AppInfo.get().getCacheDir(), fileName);
-        FileUtils.createFileByDeleteOldFile(jpgFile);
-        return jpgFile;
+        return createFileInCache(fileName);
+    }
+
+    public static File createFileInCache(String fileName) {
+        File apkFile = new File(AppInfo.get().getCacheDir(), fileName);
+        FileUtils.createFileByDeleteOldFile(apkFile);
+        return apkFile;
     }
 
     //public static File createJPEGInFiles() {
@@ -55,14 +59,6 @@ public class ResHelper {
     //    File jpgFile = new File(AppInfo.get().getResFilesDir(), fileName);
     //    FileUtils.createFileByDeleteOldFile(jpgFile);
     //    return jpgFile;
-    //}
-
-    //public static File createAPKInRes(String versionName) {
-    //    String fileName = versionName + ".apk";
-    //    //File apkFile = new File(AppInfo.get().getResDir(), fileName);
-    //    File apkFile = new File("", fileName);
-    //    FileUtils.createFileByDeleteOldFile(apkFile);
-    //    return apkFile;
     //}
 
     /**

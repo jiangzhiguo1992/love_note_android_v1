@@ -140,7 +140,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.tvPassword: // 密码
                 PasswordActivity.goActivity(mActivity);
                 break;
-            case R.id.rlUpdate: // todo 版本更新
+            case R.id.rlUpdate: // 版本更新
                 UpdateService.checkUpdate(mActivity);
                 break;
             case R.id.tvHelp: // 帮助文档

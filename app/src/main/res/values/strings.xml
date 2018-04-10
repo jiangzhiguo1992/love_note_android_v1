@@ -336,7 +336,7 @@
     <string name="birthday_colon">生日:</string>
     <string name="have_new_version">有新版本啦！</string>
     <string name="are_update_check">正在检查更新</string>
-    <string name="version_colon">版本:</string>
+    <string name="version_number_colon">版本号:</string>
     <string name="horizontal_line_2">————</string>
     <string name="distance_line_meter">相距——m</string>
     <string name="liner_wave_liner_c">— ~ — ℃</string>
@@ -354,7 +354,14 @@
     <string name="i_want_break_pair_relation">我想解除配对关系</string>
     <string name="i_regret_i_want_complex">我后悔了，我想复合</string>
     <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
+    <string name="download_fail_tell_we_this_bug">下载失败，可以把这个bug反馈给我们吗</string>
+    <string name="file_resolve_fail_tell_we_this_bug">文件解析失败，可以把这个bug反馈给我们吗</string>
     <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
-    <string name="file_no_exists">文件不存在</string>
+    <string name="download_fail_please_check_native_net">下载失败，请检查本地网络环境</string>
+    <string name="upload_file_no_exists">上传文件不存在</string>
+    <string name="save_file_no_exists">保存文件不存在</string>
+    <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="cache_clear_success">缓存清理成功</string>
+    <string name="already_is_latest_version">已是最新版本</string>
+    <string name="are_downloading_new_version_colon">正在下载新版本:</string>
 </resources>

@@ -191,7 +191,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     // oss上传头像
     private void ossUploadWall() {
         MaterialDialog process = getProcess();
-        OssHelper.uploadWall(process, cropFile, new OssHelper.OssCallBack() {
+        OssHelper.uploadWall(process, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(String ossPath) {
                 apiPushData(ossPath);

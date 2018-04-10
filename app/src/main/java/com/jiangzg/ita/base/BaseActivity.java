@@ -74,25 +74,25 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     /* 初始Data */
     protected abstract void initData(Bundle state);
 
-    public MaterialDialog getLoading() {
-        return mLoading;
+    public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
+        MaterialDialog loading = getLoading(msg, cancelable);
+        loading.setOnDismissListener(listener);
+        return loading;
     }
 
     public MaterialDialog getLoading(String msg, boolean cancelable) {
-        return getLoading(msg, cancelable, null);
-    }
-
-    public MaterialDialog getLoading(boolean cancelable) {
-        return getLoading("", cancelable, null);
-    }
-
-    public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
         if (StringUtils.isEmpty(msg)) {
             msg = getString(R.string.please_wait);
         }
+        MaterialDialog loading = getLoading(cancelable);
+        loading.setContent(msg);
+        return loading;
+    }
+
+    public MaterialDialog getLoading(boolean cancelable) {
         if (mLoading == null) {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                    .content(msg)
+                    .content(R.string.please_wait)
                     .cancelable(cancelable)
                     .canceledOnTouchOutside(cancelable)
                     .autoDismiss(true)
@@ -100,13 +100,14 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                     .progressIndeterminateStyle(false);
             mLoading = builder.build();
             DialogHelper.setAnim(mLoading);
-        } else {
-            mLoading.setContent(msg);
-            mLoading.setCancelable(cancelable);
-            mLoading.setCanceledOnTouchOutside(cancelable);
         }
-        mLoading.setOnDismissListener(listener);
         return mLoading;
+    }
+
+    public MaterialDialog getProcess(String content) {
+        MaterialDialog process = getProcess();
+        process.setContent(content);
+        return process;
     }
 
     public MaterialDialog getProcess() {

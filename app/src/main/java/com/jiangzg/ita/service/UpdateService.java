@@ -18,8 +18,9 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.DialogHelper;
+import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 
 import java.util.List;
@@ -35,7 +36,8 @@ public class UpdateService extends Service {
         if (activity != null) {
             loading = activity.getLoading(activity.getString(R.string.are_update_check), true);
         }
-        Call<Result> call = new RetrofitHelper().call(API.class).checkUpdate(AppInfo.get().getVersionCode());
+        int versionCode = AppInfo.get().getVersionCode();
+        Call<Result> call = new RetrofitHelper().call(API.class).checkUpdate(versionCode);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -48,7 +50,6 @@ public class UpdateService extends Service {
             public void onFailure() {
             }
         });
-
     }
 
     public static void showUpdateDialog(final List<Version> versionList) {
@@ -62,8 +63,8 @@ public class UpdateService extends Service {
             long createdAt = version.getCreateAt();
             String create = DateUtils.getString(createdAt * 1000, ConstantUtils.FORMAT_CHINA_M_D);
             String updateLog = version.getUpdateLog();
-            builder.append(MyApp.get().getString(R.string.version_colon)).append(versionName)
-                    .append("(").append(create).append(")\n")
+            builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)
+                    .append("  (").append(create).append(")\n")
                     .append(updateLog).append("\n\n");
         }
         String content = builder.toString();
@@ -108,47 +109,65 @@ public class UpdateService extends Service {
 
     @Override
     public void onCreate() {
-        // todo oss下载
-        newThreadDown(version);
+        ossDownloadApk();
     }
 
-    /* 子线程下载 */
-    private void newThreadDown(final Version version) {
-        MyApp.get().getThread().execute(new Runnable() {
+    private void ossDownloadApk() {
+        if (version == null || version.getVersionCode() <= 0) return;
+        Activity top = ActivityStack.getTop();
+        if (top == null || !(top instanceof BaseActivity)) return;
+        MaterialDialog process = ((BaseActivity) top).getProcess(getString(R.string.are_downloading_new_version_colon) + version.getVersionName());
+        String updateUrl = version.getUpdateUrl();
+        OssHelper.downloadApk(process, updateUrl, new OssHelper.OssDownloadCallBack() {
             @Override
-            public void run() {
-                downloadApk(version);
+            public void success(String ossPath) {
+
+            }
+
+            @Override
+            public void failure(String ossPath) {
+
             }
         });
     }
 
+    /* 子线程下载 */
+    //private void newThreadDown(final Version version) {
+    //    MyApp.get().getThread().execute(new Runnable() {
+    //        @Override
+    //        public void run() {
+    //            downloadApk(version);
+    //        }
+    //    });
+    //}
+
     /* 下载apk */
-    private void downloadApk(final Version version) {
-        //Call<ResponseBody> call = new RetrofitHelper(API.BASE_URL)
-        //        .factory(RetrofitHelper.Factory.empty)
-        //        .call(API.class)
-        //        .downloadLargeFile(version.getUpdateUrl());
-        //RetrofitHelper.enqueue(call, new RetrofitHelper.CallBack<ResponseBody>() {
-        //    @Override
-        //    public void onSuccess(final ResponseBody body) { // 回调也是子线程
-        //        if (body == null || body.byteStream() == null) return;
-        //        MyApp.get().getThread().execute(new Runnable() {
-        //            @Override
-        //            public void run() {
-        //                File apkFile = ResHelper.createAPKInRes(version.getVersionName());
-        //                FileUtils.writeFileFromIS(apkFile, body.byteStream(), false);
-        //                // 启动安装
-        //                Intent installIntent = IntentSend.getInstall(apkFile);
-        //                ActivityTrans.start(UpdateService.this, installIntent);
-        //            }
-        //        });
-        //    }
-        //
-        //    @Override
-        //    public void onFailure(int httpCode, String errorMessage) {
-        //        HttpUtils.onResponseFail(httpCode, errorMessage);
-        //    }
-        //});
-    }
+    //private void downloadApk(final Version version) {
+    //Call<ResponseBody> call = new RetrofitHelper(API.BASE_URL)
+    //        .factory(RetrofitHelper.Factory.empty)
+    //        .call(API.class)
+    //        .downloadLargeFile(version.getUpdateUrl());
+    //RetrofitHelper.enqueue(call, new RetrofitHelper.CallBack<ResponseBody>() {
+    //    @Override
+    //    public void onSuccess(final ResponseBody body) { // 回调也是子线程
+    //        if (body == null || body.byteStream() == null) return;
+    //        MyApp.get().getThread().execute(new Runnable() {
+    //            @Override
+    //            public void run() {
+    //                File apkFile = ResHelper.createAPKInRes(version.getVersionName());
+    //                FileUtils.writeFileFromIS(apkFile, body.byteStream(), false);
+    //                // 启动安装
+    //                Intent installIntent = IntentSend.getInstall(apkFile);
+    //                ActivityTrans.start(UpdateService.this, installIntent);
+    //            }
+    //        });
+    //    }
+    //
+    //    @Override
+    //    public void onFailure(int httpCode, String errorMessage) {
+    //        HttpUtils.onResponseFail(httpCode, errorMessage);
+    //    }
+    //});
+    //}
 
 }
