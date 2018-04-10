@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     android:theme="@style/AppTheme.AppBarOverlay">
 
+    <!-- 注意不能用?android:attr/actionBarSize -->
     <android.support.v7.widget.Toolbar
         android:id="@+id/tb"
         android:layout_width="match_parent"

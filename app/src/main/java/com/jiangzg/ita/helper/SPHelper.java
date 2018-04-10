@@ -47,7 +47,7 @@ public class SPHelper {
     private static final String FIELD_OSS_DOMAIN = "domain";
     private static final String FIELD_OSS_BUCKET = "bucket";
     private static final String FIELD_OSS_EXPIRATION = "expiration";
-    private static final String FIELD_OSS_INTERVAL = "inverval";
+    private static final String FIELD_OSS_INTERVAL = "interval";
     private static final String FIELD_OSS_PATH_VERSION = "pathVersion";
     private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";

@@ -30,6 +30,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.helper.DialogHelper;
+import com.jiangzg.ita.helper.ThemeHelper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -49,10 +50,12 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public BaseActivity mActivity;
     public FragmentManager mFragmentManager;
     public View mRootView;
+    public int mRootViewId;
     private Unbinder mUnbinder;
     private MaterialDialog mLoading;
     private MaterialDialog mProgress;
     private Long mLastExitTime = 0L; //最后一次退出时间
+    private boolean isLoad = false; // 是否加载过数据，主要用于换肤
 
     /* activity跳转demo */
     private static void goActivity(Activity from) {
@@ -136,13 +139,27 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         ScreenUtils.requestPortrait(this); // 竖屏
         BarUtils.requestNoTitle(this); // noTitle
         initTransAnim(this); //  过渡动画
+        ThemeHelper.initTheme(this);
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
-        setContentView(getView(getIntent()));
+        mRootViewId = getView(getIntent());
+        setContentView(mRootViewId);
+    }
+
+    /* setContentView()或addContentView()后调用,view只是加载出来，没有实例化.
+       为了页面的加载速度，不要在setContentView前做过多的操作 */
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
         // 每次setContentView之后都要bind一下
         mUnbinder = ButterKnife.bind(this);
-        initView(savedInstanceState);
-        initData(savedInstanceState);
+        // 二次setContentView之后控件是以前view的，所以要重新实例化一次
+        initView(null);
+        // 二次setContentView的话，可以不用获取数据 只加载数据
+        if (!isLoad) {
+            isLoad = true;
+            initData(null);
+        }
     }
 
     @Override

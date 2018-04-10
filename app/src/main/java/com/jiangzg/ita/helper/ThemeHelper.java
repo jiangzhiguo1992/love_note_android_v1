@@ -2,12 +2,14 @@ package com.jiangzg.ita.helper;
 
 import android.app.Activity;
 
+import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.ita.R;
+
+import java.util.Stack;
 
 /**
  * Created by JZG on 2018/3/12.
  * 主题工具类
- * todo ContextThemeWrapper运行时修改主题
  */
 public class ThemeHelper {
 
@@ -50,9 +52,27 @@ public class ThemeHelper {
         }
     }
 
-    public static void setTheme(Activity activity, int theme) {
+    public static void setTheme(int theme) {
+        // sp保存
         SPHelper.setSettingsTheme(theme);
-        //initTheme(activity);
+        // 遍历所有的activity，设置theme并重绘
+        Stack<Activity> stack = ActivityStack.getStack();
+        if (stack == null || stack.isEmpty()) return;
+        for (Activity activity : stack) {
+            activity.recreate();
+            //if (activity instanceof BaseActivity) {
+            //    BaseActivity mActivity = (BaseActivity) activity;
+            //    mActivity.setContentView(null);
+            //    initTheme(mActivity);
+            //    mActivity.setContentView(mActivity.mRootViewId);
+            //    mActivity.onCreate(null, null);
+            //    mActivity.recreate();
+            //}
+        }
+        //Activity top = ActivityStack.getTop();
+        //if (top != null) {
+        //    HomeActivity.goActivity(top);
+        //}
     }
 
 }

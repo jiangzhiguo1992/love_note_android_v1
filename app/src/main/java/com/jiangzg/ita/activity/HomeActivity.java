@@ -65,8 +65,8 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // viewPager
         initFragment();
+        // viewPager
         initViewPagerAdapter();
         initViewPagerListener();
         initViewPager();
@@ -115,9 +115,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             pagerAdapter.addData(2, null, topicFragment);
             pagerAdapter.addData(3, null, squareFragment);
         }
-        if (vpContent.getAdapter() == null) {
-            vpContent.setAdapter(pagerAdapter);
-        }
     }
 
     private void initViewPagerListener() {
@@ -141,6 +138,9 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private void initViewPager() {
+        if (vpContent.getAdapter() == null) {
+            vpContent.setAdapter(pagerAdapter);
+        }
         // 预加载全部，防止刷新
         vpContent.setOffscreenPageLimit(menuIdArray.length - 1);
     }

@@ -71,7 +71,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.theme), true);
 
-        initThemeUI();
+        refreshView();
     }
 
     @Override
@@ -83,34 +83,34 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rlPink:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_PINK);
+                ThemeHelper.setTheme(ThemeHelper.THEME_PINK);
                 break;
             case R.id.rlRed:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_RED);
+                ThemeHelper.setTheme(ThemeHelper.THEME_RED);
                 break;
             case R.id.rlPurple:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_PURPLE);
+                ThemeHelper.setTheme(ThemeHelper.THEME_PURPLE);
                 break;
             case R.id.rlBlue:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_BLUE);
+                ThemeHelper.setTheme(ThemeHelper.THEME_BLUE);
                 break;
             case R.id.rlGreen:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_GREEN);
+                ThemeHelper.setTheme(ThemeHelper.THEME_GREEN);
                 break;
             case R.id.rlYellow:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_YELLOW);
+                ThemeHelper.setTheme(ThemeHelper.THEME_YELLOW);
                 break;
             case R.id.rlOrange:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_ORANGE);
+                ThemeHelper.setTheme(ThemeHelper.THEME_ORANGE);
                 break;
             case R.id.rlBrown:
-                ThemeHelper.setTheme(mActivity, ThemeHelper.THEME_BROWN);
+                ThemeHelper.setTheme(ThemeHelper.THEME_BROWN);
                 break;
         }
-        initThemeUI();
+        refreshView();
     }
 
-    private void initThemeUI() {
+    private void refreshView() {
         ivPink.setImageResource(R.drawable.ic_circle_primary);
         ivRed.setImageResource(R.drawable.ic_circle_primary);
         ivPurple.setImageResource(R.drawable.ic_circle_primary);

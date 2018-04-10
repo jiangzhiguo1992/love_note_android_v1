@@ -96,6 +96,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 public void onFailure() {
                 }
             });
+            // todo 失败处理
         }
     }
 
