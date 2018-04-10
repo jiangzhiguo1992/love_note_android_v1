@@ -15,6 +15,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.common.SuggestHomeActivity;
@@ -101,9 +102,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void initData(Bundle state) {
         // 缓存大小
-        String cachesSize = CleanHelper.getCachesSizeFmt();
-        String cachesSizeShow = String.format(getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
-        tvCacheSummary.setText(cachesSizeShow);
+        cacheShow();
         // 系统通知
         boolean noticeSystem = SPHelper.getSettingsNoticeSystem();
         switchSystem.setChecked(noticeSystem);
@@ -124,7 +123,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.tvTheme: // 主题
                 ThemeActivity.goActivity(mActivity);
                 break;
-            case R.id.rlCache:// todo 缓存
+            case R.id.rlCache:// 缓存
+                CleanHelper.clearCaches();
+                cacheShow();
+                ToastUtils.show(getString(R.string.cache_clear_success));
                 break;
             case R.id.rlSystem: // 系统通知
                 switchSystem.setChecked(!switchSystem.isChecked());
@@ -175,6 +177,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 SPHelper.setSettingsNoticeSocial(isChecked);
                 break;
         }
+    }
+
+    private void cacheShow() {
+        String cachesSize = CleanHelper.getCachesSizeFmt();
+        String cachesSizeShow = String.format(getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
+        tvCacheSummary.setText(cachesSizeShow);
     }
 
     private void existDialogShow() {

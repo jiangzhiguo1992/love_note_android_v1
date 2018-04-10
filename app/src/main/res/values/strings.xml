@@ -356,4 +356,5 @@
     <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
     <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
     <string name="file_no_exists">文件不存在</string>
+    <string name="cache_clear_success">缓存清理成功</string>
 </resources>
