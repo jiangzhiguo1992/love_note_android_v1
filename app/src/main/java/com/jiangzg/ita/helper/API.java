@@ -55,35 +55,47 @@ public interface API {
     @POST("sms")
     Call<Result> smsSend(@Body Sms sms);
 
+    // 帮助文档
+    @GET("help")
+    Call<Result> helpGet(@Query("content_type") int contentType);
+
     // 用户注册
     @POST("user")
     Call<Result> userRegister(@Body User user);
 
-    @PUT("user")
-    Call<Result> userModify(@Body User user);
-
+    // 用户登录
     @POST("user/login")
     Call<Result> userLogin(@Body User user);
 
+    // 用户修改
+    @PUT("user")
+    Call<Result> userModify(@Body User user);
+
+    // 用户查询
     @GET("user")
     Call<Result> userGet(@Query("ta") boolean ta);
 
-    // welcome login userInfo forget
+    // app开启 welcome login userInfo forget
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
 
+    // 版本
     @GET("version")
     Call<Result> checkUpdate(@Query("code") int code);
 
+    // oss
     @GET("oss")
     Call<Result> ossGet();
 
+    // 配对邀请
     @POST("couple")
     Call<Result> coupleInvitee(@Body User user); // 主要用到user里phone
 
+    // 配对更新
     @PUT("couple")
     Call<Result> coupleUpdate(@Body User user); // 主要用到user里的type和couple
 
+    // 配对查询
     @GET("couple")
     Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
                            @Query("cid") long cid, @Query("uid") long uid);

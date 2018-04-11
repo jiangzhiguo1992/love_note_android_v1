@@ -9,7 +9,6 @@ import java.util.List;
  * Created by JZG on 2018/3/12.
  * 帮助文档
  */
-
 public class Help extends BaseObj implements Parcelable {
 
     public static final int TYPE_ALL = 0;
@@ -25,10 +24,19 @@ public class Help extends BaseObj implements Parcelable {
     public static final int TYPE_COUPLE_INFO = 10;
 
     private int contentType;
+    private int parentType;
     private String title;
     private String desc;
-    private List<Content> contentList;
+    private List<HelpContent> contentList;
     private List<Help> subList;
+
+    public int getParentType() {
+        return parentType;
+    }
+
+    public void setParentType(int parentType) {
+        this.parentType = parentType;
+    }
 
     public int getContentType() {
         return contentType;
@@ -54,11 +62,11 @@ public class Help extends BaseObj implements Parcelable {
         this.desc = desc;
     }
 
-    public List<Content> getContentList() {
+    public List<HelpContent> getContentList() {
         return contentList;
     }
 
-    public void setContentList(List<Content> contentList) {
+    public void setContentList(List<HelpContent> contentList) {
         this.contentList = contentList;
     }
 
@@ -70,14 +78,9 @@ public class Help extends BaseObj implements Parcelable {
         this.subList = subList;
     }
 
-    public static class Content implements Parcelable {
+    public static class HelpContent implements Parcelable {
         private String question;
         private String answer;
-
-        public Content(String question, String answer) {
-            this.question = question;
-            this.answer = answer;
-        }
 
         public String getQuestion() {
             return question;
@@ -95,23 +98,23 @@ public class Help extends BaseObj implements Parcelable {
             this.answer = answer;
         }
 
-        public Content() {
+        public HelpContent() {
         }
 
-        protected Content(Parcel in) {
+        protected HelpContent(Parcel in) {
             question = in.readString();
             answer = in.readString();
         }
 
-        public static final Creator<Content> CREATOR = new Creator<Content>() {
+        public static final Creator<HelpContent> CREATOR = new Creator<HelpContent>() {
             @Override
-            public Content createFromParcel(Parcel in) {
-                return new Content(in);
+            public HelpContent createFromParcel(Parcel in) {
+                return new HelpContent(in);
             }
 
             @Override
-            public Content[] newArray(int size) {
-                return new Content[size];
+            public HelpContent[] newArray(int size) {
+                return new HelpContent[size];
             }
         };
 
@@ -133,8 +136,10 @@ public class Help extends BaseObj implements Parcelable {
     protected Help(Parcel in) {
         super(in);
         contentType = in.readInt();
+        parentType = in.readInt();
         title = in.readString();
         desc = in.readString();
+        contentList = in.createTypedArrayList(HelpContent.CREATOR);
         subList = in.createTypedArrayList(Help.CREATOR);
     }
 
@@ -142,8 +147,10 @@ public class Help extends BaseObj implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(contentType);
+        dest.writeInt(parentType);
         dest.writeString(title);
         dest.writeString(desc);
+        dest.writeTypedList(contentList);
         dest.writeTypedList(subList);
     }
 

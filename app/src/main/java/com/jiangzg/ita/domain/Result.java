@@ -59,6 +59,24 @@ public class Result implements Serializable {
         private String message;
         private String btnGood;
         private String btnBad;
+        private String show;
+        private Help help;
+
+        public String getShow() {
+            return show;
+        }
+
+        public void setShow(String show) {
+            this.show = show;
+        }
+
+        public Help getHelp() {
+            return help;
+        }
+
+        public void setHelp(Help help) {
+            this.help = help;
+        }
 
         public String getTitle() {
             return title;

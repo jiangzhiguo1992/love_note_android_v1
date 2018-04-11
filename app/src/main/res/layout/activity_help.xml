@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,11 +9,31 @@
     android:orientation="vertical"
     tools:context="com.jiangzg.ita.activity.common.HelpActivity">
 
-    <include layout="@layout/view_top_bar"/>
+    <include
+        android:id="@+id/topBar"
+        layout="@layout/view_top_bar"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv"
+    <com.jiangzg.ita.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topBar">
 
-</LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.jiangzg.ita.view.GSwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/tvShow"
+        style="@style/FontGreyNormal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topBar"
+        android:gravity="center_horizontal"
+        android:paddingTop="50dp"
+        android:visibility="gone"
+        tools:text="show"
+        tools:visibility="visible"/>
+</RelativeLayout>

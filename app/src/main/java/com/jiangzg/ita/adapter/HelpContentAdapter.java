@@ -9,14 +9,14 @@ import com.jiangzg.ita.domain.Help;
  * Created by JZG on 2018/3/12.
  * 帮助文档一级问答
  */
-public class HelpContentAdapter extends BaseQuickAdapter<Help.Content, BaseViewHolder> {
+public class HelpContentAdapter extends BaseQuickAdapter<Help.HelpContent, BaseViewHolder> {
 
     public HelpContentAdapter() {
         super(R.layout.list_item_help_content);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Help.Content item) {
+    protected void convert(BaseViewHolder helper, Help.HelpContent item) {
         String question = item.getQuestion();
         String answer = item.getAnswer();
         helper.setText(R.id.tvTop, question);
