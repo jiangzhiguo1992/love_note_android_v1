@@ -152,9 +152,8 @@ public class OssHelper {
         // file
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
-            if (FileUtils.isFileExists(source)) {
-                ResHelper.deleteFileInBackground(source, false);
-            }
+            // 删除异常源文件
+            ResHelper.deleteFileInBackground(source, false);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -236,9 +235,8 @@ public class OssHelper {
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
             LogUtils.w(LOG_TAG, "uploadObject: objectKey == null");
-            if (FileUtils.isFileExists(source)) {
-                ResHelper.deleteFileInBackground(source, false);
-            }
+            // 删除上传的文件
+            ResHelper.deleteFileInBackground(source, false);
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             // 回调
             if (callBack != null) {
@@ -254,9 +252,8 @@ public class OssHelper {
         // file
         if (FileUtils.isFileEmpty(source)) {
             LogUtils.w(LOG_TAG, "uploadObject: source == null");
-            if (FileUtils.isFileExists(source)) {
-                ResHelper.deleteFileInBackground(source, false);
-            }
+            // 上传上传的异常文件
+            ResHelper.deleteFileInBackground(source, false);
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             // 回调
             if (callBack != null) {
@@ -372,9 +369,8 @@ public class OssHelper {
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
             LogUtils.w(LOG_TAG, "downloadObject: objectKey == null");
-            if (FileUtils.isFileExists(target)) {
-                ResHelper.deleteFileInBackground(target, false);
-            }
+            // 删除下载文件
+            ResHelper.deleteFileInBackground(target, false);
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             // 回调
             if (callBack != null) {
@@ -390,9 +386,8 @@ public class OssHelper {
         // file
         if (!FileUtils.isFileExists(target)) {
             LogUtils.w(LOG_TAG, "downloadObject: source == null");
-            if (FileUtils.isFileExists(target)) {
-                ResHelper.deleteFileInBackground(target, false);
-            }
+            // 删除下载文件
+            ResHelper.deleteFileInBackground(target, false);
             ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
             // 回调
             if (callBack != null) {
@@ -516,6 +511,9 @@ public class OssHelper {
                 @Override
                 public void onCancel(DialogInterface dialog) {
                     LogUtils.d(LOG_TAG, "downloadObject: cancel");
+                    // 删除下载文件
+                    ResHelper.deleteFileInBackground(target, false);
+                    // 取消任务
                     taskCancel(task);
                 }
             });

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
@@ -19,7 +20,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
@@ -118,7 +118,7 @@ public class UpdateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Version version = intent.getParcelableExtra("version");
-        ossDownloadApk(version);
+        checkPerm(version);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -127,6 +127,61 @@ public class UpdateService extends Service {
         super.onDestroy();
     }
 
+    // 检查权限
+    private void checkPerm(final Version version) {
+        final Activity top = ActivityStack.getTop();
+        if (top == null || !(top instanceof BaseActivity)) {
+            UpdateService.this.stopSelf();
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // 8.0需要允许未知应用安装
+            boolean canInstall = MyApp.get().getPackageManager().canRequestPackageInstalls();
+            if (canInstall) {
+                ossDownloadApk(version);
+            } else {
+                PermUtils.requestPermissions(top, ConsHelper.REQUEST_INSTALL, PermUtils.installApk, new PermUtils.OnPermissionListener() {
+                    @Override
+                    public void onPermissionGranted(int requestCode, String[] permissions) {
+                        ossDownloadApk(version);
+                    }
+
+                    @SuppressLint("InlinedApi")
+                    @Override
+                    public void onPermissionDenied(int requestCode, String[] permissions) {
+                        MaterialDialog dialog = new MaterialDialog.Builder(top)
+                                .content(R.string.need_check_some_perm_can_install)
+                                .cancelable(false)
+                                .canceledOnTouchOutside(false)
+                                .autoDismiss(true)
+                                .positiveText(R.string.go_now)
+                                .negativeText(R.string.say_after)
+                                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                                    @Override
+                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                                        ActivityTrans.start(MyApp.get(), intent);
+                                    }
+                                })
+                                .dismissListener(new DialogInterface.OnDismissListener() {
+                                    @Override
+                                    public void onDismiss(DialogInterface dialog) {
+                                        UpdateService.this.stopSelf();
+                                    }
+                                })
+                                .build();
+                        DialogHelper.setAnim(dialog);
+                        DialogHelper.show(dialog);
+                    }
+                });
+            }
+        } else {
+            // 8.0以下直接下载
+            ossDownloadApk(version);
+        }
+    }
+
+    // 开始下载
     private void ossDownloadApk(Version version) {
         if (version == null || version.getVersionCode() <= 0) {
             UpdateService.this.stopSelf();
@@ -145,7 +200,7 @@ public class UpdateService extends Service {
         OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override
             public void success(String ossPath) {
-                checkPerm(top, apkFile);
+                installApk(apkFile);
             }
 
             @Override
@@ -153,35 +208,6 @@ public class UpdateService extends Service {
                 UpdateService.this.stopSelf();
             }
         });
-    }
-
-    // 检查权限
-    private void checkPerm(final Activity activity, final File apkFile) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // 8.0需要允许未知应用安装
-            boolean canInstall = MyApp.get().getPackageManager().canRequestPackageInstalls();
-            if (canInstall) {
-                installApk(apkFile);
-            } else {
-                PermUtils.requestPermissions(activity, ConsHelper.REQUEST_INSTALL, PermUtils.installApk, new PermUtils.OnPermissionListener() {
-                    @Override
-                    public void onPermissionGranted(int requestCode, String[] permissions) {
-                        installApk(apkFile);
-                    }
-
-                    @SuppressLint("InlinedApi")
-                    @Override
-                    public void onPermissionDenied(int requestCode, String[] permissions) {
-                        ToastUtils.show(getString(R.string.need_check_some_perm_can_install));
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
-                        ActivityTrans.start(activity, intent);
-                        UpdateService.this.stopSelf();
-                    }
-                });
-            }
-        } else {
-            installApk(apkFile);
-        }
     }
 
     // 启动安装

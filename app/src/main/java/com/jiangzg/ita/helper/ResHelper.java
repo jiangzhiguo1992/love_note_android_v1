@@ -16,7 +16,6 @@ import java.io.File;
 /**
  * Created by JiangZhiGuo on 2016-10-31.
  * describe 文件管理
- * todo 搞一搞 注意权限
  */
 public class ResHelper {
 
@@ -24,7 +23,8 @@ public class ResHelper {
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
-                if (FileUtils.isFileExists(file) && media) {
+                if (!FileUtils.isFileExists(file)) return;
+                if (media) {
                     FileUtils.deleteFile(file);
                     // 多媒体文件删除操作
                     Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
@@ -53,27 +53,5 @@ public class ResHelper {
         FileUtils.createFileByDeleteOldFile(apkFile);
         return apkFile;
     }
-
-    //public static File createJPEGInFiles() {
-    //    String fileName = StringUtils.getUUID(8) + ".jpeg";
-    //    File jpgFile = new File(AppInfo.get().getResFilesDir(), fileName);
-    //    FileUtils.createFileByDeleteOldFile(jpgFile);
-    //    return jpgFile;
-    //}
-
-    /**
-     * 获取外存使用情况: getRealSDCardFile().getXXXXSpace()
-     */
-    //public static File getRealSDCardFile() {
-    //    File dir = new File(AppInfo.getSDCardPath());
-    //    FileUtils.createOrExistsDir(dir);
-    //    return dir;
-    //}
-
-    //public static boolean saveImgToWelcome(File img) {
-    //    String resFilesDir = AppInfo.get().getResFilesDir();
-    //
-    //    return FileUtils.createFileByDeleteOldFile(img);
-    //}
 
 }

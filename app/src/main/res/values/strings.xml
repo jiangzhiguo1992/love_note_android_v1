@@ -239,6 +239,7 @@
     <string name="auto_download_update">自动下载更新</string>
     <string name="only_wifi_mode_auto_download">仅在wifi模式下会自动下载</string>
     <string name="clear_cache">清除缓存</string>
+    <string name="are_clear_cache_point">正在清除缓存…</string>
     <string name="contain_image_audio_video_total_colon_holder">包括图片、音频、视频缓存 (共:%s)</string>
     <string name="notice_settings">通知设置</string>
     <string name="system_notice">系统通知</string>
@@ -368,4 +369,6 @@
     <string name="already_is_latest_version">已是最新版本</string>
     <string name="are_download">正在下载</string>
     <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
+    <string name="go_now">现在前往</string>
+    <string name="say_after">以后再说</string>
 </resources>

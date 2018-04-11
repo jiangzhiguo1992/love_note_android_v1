@@ -64,8 +64,11 @@ public class CleanHelper {
         // app
         List<String> cacheFiles = getCaches();
         long size = 0;
-        for (String cache : cacheFiles) {
-            size += new File(cache).length();
+        for (String path : cacheFiles) {
+            List<File> files = FileUtils.listFilesAndDirInDir(path, true);
+            for (File cache : files) {
+                size += cache.length();
+            }
         }
         // fresco
         long frescoSize = GImageView.getDiskCachesSize();

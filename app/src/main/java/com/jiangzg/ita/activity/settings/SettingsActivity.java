@@ -24,6 +24,7 @@ import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.PasswordActivity;
 import com.jiangzg.ita.activity.user.PhoneActivity;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.CleanHelper;
@@ -124,9 +125,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 ThemeActivity.goActivity(mActivity);
                 break;
             case R.id.rlCache:// 缓存
-                CleanHelper.clearCaches();
-                cacheShow();
-                ToastUtils.show(getString(R.string.cache_clear_success));
+                clearCache();
                 break;
             case R.id.rlSystem: // 系统通知
                 switchSystem.setChecked(!switchSystem.isChecked());
@@ -165,6 +164,25 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 existDialogShow();
                 break;
         }
+    }
+
+    private void clearCache() {
+        final MaterialDialog loading = mActivity.getLoading(getString(R.string.are_clear_cache_point), false);
+        DialogHelper.show(loading);
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                CleanHelper.clearCaches();
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        DialogHelper.dismiss(loading);
+                        cacheShow();
+                        ToastUtils.show(getString(R.string.cache_clear_success));
+                    }
+                });
+            }
+        });
     }
 
     @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial})
