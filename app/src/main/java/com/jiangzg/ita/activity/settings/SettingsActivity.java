@@ -74,8 +74,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     TextView tvSuggest;
     @BindView(R.id.tvRate)
     TextView tvRate;
-    @BindView(R.id.tvOpen)
-    TextView tvOpen;
     @BindView(R.id.tvProtocol)
     TextView tvProtocol;
     @BindView(R.id.tvContact)
@@ -116,9 +114,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         tvUpdateSummary.setText(versionNameShow);
     }
 
-    @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial,
-            R.id.tvPhone, R.id.tvPassword, R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest,
-            R.id.tvRate, R.id.tvOpen, R.id.tvProtocol, R.id.tvContact, R.id.tvExist})
+    @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
+            R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest, R.id.tvRate, R.id.tvProtocol, R.id.tvContact, R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvTheme: // 主题
@@ -142,7 +139,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.rlUpdate: // 版本更新
                 UpdateService.checkUpdate(mActivity);
                 break;
-            case R.id.tvHelp: // todo 帮助文档
+            case R.id.tvHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity);
                 break;
             case R.id.tvSuggest: // todo 意见反馈
@@ -152,12 +149,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 //Intent intent = IntentSend.getMarket();
                 //ActivityTrans.start(mActivity, intent);
                 break;
-            case R.id.tvOpen: // todo 开源许可
-                break;
-            case R.id.tvProtocol: // todo 软件协议
+            case R.id.tvProtocol: // 软件协议
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
                 break;
-            case R.id.tvContact: // todo 联系我们
+            case R.id.tvContact: // 联系我们
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
                 break;
             case R.id.tvExist: // 退出账号

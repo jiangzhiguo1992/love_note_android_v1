@@ -11,27 +11,27 @@ import java.util.List;
  */
 public class Suggest extends BaseObj {
 
-    // status
-    public static final int STATUE_REPLY_NO = 1; // 未回复
-    public static final int STATUE_REPLY_YES = 2; // 已回复
-    public static final int STATUE_ACCEPT_NO = 3; // 未采纳
-    public static final int STATUE_ACCEPT_YES = 4; // 已采纳
-    public static final int STATUE_HANDLE_ING = 5; // 处理中
-    public static final int STATUE_HANDLE_OVER = 6; // 处理完
+    // status todo 删除
+    public static final int STATUE_REPLY_NO = 0; // 未回复
+    public static final int STATUE_REPLY_YES = 1; // 已回复
+    public static final int STATUE_ACCEPT_NO = 2; // 未采纳
+    public static final int STATUE_ACCEPT_YES = 3; // 已采纳
+    public static final int STATUE_HANDLE_ING = 4; // 处理中
+    public static final int STATUE_HANDLE_OVER = 5; // 处理完
     // contentType
+    public static final int TYPE_OTHER = 0; // 其他
     public static final int TYPE_BUG = 1; // 程序错误
-    public static final int TYPE_FUNCTION = 2; // 功能添加
-    public static final int TYPE_EXPERIENCE = 3; // 体验优化
-    public static final int TYPE_OTHER = 4; // 其他
+    public static final int TYPE_FUNC = 2; // 功能添加
+    public static final int TYPE_TASTE = 3; // 体验优化
 
     private String title; // list
-    private String contentText; // detail
-    private String contentImgUrl; // detail
     private int contentType; // list
+    private String contentText; // detail
+    private String contentImg; // detail
     private int followCount; // list
     private int commentCount; // list
-    private boolean official; // list
-    private boolean top; // list
+    private boolean official; // list todo 删除
+    private boolean top; // list todo 删除
     private List<SuggestComment> commentList; // detail
     private boolean follow; // list + user
     private boolean comment; // list + user
@@ -42,10 +42,10 @@ public class Suggest extends BaseObj {
             case TYPE_BUG:
                 show = MyApp.get().getString(R.string.program_error);
                 break;
-            case TYPE_FUNCTION:
+            case TYPE_FUNC:
                 show = MyApp.get().getString(R.string.function_add);
                 break;
-            case TYPE_EXPERIENCE:
+            case TYPE_TASTE:
                 show = MyApp.get().getString(R.string.experience_optimize);
                 break;
             case TYPE_OTHER:
@@ -90,12 +90,12 @@ public class Suggest extends BaseObj {
         this.official = official;
     }
 
-    public String getContentImgUrl() {
-        return contentImgUrl;
+    public String getContentImg() {
+        return contentImg;
     }
 
-    public void setContentImgUrl(String contentImgUrl) {
-        this.contentImgUrl = contentImgUrl;
+    public void setContentImg(String contentImg) {
+        this.contentImg = contentImg;
     }
 
     public List<SuggestComment> getCommentList() {

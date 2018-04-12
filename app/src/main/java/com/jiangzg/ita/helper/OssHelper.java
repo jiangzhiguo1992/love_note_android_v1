@@ -105,6 +105,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
         if (StringUtils.isEmpty(pathCoupleWall)) {
+            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             LogUtils.w(LOG_TAG, "uploadWall: pathCoupleWall == null");
             // 回调
             if (callBack != null) {
@@ -120,7 +121,30 @@ public class OssHelper {
         // objectKey
         final String objectKey = pathCoupleWall + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
         // 不压缩 直接上传
-        uploadObject(activity, objectKey, source, callBack);
+        uploadObject(activity, objectKey, source, true, callBack);
+    }
+
+    // 意见
+    public static void uploadSuggest(Activity activity, File source, final OssUploadCallBack callBack) {
+        // ossPath
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathSuggest = ossInfo.getPathSuggest();
+        if (StringUtils.isEmpty(pathSuggest)) {
+            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            LogUtils.w(LOG_TAG, "uploadSuggest: pathSuggest == null");
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure("");
+                    }
+                });
+            }
+            return;
+        }
+        // 先压缩 再上传
+        compressJpeg(activity, pathSuggest, source, false, callBack);
     }
 
     // 头像
@@ -129,6 +153,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
         if (StringUtils.isEmpty(pathCoupleAvatar)) {
+            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             LogUtils.w(LOG_TAG, "uploadAvatar: pathCoupleAvatar == null");
             // 回调
             if (callBack != null) {
@@ -142,18 +167,20 @@ public class OssHelper {
             return;
         }
         // 先压缩 再上传
-        compressJpeg(activity, source, pathCoupleAvatar, callBack);
+        compressJpeg(activity, pathCoupleAvatar, source, true, callBack);
     }
 
     // 启动压缩
-    private static void compressJpeg(final Activity activity, final File source, final String uploadPath, final OssUploadCallBack callBack) {
+    private static void compressJpeg(final Activity activity, final String uploadPath, final File source,
+                                     final boolean delSource, final OssUploadCallBack callBack) {
         // objectKey
         final String objectKey = uploadPath + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + ".jpeg";
         // file
         if (FileUtils.isFileEmpty(source)) {
+            ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
             // 删除异常源文件
-            ResHelper.deleteFileInBackground(source, false);
+            if (delSource) ResHelper.deleteFileInBackground(source, false);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -192,13 +219,13 @@ public class OssHelper {
                             // 压缩文件有可能不存在
                             if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
                                 // 压缩文件 != 源文件，删除源文件
-                                ResHelper.deleteFileInBackground(source, false);
+                                if (delSource) ResHelper.deleteFileInBackground(source, false);
                             }
                             // upload
-                            uploadObject(activity, objectKey, file, callBack);
+                            uploadObject(activity, objectKey, file, delSource, callBack);
                         } else {
                             // upload
-                            uploadObject(activity, objectKey, source, callBack);
+                            uploadObject(activity, objectKey, source, delSource, callBack);
                         }
                     }
 
@@ -207,7 +234,7 @@ public class OssHelper {
                         LogUtils.e(LOG_TAG, "Luban: onError: ", e);
                         DialogHelper.dismiss(progress);
                         // upload
-                        uploadObject(activity, objectKey, source, callBack);
+                        uploadObject(activity, objectKey, source, delSource, callBack);
                     }
                 })
                 .launch();
@@ -230,14 +257,15 @@ public class OssHelper {
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadObject(Activity activity, final String objectKey, final File source, final OssUploadCallBack callBack) {
+    private static OSSAsyncTask uploadObject(Activity activity, final String objectKey, final File source,
+                                             final boolean delSource, final OssUploadCallBack callBack) {
         LogUtils.i(LOG_TAG, "uploadImage: objectKey == " + objectKey);
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
+            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             LogUtils.w(LOG_TAG, "uploadObject: objectKey == null");
             // 删除上传的文件
-            ResHelper.deleteFileInBackground(source, false);
-            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            if (delSource) ResHelper.deleteFileInBackground(source, false);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -251,10 +279,10 @@ public class OssHelper {
         }
         // file
         if (FileUtils.isFileEmpty(source)) {
+            ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             LogUtils.w(LOG_TAG, "uploadObject: source == null");
             // 上传上传的异常文件
-            ResHelper.deleteFileInBackground(source, false);
-            ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
+            if (delSource) ResHelper.deleteFileInBackground(source, false);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -304,7 +332,7 @@ public class OssHelper {
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 DialogHelper.dismiss(progress);
                 // 删除源文件
-                ResHelper.deleteFileInBackground(source, false);
+                if (delSource) ResHelper.deleteFileInBackground(source, false);
                 // 回调
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onSuccess: getObjectKey == " + uploadKey);
@@ -322,7 +350,7 @@ public class OssHelper {
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 DialogHelper.dismiss(progress);
                 // 删除源文件
-                ResHelper.deleteFileInBackground(source, false);
+                if (delSource) ResHelper.deleteFileInBackground(source, false);
                 // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onFailure: getObjectKey == " + uploadKey);

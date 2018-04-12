@@ -21,6 +21,7 @@ import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
+import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.domain.VipPower;
@@ -240,4 +241,14 @@ public class ApiHelper {
         }
         return user;
     }
+
+    public static Suggest getSuggestAddBody(String title, int contentType, String contentText, String contentImg) {
+        Suggest suggest = new Suggest();
+        suggest.setTitle(title);
+        suggest.setContentType(contentType);
+        suggest.setContentText(contentText);
+        suggest.setContentImg(contentImg);
+        return suggest;
+    }
+
 }

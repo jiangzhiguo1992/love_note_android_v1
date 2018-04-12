@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
@@ -22,9 +23,14 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
+import com.jiangzg.ita.helper.OssHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 
@@ -32,6 +38,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
@@ -47,14 +54,14 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     TextView tvContentLimit;
     @BindView(R.id.etContent)
     EditText etContent;
-    @BindView(R.id.tvAddImage)
-    TextView tvAddImage;
+    @BindView(R.id.tvImageToggle)
+    TextView tvImageToggle;
     @BindView(R.id.ivImage)
     GImageView ivImage;
     @BindView(R.id.btnPush)
     Button btnPush;
 
-    private int contentType = 0;
+    private int contentType = -1;
     private File pictureFile;
 
     public static void goActivity(Activity from) {
@@ -131,30 +138,40 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
-            ivImage.setVisibility(View.VISIBLE);
             pictureFile = IntentResult.getPictureFile(data);
+            ivImage.setVisibility(View.VISIBLE);
             ivImage.setDataFile(pictureFile);
+            tvImageToggle.setText(R.string.click_me_to_del_image);
         }
     }
 
-    @OnClick({R.id.tvType, R.id.tvAddImage, R.id.btnPush})
+    @OnClick({R.id.tvType, R.id.tvImageToggle, R.id.btnPush})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvType: // 选分类
                 showTypeDialog();
                 break;
-            case R.id.tvAddImage: // 添加照片
-                requestPermission();
+            case R.id.tvImageToggle: // 操作照片
+                toggleImage();
                 break;
             case R.id.btnPush: // 发布
-                push();
+                checkPush();
                 break;
+        }
+    }
+
+    private void toggleImage() {
+        if (FileUtils.isFileEmpty(pictureFile)) {
+            pictureFile = null;
+            requestPermission();
+        } else {
+            cancelImage();
         }
     }
 
     // 请求文件(相册)获取权限
     private void requestPermission() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_PICTURE, PermUtils.picture, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 Intent picture = IntentSend.getPicture();
@@ -165,6 +182,13 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             public void onPermissionDenied(int requestCode, String[] permissions) {
             }
         });
+    }
+
+    // 取消图片
+    private void cancelImage() {
+        tvImageToggle.setText(R.string.click_me_add_image);
+        ivImage.setVisibility(View.GONE);
+        pictureFile = null;
     }
 
     private void onTitleInput(String s) {
@@ -224,10 +248,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             case Suggest.TYPE_BUG:
                 selectShow = getString(R.string.program_error);
                 break;
-            case Suggest.TYPE_FUNCTION:
+            case Suggest.TYPE_FUNC:
                 selectShow = getString(R.string.function_add);
                 break;
-            case Suggest.TYPE_EXPERIENCE:
+            case Suggest.TYPE_TASTE:
                 selectShow = getString(R.string.experience_optimize);
                 break;
             case Suggest.TYPE_OTHER:
@@ -246,10 +270,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             case Suggest.TYPE_BUG:
                 selectIndex = 0;
                 break;
-            case Suggest.TYPE_FUNCTION:
+            case Suggest.TYPE_FUNC:
                 selectIndex = 1;
                 break;
-            case Suggest.TYPE_EXPERIENCE:
+            case Suggest.TYPE_TASTE:
                 selectIndex = 2;
                 break;
             case Suggest.TYPE_OTHER:
@@ -263,27 +287,28 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private int getTypeByItemSelect(int select) {
-        int contentType = 0;
+        int contentType;
         switch (select) {
             case 0:
                 contentType = Suggest.TYPE_BUG;
                 break;
             case 1:
-                contentType = Suggest.TYPE_FUNCTION;
+                contentType = Suggest.TYPE_FUNC;
                 break;
             case 2:
-                contentType = Suggest.TYPE_EXPERIENCE;
+                contentType = Suggest.TYPE_TASTE;
                 break;
             case 3:
+            default:
                 contentType = Suggest.TYPE_OTHER;
                 break;
         }
         return contentType;
     }
 
-    // 发布
-    private void push() {
-        if (contentType != Suggest.TYPE_BUG && contentType != Suggest.TYPE_FUNCTION && contentType != Suggest.TYPE_EXPERIENCE && contentType != Suggest.TYPE_OTHER) {
+    // 检查格式
+    private void checkPush() {
+        if (contentType < 0) {
             ToastUtils.show(getString(R.string.please_choose_classify));
             return;
         }
@@ -297,9 +322,44 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
-        // todo api
-        ToastUtils.show(getString(R.string.push_success));
-        mActivity.finish();
+        if (pictureFile != null) {
+            pushImage();
+        } else {
+            pushSuggest("");
+        }
+    }
+
+    private void pushImage() {
+        OssHelper.uploadSuggest(mActivity, pictureFile, new OssHelper.OssUploadCallBack() {
+            @Override
+            public void success(String ossPath) {
+                pushSuggest(ossPath);
+            }
+
+            @Override
+            public void failure(String ossPath) {
+            }
+        });
+    }
+
+    // 发布
+    private void pushSuggest(String imgPath) {
+        String title = etTitle.getText().toString();
+        String content = etContent.getText().toString();
+        Suggest body = ApiHelper.getSuggestAddBody(title, contentType, content, imgPath);
+        MaterialDialog loading = mActivity.getLoading(false);
+        Call<Result> call = new RetrofitHelper().call(API.class).suggestAdd(body);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // todo refreshList/gotoDetail
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
     }
 
 }

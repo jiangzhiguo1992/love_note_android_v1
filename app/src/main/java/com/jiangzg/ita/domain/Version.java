@@ -11,8 +11,8 @@ public class Version extends BaseObj implements Parcelable {
 
     private int versionCode;
     private String versionName;
-    private String updateUrl;
     private String updateLog;
+    private String updateUrl;
 
     public int getVersionCode() {
         return versionCode;

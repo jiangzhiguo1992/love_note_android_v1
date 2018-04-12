@@ -14,7 +14,7 @@
     <declare-styleable name="GImageView">
         <attr name="is_circle" format="boolean"/>
         <attr name="is_full" format="boolean"/>
-        <attr name="is_drawable" format="boolean"/>
+        <attr name="is_normal" format="boolean"/>
     </declare-styleable>
 
 </resources>

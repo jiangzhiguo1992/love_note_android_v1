@@ -60,11 +60,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // recycler
-        srl.setEnabled(false);
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, true)
+                .initRefresh(srl, false)
                 .initAdapter(new SuggestListAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewHeader(R.layout.list_head_suggest_home)
@@ -157,10 +156,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                         searchType = Suggest.TYPE_BUG;
                         break;
                     case R.id.rbTypeFunction:
-                        searchType = Suggest.TYPE_FUNCTION;
+                        searchType = Suggest.TYPE_FUNC;
                         break;
                     case R.id.rbTypeExperience:
-                        searchType = Suggest.TYPE_EXPERIENCE;
+                        searchType = Suggest.TYPE_TASTE;
                         break;
                     case R.id.rbTypeOther:
                         searchType = Suggest.TYPE_OTHER;
@@ -246,7 +245,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                     s2.setComment(false);
                     s2.setFollowCount(111111111);
                     s2.setCommentCount(0);
-                    s2.setContentType(Suggest.TYPE_FUNCTION);
+                    s2.setContentType(Suggest.TYPE_FUNC);
                     s2.setOfficial(true);
                     s2.setTop(false);
                     Suggest s3 = new Suggest();
@@ -258,7 +257,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                     s3.setComment(true);
                     s3.setFollowCount(111111111);
                     s3.setCommentCount(2);
-                    s3.setContentType(Suggest.TYPE_EXPERIENCE);
+                    s3.setContentType(Suggest.TYPE_TASTE);
                     s3.setOfficial(false);
                     s3.setTop(true);
                     suggestList.add(s1);

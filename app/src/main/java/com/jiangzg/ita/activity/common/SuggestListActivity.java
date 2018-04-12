@@ -165,7 +165,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s2.setComment(false);
                     s2.setFollowCount(111111111);
                     s2.setCommentCount(0);
-                    s2.setContentType(Suggest.TYPE_FUNCTION);
+                    s2.setContentType(Suggest.TYPE_FUNC);
                     s2.setOfficial(true);
                     s2.setTop(false);
                     Suggest s3 = new Suggest();
@@ -177,7 +177,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                     s3.setComment(true);
                     s3.setFollowCount(111111111);
                     s3.setCommentCount(2);
-                    s3.setContentType(Suggest.TYPE_EXPERIENCE);
+                    s3.setContentType(Suggest.TYPE_TASTE);
                     s3.setOfficial(false);
                     s3.setTop(true);
                     suggestList.add(s1);

@@ -113,6 +113,7 @@ public class GImageView extends SimpleDraweeView {
     private int mHeight;
     private boolean isCircle;
     private boolean isFull;
+    private boolean isNormal;
 
     public GImageView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
@@ -148,6 +149,7 @@ public class GImageView extends SimpleDraweeView {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GImageView);
         isCircle = a.getBoolean(R.styleable.GImageView_is_circle, false);
         isFull = a.getBoolean(R.styleable.GImageView_is_full, false);
+        isNormal = a.getBoolean(R.styleable.GImageView_is_normal, false);
         a.recycle();
     }
 
@@ -177,13 +179,15 @@ public class GImageView extends SimpleDraweeView {
             hierarchy.setProgressBarImage(new ImageProgressFullDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
             hierarchy.setRetryImage(new ImageRetryFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
             hierarchy.setFailureImage(new ImageFailureFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
-        } else { // 正常网络
+        } else if (isNormal) { // 正常
             hierarchy.setFadeDuration(300);
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
             hierarchy.setPlaceholderImage(new ImageLoadingReactDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
             hierarchy.setProgressBarImage(new ImageProgressReactDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
             hierarchy.setRetryImage(new ImageRetryReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
             hierarchy.setFailureImage(new ImageFailureReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
+        } else {
+            // 自己在xml设置
         }
     }
 
@@ -197,8 +201,9 @@ public class GImageView extends SimpleDraweeView {
         if (uri != null && uri.toString().startsWith("http") && !isCircle) {
             builder = builder.setTapToRetryEnabled(true); // 点击重新加载 todo 此状态要拦截点击事件
             //.setControllerListener(createControllerListener()); // 加载成功/失败监听
+        } else {
+            builder = builder.setTapToRetryEnabled(false);
         }
-
         AbstractDraweeController controller = builder.build();
         this.setController(controller);
     }
@@ -226,8 +231,9 @@ public class GImageView extends SimpleDraweeView {
         return requestBuilder.build();
     }
 
-    // 设置圆形图/是全屏模式
-    public void setShowAs(boolean circle, boolean full) {
+    // 设置图片类型
+    public void setShowAs(boolean normal, boolean full, boolean circle) {
+        isNormal = normal;
         isCircle = circle;
         isFull = full;
         initHierarchy(null);

@@ -268,20 +268,6 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                android:id="@+id/tvOpen"
-                style="@style/FontBlackNormal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
-                android:text="@string/open_protocol"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <TextView
                 android:id="@+id/tvProtocol"
                 style="@style/FontBlackNormal"
                 android:layout_width="match_parent"

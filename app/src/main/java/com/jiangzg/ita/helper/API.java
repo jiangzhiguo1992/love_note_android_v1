@@ -4,6 +4,7 @@ import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Sms;
+import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.User;
 
 import java.util.List;
@@ -99,5 +100,9 @@ public interface API {
     @GET("couple")
     Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
                            @Query("cid") long cid, @Query("uid") long uid);
+
+    // 意见发布
+    @POST("suggest")
+    Call<Result> suggestAdd(@Body Suggest suggest);
 
 }

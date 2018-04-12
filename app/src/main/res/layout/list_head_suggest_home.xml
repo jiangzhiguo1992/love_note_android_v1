@@ -23,11 +23,12 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            app:cardBackgroundColor="#fff"
-            app:cardCornerRadius="3dp">
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp">
 
             <TextView
-                style="@style/FontGreyNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -46,11 +47,12 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            app:cardBackgroundColor="#fff"
-            app:cardCornerRadius="3dp">
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp">
 
             <TextView
-                style="@style/FontGreyNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -69,11 +71,12 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            app:cardBackgroundColor="#fff"
-            app:cardCornerRadius="3dp">
+            app:cardBackgroundColor="?attr/colorPrimary"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="3dp">
 
             <TextView
-                style="@style/FontGreyNormal"
+                style="@style/FontWhiteNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

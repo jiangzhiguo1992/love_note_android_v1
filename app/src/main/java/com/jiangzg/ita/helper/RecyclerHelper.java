@@ -65,7 +65,7 @@ public class RecyclerHelper {
     }
 
     /**
-     * 在viewFunc之前设置
+     * 在viewFunc之前调用
      */
     public RecyclerHelper initAdapter(BaseQuickAdapter adapter) {
         mAdapter = adapter;
@@ -73,7 +73,8 @@ public class RecyclerHelper {
     }
 
     /**
-     * 在viewFunc之后设置，也可以等data加载完后自动调用
+     * 在viewFunc之后调用，可以将hea/foot在没有data之前就显示出来
+     * 也可以等data加载完后自动调用
      */
     public RecyclerHelper setAdapter() {
         if (mRecycler == null || mAdapter == null) return this;

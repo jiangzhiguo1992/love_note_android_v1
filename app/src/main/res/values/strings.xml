@@ -371,4 +371,5 @@
     <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
     <string name="go_now">现在前往</string>
     <string name="say_after">以后再说</string>
+    <string name="click_me_to_del_image">点我删除照片</string>
 </resources>

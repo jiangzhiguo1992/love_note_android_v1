@@ -94,9 +94,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
                 @Override
                 public void onFailure() {
+                    // todo 失败处理
                 }
             });
-            // todo 失败处理
         }
     }
 

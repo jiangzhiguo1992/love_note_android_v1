@@ -172,7 +172,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void run() {
                 suggest.setContentText("这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。这是一个很不好的消息，你们的产品太差了，真的不好。");
-                suggest.setContentImgUrl("https://timgsa.baidu.com/timg?image");
+                suggest.setContentImg("https://timgsa.baidu.com/timg?image");
                 if (!more) { // 在请求成功里执行
                     rv.setVisibility(View.VISIBLE);
                     llBottom.setVisibility(View.VISIBLE);
@@ -226,11 +226,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initHead() {
         // oss
-        //suggest.setContentImgUrl("http://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/bg/4-18%3A01%3A30%2021%3A47%3A46-51775.jpg?Expires=1521191177&OSSAccessKeyId=TMP.AQE8CEVTjwupqBgtGA0kBCfSPP_b8uGSE8gGODF7TSdrFlyN6d4TEeOGYNngADAtAhUAuYUl2tLPLT5cZIG6TpJM3AMjL7UCFHPM2LtYsEApPAN8ug1gSNCvM1hM&Signature=gq41pRWTlqoNS%2BEDXJTd0poJuGg%3D");
+        //suggest.setContentImg("http://i-ta.oss-cn-beijing.aliyuncs.com/ita-couple/bg/4-18%3A01%3A30%2021%3A47%3A46-51775.jpg?Expires=1521191177&OSSAccessKeyId=TMP.AQE8CEVTjwupqBgtGA0kBCfSPP_b8uGSE8gGODF7TSdrFlyN6d4TEeOGYNngADAtAhUAuYUl2tLPLT5cZIG6TpJM3AMjL7UCFHPM2LtYsEApPAN8ug1gSNCvM1hM&Signature=gq41pRWTlqoNS%2BEDXJTd0poJuGg%3D");
         // gif
-        //suggest.setContentImgUrl("http://img.zcool.cn/community/01574e581d5811a84a0d304ffd83d1.gif");
+        //suggest.setContentImg("http://img.zcool.cn/community/01574e581d5811a84a0d304ffd83d1.gif");
         // err
-        //suggest.setContentImgUrl("sasasasa");
+        //suggest.setContentImg("sasasasa");
 
         // data
         String title = suggest.getTitle();
@@ -240,7 +240,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String statusShow = suggest.getStatusShow();
         String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreateAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
-        String contentImgUrl = suggest.getContentImgUrl();
+        String contentImgUrl = suggest.getContentImg();
         String contentText = suggest.getContentText();
         String commentTotal = String.format(getString(R.string.comment_colon_holder), suggest.getCommentCount());
         // view

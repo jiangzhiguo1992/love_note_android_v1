@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -105,31 +106,26 @@
                     android:padding="8dp"/>
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvImageToggle"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:padding="10dp"
+                android:text="@string/click_me_add_image"
+                android:textColor="@drawable/selector_text_press_primary_dark"
+                android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/tvAddImage"
-                    style="@style/FontPrimaryNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="10dp"
-                    android:text="@string/click_me_add_image"
-                    android:textColor="@drawable/selector_text_press_primary_dark"
-                    android:textStyle="bold"/>
 
-                <com.jiangzg.ita.view.GImageView
-                    android:id="@+id/ivImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp"
-                    android:visibility="gone"
-                    tools:src="@mipmap/test_bg_04"
-                    tools:visibility="visible"/>
-            </RelativeLayout>
+            <com.jiangzg.ita.view.GImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                app:actualImageScaleType="centerInside"
+                tools:src="@mipmap/test_bg_04"
+                tools:visibility="visible"/>
         </LinearLayout>
     </ScrollView>
 
