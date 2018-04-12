@@ -25,16 +25,19 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -61,8 +64,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.btnPush)
     Button btnPush;
 
-    private int contentType = -1;
+    private int contentType = 0;
     private File pictureFile;
+    private List<SuggestInfo.SuggestContentType> suggestContentTypeList;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestAddActivity.class);
@@ -126,6 +130,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        SuggestInfo suggestInfo = SPHelper.getSuggestInfo();
+        suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
     }
 
     @Override
@@ -149,7 +155,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvType: // 选分类
-                showTypeDialog();
+                showStatusDialog();
                 break;
             case R.id.tvImageToggle: // 操作照片
                 toggleImage();
@@ -217,21 +223,25 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         tvContentLimit.setText(limitShow);
     }
 
-    private void showTypeDialog() {
-        String bug = getString(R.string.program_error);
-        String func = getString(R.string.function_add);
-        String optimize = getString(R.string.experience_optimize);
-        String other = getString(R.string.other);
-        CharSequence[] items = new CharSequence[]{bug, func, optimize, other};
-        int selectIndex = getItemsSelectByType(contentType);
+    private void showStatusDialog() {
+        // 第一个是全部，不要
+        CharSequence[] items = new CharSequence[suggestContentTypeList.size() - 1];
+        for (int i = 1; i < suggestContentTypeList.size(); i++) {
+            SuggestInfo.SuggestContentType contentType = suggestContentTypeList.get(i);
+            int index = contentType.getContentType() - 1;
+            String show = contentType.getShow();
+            items[index] = show;
+        }
         MaterialDialog dialog = new MaterialDialog.Builder(this)
                 .title(R.string.please_choose_classify)
                 .items(items)
-                .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(contentType - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        contentType = getTypeByItemSelect(which);
-                        tvType.setText(getSelectShowByType(contentType));
+                        // 第一个忽略
+                        SuggestInfo.SuggestContentType suggestContentType = suggestContentTypeList.get(which + 1);
+                        contentType = suggestContentType.getContentType();
+                        tvType.setText(suggestContentType.getShow());
                         return true;
                     }
                 })
@@ -242,73 +252,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         DialogHelper.show(dialog);
     }
 
-    private String getSelectShowByType(int contentType) {
-        String selectShow;
-        switch (contentType) {
-            case Suggest.TYPE_BUG:
-                selectShow = getString(R.string.program_error);
-                break;
-            case Suggest.TYPE_FUNC:
-                selectShow = getString(R.string.function_add);
-                break;
-            case Suggest.TYPE_TASTE:
-                selectShow = getString(R.string.experience_optimize);
-                break;
-            case Suggest.TYPE_OTHER:
-                selectShow = getString(R.string.other);
-                break;
-            default:
-                selectShow = getString(R.string.click_me_choose_type);
-                break;
-        }
-        return selectShow;
-    }
-
-    private int getItemsSelectByType(int contentType) {
-        int selectIndex;
-        switch (contentType) {
-            case Suggest.TYPE_BUG:
-                selectIndex = 0;
-                break;
-            case Suggest.TYPE_FUNC:
-                selectIndex = 1;
-                break;
-            case Suggest.TYPE_TASTE:
-                selectIndex = 2;
-                break;
-            case Suggest.TYPE_OTHER:
-                selectIndex = 3;
-                break;
-            default:
-                selectIndex = -1;
-                break;
-        }
-        return selectIndex;
-    }
-
-    private int getTypeByItemSelect(int select) {
-        int contentType;
-        switch (select) {
-            case 0:
-                contentType = Suggest.TYPE_BUG;
-                break;
-            case 1:
-                contentType = Suggest.TYPE_FUNC;
-                break;
-            case 2:
-                contentType = Suggest.TYPE_TASTE;
-                break;
-            case 3:
-            default:
-                contentType = Suggest.TYPE_OTHER;
-                break;
-        }
-        return contentType;
-    }
-
     // 检查格式
     private void checkPush() {
-        if (contentType < 0) {
+        if (contentType <= suggestContentTypeList.get(0).getContentType()) {
+            // 第一个是全部
             ToastUtils.show(getString(R.string.please_choose_classify));
             return;
         }

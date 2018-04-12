@@ -61,6 +61,15 @@ public class Result implements Serializable {
         private String btnBad;
         private String show;
         private Help help;
+        private SuggestInfo suggestInfo;
+
+        public SuggestInfo getSuggestInfo() {
+            return suggestInfo;
+        }
+
+        public void setSuggestInfo(SuggestInfo suggestInfo) {
+            this.suggestInfo = suggestInfo;
+        }
 
         public String getShow() {
             return show;

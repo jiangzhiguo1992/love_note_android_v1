@@ -22,11 +22,13 @@ import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.domain.VipPower;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -98,6 +100,9 @@ public class ApiHelper {
         // user
         User user = data.getUser();
         SPHelper.setUser(user);
+        // suggest
+        SuggestInfo suggestInfo = data.getSuggestInfo();
+        SPHelper.setSuggestInfo(suggestInfo);
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         // oss

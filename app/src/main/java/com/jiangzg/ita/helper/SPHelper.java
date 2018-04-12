@@ -6,7 +6,10 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.OssInfo;
+import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
+
+import java.util.ArrayList;
 
 /**
  * Created by Fan on 2017/3/2.
@@ -18,6 +21,7 @@ public class SPHelper {
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
+    private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_SETTINGS = "shareSettings";
 
@@ -30,7 +34,7 @@ public class SPHelper {
     private static final String FIELD_USER_TOKEN = "userToken";
     // couple
     private static final String FIELD_CP_ID = "coupleId";
-    private static final String FIELD_CP_STAUTS = "status";
+    private static final String FIELD_CP_STATUS = "status";
     private static final String FIELD_CP_UPDATE_AT = "updateAt";
     private static final String FIELD_CP_CREATOR_ID = "creatorId";
     private static final String FIELD_CP_CREATOR_NAME = "creatorName";
@@ -38,6 +42,8 @@ public class SPHelper {
     private static final String FIELD_CP_INVITEE_ID = "inviteeId";
     private static final String FIELD_CP_INVITEE_NAME = "inviteeName";
     private static final String FIELD_CP_INVITEE_AVATAR = "inviteeAvatar";
+    // suggest
+    private static final String FIELD_SUGGEST_INFO = "suggestInfo";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "securityToken";
     private static final String FIELD_OSS_KEY_ID = "accessKeyId";
@@ -87,13 +93,13 @@ public class SPHelper {
     }
 
     public static User getUser() {
-        SharedPreferences preUser = SPUtils.getSharedPreferences(SHARE_USER);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_USER);
         User user = new User();
-        user.setId(preUser.getLong(FIELD_USER_ID, 0));
-        user.setPhone(preUser.getString(FIELD_USER_PHONE, ""));
-        user.setSex(preUser.getInt(FIELD_USER_SEX, 0));
-        user.setBirthday(preUser.getLong(FIELD_USER_BIRTHDAY, 0));
-        user.setUserToken(preUser.getString(FIELD_USER_TOKEN, ""));
+        user.setId(sp.getLong(FIELD_USER_ID, 0));
+        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
+        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
+        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
+        user.setUserToken(sp.getString(FIELD_USER_TOKEN, ""));
         // 取cp
         Couple couple = getCouple();
         user.setCouple(couple);
@@ -110,7 +116,7 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
-        editor.putInt(FIELD_CP_STAUTS, couple.getStatus());
+        editor.putInt(FIELD_CP_STATUS, couple.getStatus());
         editor.putLong(FIELD_CP_UPDATE_AT, couple.getUpdateAt());
         editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
         editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());
@@ -122,18 +128,47 @@ public class SPHelper {
     }
 
     public static Couple getCouple() {
-        SharedPreferences preCouple = SPUtils.getSharedPreferences(SHARE_COUPLE);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
         Couple couple = new Couple();
-        couple.setId(preCouple.getLong(FIELD_CP_ID, 0));
-        couple.setStatus(preCouple.getInt(FIELD_CP_STAUTS, Couple.CoupleStatusTogether));
-        couple.setUpdateAt(preCouple.getLong(FIELD_CP_UPDATE_AT, 0));
-        couple.setCreatorId(preCouple.getLong(FIELD_CP_CREATOR_ID, 0));
-        couple.setCreatorName(preCouple.getString(FIELD_CP_CREATOR_NAME, ""));
-        couple.setCreatorAvatar(preCouple.getString(FIELD_CP_CREATOR_AVATAR, ""));
-        couple.setInviteeId(preCouple.getLong(FIELD_CP_INVITEE_ID, 0));
-        couple.setInviteeName(preCouple.getString(FIELD_CP_INVITEE_NAME, ""));
-        couple.setInviteeAvatar(preCouple.getString(FIELD_CP_INVITEE_AVATAR, ""));
+        couple.setId(sp.getLong(FIELD_CP_ID, 0));
+        couple.setStatus(sp.getInt(FIELD_CP_STATUS, Couple.CoupleStatusTogether));
+        couple.setUpdateAt(sp.getLong(FIELD_CP_UPDATE_AT, 0));
+        couple.setCreatorId(sp.getLong(FIELD_CP_CREATOR_ID, 0));
+        couple.setCreatorName(sp.getString(FIELD_CP_CREATOR_NAME, ""));
+        couple.setCreatorAvatar(sp.getString(FIELD_CP_CREATOR_AVATAR, ""));
+        couple.setInviteeId(sp.getLong(FIELD_CP_INVITEE_ID, 0));
+        couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
+        couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
         return couple;
+    }
+
+    public static void setSuggestInfo(SuggestInfo suggestInfo) {
+        if (suggestInfo == null) {
+            LogUtils.w(LOG_TAG, "setSuggestInfo == null");
+            return;
+        }
+        String suggestInfoJson = GsonUtils.get().toJson(suggestInfo);
+        LogUtils.d(LOG_TAG, "setSuggestInfo: " + suggestInfoJson);
+
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SUGGEST_INFO).edit();
+        editor.putString(FIELD_SUGGEST_INFO, suggestInfoJson);
+        editor.apply();
+    }
+
+    public static SuggestInfo getSuggestInfo() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SUGGEST_INFO);
+        String json = sp.getString(FIELD_SUGGEST_INFO, "{}");
+        SuggestInfo suggestInfo = GsonUtils.get().fromJson(json, SuggestInfo.class);
+        if (suggestInfo == null) {
+            suggestInfo = new SuggestInfo();
+        }
+        if (suggestInfo.getSuggestStatusList() == null) {
+            suggestInfo.setSuggestStatusList(new ArrayList<SuggestInfo.SuggestStatus>());
+        }
+        if (suggestInfo.getSuggestContentTypeList() == null) {
+            suggestInfo.setSuggestContentTypeList(new ArrayList<SuggestInfo.SuggestContentType>());
+        }
+        return suggestInfo;
     }
 
     public static void setOssInfo(OssInfo ossInfo) {
@@ -169,28 +204,28 @@ public class SPHelper {
     }
 
     public static OssInfo getOssInfo() {
-        SharedPreferences preOss = SPUtils.getSharedPreferences(SHARE_OSS_INFO);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_OSS_INFO);
         OssInfo ossInfo = new OssInfo();
-        ossInfo.setSecurityToken(preOss.getString(FIELD_OSS_SECURITY_TOKEN, ""));
-        ossInfo.setAccessKeyId(preOss.getString(FIELD_OSS_KEY_ID, ""));
-        ossInfo.setAccessKeySecret(preOss.getString(FIELD_OSS_KEY_SECRET, ""));
-        ossInfo.setRegion(preOss.getString(FIELD_OSS_REGION, ""));
-        ossInfo.setEndpoint(preOss.getString(FIELD_OSS_ENDPOINT, ""));
-        ossInfo.setDomain(preOss.getString(FIELD_OSS_DOMAIN, ""));
-        ossInfo.setBucket(preOss.getString(FIELD_OSS_BUCKET, ""));
-        ossInfo.setExpiration(preOss.getLong(FIELD_OSS_EXPIRATION, 0));
-        ossInfo.setInterval(preOss.getLong(FIELD_OSS_INTERVAL, 0));
-        ossInfo.setPathVersion(preOss.getString(FIELD_OSS_PATH_VERSION, ""));
-        ossInfo.setPathSuggest(preOss.getString(FIELD_OSS_PATH_SUGGEST, ""));
-        ossInfo.setPathCoupleAvatar(preOss.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
-        ossInfo.setPathCoupleWall(preOss.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
-        ossInfo.setPathBookAlbum(preOss.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
-        ossInfo.setPathBookPicture(preOss.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
-        ossInfo.setPathBookDiary(preOss.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
-        ossInfo.setPathBookGift(preOss.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
-        ossInfo.setPathBookAudio(preOss.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
-        ossInfo.setPathBookVideo(preOss.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
-        ossInfo.setPathBookThumb(preOss.getString(FIELD_OSS_PATH_BOOK_THUMB, ""));
+        ossInfo.setSecurityToken(sp.getString(FIELD_OSS_SECURITY_TOKEN, ""));
+        ossInfo.setAccessKeyId(sp.getString(FIELD_OSS_KEY_ID, ""));
+        ossInfo.setAccessKeySecret(sp.getString(FIELD_OSS_KEY_SECRET, ""));
+        ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
+        ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
+        ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
+        ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
+        ossInfo.setExpiration(sp.getLong(FIELD_OSS_EXPIRATION, 0));
+        ossInfo.setInterval(sp.getLong(FIELD_OSS_INTERVAL, 0));
+        ossInfo.setPathVersion(sp.getString(FIELD_OSS_PATH_VERSION, ""));
+        ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
+        ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
+        ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
+        ossInfo.setPathBookAlbum(sp.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
+        ossInfo.setPathBookPicture(sp.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
+        ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
+        ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
+        ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
+        ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
+        ossInfo.setPathBookThumb(sp.getString(FIELD_OSS_PATH_BOOK_THUMB, ""));
         return ossInfo;
     }
 
@@ -213,8 +248,8 @@ public class SPHelper {
     }
 
     public static int getSettingsTheme() {
-        SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getInt(FIELD_SET_THEME, ThemeHelper.THEME_PINK);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
+        return sp.getInt(FIELD_SET_THEME, ThemeHelper.THEME_PINK);
     }
 
     public static void setSettingsNoticeSystem(boolean system) {
@@ -224,8 +259,8 @@ public class SPHelper {
     }
 
     public static boolean getSettingsNoticeSystem() {
-        SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getBoolean(FIELD_SET_NOTICE_SYSTEM, true);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
+        return sp.getBoolean(FIELD_SET_NOTICE_SYSTEM, true);
     }
 
     public static void setSettingsNoticeSocial(boolean ta) {
@@ -235,8 +270,8 @@ public class SPHelper {
     }
 
     public static boolean getSettingsNoticeSocial() {
-        SharedPreferences preferences = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return preferences.getBoolean(FIELD_SET_NOTICE_SOCIAL, false);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
+        return sp.getBoolean(FIELD_SET_NOTICE_SOCIAL, false);
     }
 
 }

@@ -12,17 +12,19 @@ import java.util.List;
 public class Suggest extends BaseObj {
 
     // status todo 删除
-    public static final int STATUE_REPLY_NO = 0; // 未回复
-    public static final int STATUE_REPLY_YES = 1; // 已回复
-    public static final int STATUE_ACCEPT_NO = 2; // 未采纳
-    public static final int STATUE_ACCEPT_YES = 3; // 已采纳
-    public static final int STATUE_HANDLE_ING = 4; // 处理中
-    public static final int STATUE_HANDLE_OVER = 5; // 处理完
+    public static final int STATUE_ALL = 0; // 所有的
+    public static final int STATUE_REPLY_NO = 1; // 未回复
+    public static final int STATUE_REPLY_YES = 2; // 已回复
+    public static final int STATUE_ACCEPT_NO = 3; // 未采纳
+    public static final int STATUE_ACCEPT_YES = 4; // 已采纳
+    public static final int STATUE_HANDLE_ING = 5; // 处理中
+    public static final int STATUE_HANDLE_OVER = 6; // 处理完
     // contentType
-    public static final int TYPE_OTHER = 0; // 其他
+    public static final int TYPE_ALL = 0; // 所有的
     public static final int TYPE_BUG = 1; // 程序错误
     public static final int TYPE_FUNC = 2; // 功能添加
     public static final int TYPE_TASTE = 3; // 体验优化
+    public static final int TYPE_OTHER = 4; // 其他
 
     private String title; // list
     private int contentType; // list
