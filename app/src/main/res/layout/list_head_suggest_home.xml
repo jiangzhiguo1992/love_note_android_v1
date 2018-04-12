@@ -109,6 +109,7 @@
             android:text="@string/type_colon"/>
 
         <HorizontalScrollView
+            android:id="@+id/hsvType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -117,107 +118,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbTypeAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:checked="true"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/all"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbTypeBug"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/program_error"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbTypeFunction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/function_add"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbTypeExperience"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/experience_optimize"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbTypeOther"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/other"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
             </RadioGroup>
         </HorizontalScrollView>
     </LinearLayout>
@@ -237,6 +137,7 @@
             android:text="@string/status_colon"/>
 
         <HorizontalScrollView
+            android:id="@+id/hsvStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -245,147 +146,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/rbStatusAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:checked="true"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/all"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbStatusReplyNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/no_reply"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbStatusReplyYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/already_reply"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbStatusAcceptNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/no_accept"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbStatusAcceptYes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/already_accept"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbStatusHandleIng"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="3dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/handle_ing"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
-
-                <RadioButton
-                    android:id="@+id/rbStatusHandleOver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="3dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/selector_rb_r3_solid_stroke_primary"
-                    android:button="@null"
-                    android:elevation="3dp"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:paddingBottom="4dp"
-                    android:paddingEnd="14dp"
-                    android:paddingStart="14dp"
-                    android:paddingTop="4dp"
-                    android:text="@string/handle_over"
-                    android:textColor="@drawable/selector_text_check_primary_white"/>
             </RadioGroup>
         </HorizontalScrollView>
     </LinearLayout>

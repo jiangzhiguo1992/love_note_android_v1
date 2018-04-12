@@ -2,34 +2,42 @@ package com.jiangzg.ita.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.HorizontalScrollView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestListAdapter;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.helper.API;
-import com.jiangzg.ita.helper.RetrofitHelper;
-import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.SPHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,10 +52,15 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private int dp3;
+    private int dp4;
+    private int dp5;
+    private int dp14;
+
     private RecyclerHelper recyclerHelper;
     private int page = 0;
-    private int searchType = 0; // 0是所有
     private int searchStatus = 0; // 0是所有
+    private int searchType = 0; // 0是所有
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -130,6 +143,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         CardView cvMy = head.findViewById(R.id.cvMy);
         CardView cvFollow = head.findViewById(R.id.cvFollow);
         CardView cvAdd = head.findViewById(R.id.cvAdd);
+        HorizontalScrollView hsvStatus = head.findViewById(R.id.hsvStatus);
+        HorizontalScrollView hsvType = head.findViewById(R.id.hsvType);
         RadioGroup rgType = head.findViewById(R.id.rgType);
         RadioGroup rgStatus = head.findViewById(R.id.rgStatus);
         Button btnSearch = head.findViewById(R.id.btnSearch);
@@ -151,62 +166,90 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 SuggestAddActivity.goActivity(mActivity);
             }
         });
-        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rbTypeAll:
-                        searchType = 0;
-                        break;
-                    case R.id.rbTypeBug:
-                        //searchType = Suggest.TYPE_BUG;
-                        break;
-                    case R.id.rbTypeFunction:
-                        //searchType = Suggest.TYPE_FUNC;
-                        break;
-                    case R.id.rbTypeExperience:
-                        //searchType = Suggest.TYPE_TASTE;
-                        break;
-                    case R.id.rbTypeOther:
-                        //searchType = Suggest.TYPE_OTHER;
-                        break;
-                }
-            }
-        });
-        rgStatus.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rbStatusAll:
-                        searchStatus = 0;
-                        break;
-                    case R.id.rbStatusReplyNo:
-                        //searchStatus = Suggest.STATUE_REPLY_NO;
-                        break;
-                    case R.id.rbStatusReplyYes:
-                        //searchStatus = Suggest.STATUE_REPLY_YES;
-                        break;
-                    case R.id.rbStatusAcceptNo:
-                        //searchStatus = Suggest.STATUE_ACCEPT_NO;
-                        break;
-                    case R.id.rbStatusAcceptYes:
-                        //searchStatus = Suggest.STATUE_ACCEPT_YES;
-                        break;
-                    case R.id.rbStatusHandleIng:
-                        //searchStatus = Suggest.STATUE_HANDLE_ING;
-                        break;
-                    case R.id.rbStatusHandleOver:
-                        //searchStatus = Suggest.STATUE_HANDLE_OVER;
-                        break;
-                }
-            }
-        });
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 recyclerHelper.dataRefresh();
             }
         });
+        // 动态组件拼装
+        hsvStatus.setHorizontalScrollBarEnabled(false);
+        hsvType.setHorizontalScrollBarEnabled(false);
+        dp3 = ConvertUtils.dp2px(3);
+        dp4 = ConvertUtils.dp2px(4);
+        dp5 = ConvertUtils.dp2px(5);
+        dp14 = ConvertUtils.dp2px(14);
+        SuggestInfo suggestInfo = SPHelper.getSuggestInfo();
+        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getSuggestStatusList();
+        for (int i = 0; i < suggestContentTypeList.size(); i++) {
+            SuggestInfo.SuggestContentType contentType = suggestContentTypeList.get(i);
+            RadioButton rb = getTypeRadioButton(contentType);
+            rgType.addView(rb, i);
+        }
+        for (int i = 0; i < suggestStatusList.size(); i++) {
+            SuggestInfo.SuggestStatus status = suggestStatusList.get(i);
+            RadioButton rb = getStatusRadioButton(status);
+            rgStatus.addView(rb, i);
+        }
+        RadioButton child1 = (RadioButton) rgType.getChildAt(0);
+        child1.setChecked(true);
+        RadioButton child2 = (RadioButton) rgStatus.getChildAt(0);
+        child2.setChecked(true);
+    }
+
+    private RadioButton getTypeRadioButton(final SuggestInfo.SuggestContentType contentType) {
+        RadioButton button = new RadioButton(mActivity);
+        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.bottomMargin = dp5;
+        layoutParams.topMargin = dp5;
+        layoutParams.setMarginStart(dp3);
+        layoutParams.setMarginEnd(dp3);
+        button.setLayoutParams(layoutParams);
+        button.setPadding(dp14, dp4, dp14, dp4);
+        button.setBackgroundResource(R.drawable.selector_rb_r3_solid_stroke_primary);
+        button.setButtonDrawable(null);
+        button.setElevation(dp3);
+        button.setGravity(Gravity.CENTER);
+        button.setText(contentType.getShow());
+        ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
+        button.setTextColor(colorStateList);
+        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    searchType = contentType.getContentType();
+                }
+            }
+        });
+        return button;
+    }
+
+    private RadioButton getStatusRadioButton(final SuggestInfo.SuggestStatus status) {
+        RadioButton button = new RadioButton(mActivity);
+        RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.bottomMargin = dp5;
+        layoutParams.topMargin = dp5;
+        layoutParams.setMarginStart(dp3);
+        layoutParams.setMarginEnd(dp3);
+        button.setLayoutParams(layoutParams);
+        button.setPadding(dp14, dp4, dp14, dp4);
+        button.setBackgroundResource(R.drawable.selector_rb_r3_solid_stroke_primary);
+        button.setButtonDrawable(null);
+        button.setElevation(dp3);
+        button.setGravity(Gravity.CENTER);
+        button.setText(status.getShow());
+        ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
+        button.setTextColor(colorStateList);
+        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    searchStatus = status.getStatus();
+                }
+            }
+        });
+        return button;
     }
 
     public void getData(final boolean more) {

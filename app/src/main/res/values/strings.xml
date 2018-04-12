@@ -269,8 +269,8 @@
     <string name="egg_yellow">咸蛋黄</string>
     <string name="fruit_orange">鲜果橙</string>
     <string name="coffee_brown">咖啡棕</string>
-    <string name="create_at_colon_holder">创建于:%s</string>
-    <string name="update_at_colon_holder">更新于:%s</string>
+    <string name="create_at_colon_holder">创建于: %s</string>
+    <string name="update_at_colon_holder">更新于: %s</string>
     <string name="follow">关注</string>
     <string name="comment">评论</string>
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
