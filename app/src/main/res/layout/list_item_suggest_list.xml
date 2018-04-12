@@ -40,12 +40,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLines="3"
-                android:paddingBottom="7dp"
+                android:maxLines="1"
+                android:paddingBottom="2dp"
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
-                tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容建议内容"/>
+                tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
+
+            <TextView
+                android:id="@+id/tvContent"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
+                tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

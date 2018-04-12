@@ -22,6 +22,8 @@ import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GWrapView;
 
+import java.util.List;
+
 /**
  * Created by JZG on 2018/3/13.
  * 意见反馈适配器
@@ -56,20 +58,21 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
     protected void convert(BaseViewHolder helper, Suggest item) {
         // data
         String title = item.getTitle();
+        String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
         String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
         String createShow = String.format(mActivity.getString(R.string.create_at_colon_holder), create);
         long updatedAt = item.getUpdateAt();
         String update = ConvertHelper.ConvertSecond2DiffDay(updatedAt);
         String updatedShow = String.format(mActivity.getString(R.string.update_at_colon_holder), update);
-        final int followCount = item.getFollowCount();
+        final long followCount = item.getFollowCount();
         String followShow;
         if (followCount <= 0) {
             followShow = mActivity.getString(R.string.follow);
         } else {
             followShow = String.valueOf(followCount);
         }
-        int commentCount = item.getCommentCount();
+        long commentCount = item.getCommentCount();
         String commentShow;
         if (commentCount <= 0) {
             commentShow = mActivity.getString(R.string.comment);
@@ -78,12 +81,10 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         }
         final boolean follow = item.isFollow();
         boolean comment = item.isComment();
-        boolean official = item.isOfficial();
-        boolean top = item.isTop();
-        String typeShow = item.getTypeShow();
-        String statusShow = item.getStatusShow();
+        List<String> tagList = item.getTagList();
         // view
         helper.setText(R.id.tvTitle, title);
+        helper.setText(R.id.tvContent, contentText);
         helper.setText(R.id.tvCreateAt, createShow);
         helper.setText(R.id.tvUpdateAt, updatedShow);
         helper.setText(R.id.tvFollow, followShow);
@@ -102,20 +103,16 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
 
         GWrapView wvTag = helper.getView(R.id.wvTag);
         wvTag.removeAllChild();
-        if (official) {
-            wvTag.addChild(getTagView(mActivity.getString(R.string.official), R.drawable.shape_r2_solid_red));
+        for (String tag : tagList) {
+            View tagView = getTagView(tag);
+            wvTag.addChild(tagView);
         }
-        if (top) {
-            wvTag.addChild(getTagView(mActivity.getString(R.string.top), R.drawable.shape_r2_solid_orange));
-        }
-        wvTag.addChild(getTagView(typeShow, R.drawable.shape_r2_solid_blue));
-        wvTag.addChild(getTagView(statusShow, R.drawable.shape_r2_solid_green));
     }
 
-    private View getTagView(String show, @DrawableRes int resId) {
+    private View getTagView(String show) {
         TextView textView = new TextView(mActivity);
         textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(resId);
+        textView.setBackgroundResource(R.drawable.shape_r2_solid_primary);
         textView.setPadding(dp5, dp2, dp5, dp2);
         textView.setGravity(Gravity.CENTER);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

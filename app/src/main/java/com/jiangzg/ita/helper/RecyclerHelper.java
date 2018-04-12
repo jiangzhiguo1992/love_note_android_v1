@@ -107,8 +107,12 @@ public class RecyclerHelper {
         tvShow.setText(show);
     }
 
+    public void viewEmptyShow(String show) {
+        viewEmptyShow(R.id.tvEmptyShow, show);
+    }
+
     public void viewEmptyShow() {
-        viewEmptyShow(R.id.tvEmptyShow, mContext.getString(R.string.master_there_nothing));
+        viewEmptyShow(mContext.getString(R.string.master_there_nothing));
     }
 
     /**
@@ -258,7 +262,7 @@ public class RecyclerHelper {
         data(list, list.size(), more);
     }
 
-    public void data(List list, int totalCount, boolean more) {
+    public void data(List list, long totalCount, boolean more) {
         if (more) {
             dataAdd(list, totalCount);
         } else {
@@ -274,11 +278,12 @@ public class RecyclerHelper {
         dataNew(list, list.size());
     }
 
-    public void dataNew(List list, int totalCount) {
+    public void dataNew(List list, long totalCount) {
         if (mAdapter == null) return;
-        if (null == list) {
+        if (null == list || list.size() <= 0) {
             mAdapter.setNewData(new ArrayList());
             mAdapter.loadMoreEnd(false); // 显示没有更多
+            this.viewEmptyShow();
         } else {
             mAdapter.setNewData(list);
             if (list.size() >= totalCount) {
@@ -302,10 +307,12 @@ public class RecyclerHelper {
         dataAdd(list, list.size());
     }
 
-    public void dataAdd(List list, int totalCount) {
+    public void dataAdd(List list, long totalCount) {
         if (mAdapter == null) return;
         mAdapter.loadMoreComplete();
-        if (null != list) {
+        if (null == list || list.size() <= 0) {
+            this.viewEmptyShow();
+        } else {
             mAdapter.addData(list);
             if (mAdapter.getData().size() >= totalCount) {
                 mAdapter.loadMoreEnd(false); // 显示没有更多

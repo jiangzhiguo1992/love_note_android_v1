@@ -1,7 +1,7 @@
 package com.jiangzg.ita.domain;
 
-import com.jiangzg.ita.R;
-import com.jiangzg.ita.base.MyApp;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.List;
 
@@ -9,87 +9,42 @@ import java.util.List;
  * Created by JZG on 2018/3/12.
  * 意见反馈
  */
-public class Suggest extends BaseObj {
+public class Suggest extends BaseObj implements Parcelable {
 
-    // status todo 删除
-    public static final int STATUE_ALL = 0; // 所有的
-    public static final int STATUE_REPLY_NO = 1; // 未回复
-    public static final int STATUE_REPLY_YES = 2; // 已回复
-    public static final int STATUE_ACCEPT_NO = 3; // 未采纳
-    public static final int STATUE_ACCEPT_YES = 4; // 已采纳
-    public static final int STATUE_HANDLE_ING = 5; // 处理中
-    public static final int STATUE_HANDLE_OVER = 6; // 处理完
-    // contentType
-    public static final int TYPE_ALL = 0; // 所有的
-    public static final int TYPE_BUG = 1; // 程序错误
-    public static final int TYPE_FUNC = 2; // 功能添加
-    public static final int TYPE_TASTE = 3; // 体验优化
-    public static final int TYPE_OTHER = 4; // 其他
+    private String title;
+    private int contentType;
+    private String contentText;
+    private String contentImg;
+    private boolean follow;
+    private boolean comment;
+    private long followCount;
+    private long commentCount;
+    private List<SuggestComment> commentList;
+    private boolean mine;
+    private List<String> tagList;
 
-    private String title; // list
-    private int contentType; // list
-    private String contentText; // detail
-    private String contentImg; // detail
-    private int followCount; // list
-    private int commentCount; // list
-    private boolean official; // list todo 删除
-    private boolean top; // list todo 删除
-    private List<SuggestComment> commentList; // detail
-    private boolean follow; // list + user
-    private boolean comment; // list + user
-
-    public String getTypeShow() {
-        String show;
-        switch (contentType) {
-            case TYPE_BUG:
-                show = MyApp.get().getString(R.string.program_error);
-                break;
-            case TYPE_FUNC:
-                show = MyApp.get().getString(R.string.function_add);
-                break;
-            case TYPE_TASTE:
-                show = MyApp.get().getString(R.string.experience_optimize);
-                break;
-            case TYPE_OTHER:
-            default:
-                show = MyApp.get().getString(R.string.other);
-                break;
-        }
-        return show;
+    public int getContentType() {
+        return contentType;
     }
 
-    public String getStatusShow() {
-        String show;
-        switch (status) {
-            default:
-            case STATUE_REPLY_NO:
-                show = MyApp.get().getString(R.string.no_reply);
-                break;
-            case STATUE_REPLY_YES:
-                show = MyApp.get().getString(R.string.already_reply);
-                break;
-            case STATUE_ACCEPT_NO:
-                show = MyApp.get().getString(R.string.no_accept);
-                break;
-            case STATUE_ACCEPT_YES:
-                show = MyApp.get().getString(R.string.already_accept);
-                break;
-            case STATUE_HANDLE_ING:
-                show = MyApp.get().getString(R.string.handle_ing);
-                break;
-            case STATUE_HANDLE_OVER:
-                show = MyApp.get().getString(R.string.handle_over);
-                break;
-        }
-        return show;
+    public void setContentType(int contentType) {
+        this.contentType = contentType;
     }
 
-    public boolean isOfficial() {
-        return official;
+    public boolean isMine() {
+        return mine;
     }
 
-    public void setOfficial(boolean official) {
-        this.official = official;
+    public void setMine(boolean mine) {
+        this.mine = mine;
+    }
+
+    public List<String> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<String> tagList) {
+        this.tagList = tagList;
     }
 
     public String getContentImg() {
@@ -132,28 +87,20 @@ public class Suggest extends BaseObj {
         this.follow = follow;
     }
 
-    public int getFollowCount() {
+    public long getFollowCount() {
         return followCount;
     }
 
-    public void setFollowCount(int followCount) {
+    public void setFollowCount(long followCount) {
         this.followCount = followCount;
     }
 
-    public int getCommentCount() {
+    public long getCommentCount() {
         return commentCount;
     }
 
-    public void setCommentCount(int commentCount) {
+    public void setCommentCount(long commentCount) {
         this.commentCount = commentCount;
-    }
-
-    public boolean isTop() {
-        return top;
-    }
-
-    public void setTop(boolean top) {
-        this.top = top;
     }
 
     public String getTitle() {
@@ -164,12 +111,55 @@ public class Suggest extends BaseObj {
         this.title = title;
     }
 
-    public int getContentType() {
-        return contentType;
+    public Suggest() {
     }
 
-    public void setContentType(int contentType) {
-        this.contentType = contentType;
+    protected Suggest(Parcel in) {
+        super(in);
+        title = in.readString();
+        contentType = in.readInt();
+        contentText = in.readString();
+        contentImg = in.readString();
+        follow = in.readByte() != 0;
+        comment = in.readByte() != 0;
+        followCount = in.readInt();
+        commentCount = in.readInt();
+        commentList = in.createTypedArrayList(SuggestComment.CREATOR);
+        mine = in.readByte() != 0;
+        tagList = in.createStringArrayList();
     }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(title);
+        dest.writeInt(contentType);
+        dest.writeString(contentText);
+        dest.writeString(contentImg);
+        dest.writeByte((byte) (follow ? 1 : 0));
+        dest.writeByte((byte) (comment ? 1 : 0));
+        dest.writeLong(followCount);
+        dest.writeLong(commentCount);
+        dest.writeTypedList(commentList);
+        dest.writeByte((byte) (mine ? 1 : 0));
+        dest.writeStringList(tagList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Suggest> CREATOR = new Creator<Suggest>() {
+        @Override
+        public Suggest createFromParcel(Parcel in) {
+            return new Suggest(in);
+        }
+
+        @Override
+        public Suggest[] newArray(int size) {
+            return new Suggest[size];
+        }
+    };
 
 }

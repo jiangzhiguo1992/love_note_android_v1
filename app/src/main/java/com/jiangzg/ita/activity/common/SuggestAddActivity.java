@@ -299,7 +299,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // todo refreshList/gotoDetail
+                SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE);
                 mActivity.finish();
             }
 

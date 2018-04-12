@@ -62,6 +62,33 @@ public class Result implements Serializable {
         private String show;
         private Help help;
         private SuggestInfo suggestInfo;
+        private long total;
+        private Suggest suggest;
+        private List<Suggest> suggestList;
+
+        public long getTotal() {
+            return total;
+        }
+
+        public void setTotal(long total) {
+            this.total = total;
+        }
+
+        public Suggest getSuggest() {
+            return suggest;
+        }
+
+        public void setSuggest(Suggest suggest) {
+            this.suggest = suggest;
+        }
+
+        public List<Suggest> getSuggestList() {
+            return suggestList;
+        }
+
+        public void setSuggestList(List<Suggest> suggestList) {
+            this.suggestList = suggestList;
+        }
 
         public SuggestInfo getSuggestInfo() {
             return suggestInfo;

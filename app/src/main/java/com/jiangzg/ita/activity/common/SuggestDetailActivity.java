@@ -186,24 +186,20 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 if (more) {
                     SuggestComment c1 = new SuggestComment();
                     c1.setCreateAt(1520866299);
-                    c1.setOfficial(false);
                     c1.setMine(false);
                     c1.setContentText("上拉刷新出来的");
                     commentList.add(c1);
                 } else {
                     SuggestComment c1 = new SuggestComment();
                     c1.setCreateAt(1521104791);
-                    c1.setOfficial(true);
                     c1.setMine(false);
                     c1.setContentText("官方已采纳，多谢亲的一片心意！");
                     SuggestComment c2 = new SuggestComment();
                     c2.setCreateAt(1520866299);
-                    c2.setOfficial(false);
                     c2.setMine(true);
                     c2.setContentText("我觉得可以接受");
                     SuggestComment c3 = new SuggestComment();
                     c3.setCreateAt(1520866299);
-                    c3.setOfficial(false);
                     c3.setMine(false);
                     c3.setContentText("我觉得是个不错的注意，我觉得是个不错的注意，我觉得");
                     commentList.add(c1);
@@ -234,10 +230,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
         // data
         String title = suggest.getTitle();
-        boolean official = suggest.isOfficial();
-        boolean top = suggest.isTop();
-        String typeShow = suggest.getTypeShow();
-        String statusShow = suggest.getStatusShow();
+        boolean official = false;
+        boolean top = false;
+        String typeShow = "飒飒";
+        String statusShow = "飒飒";
         String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreateAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
         String contentImgUrl = suggest.getContentImg();
@@ -341,7 +337,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private void follow() {
         // todo api
         boolean newFollow = !suggest.isFollow();
-        int newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
+        long newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
         if (newFollowCount < 0) {
             newFollowCount = 0;
         }

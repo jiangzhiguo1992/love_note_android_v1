@@ -21,7 +21,10 @@ import com.jiangzg.ita.adapter.SuggestListAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.Call;
 
 public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
@@ -41,6 +45,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
+    private int page = 0;
     private int searchType = 0; // 0是所有
     private int searchStatus = 0; // 0是所有
 
@@ -78,6 +83,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
+
                         getData(true);
                     }
                 })
@@ -153,16 +159,16 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                         searchType = 0;
                         break;
                     case R.id.rbTypeBug:
-                        searchType = Suggest.TYPE_BUG;
+                        //searchType = Suggest.TYPE_BUG;
                         break;
                     case R.id.rbTypeFunction:
-                        searchType = Suggest.TYPE_FUNC;
+                        //searchType = Suggest.TYPE_FUNC;
                         break;
                     case R.id.rbTypeExperience:
-                        searchType = Suggest.TYPE_TASTE;
+                        //searchType = Suggest.TYPE_TASTE;
                         break;
                     case R.id.rbTypeOther:
-                        searchType = Suggest.TYPE_OTHER;
+                        //searchType = Suggest.TYPE_OTHER;
                         break;
                 }
             }
@@ -175,22 +181,22 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                         searchStatus = 0;
                         break;
                     case R.id.rbStatusReplyNo:
-                        searchStatus = Suggest.STATUE_REPLY_NO;
+                        //searchStatus = Suggest.STATUE_REPLY_NO;
                         break;
                     case R.id.rbStatusReplyYes:
-                        searchStatus = Suggest.STATUE_REPLY_YES;
+                        //searchStatus = Suggest.STATUE_REPLY_YES;
                         break;
                     case R.id.rbStatusAcceptNo:
-                        searchStatus = Suggest.STATUE_ACCEPT_NO;
+                        //searchStatus = Suggest.STATUE_ACCEPT_NO;
                         break;
                     case R.id.rbStatusAcceptYes:
-                        searchStatus = Suggest.STATUE_ACCEPT_YES;
+                        //searchStatus = Suggest.STATUE_ACCEPT_YES;
                         break;
                     case R.id.rbStatusHandleIng:
-                        searchStatus = Suggest.STATUE_HANDLE_ING;
+                        //searchStatus = Suggest.STATUE_HANDLE_ING;
                         break;
                     case R.id.rbStatusHandleOver:
-                        searchStatus = Suggest.STATUE_HANDLE_OVER;
+                        //searchStatus = Suggest.STATUE_HANDLE_OVER;
                         break;
                 }
             }
@@ -204,76 +210,25 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     }
 
     public void getData(final boolean more) {
-        // todo api searchType + searchStatus + limit + offset
-        MyApp.get().getHandler().postDelayed(new Runnable() {
+        page = more ? page + 1 : 0;
+
+        // todo api searchType + searchStatus
+
+        Call<Result> call = new RetrofitHelper().call(API.class).suggestListGet(page);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
-            public void run() {
-                srl.setRefreshing(false);
-                List<Suggest> suggestList = new ArrayList<>();
-                if (more) {
-                    Suggest s0 = new Suggest();
-                    s0.setTitle("上拉加载出来的！");
-                    s0.setCreateAt(1520866299);
-                    s0.setUpdateAt(1520866299);
-                    s0.setFollow(false);
-                    s0.setComment(false);
-                    s0.setFollowCount(0);
-                    s0.setCommentCount(0);
-                    s0.setContentType(Suggest.TYPE_OTHER);
-                    s0.setOfficial(false);
-                    s0.setTop(false);
-                    suggestList.add(s0);
-                } else {
-                    Suggest s1 = new Suggest();
-                    s1.setTitle("我发现了一个bug！");
-                    s1.setStatus(Suggest.STATUE_ACCEPT_NO);
-                    s1.setCreateAt(1520866299);
-                    s1.setUpdateAt(1520866299);
-                    s1.setFollow(false);
-                    s1.setComment(false);
-                    s1.setFollowCount(0);
-                    s1.setCommentCount(0);
-                    s1.setContentType(Suggest.TYPE_BUG);
-                    s1.setOfficial(true);
-                    s1.setTop(true);
-                    Suggest s2 = new Suggest();
-                    s2.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
-                    s2.setStatus(Suggest.STATUE_HANDLE_OVER);
-                    s2.setCreateAt(1520010299);
-                    s2.setUpdateAt(1520866299);
-                    s2.setFollow(true);
-                    s2.setComment(false);
-                    s2.setFollowCount(111111111);
-                    s2.setCommentCount(0);
-                    s2.setContentType(Suggest.TYPE_FUNC);
-                    s2.setOfficial(true);
-                    s2.setTop(false);
-                    Suggest s3 = new Suggest();
-                    s3.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
-                    s3.setStatus(Suggest.STATUE_REPLY_YES);
-                    s3.setCreateAt(1520010299);
-                    s3.setUpdateAt(1520010299);
-                    s3.setFollow(true);
-                    s3.setComment(true);
-                    s3.setFollowCount(111111111);
-                    s3.setCommentCount(2);
-                    s3.setContentType(Suggest.TYPE_TASTE);
-                    s3.setOfficial(false);
-                    s3.setTop(true);
-                    suggestList.add(s1);
-                    suggestList.add(s2);
-                    suggestList.add(s3);
-                    suggestList.add(s1);
-                    suggestList.add(s2);
-                    suggestList.add(s3);
-                    suggestList.add(s1);
-                    suggestList.add(s2);
-                    suggestList.add(s3);
-                }
-                recyclerHelper.data(suggestList, 12, more);
-                recyclerHelper.viewEmptyShow();
+            public void onResponse(int code, String message, Result.Data data) {
+                long total = data.getTotal();
+                List<Suggest> suggestList = data.getSuggestList();
+                recyclerHelper.data(suggestList, total, more);
+                recyclerHelper.viewEmptyShow(data.getShow());
             }
-        }, 1000);
+
+            @Override
+            public void onFailure() {
+                srl.setRefreshing(false);
+            }
+        });
     }
 
 }

@@ -5,6 +5,7 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.domain.User;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
@@ -104,5 +106,34 @@ public interface API {
     // 意见发布
     @POST("suggest")
     Call<Result> suggestAdd(@Body Suggest suggest);
+
+    // 意见删除
+    @DELETE("suggest")
+    Call<Result> suggestDel(@Query("sid") long suggestId);
+
+    // 意见单个获取
+    @GET("suggest?list=0")
+    Call<Result> suggestGet(@Query("sid") long suggestId);
+
+    // 意见列表获取
+    @GET("suggest?list=1&sid=0")
+    Call<Result> suggestListGet(@Query("page") int page);
+
+    // 意见评论发表
+    @POST("suggest/comment")
+    Call<Result> suggestCommentAdd(@Body SuggestComment suggestComment);
+
+    // 意见评论删除
+    @DELETE("suggest/comment")
+    Call<Result> suggestCommentDel(@Query("sid") long suggestCommentId);
+
+    // 意见评论获取
+    @GET("suggest/comment")
+    Call<Result> suggestCommentListGet(@Query("sid") long suggestId, @Query("page") int page);
+
+    // 意见关注
+    @POST("suggest/follow")
+    Call<Result> suggestFollowToggle(@Query("sid") long suggestId);
+
 
 }

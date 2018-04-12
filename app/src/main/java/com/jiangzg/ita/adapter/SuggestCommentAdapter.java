@@ -29,7 +29,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
         String title = String.format(mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
         String contentText = item.getContentText();
-        boolean official = item.isOfficial();
+        boolean official = true;
         boolean mine = item.isMine();
         // view
         helper.setText(R.id.tvTitle, title);
