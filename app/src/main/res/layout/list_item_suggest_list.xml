@@ -45,6 +45,7 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
+                android:textStyle="bold"
                 tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
             <TextView

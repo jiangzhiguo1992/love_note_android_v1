@@ -286,7 +286,7 @@ public class RecyclerHelper {
             this.viewEmptyShow();
         } else {
             mAdapter.setNewData(list);
-            if (list.size() >= totalCount) {
+            if (mAdapter.getData().size() >= totalCount) {
                 mAdapter.loadMoreEnd(false); // 显示没有更多
             }
         }
@@ -312,6 +312,7 @@ public class RecyclerHelper {
         mAdapter.loadMoreComplete();
         if (null == list || list.size() <= 0) {
             this.viewEmptyShow();
+            mAdapter.loadMoreEnd(false); // 显示没有更多
         } else {
             mAdapter.addData(list);
             if (mAdapter.getData().size() >= totalCount) {

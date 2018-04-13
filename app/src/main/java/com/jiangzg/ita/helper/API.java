@@ -116,8 +116,16 @@ public interface API {
     Call<Result> suggestGet(@Query("sid") long suggestId);
 
     // 意见列表获取
-    @GET("suggest?list=1&sid=0")
-    Call<Result> suggestListGet(@Query("page") int page);
+    @GET("suggest?sid=0&list=1&mine=0&follow=0")
+    Call<Result> suggestListHomeGet(@Query("status") int status, @Query("contentType") int contentType, @Query("page") int page);
+
+    // 意见列表获取
+    @GET("suggest?sid=0&list=1&mine=1&follow=0")
+    Call<Result> suggestListMineGet(@Query("page") int page);
+
+    // 意见列表获取
+    @GET("suggest?sid=0&list=1&mine=0&follow=1")
+    Call<Result> suggestListFollowGet(@Query("page") int page);
 
     // 意见评论发表
     @POST("suggest/comment")
