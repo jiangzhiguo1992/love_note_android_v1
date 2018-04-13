@@ -17,8 +17,12 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestListAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
+import com.jiangzg.ita.domain.BaseObj;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -27,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.Call;
 
 public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
@@ -42,6 +47,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
+    private int page = 0;
 
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
@@ -92,7 +98,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                         suggestListAdapter.goSuggestDetail(position);
                     }
                 });
-
         // menu
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -125,60 +130,30 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     }
 
     private void getData(final boolean more) {
-        // todo api searchType + searchStatus + limit + offset
-        MyApp.get().getHandler().postDelayed(new Runnable() {
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call;
+        if (entry == ENTRY_MINE) {
+            call = new RetrofitHelper().call(API.class).suggestListMineGet(page);
+        } else if (entry == ENTRY_FOLLOW) {
+            call = new RetrofitHelper().call(API.class).suggestListFollowGet(page);
+        } else {
+            call = new RetrofitHelper().call(API.class).suggestListHomeGet(BaseObj.STATUS_NOL, BaseObj.STATUS_NOL, page);
+        }
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
-            public void run() {
-                List<Suggest> suggestList = new ArrayList<>();
-                if (more) {
-                    Suggest s0 = new Suggest();
-                    s0.setTitle("上拉加载出来的！");
-                    s0.setCreateAt(1520866299);
-                    s0.setUpdateAt(1520866299);
-                    s0.setFollow(false);
-                    s0.setComment(false);
-                    s0.setFollowCount(0);
-                    s0.setCommentCount(0);
-                    suggestList.add(s0);
-                } else {
-                    Suggest s1 = new Suggest();
-                    s1.setTitle("我发现了一个bug！");
-                    s1.setCreateAt(1520866299);
-                    s1.setUpdateAt(1520866299);
-                    s1.setFollow(false);
-                    s1.setComment(false);
-                    s1.setFollowCount(0);
-                    s1.setCommentCount(0);
-                    Suggest s2 = new Suggest();
-                    s2.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
-                    s2.setCreateAt(1520010299);
-                    s2.setUpdateAt(1520866299);
-                    s2.setFollow(true);
-                    s2.setComment(false);
-                    s2.setFollowCount(111111111);
-                    s2.setCommentCount(0);
-                    Suggest s3 = new Suggest();
-                    s3.setTitle("我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！我发现了一个bug！");
-                    s3.setCreateAt(1520010299);
-                    s3.setUpdateAt(1520010299);
-                    s3.setFollow(true);
-                    s3.setComment(true);
-                    s3.setFollowCount(111111111);
-                    s3.setCommentCount(2);
-                    suggestList.add(s1);
-                    suggestList.add(s2);
-                    suggestList.add(s3);
-                    suggestList.add(s1);
-                    suggestList.add(s2);
-                    suggestList.add(s3);
-                    suggestList.add(s1);
-                    suggestList.add(s2);
-                    suggestList.add(s3);
-                }
-                recyclerHelper.data(suggestList, 12, more);
-                recyclerHelper.viewEmptyShow();
+            public void onResponse(int code, String message, Result.Data data) {
+                long total = data.getTotal();
+                List<Suggest> suggestList = data.getSuggestList();
+                recyclerHelper.data(suggestList, total, more);
+                recyclerHelper.viewEmptyShow(data.getShow());
             }
-        }, 1000);
+
+            @Override
+            public void onFailure() {
+                srl.setRefreshing(false);
+            }
+        });
     }
 
 }

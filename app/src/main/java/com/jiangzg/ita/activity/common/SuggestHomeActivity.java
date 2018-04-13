@@ -96,7 +96,6 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-
                         getData(true);
                     }
                 })
