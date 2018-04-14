@@ -1,16 +1,25 @@
 package com.jiangzg.ita.domain;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.util.List;
 
 /**
  * Created by JZG on 2018/3/14.
  * 意见评论
  */
-public class SuggestComment extends BaseObj implements Parcelable {
+public class SuggestComment extends BaseObj {
 
+    private long suggestId;
     private boolean mine;
+    private List<String> tagList;
     private String contentText;
+
+    public long getSuggestId() {
+        return suggestId;
+    }
+
+    public void setSuggestId(long suggestId) {
+        this.suggestId = suggestId;
+    }
 
     public boolean isMine() {
         return mine;
@@ -18,6 +27,14 @@ public class SuggestComment extends BaseObj implements Parcelable {
 
     public void setMine(boolean mine) {
         this.mine = mine;
+    }
+
+    public List<String> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<String> tagList) {
+        this.tagList = tagList;
     }
 
     public String getContentText() {
@@ -30,35 +47,5 @@ public class SuggestComment extends BaseObj implements Parcelable {
 
     public SuggestComment() {
     }
-
-    protected SuggestComment(Parcel in) {
-        super(in);
-        mine = in.readByte() != 0;
-        contentText = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
-        dest.writeByte((byte) (mine ? 1 : 0));
-        dest.writeString(contentText);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<SuggestComment> CREATOR = new Creator<SuggestComment>() {
-        @Override
-        public SuggestComment createFromParcel(Parcel in) {
-            return new SuggestComment(in);
-        }
-
-        @Override
-        public SuggestComment[] newArray(int size) {
-            return new SuggestComment[size];
-        }
-    };
 
 }

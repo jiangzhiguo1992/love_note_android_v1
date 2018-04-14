@@ -23,6 +23,7 @@ import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
@@ -258,6 +259,13 @@ public class ApiHelper {
         suggest.setContentText(contentText);
         suggest.setContentImg(contentImg);
         return suggest;
+    }
+
+    public static SuggestComment getSuggestCommentAddBody(long suggestId, String content) {
+        SuggestComment suggestComment = new SuggestComment();
+        suggestComment.setSuggestId(suggestId);
+        suggestComment.setContentText(content);
+        return suggestComment;
     }
 
 }

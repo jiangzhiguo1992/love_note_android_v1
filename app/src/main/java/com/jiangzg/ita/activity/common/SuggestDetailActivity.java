@@ -23,6 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -34,6 +37,7 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
@@ -120,6 +124,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     @Override
                     public void onMore(int currentCount) {
                         getData(true);
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
+                        commentAdapter.delComment(position);
                     }
                 });
         // head
@@ -313,7 +324,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     // 关注
     private void follow() {
-        // todo api
         boolean newFollow = !suggest.isFollow();
         long newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
         if (newFollowCount < 0) {
@@ -322,13 +332,28 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollow(newFollow);
         suggest.setFollowCount(newFollowCount);
         initFollowView();
-
+        Call<Result> call = new RetrofitHelper().call(API.class).suggestFollowToggle(suggest.getId());
+        RetrofitHelper.enqueue(call, null, null);
     }
 
     // 评论
     private void comment() {
-        // todo api refresh
-        commentShow(false);
+        MaterialDialog loading = getLoading(true);
+        String content = etComment.getText().toString();
+        SuggestComment body = ApiHelper.getSuggestCommentAddBody(suggest.getId(), content);
+        Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentAdd(body);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                SuggestDetailActivity.this.commentShow(false);
+                SuggestDetailActivity.this.getData(false);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     // todo 删除评论
