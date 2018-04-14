@@ -33,8 +33,10 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -43,6 +45,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
@@ -62,6 +66,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int page = 0;
     private int searchStatus = 0; // 0是所有
     private int searchType = 0; // 0是所有
+    private Observable<List<Suggest>> observable;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -128,6 +133,12 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        observable = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
+            @Override
+            public void call(List<Suggest> suggests) {
+                recyclerHelper.dataRefresh();
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -135,6 +146,12 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help_top, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observable);
     }
 
     // head

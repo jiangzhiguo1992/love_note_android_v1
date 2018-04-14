@@ -24,6 +24,7 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.helper.API;
@@ -32,11 +33,13 @@ import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -305,7 +308,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE);
+                RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
+                RxBus.post(event);
                 mActivity.finish();
             }
 

@@ -76,12 +76,14 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         return textView;
     }
 
-    // todo 删除评论
+    // 删除评论
     public void delComment(int position) {
         SuggestComment item = getItem(position);
         if (!item.isMine()) {
             return;
         }
+        // todo 删除评论
+        // todo refreshSuggest
         ToastUtils.show("删除");
     }
 

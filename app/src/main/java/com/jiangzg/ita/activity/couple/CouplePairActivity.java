@@ -350,7 +350,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                     // 有配对成功的，退出本界面
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);
-                    RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_CHANGE, new Couple());
+                    RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                     RxBus.post(event);
                     mActivity.finish();
                 } else {

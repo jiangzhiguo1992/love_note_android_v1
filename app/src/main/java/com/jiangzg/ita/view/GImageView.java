@@ -248,10 +248,12 @@ public class GImageView extends SimpleDraweeView {
     // http:// https:// 需要现场获取oss的url
     public void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
+        Uri parse;
         if (StringUtils.isEmpty(url)) {
-            return;
+            parse = Uri.parse("");
+        } else {
+            parse = Uri.parse(url);
         }
-        Uri parse = Uri.parse(url);
         setController(parse);
     }
 

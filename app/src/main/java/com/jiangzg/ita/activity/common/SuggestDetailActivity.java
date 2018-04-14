@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -34,19 +36,23 @@ import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -117,13 +123,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
-                        getData(false);
+                        getCommentData(false);
                     }
                 })
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        getData(true);
+                        getCommentData(true);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -147,6 +153,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     case R.id.menuHelp: // 帮助
                         HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_DETAIL);
                         break;
+                    case R.id.menuDel:
+                        showDelDialog();
+                        break;
                 }
                 return true;
             }
@@ -162,7 +171,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        if (suggest.isMine()) {
+            getMenuInflater().inflate(R.menu.help_del, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -184,7 +197,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llFollow: // 关注
-                follow();
+                follow(true);
                 break;
             case R.id.llComment: // 评论打开
                 commentShow(true);
@@ -251,7 +264,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         return textView;
     }
 
-    private void getData(final boolean more) {
+    private void getCommentData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
         Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentListGet(suggest.getId(), page);
@@ -323,7 +336,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     // 关注
-    private void follow() {
+    private void follow(boolean api) {
         boolean newFollow = !suggest.isFollow();
         long newFollowCount = newFollow ? suggest.getFollowCount() + 1 : suggest.getFollowCount() - 1;
         if (newFollowCount < 0) {
@@ -332,8 +345,19 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollow(newFollow);
         suggest.setFollowCount(newFollowCount);
         initFollowView();
+        if (!api) return;
         Call<Result> call = new RetrofitHelper().call(API.class).suggestFollowToggle(suggest.getId());
-        RetrofitHelper.enqueue(call, null, null);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                refreshSuggest();
+            }
+
+            @Override
+            public void onFailure() {
+                follow(false);
+            }
+        });
     }
 
     // 评论
@@ -345,17 +369,72 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                SuggestDetailActivity.this.commentShow(false);
-                SuggestDetailActivity.this.getData(false);
+                etComment.setText("");
+                commentShow(false);
+                getCommentData(false);
+                refreshSuggest();
             }
 
             @Override
             public void onFailure() {
-
             }
         });
     }
 
-    // todo 删除评论
-    // todo 删除意见
+    private void showDelDialog() {
+        new MaterialDialog.Builder(mActivity)
+                .content("确定删除这个意见吗？")
+                .cancelable(true)
+                .canceledOnTouchOutside(false)
+                .autoDismiss(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        delSuggest();
+                    }
+                })
+                .build()
+                .show();
+    }
+
+    // 删除意见
+    private void delSuggest() {
+        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
+        Call<Result> call = new RetrofitHelper().call(API.class).suggestDel(suggest.getId());
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                //RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
+                //RxBus.post(event);
+                // todo 更新list
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
+    }
+
+    private void refreshSuggest() {
+        Call<Result> call = new RetrofitHelper().call(API.class).suggestGet(suggest.getId());
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                suggest = data.getSuggest();
+                initFollowView();
+                initCommentView();
+                //RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
+                //RxBus.post(event);
+                // todo 更新list
+            }
+
+            @Override
+            public void onFailure() {
+            }
+        });
+    }
+
 }

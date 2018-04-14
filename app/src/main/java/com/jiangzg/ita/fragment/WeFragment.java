@@ -133,7 +133,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             }
         });
         // event
-        observable = RxBus.register(ConsHelper.EVENT_COUPLE_CHANGE, new Action1<Couple>() {
+        observable = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
             @Override
             public void call(Couple couple) {
                 refreshView();
@@ -149,7 +149,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onDestroy() {
         super.onDestroy();
         stopCoupleCountDownTask();
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_CHANGE, observable);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observable);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
@@ -295,7 +295,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     Couple couple = SPHelper.getCouple();
                     long breakCountDown = couple.getBreakCountDown();
                     if (breakCountDown <= 0) {
-                        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_CHANGE, new Couple());
+                        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                         RxBus.post(event);
                         MyApp.get().getHandler().removeCallbacks(this);
                     } else {

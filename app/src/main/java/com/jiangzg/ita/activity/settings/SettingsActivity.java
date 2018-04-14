@@ -212,7 +212,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         SPHelper.clearUser();
                         SPHelper.clearCouple();
-                        RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_CHANGE, null);
+                        RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);
                         LoginActivity.goActivity(mActivity);
                     }

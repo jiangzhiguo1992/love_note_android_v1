@@ -384,7 +384,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_CHANGE, couple);
+                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, couple);
                 RxBus.post(event);
                 setViewData();
             }
@@ -431,7 +431,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_CHANGE, couple);
+                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, couple);
                 RxBus.post(event);
                 mActivity.finish();
             }
