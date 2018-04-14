@@ -16,22 +16,24 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.SuggestListAdapter;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.BaseObj;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.helper.API;
-import com.jiangzg.ita.helper.RetrofitHelper;
-import com.jiangzg.ita.helper.ViewHelper;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
@@ -48,6 +50,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     private int entry;
     private RecyclerHelper recyclerHelper;
     private int page = 0;
+    private Observable<List<Suggest>> observable;
 
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
@@ -120,6 +123,12 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        observable = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
+            @Override
+            public void call(List<Suggest> suggests) {
+                recyclerHelper.dataRefresh();
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -127,6 +136,12 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observable);
     }
 
     private void getData(final boolean more) {

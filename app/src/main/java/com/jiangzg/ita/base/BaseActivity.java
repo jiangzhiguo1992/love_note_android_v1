@@ -92,7 +92,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
                     .content(R.string.please_wait)
                     .cancelable(cancelable)
-                    .canceledOnTouchOutside(cancelable)
+                    .canceledOnTouchOutside(false)
                     .autoDismiss(true)
                     .progress(true, 0)
                     .progressIndeterminateStyle(false);

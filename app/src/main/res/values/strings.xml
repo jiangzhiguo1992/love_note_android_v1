@@ -374,4 +374,6 @@
     <string name="click_me_to_del_image">点我删除照片</string>
     <string name="are_deleting">正在删除</string>
     <string name="are_refresh">正在刷新</string>
+    <string name="confirm_del_comment">确定要删除评论吗？</string>
+    <string name="confirm_del_suggest">确定删除意见吗？</string>
 </resources>

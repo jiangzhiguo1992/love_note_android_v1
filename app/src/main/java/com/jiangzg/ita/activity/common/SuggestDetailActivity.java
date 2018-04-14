@@ -36,23 +36,20 @@ import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
-import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.ConvertHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
-import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -382,8 +379,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void showDelDialog() {
-        new MaterialDialog.Builder(mActivity)
-                .content("确定删除这个意见吗？")
+        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
+                .content(R.string.confirm_del_suggest)
                 .cancelable(true)
                 .canceledOnTouchOutside(false)
                 .autoDismiss(true)
@@ -395,8 +392,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                         delSuggest();
                     }
                 })
-                .build()
-                .show();
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.setAnim(dialog);
     }
 
     // 删除意见
@@ -408,7 +406,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 //RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
                 //RxBus.post(event);
-                // todo 更新list
+                // todo refreshList
                 mActivity.finish();
             }
 
@@ -418,7 +416,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         });
     }
 
-    private void refreshSuggest() {
+    public void refreshSuggest() {
         Call<Result> call = new RetrofitHelper().call(API.class).suggestGet(suggest.getId());
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
@@ -428,7 +426,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 initCommentView();
                 //RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
                 //RxBus.post(event);
-                // todo 更新list
+                // todo refreshList
             }
 
             @Override
