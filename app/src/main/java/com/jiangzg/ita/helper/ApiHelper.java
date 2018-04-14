@@ -18,6 +18,7 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.broadcast.OssReceiver;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Entry;
+import com.jiangzg.ita.domain.Limit;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
@@ -100,6 +101,9 @@ public class ApiHelper {
         // user
         User user = data.getUser();
         SPHelper.setUser(user);
+        // limit
+        Limit limit = data.getLimit();
+        SPHelper.setLimit(limit);
         // suggest
         SuggestInfo suggestInfo = data.getSuggestInfo();
         SPHelper.setSuggestInfo(suggestInfo);

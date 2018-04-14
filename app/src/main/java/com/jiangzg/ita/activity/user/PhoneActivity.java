@@ -19,11 +19,11 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.helper.API;
-import com.jiangzg.ita.helper.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -116,8 +116,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
-                int countDownSec = data.getCountDownSec();
-                MyApp.get().getHandler().post(getCountDownTask(countDownSec));
+                MyApp.get().getHandler().post(getCountDownTask());
             }
 
             @Override
@@ -127,7 +126,8 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         });
     }
 
-    private Runnable getCountDownTask(final int countDownSec) {
+    private Runnable getCountDownTask() {
+        final int countDownSec = SPHelper.getLimit().getSmsLimitBetween();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

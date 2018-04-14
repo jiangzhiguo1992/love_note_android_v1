@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -210,6 +211,11 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         button.setButtonDrawable(null);
         button.setElevation(dp3);
         button.setGravity(Gravity.CENTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            button.setTextAppearance(R.style.FontWhiteNormal);
+        } else {
+            button.setTextAppearance(mActivity, R.style.FontWhiteNormal);
+        }
         button.setText(contentType.getShow());
         ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
         button.setTextColor(colorStateList);
@@ -237,6 +243,11 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         button.setButtonDrawable(null);
         button.setElevation(dp3);
         button.setGravity(Gravity.CENTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            button.setTextAppearance(R.style.FontWhiteNormal);
+        } else {
+            button.setTextAppearance(mActivity, R.style.FontWhiteNormal);
+        }
         button.setText(status.getShow());
         ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
         button.setTextColor(colorStateList);

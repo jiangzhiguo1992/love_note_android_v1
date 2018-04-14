@@ -21,9 +21,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            tools:visibility="visible"/>
+            android:layout_height="match_parent"/>
     </com.jiangzg.ita.view.GSwipeRefreshLayout>
 
     <LinearLayout
@@ -34,9 +32,7 @@
         android:background="@drawable/layer_line_border_grey_in_white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:visibility="gone"
-        app:layout_behavior="@string/behavior_footer_depend_app_bar"
-        tools:visibility="visible">
+        app:layout_behavior="@string/behavior_footer_depend_app_bar">
 
         <LinearLayout
             android:id="@+id/llFollow"
@@ -157,18 +153,5 @@
             android:inputType="textMultiLine"
             android:padding="8dp"/>
     </RelativeLayout>
-
-    <!--<android.support.design.widget.FloatingActionButton-->
-    <!--android:id="@+id/fabComment"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|end"-->
-    <!--android:layout_margin="20dp"-->
-    <!--android:src="@drawable/ic_comment_solid_white"-->
-    <!--android:visibility="gone"-->
-    <!--app:borderWidth="0dp"-->
-    <!--app:fabSize="mini"-->
-    <!--app:rippleColor="?attr/colorPrimaryDark"-->
-    <!--tools:visibility="visible"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

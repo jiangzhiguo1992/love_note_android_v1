@@ -29,11 +29,11 @@ import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.helper.API;
-import com.jiangzg.ita.helper.RetrofitHelper;
 
 import java.util.Stack;
 
@@ -219,8 +219,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
-                int countDownSec = data.getCountDownSec();
-                MyApp.get().getHandler().post(getCountDownTask(countDownSec));
+                MyApp.get().getHandler().post(getCountDownTask());
             }
 
             @Override
@@ -230,7 +229,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         });
     }
 
-    private Runnable getCountDownTask(final int countDownSec) {
+    private Runnable getCountDownTask() {
+        final int countDownSec = SPHelper.getLimit().getSmsLimitBetween();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.Limit;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
@@ -21,6 +22,7 @@ public class SPHelper {
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
+    private static final String SHARE_LIMIT = "shareLimit";
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_SETTINGS = "shareSettings";
@@ -65,6 +67,35 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_BOOK_AUDIO = "pathBookAudio";
     private static final String FIELD_OSS_PATH_BOOK_VIDEO = "pathBookVideo";
     private static final String FIELD_OSS_PATH_BOOK_THUMB = "pathBookThumb";
+    // limit
+    private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "smsLimitEffectSec";
+    private static final String FIELD_LIMIT_SMS_BETWEEN = "smsLimitBetween";
+    private static final String FIELD_LIMIT_SMS_MAX_TIME = "smsLimitMaxTime";
+    private static final String FIELD_LIMIT_SMS_MAX_COUNT = "smsLimitMaxCount";
+    private static final String FIELD_LIMIT_SUGGEST_TITLE = "suggestLimitTitle";
+    private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT = "suggestLimitContentText";
+    private static final String FIELD_LIMIT_SUGGEST_PAGE_SIZE = "suggestLimitPageSize";
+    private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT = "suggestCommentLimitContent";
+    private static final String FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE = "suggestCommentLimitPageSize";
+    private static final String FIELD_LIMIT_COUPLE_NAME = "coupleLimitName";
+    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipLimitExpireDays";
+    private static final String FIELD_LIMIT_SOUVENIR_TITLE = "souvenirLimitTitle";
+    private static final String FIELD_LIMIT_WHISPER_CONTENT = "whisperLimitContent";
+    private static final String FIELD_LIMIT_WORD_CONTENT = "wordLimitContent";
+    private static final String FIELD_LIMIT_DIARY_CONTENT = "diaryLimitContent";
+    private static final String FIELD_LIMIT_DIARY_IMAGES = "diaryLimitImages";
+    private static final String FIELD_LIMIT_TRACK_IMAGES = "trackLimitImages";
+    private static final String FIELD_LIMIT_TRACK_TITLE = "trackLimitTitle";
+    private static final String FIELD_LIMIT_TRACK_PROCESS = "trackLimitProcess";
+    private static final String FIELD_LIMIT_ALBUM_TITLE = "albumLimitTitle";
+    private static final String FIELD_LIMIT_PROMISE_CONTENT = "promiseLimitContent";
+    private static final String FIELD_LIMIT_AUDIO_TITLE = "audioLimitTitle";
+    private static final String FIELD_LIMIT_VIDEO_TITLE = "videoLimitTitle";
+    private static final String FIELD_LIMIT_GIFT_NAME = "giftLimitName";
+    private static final String FIELD_LIMIT_GIFT_IMAGES = "giftLimitImages";
+    private static final String FIELD_LIMIT_DREAM_CONTENT = "dreamLimitContent";
+    private static final String FIELD_LIMIT_ANGRY_REASON = "angryLimitReason";
+    private static final String FIELD_LIMIT_AWARD_REASON = "awardLimitReason";
 
     // settings
     private static final String FIELD_SET_THEME = "theme";
@@ -140,6 +171,77 @@ public class SPHelper {
         couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
         couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
         return couple;
+    }
+
+    public static void setLimit(Limit limit) {
+        if (limit == null) {
+            LogUtils.w(LOG_TAG, "setLimit == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_LIMIT).edit();
+        editor.putInt(FIELD_LIMIT_SMS_EFFECT_SEC, limit.getSmsLimitEffectSec());
+        editor.putInt(FIELD_LIMIT_SMS_BETWEEN, limit.getSmsLimitBetween());
+        editor.putInt(FIELD_LIMIT_SMS_MAX_TIME, limit.getSmsLimitMaxTime());
+        editor.putInt(FIELD_LIMIT_SMS_MAX_COUNT, limit.getSmsLimitMaxCount());
+        editor.putInt(FIELD_LIMIT_SUGGEST_TITLE, limit.getSuggestLimitTitle());
+        editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT, limit.getSuggestLimitContentText());
+        editor.putInt(FIELD_LIMIT_SUGGEST_PAGE_SIZE, limit.getSuggestLimitPageSize());
+        editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT, limit.getSuggestCommentLimitContent());
+        editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE, limit.getSuggestCommentLimitPageSize());
+        editor.putInt(FIELD_LIMIT_COUPLE_NAME, limit.getCoupleLimitName());
+        editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipLimitExpireDays());
+        editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE, limit.getSouvenirLimitTitle());
+        editor.putInt(FIELD_LIMIT_WHISPER_CONTENT, limit.getWhisperLimitContent());
+        editor.putInt(FIELD_LIMIT_WORD_CONTENT, limit.getWordLimitContent());
+        editor.putInt(FIELD_LIMIT_DIARY_CONTENT, limit.getDiaryLimitContent());
+        editor.putInt(FIELD_LIMIT_DIARY_IMAGES, limit.getDiaryLimitImages());
+        editor.putInt(FIELD_LIMIT_TRACK_IMAGES, limit.getTrackLimitImages());
+        editor.putInt(FIELD_LIMIT_TRACK_TITLE, limit.getTrackLimitTitle());
+        editor.putInt(FIELD_LIMIT_TRACK_PROCESS, limit.getTrackLimitProcess());
+        editor.putInt(FIELD_LIMIT_ALBUM_TITLE, limit.getAlbumLimitTitle());
+        editor.putInt(FIELD_LIMIT_PROMISE_CONTENT, limit.getPromiseLimitContent());
+        editor.putInt(FIELD_LIMIT_AUDIO_TITLE, limit.getAudioLimitTitle());
+        editor.putInt(FIELD_LIMIT_VIDEO_TITLE, limit.getVideoLimitTitle());
+        editor.putInt(FIELD_LIMIT_GIFT_NAME, limit.getGiftLimitName());
+        editor.putInt(FIELD_LIMIT_GIFT_IMAGES, limit.getGiftLimitImages());
+        editor.putInt(FIELD_LIMIT_DREAM_CONTENT, limit.getDreamLimitContent());
+        editor.putInt(FIELD_LIMIT_ANGRY_REASON, limit.getAngryLimitReason());
+        editor.putInt(FIELD_LIMIT_AWARD_REASON, limit.getAwardLimitReason());
+        editor.apply();
+    }
+
+    public static Limit getLimit() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_LIMIT);
+        Limit limit = new Limit();
+        limit.setSmsLimitEffectSec(sp.getInt(FIELD_LIMIT_SMS_EFFECT_SEC, 60 * 5));
+        limit.setSmsLimitBetween(sp.getInt(FIELD_LIMIT_SMS_BETWEEN, 60 * 2));
+        limit.setSmsLimitMaxTime(sp.getInt(FIELD_LIMIT_SMS_MAX_TIME, 60 * 60));
+        limit.setSmsLimitMaxCount(sp.getInt(FIELD_LIMIT_SMS_MAX_COUNT, 5));
+        limit.setSuggestLimitTitle(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE, 20));
+        limit.setSuggestLimitContentText(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT, 200));
+        limit.setSuggestLimitPageSize(sp.getInt(FIELD_LIMIT_SUGGEST_PAGE_SIZE, 30));
+        limit.setSuggestCommentLimitContent(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT, 200));
+        limit.setSuggestCommentLimitPageSize(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE, 30));
+        limit.setCoupleLimitName(sp.getInt(FIELD_LIMIT_COUPLE_NAME, 6));
+        limit.setVipLimitExpireDays(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
+        limit.setSouvenirLimitTitle(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE, 20));
+        limit.setWhisperLimitContent(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT, 100));
+        limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
+        limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
+        limit.setDiaryLimitImages(sp.getInt(FIELD_LIMIT_DIARY_IMAGES, 3));
+        limit.setTrackLimitImages(sp.getInt(FIELD_LIMIT_TRACK_IMAGES, 9));
+        limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));
+        limit.setTrackLimitProcess(sp.getInt(FIELD_LIMIT_TRACK_PROCESS, 200));
+        limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
+        limit.setPromiseLimitContent(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT, 200));
+        limit.setAudioLimitTitle(sp.getInt(FIELD_LIMIT_AUDIO_TITLE, 20));
+        limit.setVideoLimitTitle(sp.getInt(FIELD_LIMIT_VIDEO_TITLE, 20));
+        limit.setGiftLimitName(sp.getInt(FIELD_LIMIT_GIFT_NAME, 20));
+        limit.setGiftLimitImages(sp.getInt(FIELD_LIMIT_GIFT_IMAGES, 3));
+        limit.setDreamLimitContent(sp.getInt(FIELD_LIMIT_DREAM_CONTENT, 1000));
+        limit.setAngryLimitReason(sp.getInt(FIELD_LIMIT_ANGRY_REASON, 200));
+        limit.setAwardLimitReason(sp.getInt(FIELD_LIMIT_AWARD_REASON, 10));
+        return limit;
     }
 
     public static void setSuggestInfo(SuggestInfo suggestInfo) {

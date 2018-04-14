@@ -99,6 +99,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             mLoading = builder.build();
             DialogHelper.setAnim(mLoading);
         }
+        mLoading.setContent(R.string.please_wait);
         return mLoading;
     }
 

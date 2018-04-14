@@ -3,10 +3,8 @@ package com.jiangzg.ita.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
-import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 
 /**

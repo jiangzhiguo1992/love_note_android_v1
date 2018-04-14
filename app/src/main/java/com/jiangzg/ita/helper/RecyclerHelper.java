@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.ita.R;
 
 import java.util.ArrayList;
@@ -108,7 +109,11 @@ public class RecyclerHelper {
     }
 
     public void viewEmptyShow(String show) {
-        viewEmptyShow(R.id.tvEmptyShow, show);
+        if (StringUtils.isEmpty(show)) {
+            viewEmptyShow();
+        } else {
+            viewEmptyShow(R.id.tvEmptyShow, show);
+        }
     }
 
     public void viewEmptyShow() {

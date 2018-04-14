@@ -45,7 +45,9 @@
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        tools:src="@mipmap/test_bg_04"/>
+        android:visibility="gone"
+        tools:src="@mipmap/test_bg_04"
+        tools:visibility="gone"/>
 
     <TextView
         android:id="@+id/tvContent"
@@ -56,15 +58,4 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
-
-    <TextView
-        android:id="@+id/tvCommentTotal"
-        style="@style/FontBlackBig"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        tools:text="评论:100"/>
 </LinearLayout>

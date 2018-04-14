@@ -19,7 +19,6 @@ public class Suggest extends BaseObj implements Parcelable {
     private boolean comment;
     private long followCount;
     private long commentCount;
-    private List<SuggestComment> commentList;
     private boolean mine;
     private List<String> tagList;
 
@@ -53,14 +52,6 @@ public class Suggest extends BaseObj implements Parcelable {
 
     public void setContentImg(String contentImg) {
         this.contentImg = contentImg;
-    }
-
-    public List<SuggestComment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<SuggestComment> commentList) {
-        this.commentList = commentList;
     }
 
     public boolean isComment() {
@@ -122,9 +113,8 @@ public class Suggest extends BaseObj implements Parcelable {
         contentImg = in.readString();
         follow = in.readByte() != 0;
         comment = in.readByte() != 0;
-        followCount = in.readInt();
-        commentCount = in.readInt();
-        commentList = in.createTypedArrayList(SuggestComment.CREATOR);
+        followCount = in.readLong();
+        commentCount = in.readLong();
         mine = in.readByte() != 0;
         tagList = in.createStringArrayList();
     }
@@ -140,7 +130,6 @@ public class Suggest extends BaseObj implements Parcelable {
         dest.writeByte((byte) (comment ? 1 : 0));
         dest.writeLong(followCount);
         dest.writeLong(commentCount);
-        dest.writeTypedList(commentList);
         dest.writeByte((byte) (mine ? 1 : 0));
         dest.writeStringList(tagList);
     }

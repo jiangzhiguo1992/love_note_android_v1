@@ -50,7 +50,6 @@ public class Result implements Serializable {
         private Version version;
         private User user;
         private Couple couple;
-        private int countDownSec;
         private OssInfo ossInfo;
         private int noticeNoRead;
         private VipPower vipPower;
@@ -65,6 +64,24 @@ public class Result implements Serializable {
         private long total;
         private Suggest suggest;
         private List<Suggest> suggestList;
+        private List<SuggestComment> suggestCommentList;
+        private Limit limit;
+
+        public Limit getLimit() {
+            return limit;
+        }
+
+        public void setLimit(Limit limit) {
+            this.limit = limit;
+        }
+
+        public List<SuggestComment> getSuggestCommentList() {
+            return suggestCommentList;
+        }
+
+        public void setSuggestCommentList(List<SuggestComment> suggestCommentList) {
+            this.suggestCommentList = suggestCommentList;
+        }
 
         public long getTotal() {
             return total;
@@ -184,14 +201,6 @@ public class Result implements Serializable {
 
         public void setVersionList(List<Version> versionList) {
             this.versionList = versionList;
-        }
-
-        public int getCountDownSec() {
-            return countDownSec;
-        }
-
-        public void setCountDownSec(int countDownSec) {
-            this.countDownSec = countDownSec;
         }
 
         public Version getVersion() {

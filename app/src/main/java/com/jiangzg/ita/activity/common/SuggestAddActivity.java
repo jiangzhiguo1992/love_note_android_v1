@@ -67,6 +67,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private int contentType = 0;
     private File pictureFile;
     private List<SuggestInfo.SuggestContentType> suggestContentTypeList;
+    private int titleLimit;
+    private int contentLimit;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestAddActivity.class);
@@ -198,7 +200,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void onTitleInput(String s) {
-        int titleLimit = 20;
+        if (titleLimit <= 0) {
+            titleLimit = SPHelper.getLimit().getSuggestLimitTitle();
+        }
         int length = s.length();
         if (length > titleLimit) {
             CharSequence charSequence = s.subSequence(0, titleLimit);
@@ -211,7 +215,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void onContentInput(String s) {
-        int contentLimit = 200;
+        if (contentLimit <= 0) {
+            contentLimit = SPHelper.getLimit().getSuggestLimitContentText();
+        }
         int length = s.length();
         if (length > contentLimit) {
             CharSequence charSequence = s.subSequence(0, contentLimit);

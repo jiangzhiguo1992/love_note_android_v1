@@ -134,8 +134,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
-                int countDownSec = data.getCountDownSec();
-                MyApp.get().getHandler().post(getCountDownTask(countDownSec));
+                MyApp.get().getHandler().post(getCountDownTask());
             }
 
             @Override
@@ -145,7 +144,8 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         });
     }
 
-    private Runnable getCountDownTask(final int countDownSec) {
+    private Runnable getCountDownTask() {
+        final int countDownSec = SPHelper.getLimit().getSmsLimitBetween();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

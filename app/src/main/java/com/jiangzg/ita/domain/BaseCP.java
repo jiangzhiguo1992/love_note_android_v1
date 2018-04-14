@@ -7,7 +7,6 @@ import android.os.Parcelable;
  * Created by JZG on 2017/12/18.
  * BaseCP
  */
-
 public class BaseCP extends BaseObj implements Parcelable {
 
     private long userId;
