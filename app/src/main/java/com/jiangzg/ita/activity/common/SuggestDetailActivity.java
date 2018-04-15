@@ -400,7 +400,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 })
                 .build();
         DialogHelper.setAnim(dialog);
-        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
     // 删除意见

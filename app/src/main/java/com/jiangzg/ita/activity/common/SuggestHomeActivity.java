@@ -63,10 +63,13 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int dp14;
 
     private RecyclerHelper recyclerHelper;
+    private Observable<List<Suggest>> observableListRefresh;
+    private Observable<Suggest> observableListItemDelete;
+    private Observable<Suggest> observableListItemRefresh;
     private int page = 0;
-    private int searchStatus = 0; // 0是所有
-    private int searchType = 0; // 0是所有
-    private Observable<List<Suggest>> observable;
+    private int searchStatus;
+    private int searchType;
+    private SuggestInfo suggestInfo;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -83,6 +86,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
+        // suggest
+        suggestInfo = SPHelper.getSuggestInfo();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -133,15 +138,45 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        observable = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
+        // search
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getSuggestStatusList();
+        if (suggestStatusList.size() > 0) {
+            searchStatus = suggestStatusList.get(0).getStatus();
+        }
+        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
+        if (suggestContentTypeList.size() > 0) {
+            searchType = suggestContentTypeList.get(0).getContentType();
+        }
+        // event
+        observableListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
                 recyclerHelper.dataRefresh();
             }
         });
-        // todo refreshListItemDelete
-        // todo refreshListItemRefresh
-
+        observableListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                SuggestListAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter == null) return;
+                List<Suggest> data = adapter.getData();
+                int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
+                if (index < 0) return;
+                adapter.remove(index);
+            }
+        });
+        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                SuggestListAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter == null) return;
+                List<Suggest> data = adapter.getData();
+                int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
+                if (index < 0) return;
+                adapter.setData(index, suggest);
+            }
+        });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 
@@ -154,7 +189,9 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observable);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemRefresh);
     }
 
     // head
@@ -199,7 +236,6 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         dp4 = ConvertUtils.dp2px(4);
         dp5 = ConvertUtils.dp2px(5);
         dp14 = ConvertUtils.dp2px(14);
-        SuggestInfo suggestInfo = SPHelper.getSuggestInfo();
         List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
         List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getSuggestStatusList();
         for (int i = 0; i < suggestContentTypeList.size(); i++) {

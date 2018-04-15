@@ -142,7 +142,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.tvHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity);
                 break;
-            case R.id.tvSuggest: // todo 意见反馈
+            case R.id.tvSuggest: // 意见反馈
                 SuggestHomeActivity.goActivity(mActivity);
                 break;
             case R.id.tvRate: // todo 去评价

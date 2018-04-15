@@ -49,8 +49,10 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
+    private Observable<List<Suggest>> observableListRefresh;
+    private Observable<Suggest> observableListItemDelete;
+    private Observable<Suggest> observableListItemRefresh;
     private int page = 0;
-    private Observable<List<Suggest>> observable;
 
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
@@ -123,15 +125,34 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        observable = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
+        observableListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
                 recyclerHelper.dataRefresh();
             }
         });
-        // todo refreshListItemDelete
-        // todo refreshListItemRefresh
-
+        observableListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                SuggestListAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter == null) return;
+                List<Suggest> data = adapter.getData();
+                int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
+                if (index < 0) return;
+                adapter.remove(index);
+            }
+        });
+        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                SuggestListAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter == null) return;
+                List<Suggest> data = adapter.getData();
+                int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
+                if (index < 0) return;
+                adapter.setData(index, suggest);
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -144,7 +165,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observable);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemRefresh);
     }
 
     private void getData(final boolean more) {
@@ -172,6 +195,18 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 srl.setRefreshing(false);
             }
         });
+    }
+
+    public static int getIndexInSuggestList(List<Suggest> suggestList, Suggest suggest) {
+        if (suggestList == null || suggestList.size() <= 0) return -1;
+        if (suggest == null || suggest.getId() <= 0) return -1;
+        for (int i = 0; i < suggestList.size(); i++) {
+            Suggest item = suggestList.get(i);
+            if (item.getId() == suggest.getId()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }
