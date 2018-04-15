@@ -124,7 +124,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

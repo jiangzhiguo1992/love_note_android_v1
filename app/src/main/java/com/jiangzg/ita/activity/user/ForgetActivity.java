@@ -128,7 +128,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 btnSendCode.setEnabled(true);
             }
         });
@@ -190,7 +190,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

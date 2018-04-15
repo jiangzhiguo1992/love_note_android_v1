@@ -53,7 +53,6 @@ import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -279,8 +278,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
+                recyclerHelper.viewEmptyShow(errMsg);
             }
         });
     }
@@ -357,7 +357,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 follow(false);
             }
         });
@@ -379,7 +379,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }
@@ -417,7 +417,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }
@@ -436,7 +436,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

@@ -99,22 +99,22 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                refreshView(data);
+                refreshView(data, data.getShow());
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
+                refreshView(new Result.Data(), errMsg);
             }
         });
     }
 
-    private void refreshView(Result.Data data) {
+    private void refreshView(Result.Data data, String show) {
         Help help = data.getHelp();
         if (help == null) {
             tvShow.setVisibility(View.VISIBLE);
             rv.setVisibility(View.GONE);
-            String show = data.getShow();
             tvShow.setText(show);
             return;
         }

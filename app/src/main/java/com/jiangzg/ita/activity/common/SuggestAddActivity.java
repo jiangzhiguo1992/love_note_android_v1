@@ -331,7 +331,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

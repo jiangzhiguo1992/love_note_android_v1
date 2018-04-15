@@ -223,7 +223,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 btnSendCode.setEnabled(true);
             }
         });
@@ -284,7 +284,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

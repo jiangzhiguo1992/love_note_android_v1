@@ -100,9 +100,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
 
                 @Override
-                public void onFailure() {
+                public void onFailure(String errMsg) {
                     MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
-                            .title(R.string.app_start_err)
+                            .title(errMsg)
                             .content(R.string.app_start_err_detail_please_ask_official_contact_method_qq)
                             .cancelable(true)
                             .canceledOnTouchOutside(false)

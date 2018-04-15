@@ -248,7 +248,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
             }
         });
@@ -404,7 +404,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }
@@ -474,7 +474,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

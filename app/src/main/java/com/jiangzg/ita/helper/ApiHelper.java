@@ -89,7 +89,7 @@ public class ApiHelper {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

@@ -219,7 +219,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

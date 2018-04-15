@@ -67,7 +67,7 @@ public class OssReceiver extends BroadcastReceiver {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 MyApp.get().getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

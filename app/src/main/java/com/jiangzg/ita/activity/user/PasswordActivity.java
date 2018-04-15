@@ -106,7 +106,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }

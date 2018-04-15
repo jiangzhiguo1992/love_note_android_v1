@@ -191,8 +191,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
+                recyclerHelper.viewEmptyShow(errMsg);
             }
         });
     }

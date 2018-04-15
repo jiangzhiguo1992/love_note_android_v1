@@ -17,6 +17,7 @@ import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.SuggestAddActivity;
+import com.jiangzg.ita.activity.couple.CouplePairActivity;
 import com.jiangzg.ita.activity.user.LoginActivity;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.MyApp;
@@ -172,7 +173,7 @@ public class RetrofitHelper {
     public interface CallBack {
         void onResponse(int code, String message, Result.Data data);
 
-        void onFailure();
+        void onFailure(String errMsg);
     }
 
     // 成功回调
@@ -308,7 +309,7 @@ public class RetrofitHelper {
             if (status == 200) {
                 callBack.onResponse(code, message, data);
             } else {
-                callBack.onFailure();
+                callBack.onFailure(message);
             }
         }
     }
@@ -335,7 +336,8 @@ public class RetrofitHelper {
             UserInfoActivity.goActivity(top);
         } else if (code == Result.ResultCodeNoCP) { // cp
             ToastUtils.show(message);
-            // todo
+            if (top == null) return;
+            CouplePairActivity.goActivity(top);
         } else if (code == Result.ResultCodeNoVIP) { // vip
             ToastUtils.show(message);
             // todo
@@ -356,7 +358,7 @@ public class RetrofitHelper {
             error = R.string.http_error_request;
         }
         ToastUtils.show(error);
-        if (callBack != null) callBack.onFailure();
+        if (callBack != null) callBack.onFailure(MyApp.get().getString(error));
     }
 
     /* 获取head */

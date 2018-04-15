@@ -120,7 +120,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
                 btnSendCode.setEnabled(true);
             }
         });
@@ -177,7 +177,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String errMsg) {
             }
         });
     }
