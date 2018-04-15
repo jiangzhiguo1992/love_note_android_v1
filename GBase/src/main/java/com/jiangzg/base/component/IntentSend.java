@@ -268,9 +268,13 @@ public class IntentSend {
     /**
      * 跳转应用市场的意图
      */
-    public static Intent getMarket() {
+    public static Intent getMarket(String marketPkg) {
         String str = "market://details?id=" + AppBase.getInstance().getPackageName();
-        return new Intent(Intent.ACTION_VIEW, Uri.parse(str));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
+        if (!StringUtils.isEmpty(marketPkg)) {
+            intent.setPackage(marketPkg);
+        }
+        return intent;
     }
 
     /**

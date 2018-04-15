@@ -72,8 +72,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     TextView tvHelp;
     @BindView(R.id.tvSuggest)
     TextView tvSuggest;
-    @BindView(R.id.tvRate)
-    TextView tvRate;
     @BindView(R.id.tvProtocol)
     TextView tvProtocol;
     @BindView(R.id.tvContact)
@@ -115,7 +113,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
-            R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest, R.id.tvRate, R.id.tvProtocol, R.id.tvContact, R.id.tvExist})
+            R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest, R.id.tvProtocol, R.id.tvContact, R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvTheme: // 主题
@@ -144,10 +142,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.tvSuggest: // 意见反馈
                 SuggestHomeActivity.goActivity(mActivity);
-                break;
-            case R.id.tvRate: // todo 去评价
-                //Intent intent = IntentSend.getMarket();
-                //ActivityTrans.start(mActivity, intent);
                 break;
             case R.id.tvProtocol: // 软件协议
                 WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);

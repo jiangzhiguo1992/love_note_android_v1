@@ -254,20 +254,6 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                android:id="@+id/tvRate"
-                style="@style/FontBlackNormal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
-                android:text="@string/go_rate"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <TextView
                 android:id="@+id/tvProtocol"
                 style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
