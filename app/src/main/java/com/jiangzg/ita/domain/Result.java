@@ -51,8 +51,6 @@ public class Result implements Serializable {
         private User user;
         private Couple couple;
         private OssInfo ossInfo;
-        private int noticeNoRead;
-        private VipPower vipPower;
         private String taPhone;
         private String title;
         private String message;
@@ -66,6 +64,15 @@ public class Result implements Serializable {
         private List<Suggest> suggestList;
         private List<SuggestComment> suggestCommentList;
         private Limit limit;
+        private VipLimit vipLimit;
+
+        public VipLimit getVipLimit() {
+            return vipLimit;
+        }
+
+        public void setVipLimit(VipLimit vipLimit) {
+            this.vipLimit = vipLimit;
+        }
 
         public Limit getLimit() {
             return limit;
@@ -169,22 +176,6 @@ public class Result implements Serializable {
 
         public void setTaPhone(String taPhone) {
             this.taPhone = taPhone;
-        }
-
-        public VipPower getVipPower() {
-            return vipPower;
-        }
-
-        public void setVipPower(VipPower vipPower) {
-            this.vipPower = vipPower;
-        }
-
-        public int getNoticeNoRead() {
-            return noticeNoRead;
-        }
-
-        public void setNoticeNoRead(int noticeNoRead) {
-            this.noticeNoRead = noticeNoRead;
         }
 
         public OssInfo getOssInfo() {

@@ -168,7 +168,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     }
 
     public void showImgSelect() {
-        // todo 检查数量 vip?
+        // todo 检查数量 vip? 还是交给后台去做？
         cameraFile = ResHelper.createJPEGInCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);

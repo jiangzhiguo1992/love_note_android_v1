@@ -5,6 +5,7 @@ package com.jiangzg.ita.domain;
  * Limit
  */
 public class Limit {
+
     private int smsLimitEffectSec;
     private int smsLimitBetween;
     private int smsLimitMaxTime;

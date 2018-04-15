@@ -9,6 +9,7 @@ import com.jiangzg.ita.domain.Limit;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.domain.VipLimit;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class SPHelper {
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_SETTINGS = "shareSettings";
+    private static final String SHARE_VIP_LIMIT = "shareVipLimit";
 
     /* 储存字段 */
     // user
@@ -96,11 +98,24 @@ public class SPHelper {
     private static final String FIELD_LIMIT_DREAM_CONTENT = "dreamLimitContent";
     private static final String FIELD_LIMIT_ANGRY_REASON = "angryLimitReason";
     private static final String FIELD_LIMIT_AWARD_REASON = "awardLimitReason";
-
+    // vipLimit
+    private static final String FIELD_VIP_LIMIT_EXPIRE_AT = "expireAt";
+    private static final String FIELD_VIP_LIMIT_CP_WALL_PAGER = "coupleWallPaperCount";
+    private static final String FIELD_VIP_LIMIT_CP_ENTRY_TRACE = "coupleEntryTraceEnable";
+    private static final String FIELD_VIP_LIMIT_CP_TOPIC_TRACE = "coupleTopicTraceEnable";
+    private static final String FIELD_VIP_LIMIT_BK_PICTURE = "bookPictureEnable";
+    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG = "bookDiaryImageEnable";
+    private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG = "bookGiftImageEnable";
+    private static final String FIELD_VIP_LIMIT_TRACK_IMG = "bookTrackImageEnable";
+    private static final String FIELD_VIP_LIMIT_AUDIO_ENABLE = "bookAudioEnable";
+    private static final String FIELD_VIP_LIMIT_VIDEO_ENABLE = "bookVideoEnable";
+    private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "bookAudioTotalSize";
+    private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "bookVideoTotalSize";
+    private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topicImageEnable";
     // settings
     private static final String FIELD_SET_THEME = "theme";
-    private static final String FIELD_SET_NOTICE_SYSTEM = "system";
-    private static final String FIELD_SET_NOTICE_SOCIAL = "social";
+    private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
+    private static final String FIELD_SET_NOTICE_SOCIAL = "noticeSocial";
 
     public static void setUser(User user) {
         clearUser();
@@ -331,16 +346,62 @@ public class SPHelper {
         return ossInfo;
     }
 
+    public static void setVipLimit(VipLimit vipLimit) {
+        clearVipLimit();
+        if (vipLimit == null) {
+            LogUtils.w(LOG_TAG, "setVipLimit == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
+        editor.putLong(FIELD_VIP_LIMIT_EXPIRE_AT, vipLimit.getExpireAt());
+        editor.putInt(FIELD_VIP_LIMIT_CP_WALL_PAGER, vipLimit.getCoupleWallPaperCount());
+        editor.putBoolean(FIELD_VIP_LIMIT_CP_ENTRY_TRACE, vipLimit.isCoupleEntryTraceEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_CP_TOPIC_TRACE, vipLimit.isCoupleTopicTraceEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_BK_PICTURE, vipLimit.isBookPictureEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_BK_DIARY_IMG, vipLimit.isBookDiaryImageEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_BK_GIFT_IMG, vipLimit.isBookGiftImageEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_TRACK_IMG, vipLimit.isBookTrackImageEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_AUDIO_ENABLE, vipLimit.isBookAudioEnable());
+        editor.putBoolean(FIELD_VIP_LIMIT_VIDEO_ENABLE, vipLimit.isBookVideoEnable());
+        editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getBookAudioTotalSize());
+        editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getBookVideoTotalSize());
+        editor.putBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, vipLimit.isTopicImageEnable());
+        editor.apply();
+    }
+
+    public static VipLimit getVipLimit() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT);
+        VipLimit vipLimit = new VipLimit();
+        vipLimit.setExpireAt(sp.getLong(FIELD_VIP_LIMIT_EXPIRE_AT, 0));
+        vipLimit.setCoupleWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_CP_WALL_PAGER, 1));
+        vipLimit.setCoupleEntryTraceEnable(sp.getBoolean(FIELD_VIP_LIMIT_CP_ENTRY_TRACE, false));
+        vipLimit.setCoupleTopicTraceEnable(sp.getBoolean(FIELD_VIP_LIMIT_CP_TOPIC_TRACE, false));
+        vipLimit.setBookPictureEnable(sp.getBoolean(FIELD_VIP_LIMIT_BK_PICTURE, false));
+        vipLimit.setBookDiaryImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_BK_DIARY_IMG, false));
+        vipLimit.setBookGiftImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_BK_GIFT_IMG, false));
+        vipLimit.setBookTrackImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TRACK_IMG, false));
+        vipLimit.setBookAudioEnable(sp.getBoolean(FIELD_VIP_LIMIT_AUDIO_ENABLE, false));
+        vipLimit.setBookVideoEnable(sp.getBoolean(FIELD_VIP_LIMIT_VIDEO_ENABLE, false));
+        vipLimit.setBookAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
+        vipLimit.setBookVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
+        vipLimit.setTopicImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, false));
+        return vipLimit;
+    }
+
     public static void clearUser() {
         SPUtils.clear(SHARE_USER);
+    }
+
+    public static void clearCouple() {
+        SPUtils.clear(SHARE_COUPLE);
     }
 
     public static void clearOssInfo() {
         SPUtils.clear(SHARE_OSS_INFO);
     }
 
-    public static void clearCouple() {
-        SPUtils.clear(SHARE_COUPLE);
+    public static void clearVipLimit() {
+        SPUtils.clear(SHARE_VIP_LIMIT);
     }
 
     public static void setSettingsTheme(int themeId) {

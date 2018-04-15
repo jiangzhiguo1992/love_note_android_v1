@@ -27,10 +27,9 @@ import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
-import com.jiangzg.ita.domain.VipPower;
+import com.jiangzg.ita.domain.VipLimit;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 
@@ -102,24 +101,23 @@ public class ApiHelper {
         // user
         User user = data.getUser();
         SPHelper.setUser(user);
+        // vipLimit
+        VipLimit vipLimit = data.getVipLimit();
+        SPHelper.setVipLimit(vipLimit);
+        // ossInfo
+        OssInfo ossInfo = data.getOssInfo();
+        SPHelper.setOssInfo(ossInfo);
+        OssHelper.refreshOssClient();
+        OssReceiver.startAlarm();
+        // version
+        final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         // limit
         Limit limit = data.getLimit();
         SPHelper.setLimit(limit);
         // suggest
         SuggestInfo suggestInfo = data.getSuggestInfo();
         SPHelper.setSuggestInfo(suggestInfo);
-        // version
-        final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
-        // oss
-        OssInfo ossInfo = data.getOssInfo();
-        SPHelper.setOssInfo(ossInfo);
-        OssHelper.refreshOssClient();
-        OssReceiver.startAlarm();
-        // todo notice
-        int noticeNoRead = data.getNoticeNoRead();
-        // todo vip
-        VipPower vipPower = data.getVipPower();
-
+        // delay
         long endTime = DateUtils.getCurrentLong();
         long between = endTime - startTime;
         if (between >= totalWait) {
