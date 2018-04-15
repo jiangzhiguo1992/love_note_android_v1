@@ -428,14 +428,6 @@ public class OssHelper {
                 .autoDismiss(true)
                 .progress(false, 100)
                 .negativeText(R.string.cancel_download)
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        if (!dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
-                    }
-                })
                 .build();
         DialogHelper.setAnim(progress);
         DialogHelper.show(progress);

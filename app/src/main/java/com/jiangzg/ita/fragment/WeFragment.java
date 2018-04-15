@@ -3,7 +3,6 @@ package com.jiangzg.ita.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -77,8 +76,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
 
-    @BindView(R.id.cardPlace)
-    CardView cardPlace;
+    @BindView(R.id.llPlace)
+    LinearLayout llPlace;
     @BindView(R.id.tvPlaceLeft)
     GMarqueeText tvPlaceLeft;
     @BindView(R.id.tvDistance)
@@ -86,8 +85,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.tvPlaceRight)
     GMarqueeText tvPlaceRight;
 
-    @BindView(R.id.cardWeather)
-    CardView cardWeather;
+    @BindView(R.id.llWeather)
+    LinearLayout llWeather;
     @BindView(R.id.tvWeatherLeft)
     GMarqueeText tvWeatherLeft;
     @BindView(R.id.tvWeatherDiffer)
@@ -95,16 +94,16 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.tvWeatherRight)
     GMarqueeText tvWeatherRight;
 
-    @BindView(R.id.cardMenses)
-    CardView cardMenses;
+    @BindView(R.id.rlMenses)
+    RelativeLayout rlMenses;
     @BindView(R.id.tvMenses)
     TextView tvMenses;
-    @BindView(R.id.cardTrends)
-    CardView cardTrends;
+    @BindView(R.id.rlTrends)
+    RelativeLayout rlTrends;
     @BindView(R.id.tvTrends)
     TextView tvTrends;
-    @BindView(R.id.cardCoin)
-    CardView cardCoin;
+    @BindView(R.id.rlCoin)
+    RelativeLayout rlCoin;
     @BindView(R.id.tvCoin)
     TextView tvCoin;
 
@@ -153,7 +152,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
-            R.id.cardPlace, R.id.cardWeather, R.id.cardMenses, R.id.cardTrends, R.id.cardCoin})
+            R.id.llPlace, R.id.llWeather, R.id.rlMenses, R.id.rlTrends, R.id.rlCoin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
@@ -165,7 +164,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             case R.id.btnPair: // 配对
                 CouplePairActivity.goActivity(mActivity);
                 break;
-            case R.id.vfWallPaper: // 背景图
+            case R.id.vfWallPaper: // todo 背景图
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
@@ -179,39 +178,39 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.cardPlace: // todo 地理信息
+            case R.id.llPlace: // todo 地理信息
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     ToastUtils.show("正在开发中");
                 }
                 break;
-            case R.id.cardWeather: // todo 天气信息
+            case R.id.llWeather: // todo 天气信息
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     ToastUtils.show("正在开发中");
                 }
                 break;
-            case R.id.cardMenses: // 姨妈
+            case R.id.rlMenses: // todo 姨妈
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // todo
+                    ToastUtils.show("正在开发中");
                 }
                 break;
-            case R.id.cardTrends: // 动态
+            case R.id.rlTrends: // todo 动态
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // todo
+                    ToastUtils.show("正在开发中");
                 }
                 break;
-            case R.id.cardCoin: // 金币
+            case R.id.rlCoin: // todo 金币
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // todo
+                    ToastUtils.show("正在开发中");
                 }
                 break;
         }
@@ -255,13 +254,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (CheckHelper.isCoupleBreak(couple)) {
             // 已经分手，或者没有开始过
             rlPair.setVisibility(View.VISIBLE);
-            if (user.getSex() == User.SEX_BOY) { // todo 默认头像
-                ivAvatarLeft.setDataRes(R.mipmap.ic_boy_circle);
-                ivAvatarRight.setDataRes(R.mipmap.ic_girl_circle);
-            } else {
-                ivAvatarLeft.setDataRes(R.mipmap.ic_girl_circle);
-                ivAvatarRight.setDataRes(R.mipmap.ic_boy_circle);
-            }
         } else {
             // 已经配对
             if (CheckHelper.isCoupleBreaking(couple)) {
