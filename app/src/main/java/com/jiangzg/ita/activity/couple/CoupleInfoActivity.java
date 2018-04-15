@@ -2,8 +2,10 @@ package com.jiangzg.ita.activity.couple;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +24,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
@@ -58,10 +61,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @BindView(R.id.root)
     LinearLayout root;
-    @BindView(R.id.srl)
-    GSwipeRefreshLayout srl;
+    @BindView(R.id.abl)
+    AppBarLayout abl;
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.srl)
+    GSwipeRefreshLayout srl;
 
     @BindView(R.id.ivAvatarLeft)
     GImageView ivAvatarLeft;
@@ -110,6 +115,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        BarUtils.setStatusBarTrans(mActivity, true);
+        BarUtils.setNavigationBarTrans(mActivity, true);
         return R.layout.activity_couple_info;
     }
 
@@ -119,6 +126,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         // 我的数据和身份
         me = SPHelper.getUser();
         isCreator = me.isCoupleCreator();
+        // 沉浸式状态栏
+        abl.setBackgroundColor(Color.TRANSPARENT);
+        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) abl.getLayoutParams();
+        layoutParams.topMargin += statusBarHeight;
+        abl.setLayoutParams(layoutParams);
+        abl.setTargetElevation(0);
         // srl
         srl.setEnabled(false);
         // menu
@@ -412,13 +426,36 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 分手/复合
     private void breakAbout() {
-        long cid = SPHelper.getCouple().getId();
-        User body = ApiHelper.getCoupleUpdate2GoodBody(cid);
-        if (!CheckHelper.isCoupleBreaking()) {
+        Couple couple = SPHelper.getCouple();
+        if (!CheckHelper.isCoupleBreaking(couple)) {
             // 要分手
-            body = ApiHelper.getCoupleUpdate2BadBody(cid);
+            showBreakDialog(couple);
+        } else {
+            // 要复合
+            User body = ApiHelper.getCoupleUpdate2GoodBody(couple.getId());
+            coupleStatus(body);
         }
-        coupleStatus(body);
+    }
+
+    private void showBreakDialog(final Couple couple) {
+        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
+                .title(R.string.u_confirm_break)
+                .content(R.string.impulse_is_devil_3)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        User body = ApiHelper.getCoupleUpdate2BadBody(couple.getId());
+                        coupleStatus(body);
+                    }
+                })
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
     // 分手

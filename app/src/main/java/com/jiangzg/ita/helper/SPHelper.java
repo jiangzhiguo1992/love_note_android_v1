@@ -373,7 +373,7 @@ public class SPHelper {
 
     public static boolean getSettingsNoticeSocial() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return sp.getBoolean(FIELD_SET_NOTICE_SOCIAL, false);
+        return sp.getBoolean(FIELD_SET_NOTICE_SOCIAL, true);
     }
 
 }

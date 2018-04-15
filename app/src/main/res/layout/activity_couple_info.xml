@@ -6,6 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shape_used_cp_info_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.jiangzg.ita.activity.couple.CoupleInfoActivity">
@@ -43,8 +44,8 @@
 
                         <com.jiangzg.ita.view.GImageView
                             android:id="@+id/ivAvatarLeft"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="30dp"
@@ -52,11 +53,10 @@
 
                         <TextView
                             android:id="@+id/tvNameLeft"
-                            style="@style/FontBlackNormal"
+                            style="@style/FontWhiteNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
                             android:paddingBottom="7dp"
                             android:paddingTop="7dp"
@@ -64,11 +64,10 @@
 
                         <TextView
                             android:id="@+id/tvPhoneLeft"
-                            style="@style/FontBlackNormal"
+                            style="@style/FontWhiteNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
                             android:paddingBottom="7dp"
                             android:paddingTop="7dp"
@@ -79,7 +78,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingBottom="7dp"
@@ -94,7 +92,7 @@
 
                             <TextView
                                 android:id="@+id/tvBirthLeft"
-                                style="@style/FontBlackNormal"
+                                style="@style/FontWhiteNormal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
@@ -113,8 +111,8 @@
 
                         <com.jiangzg.ita.view.GImageView
                             android:id="@+id/ivAvatarRight"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="30dp"
@@ -122,11 +120,10 @@
 
                         <TextView
                             android:id="@+id/tvNameRight"
-                            style="@style/FontBlackNormal"
+                            style="@style/FontWhiteNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
                             android:paddingBottom="7dp"
                             android:paddingTop="7dp"
@@ -134,11 +131,10 @@
 
                         <TextView
                             android:id="@+id/tvPhoneRight"
-                            style="@style/FontBlackNormal"
+                            style="@style/FontWhiteNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
                             android:paddingBottom="7dp"
                             android:paddingTop="7dp"
@@ -149,7 +145,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="30dp"
-                            android:background="@drawable/shape_r3_stroke_grey"
                             android:gravity="center"
                             android:orientation="horizontal"
                             android:paddingBottom="7dp"
@@ -164,7 +159,7 @@
 
                             <TextView
                                 android:id="@+id/tvBirthRight"
-                                style="@style/FontBlackNormal"
+                                style="@style/FontWhiteNormal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
@@ -176,11 +171,16 @@
 
                 <TextView
                     android:id="@+id/tvBreakAbout"
-                    style="@style/FontGreySmall"
+                    style="@style/FontWhiteSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="40dp"
+                    android:background="@drawable/shape_circle_stroke_white"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="30dp"
+                    android:paddingTop="10dp"
                     tools:text="@string/break_relation"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
