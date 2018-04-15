@@ -129,6 +129,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 recyclerHelper.dataRefresh();
             }
         });
+        // todo refreshListItemDelete
+        // todo refreshListItemRefresh
+
         recyclerHelper.dataRefresh();
     }
 

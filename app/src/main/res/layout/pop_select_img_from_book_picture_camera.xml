@@ -11,7 +11,7 @@
         android:id="@+id/llBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/llAlbum"
+        android:layout_above="@id/llPicture"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:background="@drawable/shape_r5_top_solid_white"
@@ -37,12 +37,12 @@
 
     <View
         style="@style/LineHorizontal"
-        android:layout_above="@id/llAlbum"
+        android:layout_above="@id/llPicture"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"/>
 
     <LinearLayout
-        android:id="@+id/llAlbum"
+        android:id="@+id/llPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/llCamera"

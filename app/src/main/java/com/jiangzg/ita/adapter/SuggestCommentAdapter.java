@@ -110,7 +110,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     }
 
     public void delCommentApi(final int position) {
-        SuggestComment item = getItem(position);
+        final SuggestComment item = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
@@ -121,7 +121,6 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
                     SuggestDetailActivity activity = (SuggestDetailActivity) mActivity;
                     activity.refreshSuggest();
                 }
-                // todo refreshList
             }
 
             @Override

@@ -150,8 +150,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile, true);
-            ResHelper.deleteFileInBackground(cropFile, false);
+            ResHelper.deleteFileInBackground(cameraFile);
+            ResHelper.deleteFileInBackground(cropFile);
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
@@ -163,7 +163,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             goCropActivity(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
-            ResHelper.deleteFileInBackground(cameraFile, true);
+            ResHelper.deleteFileInBackground(cameraFile);
             ossUploadAvatar();
         }
     }
@@ -313,7 +313,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void showAvatarSelect() {
         cameraFile = ResHelper.createJPEGInCache();
-        PopupWindow popupWindow = PopHelper.createAlbumCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
 

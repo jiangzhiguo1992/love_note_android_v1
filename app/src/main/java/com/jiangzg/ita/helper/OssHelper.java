@@ -125,7 +125,7 @@ public class OssHelper {
     }
 
     // 意见
-    public static void uploadSuggest(Activity activity, File source, final OssUploadCallBack callBack) {
+    public static void uploadSuggest(Activity activity, File source, boolean delSource, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathSuggest = ossInfo.getPathSuggest();
@@ -144,7 +144,7 @@ public class OssHelper {
             return;
         }
         // 先压缩 再上传
-        compressJpeg(activity, pathSuggest, source, false, callBack);
+        compressJpeg(activity, pathSuggest, source, delSource, callBack);
     }
 
     // 头像
@@ -180,7 +180,7 @@ public class OssHelper {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             LogUtils.w(LOG_TAG, "uploadWallPaper: source == null");
             // 删除异常源文件
-            if (delSource) ResHelper.deleteFileInBackground(source, false);
+            if (delSource) ResHelper.deleteFileInBackground(source);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -219,7 +219,7 @@ public class OssHelper {
                             // 压缩文件有可能不存在
                             if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
                                 // 压缩文件 != 源文件，删除源文件
-                                if (delSource) ResHelper.deleteFileInBackground(source, false);
+                                if (delSource) ResHelper.deleteFileInBackground(source);
                             }
                             // upload
                             uploadObject(activity, objectKey, file, delSource, callBack);
@@ -265,7 +265,7 @@ public class OssHelper {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             LogUtils.w(LOG_TAG, "uploadObject: objectKey == null");
             // 删除上传的文件
-            if (delSource) ResHelper.deleteFileInBackground(source, false);
+            if (delSource) ResHelper.deleteFileInBackground(source);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -282,7 +282,7 @@ public class OssHelper {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             LogUtils.w(LOG_TAG, "uploadObject: source == null");
             // 上传上传的异常文件
-            if (delSource) ResHelper.deleteFileInBackground(source, false);
+            if (delSource) ResHelper.deleteFileInBackground(source);
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -332,7 +332,7 @@ public class OssHelper {
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 DialogHelper.dismiss(progress);
                 // 删除源文件
-                if (delSource) ResHelper.deleteFileInBackground(source, false);
+                if (delSource) ResHelper.deleteFileInBackground(source);
                 // 回调
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onSuccess: getObjectKey == " + uploadKey);
@@ -350,7 +350,7 @@ public class OssHelper {
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 DialogHelper.dismiss(progress);
                 // 删除源文件
-                if (delSource) ResHelper.deleteFileInBackground(source, false);
+                if (delSource) ResHelper.deleteFileInBackground(source);
                 // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onFailure: getObjectKey == " + uploadKey);
@@ -398,7 +398,7 @@ public class OssHelper {
         if (StringUtils.isEmpty(objectKey)) {
             LogUtils.w(LOG_TAG, "downloadObject: objectKey == null");
             // 删除下载文件
-            ResHelper.deleteFileInBackground(target, false);
+            ResHelper.deleteFileInBackground(target);
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             // 回调
             if (callBack != null) {
@@ -415,7 +415,7 @@ public class OssHelper {
         if (!FileUtils.isFileExists(target)) {
             LogUtils.w(LOG_TAG, "downloadObject: source == null");
             // 删除下载文件
-            ResHelper.deleteFileInBackground(target, false);
+            ResHelper.deleteFileInBackground(target);
             ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
             // 回调
             if (callBack != null) {
@@ -488,7 +488,7 @@ public class OssHelper {
                     // toast
                     ToastUtils.show(MyApp.get().getString(R.string.file_resolve_fail_tell_we_this_bug));
                     // 删除源文件
-                    ResHelper.deleteFileInBackground(target, false);
+                    ResHelper.deleteFileInBackground(target);
                     // 解析失败
                     if (callBack != null) {
                         MyApp.get().getHandler().post(new Runnable() {
@@ -505,7 +505,7 @@ public class OssHelper {
             public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
                 DialogHelper.dismiss(progress);
                 // 删除源文件
-                ResHelper.deleteFileInBackground(target, false);
+                ResHelper.deleteFileInBackground(target);
                 // 打印
                 final String downloadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "downloadObject: onFailure: getObjectKey == " + downloadKey);
@@ -540,7 +540,7 @@ public class OssHelper {
                 public void onCancel(DialogInterface dialog) {
                     LogUtils.d(LOG_TAG, "downloadObject: cancel");
                     // 删除下载文件
-                    ResHelper.deleteFileInBackground(target, false);
+                    ResHelper.deleteFileInBackground(target);
                     // 取消任务
                     taskCancel(task);
                 }

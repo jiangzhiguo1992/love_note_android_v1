@@ -376,4 +376,6 @@
     <string name="are_refresh">正在刷新</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_suggest">确定删除意见吗？</string>
+    <string name="app_start_err">app启动异常</string>
+    <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
 </resources>

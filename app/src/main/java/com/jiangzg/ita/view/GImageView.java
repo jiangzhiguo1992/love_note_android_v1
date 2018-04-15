@@ -199,7 +199,8 @@ public class GImageView extends SimpleDraweeView {
                 .setImageRequest(imageRequest)
                 .setAutoPlayAnimations(false);// gif自动播放
         if (uri != null && uri.toString().startsWith("http") && !isCircle) {
-            builder = builder.setTapToRetryEnabled(true); // 点击重新加载 todo 此状态要拦截点击事件
+            builder = builder.setTapToRetryEnabled(true); // 点击重新加载
+            // todo 此状态要在加载失败时拦截点击事件
             //.setControllerListener(createControllerListener()); // 加载成功/失败监听
         } else {
             builder = builder.setTapToRetryEnabled(false);

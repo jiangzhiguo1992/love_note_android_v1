@@ -2,12 +2,18 @@ package com.jiangzg.ita.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
@@ -19,6 +25,7 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 
 import butterknife.BindView;
@@ -94,7 +101,22 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
                 @Override
                 public void onFailure() {
-                    // todo 失败处理
+                    MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
+                            .title(R.string.app_start_err)
+                            .content(R.string.app_start_err_detail_please_ask_official_contact_method_qq)
+                            .cancelable(true)
+                            .canceledOnTouchOutside(false)
+                            .autoDismiss(true)
+                            .negativeText(R.string.i_know)
+                            .dismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialog) {
+                                    ActivityStack.finishAllActivity();
+                                }
+                            })
+                            .build();
+                    DialogHelper.setAnim(dialog);
+                    DialogHelper.show(dialog);
                 }
             });
         }

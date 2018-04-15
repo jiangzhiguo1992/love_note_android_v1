@@ -23,7 +23,7 @@ import java.io.File;
  */
 public class PopHelper {
 
-    public static PopupWindow createBookAlbumCamera(final Activity activity, final File cameraFile) {
+    public static PopupWindow createBookPictureCamera(final Activity activity, final File cameraFile) {
         View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_book_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);
         View.OnClickListener listener = new View.OnClickListener() {
@@ -38,7 +38,7 @@ public class PopHelper {
                         // todo
                         ToastUtils.show("小本本");
                         break;
-                    case R.id.llAlbum:
+                    case R.id.llPicture:
                         PopUtils.dismiss(window);
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
@@ -76,7 +76,7 @@ public class PopHelper {
         };
         RelativeLayout root = view.findViewById(R.id.root);
         LinearLayout llBook = view.findViewById(R.id.llBook);
-        LinearLayout llAlbum = view.findViewById(R.id.llAlbum);
+        LinearLayout llAlbum = view.findViewById(R.id.llPicture);
         LinearLayout llCamera = view.findViewById(R.id.llCamera);
         LinearLayout llCancel = view.findViewById(R.id.llCancel);
         root.setOnClickListener(listener);
@@ -87,8 +87,8 @@ public class PopHelper {
         return window;
     }
 
-    public static PopupWindow createAlbumCamera(final Activity activity, final File cameraFile) {
-        View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_book_picture_camera, null);
+    public static PopupWindow createPictureCamera(final Activity activity, final File cameraFile) {
+        View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -97,7 +97,7 @@ public class PopHelper {
                     case R.id.root:
                         PopUtils.dismiss(window);
                         break;
-                    case R.id.llAlbum:
+                    case R.id.llPicture:
                         PopUtils.dismiss(window);
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
@@ -128,13 +128,14 @@ public class PopHelper {
                         });
                         break;
                     case R.id.llCancel:
+                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
                         break;
                 }
             }
         };
         RelativeLayout root = view.findViewById(R.id.root);
-        LinearLayout llAlbum = view.findViewById(R.id.llAlbum);
+        LinearLayout llAlbum = view.findViewById(R.id.llPicture);
         LinearLayout llCamera = view.findViewById(R.id.llCamera);
         LinearLayout llCancel = view.findViewById(R.id.llCancel);
         root.setOnClickListener(listener);

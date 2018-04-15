@@ -21,6 +21,8 @@ public class ConsHelper {
     public static final int EVENT_USER_REFRESH = 1;
     public static final int EVENT_COUPLE_REFRESH = 2;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 3;
+    public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 4;
+    public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 5;
 
 
 }

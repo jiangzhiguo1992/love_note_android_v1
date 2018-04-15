@@ -36,20 +36,24 @@ import com.jiangzg.ita.adapter.SuggestCommentAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -347,7 +351,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                refreshSuggest();
+                // ListItemRefresh
+                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
+                RxBus.post(event);
             }
 
             @Override
@@ -404,9 +410,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                //RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
-                //RxBus.post(event);
-                // todo refreshList
+                // ListItemDelete
+                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest);
+                RxBus.post(event);
                 mActivity.finish();
             }
 
@@ -424,9 +430,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 suggest = data.getSuggest();
                 initFollowView();
                 initCommentView();
-                //RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
-                //RxBus.post(event);
-                // todo refreshList
+                // ListItemRefresh
+                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
+                RxBus.post(event);
             }
 
             @Override

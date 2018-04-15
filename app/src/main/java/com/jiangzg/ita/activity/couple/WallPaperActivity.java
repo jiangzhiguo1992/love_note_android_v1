@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -135,8 +134,8 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile, true);
-            ResHelper.deleteFileInBackground(cropFile, false);
+            ResHelper.deleteFileInBackground(cameraFile);
+            ResHelper.deleteFileInBackground(cropFile);
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
@@ -148,7 +147,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
             goCropActivity(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
-            ResHelper.deleteFileInBackground(cameraFile, true);
+            ResHelper.deleteFileInBackground(cameraFile);
             ossUploadWall();
         }
     }
@@ -171,7 +170,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     public void showImgSelect() {
         // todo 检查数量 vip?
         cameraFile = ResHelper.createJPEGInCache();
-        PopupWindow popupWindow = PopHelper.createAlbumCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
 

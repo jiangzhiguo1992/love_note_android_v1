@@ -11,14 +11,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.component.IntentSend;
-import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseActivity;
@@ -32,6 +33,8 @@ import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
+import com.jiangzg.ita.helper.PopHelper;
+import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
@@ -48,6 +51,8 @@ import retrofit2.Call;
 
 public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
+    @BindView(R.id.root)
+    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.tvType)
@@ -68,6 +73,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     Button btnPush;
 
     private int contentType = 0;
+    private File cameraFile;
     private File pictureFile;
     private List<SuggestInfo.SuggestContentType> suggestContentTypeList;
     private int titleLimit;
@@ -148,11 +154,26 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) {
+            ResHelper.deleteFileInBackground(cameraFile);
+            pictureFile = null;
+            return;
+        }
+        if (requestCode == ConsHelper.REQUEST_CAMERA) {
+            // 拍照
+            ivImage.setVisibility(View.VISIBLE);
+            ivImage.setDataFile(cameraFile);
+            tvImageToggle.setText(R.string.click_me_to_del_image);
+            // 解除相册文件引用
+            pictureFile = null;
+        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+            // 相册
             pictureFile = IntentResult.getPictureFile(data);
             ivImage.setVisibility(View.VISIBLE);
             ivImage.setDataFile(pictureFile);
             tvImageToggle.setText(R.string.click_me_to_del_image);
+            // 删除拍照文件
+            ResHelper.deleteFileInBackground(cameraFile);
         }
     }
 
@@ -172,33 +193,27 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void toggleImage() {
-        if (FileUtils.isFileEmpty(pictureFile)) {
+        if (FileUtils.isFileEmpty(cameraFile) && FileUtils.isFileEmpty(pictureFile)) {
+            cameraFile = null;
             pictureFile = null;
-            requestPermission();
+            showImgSelect();
         } else {
             cancelImage();
         }
     }
 
-    // 请求文件(相册)获取权限
-    private void requestPermission() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_PICTURE, PermUtils.picture, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentSend.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-            }
-        });
+    private void showImgSelect() {
+        cameraFile = ResHelper.createJPEGInCache();
+        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
+        PopUtils.show(popupWindow, root);
     }
 
     // 取消图片
     private void cancelImage() {
         tvImageToggle.setText(R.string.click_me_add_image);
         ivImage.setVisibility(View.GONE);
+        // 释放图片资源
+        ResHelper.deleteFileInBackground(cameraFile);
         pictureFile = null;
     }
 
@@ -278,15 +293,17 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
-        if (pictureFile != null) {
-            pushImage();
+        if (!FileUtils.isFileEmpty(cameraFile)) {
+            pushImage(cameraFile, true);
+        } else if (!FileUtils.isFileEmpty(pictureFile)) {
+            pushImage(pictureFile, false);
         } else {
             pushSuggest("");
         }
     }
 
-    private void pushImage() {
-        OssHelper.uploadSuggest(mActivity, pictureFile, new OssHelper.OssUploadCallBack() {
+    private void pushImage(File imgFile, boolean del) {
+        OssHelper.uploadSuggest(mActivity, imgFile, del, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(String ossPath) {
                 pushSuggest(ossPath);
