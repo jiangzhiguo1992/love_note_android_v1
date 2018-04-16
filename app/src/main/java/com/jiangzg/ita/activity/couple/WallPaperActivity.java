@@ -15,7 +15,6 @@ import android.widget.PopupWindow;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -40,7 +39,6 @@ import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.ViewHelper;
-import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.io.File;
@@ -91,14 +89,6 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                     @Override
                     public void onRefresh() {
                         refreshData();
-                    }
-                })
-                .listenerClick(new OnItemClickListener() {
-                    @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        WallPaperAdapter wallPaperAdapter = (WallPaperAdapter) adapter;
-                        GImageView ivWallPaper = view.findViewById(R.id.ivWallPaper);
-                        wallPaperAdapter.goImgScreen(position, ivWallPaper);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {

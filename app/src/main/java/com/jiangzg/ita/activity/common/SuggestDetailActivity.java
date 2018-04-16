@@ -217,14 +217,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String title = suggest.getTitle();
         String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreateAt());
         String createShow = String.format(getString(R.string.create_at_colon_holder), create);
-        String contentImgUrl = suggest.getContentImg();
+        final String contentImgUrl = suggest.getContentImg();
         String contentText = suggest.getContentText();
         // view
         View head = recyclerHelper.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);
-        GImageView ivContent = head.findViewById(R.id.ivContent);
+        final GImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
 
         tvTitle.setText(title);
@@ -232,9 +232,16 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         tvContent.setText(contentText);
         if (StringUtils.isEmpty(contentImgUrl)) {
             ivContent.setVisibility(View.GONE);
+            ivContent.setSuccessClickListener(null);
         } else {
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setDataOss(contentImgUrl);
+            ivContent.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+                @Override
+                public void onClick(GImageView iv) {
+                    ImgScreenActivity.goActivity(mActivity, contentImgUrl, ivContent);
+                }
+            });
         }
         wvTag.removeAllChild();
         for (String tag : tagList) {

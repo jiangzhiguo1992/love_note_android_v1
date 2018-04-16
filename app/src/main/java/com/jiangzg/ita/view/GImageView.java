@@ -48,7 +48,6 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.helper.ConvertHelper;
@@ -113,6 +112,7 @@ public class GImageView extends SimpleDraweeView {
 
     private int mWidth, mHeight;
     private boolean isNetCircle, isNetFull, isNetNormal;
+    private onSuccessClickListener mSuccessClickListener;
 
     public GImageView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
@@ -216,11 +216,13 @@ public class GImageView extends SimpleDraweeView {
                             "\n\t quality = " + qualityInfo.getQuality() +
                             "\n\t goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
                             "\n\t fullQuality = " + qualityInfo.isOfFullQuality());
+                    // 点击事件
                     GImageView.this.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // todo 此状态要在加载成功时拦截点击事件，进入大图
-                            ToastUtils.show("点击进入大图");
+                            if (mSuccessClickListener != null) {
+                                mSuccessClickListener.onClick(GImageView.this);
+                            }
                         }
                     });
                 }
@@ -259,6 +261,14 @@ public class GImageView extends SimpleDraweeView {
             }
         }
         return requestBuilder.build();
+    }
+
+    public interface onSuccessClickListener {
+        void onClick(GImageView iv);
+    }
+
+    public void setSuccessClickListener(onSuccessClickListener listener) {
+        mSuccessClickListener = listener;
     }
 
     // 设置图片类型

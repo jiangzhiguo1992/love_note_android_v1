@@ -1,14 +1,11 @@
 package com.jiangzg.ita.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.view.GImageView;
@@ -24,23 +21,22 @@ import java.util.Timer;
 public class ImgScreenPagerAdapter extends PagerAdapter {
 
     private Context mContext;
-    private List<Uri> mData;
-    private Timer timer;
+    private List<String> mData;
 
     public ImgScreenPagerAdapter(Context context) {
         mContext = context;
         mData = new ArrayList<>();
     }
 
-    public void setData(List<Uri> data) {
+    public void setData(List<String> ossPath) {
         mData.clear();
-        if (data != null) {
-            mData.addAll(data);
+        if (ossPath != null) {
+            mData.addAll(ossPath);
         }
         notifyDataSetChanged();
     }
 
-    public List<Uri> getData() {
+    public List<String> getData() {
         return mData;
     }
 
@@ -64,11 +60,11 @@ public class ImgScreenPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        View root = LayoutInflater.from(mContext).inflate(R.layout.pager_item_img_screen, container,false);
+        View root = LayoutInflater.from(mContext).inflate(R.layout.pager_item_img_screen, container, false);
         GImageView ivScreen = root.findViewById(R.id.ivScreen);
         // setImage
-        Uri data = mData.get(position);
-        //ivScreen.setDataUri(data);
+        String ossPath = mData.get(position);
+        ivScreen.setDataOss(ossPath);
         // addView
         container.addView(root);
         root.requestLayout();

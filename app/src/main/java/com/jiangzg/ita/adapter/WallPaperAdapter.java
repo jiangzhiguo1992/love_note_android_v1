@@ -1,6 +1,5 @@
 package com.jiangzg.ita.adapter;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -9,12 +8,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.common.ImgScreenActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
-import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.view.GImageView;
@@ -51,18 +50,22 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
+    protected void convert(final BaseViewHolder helper, String item) {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(ratio);
         ivWallPaper.setWidthAndHeight(imageWidth, imageHeight);
         ivWallPaper.setDataOss(item);
+        ivWallPaper.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+            @Override
+            public void onClick(GImageView iv) {
+                goImgScreen(helper.getLayoutPosition(), iv);
+            }
+        });
     }
 
-    public void goImgScreen(int position, GImageView view) {
+    private void goImgScreen(int position, GImageView view) {
         List<String> data = getData();
-        ArrayList<Uri> uriList = ConvertHelper.convertListString2uri(data);
-        // todo dialog形式
-        //ImgScreenActivity.goActivity(mActivity, uriList, position, view);
+        ImgScreenActivity.goActivity(mActivity, (ArrayList<String>) data, position, view);
     }
 
     public void showDeleteDialog(final int position) {
