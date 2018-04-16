@@ -45,7 +45,6 @@ import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -228,8 +227,8 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     }
 
     private void viewRefresh(Result.Data data) {
-        recyclerHelper.setAdapter();
         recyclerHelper.viewEmptyShow(data.getShow());
+        recyclerHelper.setAdapter();
         WallPaper wallPaper = data.getWallPaper();
         if (wallPaper == null) {
             srl.setRefreshing(false);

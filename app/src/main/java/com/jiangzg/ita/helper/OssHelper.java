@@ -193,11 +193,10 @@ public class OssHelper {
             return;
         }
         // dialog
-        final MaterialDialog progress = new MaterialDialog.Builder(activity)
-                .content(R.string.image_is_compress)
+        final MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
-                .autoDismiss(true)
+                .content(R.string.image_is_compress)
                 .progress(true, 0)
                 .progressIndeterminateStyle(false)
                 .build();
@@ -295,16 +294,14 @@ public class OssHelper {
             return null;
         }
         // dialog
-        final MaterialDialog progress = new MaterialDialog.Builder(activity)
-                .content(R.string.are_upload)
+        final MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
-                .autoDismiss(true)
+                .content(R.string.are_upload)
                 .progress(false, 100)
                 .negativeText(R.string.cancel_upload)
                 .build();
-        DialogHelper.setAnim(progress);
-        DialogHelper.show(progress);
+        DialogHelper.showWithAnim(progress);
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
@@ -421,16 +418,14 @@ public class OssHelper {
             return null;
         }
         // dialog
-        final MaterialDialog progress = new MaterialDialog.Builder(activity)
-                .content(R.string.are_download)
+        final MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
-                .autoDismiss(true)
+                .content(R.string.are_download)
                 .progress(false, 100)
                 .negativeText(R.string.cancel_download)
                 .build();
-        DialogHelper.setAnim(progress);
-        DialogHelper.show(progress);
+        DialogHelper.showWithAnim(progress);
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
         // 异步下载时可以设置进度回调

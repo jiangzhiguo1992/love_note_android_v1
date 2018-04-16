@@ -20,7 +20,6 @@ import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.view.GImageView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,7 +66,9 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     public void showDeleteDialog(final int position) {
-        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
                 .title(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -78,8 +79,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 })
                 .negativeText(R.string.cancel)
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void delImgApi(final int position) {

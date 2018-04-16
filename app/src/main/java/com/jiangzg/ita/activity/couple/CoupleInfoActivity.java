@@ -358,7 +358,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void showNameInput() {
         String show = isCreator ? tvNameRight.getText().toString().trim() : tvNameLeft.getText().toString().trim();
         String hint = getString(R.string.please_input_nickname);
-        MaterialDialog dialogName = new MaterialDialog.Builder(mActivity)
+        MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.modify_ta_name)
                 .input(hint, show, false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
@@ -379,8 +382,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialogName);
-        DialogHelper.show(dialogName);
+        DialogHelper.showWithAnim(dialogName);
     }
 
     // api 修改couple
@@ -434,12 +436,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void showBreakDialog(final Couple couple) {
-        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
-                .title(R.string.u_confirm_break)
-                .content(R.string.impulse_is_devil_3)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .autoDismiss(true)
+                .title(R.string.u_confirm_break)
+                .content(R.string.impulse_is_devil_3)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -450,8 +451,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     // 分手

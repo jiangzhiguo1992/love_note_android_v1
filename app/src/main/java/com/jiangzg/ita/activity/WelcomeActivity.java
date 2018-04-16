@@ -5,15 +5,12 @@ import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityStack;
-import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
@@ -22,9 +19,9 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
-import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 
@@ -101,12 +98,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
                 @Override
                 public void onFailure(String errMsg) {
-                    MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
-                            .title(errMsg)
-                            .content(R.string.app_start_err_detail_please_ask_official_contact_method_qq)
+                    MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                             .cancelable(true)
                             .canceledOnTouchOutside(false)
-                            .autoDismiss(true)
+                            .title(errMsg)
+                            .content(R.string.app_start_err_detail_please_ask_official_contact_method_qq)
                             .negativeText(R.string.i_know)
                             .dismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
@@ -115,8 +111,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                                 }
                             })
                             .build();
-                    DialogHelper.setAnim(dialog);
-                    DialogHelper.show(dialog);
+                    DialogHelper.showWithAnim(dialog);
                 }
             });
         }

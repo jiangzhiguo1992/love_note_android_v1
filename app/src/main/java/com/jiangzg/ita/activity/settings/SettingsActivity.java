@@ -193,12 +193,11 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void existDialogShow() {
-        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
-                .title(R.string.exist_account)
-                .content(R.string.confirm_exist_account)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .autoDismiss(true)
+                .title(R.string.exist_account)
+                .content(R.string.confirm_exist_account)
                 .positiveText(R.string.confirm)
                 .negativeText(R.string.cancel)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -212,8 +211,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
 }

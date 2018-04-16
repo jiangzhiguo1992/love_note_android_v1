@@ -186,12 +186,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         String birthShow = year + getString(R.string.year_space) + month + getString(R.string.month_space) + day + getString(R.string.dayR);
         String message = getString(R.string.sex_colon) + sexShow +
                 "\n" + getString(R.string.birthday_colon) + birthShow;
-        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
-                .title(title)
-                .content(message)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .autoDismiss(true)
+                .title(title)
+                .content(message)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -201,8 +200,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void pushUserInfo(int sex, long birth) {

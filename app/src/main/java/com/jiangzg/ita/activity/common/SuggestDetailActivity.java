@@ -384,11 +384,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void showDelDialog() {
-        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_del_suggest)
                 .cancelable(true)
                 .canceledOnTouchOutside(false)
-                .autoDismiss(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -398,8 +397,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     // 删除意见

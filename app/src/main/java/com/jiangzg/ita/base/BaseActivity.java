@@ -89,11 +89,10 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     public MaterialDialog getLoading(boolean cancelable) {
         if (mLoading == null) {
-            MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
-                    .content(R.string.please_wait)
+            MaterialDialog.Builder builder = DialogHelper.getBuild(mActivity)
                     .cancelable(cancelable)
                     .canceledOnTouchOutside(false)
-                    .autoDismiss(true)
+                    .content(R.string.please_wait)
                     .progress(true, 0)
                     .progressIndeterminateStyle(false);
             mLoading = builder.build();

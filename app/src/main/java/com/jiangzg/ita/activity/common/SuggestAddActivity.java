@@ -256,7 +256,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             String show = contentType.getShow();
             items[index] = show;
         }
-        MaterialDialog dialog = new MaterialDialog.Builder(this)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
                 .title(R.string.please_choose_classify)
                 .items(items)
                 .itemsCallbackSingleChoice(contentType - 1, new MaterialDialog.ListCallbackSingleChoice() {
@@ -272,8 +274,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 .positiveText(R.string.i_choose_ok)
                 .negativeText(R.string.i_think_again)
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     // 检查格式

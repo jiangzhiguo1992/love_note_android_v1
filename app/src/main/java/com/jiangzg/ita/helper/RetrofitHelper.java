@@ -222,11 +222,10 @@ public class RetrofitHelper {
             case 410: // 用户被禁用,应该退出应用
             case 503: // 服务器维护
                 if (top == null) return;
-                MaterialDialog dialogExit = new MaterialDialog.Builder(top)
-                        .content(message)
+                MaterialDialog dialogExit = DialogHelper.getBuild(top)
                         .cancelable(false)
                         .canceledOnTouchOutside(false)
-                        .autoDismiss(true)
+                        .content(message)
                         .positiveText(R.string.i_know)
                         .dismissListener(new DialogInterface.OnDismissListener() {
                             @Override
@@ -235,17 +234,16 @@ public class RetrofitHelper {
                             }
                         })
                         .build();
-                DialogHelper.setAnim(dialogExit);
-                DialogHelper.show(dialogExit);
+                DialogHelper.showWithAnim(dialogExit);
                 break;
             case 408: // 请求超时
                 if (top == null) return;
-                MaterialDialog dialogTimeOut = new MaterialDialog.Builder(top)
-                        .content(R.string.http_error_time_maybe_setting_wrong)
+                MaterialDialog dialogTimeOut = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(true)
-                        .autoDismiss(true)
+                        .content(R.string.http_error_time_maybe_setting_wrong)
                         .positiveText(R.string.go_to_setting)
+                        .negativeText(R.string.i_know)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
@@ -253,10 +251,8 @@ public class RetrofitHelper {
                                 ActivityTrans.start(top, netSettings);
                             }
                         })
-                        .negativeText(R.string.i_know)
                         .build();
-                DialogHelper.setAnim(dialogTimeOut);
-                DialogHelper.show(dialogTimeOut);
+                DialogHelper.showWithAnim(dialogTimeOut);
                 break;
             case 409: // 用户版本过低,提示用户升级
                 if (data == null) return;
@@ -268,11 +264,10 @@ public class RetrofitHelper {
                 break;
             case 500: // 服务器异常
                 if (top == null) return;
-                MaterialDialog dialogService = new MaterialDialog.Builder(top)
-                        .content(R.string.server_error)
-                        .cancelable(false)
+                MaterialDialog dialogService = DialogHelper.getBuild(top)
+                        .cancelable(true)
                         .canceledOnTouchOutside(false)
-                        .autoDismiss(true)
+                        .content(R.string.server_error)
                         .positiveText(R.string.i_know)
                         .dismissListener(new DialogInterface.OnDismissListener() {
                             @Override
@@ -281,16 +276,14 @@ public class RetrofitHelper {
                             }
                         })
                         .build();
-                DialogHelper.setAnim(dialogService);
-                DialogHelper.show(dialogService);
+                DialogHelper.showWithAnim(dialogService);
                 break;
             default: // 404,405...其他错误
                 if (top == null) return;
-                MaterialDialog dialogSuggest = new MaterialDialog.Builder(top)
-                        .content(message)
+                MaterialDialog dialogSuggest = DialogHelper.getBuild(top)
                         .cancelable(true)
-                        .canceledOnTouchOutside(true)
-                        .autoDismiss(true)
+                        .canceledOnTouchOutside(false)
+                        .content(message)
                         .positiveText(R.string.i_want_feedback)
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
@@ -300,8 +293,7 @@ public class RetrofitHelper {
                         })
                         .negativeText(R.string.i_know)
                         .build();
-                DialogHelper.setAnim(dialogSuggest);
-                DialogHelper.show(dialogSuggest);
+                DialogHelper.showWithAnim(dialogSuggest);
                 break;
         }
         // 回调
@@ -321,15 +313,13 @@ public class RetrofitHelper {
             ToastUtils.show(message);
         } else if (code == Result.ResultCodeDialog) { // dialog
             if (top == null) return;
-            MaterialDialog dialog = new MaterialDialog.Builder(top)
-                    .content(message)
+            MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)
-                    .canceledOnTouchOutside(true)
-                    .autoDismiss(true)
+                    .canceledOnTouchOutside(false)
+                    .content(message)
                     .positiveText(R.string.i_know)
                     .build();
-            DialogHelper.setAnim(dialog);
-            DialogHelper.show(dialog);
+            DialogHelper.showWithAnim(dialog);
         } else if (code == Result.ResultCodeNoUserInfo) { // userInfo
             ToastUtils.show(message);
             if (top == null) return;
@@ -340,11 +330,10 @@ public class RetrofitHelper {
             CouplePairActivity.goActivity(top);
         } else if (code == Result.ResultCodeNoVIP) { // vip
             if (top == null) return;
-            MaterialDialog dialog = new MaterialDialog.Builder(top)
-                    .content(message)
+            MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)
                     .canceledOnTouchOutside(false)
-                    .autoDismiss(true)
+                    .content(message)
                     .positiveText(R.string.go_to_know)
                     .negativeText(R.string.i_know)
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -355,8 +344,7 @@ public class RetrofitHelper {
                         }
                     })
                     .build();
-            DialogHelper.setAnim(dialog);
-            DialogHelper.show(dialog);
+            DialogHelper.showWithAnim(dialog);
         }
     }
 

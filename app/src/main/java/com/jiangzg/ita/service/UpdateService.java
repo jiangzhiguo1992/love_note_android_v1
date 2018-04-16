@@ -76,12 +76,11 @@ public class UpdateService extends Service {
                     .append(updateLog).append("\n\n");
         }
         String content = builder.toString();
-        MaterialDialog dialog = new MaterialDialog.Builder(top)
-                .title(R.string.have_new_version)
-                .content(content)
+        MaterialDialog dialog = DialogHelper.getBuild(top)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
-                .autoDismiss(true)
+                .title(R.string.have_new_version)
+                .content(content)
                 .positiveText(R.string.update_now)
                 .negativeText(R.string.update_delay)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -91,8 +90,7 @@ public class UpdateService extends Service {
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     public static void goService(Context from, Version version) {
@@ -149,11 +147,10 @@ public class UpdateService extends Service {
                     @SuppressLint("InlinedApi")
                     @Override
                     public void onPermissionDenied(int requestCode, String[] permissions) {
-                        MaterialDialog dialog = new MaterialDialog.Builder(top)
-                                .content(R.string.need_check_some_perm_can_install)
+                        MaterialDialog dialog = DialogHelper.getBuild(top)
                                 .cancelable(false)
                                 .canceledOnTouchOutside(false)
-                                .autoDismiss(true)
+                                .content(R.string.need_check_some_perm_can_install)
                                 .positiveText(R.string.go_now)
                                 .negativeText(R.string.say_after)
                                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -170,8 +167,7 @@ public class UpdateService extends Service {
                                     }
                                 })
                                 .build();
-                        DialogHelper.setAnim(dialog);
-                        DialogHelper.show(dialog);
+                        DialogHelper.showWithAnim(dialog);
                     }
                 });
             }

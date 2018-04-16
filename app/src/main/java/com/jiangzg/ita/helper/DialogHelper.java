@@ -3,12 +3,16 @@ package com.jiangzg.ita.helper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.support.annotation.StyleRes;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 
@@ -17,6 +21,39 @@ import com.jiangzg.ita.R;
  * 对话框
  */
 public class DialogHelper {
+
+    public static MaterialDialog.Builder getBuild(Context context) {
+        return new MaterialDialog.Builder(context)
+                .autoDismiss(true)
+                .theme(Theme.LIGHT)
+                // color
+                .titleColorRes(R.color.font_black)
+                .contentColorRes(R.color.font_black)
+                .positiveColorAttr(R.attr.colorPrimaryDark)
+                .negativeColorAttr(R.attr.colorPrimary)
+                .neutralColorAttr(R.attr.colorAccent)
+                //.linkColorAttr(R.attr.colorAccent) // 默认的就好
+                //.dividerColorAttr(R.attr.colorAccent) // 默认的就好
+                //.backgroundColorRes(R.color.material_blue_grey_800) // 默认的就好
+                //.widgetColorRes(R.color.material_red_500) // 默认的就好
+                //.buttonRippleColorRes(R.color.material_red_500) // 默认的就好
+                // selector 有ripple就不要这个了
+                //.btnSelector(R.drawable.custom_btn_selector)
+                //.btnSelector(R.drawable.custom_btn_selector_primary, DialogAction.POSITIVE)
+                //.btnSelectorStacked(R.drawable.custom_btn_selector_stacked)
+                //.listSelector(R.drawable.custom_list_and_stackedbtn_selector)
+                // Gravity
+                .titleGravity(GravityEnum.START)
+                .contentGravity(GravityEnum.START)
+                .btnStackedGravity(GravityEnum.END)
+                .itemsGravity(GravityEnum.START)
+                .buttonsGravity(GravityEnum.START);
+    }
+
+    public static void showWithAnim(Dialog dialog) {
+        setAnim(dialog);
+        show(dialog);
+    }
 
     public static void show(Dialog dialog) {
         if (dialog == null || dialog.isShowing()) return;

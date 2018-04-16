@@ -91,11 +91,10 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         if (!item.isMine()) {
             return;
         }
-        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
-                .content(R.string.confirm_del_comment)
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .autoDismiss(true)
+                .content(R.string.confirm_del_comment)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -105,8 +104,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
                     }
                 })
                 .build();
-        DialogHelper.setAnim(dialog);
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     public void delCommentApi(final int position) {
