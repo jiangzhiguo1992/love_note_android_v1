@@ -65,6 +65,19 @@ public class ScreenUtils {
     }
 
     /**
+     * 获取屏幕参数集，不带虚拟键盘
+     */
+    public static DisplayMetrics getRealDisplay(Activity activity) {
+        if (activity == null) {
+            LogUtils.w(LOG_TAG, "getRealDisplay: activity == null");
+            return null;
+        }
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getRealMetrics(displayMetrics);
+        return displayMetrics;
+    }
+
+    /**
      * 获取屏幕的宽度px
      */
     public static int getScreenWidth(Context context) {
@@ -78,6 +91,24 @@ public class ScreenUtils {
      */
     public static int getScreenHeight(Context context) {
         DisplayMetrics display = getDisplay(context);
+        if (display == null) return 0;
+        return display.heightPixels;
+    }
+
+    /**
+     * 获取屏幕的高度px
+     */
+    public static int getScreenRealWidth(Activity activity) {
+        DisplayMetrics display = getRealDisplay(activity);
+        if (display == null) return 0;
+        return display.widthPixels;
+    }
+
+    /**
+     * 获取屏幕的高度px
+     */
+    public static int getScreenRealHeight(Activity activity) {
+        DisplayMetrics display = getRealDisplay(activity);
         if (display == null) return 0;
         return display.heightPixels;
     }

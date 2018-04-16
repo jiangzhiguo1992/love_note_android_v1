@@ -37,8 +37,8 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     public WallPaperAdapter(BaseActivity activity) {
         super(R.layout.list_item_wall_paper);
         mActivity = activity;
-        float screenWidth = ScreenUtils.getScreenWidth(activity);
-        float screenHeight = ScreenUtils.getScreenHeight(activity);
+        float screenWidth = ScreenUtils.getScreenRealWidth(activity);
+        float screenHeight = ScreenUtils.getScreenRealHeight(activity);
         ratio = screenWidth / screenHeight;
         imageWidth = (int) (screenWidth / 3);
         imageHeight = (int) (imageWidth / ratio);

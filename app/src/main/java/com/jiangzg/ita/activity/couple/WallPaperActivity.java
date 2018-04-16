@@ -172,8 +172,8 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     private void goCropActivity(File source) {
         if (source != null) {
             cropFile = ResHelper.createJPEGInCache();
-            int screenWidth = ScreenUtils.getScreenWidth(mActivity);
-            int screenHeight = ScreenUtils.getScreenHeight(mActivity);
+            int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
+            int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
             Intent intent = IntentSend.getCrop(source, cropFile, screenWidth, screenHeight);
             ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
         } else {
