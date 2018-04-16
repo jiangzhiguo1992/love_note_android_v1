@@ -84,7 +84,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
-                        getData();
+                        refreshData();
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -152,7 +152,8 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
         }
     }
 
-    private void getData() {
+    private void refreshData() {
+
         // todo api
         MyApp.get().getHandler().postDelayed(new Runnable() {
             @Override
@@ -168,7 +169,6 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     }
 
     public void showImgSelect() {
-        // todo 检查数量 vip? 还是交给后台去做？
         cameraFile = ResHelper.createJPEGInCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);

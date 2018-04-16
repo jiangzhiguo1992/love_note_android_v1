@@ -262,16 +262,28 @@ public class RecyclerHelper {
         });
     }
 
-    public void data(List list, boolean more) {
+    public void dataOk(List list, boolean more) {
         if (list == null) return;
-        data(list, list.size(), more);
+        dataOk(list, Integer.MAX_VALUE, more);
     }
 
-    public void data(List list, long totalCount, boolean more) {
+    public void dataOk(List list, long totalCount, boolean more) {
         if (more) {
             dataAdd(list, totalCount);
         } else {
             dataNew(list, totalCount);
+        }
+    }
+
+    public void dataFail(boolean more, String errMsg) {
+        if (null != mRefresh) { // 停止刷新
+            mRefresh.setRefreshing(false);
+        }
+        if (mAdapter == null) return;
+        if (more) {
+            mAdapter.loadMoreFail();
+        } else {
+            viewEmptyShow(errMsg);
         }
     }
 
@@ -284,6 +296,9 @@ public class RecyclerHelper {
     }
 
     public void dataNew(List list, long totalCount) {
+        if (null != mRefresh) { // 停止刷新
+            mRefresh.setRefreshing(false);
+        }
         if (mAdapter == null) return;
         if (null == list || list.size() <= 0) {
             mAdapter.setNewData(new ArrayList());
@@ -294,9 +309,6 @@ public class RecyclerHelper {
             if (mAdapter.getData().size() >= totalCount) {
                 mAdapter.loadMoreEnd(false); // 显示没有更多
             }
-        }
-        if (null != mRefresh) { // 停止刷新
-            mRefresh.setRefreshing(false);
         }
         if (mRecycler == null) return; // 提前加载空adapter会有loadMore的标示
         if (mRecycler.getAdapter() == null) {
@@ -313,6 +325,9 @@ public class RecyclerHelper {
     }
 
     public void dataAdd(List list, long totalCount) {
+        if (null != mRefresh) { // 停止刷新
+            mRefresh.setRefreshing(false);
+        }
         if (mAdapter == null) return;
         mAdapter.loadMoreComplete();
         if (null == list || list.size() <= 0) {
@@ -324,17 +339,10 @@ public class RecyclerHelper {
                 mAdapter.loadMoreEnd(false); // 显示没有更多
             }
         }
-        if (null != mRefresh) { // 停止刷新
-            mRefresh.setRefreshing(false);
-        }
         if (mRecycler == null) return; // 提前加载空adapter会有loadMore的标示
         if (mRecycler.getAdapter() == null) {
             mRecycler.setAdapter(mAdapter);
         }
-    }
-
-    public void dataAddFail() {
-        mAdapter.loadMoreFail();
     }
 
     /**

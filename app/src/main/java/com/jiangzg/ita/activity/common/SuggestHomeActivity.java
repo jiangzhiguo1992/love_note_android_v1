@@ -327,14 +327,13 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 long total = data.getTotal();
                 List<Suggest> suggestList = data.getSuggestList();
-                recyclerHelper.data(suggestList, total, more);
+                recyclerHelper.dataOk(suggestList, total, more);
                 recyclerHelper.viewEmptyShow(data.getShow());
             }
 
             @Override
             public void onFailure(String errMsg) {
-                srl.setRefreshing(false);
-                recyclerHelper.viewEmptyShow(errMsg);
+                recyclerHelper.dataFail(more, errMsg);
             }
         });
     }

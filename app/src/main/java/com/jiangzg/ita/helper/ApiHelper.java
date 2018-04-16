@@ -28,8 +28,10 @@ import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.domain.VipLimit;
+import com.jiangzg.ita.domain.WallPaper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -264,6 +266,12 @@ public class ApiHelper {
         suggestComment.setSuggestId(suggestId);
         suggestComment.setContentText(content);
         return suggestComment;
+    }
+
+    public static WallPaper getWallPaperAddBody(List<String> imgList) {
+        WallPaper wallPaper = new WallPaper();
+        wallPaper.setImageList(imgList);
+        return wallPaper;
     }
 
 }

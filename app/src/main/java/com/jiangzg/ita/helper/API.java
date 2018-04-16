@@ -7,6 +7,7 @@ import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
 import com.jiangzg.ita.domain.User;
+import com.jiangzg.ita.domain.WallPaper;
 
 import java.util.List;
 import java.util.Map;
@@ -90,19 +91,6 @@ public interface API {
     @GET("oss")
     Call<Result> ossGet();
 
-    // 配对邀请
-    @POST("couple")
-    Call<Result> coupleInvitee(@Body User user); // 主要用到user里phone
-
-    // 配对更新
-    @PUT("couple")
-    Call<Result> coupleUpdate(@Body User user); // 主要用到user里的type和couple
-
-    // 配对查询
-    @GET("couple")
-    Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
-                           @Query("cid") long cid, @Query("uid") long uid);
-
     // 意见发布
     @POST("suggest")
     Call<Result> suggestAdd(@Body Suggest suggest);
@@ -142,6 +130,27 @@ public interface API {
     // 意见关注
     @POST("suggest/follow")
     Call<Result> suggestFollowToggle(@Query("sid") long suggestId);
+
+    // 配对邀请
+    @POST("couple")
+    Call<Result> coupleInvitee(@Body User user); // 主要用到user里phone
+
+    // 配对更新
+    @PUT("couple")
+    Call<Result> coupleUpdate(@Body User user); // 主要用到user里的type和couple
+
+    // 配对查询
+    @GET("couple")
+    Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
+                           @Query("cid") long cid, @Query("uid") long uid);
+
+    // 添加墙纸
+    @POST("couple/wallPaper")
+    Call<Result> coupleWallPaperAdd();
+
+    // 获取墙纸
+    @GET("couple/wallPaper")
+    Call<Result> coupleWallPaperGet(@Body WallPaper wallPaper);
 
 
 }

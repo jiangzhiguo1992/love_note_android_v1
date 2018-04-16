@@ -273,14 +273,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 long total = data.getTotal();
                 List<SuggestComment> suggestCommentList = data.getSuggestCommentList();
-                recyclerHelper.data(suggestCommentList, total, more);
+                recyclerHelper.dataOk(suggestCommentList, total, more);
                 recyclerHelper.viewEmptyShow(data.getShow());
             }
 
             @Override
             public void onFailure(String errMsg) {
-                srl.setRefreshing(false);
-                recyclerHelper.viewEmptyShow(errMsg);
+                recyclerHelper.dataFail(more, errMsg);
             }
         });
     }

@@ -12,6 +12,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.ImgScreenActivity;
 import com.jiangzg.ita.helper.ConvertHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.view.GImageView;
 
 import java.util.ArrayList;
@@ -54,25 +55,26 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     public void goImgScreen(int position, GImageView view) {
         List<String> data = getData();
         ArrayList<Uri> uriList = ConvertHelper.convertListString2uri(data);
+        // todo dialog形式
         ImgScreenActivity.goActivity(mActivity, uriList, position, view);
     }
 
     public void showDeleteDialog(final int position) {
         // todo 不要 dialog
-        new MaterialDialog.Builder(mActivity)
+        MaterialDialog dialog = new MaterialDialog.Builder(mActivity)
                 .title(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         // todo api
-                        List<String> data = getData();
-                        data.remove(position);
-                        WallPaperAdapter.this.notifyItemRemoved(position);
+                        WallPaperAdapter.this.remove(position);
                     }
                 })
                 .negativeText(R.string.cancel)
-                .show();
+                .build();
+        DialogHelper.setAnim(dialog);
+        DialogHelper.show(dialog);
     }
 
 }
