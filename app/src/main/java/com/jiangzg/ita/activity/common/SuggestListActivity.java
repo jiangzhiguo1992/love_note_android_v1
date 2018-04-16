@@ -184,10 +184,10 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                recyclerHelper.viewEmptyShow(data.getShow());
                 long total = data.getTotal();
                 List<Suggest> suggestList = data.getSuggestList();
                 recyclerHelper.dataOk(suggestList, total, more);
-                recyclerHelper.viewEmptyShow(data.getShow());
             }
 
             @Override

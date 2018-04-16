@@ -146,11 +146,11 @@ public interface API {
 
     // 添加墙纸
     @POST("couple/wallPaper")
-    Call<Result> coupleWallPaperAdd();
+    Call<Result> coupleWallPaperUpdate(@Body WallPaper wallPaper);
 
     // 获取墙纸
     @GET("couple/wallPaper")
-    Call<Result> coupleWallPaperGet(@Body WallPaper wallPaper);
+    Call<Result> coupleWallPaperGet();
 
 
 }

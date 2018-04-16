@@ -65,6 +65,15 @@ public class Result implements Serializable {
         private List<SuggestComment> suggestCommentList;
         private Limit limit;
         private VipLimit vipLimit;
+        private WallPaper wallPaper;
+
+        public WallPaper getWallPaper() {
+            return wallPaper;
+        }
+
+        public void setWallPaper(WallPaper wallPaper) {
+            this.wallPaper = wallPaper;
+        }
 
         public VipLimit getVipLimit() {
             return vipLimit;

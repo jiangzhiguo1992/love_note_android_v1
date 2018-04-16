@@ -373,7 +373,7 @@ public class RetrofitHelper {
         } else { // 其他网络错误
             error = R.string.http_error_request;
         }
-        ToastUtils.show(error);
+        ToastUtils.show(MyApp.get().getString(error));
         if (callBack != null) callBack.onFailure(MyApp.get().getString(error));
     }
 

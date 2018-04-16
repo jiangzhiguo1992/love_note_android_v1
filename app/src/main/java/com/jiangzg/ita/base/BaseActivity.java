@@ -177,7 +177,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         if (stack.size() <= 1 || this.getCls() == HomeActivity.class) {
             long nowTime = DateUtils.getCurrentLong();
             if (nowTime - mLastExitTime > 2000) { // 第一次按
-                ToastUtils.show(R.string.press_again_exit);
+                ToastUtils.show(getString(R.string.press_again_exit));
             } else { // 返回键连按两次
                 //AppUtils.appExit();
                 super.onBackPressed();

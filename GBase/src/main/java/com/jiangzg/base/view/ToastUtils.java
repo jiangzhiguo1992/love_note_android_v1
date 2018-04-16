@@ -17,12 +17,6 @@ public class ToastUtils {
     private static Toast toast;
     private static Handler handler;
 
-    public static void show(int resId) {
-        if (resId == 0) return;
-        String toast = AppBase.getInstance().getString(resId);
-        show(toast);
-    }
-
     public static void show(final CharSequence message) {
         if (TextUtils.isEmpty(message)) return;
         if (toast == null) {

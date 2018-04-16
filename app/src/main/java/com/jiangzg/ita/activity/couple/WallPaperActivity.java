@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -27,23 +28,28 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.adapter.WallPaperAdapter;
 import com.jiangzg.ita.base.BaseActivity;
-import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.WallPaper;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.ResHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
+import retrofit2.Call;
 
 public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
@@ -79,8 +85,9 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 3, LinearLayoutManager.VERTICAL, false))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new WallPaperAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_common, true, true)
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -153,19 +160,18 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     }
 
     private void refreshData() {
-
-        // todo api
-        MyApp.get().getHandler().postDelayed(new Runnable() {
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperGet();
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
-            public void run() {
-                WallPaper wallPaper = new WallPaper();
-                List<String> list = new ArrayList<>();
-                wallPaper.setImageList(list);
-
-                recyclerHelper.dataNew(list);
+            public void onResponse(int code, String message, Result.Data data) {
+                viewRefresh(data);
             }
 
-        }, 1000);
+            @Override
+            public void onFailure(String errMsg) {
+                recyclerHelper.dataFail(false, errMsg);
+            }
+        });
     }
 
     public void showImgSelect() {
@@ -202,8 +208,35 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     }
 
     private void apiPushData(String ossPath) {
-        // todo api
-        // todo refresh data
+        WallPaperAdapter adapter = recyclerHelper.getAdapter();
+        List<String> objects = new ArrayList<>();
+        objects.addAll(adapter.getData());
+        objects.add(ossPath);
+        WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
+        MaterialDialog loading = getLoading(getString(R.string.are_upload), true);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                viewRefresh(data);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
+    }
+
+    private void viewRefresh(Result.Data data) {
+        recyclerHelper.setAdapter();
+        recyclerHelper.viewEmptyShow(data.getShow());
+        WallPaper wallPaper = data.getWallPaper();
+        if (wallPaper == null) {
+            srl.setRefreshing(false);
+            return;
+        }
+        List<String> imageList = wallPaper.getImageList();
+        recyclerHelper.dataNew(imageList);
     }
 
 }
