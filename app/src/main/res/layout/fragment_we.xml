@@ -101,7 +101,7 @@
                     android:id="@+id/ivAvatarLeft"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    app:is_circle="true"
+                    app:is_net_circle="true"
                     tools:src="@mipmap/ic_boy_circle"/>
 
                 <TextView
@@ -134,7 +134,7 @@
                     android:id="@+id/ivAvatarRight"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    app:is_circle="true"
+                    app:is_net_circle="true"
                     tools:src="@mipmap/ic_girl_circle"/>
             </LinearLayout>
         </RelativeLayout>

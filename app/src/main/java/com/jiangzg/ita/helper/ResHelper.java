@@ -54,4 +54,10 @@ public class ResHelper {
         return apkFile;
     }
 
+    public static File getFrescoCacheDir() {
+        File file = new File(AppInfo.get().getCacheDir(), "fresco");
+        boolean orExistsDir = FileUtils.createOrExistsDir(file);
+        return file;
+    }
+
 }

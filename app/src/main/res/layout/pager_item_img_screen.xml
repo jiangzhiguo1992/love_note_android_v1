@@ -14,6 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@mipmap/test_bg_04"
-        app:is_full="true"/>
+        app:is_net_full="true"/>
 
 </RelativeLayout>

@@ -30,5 +30,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"
-        tools:text="联网才可以进入哦"/>
+        android:text="联网才可以进入哦"/>
 </RelativeLayout>

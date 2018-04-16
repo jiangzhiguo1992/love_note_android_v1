@@ -37,7 +37,7 @@ public class MyApp extends AppBase {
         CleanHelper.initApp();
 
         ButterKnife.setDebug(DEBUG);
-        GImageView.init(this);
+        GImageView.init(this, DEBUG);
         //AnalyUtils.initApp();
     }
 
