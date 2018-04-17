@@ -10,6 +10,7 @@ import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
+import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
@@ -274,4 +275,18 @@ public class ApiHelper {
         return wallPaper;
     }
 
+    public static Entry.EntryPlace getEntryPlaceBody() {
+        Entry.EntryPlace entryPlace = new Entry.EntryPlace();
+        LocationInfo info = LocationInfo.getInfo();
+        entryPlace.setLongitude(info.getLongitude());
+        entryPlace.setLatitude(info.getLatitude());
+        entryPlace.setCountry(info.getCountry());
+        entryPlace.setProvince(info.getProvince());
+        entryPlace.setCity(info.getCity());
+        entryPlace.setDistrict(info.getDistrict());
+        entryPlace.setFeature(info.getFeature());
+        entryPlace.setAddress(info.getAddress());
+        entryPlace.setCityId(0);
+        return entryPlace;
+    }
 }

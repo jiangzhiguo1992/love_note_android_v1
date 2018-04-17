@@ -1,6 +1,7 @@
 package com.jiangzg.base.system;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -100,9 +101,8 @@ public class LocationInfo {
                 provider = mLocationManager.getBestProvider(getCriteria(), true);
             }
         }
-        setNativeInfo(location);
         if (mListener != null && location != null) {
-            mListener.onLocationChange(location);
+            mListener.onLocationFirst(location);
         }
         if (myLocationListener == null) {
             myLocationListener = new MyLocationListener();
@@ -175,11 +175,11 @@ public class LocationInfo {
                 '}';
     }
 
-    /* 设置本地缓存地址信息 */
-    private static void setNativeInfo(Location location) {
+    /* 设置本地缓存地址信息，注意这里的context不能是static，还有开线程 */
+    public LocationInfo convertLoc2Info(Context context, Location location) {
         if (location == null) {
-            LogUtils.w(LOG_TAG, "setNativeInfo: location == null");
-            return;
+            LogUtils.w(LOG_TAG, "convertLoc2Info: location == null");
+            return instance;
         }
         //经纬度
         double latitude = location.getLatitude();
@@ -187,7 +187,7 @@ public class LocationInfo {
         instance.latitude = latitude;
         instance.longitude = longitude;
         //address
-        Geocoder geocoder = new Geocoder(AppBase.getInstance(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses.size() > 0) {
@@ -200,9 +200,10 @@ public class LocationInfo {
                 instance.address = address.getAddressLine(0);
             }
         } catch (IOException e) { // 手动改location也会造成IOException
-            LogUtils.e(LOG_TAG, "setNativeInfo", e);
+            LogUtils.e(LOG_TAG, "convertLoc2Info", e);
         }
         LogUtils.i(LOG_TAG, getInfo().toString());
+        return instance;
     }
 
     /* 判断定位是否可用 */
@@ -239,9 +240,8 @@ public class LocationInfo {
          */
         @Override
         public void onLocationChanged(Location location) {
-            setNativeInfo(location);
+            LogUtils.i(LOG_TAG, "onLocationChanged: " + location.getLongitude() + "-" + location.getLatitude());
             if (mListener != null) {
-                LogUtils.i(LOG_TAG, "onLocationChanged: " + location.getLongitude() + "-" + location.getLatitude());
                 mListener.onLocationChange(location);
             }
         }
@@ -292,6 +292,8 @@ public class LocationInfo {
      * 回调的监听器
      */
     public interface OnLocationChangeListener {
+
+        void onLocationFirst(Location location);
 
         /**
          * 当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发

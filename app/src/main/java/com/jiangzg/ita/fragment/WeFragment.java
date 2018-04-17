@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -123,14 +124,23 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @Override
     protected void initView(@Nullable Bundle state) {
         // 沉浸式状态栏适配
-        initTransBar();
+        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
+        RelativeLayout.LayoutParams paramsHelp = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
+        paramsHelp.setMargins(paramsHelp.leftMargin, paramsHelp.topMargin + statusBarHeight, paramsHelp.rightMargin, paramsHelp.bottomMargin);
+        ivHelp.setLayoutParams(paramsHelp);
+        RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
+        paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
+        ivSettings.setLayoutParams(paramsSettings);
         // listener
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadData();
+                refreshData();
             }
         });
+    }
+
+    protected void loadData() {
         // event
         observable = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
             @Override
@@ -138,10 +148,24 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 refreshView();
             }
         });
+        // refresh
+        refreshData();
     }
 
-    protected void loadData() {
-        refreshData();
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!vfWallPaper.isFlipping()) {
+            vfWallPaper.startFlipping();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (vfWallPaper.isFlipping()) {
+            vfWallPaper.stopFlipping();
+        }
     }
 
     @Override
@@ -164,7 +188,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             case R.id.btnPair: // 配对
                 CouplePairActivity.goActivity(mActivity);
                 break;
-            case R.id.vfWallPaper: // todo 背景图
+            case R.id.vfWallPaper: // 背景图
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
@@ -216,17 +240,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
-    // 沉浸式状态栏
-    private void initTransBar() {
-        int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
-        RelativeLayout.LayoutParams paramsHelp = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
-        paramsHelp.setMargins(paramsHelp.leftMargin, paramsHelp.topMargin + statusBarHeight, paramsHelp.rightMargin, paramsHelp.bottomMargin);
-        ivHelp.setLayoutParams(paramsHelp);
-        RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
-        paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
-        ivSettings.setLayoutParams(paramsSettings);
-    }
-
     // 数据刷新
     private void refreshData() {
         if (!srl.isRefreshing()) {
@@ -263,7 +276,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             } else {
                 // 没分手
                 vfWallPaper.setVisibility(View.VISIBLE);
-                // 开始墙纸动画 todo 数据
+                // 开始墙纸动画 todo 数据 单张图和无图的展示
                 initViewFlipper(null);
             }
             // 头像 + 名称
@@ -344,6 +357,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         GImageView image = new GImageView(mActivity);
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         image.setLayoutParams(paramsImage);
+        image.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         return image;
     }
 

@@ -38,9 +38,9 @@ import retrofit2.http.Url;
 public interface API {
 
     String HOST = "10.0.2.2:30011";
+    //String HOST = "192.168.1.105:30011";
     //String HOST = "47.94.224.110:30011";
-    String HTTP_HOST = "http://" + HOST;
-    String BASE_URL = HTTP_HOST + "/api/v1/zh-CN/"; // BaseURL最好以/结尾
+    String BASE_URL = "http://" + HOST + "/api/v1/zh-CN/"; // BaseURL最好以/结尾
 
     @Streaming // 下载大文件(请求需要放在子线程中)
     @Multipart // 上传文件
@@ -82,6 +82,14 @@ public interface API {
     // app开启 welcome login userInfo forget
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
+
+    // todo 登录历史获取
+    @GET("entry")
+    Call<Result> entryListGet();
+
+    // 推送登录位置
+    @POST("entry/place")
+    Call<Result> entryPlacePush(@Body Entry.EntryPlace entryPlace);
 
     // 版本
     @GET("version")

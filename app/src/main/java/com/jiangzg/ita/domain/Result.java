@@ -66,6 +66,15 @@ public class Result implements Serializable {
         private Limit limit;
         private VipLimit vipLimit;
         private WallPaper wallPaper;
+        private List<Entry> entryList;
+
+        public List<Entry> getEntryList() {
+            return entryList;
+        }
+
+        public void setEntryList(List<Entry> entryList) {
+            this.entryList = entryList;
+        }
 
         public WallPaper getWallPaper() {
             return wallPaper;
