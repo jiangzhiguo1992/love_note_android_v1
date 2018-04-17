@@ -79,7 +79,7 @@ public interface API {
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
 
-    // todo 登录历史获取
+    // 登录历史获取 todo
     @GET("entry")
     Call<Result> entryListGet();
 
@@ -155,6 +155,10 @@ public interface API {
     // 获取墙纸
     @GET("couple/wallPaper")
     Call<Result> coupleWallPaperGet();
+
+    // cp首页
+    @GET("couple/home")
+    Call<Result> coupleHomeGet();
 
 
 }

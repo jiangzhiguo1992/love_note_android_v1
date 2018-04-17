@@ -29,9 +29,12 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
+import com.jiangzg.ita.activity.couple.CoupleCoinActivity;
 import com.jiangzg.ita.activity.couple.CoupleInfoActivity;
 import com.jiangzg.ita.activity.couple.CoupleMapActivity;
+import com.jiangzg.ita.activity.couple.CoupleMensesActivity;
 import com.jiangzg.ita.activity.couple.CouplePairActivity;
+import com.jiangzg.ita.activity.couple.CoupleTrendsActivity;
 import com.jiangzg.ita.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.ita.activity.couple.WallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
@@ -40,13 +43,18 @@ import com.jiangzg.ita.base.BasePagerFragment;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Place;
+import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.WallPaper;
+import com.jiangzg.ita.domain.Weather;
+import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.view.GImageView;
@@ -58,6 +66,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
 
@@ -123,6 +132,11 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     private Runnable coupleCountDownTask;
     private Observable<Couple> observableCoupleRefresh;
     private Observable<LocationInfo> observableEntryRefresh;
+    private WallPaper wallPaper;
+    private Place myPlace;
+    private Place taPlace;
+    private Weather myWeather;
+    private Weather taWeather;
 
     public static WeFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -158,7 +172,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         observableCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
             @Override
             public void call(Couple couple) {
-                refreshCoupleView();
+                refreshView();
             }
         });
         observableEntryRefresh = RxBus.register(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, new Action1<LocationInfo>() {
@@ -252,25 +266,25 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     }
                 }
                 break;
-            case R.id.rlMenses: // todo 姨妈
+            case R.id.rlMenses: // 姨妈
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    ToastUtils.show("正在开发中");
+                    CoupleMensesActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.rlTrends: // todo 动态
+            case R.id.rlTrends: // 动态
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    ToastUtils.show("正在开发中");
+                    CoupleTrendsActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.rlCoin: // todo 金币
+            case R.id.rlCoin: // 金币
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    ToastUtils.show("正在开发中");
+                    CoupleCoinActivity.goActivity(mActivity);
                 }
                 break;
         }
@@ -319,29 +333,28 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // todo api
-        MyApp.get().getHandler().postDelayed(new Runnable() {
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet();
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
-            public void run() {
+            public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
+                wallPaper = data.getWallPaper();
+                myPlace = data.getMyPlace();
+                if (myPlace != null) {
+                    myWeather = myPlace.getWeather();
+                }
+                taPlace = data.getTaPlace();
+                if (taPlace != null) {
+                    taWeather = taPlace.getWeather();
+                }
                 refreshView();
-
             }
-        }, 1000);
-    }
 
-    private void refreshCoupleView() {
-
-    }
-
-    private void refreshMyPlaceView() {
-        LocationInfo info = LocationInfo.getInfo();
-        String address = info.getAddress();
-    }
-
-    private void refreshEntryPlaceView() {
-
-        // todo 已有的数据
+            @Override
+            public void onFailure(String errMsg) {
+                srl.setRefreshing(false);
+            }
+        });
     }
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
@@ -364,8 +377,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             } else {
                 // 没分手
                 vfWallPaper.setVisibility(View.VISIBLE);
-                // 开始墙纸动画 todo 数据 单张图和无图的展示
-                initViewFlipper(null);
+                // 开始墙纸动画
+                refreshWallPaper();
             }
             // 头像 + 名称
             String myAvatar = user.getMyAvatarInCp();
@@ -376,41 +389,15 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             ivAvatarRight.setDataOss(taAvatar);
             tvNameLeft.setText(myName);
             tvNameRight.setText(taName);
+            refreshPlaceView();
+            refreshWeatherView();
         }
     }
 
-    // 分手倒计时
-    private Runnable getCoupleCountDownTask() {
-        if (coupleCountDownTask == null) {
-            coupleCountDownTask = new Runnable() {
-                @Override
-                public void run() {
-                    Couple couple = SPHelper.getCouple();
-                    long breakCountDown = couple.getBreakCountDown();
-                    if (breakCountDown <= 0) {
-                        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
-                        RxBus.post(event);
-                        MyApp.get().getHandler().removeCallbacks(this);
-                    } else {
-                        String breakCountDownShow = couple.getBreakCountDownShow();
-                        tvCoupleCountDown.setText(breakCountDownShow);
-                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
-                    }
-                }
-            };
-        }
-        return coupleCountDownTask;
-    }
-
-    private void stopCoupleCountDownTask() {
-        if (coupleCountDownTask != null) {
-            MyApp.get().getHandler().removeCallbacks(coupleCountDownTask);
-            coupleCountDownTask = null;
-        }
-    }
-
-    // 墙纸
-    private void initViewFlipper(WallPaper wallPaper) {
+    // 墙纸  todo 数据 单张图和无图的展示
+    private void refreshWallPaper() {
+        //if (wallPaper == null)
+        //    return;
         List<Integer> imageList = new ArrayList<>();
         imageList.add(R.mipmap.test_bg_01);
         imageList.add(R.mipmap.test_bg_02);
@@ -447,6 +434,51 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         image.setLayoutParams(paramsImage);
         image.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         return image;
+    }
+
+    private void refreshPlaceView() {
+        refreshMyPlaceView();
+        // todo taView
+    }
+
+    private void refreshMyPlaceView() {
+        LocationInfo info = LocationInfo.getInfo();
+        String address = info.getAddress();
+        // todo check info
+    }
+
+    private void refreshWeatherView() {
+        // todo weather
+    }
+
+    // 分手倒计时
+    private Runnable getCoupleCountDownTask() {
+        if (coupleCountDownTask == null) {
+            coupleCountDownTask = new Runnable() {
+                @Override
+                public void run() {
+                    Couple couple = SPHelper.getCouple();
+                    long breakCountDown = couple.getBreakCountDown();
+                    if (breakCountDown <= 0) {
+                        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
+                        RxBus.post(event);
+                        MyApp.get().getHandler().removeCallbacks(this);
+                    } else {
+                        String breakCountDownShow = couple.getBreakCountDownShow();
+                        tvCoupleCountDown.setText(breakCountDownShow);
+                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                    }
+                }
+            };
+        }
+        return coupleCountDownTask;
+    }
+
+    private void stopCoupleCountDownTask() {
+        if (coupleCountDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(coupleCountDownTask);
+            coupleCountDownTask = null;
+        }
     }
 
 }

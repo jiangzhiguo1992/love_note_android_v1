@@ -15,6 +15,15 @@ public class Place extends BaseObj {
     private String feature;
     private String address;
     private int cityId;
+    private Weather weather;
+
+    public Weather getWeather() {
+        return weather;
+    }
+
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
 
     public double getLongitude() {
         return longitude;
