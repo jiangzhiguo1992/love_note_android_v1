@@ -1,6 +1,8 @@
 package com.jiangzg.ita.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -15,14 +17,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.couple.CoupleInfoActivity;
+import com.jiangzg.ita.activity.couple.CoupleMapActivity;
 import com.jiangzg.ita.activity.couple.CouplePairActivity;
+import com.jiangzg.ita.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.ita.activity.couple.WallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
@@ -33,8 +43,10 @@ import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.domain.WallPaper;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.view.GImageView;
@@ -108,8 +120,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.tvCoin)
     TextView tvCoin;
 
-    private Observable<Couple> observable;
     private Runnable coupleCountDownTask;
+    private Observable<Couple> observableCoupleRefresh;
+    private Observable<LocationInfo> observableEntryRefresh;
 
     public static WeFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -142,10 +155,16 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     protected void loadData() {
         // event
-        observable = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
+        observableCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
             @Override
             public void call(Couple couple) {
-                refreshView();
+                refreshCoupleView();
+            }
+        });
+        observableEntryRefresh = RxBus.register(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, new Action1<LocationInfo>() {
+            @Override
+            public void call(LocationInfo locationInfo) {
+                refreshMyPlaceView();
             }
         });
         // refresh
@@ -172,7 +191,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onDestroy() {
         super.onDestroy();
         stopCoupleCountDownTask();
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observable);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableCoupleRefresh);
+        RxBus.unregister(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, observableEntryRefresh);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
@@ -202,18 +222,34 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.llPlace: // todo 地理信息
+            case R.id.llPlace: // 地理信息
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    ToastUtils.show("正在开发中");
+                    if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
+                        if (LocationInfo.isLocationEnabled()) {
+                            CoupleMapActivity.goActivity(mActivity);
+                        } else {
+                            showLocationEnableDialog();
+                        }
+                    } else {
+                        requestLocationPermission();
+                    }
                 }
                 break;
-            case R.id.llWeather: // todo 天气信息
+            case R.id.llWeather: // 天气信息
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    ToastUtils.show("正在开发中");
+                    if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
+                        if (LocationInfo.isLocationEnabled()) {
+                            CoupleWeatherActivity.goActivity(mActivity);
+                        } else {
+                            showLocationEnableDialog();
+                        }
+                    } else {
+                        requestLocationPermission();
+                    }
                 }
                 break;
             case R.id.rlMenses: // todo 姨妈
@@ -240,6 +276,44 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
+    // 先检查位置权限 获取位置并推送，并在成功后会刷新本地view 再点一次才能进入地图
+    private void requestLocationPermission() {
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                if (LocationInfo.isLocationEnabled()) {
+                    ApiHelper.pushEntryPlace(mActivity);
+                } else {
+                    showLocationEnableDialog();
+                }
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+            }
+        });
+    }
+
+    // 再检查位置开关
+    private void showLocationEnableDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(false)
+                .title(R.string.location_func_limit)
+                .content(R.string.find_location_func_cant_use_normal_look_gps_is_open)
+                .positiveText(R.string.go_to_setting)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        Intent gps = IntentSend.getGps();
+                        ActivityTrans.start(mActivity, gps);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
     // 数据刷新
     private void refreshData() {
         if (!srl.isRefreshing()) {
@@ -254,6 +328,20 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
             }
         }, 1000);
+    }
+
+    private void refreshCoupleView() {
+
+    }
+
+    private void refreshMyPlaceView() {
+        LocationInfo info = LocationInfo.getInfo();
+        String address = info.getAddress();
+    }
+
+    private void refreshEntryPlaceView() {
+
+        // todo 已有的数据
     }
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放

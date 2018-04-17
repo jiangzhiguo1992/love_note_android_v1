@@ -207,7 +207,7 @@ public class LocationInfo {
     }
 
     /* 判断定位是否可用 */
-    private static boolean isLocationEnabled() {
+    public static boolean isLocationEnabled() {
         LocationManager lm = AppBase.getLocationManager();
         boolean netProvide = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         boolean gpsProvide = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);

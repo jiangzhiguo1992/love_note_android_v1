@@ -382,4 +382,6 @@
     <string name="u_confirm_break">你确定要解除关系吗？</string>
     <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
     <string name="modify_ta_name">修改Ta的名称</string>
+    <string name="location_func_limit">位置功能受限!</string>
+    <string name="find_location_func_cant_use_normal_look_gps_is_open">发现位置功能不能正常使用，查看是不是GPS没有开启</string>
 </resources>

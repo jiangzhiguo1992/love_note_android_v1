@@ -30,6 +30,7 @@
         <!-- android:enabled="true" -->
         <!-- android:exported="true"/> -->
 
+
         <!-- receiver -->
         <receiver
             android:name=".broadcast.OssReceiver"
@@ -64,7 +65,10 @@
         <activity android:name=".activity.couple.WallPaperActivity"/>
         <activity android:name=".activity.common.ImgScreenActivity"/>
         <activity android:name=".activity.couple.CouplePairActivity"/>
-
+        <activity android:name=".activity.couple.CoupleMapActivity">
+        </activity>
+        <activity android:name=".activity.couple.CoupleWeatherActivity">
+        </activity>
     </application>
 
 </manifest>

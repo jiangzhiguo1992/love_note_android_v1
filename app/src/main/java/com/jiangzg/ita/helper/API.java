@@ -51,10 +51,6 @@ public interface API {
                              @Part("name") String value, @PartMap Map<String, RequestBody> params,
                              @Body RxEvent event, @Body String requestBody);
 
-    @Streaming
-    @GET
-    Call<ResponseBody> download(@Url String url);
-
     // 短信
     @POST("sms")
     Call<Result> smsSend(@Body Sms sms);

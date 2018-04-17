@@ -2,7 +2,6 @@ package com.jiangzg.ita.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -13,30 +12,22 @@ import android.view.MenuItem;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.adapter.CommonFragmentPagerAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.BasePagerFragment;
-import com.jiangzg.ita.domain.Entry;
-import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.fragment.BookFragment;
 import com.jiangzg.ita.fragment.SquareFragment;
 import com.jiangzg.ita.fragment.TopicFragment;
 import com.jiangzg.ita.fragment.WeFragment;
-import com.jiangzg.ita.helper.API;
-import com.jiangzg.ita.helper.ApiHelper;
-import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.service.UpdateService;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 import butterknife.BindView;
-import retrofit2.Call;
 
 public class HomeActivity extends BaseActivity<HomeActivity> {
 
@@ -86,7 +77,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @Override
     protected void initData(Bundle state) {
         checkUpdate();
-        getEntryPlace();
     }
 
     // 关闭其他栈底activity，栈顶由singleTask来关闭
@@ -181,32 +171,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         ArrayList<Version> versionList = getIntent().getParcelableArrayListExtra("versionList");
         if (versionList == null || versionList.size() <= 0) return;
         UpdateService.showUpdateDialog(versionList);
-    }
-
-    private void getEntryPlace() {
-        boolean permissionOK = PermUtils.isPermissionOK(mActivity, PermUtils.location);
-        if (!permissionOK) return;
-        LocationInfo.getInfo().addListener(1000, 1, new LocationInfo.OnLocationChangeListener() {
-            @Override
-            public void onLocationFirst(Location location) {
-            }
-
-            @Override
-            public void onLocationChange(final Location location) {
-                LocationInfo.getInfo().convertLoc2Info(mActivity, location);
-                pushEntryPlace();
-            }
-
-            @Override
-            public void onStatusChange(String provider, int status, Bundle extras) {
-            }
-        });
-    }
-
-    private void pushEntryPlace() {
-        Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody();
-        Call<Result> call = new RetrofitHelper().call(API.class).entryPlacePush(entryPlaceBody);
-        RetrofitHelper.enqueue(call, null, null);
     }
 
 }

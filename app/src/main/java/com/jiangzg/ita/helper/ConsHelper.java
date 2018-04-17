@@ -16,13 +16,15 @@ public class ConsHelper {
     public static final int REQUEST_CONTEXT_ALERT = 1007;
     public static final int REQUEST_SCAN = 1008;
     public static final int REQUEST_CONTACT = 1009;
-    public static final int REQUEST_BOOK_PICTURE = 1010;
+    public static final int REQUEST_LOCATION = 1010;
+    public static final int REQUEST_BOOK_PICTURE = 1011;
     // RxBus.ID
     public static final int EVENT_USER_REFRESH = 1;
     public static final int EVENT_COUPLE_REFRESH = 2;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 3;
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 4;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 5;
+    public static final int EVENT_ENTRY_PLACE_REFRESH = 6;
 
 
 }

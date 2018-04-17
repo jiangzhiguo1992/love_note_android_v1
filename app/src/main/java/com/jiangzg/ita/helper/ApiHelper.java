@@ -3,6 +3,9 @@ package com.jiangzg.ita.helper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.location.Location;
+import android.os.Bundle;
 import android.provider.Settings;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -11,6 +14,7 @@ import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
@@ -22,6 +26,7 @@ import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Limit;
 import com.jiangzg.ita.domain.OssInfo;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Sms;
 import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestComment;
@@ -135,6 +140,39 @@ public class ApiHelper {
                 }
             }, totalWait - between);
         }
+        // 推送登录地区，必须在entry之后
+        pushEntryPlace(mActivity);
+    }
+
+    public static void pushEntryPlace(final Context context) {
+        boolean permissionOK = PermUtils.isPermissionOK(context, PermUtils.location);
+        if (!permissionOK) return;
+        LocationInfo.getInfo().addListener(1000, 1, new LocationInfo.OnLocationChangeListener() {
+            @Override
+            public void onLocationFirst(Location location) {
+            }
+
+            @Override
+            public void onLocationChange(final Location location) {
+                MyApp.get().getThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        LocationInfo locationInfo = LocationInfo.getInfo().convertLoc2Info(context, location);
+                        // api
+                        Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody(locationInfo);
+                        Call<Result> call = new RetrofitHelper().call(API.class).entryPlacePush(entryPlaceBody);
+                        RetrofitHelper.enqueue(call, null, null);
+                        // 发送通知
+                        RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, locationInfo);
+                        RxBus.post(event);
+                    }
+                });
+            }
+
+            @Override
+            public void onStatusChange(String provider, int status, Bundle extras) {
+            }
+        });
     }
 
     public static Sms getSmsLoginBody(String phone) {
@@ -275,9 +313,11 @@ public class ApiHelper {
         return wallPaper;
     }
 
-    public static Entry.EntryPlace getEntryPlaceBody() {
+    public static Entry.EntryPlace getEntryPlaceBody(LocationInfo info) {
         Entry.EntryPlace entryPlace = new Entry.EntryPlace();
-        LocationInfo info = LocationInfo.getInfo();
+        if (info == null) {
+            info = LocationInfo.getInfo();
+        }
         entryPlace.setLongitude(info.getLongitude());
         entryPlace.setLatitude(info.getLatitude());
         entryPlace.setCountry(info.getCountry());

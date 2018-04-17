@@ -67,6 +67,33 @@ public class Result implements Serializable {
         private VipLimit vipLimit;
         private WallPaper wallPaper;
         private List<Entry> entryList;
+        private Place place;
+        private Place myPlace;
+        private Place taPlace;
+
+        public Place getPlace() {
+            return place;
+        }
+
+        public void setPlace(Place place) {
+            this.place = place;
+        }
+
+        public Place getMyPlace() {
+            return myPlace;
+        }
+
+        public void setMyPlace(Place myPlace) {
+            this.myPlace = myPlace;
+        }
+
+        public Place getTaPlace() {
+            return taPlace;
+        }
+
+        public void setTaPlace(Place taPlace) {
+            this.taPlace = taPlace;
+        }
 
         public List<Entry> getEntryList() {
             return entryList;
