@@ -1,6 +1,7 @@
 package com.jiangzg.ita.helper;
 
 import com.jiangzg.ita.domain.Entry;
+import com.jiangzg.ita.domain.Place;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Sms;
@@ -157,8 +158,8 @@ public interface API {
     Call<Result> coupleWallPaperGet();
 
     // cp首页
-    @GET("couple/home")
-    Call<Result> coupleHomeGet();
+    @POST("couple/home")
+    Call<Result> coupleHomeGet(@Body Place place);
 
 
 }

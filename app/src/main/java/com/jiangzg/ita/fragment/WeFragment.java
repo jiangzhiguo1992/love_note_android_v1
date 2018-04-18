@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.system.LocationInfo;
@@ -34,8 +35,8 @@ import com.jiangzg.ita.activity.couple.CoupleMapActivity;
 import com.jiangzg.ita.activity.couple.CoupleMensesActivity;
 import com.jiangzg.ita.activity.couple.CouplePairActivity;
 import com.jiangzg.ita.activity.couple.CoupleTrendsActivity;
-import com.jiangzg.ita.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.ita.activity.couple.CoupleWallPaperActivity;
+import com.jiangzg.ita.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
@@ -74,6 +75,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.tvCoupleCountDown)
     TextView tvCoupleCountDown;
+    @BindView(R.id.tvAddWallPaper)
+    TextView tvAddWallPaper;
     @BindView(R.id.rlPair)
     RelativeLayout rlPair;
     @BindView(R.id.btnPair)
@@ -184,27 +187,11 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         observableEntryRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo locationInfo) {
-                refreshMyPlaceView();
+                refreshPlaceView();
             }
         });
         // refresh
         refreshData();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!vfWallPaper.isFlipping()) {
-            vfWallPaper.startFlipping();
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (vfWallPaper.isFlipping()) {
-            vfWallPaper.stopFlipping();
-        }
     }
 
     @Override
@@ -340,7 +327,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet();
+        // 刷新的时候再把自己的位置推送上去
+        Place body = ApiHelper.getPlaceBody();
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet(body);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -369,6 +358,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         tvCoupleCountDown.setVisibility(View.GONE);
         rlPair.setVisibility(View.GONE);
         vfWallPaper.setVisibility(View.GONE);
+        tvAddWallPaper.setVisibility(View.GONE);
 
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
@@ -403,13 +393,25 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
+        // todo  本地缓存
+        vfWallPaper.removeAllViews();
+        // 无图显示
         if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {
-            // todo 无图的展示
+            tvAddWallPaper.setVisibility(View.VISIBLE);
             return;
         }
-        // todo  本地缓存
-        // todo 单图显示
+        tvAddWallPaper.setVisibility(View.GONE);
+        // 单图显示
         List<String> imageList = wallPaper.getImageList();
+        if (imageList.size() == 1) {
+            GImageView image = getViewFlipperImage();
+            image.setDataOss(imageList.get(0));
+            vfWallPaper.addView(image);
+            vfWallPaper.setAutoStart(false);
+            vfWallPaper.stopFlipping();
+            return;
+        }
+        // 多图显示
         for (String ossPath : imageList) {
             GImageView image = getViewFlipperImage();
             image.setDataOss(ossPath);
@@ -423,6 +425,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         in.setStartTime(AnimationUtils.currentAnimationTimeMillis());
         out.setStartTime(AnimationUtils.currentAnimationTimeMillis());
         // viewFilter
+        vfWallPaper.setAnimateFirstView(true);
         vfWallPaper.setInAnimation(in);
         vfWallPaper.setOutAnimation(out);
         vfWallPaper.setAutoStart(true);
@@ -440,18 +443,77 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     }
 
     private void refreshPlaceView() {
-        refreshMyPlaceView();
-        // todo taView
-    }
-
-    private void refreshMyPlaceView() {
         LocationInfo info = LocationInfo.getInfo();
-        String address = info.getAddress();
-        // todo check info
+        String myAddress = info.getAddress();
+        if (myPlace != null && StringUtils.isEmpty(myAddress)) {
+            myAddress = myPlace.getAddress();
+        }
+        if (StringUtils.isEmpty(myAddress)) {
+            myAddress = getString(R.string.horizontal_line_2);
+        }
+        String taAddress = "";
+        if (taPlace != null) {
+            taAddress = taPlace.getAddress();
+        }
+        if (StringUtils.isEmpty(taAddress)) {
+            taAddress = getString(R.string.horizontal_line_2);
+        }
+        User user = SPHelper.getUser();
+        String left;
+        String right;
+        if (user.isCoupleCreator()) {
+            left = myAddress;
+            right = taAddress;
+        } else {
+            left = taAddress;
+            right = myAddress;
+        }
+        tvPlaceLeft.setText(left);
+        tvPlaceRight.setText(right);
     }
 
     private void refreshWeatherView() {
-        // todo weather
+        Weather myWeather = null;
+        Weather taWeather = null;
+        Weather.Condition myCondition = null;
+        Weather.Condition taCondition = null;
+        String myTemp;
+        String taTemp;
+        if (myPlace != null) {
+            myWeather = myPlace.getWeather();
+        }
+        if (taPlace != null) {
+            taWeather = taPlace.getWeather();
+        }
+        if (myWeather != null) {
+            myCondition = myWeather.getCondition();
+        }
+        if (taWeather != null) {
+            taCondition = taWeather.getCondition();
+        }
+        if (myCondition != null) {
+            myTemp = myCondition.getTemp() + "℃";
+        } else {
+            myTemp = getString(R.string.liner_wave_liner_c);
+        }
+        if (taCondition != null) {
+            taTemp = taCondition.getTemp() + "℃";
+        } else {
+            taTemp = getString(R.string.liner_wave_liner_c);
+        }
+        User user = SPHelper.getUser();
+        String left;
+        String right;
+        if (user.isCoupleCreator()) {
+            left = myTemp;
+            right = taTemp;
+        } else {
+            left = taTemp;
+            right = myTemp;
+        }
+        // todo icon
+        tvWeatherLeft.setText(left);
+        tvWeatherRight.setText(right);
     }
 
     // 分手倒计时

@@ -8,11 +8,6 @@ public class Place extends BaseObj {
 
     private double longitude;
     private double latitude;
-    private String country;
-    private String province;
-    private String city;
-    private String district;
-    private String feature;
     private String address;
     private int cityId;
     private Weather weather;
@@ -39,46 +34,6 @@ public class Place extends BaseObj {
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(String district) {
-        this.district = district;
-    }
-
-    public String getFeature() {
-        return feature;
-    }
-
-    public void setFeature(String feature) {
-        this.feature = feature;
     }
 
     public String getAddress() {

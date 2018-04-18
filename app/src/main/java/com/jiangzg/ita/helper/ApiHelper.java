@@ -23,6 +23,7 @@ import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Limit;
 import com.jiangzg.ita.domain.OssInfo;
+import com.jiangzg.ita.domain.Place;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.Sms;
@@ -149,7 +150,7 @@ public class ApiHelper {
             @Override
             public void onSuccess(LocationInfo info) {
                 // api
-                Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody(info);
+                Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody();
                 Call<Result> call = new RetrofitHelper().call(API.class).entryPlacePush(entryPlaceBody);
                 RetrofitHelper.enqueue(call, null, null);
                 // 发送通知
@@ -302,20 +303,23 @@ public class ApiHelper {
         return wallPaper;
     }
 
-    public static Entry.EntryPlace getEntryPlaceBody(LocationInfo info) {
+    public static Entry.EntryPlace getEntryPlaceBody() {
+        LocationInfo info = LocationInfo.getInfo();
         Entry.EntryPlace entryPlace = new Entry.EntryPlace();
-        if (info == null) {
-            info = LocationInfo.getInfo();
-        }
         entryPlace.setLongitude(info.getLongitude());
         entryPlace.setLatitude(info.getLatitude());
-        entryPlace.setCountry(info.getCountry());
-        entryPlace.setProvince(info.getProvince());
-        entryPlace.setCity(info.getCity());
-        entryPlace.setDistrict(info.getDistrict());
-        entryPlace.setStreet(info.getStreet());
         entryPlace.setAddress(info.getAddress());
         entryPlace.setCityId(0);
         return entryPlace;
+    }
+
+    public static Place getPlaceBody() {
+        LocationInfo info = LocationInfo.getInfo();
+        Place place = new Place();
+        place.setLongitude(info.getLongitude());
+        place.setLatitude(info.getLatitude());
+        place.setAddress(info.getAddress());
+        place.setCityId(0);
+        return place;
     }
 }

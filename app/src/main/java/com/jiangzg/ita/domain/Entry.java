@@ -85,11 +85,6 @@ public class Entry extends BaseObj {
         private long entryId;
         private double longitude;
         private double latitude;
-        private String country;
-        private String province;
-        private String city;
-        private String district;
-        private String street;
         private String address;
         private int cityId;
 
@@ -115,46 +110,6 @@ public class Entry extends BaseObj {
 
         public void setLatitude(double latitude) {
             this.latitude = latitude;
-        }
-
-        public String getCountry() {
-            return country;
-        }
-
-        public void setCountry(String country) {
-            this.country = country;
-        }
-
-        public String getProvince() {
-            return province;
-        }
-
-        public void setProvince(String province) {
-            this.province = province;
-        }
-
-        public String getCity() {
-            return city;
-        }
-
-        public void setCity(String city) {
-            this.city = city;
-        }
-
-        public String getDistrict() {
-            return district;
-        }
-
-        public void setDistrict(String district) {
-            this.district = district;
-        }
-
-        public String getStreet() {
-            return street;
-        }
-
-        public void setStreet(String street) {
-            this.street = street;
         }
 
         public String getAddress() {

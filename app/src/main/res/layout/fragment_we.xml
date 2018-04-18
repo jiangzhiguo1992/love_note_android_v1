@@ -57,12 +57,32 @@
                     android:textSize="50sp"
                     android:textStyle="bold"
                     tools:text="20:12:23"/>
+
+                <TextView
+                    android:id="@+id/tvAddWallPaper"
+                    style="@style/FontPrimaryHuge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#fff"
+                    android:gravity="center"
+                    android:shadowColor="@color/font_grey"
+                    android:shadowDx="30"
+                    android:shadowDy="30"
+                    android:shadowRadius="20"
+                    android:text="@string/click_me_add_wall_paper"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/shape_used_wall_paper_bottom"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_used_we_top">
+                android:background="@drawable/shape_used_wall_paper_top">
 
                 <ImageView
                     android:id="@+id/ivHelp"

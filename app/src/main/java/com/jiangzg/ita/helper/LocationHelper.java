@@ -7,6 +7,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.location.CoordinateConverter;
 import com.amap.api.location.DPoint;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.ita.base.MyApp;
 
@@ -67,7 +68,7 @@ public class LocationHelper {
         locationOption.setLocationMode(locationMode);
         locationOption.setOnceLocation(once); // 获取一次定位结果
         locationOption.setOnceLocationLatest(once); // 获取最近3s内精度最高的一次定位结果
-        locationOption.setNeedAddress(once); // todo 设置是否返回地址信息（默认返回地址信息）
+        locationOption.setNeedAddress(true); // 设置是否返回地址信息（默认返回地址信息）
         return locationOption;
     }
 
@@ -79,7 +80,6 @@ public class LocationHelper {
                 if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
                     // 定位成功回调信息，设置相关消息
                     LogUtils.i(LOG_TAG, "onLocationChanged: success:" + aMapLocation.getLatitude() + "-" + aMapLocation.getLongitude());
-
                     LocationInfo info = LocationInfo.getInfo();
                     info.setLatitude(aMapLocation.getLatitude()); // 纬度
                     info.setLongitude(aMapLocation.getLongitude()); // 经度
@@ -88,10 +88,12 @@ public class LocationHelper {
                     info.setCity(aMapLocation.getCity()); // 城市
                     info.setDistrict(aMapLocation.getDistrict()); // 城区
                     info.setStreet(aMapLocation.getStreet()); // 街道
-                    info.setAddress(aMapLocation.getAddress()); //只有wifi会返回此字段
-
-                    aMapLocation.getStreetNum(); // todo 街道门牌号信息
-                    aMapLocation.getAoiName(); //todo 获取当前定位点的AOI信息
+                    //只有wifi会返回此字段
+                    String address = aMapLocation.getAddress();
+                    if (StringUtils.isEmpty(address)) {
+                        address = info.getProvince() + info.getCity() + info.getDistrict() + info.getStreet();
+                    }
+                    info.setAddress(address);
                     if (callBack != null) {
                         callBack.onSuccess(info);
                     }
