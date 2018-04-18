@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.location.Location;
-import android.os.Bundle;
 import android.provider.Settings;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -147,30 +145,21 @@ public class ApiHelper {
     public static void pushEntryPlace(final Context context) {
         boolean permissionOK = PermUtils.isPermissionOK(context, PermUtils.location);
         if (!permissionOK) return;
-        LocationInfo.getInfo().addListener(1000, 1, new LocationInfo.OnLocationChangeListener() {
+        LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
             @Override
-            public void onLocationFirst(Location location) {
+            public void onSuccess(LocationInfo info) {
+                // api
+                Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody(info);
+                Call<Result> call = new RetrofitHelper().call(API.class).entryPlacePush(entryPlaceBody);
+                RetrofitHelper.enqueue(call, null, null);
+                // 发送通知
+                RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_LOCATION_REFRESH, info);
+                RxBus.post(event);
             }
 
             @Override
-            public void onLocationChange(final Location location) {
-                MyApp.get().getThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        LocationInfo locationInfo = LocationInfo.getInfo().convertLoc2Info(context, location);
-                        // api
-                        Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody(locationInfo);
-                        Call<Result> call = new RetrofitHelper().call(API.class).entryPlacePush(entryPlaceBody);
-                        RetrofitHelper.enqueue(call, null, null);
-                        // 发送通知
-                        RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, locationInfo);
-                        RxBus.post(event);
-                    }
-                });
-            }
+            public void onFailed(String errMsg) {
 
-            @Override
-            public void onStatusChange(String provider, int status, Bundle extras) {
             }
         });
     }
@@ -324,7 +313,7 @@ public class ApiHelper {
         entryPlace.setProvince(info.getProvince());
         entryPlace.setCity(info.getCity());
         entryPlace.setDistrict(info.getDistrict());
-        entryPlace.setFeature(info.getFeature());
+        entryPlace.setStreet(info.getStreet());
         entryPlace.setAddress(info.getAddress());
         entryPlace.setCityId(0);
         return entryPlace;

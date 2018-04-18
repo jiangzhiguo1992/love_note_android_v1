@@ -26,46 +26,38 @@
 
 # ---Gson
 -keepattributes Signature
-
-# For using GSON @Expose annotation
+    # For using GSON @Expose annotation
 -keepattributes *Annotation*
-
-# Gson specific classes
+    # Gson specific classes
 -dontwarn sun.misc.**
-#-keep class com.google.gson.stream.** { *; }
-
-# Application classes that will be serialized/deserialized over Gson
+    #-keep class com.google.gson.stream.** { *; }
+    # Application classes that will be serialized/deserialized over Gson
 -keep class com.google.gson.examples.android.model.** { *; }
-
-# Prevent proguard from stripping interface information from TypeAdapterFactory,
-# JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+    # Prevent proguard from stripping interface information from TypeAdapterFactory,
+    # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
 # ---Fresco
-# Keep our interfaces so they can be used by other ProGuard rules.
-# See http://sourceforge.net/p/proguard/bugs/466/
+    # Keep our interfaces so they can be used by other ProGuard rules.
+    # See http://sourceforge.net/p/proguard/bugs/466/
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
 -keep,allowobfuscation @interface com.facebook.soloader.DoNotOptimize
-
-# Do not strip any method/class that is annotated with @DoNotStrip
+    # Do not strip any method/class that is annotated with @DoNotStrip
 -keep @com.facebook.common.internal.DoNotStrip class *
 -keepclassmembers class * {
     @com.facebook.common.internal.DoNotStrip *;
 }
-
-# Do not strip any method/class that is annotated with @DoNotOptimize
+    # Do not strip any method/class that is annotated with @DoNotOptimize
 -keep @com.facebook.soloader.DoNotOptimize class *
 -keepclassmembers class * {
     @com.facebook.soloader.DoNotOptimize *;
 }
-
-# Keep native methods
+    # Keep native methods
 -keepclassmembers class * {
     native <methods>;
 }
-
 -dontwarn okio.**
 -dontwarn com.squareup.okhttp.**
 -dontwarn okhttp3.**
@@ -74,16 +66,15 @@
 -dontwarn com.facebook.infer.**
 
 # ---Retrofit
-# Retain generic type information for use by reflection by converters and adapters.
+    # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
-# Retain service method parameters.
+    # Retain service method parameters.
 -keepclassmembernames,allowobfuscation interface * {
     @retrofit2.http.* <methods>;
 }
-# Ignore annotation used for build tooling.
+    # Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
-
-# ---BaseRecyclerViewAdapterHelper
+    # ---BaseRecyclerViewAdapterHelper
 -keep class com.chad.library.adapter.** {
 *;
 }
@@ -92,6 +83,17 @@
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(...);
 }
+
+# ---高德地图AMAP
+    #定位
+-keep class com.amap.api.location.**{*;}
+-keep class com.amap.api.fence.**{*;}
+-keep class com.autonavi.aps.amapapi.model.**{*;}
+    #搜索
+-keep   class com.amap.api.services.**{*;}
+    #2D地图
+-keep class com.amap.api.maps2d.**{*;}
+-keep class com.amap.api.mapcore2d.**{*;}
 
 #---------------------------------3.与js互相调用的类------------------------
 

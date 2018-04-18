@@ -1,15 +1,10 @@
-//package com.jiangzg.project.utils.third;
+//package com.jiangzg.ita.helper.MapUtils;
 //
 //import android.content.Context;
 //import android.graphics.Color;
-//import android.location.Location;
 //import android.os.Bundle;
 //import android.text.TextUtils;
 //
-//import com.amap.api.location.AMapLocation;
-//import com.amap.api.location.AMapLocationClient;
-//import com.amap.api.location.AMapLocationClientOption;
-//import com.amap.api.location.AMapLocationListener;
 //import com.amap.api.maps2d.AMap;
 //import com.amap.api.maps2d.CameraUpdateFactory;
 //import com.amap.api.maps2d.LocationSource;
@@ -26,7 +21,7 @@
 //import com.amap.api.services.geocoder.RegeocodeResult;
 //import com.amap.api.services.poisearch.PoiResult;
 //import com.amap.api.services.poisearch.PoiSearch;
-//import LogUtils;
+//import com.jiangzg.base.common.LogUtils;
 //
 //import java.util.ArrayList;
 //
@@ -47,135 +42,6 @@
 //            }
 //        }
 //        return mapUtils;
-//    }
-//
-//    /**
-//     * *****************************************定位************************************************
-//     */
-//    private AMapLocationClient aMapLocationClient;
-//    private LocationSource.OnLocationChangedListener locationChangedListener; // 注意这个是小蓝点的监听
-//
-//    /* 1.初始化定位 */
-//    public void initLocation(Context context, boolean once) {
-//        if (aMapLocationClient == null) {
-//            aMapLocationClient = new AMapLocationClient(context);
-//        }
-//        aMapLocationClient.setLocationOption(getClientOption(once)); // 定位配置
-//        locationChangedListener = new LocationSource.OnLocationChangedListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                // 这个是小蓝点的监听
-//            }
-//        };
-//    }
-//
-//    /* 2.开始定位 */
-//    public void startLocation(final AMapLocationListener locationListener) {
-//        if (aMapLocationClient != null) {
-////            MyApp.get().getHandler().post(new Runnable() {
-////                @Override
-////                public void run() {
-////                    //设置定位回调监听
-////                    aMapLocationClient.setLocationListener(locationListener);
-////                    //启动定位
-////                    aMapLocationClient.startLocation();
-////                }
-////            });
-//        }
-//    }
-//
-//    /* 3.关闭定位 */
-//    public void stopLocation() {
-//        if (aMapLocationClient != null) {
-//            aMapLocationClient.stopLocation();
-//            aMapLocationClient.onDestroy();
-//            aMapLocationClient = null;
-//        }
-//    }
-//
-//    /**
-//     * 定位配置对象
-//     */
-//    private AMapLocationClientOption getClientOption(boolean once) {
-//        //声明mLocationOption对象,初始化定位参数
-//        AMapLocationClientOption clientOption = new AMapLocationClientOption();
-//        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
-//        clientOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
-//        //如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会。
-//        if (clientOption.isOnceLocationLatest()) {
-//            clientOption.setOnceLocationLatest(true);
-//        }
-//        //设置是否返回地址信息（默认返回地址信息）
-//        clientOption.setNeedAddress(true);
-//        //设置是否强制刷新WIFI，默认为强制刷新
-//        clientOption.setWifiActiveScan(true);
-//        //设置是否允许模拟位置,默认为false，不允许模拟位置
-//        clientOption.setMockEnable(false);
-//        if (once) {
-//            //设置接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。
-//            clientOption.setOnceLocationLatest(true);
-//            //设置是否只定位一次,默认为false
-//            clientOption.setOnceLocation(true);
-//        } else {
-//            //设置是否只定位一次,默认为false
-//            clientOption.setOnceLocation(false);
-//            //设置定位间隔,单位毫秒,默认为2000ms
-//            clientOption.setInterval(2000);
-//        }
-//        return clientOption;
-//    }
-//
-//    /* 定位 并 回调信息 */
-//    public interface LocationCallBack {
-//        void onSuccess(AMapLocation aMapLocation);
-//
-//        void onFailed(AMapLocation aMapLocation);
-//    }
-//
-//    /* 定位回调监听 */
-//    public AMapLocationListener getAMapLocationListener(final LocationCallBack locationCallBack) {
-//        return new AMapLocationListener() {
-//            @Override
-//            public void onLocationChanged(final AMapLocation aMapLocation) {
-//                if (aMapLocation == null) return;
-//                final int successCode = 0; // 以后可能会变
-////                MyApp.get().getHandler().post(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        if (aMapLocation.getErrorCode() == successCode) {
-////                            if (locationChangedListener != null) { // 显示系统小蓝点
-////                                locationChangedListener.onLocationChanged(aMapLocation);
-////                            }
-////                            //定位成功回调信息，设置相关消息
-////                            aMapLocation.getLatitude();//获取纬度
-////                            aMapLocation.getLongitude();//获取经度
-////                            aMapLocation.getAccuracy();//获取精度信息
-////                            aMapLocation.getAddress();//地址，如果option中设置isNeedAddress为false，则没有此结果，网络定位结果中会有地址信息，GPS定位不返回地址信息。
-////                            aMapLocation.getProvince();//省信息
-////                            aMapLocation.getCity();//城市信息
-////                            aMapLocation.getDistrict();//城区信息
-////                            aMapLocation.getStreet();//街道信息
-////                            aMapLocation.getStreetNum();//街道门牌号信息
-////                            aMapLocation.getCityCode();//城市编码
-////                            aMapLocation.getAdCode();//地区编码
-////                            aMapLocation.getAoiName();//获取当前定位点的AOI信息
-////                            LogUtils.d(aMapLocation.toString());
-////
-////                            if (locationCallBack != null) {
-////                                locationCallBack.onSuccess(aMapLocation);
-////                            }
-////                        } else {
-////                            String errText = "定位失败," + aMapLocation.getErrorCode()
-////                                    + ": " + aMapLocation.getErrorInfo();
-////                            LogUtils.e(errText);
-////                            if (locationCallBack != null) {
-////                                locationCallBack.onFailed(aMapLocation);
-////                            }
-////                        }
-////                    }
-////                });
-//            }
-//        };
 //    }
 //
 //    /**

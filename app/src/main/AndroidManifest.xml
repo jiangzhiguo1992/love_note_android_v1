@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jiangzg.ita">
 
-    <meta-data
-        android:name="UMENG_CHANNEL"
-        android:value="${UMENG_CHANNEL_VALUE}"/>
+    <!--蓝牙信息进行室内定位-->
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
     <application
         android:name=".base.MyApp"
@@ -14,24 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemePink">
 
-        <!-- 更新服务 -->
+        <!-- 高德地图 -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="8d050bd3da20cc18f5f066710b8b8974"/>
+        <service
+            android:name="com.amap.api.location.APSService"
+            android:enabled="true"
+            android:exported="true"/>
+        <!-- apk更新 -->
         <service
             android:name=".service.UpdateService"
             android:enabled="true"
             android:exported="true"/>
+        <!-- 定时器 -->
         <service
             android:name=".service.TimerService"
             android:enabled="true"
             android:exported="true">
         </service>
-        <!-- 地图服务 -->
-        <!-- <service -->
-        <!-- android:name=".service.LocationService" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="true"/> -->
 
-
-        <!-- receiver -->
+        <!-- oss -->
         <receiver
             android:name=".broadcast.OssReceiver"
             android:enabled="true"
@@ -65,16 +68,11 @@
         <activity android:name=".activity.couple.WallPaperActivity"/>
         <activity android:name=".activity.common.ImgScreenActivity"/>
         <activity android:name=".activity.couple.CouplePairActivity"/>
-        <activity android:name=".activity.couple.CoupleMapActivity">
-        </activity>
-        <activity android:name=".activity.couple.CoupleWeatherActivity">
-        </activity>
-        <activity android:name=".activity.couple.CoupleMensesActivity">
-        </activity>
-        <activity android:name=".activity.couple.CoupleTrendsActivity">
-        </activity>
-        <activity android:name=".activity.couple.CoupleCoinActivity">
-        </activity>
+        <activity android:name=".activity.couple.CoupleMapActivity"/>
+        <activity android:name=".activity.couple.CoupleWeatherActivity"/>
+        <activity android:name=".activity.couple.CoupleMensesActivity"/>
+        <activity android:name=".activity.couple.CoupleTrendsActivity"/>
+        <activity android:name=".activity.couple.CoupleCoinActivity"/>
     </application>
 
 </manifest>

@@ -35,8 +35,8 @@ public class LocationInfo {
     private String province; // 省
     private String city; // 城/市
     private String district; // 区
-    private String feature; // 详
-    private String address;
+    private String street; // 详
+    private String address; // 所有总和
 
     private OnLocationChangeListener mListener; // 外部实现的listener
     private MyLocationListener myLocationListener;  // 内部处理的listener
@@ -127,6 +127,34 @@ public class LocationInfo {
         return d * 1000;
     }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public double getLongitude() {
         return longitude;
     }
@@ -135,8 +163,12 @@ public class LocationInfo {
         return latitude;
     }
 
-    public String getFeature() {
-        return feature;
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public String getCountry() {
@@ -168,7 +200,7 @@ public class LocationInfo {
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", district='" + district + '\'' +
-                ", feature='" + feature + '\'' +
+                ", street='" + street + '\'' +
                 ", address='" + address + '\'' +
                 ", mListener=" + mListener +
                 ", myLocationListener=" + myLocationListener +
@@ -196,7 +228,7 @@ public class LocationInfo {
                 instance.province = address.getAdminArea();
                 instance.city = address.getSubAdminArea();
                 instance.district = address.getLocality();
-                instance.feature = address.getFeatureName();
+                instance.street = address.getFeatureName();
                 instance.address = address.getAddressLine(0);
             }
         } catch (IOException e) { // 手动改location也会造成IOException

@@ -89,7 +89,7 @@ public class Entry extends BaseObj {
         private String province;
         private String city;
         private String district;
-        private String feature;
+        private String street;
         private String address;
         private int cityId;
 
@@ -149,12 +149,12 @@ public class Entry extends BaseObj {
             this.district = district;
         }
 
-        public String getFeature() {
-            return feature;
+        public String getStreet() {
+            return street;
         }
 
-        public void setFeature(String feature) {
-            this.feature = feature;
+        public void setStreet(String street) {
+            this.street = street;
         }
 
         public String getAddress() {

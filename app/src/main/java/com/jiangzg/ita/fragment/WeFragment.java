@@ -26,7 +26,6 @@ import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.couple.CoupleCoinActivity;
@@ -175,7 +174,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 refreshView();
             }
         });
-        observableEntryRefresh = RxBus.register(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, new Action1<LocationInfo>() {
+        observableEntryRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo locationInfo) {
                 refreshMyPlaceView();
@@ -206,7 +205,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         super.onDestroy();
         stopCoupleCountDownTask();
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableCoupleRefresh);
-        RxBus.unregister(ConsHelper.EVENT_ENTRY_PLACE_REFRESH, observableEntryRefresh);
+        RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, observableEntryRefresh);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
