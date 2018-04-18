@@ -72,6 +72,7 @@ public class OssHelper {
 
     // 获取obj的访问url
     public static String getUrl(final String objKey) {
+        if (ossClient == null) return "";
         if (StringUtils.isEmpty(objKey)) {
             LogUtils.w(LOG_TAG, "getUrl: objKey == null");
             return "";

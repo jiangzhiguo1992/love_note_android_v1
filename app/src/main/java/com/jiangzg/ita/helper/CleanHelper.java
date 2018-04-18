@@ -70,9 +70,10 @@ public class CleanHelper {
                 size += cache.length();
             }
         }
-        // fresco
-        long frescoSize = GImageView.getDiskCachesSize();
-        return size + frescoSize;
+        return size;
+        // fresco 已加入appCache
+        //long frescoSize = GImageView.getDiskCachesSize();
+        //return size + frescoSize;
     }
 
     /**
