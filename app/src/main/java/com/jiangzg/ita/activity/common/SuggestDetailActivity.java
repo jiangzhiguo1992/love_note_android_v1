@@ -54,6 +54,7 @@ import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import com.jiangzg.ita.view.GWrapView;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -216,7 +217,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         List<String> tagList = suggest.getTagList();
         String title = suggest.getTitle();
         String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreateAt());
-        String createShow = String.format(getString(R.string.create_at_colon_holder), create);
+        String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_holder), create);
         final String contentImgUrl = suggest.getContentImg();
         String contentText = suggest.getContentText();
         // view
@@ -329,7 +330,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             etComment.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(getString(R.string.holder_sprit_holder), length, commentLimit);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, commentLimit);
         tvCommentLimit.setText(limitShow);
     }
 

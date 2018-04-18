@@ -35,6 +35,8 @@ import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.service.UpdateService;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
@@ -108,7 +110,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         switchSocial.setChecked(noticeSocial);
         // 版本信息
         String versionName = AppInfo.get().getVersionName();
-        String versionNameShow = String.format(getString(R.string.current_version_colon_holder), versionName);
+        String versionNameShow = String.format(Locale.getDefault(), getString(R.string.current_version_colon_holder), versionName);
         tvUpdateSummary.setText(versionNameShow);
     }
 
@@ -188,7 +190,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
 
     private void cacheShow() {
         String cachesSize = CleanHelper.getCachesSizeFmt();
-        String cachesSizeShow = String.format(getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
+        String cachesSizeShow = String.format(Locale.getDefault(), getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
         tvCacheSummary.setText(cachesSizeShow);
     }
 

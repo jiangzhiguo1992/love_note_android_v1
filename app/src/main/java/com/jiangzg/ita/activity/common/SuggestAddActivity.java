@@ -44,6 +44,7 @@ import com.jiangzg.ita.view.GImageView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -228,7 +229,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             etTitle.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(getString(R.string.holder_sprit_holder), length, titleLimit);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, titleLimit);
         tvTitleLimit.setText(limitShow);
     }
 
@@ -243,7 +244,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             etContent.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(getString(R.string.holder_sprit_holder), length, contentLimit);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, contentLimit);
         tvContentLimit.setText(limitShow);
     }
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/25.
@@ -77,10 +78,10 @@ public class ConvertHelper {
         String show = "";
         if (distance <= 0) return show;
         if (distance < 1000) {
-            show = String.format("%.0fm", distance);
+            show = String.format(Locale.getDefault(), "%.0fm", distance);
         } else {
             float km = distance / 1000;
-            show = String.format("%.1fkm", km);
+            show = String.format(Locale.getDefault(), "%.1fkm", km);
         }
         return show;
     }

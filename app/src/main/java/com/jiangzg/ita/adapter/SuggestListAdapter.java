@@ -23,6 +23,7 @@ import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GWrapView;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -61,10 +62,10 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
         String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
-        String createShow = String.format(mActivity.getString(R.string.create_at_colon_holder), create);
+        String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_holder), create);
         long updatedAt = item.getUpdateAt();
         String update = ConvertHelper.ConvertSecond2DiffDay(updatedAt);
-        String updatedShow = String.format(mActivity.getString(R.string.update_at_colon_holder), update);
+        String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_holder), update);
         final long followCount = item.getFollowCount();
         String followShow;
         if (followCount <= 0) {

@@ -38,6 +38,8 @@ import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
@@ -261,7 +263,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         // taPhone
         tvTaPhone.setVisibility(View.VISIBLE);
         String taPhone = data.getTaPhone();
-        String phone = String.format(getString(R.string.ta_colon_holder), taPhone);
+        String phone = String.format(Locale.getDefault(), getString(R.string.ta_colon_holder), taPhone);
         tvTaPhone.setText(phone);
         // card
         cardResult.setVisibility(View.VISIBLE);

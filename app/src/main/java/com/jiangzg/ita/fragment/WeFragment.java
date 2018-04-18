@@ -67,6 +67,7 @@ import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -479,7 +480,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         // distance
         float distance = LocationHelper.distance(myInfo, taInfo);
         String distanceShow = ConvertHelper.convertDistance2Show(distance);
-        String format = String.format(getString(R.string.distance_colon), distanceShow);
+        String format = String.format(Locale.getDefault(), getString(R.string.distance_colon), distanceShow);
         tvDistance.setText(format);
     }
 
@@ -552,7 +553,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
         // diff
         int abs = Math.abs((myC - taC));
-        String format = String.format(getString(R.string.differ_colon_c), abs);
+        String format = String.format(Locale.getDefault(), getString(R.string.differ_colon_c), abs);
         tvWeatherDiffer.setText(format);
     }
 

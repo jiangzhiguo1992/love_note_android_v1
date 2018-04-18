@@ -25,6 +25,7 @@ import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.view.GWrapView;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -53,7 +54,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         int layoutPosition = helper.getLayoutPosition();
         long createdAt = item.getCreateAt();
         String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
-        String title = String.format(mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
+        String title = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
         String contentText = item.getContentText();
         List<String> tagList = item.getTagList();
         // view
