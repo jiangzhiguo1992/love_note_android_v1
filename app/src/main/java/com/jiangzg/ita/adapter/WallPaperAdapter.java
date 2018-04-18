@@ -11,11 +11,14 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.ImgScreenActivity;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.view.GImageView;
 
 import java.util.ArrayList;
@@ -98,6 +101,9 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 WallPaperAdapter.this.remove(position);
+                // event
+                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
+                RxBus.post(event);
             }
 
             @Override

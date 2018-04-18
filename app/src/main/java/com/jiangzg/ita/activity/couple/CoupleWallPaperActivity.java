@@ -29,6 +29,7 @@ import com.jiangzg.ita.adapter.WallPaperAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
 import com.jiangzg.ita.domain.WallPaper;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
@@ -38,6 +39,7 @@ import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
@@ -48,7 +50,7 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
+public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivity> {
 
     @BindView(R.id.root)
     LinearLayout root;
@@ -64,7 +66,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
     private File cropFile;
 
     public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, WallPaperActivity.class);
+        Intent intent = new Intent(from, CoupleWallPaperActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -72,7 +74,7 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_wall_paper;
+        return R.layout.activity_couple_wall_paper;
     }
 
     @Override
@@ -208,6 +210,9 @@ public class WallPaperActivity extends BaseActivity<WallPaperActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 viewRefresh(data);
+                // event
+                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
+                RxBus.post(event);
             }
 
             @Override

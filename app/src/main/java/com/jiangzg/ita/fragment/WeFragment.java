@@ -35,7 +35,7 @@ import com.jiangzg.ita.activity.couple.CoupleMensesActivity;
 import com.jiangzg.ita.activity.couple.CouplePairActivity;
 import com.jiangzg.ita.activity.couple.CoupleTrendsActivity;
 import com.jiangzg.ita.activity.couple.CoupleWeatherActivity;
-import com.jiangzg.ita.activity.couple.WallPaperActivity;
+import com.jiangzg.ita.activity.couple.CoupleWallPaperActivity;
 import com.jiangzg.ita.activity.settings.SettingsActivity;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
@@ -60,7 +60,6 @@ import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -129,6 +128,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     TextView tvCoin;
 
     private Runnable coupleCountDownTask;
+    private Observable<WallPaper> observableWallPaper;
     private Observable<Couple> observableCoupleRefresh;
     private Observable<LocationInfo> observableEntryRefresh;
     private WallPaper wallPaper;
@@ -168,6 +168,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     protected void loadData() {
         // event
+        observableWallPaper = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
+            @Override
+            public void call(WallPaper wallPaper) {
+                WeFragment.this.wallPaper = wallPaper;
+                refreshWallPaperView();
+            }
+        });
         observableCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
             @Override
             public void call(Couple couple) {
@@ -204,6 +211,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onDestroy() {
         super.onDestroy();
         stopCoupleCountDownTask();
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableWallPaper);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableCoupleRefresh);
         RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, observableEntryRefresh);
     }
@@ -225,7 +233,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (CheckHelper.isCoupleBreak()) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    WallPaperActivity.goActivity(mActivity);
+                    CoupleWallPaperActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llCoupleInfo: // cp信息
@@ -377,7 +385,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 // 没分手
                 vfWallPaper.setVisibility(View.VISIBLE);
                 // 开始墙纸动画
-                refreshWallPaper();
+                refreshWallPaperView();
             }
             // 头像 + 名称
             String myAvatar = user.getMyAvatarInCp();
@@ -393,33 +401,28 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
     }
 
-    // 墙纸  todo 数据 单张图和无图的展示
-    private void refreshWallPaper() {
-        //if (wallPaper == null)
-        //    return;
-        List<Integer> imageList = new ArrayList<>();
-        imageList.add(R.mipmap.test_bg_01);
-        imageList.add(R.mipmap.test_bg_02);
-        imageList.add(R.mipmap.test_bg_03);
-        imageList.add(R.mipmap.test_bg_04);
-        imageList.add(R.mipmap.test_bg_05);
-        imageList.add(R.mipmap.test_bg_06);
-        imageList.add(R.mipmap.test_bg_07);
-        imageList.add(R.mipmap.test_bg_08);
-        imageList.add(R.mipmap.test_bg_09);
-        for (Integer resId : imageList) {
+    // 墙纸
+    private void refreshWallPaperView() {
+        if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {
+            // todo 无图的展示
+            return;
+        }
+        // todo  本地缓存
+        // todo 单图显示
+        List<String> imageList = wallPaper.getImageList();
+        for (String ossPath : imageList) {
             GImageView image = getViewFlipperImage();
-            image.setDataRes(resId);
+            image.setDataOss(ossPath);
             vfWallPaper.addView(image);
         }
-
+        // anim
         Animation in = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_in);
         Animation out = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_out);
         in.setInterpolator(new DecelerateInterpolator());
         out.setInterpolator(new DecelerateInterpolator());
         in.setStartTime(AnimationUtils.currentAnimationTimeMillis());
         out.setStartTime(AnimationUtils.currentAnimationTimeMillis());
-
+        // viewFilter
         vfWallPaper.setInAnimation(in);
         vfWallPaper.setOutAnimation(out);
         vfWallPaper.setAutoStart(true);
@@ -432,6 +435,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         image.setLayoutParams(paramsImage);
         image.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        image.getHierarchy().setFadeDuration(0);
         return image;
     }
 

@@ -65,7 +65,7 @@
         <activity android:name=".activity.common.SuggestDetailActivity"/>
         <activity android:name=".activity.common.SuggestAddActivity"/>
         <activity android:name=".activity.common.SuggestListActivity"/>
-        <activity android:name=".activity.couple.WallPaperActivity"/>
+        <activity android:name=".activity.couple.CoupleWallPaperActivity"/>
         <activity android:name=".activity.common.ImgScreenActivity"/>
         <activity android:name=".activity.couple.CouplePairActivity"/>
         <activity android:name=".activity.couple.CoupleMapActivity"/>
