@@ -193,7 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/horizontal_line_2"/>
+                        tools:text="@string/horizontal_line_2"/>
 
                     <TextView
                         android:id="@+id/tvDistance"
@@ -202,7 +202,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
-                        android:text="@string/distance_line_meter"/>
+                        tools:text="@string/distance_line_meter"/>
 
                     <com.jiangzg.ita.view.GMarqueeText
                         android:id="@+id/tvPlaceRight"
@@ -211,7 +211,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/horizontal_line_2"/>
+                        tools:text="@string/horizontal_line_2"/>
                 </LinearLayout>
 
                 <View
@@ -230,14 +230,22 @@
                     android:paddingStart="5dp"
                     android:paddingTop="12dp">
 
-                    <com.jiangzg.ita.view.GMarqueeText
-                        android:id="@+id/tvWeatherLeft"
-                        style="@style/FontGreyNormal"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/liner_wave_liner_c"/>
+                        android:gravity="center">
+
+                        <com.jiangzg.ita.view.GMarqueeText
+                            android:id="@+id/tvWeatherLeft"
+                            style="@style/FontGreyNormal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            tools:drawableStart="@mipmap/w1"
+                            tools:text="@string/liner_wave_liner_c"/>
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tvWeatherDiffer"
@@ -246,16 +254,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="5dp"
                         android:layout_marginStart="5dp"
-                        android:text="@string/differ_line_c"/>
+                        tools:text="@string/differ_line_c"/>
 
-                    <com.jiangzg.ita.view.GMarqueeText
-                        android:id="@+id/tvWeatherRight"
-                        style="@style/FontGreyNormal"
+                    <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/liner_wave_liner_c"/>
+                        android:gravity="center">
+
+                        <com.jiangzg.ita.view.GMarqueeText
+                            android:id="@+id/tvWeatherRight"
+                            style="@style/FontGreyNormal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="5dp"
+                            android:gravity="center"
+                            tools:drawableStart="@mipmap/w45"
+                            tools:text="@string/liner_wave_liner_c"/>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>

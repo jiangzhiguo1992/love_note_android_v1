@@ -1,9 +1,11 @@
 package com.jiangzg.ita.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,10 +55,12 @@ import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
+import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GImageView;
 import com.jiangzg.ita.view.GMarqueeText;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
@@ -137,8 +141,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     private WallPaper wallPaper;
     private Place myPlace;
     private Place taPlace;
-    private Weather myWeather;
-    private Weather taWeather;
 
     public static WeFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -336,13 +338,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 srl.setRefreshing(false);
                 wallPaper = data.getWallPaper();
                 myPlace = data.getMyPlace();
-                if (myPlace != null) {
-                    myWeather = myPlace.getWeather();
-                }
                 taPlace = data.getTaPlace();
-                if (taPlace != null) {
-                    taWeather = taPlace.getWeather();
-                }
                 refreshView();
             }
 
@@ -448,15 +444,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (myPlace != null && StringUtils.isEmpty(myAddress)) {
             myAddress = myPlace.getAddress();
         }
-        if (StringUtils.isEmpty(myAddress)) {
-            myAddress = getString(R.string.horizontal_line_2);
-        }
         String taAddress = "";
         if (taPlace != null) {
             taAddress = taPlace.getAddress();
-        }
-        if (StringUtils.isEmpty(taAddress)) {
-            taAddress = getString(R.string.horizontal_line_2);
         }
         User user = SPHelper.getUser();
         String left;
@@ -473,33 +463,31 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     }
 
     private void refreshWeatherView() {
-        Weather myWeather = null;
-        Weather taWeather = null;
-        Weather.Condition myCondition = null;
-        Weather.Condition taCondition = null;
-        String myTemp;
-        String taTemp;
+        String myTemp = "";
+        int myIcon = 0;
+        String taTemp = "";
+        int taIcon = 0;
         if (myPlace != null) {
-            myWeather = myPlace.getWeather();
+            Weather myWeather = myPlace.getWeather();
+            if (myWeather != null) {
+                Weather.Condition myCondition = myWeather.getCondition();
+                if (myCondition != null && !StringUtils.isEmpty(myCondition.getTemp())) {
+                    String icon = myCondition.getIcon();
+                    myTemp = myCondition.getTemp() + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
+                    myIcon = ConvertHelper.ConvertWeatherIcon2ResInt(icon);
+                }
+            }
         }
         if (taPlace != null) {
-            taWeather = taPlace.getWeather();
-        }
-        if (myWeather != null) {
-            myCondition = myWeather.getCondition();
-        }
-        if (taWeather != null) {
-            taCondition = taWeather.getCondition();
-        }
-        if (myCondition != null) {
-            myTemp = myCondition.getTemp() + "℃";
-        } else {
-            myTemp = getString(R.string.liner_wave_liner_c);
-        }
-        if (taCondition != null) {
-            taTemp = taCondition.getTemp() + "℃";
-        } else {
-            taTemp = getString(R.string.liner_wave_liner_c);
+            Weather taWeather = taPlace.getWeather();
+            if (taWeather != null) {
+                Weather.Condition taCondition = taWeather.getCondition();
+                if (taCondition != null && !StringUtils.isEmpty(taCondition.getTemp())) {
+                    String icon = taCondition.getIcon();
+                    taTemp = taCondition.getTemp() + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
+                    taIcon = ConvertHelper.ConvertWeatherIcon2ResInt(icon);
+                }
+            }
         }
         User user = SPHelper.getUser();
         String left;
@@ -511,9 +499,21 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             left = taTemp;
             right = myTemp;
         }
-        // todo icon
+        int colorPrimary = ViewHelper.getColorPrimary(mActivity);
+        int colorIcon = ContextCompat.getColor(mActivity, colorPrimary);
+
         tvWeatherLeft.setText(left);
+        Drawable myDrawable = ViewHelper.getDrawable(mActivity, myIcon);
+        if (myDrawable != null) {
+            myDrawable.setTint(colorIcon);
+            tvWeatherLeft.setCompoundDrawables(myDrawable, null, null, null);
+        }
         tvWeatherRight.setText(right);
+        Drawable taDrawable = ViewHelper.getDrawable(mActivity, taIcon);
+        if (taDrawable != null) {
+            taDrawable.setTint(colorIcon);
+            tvWeatherRight.setCompoundDrawables(taDrawable, null, null, null);
+        }
     }
 
     // 分手倒计时
