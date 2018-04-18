@@ -73,6 +73,18 @@ public class ConvertHelper {
         return url;
     }
 
+    public static String convertDistance2Show(float distance) {
+        String show = "";
+        if (distance <= 0) return show;
+        if (distance < 1000) {
+            show = String.format("%.0fm", distance);
+        } else {
+            float km = distance / 1000;
+            show = String.format("%.1fkm", km);
+        }
+        return show;
+    }
+
     public static String ConvertWeatherIcon2Show(String icon) {
         if (StringUtils.isEmpty(icon)) return "";
         String iconTrim = icon.trim();

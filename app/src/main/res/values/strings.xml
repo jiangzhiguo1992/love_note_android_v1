@@ -339,9 +339,9 @@
     <string name="are_update_check">正在检查更新</string>
     <string name="version_number_colon">版本号:</string>
     <string name="horizontal_line_2">————</string>
-    <string name="distance_line_meter">相距——m</string>
+    <string name="distance_colon" formatted="false">相距 %s</string>
     <string name="liner_wave_liner_c">— ~ — ℃</string>
-    <string name="differ_line_c">相差—℃</string>
+    <string name="differ_colon_c" formatted="false">相差 %d℃</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_ta_first_come">我和Ta第一次来</string>
     <string name="i_ta_once_come">我和Ta以前来过</string>

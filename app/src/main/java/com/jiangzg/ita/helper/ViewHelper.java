@@ -80,6 +80,7 @@ public class ViewHelper {
      * textView.setCompoundDrawables(null, null, null, null);
      */
     public static Drawable getDrawable(Context context, int draResId) {
+        if (draResId == 0) return null;
         Drawable icon = ContextCompat.getDrawable(context, draResId);
         if (icon == null) return null;
         icon.setBounds(0, 0, icon.getMinimumWidth(), icon.getMinimumHeight());

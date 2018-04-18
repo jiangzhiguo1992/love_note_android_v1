@@ -57,6 +57,7 @@ import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
+import com.jiangzg.ita.helper.LocationHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
@@ -439,15 +440,30 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     }
 
     private void refreshPlaceView() {
-        LocationInfo info = LocationInfo.getInfo();
-        String myAddress = info.getAddress();
-        if (myPlace != null && StringUtils.isEmpty(myAddress)) {
-            myAddress = myPlace.getAddress();
+        LocationInfo myInfo = LocationInfo.getInfo();
+        // myAddress
+        String myAddress;
+        if (myPlace != null) {
+            if (StringUtils.isEmpty(myInfo.getAddress())) {
+                // 优先本地数据
+                myInfo.setAddress(myPlace.getAddress());
+            }
+            if (myInfo.getLatitude() == 0 && myInfo.getLongitude() == 0) {
+                myInfo.setLongitude(myPlace.getLongitude());
+                myInfo.setLatitude(myPlace.getLatitude());
+            }
         }
-        String taAddress = "";
+        myAddress = myInfo.getAddress();
+        // taAddress
+        LocationInfo taInfo = new LocationInfo();
+        String taAddress;
         if (taPlace != null) {
-            taAddress = taPlace.getAddress();
+            taInfo.setAddress(taPlace.getAddress());
+            taInfo.setLongitude(taPlace.getLongitude());
+            taInfo.setLatitude(taPlace.getLatitude());
         }
+        taAddress = taInfo.getAddress();
+        // creator
         User user = SPHelper.getUser();
         String left;
         String right;
@@ -460,60 +476,84 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
         tvPlaceLeft.setText(left);
         tvPlaceRight.setText(right);
+        // distance
+        float distance = LocationHelper.distance(myInfo, taInfo);
+        String distanceShow = ConvertHelper.convertDistance2Show(distance);
+        String format = String.format(getString(R.string.distance_colon), distanceShow);
+        tvDistance.setText(format);
     }
 
     private void refreshWeatherView() {
         String myTemp = "";
+        int myC = 0;
         int myIcon = 0;
         String taTemp = "";
+        int taC = 0;
         int taIcon = 0;
+        // myWeather
         if (myPlace != null) {
             Weather myWeather = myPlace.getWeather();
             if (myWeather != null) {
                 Weather.Condition myCondition = myWeather.getCondition();
                 if (myCondition != null && !StringUtils.isEmpty(myCondition.getTemp())) {
                     String icon = myCondition.getIcon();
-                    myTemp = myCondition.getTemp() + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
+                    String temp = myCondition.getTemp();
+                    myTemp = temp + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
                     myIcon = ConvertHelper.ConvertWeatherIcon2ResInt(icon);
+                    myC = Integer.parseInt(temp);
                 }
             }
         }
+        // taWeather
         if (taPlace != null) {
             Weather taWeather = taPlace.getWeather();
             if (taWeather != null) {
                 Weather.Condition taCondition = taWeather.getCondition();
                 if (taCondition != null && !StringUtils.isEmpty(taCondition.getTemp())) {
                     String icon = taCondition.getIcon();
-                    taTemp = taCondition.getTemp() + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
+                    String temp = taCondition.getTemp();
+                    taTemp = temp + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
                     taIcon = ConvertHelper.ConvertWeatherIcon2ResInt(icon);
+                    taC = Integer.parseInt(temp);
                 }
             }
         }
+        // creator
         User user = SPHelper.getUser();
         String left;
+        int leftIcon;
         String right;
+        int rightIcon;
         if (user.isCoupleCreator()) {
             left = myTemp;
+            leftIcon = myIcon;
             right = taTemp;
+            rightIcon = taIcon;
         } else {
             left = taTemp;
+            leftIcon = taIcon;
             right = myTemp;
+            rightIcon = myIcon;
         }
         int colorPrimary = ViewHelper.getColorPrimary(mActivity);
         int colorIcon = ContextCompat.getColor(mActivity, colorPrimary);
-
+        // view
         tvWeatherLeft.setText(left);
-        Drawable myDrawable = ViewHelper.getDrawable(mActivity, myIcon);
+        Drawable myDrawable = ViewHelper.getDrawable(mActivity, leftIcon);
         if (myDrawable != null) {
             myDrawable.setTint(colorIcon);
             tvWeatherLeft.setCompoundDrawables(myDrawable, null, null, null);
         }
         tvWeatherRight.setText(right);
-        Drawable taDrawable = ViewHelper.getDrawable(mActivity, taIcon);
+        Drawable taDrawable = ViewHelper.getDrawable(mActivity, rightIcon);
         if (taDrawable != null) {
             taDrawable.setTint(colorIcon);
             tvWeatherRight.setCompoundDrawables(taDrawable, null, null, null);
         }
+        // diff
+        int abs = Math.abs((myC - taC));
+        String format = String.format(getString(R.string.differ_colon_c), abs);
+        tvWeatherDiffer.setText(format);
     }
 
     // 分手倒计时

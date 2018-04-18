@@ -110,14 +110,14 @@ public class LocationHelper {
     }
 
     // 两点距离
-    public static void distance(LocationInfo info1, LocationInfo info2) {
+    public static float distance(LocationInfo info1, LocationInfo info2) {
         DPoint point1 = new DPoint();
         point1.setLatitude(info1.getLatitude());
         point1.setLongitude(info1.getLongitude());
         DPoint point2 = new DPoint();
         point2.setLatitude(info2.getLatitude());
         point2.setLongitude(info2.getLongitude());
-        CoordinateConverter.calculateLineDistance(point1, point2);
+        return CoordinateConverter.calculateLineDistance(point1, point2);
     }
 
 }
