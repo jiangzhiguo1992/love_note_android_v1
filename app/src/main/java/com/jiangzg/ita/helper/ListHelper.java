@@ -33,7 +33,7 @@ public class ListHelper {
         adapter.remove(index);
     }
 
-    public static <A extends BaseQuickAdapter> void updateIndexInAdapter(A adapter, BaseObj obj) {
+    public static <A extends BaseQuickAdapter> void refreshIndexInAdapter(A adapter, BaseObj obj) {
         if (adapter == null) return;
         List data = adapter.getData();
         int index = ListHelper.findIndexInList(data, obj);

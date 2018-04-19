@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
@@ -27,6 +26,7 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ListHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
@@ -36,7 +36,6 @@ import com.jiangzg.ita.view.GSwipeRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
@@ -61,6 +60,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     private int page = 0;
     private int searchType = ApiHelper.LIST_CP;
     private Observable<List<Suggest>> observableListRefresh;
+    private Observable<Suggest> observableListItemRefresh;
+    private Observable<Suggest> observableListItemDelete;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
@@ -126,7 +127,18 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 recyclerHelper.dataRefresh();
             }
         });
-        // TODO RxEvent 参照 suggestList
+        observableListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+            }
+        });
+        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -139,20 +151,19 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // TODO RxEvent 参照 suggestList
         RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, observableListRefresh);
-        //RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemDelete);
-        //RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, observableListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, observableListItemRefresh);
     }
 
     @OnClick({R.id.llSearch, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llSearch: // 搜索
-
+                // TODO
                 break;
             case R.id.llAdd: // 添加
-
+                // TODO
                 break;
         }
     }

@@ -141,7 +141,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         observableListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                ListHelper.updateIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
         recyclerHelper.dataRefresh();
@@ -157,8 +157,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, observableListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, observableListItemRefresh);
     }
 
     private void getData(final boolean more) {
