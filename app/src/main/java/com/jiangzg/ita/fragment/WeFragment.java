@@ -83,8 +83,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     TextView tvCoupleCountDown;
     @BindView(R.id.tvAddWallPaper)
     TextView tvAddWallPaper;
-    @BindView(R.id.rlPair)
-    RelativeLayout rlPair;
     @BindView(R.id.btnPair)
     Button btnPair;
     @BindView(R.id.vfWallPaper)
@@ -354,7 +352,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
         tvCoupleCountDown.setVisibility(View.GONE);
-        rlPair.setVisibility(View.GONE);
+        btnPair.setVisibility(View.GONE);
         vfWallPaper.setVisibility(View.GONE);
         tvAddWallPaper.setVisibility(View.GONE);
 
@@ -362,7 +360,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         Couple couple = user.getCouple();
         if (CheckHelper.isCoupleBreak(couple)) {
             // 已经分手，或者没有开始过
-            rlPair.setVisibility(View.VISIBLE);
+            btnPair.setVisibility(View.VISIBLE);
         } else {
             // 已经配对
             if (CheckHelper.isCoupleBreaking(couple)) {
@@ -391,7 +389,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
-        // todo  本地缓存
+        // 本地缓存 todo
         vfWallPaper.removeAllViews();
         // 无图显示
         if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {

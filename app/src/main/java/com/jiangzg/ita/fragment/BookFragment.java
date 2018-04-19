@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 
-import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.BaseFragment;
 import com.jiangzg.ita.base.BasePagerFragment;
@@ -31,12 +29,12 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "小本本", false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), false);
         fitToolBar(tb);
     }
 
     protected void loadData() {
-        ToastUtils.show("Book加载数据");
+
     }
 
 }

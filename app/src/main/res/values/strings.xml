@@ -406,4 +406,16 @@
     <string name="heavy_snow">大雪</string>
     <string name="blizzard">暴雪</string>
     <string name="freezing_rain">冻雨</string>
+    <string name="account_book">账本</string>
+    <string name="whisper">耳语</string>
+    <string name="diary">日记</string>
+    <string name="word">留言</string>
+    <string name="audio">录音</string>
+    <string name="video">视频</string>
+    <string name="meet">相见</string>
+    <string name="gift">礼物</string>
+    <string name="dream">梦里</string>
+    <string name="promise">承诺</string>
+    <string name="angry">生气</string>
+    <string name="award">补偿</string>
 </resources>
