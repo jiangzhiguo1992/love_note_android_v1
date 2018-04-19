@@ -7,8 +7,6 @@ package com.jiangzg.ita.domain;
 
 public class Entry extends BaseObj {
 
-    private long userId;
-    private String userToken;
     private String deviceId;
     private String deviceName;
     private String platform;
@@ -30,22 +28,6 @@ public class Entry extends BaseObj {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getUserToken() {
-        return userToken;
-    }
-
-    public void setUserToken(String userToken) {
-        this.userToken = userToken;
     }
 
     public String getDeviceName() {

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="4dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="#fff"
+    app:cardCornerRadius="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.jiangzg.ita.view.GImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:is_net_circle="true"/>
+
+            <TextView
+                android:id="@+id/tvHappenAt"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textStyle="bold"
+                tools:text="2017年 12月 31日"/>
+
+        </LinearLayout>
+
+        <View
+            style="@style/LineHorizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="5"
+            tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

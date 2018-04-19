@@ -25,6 +25,7 @@ import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.User;
 import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
@@ -181,7 +182,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         String sexShow = (sex == User.SEX_GIRL) ? getString(R.string.girl) : getString(R.string.boy);
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, day, 0, 0, 0);
-        final long birth = calendar.getTimeInMillis() / 1000;
+        final long birth = ConvertHelper.convertTimeJava2Go(calendar.getTimeInMillis());
         String title = getString(R.string.once_push_never_modify);
         String birthShow = year + getString(R.string.year_space) + month + getString(R.string.month_space) + day + getString(R.string.dayR);
         String message = getString(R.string.sex_colon) + sexShow +

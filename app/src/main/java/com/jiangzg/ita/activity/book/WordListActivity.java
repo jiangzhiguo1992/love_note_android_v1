@@ -14,7 +14,7 @@ import com.jiangzg.ita.helper.ViewHelper;
 
 import butterknife.BindView;
 
-public class WordActivity extends BaseActivity<WordActivity> {
+public class WordListActivity extends BaseActivity<WordListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -24,7 +24,7 @@ public class WordActivity extends BaseActivity<WordActivity> {
     RecyclerView rv;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), WordActivity.class);
+        Intent intent = new Intent(from.getActivity(), WordListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -32,7 +32,7 @@ public class WordActivity extends BaseActivity<WordActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_word;
+        return R.layout.activity_word_list;
     }
 
     @Override

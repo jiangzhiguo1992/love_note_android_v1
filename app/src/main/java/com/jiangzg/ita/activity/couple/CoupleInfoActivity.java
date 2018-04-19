@@ -40,6 +40,7 @@ import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.CheckHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.PopHelper;
@@ -261,7 +262,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         } else if (me.getSex() == User.SEX_GIRL) {
             meSex = R.mipmap.ic_sex_girl_circle;
         }
-        long meBirth = me.getBirthday() * 1000;
+        long meBirth = ConvertHelper.convertTimeGo2Java(me.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         // taData
         String taPhone = "";
@@ -278,7 +279,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
         String tabBirthShow = "";
         if (ta != null && ta.getBirthday() != 0) {
-            long taBirth = ta.getBirthday() * 1000;
+            long taBirth = ConvertHelper.convertTimeGo2Java(ta.getBirthday());
             tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
         // coupleData

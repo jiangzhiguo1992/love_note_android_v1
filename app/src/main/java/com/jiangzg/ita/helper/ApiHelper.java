@@ -63,8 +63,6 @@ public class ApiHelper {
     public static Entry getEntryBody() {
         Entry entry = new Entry();
         User user = SPHelper.getUser();
-        entry.setUserId(user.getId());
-        entry.setUserToken(user.getUserToken());
         ContentResolver contentResolver = MyApp.get().getContentResolver();
         String deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
         if (StringUtils.isEmpty(deviceId)) {

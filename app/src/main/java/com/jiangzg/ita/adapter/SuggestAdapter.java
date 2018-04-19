@@ -2,7 +2,6 @@ package com.jiangzg.ita.adapter;
 
 import android.content.res.ColorStateList;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -29,7 +28,7 @@ import java.util.Locale;
  * Created by JZG on 2018/3/13.
  * 意见反馈适配器
  */
-public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
+public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private FragmentActivity mActivity;
     private final FrameLayout.LayoutParams mTextLayoutParams;
@@ -38,8 +37,8 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
     private final ColorStateList colorPrimaryStateList;
     private final ColorStateList colorGreyStateList;
 
-    public SuggestListAdapter(FragmentActivity activity) {
-        super(R.layout.list_item_suggest_list);
+    public SuggestAdapter(FragmentActivity activity) {
+        super(R.layout.list_item_suggest);
         mActivity = activity;
         // color
         int rId = ViewHelper.getColorPrimary(activity);
@@ -61,10 +60,10 @@ public class SuggestListAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder
         String title = item.getTitle();
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
-        String create = ConvertHelper.ConvertSecond2DiffDay(createdAt);
+        String create = ConvertHelper.ConvertTimeGo2DiffDay(createdAt);
         String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_holder), create);
         long updatedAt = item.getUpdateAt();
-        String update = ConvertHelper.ConvertSecond2DiffDay(updatedAt);
+        String update = ConvertHelper.ConvertTimeGo2DiffDay(updatedAt);
         String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_holder), update);
         final long followCount = item.getFollowCount();
         String followShow;

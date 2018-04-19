@@ -21,6 +21,14 @@ import java.util.Locale;
  */
 public class ConvertHelper {
 
+    public static long convertTimeJava2Go(long time) {
+        return time / 1000;
+    }
+
+    public static long convertTimeGo2Java(long time) {
+        return time * 1000;
+    }
+
     public static ArrayList<Uri> convertListString2uri(List<String> strings) {
         ArrayList<Uri> uriList = new ArrayList<>();
         if (strings == null || strings.size() <= 0) return uriList;
@@ -30,18 +38,40 @@ public class ConvertHelper {
         return uriList;
     }
 
-    public static String ConvertSecond2DiffDay(long time) {
+    public static String ConvertTimeGo2DiffDay(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
-        cTime.setTime(new Date(time * 1000));
-        boolean sameDay = CalUtils.isSameDay(cNow, cTime);
+        cTime.setTime(new Date(convertTimeGo2Java(time)));
         String format;
-        if (sameDay) {
+        if (CalUtils.isSameDay(cNow, cTime)) {
             format = ConstantUtils.FORMAT_H_M;
         } else {
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getString(time * 1000, format);
+        return DateUtils.getString(convertTimeGo2Java(time), format);
+    }
+
+    public static String ConvertTimeGo2DiaryShow(long time) {
+        Calendar cNow = Calendar.getInstance();
+        Calendar cTime = Calendar.getInstance();
+        cTime.setTime(new Date(convertTimeGo2Java(time)));
+        String format;
+        if (CalUtils.isSameDay(cNow, cTime)) {
+            // 同一天
+            format = ConstantUtils.FORMAT_H_M;
+        } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "MM" + month + " dd" + day;
+        } else {
+            // 不同年
+            String year = MyApp.get().getString(R.string.year);
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "yyyy" + year + " MM" + month + " dd" + day;
+        }
+        return DateUtils.getString(convertTimeGo2Java(time), format);
     }
 
     // url转oss路径

@@ -20,21 +20,13 @@ public class Help extends BaseObj {
     public static final int TYPE_WALL_PAPER_ADD = 9;
     public static final int TYPE_COUPLE_INFO = 10;
     public static final int TYPE_BOOK_HOME = 11;
+    public static final int TYPE_DIARY_LIST = 12;
 
     private int contentType;
-    private int parentType;
     private String title;
     private String desc;
     private List<HelpContent> contentList;
     private List<Help> subList;
-
-    public int getParentType() {
-        return parentType;
-    }
-
-    public void setParentType(int parentType) {
-        this.parentType = parentType;
-    }
 
     public int getContentType() {
         return contentType;

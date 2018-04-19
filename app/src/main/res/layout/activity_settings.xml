@@ -41,34 +41,6 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <RelativeLayout
-                android:id="@+id/rlCache"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvCacheTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/clear_cache"/>
-
-                <TextView
-                    android:id="@+id/tvCacheSummary"
-                    style="@style/FontGreySmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvCacheTitle"
-                    tools:text="@string/contain_image_audio_video_total_colon_holder"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
             <TextView
                 style="@style/FontPrimaryNormal"
                 android:layout_width="match_parent"
@@ -218,6 +190,34 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUpdateTitle"
                     tools:text="@string/current_version_colon_holder"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rlCache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvCacheTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear_cache"/>
+
+                <TextView
+                    android:id="@+id/tvCacheSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCacheTitle"
+                    tools:text="@string/contain_image_audio_video_total_colon_holder"/>
             </RelativeLayout>
 
             <View

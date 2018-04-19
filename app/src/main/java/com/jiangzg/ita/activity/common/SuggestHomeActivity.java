@@ -26,7 +26,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.ita.R;
-import com.jiangzg.ita.adapter.SuggestListAdapter;
+import com.jiangzg.ita.adapter.SuggestAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
@@ -93,7 +93,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new SuggestListAdapter(mActivity))
+                .initAdapter(new SuggestAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_common, true, true)
                 .viewHeader(R.layout.list_head_suggest_home)
                 .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
@@ -113,8 +113,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        SuggestListAdapter suggestListAdapter = (SuggestListAdapter) adapter;
-                        suggestListAdapter.goSuggestDetail(position);
+                        SuggestAdapter suggestAdapter = (SuggestAdapter) adapter;
+                        suggestAdapter.goSuggestDetail(position);
                     }
                 });
         // head
@@ -157,7 +157,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         observableListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                SuggestListAdapter adapter = recyclerHelper.getAdapter();
+                SuggestAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<Suggest> data = adapter.getData();
                 int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
@@ -168,7 +168,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         observableListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                SuggestListAdapter adapter = recyclerHelper.getAdapter();
+                SuggestAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<Suggest> data = adapter.getData();
                 int index = SuggestListActivity.getIndexInSuggestList(data, suggest);

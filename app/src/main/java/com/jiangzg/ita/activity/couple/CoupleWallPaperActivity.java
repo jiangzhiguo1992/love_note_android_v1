@@ -40,12 +40,14 @@ import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
+import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -109,7 +111,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                         HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
                         break;
                     case R.id.menuAdd: // 添加
-                        showImgSelect();
+                        addWallPaper();
                         break;
                 }
                 return true;
@@ -163,6 +165,20 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 recyclerHelper.dataFail(false, errMsg);
             }
         });
+    }
+
+    private void addWallPaper() {
+        int count = SPHelper.getVipLimit().getCoupleWallPaperCount();
+        if (recyclerHelper == null) return;
+        WallPaperAdapter adapter = recyclerHelper.getAdapter();
+        if (adapter == null) return;
+        List<String> data = adapter.getData();
+        if (data.size() >= count) {
+            String format = String.format(Locale.getDefault(), getString(R.string.no_vip_just_can_push_colon_img), count);
+            ToastUtils.show(format);
+            return;
+        }
+        showImgSelect();
     }
 
     public void showImgSelect() {

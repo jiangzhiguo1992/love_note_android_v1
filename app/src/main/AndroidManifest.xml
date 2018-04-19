@@ -74,7 +74,9 @@
         <activity android:name=".activity.couple.CoupleMensesActivity"/>
         <activity android:name=".activity.couple.CoupleTrendsActivity"/>
         <activity android:name=".activity.couple.CoupleCoinActivity"/>
-        <activity android:name=".activity.book.WordActivity">
+        <activity android:name=".activity.book.WordListActivity">
+        </activity>
+        <activity android:name=".activity.book.DiaryListActivity">
         </activity>
     </application>
 

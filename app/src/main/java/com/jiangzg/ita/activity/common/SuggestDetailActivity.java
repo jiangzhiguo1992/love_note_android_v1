@@ -69,8 +69,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.llBottom)
-    LinearLayout llBottom;
     @BindView(R.id.ivFollow)
     ImageView ivFollow;
     @BindView(R.id.tvFollow)
@@ -216,7 +214,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // data
         List<String> tagList = suggest.getTagList();
         String title = suggest.getTitle();
-        String create = ConvertHelper.ConvertSecond2DiffDay(suggest.getCreateAt());
+        String create = ConvertHelper.ConvertTimeGo2DiffDay(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_holder), create);
         final String contentImgUrl = suggest.getContentImg();
         String contentText = suggest.getContentText();
