@@ -389,7 +389,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
-        // 本地缓存 todo
+        // TODO 本地缓存
         vfWallPaper.removeAllViews();
         // 无图显示
         if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {

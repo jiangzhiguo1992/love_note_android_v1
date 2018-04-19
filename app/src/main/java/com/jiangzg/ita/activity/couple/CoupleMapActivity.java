@@ -11,7 +11,7 @@ import com.jiangzg.ita.base.BaseActivity;
 
 public class CoupleMapActivity extends BaseActivity<CoupleMapActivity> {
 
-    // todo 先检查是否初始化
+    // TODO 先检查是否初始化
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, CoupleMapActivity.class);
         // intent.putExtra();
@@ -26,12 +26,12 @@ public class CoupleMapActivity extends BaseActivity<CoupleMapActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // todo
+        // TODO
     }
 
     @Override
     protected void initData(Bundle state) {
-        // todo
+        // TODO
     }
 
 }

@@ -34,6 +34,7 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.domain.SuggestInfo;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ListHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
 import com.jiangzg.ita.helper.RxBus;
@@ -157,23 +158,13 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         observableListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                SuggestAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter == null) return;
-                List<Suggest> data = adapter.getData();
-                int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
-                if (index < 0) return;
-                adapter.remove(index);
+                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
         observableListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                SuggestAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter == null) return;
-                List<Suggest> data = adapter.getData();
-                int index = SuggestListActivity.getIndexInSuggestList(data, suggest);
-                if (index < 0) return;
-                adapter.setData(index, suggest);
+                ListHelper.updateIndexInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
         // refresh

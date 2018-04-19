@@ -53,13 +53,13 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // todo activity还是fragment还是dialog
+        // TODO activity还是fragment还是dialog
 
-        // todo 双击缩放 手指缩放 多图侧滑 图片下载
+        // TODO 双击缩放 手指缩放 多图侧滑 图片下载
 
-        // todo listItem回退动画位置不准确
+        // TODO listItem回退动画位置不准确
 
-        // todo 回退之后 有时候原图会白屏
+        // TODO 回退之后 有时候原图会白屏
 
         // 获取数据
         ArrayList<String> imgList = getIntent().getStringArrayListExtra("imgList");

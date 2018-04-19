@@ -65,7 +65,7 @@ public class RetrofitHelper {
         HashMap<String, String> options = new HashMap<>();
         options.put("Accept", "application/json");
         options.put("platform", "android");
-        options.put("sign", ""); // todo
+        options.put("sign", ""); // TODO
         options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
         options.put("access_token", SPHelper.getUser().getUserToken());
         return options;
@@ -79,7 +79,7 @@ public class RetrofitHelper {
 
     public static HashMap<String, String> getHeadForm() {
         HashMap<String, String> options = getHead();
-        options.put("Content-Type", ""); // todo
+        options.put("Content-Type", ""); // TODO
         return options;
     }
 
@@ -339,7 +339,7 @@ public class RetrofitHelper {
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            // todo 跳转VIP购买页面
+                            // TODO 跳转VIP购买页面
                             ToastUtils.show("跳转VIP购买页面");
                         }
                     })

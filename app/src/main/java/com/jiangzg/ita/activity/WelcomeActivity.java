@@ -48,14 +48,14 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        // todo 开屏页本地获取并加载
+        // TODO 开屏页本地获取并加载
         //ivBg.setImageResource();
         startAnim();
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        // todo ...非网络性init操作
+        // TODO ...非网络性init操作
         checkUser();
     }
 

@@ -26,7 +26,7 @@ public class ConsHelper {
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 5;
     public static final int EVENT_LOCATION_REFRESH = 6;
     public static final int EVENT_WALL_PAPER_REFRESH = 7;
-    public static final int EVENT_DIARY_REFRESH = 8;
+    public static final int EVENT_DIARY_LIST_REFRESH = 8;
 
 
 }

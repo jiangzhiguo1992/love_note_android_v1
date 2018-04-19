@@ -70,6 +70,15 @@ public class Result implements Serializable {
         private Place place;
         private Place myPlace;
         private Place taPlace;
+        private List<Diary> diaryList;
+
+        public List<Diary> getDiaryList() {
+            return diaryList;
+        }
+
+        public void setDiaryList(List<Diary> diaryList) {
+            this.diaryList = diaryList;
+        }
 
         public Place getPlace() {
             return place;

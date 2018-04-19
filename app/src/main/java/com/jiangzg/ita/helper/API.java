@@ -80,7 +80,7 @@ public interface API {
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
 
-    // 登录历史获取 todo
+    // TODO 登录历史获取
     @GET("entry")
     Call<Result> entryListGet();
 
@@ -160,6 +160,10 @@ public interface API {
     // cp首页
     @POST("couple/home")
     Call<Result> coupleHomeGet(@Body Place place);
+
+    // cp首页
+    @GET("book/diary?did=0&list=1")
+    Call<Result> diaryListGet(@Query("who") int who, @Query("page") int page);
 
 
 }

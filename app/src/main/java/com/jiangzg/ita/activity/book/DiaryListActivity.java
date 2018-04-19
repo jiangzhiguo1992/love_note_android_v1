@@ -20,14 +20,27 @@ import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.adapter.DiaryAdapter;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Diary;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ApiHelper;
+import com.jiangzg.ita.helper.ConsHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
@@ -43,7 +56,11 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     LinearLayout llSearch;
     @BindView(R.id.llAdd)
     LinearLayout llAdd;
+
     private RecyclerHelper recyclerHelper;
+    private int page = 0;
+    private int searchType = ApiHelper.LIST_CP;
+    private Observable<List<Suggest>> observableListRefresh;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
@@ -103,12 +120,14 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        // todo RxEvent 参照 suggestList
+        observableListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Suggest>>() {
+            @Override
+            public void call(List<Suggest> suggests) {
+                recyclerHelper.dataRefresh();
+            }
+        });
+        // TODO RxEvent 参照 suggestList
         recyclerHelper.dataRefresh();
-    }
-
-    private void getData(boolean more) {
-
     }
 
     @Override
@@ -120,8 +139,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // todo RxEvent 参照 suggestList
-        //RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListRefresh);
+        // TODO RxEvent 参照 suggestList
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, observableListRefresh);
         //RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemDelete);
         //RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListItemRefresh);
     }
@@ -136,6 +155,26 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
                 break;
         }
+    }
+
+    private void getData(final boolean more) {
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).diaryListGet(searchType, page);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                recyclerHelper.viewEmptyShow(data.getShow());
+                long total = data.getTotal();
+                List<Diary> diaryList = data.getDiaryList();
+                recyclerHelper.dataOk(diaryList, total, more);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                recyclerHelper.dataFail(more, errMsg);
+            }
+        });
     }
 
 }

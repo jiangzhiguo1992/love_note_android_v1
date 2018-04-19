@@ -24,12 +24,12 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // todo
+        // TODO
     }
 
     @Override
     protected void initData(Bundle state) {
-        // todo
+        // TODO
     }
 
 }

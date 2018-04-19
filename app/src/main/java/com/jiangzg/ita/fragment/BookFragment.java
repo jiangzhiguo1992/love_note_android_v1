@@ -107,9 +107,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             R.id.cvAward})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvAccount: // todo 账本
+            case R.id.cvAccount: // TODO 账本
                 break;
-            case R.id.cvWhisper: // todo 耳语
+            case R.id.cvWhisper: // TODO 耳语
                 break;
             case R.id.cvDiary: // 日记
                 DiaryListActivity.goActivity(mFragment);
@@ -117,29 +117,29 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvWord: // 留言
                 WordListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvAudio: // todo 录音
+            case R.id.cvAudio: // TODO 录音
                 break;
-            case R.id.cvVideo: // todo 视频
+            case R.id.cvVideo: // TODO 视频
                 break;
-            case R.id.cvAlbum: // todo 相册
+            case R.id.cvAlbum: // TODO 相册
                 break;
-            case R.id.cvMeet: // todo 相见
+            case R.id.cvMeet: // TODO 相见
                 break;
-            case R.id.cvGift: // todo 礼物
+            case R.id.cvGift: // TODO 礼物
                 break;
-            case R.id.cvDream: // todo 梦里
+            case R.id.cvDream: // TODO 梦里
                 break;
-            case R.id.cvPromise: // todo 承诺
+            case R.id.cvPromise: // TODO 承诺
                 break;
-            case R.id.cvAngry: // todo 生气
+            case R.id.cvAngry: // TODO 生气
                 break;
-            case R.id.cvAward: // todo 补偿
+            case R.id.cvAward: // TODO 补偿
                 break;
         }
     }
 
     private void refreshData() {
-        // todo api
+        // TODO api
     }
 
 }

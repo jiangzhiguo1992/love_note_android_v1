@@ -34,7 +34,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        // todo 先获取type，在api获取url和title，再加载
+        // TODO 先获取type，在api获取url和title，再加载
     }
 
 }

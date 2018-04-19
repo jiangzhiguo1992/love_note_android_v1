@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /**
  * Created by Jiang on 2016/10/08
- * 日志管理工具类 todo 对应级别上线打印开关 打印堆栈 打印线程 日志文件读写 全局异常补货 json打印
+ * 日志管理工具类 TODO 对应级别上线打印开关 打印堆栈 打印线程 日志文件读写 全局异常补货 json打印
  */
 public class LogUtils {
     private static String logDir; // SDCard/包名/log/
@@ -49,7 +49,7 @@ public class LogUtils {
         //Log.e(LOG_TAG_PREFIX + tag, print);
         if (t == null) return;
         StackTraceElement[] stackTrace = t.getStackTrace();
-        // todo
+        // TODO
     }
 
     /**

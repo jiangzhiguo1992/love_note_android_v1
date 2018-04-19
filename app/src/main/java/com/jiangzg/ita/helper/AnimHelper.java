@@ -31,7 +31,7 @@ import android.view.animation.LinearInterpolator;
 public class AnimHelper {
 
     /**
-     * todo 加载数据成功后的布局变换
+     * TODO 加载数据成功后的布局变换
      * 属性动画group使用，ViewGroup.setLayoutTransition(transition);
      * animateLayoutChanges="true"只能是系统自带的
      */
@@ -110,7 +110,7 @@ public class AnimHelper {
     public static final int TRANS_FADE = 3;     // 透明度渐变进出
 
     /**
-     * todo dialog全屏图展示会用到
+     * TODO dialog全屏图展示会用到
      * **********************************过渡动画 **********************************
      * <p>
      * 用于切换的场景,就是布局
