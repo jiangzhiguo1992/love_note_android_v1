@@ -108,7 +108,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.menuHelp: // 评论
+                    case R.id.menuHelp: // 帮助
                         int helpType;
                         if (entry == ENTRY_FOLLOW) {
                             helpType = Help.TYPE_SUGGEST_FOLLOW;

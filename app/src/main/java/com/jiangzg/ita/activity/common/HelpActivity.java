@@ -3,6 +3,7 @@ package com.jiangzg.ita.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -51,6 +52,13 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     public static void goActivity(Activity from, int type) {
         Intent intent = new Intent(from, HelpActivity.class);
+        intent.putExtra("type", type);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Fragment from, int type) {
+        Intent intent = new Intent(from.getActivity(), HelpActivity.class);
         intent.putExtra("type", type);
         //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jiangzg.ita">
 
-    <!--蓝牙信息进行室内定位-->
+    <!-- 蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
 
@@ -18,6 +18,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8d050bd3da20cc18f5f066710b8b8974"/>
+
         <service
             android:name="com.amap.api.location.APSService"
             android:enabled="true"
@@ -73,6 +74,8 @@
         <activity android:name=".activity.couple.CoupleMensesActivity"/>
         <activity android:name=".activity.couple.CoupleTrendsActivity"/>
         <activity android:name=".activity.couple.CoupleCoinActivity"/>
+        <activity android:name=".activity.book.WordActivity">
+        </activity>
     </application>
 
 </manifest>

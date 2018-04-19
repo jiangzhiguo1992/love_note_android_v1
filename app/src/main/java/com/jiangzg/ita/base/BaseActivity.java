@@ -169,24 +169,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         return super.onTouchEvent(event);
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Stack<Activity> stack = ActivityStack.getStack();
-        if (stack.size() <= 1 || this.getCls() == HomeActivity.class) {
-            long nowTime = DateUtils.getCurrentLong();
-            if (nowTime - mLastExitTime > 2000) { // 第一次按
-                ToastUtils.show(getString(R.string.press_again_exit));
-            } else { // 返回键连按两次
-                //AppUtils.appExit();
-                super.onBackPressed();
-            }
-            mLastExitTime = nowTime;
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     /* 手机返回键 */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -205,6 +187,23 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Stack<Activity> stack = ActivityStack.getStack();
+        if (stack.size() <= 1 || this.getCls() == HomeActivity.class) {
+            long nowTime = DateUtils.getCurrentLong();
+            if (nowTime - mLastExitTime > 2000) { // 第一次按
+                ToastUtils.show(getString(R.string.press_again_exit));
+            } else { // 返回键连按两次
+                //AppUtils.appExit();
+                super.onBackPressed();
+            }
+            mLastExitTime = nowTime;
+        } else {
+            super.onBackPressed();
+        }
     }
 
     /**

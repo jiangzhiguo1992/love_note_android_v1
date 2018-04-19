@@ -19,6 +19,7 @@ public class Help extends BaseObj {
     public static final int TYPE_SUGGEST_FOLLOW = 8;
     public static final int TYPE_WALL_PAPER_ADD = 9;
     public static final int TYPE_COUPLE_INFO = 10;
+    public static final int TYPE_BOOK_HOME = 11;
 
     private int contentType;
     private int parentType;
