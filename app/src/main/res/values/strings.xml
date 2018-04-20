@@ -428,4 +428,5 @@
     <string name="ta_de">Ta的</string>
     <string name="space_bracket_colon" formatted="false"> (%d)</string>
     <string name="click_me_choose_date">点我选日期</string>
+    <string name="text_number_colon" formatted="false">字数:%d</string>
 </resources>

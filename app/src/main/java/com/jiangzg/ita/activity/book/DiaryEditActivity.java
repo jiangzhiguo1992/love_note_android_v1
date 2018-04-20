@@ -219,8 +219,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showImgSelect() {
-        //if (SPHelper.getVipLimit().isBookDiaryImageEnable()) {
-        if (true) {
+        if (SPHelper.getVipLimit().isBookDiaryImageEnable()) {
             cameraFile = ResHelper.createJPEGInCache();
             PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
             PopUtils.show(popupWindow, root);
@@ -231,7 +230,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void onContentInput(String input) {
         if (limitContent <= 0) {
-            limitContent = SPHelper.getLimit().getSuggestLimitContentText();
+            limitContent = SPHelper.getLimit().getDiaryLimitContent();
         }
         int length = input.length();
         if (length > limitContent) {

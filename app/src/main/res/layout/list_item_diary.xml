@@ -29,21 +29,29 @@
 
             <com.jiangzg.ita.view.GImageView
                 android:id="@+id/ivAvatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:is_net_circle="true"/>
 
             <TextView
                 android:id="@+id/tvHappenAt"
                 style="@style/FontBlackNormal"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textStyle="bold"
                 tools:text="2017年 12月 31日"/>
 
+            <TextView
+                android:id="@+id/tvCount"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                tools:text="字数:2000"/>
         </LinearLayout>
 
         <View
@@ -57,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="5"
+            android:maxLines="8"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

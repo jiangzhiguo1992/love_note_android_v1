@@ -1,5 +1,6 @@
 package com.jiangzg.base.time;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 
@@ -39,7 +40,7 @@ public class DateUtils {
         return new Date();
     }
 
-    public static String getCurrentString(String sFormat) {
+    public static String getCurrentCSTString(String sFormat) {
         if (StringUtils.isEmpty(sFormat)) {
             LogUtils.w(LOG_TAG, "getCurrentString: sFormat == null");
             return "";
@@ -49,7 +50,10 @@ public class DateUtils {
             LogUtils.w(LOG_TAG, "getCurrentString: format == null");
             return "";
         }
-        return format.format(new Date());
+        Date date = new Date();
+        // UTC比SCT早8个小时
+        date.setTime(date.getTime() + ConstantUtils.HOUR * 8);
+        return format.format(date);
     }
 
     public static long getCurrentLong() {
@@ -149,35 +153,37 @@ public class DateUtils {
     /**
      * 获取String类型时间
      */
-    public static String getString(Date date, String sFormat) {
+    public static String getCSTString(Date date, String sFormat) {
         if (date == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getString: date == null || sFormat == null");
+            LogUtils.w(LOG_TAG, "getCSTString: date == null || sFormat == null");
             return "";
         }
+        // UTC比SCT早8个小时
+        date.setTime(date.getTime() + ConstantUtils.HOUR * 8);
         SimpleDateFormat format = getFormat(sFormat);
         if (format == null) {
-            LogUtils.w(LOG_TAG, "getString: format == null");
+            LogUtils.w(LOG_TAG, "getCSTString: format == null");
             return "";
         }
         return format.format(date);
     }
 
-    public static String getString(long time, String sFormat) {
+    public static String getCSTString(long time, String sFormat) {
         if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getString: sFormat == null");
+            LogUtils.w(LOG_TAG, "getCSTString: sFormat == null");
             return "";
         }
         Date date = new Date(time);
-        return getString(date, sFormat);
+        return getCSTString(date, sFormat);
     }
 
-    public static String getString(Calendar calendar, String sFormat) {
+    public static String getCSTString(Calendar calendar, String sFormat) {
         if (calendar == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getString: calendar == null || sFormat == null");
+            LogUtils.w(LOG_TAG, "getCSTString: calendar == null || sFormat == null");
             return "";
         }
         Date date = calendar.getTime();
-        return getString(date, sFormat);
+        return getCSTString(date, sFormat);
     }
 
 }

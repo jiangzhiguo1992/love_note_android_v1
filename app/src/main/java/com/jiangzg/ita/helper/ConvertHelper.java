@@ -58,7 +58,7 @@ public class ConvertHelper {
         } else {
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getString(convertTimeGo2Java(time), format);
+        return DateUtils.getCSTString(convertTimeGo2Java(time), format);
     }
 
     public static String ConvertTimeGo2DiaryShow(long time) {
@@ -85,7 +85,7 @@ public class ConvertHelper {
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getString(time, format);
+        return DateUtils.getCSTString(time, format);
     }
 
     // url转oss路径

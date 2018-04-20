@@ -13,6 +13,8 @@ import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.view.GImageView;
 
+import java.util.Locale;
+
 /**
  * Created by JZG on 2018/3/13.
  * 意见反馈适配器
@@ -37,9 +39,12 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Diary item) {
         String happen = ConvertHelper.ConvertTimeGo2DiaryShow(item.getHappenAt());
         String content = item.getContent();
+        if (content == null) content = "";
+        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon), content.length());
         String avatar = (item.getUserId() == creatorId) ? creatorAvatar : inviteeAvatar;
         // view
         helper.setText(R.id.tvHappenAt, happen);
+        helper.setText(R.id.tvCount, countShow);
         helper.setText(R.id.tvContent, content);
         GImageView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setDataOss(avatar);

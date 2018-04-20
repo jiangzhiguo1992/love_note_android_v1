@@ -27,6 +27,7 @@ import com.jiangzg.ita.domain.Result;
 import com.jiangzg.ita.domain.Version;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.ResHelper;
@@ -69,7 +70,7 @@ public class UpdateService extends Service {
             Version version = versionList.get(i);
             String versionName = version.getVersionName();
             long createdAt = version.getCreateAt();
-            String create = DateUtils.getString(createdAt * 1000, ConstantUtils.FORMAT_CHINA_M_D);
+            String create = DateUtils.getCSTString(ConvertHelper.convertTimeGo2Java(createdAt), ConstantUtils.FORMAT_CHINA_M_D);
             String updateLog = version.getUpdateLog();
             builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)
                     .append("  (").append(create).append(")\n")

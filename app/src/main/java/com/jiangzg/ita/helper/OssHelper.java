@@ -658,6 +658,6 @@ public class OssHelper {
     }
 
     private static String getObjectKey(String dir, String suffix) {
-        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
+        return dir + DateUtils.getCurrentCSTString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
     }
 }
