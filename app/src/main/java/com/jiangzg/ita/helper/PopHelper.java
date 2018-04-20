@@ -31,6 +31,7 @@ public class PopHelper {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.root:
+                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
                         break;
                     case R.id.llBook:
@@ -69,6 +70,7 @@ public class PopHelper {
                         });
                         break;
                     case R.id.llCancel:
+                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
                         break;
                 }
@@ -95,6 +97,7 @@ public class PopHelper {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.root:
+                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
                         break;
                     case R.id.llPicture:

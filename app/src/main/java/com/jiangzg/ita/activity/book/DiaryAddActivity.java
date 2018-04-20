@@ -14,17 +14,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.adapter.ImgSquareAddAdapter;
 import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.helper.ConsHelper;
-import com.jiangzg.ita.helper.RecyclerHelper;
+import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
@@ -33,7 +36,6 @@ import java.io.File;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
@@ -55,6 +57,7 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
 
     private int limitContent;
     private ImgSquareAddAdapter addAdapter;
+    private File cameraFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryAddActivity.class);
@@ -74,7 +77,13 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
         // recycler
         int limitImages = SPHelper.getLimit().getDiaryLimitImages();
         rv.setLayoutManager(new GridLayoutManager(mActivity, limitImages));
-        addAdapter = new ImgSquareAddAdapter(mActivity, root, limitImages, limitImages);
+        addAdapter = new ImgSquareAddAdapter(mActivity, limitImages, limitImages);
+        addAdapter.setOnAddClick(new ImgSquareAddAdapter.OnAddClickListener() {
+            @Override
+            public void onAdd() {
+                showImgSelect();
+            }
+        });
         rv.setAdapter(addAdapter);
         // input
         etContent.addTextChangedListener(new TextWatcher() {
@@ -119,25 +128,27 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        File cameraFile = addAdapter.getCameraFile();
         if (resultCode != RESULT_OK) {
+            // 每次pop都会创建，所以这里必须删除
             ResHelper.deleteFileInBackground(cameraFile);
-            //pictureFile = null;
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
-            if (cameraFile == null) return;
+            if (FileUtils.isFileEmpty(cameraFile)) {
+                ResHelper.deleteFileInBackground(cameraFile);
+                return;
+            }
             addAdapter.addFileData(cameraFile.getAbsolutePath());
-            // 解除相册文件引用
-            //pictureFile = null;
+            cameraFile = null; // 解除引用，防止误删
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
-            if (pictureFile == null) return;
+            if (pictureFile == null || FileUtils.isFileEmpty(pictureFile)) {
+                return;
+            }
+            ResHelper.deleteFileInBackground(cameraFile); // 每次pop都会创建，所以这里必须删除
             addAdapter.addFileData(pictureFile.getAbsolutePath());
-            // 删除拍照文件
-            ResHelper.deleteFileInBackground(cameraFile);
         }
     }
 
@@ -151,6 +162,12 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
                 // TODO
                 break;
         }
+    }
+
+    private void showImgSelect() {
+        cameraFile = ResHelper.createJPEGInCache();
+        PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
+        PopUtils.show(popupWindow, root);
     }
 
     private void onContentInput(String input) {

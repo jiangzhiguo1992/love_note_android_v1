@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
@@ -331,14 +332,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void goCropActivity(File source) {
-        if (source != null) {
-            cropFile = ResHelper.createJPEGInCache();
-            Intent intent = IntentSend.getCrop(source, cropFile, 1, 1);
-            ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
-        } else {
-            ToastUtils.show(getString(R.string.picture_get_fail));
-            LogUtils.w(LOG_TAG, "IntentResult.getPictureFile: fail");
-        }
+        cropFile = ResHelper.createJPEGInCache();
+        Intent intent = IntentSend.getCrop(source, cropFile, 1, 1);
+        ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
 
     // oss上传头像

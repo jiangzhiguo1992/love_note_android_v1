@@ -156,25 +156,32 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
+            // 每次pop都会创建，所以这里必须删除
             ResHelper.deleteFileInBackground(cameraFile);
             pictureFile = null;
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
+            if (FileUtils.isFileEmpty(cameraFile)) {
+                ResHelper.deleteFileInBackground(cameraFile);
+                return;
+            }
+            pictureFile = null; // 解除相册文件引用
             ivImage.setVisibility(View.VISIBLE);
             ivImage.setDataFile(cameraFile);
             tvImageToggle.setText(R.string.click_me_to_del_image);
-            // 解除相册文件引用
-            pictureFile = null;
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             pictureFile = IntentResult.getPictureFile(data);
+            if (FileUtils.isFileEmpty(pictureFile)) {
+                pictureFile = null;
+                return;
+            }
+            ResHelper.deleteFileInBackground(cameraFile); // 每次pop都会创建，所以这里必须删除
             ivImage.setVisibility(View.VISIBLE);
             ivImage.setDataFile(pictureFile);
             tvImageToggle.setText(R.string.click_me_to_del_image);
-            // 删除拍照文件
-            ResHelper.deleteFileInBackground(cameraFile);
         }
     }
 

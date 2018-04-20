@@ -188,16 +188,11 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void goCropActivity(File source) {
-        if (source != null) {
-            cropFile = ResHelper.createJPEGInCache();
-            int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
-            int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
-            Intent intent = IntentSend.getCrop(source, cropFile, screenWidth, screenHeight);
-            ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
-        } else {
-            ToastUtils.show(getString(R.string.picture_get_fail));
-            LogUtils.w(LOG_TAG, "IntentResult.getPictureFile: fail");
-        }
+        cropFile = ResHelper.createJPEGInCache();
+        int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
+        int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
+        Intent intent = IntentSend.getCrop(source, cropFile, screenWidth, screenHeight);
+        ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
 
     // oss上传头像
