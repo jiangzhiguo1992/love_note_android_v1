@@ -336,6 +336,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
+                User user = data.getUser();
+                SPHelper.setUser(user);
                 wallPaper = data.getWallPaper();
                 myPlace = data.getMyPlace();
                 taPlace = data.getTaPlace();
