@@ -21,23 +21,39 @@ import butterknife.BindView;
 
 public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
 
+    public static final int TYPE_OSS_SINGLE = 0;
+    public static final int TYPE_FILE_SINGLE = 1;
+    public static final int TYPE_OSS_LIST = 2;
+    public static final int TYPE_FILE_LIST = 3;
+
     @BindView(R.id.vpImage)
     ViewPager vpImage;
 
-    public static void goActivity(Activity from, String ossPath, GImageView view) {
+    private int type;
+
+    // TODO suggestAdd
+    public static void goActivityByFile(Activity from, String filePath, GImageView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
-        ArrayList<String> list = new ArrayList<>();
-        list.add(ossPath);
-        intent.putStringArrayListExtra("imgList", list);
-        intent.putExtra("showIndex", 0);
+        intent.putExtra("type", TYPE_FILE_SINGLE);
+        intent.putExtra("imgFile", filePath);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Pair<View, String> share = Pair.create((View) view, "imgAnim");
         ActivityTrans.start(from, intent, share);
     }
 
-    public static void goActivity(Activity from, ArrayList<String> ossPathList, int startIndex, GImageView view) {
+    public static void goActivityByOss(Activity from, String ossPath, GImageView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
-        intent.putStringArrayListExtra("imgList", ossPathList);
+        intent.putExtra("type", TYPE_OSS_SINGLE);
+        intent.putExtra("imgOss", ossPath);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        ActivityTrans.start(from, intent, share);
+    }
+
+    public static void goActivityByOssList(Activity from, ArrayList<String> ossPathList, int startIndex, GImageView view) {
+        Intent intent = new Intent(from, ImgScreenActivity.class);
+        intent.putExtra("type", TYPE_OSS_LIST);
+        intent.putStringArrayListExtra("imgOssList", ossPathList);
         intent.putExtra("showIndex", startIndex);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Pair<View, String> share = Pair.create((View) view, "imgAnim");
@@ -61,17 +77,35 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
 
         // TODO 回退之后 有时候原图会白屏
 
-        // 获取数据
-        ArrayList<String> imgList = getIntent().getStringArrayListExtra("imgList");
-        int showIndex = getIntent().getIntExtra("showIndex", 0);
-        // 设置pager
-        ImgScreenPagerAdapter adapter = new ImgScreenPagerAdapter(mActivity);
-        adapter.setData(imgList);
-        vpImage.setAdapter(adapter);
-        vpImage.setCurrentItem(showIndex, false);
+        // TODO 侧滑有的页面绘制出错
 
         ViewCompat.setTransitionName(vpImage, "imgAnim");
-
+        // type
+        type = getIntent().getIntExtra("type", TYPE_OSS_SINGLE);
+        int showIndex = getIntent().getIntExtra("showIndex", 0);
+        // adapter
+        ImgScreenPagerAdapter adapter = new ImgScreenPagerAdapter(mActivity);
+        adapter.setType(type);
+        switch (type) {
+            case TYPE_FILE_SINGLE:
+                String imgFile = getIntent().getStringExtra("imgFile");
+                adapter.setData(imgFile);
+                break;
+            case TYPE_FILE_LIST:
+                // todo
+                break;
+            case TYPE_OSS_LIST:
+                ArrayList<String> imgOssList = getIntent().getStringArrayListExtra("imgOssList");
+                adapter.setData(imgOssList);
+                break;
+            case TYPE_OSS_SINGLE:
+            default:
+                String imgOss = getIntent().getStringExtra("imgOss");
+                adapter.setData(imgOss);
+                break;
+        }
+        vpImage.setAdapter(adapter);
+        vpImage.setCurrentItem(showIndex, false);
     }
 
     @Override

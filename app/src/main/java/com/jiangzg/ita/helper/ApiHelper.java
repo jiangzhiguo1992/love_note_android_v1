@@ -14,6 +14,7 @@ import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.HomeActivity;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
 import com.jiangzg.ita.base.BaseActivity;
@@ -62,6 +63,11 @@ public class ApiHelper {
     public static final int LIST_CP = 0;
     public static final int LIST_MY = 1;
     public static final int LIST_TA = 2;
+    public static final String[] LIST_SHOW = new String[]{
+            MyApp.get().getString(R.string.we_de),
+            MyApp.get().getString(R.string.me_de),
+            MyApp.get().getString(R.string.ta_de)
+    };
 
 
     @SuppressLint("HardwareIds")

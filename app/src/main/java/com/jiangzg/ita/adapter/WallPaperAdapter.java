@@ -48,11 +48,6 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    @Override
     protected void convert(final BaseViewHolder helper, String item) {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(ratio);
@@ -68,7 +63,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private void goImgScreen(int position, GImageView view) {
         List<String> data = getData();
-        ImgScreenActivity.goActivity(mActivity, (ArrayList<String>) data, position, view);
+        ImgScreenActivity.goActivityByOssList(mActivity, (ArrayList<String>) data, position, view);
     }
 
     public void showDeleteDialog(final int position) {

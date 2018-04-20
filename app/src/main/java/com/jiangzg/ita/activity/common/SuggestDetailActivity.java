@@ -238,7 +238,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             ivContent.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                 @Override
                 public void onClick(GImageView iv) {
-                    ImgScreenActivity.goActivity(mActivity, contentImgUrl, ivContent);
+                    ImgScreenActivity.goActivityByOss(mActivity, contentImgUrl, ivContent);
                 }
             });
         }

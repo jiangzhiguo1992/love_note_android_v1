@@ -87,6 +87,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             }, TransPageMillis);
         } else {
             // 有token
+            // TODO 上传本地异常，然后再删除
             final long startTime = DateUtils.getCurrentLong();
             Entry entry = ApiHelper.getEntryBody();
             Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);

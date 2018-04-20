@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
@@ -26,6 +27,7 @@ import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.DialogHelper;
 import com.jiangzg.ita.helper.ListHelper;
 import com.jiangzg.ita.helper.RecyclerHelper;
 import com.jiangzg.ita.helper.RetrofitHelper;
@@ -34,6 +36,7 @@ import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -160,16 +163,17 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llSearch: // 搜索
-                // TODO
+                showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                // TODO
+                DiaryAddActivity.goActivity(mActivity);
                 break;
         }
     }
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
+        tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
         Call<Result> call = new RetrofitHelper().call(API.class).diaryListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -179,6 +183,9 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 long total = data.getTotal();
                 List<Diary> diaryList = data.getDiaryList();
                 recyclerHelper.dataOk(diaryList, total, more);
+                // searchShow
+                String searchShow = ApiHelper.LIST_SHOW[searchType] + String.format(Locale.getDefault(), getString(R.string.space_bracket_colon), total);
+                tvSearch.setText(searchShow);
             }
 
             @Override
@@ -186,6 +193,25 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 recyclerHelper.dataFail(more, errMsg);
             }
         });
+    }
+
+    private void showSearchDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.choose_search_type)
+                .items(ApiHelper.LIST_SHOW)
+                .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        searchType = which;
+                        getData(false);
+                        DialogHelper.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
 }

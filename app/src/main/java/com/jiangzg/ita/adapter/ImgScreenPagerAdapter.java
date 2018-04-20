@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.common.ImgScreenActivity;
 import com.jiangzg.ita.view.GImageView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 /**
  * Created by JiangZhiGuo on 2016-11-9.
@@ -21,17 +22,31 @@ import java.util.Timer;
 public class ImgScreenPagerAdapter extends PagerAdapter {
 
     private Context mContext;
+    private int mType;
     private List<String> mData;
 
     public ImgScreenPagerAdapter(Context context) {
         mContext = context;
+        mType = ImgScreenActivity.TYPE_OSS_SINGLE;
         mData = new ArrayList<>();
     }
 
-    public void setData(List<String> ossPath) {
+    public void setType(int type) {
+        mType = type;
+    }
+
+    public void setData(List<String> data) {
         mData.clear();
-        if (ossPath != null) {
-            mData.addAll(ossPath);
+        if (data != null) {
+            mData.addAll(data);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setData(String data) {
+        mData.clear();
+        if (data != null) {
+            mData.add(data);
         }
         notifyDataSetChanged();
     }
@@ -63,8 +78,18 @@ public class ImgScreenPagerAdapter extends PagerAdapter {
         View root = LayoutInflater.from(mContext).inflate(R.layout.pager_item_img_screen, container, false);
         GImageView ivScreen = root.findViewById(R.id.ivScreen);
         // setImage
-        String ossPath = mData.get(position);
-        ivScreen.setDataOss(ossPath);
+        String data = mData.get(position);
+        switch (mType) {
+            case ImgScreenActivity.TYPE_FILE_SINGLE:
+            case ImgScreenActivity.TYPE_FILE_LIST:
+                ivScreen.setDataFile(FileUtils.getFileByPath(data));
+                break;
+            case ImgScreenActivity.TYPE_OSS_SINGLE:
+            case ImgScreenActivity.TYPE_OSS_LIST:
+            default:
+                ivScreen.setDataOss(data);
+                break;
+        }
         // addView
         container.addView(root);
         root.requestLayout();

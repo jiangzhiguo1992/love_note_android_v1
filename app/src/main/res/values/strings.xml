@@ -420,4 +420,10 @@
     <string name="award">补偿</string>
     <string name="no_vip_just_can_push_colon_img" formatted="false">非会员只能上传%d张墙纸</string>
     <string name="publish">发表</string>
+    <string name="choose_search_type">选择搜索类型</string>
+    <string name="we_de">我们的</string>
+    <string name="me_de">我的</string>
+    <string name="ta_de">Ta的</string>
+    <string name="space_bracket_colon" formatted="false"> (%d)</string>
+    <string name="click_me_choose_date">点我选日期</string>
 </resources>

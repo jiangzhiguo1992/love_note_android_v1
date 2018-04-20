@@ -269,11 +269,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                         SuggestInfo.SuggestContentType suggestContentType = suggestContentTypeList.get(which + 1);
                         contentType = suggestContentType.getContentType();
                         tvType.setText(suggestContentType.getShow());
+                        DialogHelper.dismiss(dialog);
                         return true;
                     }
                 })
-                .positiveText(R.string.i_choose_ok)
-                .negativeText(R.string.i_think_again)
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
