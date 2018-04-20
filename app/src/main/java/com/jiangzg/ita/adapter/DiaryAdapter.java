@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.ita.R;
+import com.jiangzg.ita.activity.book.DiaryDetailActivity;
 import com.jiangzg.ita.activity.common.SuggestDetailActivity;
 import com.jiangzg.ita.domain.Couple;
 import com.jiangzg.ita.domain.Diary;
@@ -46,7 +47,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     public void goDiaryDetail(int position) {
         Diary item = getItem(position);
-        // TODO SuggestDetailActivity.goActivity(mActivity, item);
+        DiaryDetailActivity.goActivity(mActivity, item);
     }
 
 }

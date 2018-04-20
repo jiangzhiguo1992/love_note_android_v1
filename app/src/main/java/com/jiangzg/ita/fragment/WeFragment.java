@@ -137,7 +137,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     private Runnable coupleCountDownTask;
     private Observable<WallPaper> observableWallPaper;
     private Observable<Couple> observableCoupleRefresh;
-    private Observable<LocationInfo> observableEntryRefresh;
+    private Observable<LocationInfo> observableLocationRefresh;
     private WallPaper wallPaper;
     private Place myPlace;
     private Place taPlace;
@@ -186,7 +186,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 refreshView();
             }
         });
-        observableEntryRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
+        observableLocationRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo locationInfo) {
                 refreshPlaceView();
@@ -202,7 +202,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         stopCoupleCountDownTask();
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableWallPaper);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableCoupleRefresh);
-        RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, observableEntryRefresh);
+        RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, observableLocationRefresh);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,

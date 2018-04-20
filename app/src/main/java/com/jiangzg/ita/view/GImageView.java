@@ -195,45 +195,44 @@ public class GImageView extends SimpleDraweeView {
                 .setOldController(this.getController()) // 减少内存消耗
                 .setImageRequest(imageRequest)
                 .setAutoPlayAnimations(false);// gif自动播放
-        if (uri != null && uri.toString().startsWith("http") && (isNetFull || isNetNormal)) {
+        if (uri != null && uri.toString().startsWith("http")) {
             builder = builder.setTapToRetryEnabled(true); // 网络图点击重新加载
         } else {
             builder = builder.setTapToRetryEnabled(false); // 非网络图不支持重新加载
         }
-        if (isNetNormal) { // 网络非全屏图
-            builder.setControllerListener(new BaseControllerListener<ImageInfo>() {
-                @Override
-                public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                    super.onFinalImageSet(id, imageInfo, animatable);
-                    if (imageInfo == null) {
-                        LogUtils.i(LOG_TAG, "controllerListener: onFinalImageSet: imageInfo == null");
-                        return;
-                    }
-                    QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                    LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
-                            "\n\t width = " + imageInfo.getWidth() +
-                            "\n\t height = " + imageInfo.getHeight() +
-                            "\n\t quality = " + qualityInfo.getQuality() +
-                            "\n\t goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                            "\n\t fullQuality = " + qualityInfo.isOfFullQuality());
-                    // 点击事件
+        // 加载回调
+        builder.setControllerListener(new BaseControllerListener<ImageInfo>() {
+            @Override
+            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                super.onFinalImageSet(id, imageInfo, animatable);
+                if (imageInfo == null) {
+                    LogUtils.i(LOG_TAG, "controllerListener: onFinalImageSet: imageInfo == null");
+                    return;
+                }
+                QualityInfo qualityInfo = imageInfo.getQualityInfo();
+                LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
+                        "\n\t width = " + imageInfo.getWidth() +
+                        "\n\t height = " + imageInfo.getHeight() +
+                        "\n\t quality = " + qualityInfo.getQuality() +
+                        "\n\t goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                        "\n\t fullQuality = " + qualityInfo.isOfFullQuality());
+                // 点击事件
+                if (mSuccessClickListener != null) {
                     GImageView.this.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (mSuccessClickListener != null) {
-                                mSuccessClickListener.onClick(GImageView.this);
-                            }
+                            mSuccessClickListener.onClick(GImageView.this);
                         }
                     });
                 }
+            }
 
-                @Override
-                public void onFailure(String id, Throwable throwable) {
-                    super.onFailure(id, throwable);
-                    LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
-                }
-            });
-        }
+            @Override
+            public void onFailure(String id, Throwable throwable) {
+                super.onFailure(id, throwable);
+                LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
+            }
+        });
         AbstractDraweeController controller = builder.build();
         this.setController(controller);
     }

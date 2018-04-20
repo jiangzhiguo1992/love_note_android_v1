@@ -87,6 +87,14 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         ActivityTrans.start(from, intent);
     }
 
+    // TODO 更新
+    public static void goActivity(Activity from, Diary diary) {
+        Intent intent = new Intent(from, DiaryEditActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
     @Override
     protected int getView(Intent intent) {
         return R.layout.activity_diary_edit;

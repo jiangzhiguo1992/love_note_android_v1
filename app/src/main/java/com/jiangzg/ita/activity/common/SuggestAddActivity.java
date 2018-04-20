@@ -127,6 +127,17 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         });
         onTitleInput("");
         onContentInput("");
+        // imageView
+        ivImage.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+            @Override
+            public void onClick(GImageView iv) {
+                if (!FileUtils.isFileEmpty(cameraFile)) {
+                    ImgScreenActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
+                } else if (!FileUtils.isFileEmpty(pictureFile)) {
+                    ImgScreenActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
+                }
+            }
+        });
         // menu
         tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

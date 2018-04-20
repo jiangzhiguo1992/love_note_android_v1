@@ -223,7 +223,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);
-        final GImageView ivContent = head.findViewById(R.id.ivContent);
+        GImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
 
         tvTitle.setText(title);
@@ -238,7 +238,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             ivContent.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                 @Override
                 public void onClick(GImageView iv) {
-                    ImgScreenActivity.goActivityByOss(mActivity, contentImgUrl, ivContent);
+                    ImgScreenActivity.goActivityByOss(mActivity, contentImgUrl, iv);
                 }
             });
         }

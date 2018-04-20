@@ -60,7 +60,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
         final int layoutPosition = helper.getLayoutPosition();
-        final GImageView ivShow = helper.getView(R.id.ivShow);
+        GImageView ivShow = helper.getView(R.id.ivShow);
         ImageView ivAdd = helper.getView(R.id.ivAdd);
         if (layoutPosition < getData().size() - 1 || !addShow) {
             // show
@@ -76,7 +76,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                     @Override
                     public void onClick(GImageView iv) {
-                        ImgScreenActivity.goActivityByOss(mActivity, item, ivShow);
+                        ImgScreenActivity.goActivityByOss(mActivity, item, iv);
                     }
                 });
             } else {
@@ -85,7 +85,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                     @Override
                     public void onClick(GImageView iv) {
-                        ImgScreenActivity.goActivityByFile(mActivity, item, ivShow);
+                        ImgScreenActivity.goActivityByFile(mActivity, item, iv);
                     }
                 });
             }
