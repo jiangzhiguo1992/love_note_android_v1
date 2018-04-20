@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
@@ -27,7 +26,6 @@ import com.jiangzg.base.component.IntentSend;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.PopUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
 import com.jiangzg.ita.activity.user.UserInfoActivity;
@@ -346,7 +344,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             }
 
             @Override
-            public void failure(String ossPath) {
+            public void failure(File source, String errMsg) {
             }
         });
     }

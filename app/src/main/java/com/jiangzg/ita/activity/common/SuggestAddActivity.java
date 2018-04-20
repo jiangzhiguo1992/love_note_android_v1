@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
@@ -292,12 +293,12 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             return;
         }
         String title = etTitle.getText().toString();
-        if (title.trim().length() <= 0) {
+        if (StringUtils.isEmpty(title)) {
             ToastUtils.show(getString(R.string.please_input_title));
             return;
         }
         String content = etContent.getText().toString();
-        if (content.trim().length() <= 0) {
+        if (StringUtils.isEmpty(content)) {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
@@ -318,7 +319,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             }
 
             @Override
-            public void failure(String ossPath) {
+            public void failure(File source, String errMsg) {
             }
         });
     }

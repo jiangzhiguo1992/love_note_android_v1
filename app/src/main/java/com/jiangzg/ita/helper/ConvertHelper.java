@@ -9,6 +9,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.base.MyApp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +39,15 @@ public class ConvertHelper {
         return uriList;
     }
 
+    public static List<File> convertListString2File(List<String> pathList) {
+        List<File> fileList = new ArrayList<>();
+        if (pathList == null || pathList.size() <= 0) return fileList;
+        for (String path : pathList) {
+            fileList.add(new File(path));
+        }
+        return fileList;
+    }
+
     public static String ConvertTimeGo2DiffDay(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
@@ -52,9 +62,13 @@ public class ConvertHelper {
     }
 
     public static String ConvertTimeGo2DiaryShow(long time) {
+        return ConvertTimeJava2DiaryShow(convertTimeGo2Java(time));
+    }
+
+    public static String ConvertTimeJava2DiaryShow(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
-        cTime.setTime(new Date(convertTimeGo2Java(time)));
+        cTime.setTime(new Date(time));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
             // 同一天
@@ -71,7 +85,7 @@ public class ConvertHelper {
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getString(convertTimeGo2Java(time), format);
+        return DateUtils.getString(time, format);
     }
 
     // url转oss路径

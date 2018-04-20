@@ -13,6 +13,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.ita.base.MyApp;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by JiangZhiGuo on 2016-10-31.
@@ -23,10 +24,10 @@ public class ResHelper {
     private static final String LOG_TAG = "ResHelper";
 
     public static void deleteFileInBackground(final File file) {
+        if (!FileUtils.isFileExists(file)) return;
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
-                if (!FileUtils.isFileExists(file)) return;
                 LogUtils.i(LOG_TAG, "deleteFileInBackground: " + file.getAbsolutePath());
                 FileUtils.deleteFile(file);
                 // 多媒体文件删除操作
@@ -38,6 +39,29 @@ public class ResHelper {
                 Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
                 intent.setData(ConvertUtils.file2Uri(file));
                 MyApp.get().sendBroadcast(intent);
+            }
+        });
+    }
+
+    public static void deleteFilesInBackground(final List<File> fileList) {
+        if (fileList == null || fileList.size() <= 0) return;
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                for (File file : fileList) {
+                    if (!FileUtils.isFileExists(file)) return;
+                    LogUtils.i(LOG_TAG, "deleteFileInBackground: " + file.getAbsolutePath());
+                    FileUtils.deleteFile(file);
+                    // 多媒体文件删除操作
+                    Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    ContentResolver mContentResolver = MyApp.get().getContentResolver();
+                    String where = MediaStore.Images.Media.DATA + "='" + file.getAbsolutePath() + "'";
+                    mContentResolver.delete(uri, where, null);
+                    // 发送广播通知已删除，重新扫描
+                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                    intent.setData(ConvertUtils.file2Uri(file));
+                    MyApp.get().sendBroadcast(intent);
+                }
             }
         });
     }

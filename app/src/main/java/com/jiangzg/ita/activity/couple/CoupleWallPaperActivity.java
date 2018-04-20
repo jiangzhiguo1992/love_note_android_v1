@@ -204,7 +204,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             }
 
             @Override
-            public void failure(String ossPath) {
+            public void failure(File source, String errMsg) {
             }
         });
     }

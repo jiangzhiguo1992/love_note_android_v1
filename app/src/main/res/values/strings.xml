@@ -351,6 +351,7 @@
     <string name="picture_get_fail">照片获取失败</string>
     <string name="please_input_nickname">请输入昵称</string>
     <string name="are_upload">正在上传</string>
+    <string name="are_upload_space_colon" formatted="false">正在上传 %d/%d</string>
     <string name="are_task">正在任务</string>
     <string name="cancel_upload">取消上传</string>
     <string name="cancel_download">取消下载</string>
@@ -365,6 +366,7 @@
     <string name="upload_file_no_exists">上传文件不存在</string>
     <string name="save_file_no_exists">保存文件不存在</string>
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
+    <string name="not_found_upload_file">没有找到要上传的文件</string>
     <string name="cache_clear_success">缓存清理成功</string>
     <string name="already_is_latest_version">已是最新版本</string>
     <string name="are_download">正在下载</string>

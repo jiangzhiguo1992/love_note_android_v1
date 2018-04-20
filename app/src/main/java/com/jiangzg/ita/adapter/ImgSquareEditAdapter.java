@@ -26,7 +26,7 @@ import java.util.List;
  * Created by JZG on 2018/3/12.
  * 帮助列表适配器
  */
-public class ImgSquareAddAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private final BaseActivity mActivity;
     private final int imageWidth;
@@ -36,8 +36,8 @@ public class ImgSquareAddAdapter extends BaseQuickAdapter<String, BaseViewHolder
     private boolean addShow;
     private OnAddClickListener addClickListener;
 
-    public ImgSquareAddAdapter(BaseActivity activity, int spanCount, int limit) {
-        super(R.layout.list_item_img_suqare_add);
+    public ImgSquareEditAdapter(BaseActivity activity, int spanCount, int limit) {
+        super(R.layout.list_item_img_suqare_edit);
         mActivity = activity;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp10 = ConvertUtils.dp2px(10);
@@ -125,7 +125,7 @@ public class ImgSquareAddAdapter extends BaseQuickAdapter<String, BaseViewHolder
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        ImgSquareAddAdapter.this.removeData(position);
+                        ImgSquareEditAdapter.this.removeData(position);
                     }
                 })
                 .build();
@@ -207,19 +207,18 @@ public class ImgSquareAddAdapter extends BaseQuickAdapter<String, BaseViewHolder
     public List<String> getOssData() {
         if (ossSize <= 0) return new ArrayList<>();
         List<String> data = this.getData();
-        return data.subList(0, ossSize - 1);
+        return data.subList(0, ossSize);
     }
 
     // 获取file数据
     public List<String> getFileData() {
         List<String> data = this.getData();
         int size = data.size();
-        if (size <= 0 || size >= ossSize) return new ArrayList<>();
-        List<String> strings = data.subList(ossSize, size - 1);
         if (addShow) {
-            strings.remove(strings.size() - 1);
+            --size;
         }
-        return strings;
+        if (size <= 0 || ossSize >= size) return new ArrayList<>();
+        return data.subList(ossSize, size);
     }
 
 }

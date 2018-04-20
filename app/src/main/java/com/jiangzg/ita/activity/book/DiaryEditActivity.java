@@ -1,6 +1,7 @@
 package com.jiangzg.ita.activity.book;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,33 +13,52 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.ita.R;
 import com.jiangzg.ita.activity.common.HelpActivity;
-import com.jiangzg.ita.adapter.ImgSquareAddAdapter;
+import com.jiangzg.ita.adapter.ImgSquareEditAdapter;
 import com.jiangzg.ita.base.BaseActivity;
+import com.jiangzg.ita.domain.Diary;
 import com.jiangzg.ita.domain.Help;
+import com.jiangzg.ita.domain.Result;
+import com.jiangzg.ita.domain.RxEvent;
+import com.jiangzg.ita.domain.Suggest;
+import com.jiangzg.ita.helper.API;
+import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
+import com.jiangzg.ita.helper.ConvertHelper;
+import com.jiangzg.ita.helper.OssHelper;
 import com.jiangzg.ita.helper.PopHelper;
 import com.jiangzg.ita.helper.ResHelper;
+import com.jiangzg.ita.helper.RetrofitHelper;
+import com.jiangzg.ita.helper.RxBus;
 import com.jiangzg.ita.helper.SPHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
-public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
+public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @BindView(R.id.root)
     LinearLayout root;
@@ -55,12 +75,13 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
     @BindView(R.id.btnPublish)
     Button btnPublish;
 
-    private int limitContent;
-    private ImgSquareAddAdapter addAdapter;
+    private long happenAt;
+    private ImgSquareEditAdapter imgAdapter;
     private File cameraFile;
+    private int limitContent;
 
     public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, DiaryAddActivity.class);
+        Intent intent = new Intent(from, DiaryEditActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -68,23 +89,26 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_diary_add;
+        return R.layout.activity_diary_edit;
     }
 
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), true);
+        // date
+        Calendar calendar = Calendar.getInstance();
+        refreshDateView(calendar);
         // recycler
         int limitImages = SPHelper.getLimit().getDiaryLimitImages();
         rv.setLayoutManager(new GridLayoutManager(mActivity, limitImages));
-        addAdapter = new ImgSquareAddAdapter(mActivity, limitImages, limitImages);
-        addAdapter.setOnAddClick(new ImgSquareAddAdapter.OnAddClickListener() {
+        imgAdapter = new ImgSquareEditAdapter(mActivity, limitImages, limitImages);
+        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
             @Override
             public void onAdd() {
                 showImgSelect();
             }
         });
-        rv.setAdapter(addAdapter);
+        rv.setAdapter(imgAdapter);
         // input
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,7 +163,7 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
-            addAdapter.addFileData(cameraFile.getAbsolutePath());
+            imgAdapter.addFileData(cameraFile.getAbsolutePath());
             cameraFile = null; // 解除引用，防止误删
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
@@ -148,7 +172,7 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
                 return;
             }
             ResHelper.deleteFileInBackground(cameraFile); // 每次pop都会创建，所以这里必须删除
-            addAdapter.addFileData(pictureFile.getAbsolutePath());
+            imgAdapter.addFileData(pictureFile.getAbsolutePath());
         }
     }
 
@@ -156,18 +180,45 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvDate: // 日期
-                // TODO
+                showDatePicker();
                 break;
             case R.id.btnPublish: // 发表
-                // TODO
+                checkPush();
                 break;
         }
     }
 
+    private void showDatePicker() {
+        Calendar calendar = DateUtils.getCalendar(happenAt);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog picker = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar instance = Calendar.getInstance();
+                instance.set(year, month, dayOfMonth);
+                refreshDateView(instance);
+            }
+        }, year, month, day);
+        picker.show();
+    }
+
+    private void refreshDateView(Calendar calendar) {
+        happenAt = calendar.getTimeInMillis();
+        String happen = ConvertHelper.ConvertTimeJava2DiaryShow(happenAt);
+        tvDate.setText(happen);
+    }
+
     private void showImgSelect() {
-        cameraFile = ResHelper.createJPEGInCache();
-        PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root);
+        //if (SPHelper.getVipLimit().isBookDiaryImageEnable()) {
+        if (true) {
+            cameraFile = ResHelper.createJPEGInCache();
+            PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
+            PopUtils.show(popupWindow, root);
+        } else {
+            ToastUtils.show("非会员不能上传图片哦");
+        }
     }
 
     private void onContentInput(String input) {
@@ -183,6 +234,53 @@ public class DiaryAddActivity extends BaseActivity<DiaryAddActivity> {
         }
         String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContent);
         tvContentLimit.setText(limitShow);
+    }
+
+    private void checkPush() {
+        String content = etContent.getText().toString();
+        if (StringUtils.isEmpty(content)) {
+            ToastUtils.show(getString(R.string.please_input_content));
+            return;
+        }
+        List<String> fileData = imgAdapter.getFileData();
+        if (fileData != null && fileData.size() > 0) {
+            ossUploadDiary(fileData);
+        } else {
+            publish(new ArrayList<String>());
+        }
+    }
+
+    private void ossUploadDiary(List<String> fileData) {
+        OssHelper.uploadDiary(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
+            @Override
+            public void success(List<String> ossPathList) {
+                publish(ossPathList);
+            }
+
+            @Override
+            public void failure(List<File> sourceList, String errMsg) {
+            }
+        });
+    }
+
+    private void publish(List<String> ossPathList) {
+        long happenGo = ConvertHelper.convertTimeJava2Go(happenAt);
+        String content = etContent.getText().toString();
+        MaterialDialog loading = getLoading(false);
+        Diary body = ApiHelper.getDiaryBody(happenGo, content, ossPathList);
+        Call<Result> call = new RetrofitHelper().call(API.class).diaryPost(body);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
+                RxBus.post(event);
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
 }

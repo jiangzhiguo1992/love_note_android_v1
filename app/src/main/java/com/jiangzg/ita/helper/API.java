@@ -1,5 +1,6 @@
 package com.jiangzg.ita.helper;
 
+import com.jiangzg.ita.domain.Diary;
 import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Place;
 import com.jiangzg.ita.domain.Result;
@@ -161,9 +162,12 @@ public interface API {
     @POST("couple/home")
     Call<Result> coupleHomeGet(@Body Place place);
 
-    // cp首页
+    // diaryList获取
     @GET("book/diary?did=0&list=1")
     Call<Result> diaryListGet(@Query("who") int who, @Query("page") int page);
 
+    // diary上传
+    @POST("book/diary")
+    Call<Result> diaryPost(@Body Diary diary);
 
 }

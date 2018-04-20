@@ -23,7 +23,6 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.domain.Diary;
 import com.jiangzg.ita.domain.Help;
 import com.jiangzg.ita.domain.Result;
-import com.jiangzg.ita.domain.Suggest;
 import com.jiangzg.ita.helper.API;
 import com.jiangzg.ita.helper.ApiHelper;
 import com.jiangzg.ita.helper.ConsHelper;
@@ -62,9 +61,9 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     private RecyclerHelper recyclerHelper;
     private int page = 0;
     private int searchType = ApiHelper.LIST_CP;
-    private Observable<List<Suggest>> observableListRefresh;
-    private Observable<Suggest> observableListItemRefresh;
-    private Observable<Suggest> observableListItemDelete;
+    private Observable<List<Diary>> observableListRefresh;
+    private Observable<Diary> observableListItemRefresh;
+    private Observable<Diary> observableListItemDelete;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
@@ -124,22 +123,22 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        observableListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Suggest>>() {
+        observableListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
             @Override
-            public void call(List<Suggest> suggests) {
+            public void call(List<Diary> diaries) {
                 recyclerHelper.dataRefresh();
             }
         });
-        observableListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Suggest>() {
+        observableListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Diary>() {
             @Override
-            public void call(Suggest suggest) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+            public void call(Diary diary) {
+                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), diary);
             }
         });
-        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Suggest>() {
+        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Diary>() {
             @Override
-            public void call(Suggest suggest) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+            public void call(Diary diary) {
+                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), diary);
             }
         });
         recyclerHelper.dataRefresh();
@@ -166,7 +165,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                DiaryAddActivity.goActivity(mActivity);
+                DiaryEditActivity.goActivity(mActivity);
                 break;
         }
     }

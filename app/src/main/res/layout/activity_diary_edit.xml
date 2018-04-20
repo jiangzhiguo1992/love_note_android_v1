@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.ita.activity.book.DiaryAddActivity">
+    tools:context="com.jiangzg.ita.activity.book.DiaryEditActivity">
 
     <include layout="@layout/view_top_bar"/>
 
@@ -60,7 +59,7 @@
                     android:gravity="start"
                     android:hint="@string/please_input_content"
                     android:inputType="textMultiLine"
-                    android:minLines="3"
+                    android:minLines="10"
                     android:padding="8dp"/>
 
                 <TextView

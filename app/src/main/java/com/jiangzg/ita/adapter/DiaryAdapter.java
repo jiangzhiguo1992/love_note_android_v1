@@ -46,7 +46,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     public void goDiaryDetail(int position) {
         Diary item = getItem(position);
-        //SuggestDetailActivity.goActivity(mActivity, item);
+        // TODO SuggestDetailActivity.goActivity(mActivity, item);
     }
 
 }

@@ -21,6 +21,7 @@ import com.jiangzg.ita.base.BaseActivity;
 import com.jiangzg.ita.base.MyApp;
 import com.jiangzg.ita.broadcast.OssReceiver;
 import com.jiangzg.ita.domain.Couple;
+import com.jiangzg.ita.domain.Diary;
 import com.jiangzg.ita.domain.Entry;
 import com.jiangzg.ita.domain.Limit;
 import com.jiangzg.ita.domain.OssInfo;
@@ -330,5 +331,13 @@ public class ApiHelper {
         place.setAddress(info.getAddress());
         place.setCityId(0);
         return place;
+    }
+
+    public static Diary getDiaryBody(long happenAt, String content, List<String> ossPathList) {
+        Diary diary = new Diary();
+        diary.setHappenAt(happenAt);
+        diary.setContent(content);
+        diary.setImageList(ossPathList);
+        return diary;
     }
 }
