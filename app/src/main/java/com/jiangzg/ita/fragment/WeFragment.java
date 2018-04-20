@@ -374,14 +374,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 refreshWallPaperView();
             }
             // 头像 + 名称
-            String myAvatar = user.getMyAvatarInCp();
-            String taAvatar = user.getTaAvatarInCp();
-            String myName = user.getMyNameInCp();
-            String taName = user.getTaNameInCp();
-            ivAvatarLeft.setDataOss(myAvatar);
-            ivAvatarRight.setDataOss(taAvatar);
-            tvNameLeft.setText(myName);
-            tvNameRight.setText(taName);
+            String creatorAvatar = couple.getCreatorAvatar();
+            String inviteeAvatar = couple.getInviteeAvatar();
+            String creatorName = couple.getCreatorName();
+            String inviteeName = couple.getInviteeName();
+            ivAvatarLeft.setDataOss(creatorAvatar);
+            ivAvatarRight.setDataOss(inviteeAvatar);
+            tvNameLeft.setText(creatorName);
+            tvNameRight.setText(inviteeName);
             refreshPlaceView();
             refreshWeatherView();
         }

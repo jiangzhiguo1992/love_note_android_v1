@@ -28,6 +28,23 @@ import com.jiangzg.ita.base.MyApp;
  */
 public class ViewHelper {
 
+    /**
+     * TODO 剪切view , 还有设置四大属性的方法，太多了 不封装了
+     */
+    public static void clipView(View view, ViewOutlineProvider provider) {
+        // 设置Outline , provider在外部自己实现
+        view.setOutlineProvider(provider);
+        // 剔除Outline以外的view ,可以起裁剪作用
+        view.setClipToOutline(true);
+    }
+
+    // TODO
+    public static void setVectorTint(@DrawableRes int resId) {
+        VectorDrawableCompat drawable = VectorDrawableCompat.create(MyApp.get().getResources(), resId, MyApp.get().getTheme());
+        if (drawable == null) return;
+        drawable.setTint(Color.RED);
+    }
+
     public static void initTopBar(final AppCompatActivity activity, Toolbar tb, String title, boolean navBack) {
         if (activity == null || tb == null) return;
         tb.setTitle(title);
@@ -57,23 +74,6 @@ public class ViewHelper {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         dl.addDrawerListener(toggle);
         toggle.syncState();
-    }
-
-    public static void setVectorTint(@DrawableRes int resId) {
-        VectorDrawableCompat drawable = VectorDrawableCompat.create(MyApp.get().getResources(), resId, MyApp.get().getTheme());
-        if (drawable == null) return;
-        drawable.setTint(Color.RED);
-    }
-
-    /**
-     * 边图
-     */
-    public static void setDrawables(TextView textView, int leftId, int topId, int rightId, int bottomId) {
-        Drawable left = getDrawable(textView.getContext(), leftId);
-        Drawable top = getDrawable(textView.getContext(), topId);
-        Drawable right = getDrawable(textView.getContext(), rightId);
-        Drawable bottom = getDrawable(textView.getContext(), bottomId);
-        textView.setCompoundDrawables(left, top, right, bottom);
     }
 
     /**
@@ -132,16 +132,6 @@ public class ViewHelper {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(R.attr.colorControlNormal, typedValue, true);
         return typedValue.resourceId;
-    }
-
-    /**
-     * 剪切view , 还有设置四大属性的方法，太多了 不封装了
-     */
-    public static void clipView(View view, ViewOutlineProvider provider) {
-        // 设置Outline , provider在外部自己实现
-        view.setOutlineProvider(provider);
-        // 剔除Outline以外的view ,可以起裁剪作用
-        view.setClipToOutline(true);
     }
 
 }

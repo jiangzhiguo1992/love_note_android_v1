@@ -255,12 +255,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void setViewData() {
         // meData
         String mePhone = me.getPhone();
-        int meSex = 0;
-        if (me.getSex() == User.SEX_BOY) {
-            meSex = R.mipmap.ic_sex_boy_circle;
-        } else if (me.getSex() == User.SEX_GIRL) {
-            meSex = R.mipmap.ic_sex_girl_circle;
-        }
+        int meSexRes = me.getSexResCircleSmall();
         long meBirth = ConvertHelper.convertTimeGo2Java(me.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         // taData
@@ -268,13 +263,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         if (ta != null) {
             taPhone = ta.getPhone();
         }
-        int taSex = 0;
+        int taSexRes = 0;
         if (ta != null) {
-            if (ta.getSex() == User.SEX_BOY) {
-                taSex = R.mipmap.ic_sex_boy_circle;
-            } else if (ta.getSex() == User.SEX_GIRL) {
-                taSex = R.mipmap.ic_sex_girl_circle;
-            }
+            taSexRes = ta.getSexResCircleSmall();
         }
         String tabBirthShow = "";
         if (ta != null && ta.getBirthday() != 0) {
@@ -296,22 +287,22 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         if (isCreator) {
             tvPhoneLeft.setText(mePhone);
             tvPhoneRight.setText(taPhone);
-            if (meSex != 0) {
-                ivSexLeft.setImageResource(meSex);
+            if (meSexRes != 0) {
+                ivSexLeft.setImageResource(meSexRes);
             }
-            if (taSex != 0) {
-                ivSexRight.setImageResource(taSex);
+            if (taSexRes != 0) {
+                ivSexRight.setImageResource(taSexRes);
             }
             tvBirthLeft.setText(meBirthShow);
             tvBirthRight.setText(tabBirthShow);
         } else {
             tvPhoneLeft.setText(taPhone);
             tvPhoneRight.setText(mePhone);
-            if (taSex != 0) {
-                ivSexLeft.setImageResource(taSex);
+            if (taSexRes != 0) {
+                ivSexLeft.setImageResource(taSexRes);
             }
-            if (meSex != 0) {
-                ivSexRight.setImageResource(meSex);
+            if (meSexRes != 0) {
+                ivSexRight.setImageResource(meSexRes);
             }
             tvBirthLeft.setText(tabBirthShow);
             tvBirthRight.setText(meBirthShow);

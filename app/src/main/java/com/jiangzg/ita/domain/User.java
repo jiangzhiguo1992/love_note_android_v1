@@ -39,6 +39,15 @@ public class User extends BaseObj implements Parcelable {
         return "";
     }
 
+    public int getSexResCircleSmall() {
+        if (this.getSex() == User.SEX_BOY) {
+            return R.mipmap.ic_sex_boy_circle;
+        } else if (this.getSex() == User.SEX_GIRL) {
+            return R.mipmap.ic_sex_girl_circle;
+        }
+        return 0;
+    }
+
     public String getMyNameInCp() {
         Couple couple = getCouple();
         if (CheckHelper.isNullCouple(couple)) return "";

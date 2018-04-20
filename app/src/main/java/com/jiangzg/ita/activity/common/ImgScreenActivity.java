@@ -31,16 +31,6 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
 
     private int type;
 
-    // TODO suggestAdd
-    public static void goActivityByFile(Activity from, String filePath, GImageView view) {
-        Intent intent = new Intent(from, ImgScreenActivity.class);
-        intent.putExtra("type", TYPE_FILE_SINGLE);
-        intent.putExtra("imgFile", filePath);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Pair<View, String> share = Pair.create((View) view, "imgAnim");
-        ActivityTrans.start(from, intent, share);
-    }
-
     public static void goActivityByOss(Activity from, String ossPath, GImageView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putExtra("type", TYPE_OSS_SINGLE);
@@ -50,10 +40,29 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         ActivityTrans.start(from, intent, share);
     }
 
+    public static void goActivityByFile(Activity from, String filePath, GImageView view) {
+        Intent intent = new Intent(from, ImgScreenActivity.class);
+        intent.putExtra("type", TYPE_FILE_SINGLE);
+        intent.putExtra("imgFile", filePath);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        ActivityTrans.start(from, intent, share);
+    }
+
     public static void goActivityByOssList(Activity from, ArrayList<String> ossPathList, int startIndex, GImageView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putExtra("type", TYPE_OSS_LIST);
         intent.putStringArrayListExtra("imgOssList", ossPathList);
+        intent.putExtra("showIndex", startIndex);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        ActivityTrans.start(from, intent, share);
+    }
+
+    public static void goActivityByFileList(Activity from, ArrayList<String> filePathList, int startIndex, GImageView view) {
+        Intent intent = new Intent(from, ImgScreenActivity.class);
+        intent.putExtra("type", TYPE_OSS_LIST);
+        intent.putStringArrayListExtra("imgFileList", filePathList);
         intent.putExtra("showIndex", startIndex);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Pair<View, String> share = Pair.create((View) view, "imgAnim");
@@ -71,13 +80,13 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
     protected void initView(Bundle state) {
         // TODO activity还是fragment还是dialog
 
-        // TODO 双击缩放 手指缩放 多图侧滑 图片下载
+        // TODO 双击缩放 手指缩放 下滑退出 多图侧滑(绘制出错)
 
         // TODO listItem回退动画位置不准确
 
         // TODO 回退之后 有时候原图会白屏
 
-        // TODO 侧滑有的页面绘制出错
+        // TODO 图片下载 图片详情
 
         ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type
@@ -87,16 +96,17 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         ImgScreenPagerAdapter adapter = new ImgScreenPagerAdapter(mActivity);
         adapter.setType(type);
         switch (type) {
-            case TYPE_FILE_SINGLE:
-                String imgFile = getIntent().getStringExtra("imgFile");
-                adapter.setData(imgFile);
-                break;
             case TYPE_FILE_LIST:
-                // todo
+                ArrayList<String> imgFileList = getIntent().getStringArrayListExtra("imgFileList");
+                adapter.setData(imgFileList);
                 break;
             case TYPE_OSS_LIST:
                 ArrayList<String> imgOssList = getIntent().getStringArrayListExtra("imgOssList");
                 adapter.setData(imgOssList);
+                break;
+            case TYPE_FILE_SINGLE:
+                String imgFile = getIntent().getStringExtra("imgFile");
+                adapter.setData(imgFile);
                 break;
             case TYPE_OSS_SINGLE:
             default:

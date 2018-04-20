@@ -26,21 +26,11 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp">
 
-                <TextView
-                    android:id="@+id/tvHappenAt"
-                    style="@style/FontBlackHuge"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    tools:text="2018年 4月 19日"/>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <TextView
