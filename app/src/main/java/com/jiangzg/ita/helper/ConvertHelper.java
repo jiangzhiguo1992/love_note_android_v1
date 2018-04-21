@@ -108,7 +108,7 @@ public class ConvertHelper {
             }
         }
         // 再剔除oss的endpoint
-        String endpoint = SPHelper.getOssInfo().getEndpoint();
+        String endpoint = SPHelper.getOssInfo().getDomain();
         if (url.contains(endpoint + "/")) {
             String[] split = url.trim().split(endpoint + "/");
             if (split.length >= 2) {

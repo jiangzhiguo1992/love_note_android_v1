@@ -300,8 +300,8 @@ public class SPHelper {
         editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
         editor.putString(FIELD_OSS_KEY_ID, ossInfo.getAccessKeyId());
         editor.putString(FIELD_OSS_KEY_SECRET, ossInfo.getAccessKeySecret());
-        editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
-        editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
+        //editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
+        //editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
         editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
         editor.putLong(FIELD_OSS_EXPIRATION, ossInfo.getExpiration());
@@ -326,8 +326,8 @@ public class SPHelper {
         ossInfo.setSecurityToken(sp.getString(FIELD_OSS_SECURITY_TOKEN, ""));
         ossInfo.setAccessKeyId(sp.getString(FIELD_OSS_KEY_ID, ""));
         ossInfo.setAccessKeySecret(sp.getString(FIELD_OSS_KEY_SECRET, ""));
-        ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
-        ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
+        //ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
+        //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
         ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
         ossInfo.setExpiration(sp.getLong(FIELD_OSS_EXPIRATION, 0));

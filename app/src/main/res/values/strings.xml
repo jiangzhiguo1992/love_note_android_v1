@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">我和ta</string>
+    <string name="app_name">绵绵</string>
 
     <string name="prompt">提示</string>
     <string name="exit_app">您确定要退出？</string>
@@ -73,7 +73,6 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="i_and_ta">我和Ta</string>
     <string name="small_book">小本本</string>
     <string name="show_affection">秀恩爱</string>
 

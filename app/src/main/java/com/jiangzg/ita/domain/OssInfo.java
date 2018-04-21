@@ -11,9 +11,9 @@ public class OssInfo {
     private String accessKeyId;
     private String accessKeySecret;
     // oss
-    private String region;
-    private String endpoint;
-    private String domain;
+    //private String region;
+    //private String endpoint;
+    private String domain; // region 和 endpoint 一般不用
     private String bucket;
     private long expiration;
     private long interval;
@@ -46,13 +46,13 @@ public class OssInfo {
         this.domain = domain;
     }
 
-    public String getEndpoint() {
-        return endpoint;
-    }
+    //public String getEndpoint() {
+    //    return endpoint;
+    //}
 
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
+    //public void setEndpoint(String endpoint) {
+    //    this.endpoint = endpoint;
+    //}
 
     public String getSecurityToken() {
         return securityToken;
@@ -78,13 +78,13 @@ public class OssInfo {
         this.accessKeySecret = accessKeySecret;
     }
 
-    public String getRegion() {
-        return region;
-    }
+    //public String getRegion() {
+    //    return region;
+    //}
 
-    public void setRegion(String region) {
-        this.region = region;
-    }
+    //public void setRegion(String region) {
+    //    this.region = region;
+    //}
 
     public String getBucket() {
         return bucket;

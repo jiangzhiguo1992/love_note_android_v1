@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ita</string>
+    <string name="app_name">MianMian</string>
 
     <string name="prompt">Prompt</string>
     <string name="exit_app">Are you sure that you want to exit?</string>
