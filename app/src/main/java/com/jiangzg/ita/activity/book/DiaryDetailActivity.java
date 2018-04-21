@@ -3,9 +3,10 @@ package com.jiangzg.ita.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
@@ -15,6 +16,8 @@ import com.jiangzg.ita.domain.Diary;
 import com.jiangzg.ita.helper.ConvertHelper;
 import com.jiangzg.ita.helper.ViewHelper;
 import com.jiangzg.ita.view.GSwipeRefreshLayout;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -50,14 +53,52 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     @Override
     protected void initView(Bundle state) {
         diary = getIntent().getParcelableExtra("diary");
-        String happenAt = ConvertHelper.ConvertTimeGo2DiaryShow(diary.getHappenAt());
-        ViewHelper.initTopBar(mActivity, tb, happenAt, true);
-
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
+        // view
+        refreshView();
+        // TODO menu
     }
 
     @Override
     protected void initData(Bundle state) {
+        // TODO event
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // TODO
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private void refreshData() {
+        // TODO
+    }
+
+    private void refreshView() {
+        // happen
+        String happenAt = ConvertHelper.ConvertTimeGo2DiaryShow(diary.getHappenAt());
+        tb.setTitle(happenAt);
+        // TODO author
+
+        // TODO updateAt
+
+        // TODO imageList
+        List<String> imageList = diary.getImageList();
+        if (imageList != null && imageList.size() > 0) {
+            rv.setVisibility(View.VISIBLE);
+        } else {
+            rv.setVisibility(View.GONE);
+        }
+        // content
+        tvContent.setText(diary.getContent());
+    }
+
+    private void showDeleteDialog() {
+        // TODO
+    }
+
+    private void goEdit() {
+        // TODO
     }
 
 }
