@@ -9,7 +9,7 @@
     android:background="#0f0"
     android:foreground="?attr/selectableItemBackground">
 
-    <com.jiangzg.ita.view.GImageView
+    <com.jiangzg.mianmian.view.GImageView
         android:id="@+id/ivScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

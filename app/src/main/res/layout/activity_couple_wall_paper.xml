@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.ita.activity.couple.CoupleWallPaperActivity">
+    tools:context="com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity">
 
     <include layout="@layout/view_top_bar"/>
 
-    <com.jiangzg.ita.view.GSwipeRefreshLayout
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,5 +20,5 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </com.jiangzg.ita.view.GSwipeRefreshLayout>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
 </LinearLayout>

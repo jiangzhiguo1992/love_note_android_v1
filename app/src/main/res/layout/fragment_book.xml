@@ -9,7 +9,7 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <com.jiangzg.ita.view.GSwipeRefreshLayout
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -444,5 +444,5 @@
                 </LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.jiangzg.ita.view.GSwipeRefreshLayout>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
 </LinearLayout>

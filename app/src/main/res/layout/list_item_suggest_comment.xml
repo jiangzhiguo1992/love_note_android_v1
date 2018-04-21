@@ -12,7 +12,7 @@
 
     <View style="@style/LineHorizontal"/>
 
-    <com.jiangzg.ita.view.GWrapView
+    <com.jiangzg.mianmian.view.GWrapView
         android:id="@+id/wvTag"
         android:layout_width="200dp"
         android:layout_height="wrap_content"

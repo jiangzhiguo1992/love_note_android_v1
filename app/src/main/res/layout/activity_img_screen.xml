@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#000"
     android:fitsSystemWindows="false"
-    tools:context="com.jiangzg.ita.activity.common.ImgScreenActivity">
+    tools:context="com.jiangzg.mianmian.activity.common.ImgScreenActivity">
 
 
     <android.support.v4.view.ViewPager

@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jiangzg.ita.activity.couple.CoupleWeatherActivity">
+    tools:context="com.jiangzg.mianmian.activity.couple.CoupleWeatherActivity">
 
 </android.support.constraint.ConstraintLayout>

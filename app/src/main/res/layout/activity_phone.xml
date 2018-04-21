@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.ita.activity.user.PhoneActivity">
+    tools:context="com.jiangzg.mianmian.activity.user.PhoneActivity">
 
     <include layout="@layout/view_top_bar"/>
 

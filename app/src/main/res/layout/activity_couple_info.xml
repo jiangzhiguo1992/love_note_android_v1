@@ -9,11 +9,11 @@
     android:background="@drawable/shape_used_cp_info_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.ita.activity.couple.CoupleInfoActivity">
+    tools:context="com.jiangzg.mianmian.activity.couple.CoupleInfoActivity">
 
     <include layout="@layout/view_top_bar"/>
 
-    <com.jiangzg.ita.view.GSwipeRefreshLayout
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -42,7 +42,7 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <com.jiangzg.ita.view.GImageView
+                        <com.jiangzg.mianmian.view.GImageView
                             android:id="@+id/ivAvatarLeft"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -109,7 +109,7 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <com.jiangzg.ita.view.GImageView
+                        <com.jiangzg.mianmian.view.GImageView
                             android:id="@+id/ivAvatarRight"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
@@ -184,5 +184,5 @@
                     tools:text="@string/break_relation"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.jiangzg.ita.view.GSwipeRefreshLayout>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
 </LinearLayout>

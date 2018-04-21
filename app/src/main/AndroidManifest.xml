@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.jiangzg.ita">
+          package="com.jiangzg.mianmian">
 
     <!-- 蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH"/>
@@ -74,14 +74,10 @@
         <activity android:name=".activity.couple.CoupleMensesActivity"/>
         <activity android:name=".activity.couple.CoupleTrendsActivity"/>
         <activity android:name=".activity.couple.CoupleCoinActivity"/>
-        <activity android:name=".activity.book.WordListActivity">
-        </activity>
-        <activity android:name=".activity.book.DiaryListActivity">
-        </activity>
-        <activity android:name=".activity.book.DiaryEditActivity">
-        </activity>
-        <activity android:name=".activity.book.DiaryDetailActivity">
-        </activity>
+        <activity android:name=".activity.book.WordListActivity"/>
+        <activity android:name=".activity.book.DiaryListActivity"/>
+        <activity android:name=".activity.book.DiaryEditActivity"/>
+        <activity android:name=".activity.book.DiaryDetailActivity"/>
     </application>
 
 </manifest>

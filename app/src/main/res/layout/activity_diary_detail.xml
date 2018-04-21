@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.ita.activity.book.DiaryDetailActivity">
+    tools:context="com.jiangzg.mianmian.activity.book.DiaryDetailActivity">
 
     <include layout="@layout/view_top_bar"/>
 
     <!-- 作者名+头像 图片 -->
-    <com.jiangzg.ita.view.GSwipeRefreshLayout
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -68,5 +68,5 @@
                     tools:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容"/>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.jiangzg.ita.view.GSwipeRefreshLayout>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
 </LinearLayout>
