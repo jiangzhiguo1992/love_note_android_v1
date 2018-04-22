@@ -165,6 +165,10 @@ public interface API {
     @GET("book/diary?did=0&list=1")
     Call<Result> diaryListGet(@Query("who") int who, @Query("page") int page);
 
+    // diary获取
+    @GET("book/diary?list=0")
+    Call<Result> diaryGet(@Query("did") long did);
+
     // diary上传
     @POST("book/diary")
     Call<Result> diaryPost(@Body Diary diary);

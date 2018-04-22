@@ -99,6 +99,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
                 @Override
                 public void onFailure(String errMsg) {
+                    // TODO 这个去掉 换成递归获取
                     MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                             .cancelable(true)
                             .canceledOnTouchOutside(false)

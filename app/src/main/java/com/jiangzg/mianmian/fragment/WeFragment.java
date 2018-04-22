@@ -136,9 +136,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     TextView tvCoin;
 
     private Runnable coupleCountDownTask;
-    private Observable<WallPaper> observableWallPaper;
-    private Observable<Couple> observableCoupleRefresh;
-    private Observable<LocationInfo> observableLocationRefresh;
+    private Observable<WallPaper> obWallPaper;
+    private Observable<Couple> obCoupleRefresh;
+    private Observable<LocationInfo> obLocationRefresh;
     private WallPaper wallPaper;
     private Place myPlace;
     private Place taPlace;
@@ -174,20 +174,20 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     protected void loadData() {
         // event
-        observableWallPaper = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
+        obWallPaper = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
             @Override
             public void call(WallPaper wallPaper) {
                 WeFragment.this.wallPaper = wallPaper;
                 refreshWallPaperView();
             }
         });
-        observableCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
+        obCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
             @Override
             public void call(Couple couple) {
                 refreshView();
             }
         });
-        observableLocationRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
+        obLocationRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo locationInfo) {
                 refreshPlaceView();
@@ -201,9 +201,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onDestroy() {
         super.onDestroy();
         stopCoupleCountDownTask();
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableWallPaper);
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, observableCoupleRefresh);
-        RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, observableLocationRefresh);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaper);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
+        RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, obLocationRefresh);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,

@@ -241,7 +241,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             return;
         }
         List<String> imageList = wallPaper.getImageList();
-        recyclerHelper.dataNew(imageList);
+        recyclerHelper.dataNew(imageList, 0);
     }
 
 }

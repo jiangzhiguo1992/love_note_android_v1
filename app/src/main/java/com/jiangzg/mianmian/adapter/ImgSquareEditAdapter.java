@@ -24,7 +24,7 @@ import java.util.List;
 
 /**
  * Created by JZG on 2018/3/12.
- * 帮助列表适配器
+ * 图片编辑列表适配器
  */
 public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
@@ -41,7 +41,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         mActivity = activity;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp10 = ConvertUtils.dp2px(10);
-        // 左右是10 中间也是10 有变动要跟着改
+        // 左右是5+5 中间也是5+5 有变动要跟着改
         imageWidth = imageHeight = (int) ((screenWidth - dp10 - (dp10 * spanCount)) / spanCount);
         ossSize = 0;
         this.limit = limit;

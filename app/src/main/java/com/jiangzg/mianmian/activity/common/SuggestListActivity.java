@@ -50,9 +50,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Suggest>> observableListRefresh;
-    private Observable<Suggest> observableListItemDelete;
-    private Observable<Suggest> observableListItemRefresh;
+    private Observable<List<Suggest>> obListRefresh;
+    private Observable<Suggest> obListItemDelete;
+    private Observable<Suggest> obListItemRefresh;
     private int page = 0;
 
     public static void goActivity(Activity from, int entry) {
@@ -126,19 +126,19 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        observableListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
                 recyclerHelper.dataRefresh();
             }
         });
-        observableListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
                 ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
-        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), suggest);
@@ -156,9 +156,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, observableListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, observableListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, observableListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     private void getData(final boolean more) {

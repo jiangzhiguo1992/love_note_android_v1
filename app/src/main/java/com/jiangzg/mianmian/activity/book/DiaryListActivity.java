@@ -61,9 +61,9 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     private RecyclerHelper recyclerHelper;
     private int page = 0;
     private int searchType = ApiHelper.LIST_CP;
-    private Observable<List<Diary>> observableListRefresh;
-    private Observable<Diary> observableListItemRefresh;
-    private Observable<Diary> observableListItemDelete;
+    private Observable<List<Diary>> obListRefresh;
+    private Observable<Diary> obListItemRefresh;
+    private Observable<Diary> obListItemDelete;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
@@ -123,19 +123,19 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        observableListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
             @Override
             public void call(List<Diary> diaries) {
                 recyclerHelper.dataRefresh();
             }
         });
-        observableListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Diary>() {
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
                 ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), diary);
             }
         });
-        observableListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Diary>() {
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), diary);
@@ -153,9 +153,9 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, observableListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, observableListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, observableListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @OnClick({R.id.llSearch, R.id.llAdd})

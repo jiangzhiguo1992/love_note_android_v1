@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -11,11 +12,17 @@ import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -24,6 +31,9 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
@@ -41,10 +51,20 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     TextView tvContent;
 
     private Diary diary;
+    private Observable<Diary> obDiary;
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
+        intent.putExtra("from", ConsHelper.DETAIL_DATA_FROM_ALL);
         intent.putExtra("diary", diary);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, long did) {
+        Intent intent = new Intent(from, DiaryDetailActivity.class);
+        intent.putExtra("from", ConsHelper.DETAIL_DATA_FROM_ID);
+        intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -56,49 +76,93 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        diary = getIntent().getParcelableExtra("diary");
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
-        // view
-        refreshView();
+        srl.setEnabled(false);
+        // data
+        Intent intent = getIntent();
+        int from = intent.getIntExtra("from", ConsHelper.DETAIL_DATA_FROM_NONE);
+        if (from == ConsHelper.DETAIL_DATA_FROM_ALL) {
+            diary = intent.getParcelableExtra("diary");
+            refreshView();
+        } else if (from == ConsHelper.DETAIL_DATA_FROM_ID) {
+            long did = intent.getLongExtra("did", 0);
+            refreshData(did);
+        }
         // TODO menu
     }
 
     @Override
     protected void initData(Bundle state) {
-        // TODO event
+        obDiary = RxBus.register(ConsHelper.EVENT_DIARY_REFRESH, new Action1<Diary>() {
+            @Override
+            public void call(Diary diary) {
+                if (diary == null) return;
+                refreshData(diary.getId());
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // TODO
+        getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void refreshData() {
-        // TODO
+    // TODO 菜单更换
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_DIARY_REFRESH, obDiary);
+    }
+
+    private void refreshData(long did) {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        Call<Result> call = new RetrofitHelper().call(API.class).diaryGet(did);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                diary = data.getDiary();
+                refreshView();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                srl.setRefreshing(false);
+            }
+        });
     }
 
     private void refreshView() {
+        if (diary == null) return;
         User user = SPHelper.getUser();
-        Couple couple = SPHelper.getCouple();
         long userId = diary.getUserId();
         long updateAt = diary.getUpdateAt();
-
         // happen
         String happenAt = ConvertHelper.ConvertTimeGo2DiaryShow(diary.getHappenAt());
         tb.setTitle(happenAt);
         // author
-        String authorName = ConvertHelper.convertCp2Name(couple, userId);
+        String authorName = user.getNameById(userId);
         String authorShow = String.format(Locale.getDefault(), getString(R.string.author_space_colon_space_holder), authorName);
         tvAuthor.setText(authorShow);
         // updateAt
         String update = ConvertHelper.ConvertTimeGo2DiaryShow(updateAt);
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
-        // TODO imageList
+        // imageList
         List<String> imageList = diary.getImageList();
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
+            int size = imageList.size();
+            new RecyclerHelper(mActivity)
+                    .initRecycler(rv)
+                    .initLayoutManager(new GridLayoutManager(mActivity, size))
+                    .initAdapter(new ImgSquareShowAdapter(mActivity, size))
+                    .setAdapter()
+                    .dataNew(imageList, 0);
         } else {
             rv.setVisibility(View.GONE);
         }
@@ -110,7 +174,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         // TODO
     }
 
-    private void goEdit() {
+    private void goEditActivity() {
         // TODO
     }
 

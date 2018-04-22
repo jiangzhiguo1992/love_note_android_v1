@@ -131,7 +131,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
         tb.setTitle(help.getTitle());
         initHead(help);
-        recyclerHelper.dataNew(help.getSubList());
+        recyclerHelper.dataNew(help.getSubList(), 0);
     }
 
     private void initHead(Help help) {
@@ -149,7 +149,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new HelpContentAdapter());
-        recyclerHelper.dataNew(contentList);
+        recyclerHelper.dataNew(contentList, 0);
     }
 
 }

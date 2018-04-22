@@ -292,7 +292,7 @@ public class RecyclerHelper {
      */
     public void dataNew(List list) {
         if (list == null) return;
-        dataNew(list, list.size());
+        dataNew(list, Integer.MAX_VALUE);
     }
 
     public void dataNew(List list, long totalCount) {
@@ -321,7 +321,7 @@ public class RecyclerHelper {
      */
     public void dataAdd(List list) {
         if (list == null) return;
-        dataAdd(list, list.size());
+        dataAdd(list, Integer.MAX_VALUE);
     }
 
     public void dataAdd(List list, long totalCount) {
