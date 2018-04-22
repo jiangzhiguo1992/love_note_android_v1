@@ -100,17 +100,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), false);
         ViewHelper.setLineBottom(tvProtocol);
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuForget: // 忘记密码
-                        ForgetActivity.goActivity(mActivity);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -140,6 +129,16 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.login_forget, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuForget: // 忘记密码
+                ForgetActivity.goActivity(mActivity);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etCode})

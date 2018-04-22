@@ -28,14 +28,14 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.Locale;
@@ -93,22 +93,11 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.pair), true);
-        // listener
+        // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 refreshSelfCouple();
-            }
-        });
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_PAIR);
-                        break;
-                }
-                return true;
             }
         });
     }
@@ -122,6 +111,16 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_PAIR);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

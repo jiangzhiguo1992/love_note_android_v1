@@ -101,21 +101,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                         wallPaperAdapter.showDeleteDialog(position);
                     }
                 });
-        // menu
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 评论
-                        HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
-                        break;
-                    case R.id.menuAdd: // 添加
-                        addWallPaper();
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -127,6 +112,19 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help_add, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
+                return true;
+            case R.id.menuAdd: // 添加
+                addWallPaper();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

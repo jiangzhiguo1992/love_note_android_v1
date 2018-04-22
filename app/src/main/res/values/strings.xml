@@ -278,6 +278,7 @@
     <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
     <string name="official">官方</string>
     <string name="top">置顶</string>
+    <string name="go_back_top">回到顶部</string>
     <string name="i_want_push_suggest">朕要提意见</string>
     <string name="i_want_feedback">我要反馈</string>
     <string name="my_follow">我的关注</string>
@@ -429,4 +430,7 @@
     <string name="click_me_choose_date">点我选日期</string>
     <string name="text_number_colon_holder" formatted="false">字数:%d</string>
     <string name="author_space_colon_space_holder" formatted="false">作者: %s</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="add">添加</string>
 </resources>

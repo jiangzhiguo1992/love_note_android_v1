@@ -120,21 +120,6 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 });
         // head
         initHead();
-        // menu
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_HOME);
-                        break;
-                    case R.id.menuTop: // 返回顶部
-                        rv.smoothScrollToPosition(0);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -175,6 +160,19 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help_top, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_HOME);
+                return true;
+            case R.id.menuTop: // 返回顶部
+                rv.smoothScrollToPosition(0);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

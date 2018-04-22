@@ -133,18 +133,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         abl.setTargetElevation(0);
         // srl
         srl.setEnabled(false);
-        // menu
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_INFO);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -156,6 +144,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_INFO);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

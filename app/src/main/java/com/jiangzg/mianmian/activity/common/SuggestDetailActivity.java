@@ -143,21 +143,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         initFollowView();
         // comment
         initCommentView();
-        // menu
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_DETAIL);
-                        break;
-                    case R.id.menuDel:
-                        showDelDialog();
-                        break;
-                }
-                return true;
-            }
-        });
         // comment 防止开始显示错误
         onCommentInput("");
     }
@@ -175,6 +160,19 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_DETAIL);
+                return true;
+            case R.id.menuDel: // 删除
+                showDelDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

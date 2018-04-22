@@ -71,7 +71,6 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), false);
         fitToolBar(tb);
-
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -81,24 +80,23 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         });
         // menu
         tb.inflateMenu(R.menu.help_settings);
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mFragment, Help.TYPE_BOOK_HOME);
-                        break;
-                    case R.id.menuSettings: // 设置
-                        SettingsActivity.goActivity(mFragment);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     protected void loadData() {
         refreshData();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mFragment, Help.TYPE_BOOK_HOME);
+                return true;
+            case R.id.menuSettings: // 设置
+                SettingsActivity.goActivity(mFragment);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.cvAccount, R.id.cvWhisper, R.id.cvDiary, R.id.cvWord,

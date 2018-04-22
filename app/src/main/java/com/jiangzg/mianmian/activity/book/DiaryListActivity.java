@@ -107,18 +107,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                         diaryAdapter.goDiaryDetail(position);
                     }
                 });
-        // menu
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_LIST);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -148,6 +136,16 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_LIST);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

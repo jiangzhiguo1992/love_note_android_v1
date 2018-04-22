@@ -5,13 +5,13 @@
     <item
         android:id="@+id/menuHelp"
         android:icon="@drawable/ic_help_circle_solid_white"
-        android:title=""
+        android:title="@string/help_document"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menuTop"
         android:icon="@drawable/ic_go_top_white"
-        android:title=""
+        android:title="@string/go_back_top"
         app:showAsAction="always"/>
 
 </menu>

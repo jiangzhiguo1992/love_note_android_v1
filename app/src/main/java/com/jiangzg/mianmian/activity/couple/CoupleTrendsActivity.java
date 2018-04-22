@@ -24,12 +24,12 @@ public class CoupleTrendsActivity extends BaseActivity<CoupleTrendsActivity> {
 
     @Override
     protected void initView(Bundle state) {
-
+        // TODO
     }
 
     @Override
     protected void initData(Bundle state) {
-
+        // TODO
     }
 
 }

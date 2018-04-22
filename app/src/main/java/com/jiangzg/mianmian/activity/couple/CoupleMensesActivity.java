@@ -24,12 +24,12 @@ public class CoupleMensesActivity extends BaseActivity<CoupleMensesActivity> {
 
     @Override
     protected void initView(Bundle state) {
-
+        // TODO
     }
 
     @Override
     protected void initData(Bundle state) {
-
+        // TODO
     }
 
 }

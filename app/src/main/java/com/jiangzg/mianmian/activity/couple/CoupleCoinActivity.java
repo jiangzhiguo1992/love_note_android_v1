@@ -24,12 +24,12 @@ public class CoupleCoinActivity extends BaseActivity<CoupleCoinActivity> {
 
     @Override
     protected void initView(Bundle state) {
-
+        // TODO
     }
 
     @Override
     protected void initData(Bundle state) {
-
+        // TODO
     }
 
 }

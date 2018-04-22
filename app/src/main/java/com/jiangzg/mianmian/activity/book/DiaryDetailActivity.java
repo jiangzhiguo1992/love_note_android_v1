@@ -7,14 +7,18 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
@@ -88,7 +92,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }
-        // TODO menu
     }
 
     @Override
@@ -108,7 +111,32 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         return super.onCreateOptionsMenu(menu);
     }
 
-    // TODO 菜单更换
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        if (diary.getUserId() == SPHelper.getUser().getId()) {
+            getMenuInflater().inflate(R.menu.help_del_edit, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_DETAIL);
+                return true;
+            case R.id.menuEdit: // 编辑
+                goEditActivity();
+                return true;
+            case R.id.menuDel: // 删除
+                showDeleteDialog();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onDestroy() {
@@ -141,6 +169,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         User user = SPHelper.getUser();
         long userId = diary.getUserId();
         long updateAt = diary.getUpdateAt();
+        // menu
+        invalidateOptionsMenu();
         // happen
         String happenAt = ConvertHelper.ConvertTimeGo2DiaryShow(diary.getHappenAt());
         tb.setTitle(happenAt);
@@ -172,10 +202,12 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     private void showDeleteDialog() {
         // TODO
+        ToastUtils.show("删除");
     }
 
     private void goEditActivity() {
         // TODO
+        ToastUtils.show("编辑");
     }
 
 }

@@ -70,7 +70,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.theme), true);
-
+        // view
         refreshView();
     }
 

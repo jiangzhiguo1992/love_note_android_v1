@@ -104,24 +104,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                         suggestAdapter.goSuggestDetail(position);
                     }
                 });
-        // menu
-        tb.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menuHelp: // 帮助
-                        int helpType;
-                        if (entry == ENTRY_FOLLOW) {
-                            helpType = Help.TYPE_SUGGEST_FOLLOW;
-                        } else {
-                            helpType = Help.TYPE_SUGGEST_MINE;
-                        }
-                        HelpActivity.goActivity(mActivity, helpType);
-                        break;
-                }
-                return true;
-            }
-        });
     }
 
     @Override
@@ -151,6 +133,22 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                int helpType;
+                if (entry == ENTRY_FOLLOW) {
+                    helpType = Help.TYPE_SUGGEST_FOLLOW;
+                } else {
+                    helpType = Help.TYPE_SUGGEST_MINE;
+                }
+                HelpActivity.goActivity(mActivity, helpType);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
