@@ -246,6 +246,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
+        // TODO 测试
         List<String> fileData = imgAdapter.getFileData();
         if (fileData != null && fileData.size() > 0) {
             ossUploadDiary(fileData);
@@ -276,8 +277,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                // event
+                // TODO 分情况
                 RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
                 RxBus.post(event);
+                // finish
                 mActivity.finish();
             }
 

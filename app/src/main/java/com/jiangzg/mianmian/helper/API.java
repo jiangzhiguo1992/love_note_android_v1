@@ -173,4 +173,12 @@ public interface API {
     @POST("book/diary")
     Call<Result> diaryPost(@Body Diary diary);
 
+    // diary删除
+    @DELETE("book/diary")
+    Call<Result> diaryDel(@Query("did") long did);
+
+    // diary修改
+    @PUT("book/diary")
+    Call<Result> diaryUpdate(@Body Diary diary);
+
 }

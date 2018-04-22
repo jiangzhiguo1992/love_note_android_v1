@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,8 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
@@ -20,10 +22,12 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -113,6 +117,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        if (diary == null) return super.onPrepareOptionsMenu(menu);
         menu.clear();
         if (diary.getUserId() == SPHelper.getUser().getId()) {
             getMenuInflater().inflate(R.menu.help_del_edit, menu);
@@ -201,13 +206,46 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     private void showDeleteDialog() {
-        // TODO
-        ToastUtils.show("删除");
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_delete_this_diary)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi();
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi() {
+        if (diary == null) return;
+        MaterialDialog loading = getLoading(true);
+        Call<Result> call = new RetrofitHelper().call(API.class).diaryDel(diary.getId());
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Diary> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary);
+                RxBus.post(event);
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
+
     }
 
     private void goEditActivity() {
-        // TODO
-        ToastUtils.show("编辑");
+        if (diary == null) return;
+        DiaryEditActivity.goActivity(mActivity, diary);
     }
 
 }

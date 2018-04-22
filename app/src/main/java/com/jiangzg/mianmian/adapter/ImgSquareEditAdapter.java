@@ -129,7 +129,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                     }
                 })
                 .build();
-        DialogHelper.show(dialog);
+        DialogHelper.showWithAnim(dialog);
     }
 
     public void setOssData(List<String> ossPaths) {

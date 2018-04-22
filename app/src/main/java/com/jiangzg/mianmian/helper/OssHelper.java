@@ -173,7 +173,6 @@ public class OssHelper {
                 .progress(true, 0)
                 .progressIndeterminateStyle(false)
                 .build();
-        DialogHelper.setAnim(progress);
         // compress
         Luban.get(MyApp.get())
                 .load(source) // 压缩源文件
@@ -181,7 +180,7 @@ public class OssHelper {
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
-                        DialogHelper.show(progress);
+                        DialogHelper.showWithAnim(progress);
                     }
 
                     @Override
