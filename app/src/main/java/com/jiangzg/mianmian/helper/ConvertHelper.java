@@ -1,6 +1,7 @@
 package com.jiangzg.mianmian.helper;
 
 import android.net.Uri;
+import android.support.annotation.IntegerRes;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -8,6 +9,8 @@ import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
+import com.jiangzg.mianmian.domain.Couple;
+import com.jiangzg.mianmian.domain.User;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,14 +25,67 @@ import java.util.Locale;
  */
 public class ConvertHelper {
 
+    // 获取ta的id
+    public static long convertCp2TaId(Couple couple, long mid) {
+        if (CheckHelper.isNullCouple(couple)) return 0;
+        if (mid == couple.getCreatorId()) {
+            return couple.getInviteeId();
+        } else {
+            return couple.getCreatorId();
+        }
+    }
+
+    // 获取在cp中的头像
+    public static String convertCp2Avatar(Couple couple, long uid) {
+        if (CheckHelper.isNullCouple(couple)) return "";
+        if (uid == couple.getCreatorId()) {
+            return couple.getCreatorAvatar();
+        } else {
+            return couple.getInviteeAvatar();
+        }
+    }
+
+    // 获取在cp中的昵称
+    public static String convertCp2Name(Couple couple, long uid) {
+        if (CheckHelper.isNullCouple(couple)) return "";
+        if (uid == couple.getCreatorId()) {
+            return couple.getCreatorName();
+        } else {
+            return couple.getInviteeName();
+        }
+    }
+
+    // 时间转换(java -> go)
     public static long convertTimeJava2Go(long time) {
         return time / 1000;
     }
 
+    // 时间转换(go -> java)
     public static long convertTimeGo2Java(long time) {
         return time * 1000;
     }
 
+    // 性别显示
+    public static String convertSex2Show(int sex) {
+        if (sex == User.SEX_GIRL) {
+            return MyApp.get().getString(R.string.girl);
+        } else if (sex == User.SEX_BOY) {
+            return MyApp.get().getString(R.string.boy);
+        }
+        return "";
+    }
+
+    // 性别小圆图显示
+    public static int convertSex2ResCircleSmall(int sex) {
+        if (sex == User.SEX_BOY) {
+            return R.mipmap.ic_sex_boy_circle;
+        } else if (sex == User.SEX_GIRL) {
+            return R.mipmap.ic_sex_girl_circle;
+        }
+        return 0;
+    }
+
+    // 集合类型转换(string -> uri)
     public static ArrayList<Uri> convertListString2uri(List<String> strings) {
         ArrayList<Uri> uriList = new ArrayList<>();
         if (strings == null || strings.size() <= 0) return uriList;
@@ -39,6 +95,7 @@ public class ConvertHelper {
         return uriList;
     }
 
+    // 集合类型转换(string -> file)
     public static List<File> convertListString2File(List<String> pathList) {
         List<File> fileList = new ArrayList<>();
         if (pathList == null || pathList.size() <= 0) return fileList;
@@ -48,6 +105,7 @@ public class ConvertHelper {
         return fileList;
     }
 
+    // 时间显示(不同天)
     public static String ConvertTimeGo2DiffDay(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
@@ -61,10 +119,12 @@ public class ConvertHelper {
         return DateUtils.getCSTString(convertTimeGo2Java(time), format);
     }
 
+    // 日记时间显示
     public static String ConvertTimeGo2DiaryShow(long time) {
         return ConvertTimeJava2DiaryShow(convertTimeGo2Java(time));
     }
 
+    // 日记时间显示
     public static String ConvertTimeJava2DiaryShow(long time) {
         Calendar cNow = Calendar.getInstance();
         Calendar cTime = Calendar.getInstance();
@@ -118,6 +178,7 @@ public class ConvertHelper {
         return url;
     }
 
+    // 两点距离
     public static String convertDistance2Show(float distance) {
         String show = "";
         if (distance <= 0) return show;
@@ -130,6 +191,7 @@ public class ConvertHelper {
         return show;
     }
 
+    // 天气显示文本
     public static String ConvertWeatherIcon2Show(String icon) {
         if (StringUtils.isEmpty(icon)) return "";
         String iconTrim = icon.trim();
@@ -189,6 +251,7 @@ public class ConvertHelper {
         }
     }
 
+    // 天气显示icon
     public static int ConvertWeatherIcon2ResInt(String icon) {
         if (StringUtils.isEmpty(icon)) return 0;
         String iconTrim = icon.trim();

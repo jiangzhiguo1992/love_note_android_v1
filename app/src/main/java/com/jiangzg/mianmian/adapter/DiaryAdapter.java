@@ -21,17 +21,12 @@ import java.util.Locale;
 public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     private FragmentActivity mActivity;
-    private final String creatorAvatar;
-    private final String inviteeAvatar;
-    private final long creatorId;
+    private final Couple couple;
 
     public DiaryAdapter(FragmentActivity activity) {
         super(R.layout.list_item_diary);
         mActivity = activity;
-        Couple couple = SPHelper.getCouple();
-        creatorId = couple.getCreatorId();
-        creatorAvatar = couple.getCreatorAvatar();
-        inviteeAvatar = couple.getInviteeAvatar();
+        couple = SPHelper.getCouple();
     }
 
     @Override
@@ -39,8 +34,8 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         String happen = ConvertHelper.ConvertTimeGo2DiaryShow(item.getHappenAt());
         String content = item.getContent();
         if (content == null) content = "";
-        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon), content.length());
-        String avatar = (item.getUserId() == creatorId) ? creatorAvatar : inviteeAvatar;
+        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon_holder), content.length());
+        String avatar = ConvertHelper.convertCp2Avatar(couple, item.getUserId());
         // view
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvCount, countShow);

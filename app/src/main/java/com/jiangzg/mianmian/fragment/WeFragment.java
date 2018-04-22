@@ -209,6 +209,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
             R.id.llPlace, R.id.llWeather, R.id.rlMenses, R.id.rlTrends, R.id.rlCoin})
     public void onViewClicked(View view) {
+        Couple couple = SPHelper.getCouple();
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_HOME);
@@ -220,21 +221,21 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 CouplePairActivity.goActivity(mActivity);
                 break;
             case R.id.vfWallPaper: // 背景图
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleWallPaperActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llCoupleInfo: // cp信息
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llPlace: // 地理信息
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
@@ -249,7 +250,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 }
                 break;
             case R.id.llWeather: // 天气信息
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
@@ -264,21 +265,21 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 }
                 break;
             case R.id.rlMenses: // 姨妈
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleMensesActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.rlTrends: // 动态
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleTrendsActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.rlCoin: // 金币
-                if (CheckHelper.isCoupleBreak()) {
+                if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleCoinActivity.goActivity(mActivity);
@@ -484,7 +485,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         // distance
         float distance = LocationHelper.distance(myInfo, taInfo);
         String distanceShow = ConvertHelper.convertDistance2Show(distance);
-        String format = String.format(Locale.getDefault(), getString(R.string.distance_colon), distanceShow);
+        String format = String.format(Locale.getDefault(), getString(R.string.distance_holder), distanceShow);
         tvDistance.setText(format);
     }
 
@@ -557,7 +558,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
         // diff
         int abs = Math.abs((myC - taC));
-        String format = String.format(Locale.getDefault(), getString(R.string.differ_colon_c), abs);
+        String format = String.format(Locale.getDefault(), getString(R.string.differ_holder_c), abs);
         tvWeatherDiffer.setText(format);
     }
 

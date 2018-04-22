@@ -12,12 +12,16 @@ import android.widget.TextView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 
@@ -75,13 +79,22 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     private void refreshView() {
+        User user = SPHelper.getUser();
+        Couple couple = SPHelper.getCouple();
+        long userId = diary.getUserId();
+        long updateAt = diary.getUpdateAt();
+
         // happen
         String happenAt = ConvertHelper.ConvertTimeGo2DiaryShow(diary.getHappenAt());
         tb.setTitle(happenAt);
-        // TODO author
-
-        // TODO updateAt
-
+        // author
+        String authorName = ConvertHelper.convertCp2Name(couple, userId);
+        String authorShow = String.format(Locale.getDefault(), getString(R.string.author_space_colon_space_holder), authorName);
+        tvAuthor.setText(authorShow);
+        // updateAt
+        String update = ConvertHelper.ConvertTimeGo2DiaryShow(updateAt);
+        String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), update);
+        tvUpdateAt.setText(updateShow);
         // TODO imageList
         List<String> imageList = diary.getImageList();
         if (imageList != null && imageList.size() > 0) {

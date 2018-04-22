@@ -202,7 +202,7 @@
     <string name="find_ta">寻找Ta</string>
     <string name="input_phone_to_pair">输入Ta的手机号就可以配对哦！</string>
     <string name="send_pair_request">发送配对请求</string>
-    <string name="ta_colon_holder" formatted="false">Ta: %s</string>
+    <string name="ta_colon_space_holder" formatted="false">Ta: %s</string>
     <string name="want_find_back_once_time">想要找回原来那段时光吗？</string>
     <string name="complex_can_find_once_all">复合可找回原来的点点滴滴</string>
     <string name="send_complex_request">发送复合请求</string>
@@ -251,7 +251,7 @@
     <string name="modify_password">修改密码</string>
     <string name="about_and_help">关于与帮助</string>
     <string name="check_update">检查更新</string>
-    <string name="current_version_colon_holder" formatted="false">当前版本: %s</string>
+    <string name="current_version_colon_space_holder" formatted="false">当前版本: %s</string>
     <string name="help_document">帮助文档</string>
     <string name="suggest_feedback">意见反馈</string>
     <string name="go_rate">去评价</string>
@@ -268,8 +268,8 @@
     <string name="egg_yellow">咸蛋黄</string>
     <string name="fruit_orange">鲜果橙</string>
     <string name="coffee_brown">咖啡棕</string>
-    <string name="create_at_colon_holder" formatted="false">创建于: %s</string>
-    <string name="update_at_colon_holder" formatted="false">更新于: %s</string>
+    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
+    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
     <string name="follow">关注</string>
     <string name="comment">评论</string>
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
@@ -338,9 +338,9 @@
     <string name="are_update_check">正在检查更新</string>
     <string name="version_number_colon">版本号:</string>
     <string name="horizontal_line_2">————</string>
-    <string name="distance_colon" formatted="false">相距 %s</string>
+    <string name="distance_holder" formatted="false">相距 %s</string>
     <string name="liner_wave_liner_c">— ~ — ℃</string>
-    <string name="differ_colon_c" formatted="false">相差 %d℃</string>
+    <string name="differ_holder_c" formatted="false">相差 %d℃</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_ta_first_come">我和Ta第一次来</string>
     <string name="i_ta_once_come">我和Ta以前来过</string>
@@ -350,7 +350,7 @@
     <string name="picture_get_fail">照片获取失败</string>
     <string name="please_input_nickname">请输入昵称</string>
     <string name="are_upload">正在上传</string>
-    <string name="are_upload_space_colon" formatted="false">正在上传 %d/%d</string>
+    <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
     <string name="are_task">正在任务</string>
     <string name="cancel_upload">取消上传</string>
     <string name="cancel_download">取消下载</string>
@@ -419,13 +419,14 @@
     <string name="promise">承诺</string>
     <string name="angry">生气</string>
     <string name="award">补偿</string>
-    <string name="no_vip_just_can_push_colon_img" formatted="false">非会员只能上传%d张墙纸</string>
+    <string name="no_vip_just_can_push_holder_img" formatted="false">非会员只能上传%d张图片</string>
     <string name="publish">发表</string>
     <string name="choose_search_type">选择搜索类型</string>
     <string name="we_de">我们的</string>
     <string name="me_de">我的</string>
     <string name="ta_de">Ta的</string>
-    <string name="space_bracket_colon" formatted="false"> (%d)</string>
+    <string name="space_bracket_holder" formatted="false"> (%d)</string>
     <string name="click_me_choose_date">点我选日期</string>
-    <string name="text_number_colon" formatted="false">字数:%d</string>
+    <string name="text_number_colon_holder" formatted="false">字数:%d</string>
+    <string name="author_space_colon_space_holder" formatted="false">作者: %s</string>
 </resources>

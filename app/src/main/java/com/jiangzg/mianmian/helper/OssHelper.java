@@ -303,7 +303,7 @@ public class OssHelper {
         }
         // progress
         if (progress != null) {
-            String colonShow = MyApp.get().getString(R.string.are_upload_space_colon);
+            String colonShow = MyApp.get().getString(R.string.are_upload_space_holder_holder);
             String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
             progress.setContent(progressShow);
             if (currentIndex <= 0) {

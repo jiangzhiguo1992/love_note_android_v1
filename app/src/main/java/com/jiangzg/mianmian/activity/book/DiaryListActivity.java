@@ -183,7 +183,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 List<Diary> diaryList = data.getDiaryList();
                 recyclerHelper.dataOk(diaryList, total, more);
                 // searchShow
-                String searchShow = ApiHelper.LIST_SHOW[searchType] + String.format(Locale.getDefault(), getString(R.string.space_bracket_colon), total);
+                String searchShow = ApiHelper.LIST_SHOW[searchType] + String.format(Locale.getDefault(), getString(R.string.space_bracket_holder), total);
                 tvSearch.setText(searchShow);
             }
 

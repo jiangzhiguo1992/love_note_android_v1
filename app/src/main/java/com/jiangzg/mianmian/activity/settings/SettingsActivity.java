@@ -118,7 +118,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         switchSocial.setChecked(noticeSocial);
         // 版本信息
         String versionName = AppInfo.get().getVersionName();
-        String versionNameShow = String.format(Locale.getDefault(), getString(R.string.current_version_colon_holder), versionName);
+        String versionNameShow = String.format(Locale.getDefault(), getString(R.string.current_version_colon_space_holder), versionName);
         tvUpdateSummary.setText(versionNameShow);
     }
 

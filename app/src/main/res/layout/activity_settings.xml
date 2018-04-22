@@ -189,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvUpdateTitle"
-                    tools:text="@string/current_version_colon_holder"/>
+                    tools:text="@string/current_version_colon_space_holder"/>
             </RelativeLayout>
 
             <View

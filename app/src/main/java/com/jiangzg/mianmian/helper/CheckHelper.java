@@ -30,16 +30,6 @@ public class CheckHelper {
         return couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0;
     }
 
-    public static boolean isNullCouple() {
-        Couple couple = SPHelper.getCouple();
-        return isNullCouple(couple);
-    }
-
-    public static boolean isCoupleBreak() {
-        Couple couple = SPHelper.getCouple();
-        return isCoupleBreak(couple);
-    }
-
     public static boolean isCoupleBreak(Couple couple) {
         if (isNullCouple(couple)) return true;
         int status = couple.getStatus();
@@ -68,9 +58,8 @@ public class CheckHelper {
         return false;
     }
 
-    public static boolean isCoupleBreaking() {
-        Couple couple = SPHelper.getCouple();
-        return isCoupleBreaking(couple);
+    public static boolean isCoupleCreator(Couple couple, long uid) {
+        return !CheckHelper.isNullCouple(couple) && couple.getCreatorId() == uid;
     }
 
 }

@@ -3,9 +3,8 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.CheckHelper;
+import com.jiangzg.mianmian.helper.ConvertHelper;
 
 /**
  * Created by JiangZhiGuo on 2016/9/30.
@@ -30,67 +29,47 @@ public class User extends BaseObj implements Parcelable {
     private String oldPassWord;
 
     public String getSexShow() {
-        int sex = getSex();
-        if (sex == SEX_GIRL) {
-            return MyApp.get().getString(R.string.girl);
-        } else if (sex == SEX_BOY) {
-            return MyApp.get().getString(R.string.boy);
-        }
-        return "";
+        return ConvertHelper.convertSex2Show(this.getSex());
     }
 
     public int getSexResCircleSmall() {
-        if (this.getSex() == User.SEX_BOY) {
-            return R.mipmap.ic_sex_boy_circle;
-        } else if (this.getSex() == User.SEX_GIRL) {
-            return R.mipmap.ic_sex_girl_circle;
-        }
-        return 0;
+        return ConvertHelper.convertSex2ResCircleSmall(this.getSex());
+    }
+
+    public long getTaId() {
+        Couple couple = getCouple();
+        return ConvertHelper.convertCp2TaId(couple, this.getId());
     }
 
     public String getMyNameInCp() {
-        Couple couple = getCouple();
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (this.getId() == couple.getCreatorId()) {
-            return couple.getCreatorName();
-        } else {
-            return couple.getInviteeName();
-        }
+        return getNameById(this.getId());
     }
 
     public String getTaNameInCp() {
+        return getNameById(getTaId());
+    }
+
+    public String getNameById(long uid) {
         Couple couple = getCouple();
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (this.getId() == couple.getCreatorId()) {
-            return couple.getInviteeName();
-        } else {
-            return couple.getCreatorName();
-        }
+        return ConvertHelper.convertCp2Name(couple, uid);
     }
 
     public String getMyAvatarInCp() {
-        Couple couple = getCouple();
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (this.getId() == couple.getCreatorId()) {
-            return couple.getCreatorAvatar();
-        } else {
-            return couple.getInviteeAvatar();
-        }
+        return getAvatarById(this.getId());
     }
 
     public String getTaAvatarInCp() {
+        return getAvatarById(getTaId());
+    }
+
+    public String getAvatarById(long uid) {
         Couple couple = getCouple();
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (this.getId() == couple.getCreatorId()) {
-            return couple.getInviteeAvatar();
-        } else {
-            return couple.getCreatorAvatar();
-        }
+        return ConvertHelper.convertCp2Avatar(couple, uid);
     }
 
     public boolean isCoupleCreator() {
         Couple couple = getCouple();
-        return !CheckHelper.isNullCouple(couple) && couple.getCreatorId() == this.getId();
+        return CheckHelper.isCoupleCreator(couple, this.getId());
     }
 
     public String getOldPassWord() {

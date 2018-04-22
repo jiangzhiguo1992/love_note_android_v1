@@ -173,7 +173,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         if (adapter == null) return;
         List<String> data = adapter.getData();
         if (data.size() >= count) {
-            String format = String.format(Locale.getDefault(), getString(R.string.no_vip_just_can_push_colon_img), count);
+            String format = String.format(Locale.getDefault(), getString(R.string.no_vip_just_can_push_holder_img), count);
             ToastUtils.show(format);
             return;
         }
@@ -219,6 +219,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                // TODO 这里有时候会闪退
                 viewRefresh(data);
                 // event
                 RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
