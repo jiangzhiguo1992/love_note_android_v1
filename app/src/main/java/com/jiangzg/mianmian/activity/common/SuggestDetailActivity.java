@@ -144,7 +144,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // comment
         initCommentView();
         // comment 防止开始显示错误
-        onCommentInput("");
+        etComment.setText("");
     }
 
     @Override

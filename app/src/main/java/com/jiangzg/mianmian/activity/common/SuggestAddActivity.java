@@ -49,6 +49,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
@@ -111,6 +112,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 onTitleInput(s.toString());
             }
         });
+        etTitle.setText("");
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,8 +127,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 onContentInput(s.toString());
             }
         });
-        onTitleInput("");
-        onContentInput("");
+        etContent.setText("");
         // imageView
         ivImage.setSuccessClickListener(new GImageView.onSuccessClickListener() {
             @Override

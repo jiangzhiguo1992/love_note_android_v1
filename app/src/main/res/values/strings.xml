@@ -434,4 +434,5 @@
     <string name="delete">删除</string>
     <string name="add">添加</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
+    <string name="no_vip_cant_upload_img">非会员不能上传图片哦</string>
 </resources>

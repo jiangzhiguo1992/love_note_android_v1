@@ -134,20 +134,16 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
 
     public void setOssData(List<String> ossPaths) {
         if (ossPaths == null || ossPaths.size() <= 0) return;
-        this.setNewData(ossPaths);
         ossSize = ossPaths.size();
-        checkFoot();
-    }
-
-    public void addOssData(String ossPath) {
-        if (StringUtils.isEmpty(ossPath)) return;
-        if (addShow) {
+        if (limit > ossPaths.size()) {
+            // 还可以再添加
+            addShow = true;
+            ossPaths.add("");
+        } else {
+            // 不能添加了
             addShow = false;
-            this.remove(getData().size() - 1);
         }
-        this.addData(ossSize, ossPath);
-        ++ossSize;
-        checkFoot();
+        this.setNewData(ossPaths);
     }
 
     public void addFileData(String filePath) {
@@ -164,19 +160,14 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         List<String> data = this.getData();
         int size = data.size();
         if (position < 0 || position >= size) return;
+        if (position < ossSize) --ossSize;
         if (addShow) {
             addShow = false;
             this.remove(size - 1);
         }
-        if (position < ossSize) {
-            // oss
-            --ossSize;
-        }
-        // else {
         // file 还是不删了 防止删除相册文件
         // String item = data.get(position);
         // ResHelper.deleteFileInBackground(FileUtils.getFileByPath(item));
-        // }
         this.remove(position);
         checkFoot();
     }
