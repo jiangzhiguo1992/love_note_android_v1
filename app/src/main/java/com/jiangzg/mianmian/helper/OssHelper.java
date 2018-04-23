@@ -107,7 +107,7 @@ public class OssHelper {
         void failure(String ossPath);
     }
 
-    // 墙纸
+    // 墙纸 (裁剪) TODO 图片裁剪会压缩？
     public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -116,31 +116,28 @@ public class OssHelper {
         uploadJpeg(activity, pathCoupleWall, source, callBack);
     }
 
-    // 意见
+    // 意见 (压缩)
     public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathSuggest = ossInfo.getPathSuggest();
-        // 先压缩 再上传
         compressJpeg(activity, pathSuggest, source, callBack);
     }
 
-    // 头像
+    // 头像 (裁剪+压缩)
     public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
-        // 先压缩 再上传
         compressJpeg(activity, pathCoupleAvatar, source, callBack);
     }
 
-    // 日记
+    // 日记 (无)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.convertListString2File(sourceList);
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookDiary = ossInfo.getPathBookDiary();
-        // 不压缩 直接上传
         uploadJpegs(activity, pathBookDiary, fileList, callBack);
     }
 

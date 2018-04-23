@@ -14,7 +14,6 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.DiaryEditActivity;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
@@ -80,13 +79,12 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     private void checkUser() {
         if (CheckHelper.noLogin()) {
             // 没有登录
-            DiaryEditActivity.goActivity(mActivity);
-            //MyApp.get().getHandler().postDelayed(new Runnable() {
-            //    @Override
-            //    public void run() {
-            //        LoginActivity.goActivity(mActivity);
-            //    }
-            //}, TransPageMillis);
+            MyApp.get().getHandler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LoginActivity.goActivity(mActivity);
+                }
+            }, TransPageMillis);
         } else {
             // 有token
             // TODO 上传本地异常，然后再删除

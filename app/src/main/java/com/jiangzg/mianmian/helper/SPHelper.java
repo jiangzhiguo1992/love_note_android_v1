@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.mianmian.domain.Couple;
+import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.SuggestInfo;
@@ -28,6 +29,7 @@ public class SPHelper {
     private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_SETTINGS = "shareSettings";
     private static final String SHARE_VIP_LIMIT = "shareVipLimit";
+    private static final String SHARE_DIARY = "shareDiary";
 
     /* 储存字段 */
     // user
@@ -116,6 +118,9 @@ public class SPHelper {
     private static final String FIELD_SET_THEME = "theme";
     private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
     private static final String FIELD_SET_NOTICE_SOCIAL = "noticeSocial";
+    // diary
+    private static final String FIELD_DIARY_HAPPEN = "happen";
+    private static final String FIELD_DIARY_CONTENT = "content";
 
     public static void setUser(User user) {
         clearUser();
@@ -388,6 +393,28 @@ public class SPHelper {
         return vipLimit;
     }
 
+    public static void setDiary(Diary diary) {
+        clearDiary();
+        if (diary == null) {
+            LogUtils.w(LOG_TAG, "diary == null");
+            return;
+        } else {
+            LogUtils.d(LOG_TAG, "setDiary: " + GsonUtils.get().toJson(diary));
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DIARY).edit();
+        editor.putLong(FIELD_DIARY_HAPPEN, diary.getHappenAt());
+        editor.putString(FIELD_DIARY_CONTENT, diary.getContent());
+        editor.apply();
+    }
+
+    public static Diary getDiary() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DIARY);
+        Diary diary = new Diary();
+        diary.setHappenAt(sp.getLong(FIELD_DIARY_HAPPEN, 0));
+        diary.setContent(sp.getString(FIELD_DIARY_CONTENT, ""));
+        return diary;
+    }
+
     public static void clearUser() {
         SPUtils.clear(SHARE_USER);
     }
@@ -402,6 +429,10 @@ public class SPHelper {
 
     public static void clearVipLimit() {
         SPUtils.clear(SHARE_VIP_LIMIT);
+    }
+
+    public static void clearDiary() {
+        SPUtils.clear(SHARE_DIARY);
     }
 
     public static void setSettingsTheme(int themeId) {

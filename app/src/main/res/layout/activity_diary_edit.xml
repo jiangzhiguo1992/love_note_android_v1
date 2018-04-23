@@ -75,11 +75,27 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnPublish"
-        style="@style/FontWhiteBig"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_btn_solid_dark"
-        android:text="@string/publish"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDraft"
+            style="@style/FontWhiteBig"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn_solid_accent"
+            android:text="@string/save_draft"/>
+
+        <Button
+            android:id="@+id/btnPublish"
+            style="@style/FontWhiteBig"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn_solid_dark"
+            android:text="@string/publish"/>
+    </LinearLayout>
 </LinearLayout>

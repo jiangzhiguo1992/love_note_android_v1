@@ -79,7 +79,7 @@ public class LocationHelper {
                 if (aMapLocation == null) return;
                 if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
                     // 定位成功回调信息，设置相关消息
-                    LogUtils.i(LOG_TAG, "onLocationChanged: success:" + aMapLocation.getLatitude() + "-" + aMapLocation.getLongitude());
+                    LogUtils.i(LOG_TAG, "onLocationChanged: success:" + aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude());
                     LocationInfo info = LocationInfo.getInfo();
                     info.setLatitude(aMapLocation.getLatitude()); // 纬度
                     info.setLongitude(aMapLocation.getLongitude()); // 经度

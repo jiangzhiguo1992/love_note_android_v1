@@ -74,6 +74,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     TextView tvContentLimit;
     @BindView(R.id.btnPublish)
     Button btnPublish;
+    @BindView(R.id.btnDraft)
+    Button btnDraft;
 
     private long happenAt;
     private RecyclerHelper recyclerHelper;
@@ -103,10 +105,14 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), true);
+        // 外部和草稿，都检查一下
         Diary diary = getIntentDiary();
+        if (diary == null) {
+            diary = SPHelper.getDiary();
+        }
         // date
         Calendar calendar = DateUtils.getCurrentCalendar();
-        if (diary != null) {
+        if (diary != null && diary.getHappenAt() != 0) {
             long happen = ConvertHelper.convertTimeGo2Java(diary.getHappenAt());
             calendar.setTimeInMillis(happen);
         }
@@ -196,11 +202,14 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.tvDate, R.id.btnPublish})
+    @OnClick({R.id.tvDate, R.id.btnDraft, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvDate: // 日期
                 showDatePicker();
+                break;
+            case R.id.btnDraft: // 保存草稿
+                saveDraft();
                 break;
             case R.id.btnPublish: // 发表
                 checkPush();
@@ -212,7 +221,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         return mActivity.getIntent().getParcelableExtra("diary");
     }
 
-    // TODO 草稿？
     private void showDatePicker() {
         Calendar calendar = DateUtils.getCalendar(happenAt);
         int year = calendar.get(Calendar.YEAR);
@@ -258,6 +266,14 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         }
         String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContent);
         tvContentLimit.setText(limitShow);
+    }
+
+    private void saveDraft() {
+        Diary diary = new Diary();
+        diary.setHappenAt(ConvertHelper.convertTimeJava2Go(happenAt));
+        diary.setContent(etContent.getText().toString());
+        SPHelper.setDiary(diary);
+        ToastUtils.show(getString(R.string.draft_save_success));
     }
 
     private void checkPush() {

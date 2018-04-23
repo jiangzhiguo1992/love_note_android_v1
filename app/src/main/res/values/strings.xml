@@ -435,4 +435,6 @@
     <string name="add">添加</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
     <string name="now_cant_upload_img">现在不能上传图片哦</string>
+    <string name="save_draft">保存草稿</string>
+    <string name="draft_save_success">草稿保存成功</string>
 </resources>
