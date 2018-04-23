@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import android.content.SharedPreferences;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.mianmian.domain.Couple;
@@ -87,8 +88,6 @@ public class SPHelper {
     private static final String FIELD_LIMIT_WHISPER_CONTENT = "whisperLimitContent";
     private static final String FIELD_LIMIT_WORD_CONTENT = "wordLimitContent";
     private static final String FIELD_LIMIT_DIARY_CONTENT = "diaryLimitContent";
-    private static final String FIELD_LIMIT_DIARY_IMAGES = "diaryLimitImages";
-    private static final String FIELD_LIMIT_TRACK_IMAGES = "trackLimitImages";
     private static final String FIELD_LIMIT_TRACK_TITLE = "trackLimitTitle";
     private static final String FIELD_LIMIT_TRACK_PROCESS = "trackLimitProcess";
     private static final String FIELD_LIMIT_ALBUM_TITLE = "albumLimitTitle";
@@ -96,23 +95,27 @@ public class SPHelper {
     private static final String FIELD_LIMIT_AUDIO_TITLE = "audioLimitTitle";
     private static final String FIELD_LIMIT_VIDEO_TITLE = "videoLimitTitle";
     private static final String FIELD_LIMIT_GIFT_NAME = "giftLimitName";
-    private static final String FIELD_LIMIT_GIFT_IMAGES = "giftLimitImages";
     private static final String FIELD_LIMIT_DREAM_CONTENT = "dreamLimitContent";
     private static final String FIELD_LIMIT_ANGRY_REASON = "angryLimitReason";
     private static final String FIELD_LIMIT_AWARD_REASON = "awardLimitReason";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_EXPIRE_AT = "expireAt";
-    private static final String FIELD_VIP_LIMIT_CP_WALL_PAGER = "coupleWallPaperCount";
+    private static final String FIELD_VIP_LIMIT_CP_WALL_PAPER_SIZE = "coupleWallPaperSize";
+    private static final String FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT = "coupleWallPaperCount";
     private static final String FIELD_VIP_LIMIT_CP_ENTRY_TRACE = "coupleEntryTraceEnable";
     private static final String FIELD_VIP_LIMIT_CP_TOPIC_TRACE = "coupleTopicTraceEnable";
-    private static final String FIELD_VIP_LIMIT_BK_PICTURE = "bookPictureEnable";
-    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG = "bookDiaryImageEnable";
-    private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG = "bookGiftImageEnable";
-    private static final String FIELD_VIP_LIMIT_TRACK_IMG = "bookTrackImageEnable";
-    private static final String FIELD_VIP_LIMIT_AUDIO_ENABLE = "bookAudioEnable";
-    private static final String FIELD_VIP_LIMIT_VIDEO_ENABLE = "bookVideoEnable";
-    private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "bookAudioTotalSize";
-    private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "bookVideoTotalSize";
+    private static final String FIELD_VIP_LIMIT_BK_PICTURE_SIZE = "bookPictureSize";
+    private static final String FIELD_VIP_LIMIT_BK_PICTURE_COUNT = "bookPictureCount";
+    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE = "bookDiaryImageSize";
+    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT = "bookDiaryImageCount";
+    private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG_SIZE = "bookGiftImageSize";
+    private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT = "bookGiftImageCount";
+    private static final String FIELD_VIP_LIMIT_MEET_IMG_SIZE = "bookMeetImageSize";
+    private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "bookMeetImageCount";
+    private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "bookAudioSize";
+    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "bookAudioTotalSize";
+    private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "bookVideoSize";
+    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "bookVideoTotalSize";
     private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topicImageEnable";
     // settings
     private static final String FIELD_SET_THEME = "theme";
@@ -214,8 +217,6 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT, limit.getWhisperLimitContent());
         editor.putInt(FIELD_LIMIT_WORD_CONTENT, limit.getWordLimitContent());
         editor.putInt(FIELD_LIMIT_DIARY_CONTENT, limit.getDiaryLimitContent());
-        editor.putInt(FIELD_LIMIT_DIARY_IMAGES, limit.getDiaryLimitImages());
-        editor.putInt(FIELD_LIMIT_TRACK_IMAGES, limit.getTrackLimitImages());
         editor.putInt(FIELD_LIMIT_TRACK_TITLE, limit.getTrackLimitTitle());
         editor.putInt(FIELD_LIMIT_TRACK_PROCESS, limit.getTrackLimitProcess());
         editor.putInt(FIELD_LIMIT_ALBUM_TITLE, limit.getAlbumLimitTitle());
@@ -223,7 +224,6 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE, limit.getAudioLimitTitle());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE, limit.getVideoLimitTitle());
         editor.putInt(FIELD_LIMIT_GIFT_NAME, limit.getGiftLimitName());
-        editor.putInt(FIELD_LIMIT_GIFT_IMAGES, limit.getGiftLimitImages());
         editor.putInt(FIELD_LIMIT_DREAM_CONTENT, limit.getDreamLimitContent());
         editor.putInt(FIELD_LIMIT_ANGRY_REASON, limit.getAngryLimitReason());
         editor.putInt(FIELD_LIMIT_AWARD_REASON, limit.getAwardLimitReason());
@@ -248,8 +248,6 @@ public class SPHelper {
         limit.setWhisperLimitContent(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT, 100));
         limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
         limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
-        limit.setDiaryLimitImages(sp.getInt(FIELD_LIMIT_DIARY_IMAGES, 3));
-        limit.setTrackLimitImages(sp.getInt(FIELD_LIMIT_TRACK_IMAGES, 9));
         limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));
         limit.setTrackLimitProcess(sp.getInt(FIELD_LIMIT_TRACK_PROCESS, 200));
         limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
@@ -257,7 +255,6 @@ public class SPHelper {
         limit.setAudioLimitTitle(sp.getInt(FIELD_LIMIT_AUDIO_TITLE, 20));
         limit.setVideoLimitTitle(sp.getInt(FIELD_LIMIT_VIDEO_TITLE, 20));
         limit.setGiftLimitName(sp.getInt(FIELD_LIMIT_GIFT_NAME, 20));
-        limit.setGiftLimitImages(sp.getInt(FIELD_LIMIT_GIFT_IMAGES, 3));
         limit.setDreamLimitContent(sp.getInt(FIELD_LIMIT_DREAM_CONTENT, 1000));
         limit.setAngryLimitReason(sp.getInt(FIELD_LIMIT_ANGRY_REASON, 200));
         limit.setAwardLimitReason(sp.getInt(FIELD_LIMIT_AWARD_REASON, 10));
@@ -359,17 +356,22 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
         editor.putLong(FIELD_VIP_LIMIT_EXPIRE_AT, vipLimit.getExpireAt());
-        editor.putInt(FIELD_VIP_LIMIT_CP_WALL_PAGER, vipLimit.getCoupleWallPaperCount());
+        editor.putLong(FIELD_VIP_LIMIT_CP_WALL_PAPER_SIZE, vipLimit.getCoupleWallPaperSize());
+        editor.putInt(FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT, vipLimit.getCoupleWallPaperCount());
         editor.putBoolean(FIELD_VIP_LIMIT_CP_ENTRY_TRACE, vipLimit.isCoupleEntryTraceEnable());
         editor.putBoolean(FIELD_VIP_LIMIT_CP_TOPIC_TRACE, vipLimit.isCoupleTopicTraceEnable());
-        editor.putBoolean(FIELD_VIP_LIMIT_BK_PICTURE, vipLimit.isBookPictureEnable());
-        editor.putBoolean(FIELD_VIP_LIMIT_BK_DIARY_IMG, vipLimit.isBookDiaryImageEnable());
-        editor.putBoolean(FIELD_VIP_LIMIT_BK_GIFT_IMG, vipLimit.isBookGiftImageEnable());
-        editor.putBoolean(FIELD_VIP_LIMIT_TRACK_IMG, vipLimit.isBookTrackImageEnable());
-        editor.putBoolean(FIELD_VIP_LIMIT_AUDIO_ENABLE, vipLimit.isBookAudioEnable());
-        editor.putBoolean(FIELD_VIP_LIMIT_VIDEO_ENABLE, vipLimit.isBookVideoEnable());
-        editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getBookAudioTotalSize());
-        editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getBookVideoTotalSize());
+        editor.putLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, vipLimit.getBookPictureSize());
+        editor.putInt(FIELD_VIP_LIMIT_BK_PICTURE_COUNT, vipLimit.getBookPictureCount());
+        editor.putLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, vipLimit.getBookDiaryImageSize());
+        editor.putInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, vipLimit.getBookDiaryImageCount());
+        editor.putLong(FIELD_VIP_LIMIT_BK_GIFT_IMG_SIZE, vipLimit.getBookGiftImageSize());
+        editor.putInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, vipLimit.getBookGiftImageCount());
+        editor.putLong(FIELD_VIP_LIMIT_MEET_IMG_SIZE, vipLimit.getBookMeetImageSize());
+        editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getBookMeetImageCount());
+        editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getBookAudioSize());
+        editor.putLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, vipLimit.getBookAudioTotalSize());
+        editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getBookVideoSize());
+        editor.putLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, vipLimit.getBookVideoTotalSize());
         editor.putBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, vipLimit.isTopicImageEnable());
         editor.apply();
     }
@@ -378,17 +380,22 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT);
         VipLimit vipLimit = new VipLimit();
         vipLimit.setExpireAt(sp.getLong(FIELD_VIP_LIMIT_EXPIRE_AT, 0));
-        vipLimit.setCoupleWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_CP_WALL_PAGER, 1));
+        vipLimit.setCoupleWallPaperSize(sp.getLong(FIELD_VIP_LIMIT_CP_WALL_PAPER_SIZE, ConstantUtils.MB * 5));
+        vipLimit.setCoupleWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT, 1));
         vipLimit.setCoupleEntryTraceEnable(sp.getBoolean(FIELD_VIP_LIMIT_CP_ENTRY_TRACE, false));
         vipLimit.setCoupleTopicTraceEnable(sp.getBoolean(FIELD_VIP_LIMIT_CP_TOPIC_TRACE, false));
-        vipLimit.setBookPictureEnable(sp.getBoolean(FIELD_VIP_LIMIT_BK_PICTURE, false));
-        vipLimit.setBookDiaryImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_BK_DIARY_IMG, false));
-        vipLimit.setBookGiftImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_BK_GIFT_IMG, false));
-        vipLimit.setBookTrackImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TRACK_IMG, false));
-        vipLimit.setBookAudioEnable(sp.getBoolean(FIELD_VIP_LIMIT_AUDIO_ENABLE, false));
-        vipLimit.setBookVideoEnable(sp.getBoolean(FIELD_VIP_LIMIT_VIDEO_ENABLE, false));
-        vipLimit.setBookAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
-        vipLimit.setBookVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
+        vipLimit.setBookPictureSize(sp.getLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, 0));
+        vipLimit.setBookPictureCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_COUNT, 0));
+        vipLimit.setBookDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, 0));
+        vipLimit.setBookDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, 0));
+        vipLimit.setBookGiftImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_GIFT_IMG_SIZE, 0));
+        vipLimit.setBookGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, 0));
+        vipLimit.setBookMeetImageSize(sp.getLong(FIELD_VIP_LIMIT_MEET_IMG_SIZE, 0));
+        vipLimit.setBookMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));
+        vipLimit.setBookAudioSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
+        vipLimit.setBookAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, 0));
+        vipLimit.setBookVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
+        vipLimit.setBookVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, 0));
         vipLimit.setTopicImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, false));
         return vipLimit;
     }

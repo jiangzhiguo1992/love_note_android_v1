@@ -331,7 +331,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // 刷新的时候再把自己的位置推送上去
+        // 刷新的时候再把自己的位置推送上去 TODO 本地存储的位置刷新机制？
         Place body = ApiHelper.getPlaceBody();
         Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet(body);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {

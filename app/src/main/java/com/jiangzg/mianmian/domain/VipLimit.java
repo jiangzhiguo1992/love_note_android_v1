@@ -7,17 +7,25 @@ package com.jiangzg.mianmian.domain;
 public class VipLimit {
 
     private long expireAt;
+
+    private long coupleWallPaperSize;
     private int coupleWallPaperCount;
     private boolean coupleEntryTraceEnable;
     private boolean coupleTopicTraceEnable;
-    private boolean bookPictureEnable;
-    private boolean bookDiaryImageEnable;
-    private boolean bookGiftImageEnable;
-    private boolean bookTrackImageEnable;
-    private boolean bookAudioEnable;
-    private boolean bookVideoEnable;
+
+    private long bookPictureSize;
+    private int bookPictureCount;
+    private long bookDiaryImageSize;
+    private int bookDiaryImageCount;
+    private long bookGiftImageSize;
+    private int bookGiftImageCount;
+    private long bookMeetImageSize;
+    private int bookMeetImageCount;
+    private long bookAudioSize;
     private long bookAudioTotalSize;
+    private long bookVideoSize;
     private long bookVideoTotalSize;
+
     private boolean topicImageEnable;
 
     public long getExpireAt() {
@@ -26,6 +34,14 @@ public class VipLimit {
 
     public void setExpireAt(long expireAt) {
         this.expireAt = expireAt;
+    }
+
+    public long getCoupleWallPaperSize() {
+        return coupleWallPaperSize;
+    }
+
+    public void setCoupleWallPaperSize(long coupleWallPaperSize) {
+        this.coupleWallPaperSize = coupleWallPaperSize;
     }
 
     public int getCoupleWallPaperCount() {
@@ -52,52 +68,76 @@ public class VipLimit {
         this.coupleTopicTraceEnable = coupleTopicTraceEnable;
     }
 
-    public boolean isBookPictureEnable() {
-        return bookPictureEnable;
+    public long getBookPictureSize() {
+        return bookPictureSize;
     }
 
-    public void setBookPictureEnable(boolean bookPictureEnable) {
-        this.bookPictureEnable = bookPictureEnable;
+    public void setBookPictureSize(long bookPictureSize) {
+        this.bookPictureSize = bookPictureSize;
     }
 
-    public boolean isBookDiaryImageEnable() {
-        return bookDiaryImageEnable;
+    public int getBookPictureCount() {
+        return bookPictureCount;
     }
 
-    public void setBookDiaryImageEnable(boolean bookDiaryImageEnable) {
-        this.bookDiaryImageEnable = bookDiaryImageEnable;
+    public void setBookPictureCount(int bookPictureCount) {
+        this.bookPictureCount = bookPictureCount;
     }
 
-    public boolean isBookGiftImageEnable() {
-        return bookGiftImageEnable;
+    public long getBookDiaryImageSize() {
+        return bookDiaryImageSize;
     }
 
-    public void setBookGiftImageEnable(boolean bookGiftImageEnable) {
-        this.bookGiftImageEnable = bookGiftImageEnable;
+    public void setBookDiaryImageSize(long bookDiaryImageSize) {
+        this.bookDiaryImageSize = bookDiaryImageSize;
     }
 
-    public boolean isBookTrackImageEnable() {
-        return bookTrackImageEnable;
+    public int getBookDiaryImageCount() {
+        return bookDiaryImageCount;
     }
 
-    public void setBookTrackImageEnable(boolean bookTrackImageEnable) {
-        this.bookTrackImageEnable = bookTrackImageEnable;
+    public void setBookDiaryImageCount(int bookDiaryImageCount) {
+        this.bookDiaryImageCount = bookDiaryImageCount;
     }
 
-    public boolean isBookAudioEnable() {
-        return bookAudioEnable;
+    public long getBookGiftImageSize() {
+        return bookGiftImageSize;
     }
 
-    public void setBookAudioEnable(boolean bookAudioEnable) {
-        this.bookAudioEnable = bookAudioEnable;
+    public void setBookGiftImageSize(long bookGiftImageSize) {
+        this.bookGiftImageSize = bookGiftImageSize;
     }
 
-    public boolean isBookVideoEnable() {
-        return bookVideoEnable;
+    public int getBookGiftImageCount() {
+        return bookGiftImageCount;
     }
 
-    public void setBookVideoEnable(boolean bookVideoEnable) {
-        this.bookVideoEnable = bookVideoEnable;
+    public void setBookGiftImageCount(int bookGiftImageCount) {
+        this.bookGiftImageCount = bookGiftImageCount;
+    }
+
+    public long getBookMeetImageSize() {
+        return bookMeetImageSize;
+    }
+
+    public void setBookMeetImageSize(long bookMeetImageSize) {
+        this.bookMeetImageSize = bookMeetImageSize;
+    }
+
+    public int getBookMeetImageCount() {
+        return bookMeetImageCount;
+    }
+
+    public void setBookMeetImageCount(int bookMeetImageCount) {
+        this.bookMeetImageCount = bookMeetImageCount;
+    }
+
+    public long getBookAudioSize() {
+        return bookAudioSize;
+    }
+
+    public void setBookAudioSize(long bookAudioSize) {
+        this.bookAudioSize = bookAudioSize;
     }
 
     public long getBookAudioTotalSize() {
@@ -106,6 +146,14 @@ public class VipLimit {
 
     public void setBookAudioTotalSize(long bookAudioTotalSize) {
         this.bookAudioTotalSize = bookAudioTotalSize;
+    }
+
+    public long getBookVideoSize() {
+        return bookVideoSize;
+    }
+
+    public void setBookVideoSize(long bookVideoSize) {
+        this.bookVideoSize = bookVideoSize;
     }
 
     public long getBookVideoTotalSize() {

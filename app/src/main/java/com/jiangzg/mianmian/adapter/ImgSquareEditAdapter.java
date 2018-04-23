@@ -174,7 +174,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
 
     // 检查+号的显示与否
     private void checkFoot() {
-        if (limit == 0) {
+        if (limit <= 0) {
             // 不让添加图片
             addShow = false;
             this.setNewData(new ArrayList<String>());

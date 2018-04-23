@@ -118,22 +118,27 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         }
         refreshDateView(calendar);
         // recycler
-        int limitImages = SPHelper.getLimit().getDiaryLimitImages();
-        ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, limitImages, limitImages);
-        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-            @Override
-            public void onAdd() {
-                showImgSelect();
+        int limitImages = SPHelper.getVipLimit().getBookDiaryImageCount();
+        if (limitImages > 0) {
+            rv.setVisibility(View.VISIBLE);
+            ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, limitImages, limitImages);
+            imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
+                @Override
+                public void onAdd() {
+                    showImgSelect();
+                }
+            });
+            if (diary != null && diary.getImageList() != null && diary.getImageList().size() > 0) {
+                imgAdapter.setOssData(diary.getImageList());
             }
-        });
-        if (diary != null && diary.getImageList() != null && diary.getImageList().size() > 0) {
-            imgAdapter.setOssData(diary.getImageList());
+            recyclerHelper = new RecyclerHelper(mActivity)
+                    .initRecycler(rv)
+                    .initLayoutManager(new GridLayoutManager(mActivity, limitImages))
+                    .initAdapter(imgAdapter)
+                    .setAdapter();
+        } else {
+            rv.setVisibility(View.GONE);
         }
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, limitImages))
-                .initAdapter(imgAdapter)
-                .setAdapter();
         // input
         String content = (diary != null) ? diary.getContent() : "";
         etContent.setText(content);
@@ -166,6 +171,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             ResHelper.deleteFileInBackground(cameraFile);
             return;
         }
+        if (recyclerHelper == null) return;
         ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
         if (adapter == null) return;
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
@@ -244,7 +250,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showImgSelect() {
-        if (SPHelper.getVipLimit().isBookDiaryImageEnable()) {
+        if (SPHelper.getVipLimit().getBookDiaryImageCount() > 0) {
             cameraFile = ResHelper.newImageOutCache();
             PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
             PopUtils.show(popupWindow, root);
@@ -282,6 +288,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
+        if (recyclerHelper == null) return;
         ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
         if (adapter == null) return;
         List<String> fileData = adapter.getFileData();
@@ -296,6 +303,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         OssHelper.uploadDiary(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
+                if (recyclerHelper == null) return;
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();

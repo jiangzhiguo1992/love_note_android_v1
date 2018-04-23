@@ -21,8 +21,6 @@ public class Limit {
     private int whisperLimitContent;
     private int wordLimitContent;
     private int diaryLimitContent;
-    private int diaryLimitImages;
-    private int trackLimitImages;
     private int trackLimitTitle;
     private int trackLimitProcess;
     private int albumLimitTitle;
@@ -30,7 +28,6 @@ public class Limit {
     private int audioLimitTitle;
     private int videoLimitTitle;
     private int giftLimitName;
-    private int giftLimitImages;
     private int dreamLimitContent;
     private int angryLimitReason;
     private int awardLimitReason;
@@ -155,22 +152,6 @@ public class Limit {
         this.diaryLimitContent = diaryLimitContent;
     }
 
-    public int getDiaryLimitImages() {
-        return diaryLimitImages;
-    }
-
-    public void setDiaryLimitImages(int diaryLimitImages) {
-        this.diaryLimitImages = diaryLimitImages;
-    }
-
-    public int getTrackLimitImages() {
-        return trackLimitImages;
-    }
-
-    public void setTrackLimitImages(int trackLimitImages) {
-        this.trackLimitImages = trackLimitImages;
-    }
-
     public int getTrackLimitTitle() {
         return trackLimitTitle;
     }
@@ -225,14 +206,6 @@ public class Limit {
 
     public void setGiftLimitName(int giftLimitName) {
         this.giftLimitName = giftLimitName;
-    }
-
-    public int getGiftLimitImages() {
-        return giftLimitImages;
-    }
-
-    public void setGiftLimitImages(int giftLimitImages) {
-        this.giftLimitImages = giftLimitImages;
     }
 
     public int getDreamLimitContent() {
