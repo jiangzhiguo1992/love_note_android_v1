@@ -68,7 +68,7 @@ public class IntentResult {
             file = ConvertUtils.Uri2File(uri);
         } else {
             long time = new Date().getTime();
-            file = new File(AppInfo.get().getCacheDir(), time + ".jpg");
+            file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");
             FileUtils.createFileByDeleteOldFile(file);
             Bitmap picture = data.getParcelableExtra("data");
             BitmapUtils.saveBitmap(picture, file.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);

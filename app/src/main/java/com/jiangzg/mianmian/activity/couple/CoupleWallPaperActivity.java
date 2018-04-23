@@ -16,6 +16,7 @@ import android.widget.PopupWindow;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentSend;
@@ -137,15 +138,22 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
+            if (FileUtils.isFileEmpty(cameraFile)) {
+                ResHelper.deleteFileInBackground(cameraFile);
+                return;
+            }
             goCropActivity(cameraFile);
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
+            if (FileUtils.isFileEmpty(pictureFile)) {
+                return;
+            }
             goCropActivity(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
-            ResHelper.deleteFileInBackground(cameraFile);
             ossUploadWall();
+            ResHelper.deleteFileInBackground(cameraFile);
         }
     }
 
@@ -171,7 +179,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         if (adapter == null) return;
         List<String> data = adapter.getData();
         if (data.size() >= count) {
-            String format = String.format(Locale.getDefault(), getString(R.string.no_vip_just_can_push_holder_img), count);
+            String format = String.format(Locale.getDefault(), getString(R.string.now_just_can_push_holder_img), count);
             ToastUtils.show(format);
             return;
         }
@@ -179,13 +187,13 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     public void showImgSelect() {
-        cameraFile = ResHelper.createJPEGInCache();
+        cameraFile = ResHelper.newImageOutCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
 
     private void goCropActivity(File source) {
-        cropFile = ResHelper.createJPEGInCache();
+        cropFile = ResHelper.newImageOutCache();
         int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
         int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
         Intent intent = IntentSend.getCrop(source, cropFile, screenWidth, screenHeight);
@@ -196,12 +204,14 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private void ossUploadWall() {
         OssHelper.uploadWall(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
-            public void success(String ossPath) {
+            public void success(File source, String ossPath) {
                 apiPushData(ossPath);
+                ResHelper.deleteFileInBackground(cropFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cropFile);
             }
         });
     }
@@ -217,7 +227,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // TODO 这里有时候会闪退
                 viewRefresh(data);
                 // event
                 RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());

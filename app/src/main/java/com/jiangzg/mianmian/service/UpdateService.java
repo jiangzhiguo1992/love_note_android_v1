@@ -192,7 +192,7 @@ public class UpdateService extends Service {
         // 获取下载地址
         String updateUrl = version.getUpdateUrl().trim();
         // 生成apk文件
-        final File apkFile = ResHelper.createFileInCache(version.getVersionName() + ".apk");
+        final File apkFile = ResHelper.createApkFile(version.getVersionName() + ".apk");
         // 开始下载
         OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override

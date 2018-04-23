@@ -28,9 +28,9 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
-import com.jiangzg.mianmian.helper.CleanHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -171,7 +171,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
-                CleanHelper.clearCaches();
+                ResHelper.clearCaches();
                 MyApp.get().getHandler().post(new Runnable() {
                     @Override
                     public void run() {
@@ -197,7 +197,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void cacheShow() {
-        String cachesSize = CleanHelper.getCachesSizeFmt();
+        String cachesSize = ResHelper.getCachesSizeFmt();
         String cachesSizeShow = String.format(Locale.getDefault(), getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
         tvCacheSummary.setText(cachesSizeShow);
     }

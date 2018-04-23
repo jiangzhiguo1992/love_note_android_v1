@@ -7,7 +7,7 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
-import com.jiangzg.mianmian.helper.CleanHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.util.concurrent.ExecutorService;
@@ -33,7 +33,7 @@ public class MyApp extends AppBase {
         LogUtils.initApp(DEBUG);
         AppListener.initApp(this);
         ActivityStack.initApp();
-        CleanHelper.initApp();
+        ResHelper.initApp();
 
         ButterKnife.setDebug(DEBUG);
         GImageView.init(this, DEBUG);

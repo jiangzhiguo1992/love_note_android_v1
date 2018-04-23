@@ -49,7 +49,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
@@ -167,7 +166,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            // 每次pop都会创建，所以这里必须删除
             ResHelper.deleteFileInBackground(cameraFile);
             pictureFile = null;
             return;
@@ -189,11 +187,16 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 pictureFile = null;
                 return;
             }
-            ResHelper.deleteFileInBackground(cameraFile); // 每次pop都会创建，所以这里必须删除
             ivImage.setVisibility(View.VISIBLE);
             ivImage.setDataFile(pictureFile);
             tvImageToggle.setText(R.string.click_me_to_del_image);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @OnClick({R.id.tvType, R.id.tvImageToggle, R.id.btnPush})
@@ -222,7 +225,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void showImgSelect() {
-        cameraFile = ResHelper.createJPEGInCache();
+        cameraFile = ResHelper.newImageOutCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
@@ -313,23 +316,25 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             return;
         }
         if (!FileUtils.isFileEmpty(cameraFile)) {
-            pushImage(cameraFile, true);
+            pushImage(cameraFile);
         } else if (!FileUtils.isFileEmpty(pictureFile)) {
-            pushImage(pictureFile, false);
+            pushImage(pictureFile);
         } else {
             pushSuggest("");
         }
     }
 
-    private void pushImage(File imgFile, boolean del) {
-        OssHelper.uploadSuggest(mActivity, imgFile, del, new OssHelper.OssUploadCallBack() {
+    private void pushImage(File imgFile) {
+        OssHelper.uploadSuggest(mActivity, imgFile, new OssHelper.OssUploadCallBack() {
             @Override
-            public void success(String ossPath) {
+            public void success(File source, String ossPath) {
                 pushSuggest(ossPath);
+                ResHelper.deleteFileInBackground(cameraFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cameraFile);
             }
         });
     }

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
@@ -166,15 +167,22 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
+            if (FileUtils.isFileEmpty(cameraFile)) {
+                ResHelper.deleteFileInBackground(cameraFile);
+                return;
+            }
             goCropActivity(cameraFile);
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
+            if (FileUtils.isFileEmpty(pictureFile)) {
+                return;
+            }
             goCropActivity(pictureFile);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
-            ResHelper.deleteFileInBackground(cameraFile);
             ossUploadAvatar();
+            ResHelper.deleteFileInBackground(cameraFile);
         }
     }
 
@@ -313,13 +321,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void showAvatarSelect() {
-        cameraFile = ResHelper.createJPEGInCache();
+        cameraFile = ResHelper.newImageOutCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root);
     }
 
     private void goCropActivity(File source) {
-        cropFile = ResHelper.createJPEGInCache();
+        cropFile = ResHelper.newImageOutCache();
         Intent intent = IntentSend.getCrop(source, cropFile, 1, 1);
         ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
@@ -328,12 +336,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void ossUploadAvatar() {
         OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
             @Override
-            public void success(String ossPath) {
+            public void success(File source, String ossPath) {
                 apiCoupleInfo(ossPath, "");
+                ResHelper.deleteFileInBackground(cropFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cropFile);
             }
         });
     }

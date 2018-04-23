@@ -90,13 +90,13 @@ public class OssHelper {
     }
 
     public interface OssUploadCallBack {
-        void success(String ossPath);
+        void success(File source, String ossPath);
 
         void failure(File source, String errMsg);
     }
 
     public interface OssUploadsCallBack {
-        void success(List<String> ossPathList);
+        void success(List<File> sourceList, List<String> ossPathList);
 
         void failure(List<File> sourceList, String errMsg);
     }
@@ -113,16 +113,16 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
         // 不压缩 直接上传
-        uploadJpeg(activity, pathCoupleWall, source, true, callBack);
+        uploadJpeg(activity, pathCoupleWall, source, callBack);
     }
 
     // 意见
-    public static void uploadSuggest(Activity activity, final File source, boolean delSuc, final OssUploadCallBack callBack) {
+    public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathSuggest = ossInfo.getPathSuggest();
         // 先压缩 再上传
-        compressJpeg(activity, pathSuggest, source, delSuc, callBack);
+        compressJpeg(activity, pathSuggest, source, callBack);
     }
 
     // 头像
@@ -131,7 +131,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
         // 先压缩 再上传
-        compressJpeg(activity, pathCoupleAvatar, source, true, callBack);
+        compressJpeg(activity, pathCoupleAvatar, source, callBack);
     }
 
     // 日记
@@ -140,15 +140,15 @@ public class OssHelper {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookDiary = ossInfo.getPathBookDiary();
-        // 不压缩 直接上传 不删除图片(相册)
-        uploadJpegs(activity, pathBookDiary, fileList, false, callBack);
+        // 不压缩 直接上传
+        uploadJpegs(activity, pathBookDiary, fileList, callBack);
     }
 
     // TODO 启动多张压缩
 
     // 启动压缩
-    private static void compressJpeg(final Activity activity, final String ossDirPath, final File source,
-                                     final boolean delSuc, final OssUploadCallBack callBack) {
+    private static void compressJpeg(final Activity activity, final String ossDirPath,
+                                     final File source, final OssUploadCallBack callBack) {
 
         // file
         if (FileUtils.isFileEmpty(source)) {
@@ -188,15 +188,15 @@ public class OssHelper {
                         DialogHelper.dismiss(progress);
                         if (FileUtils.isFileExists(file)) {
                             // 压缩文件有可能不存在
-                            if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
-                                // 压缩文件 != 源文件，删除源文件
-                                if (delSuc) ResHelper.deleteFileInBackground(source);
-                            }
+                            //if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
+                            // 压缩后的文件 != 源文件，但是在内部cache中，交给系统和用户
+                            //ResHelper.deleteFileInBackground(source);
+                            //}
                             // upload
-                            uploadJpeg(activity, ossDirPath, file, delSuc, callBack);
+                            uploadJpeg(activity, ossDirPath, file, callBack);
                         } else {
                             // upload
-                            uploadJpeg(activity, ossDirPath, source, delSuc, callBack);
+                            uploadJpeg(activity, ossDirPath, source, callBack);
                         }
                     }
 
@@ -205,7 +205,7 @@ public class OssHelper {
                         LogUtils.e(LOG_TAG, "Luban: onError: ", e);
                         DialogHelper.dismiss(progress);
                         // upload
-                        uploadJpeg(activity, ossDirPath, source, delSuc, callBack);
+                        uploadJpeg(activity, ossDirPath, source, callBack);
                     }
                 })
                 .launch();
@@ -217,31 +217,31 @@ public class OssHelper {
         downloadObject(activity, objectKey, target, callBack);
     }
 
-    // 墙纸
+    // TODO 墙纸
     public static void downloadWall() {
 
     }
 
-    // 全屏图
+    // TODO 全屏图
     public static void downloadScreen() {
 
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadJpeg(Activity activity, final String ossDirPath, final File source,
-                                           final boolean delSuc, final OssUploadCallBack callBack) {
-        return uploadObject(activity, ossDirPath, source, delSuc, "jpeg", callBack);
+    private static OSSAsyncTask uploadJpeg(Activity activity, final String ossDirPath,
+                                           final File source, final OssUploadCallBack callBack) {
+        return uploadObject(activity, ossDirPath, source, "jpeg", callBack);
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadJpegs(final Activity activity, final String ossDirPath, final List<File> sourceList,
-                                            final boolean delSuc, final OssUploadsCallBack callBack) {
-        return uploadObjects(activity, ossDirPath, sourceList, delSuc, "jpeg", callBack);
+    private static OSSAsyncTask uploadJpegs(final Activity activity, final String ossDirPath,
+                                            final List<File> sourceList, final OssUploadsCallBack callBack) {
+        return uploadObjects(activity, ossDirPath, sourceList, "jpeg", callBack);
     }
 
     // 上传任务(有对话框)
-    private static OSSAsyncTask uploadObjects(final Activity activity, final String ossDirPath, final List<File> sourceList,
-                                              final boolean delSuc, String suffix, final OssUploadsCallBack callBack) {
+    private static OSSAsyncTask uploadObjects(final Activity activity, final String ossDirPath,
+                                              final List<File> sourceList, String suffix, final OssUploadsCallBack callBack) {
         MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
@@ -250,13 +250,13 @@ public class OssHelper {
                 .negativeText(R.string.cancel_upload)
                 .build();
         // 不压缩 直接上传
-        return uploadObjects(progress, ossDirPath, sourceList, 0, delSuc, new ArrayList<String>(), suffix, callBack);
+        return uploadObjects(progress, ossDirPath, sourceList, 0, new ArrayList<String>(), suffix, callBack);
     }
 
     // 上传任务
     private static OSSAsyncTask uploadObjects(final MaterialDialog progress, final String ossDirPath,
-                                              final List<File> sourceList, final int currentIndex, final boolean delSuc,
-                                              final List<String> ossPathList, final String suffix, final OssUploadsCallBack callBack) {
+                                              final List<File> sourceList, final int currentIndex, final List<String> ossPathList,
+                                              final String suffix, final OssUploadsCallBack callBack) {
         LogUtils.w(LOG_TAG, "uploadObjects: currentIndex: " + currentIndex + " -- ossDirPath: " + ossDirPath);
         // fileList
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
@@ -333,18 +333,16 @@ public class OssHelper {
                 ossPathList.add(uploadKey);
                 if (currentIndex < sourceList.size() - 1) {
                     // 没上传完毕
-                    uploadObjects(progress, ossDirPath, sourceList, currentIndex + 1, delSuc, ossPathList, suffix, callBack);
+                    uploadObjects(progress, ossDirPath, sourceList, currentIndex + 1, ossPathList, suffix, callBack);
                 } else {
                     // 已上传完毕
                     DialogHelper.dismiss(progress);
-                    // 删除源文件
-                    if (delSuc) ResHelper.deleteFilesInBackground(sourceList);
                     // 回调
                     if (callBack != null) {
                         MyApp.get().getHandler().post(new Runnable() {
                             @Override
                             public void run() {
-                                callBack.success(ossPathList);
+                                callBack.success(sourceList, ossPathList);
                             }
                         });
                     }
@@ -396,7 +394,7 @@ public class OssHelper {
 
     // 上传任务
     private static OSSAsyncTask uploadObject(Activity activity, final String ossDirPath, final File source,
-                                             final boolean delSuc, String suffix, final OssUploadCallBack callBack) {
+                                             String suffix, final OssUploadCallBack callBack) {
         LogUtils.i(LOG_TAG, "uploadObject: ossDirPath: " + ossDirPath);
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
@@ -457,8 +455,6 @@ public class OssHelper {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 DialogHelper.dismiss(progress);
-                // 删除源文件
-                if (delSuc) ResHelper.deleteFileInBackground(source);
                 // 回调
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onSuccess: getObjectKey == " + uploadKey);
@@ -466,7 +462,7 @@ public class OssHelper {
                     MyApp.get().getHandler().post(new Runnable() {
                         @Override
                         public void run() {
-                            callBack.success(uploadKey);
+                            callBack.success(source, uploadKey);
                         }
                     });
                 }

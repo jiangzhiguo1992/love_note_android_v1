@@ -420,7 +420,7 @@
     <string name="promise">承诺</string>
     <string name="angry">生气</string>
     <string name="award">补偿</string>
-    <string name="no_vip_just_can_push_holder_img" formatted="false">非会员只能上传%d张图片</string>
+    <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
     <string name="publish">发表</string>
     <string name="choose_search_type">选择搜索类型</string>
     <string name="we_de">我们的</string>
@@ -434,5 +434,5 @@
     <string name="delete">删除</string>
     <string name="add">添加</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
-    <string name="no_vip_cant_upload_img">非会员不能上传图片哦</string>
+    <string name="now_cant_upload_img">现在不能上传图片哦</string>
 </resources>

@@ -31,16 +31,18 @@ public class PopHelper {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.root:
-                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         break;
                     case R.id.llBook:
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         // TODO
                         ToastUtils.show("小本本");
                         break;
                     case R.id.llPicture:
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
@@ -70,8 +72,8 @@ public class PopHelper {
                         });
                         break;
                     case R.id.llCancel:
-                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         break;
                 }
             }
@@ -97,11 +99,12 @@ public class PopHelper {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.root:
-                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         break;
                     case R.id.llPicture:
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
@@ -131,8 +134,8 @@ public class PopHelper {
                         });
                         break;
                     case R.id.llCancel:
-                        ResHelper.deleteFileInBackground(cameraFile);
                         PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
                         break;
                 }
             }

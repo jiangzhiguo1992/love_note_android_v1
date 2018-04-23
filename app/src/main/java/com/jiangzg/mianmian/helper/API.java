@@ -80,7 +80,7 @@ public interface API {
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
 
-    // TODO 登录历史获取
+    // 登录历史获取
     @GET("entry")
     Call<Result> entryListGet();
 

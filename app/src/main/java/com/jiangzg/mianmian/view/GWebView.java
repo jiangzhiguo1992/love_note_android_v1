@@ -155,7 +155,7 @@ public class GWebView extends WebView {
         }
 
         public void init(boolean zoom, boolean cache) {
-            String appCacheDir = AppInfo.get().getCacheDir();
+            String appCacheDir = AppInfo.get().getInCacheDir();
             cacheDir = new File(appCacheDir, "web_cache").getAbsolutePath();
             FileUtils.createOrExistsFile(cacheDir);
             mWebView.requestFocusFromTouch(); // 支持获取手势焦点
