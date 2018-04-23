@@ -78,6 +78,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private long happenAt;
     private RecyclerHelper recyclerHelper;
     private File cameraFile;
+    private List<File> cameraFileList;
     private int limitContent;
 
     public static void goActivity(Activity from) {
@@ -105,7 +106,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         Diary diary = getIntentDiary();
         // date
         Calendar calendar = Calendar.getInstance();
-        if (diary != null && diary.getHappenAt() > 0) {
+        if (diary != null) {
             long happen = ConvertHelper.convertTimeGo2Java(diary.getHappenAt());
             calendar.setTimeInMillis(happen);
         }
@@ -156,7 +157,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            // 每次pop都会创建，所以这里必须删除
             ResHelper.deleteFileInBackground(cameraFile);
             return;
         }
@@ -169,6 +169,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                 return;
             }
             adapter.addFileData(cameraFile.getAbsolutePath());
+            if (cameraFileList == null) {
+                cameraFileList = new ArrayList<>();
+            }
+            cameraFileList.add(FileUtils.getFileByPath(cameraFile.getAbsolutePath())); // 创建成功的cameraFile都要记录
             cameraFile = null; // 解除引用，防止误删
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
@@ -176,9 +180,15 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             if (pictureFile == null || FileUtils.isFileEmpty(pictureFile)) {
                 return;
             }
-            ResHelper.deleteFileInBackground(cameraFile); // 每次pop都会创建，所以这里必须删除
             adapter.addFileData(pictureFile.getAbsolutePath());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // 创建成功的cameraFile都要删除
+        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @OnTextChanged({R.id.etContent})
@@ -211,6 +221,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar instance = Calendar.getInstance();
+                // TODO 有问题 差12分钟哦
                 instance.set(year, month, dayOfMonth);
                 refreshDateView(instance);
             }
@@ -226,11 +237,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void showImgSelect() {
         if (SPHelper.getVipLimit().isBookDiaryImageEnable()) {
-            cameraFile = ResHelper.createJPEGInCache();
+            cameraFile = ResHelper.newImageOutCache();
             PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
             PopUtils.show(popupWindow, root);
         } else {
-            ToastUtils.show(getString(R.string.no_vip_cant_upload_img));
+            ToastUtils.show(getString(R.string.now_cant_upload_img));
         }
     }
 
@@ -268,7 +279,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void ossUploadDiary(List<String> fileData) {
         OssHelper.uploadDiary(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
-            public void success(List<String> ossPathList) {
+            public void success(List<File> sourceList, List<String> ossPathList) {
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
@@ -315,6 +326,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                // 上传失败不要删除，还可以继续上传
             }
         });
     }
