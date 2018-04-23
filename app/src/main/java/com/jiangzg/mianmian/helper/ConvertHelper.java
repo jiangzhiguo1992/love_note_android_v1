@@ -1,7 +1,6 @@
 package com.jiangzg.mianmian.helper;
 
 import android.net.Uri;
-import android.support.annotation.IntegerRes;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -107,8 +106,8 @@ public class ConvertHelper {
 
     // 时间显示(不同天)
     public static String ConvertTimeGo2DiffDay(long time) {
-        Calendar cNow = Calendar.getInstance();
-        Calendar cTime = Calendar.getInstance();
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(convertTimeGo2Java(time)));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
@@ -116,7 +115,7 @@ public class ConvertHelper {
         } else {
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
-        return DateUtils.getCSTString(convertTimeGo2Java(time), format);
+        return DateUtils.getString(convertTimeGo2Java(time), format);
     }
 
     // 日记时间显示
@@ -126,8 +125,8 @@ public class ConvertHelper {
 
     // 日记时间显示
     public static String ConvertTimeJava2DiaryShow(long time) {
-        Calendar cNow = Calendar.getInstance();
-        Calendar cTime = Calendar.getInstance();
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(time));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
@@ -145,7 +144,7 @@ public class ConvertHelper {
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + " MM" + month + " dd" + day;
         }
-        return DateUtils.getCSTString(time, format);
+        return DateUtils.getString(time, format);
     }
 
     // url转oss路径

@@ -105,7 +105,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), true);
         Diary diary = getIntentDiary();
         // date
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = DateUtils.getCurrentCalendar();
         if (diary != null) {
             long happen = ConvertHelper.convertTimeGo2Java(diary.getHappenAt());
             calendar.setTimeInMillis(happen);
@@ -212,6 +212,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         return mActivity.getIntent().getParcelableExtra("diary");
     }
 
+    // TODO 草稿？
     private void showDatePicker() {
         Calendar calendar = DateUtils.getCalendar(happenAt);
         int year = calendar.get(Calendar.YEAR);
@@ -220,8 +221,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         DatePickerDialog picker = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar instance = Calendar.getInstance();
-                // TODO 有问题 差12分钟哦
+                Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
                 refreshDateView(instance);
             }

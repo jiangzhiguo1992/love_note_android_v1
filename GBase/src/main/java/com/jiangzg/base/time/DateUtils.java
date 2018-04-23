@@ -13,6 +13,9 @@ import java.util.Locale;
 /**
  * Created by jiangzg on 2014/03/30
  * describe 日期处理类
+ * 1. date 和 long 都是记录的从1970到现在为止的刻度，是公用的
+ * 2. string 和 calender 是用来描述刻度的单位，国家之间可能不一样
+ * 3. CST 为北京时间 TimeZone.setDefault(TimeZone.getTimeZone("GMT+08:00"));
  */
 public class DateUtils {
 
@@ -40,6 +43,19 @@ public class DateUtils {
         return new Date();
     }
 
+    public static String getCurrentString(String sFormat) {
+        if (StringUtils.isEmpty(sFormat)) {
+            LogUtils.w(LOG_TAG, "getCurrentString: sFormat == null");
+            return "";
+        }
+        SimpleDateFormat format = getFormat(sFormat);
+        if (format == null) {
+            LogUtils.w(LOG_TAG, "getCurrentString: format == null");
+            return "";
+        }
+        return format.format(new Date());
+    }
+
     public static String getCurrentCSTString(String sFormat) {
         if (StringUtils.isEmpty(sFormat)) {
             LogUtils.w(LOG_TAG, "getCurrentString: sFormat == null");
@@ -51,7 +67,7 @@ public class DateUtils {
             return "";
         }
         Date date = new Date();
-        // UTC比SCT早8个小时
+        // SCT比UTC晚8个小时
         date.setTime(date.getTime() + ConstantUtils.HOUR * 8);
         return format.format(date);
     }
@@ -153,37 +169,35 @@ public class DateUtils {
     /**
      * 获取String类型时间
      */
-    public static String getCSTString(Date date, String sFormat) {
+    public static String getString(Date date, String sFormat) {
         if (date == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getCSTString: date == null || sFormat == null");
+            LogUtils.w(LOG_TAG, "getString: date == null || sFormat == null");
             return "";
         }
-        // UTC比SCT早8个小时
-        date.setTime(date.getTime() + ConstantUtils.HOUR * 8);
         SimpleDateFormat format = getFormat(sFormat);
         if (format == null) {
-            LogUtils.w(LOG_TAG, "getCSTString: format == null");
+            LogUtils.w(LOG_TAG, "getString: format == null");
             return "";
         }
         return format.format(date);
     }
 
-    public static String getCSTString(long time, String sFormat) {
+    public static String getString(long time, String sFormat) {
         if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getCSTString: sFormat == null");
+            LogUtils.w(LOG_TAG, "getString: sFormat == null");
             return "";
         }
         Date date = new Date(time);
-        return getCSTString(date, sFormat);
+        return getString(date, sFormat);
     }
 
-    public static String getCSTString(Calendar calendar, String sFormat) {
+    public static String getString(Calendar calendar, String sFormat) {
         if (calendar == null || StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getCSTString: calendar == null || sFormat == null");
+            LogUtils.w(LOG_TAG, "getString: calendar == null || sFormat == null");
             return "";
         }
         Date date = calendar.getTime();
-        return getCSTString(date, sFormat);
+        return getString(date, sFormat);
     }
 
 }

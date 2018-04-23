@@ -17,6 +17,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
@@ -179,7 +180,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         }
         final int sex = (isGirl == View.VISIBLE) ? User.SEX_GIRL : User.SEX_BOY;
         String sexShow = (sex == User.SEX_GIRL) ? getString(R.string.girl) : getString(R.string.boy);
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = DateUtils.getCurrentCalendar();
         calendar.set(year, month - 1, day, 0, 0, 0);
         final long birth = ConvertHelper.convertTimeJava2Go(calendar.getTimeInMillis());
         String title = getString(R.string.once_push_never_modify);

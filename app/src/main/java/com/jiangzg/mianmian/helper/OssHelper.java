@@ -652,6 +652,7 @@ public class OssHelper {
         }
     }
 
+    // 给后台看的 所以用CST时区
     private static String getObjectKey(String dir, String suffix) {
         return dir + DateUtils.getCurrentCSTString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
     }
