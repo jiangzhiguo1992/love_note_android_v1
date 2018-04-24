@@ -24,6 +24,8 @@ import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -61,6 +63,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.whisper), true);
+        // tvCurrentChannel
+        refreshCurrentChannelView();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -117,6 +121,12 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 changeChannel();
                 break;
         }
+    }
+
+    private void refreshCurrentChannelView() {
+        String channel = etChannel.getText().toString().trim();
+        String currentChannel = String.format(Locale.getDefault(), getString(R.string.current_channel_colon_space_holder), channel);
+        tvCurrentChannel.setText(currentChannel);
     }
 
     private void getData(boolean more) {
