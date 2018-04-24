@@ -3,6 +3,8 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.jiangzg.mianmian.helper.SPHelper;
+
 /**
  * Created by JZG on 2017/12/18.
  * BaseCP
@@ -11,6 +13,14 @@ public class BaseCP extends BaseObj implements Parcelable {
 
     private long userId;
     private long coupleId;
+
+    public boolean isMine() {
+        return getUserId() == SPHelper.getUser().getId();
+    }
+
+    public boolean isMine(long mid) {
+        return getUserId() == mid;
+    }
 
     public long getUserId() {
         return userId;

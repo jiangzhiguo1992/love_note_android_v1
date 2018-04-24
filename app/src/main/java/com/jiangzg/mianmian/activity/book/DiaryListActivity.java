@@ -59,7 +59,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private int page = 0;
+    private int page;
     private int searchType = ApiHelper.LIST_CP;
     private Observable<List<Diary>> obListRefresh;
     private Observable<Diary> obListItemRefresh;
@@ -74,6 +74,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        page = 0;
         return R.layout.activity_diary_list;
     }
 
@@ -139,6 +140,14 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -146,14 +155,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @OnClick({R.id.llSearch, R.id.llAdd})

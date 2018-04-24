@@ -153,16 +153,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_ADD);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -197,6 +187,16 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     protected void onDestroy() {
         super.onDestroy();
         ResHelper.deleteFileInBackground(cameraFile);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_ADD);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.tvType, R.id.tvImageToggle, R.id.btnPush})

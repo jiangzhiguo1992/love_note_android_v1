@@ -72,6 +72,24 @@ public class Result implements Serializable {
         private Place taPlace;
         private List<Diary> diaryList;
         private Diary diary;
+        private List<Word> wordList;
+        private Word word;
+
+        public List<Word> getWordList() {
+            return wordList;
+        }
+
+        public void setWordList(List<Word> wordList) {
+            this.wordList = wordList;
+        }
+
+        public Word getWord() {
+            return word;
+        }
+
+        public void setWord(Word word) {
+            this.word = word;
+        }
 
         public Diary getDiary() {
             return diary;

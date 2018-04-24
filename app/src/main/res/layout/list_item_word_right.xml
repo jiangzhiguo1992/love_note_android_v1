@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingEnd="10dp"
+    android:paddingStart="50dp"
+    android:paddingTop="10dp">
+
+    <com.jiangzg.mianmian.view.GImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/tvCreateAt"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        app:is_net_circle="true"/>
+
+    <TextView
+        android:id="@+id/tvCreateAt"
+        style="@style/FontGreySmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_toStartOf="@+id/ivAvatar"
+        android:gravity="end"
+        tools:text="2017年12月3日 06:30"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvCreateAt"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toStartOf="@+id/ivAvatar"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="3dp">
+
+        <TextView
+            android:id="@+id/tvContent"
+            style="@style/FontBlackNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            tools:text="a"/>
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -155,16 +155,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_EDIT);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -201,6 +191,16 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         super.onDestroy();
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_EDIT);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnTextChanged({R.id.etContent})
@@ -245,7 +245,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void refreshDateView(Calendar calendar) {
         happenAt = calendar.getTimeInMillis();
-        String happen = ConvertHelper.getTimeShowDiaryByJava(happenAt);
+        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByJava(happenAt);
         tvDate.setText(happen);
     }
 
@@ -285,17 +285,20 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void checkPush() {
         String content = etContent.getText().toString();
         if (StringUtils.isEmpty(content)) {
-            ToastUtils.show(getString(R.string.please_input_content));
+            ToastUtils.show(etContent.getHint().toString());
             return;
         }
-        if (recyclerHelper == null) return;
-        ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
-        if (adapter == null) return;
-        List<String> fileData = adapter.getFileData();
+        List<String> fileData = null;
+        List<String> ossPaths = null;
+        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+            ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
+            fileData = adapter.getFileData();
+            ossPaths = adapter.getOssData();
+        }
         if (fileData != null && fileData.size() > 0) {
             ossUploadDiary(fileData);
         } else {
-            api(adapter.getOssData());
+            api(ossPaths);
         }
     }
 

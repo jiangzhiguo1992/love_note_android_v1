@@ -22,8 +22,8 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.PopUtils;
@@ -148,16 +148,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_INFO);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -184,6 +174,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             ossUploadAvatar();
             ResHelper.deleteFileInBackground(cameraFile);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_INFO);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoLeft,

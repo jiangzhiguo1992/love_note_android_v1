@@ -18,8 +18,8 @@ import android.widget.TextView;
 
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -114,6 +114,15 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && requestCode == ConsHelper.REQUEST_CONTACT) {
+            String select = IntentResult.getContactSelect(data);
+            etPhone.setText(select);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -121,15 +130,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK && requestCode == ConsHelper.REQUEST_CONTACT) {
-            String select = IntentResult.getContactSelect(data);
-            etPhone.setText(select);
-        }
     }
 
     @OnTextChanged({R.id.etPhone})

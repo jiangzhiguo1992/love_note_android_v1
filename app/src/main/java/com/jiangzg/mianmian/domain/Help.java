@@ -23,6 +23,7 @@ public class Help extends BaseObj {
     public static final int TYPE_DIARY_LIST = 12;
     public static final int TYPE_DIARY_EDIT = 13;
     public static final int TYPE_DIARY_DETAIL = 14;
+    public static final int TYPE_WORD_LIST = 15;
 
     private int contentType;
     private String title;

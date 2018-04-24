@@ -10,6 +10,7 @@ import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.WallPaper;
+import com.jiangzg.mianmian.domain.Word;
 
 import java.util.List;
 import java.util.Map;
@@ -180,5 +181,17 @@ public interface API {
     // diary修改
     @PUT("book/diary")
     Call<Result> diaryUpdate(@Body Diary diary);
+
+    // word获取
+    @GET("book/word?list=1")
+    Call<Result> wordListGet(@Query("page") int page);
+
+    // word上传
+    @POST("book/word")
+    Call<Result> wordPost(@Body Word word);
+
+    // word删除
+    @DELETE("book/word")
+    Call<Result> wordDel(@Query("wid") long wid);
 
 }

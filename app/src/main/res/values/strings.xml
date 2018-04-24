@@ -311,6 +311,7 @@
     <string name="please_input_title">请输入标题</string>
     <string name="content">内容</string>
     <string name="please_input_content">请输入内容</string>
+    <string name="please_input_content_dont_over_holder_text">请输入内容，不得超过%d字</string>
     <string name="click_me_add_image">点我添加图片</string>
     <string name="push">发布</string>
     <string name="please_choose_classify">请选择分类</string>
@@ -379,6 +380,7 @@
     <string name="are_refresh">正在刷新</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_suggest">确定删除意见吗？</string>
+    <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="app_start_err">app启动异常</string>
     <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
     <string name="u_confirm_break">你确定要解除关系吗？</string>
@@ -437,4 +439,6 @@
     <string name="now_cant_upload_img">现在不能上传图片哦</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
+    <string name="send">发送</string>
+    <string name="already_arrive_top">已经到达最顶部了</string>
 </resources>

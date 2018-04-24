@@ -18,8 +18,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -116,19 +116,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
-                return true;
-            case R.id.menuAdd: // 添加
-                addWallPaper();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -155,6 +142,19 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             ossUploadWall();
             ResHelper.deleteFileInBackground(cameraFile);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
+                return true;
+            case R.id.menuAdd: // 添加
+                addWallPaper();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void refreshData() {

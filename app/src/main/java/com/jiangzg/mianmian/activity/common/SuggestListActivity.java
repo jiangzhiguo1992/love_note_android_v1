@@ -53,7 +53,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     private Observable<List<Suggest>> obListRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
-    private int page = 0;
+    private int page;
 
     public static void goActivity(Activity from, int entry) {
         Intent intent = new Intent(from, SuggestListActivity.class);
@@ -64,6 +64,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        page = 0;
         return R.layout.activity_suggest_list;
     }
 
@@ -136,6 +137,14 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -149,14 +158,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     private void getData(final boolean more) {

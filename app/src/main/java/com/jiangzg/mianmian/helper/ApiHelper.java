@@ -36,6 +36,7 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.domain.VipLimit;
 import com.jiangzg.mianmian.domain.WallPaper;
+import com.jiangzg.mianmian.domain.Word;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,18 +75,22 @@ public class ApiHelper {
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {
         Entry entry = new Entry();
-        User user = SPHelper.getUser();
+        // deviceId 最好是不需要权限就能获取
         ContentResolver contentResolver = MyApp.get().getContentResolver();
         String deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
         if (StringUtils.isEmpty(deviceId)) {
             deviceId = DeviceInfo.get().getMacAddress();
         }
         entry.setDeviceId(deviceId);
+        // 手机介绍
         String manufacturer = DeviceInfo.get().getManufacturer();
         String model = DeviceInfo.get().getModel();
         entry.setDeviceName(manufacturer + " : " + model);
+        // 手机平台
         entry.setPlatform(DeviceInfo.get().getPlatform());
+        // 手机版本
         entry.setOsVersion(DeviceInfo.get().getOsVersion());
+        // 软件版本
         entry.setAppVersion(AppInfo.get().getVersionCode());
         return entry;
     }
@@ -339,5 +344,11 @@ public class ApiHelper {
         diary.setContent(content);
         diary.setImageList(ossPathList);
         return diary;
+    }
+
+    public static Word getWordBody(String content) {
+        Word word = new Word();
+        word.setContent(content);
+        return word;
     }
 }

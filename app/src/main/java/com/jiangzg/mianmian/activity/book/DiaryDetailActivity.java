@@ -128,6 +128,12 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RxBus.unregister(ConsHelper.EVENT_DIARY_REFRESH, obDiary);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -141,12 +147,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_DIARY_REFRESH, obDiary);
     }
 
     private void refreshData(long did) {
@@ -177,14 +177,14 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         // menu
         invalidateOptionsMenu();
         // happen
-        String happenAt = ConvertHelper.getTimeShowDiaryByGo(diary.getHappenAt());
+        String happenAt = ConvertHelper.getTimeShowCnSpaceDivideSameDayYearByGo(diary.getHappenAt());
         tb.setTitle(happenAt);
         // author
         String authorName = user.getNameById(userId);
         String authorShow = String.format(Locale.getDefault(), getString(R.string.author_space_colon_space_holder), authorName);
         tvAuthor.setText(authorShow);
         // updateAt
-        String update = ConvertHelper.getTimeShowDiaryByGo(updateAt);
+        String update = ConvertHelper.getTimeShowCnSpaceDivideSameDayYearByGo(updateAt);
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
         // imageList

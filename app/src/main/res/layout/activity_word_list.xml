@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,15 +9,53 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
+
+    <View style="@style/LineHorizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_btn_r3_stroke_primary"
+            android:gravity="start"
+            android:hint="@string/please_input_content"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:padding="8dp"
+            tools:text=""/>
+
+        <Button
+            android:id="@+id/btnSend"
+            style="@style/FontWhiteNormal"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/selector_btn_r3_solid_primary"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@string/send"/>
+    </LinearLayout>
 </LinearLayout>

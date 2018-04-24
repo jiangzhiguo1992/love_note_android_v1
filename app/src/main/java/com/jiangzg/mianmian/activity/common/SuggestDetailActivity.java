@@ -86,7 +86,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private int page = 0;
+    private int page;
     private int commentLimit;
 
     public static void goActivity(Activity from, Suggest suggest) {
@@ -98,6 +98,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        page = 0;
         return R.layout.activity_suggest_detail;
     }
 
@@ -163,6 +164,15 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     @Override
+    public void onBackPressed() {
+        if (behaviorComment.getState() != BottomSheetBehavior.STATE_HIDDEN) {
+            behaviorComment.setState(BottomSheetBehavior.STATE_HIDDEN);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -173,15 +183,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (behaviorComment.getState() != BottomSheetBehavior.STATE_HIDDEN) {
-            behaviorComment.setState(BottomSheetBehavior.STATE_HIDDEN);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @OnTextChanged({R.id.etComment})
@@ -211,7 +212,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // data
         List<String> tagList = suggest.getTagList();
         String title = suggest.getTitle();
-        String create = ConvertHelper.getTimeShowDayDiffByGo(suggest.getCreateAt());
+        String create = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
         final String contentImgUrl = suggest.getContentImg();
         String contentText = suggest.getContentText();

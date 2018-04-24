@@ -132,26 +132,50 @@ public class ConvertHelper {
     }
 
     // 时间显示(不同天)
-    public static String getTimeShowDayDiffByGo(long time) {
+    public static String getTimeShowLine_HM_MD_YMD_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
         String format;
         if (CalUtils.isSameDay(cNow, cTime)) {
+            // 同一天
             format = ConstantUtils.FORMAT_H_M;
+        } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            format = ConstantUtils.FORMAT_LINE_M_D;
         } else {
+            // 不同年
             format = ConstantUtils.FORMAT_LINE_Y_M_D;
         }
         return DateUtils.getString(getJavaTimeByGo(time), format);
     }
 
-    // 日记时间显示
-    public static String getTimeShowDiaryByGo(long time) {
-        return getTimeShowDiaryByJava(getJavaTimeByGo(time));
+    // 时间显示(不同天)
+    public static String getTimeShowLine_HM_MDHM_YMDHM_ByGo(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(getJavaTimeByGo(time)));
+        String format;
+        if (CalUtils.isSameDay(cNow, cTime)) {
+            // 同一天
+            format = ConstantUtils.FORMAT_H_M;
+        } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            format = ConstantUtils.FORMAT_LINE_M_D_H_M;
+        } else {
+            // 不同年
+            format = ConstantUtils.FORMAT_LINE_Y_M_D_H_M;
+        }
+        return DateUtils.getString(getJavaTimeByGo(time), format);
     }
 
     // 日记时间显示
-    public static String getTimeShowDiaryByJava(long time) {
+    public static String getTimeShowCnSpaceDivideSameDayYearByGo(long time) {
+        return getTimeShowCnSpace_HM_MD_YMD_ByJava(getJavaTimeByGo(time));
+    }
+
+    // 日记时间显示
+    public static String getTimeShowCnSpace_HM_MD_YMD_ByJava(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(time));
