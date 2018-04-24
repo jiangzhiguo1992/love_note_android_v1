@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
+import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.activity.settings.SettingsActivity;
@@ -107,7 +108,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         switch (view.getId()) {
             case R.id.cvAccount: // TODO 账本
                 break;
-            case R.id.cvWhisper: // TODO 耳语
+            case R.id.cvWhisper: // 耳语
+                WhisperListActivity.goActivity(mActivity);
                 break;
             case R.id.cvDiary: // 日记
                 DiaryListActivity.goActivity(mFragment);

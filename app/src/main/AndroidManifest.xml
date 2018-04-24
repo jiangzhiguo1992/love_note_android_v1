@@ -78,6 +78,8 @@
         <activity android:name=".activity.book.DiaryListActivity"/>
         <activity android:name=".activity.book.DiaryEditActivity"/>
         <activity android:name=".activity.book.DiaryDetailActivity"/>
+        <activity android:name=".activity.book.WhisperListActivity">
+        </activity>
     </application>
 
 </manifest>

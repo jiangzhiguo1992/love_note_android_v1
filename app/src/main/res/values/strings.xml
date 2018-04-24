@@ -441,4 +441,7 @@
     <string name="draft_save_success">草稿保存成功</string>
     <string name="send">发送</string>
     <string name="already_arrive_top">已经到达最顶部了</string>
+    <string name="change_channel">切换频道</string>
+    <string name="current_channel_colon_space_holder">当前频道: %s</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
 </resources>
