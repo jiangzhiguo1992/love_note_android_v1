@@ -5,7 +5,7 @@ import android.app.ActivityManager;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.ServiceUtils;
 
 import java.util.List;
@@ -62,7 +62,7 @@ public class AppUtils {
             LogUtils.w(LOG_TAG, "isAppInstall: packageName == null");
             return false;
         }
-        return !isSpace(packageName) && IntentSend.getApp(packageName) != null;
+        return !isSpace(packageName) && IntentFactory.getApp(packageName) != null;
     }
 
     private static boolean isSpace(String s) {

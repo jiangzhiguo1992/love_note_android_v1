@@ -19,7 +19,7 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -196,7 +196,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         cropFile = ResHelper.newImageOutCache();
         int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
         int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
-        Intent intent = IntentSend.getCrop(source, cropFile, screenWidth, screenHeight);
+        Intent intent = IntentFactory.getCrop(source, cropFile, screenWidth, screenHeight);
         ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
 

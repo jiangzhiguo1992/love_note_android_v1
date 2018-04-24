@@ -25,7 +25,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
@@ -318,7 +318,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent gps = IntentSend.getGps();
+                        Intent gps = IntentFactory.getGps();
                         ActivityTrans.start(mActivity, gps);
                     }
                 })

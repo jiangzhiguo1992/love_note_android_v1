@@ -29,7 +29,7 @@ public class IntentResult {
     private static final String LOG_TAG = "IntentResult";
 
     /**
-     * IntentSend.getContacts返回时调用
+     * IntentFactory.getContacts返回时调用
      * 在onActivityResult中调用，获取选中的号码
      */
     public static String getContactSelect(Intent data) {

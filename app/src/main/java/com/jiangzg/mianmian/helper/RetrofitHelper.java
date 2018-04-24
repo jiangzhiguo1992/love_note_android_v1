@@ -13,7 +13,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.SuggestAddActivity;
@@ -247,7 +247,7 @@ public class RetrofitHelper {
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Intent netSettings = IntentSend.getNetSettings();
+                                Intent netSettings = IntentFactory.getNetSettings();
                                 ActivityTrans.start(top, netSettings);
                             }
                         })

@@ -23,7 +23,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.PopUtils;
@@ -328,7 +328,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void goCropActivity(File source) {
         cropFile = ResHelper.newImageOutCache();
-        Intent intent = IntentSend.getCrop(source, cropFile, 1, 1);
+        Intent intent = IntentFactory.getCrop(source, cropFile, 1, 1);
         ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
 
@@ -404,7 +404,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     // 拨打电话
     private void showDial() {
         String phone = isCreator ? tvPhoneRight.getText().toString().trim() : tvPhoneLeft.getText().toString().trim();
-        Intent dial = IntentSend.getDial(phone);
+        Intent dial = IntentFactory.getDial(phone);
         ActivityTrans.start(mActivity, dial);
     }
 

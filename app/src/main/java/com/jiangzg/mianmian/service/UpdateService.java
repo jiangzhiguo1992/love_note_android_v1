@@ -17,7 +17,7 @@ import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
@@ -209,7 +209,7 @@ public class UpdateService extends Service {
 
     // 启动安装
     private void installApk(File apkFile) {
-        Intent installIntent = IntentSend.getInstall(apkFile);
+        Intent installIntent = IntentFactory.getInstall(apkFile);
         ActivityTrans.start(UpdateService.this, installIntent);
         UpdateService.this.stopSelf();
     }

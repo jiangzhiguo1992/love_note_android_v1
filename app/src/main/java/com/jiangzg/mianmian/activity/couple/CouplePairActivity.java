@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -165,7 +165,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     }
 
     private void selectContact() {
-        Intent contacts = IntentSend.getContacts();
+        Intent contacts = IntentFactory.getContacts();
         ActivityTrans.startResult(mActivity, contacts, ConsHelper.REQUEST_CONTACT);
     }
 

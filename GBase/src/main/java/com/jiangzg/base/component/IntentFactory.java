@@ -26,9 +26,9 @@ import java.io.File;
  * Created by gg on 2017/3/13.
  * 原生意图获取
  */
-public class IntentSend {
+public class IntentFactory {
 
-    private static final String LOG_TAG = "IntentSend";
+    private static final String LOG_TAG = "IntentFactory";
 
     /*
      * 1.显式方式 直接设置目标组件的ComponentName，用于一个应用内部的消息传递，比如启动另一个Activity或者一个services。

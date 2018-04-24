@@ -9,7 +9,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentSend;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -46,7 +46,7 @@ public class PopHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent picture = IntentSend.getPicture();
+                                Intent picture = IntentFactory.getPicture();
                                 ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
                             }
 
@@ -61,7 +61,7 @@ public class PopHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent camera = IntentSend.getCamera(cameraFile);
+                                Intent camera = IntentFactory.getCamera(cameraFile);
                                 ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
                             }
 
@@ -108,7 +108,7 @@ public class PopHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent picture = IntentSend.getPicture();
+                                Intent picture = IntentFactory.getPicture();
                                 ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
                             }
 
@@ -123,7 +123,7 @@ public class PopHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent camera = IntentSend.getCamera(cameraFile);
+                                Intent camera = IntentFactory.getCamera(cameraFile);
                                 ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
                             }
 
