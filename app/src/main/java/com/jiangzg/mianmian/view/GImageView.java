@@ -72,7 +72,7 @@ public class GImageView extends SimpleDraweeView {
             protected Uri getCacheKeySourceUri(Uri sourceUri) {
                 if (sourceUri == null) return null;
                 String key = sourceUri.toString();
-                String cacheKey = ConvertHelper.convertUrl2OssPath(key);
+                String cacheKey = ConvertHelper.getOssPathByUrl(key);
                 return Uri.parse(cacheKey);
             }
         };

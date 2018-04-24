@@ -113,7 +113,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         // date
         Calendar calendar = DateUtils.getCurrentCalendar();
         if (diary != null && diary.getHappenAt() != 0) {
-            long happen = ConvertHelper.convertTimeGo2Java(diary.getHappenAt());
+            long happen = ConvertHelper.getJavaTimeByGo(diary.getHappenAt());
             calendar.setTimeInMillis(happen);
         }
         refreshDateView(calendar);
@@ -245,7 +245,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void refreshDateView(Calendar calendar) {
         happenAt = calendar.getTimeInMillis();
-        String happen = ConvertHelper.ConvertTimeJava2DiaryShow(happenAt);
+        String happen = ConvertHelper.getTimeShowDiaryByJava(happenAt);
         tvDate.setText(happen);
     }
 
@@ -276,7 +276,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void saveDraft() {
         Diary diary = new Diary();
-        diary.setHappenAt(ConvertHelper.convertTimeJava2Go(happenAt));
+        diary.setHappenAt(ConvertHelper.getGoTimeByJava(happenAt));
         diary.setContent(etContent.getText().toString());
         SPHelper.setDiary(diary);
         ToastUtils.show(getString(R.string.draft_save_success));
@@ -318,7 +318,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
-        long happenGo = ConvertHelper.convertTimeJava2Go(happenAt);
+        long happenGo = ConvertHelper.getGoTimeByJava(happenAt);
         String content = etContent.getText().toString();
         if (getIntentDiary() != null) {
             Diary body = getIntentDiary();

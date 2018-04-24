@@ -134,7 +134,7 @@ public class OssHelper {
 
     // 日记 (无)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        final List<File> fileList = ConvertHelper.convertListString2File(sourceList);
+        final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookDiary = ossInfo.getPathBookDiary();

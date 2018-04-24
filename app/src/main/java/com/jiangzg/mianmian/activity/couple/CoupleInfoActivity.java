@@ -262,7 +262,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         // meData
         String mePhone = me.getPhone();
         int meSexRes = me.getSexResCircleSmall();
-        long meBirth = ConvertHelper.convertTimeGo2Java(me.getBirthday());
+        long meBirth = ConvertHelper.getJavaTimeByGo(me.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         // taData
         String taPhone = "";
@@ -275,7 +275,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
         String tabBirthShow = "";
         if (ta != null && ta.getBirthday() != 0) {
-            long taBirth = ConvertHelper.convertTimeGo2Java(ta.getBirthday());
+            long taBirth = ConvertHelper.getJavaTimeByGo(ta.getBirthday());
             tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
         // coupleData

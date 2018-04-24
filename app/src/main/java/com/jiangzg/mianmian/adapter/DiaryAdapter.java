@@ -31,11 +31,11 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Diary item) {
-        String happen = ConvertHelper.ConvertTimeGo2DiaryShow(item.getHappenAt());
+        String happen = ConvertHelper.getTimeShowDiaryByGo(item.getHappenAt());
         String content = item.getContent();
         if (content == null) content = "";
         String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon_holder), content.length());
-        String avatar = ConvertHelper.convertCp2Avatar(couple, item.getUserId());
+        String avatar = ConvertHelper.getAvatarByCp(couple, item.getUserId());
         // view
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvCount, countShow);

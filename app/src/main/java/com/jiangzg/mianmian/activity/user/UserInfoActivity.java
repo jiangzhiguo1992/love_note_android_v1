@@ -182,7 +182,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         String sexShow = (sex == User.SEX_GIRL) ? getString(R.string.girl) : getString(R.string.boy);
         Calendar calendar = DateUtils.getCurrentCalendar();
         calendar.set(year, month - 1, day, 0, 0, 0);
-        final long birth = ConvertHelper.convertTimeJava2Go(calendar.getTimeInMillis());
+        final long birth = ConvertHelper.getGoTimeByJava(calendar.getTimeInMillis());
         String title = getString(R.string.once_push_never_modify);
         String birthShow = year + getString(R.string.year_space) + month + getString(R.string.month_space) + day + getString(R.string.dayR);
         String message = getString(R.string.sex_colon) + sexShow +

@@ -24,131 +24,8 @@ import java.util.Locale;
  */
 public class ConvertHelper {
 
-    // 获取ta的id
-    public static long convertCp2TaId(Couple couple, long mid) {
-        if (CheckHelper.isNullCouple(couple)) return 0;
-        if (mid == couple.getCreatorId()) {
-            return couple.getInviteeId();
-        } else {
-            return couple.getCreatorId();
-        }
-    }
-
-    // 获取在cp中的头像
-    public static String convertCp2Avatar(Couple couple, long uid) {
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (uid == couple.getCreatorId()) {
-            return couple.getCreatorAvatar();
-        } else {
-            return couple.getInviteeAvatar();
-        }
-    }
-
-    // 获取在cp中的昵称
-    public static String convertCp2Name(Couple couple, long uid) {
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (uid == couple.getCreatorId()) {
-            return couple.getCreatorName();
-        } else {
-            return couple.getInviteeName();
-        }
-    }
-
-    // 时间转换(java -> go)
-    public static long convertTimeJava2Go(long time) {
-        return time / 1000;
-    }
-
-    // 时间转换(go -> java)
-    public static long convertTimeGo2Java(long time) {
-        return time * 1000;
-    }
-
-    // 性别显示
-    public static String convertSex2Show(int sex) {
-        if (sex == User.SEX_GIRL) {
-            return MyApp.get().getString(R.string.girl);
-        } else if (sex == User.SEX_BOY) {
-            return MyApp.get().getString(R.string.boy);
-        }
-        return "";
-    }
-
-    // 性别小圆图显示
-    public static int convertSex2ResCircleSmall(int sex) {
-        if (sex == User.SEX_BOY) {
-            return R.mipmap.ic_sex_boy_circle;
-        } else if (sex == User.SEX_GIRL) {
-            return R.mipmap.ic_sex_girl_circle;
-        }
-        return 0;
-    }
-
-    // 集合类型转换(string -> uri)
-    public static ArrayList<Uri> convertListString2uri(List<String> strings) {
-        ArrayList<Uri> uriList = new ArrayList<>();
-        if (strings == null || strings.size() <= 0) return uriList;
-        for (String s : strings) {
-            uriList.add(Uri.parse(s));
-        }
-        return uriList;
-    }
-
-    // 集合类型转换(string -> file)
-    public static List<File> convertListString2File(List<String> pathList) {
-        List<File> fileList = new ArrayList<>();
-        if (pathList == null || pathList.size() <= 0) return fileList;
-        for (String path : pathList) {
-            fileList.add(new File(path));
-        }
-        return fileList;
-    }
-
-    // 时间显示(不同天)
-    public static String ConvertTimeGo2DiffDay(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
-        cTime.setTime(new Date(convertTimeGo2Java(time)));
-        String format;
-        if (CalUtils.isSameDay(cNow, cTime)) {
-            format = ConstantUtils.FORMAT_H_M;
-        } else {
-            format = ConstantUtils.FORMAT_LINE_Y_M_D;
-        }
-        return DateUtils.getString(convertTimeGo2Java(time), format);
-    }
-
-    // 日记时间显示
-    public static String ConvertTimeGo2DiaryShow(long time) {
-        return ConvertTimeJava2DiaryShow(convertTimeGo2Java(time));
-    }
-
-    // 日记时间显示
-    public static String ConvertTimeJava2DiaryShow(long time) {
-        Calendar cNow = DateUtils.getCurrentCalendar();
-        Calendar cTime = DateUtils.getCurrentCalendar();
-        cTime.setTime(new Date(time));
-        String format;
-        if (CalUtils.isSameDay(cNow, cTime)) {
-            // 同一天
-            format = ConstantUtils.FORMAT_H_M;
-        } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
-            // 同一年
-            String month = MyApp.get().getString(R.string.month);
-            String day = MyApp.get().getString(R.string.dayR);
-            format = "MM" + month + " dd" + day;
-        } else {
-            // 不同年
-            String year = MyApp.get().getString(R.string.year);
-            String month = MyApp.get().getString(R.string.month);
-            String day = MyApp.get().getString(R.string.dayR);
-            format = "yyyy" + year + " MM" + month + " dd" + day;
-        }
-        return DateUtils.getString(time, format);
-    }
-
     // url转oss路径
-    public static String convertUrl2OssPath(String url) {
+    public static String getOssPathByUrl(String url) {
         if (StringUtils.isEmpty(url)) {
             return "";
         }
@@ -178,7 +55,7 @@ public class ConvertHelper {
     }
 
     // 两点距离
-    public static String convertDistance2Show(float distance) {
+    public static String getDistanceShow(float distance) {
         String show = "";
         if (distance <= 0) return show;
         if (distance < 1000) {
@@ -190,8 +67,143 @@ public class ConvertHelper {
         return show;
     }
 
+    // 获取ta的id
+    public static long getTaIdByCp(Couple couple, long mid) {
+        if (CheckHelper.isNullCouple(couple)) return 0;
+        if (mid == couple.getCreatorId()) {
+            return couple.getInviteeId();
+        } else {
+            return couple.getCreatorId();
+        }
+    }
+
+    // 获取在cp中的头像
+    public static String getAvatarByCp(Couple couple, long uid) {
+        if (CheckHelper.isNullCouple(couple)) return "";
+        if (uid == couple.getCreatorId()) {
+            return couple.getCreatorAvatar();
+        } else {
+            return couple.getInviteeAvatar();
+        }
+    }
+
+    // 获取在cp中的昵称
+    public static String getNameByCp(Couple couple, long uid) {
+        if (CheckHelper.isNullCouple(couple)) return "";
+        if (uid == couple.getCreatorId()) {
+            return couple.getCreatorName();
+        } else {
+            return couple.getInviteeName();
+        }
+    }
+
+    // 性别显示
+    public static String getSexShow(int sex) {
+        if (sex == User.SEX_GIRL) {
+            return MyApp.get().getString(R.string.girl);
+        } else if (sex == User.SEX_BOY) {
+            return MyApp.get().getString(R.string.boy);
+        }
+        return "";
+    }
+
+    // 性别小圆图显示
+    public static int getSexResCircleSmall(int sex) {
+        if (sex == User.SEX_BOY) {
+            return R.mipmap.ic_sex_boy_circle;
+        } else if (sex == User.SEX_GIRL) {
+            return R.mipmap.ic_sex_girl_circle;
+        }
+        return 0;
+    }
+
+    /**
+     * **************************************时间**************************************
+     */
+
+    // 时间转换(java -> go)
+    public static long getGoTimeByJava(long time) {
+        return time / 1000;
+    }
+
+    // 时间转换(go -> java)
+    public static long getJavaTimeByGo(long time) {
+        return time * 1000;
+    }
+
+    // 时间显示(不同天)
+    public static String getTimeShowDayDiffByGo(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(getJavaTimeByGo(time)));
+        String format;
+        if (CalUtils.isSameDay(cNow, cTime)) {
+            format = ConstantUtils.FORMAT_H_M;
+        } else {
+            format = ConstantUtils.FORMAT_LINE_Y_M_D;
+        }
+        return DateUtils.getString(getJavaTimeByGo(time), format);
+    }
+
+    // 日记时间显示
+    public static String getTimeShowDiaryByGo(long time) {
+        return getTimeShowDiaryByJava(getJavaTimeByGo(time));
+    }
+
+    // 日记时间显示
+    public static String getTimeShowDiaryByJava(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(time));
+        String format;
+        if (CalUtils.isSameDay(cNow, cTime)) {
+            // 同一天
+            format = ConstantUtils.FORMAT_H_M;
+        } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "MM" + month + " dd" + day;
+        } else {
+            // 不同年
+            String year = MyApp.get().getString(R.string.year);
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "yyyy" + year + " MM" + month + " dd" + day;
+        }
+        return DateUtils.getString(time, format);
+    }
+
+    /**
+     * **************************************列表**************************************
+     */
+
+    // 集合类型转换(string -> uri)
+    public static ArrayList<Uri> getUriListByString(List<String> strings) {
+        ArrayList<Uri> uriList = new ArrayList<>();
+        if (strings == null || strings.size() <= 0) return uriList;
+        for (String s : strings) {
+            uriList.add(Uri.parse(s));
+        }
+        return uriList;
+    }
+
+    // 集合类型转换(string -> file)
+    public static List<File> getFileListByPath(List<String> pathList) {
+        List<File> fileList = new ArrayList<>();
+        if (pathList == null || pathList.size() <= 0) return fileList;
+        for (String path : pathList) {
+            fileList.add(new File(path));
+        }
+        return fileList;
+    }
+
+    /**
+     * **************************************三方资源**************************************
+     */
+
     // 天气显示文本
-    public static String ConvertWeatherIcon2Show(String icon) {
+    public static String getWeatherShowByIcon(String icon) {
         if (StringUtils.isEmpty(icon)) return "";
         String iconTrim = icon.trim();
         switch (iconTrim) {
@@ -251,7 +263,7 @@ public class ConvertHelper {
     }
 
     // 天气显示icon
-    public static int ConvertWeatherIcon2ResInt(String icon) {
+    public static int getWeatherIconByRes(String icon) {
         if (StringUtils.isEmpty(icon)) return 0;
         String iconTrim = icon.trim();
         int iconRes;

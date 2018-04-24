@@ -484,7 +484,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         tvPlaceRight.setText(right);
         // distance
         float distance = LocationHelper.distance(myInfo, taInfo);
-        String distanceShow = ConvertHelper.convertDistance2Show(distance);
+        String distanceShow = ConvertHelper.getDistanceShow(distance);
         String format = String.format(Locale.getDefault(), getString(R.string.distance_holder), distanceShow);
         tvDistance.setText(format);
     }
@@ -504,8 +504,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (myCondition != null && !StringUtils.isEmpty(myCondition.getTemp())) {
                     String icon = myCondition.getIcon();
                     String temp = myCondition.getTemp();
-                    myTemp = temp + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
-                    myIcon = ConvertHelper.ConvertWeatherIcon2ResInt(icon);
+                    myTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
+                    myIcon = ConvertHelper.getWeatherIconByRes(icon);
                     myC = Integer.parseInt(temp);
                 }
             }
@@ -518,8 +518,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (taCondition != null && !StringUtils.isEmpty(taCondition.getTemp())) {
                     String icon = taCondition.getIcon();
                     String temp = taCondition.getTemp();
-                    taTemp = temp + "℃ " + ConvertHelper.ConvertWeatherIcon2Show(icon);
-                    taIcon = ConvertHelper.ConvertWeatherIcon2ResInt(icon);
+                    taTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
+                    taIcon = ConvertHelper.getWeatherIconByRes(icon);
                     taC = Integer.parseInt(temp);
                 }
             }

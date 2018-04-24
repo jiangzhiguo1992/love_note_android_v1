@@ -29,16 +29,16 @@ public class User extends BaseObj implements Parcelable {
     private String oldPassWord;
 
     public String getSexShow() {
-        return ConvertHelper.convertSex2Show(this.getSex());
+        return ConvertHelper.getSexShow(this.getSex());
     }
 
     public int getSexResCircleSmall() {
-        return ConvertHelper.convertSex2ResCircleSmall(this.getSex());
+        return ConvertHelper.getSexResCircleSmall(this.getSex());
     }
 
     public long getTaId() {
         Couple couple = getCouple();
-        return ConvertHelper.convertCp2TaId(couple, this.getId());
+        return ConvertHelper.getTaIdByCp(couple, this.getId());
     }
 
     public String getMyNameInCp() {
@@ -51,7 +51,7 @@ public class User extends BaseObj implements Parcelable {
 
     public String getNameById(long uid) {
         Couple couple = getCouple();
-        return ConvertHelper.convertCp2Name(couple, uid);
+        return ConvertHelper.getNameByCp(couple, uid);
     }
 
     public String getMyAvatarInCp() {
@@ -64,7 +64,7 @@ public class User extends BaseObj implements Parcelable {
 
     public String getAvatarById(long uid) {
         Couple couple = getCouple();
-        return ConvertHelper.convertCp2Avatar(couple, uid);
+        return ConvertHelper.getAvatarByCp(couple, uid);
     }
 
     public boolean isCoupleCreator() {

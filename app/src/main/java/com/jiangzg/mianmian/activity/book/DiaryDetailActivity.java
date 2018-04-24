@@ -177,14 +177,14 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         // menu
         invalidateOptionsMenu();
         // happen
-        String happenAt = ConvertHelper.ConvertTimeGo2DiaryShow(diary.getHappenAt());
+        String happenAt = ConvertHelper.getTimeShowDiaryByGo(diary.getHappenAt());
         tb.setTitle(happenAt);
         // author
         String authorName = user.getNameById(userId);
         String authorShow = String.format(Locale.getDefault(), getString(R.string.author_space_colon_space_holder), authorName);
         tvAuthor.setText(authorShow);
         // updateAt
-        String update = ConvertHelper.ConvertTimeGo2DiaryShow(updateAt);
+        String update = ConvertHelper.getTimeShowDiaryByGo(updateAt);
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
         // imageList

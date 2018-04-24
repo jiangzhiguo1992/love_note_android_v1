@@ -211,7 +211,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // data
         List<String> tagList = suggest.getTagList();
         String title = suggest.getTitle();
-        String create = ConvertHelper.ConvertTimeGo2DiffDay(suggest.getCreateAt());
+        String create = ConvertHelper.getTimeShowDayDiffByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
         final String contentImgUrl = suggest.getContentImg();
         String contentText = suggest.getContentText();

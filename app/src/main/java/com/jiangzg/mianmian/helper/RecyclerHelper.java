@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.domain.BaseObj;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -391,6 +392,9 @@ public class RecyclerHelper {
         return (A) mRecycler.findViewHolderForLayoutPosition(position);
     }
 
+    /**
+     * ************************************自定义***************************************
+     */
     public static class RecyclerMoreView extends LoadMoreView {
 
         @Override
