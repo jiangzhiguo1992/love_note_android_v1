@@ -29,7 +29,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_used_wall_paper_top">
+                android:background="@drawable/shape_gradient_black_trans">
 
                 <ImageView
                     android:id="@+id/ivHelp"
@@ -66,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/selector_btn_solid_dark"
+                    android:background="@drawable/selector_press_solid_dark"
                     android:foreground="?attr/selectableItemBackground"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
@@ -105,7 +105,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_used_wall_paper_bottom"
+                android:background="@drawable/shape_gradient_trans_accent"
                 android:orientation="vertical">
 
                 <!-- 用户信息 -->

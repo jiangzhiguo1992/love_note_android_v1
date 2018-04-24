@@ -11,7 +11,7 @@
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_used_welcome_bg"
+        android:background="@drawable/shape_gradient_dark_light"
         android:scaleType="centerCrop"/>
 
     <ImageView

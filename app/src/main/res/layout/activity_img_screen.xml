@@ -19,11 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="22dp"
         android:layout_alignParentTop="true"
-        android:background="@drawable/shape_used_img_screen_top"/>
+        android:background="@drawable/shape_gradient_black_trans"/>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/shape_used_img_screen_bottom"/>
+        android:background="@drawable/shape_gradient_trans_black"/>
 </RelativeLayout>

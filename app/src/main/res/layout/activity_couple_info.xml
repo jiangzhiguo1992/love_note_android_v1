@@ -6,7 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_used_cp_info_bg"
+    android:background="@drawable/shape_gradient_dark_light"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.jiangzg.mianmian.activity.couple.CoupleInfoActivity">
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/shape_circle_stroke_white"
+                    android:background="@drawable/shape_r100_stroke_white"
                     android:paddingBottom="10dp"
                     android:paddingEnd="30dp"
                     android:paddingStart="30dp"

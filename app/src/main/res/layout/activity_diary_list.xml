@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/shape_gradient_primary_trans"
     tools:context="com.jiangzg.mianmian.activity.book.DiaryListActivity">
 
     <include layout="@layout/view_top_bar"/>
@@ -25,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@drawable/layer_line_border_grey_in_white"
+        android:background="@color/background_color"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_behavior="@string/behavior_footer_depend_app_bar">

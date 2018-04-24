@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/selector_btn_r3_stroke_primary"
+                android:background="@drawable/selector_enable_press_r3_stroke_primary"
                 android:padding="10dp"
                 android:textColor="@color/selector_text_press_primary_dark"
                 android:textStyle="bold"
@@ -57,7 +57,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/selector_btn_r3_stroke_primary"
+                    android:background="@drawable/selector_enable_press_r3_stroke_primary"
                     android:gravity="start"
                     android:hint="@string/please_input_content"
                     android:inputType="textMultiLine"
@@ -88,7 +88,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_solid_accent"
+            android:background="@drawable/selector_press_solid_accent"
             android:text="@string/save_draft"/>
 
         <Button
@@ -97,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/selector_btn_solid_dark"
+            android:background="@drawable/selector_press_solid_dark"
             android:text="@string/publish"/>
     </LinearLayout>
 </LinearLayout>

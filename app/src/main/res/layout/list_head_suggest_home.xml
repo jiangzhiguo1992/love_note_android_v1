@@ -157,6 +157,6 @@
         android:layout_height="36dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/selector_btn_r3_solid_primary"
+        android:background="@drawable/selector_enable_press_r3_solid_primary"
         android:text="@string/start_search"/>
 </LinearLayout>

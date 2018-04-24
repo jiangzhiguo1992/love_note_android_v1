@@ -96,7 +96,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_common, true, true)
+                .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewHeader(R.layout.list_head_suggest_home)
                 .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
                 .setAdapter()
@@ -253,7 +253,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         layoutParams.setMarginEnd(dp3);
         button.setLayoutParams(layoutParams);
         button.setPadding(dp14, dp4, dp14, dp4);
-        button.setBackgroundResource(R.drawable.selector_rb_r3_solid_stroke_primary);
+        button.setBackgroundResource(R.drawable.selector_check_r3_solid_stroke_primary);
         button.setButtonDrawable(null);
         button.setElevation(dp3);
         button.setGravity(Gravity.CENTER);
@@ -285,7 +285,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         layoutParams.setMarginEnd(dp3);
         button.setLayoutParams(layoutParams);
         button.setPadding(dp14, dp4, dp14, dp4);
-        button.setBackgroundResource(R.drawable.selector_rb_r3_solid_stroke_primary);
+        button.setBackgroundResource(R.drawable.selector_check_r3_solid_stroke_primary);
         button.setButtonDrawable(null);
         button.setElevation(dp3);
         button.setGravity(Gravity.CENTER);

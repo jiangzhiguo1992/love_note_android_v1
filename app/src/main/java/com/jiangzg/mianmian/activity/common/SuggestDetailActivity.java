@@ -116,7 +116,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestCommentAdapter(mActivity))
                 .viewHeader(R.layout.list_head_suggest_comment)
-                .viewEmpty(R.layout.list_empty_common, true, true)
+                .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {

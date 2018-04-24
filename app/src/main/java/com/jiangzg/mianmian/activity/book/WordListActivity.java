@@ -95,6 +95,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true))
                 .initRefresh(srl, true)
                 .initAdapter(new WordAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_white, true, true)
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

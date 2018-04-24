@@ -543,19 +543,20 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
         int colorPrimary = ViewHelper.getColorPrimary(mActivity);
         int colorIcon = ContextCompat.getColor(mActivity, colorPrimary);
-        // view
+        // left
         tvWeatherLeft.setText(left);
         Drawable myDrawable = ViewHelper.getDrawable(mActivity, leftIcon);
         if (myDrawable != null) {
             myDrawable.setTint(colorIcon);
-            tvWeatherLeft.setCompoundDrawables(myDrawable, null, null, null);
         }
+        tvWeatherLeft.setCompoundDrawables(myDrawable, null, null, null);
+        // right
         tvWeatherRight.setText(right);
         Drawable taDrawable = ViewHelper.getDrawable(mActivity, rightIcon);
         if (taDrawable != null) {
             taDrawable.setTint(colorIcon);
-            tvWeatherRight.setCompoundDrawables(taDrawable, null, null, null);
         }
+        tvWeatherRight.setCompoundDrawables(taDrawable, null, null, null);
         // diff
         int abs = Math.abs((myC - taC));
         String format = String.format(Locale.getDefault(), getString(R.string.differ_holder_c), abs);

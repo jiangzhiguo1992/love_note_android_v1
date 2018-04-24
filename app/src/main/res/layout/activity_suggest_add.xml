@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvTitleLimit"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/selector_btn_r3_stroke_primary"
+                    android:background="@drawable/selector_enable_press_r3_stroke_primary"
                     android:hint="@string/please_input_title"
                     android:inputType="text"
                     android:maxLines="1"
@@ -100,7 +100,7 @@
                     android:layout_height="150dp"
                     android:layout_below="@id/tvContentLimit"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/selector_btn_r3_stroke_primary"
+                    android:background="@drawable/selector_enable_press_r3_stroke_primary"
                     android:gravity="start"
                     android:hint="@string/please_input_content"
                     android:inputType="textMultiLine"
@@ -135,6 +135,6 @@
         style="@style/FontWhiteBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_btn_solid_dark"
+        android:background="@drawable/selector_press_solid_dark"
         android:text="@string/push"/>
 </LinearLayout>
