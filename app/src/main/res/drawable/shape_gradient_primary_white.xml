@@ -3,8 +3,9 @@
 
     <!-- 渐变 -->
     <gradient
-        android:angle="270"
-        android:endColor="@color/black"
-        android:startColor="@color/trans_00"
+        android:angle="90"
+        android:endColor="?attr/colorPrimary"
+        android:startColor="@color/white"
         android:type="linear"/>
+
 </shape>

@@ -5,7 +5,6 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_primary_trans"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity">
@@ -15,7 +14,8 @@
     <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_primary_white">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

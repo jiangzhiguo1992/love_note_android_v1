@@ -47,7 +47,6 @@
         android:layout_marginStart="10dp"
         android:visibility="gone"
         app:is_net_normal="true"
-        tools:src="@mipmap/test_bg_04"
         tools:visibility="gone"/>
 
     <TextView

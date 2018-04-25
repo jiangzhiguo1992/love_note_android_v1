@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_primary_trans"
     android:orientation="vertical">
 
     <include layout="@layout/view_top_bar"/>
 
     <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
+        android:background="@drawable/shape_gradient_primary_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,7 +40,7 @@
                         android:layout_weight="3"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -63,7 +63,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -94,7 +94,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -120,7 +120,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -146,7 +146,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -172,7 +172,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -205,7 +205,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -231,7 +231,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -257,7 +257,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -283,7 +283,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -316,7 +316,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -342,7 +342,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -368,7 +368,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -394,7 +394,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView
@@ -428,7 +428,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="#fff"
+                        app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="3dp">
 
                         <TextView

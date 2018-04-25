@@ -444,4 +444,5 @@
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder">当前频道: %s</string>
     <string name="in_here_input_channel">在这里输入频道</string>
+    <string name="online_can_entry">联网才可以进入哦</string>
 </resources>

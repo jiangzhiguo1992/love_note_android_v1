@@ -4,31 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@drawable/shape_gradient_primary_light"
     tools:context="com.jiangzg.mianmian.activity.WelcomeActivity">
 
     <ImageView
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/shape_gradient_dark_light"
         android:scaleType="centerCrop"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
-        android:src="@mipmap/text_welcome_title"
-        android:tint="#fff"
-        android:visibility="visible"/>
-
     <TextView
+        android:id="@+id/tvOnline"
         style="@style/FontWhiteSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="联网才可以进入哦"/>
+        android:layout_marginBottom="40dp"
+        android:text="@string/online_can_entry"/>
 </RelativeLayout>

@@ -42,7 +42,7 @@
         android:layout_toStartOf="@+id/ivAvatar"
         android:background="?attr/selectableItemBackground"
         android:foreground="?attr/selectableItemBackground"
-        app:cardBackgroundColor="#fff"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="3dp">
 
         <TextView

@@ -9,19 +9,21 @@
     <color name="img_grey">#EEEEEE</color>
 
     <!-- 字体颜色 -->
-    <color name="font_white">#FFFFFF</color>
+    <color name="font_white">@color/white</color>
     <color name="font_hint">#CBCBCB</color>
     <color name="font_grey">#757575</color>
     <color name="font_black">#212121</color>
 
     <!-- 常用颜色 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_trans_75">#BEffffff</color>
+    <color name="black_trans_75">#BE000000</color>
+    <color name="white_trans_50">#7FFFFFFF</color>
+    <color name="black_trans_50">#7F000000</color>
+    <color name="white_trans_25">#3FFFFFFF</color>
+    <color name="black_trans_25">#3F000000</color>
     <color name="trans_00">#00FFFFFF</color>
-    <color name="white_trans_25">#3fffffff</color>
-    <color name="white_trans_50">#7fffffff</color>
-    <color name="white_trans_75">#beffffff</color>
-    <color name="black_trans_25">#3f000000</color>
-    <color name="black_trans_50">#7f000000</color>
-    <color name="black_trans_75">#be000000</color>
 
     <!-- red -->
     <color name="theme_red_dark">#D32F2F</color>

@@ -24,8 +24,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:src="@mipmap/text_welcome_title"
-                android:tint="?attr/colorPrimary"/>
+                android:src="@mipmap/ic_launcher"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

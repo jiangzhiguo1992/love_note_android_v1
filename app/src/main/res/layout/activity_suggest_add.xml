@@ -125,7 +125,7 @@
                 android:layout_margin="10dp"
                 android:visibility="gone"
                 app:actualImageScaleType="centerInside"
-                tools:src="@mipmap/test_bg_04"
+                tools:src="@mipmap/test_bg_1"
                 tools:visibility="visible"/>
         </LinearLayout>
     </ScrollView>

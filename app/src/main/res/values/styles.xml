@@ -1,17 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- AppBarLayout(android:theme里加,可调整字体颜色) app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <!-- Toolbar(上面加了,这里可以不加) app:popupTheme="@style/ThemeOverlay.AppCompat.Light" -->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
-    <!-- 水波纹,点击效果(setClickListener还会有声音),CardView要加以下 -->
-    <!--<item name="android:clickable">true</item>-->
-    <style name="SelectRipple">
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-    </style>
 
     <!-- 自定义对话框样式 -->
     <style name="DialogCustom" parent="@android:style/Theme.Dialog">
