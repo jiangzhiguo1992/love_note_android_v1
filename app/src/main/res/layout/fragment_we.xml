@@ -166,7 +166,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="@dimen/radius_big"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
 
                     <LinearLayout
                         android:id="@+id/llPlace"
@@ -290,7 +292,9 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"
                     app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="5dp">
+                    app:cardCornerRadius="@dimen/radius_big"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
 
                     <LinearLayout
                         android:layout_width="match_parent"

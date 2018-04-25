@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.domain.BaseObj;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -395,11 +394,11 @@ public class RecyclerHelper {
     /**
      * ************************************自定义***************************************
      */
-    public static class RecyclerMoreView extends LoadMoreView {
+    public static class MoreGreyView extends LoadMoreView {
 
         @Override
         public int getLayoutId() {
-            return R.layout.list_more_common;
+            return R.layout.list_more_grey;
         }
 
         @Override

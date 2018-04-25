@@ -85,7 +85,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_grey, true, true)
-                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

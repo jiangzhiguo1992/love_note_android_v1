@@ -126,7 +126,9 @@
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimaryDark"
-                app:cardCornerRadius="3dp"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big"
                 tools:visibility="visible">
 
                 <LinearLayout

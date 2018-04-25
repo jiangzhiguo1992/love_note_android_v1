@@ -11,9 +11,9 @@
 
     <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
-        android:background="@drawable/shape_gradient_primary_white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_primary_white">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -41,7 +41,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -64,7 +66,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -95,7 +99,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -121,7 +127,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -147,7 +155,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -173,7 +183,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -206,7 +218,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -232,7 +246,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -258,7 +274,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -284,7 +302,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -317,7 +337,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -343,7 +365,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -369,7 +393,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -395,7 +421,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"
@@ -429,7 +457,9 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="3dp">
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
 
                         <TextView
                             style="@style/FontGreyNormal"

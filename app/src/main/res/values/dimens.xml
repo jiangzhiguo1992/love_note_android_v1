@@ -5,6 +5,16 @@
     <dimen name="font_normal">14sp</dimen>
     <dimen name="font_big">17sp</dimen>
     <dimen name="font_huge">20sp</dimen>
+    <!-- cardView阴影 -->
+    <dimen name="radius_small">1dp</dimen>
+    <dimen name="radius_normal">3dp</dimen>
+    <dimen name="radius_big">5dp</dimen>
+    <!-- cardView阴影 -->
+    <dimen name="elevation_small">1dp</dimen>
+    <dimen name="elevation_normal">3dp</dimen>
+    <dimen name="elevation_big">5dp</dimen>
+    <dimen name="elevation_huge">7dp</dimen>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>

@@ -24,8 +24,9 @@
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="?attr/colorPrimary"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+            app:cardCornerRadius="@dimen/radius_normal"
+            app:cardElevation="@dimen/elevation_normal"
+            app:cardMaxElevation="@dimen/elevation_big">
 
             <TextView
                 style="@style/FontWhiteNormal"
@@ -48,8 +49,9 @@
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="?attr/colorPrimary"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+            app:cardCornerRadius="@dimen/radius_normal"
+            app:cardElevation="@dimen/elevation_normal"
+            app:cardMaxElevation="@dimen/elevation_big">
 
             <TextView
                 style="@style/FontWhiteNormal"
@@ -72,8 +74,9 @@
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             app:cardBackgroundColor="?attr/colorPrimary"
-            app:cardCornerRadius="3dp"
-            app:cardElevation="3dp">
+            app:cardCornerRadius="@dimen/radius_normal"
+            app:cardElevation="@dimen/elevation_normal"
+            app:cardMaxElevation="@dimen/elevation_big">
 
             <TextView
                 style="@style/FontWhiteNormal"

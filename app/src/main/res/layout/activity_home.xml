@@ -15,12 +15,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <View style="@style/LineHorizontal"/>
-
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bnvBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/layer_line_border_grey_in_white"
         app:menu="@menu/home_bottom_nav"/>
 
 </LinearLayout>

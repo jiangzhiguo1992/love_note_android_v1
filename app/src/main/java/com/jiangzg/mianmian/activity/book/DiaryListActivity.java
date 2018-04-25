@@ -88,7 +88,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .initRefresh(srl, false)
                 .initAdapter(new DiaryAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
-                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

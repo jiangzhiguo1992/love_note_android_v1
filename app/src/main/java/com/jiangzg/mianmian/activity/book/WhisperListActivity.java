@@ -72,7 +72,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .initRefresh(srl, false)
                 //.initAdapter() // TODO
                 .viewEmpty(R.layout.list_empty_grey, true, true)
-                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

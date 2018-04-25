@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@color/white"
+        android:background="@drawable/layer_line_border_grey_in_white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_behavior="@string/behavior_footer_depend_app_bar">

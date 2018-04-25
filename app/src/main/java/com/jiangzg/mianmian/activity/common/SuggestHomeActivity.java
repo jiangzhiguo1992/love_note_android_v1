@@ -98,7 +98,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .initAdapter(new SuggestAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewHeader(R.layout.list_head_suggest_home)
-                .viewLoadMore(new RecyclerHelper.RecyclerMoreView())
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
