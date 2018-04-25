@@ -85,6 +85,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipLimitExpireDays";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE = "souvenirLimitTitle";
     private static final String FIELD_LIMIT_WHISPER_CONTENT = "whisperLimitContent";
+    private static final String FIELD_LIMIT_WHISPER_CHANNEL = "whisperLimitChannel";
     private static final String FIELD_LIMIT_WORD_CONTENT = "wordLimitContent";
     private static final String FIELD_LIMIT_DIARY_CONTENT = "diaryLimitContent";
     private static final String FIELD_LIMIT_TRACK_TITLE = "trackLimitTitle";
@@ -207,6 +208,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipLimitExpireDays());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE, limit.getSouvenirLimitTitle());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT, limit.getWhisperLimitContent());
+        editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL, limit.getWhisperLimitChannel());
         editor.putInt(FIELD_LIMIT_WORD_CONTENT, limit.getWordLimitContent());
         editor.putInt(FIELD_LIMIT_DIARY_CONTENT, limit.getDiaryLimitContent());
         editor.putInt(FIELD_LIMIT_TRACK_TITLE, limit.getTrackLimitTitle());
@@ -238,6 +240,7 @@ public class SPHelper {
         limit.setVipLimitExpireDays(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         limit.setSouvenirLimitTitle(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE, 20));
         limit.setWhisperLimitContent(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT, 100));
+        limit.setWhisperLimitChannel(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL, 10));
         limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
         limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
         limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));

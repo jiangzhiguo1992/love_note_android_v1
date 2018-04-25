@@ -445,4 +445,6 @@
     <string name="current_channel_colon_space_holder">当前频道: %s</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="online_can_entry">联网才可以进入哦</string>
+    <string name="add_image">添加图片</string>
+    <string name="add_text">添加文字</string>
 </resources>

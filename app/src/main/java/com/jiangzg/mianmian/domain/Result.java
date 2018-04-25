@@ -74,6 +74,24 @@ public class Result implements Serializable {
         private Diary diary;
         private List<Word> wordList;
         private Word word;
+        private List<Whisper> whisperList;
+        private Whisper whisper;
+
+        public List<Whisper> getWhisperList() {
+            return whisperList;
+        }
+
+        public void setWhisperList(List<Whisper> whisperList) {
+            this.whisperList = whisperList;
+        }
+
+        public Whisper getWhisper() {
+            return whisper;
+        }
+
+        public void setWhisper(Whisper whisper) {
+            this.whisper = whisper;
+        }
 
         public List<Word> getWordList() {
             return wordList;

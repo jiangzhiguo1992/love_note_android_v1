@@ -10,6 +10,7 @@ import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.WallPaper;
+import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.domain.Word;
 
 import java.util.List;
@@ -193,5 +194,13 @@ public interface API {
     // word删除
     @DELETE("book/word")
     Call<Result> wordDel(@Query("wid") long wid);
+
+    // whisper获取
+    @GET("book/whisper?list=1")
+    Call<Result> whisperListGet(@Query("channel") String channel, @Query("page") int page);
+
+    // whisper上传
+    @POST("book/whisper")
+    Call<Result> whisperPost(@Body Whisper whisper);
 
 }

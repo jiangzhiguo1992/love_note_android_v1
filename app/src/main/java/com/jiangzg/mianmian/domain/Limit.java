@@ -19,6 +19,7 @@ public class Limit {
     private int vipLimitExpireDays;
     private int souvenirLimitTitle;
     private int whisperLimitContent;
+    private int whisperLimitChannel;
     private int wordLimitContent;
     private int diaryLimitContent;
     private int trackLimitTitle;
@@ -31,6 +32,14 @@ public class Limit {
     private int dreamLimitContent;
     private int angryLimitReason;
     private int awardLimitReason;
+
+    public int getWhisperLimitChannel() {
+        return whisperLimitChannel;
+    }
+
+    public void setWhisperLimitChannel(int whisperLimitChannel) {
+        this.whisperLimitChannel = whisperLimitChannel;
+    }
 
     public int getSmsLimitEffectSec() {
         return smsLimitEffectSec;

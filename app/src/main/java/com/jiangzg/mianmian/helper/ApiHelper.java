@@ -36,6 +36,7 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.domain.VipLimit;
 import com.jiangzg.mianmian.domain.WallPaper;
+import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.domain.Word;
 
 import java.util.ArrayList;
@@ -350,5 +351,13 @@ public class ApiHelper {
         Word word = new Word();
         word.setContent(content);
         return word;
+    }
+
+    public static Whisper getWhisperBody(String channel, boolean isImage, String content) {
+        Whisper whisper = new Whisper();
+        whisper.setChannel(channel);
+        whisper.setImgType(isImage);
+        whisper.setContent(content);
+        return whisper;
     }
 }

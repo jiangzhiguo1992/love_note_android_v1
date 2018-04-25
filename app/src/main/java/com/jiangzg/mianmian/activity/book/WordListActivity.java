@@ -61,6 +61,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     @BindView(R.id.btnSend)
     Button btnSend;
 
+    private int limitContent;
     private RecyclerHelper recyclerHelper;
     private Observable<Word> obListItemDelete;
     private int page;
@@ -84,8 +85,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.word), true);
         // editTextHint
-        int wordLimitContent = SPHelper.getLimit().getWordLimitContent();
-        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), wordLimitContent);
+        limitContent = SPHelper.getLimit().getWordLimitContent();
+        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContent);
         etContent.setHint(format);
         etContent.setText("");
         // recycler
@@ -160,11 +161,17 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         }
     }
 
-    private void onContentInput(String s) {
-        if (StringUtils.isEmpty(s)) {
+    private void onContentInput(String input) {
+        if (StringUtils.isEmpty(input)) {
             btnSend.setEnabled(false);
         } else {
             btnSend.setEnabled(true);
+        }
+        int length = input.length();
+        if (length > limitContent) {
+            CharSequence charSequence = input.subSequence(0, limitContent);
+            etContent.setText(charSequence);
+            etContent.setSelection(charSequence.length());
         }
     }
 
