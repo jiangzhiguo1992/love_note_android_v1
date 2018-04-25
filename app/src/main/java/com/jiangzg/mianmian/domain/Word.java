@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.jiangzg.mianmian.adapter.WordAdapter;
+import com.jiangzg.mianmian.helper.ApiHelper;
 
 /**
  * Created by JZG on 2018/4/24.
@@ -16,7 +17,7 @@ public class Word extends BaseCP implements Parcelable, MultiItemEntity {
 
     @Override
     public int getItemType() {
-        return isMine() ? WordAdapter.MY : WordAdapter.TA;
+        return isMine() ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
     }
 
     public String getContent() {

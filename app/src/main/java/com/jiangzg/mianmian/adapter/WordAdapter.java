@@ -1,7 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -11,11 +10,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
-import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Word;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
@@ -28,20 +27,17 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
- * 帮助文档一级问答
+ * 留言
  */
 public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder> {
-
-    public static final int MY = 0;
-    public static final int TA = 1;
 
     private BaseActivity mActivity;
     private final Couple couple;
 
     public WordAdapter(BaseActivity activity) {
         super(null);
-        addItemType(MY, R.layout.list_item_word_right);
-        addItemType(TA, R.layout.list_item_word_left);
+        addItemType(ApiHelper.LIST_MY, R.layout.list_item_word_right);
+        addItemType(ApiHelper.LIST_TA, R.layout.list_item_word_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
     }
@@ -49,16 +45,14 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
     @Override
     protected void convert(BaseViewHolder helper, Word item) {
         // data
-        String content = item.getContent();
-        String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String avatar = ConvertHelper.getAvatarByCp(couple, item.getUserId());
+        String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String content = item.getContent();
         // view
-        helper.setText(R.id.tvCreateAt, createAt);
-        TextView tvContent = helper.getView(R.id.tvContent);
-        tvContent.setText(content);
-        //tvContent.getLayoutParams()
         GImageView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setDataOss(avatar);
+        helper.setText(R.id.tvCreateAt, createAt);
+        helper.setText(R.id.tvContent, content);
     }
 
     public void showDeleteDialog(final int position) {

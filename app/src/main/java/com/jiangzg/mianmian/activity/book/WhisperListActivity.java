@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,15 +16,21 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.adapter.WhisperAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -34,7 +41,6 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
@@ -83,7 +89,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                //.initAdapter() // TODO
+                .initAdapter(new WhisperAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -142,6 +148,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void getData(final boolean more) {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
         page = more ? page + 1 : 0;
         String channel = refreshCurrentChannelView();
         Call<Result> call = new RetrofitHelper().call(API.class).whisperListGet(channel, page);
@@ -187,12 +196,61 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 文字添加
     private void showEditDialog() {
-        // TODO
+        int limitContent = SPHelper.getLimit().getWhisperLimitContent();
+        final String channel = etChannel.getText().toString().trim();
+        String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
+        String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContent);
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(currentChannel)
+                .input(hint, "", false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                    }
+                })
+                .positiveText(R.string.send)
+                .negativeText(R.string.cancel)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        EditText editText = dialog.getInputEditText();
+                        if (editText != null) {
+                            String content = editText.getText().toString();
+                            Whisper body = ApiHelper.getWhisperBody(channel, false, content);
+                            api(body);
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     // 图片获取
     private void showSelectImgPop() {
-        // TODO
+        // TODO 频道显示出来
+    }
+
+    private void api(Whisper whisper) {
+        Call<Result> call = new RetrofitHelper().call(API.class).whisperPost(whisper);
+        MaterialDialog loading = getLoading(true);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // editText
+                InputUtils.hideSoftInput(etChannel);
+                // adapter
+                WhisperAdapter adapter = recyclerHelper.getAdapter();
+                adapter.addData(data.getWhisper());
+                // 下移
+                int position = adapter.getData().size() - 1;
+                rv.smoothScrollToPosition(position);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
 }

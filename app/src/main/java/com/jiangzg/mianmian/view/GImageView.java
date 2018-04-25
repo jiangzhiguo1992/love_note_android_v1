@@ -247,11 +247,12 @@ public class GImageView extends SimpleDraweeView {
                 .setRotationOptions(RotationOptions.autoRotate());
         // 非全屏小尺寸加载
         if (!isNetFull) {
+            // TODO ListView不执行
             if (mWidth <= 0) {
-                mWidth = getWidth();
+                mWidth = getMeasuredWidth();
             }
             if (mHeight <= 0) {
-                mHeight = getHeight();
+                mHeight = getMeasuredHeight();
             }
             if (mWidth > 0 && mHeight > 0) {
                 requestBuilder.setResizeOptions(new ResizeOptions(mWidth, mHeight));
