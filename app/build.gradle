@@ -7,7 +7,7 @@ android {
         targetSdkVersion 27 // 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        applicationId "com.jiangzg.ita" // 要和manifest一致
+        applicationId "com.jiangzg.mianmian" // 要和manifest一致
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
@@ -25,26 +25,40 @@ android {
         debug { // 测试
             signingConfig signingConfigs.jzg_01 // 设置签名信息
             minifyEnabled false // 混淆开关(测试最好关掉，否则会影响断点调试)
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true //内存对齐
+            shrinkResources false // 移除无用的resource文件
             // 混淆规则文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release { // 正式
             signingConfig signingConfigs.jzg_01 // 可以只用一个签名信息
             minifyEnabled true
+            zipAlignEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
                 def outputFile = output.outputFile
                 if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                    // 输出apk名称为app_code_date.apk
-                    def date = new Date().format("yyyy-MM-dd-HH-mm")
-                    outputFileName = "ita_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}.apk"
+                    def fileName
+                    if (variant.buildType.name.equals('release')) {
+                        // 输出apk名称为 软件名_版本号_渠道_日期.apk
+                        def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.getTimeZone("CST"))
+                        fileName = "mm_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}.apk"
+                    } else {
+                        fileName = "mm_debug.apk"
+                    }
+                    outputFileName = fileName + ".apk"
                 }
             }
         }
     }
     productFlavors { // 发布渠道
+        jzg { // 测试
+            dimension "release"
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "jzg"]
+        }
         //---------------------手机市场----------------------
         sanxing { // 三星应用市场
             dimension "release"
