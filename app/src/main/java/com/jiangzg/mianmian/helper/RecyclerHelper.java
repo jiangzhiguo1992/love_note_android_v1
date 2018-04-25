@@ -105,19 +105,17 @@ public class RecyclerHelper {
         if (mAdapter == null || mEmpty == null) return;
         TextView tvShow = mEmpty.findViewById(tvId);
         if (tvShow == null) return;
+        if (StringUtils.isEmpty(show)) {
+            show = tvShow.getText().toString();
+            if (StringUtils.isEmpty(show)) {
+                show = mContext.getString(R.string.master_there_nothing);
+            }
+        }
         tvShow.setText(show);
     }
 
     public void viewEmptyShow(String show) {
-        if (StringUtils.isEmpty(show)) {
-            viewEmptyShow();
-        } else {
-            viewEmptyShow(R.id.tvEmptyShow, show);
-        }
-    }
-
-    public void viewEmptyShow() {
-        viewEmptyShow(mContext.getString(R.string.master_there_nothing));
+        viewEmptyShow(R.id.tvEmptyShow, show);
     }
 
     /**
@@ -303,7 +301,7 @@ public class RecyclerHelper {
         if (null == list || list.size() <= 0) {
             mAdapter.setNewData(new ArrayList());
             mAdapter.loadMoreEnd(false); // 显示没有更多
-            this.viewEmptyShow();
+            this.viewEmptyShow("");
         } else {
             mAdapter.setNewData(list);
             if (mAdapter.getData().size() >= totalCount) {
@@ -331,7 +329,7 @@ public class RecyclerHelper {
         if (mAdapter == null) return;
         mAdapter.loadMoreComplete();
         if (null == list || list.size() <= 0) {
-            this.viewEmptyShow();
+            this.viewEmptyShow("");
             mAdapter.loadMoreEnd(false); // 显示没有更多
         } else {
             mAdapter.addData(list);
