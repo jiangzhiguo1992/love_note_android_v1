@@ -86,8 +86,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
             }, TransPageMillis);
         } else {
-            // 有token
-            // TODO 上传本地异常，然后再删除
+            // 有token TODO 上传本地异常，然后再删除
             final long startTime = DateUtils.getCurrentLong();
             Entry entry = ApiHelper.getEntryBody();
             Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
@@ -99,21 +98,13 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
                 @Override
                 public void onFailure(String errMsg) {
-                    // TODO 这个去掉 换成递归获取
-                    MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                            .cancelable(true)
-                            .canceledOnTouchOutside(false)
-                            .title(errMsg)
-                            .content(R.string.app_start_err_detail_please_ask_official_contact_method_qq)
-                            .negativeText(R.string.i_know)
-                            .dismissListener(new DialogInterface.OnDismissListener() {
-                                @Override
-                                public void onDismiss(DialogInterface dialog) {
-                                    ActivityStack.finishAllActivity();
-                                }
-                            })
-                            .build();
-                    DialogHelper.showWithAnim(dialog);
+                    // 一直请求
+                    MyApp.get().getHandler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            WelcomeActivity.this.checkUser();
+                        }
+                    }, 2000);
                 }
             });
         }
