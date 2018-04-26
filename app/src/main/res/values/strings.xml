@@ -448,4 +448,6 @@
     <string name="online_can_entry">联网才可以进入哦</string>
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文字</string>
+    <string name="schedule">日程</string>
+    <string name="statistics">统计</string>
 </resources>

@@ -29,7 +29,6 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-
     @BindView(R.id.cvAccount)
     CardView cvAccount;
     @BindView(R.id.cvWhisper)
@@ -56,6 +55,10 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     CardView cvAngry;
     @BindView(R.id.cvAward)
     CardView cvAward;
+    @BindView(R.id.cvSchedule)
+    CardView cvSchedule;
+    @BindView(R.id.cvStatistics)
+    CardView cvStatistics;
 
     public static BookFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -100,13 +103,14 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvAccount, R.id.cvWhisper, R.id.cvDiary, R.id.cvWord,
-            R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum, R.id.cvMeet,
-            R.id.cvGift, R.id.cvDream, R.id.cvPromise, R.id.cvAngry,
-            R.id.cvAward})
+    @OnClick({R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
+            R.id.cvAudio, R.id.cvVideo, R.id.cvMeet, R.id.cvAward,
+            R.id.cvAngry, R.id.cvGift, R.id.cvPromise, R.id.cvDream,
+            R.id.cvStatistics, R.id.cvAccount, R.id.cvSchedule})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvAccount: // TODO 账本
+            case R.id.cvWord: // 留言
+                WordListActivity.goActivity(mFragment);
                 break;
             case R.id.cvWhisper: // 耳语
                 WhisperListActivity.goActivity(mActivity);
@@ -114,26 +118,29 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvDiary: // 日记
                 DiaryListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvWord: // 留言
-                WordListActivity.goActivity(mFragment);
+            case R.id.cvAlbum: // TODO 相册
                 break;
             case R.id.cvAudio: // TODO 录音
                 break;
             case R.id.cvVideo: // TODO 视频
                 break;
-            case R.id.cvAlbum: // TODO 相册
-                break;
             case R.id.cvMeet: // TODO 相见
                 break;
-            case R.id.cvGift: // TODO 礼物
-                break;
-            case R.id.cvDream: // TODO 梦里
-                break;
-            case R.id.cvPromise: // TODO 承诺
+            case R.id.cvAward: // TODO 补偿
                 break;
             case R.id.cvAngry: // TODO 生气
                 break;
-            case R.id.cvAward: // TODO 补偿
+            case R.id.cvGift: // TODO 礼物
+                break;
+            case R.id.cvPromise: // TODO 承诺
+                break;
+            case R.id.cvDream: // TODO 梦里
+                break;
+            case R.id.cvStatistics: // TODO 统计
+                break;
+            case R.id.cvAccount: // TODO 账本
+                break;
+            case R.id.cvSchedule: // TODO 日程
                 break;
         }
     }
