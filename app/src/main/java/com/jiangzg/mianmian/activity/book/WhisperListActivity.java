@@ -14,13 +14,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.system.InputUtils;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.adapter.WhisperAdapter;
@@ -30,13 +34,18 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.OssHelper;
+import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -47,6 +56,8 @@ import retrofit2.Call;
 
 public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
+    @BindView(R.id.root)
+    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.tvCurrentChannel)
@@ -66,6 +77,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     private int limitChannel;
     private RecyclerHelper recyclerHelper;
+    private File cameraFile;
     private int page;
 
     public static void goActivity(Activity from) {
@@ -115,6 +127,36 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            ResHelper.deleteFileInBackground(cameraFile);
+            return;
+        }
+        if (requestCode == ConsHelper.REQUEST_CAMERA) {
+            // 拍照
+            if (FileUtils.isFileEmpty(cameraFile)) {
+                ResHelper.deleteFileInBackground(cameraFile);
+                return;
+            }
+            ossUpload(cameraFile);
+        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+            // 相册
+            File pictureFile = IntentResult.getPictureFile(data);
+            if (FileUtils.isFileEmpty(pictureFile)) {
+                return;
+            }
+            ossUpload(pictureFile);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
@@ -228,7 +270,29 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 图片获取
     private void showSelectImgPop() {
-        // TODO 频道显示出来
+        final String channel = etChannel.getText().toString().trim();
+        String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
+        cameraFile = ResHelper.newImageOutCache();
+        PopupWindow window = PopHelper.createPictureCamera(mActivity, currentChannel, cameraFile);
+        PopUtils.show(window, root);
+    }
+
+    // 上传
+    private void ossUpload(File file) {
+        OssHelper.uploadWhisper(mActivity, file, new OssHelper.OssUploadCallBack() {
+            @Override
+            public void success(File source, String ossPath) {
+                final String channel = etChannel.getText().toString().trim();
+                Whisper body = ApiHelper.getWhisperBody(channel, true, ossPath);
+                api(body);
+                ResHelper.deleteFileInBackground(cameraFile);
+            }
+
+            @Override
+            public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cameraFile);
+            }
+        });
     }
 
     private void api(Whisper whisper) {
@@ -241,10 +305,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 InputUtils.hideSoftInput(etChannel);
                 // adapter
                 WhisperAdapter adapter = recyclerHelper.getAdapter();
-                adapter.addData(data.getWhisper());
-                // 下移
-                int position = adapter.getData().size() - 1;
-                rv.smoothScrollToPosition(position);
+                adapter.addData(0, data.getWhisper());
+                rv.smoothScrollToPosition(0);
             }
 
             @Override

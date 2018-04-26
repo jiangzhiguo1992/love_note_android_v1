@@ -141,6 +141,14 @@ public class OssHelper {
         uploadJpegs(activity, pathBookDiary, fileList, callBack);
     }
 
+    // 耳语 (压缩)
+    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
+        // ossPath
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookWhisper = ossInfo.getPathBookWhisper();
+        compressJpeg(activity, pathBookWhisper, source, callBack);
+    }
+
     // TODO 启动多张压缩
 
     // 启动压缩

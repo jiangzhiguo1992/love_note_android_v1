@@ -64,9 +64,10 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
     private static final String FIELD_OSS_PATH_COUPLE_WALL = "pathCoupleWall";
+    private static final String FIELD_OSS_PATH_BOOK_WHISPER = "pathBookWhisper";
+    private static final String FIELD_OSS_PATH_BOOK_DIARY = "pathBookDiary";
     private static final String FIELD_OSS_PATH_BOOK_ALBUM = "pathBookAlbum";
     private static final String FIELD_OSS_PATH_BOOK_PICTURE = "pathBookPicture";
-    private static final String FIELD_OSS_PATH_BOOK_DIARY = "pathBookDiary";
     private static final String FIELD_OSS_PATH_BOOK_GIFT = "pathBookGift";
     private static final String FIELD_OSS_PATH_BOOK_AUDIO = "pathBookAudio";
     private static final String FIELD_OSS_PATH_BOOK_VIDEO = "pathBookVideo";
@@ -307,9 +308,10 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
         editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
+        editor.putString(FIELD_OSS_PATH_BOOK_WHISPER, ossInfo.getPathBookWhisper());
+        editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
         editor.putString(FIELD_OSS_PATH_BOOK_ALBUM, ossInfo.getPathBookAlbum());
         editor.putString(FIELD_OSS_PATH_BOOK_PICTURE, ossInfo.getPathBookPicture());
-        editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
         editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
         editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
         editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
@@ -333,9 +335,10 @@ public class SPHelper {
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
         ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
+        ossInfo.setPathBookWhisper(sp.getString(FIELD_OSS_PATH_BOOK_WHISPER, ""));
+        ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
         ossInfo.setPathBookAlbum(sp.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
         ossInfo.setPathBookPicture(sp.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
-        ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
         ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
         ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
         ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));

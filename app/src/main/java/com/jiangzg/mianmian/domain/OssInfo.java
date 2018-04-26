@@ -22,13 +22,22 @@ public class OssInfo {
     private String pathSuggest;
     private String pathCoupleAvatar;
     private String pathCoupleWall;
+    private String pathBookWhisper;
+    private String pathBookDiary;
     private String pathBookAlbum;
     private String pathBookPicture;
-    private String pathBookDiary;
     private String pathBookGift;
     private String pathBookAudio;
     private String pathBookVideo;
     private String pathBookThumb;
+
+    public String getPathBookWhisper() {
+        return pathBookWhisper;
+    }
+
+    public void setPathBookWhisper(String pathBookWhisper) {
+        this.pathBookWhisper = pathBookWhisper;
+    }
 
     public long getInterval() {
         return interval;
