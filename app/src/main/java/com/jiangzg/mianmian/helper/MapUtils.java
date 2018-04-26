@@ -1,4 +1,4 @@
-//package com.jiangzg.ita.helper.MapUtils;
+//package com.jiangzg.mianmian.helper;
 //
 //import android.content.Context;
 //import android.graphics.Color;
@@ -22,6 +22,7 @@
 //import com.amap.api.services.poisearch.PoiResult;
 //import com.amap.api.services.poisearch.PoiSearch;
 //import com.jiangzg.base.common.LogUtils;
+//import com.jiangzg.mianmian.base.MyApp;
 //
 //import java.util.ArrayList;
 //
@@ -139,25 +140,25 @@
 //            @Override
 //            public void onRegeocodeSearched(final RegeocodeResult result, final int rCode) {
 //                final int successCode = 1000; // 以后可能会变
-////                MyApp.get().getHandler().post(new Runnable() {
-////                    @Override
-////                    public void run() {
-////                        if (rCode == successCode && geocodeSearchCallBack != null) {
-////                            if (result != null && result.getRegeocodeAddress() != null) {
-////                                RegeocodeAddress regeocodeAddress = result.getRegeocodeAddress();
-////                                String city = regeocodeAddress.getCity();
-////                                String district = regeocodeAddress.getDistrict();
-////                                String province = regeocodeAddress.getProvince();
-////                                String adCode = regeocodeAddress.getAdCode();
-////                                String addressName = regeocodeAddress.getFormatAddress();
-////
-////                                geocodeSearchCallBack.onSuccess(regeocodeAddress);
-////                            } else {
-////                                geocodeSearchCallBack.onFailed();
-////                            }
-////                        }
-////                    }
-////                });
+//                MyApp.get().getHandler().post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        if (rCode == successCode && geocodeSearchCallBack != null) {
+//                            if (result != null && result.getRegeocodeAddress() != null) {
+//                                RegeocodeAddress regeocodeAddress = result.getRegeocodeAddress();
+//                                String city = regeocodeAddress.getCity();
+//                                String district = regeocodeAddress.getDistrict();
+//                                String province = regeocodeAddress.getProvince();
+//                                String adCode = regeocodeAddress.getAdCode();
+//                                String addressName = regeocodeAddress.getFormatAddress();
+//
+//                                geocodeSearchCallBack.onSuccess(regeocodeAddress);
+//                            } else {
+//                                geocodeSearchCallBack.onFailed();
+//                            }
+//                        }
+//                    }
+//                });
 //            }
 //
 //            @Override
@@ -220,15 +221,15 @@
 //                    //若当前城市查询不到所需Poi信息，可以通过result.getSearchSuggestionCitys()获取当前Poi搜索的建议城市
 //                    //如果搜索关键字明显为误输入，则可通过result.getSearchSuggestionKeywords()方法得到搜索关键词建议
 //                    final ArrayList<PoiItem> pois = poiResult.getPois();
-//                    LogUtils.d(pois.toString());
-////                    MyApp.get().getHandler().post(new Runnable() {
-////                        @Override
-////                        public void run() {
-////                            if (searchCallBack != null) {
-////                                searchCallBack.onSuccess(pois);
-////                            }
-////                        }
-////                    });
+//                    LogUtils.d("", pois.toString());
+//                    MyApp.get().getHandler().post(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (searchCallBack != null) {
+//                                searchCallBack.onSuccess(pois);
+//                            }
+//                        }
+//                    });
 //                }
 //            }
 //

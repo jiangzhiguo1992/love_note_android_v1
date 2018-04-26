@@ -1,10 +1,6 @@
 package com.jiangzg.mianmian.helper;
 
-import android.content.ContentResolver;
-import android.content.Intent;
 import android.content.res.Configuration;
-import android.net.Uri;
-import android.provider.MediaStore;
 
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
@@ -12,6 +8,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.view.GImageView;
 
@@ -98,15 +95,8 @@ public class ResHelper {
             public void run() {
                 LogUtils.i(LOG_TAG, "deleteFileInBackground: " + file.getAbsolutePath());
                 FileUtils.deleteFile(file);
-                // 多媒体文件删除操作
-                Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                ContentResolver mContentResolver = MyApp.get().getContentResolver();
-                String where = MediaStore.Images.Media.DATA + "='" + file.getAbsolutePath() + "'";
-                mContentResolver.delete(uri, where, null);
-                // 发送广播通知已删除，重新扫描
-                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                intent.setData(ConvertUtils.file2Uri(file));
-                MyApp.get().sendBroadcast(intent);
+                // 发送删除广播
+                BroadcastUtils.refreshMediaFile(file);
             }
         });
     }
@@ -120,15 +110,8 @@ public class ResHelper {
                     if (!FileUtils.isFileExists(file)) return;
                     LogUtils.i(LOG_TAG, "deleteFileListInBackground: " + file.getAbsolutePath());
                     FileUtils.deleteFile(file);
-                    // 多媒体文件删除操作
-                    Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                    ContentResolver mContentResolver = MyApp.get().getContentResolver();
-                    String where = MediaStore.Images.Media.DATA + "='" + file.getAbsolutePath() + "'";
-                    mContentResolver.delete(uri, where, null);
-                    // 发送广播通知已删除，重新扫描
-                    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                    intent.setData(ConvertUtils.file2Uri(file));
-                    MyApp.get().sendBroadcast(intent);
+                    // 发送删除广播
+                    BroadcastUtils.refreshMediaFile(file);
                 }
             }
         });

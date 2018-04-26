@@ -87,6 +87,7 @@ public class GImageView extends SimpleDraweeView {
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
                 .setDownsampleEnabled(true) // 向下采样
+                //.setBitmapsConfig(Bitmap.Config.RGB_565) // 减小内存占用
                 .build();
         // 开始初始化
         Fresco.initialize(app, config);
@@ -251,15 +252,7 @@ public class GImageView extends SimpleDraweeView {
         // 非全屏小尺寸加载
         if (!isNetFull) {
             if (mWidth <= 0 || mHeight <= 0) {
-                mWidth = getMeasuredWidth();
-                mHeight = getMeasuredHeight();
-                if (mWidth <= 0 || mHeight <= 0) {
-                    ViewGroup.LayoutParams params = getLayoutParams();
-                    if (params != null) {
-                        mWidth = params.width;
-                        mHeight = params.height;
-                    }
-                }
+                getWidthAndHeight();
             }
             if (mWidth > 0 && mHeight > 0) {
                 requestBuilder.setResizeOptions(new ResizeOptions(mWidth, mHeight));
@@ -268,6 +261,18 @@ public class GImageView extends SimpleDraweeView {
             }
         }
         return requestBuilder.build();
+    }
+
+    private void getWidthAndHeight() {
+        mWidth = getWidth();
+        mHeight = getHeight();
+        if (mWidth <= 0 || mHeight <= 0) {
+            ViewGroup.LayoutParams params = getLayoutParams();
+            if (params != null) {
+                mWidth = params.width;
+                mHeight = params.height;
+            }
+        }
     }
 
     public interface onSuccessClickListener {

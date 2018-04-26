@@ -107,7 +107,7 @@ public class OssHelper {
         void failure(String ossPath);
     }
 
-    // 墙纸 (裁剪) TODO 图片裁剪会压缩？
+    // 墙纸 (裁剪)
     public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
         // ossPath
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -154,7 +154,6 @@ public class OssHelper {
     // 启动压缩
     private static void compressJpeg(final Activity activity, final String ossDirPath,
                                      final File source, final OssUploadCallBack callBack) {
-
         // file
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
