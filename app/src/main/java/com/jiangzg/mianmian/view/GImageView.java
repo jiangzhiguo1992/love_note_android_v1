@@ -20,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.cache.disk.FileCache;
@@ -111,7 +112,9 @@ public class GImageView extends SimpleDraweeView {
     }
 
     private int mWidth, mHeight;
-    private boolean isNetCircle, isNetFull, isNetNormal;
+    private boolean isNetCircle = false;
+    private boolean isNetFull = false;
+    private boolean isNetNormal = false;
     private onSuccessClickListener mSuccessClickListener;
 
     public GImageView(Context context, GenericDraweeHierarchy hierarchy) {
@@ -247,12 +250,16 @@ public class GImageView extends SimpleDraweeView {
                 .setRotationOptions(RotationOptions.autoRotate());
         // 非全屏小尺寸加载
         if (!isNetFull) {
-            // TODO ListView不执行
-            if (mWidth <= 0) {
+            if (mWidth <= 0 || mHeight <= 0) {
                 mWidth = getMeasuredWidth();
-            }
-            if (mHeight <= 0) {
                 mHeight = getMeasuredHeight();
+                if (mWidth <= 0 || mHeight <= 0) {
+                    ViewGroup.LayoutParams params = getLayoutParams();
+                    if (params != null) {
+                        mWidth = params.width;
+                        mHeight = params.height;
+                    }
+                }
             }
             if (mWidth > 0 && mHeight > 0) {
                 requestBuilder.setResizeOptions(new ResizeOptions(mWidth, mHeight));
