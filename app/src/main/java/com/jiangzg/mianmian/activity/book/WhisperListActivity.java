@@ -246,6 +246,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .content(currentChannel)
+                .inputRange(1, limitContent)
                 .input(hint, "", false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
