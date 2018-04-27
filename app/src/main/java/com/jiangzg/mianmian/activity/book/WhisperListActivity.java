@@ -25,6 +25,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.adapter.WhisperAdapter;
@@ -190,6 +191,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void getData(final boolean more) {
+        InputUtils.hideSoftInput(etChannel);
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -271,6 +273,11 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 图片获取
     private void showSelectImgPop() {
+        int imageCount = SPHelper.getVipLimit().getBookWhisperImageCount();
+        if (imageCount <= 0) {
+            ToastUtils.show(getString(R.string.now_status_cant_upload_img));
+            return;
+        }
         final String channel = etChannel.getText().toString().trim();
         String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
         cameraFile = ResHelper.newImageOutCache();

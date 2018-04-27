@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_gradient_primary_light"
     tools:context="com.jiangzg.mianmian.activity.WelcomeActivity">
 
-    <ImageView
+    <com.jiangzg.mianmian.view.GImageView
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        app:actualImageScaleType="centerCrop"
+        app:placeholderImage="@drawable/shape_gradient_primary_light"/>
 
     <TextView
         android:id="@+id/tvOnline"

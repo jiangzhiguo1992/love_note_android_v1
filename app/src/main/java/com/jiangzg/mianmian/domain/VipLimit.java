@@ -12,14 +12,23 @@ public class VipLimit {
     private boolean coupleEntryTraceEnable;
     private boolean coupleTopicTraceEnable;
 
-    private int bookPictureCount;
     private int bookDiaryImageCount;
+    private int bookWhisperImageCount;
+    private int bookPictureCount;
     private int bookGiftImageCount;
     private int bookMeetImageCount;
     private long bookAudioTotalSize;
     private long bookVideoTotalSize;
 
     private boolean topicImageEnable;
+
+    public int getBookWhisperImageCount() {
+        return bookWhisperImageCount;
+    }
+
+    public void setBookWhisperImageCount(int bookWhisperImageCount) {
+        this.bookWhisperImageCount = bookWhisperImageCount;
+    }
 
     public long getExpireAt() {
         return expireAt;

@@ -2,15 +2,11 @@ package com.jiangzg.mianmian.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
@@ -22,8 +18,8 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
-import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.view.GImageView;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -37,7 +33,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
 
     @BindView(R.id.ivBg)
-    ImageView ivBg;
+    GImageView ivBg;
 
     @Override
     protected int getView(Intent intent) {

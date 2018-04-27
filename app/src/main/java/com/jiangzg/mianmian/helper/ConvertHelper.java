@@ -24,6 +24,11 @@ import java.util.Locale;
  */
 public class ConvertHelper {
 
+    public static File getWallPaperFile(String ossKey) {
+        // TODO
+        return null;
+    }
+
     // url转oss路径
     public static String getOssPathByUrl(String url) {
         if (StringUtils.isEmpty(url)) {

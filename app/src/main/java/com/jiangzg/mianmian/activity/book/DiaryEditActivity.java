@@ -255,7 +255,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
             PopUtils.show(popupWindow, root);
         } else {
-            ToastUtils.show(getString(R.string.now_cant_upload_img));
+            ToastUtils.show(getString(R.string.now_status_cant_upload_img));
         }
     }
 

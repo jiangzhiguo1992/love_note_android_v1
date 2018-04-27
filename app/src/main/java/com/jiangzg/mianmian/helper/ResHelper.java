@@ -10,6 +10,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.mianmian.base.MyApp;
+import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.io.File;
@@ -141,6 +142,11 @@ public class ResHelper {
         FileUtils.createFileByDeleteOldFile(file);
         LogUtils.i(LOG_TAG, "createApkFile: " + file.getAbsolutePath());
         return file;
+    }
+
+    public static void refreshWallPaper(WallPaper wallPaper) {
+        SPHelper.setWallPaper(wallPaper);
+        // TODO
     }
 
 }

@@ -59,6 +59,7 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -67,6 +68,7 @@ import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -393,8 +395,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
-        // 本地缓存
-        SPHelper.setWallPaper(wallPaper);
+        // 本地文件刷新
+        ResHelper.refreshWallPaper(wallPaper);
         // 清除view
         vfWallPaper.removeAllViews();
         // 无图显示
@@ -403,21 +405,31 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             return;
         }
         tvAddWallPaper.setVisibility(View.GONE);
-        // TODO 加载缓存
         // 单图显示
         List<String> imageList = wallPaper.getImageList();
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
-            image.setDataOss(imageList.get(0));
+            String ossKey = imageList.get(0);
+            if (CheckHelper.isWallPaperExists(ossKey)) {
+                File file = ConvertHelper.getWallPaperFile(ossKey);
+                image.setDataFile(file);
+            } else {
+                image.setDataOss(ossKey);
+            }
             vfWallPaper.addView(image);
             vfWallPaper.setAutoStart(false);
             vfWallPaper.stopFlipping();
             return;
         }
         // 多图显示
-        for (String ossPath : imageList) {
+        for (String ossKey : imageList) {
             GImageView image = getViewFlipperImage();
-            image.setDataOss(ossPath);
+            if (CheckHelper.isWallPaperExists(ossKey)) {
+                File file = ConvertHelper.getWallPaperFile(ossKey);
+                image.setDataFile(file);
+            } else {
+                image.setDataOss(ossKey);
+            }
             vfWallPaper.addView(image);
         }
         // anim
