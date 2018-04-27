@@ -43,7 +43,6 @@ public class DialogHelper {
                 .buttonsGravity(GravityEnum.START);
     }
 
-
     public static void showWithAnim(Dialog dialog) {
         setAnim(dialog);
         DialogUtils.show(dialog);

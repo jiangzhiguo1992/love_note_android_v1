@@ -50,7 +50,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
         String content = item.getContent();
         // view
         GImageView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setDataOss(avatar);
+        ivAvatar.setDateAvatar(avatar);
         helper.setText(R.id.tvCreateAt, createAt);
         helper.setText(R.id.tvContent, content);
     }

@@ -19,8 +19,8 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
-import com.jiangzg.mianmian.helper.WallPaperHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.io.File;
@@ -48,7 +48,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        File wallPaper = WallPaperHelper.getWallPaperRandom();
+        File wallPaper = ResHelper.getWallPaperRandom();
         if (!FileUtils.isFileEmpty(wallPaper)) {
             ivBg.setDataFile(wallPaper);
         }

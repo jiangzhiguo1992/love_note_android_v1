@@ -286,8 +286,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String inviteeName = couple.getInviteeName();
         boolean breaking = CheckHelper.isCoupleBreaking(couple);
         // view
-        ivAvatarLeft.setDataOss(creatorAvatar);
-        ivAvatarRight.setDataOss(inviteeAvatar);
+        ivAvatarLeft.setDateAvatar(creatorAvatar);
+        ivAvatarRight.setDateAvatar(inviteeAvatar);
         tvNameLeft.setText(creatorName);
         tvNameRight.setText(inviteeName);
         if (isCreator) {

@@ -47,10 +47,12 @@ import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
+import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
@@ -295,6 +297,32 @@ public class GImageView extends SimpleDraweeView {
     public void setWidthAndHeight(int width, int height) {
         mWidth = width;
         mHeight = height;
+    }
+
+    public void setDateAvatar(String ossKey) {
+        if (CheckHelper.isAvatarExists(ossKey)) {
+            File file = ResHelper.newAvatarFile(ossKey);
+            if (!FileUtils.isFileEmpty(file)) {
+                this.setDataFile(file);
+            } else {
+                this.setDataOss(ossKey);
+            }
+        } else {
+            this.setDataOss(ossKey);
+        }
+    }
+
+    public void setDateWallPaper(String ossKey) {
+        if (CheckHelper.isWallPaperExists(ossKey)) {
+            File file = ResHelper.newWallPaperFile(ossKey);
+            if (!FileUtils.isFileEmpty(file)) {
+                this.setDataFile(file);
+            } else {
+                this.setDataOss(ossKey);
+            }
+        } else {
+            this.setDataOss(ossKey);
+        }
     }
 
     // http:// https:// 需要现场获取oss的url

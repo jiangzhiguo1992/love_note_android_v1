@@ -159,9 +159,15 @@ public class OssHelper {
         downloadObject(progress, objectKey, target, callBack);
     }
 
+    // 头像
+    public static void downloadAvatar(String objectKey) {
+        File file = ResHelper.newAvatarFile(objectKey);
+        downloadObject(null, objectKey, file, null);
+    }
+
     // 墙纸
     public static void downloadWall(String objectKey) {
-        File file = WallPaperHelper.newWallPaperFile(objectKey);
+        File file = ResHelper.newWallPaperFile(objectKey);
         downloadObject(null, objectKey, file, null);
     }
 

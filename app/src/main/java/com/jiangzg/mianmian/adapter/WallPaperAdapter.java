@@ -16,11 +16,12 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
-import com.jiangzg.mianmian.helper.WallPaperHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.io.File;
@@ -56,16 +57,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         ivWallPaper.setAspectRatio(ratio);
         ivWallPaper.setWidthAndHeight(imageWidth, imageHeight);
         // 优先加载本地文件
-        if (WallPaperHelper.isWallPaperExists(item)) {
-            File file = WallPaperHelper.newWallPaperFile(item);
-            if (!FileUtils.isFileEmpty(file)) {
-                ivWallPaper.setDataFile(file);
-            } else {
-                ivWallPaper.setDataOss(item);
-            }
-        } else {
-            ivWallPaper.setDataOss(item);
-        }
+        ivWallPaper.setDateWallPaper(item);
         ivWallPaper.setSuccessClickListener(new GImageView.onSuccessClickListener() {
             @Override
             public void onClick(GImageView iv) {

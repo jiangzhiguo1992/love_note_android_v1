@@ -227,6 +227,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                SPHelper.setWallPaper(data.getWallPaper());
                 viewRefresh(data);
                 // event
                 RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());

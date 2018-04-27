@@ -23,7 +23,6 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -56,16 +55,18 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
+import com.jiangzg.mianmian.helper.OssHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.helper.WallPaperHelper;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -138,7 +139,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     private Observable<WallPaper> obWallPaper;
     private Observable<Couple> obCoupleRefresh;
     private Observable<LocationInfo> obLocationRefresh;
-    private WallPaper wallPaper;
     private Place myPlace;
     private Place taPlace;
 
@@ -178,7 +178,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         obWallPaper = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
             @Override
             public void call(WallPaper wallPaper) {
-                WeFragment.this.wallPaper = wallPaper;
                 refreshWallPaperView();
             }
         });
@@ -344,9 +343,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                User user = data.getUser();
-                SPHelper.setUser(user);
-                wallPaper = data.getWallPaper();
+                SPHelper.setUser(data.getUser());
+                SPHelper.setWallPaper(data.getWallPaper());
                 myPlace = data.getMyPlace();
                 taPlace = data.getTaPlace();
                 refreshView();
@@ -415,13 +413,15 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 // 开始墙纸动画
                 refreshWallPaperView();
             }
+            // 本地文件刷新
+            refreshAvatarRes();
             // 头像 + 名称
             String creatorAvatar = couple.getCreatorAvatar();
             String inviteeAvatar = couple.getInviteeAvatar();
             String creatorName = couple.getCreatorName();
             String inviteeName = couple.getInviteeName();
-            ivAvatarLeft.setDataOss(creatorAvatar);
-            ivAvatarRight.setDataOss(inviteeAvatar);
+            ivAvatarLeft.setDateAvatar(creatorAvatar);
+            ivAvatarRight.setDateAvatar(inviteeAvatar);
             tvNameLeft.setText(creatorName);
             tvNameRight.setText(inviteeName);
             refreshPlaceView();
@@ -432,9 +432,10 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     // 墙纸
     private void refreshWallPaperView() {
         // 本地文件刷新
-        WallPaperHelper.refreshWallPaper(wallPaper);
+        refreshWallPaperRes();
         // 清除view
         vfWallPaper.removeAllViews();
+        WallPaper wallPaper = SPHelper.getWallPaper();
         // 无图显示
         if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {
             tvAddWallPaper.setVisibility(View.VISIBLE);
@@ -446,17 +447,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);
-            // 优先加载本地文件
-            if (WallPaperHelper.isWallPaperExists(ossKey)) {
-                File file = WallPaperHelper.newWallPaperFile(ossKey);
-                if (!FileUtils.isFileEmpty(file)) {
-                    image.setDataFile(file);
-                } else {
-                    image.setDataOss(ossKey);
-                }
-            } else {
-                image.setDataOss(ossKey);
-            }
+            image.setDateWallPaper(ossKey);
             vfWallPaper.addView(image);
             vfWallPaper.setAutoStart(false);
             vfWallPaper.stopFlipping();
@@ -465,17 +456,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         // 多图显示
         for (String ossKey : imageList) {
             GImageView image = getViewFlipperImage();
-            // 优先加载本地文件
-            if (WallPaperHelper.isWallPaperExists(ossKey)) {
-                File file = WallPaperHelper.newWallPaperFile(ossKey);
-                if (!FileUtils.isFileEmpty(file)) {
-                    image.setDataFile(file);
-                } else {
-                    image.setDataOss(ossKey);
-                }
-            } else {
-                image.setDataOss(ossKey);
-            }
+            image.setDateWallPaper(ossKey);
             vfWallPaper.addView(image);
         }
         // anim
@@ -652,6 +633,129 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             MyApp.get().getHandler().removeCallbacks(coupleCountDownTask);
             coupleCountDownTask = null;
         }
+    }
+
+    // 刷新本地的avatar
+    private void refreshAvatarRes() {
+        final Couple couple = SPHelper.getCouple();
+        String creatorAvatar = couple.getCreatorAvatar();
+        String inviteeAvatar = couple.getInviteeAvatar();
+        final List<String> imageList = new ArrayList<>();
+        imageList.add(creatorAvatar);
+        imageList.add(inviteeAvatar);
+        // file 开线程
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                // 删旧的
+                List<File> fileList = ResHelper.getAvatarDirFiles();
+                if (fileList != null && fileList.size() > 0) {
+                    // 本地有avatar的文件
+                    for (File file : fileList) {
+                        // 文件不存在则直接检查下一个文件
+                        if (file == null) continue;
+                        boolean find = false;
+                        // 检查是不是oss里对应的文件
+                        for (String ossKey : imageList) {
+                            String name = ConvertHelper.getNameByOssPath(ossKey);
+                            if (file.getName().trim().equals(name)) {
+                                // 是对应的文件，直接检查下一个文件
+                                find = true;
+                                break;
+                            }
+                        }
+                        // 都检查完了，不是对应的文件则删除
+                        if (!find) {
+                            LogUtils.w(LOG_TAG, "refreshAvatarRes: 删除了不匹配的avatar文件 == " + file.getAbsolutePath());
+                            ResHelper.deleteFileInBackground(file);
+                        } else {
+                            LogUtils.i(LOG_TAG, "refreshAvatarRes: 发现了匹配的avatar文件 == " + file.getAbsolutePath());
+                        }
+                    }
+                } else {
+                    LogUtils.w(LOG_TAG, "refreshAvatarRes: 没有发现avatar的存储目录");
+                }
+                // 加新的
+                List<File> newFileList = ResHelper.getAvatarDirFiles();
+                for (String ossKey : imageList) {
+                    if (newFileList != null && newFileList.size() > 0) {
+                        // 本地有信息，则检查是都已下载
+                        boolean find = CheckHelper.isAvatarExists(ossKey);
+                        // 都检查完了，没下载过的直接下载
+                        if (!find) {
+                            LogUtils.w(LOG_TAG, "refreshAvatarRes: 没发现匹配的oss对象 == " + ossKey);
+                            OssHelper.downloadAvatar(ossKey);
+                        } else {
+                            LogUtils.i(LOG_TAG, "refreshAvatarRes: 发现了匹配的oss对象 == " + ossKey);
+                        }
+                    } else {
+                        // 本地无信息，则直接下载
+                        LogUtils.w(LOG_TAG, "refreshAvatarRes: 没有发现avatar的新的存储目录");
+                        OssHelper.downloadAvatar(ossKey);
+                    }
+                }
+            }
+        });
+    }
+
+    // 刷新本地的wp
+    private void refreshWallPaperRes() {
+        WallPaper wallPaper = SPHelper.getWallPaper();
+        final List<String> imageList = wallPaper.getImageList();
+        if (imageList == null || imageList.size() <= 0) return;
+        // file 开线程
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                // 删旧的
+                List<File> fileList = ResHelper.getWallPaperDirFiles();
+                if (fileList != null && fileList.size() > 0) {
+                    // 本地有wp的文件
+                    for (File file : fileList) {
+                        // 文件不存在则直接检查下一个文件
+                        if (file == null) continue;
+                        boolean find = false;
+                        // 检查是不是oss里对应的文件
+                        for (String ossKey : imageList) {
+                            String name = ConvertHelper.getNameByOssPath(ossKey);
+                            if (file.getName().trim().equals(name)) {
+                                // 是对应的文件，直接检查下一个文件
+                                find = true;
+                                break;
+                            }
+                        }
+                        // 都检查完了，不是对应的文件则删除
+                        if (!find) {
+                            LogUtils.w(LOG_TAG, "refreshWallPaperRes: 删除了不匹配的wp文件 == " + file.getAbsolutePath());
+                            ResHelper.deleteFileInBackground(file);
+                        } else {
+                            LogUtils.i(LOG_TAG, "refreshWallPaperRes: 发现了匹配的wp文件 == " + file.getAbsolutePath());
+                        }
+                    }
+                } else {
+                    LogUtils.w(LOG_TAG, "refreshWallPaperRes: 没有发现WallPaper的存储目录");
+                }
+                // 加新的
+                List<File> newFileList = ResHelper.getWallPaperDirFiles();
+                for (String ossKey : imageList) {
+                    if (newFileList != null && newFileList.size() > 0) {
+                        // 本地有信息，则检查是都已下载
+                        boolean find = CheckHelper.isWallPaperExists(ossKey);
+                        // 都检查完了，没下载过的直接下载
+                        if (!find) {
+                            LogUtils.w(LOG_TAG, "refreshWallPaperRes: 没发现匹配的oss对象 == " + ossKey);
+                            OssHelper.downloadWall(ossKey);
+                        } else {
+                            LogUtils.i(LOG_TAG, "refreshWallPaperRes: 发现了匹配的oss对象 == " + ossKey);
+                        }
+                    } else {
+                        // 本地无信息，则直接下载
+                        LogUtils.w(LOG_TAG, "refreshWallPaperRes: 没有发现WallPaper的新的存储目录");
+                        OssHelper.downloadWall(ossKey);
+                    }
+                }
+            }
+        });
     }
 
 }
