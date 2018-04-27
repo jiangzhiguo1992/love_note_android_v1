@@ -47,12 +47,14 @@ public class WallPaperHelper {
                         }
                         // 都检查完了，不是对应的文件则删除
                         if (!find) {
-                            LogUtils.i(LOG_TAG, "refreshWallPaper: 删除了不匹配的wp文件 == " + file.getAbsolutePath());
+                            LogUtils.w(LOG_TAG, "refreshWallPaper: 删除了不匹配的wp文件 == " + file.getAbsolutePath());
                             ResHelper.deleteFileInBackground(file);
                         } else {
                             LogUtils.i(LOG_TAG, "refreshWallPaper: 发现了匹配的wp文件 == " + file.getAbsolutePath());
                         }
                     }
+                } else {
+                    LogUtils.w(LOG_TAG, "refreshWallPaper: 没有发现WallPaper的存储目录");
                 }
                 // 加新的
                 List<File> newFileList = getWallPaperDirFiles();
@@ -62,14 +64,14 @@ public class WallPaperHelper {
                         boolean find = isWallPaperExists(ossKey);
                         // 都检查完了，没下载过的直接下载
                         if (!find) {
-                            LogUtils.i(LOG_TAG, "refreshWallPaper: 没发现匹配的oss对象 == " + ossKey);
+                            LogUtils.w(LOG_TAG, "refreshWallPaper: 没发现匹配的oss对象 == " + ossKey);
                             OssHelper.downloadWall(ossKey, null);
                         } else {
                             LogUtils.i(LOG_TAG, "refreshWallPaper: 发现了匹配的oss对象 == " + ossKey);
                         }
                     } else {
                         // 本地无信息，则直接下载
-                        LogUtils.i(LOG_TAG, "refreshWallPaper: 没有发现WallPaper的存储目录");
+                        LogUtils.w(LOG_TAG, "refreshWallPaper: 没有发现WallPaper的新的存储目录");
                         OssHelper.downloadWall(ossKey, null);
                     }
                 }
@@ -80,7 +82,10 @@ public class WallPaperHelper {
     // 获取wp的本地文件
     public static File newWallPaperFile(String ossKey) {
         String name = ConvertHelper.getNameByOssPath(ossKey);
-        if (StringUtils.isEmpty(name)) return null;
+        if (StringUtils.isEmpty(name)) {
+            LogUtils.w(LOG_TAG, "newWallPaperFile: name == null");
+            return null;
+        }
         return new File(ResHelper.getWallPaperDir(), name);
     }
 
@@ -93,7 +98,10 @@ public class WallPaperHelper {
     // 获取随机的wp
     public static File getWallPaperRandom() {
         List<File> fileList = getWallPaperDirFiles();
-        if (fileList == null || fileList.size() <= 0) return null;
+        if (fileList == null || fileList.size() <= 0) {
+            LogUtils.i(LOG_TAG, "getWallPaperRandom: 没有发现WallPaper的存储目录");
+            return null;
+        }
         Random random = new Random();
         int nextInt = random.nextInt(fileList.size());
         return fileList.get(nextInt);
@@ -105,7 +113,10 @@ public class WallPaperHelper {
         List<File> fileList = getWallPaperDirFiles();
         for (File file : fileList) {
             // 文件不存在则直接检查下一个文件
-            if (file == null) continue;
+            if (file == null) {
+                LogUtils.i(LOG_TAG, "isWallPaperExists: file == null");
+                continue;
+            }
             // 检查本地是不是已下载
             String name = ConvertHelper.getNameByOssPath(ossKey);
             if (file.getName().trim().equals(name)) {
