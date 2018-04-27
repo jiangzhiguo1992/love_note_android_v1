@@ -151,6 +151,10 @@ public interface API {
     Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
                            @Query("cid") long cid, @Query("uid") long uid);
 
+    // cp首页
+    @POST("couple/home")
+    Call<Result> coupleHomeGet(@Body Place place);
+
     // 添加墙纸
     @POST("couple/wallPaper")
     Call<Result> coupleWallPaperUpdate(@Body WallPaper wallPaper);
@@ -159,9 +163,9 @@ public interface API {
     @GET("couple/wallPaper")
     Call<Result> coupleWallPaperGet();
 
-    // cp首页
-    @POST("couple/home")
-    Call<Result> coupleHomeGet(@Body Place place);
+    // 推送位置
+    @POST("couple/place")
+    Call<Result> couplePlacePush(@Body Place place);
 
     // diaryList获取
     @GET("book/diary?did=0&list=1")

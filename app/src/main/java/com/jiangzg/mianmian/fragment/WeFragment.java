@@ -24,6 +24,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
@@ -170,6 +171,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                // 第一次进来不要地理位置，entry已经拿过了
+                refreshPlaceDate();
                 refreshData();
             }
         });
@@ -334,7 +337,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // 刷新的时候再把自己的位置推送上去 TODO 本地存储的位置刷新机制？
+        // 刷新的时候再把自己的位置推送上去
         Place body = ApiHelper.getPlaceBody();
         Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet(body);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -352,6 +355,38 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             @Override
             public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
+            }
+        });
+    }
+
+    // 获取自己的位置并上传
+    private void refreshPlaceDate() {
+        boolean permissionOK = PermUtils.isPermissionOK(mActivity, PermUtils.location);
+        if (!permissionOK) return;
+        LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
+            @Override
+            public void onSuccess(LocationInfo info) {
+                Place body = ApiHelper.getPlaceBody();
+                Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet(body);
+                RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+                    @Override
+                    public void onResponse(int code, String message, Result.Data data) {
+                        LogUtils.i(LOG_TAG, "地理位置刷新");
+                        myPlace = data.getMyPlace();
+                        taPlace = data.getTaPlace();
+                        refreshPlaceView();
+                    }
+
+                    @Override
+                    public void onFailure(String errMsg) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String errMsg) {
+                LogUtils.w(LOG_TAG, "不能获取地理位置");
+                // 8.0 一个小时只允许获取几次地理位置
             }
         });
     }
