@@ -10,7 +10,6 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.mianmian.base.MyApp;
-import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.io.File;
@@ -126,9 +125,9 @@ public class ResHelper {
     }
 
     public static File getImgCacheDir() {
-        File file = new File(AppInfo.get().getOutCacheDir(), "image");
-        FileUtils.createOrExistsDir(file);
-        return file;
+        File dir = new File(AppInfo.get().getOutCacheDir(), "image");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
     }
 
     public static File getFrescoCacheDir() {
@@ -137,16 +136,17 @@ public class ResHelper {
         return file;
     }
 
+    public static File getWallPaperDir() {
+        File dir = new File(AppInfo.get().getOutFilesDir(), "wallpaper");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
+    }
+
     public static File createApkFile(String fileName) {
         File file = new File(AppInfo.get().getOutCacheDir() + File.separator + "apk", fileName);
         FileUtils.createFileByDeleteOldFile(file);
         LogUtils.i(LOG_TAG, "createApkFile: " + file.getAbsolutePath());
         return file;
-    }
-
-    public static void refreshWallPaper(WallPaper wallPaper) {
-        SPHelper.setWallPaper(wallPaper);
-        // TODO
     }
 
 }

@@ -23,6 +23,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
@@ -59,11 +60,11 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
-import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
+import com.jiangzg.mianmian.helper.WallPaperHelper;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -396,7 +397,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     // 墙纸
     private void refreshWallPaperView() {
         // 本地文件刷新
-        ResHelper.refreshWallPaper(wallPaper);
+        WallPaperHelper.refreshWallPaper(wallPaper);
         // 清除view
         vfWallPaper.removeAllViews();
         // 无图显示
@@ -410,9 +411,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);
-            if (CheckHelper.isWallPaperExists(ossKey)) {
-                File file = ConvertHelper.getWallPaperFile(ossKey);
-                image.setDataFile(file);
+            if (WallPaperHelper.isWallPaperExists(ossKey)) {
+                File file = WallPaperHelper.newWallPaperFile(ossKey);
+                if (!FileUtils.isFileEmpty(file)) {
+                    image.setDataFile(file);
+                } else {
+                    image.setDataOss(ossKey);
+                }
             } else {
                 image.setDataOss(ossKey);
             }
@@ -424,9 +429,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         // 多图显示
         for (String ossKey : imageList) {
             GImageView image = getViewFlipperImage();
-            if (CheckHelper.isWallPaperExists(ossKey)) {
-                File file = ConvertHelper.getWallPaperFile(ossKey);
-                image.setDataFile(file);
+            if (WallPaperHelper.isWallPaperExists(ossKey)) {
+                File file = WallPaperHelper.newWallPaperFile(ossKey);
+                if (!FileUtils.isFileEmpty(file)) {
+                    image.setDataFile(file);
+                } else {
+                    image.setDataOss(ossKey);
+                }
             } else {
                 image.setDataOss(ossKey);
             }

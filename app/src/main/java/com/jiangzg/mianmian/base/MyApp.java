@@ -30,11 +30,12 @@ public class MyApp extends AppBase {
     @Override
     public void onCreate() {
         super.onCreate();
+        // 自己的
         LogUtils.initApp(DEBUG);
         AppListener.initApp(this);
         ActivityStack.initApp();
         ResHelper.initApp();
-
+        // 三方的
         ButterKnife.setDebug(DEBUG);
         GImageView.init(this, DEBUG);
         //AnalyUtils.initApp();

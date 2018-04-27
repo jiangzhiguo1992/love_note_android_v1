@@ -145,12 +145,23 @@ public class OssHelper {
 
     // apk
     public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
-        downloadObject(activity, objectKey, target, callBack);
+        MaterialDialog progress = null;
+        if (activity != null) {
+            progress = DialogHelper.getBuild(activity)
+                    .cancelable(false)
+                    .canceledOnTouchOutside(false)
+                    .content(R.string.are_download)
+                    .progress(false, 100)
+                    .negativeText(R.string.cancel_download)
+                    .build();
+        }
+        downloadObject(progress, objectKey, target, callBack);
     }
 
-    // TODO 墙纸
-    public static void downloadWall() {
-
+    // 墙纸
+    public static void downloadWall(String objectKey, OssDownloadCallBack callBack) {
+        File file = WallPaperHelper.newWallPaperFile(objectKey);
+        downloadObject(null, objectKey, file, callBack);
     }
 
     // TODO 全屏图
@@ -372,6 +383,7 @@ public class OssHelper {
         // currentIndex
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "compressJpegs: currentIndex == " + currentIndex + " -- sourceList == null");
             MyApp.get().getHandler().post(new Runnable() {
                 @Override
@@ -384,6 +396,7 @@ public class OssHelper {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "compressJpegs: currentIndex == " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
@@ -400,6 +413,7 @@ public class OssHelper {
         final File source = sourceList.get(currentIndex);
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "compressJpegs: currentIndex == " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
@@ -496,6 +510,7 @@ public class OssHelper {
         // currentIndex
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "uploadObjects: currentIndex == " + currentIndex + " -- sourceList == null");
             MyApp.get().getHandler().post(new Runnable() {
                 @Override
@@ -508,6 +523,7 @@ public class OssHelper {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "uploadObjects: currentIndex == " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
@@ -524,6 +540,7 @@ public class OssHelper {
         final File source = sourceList.get(currentIndex);
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "uploadObjects: currentIndex == " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
@@ -628,14 +645,26 @@ public class OssHelper {
         return task;
     }
 
+    // 给后台看的 所以用CST时区
+    private static String getObjectKey(String dir, String suffix) {
+        return dir + DateUtils.getCurrentCSTString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
+    }
+
     /**
      * *****************************************下载*****************************************
      */
     // 下载任务
-    public static OSSAsyncTask downloadObject(Activity activity, final String objectKey, final File target, final OssDownloadCallBack callBack) {
+    public static OSSAsyncTask downloadObject(final String objectKey, final File target, final OssDownloadCallBack callBack) {
+        return downloadObject(null, objectKey, target, callBack);
+    }
+
+    // 下载任务
+    public static OSSAsyncTask downloadObject(final MaterialDialog progress, final String objectKey, final File target, final OssDownloadCallBack callBack) {
         LogUtils.i(LOG_TAG, "downloadObject: objectKey == " + objectKey);
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
+            // dialog
+            DialogHelper.dismiss(progress);
             LogUtils.w(LOG_TAG, "downloadObject: objectKey == null");
             // 删除下载文件
             ResHelper.deleteFileInBackground(target);
@@ -652,17 +681,26 @@ public class OssHelper {
             return null;
         }
         // file
+        if (target == null) {
+            // dialog
+            DialogHelper.dismiss(progress);
+            LogUtils.w(LOG_TAG, "downloadObject: target == null");
+            ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(objectKey);
+                    }
+                });
+            }
+            return null;
+        }
         if (!FileUtils.isFileExists(target)) {
             FileUtils.createFileByDeleteOldFile(target);
         }
         // dialog
-        final MaterialDialog progress = DialogHelper.getBuild(activity)
-                .cancelable(false)
-                .canceledOnTouchOutside(false)
-                .content(R.string.are_download)
-                .progress(false, 100)
-                .negativeText(R.string.cancel_download)
-                .build();
         DialogHelper.showWithAnim(progress);
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
@@ -772,8 +810,4 @@ public class OssHelper {
         }
     }
 
-    // 给后台看的 所以用CST时区
-    private static String getObjectKey(String dir, String suffix) {
-        return dir + DateUtils.getCurrentCSTString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
-    }
 }

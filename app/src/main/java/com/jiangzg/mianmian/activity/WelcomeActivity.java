@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
@@ -19,7 +20,10 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.WallPaperHelper;
 import com.jiangzg.mianmian.view.GImageView;
+
+import java.io.File;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -44,8 +48,10 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        // TODO 开屏页本地获取并加载
-        //ivBg.setImageResource();
+        File wallPaper = WallPaperHelper.getWallPaperRandom();
+        if (!FileUtils.isFileEmpty(wallPaper)) {
+            ivBg.setDataFile(wallPaper);
+        }
         startAnim();
     }
 

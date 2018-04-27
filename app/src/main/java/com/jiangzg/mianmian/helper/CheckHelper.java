@@ -62,9 +62,4 @@ public class CheckHelper {
         return !CheckHelper.isNullCouple(couple) && couple.getCreatorId() == uid;
     }
 
-    public static boolean isWallPaperExists(String ossKey) {
-        // TODO
-        return false;
-    }
-
 }
