@@ -14,13 +14,13 @@ import java.util.List;
  * Created by Fan-pc on 2015/11/13.
  * describe json工具类
  */
-public class GsonUtils {
+public class GsonHelper {
 
     private static Gson instance;
 
     public static Gson get() {
         if (instance == null) {
-            synchronized (GsonUtils.class) {
+            synchronized (GsonHelper.class) {
                 if (instance == null) {
                     instance = new GsonBuilder()
                             // 配置

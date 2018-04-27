@@ -197,7 +197,7 @@ public class RetrofitHelper {
                 body.setCode(Result.ResultCodeToast);
                 body.setMessage(MyApp.get().getString(R.string.err_data_null));
             } else if (errorStr.startsWith("{")) {
-                body = GsonUtils.get().fromJson(errorStr, Result.class);
+                body = GsonHelper.get().fromJson(errorStr, Result.class);
             } else {
                 body = new Result();
                 body.setCode(Result.ResultCodeToast);

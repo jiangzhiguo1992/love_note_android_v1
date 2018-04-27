@@ -11,6 +11,7 @@ import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.VipLimit;
+import com.jiangzg.mianmian.domain.WallPaper;
 
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ public class SPHelper {
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
+    private static final String SHARE_WALL_PAPER = "shareWallPaper";
     private static final String SHARE_LIMIT = "shareLimit";
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
@@ -48,14 +50,16 @@ public class SPHelper {
     private static final String FIELD_CP_INVITEE_ID = "inviteeId";
     private static final String FIELD_CP_INVITEE_NAME = "inviteeName";
     private static final String FIELD_CP_INVITEE_AVATAR = "inviteeAvatar";
+    // wallPaper
+    private static final String FIELD_WALL_PAPER_JSON = "json";
     // suggest
     private static final String FIELD_SUGGEST_INFO = "suggestInfo";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "securityToken";
     private static final String FIELD_OSS_KEY_ID = "accessKeyId";
     private static final String FIELD_OSS_KEY_SECRET = "accessKeySecret";
-    private static final String FIELD_OSS_REGION = "region";
-    private static final String FIELD_OSS_ENDPOINT = "endpoint";
+    //private static final String FIELD_OSS_REGION = "region";
+    //private static final String FIELD_OSS_ENDPOINT = "endpoint";
     private static final String FIELD_OSS_DOMAIN = "domain";
     private static final String FIELD_OSS_BUCKET = "bucket";
     private static final String FIELD_OSS_EXPIRATION = "expiration";
@@ -126,7 +130,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "user == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, "setUser: " + GsonUtils.get().toJson(user));
+            LogUtils.d(LOG_TAG, "setUser: " + GsonHelper.get().toJson(user));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
         editor.putLong(FIELD_USER_ID, user.getId());
@@ -160,7 +164,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "couple == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, "setCouple: " + GsonUtils.get().toJson(couple));
+            LogUtils.d(LOG_TAG, "setCouple: " + GsonHelper.get().toJson(couple));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
@@ -188,6 +192,30 @@ public class SPHelper {
         couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
         couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
         return couple;
+    }
+
+    public static void setWallPaper(WallPaper wallPaper) {
+        clearWallPaper();
+        if (wallPaper == null) {
+            LogUtils.w(LOG_TAG, "wallPaper == null");
+            return;
+        }
+        String json = GsonHelper.get().toJson(wallPaper);
+        LogUtils.d(LOG_TAG, "setWallPaper: " + json);
+
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_WALL_PAPER).edit();
+        editor.putString(FIELD_WALL_PAPER_JSON, json);
+        editor.apply();
+    }
+
+    public static WallPaper getWallPaper() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_WALL_PAPER);
+        WallPaper wallPaper = new WallPaper();
+        String json = GsonHelper.get().toJson(wallPaper);
+        // json解析
+        String newJson = sp.getString(FIELD_WALL_PAPER_JSON, json);
+        wallPaper = GsonHelper.get().fromJson(newJson, WallPaper.class);
+        return wallPaper;
     }
 
     public static void setLimit(Limit limit) {
@@ -262,7 +290,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "setSuggestInfo == null");
             return;
         }
-        String suggestInfoJson = GsonUtils.get().toJson(suggestInfo);
+        String suggestInfoJson = GsonHelper.get().toJson(suggestInfo);
         LogUtils.d(LOG_TAG, "setSuggestInfo: " + suggestInfoJson);
 
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SUGGEST_INFO).edit();
@@ -273,7 +301,7 @@ public class SPHelper {
     public static SuggestInfo getSuggestInfo() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SUGGEST_INFO);
         String json = sp.getString(FIELD_SUGGEST_INFO, "{}");
-        SuggestInfo suggestInfo = GsonUtils.get().fromJson(json, SuggestInfo.class);
+        SuggestInfo suggestInfo = GsonHelper.get().fromJson(json, SuggestInfo.class);
         if (suggestInfo == null) {
             suggestInfo = new SuggestInfo();
         }
@@ -292,7 +320,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "ossInfo == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, "setOssInfo: " + GsonUtils.get().toJson(ossInfo));
+            LogUtils.d(LOG_TAG, "setOssInfo: " + GsonHelper.get().toJson(ossInfo));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
         editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
@@ -390,7 +418,7 @@ public class SPHelper {
             LogUtils.w(LOG_TAG, "diary == null");
             return;
         } else {
-            LogUtils.d(LOG_TAG, "setDiary: " + GsonUtils.get().toJson(diary));
+            LogUtils.d(LOG_TAG, "setDiary: " + GsonHelper.get().toJson(diary));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DIARY).edit();
         editor.putLong(FIELD_DIARY_HAPPEN, diary.getHappenAt());
@@ -412,6 +440,10 @@ public class SPHelper {
 
     public static void clearCouple() {
         SPUtils.clear(SHARE_COUPLE);
+    }
+
+    public static void clearWallPaper() {
+        SPUtils.clear(SHARE_WALL_PAPER);
     }
 
     public static void clearOssInfo() {

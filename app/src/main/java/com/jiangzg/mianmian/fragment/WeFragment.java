@@ -393,7 +393,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
-        // TODO 本地缓存
+        // 本地缓存
+        SPHelper.setWallPaper(wallPaper);
+        // 清除view
         vfWallPaper.removeAllViews();
         // 无图显示
         if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {
@@ -401,6 +403,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             return;
         }
         tvAddWallPaper.setVisibility(View.GONE);
+        // TODO 加载缓存
         // 单图显示
         List<String> imageList = wallPaper.getImageList();
         if (imageList.size() == 1) {
