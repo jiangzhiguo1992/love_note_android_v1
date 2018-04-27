@@ -65,14 +65,14 @@ public class WallPaperHelper {
                         // 都检查完了，没下载过的直接下载
                         if (!find) {
                             LogUtils.w(LOG_TAG, "refreshWallPaper: 没发现匹配的oss对象 == " + ossKey);
-                            OssHelper.downloadWall(ossKey, null);
+                            OssHelper.downloadWall(ossKey);
                         } else {
                             LogUtils.i(LOG_TAG, "refreshWallPaper: 发现了匹配的oss对象 == " + ossKey);
                         }
                     } else {
                         // 本地无信息，则直接下载
                         LogUtils.w(LOG_TAG, "refreshWallPaper: 没有发现WallPaper的新的存储目录");
-                        OssHelper.downloadWall(ossKey, null);
+                        OssHelper.downloadWall(ossKey);
                     }
                 }
             }

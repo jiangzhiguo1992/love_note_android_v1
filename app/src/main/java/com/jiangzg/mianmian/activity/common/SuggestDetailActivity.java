@@ -30,6 +30,8 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.InputUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.SuggestCommentAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -221,8 +223,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         GWrapView wvTag = head.findViewById(R.id.wvTag);
-        GImageView ivContent = head.findViewById(R.id.ivContent);
         TextView tvContent = head.findViewById(R.id.tvContent);
+        // imageView
+        GImageView ivContent = head.findViewById(R.id.ivContent);
+        ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
+        ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
 
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
@@ -368,6 +373,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     // 评论
     private void comment() {
+        InputUtils.hideSoftInput(etComment);
         MaterialDialog loading = getLoading(true);
         String content = etComment.getText().toString();
         SuggestComment body = ApiHelper.getSuggestCommentAddBody(suggest.getId(), content);

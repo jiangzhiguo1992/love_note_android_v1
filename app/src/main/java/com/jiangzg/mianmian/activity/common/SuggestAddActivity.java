@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,6 +22,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -128,6 +130,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         });
         etContent.setText("");
         // imageView
+        ViewGroup.LayoutParams layoutParams = ivImage.getLayoutParams();
+        ivImage.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
         ivImage.setSuccessClickListener(new GImageView.onSuccessClickListener() {
             @Override
             public void onClick(GImageView iv) {

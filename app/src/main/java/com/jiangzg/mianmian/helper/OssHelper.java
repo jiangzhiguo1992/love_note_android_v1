@@ -159,9 +159,9 @@ public class OssHelper {
     }
 
     // 墙纸
-    public static void downloadWall(String objectKey, OssDownloadCallBack callBack) {
+    public static void downloadWall(String objectKey) {
         File file = WallPaperHelper.newWallPaperFile(objectKey);
-        downloadObject(null, objectKey, file, callBack);
+        downloadObject(null, objectKey, file, null);
     }
 
     // TODO 全屏图

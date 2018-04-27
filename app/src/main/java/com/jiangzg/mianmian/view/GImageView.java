@@ -291,7 +291,7 @@ public class GImageView extends SimpleDraweeView {
         initHierarchy(null);
     }
 
-    // 一般只有grid需要传，在设置数据源之前调用
+    // GridList 和 match_parent 需要传，在设置数据源之前调用
     public void setWidthAndHeight(int width, int height) {
         mWidth = width;
         mHeight = height;
