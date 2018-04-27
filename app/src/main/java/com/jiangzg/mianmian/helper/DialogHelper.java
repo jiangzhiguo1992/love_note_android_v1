@@ -1,19 +1,12 @@
 package com.jiangzg.mianmian.helper;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.StyleRes;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
-import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
 
 /**
@@ -50,94 +43,78 @@ public class DialogHelper {
                 .buttonsGravity(GravityEnum.START);
     }
 
+
     public static void showWithAnim(Dialog dialog) {
         setAnim(dialog);
-        show(dialog);
+        DialogUtils.show(dialog);
     }
 
-    public static void show(Dialog dialog) {
-        if (dialog == null || dialog.isShowing()) return;
-        dialog.show();
-    }
-
-    @SuppressLint("MissingPermission")
-    public static void showInContext(Dialog dialog) {
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
-        }
-        show(dialog);
-    }
-
-    public static void dismiss(Dialog dialog) {
-        if (dialog == null || !dialog.isShowing()) return;
-        dialog.dismiss();
-    }
-
-    /**
-     * 设置动画，防止闪屏
-     */
     public static void setAnim(Dialog dialog) {
-        setAnim(dialog, R.style.DialogAnim);
+        DialogUtils.setAnim(dialog, R.style.DialogAnimAlpha);
     }
 
-    public static void setAnim(Dialog dialog, @StyleRes int resId) {
-        if (dialog == null || resId == 0) return;
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setWindowAnimations(resId);
-        }
-    }
-
-    /**
-     * 设置透明度
-     */
-    private static void setAlpha(Dialog dialog, float alpha) {
-        Window window = dialog.getWindow();
-        if (window == null) return;
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.alpha = alpha;
-        window.setAttributes(lp);
-    }
-
-    /**
-     * 设置暗黑背景层
-     */
-    private static void setDimamount(Dialog dialog, float alpha) {
-        Window window = dialog.getWindow();
-        if (window == null) return;
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.dimAmount = alpha;
-        window.setAttributes(lp);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-    }
-
-    /**
-     * @param height 百分比
-     * @param width  百分比
-     */
-    private static Dialog createCustom(Activity activity, View view, int theme, float height, float width) {
-        DisplayMetrics d = activity.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
-        int rHeight = (int) (d.heightPixels * height) - BarUtils.getStatusBarHeight(activity); // 高度设置为屏幕的0.x（减去statusBar高度）
-        int rWidth = (int) (d.widthPixels * width);  // 宽度设置为屏幕的0.x
-        return createCustom(activity, view, theme, rHeight, rWidth);
-    }
-
-    /**
-     * 自定义对话框
-     *
-     * @param view  LayoutInflater.from(activity).inflate(layoutId, null);
-     * @param theme R.style.DialogCustom
-     */
-    private static Dialog createCustom(Activity activity, View view, int theme, int height, int width) {
-        final Dialog dialog = new Dialog(activity, theme);
-        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-        if (height != 0)   // 高度设置为屏幕的0.x（减去statusBar高度）
-            lp.height = height;
-        if (width != 0)   // 宽度设置为屏幕的0.x
-            lp.width = width;
-        dialog.setContentView(view, lp);
-        return dialog;
-    }
-
+    //public static Dialog showPickerFromPictureCamera(final Activity activity, final File cameraFile) {
+    //    View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_picture_camera, null);
+    //    int screenWidth = ScreenUtils.getScreenRealWidth(activity);
+    //    int screenHeight = ScreenUtils.getScreenHeight(activity);
+    //    final Dialog dialog = DialogUtils.createCustom(activity, view, R.style.DialogCustom, screenWidth, screenHeight);
+    //    View.OnClickListener listener = new View.OnClickListener() {
+    //        @Override
+    //        public void onClick(View v) {
+    //            switch (v.getId()) {
+    //                case R.id.root:
+    //                    DialogUtils.dismiss(dialog);
+    //                    ResHelper.deleteFileInBackground(cameraFile);
+    //                    break;
+    //                case R.id.llPicture:
+    //                    DialogUtils.dismiss(dialog);
+    //                    ResHelper.deleteFileInBackground(cameraFile);
+    //                    PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
+    //                        @Override
+    //                        public void onPermissionGranted(int requestCode, String[] permissions) {
+    //                            Intent picture = IntentFactory.getPicture();
+    //                            ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
+    //                        }
+    //
+    //                        @Override
+    //                        public void onPermissionDenied(int requestCode, String[] permissions) {
+    //
+    //                        }
+    //                    });
+    //                    break;
+    //                case R.id.llCamera:
+    //                    DialogUtils.dismiss(dialog);
+    //                    PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
+    //                        @Override
+    //                        public void onPermissionGranted(int requestCode, String[] permissions) {
+    //                            Intent camera = IntentFactory.getCamera(cameraFile);
+    //                            ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
+    //                        }
+    //
+    //                        @Override
+    //                        public void onPermissionDenied(int requestCode, String[] permissions) {
+    //
+    //                        }
+    //                    });
+    //                    break;
+    //                case R.id.llCancel:
+    //                    DialogUtils.dismiss(dialog);
+    //                    ResHelper.deleteFileInBackground(cameraFile);
+    //                    break;
+    //            }
+    //        }
+    //    };
+    //    RelativeLayout root = view.findViewById(R.id.root);
+    //    LinearLayout llAlbum = view.findViewById(R.id.llPicture);
+    //    LinearLayout llCamera = view.findViewById(R.id.llCamera);
+    //    LinearLayout llCancel = view.findViewById(R.id.llCancel);
+    //    root.setOnClickListener(listener);
+    //    llAlbum.setOnClickListener(listener);
+    //    llCamera.setOnClickListener(listener);
+    //    llCancel.setOnClickListener(listener);
+    //    // showWithAnim
+    //    DialogUtils.setAnim(dialog, R.style.DialogAnimScale);
+    //    DialogUtils.show(dialog);
+    //    return dialog;
+    //}
 }

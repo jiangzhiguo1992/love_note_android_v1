@@ -16,8 +16,8 @@
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
     </style>
 
-    <!-- 对话框出入动画 -->
-    <style name="DialogAnim" parent="android:Animation">
+    <!-- 对话框透明动画 -->
+    <style name="DialogAnimAlpha" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/alpha_dialog_in</item>
         <item name="android:windowExitAnimation">@anim/alpha_dialog_out</item>
     </style>

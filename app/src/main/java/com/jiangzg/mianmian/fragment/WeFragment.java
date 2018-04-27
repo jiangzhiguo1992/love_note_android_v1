@@ -446,6 +446,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);
+            // 优先加载本地文件
             if (WallPaperHelper.isWallPaperExists(ossKey)) {
                 File file = WallPaperHelper.newWallPaperFile(ossKey);
                 if (!FileUtils.isFileEmpty(file)) {
@@ -464,6 +465,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         // 多图显示
         for (String ossKey : imageList) {
             GImageView image = getViewFlipperImage();
+            // 优先加载本地文件
             if (WallPaperHelper.isWallPaperExists(ossKey)) {
                 File file = WallPaperHelper.newWallPaperFile(ossKey);
                 if (!FileUtils.isFileEmpty(file)) {

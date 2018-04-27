@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
@@ -167,7 +168,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
 
     private void clearCache() {
         final MaterialDialog loading = mActivity.getLoading(getString(R.string.are_clear_cache_point), false);
-        DialogHelper.show(loading);
+        DialogUtils.show(loading);
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
@@ -175,7 +176,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 MyApp.get().getHandler().post(new Runnable() {
                     @Override
                     public void run() {
-                        DialogHelper.dismiss(loading);
+                        DialogUtils.dismiss(loading);
                         cacheShow();
                         ToastUtils.show(getString(R.string.cache_clear_success));
                     }

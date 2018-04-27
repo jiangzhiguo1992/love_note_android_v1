@@ -21,6 +21,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -294,7 +295,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                         SuggestInfo.SuggestContentType suggestContentType = suggestContentTypeList.get(which + 1);
                         contentType = suggestContentType.getContentType();
                         tvType.setText(suggestContentType.getShow());
-                        DialogHelper.dismiss(dialog);
+                        DialogUtils.dismiss(dialog);
                         return true;
                     }
                 })

@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
@@ -204,7 +205,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         searchType = which;
                         getData(false);
-                        DialogHelper.dismiss(dialog);
+                        DialogUtils.dismiss(dialog);
                         return true;
                     }
                 })

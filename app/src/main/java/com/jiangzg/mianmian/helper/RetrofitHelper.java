@@ -14,6 +14,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.SuggestAddActivity;
@@ -154,7 +155,7 @@ public class RetrofitHelper {
                 }
             });
         }
-        DialogHelper.show(loading);
+        DialogUtils.show(loading);
         // 开始请求
         call.enqueue(new Callback<Result>() {
             @Override
@@ -178,7 +179,7 @@ public class RetrofitHelper {
 
     // 成功回调
     private static void onResponseCall(Dialog loading, Response<Result> response, CallBack callBack) {
-        DialogHelper.dismiss(loading);
+        DialogUtils.dismiss(loading);
         if (response == null) return;
         // 获取body
         String errorStr = "";
@@ -350,7 +351,7 @@ public class RetrofitHelper {
 
     // 失败回调
     private static void onFailureCall(Dialog loading, Throwable t, CallBack callBack) {
-        DialogHelper.dismiss(loading);
+        DialogUtils.dismiss(loading);
         LogUtils.w(LOG_TAG, t.toString());
         Class<? extends Throwable> clz = t.getClass();
         int error;

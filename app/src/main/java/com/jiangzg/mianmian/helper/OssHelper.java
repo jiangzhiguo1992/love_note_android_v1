@@ -23,6 +23,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
@@ -210,7 +211,7 @@ public class OssHelper {
 
                     @Override
                     public void onSuccess(File file) {
-                        DialogHelper.dismiss(progress);
+                        DialogUtils.dismiss(progress);
                         if (FileUtils.isFileExists(file)) {
                             // 压缩文件有可能不存在
                             //if (!file.getAbsolutePath().trim().equals(source.getAbsolutePath().trim())) {
@@ -228,7 +229,7 @@ public class OssHelper {
                     @Override
                     public void onError(Throwable e) {
                         LogUtils.e(LOG_TAG, "Luban: onError == ", e);
-                        DialogHelper.dismiss(progress);
+                        DialogUtils.dismiss(progress);
                         // upload
                         uploadJpeg(activity, ossDirPath, source, callBack);
                     }
@@ -304,7 +305,7 @@ public class OssHelper {
         final OSSAsyncTask task = ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
-                DialogHelper.dismiss(progress);
+                DialogUtils.dismiss(progress);
                 // 回调
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onSuccess: getObjectKey == " + uploadKey);
@@ -320,7 +321,7 @@ public class OssHelper {
 
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                DialogHelper.dismiss(progress);
+                DialogUtils.dismiss(progress);
                 // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObject: onFailure: getObjectKey == " + uploadKey);
@@ -383,7 +384,7 @@ public class OssHelper {
         // currentIndex
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "compressJpegs: currentIndex == " + currentIndex + " -- sourceList == null");
             MyApp.get().getHandler().post(new Runnable() {
                 @Override
@@ -396,7 +397,7 @@ public class OssHelper {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "compressJpegs: currentIndex == " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
@@ -413,7 +414,7 @@ public class OssHelper {
         final File source = sourceList.get(currentIndex);
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "compressJpegs: currentIndex == " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
@@ -461,7 +462,7 @@ public class OssHelper {
                             compressJpegs(activity, progress, ossDirPath, sourceList, currentIndex + 1, callBack);
                         } else {
                             // 全压缩完
-                            DialogHelper.dismiss(progress);
+                            DialogUtils.dismiss(progress);
                             uploadJpegs(activity, ossDirPath, sourceList, callBack);
                         }
                     }
@@ -475,7 +476,7 @@ public class OssHelper {
                             compressJpegs(activity, progress, ossDirPath, sourceList, currentIndex + 1, callBack);
                         } else {
                             // 全压缩完
-                            DialogHelper.dismiss(progress);
+                            DialogUtils.dismiss(progress);
                             uploadJpegs(activity, ossDirPath, sourceList, callBack);
                         }
                     }
@@ -510,7 +511,7 @@ public class OssHelper {
         // currentIndex
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "uploadObjects: currentIndex == " + currentIndex + " -- sourceList == null");
             MyApp.get().getHandler().post(new Runnable() {
                 @Override
@@ -523,7 +524,7 @@ public class OssHelper {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "uploadObjects: currentIndex == " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
@@ -540,7 +541,7 @@ public class OssHelper {
         final File source = sourceList.get(currentIndex);
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "uploadObjects: currentIndex == " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
@@ -589,7 +590,7 @@ public class OssHelper {
                     uploadObjects(progress, ossDirPath, sourceList, currentIndex + 1, ossPathList, suffix, callBack);
                 } else {
                     // 已上传完毕
-                    DialogHelper.dismiss(progress);
+                    DialogUtils.dismiss(progress);
                     // 回调
                     if (callBack != null) {
                         MyApp.get().getHandler().post(new Runnable() {
@@ -604,7 +605,7 @@ public class OssHelper {
 
             @Override
             public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                DialogHelper.dismiss(progress);
+                DialogUtils.dismiss(progress);
                 // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(LOG_TAG, "uploadObjects: onFailure: currentIndex == " + currentIndex + " -- getObjectKey == " + uploadKey);
@@ -664,7 +665,7 @@ public class OssHelper {
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
             // dialog
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "downloadObject: objectKey == null");
             // 删除下载文件
             ResHelper.deleteFileInBackground(target);
@@ -683,7 +684,7 @@ public class OssHelper {
         // file
         if (target == null) {
             // dialog
-            DialogHelper.dismiss(progress);
+            DialogUtils.dismiss(progress);
             LogUtils.w(LOG_TAG, "downloadObject: target == null");
             ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
             // 回调
@@ -727,7 +728,7 @@ public class OssHelper {
                 InputStream inputStream = result.getObjectContent();
                 boolean ok = FileUtils.writeFileFromIS(target, inputStream, false);
                 // 对话框
-                DialogHelper.dismiss(progress);
+                DialogUtils.dismiss(progress);
                 // 回调
                 if (ok) {
                     // 解析成功
@@ -758,7 +759,7 @@ public class OssHelper {
 
             @Override
             public void onFailure(GetObjectRequest request, ClientException clientException, ServiceException serviceException) {
-                DialogHelper.dismiss(progress);
+                DialogUtils.dismiss(progress);
                 // 删除源文件
                 ResHelper.deleteFileInBackground(target);
                 // 打印

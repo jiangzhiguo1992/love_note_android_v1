@@ -6,6 +6,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.ImgScreenActivity;
@@ -19,8 +20,10 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.WallPaperHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +55,17 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(ratio);
         ivWallPaper.setWidthAndHeight(imageWidth, imageHeight);
-        ivWallPaper.setDataOss(item);
+        // 优先加载本地文件
+        if (WallPaperHelper.isWallPaperExists(item)) {
+            File file = WallPaperHelper.newWallPaperFile(item);
+            if (!FileUtils.isFileEmpty(file)) {
+                ivWallPaper.setDataFile(file);
+            } else {
+                ivWallPaper.setDataOss(item);
+            }
+        } else {
+            ivWallPaper.setDataOss(item);
+        }
         ivWallPaper.setSuccessClickListener(new GImageView.onSuccessClickListener() {
             @Override
             public void onClick(GImageView iv) {
