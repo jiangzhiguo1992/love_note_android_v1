@@ -34,14 +34,9 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
-import com.jiangzg.mianmian.activity.couple.CoupleCoinActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
-import com.jiangzg.mianmian.activity.couple.CoupleMapActivity;
-import com.jiangzg.mianmian.activity.couple.CoupleMensesActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
-import com.jiangzg.mianmian.activity.couple.CoupleTrendsActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity;
-import com.jiangzg.mianmian.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.mianmian.activity.settings.SettingsActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
@@ -246,7 +241,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 } else {
                     if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
                         if (LocationInfo.isLocationEnabled()) {
-                            CoupleMapActivity.goActivity(mActivity);
+                            // TODO 等有两步手机了再说
+                            //CoupleMapActivity.goActivity(mActivity);
                         } else {
                             showLocationEnableDialog();
                         }
@@ -261,7 +257,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 } else {
                     if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
                         if (LocationInfo.isLocationEnabled()) {
-                            CoupleWeatherActivity.goActivity(mActivity);
+                            // TODO 等有两步手机了再说
+                            //CoupleWeatherActivity.goActivity(mActivity);
                         } else {
                             showLocationEnableDialog();
                         }
@@ -274,21 +271,24 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    CoupleMensesActivity.goActivity(mActivity);
+                    // TODO 等研究好了生理机制再说
+                    //CoupleMensesActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.rlTrends: // 动态
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    CoupleTrendsActivity.goActivity(mActivity);
+                    // TODO 等book和topic做完了再说
+                    //CoupleTrendsActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.rlCoin: // 金币
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    CoupleCoinActivity.goActivity(mActivity);
+                    // TODO 在topic做之前再说
+                    //CoupleCoinActivity.goActivity(mActivity);
                 }
                 break;
         }

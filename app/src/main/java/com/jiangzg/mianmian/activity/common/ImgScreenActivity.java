@@ -86,7 +86,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
 
         // TODO 回退之后 有时候原图会白屏
 
-        // TODO 图片下载 图片详情
+        // TODO 会员图片下载(Oss类型) 图片详情
 
         ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type

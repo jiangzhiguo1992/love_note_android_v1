@@ -69,11 +69,6 @@
         <activity android:name=".activity.couple.CoupleWallPaperActivity"/>
         <activity android:name=".activity.common.ImgScreenActivity"/>
         <activity android:name=".activity.couple.CouplePairActivity"/>
-        <activity android:name=".activity.couple.CoupleMapActivity"/>
-        <activity android:name=".activity.couple.CoupleWeatherActivity"/>
-        <activity android:name=".activity.couple.CoupleMensesActivity"/>
-        <activity android:name=".activity.couple.CoupleTrendsActivity"/>
-        <activity android:name=".activity.couple.CoupleCoinActivity"/>
         <activity android:name=".activity.book.WordListActivity"/>
         <activity android:name=".activity.book.DiaryListActivity"/>
         <activity android:name=".activity.book.DiaryEditActivity"/>
