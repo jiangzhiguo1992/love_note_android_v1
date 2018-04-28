@@ -78,9 +78,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO listItem回退动画位置不准确
-
-        // TODO 会员图片下载(Oss类型) 图片详情
+        // TODO Oss下载(会员可无水印?) 
 
         ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type

@@ -93,7 +93,6 @@ public class GImageBigView extends PhotoDraweeView {
     private void setController(Uri uri) {
         // request
         ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, 0, 0); // 不需要采样了
-        //requestBuilder = requestBuilder.setLowestPermittedRequestLevel(ImageRequest.RequestLevel.DISK_CACHE); // 优先加载磁盘，防止释放内存，让原图加载不出来
         ImageRequest imageRequest = requestBuilder.build();
         // controller
         PipelineDraweeControllerBuilder builder = FrescoHelper.getPipelineControllerBuilder(this, uri, imageRequest);
