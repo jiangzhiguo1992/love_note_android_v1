@@ -67,16 +67,13 @@
         <activity android:name=".activity.common.SuggestAddActivity"/>
         <activity android:name=".activity.common.SuggestListActivity"/>
         <activity android:name=".activity.couple.CoupleWallPaperActivity"/>
-        <activity android:name=".activity.common.ImgScreenActivity"/>
         <activity android:name=".activity.couple.CouplePairActivity"/>
         <activity android:name=".activity.book.WordListActivity"/>
         <activity android:name=".activity.book.DiaryListActivity"/>
         <activity android:name=".activity.book.DiaryEditActivity"/>
         <activity android:name=".activity.book.DiaryDetailActivity"/>
-        <activity android:name=".activity.book.WhisperListActivity">
-        </activity>
-        <activity android:name=".activity.common.BigImageActivity">
-        </activity>
+        <activity android:name=".activity.book.WhisperListActivity"/>
+        <activity android:name=".activity.common.BigImageActivity"/>
     </application>
 
 </manifest>

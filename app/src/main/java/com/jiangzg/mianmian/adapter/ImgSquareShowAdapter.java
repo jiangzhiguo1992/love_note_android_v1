@@ -11,6 +11,9 @@ import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.view.GImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by JZG on 2018/3/12.
  * 图片显示列表适配器
@@ -32,6 +35,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
 
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
+        final int position = helper.getLayoutPosition();
         GImageView ivShow = helper.getView(R.id.ivShow);
         CardView.LayoutParams layoutParams = (CardView.LayoutParams) ivShow.getLayoutParams();
         layoutParams.height = imageHeight;
@@ -41,7 +45,10 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
         ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
             @Override
             public void onClick(GImageView iv) {
-                BigImageActivity.goActivityByOss(mActivity, item, iv);
+                List<String> data = ImgSquareShowAdapter.this.getData();
+                ArrayList<String> pathList = new ArrayList<>();
+                pathList.addAll(data);
+                BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
             }
         });
     }

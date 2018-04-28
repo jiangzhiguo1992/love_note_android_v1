@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -284,7 +285,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
         cameraFile = ResHelper.newImageOutCache();
         PopupWindow window = PopHelper.createPictureCamera(mActivity, currentChannel, cameraFile);
-        PopUtils.show(window, root);
+        PopUtils.show(window, root, Gravity.CENTER);
     }
 
     // 上传

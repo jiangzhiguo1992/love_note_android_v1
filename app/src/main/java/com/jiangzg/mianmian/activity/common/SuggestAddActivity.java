@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -234,7 +235,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void showImgSelect() {
         cameraFile = ResHelper.newImageOutCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root);
+        PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
     // 取消图片

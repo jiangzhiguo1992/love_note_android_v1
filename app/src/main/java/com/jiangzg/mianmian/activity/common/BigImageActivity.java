@@ -78,8 +78,6 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO 回退之后 有时候原图会白屏
-
         // TODO listItem回退动画位置不准确
 
         // TODO 会员图片下载(Oss类型) 图片详情

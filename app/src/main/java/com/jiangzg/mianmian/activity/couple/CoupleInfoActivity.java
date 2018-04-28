@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -326,7 +327,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void showAvatarSelect() {
         cameraFile = ResHelper.newImageOutCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root);
+        PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
     private void goCropActivity(File source) {

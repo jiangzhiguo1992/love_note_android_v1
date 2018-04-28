@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -191,7 +192,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     public void showImgSelect() {
         cameraFile = ResHelper.newImageOutCache();
         PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root);
+        PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
     private void goCropActivity(File source) {

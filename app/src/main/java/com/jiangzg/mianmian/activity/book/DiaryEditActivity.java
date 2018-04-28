@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -256,7 +257,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (SPHelper.getVipLimit().getBookDiaryImageCount() > 0) {
             cameraFile = ResHelper.newImageOutCache();
             PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
-            PopUtils.show(popupWindow, root);
+            PopUtils.show(popupWindow, root, Gravity.CENTER);
         } else {
             ToastUtils.show(getString(R.string.now_status_cant_upload_img));
         }

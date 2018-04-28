@@ -72,6 +72,9 @@ public class PermUtils {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || activity == null
                 || permissions == null || permissions.length <= 0) {
             LogUtils.w(LOG_TAG, "requestPermissions: LOW_SDK || activity/permissions == null");
+            if (listener != null) {
+                listener.onPermissionGranted(requestCode, permissions);
+            }
             return;
         }
         if (listener != null) {
