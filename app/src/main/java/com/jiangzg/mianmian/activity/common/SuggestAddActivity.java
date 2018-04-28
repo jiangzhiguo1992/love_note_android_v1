@@ -137,9 +137,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             @Override
             public void onClick(GImageNativeView iv) {
                 if (!FileUtils.isFileEmpty(cameraFile)) {
-                    ImgScreenActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
+                    BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
                 } else if (!FileUtils.isFileEmpty(pictureFile)) {
-                    ImgScreenActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
+                    BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
                 }
             }
         });

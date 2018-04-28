@@ -126,11 +126,11 @@ public class GImageAvatarView extends SimpleDraweeView {
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
                 LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
-                        "\n\t width = " + imageInfo.getWidth() +
-                        "\n\t height = " + imageInfo.getHeight() +
-                        "\n\t quality = " + qualityInfo.getQuality() +
-                        "\n\t goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        "\n\t fullQuality = " + qualityInfo.isOfFullQuality());
+                        " width = " + imageInfo.getWidth() +
+                        " height = " + imageInfo.getHeight() +
+                        " quality = " + qualityInfo.getQuality() +
+                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                        " fullQuality = " + qualityInfo.isOfFullQuality());
             }
 
             @Override

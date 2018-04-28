@@ -80,6 +80,7 @@ public class FrescoHelper {
 
     // ImageRequest构造
     public static ImageRequestBuilder getImageRequestBuilder(Uri uri, int width, int height) {
+        if (uri == null) return null;
         ImageRequestBuilder builder = ImageRequestBuilder.newBuilderWithSource(uri)
                 .setCacheChoice(ImageRequest.CacheChoice.DEFAULT)
                 .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH) // 优先加载内存->磁盘->文件->网络
@@ -98,9 +99,10 @@ public class FrescoHelper {
     public static PipelineDraweeControllerBuilder getPipelineControllerBuilder(DraweeView view, Uri uri, ImageRequest imageRequest) {
         PipelineDraweeControllerBuilder builder = Fresco.newDraweeControllerBuilder()
                 .setOldController(view.getController()) // 减少内存消耗
-                .setImageRequest(imageRequest)
-                .setAutoPlayAnimations(false) // gif不支持自动播放，(此app不支持gif播放)
-                .setTapToRetryEnabled(false); // 默认不支持点击重新加载
+                .setAutoPlayAnimations(false); // gif不支持自动播放，(此app不支持gif播放)
+        if (imageRequest != null) {
+            builder = builder.setImageRequest(imageRequest);
+        }
         if (uri != null && uri.toString().startsWith("http")) {
             builder = builder.setTapToRetryEnabled(true); // 网络图点击重新加载
         } else {

@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.ImgScreenActivity;
+import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Whisper;
@@ -53,7 +53,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
             ivContent.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                 @Override
                 public void onClick(GImageView iv) {
-                    ImgScreenActivity.goActivityByOss(mActivity, content, iv);
+                    BigImageActivity.goActivityByOss(mActivity, content, iv);
                 }
             });
         } else {

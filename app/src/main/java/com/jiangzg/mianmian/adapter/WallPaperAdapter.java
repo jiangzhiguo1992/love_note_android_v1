@@ -6,25 +6,21 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.ImgScreenActivity;
+import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
-import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.view.GImageView;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +64,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     private void goImgScreen(int position, GImageView view) {
         List<String> data = getData();
-        ImgScreenActivity.goActivityByOssList(mActivity, (ArrayList<String>) data, position, view);
+        BigImageActivity.goActivityByOssList(mActivity, (ArrayList<String>) data, position, view);
     }
 
     public void showDeleteDialog(final int position) {

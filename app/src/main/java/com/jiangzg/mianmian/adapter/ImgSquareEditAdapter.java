@@ -11,10 +11,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.ImgScreenActivity;
+import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.view.GImageView;
@@ -76,7 +75,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                     @Override
                     public void onClick(GImageView iv) {
-                        ImgScreenActivity.goActivityByOss(mActivity, item, iv);
+                        BigImageActivity.goActivityByOss(mActivity, item, iv);
                     }
                 });
             } else {
@@ -85,7 +84,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
                     @Override
                     public void onClick(GImageView iv) {
-                        ImgScreenActivity.goActivityByFile(mActivity, item, iv);
+                        BigImageActivity.goActivityByFile(mActivity, item, iv);
                     }
                 });
             }

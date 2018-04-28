@@ -22,6 +22,9 @@ import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
 
 import java.io.File;
@@ -111,11 +114,11 @@ public class GImageNativeView extends SimpleDraweeView {
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
                 LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
-                        "\n\t width = " + imageInfo.getWidth() +
-                        "\n\t height = " + imageInfo.getHeight() +
-                        "\n\t quality = " + qualityInfo.getQuality() +
-                        "\n\t goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        "\n\t fullQuality = " + qualityInfo.isOfFullQuality());
+                        " width = " + imageInfo.getWidth() +
+                        " height = " + imageInfo.getHeight() +
+                        " quality = " + qualityInfo.getQuality() +
+                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                        " fullQuality = " + qualityInfo.isOfFullQuality());
                 // 点击事件
                 if (mSuccessClickListener != null) {
                     GImageNativeView.this.setOnClickListener(new OnClickListener() {
@@ -130,6 +133,7 @@ public class GImageNativeView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
+                ToastUtils.show(MyApp.get().getString(R.string.image_load_fail));
                 LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
             }
         });

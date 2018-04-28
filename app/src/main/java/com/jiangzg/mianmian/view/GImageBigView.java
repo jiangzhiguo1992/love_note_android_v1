@@ -23,7 +23,6 @@ import com.facebook.drawee.drawable.DrawableUtils;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -38,11 +37,13 @@ import com.jiangzg.mianmian.helper.OssHelper;
 
 import java.io.File;
 
+import me.relex.photodraweeview.PhotoDraweeView;
+
 /**
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
  */
-public class GImageBigView extends SimpleDraweeView {
+public class GImageBigView extends PhotoDraweeView {
 
     private static final String LOG_TAG = "GBigImageView";
 
@@ -63,11 +64,6 @@ public class GImageBigView extends SimpleDraweeView {
 
     public GImageBigView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context, attrs, null);
-    }
-
-    public GImageBigView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, null);
     }
 
@@ -97,7 +93,7 @@ public class GImageBigView extends SimpleDraweeView {
     private void setController(Uri uri) {
         // request
         ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, 0, 0); // 不需要采样了
-        requestBuilder = requestBuilder.setLowestPermittedRequestLevel(ImageRequest.RequestLevel.DISK_CACHE); // 优先加载磁盘，防止释放内存，让原图加载不出来
+        //requestBuilder = requestBuilder.setLowestPermittedRequestLevel(ImageRequest.RequestLevel.DISK_CACHE); // 优先加载磁盘，防止释放内存，让原图加载不出来
         ImageRequest imageRequest = requestBuilder.build();
         // controller
         PipelineDraweeControllerBuilder builder = FrescoHelper.getPipelineControllerBuilder(this, uri, imageRequest);
@@ -111,11 +107,12 @@ public class GImageBigView extends SimpleDraweeView {
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
                 LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
-                        "\n\t width = " + imageInfo.getWidth() +
-                        "\n\t height = " + imageInfo.getHeight() +
-                        "\n\t quality = " + qualityInfo.getQuality() +
-                        "\n\t goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        "\n\t fullQuality = " + qualityInfo.isOfFullQuality());
+                        " width = " + imageInfo.getWidth() +
+                        " height = " + imageInfo.getHeight() +
+                        " quality = " + qualityInfo.getQuality() +
+                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                        " fullQuality = " + qualityInfo.isOfFullQuality());
+                GImageBigView.this.update(imageInfo.getWidth(), imageInfo.getHeight());
             }
 
             @Override
