@@ -21,7 +21,7 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.GImageNativeView;
 
 import java.io.File;
 
@@ -37,7 +37,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
 
     @BindView(R.id.ivBg)
-    GImageView ivBg;
+    GImageNativeView ivBg;
 
     @Override
     protected int getView(Intent intent) {

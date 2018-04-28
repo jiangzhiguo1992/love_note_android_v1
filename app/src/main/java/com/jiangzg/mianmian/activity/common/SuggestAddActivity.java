@@ -43,7 +43,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.GImageNativeView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.tvImageToggle)
     TextView tvImageToggle;
     @BindView(R.id.ivImage)
-    GImageView ivImage;
+    GImageNativeView ivImage;
     @BindView(R.id.btnPush)
     Button btnPush;
 
@@ -133,9 +133,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         // imageView
         ViewGroup.LayoutParams layoutParams = ivImage.getLayoutParams();
         ivImage.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-        ivImage.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+        ivImage.setSuccessClickListener(new GImageNativeView.onSuccessClickListener() {
             @Override
-            public void onClick(GImageView iv) {
+            public void onClick(GImageNativeView iv) {
                 if (!FileUtils.isFileEmpty(cameraFile)) {
                     ImgScreenActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
                 } else if (!FileUtils.isFileEmpty(pictureFile)) {

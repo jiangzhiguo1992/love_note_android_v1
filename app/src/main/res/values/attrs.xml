@@ -11,10 +11,4 @@
         <attr name="custom_text_color" format="color"/>
     </declare-styleable>
 
-    <declare-styleable name="GImageView">
-        <attr name="is_net_circle" format="boolean"/>
-        <attr name="is_net_full" format="boolean"/>
-        <attr name="is_net_normal" format="boolean"/>
-    </declare-styleable>
-
 </resources>

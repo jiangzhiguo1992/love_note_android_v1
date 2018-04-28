@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.ImgScreenActivity;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.GImageBigView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class ImgScreenPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View root = LayoutInflater.from(mContext).inflate(R.layout.pager_item_img_screen, container, false);
-        GImageView ivScreen = root.findViewById(R.id.ivScreen);
+        GImageBigView ivScreen = root.findViewById(R.id.ivScreen);
         // setImage
         String data = mData.get(position);
         switch (mType) {

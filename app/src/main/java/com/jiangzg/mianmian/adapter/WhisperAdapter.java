@@ -13,6 +13,7 @@ import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.view.GImageAvatarView;
 import com.jiangzg.mianmian.view.GImageView;
 
 /**
@@ -40,7 +41,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         boolean imgType = item.isImgType();
         final String content = item.getContent();
         // view
-        GImageView ivAvatar = helper.getView(R.id.ivAvatar);
+        GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setDateAvatar(avatar);
         helper.setText(R.id.tvCreateAt, createAt);
         TextView tvContent = helper.getView(R.id.tvContent);

@@ -116,11 +116,10 @@
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp">
 
-                    <com.jiangzg.mianmian.view.GImageView
+                    <com.jiangzg.mianmian.view.GImageAvatarView
                         android:id="@+id/ivAvatarLeft"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        app:is_net_circle="true"
                         tools:src="@mipmap/ic_boy_circle"/>
 
                     <TextView
@@ -149,11 +148,10 @@
                         android:maxLines="1"
                         android:text="@string/horizontal_line_2"/>
 
-                    <com.jiangzg.mianmian.view.GImageView
+                    <com.jiangzg.mianmian.view.GImageAvatarView
                         android:id="@+id/ivAvatarRight"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
-                        app:is_net_circle="true"
                         tools:src="@mipmap/ic_girl_circle"/>
                 </LinearLayout>
 

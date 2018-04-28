@@ -10,7 +10,6 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.mianmian.base.MyApp;
-import com.jiangzg.mianmian.view.GImageView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class ResHelper {
             @Override
             public void onLowMemory() {
                 LogUtils.w(LOG_TAG, "内存警告!");
-                GImageView.clearMemoryCaches();
+                FrescoHelper.clearMemoryCaches();
                 // System.gc();
                 // Runtime.getRuntime().gc();
             }
@@ -86,7 +85,7 @@ public class ResHelper {
             FileUtils.deleteFilesAndDirInDir(new File(cache));
         }
         // fresco
-        GImageView.clearDiskCaches();
+        FrescoHelper.clearDiskCaches();
     }
 
     public static void deleteFileInBackground(final File file) {

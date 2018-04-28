@@ -7,8 +7,8 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.mianmian.helper.FrescoHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
-import com.jiangzg.mianmian.view.GImageView;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -37,7 +37,7 @@ public class MyApp extends AppBase {
         ResHelper.initApp();
         // 三方的
         ButterKnife.setDebug(DEBUG);
-        GImageView.init(this, DEBUG);
+        FrescoHelper.init(this, DEBUG);
         //AnalyUtils.initApp();
     }
 

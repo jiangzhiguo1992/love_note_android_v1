@@ -1,7 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.support.annotation.NonNull;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,7 +20,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.GImageAvatarView;
 
 import retrofit2.Call;
 
@@ -49,7 +48,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
         String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String content = item.getContent();
         // view
-        GImageView ivAvatar = helper.getView(R.id.ivAvatar);
+        GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setDateAvatar(avatar);
         helper.setText(R.id.tvCreateAt, createAt);
         helper.setText(R.id.tvContent, content);

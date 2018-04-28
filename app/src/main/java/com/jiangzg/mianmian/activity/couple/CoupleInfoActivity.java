@@ -50,7 +50,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.GImageAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.io.File;
@@ -71,7 +71,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     GSwipeRefreshLayout srl;
 
     @BindView(R.id.ivAvatarLeft)
-    GImageView ivAvatarLeft;
+    GImageAvatarView ivAvatarLeft;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvPhoneLeft)
@@ -84,7 +84,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     TextView tvBirthLeft;
 
     @BindView(R.id.ivAvatarRight)
-    GImageView ivAvatarRight;
+    GImageAvatarView ivAvatarRight;
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
     @BindView(R.id.tvPhoneRight)

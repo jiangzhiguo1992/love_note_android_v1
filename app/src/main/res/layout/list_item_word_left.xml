@@ -10,15 +10,14 @@
     android:paddingStart="10dp"
     android:paddingTop="10dp">
 
-    <com.jiangzg.mianmian.view.GImageView
+    <com.jiangzg.mianmian.view.GImageAvatarView
         android:id="@+id/ivAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvCreateAt"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="5dp"
-        app:is_net_circle="true"/>
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:id="@+id/tvCreateAt"

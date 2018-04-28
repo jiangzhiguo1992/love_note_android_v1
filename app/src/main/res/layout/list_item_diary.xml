@@ -29,11 +29,10 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.jiangzg.mianmian.view.GImageView
+            <com.jiangzg.mianmian.view.GImageAvatarView
                 android:id="@+id/ivAvatar"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:is_net_circle="true"/>
+                android:layout_height="30dp"/>
 
             <TextView
                 android:id="@+id/tvHappenAt"

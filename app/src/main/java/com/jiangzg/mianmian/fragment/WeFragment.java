@@ -61,6 +61,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
+import com.jiangzg.mianmian.view.GImageAvatarView;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -96,9 +97,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.llCoupleInfo)
     LinearLayout llCoupleInfo;
     @BindView(R.id.ivAvatarLeft)
-    GImageView ivAvatarLeft;
+    GImageAvatarView ivAvatarLeft;
     @BindView(R.id.ivAvatarRight)
-    GImageView ivAvatarRight;
+    GImageAvatarView ivAvatarRight;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvNameRight)

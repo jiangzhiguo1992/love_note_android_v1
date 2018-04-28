@@ -8,12 +8,12 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.ImgScreenPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.view.GImageView;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
 
     private int type;
 
-    public static void goActivityByOss(Activity from, String ossPath, GImageView view) {
+    public static void goActivityByOss(Activity from, String ossPath, SimpleDraweeView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putExtra("type", TYPE_OSS_SINGLE);
         intent.putExtra("imgOss", ossPath);
@@ -40,7 +40,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         ActivityTrans.start(from, intent, share);
     }
 
-    public static void goActivityByFile(Activity from, String filePath, GImageView view) {
+    public static void goActivityByFile(Activity from, String filePath, SimpleDraweeView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putExtra("type", TYPE_FILE_SINGLE);
         intent.putExtra("imgFile", filePath);
@@ -49,7 +49,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         ActivityTrans.start(from, intent, share);
     }
 
-    public static void goActivityByOssList(Activity from, ArrayList<String> ossPathList, int startIndex, GImageView view) {
+    public static void goActivityByOssList(Activity from, ArrayList<String> ossPathList, int startIndex, SimpleDraweeView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putExtra("type", TYPE_OSS_LIST);
         intent.putStringArrayListExtra("imgOssList", ossPathList);
@@ -59,7 +59,7 @@ public class ImgScreenActivity extends BaseActivity<ImgScreenActivity> {
         ActivityTrans.start(from, intent, share);
     }
 
-    public static void goActivityByFileList(Activity from, ArrayList<String> filePathList, int startIndex, GImageView view) {
+    public static void goActivityByFileList(Activity from, ArrayList<String> filePathList, int startIndex, SimpleDraweeView view) {
         Intent intent = new Intent(from, ImgScreenActivity.class);
         intent.putExtra("type", TYPE_OSS_LIST);
         intent.putStringArrayListExtra("imgFileList", filePathList);

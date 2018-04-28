@@ -42,14 +42,13 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <com.jiangzg.mianmian.view.GImageView
+                        <com.jiangzg.mianmian.view.GImageAvatarView
                             android:id="@+id/ivAvatarLeft"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="30dp"
-                            app:is_net_circle="true"/>
+                            android:layout_marginTop="30dp"/>
 
                         <TextView
                             android:id="@+id/tvNameLeft"
@@ -109,14 +108,13 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
-                        <com.jiangzg.mianmian.view.GImageView
+                        <com.jiangzg.mianmian.view.GImageAvatarView
                             android:id="@+id/ivAvatarRight"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
-                            android:layout_marginTop="30dp"
-                            app:is_net_circle="true"/>
+                            android:layout_marginTop="30dp"/>
 
                         <TextView
                             android:id="@+id/tvNameRight"
