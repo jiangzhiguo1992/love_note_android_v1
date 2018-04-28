@@ -1,9 +1,8 @@
 package com.jiangzg.mianmian.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -20,12 +19,12 @@ import java.util.List;
  */
 public class BigImagePagerAdapter extends PagerAdapter {
 
-    private Context mContext;
+    private Activity mActivity;
     private int mType;
     private List<String> mData;
 
-    public BigImagePagerAdapter(Context context) {
-        mContext = context;
+    public BigImagePagerAdapter(Activity context) {
+        mActivity = context;
         mType = BigImageActivity.TYPE_OSS_SINGLE;
         mData = new ArrayList<>();
     }
@@ -75,7 +74,7 @@ public class BigImagePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         // BigImageView
-        GImageBigView ivBig = new GImageBigView(mContext);
+        GImageBigView ivBig = new GImageBigView(mActivity);
         // setImage
         String data = mData.get(position);
         switch (mType) {

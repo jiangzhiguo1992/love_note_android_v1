@@ -78,13 +78,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO activity还是fragment还是dialog
-
-        // TODO 多图侧滑(绘制出错)
+        // TODO 回退之后 有时候原图会白屏
 
         // TODO listItem回退动画位置不准确
-
-        // TODO 回退之后 有时候原图会白屏
 
         // TODO 会员图片下载(Oss类型) 图片详情
 

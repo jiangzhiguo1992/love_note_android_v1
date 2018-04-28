@@ -83,7 +83,7 @@ public class GImageBigView extends PhotoDraweeView {
             }
         }
         hierarchy.setFadeDuration(0);
-        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
+        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_CENTER);
         hierarchy.setPlaceholderImage(android.R.color.black, ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setProgressBarImage(new ImageProgressFullDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
         hierarchy.setRetryImage(new ImageRetryFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
