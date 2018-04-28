@@ -27,6 +27,7 @@ import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.activity.user.UserInfoActivity;
@@ -158,6 +159,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
             if (FileUtils.isFileEmpty(cameraFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
@@ -166,6 +168,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             goCropActivity(pictureFile);

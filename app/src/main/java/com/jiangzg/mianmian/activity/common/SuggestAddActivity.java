@@ -168,6 +168,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
             if (FileUtils.isFileEmpty(cameraFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
@@ -179,6 +180,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             // 相册
             pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 pictureFile = null;
                 return;
             }

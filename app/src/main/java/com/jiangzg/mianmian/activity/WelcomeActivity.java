@@ -77,6 +77,12 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         finish(); // 记得关闭欢迎页
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApp.get().getHandler().removeCallbacks(checkUser);
+    }
+
     // 检查用户
     private void checkUser() {
         if (CheckHelper.noLogin()) {
@@ -101,15 +107,18 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 @Override
                 public void onFailure(String errMsg) {
                     // 一直请求
-                    MyApp.get().getHandler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            WelcomeActivity.this.checkUser();
-                        }
-                    }, 2000);
+                    MyApp.get().getHandler().postDelayed(checkUser, 2000);
                 }
             });
         }
     }
+
+
+    private Runnable checkUser = new Runnable() {
+        @Override
+        public void run() {
+            WelcomeActivity.this.checkUser();
+        }
+    };
 
 }

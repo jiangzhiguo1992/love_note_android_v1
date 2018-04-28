@@ -19,6 +19,7 @@ import com.alibaba.sdk.android.oss.model.GetObjectResult;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -129,9 +130,24 @@ public class OssHelper {
         compressJpeg(activity, pathCoupleAvatar, source, callBack);
     }
 
-    // 日记 (无)(一天一次，就不压缩了)
+    // 日记 (限制大小)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
+        boolean overLimit = false;
+        for (File file : fileList) {
+            if (FileUtils.isFileEmpty(file)) continue;
+            if (file.length() >= ConsHelper.UPLOAD_IMAGE_SIZE_MAX) {
+                overLimit = true;
+                break;
+            }
+        }
+        if (overLimit) {
+            ToastUtils.show(activity.getString(R.string.file_too_max));
+            if (callBack != null) {
+                callBack.failure(fileList, "");
+            }
+            return;
+        }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookDiary = ossInfo.getPathBookDiary();
         uploadJpegs(activity, pathBookDiary, fileList, callBack);
@@ -213,6 +229,8 @@ public class OssHelper {
                     @Override
                     public void onStart() {
                         DialogHelper.showWithAnim(progress);
+                        String size = ConvertUtils.byte2FitSize(source.length());
+                        LogUtils.i(LOG_TAG, "compressJpegs: 压缩前大小 == " + size);
                     }
 
                     @Override
@@ -224,9 +242,13 @@ public class OssHelper {
                             // 压缩后的文件 != 源文件，但是在内部cache中，交给系统和用户
                             //ResHelper.deleteFileInBackground(source);
                             //}
+                            String size = ConvertUtils.byte2FitSize(file.length());
+                            LogUtils.i(LOG_TAG, "compressJpegs: 压缩后大小 == " + size);
                             // upload
                             uploadJpeg(activity, ossDirPath, file, callBack);
                         } else {
+                            String size = ConvertUtils.byte2FitSize(source.length());
+                            LogUtils.i(LOG_TAG, "compressJpegs: 压缩后大小 == " + size);
                             // upload
                             uploadJpeg(activity, ossDirPath, source, callBack);
                         }
@@ -449,6 +471,8 @@ public class OssHelper {
                 .setCompressListener(new OnCompressListener() {
                     @Override
                     public void onStart() {
+                        String size = ConvertUtils.byte2FitSize(source.length());
+                        LogUtils.i(LOG_TAG, "compressJpegs: 压缩前大小 == " + size);
                         // dialog上面已经显示了
                     }
 
@@ -457,9 +481,13 @@ public class OssHelper {
                         // 替换sourceList中被压缩的文件
                         if (FileUtils.isFileExists(file)) {
                             // 压缩完的文件为新文件
+                            String size = ConvertUtils.byte2FitSize(file.length());
+                            LogUtils.i(LOG_TAG, "compressJpegs: 压缩后大小 == " + size);
                             sourceList.set(currentIndex, file);
                         } else {
                             // 压缩完保存的还是源文件
+                            String size = ConvertUtils.byte2FitSize(source.length());
+                            LogUtils.i(LOG_TAG, "compressJpegs: 压缩后大小 == " + size);
                             sourceList.set(currentIndex, source);
                         }
                         // upload
@@ -654,17 +682,12 @@ public class OssHelper {
 
     // 给后台看的 所以用CST时区
     private static String getObjectKey(String dir, String suffix) {
-        return dir + DateUtils.getCurrentCSTString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
+        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
     }
 
     /**
      * *****************************************下载*****************************************
      */
-    // 下载任务
-    public static OSSAsyncTask downloadObject(final String objectKey, final File target, final OssDownloadCallBack callBack) {
-        return downloadObject(null, objectKey, target, callBack);
-    }
-
     // 下载任务
     public static OSSAsyncTask downloadObject(final MaterialDialog progress, final String objectKey, final File target, final OssDownloadCallBack callBack) {
         LogUtils.i(LOG_TAG, "downloadObject: objectKey == " + objectKey);

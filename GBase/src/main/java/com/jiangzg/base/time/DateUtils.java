@@ -56,22 +56,6 @@ public class DateUtils {
         return format.format(new Date());
     }
 
-    public static String getCurrentCSTString(String sFormat) {
-        if (StringUtils.isEmpty(sFormat)) {
-            LogUtils.w(LOG_TAG, "getCurrentString: sFormat == null");
-            return "";
-        }
-        SimpleDateFormat format = getFormat(sFormat);
-        if (format == null) {
-            LogUtils.w(LOG_TAG, "getCurrentString: format == null");
-            return "";
-        }
-        Date date = new Date();
-        // SCT比UTC晚8个小时
-        date.setTime(date.getTime() + ConstantUtils.HOUR * 8);
-        return format.format(date);
-    }
-
     public static long getCurrentLong() {
         Date date = new Date();
         return date.getTime();

@@ -89,7 +89,7 @@ public class GImageView extends SimpleDraweeView {
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
                 .setDownsampleEnabled(true) // 向下采样
-                //.setBitmapsConfig(Bitmap.Config.RGB_565) // 减小内存占用
+                //.setBitmapsConfig(Bitmap.Config.RGB_565) // 减小内存占用 TODO 大图ARGB8888
                 .build();
         // 开始初始化
         Fresco.initialize(app, config);
@@ -200,7 +200,7 @@ public class GImageView extends SimpleDraweeView {
         PipelineDraweeControllerBuilder builder = Fresco.newDraweeControllerBuilder()
                 .setOldController(this.getController()) // 减少内存消耗
                 .setImageRequest(imageRequest)
-                .setAutoPlayAnimations(false);// gif自动播放
+                .setAutoPlayAnimations(false);// gif自动播放 TODO 不是图像应用，不允许上传gif ！！！
         if (uri != null && uri.toString().startsWith("http") && (isNetNormal || isNetFull)) {
             builder = builder.setTapToRetryEnabled(true); // 网络图非头像点击重新加载
         } else {

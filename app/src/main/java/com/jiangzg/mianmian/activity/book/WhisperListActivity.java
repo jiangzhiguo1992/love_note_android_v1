@@ -140,6 +140,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
             if (FileUtils.isFileEmpty(cameraFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
@@ -148,6 +149,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             ossUpload(pictureFile);

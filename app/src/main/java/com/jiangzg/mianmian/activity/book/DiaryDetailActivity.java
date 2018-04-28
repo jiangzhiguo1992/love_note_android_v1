@@ -191,11 +191,11 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         List<String> imageList = diary.getImageList();
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
-            int size = imageList.size();
+            int spanCount = imageList.size() > 3 ? 3 : imageList.size();
             new RecyclerHelper(mActivity)
                     .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, size))
-                    .initAdapter(new ImgSquareShowAdapter(mActivity, size))
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                    .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
                     .setAdapter()
                     .dataNew(imageList, 0);
         } else {

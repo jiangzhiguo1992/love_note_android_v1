@@ -121,7 +121,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         int limitImages = SPHelper.getVipLimit().getBookDiaryImageCount();
         if (limitImages > 0) {
             rv.setVisibility(View.VISIBLE);
-            ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, limitImages, limitImages);
+            int spanCount = limitImages > 3 ? 3 : limitImages;
+            ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImages);
             imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
                 @Override
                 public void onAdd() {
@@ -133,7 +134,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             }
             recyclerHelper = new RecyclerHelper(mActivity)
                     .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, limitImages))
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                     .initAdapter(imgAdapter)
                     .setAdapter();
         } else {
@@ -167,6 +168,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
             if (FileUtils.isFileEmpty(cameraFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
@@ -180,6 +182,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (pictureFile == null || FileUtils.isFileEmpty(pictureFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             adapter.addFileData(pictureFile.getAbsolutePath());

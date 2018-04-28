@@ -369,6 +369,7 @@
     <string name="save_file_no_exists">保存文件不存在</string>
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="not_found_upload_file">没有找到要上传的文件</string>
+    <string name="file_no_exits">文件不存在</string>
     <string name="cache_clear_success">缓存清理成功</string>
     <string name="already_is_latest_version">已是最新版本</string>
     <string name="are_download">正在下载</string>
@@ -451,4 +452,5 @@
     <string name="add_text">添加文字</string>
     <string name="schedule">日程</string>
     <string name="statistics">统计</string>
+    <string name="file_too_max">文件过大</string>
 </resources>

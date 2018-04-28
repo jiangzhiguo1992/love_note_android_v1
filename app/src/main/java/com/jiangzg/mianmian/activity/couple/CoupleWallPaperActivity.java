@@ -126,6 +126,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
             // 拍照
             if (FileUtils.isFileEmpty(cameraFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
@@ -134,6 +135,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             goCropActivity(pictureFile);

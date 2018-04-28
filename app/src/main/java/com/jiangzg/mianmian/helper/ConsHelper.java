@@ -1,11 +1,15 @@
 package com.jiangzg.mianmian.helper;
 
+import com.jiangzg.base.common.ConstantUtils;
+
 /**
  * Created by Jiang on 5/26/16.
  * 常量类
  */
 public class ConsHelper {
 
+    // imgLimit
+    public static final int UPLOAD_IMAGE_SIZE_MAX = ConstantUtils.MB * 10;
     // requestCode
     public static final int REQUEST_APP_INFO = 1001;
     public static final int REQUEST_DEVICE_INFO = 1002;
