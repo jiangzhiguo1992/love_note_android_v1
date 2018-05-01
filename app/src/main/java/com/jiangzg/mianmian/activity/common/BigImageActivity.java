@@ -78,7 +78,8 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO Oss下载(会员可无水印?) 
+        // TODO 多页下标 1/9
+        // TODO Oss下载(会员可无水印?)
 
         ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type

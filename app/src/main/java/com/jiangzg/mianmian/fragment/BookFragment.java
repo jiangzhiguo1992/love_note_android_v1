@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
@@ -118,7 +119,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvDiary: // 日记
                 DiaryListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvAlbum: // TODO 相册
+            case R.id.cvAlbum: // 相册
+                AlbumListActivity.goActivity(mActivity);
                 break;
             case R.id.cvAudio: // TODO 录音
                 break;

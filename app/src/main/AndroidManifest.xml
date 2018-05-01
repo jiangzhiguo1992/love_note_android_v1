@@ -74,6 +74,8 @@
         <activity android:name=".activity.book.DiaryDetailActivity"/>
         <activity android:name=".activity.book.WhisperListActivity"/>
         <activity android:name=".activity.common.BigImageActivity"/>
+        <activity android:name=".activity.book.AlbumListActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- TODO -->
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -416,11 +417,11 @@
                             style="@style/FontGreyNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
+                            android:drawablePadding="3dp"
                             android:drawableTop="@drawable/ic_statistics_grey"
                             android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
                             android:text="@string/statistics"/>
                     </android.support.v7.widget.CardView>
 
@@ -443,11 +444,11 @@
                             style="@style/FontGreyNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
+                            android:drawablePadding="3dp"
                             android:drawableTop="@drawable/ic_account_yellow"
                             android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
                             android:text="@string/account_book"/>
                     </android.support.v7.widget.CardView>
 
@@ -470,16 +471,14 @@
                             style="@style/FontGreyNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="5dp"
+                            android:drawablePadding="3dp"
                             android:drawableTop="@drawable/ic_schedule_indigo"
                             android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp"
+                            android:paddingBottom="5dp"
+                            android:paddingTop="5dp"
                             android:text="@string/schedule"/>
                     </android.support.v7.widget.CardView>
-
                 </LinearLayout>
-
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
