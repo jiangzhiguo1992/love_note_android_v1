@@ -72,6 +72,8 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     @BindView(R.id.tvProtocol)
     TextView tvProtocol;
 
+    private Call<Result> callSms;
+    private Call<Result> callLogin;
     private boolean isGo = false;
     private int logType = ApiHelper.LOG_PWD;
     private int countDownGo = -1;
@@ -129,6 +131,13 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.login_forget, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callLogin);
     }
 
     @Override
@@ -212,9 +221,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
         Sms body = ApiHelper.getSmsLoginBody(phone);
-        final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
+        callSms = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -270,9 +279,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         String code = etCode.getText().toString().trim();
         User user = ApiHelper.getUserLoginBody(phone, password, code, logType);
         // api调用
-        final Call<Result> call = new RetrofitHelper().call(API.class).userLogin(user);
+        callLogin = new RetrofitHelper().call(API.class).userLogin(user);
         MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callLogin, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;

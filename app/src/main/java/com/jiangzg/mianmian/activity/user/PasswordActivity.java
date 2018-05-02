@@ -16,11 +16,11 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,6 +39,8 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
     TextInputEditText etNewPwdConfirm;
     @BindView(R.id.btnModify)
     Button btnModify;
+
+    private Call<Result> call;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PasswordActivity.class);
@@ -59,7 +61,12 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
 
     @Override
     protected void initData(Bundle state) {
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(call);
     }
 
     @OnTextChanged({R.id.etOldPwd, R.id.etNewPwd, R.id.etNewPwdConfirm})
@@ -95,7 +102,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
         // api调用
         User user = ApiHelper.getUserPasswordBody(oldPwd, newPwd);
         // api调用
-        final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
+        call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading("", true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

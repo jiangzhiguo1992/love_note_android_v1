@@ -80,6 +80,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private long happenAt;
     private RecyclerHelper recyclerHelper;
+    private Call<Result> callUpdate;
+    private Call<Result> callAdd;
     private File cameraFile;
     private List<File> cameraFileList;
     private int limitContent;
@@ -157,6 +159,15 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
+        // 创建成功的cameraFile都要删除
+        ResHelper.deleteFileListInBackground(cameraFileList);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -188,13 +199,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             }
             adapter.addFileData(pictureFile.getAbsolutePath());
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // 创建成功的cameraFile都要删除
-        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @Override
@@ -341,8 +345,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void updateApi(Diary body) {
         MaterialDialog loading = getLoading(false);
-        Call<Result> call = new RetrofitHelper().call(API.class).diaryUpdate(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callUpdate = new RetrofitHelper().call(API.class).diaryUpdate(body);
+        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
@@ -364,8 +368,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void addApi(Diary body) {
         MaterialDialog loading = getLoading(false);
-        Call<Result> call = new RetrofitHelper().call(API.class).diaryPost(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callAdd = new RetrofitHelper().call(API.class).diaryAdd(body);
+        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event

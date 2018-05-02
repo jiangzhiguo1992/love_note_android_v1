@@ -23,11 +23,11 @@ import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,6 +55,8 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     @BindView(R.id.tvProtocol)
     TextView tvProtocol;
 
+    private Call<Result> callSms;
+    private Call<Result> callRegister;
     private int countDownGo = -1;
     private boolean isGo = false;
     private Runnable countDownTask;
@@ -87,6 +89,13 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         if (isGo) {
             finish();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callRegister);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})
@@ -128,9 +137,9 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
         Sms body = ApiHelper.getSmsRegisterBody(phone);
-        final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
+        callSms = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -191,9 +200,9 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         String code = etCode.getText().toString().trim();
         User user = ApiHelper.getUserRegisterBody(phone, pwd, code);
         // api调用
-        final Call<Result> call = new RetrofitHelper().call(API.class).userRegister(user);
+        callRegister = new RetrofitHelper().call(API.class).userRegister(user);
         MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callRegister, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;

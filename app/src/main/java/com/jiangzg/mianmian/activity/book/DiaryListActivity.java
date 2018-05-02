@@ -60,6 +60,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
+    private Call<Result> call;
     private int page;
     private int searchType = ApiHelper.LIST_CP;
     private Observable<List<Diary>> obListCountRefresh;
@@ -143,6 +144,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_COUNT_REFRESH, obListCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
@@ -174,7 +176,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).diaryListGet(searchType, page);
+        call = new RetrofitHelper().call(API.class).diaryListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

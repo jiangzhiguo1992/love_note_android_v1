@@ -42,6 +42,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     TextView tvShow;
 
     private RecyclerHelper recyclerHelper;
+    private Call<Result> call;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
@@ -99,10 +100,16 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         recyclerHelper.dataRefresh();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(call);
+    }
+
     public void refreshData() {
         int type = getIntent().getIntExtra("type", Help.TYPE_ALL);
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).helpGet(type);
+        call = new RetrofitHelper().call(API.class).helpGet(type);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

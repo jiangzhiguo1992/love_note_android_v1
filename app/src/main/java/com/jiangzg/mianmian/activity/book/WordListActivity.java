@@ -63,6 +63,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     private int limitContent;
     private RecyclerHelper recyclerHelper;
+    private Call<Result> callGet;
+    private Call<Result> callAdd;
     private Observable<Word> obListItemDelete;
     private int page;
     private boolean canMore;
@@ -134,6 +136,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callAdd);
         RxBus.unregister(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
     }
 
@@ -181,8 +185,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             ToastUtils.show(getString(R.string.already_arrive_top));
         }
         ++page;
-        Call<Result> call = new RetrofitHelper().call(API.class).wordListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGet = new RetrofitHelper().call(API.class).wordListGet(page);
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
@@ -203,8 +207,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         String content = etContent.getText().toString();
         Word body = ApiHelper.getWordBody(content);
         MaterialDialog loading = getLoading(true);
-        Call<Result> call = new RetrofitHelper().call(API.class).wordPost(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callAdd = new RetrofitHelper().call(API.class).wordAdd(body);
+        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // editText

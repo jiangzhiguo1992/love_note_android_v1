@@ -178,7 +178,7 @@ public interface API {
 
     // diary上传
     @POST("book/diary")
-    Call<Result> diaryPost(@Body Diary diary);
+    Call<Result> diaryAdd(@Body Diary diary);
 
     // diary删除
     @DELETE("book/diary")
@@ -194,7 +194,7 @@ public interface API {
 
     // word上传
     @POST("book/word")
-    Call<Result> wordPost(@Body Word word);
+    Call<Result> wordAdd(@Body Word word);
 
     // word删除
     @DELETE("book/word")
@@ -206,7 +206,7 @@ public interface API {
 
     // whisper上传
     @POST("book/whisper")
-    Call<Result> whisperPost(@Body Whisper whisper);
+    Call<Result> whisperAdd(@Body Whisper whisper);
 
     // albumList获取
     @GET("book/album?aid=0&list=1")
@@ -218,7 +218,7 @@ public interface API {
 
     // album上传
     @POST("book/album")
-    Call<Result> AlbumPost(@Body Album album);
+    Call<Result> AlbumAdd(@Body Album album);
 
     // album删除
     @DELETE("book/album")

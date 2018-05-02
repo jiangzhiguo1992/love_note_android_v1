@@ -135,6 +135,12 @@ public class RetrofitHelper {
         return retrofit.create(clz); // call
     }
 
+    public static void cancel(Call call) {
+        if (call != null && !call.isCanceled()) {
+            call.cancel();
+        }
+    }
+
     /**
      * @param call     请求体
      * @param callBack 请求回调
@@ -149,9 +155,7 @@ public class RetrofitHelper {
             loading.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
-                    if (!call.isCanceled()) {
-                        call.cancel();
-                    }
+                    cancel(call);
                 }
             });
         }
@@ -354,16 +358,18 @@ public class RetrofitHelper {
         DialogUtils.dismiss(loading);
         LogUtils.w(LOG_TAG, t.toString());
         Class<? extends Throwable> clz = t.getClass();
-        int error;
+        String error;
         if (clz.equals(java.net.ConnectException.class)) { // 网络环境
-            error = R.string.http_error_connect;
+            error = MyApp.get().getString(R.string.http_error_connect);
         } else if (clz.equals(java.net.SocketTimeoutException.class)) { // 超时错误
-            error = R.string.http_error_time;
+            error = MyApp.get().getString(R.string.http_error_time);
+        } else if (clz.equals(java.net.SocketException.class)) { // 请求取消
+            error = "";
         } else { // 其他网络错误
-            error = R.string.http_error_request;
+            error = MyApp.get().getString(R.string.http_error_request);
         }
-        ToastUtils.show(MyApp.get().getString(error));
-        if (callBack != null) callBack.onFailure(MyApp.get().getString(error));
+        ToastUtils.show(error);
+        if (callBack != null) callBack.onFailure(error);
     }
 
     /* 获取head */

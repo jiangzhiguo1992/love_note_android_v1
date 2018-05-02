@@ -84,6 +84,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private List<SuggestInfo.SuggestContentType> suggestContentTypeList;
     private int titleLimit;
     private int contentLimit;
+    private Call<Result> call;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestAddActivity.class);
@@ -159,6 +160,13 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(call);
+        ResHelper.deleteFileInBackground(cameraFile);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -189,12 +197,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             ivImage.setDataFile(pictureFile);
             tvImageToggle.setText(R.string.click_me_to_del_image);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
@@ -353,7 +355,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         String content = etContent.getText().toString();
         Suggest body = ApiHelper.getSuggestAddBody(title, contentType, content, imgPath);
         MaterialDialog loading = mActivity.getLoading(false);
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestAdd(body);
+        call = new RetrofitHelper().call(API.class).suggestAdd(body);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

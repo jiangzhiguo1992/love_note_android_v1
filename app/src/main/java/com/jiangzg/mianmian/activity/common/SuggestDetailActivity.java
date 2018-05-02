@@ -88,6 +88,11 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
+    private Call<Result> callGet;
+    private Call<Result> callDel;
+    private Call<Result> callCommentAdd;
+    private Call<Result> callFollow;
+    private Call<Result> callCommentGet;
     private int page;
     private int commentLimit;
 
@@ -163,6 +168,16 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callDel);
+        RetrofitHelper.cancel(callFollow);
+        RetrofitHelper.cancel(callCommentGet);
+        RetrofitHelper.cancel(callCommentAdd);
     }
 
     @Override
@@ -276,8 +291,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private void getCommentData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentListGet(suggest.getId(), page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callCommentGet = new RetrofitHelper().call(API.class).suggestCommentListGet(suggest.getId(), page);
+        RetrofitHelper.enqueue(callCommentGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
@@ -355,8 +370,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollowCount(newFollowCount);
         initFollowView();
         if (!api) return;
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestFollowToggle(suggest.getId());
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callFollow = new RetrofitHelper().call(API.class).suggestFollowToggle(suggest.getId());
+        RetrofitHelper.enqueue(callFollow, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemRefresh
@@ -377,8 +392,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         MaterialDialog loading = getLoading(true);
         String content = etComment.getText().toString();
         SuggestComment body = ApiHelper.getSuggestCommentAddBody(suggest.getId(), content);
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentAdd(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callCommentAdd = new RetrofitHelper().call(API.class).suggestCommentAdd(body);
+        RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 etComment.setText("");
@@ -413,8 +428,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     // 删除意见
     private void delSuggest() {
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestDel(suggest.getId());
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callDel = new RetrofitHelper().call(API.class).suggestDel(suggest.getId());
+        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemDelete
@@ -430,8 +445,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     public void refreshSuggest() {
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestGet(suggest.getId());
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGet = new RetrofitHelper().call(API.class).suggestGet(suggest.getId());
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 suggest = data.getSuggest();

@@ -323,6 +323,7 @@
     <string name="click_retry_load">点击重新加载</string>
     <string name="wall_paper">墙纸</string>
     <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
+    <string name="confirm_delete_this_album">确定要删除这个相册吗</string>
     <string name="take_picture">拍照</string>
     <string name="album">相册</string>
     <string name="image_is_compress">图片正在压缩中…</string>

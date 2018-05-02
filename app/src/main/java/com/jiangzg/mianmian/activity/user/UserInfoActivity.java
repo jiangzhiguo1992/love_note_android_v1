@@ -62,6 +62,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
+    private Call<Result> call;
+
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, UserInfoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // 启动其他activity时消失
@@ -136,6 +138,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(call);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
@@ -207,7 +215,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     private void pushUserInfo(int sex, long birth) {
         User user = ApiHelper.getUserInfoBody(sex, birth);
         // api调用
-        final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
+        call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

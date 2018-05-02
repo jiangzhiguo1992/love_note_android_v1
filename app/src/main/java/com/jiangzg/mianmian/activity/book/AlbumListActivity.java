@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Help;
@@ -45,6 +46,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
+    private Call<Result> call;
     private int page;
     private Observable<List<Album>> obListCountRefresh;
 
@@ -69,7 +71,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 2))
                 .initRefresh(srl, false)
-                //.initAdapter(new DiaryAdapter(mActivity)) // TODO
+                .initAdapter(new AlbumAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -95,7 +97,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 删除
+                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
+                        albumAdapter.showDeleteDialog(position);
                     }
                 });
     }
@@ -120,6 +123,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_COUNT_REFRESH, obListCountRefresh);
     }
 
@@ -139,7 +143,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).AlbumListGet(page);
+        call = new RetrofitHelper().call(API.class).AlbumListGet(page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

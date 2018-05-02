@@ -50,6 +50,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
+    private Call<Result> call;
     private Observable<List<Suggest>> obListCountRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
@@ -139,6 +140,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, obListCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
@@ -163,7 +165,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call;
         if (entry == ENTRY_MINE) {
             call = new RetrofitHelper().call(API.class).suggestListMineGet(page);
         } else if (entry == ENTRY_FOLLOW) {

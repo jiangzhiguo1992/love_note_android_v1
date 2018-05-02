@@ -136,6 +136,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.tvCoin)
     TextView tvCoin;
 
+    private Call<Result> callHomeGet;
+    private Call<Result> callPlaceGet;
     private Runnable coupleCountDownTask;
     private Observable<WallPaper> obWallPaperCountRefresh;
     private Observable<Couple> obCoupleRefresh;
@@ -201,6 +203,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(callHomeGet);
+        RetrofitHelper.cancel(callPlaceGet);
         stopCoupleCountDownTask();
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
@@ -339,8 +343,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
         // 刷新的时候再把自己的位置推送上去
         Place body = ApiHelper.getPlaceBody();
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callHomeGet = new RetrofitHelper().call(API.class).coupleHomeGet(body);
+        RetrofitHelper.enqueue(callHomeGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -366,8 +370,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             @Override
             public void onSuccess(LocationInfo info) {
                 Place body = ApiHelper.getPlaceBody();
-                Call<Result> call = new RetrofitHelper().call(API.class).coupleHomeGet(body);
-                RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+                callPlaceGet = new RetrofitHelper().call(API.class).coupleHomeGet(body);
+                RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
                     @Override
                     public void onResponse(int code, String message, Result.Data data) {
                         LogUtils.i(LOG_TAG, "地理位置刷新");

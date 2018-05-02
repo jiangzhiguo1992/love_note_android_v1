@@ -64,6 +64,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int dp14;
 
     private RecyclerHelper recyclerHelper;
+    private Call<Result> call;
     private Observable<List<Suggest>> obListCountRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
@@ -166,6 +167,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, obListCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
@@ -311,7 +313,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestListHomeGet(searchStatus, searchType, page);
+        call = new RetrofitHelper().call(API.class).suggestListHomeGet(searchStatus, searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

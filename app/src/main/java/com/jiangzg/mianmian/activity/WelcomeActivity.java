@@ -39,6 +39,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @BindView(R.id.ivBg)
     GImageNativeView ivBg;
 
+    private Call<Result> call;
+
     @Override
     protected int getView(Intent intent) {
         BarUtils.setStatusBarTrans(mActivity, true);
@@ -80,6 +82,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(call);
         MyApp.get().getHandler().removeCallbacks(checkUser);
     }
 
@@ -97,7 +100,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             // 有token TODO 上传本地异常，然后再删除
             final long startTime = DateUtils.getCurrentLong();
             Entry entry = ApiHelper.getEntryBody();
-            Call<Result> call = new RetrofitHelper().call(API.class).entryPush(entry);
+            call = new RetrofitHelper().call(API.class).entryPush(entry);
             RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
                 @Override
                 public void onResponse(int code, String message, Result.Data data) {

@@ -79,8 +79,10 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     private int limitChannel;
     private RecyclerHelper recyclerHelper;
+    private Call<Result> callAdd;
     private File cameraFile;
     private int page;
+    private Call<Result> callGet;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WhisperListActivity.class);
@@ -132,6 +134,14 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callAdd);
+        ResHelper.deleteFileInBackground(cameraFile);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -155,12 +165,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             }
             ossUpload(pictureFile);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
@@ -200,8 +204,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         }
         page = more ? page + 1 : 0;
         String channel = refreshCurrentChannelView();
-        Call<Result> call = new RetrofitHelper().call(API.class).whisperListGet(channel, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGet = new RetrofitHelper().call(API.class).whisperListGet(channel, page);
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
@@ -307,9 +311,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void api(Whisper whisper) {
-        Call<Result> call = new RetrofitHelper().call(API.class).whisperPost(whisper);
+        callAdd = new RetrofitHelper().call(API.class).whisperAdd(whisper);
         MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // editText

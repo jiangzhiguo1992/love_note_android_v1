@@ -65,6 +65,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
+    private Call<Result> callUpdate;
+    private Call<Result> callGet;
     private File cameraFile;
     private File cropFile;
 
@@ -117,6 +119,13 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callUpdate);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
@@ -161,8 +170,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void refreshData() {
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperGet();
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGet = new RetrofitHelper().call(API.class).coupleWallPaperGet();
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 viewRefresh(data);
@@ -225,9 +234,9 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         objects.addAll(adapter.getData());
         objects.add(ossPath);
         WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
+        callUpdate = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
         MaterialDialog loading = getLoading(getString(R.string.are_upload), true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 SPHelper.setWallPaper(data.getWallPaper());

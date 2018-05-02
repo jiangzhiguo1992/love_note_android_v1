@@ -77,6 +77,11 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     Button btnCardGood;
 
     private long coupleId;
+    private Call<Result> callRefreshSelf;
+    private Call<Result> callInvitee;
+    private Call<Result> callGetComplex;
+    private Call<Result> callUpdate;
+    private Call<Result> callGetVisible;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, CouplePairActivity.class);
@@ -111,6 +116,16 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callRefreshSelf);
+        RetrofitHelper.cancel(callGetVisible);
+        RetrofitHelper.cancel(callGetComplex);
+        RetrofitHelper.cancel(callInvitee);
+        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -182,8 +197,8 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api获取和ta的以往cp
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleGet(true, "", 0, 0);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callRefreshSelf = new RetrofitHelper().call(API.class).coupleGet(true, "", 0, 0);
+        RetrofitHelper.enqueue(callRefreshSelf, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -206,8 +221,8 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         // api邀请
         User user = new User();
         user.setPhone(etPhone.getText().toString().trim());
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleInvitee(user);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callInvitee = new RetrofitHelper().call(API.class).coupleInvitee(user);
+        RetrofitHelper.enqueue(callInvitee, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -230,8 +245,8 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         }
         // api获取正在等待处理的cp
         String phone = etPhone.getText().toString().trim();
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleGet(false, phone, 0, 0);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGetComplex = new RetrofitHelper().call(API.class).coupleGet(false, phone, 0, 0);
+        RetrofitHelper.enqueue(callGetComplex, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -320,8 +335,8 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
 
     // 提交状态更新
     private void coupleUpdate(User body) {
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callUpdate = new RetrofitHelper().call(API.class).coupleUpdate(body);
+        RetrofitHelper.enqueue(callUpdate, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -342,8 +357,8 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         }
         // api获取和ta的以往cp
         long uid = SPHelper.getUser().getId();
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleGet(false, "", 0, uid);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGetVisible = new RetrofitHelper().call(API.class).coupleGet(false, "", 0, uid);
+        RetrofitHelper.enqueue(callGetVisible, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);

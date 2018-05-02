@@ -43,6 +43,8 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     @BindView(R.id.btnChange)
     Button btnChange;
 
+    private Call<Result> callSms;
+    private Call<Result> callModify;
     private boolean isGo = false;
     private int countDownGo = -1;
     private Runnable countDownTask;
@@ -74,6 +76,13 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     protected void onStop() {
         super.onStop();
         stopCountDownTask();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callModify);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etCode})
@@ -110,9 +119,9 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
         Sms body = ApiHelper.getSmsPhoneBody(phone);
-        final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
+        callSms = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -164,9 +173,9 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         // api调用
         User user = ApiHelper.getUserPhoneBody(phone, code);
         // api调用
-        final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
+        callModify = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading("", true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;

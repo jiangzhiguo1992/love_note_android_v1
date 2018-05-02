@@ -20,11 +20,11 @@ import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,6 +48,8 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
+    private Call<Result> callSms;
+    private Call<Result> callModify;
     private int countDownGo = -1;
     private Runnable countDownTask;
     private boolean isGo = false;
@@ -80,6 +82,13 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         if (isGo) {
             finish();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callModify);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})
@@ -118,9 +127,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         String phone = etPhone.getText().toString().trim();
         // 发送验证码
         Sms body = ApiHelper.getSmsForgetBody(phone);
-        final Call<Result> call = new RetrofitHelper().call(API.class).smsSend(body);
+        callSms = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 countDownGo = 0;
@@ -177,9 +186,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         String code = etCode.getText().toString().trim();
         User user = ApiHelper.getUserForgetBody(phone, pwd, code);
         // api调用
-        final Call<Result> call = new RetrofitHelper().call(API.class).userModify(user);
+        callModify = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 isGo = true;

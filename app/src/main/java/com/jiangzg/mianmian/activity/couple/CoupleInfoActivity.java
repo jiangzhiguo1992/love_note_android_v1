@@ -103,7 +103,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private boolean isCreator;
     private User me;
     private User ta;
-
+    private Call<Result> callGet;
+    private Call<Result> callUpdateInfo;
+    private Call<Result> callUpdateStatus;
     private File cameraFile;
     private File cropFile;
 
@@ -147,6 +149,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callUpdateInfo);
+        RetrofitHelper.cancel(callUpdateStatus);
     }
 
     @Override
@@ -246,8 +256,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             srl.setRefreshing(true);
         }
         // api获取ta
-        Call<Result> call = new RetrofitHelper().call(API.class).userGet(true);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGet = new RetrofitHelper().call(API.class).userGet(true);
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
@@ -388,8 +398,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         MaterialDialog loading = getLoading(true);
         User body = ApiHelper.getCoupleUpdateInfo(avatar, name);
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callUpdateInfo = new RetrofitHelper().call(API.class).coupleUpdate(body);
+        RetrofitHelper.enqueue(callUpdateInfo, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
@@ -456,8 +466,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void coupleStatus(User body) {
         MaterialDialog loading = getLoading(true);
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).coupleUpdate(body);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        callUpdateStatus = new RetrofitHelper().call(API.class).coupleUpdate(body);
+        RetrofitHelper.enqueue(callUpdateStatus, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
