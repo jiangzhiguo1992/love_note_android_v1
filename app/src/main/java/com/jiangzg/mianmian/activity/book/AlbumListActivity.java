@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
@@ -24,6 +25,7 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -49,9 +51,10 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
+    private Observable<List<Album>> obListCountRefresh;
+    private Observable<Album> obListItemRefresh;
     private Call<Result> call;
     private int page;
-    private Observable<List<Album>> obListCountRefresh;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
@@ -92,19 +95,48 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 进入照片列表页
-                        //DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
-                        //diaryAdapter.goDiaryDetail(position);
+                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
+                        albumAdapter.goDetail(position);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 修改/删除(在原有的view上增加覆盖图)
-                        //AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        //albumAdapter.showDeleteDialog(position);
+                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
+                        albumAdapter.showOperation(position);
+                    }
+                })
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.tvModify: // 修改
+                                albumAdapter.goEdit(position);
+                                break;
+                            case R.id.tvDelete: // 删除
+                                albumAdapter.showDeleteDialog(position);
+                                break;
+                            case R.id.tvCancel: // 取消
+                                albumAdapter.hideOperation();
+                                break;
+                        }
                     }
                 });
+        // recycler
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                AlbumAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter != null) adapter.hideOperation();
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override
@@ -113,6 +145,12 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
             @Override
             public void call(List<Album> albumList) {
                 recyclerHelper.dataRefresh();
+            }
+        });
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, new Action1<Album>() {
+            @Override
+            public void call(Album album) {
+                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), album);
             }
         });
         recyclerHelper.dataRefresh();
@@ -129,6 +167,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         super.onDestroy();
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_COUNT_REFRESH, obListCountRefresh);
+        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @Override

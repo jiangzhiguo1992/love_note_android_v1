@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -33,6 +35,7 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
@@ -244,11 +247,23 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void showDeleteDialog() {
-        // TODO dialog
-        ResHelper.deleteFileInBackground(cameraFile);
-        cameraFile = null;
-        pictureFile = null;
-        setCoverVisible(false);
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_delete_this_image)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        cameraFile = null;
+                        pictureFile = null;
+                        setCoverVisible(false);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void setCoverVisible(boolean show) {
