@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.adapter.AlbumAdapter;
@@ -26,10 +27,12 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -97,8 +100,9 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        albumAdapter.showDeleteDialog(position);
+                        // TODO 修改/删除(在原有的view上增加覆盖图)
+                        //AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
+                        //albumAdapter.showDeleteDialog(position);
                     }
                 });
     }
@@ -130,8 +134,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuAdd: // 添加 TODO
-                //DiaryEditActivity.goActivity(mActivity);
+            case R.id.menuAdd: // 添加
+                albumAdd();
                 return true;
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, Help.TYPE_ALBUM_LIST);
@@ -158,6 +162,24 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 recyclerHelper.dataFail(more, errMsg);
             }
         });
+    }
+
+    private void albumAdd() {
+        if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
+        BaseQuickAdapter adapter = recyclerHelper.getAdapter();
+        int totalCount = SPHelper.getVipLimit().getBookAlbumTotalCount();
+        if (adapter.getData().size() >= totalCount) {
+            String toast;
+            if (totalCount <= 0) {
+                toast = getString(R.string.now_status_cant_upload_img);
+            } else {
+                String string = getString(R.string.now_just_upload_holder_album);
+                toast = String.format(Locale.getDefault(), string, totalCount);
+            }
+            ToastUtils.show(toast);
+            return;
+        }
+        AlbumEditActivity.goActivity(mActivity);
     }
 
 }

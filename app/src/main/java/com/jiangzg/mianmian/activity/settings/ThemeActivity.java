@@ -70,13 +70,11 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.theme), true);
-        // view
-        refreshView();
     }
 
     @Override
     protected void initData(Bundle state) {
-
+        refreshDataView();
     }
 
     @OnClick({R.id.rlRed, R.id.rlPink, R.id.rlPurple, R.id.rlBlue, R.id.rlGreen, R.id.rlYellow, R.id.rlOrange, R.id.rlBrown})
@@ -107,10 +105,10 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
                 ThemeHelper.setTheme(ThemeHelper.THEME_BROWN);
                 break;
         }
-        refreshView();
+        refreshDataView();
     }
 
-    private void refreshView() {
+    private void refreshDataView() {
         ivPink.setImageResource(R.drawable.ic_circle_primary);
         ivRed.setImageResource(R.drawable.ic_circle_primary);
         ivPurple.setImageResource(R.drawable.ic_circle_primary);

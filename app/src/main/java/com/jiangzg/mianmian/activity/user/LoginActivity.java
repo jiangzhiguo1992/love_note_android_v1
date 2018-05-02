@@ -106,7 +106,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initData(Bundle state) {
-
     }
 
     // 关闭其他activity

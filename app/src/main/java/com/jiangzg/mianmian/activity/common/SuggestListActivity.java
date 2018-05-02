@@ -71,14 +71,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        entry = getIntent().getIntExtra("entry", ENTRY_MINE);
-        String title;
-        if (entry == ENTRY_FOLLOW) {
-            title = getString(R.string.my_follow);
-        } else {
-            title = getString(R.string.my_push);
-        }
-        ViewHelper.initTopBar(mActivity, tb, title, true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -110,6 +103,14 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        // tb
+        entry = getIntent().getIntExtra("entry", ENTRY_MINE);
+        if (entry == ENTRY_FOLLOW) {
+            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_follow), true);
+        } else if (entry == ENTRY_MINE) {
+            ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_push), true);
+        }
+        // event
         obListCountRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
@@ -128,6 +129,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
+        // api
         recyclerHelper.dataRefresh();
     }
 

@@ -311,7 +311,7 @@
     <string name="please_input_title">请输入标题</string>
     <string name="content">内容</string>
     <string name="please_input_content">请输入内容</string>
-    <string name="please_input_content_dont_over_holder_text">请输入内容，不得超过%d字</string>
+    <string name="please_input_content_dont_over_holder_text" formatted="false">请输入内容，不得超过%d字</string>
     <string name="click_me_add_image">点我添加图片</string>
     <string name="push">发布</string>
     <string name="please_choose_classify">请选择分类</string>
@@ -445,8 +445,8 @@
     <string name="send">发送</string>
     <string name="already_arrive_top">已经到达最顶部了</string>
     <string name="change_channel">切换频道</string>
-    <string name="current_channel_colon_space_holder">当前频道: %s</string>
-    <string name="save_channel_colon_space_holder">保存频道: %s</string>
+    <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>
+    <string name="save_channel_colon_space_holder" formatted="false">保存频道: %s</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="online_can_entry">联网才可以进入哦</string>
     <string name="add_image">添加图片</string>
@@ -454,4 +454,8 @@
     <string name="schedule">日程</string>
     <string name="statistics">统计</string>
     <string name="file_too_max">文件过大</string>
+    <string name="now_just_upload_holder_album" formatted="false">目前只能上传%d个相册哦</string>
+    <string name="please_input_album_name">请输入相册名称</string>
+    <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
+    <string name="click_mo_add_cover">点我添加封面</string>
 </resources>

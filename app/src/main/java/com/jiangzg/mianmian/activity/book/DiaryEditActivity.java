@@ -108,6 +108,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), true);
+    }
+
+    @Override
+    protected void initData(Bundle state) {
         // 外部和草稿，都检查一下
         Diary diary = getIntentDiary();
         if (diary == null) {
@@ -146,10 +150,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         // input
         String content = (diary != null) ? diary.getContent() : "";
         etContent.setText(content);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
     }
 
     @Override

@@ -68,7 +68,8 @@
                     android:hint="@string/please_input_title"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    android:singleLine="true"/>
             </RelativeLayout>
 
 

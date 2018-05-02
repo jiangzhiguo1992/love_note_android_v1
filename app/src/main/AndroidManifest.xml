@@ -76,6 +76,8 @@
         <activity android:name=".activity.common.BigImageActivity"/>
         <activity android:name=".activity.book.AlbumListActivity">
         </activity>
+        <activity android:name=".activity.book.AlbumEditActivity">
+        </activity>
     </application>
 
 </manifest>

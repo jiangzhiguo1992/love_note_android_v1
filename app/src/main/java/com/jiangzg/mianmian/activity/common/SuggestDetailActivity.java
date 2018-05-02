@@ -111,11 +111,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        suggest = getIntent().getParcelableExtra("suggest");
-        String title = (suggest == null) ? getString(R.string.suggest_feedback) : suggest.getTitle();
-        ViewHelper.initTopBar(mActivity, tb, title, true);
-        // comment
-        commentShow(false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -145,18 +141,24 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                         commentAdapter.delComment(position);
                     }
                 });
-        // head
-        initHead();
-        // follow
-        initFollowView();
         // comment
-        initCommentView();
+        commentShow(false);
         // comment 防止开始显示错误
         etComment.setText("");
     }
 
     @Override
     protected void initData(Bundle state) {
+        suggest = getIntent().getParcelableExtra("suggest");
+        String title = (suggest == null) ? getString(R.string.suggest_feedback) : suggest.getTitle();
+        ViewHelper.initTopBar(mActivity, tb, title, true);
+        // head
+        initHead();
+        // follow
+        initFollowView();
+        // comment
+        initCommentView();
+        // api
         recyclerHelper.dataRefresh();
     }
 
@@ -311,7 +313,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private void initFollowView() {
         boolean follow = suggest.isFollow();
         String followCount = String.valueOf(suggest.getFollowCount());
-
         tvFollow.setText(followCount);
         if (follow) {
             ivFollow.setImageResource(R.drawable.ic_visibility_on_primary);

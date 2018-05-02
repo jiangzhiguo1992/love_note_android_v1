@@ -50,15 +50,16 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        File wallPaper = ResHelper.getWallPaperRandom();
-        if (!FileUtils.isFileEmpty(wallPaper)) {
-            ivBg.setDataFile(wallPaper);
-        }
-        startAnim();
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        // wallPaper
+        File wallPaper = ResHelper.getWallPaperRandom();
+        if (!FileUtils.isFileEmpty(wallPaper)) {
+            ivBg.setDataFile(wallPaper);
+            startAnim();
+        }
         // TODO ...非网络性init操作
         checkUser();
     }

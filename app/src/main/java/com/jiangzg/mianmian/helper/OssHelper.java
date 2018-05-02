@@ -109,13 +109,6 @@ public class OssHelper {
         void failure(String ossPath);
     }
 
-    // 墙纸 (裁剪)(本地有持久缓存，就不压缩了)
-    public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathCoupleWall = ossInfo.getPathCoupleWall();
-        uploadJpeg(activity, pathCoupleWall, source, callBack);
-    }
-
     // 意见 (压缩)
     public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -123,11 +116,25 @@ public class OssHelper {
         compressJpeg(activity, pathSuggest, source, callBack);
     }
 
-    // 头像 (裁剪+压缩)
+    // 头像 (裁剪+压缩)(本地有持久缓存)
     public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
         compressJpeg(activity, pathCoupleAvatar, source, callBack);
+    }
+
+    // 墙纸 (裁剪)(本地有持久缓存，就不压缩了)
+    public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathCoupleWall = ossInfo.getPathCoupleWall();
+        uploadJpeg(activity, pathCoupleWall, source, callBack);
+    }
+
+    // 耳语 (压缩)
+    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookWhisper = ossInfo.getPathBookWhisper();
+        compressJpeg(activity, pathBookWhisper, source, callBack);
     }
 
     // 日记 (限制大小)
@@ -154,11 +161,11 @@ public class OssHelper {
         uploadJpegs(activity, pathBookDiary, fileList, callBack);
     }
 
-    // 耳语 (压缩)
-    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
+    // 相册 (压缩)
+    public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookWhisper = ossInfo.getPathBookWhisper();
-        compressJpeg(activity, pathBookWhisper, source, callBack);
+        String pathBookAlbum = ossInfo.getPathBookAlbum();
+        compressJpeg(activity, pathBookAlbum, source, callBack);
     }
 
     // apk

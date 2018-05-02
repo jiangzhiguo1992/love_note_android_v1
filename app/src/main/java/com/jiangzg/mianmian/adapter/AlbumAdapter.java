@@ -7,14 +7,17 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.book.AlbumEditActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import retrofit2.Call;
@@ -46,7 +49,24 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         helper.setText(R.id.tvTitle, title);
         GImageView ivAlbum = helper.getView(R.id.ivAlbum);
         ivAlbum.setWidthAndHeight(imageWidth, imageHeight);
-        ivAlbum.setDataOss(cover);
+        if (StringUtils.isEmpty(cover)) {
+            // 没有封面时，随机给个颜色
+            int randomColor = ViewHelper.getRandomThemePrimaryRes();
+            ivAlbum.setDataRes(randomColor);
+        } else {
+            ivAlbum.setDataOss(cover);
+        }
+    }
+
+    public void onLongPress(int position) {
+        // TODO
+        //goEdit(position);
+        //showDeleteDialog(position);
+    }
+
+    public void goEdit(int position) {
+        Album item = getData().get(position);
+        AlbumEditActivity.goActivity(mActivity, item);
     }
 
     public void showDeleteDialog(final int position) {

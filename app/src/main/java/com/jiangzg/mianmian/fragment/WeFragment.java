@@ -312,6 +312,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
             @Override
             public void onPermissionDenied(int requestCode, String[] permissions) {
+                // TODO
             }
         });
     }

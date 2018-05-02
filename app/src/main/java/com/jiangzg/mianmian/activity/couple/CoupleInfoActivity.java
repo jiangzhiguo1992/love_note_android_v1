@@ -126,9 +126,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.couple_info), true);
-        // 我的数据和身份
-        me = SPHelper.getUser();
-        isCreator = me.isCoupleCreator();
         // 沉浸式状态栏
         abl.setBackgroundColor(Color.TRANSPARENT);
         int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);
@@ -142,6 +139,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        // 我的数据和身份
+        me = SPHelper.getUser();
+        isCreator = me.isCoupleCreator();
+        // ta
         getTaInfo();
     }
 
@@ -346,22 +347,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
 
-    // oss上传头像
-    private void ossUploadAvatar() {
-        OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
-            @Override
-            public void success(File source, String ossPath) {
-                apiCoupleInfo(ossPath, "");
-                ResHelper.deleteFileInBackground(cropFile);
-            }
-
-            @Override
-            public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cropFile);
-            }
-        });
-    }
-
     // 修改名称对话框
     private void showNameInput() {
         String show = isCreator ? tvNameRight.getText().toString().trim() : tvNameLeft.getText().toString().trim();
@@ -391,6 +376,22 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 })
                 .build();
         DialogHelper.showWithAnim(dialogName);
+    }
+
+    // oss上传头像
+    private void ossUploadAvatar() {
+        OssHelper.uploadAvatar(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
+            @Override
+            public void success(File source, String ossPath) {
+                apiCoupleInfo(ossPath, "");
+                ResHelper.deleteFileInBackground(cropFile);
+            }
+
+            @Override
+            public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cropFile);
+            }
+        });
     }
 
     // api 修改couple

@@ -72,7 +72,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
     @Override
     protected void initData(Bundle state) {
-
     }
 
     @Override

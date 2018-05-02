@@ -117,7 +117,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     @Override
     protected void initData(Bundle state) {
-
     }
 
     @Override

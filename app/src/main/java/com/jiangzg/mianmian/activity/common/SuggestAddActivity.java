@@ -171,7 +171,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
             ResHelper.deleteFileInBackground(cameraFile);
-            pictureFile = null;
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
@@ -179,23 +178,26 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             if (FileUtils.isFileEmpty(cameraFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 ResHelper.deleteFileInBackground(cameraFile);
-                return;
+                ivImage.setVisibility(View.GONE);
+                tvImageToggle.setText(R.string.click_me_add_image);
+            } else {
+                ivImage.setVisibility(View.VISIBLE);
+                ivImage.setDataFile(cameraFile);
+                tvImageToggle.setText(R.string.click_me_to_del_image);
             }
-            pictureFile = null; // 解除相册文件引用
-            ivImage.setVisibility(View.VISIBLE);
-            ivImage.setDataFile(cameraFile);
-            tvImageToggle.setText(R.string.click_me_to_del_image);
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 pictureFile = null;
-                return;
+                ivImage.setVisibility(View.GONE);
+                tvImageToggle.setText(R.string.click_me_add_image);
+            } else {
+                ivImage.setVisibility(View.VISIBLE);
+                ivImage.setDataFile(pictureFile);
+                tvImageToggle.setText(R.string.click_me_to_del_image);
             }
-            ivImage.setVisibility(View.VISIBLE);
-            ivImage.setDataFile(pictureFile);
-            tvImageToggle.setText(R.string.click_me_to_del_image);
         }
     }
 
@@ -339,12 +341,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             @Override
             public void success(File source, String ossPath) {
                 pushSuggest(ossPath);
-                ResHelper.deleteFileInBackground(cameraFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cameraFile);
             }
         });
     }

@@ -88,16 +88,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
         srl.setEnabled(false);
-        // data
-        Intent intent = getIntent();
-        int from = intent.getIntExtra("from", ConsHelper.DETAIL_DATA_FROM_NONE);
-        if (from == ConsHelper.DETAIL_DATA_FROM_ALL) {
-            diary = intent.getParcelableExtra("diary");
-            refreshView();
-        } else if (from == ConsHelper.DETAIL_DATA_FROM_ID) {
-            long did = intent.getLongExtra("did", 0);
-            refreshData(did);
-        }
     }
 
     @Override
@@ -109,6 +99,15 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
                 refreshData(diary.getId());
             }
         });
+        Intent intent = getIntent();
+        int from = intent.getIntExtra("from", ConsHelper.DETAIL_DATA_FROM_NONE);
+        if (from == ConsHelper.DETAIL_DATA_FROM_ALL) {
+            diary = intent.getParcelableExtra("diary");
+            refreshView();
+        } else if (from == ConsHelper.DETAIL_DATA_FROM_ID) {
+            long did = intent.getLongExtra("did", 0);
+            refreshData(did);
+        }
     }
 
     @Override

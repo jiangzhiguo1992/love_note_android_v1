@@ -276,9 +276,9 @@ public class SPHelper {
         limit.setWhisperLimitChannel(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL, 10));
         limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
         limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
+        limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
         limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));
         limit.setTrackLimitProcess(sp.getInt(FIELD_LIMIT_TRACK_PROCESS, 200));
-        limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
         limit.setPromiseLimitContent(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT, 200));
         limit.setAudioLimitTitle(sp.getInt(FIELD_LIMIT_AUDIO_TITLE, 20));
         limit.setVideoLimitTitle(sp.getInt(FIELD_LIMIT_VIDEO_TITLE, 20));

@@ -69,7 +69,6 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
 
     @Override
     protected void initData(Bundle state) {
-
     }
 
     @Override

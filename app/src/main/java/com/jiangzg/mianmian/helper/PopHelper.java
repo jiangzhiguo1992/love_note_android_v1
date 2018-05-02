@@ -68,7 +68,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-
+                                // TODO
                             }
                         });
                         break;
@@ -115,7 +115,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-
+                                // TODO
                             }
                         });
                         break;
@@ -175,7 +175,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-
+                                // TODO
                             }
                         });
                         break;

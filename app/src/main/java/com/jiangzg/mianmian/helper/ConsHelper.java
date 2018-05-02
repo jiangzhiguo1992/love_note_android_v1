@@ -36,6 +36,7 @@ public class ConsHelper {
     public static final int EVENT_DIARY_DETAIL_REFRESH = 11;
     public static final int EVENT_WORD_LIST_ITEM_DELETE = 12; // 留言
     public static final int EVENT_ALBUM_LIST_COUNT_REFRESH = 13; // 相册
+    public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 14;
 
     // DetailDataType
     public static final int DETAIL_DATA_FROM_NONE = 0;
