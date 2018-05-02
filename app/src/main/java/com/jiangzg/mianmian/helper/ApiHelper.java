@@ -20,6 +20,7 @@ import com.jiangzg.mianmian.activity.user.UserInfoActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.broadcast.OssReceiver;
+import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
@@ -71,7 +72,6 @@ public class ApiHelper {
             MyApp.get().getString(R.string.me_de),
             MyApp.get().getString(R.string.ta_de)
     };
-
 
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {
@@ -360,4 +360,12 @@ public class ApiHelper {
         whisper.setContent(content);
         return whisper;
     }
+
+    public static Album getAlbumBody(String title, String coverOssPath) {
+        Album album = new Album();
+        album.setTitle(title);
+        album.setCover(coverOssPath);
+        return album;
+    }
+
 }

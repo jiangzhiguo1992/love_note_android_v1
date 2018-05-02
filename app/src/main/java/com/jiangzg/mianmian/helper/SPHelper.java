@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import android.content.SharedPreferences;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.mianmian.domain.Couple;
@@ -110,6 +111,8 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_CP_TOPIC_TRACE = "coupleTopicTraceEnable";
     private static final String FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT = "bookWhisperImageCount";
     private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT = "bookDiaryImageCount";
+    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE = "bookDiaryImageSize";
+    private static final String FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT = "bookAlbumTotalCount";
     private static final String FIELD_VIP_LIMIT_BK_PICTURE_COUNT = "bookPictureCount";
     private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT = "bookGiftImageCount";
     private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "bookMeetImageCount";
@@ -388,6 +391,8 @@ public class SPHelper {
         editor.putBoolean(FIELD_VIP_LIMIT_CP_TOPIC_TRACE, vipLimit.isCoupleTopicTraceEnable());
         editor.putInt(FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT, vipLimit.getBookWhisperImageCount());
         editor.putInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, vipLimit.getBookDiaryImageCount());
+        editor.putLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, vipLimit.getBookDiaryImageSize());
+        editor.putInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, vipLimit.getBookAlbumTotalCount());
         editor.putInt(FIELD_VIP_LIMIT_BK_PICTURE_COUNT, vipLimit.getBookPictureCount());
         editor.putInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, vipLimit.getBookGiftImageCount());
         editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getBookMeetImageCount());
@@ -406,6 +411,8 @@ public class SPHelper {
         vipLimit.setCoupleTopicTraceEnable(sp.getBoolean(FIELD_VIP_LIMIT_CP_TOPIC_TRACE, false));
         vipLimit.setBookWhisperImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT, 0));
         vipLimit.setBookDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, 0));
+        vipLimit.setBookDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, ConstantUtils.MB * 5));
+        vipLimit.setBookAlbumTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, 0));
         vipLimit.setBookPictureCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_COUNT, 0));
         vipLimit.setBookGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, 0));
         vipLimit.setBookMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));

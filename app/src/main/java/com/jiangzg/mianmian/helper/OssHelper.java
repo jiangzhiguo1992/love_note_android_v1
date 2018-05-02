@@ -136,7 +136,8 @@ public class OssHelper {
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= ConsHelper.UPLOAD_IMAGE_SIZE_MAX) {
+            long imageSize = SPHelper.getVipLimit().getBookDiaryImageSize();
+            if (file.length() >= imageSize) {
                 overLimit = true;
                 break;
             }

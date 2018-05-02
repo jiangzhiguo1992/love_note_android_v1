@@ -137,7 +137,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     TextView tvCoin;
 
     private Runnable coupleCountDownTask;
-    private Observable<WallPaper> obWallPaper;
+    private Observable<WallPaper> obWallPaperCountRefresh;
     private Observable<Couple> obCoupleRefresh;
     private Observable<LocationInfo> obLocationRefresh;
     private Place myPlace;
@@ -176,7 +176,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     protected void loadData() {
         // event
-        obWallPaper = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
+        obWallPaperCountRefresh = RxBus.register(ConsHelper.EVENT_WALL_PAPER_COUNT_REFRESH, new Action1<WallPaper>() {
             @Override
             public void call(WallPaper wallPaper) {
                 refreshWallPaperView();
@@ -202,7 +202,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     public void onDestroy() {
         super.onDestroy();
         stopCoupleCountDownTask();
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaper);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
         RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, obLocationRefresh);
     }

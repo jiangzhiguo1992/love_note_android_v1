@@ -349,7 +349,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                 Diary diary = data.getDiary();
                 RxEvent<Diary> eventList = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary);
                 RxBus.post(eventList);
-                RxEvent<Diary> eventSingle = new RxEvent<>(ConsHelper.EVENT_DIARY_REFRESH, diary);
+                RxEvent<Diary> eventSingle = new RxEvent<>(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary);
                 RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();
@@ -369,7 +369,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
+                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_COUNT_REFRESH, new ArrayList<Diary>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

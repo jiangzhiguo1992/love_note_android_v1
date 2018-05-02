@@ -98,7 +98,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             public void onResponse(int code, String message, Result.Data data) {
                 WallPaperAdapter.this.remove(position);
                 // event
-                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
+                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_COUNT_REFRESH, data.getWallPaper());
                 RxBus.post(event);
             }
 

@@ -59,7 +59,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     TextView tvContent;
 
     private Diary diary;
-    private Observable<Diary> obDiary;
+    private Observable<Diary> obDetailRefresh;
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
@@ -100,7 +100,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        obDiary = RxBus.register(ConsHelper.EVENT_DIARY_REFRESH, new Action1<Diary>() {
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
                 if (diary == null) return;
@@ -130,7 +130,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_DIARY_REFRESH, obDiary);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override

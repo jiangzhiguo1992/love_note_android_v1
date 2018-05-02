@@ -25,16 +25,17 @@ public class ConsHelper {
     // RxBus.ID
     public static final int EVENT_USER_REFRESH = 1; // 用户
     public static final int EVENT_COUPLE_REFRESH = 2; // 配对
-    public static final int EVENT_SUGGEST_LIST_REFRESH = 3; // 建议
+    public static final int EVENT_SUGGEST_LIST_COUNT_REFRESH = 3; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 4;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 5;
     public static final int EVENT_LOCATION_REFRESH = 6; // 地址
-    public static final int EVENT_WALL_PAPER_REFRESH = 7; // 墙纸
-    public static final int EVENT_DIARY_LIST_REFRESH = 8; // 日记
+    public static final int EVENT_WALL_PAPER_COUNT_REFRESH = 7; // 墙纸
+    public static final int EVENT_DIARY_LIST_COUNT_REFRESH = 8; // 日记
     public static final int EVENT_DIARY_LIST_ITEM_DELETE = 9;
     public static final int EVENT_DIARY_LIST_ITEM_REFRESH = 10;
-    public static final int EVENT_DIARY_REFRESH = 11;
+    public static final int EVENT_DIARY_DETAIL_REFRESH = 11;
     public static final int EVENT_WORD_LIST_ITEM_DELETE = 12; // 留言
+    public static final int EVENT_ALBUM_LIST_COUNT_REFRESH = 13; // 相册
 
     // DetailDataType
     public static final int DETAIL_DATA_FROM_NONE = 0;

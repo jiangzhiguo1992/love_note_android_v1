@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.helper;
 
+import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Place;
@@ -206,5 +207,25 @@ public interface API {
     // whisper上传
     @POST("book/whisper")
     Call<Result> whisperPost(@Body Whisper whisper);
+
+    // albumList获取
+    @GET("book/album?aid=0&list=1")
+    Call<Result> AlbumListGet(@Query("page") int page);
+
+    // album获取
+    @GET("book/album?list=0")
+    Call<Result> AlbumGet(@Query("aid") long aid);
+
+    // album上传
+    @POST("book/album")
+    Call<Result> AlbumPost(@Body Album album);
+
+    // album删除
+    @DELETE("book/album")
+    Call<Result> AlbumDel(@Query("aid") long aid);
+
+    // album修改
+    @PUT("book/album")
+    Call<Result> AlbumUpdate(@Body Album Album);
 
 }

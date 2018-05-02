@@ -12,8 +12,10 @@ public class VipLimit {
     private boolean coupleEntryTraceEnable;
     private boolean coupleTopicTraceEnable;
 
-    private int bookDiaryImageCount;
     private int bookWhisperImageCount;
+    private int bookDiaryImageCount;
+    private long bookDiaryImageSize;
+    private int bookAlbumTotalCount;
     private int bookPictureCount;
     private int bookGiftImageCount;
     private int bookMeetImageCount;
@@ -21,6 +23,22 @@ public class VipLimit {
     private long bookVideoTotalSize;
 
     private boolean topicImageEnable;
+
+    public int getBookAlbumTotalCount() {
+        return bookAlbumTotalCount;
+    }
+
+    public void setBookAlbumTotalCount(int bookAlbumTotalCount) {
+        this.bookAlbumTotalCount = bookAlbumTotalCount;
+    }
+
+    public long getBookDiaryImageSize() {
+        return bookDiaryImageSize;
+    }
+
+    public void setBookDiaryImageSize(long bookDiaryImageSize) {
+        this.bookDiaryImageSize = bookDiaryImageSize;
+    }
 
     public int getBookWhisperImageCount() {
         return bookWhisperImageCount;

@@ -50,7 +50,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Suggest>> obListRefresh;
+    private Observable<List<Suggest>> obListCountRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
     private int page;
@@ -109,7 +109,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
+        obListCountRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
                 recyclerHelper.dataRefresh();
@@ -139,7 +139,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, obListCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
     }

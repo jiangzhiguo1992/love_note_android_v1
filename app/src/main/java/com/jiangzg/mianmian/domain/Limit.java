@@ -6,25 +6,29 @@ package com.jiangzg.mianmian.domain;
  */
 public class Limit {
 
+    // common
     private int smsLimitEffectSec;
     private int smsLimitBetween;
     private int smsLimitMaxTime;
     private int smsLimitMaxCount;
+    // user
     private int suggestLimitTitle;
     private int suggestLimitContentText;
     private int suggestLimitPageSize;
     private int suggestCommentLimitContent;
     private int suggestCommentLimitPageSize;
+    // couple
     private int coupleLimitName;
     private int vipLimitExpireDays;
+    // book
     private int souvenirLimitTitle;
     private int whisperLimitContent;
     private int whisperLimitChannel;
     private int wordLimitContent;
     private int diaryLimitContent;
+    private int albumLimitTitle;
     private int trackLimitTitle;
     private int trackLimitProcess;
-    private int albumLimitTitle;
     private int promiseLimitContent;
     private int audioLimitTitle;
     private int videoLimitTitle;

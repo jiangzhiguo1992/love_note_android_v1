@@ -76,6 +76,24 @@ public class Result implements Serializable {
         private Word word;
         private List<Whisper> whisperList;
         private Whisper whisper;
+        private Album album;
+        private List<Album> albumList;
+
+        public Album getAlbum() {
+            return album;
+        }
+
+        public void setAlbum(Album album) {
+            this.album = album;
+        }
+
+        public List<Album> getAlbumList() {
+            return albumList;
+        }
+
+        public void setAlbumList(List<Album> albumList) {
+            this.albumList = albumList;
+        }
 
         public List<Whisper> getWhisperList() {
             return whisperList;

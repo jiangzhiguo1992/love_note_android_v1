@@ -62,7 +62,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     private RecyclerHelper recyclerHelper;
     private int page;
     private int searchType = ApiHelper.LIST_CP;
-    private Observable<List<Diary>> obListRefresh;
+    private Observable<List<Diary>> obListCountRefresh;
     private Observable<Diary> obListItemRefresh;
     private Observable<Diary> obListItemDelete;
 
@@ -113,7 +113,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
+        obListCountRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_COUNT_REFRESH, new Action1<List<Diary>>() {
             @Override
             public void call(List<Diary> diaries) {
                 recyclerHelper.dataRefresh();
@@ -143,7 +143,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_COUNT_REFRESH, obListCountRefresh);
         RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
     }
