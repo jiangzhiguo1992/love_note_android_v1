@@ -11,7 +11,7 @@ public class Limit {
     private int smsLimitBetween;
     private int smsLimitMaxTime;
     private int smsLimitMaxCount;
-    // user
+    // settings
     private int suggestLimitTitle;
     private int suggestLimitContentText;
     private int suggestLimitPageSize;
@@ -19,7 +19,6 @@ public class Limit {
     private int suggestCommentLimitPageSize;
     // couple
     private int coupleLimitName;
-    private int vipLimitExpireDays;
     // book
     private int souvenirLimitTitle;
     private int whisperLimitContent;
@@ -36,6 +35,10 @@ public class Limit {
     private int dreamLimitContent;
     private int angryLimitReason;
     private int awardLimitReason;
+    // topic
+
+    // square
+    private int vipLimitExpireDays;
 
     public int getWhisperLimitChannel() {
         return whisperLimitChannel;

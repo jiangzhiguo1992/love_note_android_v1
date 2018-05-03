@@ -85,7 +85,7 @@ public interface API {
 
     // 登录历史获取
     @GET("entry")
-    Call<Result> entryListGet();
+    Call<Result> entryListGet(@Query("page") int page);
 
     // 推送登录位置
     @POST("entry/place")

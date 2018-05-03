@@ -462,4 +462,7 @@
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
     <string name="click_mo_add_cover">点我添加封面</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
+    <string name="place">位置</string>
+    <string name="weather">天气</string>
+
 </resources>

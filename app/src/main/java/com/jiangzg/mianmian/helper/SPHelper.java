@@ -88,7 +88,6 @@ public class SPHelper {
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT = "suggestCommentLimitContent";
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE = "suggestCommentLimitPageSize";
     private static final String FIELD_LIMIT_COUPLE_NAME = "coupleLimitName";
-    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipLimitExpireDays";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE = "souvenirLimitTitle";
     private static final String FIELD_LIMIT_WHISPER_CONTENT = "whisperLimitContent";
     private static final String FIELD_LIMIT_WHISPER_CHANNEL = "whisperLimitChannel";
@@ -104,6 +103,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_DREAM_CONTENT = "dreamLimitContent";
     private static final String FIELD_LIMIT_ANGRY_REASON = "angryLimitReason";
     private static final String FIELD_LIMIT_AWARD_REASON = "awardLimitReason";
+    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipLimitExpireDays";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_EXPIRE_AT = "expireAt";
     private static final String FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT = "coupleWallPaperCount";
@@ -237,7 +237,6 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT, limit.getSuggestCommentLimitContent());
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE, limit.getSuggestCommentLimitPageSize());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME, limit.getCoupleLimitName());
-        editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipLimitExpireDays());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE, limit.getSouvenirLimitTitle());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT, limit.getWhisperLimitContent());
         editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL, limit.getWhisperLimitChannel());
@@ -253,6 +252,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_DREAM_CONTENT, limit.getDreamLimitContent());
         editor.putInt(FIELD_LIMIT_ANGRY_REASON, limit.getAngryLimitReason());
         editor.putInt(FIELD_LIMIT_AWARD_REASON, limit.getAwardLimitReason());
+        editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipLimitExpireDays());
         editor.apply();
     }
 
@@ -269,7 +269,6 @@ public class SPHelper {
         limit.setSuggestCommentLimitContent(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT, 200));
         limit.setSuggestCommentLimitPageSize(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE, 30));
         limit.setCoupleLimitName(sp.getInt(FIELD_LIMIT_COUPLE_NAME, 6));
-        limit.setVipLimitExpireDays(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         limit.setSouvenirLimitTitle(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE, 20));
         limit.setWhisperLimitContent(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT, 100));
         limit.setWhisperLimitChannel(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL, 10));
@@ -285,6 +284,7 @@ public class SPHelper {
         limit.setDreamLimitContent(sp.getInt(FIELD_LIMIT_DREAM_CONTENT, 1000));
         limit.setAngryLimitReason(sp.getInt(FIELD_LIMIT_ANGRY_REASON, 200));
         limit.setAwardLimitReason(sp.getInt(FIELD_LIMIT_AWARD_REASON, 10));
+        limit.setVipLimitExpireDays(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
     }
 
