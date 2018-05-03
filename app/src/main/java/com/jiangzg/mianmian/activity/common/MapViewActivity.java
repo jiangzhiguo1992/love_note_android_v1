@@ -33,7 +33,7 @@ public class MapViewActivity extends BaseActivity<MapViewActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO 只是查看位置的，顺带搜索
+        // TODO 只是查看位置的，顺带搜索？
     }
 
     @Override

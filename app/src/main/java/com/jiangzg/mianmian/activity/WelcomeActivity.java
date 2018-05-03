@@ -40,6 +40,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     GImageNativeView ivBg;
 
     private Call<Result> call;
+    private boolean exits;
 
     @Override
     protected int getView(Intent intent) {
@@ -50,6 +51,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        exits = false;
     }
 
     @Override
@@ -83,6 +85,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        exits = true;
         RetrofitHelper.cancel(call);
         MyApp.get().getHandler().removeCallbacks(checkUser);
     }
@@ -121,6 +124,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     private Runnable checkUser = new Runnable() {
         @Override
         public void run() {
+            if (exits) return;
             WelcomeActivity.this.checkUser();
         }
     };

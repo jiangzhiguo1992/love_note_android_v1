@@ -1,9 +1,21 @@
 package com.jiangzg.mianmian.helper;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.User;
 
@@ -104,6 +116,52 @@ public class CheckHelper {
             }
         }
         return false;
+    }
+
+    // 检查位置服务是否可用
+    public static boolean isLocationEnable() {
+        boolean permission = PermUtils.isPermissionOK(MyApp.get(), PermUtils.location);
+        boolean enabled = LocationInfo.isLocationEnabled();
+        return permission && enabled;
+    }
+
+    // 检查并请求位置服务
+    public static boolean checkLocationEnable(final Activity activity) {
+        if (!PermUtils.isPermissionOK(activity, PermUtils.location)) {
+            // 权限不过关
+            PermUtils.requestPermissions(activity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+                @Override
+                public void onPermissionGranted(int requestCode, String[] permissions) {
+                    // 通过之后 用户再点击一次来进行后面的判断
+                }
+
+                @Override
+                public void onPermissionDenied(int requestCode, String[] permissions) {
+                    DialogHelper.showGoPermDialog(activity);
+                }
+            });
+            return false;
+        } else if (!LocationInfo.isLocationEnabled()) {
+            // GPS不过关
+            MaterialDialog dialog = DialogHelper.getBuild(activity)
+                    .cancelable(true)
+                    .canceledOnTouchOutside(false)
+                    .title(R.string.location_func_limit)
+                    .content(R.string.find_location_func_cant_use_normal_look_gps_is_open)
+                    .positiveText(R.string.go_to_setting)
+                    .negativeText(R.string.i_think_again)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Intent gps = IntentFactory.getGps();
+                            ActivityTrans.start(activity, gps);
+                        }
+                    })
+                    .build();
+            DialogHelper.showWithAnim(dialog);
+            return false;
+        }
+        return true;
     }
 
 }

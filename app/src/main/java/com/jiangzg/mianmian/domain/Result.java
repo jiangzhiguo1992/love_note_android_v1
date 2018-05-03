@@ -78,6 +78,42 @@ public class Result implements Serializable {
         private Whisper whisper;
         private Album album;
         private List<Album> albumList;
+        private Weather myWeather;
+        private Weather taWeather;
+        private String myShow;
+        private String taShow;
+
+        public Weather getMyWeather() {
+            return myWeather;
+        }
+
+        public void setMyWeather(Weather myWeather) {
+            this.myWeather = myWeather;
+        }
+
+        public Weather getTaWeather() {
+            return taWeather;
+        }
+
+        public void setTaWeather(Weather taWeather) {
+            this.taWeather = taWeather;
+        }
+
+        public String getMyShow() {
+            return myShow;
+        }
+
+        public void setMyShow(String myShow) {
+            this.myShow = myShow;
+        }
+
+        public String getTaShow() {
+            return taShow;
+        }
+
+        public void setTaShow(String taShow) {
+            this.taShow = taShow;
+        }
 
         public Album getAlbum() {
             return album;

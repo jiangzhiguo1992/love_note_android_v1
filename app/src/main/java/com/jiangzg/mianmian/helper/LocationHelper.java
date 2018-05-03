@@ -9,6 +9,7 @@ import com.amap.api.location.DPoint;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.mianmian.base.MyApp;
 
 /**
@@ -29,6 +30,7 @@ public class LocationHelper {
 
     /* 开启定位 */
     public static AMapLocationClient startLocation(boolean once, LocationCallBack callBack) {
+        if (!PermUtils.isPermissionOK(MyApp.get(), PermUtils.location)) return null;
         //初始化定位
         AMapLocationClient mLocationClient = new AMapLocationClient(MyApp.get());
         //给定位客户端对象设置定位参数

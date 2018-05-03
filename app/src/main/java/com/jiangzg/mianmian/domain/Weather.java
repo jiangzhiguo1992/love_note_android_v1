@@ -10,7 +10,7 @@ public class Weather {
 
     private City city;
     private Condition condition;
-    private List<Forecast> forecastList;
+    private List<Forecast> forecast;
 
     public City getCity() {
         return city;
@@ -28,12 +28,12 @@ public class Weather {
         this.condition = condition;
     }
 
-    public List<Forecast> getForecastList() {
-        return forecastList;
+    public List<Forecast> getForecast() {
+        return forecast;
     }
 
-    public void setForecastList(List<Forecast> forecastList) {
-        this.forecastList = forecastList;
+    public void setForecast(List<Forecast> forecast) {
+        this.forecast = forecast;
     }
 
     public static class City {

@@ -156,12 +156,10 @@ public class ApiHelper {
             }, totalWait - between);
         }
         // 推送登录地区，必须在entry之后
-        pushEntryPlace(mActivity);
+        pushEntryPlace();
     }
 
-    public static void pushEntryPlace(final Context context) {
-        boolean permissionOK = PermUtils.isPermissionOK(context, PermUtils.location);
-        if (!permissionOK) return;
+    public static void pushEntryPlace() {
         LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {

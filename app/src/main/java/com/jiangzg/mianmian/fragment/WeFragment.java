@@ -1,9 +1,7 @@
 package com.jiangzg.mianmian.fragment;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,14 +17,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
@@ -54,7 +48,6 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
-import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
@@ -226,73 +219,18 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             case R.id.llPlace: // 地址信息
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
-                } else {
-                    if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
-                        if (LocationInfo.isLocationEnabled()) {
-                            CouplePlaceActivity.goActivity(mActivity, myPlace, taPlace);
-                        } else {
-                            showLocationEnableDialog();
-                        }
-                    } else {
-                        requestLocationPermission();
-                    }
+                } else if (CheckHelper.checkLocationEnable(mActivity)) {
+                    CouplePlaceActivity.goActivity(mActivity, myPlace, taPlace);
                 }
                 break;
             case R.id.llWeather: // 天气信息
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
-                } else {
-                    if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
-                        if (LocationInfo.isLocationEnabled()) {
-                            CoupleWeatherActivity.goActivity(mActivity, myPlace, taPlace);
-                        } else {
-                            showLocationEnableDialog();
-                        }
-                    } else {
-                        requestLocationPermission();
-                    }
+                } else if (CheckHelper.checkLocationEnable(mActivity)) {
+                    CoupleWeatherActivity.goActivity(mActivity, myPlace, taPlace);
                 }
                 break;
         }
-    }
-
-    // 先检查位置权限 获取位置并推送，并在成功后会刷新本地view 再点一次才能进入地图
-    private void requestLocationPermission() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                if (LocationInfo.isLocationEnabled()) {
-                    ApiHelper.pushEntryPlace(mActivity);
-                } else {
-                    showLocationEnableDialog();
-                }
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
-    }
-
-    // 再检查位置开关
-    private void showLocationEnableDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(false)
-                .title(R.string.location_func_limit)
-                .content(R.string.find_location_func_cant_use_normal_look_gps_is_open)
-                .positiveText(R.string.go_to_setting)
-                .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent gps = IntentFactory.getGps();
-                        ActivityTrans.start(mActivity, gps);
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
     }
 
     // 数据刷新
