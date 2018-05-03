@@ -68,7 +68,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-                                // TODO
+                                DialogHelper.showGoPermDialog(activity);
                             }
                         });
                         break;
@@ -115,7 +115,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-                                // TODO
+                                DialogHelper.showGoPermDialog(activity);
                             }
                         });
                         break;
@@ -175,7 +175,7 @@ public class PopHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-                                // TODO
+                                DialogHelper.showGoPermDialog(activity);
                             }
                         });
                         break;

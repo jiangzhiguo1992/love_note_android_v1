@@ -32,12 +32,12 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePlaceActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWeatherActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
@@ -270,7 +270,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
             @Override
             public void onPermissionDenied(int requestCode, String[] permissions) {
-                // TODO
+                DialogHelper.showGoPermDialog(mActivity);
             }
         });
     }

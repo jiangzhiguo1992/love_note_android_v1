@@ -375,9 +375,11 @@
     <string name="already_is_latest_version">已是最新版本</string>
     <string name="are_download">正在下载</string>
     <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
+    <string name="need_check_some_perm">需要勾选某些权限</string>
     <string name="go_now">现在前往</string>
     <string name="go_to_know">前往了解</string>
     <string name="say_after">以后再说</string>
+    <string name="brutal_refuse">残忍拒绝</string>
     <string name="click_me_to_del_image">点我删除照片</string>
     <string name="are_deleting">正在删除</string>
     <string name="are_refresh">正在刷新</string>

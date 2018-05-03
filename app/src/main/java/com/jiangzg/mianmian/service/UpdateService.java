@@ -153,7 +153,7 @@ public class UpdateService extends Service {
                                 .canceledOnTouchOutside(false)
                                 .content(R.string.need_check_some_perm_can_install)
                                 .positiveText(R.string.go_now)
-                                .negativeText(R.string.say_after)
+                                .negativeText(R.string.brutal_refuse)
                                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

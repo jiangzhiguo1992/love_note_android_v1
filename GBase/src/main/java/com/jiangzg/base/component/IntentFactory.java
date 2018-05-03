@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -298,9 +297,9 @@ public class IntentFactory {
     /**
      * 获取App系统设置
      */
-    public static Intent getSetings(String packageName) {
+    public static Intent getSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        return intent.setData(Uri.parse("package:" + packageName));
+        return intent.setData(Uri.parse("package:" + AppBase.getInstance().getPackageName()));
     }
 
     /**
@@ -312,4 +311,13 @@ public class IntentFactory {
         return intent;
     }
 
+    /**
+     * 跳转到权限设置界面
+     */
+    public static Intent getPermission() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setData(Uri.fromParts("package", AppBase.getInstance().getPackageName(), null));
+        return intent;
+    }
 }
