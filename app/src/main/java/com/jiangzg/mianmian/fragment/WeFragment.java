@@ -22,7 +22,6 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
@@ -220,14 +219,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else if (CheckHelper.checkLocationEnable(mActivity)) {
-                    CouplePlaceActivity.goActivity(mActivity, myPlace, taPlace);
+                    CouplePlaceActivity.goActivity(mActivity, taPlace);
                 }
                 break;
             case R.id.llWeather: // 天气信息
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else if (CheckHelper.checkLocationEnable(mActivity)) {
-                    CoupleWeatherActivity.goActivity(mActivity, myPlace, taPlace);
+                    CoupleWeatherActivity.goActivity(mActivity);
                 }
                 break;
         }
@@ -261,8 +260,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     // 获取自己的位置并上传
     private void refreshPlaceDate() {
-        boolean permissionOK = PermUtils.isPermissionOK(mActivity, PermUtils.location);
-        if (!permissionOK) return;
         LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {

@@ -3,7 +3,6 @@ package com.jiangzg.mianmian.activity.couple;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +17,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.CouplePlaceAdapter;
-import com.jiangzg.mianmian.adapter.SuggestAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Help;
@@ -49,9 +47,9 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     private Call<Result> call;
     private int page;
 
-    public static void goActivity(Activity from, Place my, Place ta) {
+    public static void goActivity(Activity from, Place taPlace) {
         Intent intent = new Intent(from, CouplePlaceActivity.class);
-        intent.putExtra("ta", ta);
+        intent.putExtra("taPlace", taPlace);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -96,12 +94,12 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        Place ta = getIntent().getParcelableExtra("ta");
-        if (ta != null && !StringUtils.isEmpty(ta.getAddress())) {
+        Place taPlace = getIntent().getParcelableExtra("taPlace");
+        if (taPlace != null && !StringUtils.isEmpty(taPlace.getAddress())) {
             Entry.EntryPlace entryPlace = new Entry.EntryPlace();
-            entryPlace.setAddress(ta.getAddress());
-            entryPlace.setLongitude(ta.getLongitude());
-            entryPlace.setLatitude(ta.getLatitude());
+            entryPlace.setAddress(taPlace.getAddress());
+            entryPlace.setLongitude(taPlace.getLongitude());
+            entryPlace.setLatitude(taPlace.getLatitude());
             topEntry = new Entry();
             topEntry.setEntryPlace(entryPlace);
         }

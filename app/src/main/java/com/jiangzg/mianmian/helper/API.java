@@ -168,6 +168,10 @@ public interface API {
     @POST("couple/place")
     Call<Result> couplePlacePush(@Body Place place);
 
+    // 天气信息
+    @POST("couple/weather?forecast=1")
+    Call<Result> weatherForecastGet();
+
     // diaryList获取
     @GET("book/diary?did=0&list=1")
     Call<Result> diaryListGet(@Query("who") int who, @Query("page") int page);
