@@ -140,7 +140,7 @@ public class ConvertHelper {
         return time * 1000;
     }
 
-    // 时间显示(不同天)
+    // 时间显示(有横线)
     public static String getTimeShowLine_HM_MD_YMD_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
@@ -159,7 +159,7 @@ public class ConvertHelper {
         return DateUtils.getString(getJavaTimeByGo(time), format);
     }
 
-    // 时间显示(不同天)
+    // 时间显示(有横线)
     public static String getTimeShowLine_HM_MDHM_YMDHM_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
@@ -178,12 +178,12 @@ public class ConvertHelper {
         return DateUtils.getString(getJavaTimeByGo(time), format);
     }
 
-    // 日记时间显示
-    public static String getTimeShowCnSpaceDivideSameDayYearByGo(long time) {
+    // 时间显示(有空格)
+    public static String getTimeShowCnSpace_HM_MD_YMD_ByGo(long time) {
         return getTimeShowCnSpace_HM_MD_YMD_ByJava(getJavaTimeByGo(time));
     }
 
-    // 日记时间显示
+    // 时间显示(有空格)
     public static String getTimeShowCnSpace_HM_MD_YMD_ByJava(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
@@ -203,6 +203,35 @@ public class ConvertHelper {
             String month = MyApp.get().getString(R.string.month);
             String day = MyApp.get().getString(R.string.dayR);
             format = "yyyy" + year + " MM" + month + " dd" + day;
+        }
+        return DateUtils.getString(time, format);
+    }
+
+    // 时间显示(有空格)
+    public static String getTimeShowCnSpace_HM_MDHM_YMDHM_ByGo(long time) {
+        return getTimeShowCnSpace_HM_MDHM_YMDHM_ByJava(getJavaTimeByGo(time));
+    }
+
+    // 时间显示(有空格)
+    public static String getTimeShowCnSpace_HM_MDHM_YMDHM_ByJava(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(time));
+        String format;
+        if (CalUtils.isSameDay(cNow, cTime)) {
+            // 同一天
+            format = ConstantUtils.FORMAT_H_M;
+        } else if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "MM" + month + " dd" + day + " HH:mm";
+        } else {
+            // 不同年
+            String year = MyApp.get().getString(R.string.year);
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "yyyy" + year + " MM" + month + " dd" + day + " HH:mm";
         }
         return DateUtils.getString(time, format);
     }

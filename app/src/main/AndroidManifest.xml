@@ -84,6 +84,8 @@
         </activity>
         <activity android:name=".activity.couple.CoupleWeatherActivity">
         </activity>
+        <activity android:name=".activity.common.MapViewActivity">
+        </activity>
     </application>
 
 </manifest>

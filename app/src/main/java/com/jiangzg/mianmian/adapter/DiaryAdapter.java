@@ -31,7 +31,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Diary item) {
-        String happen = ConvertHelper.getTimeShowCnSpaceDivideSameDayYearByGo(item.getHappenAt());
+        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContent();
         if (content == null) content = "";
         String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon_holder), content.length());

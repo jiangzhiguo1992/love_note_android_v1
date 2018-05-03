@@ -74,14 +74,14 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     public void goDetail(int position) {
         hideOperation();
-        Album item = getData().get(position);
+        Album item = getItem(position);
         PictureListActivity.goActivity(mActivity, item);
     }
 
     public void showOperation(int position) {
         hideOperation();
         // 用户检查
-        Album album = getData().get(position);
+        Album album = getItem(position);
         if (album.getUserId() != SPHelper.getUser().getId()) {
             ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_album));
             return;
@@ -147,7 +147,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     public void goEdit(int position) {
         hideOperation();
-        Album item = getData().get(position);
+        Album item = getItem(position);
         AlbumEditActivity.goActivity(mActivity, item);
     }
 
@@ -171,7 +171,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     private void delAlbumApi(final int position) {
         hideOperation();
-        Album album = getData().get(position);
+        Album album = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).AlbumDel(album.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {

@@ -28,6 +28,7 @@
         android:layout_marginStart="15dp"
         android:gravity="end"
         android:maxLines="1"
+        android:singleLine="true"
         tools:text="创建于:2017-01-12"/>
 
     <com.jiangzg.mianmian.view.GWrapView

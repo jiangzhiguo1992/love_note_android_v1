@@ -47,6 +47,7 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp"
                 android:paddingTop="5dp"
+                android:singleLine="true"
                 android:textStyle="bold"
                 tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
@@ -78,6 +79,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:maxLines="1"
+                    android:singleLine="true"
                     tools:text="发表于:2017-12-31"/>
 
                 <TextView
@@ -88,6 +90,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     android:maxLines="1"
+                    android:singleLine="true"
                     tools:text="更新于:2017-12-31"/>
 
             </LinearLayout>

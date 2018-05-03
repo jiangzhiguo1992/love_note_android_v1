@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.couple;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +13,12 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.CouplePlaceAdapter;
+import com.jiangzg.mianmian.adapter.SuggestAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Help;
@@ -40,13 +44,14 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private Entry topEntry;
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from, Place my, Place ta) {
         Intent intent = new Intent(from, CouplePlaceActivity.class);
-        // intent.putExtra();
+        intent.putExtra("ta", ta);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -59,13 +64,13 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.place), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.ta_entry_info), true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                //.initAdapter(new SuggestAdapter(mActivity)) // TODO
+                .initAdapter(new CouplePlaceAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -83,14 +88,24 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO MapViewActivity
+                        CouplePlaceAdapter placeAdapter = (CouplePlaceAdapter) adapter;
+                        placeAdapter.goDiaryDetail(position);
                     }
                 });
     }
 
     @Override
     protected void initData(Bundle state) {
-        // TODO 把传进来的ta的place加到顶部
+        Place ta = getIntent().getParcelableExtra("ta");
+        if (ta != null && !StringUtils.isEmpty(ta.getAddress())) {
+            Entry.EntryPlace entryPlace = new Entry.EntryPlace();
+            entryPlace.setAddress(ta.getAddress());
+            entryPlace.setLongitude(ta.getLongitude());
+            entryPlace.setLatitude(ta.getLatitude());
+            topEntry = new Entry();
+            topEntry.setEntryPlace(entryPlace);
+        }
+        addTopEntry();
         recyclerHelper.dataRefresh();
     }
 
@@ -116,6 +131,12 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
         return super.onOptionsItemSelected(item);
     }
 
+    private void addTopEntry() {
+        if (topEntry == null) return;
+        CouplePlaceAdapter adapter = recyclerHelper.getAdapter();
+        adapter.addData(0, topEntry);
+    }
+
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
@@ -127,6 +148,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 long total = data.getTotal();
                 List<Entry> entryList = data.getEntryList();
                 recyclerHelper.dataOk(entryList, total, more);
+                addTopEntry();
             }
 
             @Override

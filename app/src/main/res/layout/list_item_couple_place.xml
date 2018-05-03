@@ -23,38 +23,16 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/FontBlackNormal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.jiangzg.mianmian.view.GImageAvatarView
-                android:id="@+id/ivAvatar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
-
-            <TextView
-                android:id="@+id/tvHappenAt"
-                style="@style/FontBlackNormal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textStyle="bold"
-                tools:text="2017年 12月 31日"/>
-
-            <TextView
-                android:id="@+id/tvCount"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                tools:text="字数:2000"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textStyle="bold"
+            tools:text="2017年 12月 31日"/>
 
         <View
             style="@style/LineHorizontal"
@@ -62,12 +40,10 @@
             android:layout_marginTop="4dp"/>
 
         <TextView
-            android:id="@+id/tvContent"
+            android:id="@+id/tvAddress"
             style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="8"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

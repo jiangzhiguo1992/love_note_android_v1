@@ -23,6 +23,7 @@
         android:maxLines="1"
         android:paddingBottom="14dp"
         android:paddingTop="14dp"
+        android:singleLine="true"
         tools:text="显示信息"/>
 
     <View

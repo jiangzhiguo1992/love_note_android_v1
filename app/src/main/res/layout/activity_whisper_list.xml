@@ -24,6 +24,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:maxLines="1"
+            android:singleLine="true"
             android:textStyle="bold"
             tools:text="@string/current_channel_colon_space_holder"/>
 
@@ -46,7 +47,8 @@
                 android:gravity="center"
                 android:hint="@string/in_here_input_channel"
                 android:maxLines="1"
-                android:padding="7dp"/>
+                android:padding="7dp"
+                android:singleLine="true"/>
 
             <Button
                 android:id="@+id/btnChangeChannel"
