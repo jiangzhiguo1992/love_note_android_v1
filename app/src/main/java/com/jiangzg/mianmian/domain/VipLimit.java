@@ -9,20 +9,27 @@ public class VipLimit {
     private long expireAt;
 
     private int coupleWallPaperCount;
-    private boolean coupleEntryTraceEnable;
-    private boolean coupleTopicTraceEnable;
 
     private int bookWhisperImageCount;
     private int bookDiaryImageCount;
     private long bookDiaryImageSize;
     private int bookAlbumTotalCount;
     private int bookPictureCount;
+    private long bookPictureSize;
     private int bookGiftImageCount;
     private int bookMeetImageCount;
     private long bookAudioTotalSize;
     private long bookVideoTotalSize;
 
     private boolean topicImageEnable;
+
+    public long getBookPictureSize() {
+        return bookPictureSize;
+    }
+
+    public void setBookPictureSize(long bookPictureSize) {
+        this.bookPictureSize = bookPictureSize;
+    }
 
     public int getBookAlbumTotalCount() {
         return bookAlbumTotalCount;
@@ -62,22 +69,6 @@ public class VipLimit {
 
     public void setCoupleWallPaperCount(int coupleWallPaperCount) {
         this.coupleWallPaperCount = coupleWallPaperCount;
-    }
-
-    public boolean isCoupleEntryTraceEnable() {
-        return coupleEntryTraceEnable;
-    }
-
-    public void setCoupleEntryTraceEnable(boolean coupleEntryTraceEnable) {
-        this.coupleEntryTraceEnable = coupleEntryTraceEnable;
-    }
-
-    public boolean isCoupleTopicTraceEnable() {
-        return coupleTopicTraceEnable;
-    }
-
-    public void setCoupleTopicTraceEnable(boolean coupleTopicTraceEnable) {
-        this.coupleTopicTraceEnable = coupleTopicTraceEnable;
     }
 
     public int getBookPictureCount() {

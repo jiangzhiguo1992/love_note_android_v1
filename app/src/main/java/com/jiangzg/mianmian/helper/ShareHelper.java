@@ -5,9 +5,9 @@ package com.jiangzg.mianmian.helper;
  * 分享
  */
 public class ShareHelper {
-    // TODO WallPaper(拼在一起分享？)
     // TODO BigImage
-    // TODO Book(纪念日？)
+    // TODO WallPaper(拼在一起分享？)
+    // TODO Book(纪念日？统计？账本？礼物？梦里？)
     // TODO Topic
     // TODO Square
 }

@@ -17,6 +17,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumEditActivity;
+import com.jiangzg.mianmian.activity.book.PictureListActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Result;
@@ -73,8 +74,8 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     public void goDetail(int position) {
         hideOperation();
-        // TODO 进入照片列表页
-        ToastUtils.show("详情页 " + position);
+        Album item = getData().get(position);
+        PictureListActivity.goActivity(mActivity, item);
     }
 
     public void showOperation(int position) {

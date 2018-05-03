@@ -116,14 +116,14 @@ public class OssHelper {
         compressJpeg(activity, pathSuggest, source, callBack);
     }
 
-    // 头像 (裁剪+压缩)(本地有持久缓存)
+    // 头像 (裁剪+压缩)(本地持久缓存)
     public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
         compressJpeg(activity, pathCoupleAvatar, source, callBack);
     }
 
-    // 墙纸 (裁剪)(本地有持久缓存，就不压缩了)
+    // 墙纸 (裁剪)(本地持久缓存，就不压缩了)
     public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
@@ -137,7 +137,7 @@ public class OssHelper {
         compressJpeg(activity, pathBookWhisper, source, callBack);
     }
 
-    // 日记 (限制大小)
+    // 日记 (限制大小)(TODO 本地持久缓存，就不压缩了)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;

@@ -59,10 +59,6 @@ public interface API {
     @POST("sms")
     Call<Result> smsSend(@Body Sms sms);
 
-    // 帮助文档
-    @GET("help")
-    Call<Result> helpGet(@Query("content_type") int contentType);
-
     // 用户注册
     @POST("user")
     Call<Result> userRegister(@Body User user);
@@ -79,6 +75,10 @@ public interface API {
     @GET("user")
     Call<Result> userGet(@Query("ta") boolean ta);
 
+    // oss
+    @GET("oss")
+    Call<Result> ossGet();
+
     // app开启 welcome login userInfo forget
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
@@ -92,51 +92,51 @@ public interface API {
     Call<Result> entryPlacePush(@Body Entry.EntryPlace entryPlace);
 
     // 版本
-    @GET("version")
+    @GET("set/version")
     Call<Result> checkUpdate(@Query("code") int code);
 
-    // oss
-    @GET("oss")
-    Call<Result> ossGet();
+    // 帮助文档
+    @GET("set/help")
+    Call<Result> helpGet(@Query("content_type") int contentType);
 
     // 意见发布
-    @POST("suggest")
+    @POST("set/suggest")
     Call<Result> suggestAdd(@Body Suggest suggest);
 
     // 意见删除
-    @DELETE("suggest")
+    @DELETE("set/suggest")
     Call<Result> suggestDel(@Query("sid") long suggestId);
 
     // 意见单个获取
-    @GET("suggest?list=0")
+    @GET("set/suggest?list=0")
     Call<Result> suggestGet(@Query("sid") long suggestId);
 
     // 意见列表获取
-    @GET("suggest?sid=0&list=1&mine=0&follow=0")
+    @GET("set/suggest?sid=0&list=1&mine=0&follow=0")
     Call<Result> suggestListHomeGet(@Query("status") int status, @Query("contentType") int contentType, @Query("page") int page);
 
     // 意见列表获取
-    @GET("suggest?sid=0&list=1&mine=1&follow=0")
+    @GET("set/suggest?sid=0&list=1&mine=1&follow=0")
     Call<Result> suggestListMineGet(@Query("page") int page);
 
     // 意见列表获取
-    @GET("suggest?sid=0&list=1&mine=0&follow=1")
+    @GET("set/suggest?sid=0&list=1&mine=0&follow=1")
     Call<Result> suggestListFollowGet(@Query("page") int page);
 
     // 意见评论发表
-    @POST("suggest/comment")
+    @POST("set/suggest/comment")
     Call<Result> suggestCommentAdd(@Body SuggestComment suggestComment);
 
     // 意见评论删除
-    @DELETE("suggest/comment")
+    @DELETE("set/suggest/comment")
     Call<Result> suggestCommentDel(@Query("sid") long suggestCommentId);
 
     // 意见评论获取
-    @GET("suggest/comment")
+    @GET("set/suggest/comment")
     Call<Result> suggestCommentListGet(@Query("sid") long suggestId, @Query("page") int page);
 
     // 意见关注
-    @POST("suggest/follow")
+    @POST("set/suggest/follow")
     Call<Result> suggestFollowToggle(@Query("sid") long suggestId);
 
     // 配对邀请

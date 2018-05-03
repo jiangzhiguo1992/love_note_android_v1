@@ -36,7 +36,6 @@ import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity;
-import com.jiangzg.mianmian.activity.settings.SettingsActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
@@ -91,8 +90,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     ViewFlipper vfWallPaper;
     @BindView(R.id.ivHelp)
     ImageView ivHelp;
-    @BindView(R.id.ivSettings)
-    ImageView ivSettings;
+    @BindView(R.id.ivWallPaper)
+    ImageView ivWallPaper;
 
     @BindView(R.id.llCoupleInfo)
     LinearLayout llCoupleInfo;
@@ -123,19 +122,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     @BindView(R.id.tvWeatherRight)
     GMarqueeText tvWeatherRight;
 
-    @BindView(R.id.rlMenses)
-    RelativeLayout rlMenses;
-    @BindView(R.id.tvMenses)
-    TextView tvMenses;
-    @BindView(R.id.rlTrends)
-    RelativeLayout rlTrends;
-    @BindView(R.id.tvTrends)
-    TextView tvTrends;
-    @BindView(R.id.rlCoin)
-    RelativeLayout rlCoin;
-    @BindView(R.id.tvCoin)
-    TextView tvCoin;
-
     private Call<Result> callHomeGet;
     private Call<Result> callPlaceGet;
     private Runnable coupleCountDownTask;
@@ -162,9 +148,9 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         RelativeLayout.LayoutParams paramsHelp = (RelativeLayout.LayoutParams) ivHelp.getLayoutParams();
         paramsHelp.setMargins(paramsHelp.leftMargin, paramsHelp.topMargin + statusBarHeight, paramsHelp.rightMargin, paramsHelp.bottomMargin);
         ivHelp.setLayoutParams(paramsHelp);
-        RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivSettings.getLayoutParams();
+        RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivWallPaper.getLayoutParams();
         paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
-        ivSettings.setLayoutParams(paramsSettings);
+        ivWallPaper.setLayoutParams(paramsSettings);
         // listener
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -211,26 +197,22 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, obLocationRefresh);
     }
 
-    @OnClick({R.id.ivHelp, R.id.ivSettings, R.id.btnPair, R.id.vfWallPaper, R.id.llCoupleInfo,
-            R.id.llPlace, R.id.llWeather, R.id.rlMenses, R.id.rlTrends, R.id.rlCoin})
+    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair, R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
     public void onViewClicked(View view) {
         Couple couple = SPHelper.getCouple();
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_HOME);
                 break;
-            case R.id.ivSettings: // 设置
-                SettingsActivity.goActivity(mActivity);
-                break;
-            case R.id.btnPair: // 配对
-                CouplePairActivity.goActivity(mActivity);
-                break;
-            case R.id.vfWallPaper: // 背景图
+            case R.id.ivWallPaper:  // 背景图
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleWallPaperActivity.goActivity(mActivity);
                 }
+                break;
+            case R.id.btnPair: // 配对
+                CouplePairActivity.goActivity(mActivity);
                 break;
             case R.id.llCoupleInfo: // cp信息
                 if (CheckHelper.isCoupleBreak(couple)) {
@@ -239,20 +221,11 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.llPlace: // 地理信息
+            case R.id.llPlace: // 登录信息
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
-                        if (LocationInfo.isLocationEnabled()) {
-                            // TODO 等有两步手机了再说
-                            //CoupleMapActivity.goActivity(mActivity);
-                        } else {
-                            showLocationEnableDialog();
-                        }
-                    } else {
-                        requestLocationPermission();
-                    }
+                    // TODO 登录列表信息
                 }
                 break;
             case R.id.llWeather: // 天气信息
@@ -269,30 +242,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     } else {
                         requestLocationPermission();
                     }
-                }
-                break;
-            case R.id.rlMenses: // 姨妈
-                if (CheckHelper.isCoupleBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
-                } else {
-                    // TODO 等研究好了生理机制再说
-                    //CoupleMensesActivity.goActivity(mActivity);
-                }
-                break;
-            case R.id.rlTrends: // 动态
-                if (CheckHelper.isCoupleBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
-                } else {
-                    // TODO 等book和topic做完了再说
-                    //CoupleTrendsActivity.goActivity(mActivity);
-                }
-                break;
-            case R.id.rlCoin: // 金币
-                if (CheckHelper.isCoupleBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
-                } else {
-                    // TODO 在topic做之前再说
-                    //CoupleCoinActivity.goActivity(mActivity);
                 }
                 break;
         }
@@ -371,7 +320,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             @Override
             public void onSuccess(LocationInfo info) {
                 Place body = ApiHelper.getPlaceBody();
-                callPlaceGet = new RetrofitHelper().call(API.class).coupleHomeGet(body);
+                callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
                 RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
                     @Override
                     public void onResponse(int code, String message, Result.Data data) {
@@ -389,7 +338,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
             @Override
             public void onFailed(String errMsg) {
-                LogUtils.w(LOG_TAG, "不能获取地理位置");
+                LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
                 // 8.0 一个小时只允许获取几次地理位置
             }
         });

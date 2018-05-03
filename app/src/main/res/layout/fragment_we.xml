@@ -43,7 +43,7 @@
                     app:srcCompat="@drawable/ic_help_circle_solid_white"/>
 
                 <ImageView
-                    android:id="@+id/ivSettings"
+                    android:id="@+id/ivWallPaper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -51,7 +51,7 @@
                     android:alpha="0.7"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/ic_settings_white"/>
+                    app:srcCompat="@drawable/ic_image_white"/>
             </RelativeLayout>
 
             <!-- 中部操作条 -->
@@ -94,7 +94,7 @@
                     android:shadowDx="30"
                     android:shadowDy="30"
                     android:shadowRadius="20"
-                    android:text="@string/click_me_add_wall_paper"
+                    android:text="@string/click_right_top_add_wall_paper"
                     android:textStyle="bold"
                     android:visibility="gone"/>
             </RelativeLayout>
@@ -103,7 +103,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_gradient_trans_accent"
+                android:background="@drawable/shape_gradient_trans_light_accent"
                 android:orientation="vertical">
 
                 <!-- 用户信息 -->
@@ -118,8 +118,8 @@
 
                     <com.jiangzg.mianmian.view.GImageAvatarView
                         android:id="@+id/ivAvatarLeft"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         tools:src="@mipmap/ic_boy_circle"/>
 
                     <TextView
@@ -150,16 +150,16 @@
 
                     <com.jiangzg.mianmian.view.GImageAvatarView
                         android:id="@+id/ivAvatarRight"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         tools:src="@mipmap/ic_girl_circle"/>
                 </LinearLayout>
 
                 <!-- 地址/天气 -->
-                <!--android:stateListAnimator="@animator/demo_selector"-->
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
@@ -275,106 +275,6 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
             </LinearLayout>
-
-            <!-- 姨妈/动态/金币 -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorAccent">
-
-                <android.support.v7.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="8dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/radius_big"
-                    app:cardElevation="@dimen/elevation_big"
-                    app:cardMaxElevation="@dimen/elevation_huge">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <RelativeLayout
-                            android:id="@+id/rlMenses"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp">
-
-                            <TextView
-                                android:id="@+id/tvMenses"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:drawablePadding="5dp"
-                                android:drawableStart="@drawable/ic_menses_red_accent"
-                                android:gravity="center"
-                                android:text="@string/menses"/>
-                        </RelativeLayout>
-
-                        <View
-                            style="@style/LineVertical"
-                            android:background="?attr/colorControlNormal"/>
-
-                        <RelativeLayout
-                            android:id="@+id/rlTrends"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp">
-
-                            <TextView
-                                android:id="@+id/tvTrends"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:drawablePadding="5dp"
-                                android:drawableStart="@drawable/ic_trends_teal_accent"
-                                android:gravity="center"
-                                android:text="@string/trends"/>
-
-                        </RelativeLayout>
-
-                        <View
-                            style="@style/LineVertical"
-                            android:background="?attr/colorControlNormal"/>
-
-                        <RelativeLayout
-                            android:id="@+id/rlCoin"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:foreground="?attr/selectableItemBackground"
-                            android:gravity="center"
-                            android:paddingBottom="10dp"
-                            android:paddingTop="10dp">
-
-                            <TextView
-                                android:id="@+id/tvCoin"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:drawablePadding="5dp"
-                                android:drawableStart="@drawable/ic_coin_orange_accent"
-                                android:gravity="center"
-                                android:text="@string/coin"/>
-                        </RelativeLayout>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 </com.jiangzg.mianmian.view.GSwipeRefreshLayout>

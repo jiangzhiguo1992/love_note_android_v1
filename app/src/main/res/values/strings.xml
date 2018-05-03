@@ -392,6 +392,7 @@
     <string name="location_func_limit">位置功能受限!</string>
     <string name="find_location_func_cant_use_normal_look_gps_is_open">发现位置功能不能正常使用，查看是不是GPS没有开启</string>
     <string name="click_me_add_wall_paper">点我添加墙纸</string>
+    <string name="click_right_top_add_wall_paper">点击右上角添加墙纸</string>
     <string name="sunny">晴天</string>
     <string name="cloudy">多云</string>
     <string name="over_cast">阴</string>

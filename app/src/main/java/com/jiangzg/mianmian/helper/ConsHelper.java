@@ -22,7 +22,7 @@ public class ConsHelper {
     public static final int REQUEST_CONTACT = 1009;
     public static final int REQUEST_LOCATION = 1010;
     public static final int REQUEST_BOOK_PICTURE = 1011;
-    // RxBus.ID
+    // RxBus.ID TODO 列表刷新 尽量减少api操作
     public static final int EVENT_USER_REFRESH = 1; // 用户
     public static final int EVENT_COUPLE_REFRESH = 2; // 配对
     public static final int EVENT_SUGGEST_LIST_COUNT_REFRESH = 3; // 建议
