@@ -17,7 +17,7 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;

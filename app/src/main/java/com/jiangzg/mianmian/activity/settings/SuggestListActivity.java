@@ -1,4 +1,4 @@
-package com.jiangzg.mianmian.activity.common;
+package com.jiangzg.mianmian.activity.settings;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -26,7 +26,7 @@ import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Help;

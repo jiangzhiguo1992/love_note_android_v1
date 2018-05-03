@@ -28,7 +28,7 @@ import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.WhisperAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;

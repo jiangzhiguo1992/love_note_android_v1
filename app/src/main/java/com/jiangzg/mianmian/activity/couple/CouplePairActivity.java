@@ -21,7 +21,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;

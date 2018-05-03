@@ -18,7 +18,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Diary;

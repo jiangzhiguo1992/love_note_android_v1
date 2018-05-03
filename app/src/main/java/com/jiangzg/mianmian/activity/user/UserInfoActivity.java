@@ -20,7 +20,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;

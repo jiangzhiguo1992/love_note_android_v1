@@ -1,4 +1,4 @@
-package com.jiangzg.mianmian.activity.settings;
+package com.jiangzg.mianmian.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,9 +19,9 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
-import com.jiangzg.mianmian.activity.common.SuggestHomeActivity;
-import com.jiangzg.mianmian.activity.common.WebActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.SuggestHomeActivity;
+import com.jiangzg.mianmian.activity.settings.ThemeActivity;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
 import com.jiangzg.mianmian.activity.user.PasswordActivity;
 import com.jiangzg.mianmian.activity.user.PhoneActivity;

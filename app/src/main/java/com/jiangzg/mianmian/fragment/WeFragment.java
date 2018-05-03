@@ -32,7 +32,7 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePlaceActivity;

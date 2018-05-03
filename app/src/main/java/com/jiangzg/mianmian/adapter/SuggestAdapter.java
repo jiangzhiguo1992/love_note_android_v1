@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.SuggestDetailActivity;
+import com.jiangzg.mianmian.activity.settings.SuggestDetailActivity;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;

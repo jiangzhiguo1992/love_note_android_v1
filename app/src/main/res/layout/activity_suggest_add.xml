@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.common.SuggestAddActivity">
+    tools:context="com.jiangzg.mianmian.activity.settings.SuggestAddActivity">
 
     <include layout="@layout/view_top_bar"/>
 

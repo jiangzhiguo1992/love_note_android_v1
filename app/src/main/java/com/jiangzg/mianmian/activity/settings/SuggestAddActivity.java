@@ -1,4 +1,4 @@
-package com.jiangzg.mianmian.activity.common;
+package com.jiangzg.mianmian.activity.settings;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,6 +27,7 @@ import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;

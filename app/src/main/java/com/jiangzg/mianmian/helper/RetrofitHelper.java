@@ -17,7 +17,7 @@ import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.SuggestAddActivity;
+import com.jiangzg.mianmian.activity.settings.SuggestAddActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
 import com.jiangzg.mianmian.activity.user.UserInfoActivity;
