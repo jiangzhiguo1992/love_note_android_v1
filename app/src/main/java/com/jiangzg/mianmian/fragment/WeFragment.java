@@ -35,7 +35,9 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.HelpActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
+import com.jiangzg.mianmian.activity.couple.CouplePlaceActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity;
+import com.jiangzg.mianmian.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
@@ -221,11 +223,19 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
-            case R.id.llPlace: // 登录信息
+            case R.id.llPlace: // 地址信息
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    // TODO 登录列表信息
+                    if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
+                        if (LocationInfo.isLocationEnabled()) {
+                            CouplePlaceActivity.goActivity(mActivity, myPlace, taPlace);
+                        } else {
+                            showLocationEnableDialog();
+                        }
+                    } else {
+                        requestLocationPermission();
+                    }
                 }
                 break;
             case R.id.llWeather: // 天气信息
@@ -234,8 +244,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 } else {
                     if (PermUtils.isPermissionOK(mActivity, PermUtils.location)) {
                         if (LocationInfo.isLocationEnabled()) {
-                            // TODO 等有两步手机了再说
-                            //CoupleWeatherActivity.goActivity(mActivity);
+                            CoupleWeatherActivity.goActivity(mActivity, myPlace, taPlace);
                         } else {
                             showLocationEnableDialog();
                         }

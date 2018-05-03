@@ -80,6 +80,10 @@
         </activity>
         <activity android:name=".activity.book.PictureListActivity">
         </activity>
+        <activity android:name=".activity.couple.CouplePlaceActivity">
+        </activity>
+        <activity android:name=".activity.couple.CoupleWeatherActivity">
+        </activity>
     </application>
 
 </manifest>
