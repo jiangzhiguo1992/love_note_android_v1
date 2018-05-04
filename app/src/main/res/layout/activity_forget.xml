@@ -11,134 +11,120 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_launcher"/>
 
-        <LinearLayout
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etPhone"
+            style="@style/FontBlackNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/ic_phone_grey"
+            android:hint="@string/input_hint_phone"
+            android:inputType="phone"
+            android:maxLines="1"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:src="@mipmap/ic_launcher"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/icon_grey">
 
-            <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etPwd"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/ic_lock_grey"
+            android:hint="@string/input_hint_new_pwd"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/icon_grey">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/etPwdConfirm"
+            style="@style/FontBlackNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="15dp"
+            android:drawableStart="@drawable/ic_lock_grey"
+            android:hint="@string/input_hint_new_pwd_confirm"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etCode"
+                style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp">
+                android:drawablePadding="15dp"
+                android:drawableStart="@drawable/ic_verified_grey"
+                android:hint="@string/input_hint_verify"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColorHint="@color/font_hint"/>
+        </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etPhone"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="15dp"
-                    android:drawableStart="@drawable/ic_phone_grey"
-                    android:hint="@string/input_hint_phone"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    android:singleLine="true"/>
-            </android.support.design.widget.TextInputLayout>
+        <Button
+            android:id="@+id/btnSendCode"
+            style="@style/FontWhiteSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/selector_enable_press_r3_solid_primary"
+            android:enabled="false"
+            android:text="@string/send_validate_code"/>
+    </LinearLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:layout_marginStart="50dp"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/icon_grey">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etPwd"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="15dp"
-                    android:drawableStart="@drawable/ic_lock_grey"
-                    android:hint="@string/input_hint_new_pwd"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:layout_marginStart="50dp"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/icon_grey">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/etPwdConfirm"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="15dp"
-                    android:drawableStart="@drawable/ic_lock_grey"
-                    android:hint="@string/input_hint_new_pwd_confirm"
-                    android:inputType="textPassword"
-                    android:maxLines="1"
-                    android:singleLine="true"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:layout_marginStart="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/etCode"
-                        style="@style/FontBlackNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawablePadding="15dp"
-                        android:drawableStart="@drawable/ic_verified_grey"
-                        android:hint="@string/input_hint_verify"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textColorHint="@color/font_hint"/>
-                </android.support.design.widget.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnSendCode"
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/selector_enable_press_r3_solid_primary"
-                    android:enabled="false"
-                    android:text="@string/send_validate_code"/>
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btnOk"
-                style="@style/FontWhiteBig"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/selector_enable_press_r3_solid_primary"
-                android:enabled="false"
-                android:text="@string/set_ok"
-                android:textStyle="bold"/>
-        </LinearLayout>
-    </ScrollView>
+    <Button
+        android:id="@+id/btnOk"
+        style="@style/FontWhiteNormal"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/selector_enable_press_r3_solid_primary"
+        android:enabled="false"
+        android:text="@string/set_ok"/>
 </LinearLayout>
