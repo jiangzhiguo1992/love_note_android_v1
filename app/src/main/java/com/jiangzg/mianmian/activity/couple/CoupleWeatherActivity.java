@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.couple;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,12 +15,16 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.WeatherForecastAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.Weather;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.view.GImageAvatarView;
@@ -37,6 +42,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.tvTime)
+    TextView tvTime;
     @BindView(R.id.ivHelp)
     ImageView ivHelp;
 
@@ -80,6 +87,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private RecyclerHelper recyclerHelper;
     private String myAvatar;
     private String taAvatar;
     private Call<Result> call;
@@ -101,6 +109,12 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     @Override
     protected void initView(Bundle state) {
         srl.setEnabled(false);
+        // recycler
+        recyclerHelper = new RecyclerHelper(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new WeatherForecastAdapter(mActivity))
+                .setAdapter();
     }
 
     @Override
@@ -120,9 +134,11 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     @OnClick({R.id.ivBack, R.id.ivHelp})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ivBack:
+            case R.id.ivBack: // 返回
+                mActivity.finish();
                 break;
-            case R.id.ivHelp:
+            case R.id.ivHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_WEATHER);
                 break;
         }
     }
@@ -138,7 +154,9 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 srl.setRefreshing(false);
                 setTopViewLeft(data.getTaShow(), data.getTaWeather());
                 setTopViewRight(data.getMyShow(), data.getMyWeather());
-                // TODO recycler
+                // recycler
+                WeatherForecastAdapter adapter = recyclerHelper.getAdapter();
+                adapter.setData(data.getMyWeather(), data.getTaWeather());
             }
 
             @Override
@@ -159,6 +177,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         rlTopLeft.setVisibility(View.VISIBLE);
         // data
         Weather.Forecast forecast = taWeather.getForecast().get(0);
+        String predictDate = forecast.getPredictDate();
         String conditionDay = forecast.getConditionDay();
         String conditionNight = forecast.getConditionNight();
         String condition = String.format(Locale.getDefault(), "%s~%s", conditionDay, conditionNight);
@@ -176,6 +195,9 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_level_holder_holder_level_holder),
                 windLevelDay, windDirDay, windLevelNight, windDirNight);
         // view
+        if (!StringUtils.isEmpty(predictDate)) {
+            tvTime.setText(predictDate);
+        }
         ivAvatarLeft.setDateAvatar(taAvatar);
         ivIconLeftDay.setImageResource(iconDay);
         ivIconLeftNight.setImageResource(iconNight);
@@ -195,6 +217,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         rlTopRight.setVisibility(View.VISIBLE);
         // data
         Weather.Forecast forecast = myWeather.getForecast().get(0);
+        String predictDate = forecast.getPredictDate();
         String conditionDay = forecast.getConditionDay();
         String conditionNight = forecast.getConditionNight();
         String condition = String.format(Locale.getDefault(), "%s~%s", conditionDay, conditionNight);
@@ -212,6 +235,9 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_level_holder_holder_level_holder),
                 windLevelDay, windDirDay, windLevelNight, windDirNight);
         // view
+        if (!StringUtils.isEmpty(predictDate)) {
+            tvTime.setText(predictDate);
+        }
         ivAvatarRight.setDateAvatar(myAvatar);
         ivIconRightDay.setImageResource(iconDay);
         ivIconRightNight.setImageResource(iconNight);

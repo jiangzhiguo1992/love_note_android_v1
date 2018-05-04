@@ -123,7 +123,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_ENTRY_LIST);
+                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_PLACE);
                 return true;
         }
         return super.onOptionsItemSelected(item);

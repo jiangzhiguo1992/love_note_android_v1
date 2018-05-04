@@ -27,7 +27,8 @@ public class Help extends BaseObj {
     public static final int TYPE_WHISPER_LIST = 16;
     public static final int TYPE_ALBUM_LIST = 17;
     public static final int TYPE_ALBUM_EDIT = 18;
-    public static final int TYPE_ENTRY_LIST = 19;
+    public static final int TYPE_COUPLE_PLACE = 19;
+    public static final int TYPE_COUPLE_WEATHER = 20;
 
     private int contentType;
     private String title;

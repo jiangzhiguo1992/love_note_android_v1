@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="3dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/trans_00"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="@dimen/elevation_normal"
+    app:cardMaxElevation="@dimen/elevation_big">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/FontWhiteNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="2018-5-4"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rlWeatherLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/ivIconLeftDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/white"
+                    tools:src="@mipmap/w1"/>
+
+                <TextView
+                    android:id="@+id/tvConditionLeft"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/ivIconLeftDay"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/ivIconLeftDay"
+                    android:textStyle="bold"
+                    tools:text="晴天 晴天"/>
+
+                <ImageView
+                    android:id="@+id/ivIconLeftNight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/tvConditionLeft"
+                    android:tint="@color/white"
+                    tools:src="@mipmap/w1"/>
+
+                <TextView
+                    android:id="@+id/tvTempLeft"
+                    style="@style/FontWhiteHuge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvConditionLeft"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="19~19℃"/>
+
+                <TextView
+                    android:id="@+id/tvWindLeft"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempLeft"
+                    tools:text="3级 东南风"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvShowLeft"
+                style="@style/FontWhiteSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:text="获取不到天气信息"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tvShowRight"
+                style="@style/FontWhiteSmall"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:text="获取不到天气信息"
+                tools:visibility="visible"/>
+
+            <RelativeLayout
+                android:id="@+id/rlWeatherRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/ivIconRightDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="@color/white"
+                    tools:src="@mipmap/w1"/>
+
+                <TextView
+                    android:id="@+id/tvConditionRight"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/ivIconRightDay"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/ivIconRightDay"
+                    android:textStyle="bold"
+                    tools:text="晴天 晴天"/>
+
+                <ImageView
+                    android:id="@+id/ivIconRightNight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/tvConditionRight"
+                    android:tint="@color/white"
+                    tools:src="@mipmap/w1"/>
+
+                <TextView
+                    android:id="@+id/tvTempRight"
+                    style="@style/FontWhiteHuge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvConditionRight"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    tools:text="19~19℃"/>
+
+                <TextView
+                    android:id="@+id/tvWindRight"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempRight"
+                    tools:text="3级 东南风"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
