@@ -325,11 +325,11 @@ public class ConvertHelper {
     }
 
     // 天气显示icon
-    public static int getWeatherIconByRes(String icon) {
-        if (StringUtils.isEmpty(icon)) return 0;
-        String iconTrim = icon.trim();
+    public static int getWeatherIconById(String id) {
+        if (StringUtils.isEmpty(id)) return 0;
+        String idTrim = id.trim();
         int iconRes;
-        switch (iconTrim) {
+        switch (idTrim) {
             case "0":
                 iconRes = R.mipmap.w0;
                 break;

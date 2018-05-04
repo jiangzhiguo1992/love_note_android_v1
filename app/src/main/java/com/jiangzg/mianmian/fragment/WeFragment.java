@@ -446,7 +446,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     String temp = myCondition.getTemp();
                     myC = Integer.parseInt(temp);
                     myTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
-                    int myIcon = ConvertHelper.getWeatherIconByRes(icon);
+                    int myIcon = ConvertHelper.getWeatherIconById(icon);
                     myDrawable = ViewHelper.getDrawable(mActivity, myIcon);
                     if (myDrawable != null) {
                         myDrawable.setTint(colorIcon);
@@ -464,7 +464,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     String temp = taCondition.getTemp();
                     taC = Integer.parseInt(temp);
                     taTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
-                    int taIcon = ConvertHelper.getWeatherIconByRes(icon);
+                    int taIcon = ConvertHelper.getWeatherIconById(icon);
                     taDrawable = ViewHelper.getDrawable(mActivity, taIcon);
                     if (taDrawable != null) {
                         taDrawable.setTint(colorIcon);

@@ -346,6 +346,7 @@
     <string name="horizontal_line_2">————</string>
     <string name="distance_holder" formatted="false">相距 %s</string>
     <string name="liner_wave_liner_c">— ~ — ℃</string>
+    <string name="holder_wave_holder_c">%s~%s℃</string>
     <string name="differ_holder_c" formatted="false">相差 %d℃</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_ta_first_come">我和Ta第一次来</string>
@@ -476,5 +477,7 @@
     <string name="dear_give_me_good_judge">亲，给个好评吧</string>
     <string name="company_name">武汉裹茗科技服务有限公司</string>
     <string name="change_ta_avatar">更换Ta的头像</string>
+    <string name="holder_level_holder_holder_level_holder" formatted="false">%s级%s~%s级%s</string>
+    <string name="wave">~</string>
 
 </resources>

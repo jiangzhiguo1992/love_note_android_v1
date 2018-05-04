@@ -43,9 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ivHelp"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:padding="10dp">
 
             <RelativeLayout
                 android:id="@+id/rlTopLeft"
@@ -58,17 +56,27 @@
 
                 <com.jiangzg.mianmian.view.GImageAvatarView
                     android:id="@+id/ivAvatarLeft"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     tools:background="@mipmap/ic_boy_circle"/>
 
                 <ImageView
-                    android:id="@+id/ivIconLeft"
+                    android:id="@+id/ivIconLeftDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/ivAvatarLeft"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/ivAvatarLeft"
+                    android:tint="?attr/colorPrimaryDark"
+                    tools:src="@mipmap/w1"/>
+
+                <ImageView
+                    android:id="@+id/ivIconLeftNight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ivAvatarLeft"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/ivIconLeftDay"
                     android:tint="?attr/colorPrimaryDark"
                     tools:src="@mipmap/w1"/>
 
@@ -90,25 +98,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ivAvatarLeft"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="?attr/colorPrimaryDark"
-                    android:textSize="40sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     tools:text="19℃"/>
 
                 <TextView
-                    android:id="@+id/tvHumidityLeft"
-                    style="@style/FontPrimaryNormal"
+                    android:id="@+id/tvWindLeft"
+                    style="@style/FontPrimarySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTempLeft"
-                    android:textColor="?attr/colorPrimaryDark"
-                    tools:text="湿度: 19"/>
-
-                <TextView
-                    style="@style/FontPrimaryNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvHumidityLeft"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
             </RelativeLayout>
@@ -150,17 +152,27 @@
 
                 <com.jiangzg.mianmian.view.GImageAvatarView
                     android:id="@+id/ivAvatarRight"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     tools:background="@mipmap/ic_girl_circle"/>
 
                 <ImageView
-                    android:id="@+id/ivIconRight"
+                    android:id="@+id/ivIconRightDay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@id/ivAvatarRight"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/ivAvatarRight"
+                    android:tint="?attr/colorPrimaryDark"
+                    tools:src="@mipmap/w1"/>
+
+                <ImageView
+                    android:id="@+id/ivIconRightNight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ivAvatarRight"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@id/ivIconRightDay"
                     android:tint="?attr/colorPrimaryDark"
                     tools:src="@mipmap/w1"/>
 
@@ -182,25 +194,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ivAvatarRight"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
                     android:textColor="?attr/colorPrimaryDark"
-                    android:textSize="40sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     tools:text="19℃"/>
 
                 <TextView
-                    android:id="@+id/tvHumidityRight"
-                    style="@style/FontPrimaryNormal"
+                    android:id="@+id/tvWindRight"
+                    style="@style/FontPrimarySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTempRight"
-                    android:textColor="?attr/colorPrimaryDark"
-                    tools:text="湿度: 19"/>
-
-                <TextView
-                    style="@style/FontPrimaryNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvHumidityRight"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
             </RelativeLayout>
