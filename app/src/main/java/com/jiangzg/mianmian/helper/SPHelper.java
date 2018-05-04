@@ -103,9 +103,10 @@ public class SPHelper {
     private static final String FIELD_LIMIT_WHISPER_CHANNEL = "whisperLimitChannel";
     private static final String FIELD_LIMIT_WORD_CONTENT = "wordLimitContent";
     private static final String FIELD_LIMIT_DIARY_CONTENT = "diaryLimitContent";
+    private static final String FIELD_LIMIT_ALBUM_TITLE = "albumLimitTitle";
+    private static final String FIELD_LIMIT_PICTURE_COUNT = "pictureLimitCount";
     private static final String FIELD_LIMIT_TRACK_TITLE = "trackLimitTitle";
     private static final String FIELD_LIMIT_TRACK_PROCESS = "trackLimitProcess";
-    private static final String FIELD_LIMIT_ALBUM_TITLE = "albumLimitTitle";
     private static final String FIELD_LIMIT_PROMISE_CONTENT = "promiseLimitContent";
     private static final String FIELD_LIMIT_AUDIO_TITLE = "audioLimitTitle";
     private static final String FIELD_LIMIT_VIDEO_TITLE = "videoLimitTitle";
@@ -121,7 +122,7 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT = "bookDiaryImageCount";
     private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE = "bookDiaryImageSize";
     private static final String FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT = "bookAlbumTotalCount";
-    private static final String FIELD_VIP_LIMIT_BK_PICTURE_COUNT = "bookPictureCount";
+    private static final String FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT = "bookPictureTotalCount";
     private static final String FIELD_VIP_LIMIT_BK_PICTURE_SIZE = "bookPictureSize";
     private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT = "bookGiftImageCount";
     private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "bookMeetImageCount";
@@ -315,6 +316,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_TRACK_TITLE, limit.getTrackLimitTitle());
         editor.putInt(FIELD_LIMIT_TRACK_PROCESS, limit.getTrackLimitProcess());
         editor.putInt(FIELD_LIMIT_ALBUM_TITLE, limit.getAlbumLimitTitle());
+        editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureLimitCount());
         editor.putInt(FIELD_LIMIT_PROMISE_CONTENT, limit.getPromiseLimitContent());
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE, limit.getAudioLimitTitle());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE, limit.getVideoLimitTitle());
@@ -345,6 +347,7 @@ public class SPHelper {
         limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
         limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
         limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
+        limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
         limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));
         limit.setTrackLimitProcess(sp.getInt(FIELD_LIMIT_TRACK_PROCESS, 200));
         limit.setPromiseLimitContent(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT, 200));
@@ -460,7 +463,7 @@ public class SPHelper {
         editor.putInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, vipLimit.getBookDiaryImageCount());
         editor.putLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, vipLimit.getBookDiaryImageSize());
         editor.putInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, vipLimit.getBookAlbumTotalCount());
-        editor.putInt(FIELD_VIP_LIMIT_BK_PICTURE_COUNT, vipLimit.getBookPictureCount());
+        editor.putInt(FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT, vipLimit.getBookPictureTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, vipLimit.getBookPictureSize());
         editor.putInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, vipLimit.getBookGiftImageCount());
         editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getBookMeetImageCount());
@@ -477,9 +480,9 @@ public class SPHelper {
         vipLimit.setCoupleWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT, 1));
         vipLimit.setBookWhisperImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT, 0));
         vipLimit.setBookDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, 0));
-        vipLimit.setBookDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, ConstantUtils.MB * 5));
+        vipLimit.setBookDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, 0));
         vipLimit.setBookAlbumTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, 0));
-        vipLimit.setBookPictureCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_COUNT, 0));
+        vipLimit.setBookPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT, 20));
         vipLimit.setBookPictureSize(sp.getLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, ConstantUtils.MB * 5));
         vipLimit.setBookGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, 0));
         vipLimit.setBookMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));

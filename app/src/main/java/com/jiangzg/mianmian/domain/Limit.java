@@ -26,6 +26,7 @@ public class Limit {
     private int wordLimitContent;
     private int diaryLimitContent;
     private int albumLimitTitle;
+    private int pictureLimitCount;
     private int trackLimitTitle;
     private int trackLimitProcess;
     private int promiseLimitContent;
@@ -39,6 +40,14 @@ public class Limit {
 
     // square
     private int vipLimitExpireDays;
+
+    public int getPictureLimitCount() {
+        return pictureLimitCount;
+    }
+
+    public void setPictureLimitCount(int pictureLimitCount) {
+        this.pictureLimitCount = pictureLimitCount;
+    }
 
     public int getWhisperLimitChannel() {
         return whisperLimitChannel;

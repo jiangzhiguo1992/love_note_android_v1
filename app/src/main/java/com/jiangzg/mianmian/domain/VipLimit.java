@@ -14,7 +14,7 @@ public class VipLimit {
     private int bookDiaryImageCount;
     private long bookDiaryImageSize;
     private int bookAlbumTotalCount;
-    private int bookPictureCount;
+    private int bookPictureTotalCount;
     private long bookPictureSize;
     private int bookGiftImageCount;
     private int bookMeetImageCount;
@@ -22,6 +22,14 @@ public class VipLimit {
     private long bookVideoTotalSize;
 
     private boolean topicImageEnable;
+
+    public int getBookPictureTotalCount() {
+        return bookPictureTotalCount;
+    }
+
+    public void setBookPictureTotalCount(int bookPictureTotalCount) {
+        this.bookPictureTotalCount = bookPictureTotalCount;
+    }
 
     public long getBookPictureSize() {
         return bookPictureSize;
@@ -69,14 +77,6 @@ public class VipLimit {
 
     public void setCoupleWallPaperCount(int coupleWallPaperCount) {
         this.coupleWallPaperCount = coupleWallPaperCount;
-    }
-
-    public int getBookPictureCount() {
-        return bookPictureCount;
-    }
-
-    public void setBookPictureCount(int bookPictureCount) {
-        this.bookPictureCount = bookPictureCount;
     }
 
     public int getBookDiaryImageCount() {
