@@ -272,6 +272,7 @@
     <string name="coffee_brown">咖啡棕</string>
     <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
     <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
+    <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
     <string name="follow">关注</string>
     <string name="comment">评论</string>
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
@@ -474,5 +475,6 @@
     <string name="about_mian_mian">关于绵绵</string>
     <string name="dear_give_me_good_judge">亲，给个好评吧</string>
     <string name="company_name">武汉裹茗科技服务有限公司</string>
+    <string name="change_ta_avatar">更换Ta的头像</string>
 
 </resources>

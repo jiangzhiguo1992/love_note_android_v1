@@ -309,7 +309,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void showAvatarSelect() {
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, getString(R.string.change_ta_avatar), cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 

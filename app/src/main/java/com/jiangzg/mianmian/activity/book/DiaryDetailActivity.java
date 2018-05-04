@@ -188,7 +188,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         tvAuthor.setText(authorShow);
         // updateAt
         String update = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
-        String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), update);
+        String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
         // imageList
         List<String> imageList = diary.getImageList();

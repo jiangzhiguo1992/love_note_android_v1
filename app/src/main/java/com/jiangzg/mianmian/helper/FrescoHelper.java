@@ -1,6 +1,7 @@
 package com.jiangzg.mianmian.helper;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.facebook.cache.disk.DiskCacheConfig;
@@ -50,7 +51,7 @@ public class FrescoHelper {
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
                 .setDownsampleEnabled(true) // 向下采样
-                //.setBitmapsConfig(Bitmap.Config.RGB_565) // 减小内存占用 TODO 大图ARGB8888
+                .setBitmapsConfig(Bitmap.Config.ARGB_8888) // 小图RGB_565 大图ARGB8888
                 .build();
         // 开始初始化
         Fresco.initialize(app, config);

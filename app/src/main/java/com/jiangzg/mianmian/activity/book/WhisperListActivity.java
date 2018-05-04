@@ -77,6 +77,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     @BindView(R.id.llAddText)
     LinearLayout llAddText;
 
+    private String channel;
     private int limitChannel;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
@@ -93,6 +94,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        channel = "";
         page = 0;
         return R.layout.activity_whisper_list;
     }
@@ -203,7 +205,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             srl.setRefreshing(true);
         }
         page = more ? page + 1 : 0;
-        String channel = refreshCurrentChannelView();
+        channel = refreshCurrentChannelView();
         callGet = new RetrofitHelper().call(API.class).whisperListGet(channel, page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
@@ -248,7 +250,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     // 文字添加
     private void showEditDialog() {
         int limitContent = SPHelper.getLimit().getWhisperLimitContent();
-        final String channel = etChannel.getText().toString().trim();
         String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
         String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContent);
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -285,10 +286,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             ToastUtils.show(getString(R.string.now_status_cant_upload_img));
             return;
         }
-        final String channel = etChannel.getText().toString().trim();
-        String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow window = PopHelper.createPictureCamera(mActivity, currentChannel, cameraFile);
+        PopupWindow window = PopHelper.createPictureCamera(mActivity, channel, cameraFile);
         PopUtils.show(window, root, Gravity.CENTER);
     }
 

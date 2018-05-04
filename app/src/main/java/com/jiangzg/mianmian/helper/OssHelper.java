@@ -109,97 +109,6 @@ public class OssHelper {
         void failure(String ossPath);
     }
 
-    // 意见 (压缩)
-    public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathSuggest = ossInfo.getPathSuggest();
-        compressJpeg(activity, pathSuggest, source, callBack);
-    }
-
-    // 头像 (裁剪+压缩)(本地持久缓存)
-    public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
-        compressJpeg(activity, pathCoupleAvatar, source, callBack);
-    }
-
-    // 墙纸 (裁剪)(本地持久缓存，就不压缩了)
-    public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathCoupleWall = ossInfo.getPathCoupleWall();
-        uploadJpeg(activity, pathCoupleWall, source, callBack);
-    }
-
-    // 耳语 (压缩)
-    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookWhisper = ossInfo.getPathBookWhisper();
-        compressJpeg(activity, pathBookWhisper, source, callBack);
-    }
-
-    // 日记 (限制大小)(TODO 本地持久缓存，就不压缩了)
-    public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
-        boolean overLimit = false;
-        for (File file : fileList) {
-            if (FileUtils.isFileEmpty(file)) continue;
-            long imageSize = SPHelper.getVipLimit().getBookDiaryImageSize();
-            if (file.length() >= imageSize) {
-                overLimit = true;
-                break;
-            }
-        }
-        if (overLimit) {
-            ToastUtils.show(activity.getString(R.string.file_too_max));
-            if (callBack != null) {
-                callBack.failure(fileList, "");
-            }
-            return;
-        }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookDiary = ossInfo.getPathBookDiary();
-        uploadJpegs(activity, pathBookDiary, fileList, callBack);
-    }
-
-    // 相册 (压缩)
-    public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookAlbum = ossInfo.getPathBookAlbum();
-        compressJpeg(activity, pathBookAlbum, source, callBack);
-    }
-
-    // apk
-    public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
-        MaterialDialog progress = null;
-        if (activity != null) {
-            progress = DialogHelper.getBuild(activity)
-                    .cancelable(false)
-                    .canceledOnTouchOutside(false)
-                    .content(R.string.are_download)
-                    .progress(false, 100)
-                    .negativeText(R.string.cancel_download)
-                    .build();
-        }
-        downloadObject(progress, objectKey, target, callBack);
-    }
-
-    // 头像
-    public static void downloadAvatar(String objectKey) {
-        File file = ResHelper.newAvatarFile(objectKey);
-        downloadObject(null, objectKey, file, null);
-    }
-
-    // 墙纸
-    public static void downloadWall(String objectKey) {
-        File file = ResHelper.newWallPaperFile(objectKey);
-        downloadObject(null, objectKey, file, null);
-    }
-
-    // TODO 全屏图
-    public static void downloadScreen() {
-
-    }
-
     /**
      * *****************************************单图上传*****************************************
      */
@@ -846,6 +755,124 @@ public class OssHelper {
         if (task != null && !task.isCanceled() && !task.isCompleted()) {
             task.cancel();
         }
+    }
+
+    /**
+     * *****************************************具体对接*****************************************
+     */
+    // 意见 (压缩)
+    public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathSuggest = ossInfo.getPathSuggest();
+        compressJpeg(activity, pathSuggest, source, callBack);
+    }
+
+    // 头像 (裁剪 + 压缩 + 持久化)
+    public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
+        compressJpeg(activity, pathCoupleAvatar, source, callBack);
+    }
+
+    // 墙纸 (裁剪 + 持久化)
+    public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathCoupleWall = ossInfo.getPathCoupleWall();
+        uploadJpeg(activity, pathCoupleWall, source, callBack);
+    }
+
+    // 耳语 (压缩)
+    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookWhisper = ossInfo.getPathBookWhisper();
+        compressJpeg(activity, pathBookWhisper, source, callBack);
+    }
+
+    // 日记 (限制大小 + TODO 持久化)
+    public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
+        boolean overLimit = false;
+        for (File file : fileList) {
+            if (FileUtils.isFileEmpty(file)) continue;
+            long imageSize = SPHelper.getVipLimit().getBookDiaryImageSize();
+            if (file.length() >= imageSize) {
+                overLimit = true;
+                break;
+            }
+        }
+        if (overLimit) {
+            ToastUtils.show(activity.getString(R.string.file_too_max));
+            if (callBack != null) {
+                callBack.failure(fileList, "");
+            }
+            return;
+        }
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookDiary = ossInfo.getPathBookDiary();
+        uploadJpegs(activity, pathBookDiary, fileList, callBack);
+    }
+
+    // 相册 (压缩)
+    public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookAlbum = ossInfo.getPathBookAlbum();
+        compressJpeg(activity, pathBookAlbum, source, callBack);
+    }
+
+    // 照片 (限制大小 + TODO 持久化)
+    public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
+        boolean overLimit = false;
+        for (File file : fileList) {
+            if (FileUtils.isFileEmpty(file)) continue;
+            long imageSize = SPHelper.getVipLimit().getBookPictureSize();
+            if (file.length() >= imageSize) {
+                overLimit = true;
+                break;
+            }
+        }
+        if (overLimit) {
+            ToastUtils.show(activity.getString(R.string.file_too_max));
+            if (callBack != null) {
+                callBack.failure(fileList, "");
+            }
+            return;
+        }
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookPicture = ossInfo.getPathBookPicture();
+        uploadJpegs(activity, pathBookPicture, fileList, callBack);
+    }
+
+    // apk
+    public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
+        MaterialDialog progress = null;
+        if (activity != null) {
+            progress = DialogHelper.getBuild(activity)
+                    .cancelable(false)
+                    .canceledOnTouchOutside(false)
+                    .content(R.string.are_download)
+                    .progress(false, 100)
+                    .negativeText(R.string.cancel_download)
+                    .build();
+        }
+        downloadObject(progress, objectKey, target, callBack);
+    }
+
+    // 头像
+    public static void downloadAvatar(String objectKey) {
+        File file = ResHelper.newAvatarFile(objectKey);
+        downloadObject(null, objectKey, file, null);
+    }
+
+    // 墙纸
+    public static void downloadWall(String objectKey) {
+        File file = ResHelper.newWallPaperFile(objectKey);
+        downloadObject(null, objectKey, file, null);
+    }
+
+    // TODO 全屏图
+    public static void downloadScreen() {
+
     }
 
 }
