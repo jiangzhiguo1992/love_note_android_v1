@@ -322,14 +322,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             // 本地文件刷新
             refreshAvatarRes();
             // 头像 + 名称
-            String creatorAvatar = couple.getCreatorAvatar();
-            String inviteeAvatar = couple.getInviteeAvatar();
-            String creatorName = couple.getCreatorName();
-            String inviteeName = couple.getInviteeName();
-            ivAvatarLeft.setDateAvatar(creatorAvatar);
-            ivAvatarRight.setDateAvatar(inviteeAvatar);
-            tvNameLeft.setText(creatorName);
-            tvNameRight.setText(inviteeName);
+            String myName = user.getMyNameInCp();
+            String taName = user.getTaNameInCp();
+            String myAvatar = user.getMyAvatarInCp();
+            String taAvatar = user.getTaAvatarInCp();
+            ivAvatarLeft.setDateAvatar(taAvatar);
+            ivAvatarRight.setDateAvatar(myAvatar);
+            tvNameLeft.setText(taName);
+            tvNameRight.setText(myName);
             refreshPlaceView();
             refreshWeatherView();
         }
@@ -418,18 +418,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         }
         taAddress = taInfo.getAddress();
         // creator
-        User user = SPHelper.getUser();
-        String left;
-        String right;
-        if (user.isCoupleCreator()) {
-            left = myAddress;
-            right = taAddress;
-        } else {
-            left = taAddress;
-            right = myAddress;
-        }
-        tvPlaceLeft.setText(left);
-        tvPlaceRight.setText(right);
+        tvPlaceLeft.setText(taAddress);
+        tvPlaceRight.setText(myAddress);
         // distance
         float distance = LocationHelper.distance(myInfo, taInfo);
         String distanceShow = ConvertHelper.getDistanceShow(distance);
@@ -438,12 +428,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     }
 
     private void refreshWeatherView() {
+        int colorPrimary = ViewHelper.getColorPrimary(mActivity);
+        int colorIcon = ContextCompat.getColor(mActivity, colorPrimary);
         String myTemp = "";
         int myC = 0;
-        int myIcon = 0;
+        Drawable myDrawable = null;
         String taTemp = "";
         int taC = 0;
-        int taIcon = 0;
+        Drawable taDrawable = null;
         // myWeather
         if (myPlace != null) {
             Weather myWeather = myPlace.getWeather();
@@ -452,9 +444,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (myCondition != null && !StringUtils.isEmpty(myCondition.getTemp())) {
                     String icon = myCondition.getIcon();
                     String temp = myCondition.getTemp();
-                    myTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
-                    myIcon = ConvertHelper.getWeatherIconByRes(icon);
                     myC = Integer.parseInt(temp);
+                    myTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
+                    int myIcon = ConvertHelper.getWeatherIconByRes(icon);
+                    myDrawable = ViewHelper.getDrawable(mActivity, myIcon);
+                    if (myDrawable != null) {
+                        myDrawable.setTint(colorIcon);
+                    }
                 }
             }
         }
@@ -466,45 +462,20 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (taCondition != null && !StringUtils.isEmpty(taCondition.getTemp())) {
                     String icon = taCondition.getIcon();
                     String temp = taCondition.getTemp();
-                    taTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
-                    taIcon = ConvertHelper.getWeatherIconByRes(icon);
                     taC = Integer.parseInt(temp);
+                    taTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
+                    int taIcon = ConvertHelper.getWeatherIconByRes(icon);
+                    taDrawable = ViewHelper.getDrawable(mActivity, taIcon);
+                    if (taDrawable != null) {
+                        taDrawable.setTint(colorIcon);
+                    }
                 }
             }
         }
-        // creator
-        User user = SPHelper.getUser();
-        String left;
-        int leftIcon;
-        String right;
-        int rightIcon;
-        if (user.isCoupleCreator()) {
-            left = myTemp;
-            leftIcon = myIcon;
-            right = taTemp;
-            rightIcon = taIcon;
-        } else {
-            left = taTemp;
-            leftIcon = taIcon;
-            right = myTemp;
-            rightIcon = myIcon;
-        }
-        int colorPrimary = ViewHelper.getColorPrimary(mActivity);
-        int colorIcon = ContextCompat.getColor(mActivity, colorPrimary);
-        // left
-        tvWeatherLeft.setText(left);
-        Drawable myDrawable = ViewHelper.getDrawable(mActivity, leftIcon);
-        if (myDrawable != null) {
-            myDrawable.setTint(colorIcon);
-        }
-        tvWeatherLeft.setCompoundDrawables(myDrawable, null, null, null);
-        // right
-        tvWeatherRight.setText(right);
-        Drawable taDrawable = ViewHelper.getDrawable(mActivity, rightIcon);
-        if (taDrawable != null) {
-            taDrawable.setTint(colorIcon);
-        }
-        tvWeatherRight.setCompoundDrawables(taDrawable, null, null, null);
+        tvWeatherLeft.setText(taTemp);
+        tvWeatherRight.setText(myTemp);
+        tvWeatherLeft.setCompoundDrawables(taDrawable, null, null, null);
+        tvWeatherRight.setCompoundDrawables(myDrawable, null, null, null);
         // diff
         int abs = Math.abs((myC - taC));
         String format = String.format(Locale.getDefault(), getString(R.string.differ_holder_c), abs);

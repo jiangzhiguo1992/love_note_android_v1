@@ -25,7 +25,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-
+        // TODO 相册详情，顶部封面+详细信息(创建+更新+张数+我的+你的)，可压缩toolbar，照片列表背景是封面的虚化，且是瀑布流
     }
 
     @Override

@@ -98,8 +98,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     TextView tvBreakAbout;
 
     private boolean isCreator;
-    private User me;
-    private User ta;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
     private File cameraFile;
@@ -133,10 +131,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        me = SPHelper.getUser();
-        ta = SPHelper.getTa();
-        isCreator = me.isCoupleCreator();
-        // view
         setViewData();
     }
 
@@ -194,50 +188,20 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoLeft,
-            R.id.ivAvatarRight, R.id.tvNameRight, R.id.tvPhoneRight, R.id.llUserInfoRight,
-            R.id.tvBreakAbout})
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoRight, R.id.tvBreakAbout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ivAvatarLeft:
-                if (!isCreator) {
-                    showAvatarSelect();
-                }
+            case R.id.ivAvatarLeft: // 修改ta的头像
+                showAvatarSelect();
                 break;
-            case R.id.ivAvatarRight:
-                if (isCreator) {
-                    showAvatarSelect();
-                }
+            case R.id.tvNameLeft: // 修改ta的昵称
+                showNameInput();
                 break;
-            case R.id.tvNameLeft:
-                if (!isCreator) {
-                    showNameInput();
-                }
+            case R.id.tvPhoneLeft: // 拨打ta的电话
+                showDial();
                 break;
-            case R.id.tvNameRight:
-                if (isCreator) {
-                    showNameInput();
-                }
-                break;
-            case R.id.tvPhoneLeft:
-                if (!isCreator) {
-                    showDial();
-                }
-                break;
-            case R.id.tvPhoneRight:
-                if (isCreator) {
-                    showDial();
-                }
-                break;
-            case R.id.llUserInfoLeft:
-                if (isCreator) {
-                    goUserInfo();
-                }
-                break;
-            case R.id.llUserInfoRight:
-                if (!isCreator) {
-                    goUserInfo();
-                }
+            case R.id.llUserInfoRight: // 修改我的信息
+                goUserInfo();
                 break;
             case R.id.tvBreakAbout:
                 breakAbout();
@@ -246,60 +210,36 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void setViewData() {
-        // meData
+        // data
+        User me = SPHelper.getUser();
+        User ta = SPHelper.getTa();
+        String myName = me.getMyNameInCp();
+        String taName = me.getTaNameInCp();
+        String myAvatar = me.getMyAvatarInCp();
+        String taAvatar = me.getTaAvatarInCp();
         String mePhone = me.getPhone();
+        String taPhone = ta == null ? "" : ta.getPhone();
         int meSexRes = me.getSexResCircleSmall();
+        int taSexRes = ta == null ? 0 : ta.getSexResCircleSmall();
         long meBirth = ConvertHelper.getJavaTimeByGo(me.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
-        // taData
-        String taPhone = "";
-        if (ta != null) {
-            taPhone = ta.getPhone();
-        }
-        int taSexRes = 0;
-        if (ta != null) {
-            taSexRes = ta.getSexResCircleSmall();
-        }
-        String tabBirthShow = "";
+        String taBirthShow = "";
         if (ta != null && ta.getBirthday() != 0) {
             long taBirth = ConvertHelper.getJavaTimeByGo(ta.getBirthday());
-            tabBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
+            taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
-        // coupleData
-        Couple couple = SPHelper.getCouple();
-        String creatorAvatar = couple.getCreatorAvatar();
-        String creatorName = couple.getCreatorName();
-        String inviteeAvatar = couple.getInviteeAvatar();
-        String inviteeName = couple.getInviteeName();
-        boolean breaking = CheckHelper.isCoupleBreaking(couple);
+        boolean breaking = CheckHelper.isCoupleBreaking(me.getCouple());
         // view
-        ivAvatarLeft.setDateAvatar(creatorAvatar);
-        ivAvatarRight.setDateAvatar(inviteeAvatar);
-        tvNameLeft.setText(creatorName);
-        tvNameRight.setText(inviteeName);
-        if (isCreator) {
-            tvPhoneLeft.setText(mePhone);
-            tvPhoneRight.setText(taPhone);
-            if (meSexRes != 0) {
-                ivSexLeft.setImageResource(meSexRes);
-            }
-            if (taSexRes != 0) {
-                ivSexRight.setImageResource(taSexRes);
-            }
-            tvBirthLeft.setText(meBirthShow);
-            tvBirthRight.setText(tabBirthShow);
-        } else {
-            tvPhoneLeft.setText(taPhone);
-            tvPhoneRight.setText(mePhone);
-            if (taSexRes != 0) {
-                ivSexLeft.setImageResource(taSexRes);
-            }
-            if (meSexRes != 0) {
-                ivSexRight.setImageResource(meSexRes);
-            }
-            tvBirthLeft.setText(tabBirthShow);
-            tvBirthRight.setText(meBirthShow);
-        }
+        ivAvatarLeft.setDateAvatar(taAvatar);
+        ivAvatarRight.setDateAvatar(myAvatar);
+        tvNameLeft.setText(taName);
+        tvNameRight.setText(myName);
+        tvPhoneLeft.setText(taPhone);
+        tvPhoneRight.setText(mePhone);
+        ivSexLeft.setImageResource(taSexRes);
+        ivSexRight.setImageResource(meSexRes);
+        tvBirthLeft.setText(taBirthShow);
+        tvBirthRight.setText(meBirthShow);
         if (breaking) {
             tvBreakAbout.setText(R.string.i_regret_i_want_complex);
         } else {

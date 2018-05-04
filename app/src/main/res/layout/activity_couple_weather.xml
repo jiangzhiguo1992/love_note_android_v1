@@ -1,50 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.jiangzg.mianmian.view.GSwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@drawable/shape_gradient_white_primary"
     tools:context="com.jiangzg.mianmian.activity.couple.CoupleWeatherActivity">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/test_bg_1"/>
-
-        <ImageView
+            android:id="@+id/ivBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:foreground="?attr/selectableItemBackgroundBorderless"
-            android:padding="10dp"
-            android:src="@drawable/ic_arrow_left_white"/>
+            android:padding="13dp"
+            android:src="@drawable/ic_arrow_left_white"
+            android:tint="?attr/colorPrimary"/>
 
         <ImageView
+            android:id="@+id/ivHelp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="13dp"
+            android:src="@drawable/ic_help_circle_solid_white"
+            android:tint="?attr/colorPrimary"/>
+
+        <LinearLayout
+            android:id="@+id/llToady"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivHelp"
+            android:orientation="horizontal"
             android:padding="10dp"
-            android:src="@drawable/ic_help_circle_solid_white"/>
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/rlTopLeft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <com.jiangzg.mianmian.view.GImageAvatarView
+                    android:id="@+id/ivAvatarLeft"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    tools:background="@mipmap/ic_boy_circle"/>
+
+                <ImageView
+                    android:id="@+id/ivIconLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ivAvatarLeft"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/ivAvatarLeft"
+                    android:tint="?attr/colorPrimaryDark"
+                    tools:src="@mipmap/w1"/>
+
+                <TextView
+                    android:id="@+id/tvConditionLeft"
+                    style="@style/FontPrimarySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/ivAvatarLeft"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/ivAvatarLeft"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textStyle="bold"
+                    tools:text="晴天"/>
+
+                <TextView
+                    android:id="@+id/tvTempLeft"
+                    style="@style/FontPrimaryHuge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivAvatarLeft"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    tools:text="19℃"/>
+
+                <TextView
+                    android:id="@+id/tvHumidityLeft"
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempLeft"
+                    android:textColor="?attr/colorPrimaryDark"
+                    tools:text="湿度: 19"/>
+
+                <TextView
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHumidityLeft"
+                    android:textColor="?attr/colorPrimaryDark"
+                    tools:text="3级 东南风"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvShowLeft"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="?attr/colorPrimaryDark"
+                android:visibility="gone"
+                tools:text="获取不到天气信息"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tvShowRight"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="?attr/colorPrimaryDark"
+                android:visibility="gone"
+                tools:text="获取不到天气信息"
+                tools:visibility="visible"/>
+
+            <RelativeLayout
+                android:id="@+id/rlTopRight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <com.jiangzg.mianmian.view.GImageAvatarView
+                    android:id="@+id/ivAvatarRight"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    tools:background="@mipmap/ic_girl_circle"/>
+
+                <ImageView
+                    android:id="@+id/ivIconRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/ivAvatarRight"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/ivAvatarRight"
+                    android:tint="?attr/colorPrimaryDark"
+                    tools:src="@mipmap/w1"/>
+
+                <TextView
+                    android:id="@+id/tvConditionRight"
+                    style="@style/FontPrimarySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/ivAvatarRight"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@id/ivAvatarRight"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textStyle="bold"
+                    tools:text="晴天"/>
+
+                <TextView
+                    android:id="@+id/tvTempRight"
+                    style="@style/FontPrimaryHuge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivAvatarRight"
+                    android:textColor="?attr/colorPrimaryDark"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    tools:text="19℃"/>
+
+                <TextView
+                    android:id="@+id/tvHumidityRight"
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempRight"
+                    android:textColor="?attr/colorPrimaryDark"
+                    tools:text="湿度: 19"/>
+
+                <TextView
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHumidityRight"
+                    android:textColor="?attr/colorPrimaryDark"
+                    tools:text="3级 东南风"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/llToady"/>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    </LinearLayout>
-</LinearLayout>
+</com.jiangzg.mianmian.view.GSwipeRefreshLayout>

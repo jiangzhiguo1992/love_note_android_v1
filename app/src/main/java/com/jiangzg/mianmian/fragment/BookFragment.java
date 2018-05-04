@@ -85,6 +85,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         });
         // menu
         tb.inflateMenu(R.menu.help_settings);
+        // TODO book内置加密(app启动后解密一次)
     }
 
     protected void loadData() {
