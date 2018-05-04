@@ -252,12 +252,14 @@
     <string name="about_and_help">关于与帮助</string>
     <string name="check_update">检查更新</string>
     <string name="current_version_colon_space_holder" formatted="false">当前版本: %s</string>
+    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
     <string name="help_document">帮助文档</string>
     <string name="suggest_feedback">意见反馈</string>
     <string name="go_rate">去评价</string>
     <string name="open_protocol">开源许可</string>
     <string name="software_protocol">软件协议</string>
     <string name="contact_us">联系我们</string>
+    <string name="contact_customer_service">联系客服</string>
     <string name="exist_account">退出账号</string>
     <string name="settings">设置</string>
     <string name="girl_pink">少女粉</string>
@@ -469,5 +471,8 @@
     <string name="no_lob_lat_info_cant_go_map_look">没有经纬度信息，无法进入地图查看</string>
     <string name="current_location">当前位置</string>
     <string name="if_long_time_cant_show_please_down_refresh">如长时间不能显示，请进行下拉刷新</string>
+    <string name="about_mian_mian">关于绵绵</string>
+    <string name="dear_give_me_good_judge">亲，给个好评吧</string>
+    <string name="company_name">武汉裹茗科技服务有限公司</string>
 
 </resources>

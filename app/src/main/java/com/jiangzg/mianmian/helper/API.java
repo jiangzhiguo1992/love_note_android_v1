@@ -169,7 +169,7 @@ public interface API {
     Call<Result> couplePlacePush(@Body Place place);
 
     // 天气信息
-    @POST("couple/weather?forecast=1")
+    @GET("couple/weather?forecast=1")
     Call<Result> weatherForecastGet();
 
     // diaryList获取

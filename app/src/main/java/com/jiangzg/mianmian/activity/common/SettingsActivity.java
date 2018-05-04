@@ -14,11 +14,11 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.settings.AboutActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.activity.settings.SuggestHomeActivity;
 import com.jiangzg.mianmian.activity.settings.ThemeActivity;
@@ -35,7 +35,6 @@ import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.service.UpdateService;
 
 import java.util.Locale;
 
@@ -68,18 +67,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @BindView(R.id.tvPassword)
     TextView tvPassword;
 
-    @BindView(R.id.rlUpdate)
-    RelativeLayout rlUpdate;
-    @BindView(R.id.tvUpdateSummary)
-    TextView tvUpdateSummary;
     @BindView(R.id.tvHelp)
     TextView tvHelp;
     @BindView(R.id.tvSuggest)
     TextView tvSuggest;
-    @BindView(R.id.tvProtocol)
-    TextView tvProtocol;
-    @BindView(R.id.tvContact)
-    TextView tvContact;
+    @BindView(R.id.tvAbout)
+    TextView tvAbout;
     @BindView(R.id.tvExist)
     TextView tvExist;
 
@@ -117,14 +110,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 社交通知
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
-        // 版本信息
-        String versionName = AppInfo.get().getVersionName();
-        String versionNameShow = String.format(Locale.getDefault(), getString(R.string.current_version_colon_space_holder), versionName);
-        tvUpdateSummary.setText(versionNameShow);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
-            R.id.rlUpdate, R.id.tvHelp, R.id.tvSuggest, R.id.tvProtocol, R.id.tvContact, R.id.tvExist})
+            R.id.tvHelp, R.id.tvSuggest, R.id.tvAbout, R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvTheme: // 主题
@@ -145,20 +134,14 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.tvPassword: // 密码
                 PasswordActivity.goActivity(mActivity);
                 break;
-            case R.id.rlUpdate: // 版本更新
-                UpdateService.checkUpdate(mActivity);
-                break;
             case R.id.tvHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity);
                 break;
             case R.id.tvSuggest: // 意见反馈
                 SuggestHomeActivity.goActivity(mActivity);
                 break;
-            case R.id.tvProtocol: // 软件协议
-                WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
-                break;
-            case R.id.tvContact: // 联系我们
-                WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
+            case R.id.tvAbout: // 关于绵绵
+                AboutActivity.goActivity(mActivity);
                 break;
             case R.id.tvExist: // 退出账号
                 existDialogShow();
@@ -216,6 +199,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         SPHelper.clearUser();
                         SPHelper.clearCouple();
+                        SPHelper.clearTa();
                         SPHelper.clearOssInfo();
                         SPHelper.clearVipLimit();
                         SPHelper.clearDiary();

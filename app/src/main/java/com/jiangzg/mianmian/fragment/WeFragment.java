@@ -217,8 +217,6 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                     if (ta == null) {
                         ToastUtils.show(getString(R.string.if_long_time_cant_show_please_down_refresh));
                     } else {
-                        // TODO 先弹框(背景虚化+对外展示的)
-                        // TODO 可在CoupleEditActivity进行编辑(包括解除配对)
                         CoupleInfoActivity.goActivity(mActivity);
                     }
                 }

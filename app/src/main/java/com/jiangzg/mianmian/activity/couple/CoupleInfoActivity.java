@@ -323,6 +323,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void showNameInput() {
         String show = isCreator ? tvNameRight.getText().toString().trim() : tvNameLeft.getText().toString().trim();
         String hint = getString(R.string.please_input_nickname);
+        int coupleLimitName = SPHelper.getLimit().getCoupleLimitName();
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -333,6 +334,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                         LogUtils.i(LOG_TAG, "showNameInput: onInput: " + input.toString());
                     }
                 })
+                .inputRange(1, coupleLimitName)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {

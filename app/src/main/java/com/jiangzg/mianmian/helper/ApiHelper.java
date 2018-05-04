@@ -3,7 +3,6 @@ package com.jiangzg.mianmian.helper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.provider.Settings;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -12,7 +11,6 @@ import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.HomeActivity;
@@ -134,6 +132,11 @@ public class ApiHelper {
         OssReceiver.startAlarm();
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
+        if (versionList == null || versionList.size() <= 0) {
+            SPHelper.clearVersion();
+        } else {
+            SPHelper.setVersion(versionList.get(0));
+        }
         // limit
         Limit limit = data.getLimit();
         SPHelper.setLimit(limit);
@@ -145,13 +148,13 @@ public class ApiHelper {
         long between = endTime - startTime;
         if (between >= totalWait) {
             // 间隔时间太大
-            HomeActivity.goActivity(mActivity, versionList);
+            HomeActivity.goActivity(mActivity);
         } else {
             // 间隔时间太小
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    HomeActivity.goActivity(mActivity, versionList);
+                    HomeActivity.goActivity(mActivity);
                 }
             }, totalWait - between);
         }

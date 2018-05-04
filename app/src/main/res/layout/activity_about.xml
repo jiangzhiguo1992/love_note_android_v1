@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jiangzg.mianmian.activity.settings.AboutActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/tvAppInfo"
+            style="@style/FontBlackNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="5dp"
+            tools:text="绵绵 v1.0.1"/>
+
+        <View style="@style/LineHorizontal"/>
+
+        <!-- 检查更新 -->
+        <LinearLayout
+            android:id="@+id/llUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/FontBlackNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/check_update"/>
+
+            <TextView
+                android:id="@+id/tvUpdateSummary"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="新版本:1.0.2"/>
+        </LinearLayout>
+
+        <View style="@style/LineHorizontal"/>
+
+        <!-- 去评价 -->
+        <LinearLayout
+            android:id="@+id/llRate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/FontBlackNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/go_rate"/>
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:text="@string/dear_give_me_good_judge"/>
+        </LinearLayout>
+
+        <View style="@style/LineHorizontal"/>
+
+        <!-- 软件协议 -->
+        <LinearLayout
+            android:id="@+id/llProtocol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/FontBlackNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/software_protocol"/>
+        </LinearLayout>
+
+        <View style="@style/LineHorizontal"/>
+
+        <!-- 联系客服 -->
+        <LinearLayout
+            android:id="@+id/llContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                style="@style/FontBlackNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_us"/>
+        </LinearLayout>
+
+        <View style="@style/LineHorizontal"/>
+
+        <!-- 公司名称 -->
+        <TextView
+            android:id="@+id/tvCompany"
+            style="@style/FontGreySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:gravity="bottom"
+            android:text="@string/company_name"/>
+    </LinearLayout>
+</LinearLayout>

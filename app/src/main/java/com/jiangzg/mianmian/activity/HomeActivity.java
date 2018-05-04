@@ -22,9 +22,11 @@ import com.jiangzg.mianmian.fragment.BookFragment;
 import com.jiangzg.mianmian.fragment.SquareFragment;
 import com.jiangzg.mianmian.fragment.TopicFragment;
 import com.jiangzg.mianmian.fragment.WeFragment;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.service.UpdateService;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import butterknife.BindView;
@@ -47,12 +49,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         Intent intent = new Intent(from, HomeActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); // 清除栈顶,类似于singTask
-        ActivityTrans.start(from, intent);
-    }
-
-    public static void goActivity(Activity from, ArrayList<Version> versionList) {
-        Intent intent = new Intent(from, HomeActivity.class);
-        intent.putParcelableArrayListExtra("versionList", versionList);
         ActivityTrans.start(from, intent);
     }
 
@@ -168,8 +164,10 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private void checkUpdate() {
-        ArrayList<Version> versionList = getIntent().getParcelableArrayListExtra("versionList");
-        if (versionList == null || versionList.size() <= 0) return;
+        Version version = SPHelper.getVersion();
+        if (version == null) return;
+        List<Version> versionList = new ArrayList<>();
+        versionList.add(version);
         UpdateService.showUpdateDialog(versionList);
     }
 

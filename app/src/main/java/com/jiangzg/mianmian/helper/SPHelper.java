@@ -12,6 +12,7 @@ import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.domain.VipLimit;
 import com.jiangzg.mianmian.domain.WallPaper;
 
@@ -28,6 +29,7 @@ public class SPHelper {
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
     private static final String SHARE_TA = "shareTa";
+    private static final String SHARE_VERSION = "shareVersion";
     private static final String SHARE_WALL_PAPER = "shareWallPaper";
     private static final String SHARE_LIMIT = "shareLimit";
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
@@ -53,6 +55,12 @@ public class SPHelper {
     private static final String FIELD_CP_INVITEE_ID = "inviteeId";
     private static final String FIELD_CP_INVITEE_NAME = "inviteeName";
     private static final String FIELD_CP_INVITEE_AVATAR = "inviteeAvatar";
+    // version
+    private static final String FIELD_VERSION_CREATE_AT = "createAt";
+    private static final String FIELD_VERSION_VERSION_CODE = "versionCode";
+    private static final String FIELD_VERSION_VERSION_NAME = "versionName";
+    private static final String FIELD_VERSION_UPDATE_LOG = "updateLog";
+    private static final String FIELD_VERSION_UPDATE_URL = "updateUrl";
     // wallPaper
     private static final String FIELD_WALL_PAPER_JSON = "json";
     // suggest
@@ -226,6 +234,37 @@ public class SPHelper {
             return null;
         }
         return user;
+    }
+
+    public static void setVersion(Version version) {
+        clearVersion();
+        if (version == null) {
+            LogUtils.w(LOG_TAG, "version == null");
+            return;
+        } else {
+            LogUtils.d(LOG_TAG, "setVersion: " + GsonHelper.get().toJson(version));
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VERSION).edit();
+        editor.putLong(FIELD_VERSION_CREATE_AT, version.getCreateAt());
+        editor.putInt(FIELD_VERSION_VERSION_CODE, version.getVersionCode());
+        editor.putString(FIELD_VERSION_VERSION_NAME, version.getVersionName());
+        editor.putString(FIELD_VERSION_UPDATE_LOG, version.getUpdateLog());
+        editor.putString(FIELD_VERSION_UPDATE_URL, version.getUpdateUrl());
+        editor.apply();
+    }
+
+    public static Version getVersion() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VERSION);
+        Version version = new Version();
+        version.setCreateAt(sp.getLong(FIELD_VERSION_CREATE_AT, 0));
+        version.setVersionCode(sp.getInt(FIELD_VERSION_VERSION_CODE, 0));
+        version.setVersionName(sp.getString(FIELD_VERSION_VERSION_NAME, ""));
+        version.setUpdateLog(sp.getString(FIELD_VERSION_UPDATE_LOG, ""));
+        version.setUpdateUrl(sp.getString(FIELD_VERSION_UPDATE_URL, ""));
+        if (version.getVersionCode() <= 0 || StringUtils.isEmpty(version.getUpdateUrl())) {
+            return null;
+        }
+        return version;
     }
 
     public static void setWallPaper(WallPaper wallPaper) {
@@ -482,6 +521,10 @@ public class SPHelper {
 
     public static void clearTa() {
         SPUtils.clear(SHARE_TA);
+    }
+
+    public static void clearVersion() {
+        SPUtils.clear(SHARE_VERSION);
     }
 
     public static void clearWallPaper() {

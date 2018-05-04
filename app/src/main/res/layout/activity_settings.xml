@@ -41,6 +41,34 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
+            <RelativeLayout
+                android:id="@+id/rlCache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvCacheTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/clear_cache"/>
+
+                <TextView
+                    android:id="@+id/tvCacheSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCacheTitle"
+                    tools:text="@string/contain_image_audio_video_total_colon_holder"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"/>
+
             <TextView
                 style="@style/FontPrimaryNormal"
                 android:layout_width="match_parent"
@@ -169,62 +197,6 @@
                 android:text="@string/about_and_help"
                 android:textStyle="bold"/>
 
-            <RelativeLayout
-                android:id="@+id/rlUpdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvUpdateTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/check_update"/>
-
-                <TextView
-                    android:id="@+id/tvUpdateSummary"
-                    style="@style/FontGreySmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvUpdateTitle"
-                    tools:text="@string/current_version_colon_space_holder"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <RelativeLayout
-                android:id="@+id/rlCache"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/tvCacheTitle"
-                    style="@style/FontBlackNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/clear_cache"/>
-
-                <TextView
-                    android:id="@+id/tvCacheSummary"
-                    style="@style/FontGreySmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvCacheTitle"
-                    tools:text="@string/contain_image_audio_video_total_colon_holder"/>
-            </RelativeLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
             <TextView
                 android:id="@+id/tvHelp"
                 style="@style/FontBlackNormal"
@@ -254,27 +226,13 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                android:id="@+id/tvProtocol"
+                android:id="@+id/tvAbout"
                 style="@style/FontBlackNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:padding="16dp"
-                android:text="@string/software_protocol"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
-
-            <TextView
-                android:id="@+id/tvContact"
-                style="@style/FontBlackNormal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
-                android:text="@string/contact_us"/>
+                android:text="@string/about_mian_mian"/>
 
             <View
                 style="@style/LineHorizontal"
