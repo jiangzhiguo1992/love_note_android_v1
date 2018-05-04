@@ -24,6 +24,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
@@ -212,7 +213,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 if (CheckHelper.isCoupleBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    CoupleInfoActivity.goActivity(mActivity);
+                    User ta = SPHelper.getTa();
+                    if (ta == null) {
+                        ToastUtils.show(getString(R.string.if_long_time_cant_show_please_down_refresh));
+                    } else {
+                        // TODO 先弹框(背景虚化+对外展示的)
+                        // TODO 可在CoupleEditActivity进行编辑(包括解除配对)
+                        CoupleInfoActivity.goActivity(mActivity);
+                    }
                 }
                 break;
             case R.id.llPlace: // 地址信息
@@ -244,7 +252,8 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                SPHelper.setUser(data.getUser());
+                SPHelper.setUser(data.getMe());
+                SPHelper.setTa(data.getTa());
                 SPHelper.setWallPaper(data.getWallPaper());
                 myPlace = data.getMyPlace();
                 taPlace = data.getTaPlace();

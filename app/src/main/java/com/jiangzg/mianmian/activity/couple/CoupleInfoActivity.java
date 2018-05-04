@@ -52,7 +52,6 @@ import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageAvatarView;
-import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.io.File;
 
@@ -68,8 +67,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     AppBarLayout abl;
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.srl)
-    GSwipeRefreshLayout srl;
 
     @BindView(R.id.ivAvatarLeft)
     GImageAvatarView ivAvatarLeft;
@@ -103,7 +100,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private boolean isCreator;
     private User me;
     private User ta;
-    private Call<Result> callGet;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
     private File cameraFile;
@@ -133,17 +129,15 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         layoutParams.topMargin += statusBarHeight;
         abl.setLayoutParams(layoutParams);
         abl.setTargetElevation(0);
-        // srl
-        srl.setEnabled(false);
     }
 
     @Override
     protected void initData(Bundle state) {
-        // 我的数据和身份
         me = SPHelper.getUser();
+        ta = SPHelper.getTa();
         isCreator = me.isCoupleCreator();
-        // ta
-        getTaInfo();
+        // view
+        setViewData();
     }
 
     @Override
@@ -155,7 +149,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callUpdateInfo);
         RetrofitHelper.cancel(callUpdateStatus);
     }
@@ -250,27 +243,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 breakAbout();
                 break;
         }
-    }
-
-    private void getTaInfo() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // api获取ta
-        callGet = new RetrofitHelper().call(API.class).userGet(true);
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                ta = data.getUser();
-                setViewData();
-            }
-
-            @Override
-            public void onFailure(String errMsg) {
-                srl.setRefreshing(false);
-            }
-        });
     }
 
     private void setViewData() {

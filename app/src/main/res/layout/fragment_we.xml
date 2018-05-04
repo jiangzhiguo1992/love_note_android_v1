@@ -133,6 +133,8 @@
                         android:layout_weight="1"
                         android:gravity="start"
                         android:maxLines="1"
+                        android:shadowColor="@color/black"
+                        android:shadowRadius="10"
                         android:singleLine="true"
                         android:text="@string/horizontal_line_2"/>
 
@@ -147,6 +149,8 @@
                         android:layout_weight="1"
                         android:gravity="end"
                         android:maxLines="1"
+                        android:shadowColor="@color/black"
+                        android:shadowRadius="10"
                         android:singleLine="true"
                         android:text="@string/horizontal_line_2"/>
 

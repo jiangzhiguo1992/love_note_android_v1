@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
@@ -26,6 +27,7 @@ public class SPHelper {
 
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
+    private static final String SHARE_TA = "shareTa";
     private static final String SHARE_WALL_PAPER = "shareWallPaper";
     private static final String SHARE_LIMIT = "shareLimit";
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
@@ -195,6 +197,35 @@ public class SPHelper {
         couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
         couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
         return couple;
+    }
+
+    public static void setTa(User ta) {
+        clearTa();
+        if (ta == null) {
+            LogUtils.w(LOG_TAG, "ta == null");
+            return;
+        } else {
+            LogUtils.d(LOG_TAG, "setTa: " + GsonHelper.get().toJson(ta));
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_TA).edit();
+        editor.putLong(FIELD_USER_ID, ta.getId());
+        editor.putString(FIELD_USER_PHONE, ta.getPhone());
+        editor.putInt(FIELD_USER_SEX, ta.getSex());
+        editor.putLong(FIELD_USER_BIRTHDAY, ta.getBirthday());
+        editor.apply();
+    }
+
+    public static User getTa() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_TA);
+        User user = new User();
+        user.setId(sp.getLong(FIELD_USER_ID, 0));
+        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
+        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
+        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
+        if (user.getId() <= 0 || StringUtils.isEmpty(user.getPhone())) {
+            return null;
+        }
+        return user;
     }
 
     public static void setWallPaper(WallPaper wallPaper) {
@@ -447,6 +478,10 @@ public class SPHelper {
 
     public static void clearCouple() {
         SPUtils.clear(SHARE_COUPLE);
+    }
+
+    public static void clearTa() {
+        SPUtils.clear(SHARE_TA);
     }
 
     public static void clearWallPaper() {

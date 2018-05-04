@@ -67,6 +67,8 @@ public class Result implements Serializable {
         private VipLimit vipLimit;
         private WallPaper wallPaper;
         private List<Entry> entryList;
+        private User me;
+        private User ta;
         private Place place;
         private Place myPlace;
         private Place taPlace;
@@ -82,6 +84,22 @@ public class Result implements Serializable {
         private Weather taWeather;
         private String myShow;
         private String taShow;
+
+        public User getMe() {
+            return me;
+        }
+
+        public void setMe(User me) {
+            this.me = me;
+        }
+
+        public User getTa() {
+            return ta;
+        }
+
+        public void setTa(User ta) {
+            this.ta = ta;
+        }
 
         public Weather getMyWeather() {
             return myWeather;

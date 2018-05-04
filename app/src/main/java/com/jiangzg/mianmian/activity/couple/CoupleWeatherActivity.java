@@ -37,7 +37,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void initData(Bundle state) {
-
+        getData();
     }
 
     @Override

@@ -46,9 +46,9 @@ public class DialogUtils {
     }
 
     /**
-     * 设置透明度
+     * 设置背景透明度
      */
-    public static void setAlpha(Dialog dialog, float alpha) {
+    public static void setBgAlpha(Dialog dialog, float alpha) {
         Window window = dialog.getWindow();
         if (window == null) return;
         WindowManager.LayoutParams lp = window.getAttributes();
@@ -57,13 +57,13 @@ public class DialogUtils {
     }
 
     /**
-     * 设置暗黑背景层
+     * 设置背景暗黑
      */
-    public static void setBlackBg(Dialog dialog, float alpha) {
+    public static void setBgBlack(Dialog dialog, float black) {
         Window window = dialog.getWindow();
         if (window == null) return;
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.dimAmount = alpha;
+        lp.dimAmount = black;
         window.setAttributes(lp);
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
