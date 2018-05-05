@@ -46,6 +46,7 @@ public class Result implements Serializable {
     }
 
     public static class Data {
+        private CommonConst commonConst;
         private List<Version> versionList;
         private Version version;
         private User user;
@@ -84,6 +85,14 @@ public class Result implements Serializable {
         private Weather taWeather;
         private String myShow;
         private String taShow;
+
+        public CommonConst getCommonConst() {
+            return commonConst;
+        }
+
+        public void setCommonConst(CommonConst commonConst) {
+            this.commonConst = commonConst;
+        }
 
         public User getMe() {
             return me;

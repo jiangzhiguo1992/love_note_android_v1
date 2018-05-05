@@ -19,6 +19,7 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.broadcast.OssReceiver;
 import com.jiangzg.mianmian.domain.Album;
+import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
@@ -122,6 +123,12 @@ public class ApiHelper {
         // user
         User user = data.getUser();
         SPHelper.setUser(user);
+        // commonConst
+        CommonConst commonConst = data.getCommonConst();
+        SPHelper.setCommonConst(commonConst);
+        // limit
+        Limit limit = data.getLimit();
+        SPHelper.setLimit(limit);
         // vipLimit
         VipLimit vipLimit = data.getVipLimit();
         SPHelper.setVipLimit(vipLimit);
@@ -130,6 +137,9 @@ public class ApiHelper {
         SPHelper.setOssInfo(ossInfo);
         OssHelper.refreshOssClient();
         OssReceiver.startAlarm();
+        // suggest
+        SuggestInfo suggestInfo = data.getSuggestInfo();
+        SPHelper.setSuggestInfo(suggestInfo);
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {
@@ -137,12 +147,6 @@ public class ApiHelper {
         } else {
             SPHelper.setVersion(versionList.get(0));
         }
-        // limit
-        Limit limit = data.getLimit();
-        SPHelper.setLimit(limit);
-        // suggest
-        SuggestInfo suggestInfo = data.getSuggestInfo();
-        SPHelper.setSuggestInfo(suggestInfo);
         // delay
         long endTime = DateUtils.getCurrentLong();
         long between = endTime - startTime;

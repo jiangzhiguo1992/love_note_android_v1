@@ -74,6 +74,9 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
             versionNewShow = String.format(Locale.getDefault(), holder, version.getVersionName());
         }
         tvUpdateSummary.setText(versionNewShow);
+        // 公司名
+        String companyName = SPHelper.getCommonConst().getCompanyName();
+        tvCompany.setText(companyName);
     }
 
     @OnClick({R.id.llUpdate, R.id.llRate, R.id.llProtocol, R.id.llContact})
@@ -87,10 +90,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
                 // TODO 机型适配问题
                 break;
             case R.id.llProtocol: // 软件协议
-                WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
+                String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
+                WebActivity.goActivity(mActivity, userProtocolUrl);
                 break;
             case R.id.llContact: // 联系我们
-                WebActivity.goActivity(mActivity, WebActivity.TYPE_CONTACT_US);
+                String contactUsUrl = SPHelper.getCommonConst().getContactUsUrl();
+                WebActivity.goActivity(mActivity, contactUsUrl);
                 break;
         }
     }

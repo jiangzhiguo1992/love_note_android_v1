@@ -60,8 +60,9 @@ public class BigImagePagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        view.requestLayout();
-        view.invalidate();
+        //view.requestLayout();
+        //view.invalidate();
+        //ivBig.refreshDrawableState();
         return view == object;
     }
 
@@ -90,8 +91,9 @@ public class BigImagePagerAdapter extends PagerAdapter {
         }
         // addView
         container.addView(ivBig);
-        ivBig.requestLayout();
-        ivBig.invalidate();
+        //ivBig.requestLayout();
+        //ivBig.invalidate();
+        //ivBig.refreshDrawableState();
         return ivBig;
     }
 

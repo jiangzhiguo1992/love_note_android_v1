@@ -134,5 +134,5 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
         android:gravity="bottom"
-        android:text="@string/company_name"/>
+        tools:text="武汉裹茗科技服务有限公司"/>
 </LinearLayout>

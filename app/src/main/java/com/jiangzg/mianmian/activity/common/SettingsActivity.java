@@ -110,6 +110,9 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 社交通知
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
+        // TODO 最新公告
+        // TODO 在线客服
+        // TODO 还是想要红点点
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,

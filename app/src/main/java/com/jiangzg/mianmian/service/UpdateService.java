@@ -32,6 +32,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 
 import java.io.File;
 import java.util.List;
@@ -51,8 +52,12 @@ public class UpdateService extends Service {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 List<Version> versionList = data.getVersionList();
-                if (versionList == null || versionList.size() <= 0) return;
-                showUpdateDialog(versionList);
+                if (versionList == null || versionList.size() <= 0) {
+                    SPHelper.clearVersion();
+                } else {
+                    SPHelper.setVersion(versionList.get(0));
+                    showUpdateDialog(versionList);
+                }
             }
 
             @Override

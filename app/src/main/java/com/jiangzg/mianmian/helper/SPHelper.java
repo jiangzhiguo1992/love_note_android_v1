@@ -6,6 +6,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
+import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Limit;
@@ -34,6 +35,7 @@ public class SPHelper {
     private static final String SHARE_LIMIT = "shareLimit";
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
+    private static final String SHARE_COMMON_CONST = "shareCommonConst";
     private static final String SHARE_SETTINGS = "shareSettings";
     private static final String SHARE_VIP_LIMIT = "shareVipLimit";
     private static final String SHARE_DIARY = "shareDiary";
@@ -129,6 +131,10 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "bookAudioTotalSize";
     private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "bookVideoTotalSize";
     private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topicImageEnable";
+    // commonConst
+    private static final String FIELD_COMMON_CONST_COMPANY_NAME = "companyName";
+    private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "userProtocolUrl";
+    private static final String FIELD_COMMON_CONST_CONTACT_US_URL = "contactUsUrl";
     // settings
     private static final String FIELD_SET_THEME = "theme";
     private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
@@ -490,6 +496,27 @@ public class SPHelper {
         vipLimit.setBookVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, 0));
         vipLimit.setTopicImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, false));
         return vipLimit;
+    }
+
+    public static void setCommonConst(CommonConst commonConst) {
+        if (commonConst == null) {
+            LogUtils.w(LOG_TAG, "commonConst == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
+        editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
+        editor.putString(FIELD_COMMON_CONST_USER_PROTOCOL_URL, commonConst.getUserProtocolUrl());
+        editor.putString(FIELD_COMMON_CONST_CONTACT_US_URL, commonConst.getContactUsUrl());
+        editor.apply();
+    }
+
+    public static CommonConst getCommonConst() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_CONST);
+        CommonConst commonConst = new CommonConst();
+        commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
+        commonConst.setUserProtocolUrl(sp.getString(FIELD_COMMON_CONST_USER_PROTOCOL_URL, ""));
+        commonConst.setContactUsUrl(sp.getString(FIELD_COMMON_CONST_CONTACT_US_URL, ""));
+        return commonConst;
     }
 
     public static void setDiary(Diary diary) {

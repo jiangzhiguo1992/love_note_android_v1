@@ -3,21 +3,26 @@ package com.jiangzg.mianmian.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.helper.ViewHelper;
+import com.jiangzg.mianmian.view.GWebView;
+
+import butterknife.BindView;
 
 public class WebActivity extends BaseActivity<WebActivity> {
 
-    public static final int TYPE_USER_PROTOCOL = 1; // 用户协议
-    public static final int TYPE_CONTACT_US = 2; // 联系我们
+    @BindView(R.id.tb)
+    Toolbar tb;
+    @BindView(R.id.wv)
+    GWebView wv;
 
-    private int type;
-
-    public static void goActivity(Activity from, int type) {
+    public static void goActivity(Activity from, String url) {
         Intent intent = new Intent(from, WebActivity.class);
-        intent.putExtra("type", type);
+        intent.putExtra("url", url);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -29,12 +34,14 @@ public class WebActivity extends BaseActivity<WebActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        type = getIntent().getIntExtra("type", TYPE_USER_PROTOCOL);
+        // TODO tb名称
+        ViewHelper.initTopBar(mActivity, tb, "", true);
     }
 
     @Override
     protected void initData(Bundle state) {
-        // TODO 先获取type，在api获取url和title，再加载
+        String url = getIntent().getStringExtra("url");
+        wv.load(url);
     }
 
 }

@@ -113,7 +113,8 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 register();
                 break;
             case R.id.tvProtocol: // 用户协议
-                WebActivity.goActivity(mActivity, WebActivity.TYPE_USER_PROTOCOL);
+                String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
+                WebActivity.goActivity(mActivity, userProtocolUrl);
                 break;
         }
     }
