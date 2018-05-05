@@ -1,6 +1,5 @@
 package com.jiangzg.mianmian.activity.common;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +19,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.AboutActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.activity.settings.NoticeListActivity;
 import com.jiangzg.mianmian.activity.settings.SuggestHomeActivity;
 import com.jiangzg.mianmian.activity.settings.ThemeActivity;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
@@ -67,6 +67,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @BindView(R.id.tvPassword)
     TextView tvPassword;
 
+    @BindView(R.id.tvNotice)
+    TextView tvNotice;
     @BindView(R.id.tvHelp)
     TextView tvHelp;
     @BindView(R.id.tvSuggest)
@@ -75,13 +77,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     TextView tvAbout;
     @BindView(R.id.tvExist)
     TextView tvExist;
-
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, SettingsActivity.class);
-        // intent.putExtra();
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
-    }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), SettingsActivity.class);
@@ -98,6 +93,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.settings), true);
+        // TODO 还是想要红点点(最新公告+意见反馈+关于绵绵(版本更新))
     }
 
     @Override
@@ -110,9 +106,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 社交通知
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
-        // TODO 最新公告
-        // TODO 在线客服
-        // TODO 还是想要红点点
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
@@ -136,6 +129,9 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.tvPassword: // 密码
                 PasswordActivity.goActivity(mActivity);
+                break;
+            case R.id.tvNotice: // 最新公告
+                NoticeListActivity.goActivity(mActivity);
                 break;
             case R.id.tvHelp: // 帮助文档
                 HelpActivity.goActivity(mActivity);

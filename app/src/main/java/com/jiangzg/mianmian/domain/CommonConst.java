@@ -8,7 +8,7 @@ public class CommonConst {
 
     private String companyName;
     private String userProtocolUrl;
-    private String contactUsUrl;
+    private String aboutUsUrl;
 
     public String getCompanyName() {
         return companyName;
@@ -26,11 +26,11 @@ public class CommonConst {
         this.userProtocolUrl = userProtocolUrl;
     }
 
-    public String getContactUsUrl() {
-        return contactUsUrl;
+    public String getAboutUsUrl() {
+        return aboutUsUrl;
     }
 
-    public void setContactUsUrl(String contactUsUrl) {
-        this.contactUsUrl = contactUsUrl;
+    public void setAboutUsUrl(String aboutUsUrl) {
+        this.aboutUsUrl = aboutUsUrl;
     }
 }

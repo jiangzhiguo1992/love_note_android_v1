@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -38,8 +39,8 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     LinearLayout llRate;
     @BindView(R.id.llProtocol)
     LinearLayout llProtocol;
-    @BindView(R.id.llContact)
-    LinearLayout llContact;
+    @BindView(R.id.llAbout)
+    LinearLayout llAbout;
     @BindView(R.id.tvCompany)
     TextView tvCompany;
 
@@ -72,6 +73,8 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
         if (version != null) {
             String holder = getString(R.string.new_version_colon_space_holder);
             versionNewShow = String.format(Locale.getDefault(), holder, version.getVersionName());
+        } else {
+            tvUpdateSummary.setTextColor(ContextCompat.getColor(mActivity, R.color.font_grey));
         }
         tvUpdateSummary.setText(versionNewShow);
         // 公司名
@@ -79,7 +82,7 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
         tvCompany.setText(companyName);
     }
 
-    @OnClick({R.id.llUpdate, R.id.llRate, R.id.llProtocol, R.id.llContact})
+    @OnClick({R.id.llUpdate, R.id.llRate, R.id.llProtocol, R.id.llAbout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llUpdate: // 软件更新
@@ -89,12 +92,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
                 Intent market = IntentFactory.getMarket("");
                 // TODO 机型适配问题
                 break;
-            case R.id.llProtocol: // 软件协议
+            case R.id.llProtocol: // 用户协议
                 String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
                 WebActivity.goActivity(mActivity, userProtocolUrl);
                 break;
-            case R.id.llContact: // 联系我们
-                String contactUsUrl = SPHelper.getCommonConst().getContactUsUrl();
+            case R.id.llAbout: // 关于我们
+                String contactUsUrl = SPHelper.getCommonConst().getAboutUsUrl();
                 WebActivity.goActivity(mActivity, contactUsUrl);
                 break;
         }

@@ -257,7 +257,6 @@
     <string name="suggest_feedback">意见反馈</string>
     <string name="go_rate">去评价</string>
     <string name="open_protocol">开源许可</string>
-    <string name="software_protocol">软件协议</string>
     <string name="contact_us">联系我们</string>
     <string name="contact_customer_service">联系客服</string>
     <string name="exist_account">退出账号</string>
@@ -479,5 +478,7 @@
     <string name="holder_level_holder_holder_level_holder" formatted="false">%s级%s~%s级%s</string>
     <string name="wave">~</string>
     <string name="cant_get_weather_info">无法获取天气信息</string>
+    <string name="new_notice">最新公告</string>
+    <string name="about_us">关于我们</string>
 
 </resources>

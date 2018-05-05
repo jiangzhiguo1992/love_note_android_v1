@@ -134,7 +134,7 @@ public class SPHelper {
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "companyName";
     private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "userProtocolUrl";
-    private static final String FIELD_COMMON_CONST_CONTACT_US_URL = "contactUsUrl";
+    private static final String FIELD_COMMON_CONST_ABOUT_US_URL = "aboutUsUrl";
     // settings
     private static final String FIELD_SET_THEME = "theme";
     private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
@@ -488,8 +488,8 @@ public class SPHelper {
         vipLimit.setBookDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, 0));
         vipLimit.setBookDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, 0));
         vipLimit.setBookAlbumTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, 0));
-        vipLimit.setBookPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT, 20));
-        vipLimit.setBookPictureSize(sp.getLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, ConstantUtils.MB * 5));
+        vipLimit.setBookPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT, 0));
+        vipLimit.setBookPictureSize(sp.getLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, 0));
         vipLimit.setBookGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, 0));
         vipLimit.setBookMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));
         vipLimit.setBookAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, 0));
@@ -506,7 +506,7 @@ public class SPHelper {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
         editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
         editor.putString(FIELD_COMMON_CONST_USER_PROTOCOL_URL, commonConst.getUserProtocolUrl());
-        editor.putString(FIELD_COMMON_CONST_CONTACT_US_URL, commonConst.getContactUsUrl());
+        editor.putString(FIELD_COMMON_CONST_ABOUT_US_URL, commonConst.getAboutUsUrl());
         editor.apply();
     }
 
@@ -515,7 +515,7 @@ public class SPHelper {
         CommonConst commonConst = new CommonConst();
         commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
         commonConst.setUserProtocolUrl(sp.getString(FIELD_COMMON_CONST_USER_PROTOCOL_URL, ""));
-        commonConst.setContactUsUrl(sp.getString(FIELD_COMMON_CONST_CONTACT_US_URL, ""));
+        commonConst.setAboutUsUrl(sp.getString(FIELD_COMMON_CONST_ABOUT_US_URL, ""));
         return commonConst;
     }
 

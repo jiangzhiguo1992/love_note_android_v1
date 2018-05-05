@@ -88,6 +88,8 @@
         </activity>
         <activity android:name=".activity.settings.AboutActivity">
         </activity>
+        <activity android:name=".activity.settings.NoticeListActivity">
+        </activity>
     </application>
 
 </manifest>

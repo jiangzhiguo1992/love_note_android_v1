@@ -101,14 +101,14 @@
             style="@style/FontBlackNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/software_protocol"/>
+            android:text="@string/user_protocol"/>
     </LinearLayout>
 
     <View style="@style/LineHorizontal"/>
 
     <!-- 联系客服 -->
     <LinearLayout
-        android:id="@+id/llContact"
+        android:id="@+id/llAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -121,7 +121,7 @@
             style="@style/FontBlackNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/contact_us"/>
+            android:text="@string/about_us"/>
     </LinearLayout>
 
     <View style="@style/LineHorizontal"/>
