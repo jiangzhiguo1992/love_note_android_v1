@@ -52,6 +52,7 @@ public class Result implements Serializable {
         private User user;
         private Couple couple;
         private OssInfo ossInfo;
+        private long noticeNoReadCount;
         private String taPhone;
         private String title;
         private String message;
@@ -85,6 +86,32 @@ public class Result implements Serializable {
         private Weather taWeather;
         private String myShow;
         private String taShow;
+        private List<Notice> noticeList;
+        private Notice notice;
+
+        public List<Notice> getNoticeList() {
+            return noticeList;
+        }
+
+        public void setNoticeList(List<Notice> noticeList) {
+            this.noticeList = noticeList;
+        }
+
+        public Notice getNotice() {
+            return notice;
+        }
+
+        public void setNotice(Notice notice) {
+            this.notice = notice;
+        }
+
+        public long getNoticeNoReadCount() {
+            return noticeNoReadCount;
+        }
+
+        public void setNoticeNoReadCount(long noticeNoReadCount) {
+            this.noticeNoReadCount = noticeNoReadCount;
+        }
 
         public CommonConst getCommonConst() {
             return commonConst;

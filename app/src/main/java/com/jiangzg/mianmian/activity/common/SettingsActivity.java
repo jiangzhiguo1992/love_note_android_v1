@@ -93,6 +93,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.settings), true);
+        // TODO settings 图标红点？
         // TODO 还是想要红点点(最新公告+意见反馈+关于绵绵(版本更新))
     }
 
@@ -109,7 +110,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
-            R.id.tvHelp, R.id.tvSuggest, R.id.tvAbout, R.id.tvExist})
+            R.id.tvHelp, R.id.tvNotice, R.id.tvSuggest, R.id.tvAbout, R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvTheme: // 主题

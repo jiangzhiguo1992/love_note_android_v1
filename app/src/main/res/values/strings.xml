@@ -480,5 +480,6 @@
     <string name="cant_get_weather_info">无法获取天气信息</string>
     <string name="new_notice">最新公告</string>
     <string name="about_us">关于我们</string>
+    <string name="no_read">未读</string>
 
 </resources>

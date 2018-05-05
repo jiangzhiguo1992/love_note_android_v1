@@ -2,7 +2,6 @@ package com.jiangzg.mianmian.helper;
 
 import android.content.SharedPreferences;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
@@ -27,6 +26,7 @@ public class SPHelper {
 
     private static final String LOG_TAG = "SPHelper";
 
+    private static final String SHARE_COMMON = "common";
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_COUPLE = "shareCouple";
     private static final String SHARE_TA = "shareTa";
@@ -36,11 +36,14 @@ public class SPHelper {
     private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_COMMON_CONST = "shareCommonConst";
-    private static final String SHARE_SETTINGS = "shareSettings";
     private static final String SHARE_VIP_LIMIT = "shareVipLimit";
     private static final String SHARE_DIARY = "shareDiary";
 
-    /* 储存字段 */
+    // common
+    private static final String FIELD_THEME = "theme";
+    private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
+    private static final String FIELD_SET_NOTICE_SOCIAL = "noticeSocial";
+    private static final String FIELD_NOTICE_NO_READ_COUNT = "noticeNoReadCount";
     // user
     private static final String FIELD_USER_ID = "id";
     private static final String FIELD_USER_PHONE = "phone";
@@ -63,10 +66,6 @@ public class SPHelper {
     private static final String FIELD_VERSION_VERSION_NAME = "versionName";
     private static final String FIELD_VERSION_UPDATE_LOG = "updateLog";
     private static final String FIELD_VERSION_UPDATE_URL = "updateUrl";
-    // wallPaper
-    private static final String FIELD_WALL_PAPER_JSON = "json";
-    // suggest
-    private static final String FIELD_SUGGEST_INFO = "suggestInfo";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "securityToken";
     private static final String FIELD_OSS_KEY_ID = "accessKeyId";
@@ -135,10 +134,10 @@ public class SPHelper {
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "companyName";
     private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "userProtocolUrl";
     private static final String FIELD_COMMON_CONST_ABOUT_US_URL = "aboutUsUrl";
-    // settings
-    private static final String FIELD_SET_THEME = "theme";
-    private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
-    private static final String FIELD_SET_NOTICE_SOCIAL = "noticeSocial";
+    // wallPaper
+    private static final String FIELD_WALL_PAPER_JSON = "json";
+    // suggest
+    private static final String FIELD_SUGGEST_INFO = "suggestInfo";
     // diary
     private static final String FIELD_DIARY_HAPPEN = "happen";
     private static final String FIELD_DIARY_CONTENT = "content";
@@ -573,37 +572,48 @@ public class SPHelper {
         SPUtils.clear(SHARE_DIARY);
     }
 
-    public static void setSettingsTheme(int themeId) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
-        editor.putInt(FIELD_SET_THEME, themeId);
+    public static void setTheme(int themeId) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putInt(FIELD_THEME, themeId);
         editor.apply();
     }
 
-    public static int getSettingsTheme() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
-        return sp.getInt(FIELD_SET_THEME, ThemeHelper.THEME_PINK);
+    public static int getTheme() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getInt(FIELD_THEME, ThemeHelper.THEME_PINK);
     }
 
     public static void setSettingsNoticeSystem(boolean system) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
         editor.putBoolean(FIELD_SET_NOTICE_SYSTEM, system);
         editor.apply();
     }
 
     public static boolean getSettingsNoticeSystem() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
         return sp.getBoolean(FIELD_SET_NOTICE_SYSTEM, true);
     }
 
     public static void setSettingsNoticeSocial(boolean ta) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SETTINGS).edit();
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
         editor.putBoolean(FIELD_SET_NOTICE_SOCIAL, ta);
         editor.apply();
     }
 
     public static boolean getSettingsNoticeSocial() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SETTINGS);
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
         return sp.getBoolean(FIELD_SET_NOTICE_SOCIAL, true);
+    }
+
+    public static void setNoticeNoReadCount(long count) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putLong(FIELD_NOTICE_NO_READ_COUNT, count);
+        editor.apply();
+    }
+
+    public static long getNoticeNoReadCount() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getInt(FIELD_NOTICE_NO_READ_COUNT, 0);
     }
 
 }

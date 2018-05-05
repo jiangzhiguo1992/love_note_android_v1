@@ -118,7 +118,7 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
         ivOrange.setImageResource(R.drawable.ic_circle_primary);
         ivBrown.setImageResource(R.drawable.ic_circle_primary);
         // 获取已选择的theme
-        int settingsTheme = SPHelper.getSettingsTheme();
+        int settingsTheme = SPHelper.getTheme();
         switch (settingsTheme) {
             case ThemeHelper.THEME_PINK:
                 ivPink.setImageResource(R.drawable.ic_check_circle_primary);

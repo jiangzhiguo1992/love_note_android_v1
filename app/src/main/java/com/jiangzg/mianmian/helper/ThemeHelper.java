@@ -23,7 +23,7 @@ public class ThemeHelper {
     public static final int THEME_BROWN = 7;
 
     public static void initTheme(Activity activity) {
-        int settingsTheme = SPHelper.getSettingsTheme();
+        int settingsTheme = SPHelper.getTheme();
         switch (settingsTheme) {
             case THEME_PINK:
                 activity.setTheme(R.style.AppThemePink);
@@ -54,7 +54,7 @@ public class ThemeHelper {
 
     public static void setTheme(int theme) {
         // sp保存
-        SPHelper.setSettingsTheme(theme);
+        SPHelper.setTheme(theme);
         // 遍历所有的activity，设置theme并重绘
         Stack<Activity> stack = ActivityStack.getStack();
         if (stack == null || stack.isEmpty()) return;

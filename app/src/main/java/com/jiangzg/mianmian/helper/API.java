@@ -91,6 +91,10 @@ public interface API {
     @POST("entry/place")
     Call<Result> entryPlacePush(@Body Entry.EntryPlace entryPlace);
 
+    // 公告列表获取
+    @GET("set/notice?list=1")
+    Call<Result> noticeListGet(@Query("page") int page);
+
     // 版本
     @GET("set/version")
     Call<Result> checkUpdate(@Query("code") int code);

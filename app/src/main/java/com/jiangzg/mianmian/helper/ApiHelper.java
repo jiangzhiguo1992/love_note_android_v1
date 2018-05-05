@@ -147,6 +147,9 @@ public class ApiHelper {
         } else {
             SPHelper.setVersion(versionList.get(0));
         }
+        // noticeNoReadCount
+        long noticeNoReadCount = data.getNoticeNoReadCount();
+        SPHelper.setNoticeNoReadCount(noticeNoReadCount);
         // delay
         long endTime = DateUtils.getCurrentLong();
         long between = endTime - startTime;
