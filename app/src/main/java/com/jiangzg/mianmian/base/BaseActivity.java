@@ -50,7 +50,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public FragmentManager mFragmentManager;
     public View mRootView;
     public int mRootViewId;
-    private Unbinder mUnbinder;
+    private Unbinder mUnBinder;
     private MaterialDialog mLoading;
     private Long mLastExitTime = 0L; //最后一次退出时间
     private boolean isLoad = false; // 是否加载过数据，主要用于换肤
@@ -122,7 +122,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public void onContentChanged() {
         super.onContentChanged();
         // 每次setContentView之后都要bind一下
-        mUnbinder = ButterKnife.bind(this);
+        mUnBinder = ButterKnife.bind(this);
         // 二次setContentView之后控件是以前view的，所以要重新实例化一次
         initView(null);
         // 二次setContentView的话，可以不用获取数据 只加载数据
@@ -154,8 +154,8 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
+        if (mUnBinder != null) {
+            mUnBinder.unbind();
         }
     }
 

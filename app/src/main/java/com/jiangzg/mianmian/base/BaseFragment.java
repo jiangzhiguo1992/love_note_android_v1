@@ -33,7 +33,7 @@ public abstract class BaseFragment<T> extends Fragment {
     public BaseFragment mFragment;
     public FragmentManager mFragmentManager;
     public View mRootView;
-    private Unbinder mUnbinder;
+    private Unbinder mUnBinder;
 
     /* 获取fragment实例demo */
     private static BaseFragment newFragment() {
@@ -88,7 +88,7 @@ public abstract class BaseFragment<T> extends Fragment {
         if (mRootView == null) {
             int layoutId = getView(getArguments()); // 取出Bundle
             mRootView = inflater.inflate(layoutId, container, false);
-            mUnbinder = ButterKnife.bind(mFragment, mRootView);
+            mUnBinder = ButterKnife.bind(mFragment, mRootView);
         }
         return mRootView;
     }
@@ -123,8 +123,8 @@ public abstract class BaseFragment<T> extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        if (mUnbinder != null) {
-            mUnbinder.unbind();
+        if (mUnBinder != null) {
+            mUnBinder.unbind();
         }
     }
 

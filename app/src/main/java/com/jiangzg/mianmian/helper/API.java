@@ -95,6 +95,10 @@ public interface API {
     @GET("set/notice?list=1")
     Call<Result> noticeListGet(@Query("page") int page);
 
+    // 公告阅读
+    @PUT("set/notice")
+    Call<Result> noticeRead(@Query("nid") long nid);
+
     // 版本
     @GET("set/version")
     Call<Result> checkUpdate(@Query("code") int code);
