@@ -232,7 +232,7 @@ public class OssHelper {
                 .build();
         DialogHelper.showWithAnim(progress);
         // objectKey
-        final String objectKey = getObjectKey(ossDirPath, suffix);
+        final String objectKey = createObjectKey(ossDirPath, suffix);
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
@@ -515,7 +515,7 @@ public class OssHelper {
             }
         }
         // objectKey生成
-        final String objectKey = getObjectKey(ossDirPath, suffix);
+        final String objectKey = createObjectKey(ossDirPath, suffix);
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
@@ -598,8 +598,9 @@ public class OssHelper {
     }
 
     // 给后台看的 所以用CST时区
-    private static String getObjectKey(String dir, String suffix) {
-        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "." + suffix;
+    private static String createObjectKey(String dir, String suffix) {
+        String uuid = StringUtils.getUUID(8);
+        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + "." + suffix;
     }
 
     /**
@@ -788,7 +789,7 @@ public class OssHelper {
         compressJpeg(activity, pathBookWhisper, source, callBack);
     }
 
-    // 日记 (限制大小 + TODO 持久化)
+    // 日记 (限制大小 + 持久化 TODO 到outFile的book缓存中)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
@@ -819,7 +820,7 @@ public class OssHelper {
         compressJpeg(activity, pathBookAlbum, source, callBack);
     }
 
-    // 照片 (限制大小 + TODO 持久化)
+    // 照片 (限制大小 + 持久化 TODO 到outFile的book缓存中)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;

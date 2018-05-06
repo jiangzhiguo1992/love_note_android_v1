@@ -2,7 +2,6 @@ package com.jiangzg.mianmian.adapter;
 
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -24,11 +23,14 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageView;
+
+import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -56,9 +58,12 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     protected void convert(final BaseViewHolder helper, Album item) {
         // data
         String title = item.getTitle();
+        String updateAt = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
+        String time = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), updateAt);
         String cover = item.getCover();
         // view
         helper.setText(R.id.tvTitle, title);
+        helper.setText(R.id.tvUpdateAt, time);
         GImageView ivAlbum = helper.getView(R.id.ivAlbum);
         ivAlbum.setWidthAndHeight(imageWidth, imageHeight);
         if (StringUtils.isEmpty(cover)) {

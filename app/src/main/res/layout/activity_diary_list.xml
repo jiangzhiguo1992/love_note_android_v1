@@ -29,7 +29,7 @@
         android:background="@drawable/layer_line_border_grey_in_white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_behavior="@string/behavior_footer_depend_app_bar">
+        app:layout_behavior="@string/behavior_linear_depend_app_bar">
 
         <LinearLayout
             android:id="@+id/llSearch"

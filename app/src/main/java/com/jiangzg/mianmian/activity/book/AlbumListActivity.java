@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
@@ -49,6 +51,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.fabAdd)
+    FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
     private Observable<List<Album>> obListCountRefresh;
@@ -158,7 +162,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_add, menu);
+        getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -173,14 +177,20 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuAdd: // 添加
-                albumAdd();
-                return true;
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, Help.TYPE_ALBUM_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.fabAdd})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fabAdd: // 添加
+                albumAdd();
+                break;
+        }
     }
 
     private void getData(final boolean more) {
