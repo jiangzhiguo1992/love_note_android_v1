@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
@@ -67,14 +69,18 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @BindView(R.id.tvPassword)
     TextView tvPassword;
 
-    @BindView(R.id.tvNotice)
-    TextView tvNotice;
+    @BindView(R.id.rlNotice)
+    RelativeLayout rlNotice;
+    @BindView(R.id.ivNotice)
+    ImageView ivNotice;
     @BindView(R.id.tvHelp)
     TextView tvHelp;
     @BindView(R.id.tvSuggest)
     TextView tvSuggest;
-    @BindView(R.id.tvAbout)
-    TextView tvAbout;
+    @BindView(R.id.rlAbout)
+    RelativeLayout rlAbout;
+    @BindView(R.id.ivAbout)
+    ImageView ivAbout;
     @BindView(R.id.tvExist)
     TextView tvExist;
 
@@ -93,8 +99,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.settings), true);
-        // TODO settings 图标红点？
-        // TODO 还是想要红点点(最新公告+意见反馈+关于绵绵(版本更新))
     }
 
     @Override
@@ -107,10 +111,16 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 社交通知
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
+        // 最新公告
+        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
+        ivNotice.setVisibility(noticeNoReadCount > 0 ? View.VISIBLE : View.GONE);
+        // 关于绵绵
+        Version version = SPHelper.getVersion();
+        ivAbout.setVisibility(version != null ? View.VISIBLE : View.GONE);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
-            R.id.tvHelp, R.id.tvNotice, R.id.tvSuggest, R.id.tvAbout, R.id.tvExist})
+            R.id.tvHelp, R.id.rlNotice, R.id.tvSuggest, R.id.rlAbout, R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvTheme: // 主题
@@ -131,7 +141,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.tvPassword: // 密码
                 PasswordActivity.goActivity(mActivity);
                 break;
-            case R.id.tvNotice: // 最新公告
+            case R.id.rlNotice: // 最新公告
                 NoticeListActivity.goActivity(mActivity);
                 break;
             case R.id.tvHelp: // 帮助文档
@@ -140,7 +150,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
             case R.id.tvSuggest: // 意见反馈
                 SuggestHomeActivity.goActivity(mActivity);
                 break;
-            case R.id.tvAbout: // 关于绵绵
+            case R.id.rlAbout: // 关于绵绵
                 AboutActivity.goActivity(mActivity);
                 break;
             case R.id.tvExist: // 退出账号

@@ -197,14 +197,28 @@
                 android:text="@string/about_and_help"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/tvNotice"
-                style="@style/FontBlackNormal"
+            <RelativeLayout
+                android:id="@+id/rlNotice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
-                android:text="@string/new_notice"/>
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvNotice"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_notice"/>
+
+                <ImageView
+                    android:id="@+id/ivNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/tvNotice"
+                    android:src="@drawable/shape_point_red_r3_7"/>
+            </RelativeLayout>
 
             <View
                 style="@style/LineHorizontal"
@@ -239,14 +253,28 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
-            <TextView
-                android:id="@+id/tvAbout"
-                style="@style/FontBlackNormal"
+            <RelativeLayout
+                android:id="@+id/rlAbout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
-                android:padding="16dp"
-                android:text="@string/about_mian_mian"/>
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvAbout"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_mian_mian"/>
+
+                <ImageView
+                    android:id="@+id/ivAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@+id/tvAbout"
+                    android:src="@drawable/shape_point_red_r3_7"/>
+            </RelativeLayout>
 
             <View
                 style="@style/LineHorizontal"

@@ -613,7 +613,7 @@ public class SPHelper {
 
     public static long getNoticeNoReadCount() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getInt(FIELD_NOTICE_NO_READ_COUNT, 0);
+        return sp.getLong(FIELD_NOTICE_NO_READ_COUNT, 0);
     }
 
 }

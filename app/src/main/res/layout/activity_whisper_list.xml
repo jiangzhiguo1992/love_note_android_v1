@@ -43,7 +43,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/shape_r3_stroke_primary"
+                android:background="@drawable/shape_stroke_primary_r3"
                 android:gravity="center"
                 android:hint="@string/in_here_input_channel"
                 android:maxLines="1"
@@ -59,7 +59,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/selector_enable_press_r3_solid_primary"
+                android:background="@drawable/selector_solid_primary_r3_enable_press"
                 android:text="@string/change_channel"/>
         </LinearLayout>
     </LinearLayout>

@@ -74,7 +74,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
 
         TextView textView = new TextView(mActivity);
         textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_r2_solid_primary);
+        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
         textView.setPadding(dp5, dp2, dp5, dp2);
         textView.setGravity(Gravity.CENTER);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

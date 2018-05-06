@@ -2,11 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/shape_r3_stroke_primary"
+        android:drawable="@drawable/shape_stroke_primary_r3"
         android:state_checked="false"/>
 
     <item
-        android:drawable="@drawable/shape_r3_solid_primary"
+        android:drawable="@drawable/shape_solid_primary_r3"
         android:state_checked="true"/>
 
 </selector>

@@ -2,16 +2,16 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:drawable="@drawable/shape_r3_solid_light"
+        android:drawable="@drawable/shape_solid_light_r3"
         android:state_enabled="false"/>
 
     <item
-        android:drawable="@drawable/shape_r3_solid_primary"
+        android:drawable="@drawable/shape_solid_primary_r3"
         android:state_enabled="true"
         android:state_pressed="false"/>
 
     <item
-        android:drawable="@drawable/shape_r3_solid_dark"
+        android:drawable="@drawable/shape_solid_dark_r3"
         android:state_enabled="true"
         android:state_pressed="true"/>
 

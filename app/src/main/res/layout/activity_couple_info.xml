@@ -160,7 +160,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/shape_r100_stroke_white"
+            android:background="@drawable/shape_stroke_white_r100"
             android:paddingBottom="10dp"
             android:paddingEnd="30dp"
             android:paddingStart="30dp"
