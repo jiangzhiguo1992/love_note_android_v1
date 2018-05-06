@@ -13,11 +13,13 @@ import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.Version;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -83,13 +85,18 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 refreshData();
             }
         });
-        // menu
-        tb.inflateMenu(R.menu.help_settings);
         // TODO book内置加密(app启动后解密一次)
     }
 
     protected void loadData() {
         refreshData();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // menu
+        refreshMenu();
     }
 
     @Override
@@ -146,6 +153,14 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvSchedule: // TODO 日程
                 break;
         }
+    }
+
+    private void refreshMenu() {
+        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
+        Version version = SPHelper.getVersion();
+        boolean redPoint = (noticeNoReadCount > 0) || (version != null);
+        tb.getMenu().clear();
+        tb.inflateMenu(redPoint ? R.menu.help_settings_point : R.menu.help_settings);
     }
 
     private void refreshData() {

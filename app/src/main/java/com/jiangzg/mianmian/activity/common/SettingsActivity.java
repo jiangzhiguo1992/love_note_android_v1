@@ -111,12 +111,17 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 社交通知
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
-        // 最新公告
-        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
-        ivNotice.setVisibility(noticeNoReadCount > 0 ? View.VISIBLE : View.GONE);
         // 关于绵绵
         Version version = SPHelper.getVersion();
         ivAbout.setVisibility(version != null ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // 最新公告
+        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
+        ivNotice.setVisibility(noticeNoReadCount > 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,

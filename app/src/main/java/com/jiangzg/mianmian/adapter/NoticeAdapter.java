@@ -12,6 +12,7 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 
 import retrofit2.Call;
 
@@ -43,6 +44,12 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
 
     public void goDetail(int position) {
         Notice item = getItem(position);
+        // read
+        if (!item.isRead()) {
+            long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
+            SPHelper.setNoticeNoReadCount(--noticeNoReadCount);
+            noticeRead(item.getId());
+        }
         item.setRead(true);
         notifyItemChanged(position); // noReadCount
         if (!StringUtils.isEmpty(item.getContentUrl())) {
@@ -50,8 +57,6 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         } else {
             NoticeDetailActivity.goActivity(mActivity, item);
         }
-        // read
-        noticeRead(item.getId());
     }
 
     private void noticeRead(long nid) {
