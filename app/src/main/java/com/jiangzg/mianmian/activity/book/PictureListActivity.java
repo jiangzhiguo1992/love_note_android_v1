@@ -2,30 +2,43 @@ package com.jiangzg.mianmian.activity.book;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.widget.LinearLayout;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.adapter.DiaryAdapter;
+import com.jiangzg.mianmian.adapter.PictureAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
+import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
+import retrofit2.Call;
 
 public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
@@ -60,6 +73,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     FloatingActionButton fabAdd;
 
     private Album album;
+    private RecyclerHelper recyclerHelper;
+    private Call<Result> callPictureList;
+    private int page;
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
@@ -70,24 +86,87 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        page = 0;
         return R.layout.activity_picture_list;
     }
 
     @Override
     protected void initView(Bundle state) {
-        // TODO 照片列表背景是封面的虚化，且是瀑布流
 
         //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
-        //mCollapsingToolbarLayout.setTitle("CollapsingToolbarLayout");
+        ctl.setTitle("压缩后的标题");
         ////通过CollapsingToolbarLayout修改字体颜色
         //mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);//设置还没收缩时状态下字体颜色
         //mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.GREEN);//设置收缩后Toolbar上字体的颜色
+
+        // recycler
+        recyclerHelper = new RecyclerHelper(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
+                .initRefresh(srl, false)
+                .initAdapter(new PictureAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_white, true, true) // TODO 背景是封面的虚化
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .listenerRefresh(new RecyclerHelper.RefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        getPictureList(false);
+                    }
+                })
+                .listenerMore(new RecyclerHelper.MoreListener() {
+                    @Override
+                    public void onMore(int currentCount) {
+                        getPictureList(true);
+                    }
+                })
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        PictureAdapter pictureAdapter = (PictureAdapter) adapter;
+                        pictureAdapter.goDetail(position);
+                    }
+                });
     }
 
     @Override
     protected void initData(Bundle state) {
         album = getIntent().getParcelableExtra("album");
         refreshAlbumView();
+        recyclerHelper.dataRefresh();
+    }
+
+    // TODO
+    //@Override
+    //public boolean onCreateOptionsMenu(Menu menu) {
+    //    getMenuInflater().inflate(R.menu.help, menu);
+    //    return super.onCreateOptionsMenu(menu);
+    //}
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RetrofitHelper.cancel(callPictureList);
+    }
+
+    // TODO
+    //@Override
+    //public boolean onOptionsItemSelected(MenuItem item) {
+    //    switch (item.getItemId()) {
+    //        case R.id.menuHelp: // 帮助
+    //            HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_LIST);
+    //            return true;
+    //    }
+    //    return super.onOptionsItemSelected(item);
+    //}
+
+    @OnClick({R.id.fabAdd})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fabAdd: // 添加
+                // TODO
+                ToastUtils.show("添加");
+                break;
+        }
     }
 
     private void refreshAlbumView() {
@@ -106,8 +185,28 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         tvUpdateAt.setText(updateShow);
     }
 
-    private void getPictureList(boolean more) {
+    private void getPictureList(final boolean more) {
+        if (album == null) {
+            srl.setRefreshing(false);
+            return;
+        }
+        page = more ? page + 1 : 0;
+        // api
+        callPictureList = new RetrofitHelper().call(API.class).PictureListGet(album.getId(), page);
+        RetrofitHelper.enqueue(callPictureList, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                recyclerHelper.viewEmptyShow(data.getShow());
+                long total = data.getTotal();
+                List<Picture> pictureList = data.getPictureList();
+                recyclerHelper.dataOk(pictureList, total, more);
+            }
 
+            @Override
+            public void onFailure(String errMsg) {
+                recyclerHelper.dataFail(more, errMsg);
+            }
+        });
     }
 
 }

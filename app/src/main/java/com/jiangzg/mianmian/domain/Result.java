@@ -88,6 +88,24 @@ public class Result implements Serializable {
         private String taShow;
         private List<Notice> noticeList;
         private Notice notice;
+        private List<Picture> pictureList;
+        private Picture picture;
+
+        public List<Picture> getPictureList() {
+            return pictureList;
+        }
+
+        public void setPictureList(List<Picture> pictureList) {
+            this.pictureList = pictureList;
+        }
+
+        public Picture getPicture() {
+            return picture;
+        }
+
+        public void setPicture(Picture picture) {
+            this.picture = picture;
+        }
 
         public List<Notice> getNoticeList() {
             return noticeList;
