@@ -20,12 +20,14 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.common.MapSelectActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareEditAdapter;
 import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
@@ -40,6 +42,7 @@ import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
@@ -52,6 +55,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
@@ -82,6 +87,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     private Album album;
     private Picture picture;
     private RecyclerHelper recyclerHelper;
+    private Observable<Album> obSelectAlbum;
     private Call<Result> callAdd;
     private Call<Result> callUpdate;
     private File cameraFile;
@@ -159,6 +165,14 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                     .initAdapter(imgAdapter)
                     .setAdapter();
         }
+        // event
+        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
+            @Override
+            public void call(Album album) {
+                PictureEditActivity.this.album = album;
+                PictureEditActivity.this.refreshAlbum();
+            }
+        });
     }
 
     @Override
@@ -172,6 +186,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         super.onDestroy();
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
+        // event
+        RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
     }
@@ -223,16 +239,16 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     @OnClick({R.id.cvAlbum, R.id.cvHappenAt, R.id.cvLocation, R.id.btnCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvAlbum:
-                // TODO
+            case R.id.cvAlbum: // 相册选取
+                AlbumListActivity.goActivityBySelectAlbum(mActivity);
                 break;
-            case R.id.cvHappenAt:
+            case R.id.cvHappenAt: // 时间
                 showDatePicker();
                 break;
-            case R.id.cvLocation:
-                // TODO
+            case R.id.cvLocation: // 位置
+                MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
                 break;
-            case R.id.btnCommit:
+            case R.id.btnCommit: // 提交
                 checkCommit();
                 break;
         }
@@ -243,8 +259,12 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void refreshAlbum() {
-        if (album == null || album.getId() <= 0) return;
-        // TODO
+        if (album == null || album.getId() <= 0 || StringUtils.isEmpty(album.getTitle())) {
+            tvAlbum.setText(R.string.please_select_album);
+        } else {
+            String title = String.format(Locale.getDefault(), getString(R.string.album_colon_space_holder), album.getTitle());
+            tvAlbum.setText(title);
+        }
     }
 
     private void showDatePicker() {
@@ -281,15 +301,16 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void checkCommit() {
-
+        // TODO
     }
 
     private void uploadPictureList() {
-
+        // TODO
         //Picture body = ApiHelper.getPictureBody();
     }
 
     private void commitAdd(List<String> ossKeyList) {
+        // TODO
         Album album = new Album();
         //album.setPictureList();
         callAdd = new RetrofitHelper().call(API.class).pictureListAdd(album);
@@ -308,6 +329,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void commitUpdate() {
-
+        // TODO
     }
 }

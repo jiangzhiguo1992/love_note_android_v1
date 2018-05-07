@@ -22,10 +22,13 @@ import com.jiangzg.mianmian.activity.book.PictureListActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageView;
@@ -77,6 +80,19 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         helper.addOnClickListener(R.id.tvModify);
         helper.addOnClickListener(R.id.tvDelete);
         helper.addOnClickListener(R.id.tvCancel);
+    }
+
+    public void selectAlbum(int position) {
+        Album item = getItem(position);
+        RxEvent<Album> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_SELECT, item);
+        RxBus.post(event);
+        mActivity.finish();
+    }
+
+    public void selectPicture(int position) {
+        hideOperation();
+        Album item = getItem(position);
+        PictureListActivity.goActivityBySelect(mActivity, item);
     }
 
     public void goDetail(int position) {

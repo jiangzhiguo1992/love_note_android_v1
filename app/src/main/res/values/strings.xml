@@ -484,5 +484,7 @@
     <string name="no_read">未读</string>
     <string name="picture">照片</string>
     <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
+    <string name="please_select_album">请选择相册</string>
+    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
 
 </resources>

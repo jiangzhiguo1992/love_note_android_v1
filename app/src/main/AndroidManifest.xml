@@ -74,26 +74,17 @@
         <activity android:name=".activity.book.DiaryDetailActivity"/>
         <activity android:name=".activity.book.WhisperListActivity"/>
         <activity android:name=".activity.common.BigImageActivity"/>
-        <activity android:name=".activity.book.AlbumListActivity">
-        </activity>
-        <activity android:name=".activity.book.AlbumEditActivity">
-        </activity>
-        <activity android:name=".activity.book.PictureListActivity">
-        </activity>
-        <activity android:name=".activity.couple.CouplePlaceActivity">
-        </activity>
-        <activity android:name=".activity.couple.CoupleWeatherActivity">
-        </activity>
-        <activity android:name=".activity.common.MapViewActivity">
-        </activity>
-        <activity android:name=".activity.settings.AboutActivity">
-        </activity>
-        <activity android:name=".activity.settings.NoticeListActivity">
-        </activity>
-        <activity android:name=".activity.settings.NoticeDetailActivity">
-        </activity>
-        <activity android:name=".activity.book.PictureEditActivity">
-        </activity>
+        <activity android:name=".activity.book.AlbumListActivity"/>
+        <activity android:name=".activity.book.AlbumEditActivity"/>
+        <activity android:name=".activity.book.PictureListActivity"/>
+        <activity android:name=".activity.couple.CouplePlaceActivity"/>
+        <activity android:name=".activity.couple.CoupleWeatherActivity"/>
+        <activity android:name=".activity.common.MapShowActivity"/>
+        <activity android:name=".activity.settings.AboutActivity"/>
+        <activity android:name=".activity.settings.NoticeListActivity"/>
+        <activity android:name=".activity.settings.NoticeDetailActivity"/>
+        <activity android:name=".activity.book.PictureEditActivity"/>
+        <activity android:name=".activity.common.MapSelectActivity"/>
     </application>
 
 </manifest>

@@ -7,7 +7,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.MapViewActivity;
+import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 
@@ -54,7 +54,7 @@ public class CouplePlaceAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> 
         }
         double longitude = entryPlace.getLongitude();
         double latitude = entryPlace.getLatitude();
-        MapViewActivity.goActivity(mActivity, longitude, latitude);
+        MapShowActivity.goActivity(mActivity, longitude, latitude);
     }
 
 }
