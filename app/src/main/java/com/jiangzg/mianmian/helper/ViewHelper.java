@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
@@ -15,13 +16,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -152,4 +162,125 @@ public class ViewHelper {
         }
     }
 
+    public static PopupWindow createPictureCamera(final Activity activity, final File cameraFile) {
+        View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_picture_camera, null);
+        final PopupWindow window = PopUtils.createWindow(view);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.root:
+                        PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        break;
+                    case R.id.llPicture:
+                        PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
+                            @Override
+                            public void onPermissionGranted(int requestCode, String[] permissions) {
+                                Intent picture = IntentFactory.getPicture();
+                                ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(int requestCode, String[] permissions) {
+                                DialogHelper.showGoPermDialog(activity);
+                            }
+                        });
+                        break;
+                    case R.id.llCamera:
+                        PopUtils.dismiss(window);
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
+                            @Override
+                            public void onPermissionGranted(int requestCode, String[] permissions) {
+                                Intent camera = IntentFactory.getCamera(cameraFile);
+                                ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(int requestCode, String[] permissions) {
+
+                            }
+                        });
+                        break;
+                    case R.id.llCancel:
+                        PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        break;
+                }
+            }
+        };
+        RelativeLayout root = view.findViewById(R.id.root);
+        LinearLayout llAlbum = view.findViewById(R.id.llPicture);
+        LinearLayout llCamera = view.findViewById(R.id.llCamera);
+        LinearLayout llCancel = view.findViewById(R.id.llCancel);
+        root.setOnClickListener(listener);
+        llAlbum.setOnClickListener(listener);
+        llCamera.setOnClickListener(listener);
+        llCancel.setOnClickListener(listener);
+        return window;
+    }
+
+    public static PopupWindow createPictureCamera(final Activity activity, String show, final File cameraFile) {
+        View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_show_from_picture_camera, null);
+        final PopupWindow window = PopUtils.createWindow(view);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.root:
+                        PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        break;
+                    case R.id.llPicture:
+                        PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
+                            @Override
+                            public void onPermissionGranted(int requestCode, String[] permissions) {
+                                Intent picture = IntentFactory.getPicture();
+                                ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(int requestCode, String[] permissions) {
+                                DialogHelper.showGoPermDialog(activity);
+                            }
+                        });
+                        break;
+                    case R.id.llCamera:
+                        PopUtils.dismiss(window);
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
+                            @Override
+                            public void onPermissionGranted(int requestCode, String[] permissions) {
+                                Intent camera = IntentFactory.getCamera(cameraFile);
+                                ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
+                            }
+
+                            @Override
+                            public void onPermissionDenied(int requestCode, String[] permissions) {
+
+                            }
+                        });
+                        break;
+                    case R.id.llCancel:
+                        PopUtils.dismiss(window);
+                        ResHelper.deleteFileInBackground(cameraFile);
+                        break;
+                }
+            }
+        };
+        RelativeLayout root = view.findViewById(R.id.root);
+        TextView tvShow = view.findViewById(R.id.tvShow);
+        LinearLayout llAlbum = view.findViewById(R.id.llPicture);
+        LinearLayout llCamera = view.findViewById(R.id.llCamera);
+        LinearLayout llCancel = view.findViewById(R.id.llCancel);
+        root.setOnClickListener(listener);
+        tvShow.setText(show);
+        llAlbum.setOnClickListener(listener);
+        llCamera.setOnClickListener(listener);
+        llCancel.setOnClickListener(listener);
+        return window;
+    }
 }

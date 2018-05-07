@@ -40,7 +40,6 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
@@ -260,7 +259,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void showImgSelect() {
         if (SPHelper.getVipLimit().getBookDiaryImageCount() > 0) {
             cameraFile = ResHelper.newImageOutCache();
-            PopupWindow popupWindow = PopHelper.createBookPictureCamera(mActivity, cameraFile);
+            PopupWindow popupWindow = ViewHelper.createPictureCamera(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);
         } else {
             ToastUtils.show(getString(R.string.now_status_cant_upload_img));

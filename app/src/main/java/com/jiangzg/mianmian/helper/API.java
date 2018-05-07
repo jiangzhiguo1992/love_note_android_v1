@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.helper;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
+import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
@@ -239,5 +240,25 @@ public interface API {
     // album修改
     @PUT("book/album")
     Call<Result> AlbumUpdate(@Body Album Album);
+
+    // picture列表获取
+    @GET("book/picture")
+    Call<Result> PictureListGet(@Query("aid") long aid, @Query("page") int page);
+
+    // picture获取
+    @GET("book/picture")
+    Call<Result> PictureGet(@Query("pid") long pid);
+
+    // picture上传
+    @POST("book/picture")
+    Call<Result> pictureListAdd(@Body Album album);
+
+    // picture删除
+    @DELETE("book/picture")
+    Call<Result> pictureDel(@Query("pid") long pid);
+
+    // picture上传
+    @PUT("book/picture")
+    Call<Result> pictureUpdate(@Body Picture picture);
 
 }

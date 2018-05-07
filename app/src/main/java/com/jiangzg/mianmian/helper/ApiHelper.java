@@ -25,6 +25,7 @@ import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
+import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
@@ -374,6 +375,18 @@ public class ApiHelper {
         album.setTitle(title);
         album.setCover(coverOssPath);
         return album;
+    }
+
+    public static Picture getPictureBody(long aid, long happenAt, String content, double longitude, double latitude, String address, int cityId) {
+        Picture picture = new Picture();
+        picture.setAlbumId(aid);
+        picture.setHappenAt(happenAt);
+        picture.setContent(content);
+        picture.setLongitude(longitude);
+        picture.setLatitude(latitude);
+        picture.setAddress(address);
+        picture.setCityId(cityId);
+        return picture;
     }
 
 }

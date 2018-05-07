@@ -106,4 +106,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         tvUpdateAt.setText(updateShow);
     }
 
+    private void getPictureList(boolean more) {
+
+    }
+
 }

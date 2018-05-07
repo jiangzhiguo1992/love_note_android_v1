@@ -39,7 +39,6 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
@@ -287,7 +286,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             return;
         }
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow window = PopHelper.createPictureCamera(mActivity, channel, cameraFile);
+        PopupWindow window = ViewHelper.createPictureCamera(mActivity, channel, cameraFile);
         PopUtils.show(window, root, Gravity.CENTER);
     }
 

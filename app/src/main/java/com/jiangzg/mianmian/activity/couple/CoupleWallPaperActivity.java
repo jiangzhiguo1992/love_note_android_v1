@@ -36,7 +36,6 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
@@ -200,7 +199,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
 
     public void showImgSelect() {
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = ViewHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 

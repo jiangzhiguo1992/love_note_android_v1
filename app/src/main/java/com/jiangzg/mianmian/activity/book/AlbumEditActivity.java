@@ -37,7 +37,6 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -242,7 +241,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void showImgSelect() {
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = ViewHelper.createPictureCamera(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 

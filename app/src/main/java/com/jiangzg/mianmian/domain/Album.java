@@ -3,6 +3,8 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by JZG on 2018/5/2.
  * Album
@@ -11,6 +13,15 @@ public class Album extends BaseCP implements Parcelable {
 
     private String title;
     private String cover;
+    private List<Picture> pictureList;
+
+    public List<Picture> getPictureList() {
+        return pictureList;
+    }
+
+    public void setPictureList(List<Picture> pictureList) {
+        this.pictureList = pictureList;
+    }
 
     public String getTitle() {
         return title;

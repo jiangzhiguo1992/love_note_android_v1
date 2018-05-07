@@ -290,7 +290,12 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         }
         String message = data.getMessage();
         if (StringUtils.isEmpty(message)) {
-            tvCardMessage.setVisibility(View.GONE);
+            if (StringUtils.isEmpty(data.getShow())) {
+                tvCardMessage.setVisibility(View.GONE);
+            } else {
+                tvCardMessage.setText(data.getShow());
+                tvCardMessage.setVisibility(View.VISIBLE);
+            }
         } else {
             tvCardMessage.setText(message);
             tvCardMessage.setVisibility(View.VISIBLE);

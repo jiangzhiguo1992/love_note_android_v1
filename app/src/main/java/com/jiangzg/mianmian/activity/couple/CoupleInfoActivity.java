@@ -45,7 +45,6 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.PopHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -249,7 +248,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void showAvatarSelect() {
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow popupWindow = PopHelper.createPictureCamera(mActivity, getString(R.string.change_ta_avatar), cameraFile);
+        PopupWindow popupWindow = ViewHelper.createPictureCamera(mActivity, getString(R.string.change_ta_avatar), cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
