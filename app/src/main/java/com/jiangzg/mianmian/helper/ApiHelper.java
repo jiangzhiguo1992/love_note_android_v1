@@ -348,14 +348,6 @@ public class ApiHelper {
         return place;
     }
 
-    public static Diary getDiaryBody(long happenAt, String content, List<String> ossPathList) {
-        Diary diary = new Diary();
-        diary.setHappenAt(happenAt);
-        diary.setContent(content);
-        diary.setImageList(ossPathList);
-        return diary;
-    }
-
     public static Word getWordBody(String content) {
         Word word = new Word();
         word.setContent(content);

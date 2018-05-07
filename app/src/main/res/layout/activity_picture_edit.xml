@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -79,7 +80,7 @@
                         style="@style/FontGreySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_image_grey"
+                        android:drawableStart="@drawable/ic_time_circle_grey"
                         android:gravity="center"
                         android:padding="5dp"
                         tools:text="拍摄于: 2018-05-07"/>
@@ -106,7 +107,7 @@
                         style="@style/FontGreySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_image_grey"
+                        android:drawableStart="@drawable/ic_location_grey"
                         android:gravity="center"
                         android:padding="5dp"
                         tools:text="北京市丰台区莲花路国投财富广场"/>

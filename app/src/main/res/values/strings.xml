@@ -482,5 +482,7 @@
     <string name="new_notice">最新公告</string>
     <string name="about_us">关于我们</string>
     <string name="no_read">未读</string>
+    <string name="picture">照片</string>
+    <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
 
 </resources>

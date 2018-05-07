@@ -37,7 +37,6 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
@@ -61,6 +60,9 @@ import retrofit2.Call;
 
 public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
+    private static final int TYPE_ADD = 0;
+    private static final int TYPE_UPDATE = 1;
+
     @BindView(R.id.root)
     LinearLayout root;
     @BindView(R.id.tb)
@@ -80,7 +82,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @BindView(R.id.btnDraft)
     Button btnDraft;
 
-    private long happenAt;
+    private Diary diary;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callUpdate;
     private Call<Result> callAdd;
@@ -90,13 +92,14 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryEditActivity.class);
-        // intent.putExtra();
+        intent.putExtra("type", TYPE_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryEditActivity.class);
+        intent.putExtra("type", TYPE_UPDATE);
         intent.putExtra("diary", diary);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -114,18 +117,19 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        // 外部和草稿，都检查一下
-        Diary diary = getIntentDiary();
-        if (diary == null) {
+        if (isTypeUpdate()) {
+            diary = getIntent().getParcelableExtra("diary");
+        } else {
             diary = SPHelper.getDiary();
         }
-        // date
-        Calendar calendar = DateUtils.getCurrentCalendar();
-        if (diary != null && diary.getHappenAt() != 0) {
-            long happen = ConvertHelper.getJavaTimeByGo(diary.getHappenAt());
-            calendar.setTimeInMillis(happen);
+        if (diary == null) {
+            diary = new Diary();
         }
-        refreshDateView(calendar);
+        if (diary.getHappenAt() == 0) {
+            diary.setHappenAt(ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+        }
+        // date
+        refreshDateView();
         // recycler
         int limitImages = SPHelper.getVipLimit().getBookDiaryImageCount();
         if (limitImages > 0) {
@@ -138,7 +142,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                     showImgSelect();
                 }
             });
-            if (diary != null && diary.getImageList() != null && diary.getImageList().size() > 0) {
+            if (diary.getImageList() != null && diary.getImageList().size() > 0) {
                 imgAdapter.setOssData(diary.getImageList());
             }
             recyclerHelper = new RecyclerHelper(mActivity)
@@ -150,8 +154,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             rv.setVisibility(View.GONE);
         }
         // input
-        String content = (diary != null) ? diary.getContent() : "";
-        etContent.setText(content);
+        etContent.setText(diary.getContent());
     }
 
     @Override
@@ -233,12 +236,12 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         }
     }
 
-    private Diary getIntentDiary() {
-        return mActivity.getIntent().getParcelableExtra("diary");
+    private boolean isTypeUpdate() {
+        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
     }
 
     private void showDatePicker() {
-        Calendar calendar = DateUtils.getCalendar(happenAt);
+        Calendar calendar = DateUtils.getCalendar(ConvertHelper.getJavaTimeByGo(diary.getHappenAt()));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -247,15 +250,15 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
-                refreshDateView(instance);
+                diary.setHappenAt(ConvertHelper.getGoTimeByJava(instance.getTimeInMillis()));
+                refreshDateView();
             }
         }, year, month, day);
         picker.show();
     }
 
-    private void refreshDateView(Calendar calendar) {
-        happenAt = calendar.getTimeInMillis();
-        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByJava(happenAt);
+    private void refreshDateView() {
+        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvDate.setText(happen);
     }
 
@@ -282,12 +285,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         }
         String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContent);
         tvContentLimit.setText(limitShow);
+        // 设置进去
+        diary.setContent(etContent.getText().toString());
     }
 
     private void saveDraft() {
-        Diary diary = new Diary();
-        diary.setHappenAt(ConvertHelper.getGoTimeByJava(happenAt));
-        diary.setContent(etContent.getText().toString());
         SPHelper.setDiary(diary);
         ToastUtils.show(getString(R.string.draft_save_success));
     }
@@ -331,17 +333,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
-        long happenGo = ConvertHelper.getGoTimeByJava(happenAt);
-        String content = etContent.getText().toString();
-        if (getIntentDiary() != null) {
-            Diary body = getIntentDiary();
-            body.setHappenAt(happenGo);
-            body.setContent(content);
-            body.setImageList(ossPathList);
-            updateApi(body);
+        diary.setImageList(ossPathList);
+        if (isTypeUpdate()) {
+            updateApi(diary);
         } else {
-            Diary body = ApiHelper.getDiaryBody(happenGo, content, ossPathList);
-            addApi(body);
+            addApi(diary);
         }
     }
 

@@ -30,6 +30,7 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -163,7 +164,13 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAdd: // 添加
-                PictureEditActivity.goActivity(mActivity);
+                // TODO 位置
+                int limitImages = SPHelper.getLimit().getPictureLimitCount();
+                if (limitImages > 0) {
+                    PictureEditActivity.goActivity(mActivity, album);
+                } else {
+                    ToastUtils.show(getString(R.string.now_status_cant_upload_img));
+                }
                 break;
         }
     }

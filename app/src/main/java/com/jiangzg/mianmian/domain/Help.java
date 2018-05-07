@@ -30,6 +30,7 @@ public class Help extends BaseObj {
     public static final int TYPE_COUPLE_PLACE = 19;
     public static final int TYPE_COUPLE_WEATHER = 20;
     public static final int TYPE_NOTICE_LIST = 21;
+    public static final int TYPE_PICTURE_EDIT = 22;
 
     private int contentType;
     private String title;

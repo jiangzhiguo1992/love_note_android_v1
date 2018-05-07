@@ -352,7 +352,7 @@ public class SPHelper {
         limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
         limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
         limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
-        limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
+        limit.setPictureLimitCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
         limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));
         limit.setTrackLimitProcess(sp.getInt(FIELD_LIMIT_TRACK_PROCESS, 200));
         limit.setPromiseLimitContent(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT, 200));

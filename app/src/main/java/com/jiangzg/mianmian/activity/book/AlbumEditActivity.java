@@ -13,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -57,7 +57,7 @@ import retrofit2.Call;
 public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     @BindView(R.id.root)
-    LinearLayout root;
+    RelativeLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.ivAdd)
