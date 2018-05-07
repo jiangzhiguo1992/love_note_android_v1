@@ -92,6 +92,8 @@
         </activity>
         <activity android:name=".activity.settings.NoticeDetailActivity">
         </activity>
+        <activity android:name=".activity.book.PictureEditActivity">
+        </activity>
     </application>
 
 </manifest>

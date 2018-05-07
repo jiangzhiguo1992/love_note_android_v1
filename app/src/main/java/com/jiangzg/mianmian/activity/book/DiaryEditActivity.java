@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -64,6 +65,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.cvDate)
+    CardView cvDate;
     @BindView(R.id.tvDate)
     TextView tvDate;
     @BindView(R.id.rv)
@@ -106,7 +109,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
     }
 
     @Override
@@ -215,10 +218,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.tvDate, R.id.btnDraft, R.id.btnPublish})
+    @OnClick({R.id.cvDate, R.id.btnDraft, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvDate: // 日期
+            case R.id.cvDate: // 日期
                 showDatePicker();
                 break;
             case R.id.btnDraft: // 保存草稿

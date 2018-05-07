@@ -32,7 +32,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     @Override
     protected void convert(final BaseViewHolder helper, Picture item) {
         String content = item.getContent();
-
+        // TODO
         GImageView ivPicture = helper.getView(R.id.ivPicture);
         ivPicture.setDataOss(content);
     }

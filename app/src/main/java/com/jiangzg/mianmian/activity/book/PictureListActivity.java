@@ -163,8 +163,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAdd: // 添加
-                // TODO
-                ToastUtils.show("添加");
+                PictureEditActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -207,6 +206,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 recyclerHelper.dataFail(more, errMsg);
             }
         });
+    }
+
+    private void getAlbum() {
+        // TODO loading
     }
 
 }
