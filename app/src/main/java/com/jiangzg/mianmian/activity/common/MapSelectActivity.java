@@ -22,12 +22,15 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.MapSelectAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.MapHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
@@ -51,25 +54,44 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     private AMap aMap;
     private LocationInfo locationInfo;
+    private PoiSearch poiSearch;
     private PoiSearch.OnPoiSearchListener poiSearchListener;
     private RecyclerHelper recyclerHelper;
 
-    public static void goActivity(Activity from) {
-        // TODO 权限检查
-        Intent intent = new Intent(from, MapSelectActivity.class);
-        // intent.putExtra();
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
+    public static void goActivity(final Activity from) {
+        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent intent = new Intent(from, MapSelectActivity.class);
+                // intent.putExtra();
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ActivityTrans.start(from, intent);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(from);
+            }
+        });
     }
 
-    public static void goActivity(Activity from, String address, double longitude, double latitude) {
-        // TODO 权限检查
-        Intent intent = new Intent(from, MapSelectActivity.class);
-        intent.putExtra("address", address);
-        intent.putExtra("longitude", longitude);
-        intent.putExtra("latitude", latitude);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
+    public static void goActivity(final Activity from, final String address, final double longitude, final double latitude) {
+        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent intent = new Intent(from, MapSelectActivity.class);
+                intent.putExtra("address", address);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("latitude", latitude);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ActivityTrans.start(from, intent);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(from);
+            }
+        });
     }
 
     @Override
@@ -91,8 +113,8 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 赋值给locationInfo
-                        // TODO 视图选中
+                        MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
+                        locationInfo = mapSelectAdapter.select(position);
                     }
                 });
     }
@@ -104,7 +126,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        locationInfo = new LocationInfo();
         if (map != null) {
             map.onCreate(savedInstanceState);
         }
@@ -115,6 +136,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
         aMap.setMyLocationEnabled(false);// 不要定位蓝点
+        // 地图拖动回调
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
             @Override
             public void onCameraChange(CameraPosition cameraPosition) {
@@ -122,16 +144,18 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
             @Override
             public void onCameraChangeFinish(CameraPosition cameraPosition) {
-                // 地图拖动完成
                 LatLng target = cameraPosition.target;
                 if (target == null) return;
                 LogUtils.i(LOG_TAG, "onCameraChangeFinish: " + target.latitude + "---" + target.longitude);
                 startMapSearch("", target.latitude, target.longitude);
             }
         });
+        // 检索回调
         poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
             @Override
             public void onSuccess(ArrayList<PoiItem> pois) {
+                if (recyclerHelper == null) return;
+                locationInfo = ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
                 srl.setRefreshing(false);
                 recyclerHelper.dataNew(pois);
             }
@@ -191,6 +215,10 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             aMap.clear();
             aMap = null;
         }
+        if (poiSearch != null) {
+            poiSearch.setOnPoiSearchListener(null);
+        }
+        poiSearchListener = null;
     }
 
     @Override
@@ -200,6 +228,11 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 HelpActivity.goActivity(mActivity, Help.TYPE_MAP_SELECT);
                 return true;
             case R.id.menuComplete: // 完成
+                if (locationInfo == null) {
+                    ToastUtils.show(getString(R.string.please_select_location));
+                    return true;
+                }
+                ToastUtils.show("完成");
                 // TODO 完成 RxBus
                 return true;
         }
@@ -207,6 +240,10 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     }
 
     private void startMapSearch(String address, double latitude, double longitude) {
+        if (locationInfo != null && locationInfo.getLatitude() == latitude && locationInfo.getLongitude() == longitude) {
+            // 避免递归
+            return;
+        }
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -218,7 +255,8 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 LocationHelper.startLocation(false, new LocationHelper.LocationCallBack() {
                     @Override
                     public void onSuccess(LocationInfo info) {
-                        // 继续搜索
+                        // 拖动map并开始搜索
+                        MapHelper.moveMapByLatLon(aMap, info.getLatitude(), info.getLongitude());
                         MapSelectActivity.this.startMapSearch(info.getAddress(), info.getLatitude(), info.getLongitude());
                     }
 
@@ -233,10 +271,12 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 address = info.getAddress();
                 latitude = info.getLatitude();
                 longitude = info.getLongitude();
+                // map的移动只有初始定位和原先位置，其他时候只有用户拖动
+                MapHelper.moveMapByLatLon(aMap, latitude, longitude);
             }
         }
         // 开始poi检索
-        MapHelper.startSearch(mActivity, address, latitude, longitude, poiSearchListener);
+        poiSearch = MapHelper.startSearch(mActivity, address, latitude, longitude, poiSearchListener);
     }
 
 }

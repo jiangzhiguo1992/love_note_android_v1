@@ -139,7 +139,7 @@ public class MapHelper {
         query.setPageSize(100); // 设置每页最多返回多少条poiitem
         query.setPageNum(0); // 设置查第一页
         PoiSearch poiSearch = new PoiSearch(context, query);
-        if (latitude != 0 && longitude != 0) {
+        if (latitude != 0 || longitude != 0) {
             poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 1000)); // 设置周边搜索的中心点以及区域
         }
         if (poiSearchListener != null) {
