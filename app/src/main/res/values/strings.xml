@@ -490,5 +490,6 @@
     <string name="complete">完成</string>
     <string name="location_search_fail">位置搜索失败</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
+    <string name="now_null">暂无</string>
 
 </resources>

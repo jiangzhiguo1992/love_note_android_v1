@@ -29,11 +29,13 @@ import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.MapSelectAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.MapHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -52,6 +54,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private boolean init;
     private AMap aMap;
     private LocationInfo locationInfo;
     private PoiSearch poiSearch;
@@ -102,32 +105,9 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.please_select_location), true);
-        // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
-                .initAdapter(new MapSelectAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
-                .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .listenerClick(new OnItemClickListener() {
-                    @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
-                        locationInfo = mapSelectAdapter.select(position);
-                    }
-                });
-    }
-
-    @Override
-    protected void initData(Bundle state) {
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        // map
         if (map != null) {
-            map.onCreate(savedInstanceState);
+            map.onCreate(null);
         }
         if (aMap == null && map != null) {
             aMap = map.getMap();
@@ -154,7 +134,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
             @Override
             public void onSuccess(ArrayList<PoiItem> pois) {
-                if (recyclerHelper == null) return;
+                if (recyclerHelper == null || srl == null) return;
                 locationInfo = ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
                 srl.setRefreshing(false);
                 recyclerHelper.dataNew(pois);
@@ -166,7 +146,26 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 ToastUtils.show(getString(R.string.location_search_fail));
             }
         });
-        // date
+        // recycler
+        recyclerHelper = new RecyclerHelper(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initRefresh(srl, false)
+                .initAdapter(new MapSelectAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
+                        locationInfo = mapSelectAdapter.select(position);
+                    }
+                });
+    }
+
+    @Override
+    protected void initData(Bundle state) {
+        init = true;
         String address = getIntent().getStringExtra("address");
         double latitude = getIntent().getDoubleExtra("latitude", 0);
         double longitude = getIntent().getDoubleExtra("longitude", 0);
@@ -232,19 +231,16 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                     ToastUtils.show(getString(R.string.please_select_location));
                     return true;
                 }
-                ToastUtils.show("完成");
-                // TODO 完成 RxBus
+                RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, locationInfo);
+                RxBus.post(event);
+                mActivity.finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void startMapSearch(String address, double latitude, double longitude) {
-        if (locationInfo != null && locationInfo.getLatitude() == latitude && locationInfo.getLongitude() == longitude) {
-            // 避免递归
-            return;
-        }
-        if (!srl.isRefreshing()) {
+        if (srl != null && !srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         // 检查搜索条件
@@ -262,21 +258,26 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
                     @Override
                     public void onFailed(String errMsg) {
-                        srl.setRefreshing(false);
+                        if (srl != null) srl.setRefreshing(false);
                         ToastUtils.show(getString(R.string.location_error));
                     }
                 });
                 return;
             } else {
+                // 自己手机里存的位置
                 address = info.getAddress();
                 latitude = info.getLatitude();
                 longitude = info.getLongitude();
-                // map的移动只有初始定位和原先位置，其他时候只有用户拖动
                 MapHelper.moveMapByLatLon(aMap, latitude, longitude);
             }
         }
         // 开始poi检索
         poiSearch = MapHelper.startSearch(mActivity, address, latitude, longitude, poiSearchListener);
+        if (init) {
+            init = false;
+            // map的移动只有初始定位和原先位置，其他时候只有用户拖动
+            MapHelper.moveMapByLatLon(aMap, latitude, longitude);
+        }
     }
 
 }

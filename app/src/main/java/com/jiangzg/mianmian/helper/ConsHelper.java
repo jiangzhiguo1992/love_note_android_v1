@@ -38,6 +38,7 @@ public class ConsHelper {
     public static final int EVENT_ALBUM_LIST_COUNT_REFRESH = 13; // 相册
     public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 14;
     public static final int EVENT_ALBUM_SELECT = 15;
+    public static final int EVENT_MAP_SELECT = 16;
 
     // DetailDataType
     public static final int DETAIL_DATA_FROM_NONE = 0;

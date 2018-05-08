@@ -23,6 +23,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -88,6 +89,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     private Picture picture;
     private RecyclerHelper recyclerHelper;
     private Observable<Album> obSelectAlbum;
+    private Observable<LocationInfo> obSelectMap;
     private Call<Result> callAdd;
     private Call<Result> callUpdate;
     private File cameraFile;
@@ -131,11 +133,14 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         if (picture == null) {
             picture = new Picture();
         }
+        picture.setLongitude(116.40387397); // TODO 删除
+        picture.setLatitude(39.91488908); // TODO 删除
         if (picture.getHappenAt() == 0) {
             picture.setHappenAt(ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
-        // date
+        // view
         refreshDateView();
+        refreshLocationView();
         // recycler
         if (typeUpdate) {
             // 更新
@@ -173,6 +178,16 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 PictureEditActivity.this.refreshAlbum();
             }
         });
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
+            @Override
+            public void call(LocationInfo info) {
+                if (info == null) return;
+                picture.setLatitude(info.getLatitude());
+                picture.setLongitude(info.getLongitude());
+                picture.setAddress(info.getAddress());
+                refreshLocationView();
+            }
+        });
     }
 
     @Override
@@ -188,6 +203,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         RetrofitHelper.cancel(callUpdate);
         // event
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
+        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
     }
@@ -288,6 +304,16 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         String happenShow = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(picture.getHappenAt());
         String format = String.format(Locale.getDefault(), getString(R.string.take_camera_in_colon_space_holder), happenShow);
         tvHappenAt.setText(format);
+    }
+
+    private void refreshLocationView() {
+        String location;
+        if (StringUtils.isEmpty(picture.getAddress())) {
+            location = getString(R.string.now_null);
+        } else {
+            location = picture.getAddress();
+        }
+        tvLocation.setText(location);
     }
 
     private void showImgSelect() {
