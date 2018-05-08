@@ -4,8 +4,8 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.CoordinateConverter;
-import com.amap.api.location.DPoint;
+import com.amap.api.maps2d.AMapUtils;
+import com.amap.api.maps2d.model.LatLng;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
@@ -113,13 +113,16 @@ public class LocationHelper {
 
     // 两点距离
     public static float distance(LocationInfo info1, LocationInfo info2) {
-        DPoint point1 = new DPoint();
-        point1.setLatitude(info1.getLatitude());
-        point1.setLongitude(info1.getLongitude());
-        DPoint point2 = new DPoint();
-        point2.setLatitude(info2.getLatitude());
-        point2.setLongitude(info2.getLongitude());
-        return CoordinateConverter.calculateLineDistance(point1, point2);
+        LatLng latLng1 = new LatLng(info1.getLatitude(), info2.getLongitude());
+        LatLng latLng2 = new LatLng(info2.getLatitude(), info2.getLongitude());
+        return AMapUtils.calculateLineDistance(latLng1, latLng2);
+        //DPoint point1 = new DPoint();
+        //point1.setLatitude(info1.getLatitude());
+        //point1.setLongitude(info1.getLongitude());
+        //DPoint point2 = new DPoint();
+        //point2.setLatitude(info2.getLatitude());
+        //point2.setLongitude(info2.getLongitude());
+        //return CoordinateConverter.calculateLineDistance(point1, point2);
     }
 
 }

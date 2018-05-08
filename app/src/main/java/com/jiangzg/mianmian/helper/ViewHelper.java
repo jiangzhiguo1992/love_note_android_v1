@@ -200,7 +200,7 @@ public class ViewHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-
+                                DialogHelper.showGoPermDialog(activity);
                             }
                         });
                         break;
@@ -260,7 +260,7 @@ public class ViewHelper {
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
-
+                                DialogHelper.showGoPermDialog(activity);
                             }
                         });
                         break;
