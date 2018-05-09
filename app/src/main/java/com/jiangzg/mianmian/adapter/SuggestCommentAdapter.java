@@ -87,7 +87,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     }
 
     // 删除评论
-    public void delComment(final int position) {
+    public void showDeleteDialog(final int position) {
         SuggestComment item = getItem(position);
         if (!item.isMine()) {
             return;
@@ -108,7 +108,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         DialogHelper.showWithAnim(dialog);
     }
 
-    public void delCommentApi(final int position) {
+    private void delCommentApi(final int position) {
         final SuggestComment item = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);

@@ -41,5 +41,6 @@ public class ConsHelper {
     public static final int EVENT_MAP_SELECT = 16; // 地图
     public static final int EVENT_PICTURE_LIST_REFRESH = 17; // 照片
     public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 18;
+    public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 19;
 
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -82,9 +83,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     private Album album;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callPictureList;
-    private int page;
     private Observable<List<Picture>> obListRefresh;
     private Observable<Picture> obListItemRefresh;
+    private Observable<Picture> obListItemDelete;
+    private int page;
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
@@ -124,7 +126,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, false)
                 .initAdapter(new PictureAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
@@ -148,6 +150,13 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                                 break;
                         }
                     }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        PictureAdapter pictureAdapter = (PictureAdapter) adapter;
+                        pictureAdapter.showDeleteDialog(position);
+                    }
                 });
     }
 
@@ -167,6 +176,12 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), picture);
             }
         });
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, new Action1<Picture>() {
+            @Override
+            public void call(Picture picture) {
+                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), picture);
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -184,6 +199,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // event
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     // TODO
@@ -197,7 +213,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     //    return super.onOptionsItemSelected(item);
     //}
 
-    @OnClick({R.id.fabAdd})
+    @OnClick({R.id.fabAdd, R.id.fabModel})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAdd: // 添加 TODO 位置
@@ -207,6 +223,12 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 } else {
                     ToastUtils.show(getString(R.string.now_status_cant_upload_img));
                 }
+                break;
+            case R.id.fabModel: // 模式
+                if (recyclerHelper == null) return;
+                PictureAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter == null) return;
+                adapter.toggleModel();
                 break;
         }
     }

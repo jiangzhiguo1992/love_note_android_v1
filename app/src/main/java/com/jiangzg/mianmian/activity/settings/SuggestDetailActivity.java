@@ -139,7 +139,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
-                        commentAdapter.delComment(position);
+                        commentAdapter.showDeleteDialog(position);
                     }
                 });
         // comment

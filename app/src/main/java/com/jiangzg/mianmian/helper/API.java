@@ -73,8 +73,8 @@ public interface API {
     Call<Result> userModify(@Body User user);
 
     // 用户查询
-    @GET("user")
-    Call<Result> userGet(@Query("ta") boolean ta);
+    //@GET("user")
+    //Call<Result> userGet(@Query("ta") boolean ta);
 
     // oss
     @GET("oss")
@@ -246,8 +246,8 @@ public interface API {
     Call<Result> PictureListGet(@Query("aid") long aid, @Query("page") int page);
 
     // picture获取
-    @GET("book/picture")
-    Call<Result> PictureGet(@Query("pid") long pid);
+    //@GET("book/picture")
+    //Call<Result> PictureGet(@Query("pid") long pid);
 
     // picture上传
     @POST("book/picture")

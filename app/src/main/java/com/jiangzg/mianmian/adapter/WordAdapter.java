@@ -71,7 +71,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
         DialogHelper.showWithAnim(dialog);
     }
 
-    public void deleteApi(int position) {
+    private void deleteApi(int position) {
         final Word item = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).wordDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);

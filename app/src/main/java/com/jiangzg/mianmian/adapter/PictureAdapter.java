@@ -1,7 +1,10 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.support.annotation.NonNull;
 import android.widget.RelativeLayout;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.imagepipeline.image.ImageInfo;
@@ -12,11 +15,20 @@ import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -40,9 +52,9 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
     }
 
-    // TODO 切换显示模式
-    public void setModel(int model) {
-        mModel = model;
+    // 切换显示模式
+    public void toggleModel() {
+        mModel = (mModel == MODEL_DETAIL) ? MODEL_IMAGE : MODEL_DETAIL;
         this.notifyDataSetChanged();
     }
 
@@ -96,6 +108,41 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         double latitude = item.getLatitude();
         double longitude = item.getLongitude();
         MapShowActivity.goActivity(mActivity, address, latitude, longitude);
+    }
+
+    public void showDeleteDialog(final int position) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_delete_this_picture)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi(position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi(int position) {
+        final Picture item = getItem(position);
+        Call<Result> call = new RetrofitHelper().call(API.class).pictureDel(item.getId());
+        MaterialDialog loading = mActivity.getLoading(true);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Picture> event = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, item);
+                RxBus.post(event);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
 }
