@@ -20,6 +20,7 @@ import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 
 /**
  * Created by JZG on 2018/4/28.
@@ -37,7 +38,7 @@ public class FrescoHelper {
             protected Uri getCacheKeySourceUri(Uri sourceUri) {
                 if (sourceUri == null) return null;
                 String key = sourceUri.toString();
-                String cacheKey = ConvertHelper.getOssPathByUrl(key);
+                String cacheKey = getOssPathByUrl(key);
                 return Uri.parse(cacheKey);
             }
         };
@@ -110,6 +111,36 @@ public class FrescoHelper {
             builder = builder.setTapToRetryEnabled(false); // 非网络图不支持重新加载
         }
         return builder;
+    }
+
+    // url转oss路径
+    private static String getOssPathByUrl(String url) {
+        if (StringUtils.isEmpty(url)) {
+            return "";
+        }
+        // 先剔除http:// 和 https://
+        if (url.startsWith("http")) {
+            String[] split = url.trim().split("//");
+            if (split.length >= 2) {
+                url = split[1];
+            }
+        }
+        // 再剔除get参数
+        if (url.contains("?")) {
+            String[] split = url.trim().split("\\?");
+            if (split.length > 0) {
+                url = split[0];
+            }
+        }
+        // 再剔除oss的endpoint
+        String endpoint = SPHelper.getOssInfo().getDomain();
+        if (url.contains(endpoint + "/")) {
+            String[] split = url.trim().split(endpoint + "/");
+            if (split.length >= 2) {
+                url = split[1];
+            }
+        }
+        return url;
     }
 
 }

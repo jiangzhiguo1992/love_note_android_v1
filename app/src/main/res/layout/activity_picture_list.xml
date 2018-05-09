@@ -37,6 +37,8 @@
                     android:id="@+id/ivCover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackground"
+                    android:foreground="?attr/selectableItemBackground"
                     app:actualImageScaleType="centerCrop"
                     tools:background="@mipmap/test_bg_2"
                     tools:scaleType="centerCrop"/>

@@ -91,7 +91,7 @@ public class CheckHelper {
                 continue;
             }
             // 检查本地是不是已下载
-            String name = ConvertHelper.getNameByOssPath(ossKey);
+            String name = ConvertHelper.getFileNameByOssPath(ossKey);
             if (file.getName().trim().equals(name)) {
                 return true;
             }
@@ -110,7 +110,7 @@ public class CheckHelper {
                 continue;
             }
             // 检查本地是不是已下载
-            String name = ConvertHelper.getNameByOssPath(ossKey);
+            String name = ConvertHelper.getFileNameByOssPath(ossKey);
             if (file.getName().trim().equals(name)) {
                 return true;
             }

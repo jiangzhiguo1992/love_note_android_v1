@@ -113,7 +113,7 @@ public class LocationInfo {
     /**
      * 补充：计算两点之间真实距离(米)
      */
-    public static double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
+    public static double getDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
         // 维度
         double lat1 = (Math.PI / 180) * latitude1;
         double lat2 = (Math.PI / 180) * latitude2;

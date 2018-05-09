@@ -422,7 +422,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         tvPlaceRight.setText(myAddress);
         // distance
         float distance = LocationHelper.distance(myInfo, taInfo);
-        String distanceShow = ConvertHelper.getDistanceShow(distance);
+        String distanceShow;
+        if (distance < 1000) {
+            distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
+        } else {
+            float km = distance / 1000;
+            distanceShow = String.format(Locale.getDefault(), "%.1fkm", km);
+        }
         String format = String.format(Locale.getDefault(), getString(R.string.distance_holder), distanceShow);
         tvDistance.setText(format);
     }
@@ -534,7 +540,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                         boolean find = false;
                         // 检查是不是oss里对应的文件
                         for (String ossKey : imageList) {
-                            String name = ConvertHelper.getNameByOssPath(ossKey);
+                            String name = ConvertHelper.getFileNameByOssPath(ossKey);
                             if (file.getName().trim().equals(name)) {
                                 // 是对应的文件，直接检查下一个文件
                                 find = true;
@@ -594,7 +600,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                         boolean find = false;
                         // 检查是不是oss里对应的文件
                         for (String ossKey : imageList) {
-                            String name = ConvertHelper.getNameByOssPath(ossKey);
+                            String name = ConvertHelper.getFileNameByOssPath(ossKey);
                             if (file.getName().trim().equals(name)) {
                                 // 是对应的文件，直接检查下一个文件
                                 find = true;

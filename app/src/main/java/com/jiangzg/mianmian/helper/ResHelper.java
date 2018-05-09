@@ -163,7 +163,7 @@ public class ResHelper {
      */
     // 获取avatar的本地文件
     public static File newAvatarFile(String ossKey) {
-        String name = ConvertHelper.getNameByOssPath(ossKey);
+        String name = ConvertHelper.getFileNameByOssPath(ossKey);
         if (StringUtils.isEmpty(name)) {
             LogUtils.w(LOG_TAG, "newAvatarFile: name == null");
             return null;
@@ -182,7 +182,7 @@ public class ResHelper {
      */
     // 获取wp的本地文件
     public static File newWallPaperFile(String ossKey) {
-        String name = ConvertHelper.getNameByOssPath(ossKey);
+        String name = ConvertHelper.getFileNameByOssPath(ossKey);
         if (StringUtils.isEmpty(name)) {
             LogUtils.w(LOG_TAG, "newWallPaperFile: name == null");
             return null;

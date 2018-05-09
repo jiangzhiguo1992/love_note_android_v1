@@ -9,6 +9,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
+import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.User;
 
 import java.io.File;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/25.
@@ -25,7 +25,7 @@ import java.util.Locale;
 public class ConvertHelper {
 
     // 全路径截取name
-    public static String getNameByOssPath(String objectKey) {
+    public static String getFileNameByOssPath(String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {
             return "";
         }
@@ -33,48 +33,9 @@ public class ConvertHelper {
         return split[split.length - 1].trim();
     }
 
-    // url转oss路径
-    public static String getOssPathByUrl(String url) {
-        if (StringUtils.isEmpty(url)) {
-            return "";
-        }
-        // 先剔除http:// 和 https://
-        if (url.startsWith("http")) {
-            String[] split = url.trim().split("//");
-            if (split.length >= 2) {
-                url = split[1];
-            }
-        }
-        // 再剔除get参数
-        if (url.contains("?")) {
-            String[] split = url.trim().split("\\?");
-            if (split.length > 0) {
-                url = split[0];
-            }
-        }
-        // 再剔除oss的endpoint
-        String endpoint = SPHelper.getOssInfo().getDomain();
-        if (url.contains(endpoint + "/")) {
-            String[] split = url.trim().split(endpoint + "/");
-            if (split.length >= 2) {
-                url = split[1];
-            }
-        }
-        return url;
-    }
-
-    // 两点距离
-    public static String getDistanceShow(float distance) {
-        String show = "";
-        if (distance <= 0) return show;
-        if (distance < 1000) {
-            show = String.format(Locale.getDefault(), "%.0fm", distance);
-        } else {
-            float km = distance / 1000;
-            show = String.format(Locale.getDefault(), "%.1fkm", km);
-        }
-        return show;
-    }
+    /**
+     * **************************************用户信息**************************************
+     */
 
     // 获取ta的id
     public static long getTaIdByCp(Couple couple, long mid) {
@@ -239,6 +200,16 @@ public class ConvertHelper {
     /**
      * **************************************列表**************************************
      */
+
+    public static ArrayList<String> getStrListByPicture(List<Picture> pictureList) {
+        ArrayList<String> strList = new ArrayList<>();
+        if (pictureList == null || pictureList.size() <= 0) return strList;
+        for (Picture picture : pictureList) {
+            if (picture == null || StringUtils.isEmpty(picture.getContent())) continue;
+            strList.add(picture.getContent());
+        }
+        return strList;
+    }
 
     // 集合类型转换(string -> uri)
     public static ArrayList<Uri> getUriListByString(List<String> strings) {

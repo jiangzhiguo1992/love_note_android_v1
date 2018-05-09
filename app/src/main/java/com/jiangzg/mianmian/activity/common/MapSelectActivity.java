@@ -78,7 +78,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         });
     }
 
-    public static void goActivity(final Activity from, final String address, final double longitude, final double latitude) {
+    public static void goActivity(final Activity from, final String address, final double latitude, final double longitude) {
         PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {

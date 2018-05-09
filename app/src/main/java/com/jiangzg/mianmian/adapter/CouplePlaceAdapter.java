@@ -48,13 +48,14 @@ public class CouplePlaceAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> 
     public void goDiaryDetail(int position) {
         Entry item = getItem(position);
         Entry.EntryPlace entryPlace = item.getEntryPlace();
-        if (entryPlace == null || (entryPlace.getLatitude() == 0 && entryPlace.getLongitude() == 0)) {
-            ToastUtils.show(mActivity.getString(R.string.no_lob_lat_info_cant_go_map_look));
+        if (entryPlace == null) {
+            ToastUtils.show(mActivity.getString(R.string.no_lob_lat_info_cant_go_map));
             return;
         }
+        String address = entryPlace.getAddress();
         double longitude = entryPlace.getLongitude();
         double latitude = entryPlace.getLatitude();
-        MapShowActivity.goActivity(mActivity, longitude, latitude);
+        MapShowActivity.goActivity(mActivity, address, latitude, longitude);
     }
 
 }

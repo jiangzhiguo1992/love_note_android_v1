@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -110,10 +110,11 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-
+        // TODO tb是封面的虚化/总色
+        // TODO
         //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
         ctl.setTitle("压缩后的标题");
-        ////通过CollapsingToolbarLayout修改字体颜色
+        //通过CollapsingToolbarLayout修改字体颜色
         //mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);//设置还没收缩时状态下字体颜色
         //mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.GREEN);//设置收缩后Toolbar上字体的颜色
 
@@ -123,7 +124,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, false)
                 .initAdapter(new PictureAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true) // TODO 背景是封面的虚化
+                .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
@@ -137,11 +138,15 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                         getPictureList(true);
                     }
                 })
-                .listenerClick(new OnItemClickListener() {
+                .listenerClick(new OnItemChildClickListener() {
                     @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        pictureAdapter.goDetail(position);
+                        switch (view.getId()) {
+                            case R.id.tvLocation: // 地址
+                                pictureAdapter.onLocationClick(position);
+                                break;
+                        }
                     }
                 });
     }

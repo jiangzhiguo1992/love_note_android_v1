@@ -25,6 +25,8 @@
             android:id="@+id/ivAlbum"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
             app:actualImageScaleType="centerCrop"
             tools:scaleType="centerCrop"
             tools:src="@mipmap/test_bg_2"/>

@@ -60,6 +60,8 @@
             android:id="@+id/ivContent"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
             android:visibility="gone"
             app:actualImageScaleType="centerCrop"
             tools:background="@mipmap/test_bg_1"

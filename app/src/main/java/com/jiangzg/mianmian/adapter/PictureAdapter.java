@@ -1,17 +1,23 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.support.v7.widget.CardView;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.common.BigImageActivity;
+import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.view.GImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -19,26 +25,37 @@ import com.jiangzg.mianmian.view.GImageView;
  */
 public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
+    public static final int MODEL_IMAGE = 0;
+    public static final int MODEL_DETAIL = 1;
+
     private final BaseActivity mActivity;
+    private int mModel;
     private final int imageWidth, imageHeight;
 
     public PictureAdapter(BaseActivity activity) {
         super(R.layout.list_item_picture);
         mActivity = activity;
+        mModel = MODEL_IMAGE;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp5 = ConvertUtils.dp2px(5);
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
     }
 
+    // 切换显示模式
+    public void setModel(int model) {
+        mModel = model;
+    }
+
     @Override
     protected void convert(final BaseViewHolder helper, Picture item) {
-        // TODO
-        long happenAt = item.getHappenAt();
+        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String address = item.getAddress();
-        double latitude = item.getLatitude();
-        double longitude = item.getLongitude();
         String content = item.getContent();
         // view
+        helper.setVisible(R.id.tvHappenAt, mModel == MODEL_DETAIL);
+        helper.setVisible(R.id.tvLocation, mModel == MODEL_DETAIL);
+        helper.setText(R.id.tvHappenAt, happen);
+        helper.setText(R.id.tvLocation, address);
         GImageView ivPicture = helper.getView(R.id.ivPicture);
         ivPicture.setWidthAndHeight(imageWidth, imageHeight);
         ivPicture.setDataOss(content);
@@ -49,7 +66,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 float height = imageInfo.getHeight();
                 float width = imageInfo.getWidth();
                 int finalHeight = (int) (height / width * imageWidth);
-                CardView.LayoutParams layoutParams = (CardView.LayoutParams) iv.getLayoutParams();
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv.getLayoutParams();
                 layoutParams.height = finalHeight;
                 iv.setLayoutParams(layoutParams);
             }
@@ -58,11 +75,27 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             public void onLoadFail(GImageView iv) {
             }
         });
+        ivPicture.setClickListener(new GImageView.ClickListener() {
+            @Override
+            public void onSuccessClick(GImageView iv) {
+                // 点击全屏
+                List<Picture> data = PictureAdapter.this.getData();
+                ArrayList<String> pathList = ConvertHelper.getStrListByPicture(data);
+                if (pathList == null || pathList.size() <= 0) return;
+                int position = helper.getLayoutPosition();
+                BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
+            }
+        });
+        helper.addOnClickListener(R.id.tvLocation);
     }
 
-    public void goDetail(int position) {
+    // 点击跳转地图
+    public void onLocationClick(int position) {
         Picture item = getItem(position);
-        // TODO
+        String address = item.getAddress();
+        double latitude = item.getLatitude();
+        double longitude = item.getLongitude();
+        MapShowActivity.goActivity(mActivity, address, latitude, longitude);
     }
 
 }

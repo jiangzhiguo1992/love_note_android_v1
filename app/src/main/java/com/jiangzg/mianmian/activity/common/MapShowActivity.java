@@ -8,9 +8,14 @@ import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeAddress;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.MapHelper;
 
 import java.util.List;
@@ -20,19 +25,45 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     private GeocodeSearch geocodeSearch;
 
     // 当前我的位置
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, MapShowActivity.class);
-        // intent.putExtra();
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
+    public static void goActivity(final Activity from) {
+        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent intent = new Intent(from, MapShowActivity.class);
+                // intent.putExtra();
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ActivityTrans.start(from, intent);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(from);
+            }
+        });
     }
 
     // 传入的位置
-    public static void goActivity(Activity from, double lon, double lat) {
-        Intent intent = new Intent(from, MapShowActivity.class);
-        // intent.putExtra(); // TODO
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
+    public static void goActivity(final Activity from, final String address, final double latitude, final double longitude) {
+        if (StringUtils.isEmpty(address) && (latitude == 0 && longitude == 0)) {
+            ToastUtils.show(from.getString(R.string.no_lob_lat_info_cant_go_map));
+            return;
+        }
+        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent intent = new Intent(from, MapShowActivity.class);
+                intent.putExtra("address", address);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("latitude", latitude);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                ActivityTrans.start(from, intent);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(from);
+            }
+        });
     }
 
     @Override

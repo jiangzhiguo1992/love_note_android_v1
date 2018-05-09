@@ -6,18 +6,53 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
 
-    <com.jiangzg.mianmian.view.GImageView
-        android:id="@+id/ivPicture"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxHeight="500dp"
-        android:minHeight="50dp"
-        app:actualImageScaleType="centerCrop"
-        tools:src="@mipmap/test_bg_2"/>
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary">
+
+        <com.jiangzg.mianmian.view.GImageView
+            android:id="@+id/ivPicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:maxHeight="500dp"
+            android:minHeight="50dp"
+            app:actualImageScaleType="centerCrop"
+            tools:background="@mipmap/test_bg_2"/>
+
+        <TextView
+            android:id="@+id/tvHappenAt"
+            style="@style/FontWhiteNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivPicture"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            android:singleLine="true"
+            tools:text="2018-5-6"/>
+
+        <TextView
+            android:id="@+id/tvLocation"
+            style="@style/FontWhiteSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvHappenAt"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:paddingBottom="10dp"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="5dp"
+            tools:text="阳光大道阳光大道阳光大道阳光大道阳光大道"/>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

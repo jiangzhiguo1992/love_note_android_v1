@@ -265,7 +265,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 showDatePicker();
                 break;
             case R.id.cvLocation: // 位置
-                MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
+                MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLatitude(), picture.getLongitude());
                 break;
             case R.id.btnCommit: // 提交
                 checkCommit();
@@ -378,7 +378,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         if (ossPathList == null || ossPathList.size() <= 0) return;
         List<Picture> pictureList = new ArrayList<>();
         for (String ossPath : ossPathList) {
-            Picture body = ApiHelper.getPictureBody(picture.getAlbumId(), picture.getHappenAt(), ossPath, picture.getLongitude(), picture.getLatitude(), picture.getAddress(), picture.getCityId());
+            Picture body = ApiHelper.getPictureBody(picture.getAlbumId(), picture.getHappenAt(), ossPath, picture.getLatitude(), picture.getLongitude(), picture.getAddress(), picture.getCityId());
             pictureList.add(body);
         }
         Album album = new Album();
