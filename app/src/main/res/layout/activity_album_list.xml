@@ -28,9 +28,14 @@
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add_cu_white"
+        app:backgroundTint="?attr/colorAccent"
         app:borderWidth="0dp"
-        app:layout_behavior="@string/behavior_fab_depend_app_bar"/>
+        app:elevation="@dimen/elevation_normal"
+        app:fabSize="auto"
+        app:layout_behavior="@string/behavior_fab_depend_app_bar"
+        app:pressedTranslationZ="@dimen/elevation_big"
+        app:rippleColor="?attr/colorPrimaryDark"/>
 </android.support.design.widget.CoordinatorLayout>

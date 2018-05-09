@@ -1,6 +1,5 @@
 package com.jiangzg.mianmian.adapter;
 
-import android.support.v7.widget.CardView;
 import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -41,9 +40,10 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
     }
 
-    // 切换显示模式
+    // TODO 切换显示模式
     public void setModel(int model) {
         mModel = model;
+        this.notifyDataSetChanged();
     }
 
     @Override
