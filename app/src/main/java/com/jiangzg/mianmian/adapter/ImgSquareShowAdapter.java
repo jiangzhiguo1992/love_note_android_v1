@@ -42,9 +42,9 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
         ivShow.setLayoutParams(layoutParams);
         ivShow.setWidthAndHeight(imageWidth, imageHeight);
         ivShow.setDataOss(item);
-        ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+        ivShow.setClickListener(new GImageView.ClickListener() {
             @Override
-            public void onClick(GImageView iv) {
+            public void onSuccessClick(GImageView iv) {
                 List<String> data = ImgSquareShowAdapter.this.getData();
                 ArrayList<String> pathList = new ArrayList<>();
                 pathList.addAll(data);

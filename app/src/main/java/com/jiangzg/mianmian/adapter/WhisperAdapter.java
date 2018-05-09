@@ -50,9 +50,9 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
             tvContent.setVisibility(View.GONE);
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setDataOss(content);
-            ivContent.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+            ivContent.setClickListener(new GImageView.ClickListener() {
                 @Override
-                public void onClick(GImageView iv) {
+                public void onSuccessClick(GImageView iv) {
                     BigImageActivity.goActivityByOss(mActivity, content, iv);
                 }
             });
@@ -60,7 +60,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
             tvContent.setVisibility(View.VISIBLE);
             ivContent.setVisibility(View.GONE);
             tvContent.setText(content);
-            ivContent.setSuccessClickListener(null);
+            ivContent.setClickListener(null);
         }
     }
 

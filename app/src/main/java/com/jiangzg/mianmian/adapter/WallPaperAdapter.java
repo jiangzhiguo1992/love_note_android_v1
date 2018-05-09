@@ -55,9 +55,9 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         ivWallPaper.setWidthAndHeight(imageWidth, imageHeight);
         // 优先加载本地文件
         ivWallPaper.setDateWallPaper(item);
-        ivWallPaper.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+        ivWallPaper.setClickListener(new GImageView.ClickListener() {
             @Override
-            public void onClick(GImageView iv) {
+            public void onSuccessClick(GImageView iv) {
                 goImgScreen(helper.getLayoutPosition(), iv);
             }
         });

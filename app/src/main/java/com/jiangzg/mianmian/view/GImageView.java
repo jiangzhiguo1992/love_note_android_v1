@@ -49,34 +49,35 @@ public class GImageView extends SimpleDraweeView {
     private static final String LOG_TAG = "GImageView";
 
     private int mWidth, mHeight;
-    private onSuccessClickListener mSuccessClickListener;
+    private ClickListener mClickListener;
+    private LoadListener mLoadListener;
 
     public GImageView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
-        init(context, null, hierarchy);
+        init(context, hierarchy);
     }
 
     public GImageView(Context context) {
         super(context);
-        init(context, null, null);
+        init(context, null);
     }
 
     public GImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context, attrs, null);
+        init(context, null);
     }
 
     public GImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context, attrs, null);
+        init(context, null);
     }
 
     public GImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs, null);
+        init(context, null);
     }
 
-    private void init(Context context, AttributeSet attrs, GenericDraweeHierarchy h) {
+    private void init(Context context, GenericDraweeHierarchy h) {
         initHierarchy(h);
     }
 
@@ -132,12 +133,16 @@ public class GImageView extends SimpleDraweeView {
                         " quality = " + qualityInfo.getQuality() +
                         " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
                         " fullQuality = " + qualityInfo.isOfFullQuality());
+                // 加载成功事件
+                if (mLoadListener != null) {
+                    mLoadListener.onLoadSuccess(GImageView.this, imageInfo);
+                }
                 // 点击事件
-                if (mSuccessClickListener != null) {
+                if (mClickListener != null) {
                     GImageView.this.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mSuccessClickListener.onClick(GImageView.this);
+                            mClickListener.onSuccessClick(GImageView.this);
                         }
                     });
                 }
@@ -147,18 +152,32 @@ public class GImageView extends SimpleDraweeView {
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
                 LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
+                // 加载失败事件
+                if (mLoadListener != null) {
+                    mLoadListener.onLoadFail(GImageView.this);
+                }
             }
         });
         AbstractDraweeController controller = builder.build();
         this.setController(controller);
     }
 
-    public interface onSuccessClickListener {
-        void onClick(GImageView iv);
+    public interface ClickListener {
+        void onSuccessClick(GImageView iv);
     }
 
-    public void setSuccessClickListener(onSuccessClickListener listener) {
-        mSuccessClickListener = listener;
+    public void setClickListener(ClickListener listener) {
+        mClickListener = listener;
+    }
+
+    public interface LoadListener {
+        void onLoadSuccess(GImageView iv, ImageInfo imageInfo);
+
+        void onLoadFail(GImageView iv);
+    }
+
+    public void setLoadListener(LoadListener listener) {
+        mLoadListener = listener;
     }
 
     // GridList 和 match_parent 需要传，在设置数据源之前调用

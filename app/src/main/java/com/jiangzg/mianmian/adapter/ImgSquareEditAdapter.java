@@ -72,18 +72,18 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
             if (layoutPosition < ossSize) {
                 // oss
                 ivShow.setDataOss(item);
-                ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+                ivShow.setClickListener(new GImageView.ClickListener() {
                     @Override
-                    public void onClick(GImageView iv) {
+                    public void onSuccessClick(GImageView iv) {
                         BigImageActivity.goActivityByOss(mActivity, item, iv);
                     }
                 });
             } else {
                 // file
                 ivShow.setDataFile(FileUtils.getFileByPath(item));
-                ivShow.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+                ivShow.setClickListener(new GImageView.ClickListener() {
                     @Override
-                    public void onClick(GImageView iv) {
+                    public void onSuccessClick(GImageView iv) {
                         BigImageActivity.goActivityByFile(mActivity, item, iv);
                     }
                 });

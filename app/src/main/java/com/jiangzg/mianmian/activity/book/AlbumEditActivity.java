@@ -99,9 +99,9 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.album), true);
         album = getIntent().getParcelableExtra("album");
-        ivAlbum.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+        ivAlbum.setClickListener(new GImageView.ClickListener() {
             @Override
-            public void onClick(GImageView iv) {
+            public void onSuccessClick(GImageView iv) {
                 if (!FileUtils.isFileEmpty(cameraFile)) {
                     BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
                 } else if (!FileUtils.isFileEmpty(pictureFile)) {

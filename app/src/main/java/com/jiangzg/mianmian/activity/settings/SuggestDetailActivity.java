@@ -252,13 +252,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         tvContent.setText(contentText);
         if (StringUtils.isEmpty(contentImgUrl)) {
             ivContent.setVisibility(View.GONE);
-            ivContent.setSuccessClickListener(null);
+            ivContent.setClickListener(null);
         } else {
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setDataOss(contentImgUrl);
-            ivContent.setSuccessClickListener(new GImageView.onSuccessClickListener() {
+            ivContent.setClickListener(new GImageView.ClickListener() {
                 @Override
-                public void onClick(GImageView iv) {
+                public void onSuccessClick(GImageView iv) {
                     BigImageActivity.goActivityByOss(mActivity, contentImgUrl, iv);
                 }
             });
