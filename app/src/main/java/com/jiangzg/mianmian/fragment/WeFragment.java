@@ -120,7 +120,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     private Call<Result> callHomeGet;
     private Call<Result> callPlaceGet;
     private Runnable coupleCountDownTask;
-    private Observable<WallPaper> obWallPaperCountRefresh;
+    private Observable<WallPaper> obWallPaperRefresh;
     private Observable<Couple> obCoupleRefresh;
     private Observable<LocationInfo> obLocationRefresh;
     private Place myPlace;
@@ -159,7 +159,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
 
     protected void loadData() {
         // event
-        obWallPaperCountRefresh = RxBus.register(ConsHelper.EVENT_WALL_PAPER_COUNT_REFRESH, new Action1<WallPaper>() {
+        obWallPaperRefresh = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
             @Override
             public void call(WallPaper wallPaper) {
                 refreshWallPaperView();
@@ -187,7 +187,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         RetrofitHelper.cancel(callHomeGet);
         RetrofitHelper.cancel(callPlaceGet);
         stopCoupleCountDownTask();
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperCountRefresh);
+        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperRefresh);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
         RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, obLocationRefresh);
     }

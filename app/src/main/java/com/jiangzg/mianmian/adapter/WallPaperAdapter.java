@@ -19,6 +19,7 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.util.ArrayList;
@@ -97,8 +98,9 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 WallPaperAdapter.this.remove(position);
+                SPHelper.setWallPaper(data.getWallPaper());
                 // event
-                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_COUNT_REFRESH, data.getWallPaper());
+                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
                 RxBus.post(event);
             }
 

@@ -37,9 +37,12 @@ import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
@@ -275,7 +278,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void refreshAlbum() {
-        if (album == null || album.getId() <= 0 || StringUtils.isEmpty(album.getTitle())) {
+        if (album == null || album.getId() == 0 || StringUtils.isEmpty(album.getTitle())) {
             tvAlbum.setText(R.string.please_select_album);
         } else {
             String title = String.format(Locale.getDefault(), getString(R.string.album_colon_space_holder), album.getTitle());
@@ -327,34 +330,98 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void checkCommit() {
-        // TODO
+        if ((album == null || album.getId() == 0) && picture.getAlbumId() == 0) {
+            ToastUtils.show(getString(R.string.please_select_album));
+            return;
+        } else {
+            if (album != null && album.getId() != 0) {
+                picture.setAlbumId(album.getId());
+            }
+        }
+        if (picture.getHappenAt() == 0) {
+            ToastUtils.show(getString(R.string.please_select_time));
+            return;
+        }
+        if (isTypeUpdate()) {
+            // 更新
+            commitUpdate();
+        } else {
+            // 添加
+            List<String> fileData = null;
+            if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+                ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
+                fileData = adapter.getFileData();
+            }
+            if (fileData == null || fileData.size() <= 0) {
+                ToastUtils.show(getString(R.string.picture_where));
+                return;
+            }
+            uploadPictureList(fileData);
+        }
     }
 
-    private void uploadPictureList() {
-        // TODO
-        //Picture body = ApiHelper.getPictureBody();
-    }
-
-    private void commitAdd(List<String> ossKeyList) {
-        // TODO
-        Album album = new Album();
-        //album.setPictureList();
-        callAdd = new RetrofitHelper().call(API.class).pictureListAdd(album);
-        MaterialDialog loading = getLoading(true);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+    private void uploadPictureList(List<String> fileData) {
+        OssHelper.uploadPicture(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
-            public void onResponse(int code, String message, Result.Data data) {
-
+            public void success(List<File> sourceList, List<String> ossPathList) {
+                commitAdd(ossPathList);
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void failure(List<File> sourceList, String errMsg) {
 
             }
         });
     }
 
+    private void commitAdd(List<String> ossPathList) {
+        if (ossPathList == null || ossPathList.size() <= 0) return;
+        List<Picture> pictureList = new ArrayList<>();
+        for (String ossPath : ossPathList) {
+            Picture body = ApiHelper.getPictureBody(picture.getAlbumId(), picture.getHappenAt(), ossPath, picture.getLongitude(), picture.getLatitude(), picture.getAddress(), picture.getCityId());
+            pictureList.add(body);
+        }
+        Album album = new Album();
+        album.setPictureList(pictureList);
+        callAdd = new RetrofitHelper().call(API.class).pictureListAdd(album);
+        MaterialDialog loading = getLoading(true);
+        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<ArrayList<Album>> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.post(eventAlbum);
+                RxEvent<ArrayList<Picture>> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
+                RxBus.post(eventPicture);
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
+    }
+
     private void commitUpdate() {
-        // TODO
+        callUpdate = new RetrofitHelper().call(API.class).pictureUpdate(picture);
+        MaterialDialog loading = getLoading(true);
+        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<ArrayList<Album>> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.post(eventAlbum);
+                Picture picture = data.getPicture();
+                RxEvent<Picture> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture);
+                RxBus.post(eventPicture);
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 }

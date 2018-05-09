@@ -236,7 +236,7 @@ public class SPHelper {
         user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
         user.setSex(sp.getInt(FIELD_USER_SEX, 0));
         user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
-        if (user.getId() <= 0 || StringUtils.isEmpty(user.getPhone())) {
+        if (user.getId() == 0 || StringUtils.isEmpty(user.getPhone())) {
             return null;
         }
         return user;

@@ -22,27 +22,24 @@ public class ConsHelper {
     public static final int REQUEST_CONTACT = 1009;
     public static final int REQUEST_LOCATION = 1010;
     public static final int REQUEST_BOOK_PICTURE = 1011;
-    // RxBus.ID TODO 列表刷新 尽量减少api操作
+    // RxBus.ID
     public static final int EVENT_USER_REFRESH = 1; // 用户
     public static final int EVENT_COUPLE_REFRESH = 2; // 配对
-    public static final int EVENT_SUGGEST_LIST_COUNT_REFRESH = 3; // 建议
+    public static final int EVENT_SUGGEST_LIST_REFRESH = 3; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 4;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 5;
     public static final int EVENT_LOCATION_REFRESH = 6; // 地址
-    public static final int EVENT_WALL_PAPER_COUNT_REFRESH = 7; // 墙纸
-    public static final int EVENT_DIARY_LIST_COUNT_REFRESH = 8; // 日记
+    public static final int EVENT_WALL_PAPER_REFRESH = 7; // 墙纸
+    public static final int EVENT_DIARY_LIST_REFRESH = 8; // 日记
     public static final int EVENT_DIARY_LIST_ITEM_DELETE = 9;
     public static final int EVENT_DIARY_LIST_ITEM_REFRESH = 10;
     public static final int EVENT_DIARY_DETAIL_REFRESH = 11;
     public static final int EVENT_WORD_LIST_ITEM_DELETE = 12; // 留言
-    public static final int EVENT_ALBUM_LIST_COUNT_REFRESH = 13; // 相册
+    public static final int EVENT_ALBUM_LIST_REFRESH = 13; // 相册
     public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 14;
     public static final int EVENT_ALBUM_SELECT = 15;
-    public static final int EVENT_MAP_SELECT = 16;
-
-    // DetailDataType
-    public static final int DETAIL_DATA_FROM_NONE = 0;
-    public static final int DETAIL_DATA_FROM_ID = 1;
-    public static final int DETAIL_DATA_FROM_ALL = 2;
+    public static final int EVENT_MAP_SELECT = 16; // 地图
+    public static final int EVENT_PICTURE_LIST_REFRESH = 17; // 照片
+    public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 18;
 
 }

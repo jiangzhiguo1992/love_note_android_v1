@@ -45,7 +45,7 @@ public class CheckHelper {
     }
 
     public static boolean isNullCouple(Couple couple) {
-        return couple == null || couple.getId() <= 0 || couple.getCreatorId() <= 0 || couple.getInviteeId() <= 0;
+        return couple == null || couple.getId() == 0 || couple.getCreatorId() == 0 || couple.getInviteeId() == 0;
     }
 
     public static boolean isCoupleBreak(Couple couple) {

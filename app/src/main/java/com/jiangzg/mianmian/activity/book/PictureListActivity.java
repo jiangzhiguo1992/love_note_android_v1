@@ -7,7 +7,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -20,16 +19,18 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.PictureAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -40,6 +41,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
@@ -80,6 +83,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> callPictureList;
     private int page;
+    private Observable<List<Picture>> obListRefresh;
+    private Observable<Picture> obListItemRefresh;
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
@@ -145,6 +150,18 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void initData(Bundle state) {
         album = getIntent().getParcelableExtra("album");
         refreshAlbumView();
+        obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new Action1<List<Picture>>() {
+            @Override
+            public void call(List<Picture> pictures) {
+                recyclerHelper.dataRefresh();
+            }
+        });
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, new Action1<Picture>() {
+            @Override
+            public void call(Picture picture) {
+                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), picture);
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -159,6 +176,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RetrofitHelper.cancel(callPictureList);
+        // event
+        RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     // TODO

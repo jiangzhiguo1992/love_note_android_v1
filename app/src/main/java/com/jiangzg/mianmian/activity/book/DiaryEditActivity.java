@@ -371,7 +371,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_COUNT_REFRESH, new ArrayList<Diary>());
+                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

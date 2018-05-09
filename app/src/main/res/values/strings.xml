@@ -485,11 +485,13 @@
     <string name="picture">照片</string>
     <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
     <string name="please_select_album">请选择相册</string>
+    <string name="please_select_time">请选择时间</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="please_select_location">请地图位置</string>
     <string name="complete">完成</string>
     <string name="location_search_fail">位置搜索失败</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
     <string name="now_null">暂无</string>
+    <string name="picture_where">照片呢？</string>
 
 </resources>

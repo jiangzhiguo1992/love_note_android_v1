@@ -65,7 +65,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
-    private Observable<List<Suggest>> obListCountRefresh;
+    private Observable<List<Suggest>> obListRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
     private int page;
@@ -136,7 +136,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
             searchType = suggestContentTypeList.get(0).getContentType();
         }
         // event
-        obListCountRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, new Action1<List<Suggest>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
                 recyclerHelper.dataRefresh();
@@ -168,7 +168,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_COUNT_REFRESH, obListCountRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
     }

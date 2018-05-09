@@ -45,6 +45,10 @@ import rx.functions.Action1;
 
 public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
+    private static final int FROM_NONE = 0;
+    private static final int FROM_ID = 1;
+    private static final int FROM_ALL = 2;
+
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -65,7 +69,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.DETAIL_DATA_FROM_ALL);
+        intent.putExtra("from", FROM_ALL);
         intent.putExtra("diary", diary);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -73,7 +77,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, long did) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.DETAIL_DATA_FROM_ID);
+        intent.putExtra("from", FROM_ID);
         intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -100,11 +104,11 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             }
         });
         Intent intent = getIntent();
-        int from = intent.getIntExtra("from", ConsHelper.DETAIL_DATA_FROM_NONE);
-        if (from == ConsHelper.DETAIL_DATA_FROM_ALL) {
+        int from = intent.getIntExtra("from", FROM_NONE);
+        if (from == FROM_ALL) {
             diary = intent.getParcelableExtra("diary");
             refreshView();
-        } else if (from == ConsHelper.DETAIL_DATA_FROM_ID) {
+        } else if (from == FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }

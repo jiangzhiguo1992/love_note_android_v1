@@ -13,7 +13,7 @@ public class ListHelper {
 
     public static int findIndexInList(List list, BaseObj obj) {
         if (list == null || list.size() <= 0) return -1;
-        if (obj == null || obj.getId() <= 0) return -1;
+        if (obj == null || obj.getId() == 0) return -1;
         for (int i = 0; i < list.size(); i++) {
             Object item = list.get(i);
             if (item instanceof BaseObj) {

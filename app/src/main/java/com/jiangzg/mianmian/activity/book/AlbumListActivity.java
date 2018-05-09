@@ -59,7 +59,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Album>> obListCountRefresh;
+    private Observable<List<Album>> obListRefresh;
     private Observable<Album> obListItemRefresh;
     private Call<Result> call;
     private int page;
@@ -178,7 +178,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        obListCountRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_COUNT_REFRESH, new Action1<List<Album>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new Action1<List<Album>>() {
             @Override
             public void call(List<Album> albumList) {
                 recyclerHelper.dataRefresh();
@@ -205,7 +205,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_COUNT_REFRESH, obListCountRefresh);
+        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 

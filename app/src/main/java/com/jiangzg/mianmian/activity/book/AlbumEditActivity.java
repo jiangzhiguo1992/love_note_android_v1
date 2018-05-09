@@ -311,7 +311,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxEvent<ArrayList<Album>> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_COUNT_REFRESH, new ArrayList<Album>());
+                RxEvent<ArrayList<Album>> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
                 RxBus.post(event);
                 mActivity.finish();
             }
