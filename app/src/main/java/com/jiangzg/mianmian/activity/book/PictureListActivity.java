@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -83,10 +84,19 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     private Album album;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callPictureList;
+    private Call<Result> callAlbum;
     private Observable<List<Picture>> obListRefresh;
     private Observable<Picture> obListItemRefresh;
     private Observable<Picture> obListItemDelete;
     private int page;
+
+    public static void goActivity(Activity from, long albumId) {
+        Intent intent = new Intent(from, PictureListActivity.class);
+        intent.putExtra("type", TYPE_BROWSE);
+        intent.putExtra("albumId", albumId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
@@ -196,6 +206,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RetrofitHelper.cancel(callPictureList);
+        RetrofitHelper.cancel(callAlbum);
         // event
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
@@ -234,7 +245,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private void refreshAlbumView() {
-        if (album == null) return;
+        if (album == null) {
+            getAlbum();
+            return;
+        }
         // data
         String cover = album.getCover();
         String title = album.getTitle();
@@ -252,6 +266,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     private void getPictureList(final boolean more) {
         if (album == null) {
             srl.setRefreshing(false);
+            getAlbum();
             return;
         }
         page = more ? page + 1 : 0;
@@ -274,7 +289,22 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private void getAlbum() {
-        // TODO loading
+        long albumId = getIntent().getLongExtra("albumId", 0);
+        callAlbum = new RetrofitHelper().call(API.class).AlbumGet(albumId);
+        MaterialDialog loading = getLoading(true);
+        RetrofitHelper.enqueue(callAlbum, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                album = data.getAlbum();
+                refreshAlbumView();
+                recyclerHelper.dataRefresh();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                recyclerHelper.dataFail(false, errMsg);
+            }
+        });
     }
 
 }

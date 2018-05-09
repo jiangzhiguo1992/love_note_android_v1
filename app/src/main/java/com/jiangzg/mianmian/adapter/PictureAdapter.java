@@ -36,8 +36,8 @@ import retrofit2.Call;
  */
 public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
-    public static final int MODEL_IMAGE = 0;
-    public static final int MODEL_DETAIL = 1;
+    private static final int MODEL_IMAGE = 0;
+    private static final int MODEL_DETAIL = 1;
 
     private final BaseActivity mActivity;
     private int mModel;
