@@ -37,6 +37,7 @@
                     android:id="@+id/ivCover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:actualImageScaleType="centerCrop"
                     tools:background="@mipmap/test_bg_2"
                     tools:scaleType="centerCrop"/>
 

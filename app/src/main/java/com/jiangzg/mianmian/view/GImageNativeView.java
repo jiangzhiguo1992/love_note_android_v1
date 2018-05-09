@@ -81,8 +81,7 @@ public class GImageNativeView extends SimpleDraweeView {
             }
         }
         hierarchy.setFadeDuration(0);
-        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-
+        //hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP); // 在xml里设置
     }
 
     private void setController(Uri uri) {

@@ -20,6 +20,7 @@
         android:id="@+id/ivPicture"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:maxHeight="500dp"
         android:minHeight="50dp"
         app:actualImageScaleType="fitCenter"
         tools:src="@mipmap/test_bg_2"/>

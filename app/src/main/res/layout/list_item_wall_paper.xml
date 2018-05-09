@@ -2,6 +2,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
     <com.jiangzg.mianmian.view.GImageView
         android:id="@+id/ivWallPaper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        app:actualImageScaleType="centerCrop"
+        tools:background="@mipmap/test_bg_1"/>
 </android.support.v7.widget.CardView>

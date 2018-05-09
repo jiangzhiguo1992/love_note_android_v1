@@ -195,8 +195,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     @OnClick({R.id.fabAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fabAdd: // 添加
-                // TODO 位置
+            case R.id.fabAdd: // 添加 TODO 位置
                 int limitImages = SPHelper.getLimit().getPictureLimitCount();
                 if (limitImages > 0) {
                     PictureEditActivity.goActivity(mActivity, album);

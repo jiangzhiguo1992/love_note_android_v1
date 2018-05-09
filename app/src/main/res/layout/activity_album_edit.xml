@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
@@ -35,6 +36,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginTop="20dp"
         android:visibility="gone"
+        app:actualImageScaleType="centerCrop"
         tools:scaleType="centerCrop"
         tools:src="@mipmap/test_bg_2"
         tools:visibility="visible"/>

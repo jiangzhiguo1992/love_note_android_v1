@@ -92,7 +92,7 @@ public class GImageView extends SimpleDraweeView {
             }
         }
         hierarchy.setFadeDuration(300);
-        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        //hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP); // 在xml里设置
         hierarchy.setPlaceholderImage(new ImageLoadingReactDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setProgressBarImage(new ImageProgressReactDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
         hierarchy.setRetryImage(new ImageRetryReactDrawable(), ScalingUtils.ScaleType.FIT_XY);
