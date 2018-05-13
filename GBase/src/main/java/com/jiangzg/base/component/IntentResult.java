@@ -10,10 +10,8 @@ import android.util.Log;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.media.BitmapUtils;
 
 import java.io.File;
@@ -65,7 +63,7 @@ public class IntentResult {
         Uri uri = getPictureUri(data);
         File file;
         if (uri != null) {
-            file = ConvertUtils.Uri2File(uri);
+            file = ProviderUtils.getImgFileByUri(uri);
         } else {
             long time = new Date().getTime();
             file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");

@@ -8,11 +8,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -20,8 +18,8 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
@@ -156,7 +154,7 @@ public class GImageNativeView extends SimpleDraweeView {
 
     // file://
     public void setDataFile(File file) {
-        Uri parse = ConvertUtils.file2Uri(file);
+        Uri parse = ProviderUtils.getUriByFile(file);
         setController(parse);
     }
 

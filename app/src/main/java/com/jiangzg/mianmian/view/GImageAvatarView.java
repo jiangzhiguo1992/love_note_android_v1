@@ -29,10 +29,10 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.FrescoHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
@@ -176,7 +176,7 @@ public class GImageAvatarView extends SimpleDraweeView {
 
     // file://
     public void setDataFile(File file) {
-        Uri parse = ConvertUtils.file2Uri(file);
+        Uri parse = ProviderUtils.getUriByFile(file);
         setController(parse);
     }
 

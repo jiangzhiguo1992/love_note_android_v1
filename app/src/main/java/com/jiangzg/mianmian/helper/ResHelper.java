@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.helper;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 
 import com.jiangzg.base.application.AppInfo;
@@ -8,7 +9,9 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.BroadcastUtils;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.mianmian.base.MyApp;
 
 import java.io.File;
@@ -89,30 +92,54 @@ public class ResHelper {
     }
 
     public static void deleteFileInBackground(final File file) {
-        if (!FileUtils.isFileExists(file)) return;
-        MyApp.get().getThread().execute(new Runnable() {
+        final Activity top = ActivityStack.getTop();
+        if (top == null) return;
+        PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
-            public void run() {
-                LogUtils.i(LOG_TAG, "deleteFileInBackground: " + file.getAbsolutePath());
-                FileUtils.deleteFile(file);
-                // 发送删除广播
-                BroadcastUtils.refreshMediaFile(file);
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                if (!FileUtils.isFileExists(file)) return;
+                MyApp.get().getThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtils.i(LOG_TAG, "deleteFileInBackground: " + file.getAbsolutePath());
+                        FileUtils.deleteFile(file);
+                        // 发送删除广播
+                        BroadcastUtils.refreshMediaFile(file);
+                    }
+                });
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(top);
             }
         });
     }
 
     public static void deleteFileListInBackground(final List<File> fileList) {
-        if (fileList == null || fileList.size() <= 0) return;
-        MyApp.get().getThread().execute(new Runnable() {
+        final Activity top = ActivityStack.getTop();
+        if (top == null) return;
+        PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
-            public void run() {
-                for (File file : fileList) {
-                    if (!FileUtils.isFileExists(file)) return;
-                    LogUtils.i(LOG_TAG, "deleteFileListInBackground: " + file.getAbsolutePath());
-                    FileUtils.deleteFile(file);
-                    // 发送删除广播
-                    BroadcastUtils.refreshMediaFile(file);
-                }
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                if (fileList == null || fileList.size() <= 0) return;
+                MyApp.get().getThread().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (File file : fileList) {
+                            if (!FileUtils.isFileExists(file)) return;
+                            LogUtils.i(LOG_TAG, "deleteFileListInBackground: " + file.getAbsolutePath());
+                            FileUtils.deleteFile(file);
+                            // 发送删除广播
+                            BroadcastUtils.refreshMediaFile(file);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(top);
             }
         });
     }

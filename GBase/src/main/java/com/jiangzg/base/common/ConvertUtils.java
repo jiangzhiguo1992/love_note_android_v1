@@ -1,32 +1,20 @@
 package com.jiangzg.base.common;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 
 import com.jiangzg.base.application.AppBase;
-import com.jiangzg.base.view.ToastUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -41,90 +29,6 @@ public class ConvertUtils {
 
     private static final String LOG_TAG = "ConvertUtils";
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-    /**
-     * file转uri
-     */
-    public static Uri file2Uri(File file) {
-        if (file == null) {
-            LogUtils.w(LOG_TAG, "file2Uri: file == null");
-            return null;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return FileProvider.getUriForFile(AppBase.getInstance(), "com.jiangzg.base.fileprovider", file);
-        } else {
-            return Uri.fromFile(file);
-        }
-    }
-
-    /**
-     * uri转file
-     */
-    public static File Uri2File(Uri uri) {
-        if (uri == null) {
-            Log.w(LOG_TAG, "Uri2File: uri == null");
-            return null;
-        }
-        String[] project = new String[]{MediaStore.Images.ImageColumns.DATA}; // 字段名
-        final String scheme = uri.getScheme();
-        String data = null;
-        if (scheme == null) {
-            data = uri.getPath();
-        } else if (DocumentsContract.isDocumentUri(AppBase.getInstance(), uri)) { // KITKAT
-            String docId = DocumentsContract.getDocumentId(uri);
-            String[] split = docId.split(":");
-            String type = split[0];
-            if ("com.android.externalstorage.documents".equals(uri.getAuthority())) {
-                // ExternalStorageProvider
-                if ("primary".equalsIgnoreCase(type)) {
-                    data = Environment.getExternalStorageDirectory() + "/" + split[1];
-                } else {
-                    ToastUtils.show("non-primary");
-                }
-            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
-                // DownloadsProvider
-                Uri contentUri = ContentUris.withAppendedId(
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
-                data = getProviderColumnTop(contentUri, project, null, null, null);
-            } else if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                // MediaProvider
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-                }
-                String selection = "_id=?";
-                String[] selectionArgs = new String[]{split[1]};
-                data = getProviderColumnTop(contentUri, project, selection, selectionArgs, null);
-            }
-        } else if (ContentResolver.SCHEME_FILE.equals(scheme)) { // File
-            data = uri.getPath();
-        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) { // MediaStore (and general)
-            if ("com.google.android.apps.photos.content".equals(uri.getAuthority())) {
-                data = uri.getLastPathSegment();
-            } else {
-                data = getProviderColumnTop(uri, project, null, null, null);
-            }
-        }
-        if (data != null) return new File(data);
-        return null;
-    }
-
-    private static String getProviderColumnTop(Uri uri, String[] projection, String selection,
-                                               String[] selectionArgs, String orderBy) {
-        Cursor cursor = AppBase.getInstance().getContentResolver()
-                .query(uri, projection, selection, selectionArgs, orderBy);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            int index = cursor.getColumnIndex(projection[0]);
-            if (index > -1) return cursor.getString(index);
-            cursor.close();
-        }
-        return null;
-    }
 
     /**
      * byteArr转hexString

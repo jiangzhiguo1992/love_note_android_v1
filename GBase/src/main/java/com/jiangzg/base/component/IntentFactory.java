@@ -14,7 +14,6 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.jiangzg.base.application.AppBase;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -67,7 +66,7 @@ public class IntentFactory {
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         if (cameraFile == null) return intent; // 不加保存路径，图片会被压缩
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, ConvertUtils.file2Uri(cameraFile));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, ProviderUtils.getUriByFile(cameraFile));
         } else {
             // android 8.0需要
             ContentValues contentValues = new ContentValues(1);
@@ -108,7 +107,7 @@ public class IntentFactory {
             LogUtils.w(LOG_TAG, "getCrop: from == empty || save == null");
             return null;
         }
-        Uri uriFrom = ConvertUtils.file2Uri(from);
+        Uri uriFrom = ProviderUtils.getUriByFile(from);
         Uri uriTo = Uri.fromFile(save); // 照片 截取输出的outputUri，只能使用Uri.fromFile，不能用FileProvider
         return getCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
     }
@@ -184,7 +183,7 @@ public class IntentFactory {
         // 高版本uri获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(ConvertUtils.file2Uri(file), type);
+            intent.setDataAndType(ProviderUtils.getUriByFile(file), type);
         } else {
             intent.setDataAndType(Uri.fromFile(file), type);
         }

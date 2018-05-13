@@ -30,6 +30,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
@@ -138,7 +139,7 @@ public class GImageBigView extends PhotoDraweeView {
 
     // file://
     public void setDataFile(File file) {
-        Uri parse = ConvertUtils.file2Uri(file);
+        Uri parse = ProviderUtils.getUriByFile(file);
         setController(parse);
     }
 

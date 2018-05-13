@@ -119,11 +119,11 @@ public class CheckHelper {
     }
 
     // 检查位置服务是否可用
-    public static boolean isLocationEnable() {
-        boolean permission = PermUtils.isPermissionOK(MyApp.get(), PermUtils.location);
-        boolean enabled = LocationInfo.isLocationEnabled();
-        return permission && enabled;
-    }
+    //public static boolean isLocationEnable() {
+    //    boolean permission = PermUtils.isPermissionOK(MyApp.get(), PermUtils.location);
+    //    boolean enabled = LocationInfo.isLocationEnabled();
+    //    return permission && enabled;
+    //}
 
     // 检查并请求位置服务
     public static boolean checkLocationEnable(final Activity activity) {
@@ -141,26 +141,27 @@ public class CheckHelper {
                 }
             });
             return false;
-        } else if (!LocationInfo.isLocationEnabled()) {
-            // GPS不过关
-            MaterialDialog dialog = DialogHelper.getBuild(activity)
-                    .cancelable(true)
-                    .canceledOnTouchOutside(false)
-                    .title(R.string.location_func_limit)
-                    .content(R.string.find_location_func_cant_use_normal_look_gps_is_open)
-                    .positiveText(R.string.go_to_setting)
-                    .negativeText(R.string.i_think_again)
-                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            Intent gps = IntentFactory.getGps();
-                            ActivityTrans.start(activity, gps);
-                        }
-                    })
-                    .build();
-            DialogHelper.showWithAnim(dialog);
-            return false;
         }
+        //else if (!LocationInfo.isLocationEnabled()) {
+        //    // GPS不过关
+        //    MaterialDialog dialog = DialogHelper.getBuild(activity)
+        //            .cancelable(true)
+        //            .canceledOnTouchOutside(false)
+        //            .title(R.string.location_func_limit)
+        //            .content(R.string.find_location_func_cant_use_normal_look_gps_is_open)
+        //            .positiveText(R.string.go_to_setting)
+        //            .negativeText(R.string.i_think_again)
+        //            .onPositive(new MaterialDialog.SingleButtonCallback() {
+        //                @Override
+        //                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+        //                    Intent gps = IntentFactory.getGps();
+        //                    ActivityTrans.start(activity, gps);
+        //                }
+        //            })
+        //            .build();
+        //    DialogHelper.showWithAnim(dialog);
+        //    return false;
+        //}
         return true;
     }
 
