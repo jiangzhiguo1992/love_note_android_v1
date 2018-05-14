@@ -1,7 +1,11 @@
 package com.jiangzg.mianmian.helper;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMapOptions;
@@ -9,6 +13,8 @@ import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.UiSettings;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.Marker;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
@@ -61,6 +67,56 @@ public class MapHelper {
         //aMap.setOnMyLocationChangeListener();
     }
 
+    public static Marker addMaker(AMap aMap, double latitude, double longitude, String title) {
+        if (aMap == null) return null;
+        LatLng latLng = new LatLng(latitude, longitude);
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title(title)
+                .snippet(MyApp.get().getString(R.string.lat_lon_colon) + latitude + "," + longitude)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
+                .draggable(false)
+                .visible(true);
+        return aMap.addMarker(markerOptions);
+    }
+
+    public static void setMakerPop(AMap aMap, final Activity activity) {
+        if (aMap == null) return;
+        aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(Marker marker) {
+                return null;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                String title = marker.getTitle();
+                String snippet = marker.getSnippet();
+                View view = LayoutInflater.from(activity).inflate(R.layout.pop_map_maker, null);
+                TextView tvTitle = view.findViewById(R.id.tvTitle);
+                TextView tvContent = view.findViewById(R.id.tvContent);
+                tvTitle.setText(title);
+                tvContent.setText(snippet);
+                return view;
+            }
+        });
+    }
+
+    /* 地图移动到指定区域 */
+    public static void moveMapByLatLon(AMap aMap, double latitude, double longitude) {
+        if (aMap == null) return;
+        if (latitude == 0 || longitude == 0) {
+            // 单纯放大
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        } else {
+            // 移动到指定位置并放大
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+        }
+    }
+
+    /**
+     * ****************************************逆地理***********************************************
+     */
     /* 逆地理回调 */
     public interface GeocodeSearchCallBack {
         void onSuccess(RegeocodeAddress regeocodeAddress);
@@ -115,18 +171,6 @@ public class MapHelper {
         RegeocodeQuery query = new RegeocodeQuery(new LatLonPoint(latitude, longitude), 200, GeocodeSearch.AMAP);
         // 第一个参数表示一个LatLon，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
         geocodeSearch.getFromLocationAsyn(query);// 设置同步逆地理编码请求
-    }
-
-    /* 地图移动到指定区域 */
-    public static void moveMapByLatLon(AMap aMap, double latitude, double longitude) {
-        if (aMap == null) return;
-        if (latitude == 0 || longitude == 0) {
-            // 单纯放大
-            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
-        } else {
-            // 移动到指定位置并放大
-            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
-        }
     }
 
     /**

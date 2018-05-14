@@ -10,9 +10,7 @@ import android.widget.EditText;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.BitmapDescriptorFactory;
-import com.amap.api.maps2d.model.LatLng;
-import com.amap.api.maps2d.model.MarkerOptions;
+import com.amap.api.maps2d.model.Marker;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -109,6 +107,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         // uiSettings
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
+        MapHelper.setMakerPop(aMap, mActivity);
     }
 
     @Override
@@ -126,15 +125,10 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
                 double longitude = latLonPoint.getLongitude();
                 // 根据经纬度
                 MapHelper.moveMapByLatLon(aMap, latitude, longitude);
-                LatLng latLng = new LatLng(latitude, longitude);
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .position(latLng)
-                        .title(title)
-                        .snippet(getString(R.string.lat_lon_colon) + latitude + "," + longitude)
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
-                        .draggable(false)
-                        .visible(true);
-                aMap.addMarker(markerOptions);
+                Marker marker = MapHelper.addMaker(aMap, latitude, longitude, title);
+                if (marker != null) {
+                    marker.showInfoWindow();
+                }
             }
 
             @Override
@@ -150,15 +144,10 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         if (latitude != 0 || longitude != 0) {
             // 根据经纬度
             MapHelper.moveMapByLatLon(aMap, latitude, longitude);
-            LatLng latLng = new LatLng(latitude, longitude);
-            MarkerOptions markerOptions = new MarkerOptions()
-                    .position(latLng)
-                    .title(address)
-                    .snippet(getString(R.string.lat_lon_colon) + latitude + "," + longitude)
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
-                    .draggable(false)
-                    .visible(true);
-            aMap.addMarker(markerOptions);
+            Marker marker = MapHelper.addMaker(aMap, latitude, longitude, address);
+            if (marker != null) {
+                marker.showInfoWindow();
+            }
         } else if (!StringUtils.isEmpty(address)) {
             // 根据地址
             poiSearch = MapHelper.startSearch(mActivity, address, latitude, longitude, poiSearchListener);
@@ -169,15 +158,10 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
             public void onSuccess(LocationInfo info) {
                 double latitude = info.getLatitude();
                 double longitude = info.getLongitude();
-                LatLng latLng = new LatLng(latitude, longitude);
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .position(latLng)
-                        .title(getString(R.string.my_location))
-                        .snippet(getString(R.string.lat_lon_colon) + latitude + "," + longitude)
-                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
-                        .draggable(false)
-                        .visible(true);
-                aMap.addMarker(markerOptions);
+                Marker marker = MapHelper.addMaker(aMap, latitude, longitude, getString(R.string.my_location));
+                if (marker != null) {
+                    marker.showInfoWindow();
+                }
                 if (StringUtils.isEmpty(address) && (latitude == 0 && longitude == 0)) {
                     // 没有目标位置
                     MapHelper.moveMapByLatLon(aMap, latitude, longitude);
