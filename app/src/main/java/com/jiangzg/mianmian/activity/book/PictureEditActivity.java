@@ -136,8 +136,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         if (picture == null) {
             picture = new Picture();
         }
-        picture.setLongitude(116.40387397); // TODO 删除
-        picture.setLatitude(39.91488908); // TODO 删除
         if (picture.getHappenAt() == 0) {
             picture.setHappenAt(ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }

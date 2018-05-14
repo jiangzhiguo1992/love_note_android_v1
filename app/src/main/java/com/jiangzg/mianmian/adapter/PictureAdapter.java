@@ -43,6 +43,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     private int mModel;
     private final int imageWidth, imageHeight;
 
+    // todo 整体颜色修改+渐变
     public PictureAdapter(BaseActivity activity) {
         super(R.layout.list_item_picture);
         mActivity = activity;

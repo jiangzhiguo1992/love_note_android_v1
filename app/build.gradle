@@ -45,9 +45,9 @@ android {
                     if (variant.buildType.name.equals('release')) {
                         // 输出apk名称为 软件名_版本号_渠道_日期.apk
                         def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.getTimeZone("CST"))
-                        fileName = "mm_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}.apk"
+                        fileName = "mm_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
                     } else {
-                        fileName = "mm_debug.apk"
+                        fileName = "mm_debug"
                     }
                     outputFileName = fileName + ".apk"
                 }

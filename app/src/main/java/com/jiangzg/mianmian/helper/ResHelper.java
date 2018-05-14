@@ -93,10 +93,10 @@ public class ResHelper {
     public static void deleteFileInBackground(final File file) {
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
+        if (!FileUtils.isFileExists(file)) return;
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                if (!FileUtils.isFileExists(file)) return;
                 MyApp.get().getThread().execute(new Runnable() {
                     @Override
                     public void run() {
@@ -118,10 +118,10 @@ public class ResHelper {
     public static void deleteFileListInBackground(final List<File> fileList) {
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
+        if (fileList == null || fileList.size() <= 0) return;
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                if (fileList == null || fileList.size() <= 0) return;
                 MyApp.get().getThread().execute(new Runnable() {
                     @Override
                     public void run() {

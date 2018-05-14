@@ -8,6 +8,7 @@ import android.provider.Settings;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.EncryptUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LocationInfo;
@@ -21,7 +22,6 @@ import com.jiangzg.mianmian.broadcast.OssReceiver;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
-import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
@@ -40,6 +40,7 @@ import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.domain.Word;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -145,6 +146,9 @@ public class ApiHelper {
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {
             SPHelper.clearVersion();
+            File apkDir = ResHelper.getApkDir();
+            List<File> fileList = FileUtils.listFilesAndDirInDir(apkDir, true);
+            ResHelper.deleteFileListInBackground(fileList);
         } else {
             SPHelper.setVersion(versionList.get(0));
         }

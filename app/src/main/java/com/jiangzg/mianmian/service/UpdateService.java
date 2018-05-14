@@ -15,6 +15,8 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
@@ -40,6 +42,8 @@ import java.util.List;
 import retrofit2.Call;
 
 public class UpdateService extends Service {
+
+    private static final String LOG_TAG = "UpdateService";
 
     public static void checkUpdate(BaseActivity activity) {
         MaterialDialog loading = null;
@@ -185,19 +189,24 @@ public class UpdateService extends Service {
 
     // 开始下载
     private void ossDownloadApk(Version version) {
+        LogUtils.w(LOG_TAG, "ossDownloadApk:");
         if (version == null || version.getVersionCode() <= 0) {
+            LogUtils.w(LOG_TAG, "ossDownloadApk: version = null");
             UpdateService.this.stopSelf();
             return;
         }
         final Activity top = ActivityStack.getTop();
         if (top == null || !(top instanceof BaseActivity)) {
+            LogUtils.w(LOG_TAG, "ossDownloadApk: top = null");
             UpdateService.this.stopSelf();
             return;
         }
         // 获取下载地址
         String updateUrl = version.getUpdateUrl().trim();
         // 生成apk文件
-        final File apkFile = ResHelper.createApkFile(version.getVersionName() + ".apk");
+        final File apkFile = new File(ResHelper.getApkDir(), version.getVersionName() + ".apk");
+        FileUtils.createFileByDeleteOldFile(apkFile);
+        LogUtils.i(LOG_TAG, "createApkFile: " + apkFile.getAbsolutePath());
         // 开始下载
         OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override
@@ -214,6 +223,7 @@ public class UpdateService extends Service {
 
     // 启动安装
     private void installApk(File apkFile) {
+        LogUtils.w(LOG_TAG, "installApk:");
         Intent installIntent = IntentFactory.getInstall(apkFile);
         ActivityTrans.start(UpdateService.this, installIntent);
         UpdateService.this.stopSelf();
