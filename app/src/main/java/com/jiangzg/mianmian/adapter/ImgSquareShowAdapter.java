@@ -41,7 +41,6 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
         layoutParams.height = imageHeight;
         ivShow.setLayoutParams(layoutParams);
         ivShow.setWidthAndHeight(imageWidth, imageHeight);
-        ivShow.setDataOss(item);
         ivShow.setClickListener(new GImageView.ClickListener() {
             @Override
             public void onSuccessClick(GImageView iv) {
@@ -51,6 +50,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
             }
         });
+        ivShow.setDataOss(item);
     }
 
 }

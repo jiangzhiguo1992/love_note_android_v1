@@ -1,6 +1,7 @@
 package com.jiangzg.mianmian.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
@@ -16,6 +17,10 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.common.executors.CallerThreadExecutor;
+import com.facebook.common.references.CloseableReference;
+import com.facebook.datasource.DataSource;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -23,6 +28,9 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.core.ImagePipeline;
+import com.facebook.imagepipeline.datasource.BaseBitmapDataSubscriber;
+import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -51,6 +59,7 @@ public class GImageView extends SimpleDraweeView {
     private int mWidth, mHeight;
     private ClickListener mClickListener;
     private LoadListener mLoadListener;
+    private BitmapListener mBitmapListener;
 
     public GImageView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
@@ -116,6 +125,33 @@ public class GImageView extends SimpleDraweeView {
         // request
         ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, mWidth, mHeight);
         ImageRequest imageRequest = requestBuilder.build();
+        // bitmap
+        ImagePipeline imagePipeline = Fresco.getImagePipeline();
+        DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, this.getContext());
+        dataSource.subscribe(new BaseBitmapDataSubscriber() {
+            @Override
+            protected void onNewResultImpl(Bitmap bitmap) {
+                if (bitmap == null) {
+                    LogUtils.w(LOG_TAG, "onNewResultImpl: bitmap == null");
+                    if (mBitmapListener != null) {
+                        mBitmapListener.onBitmapFail(GImageView.this);
+                    }
+                    return;
+                }
+                if (mBitmapListener != null) {
+                    mBitmapListener.onBitmapSuccess(GImageView.this, bitmap);
+                }
+            }
+
+            @Override
+            protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
+                LogUtils.w(LOG_TAG, "onFailureImpl:");
+                if (mBitmapListener != null) {
+                    mBitmapListener.onBitmapFail(GImageView.this);
+                }
+            }
+        }, CallerThreadExecutor.getInstance());
+
         // controller
         PipelineDraweeControllerBuilder builder = FrescoHelper.getPipelineControllerBuilder(this, uri, imageRequest);
         builder.setControllerListener(new BaseControllerListener<ImageInfo>() {
@@ -178,6 +214,16 @@ public class GImageView extends SimpleDraweeView {
 
     public void setLoadListener(LoadListener listener) {
         mLoadListener = listener;
+    }
+
+    public interface BitmapListener {
+        void onBitmapSuccess(GImageView iv, Bitmap bitmap);
+
+        void onBitmapFail(GImageView iv);
+    }
+
+    public void setBitmapListener(BitmapListener listener) {
+        mBitmapListener = listener;
     }
 
     // GridList 和 match_parent 需要传，在设置数据源之前调用

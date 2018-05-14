@@ -1,6 +1,9 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.graphics.Palette;
 import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -23,6 +26,7 @@ import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
 import java.util.ArrayList;
@@ -42,8 +46,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     private final BaseActivity mActivity;
     private int mModel;
     private final int imageWidth, imageHeight;
+    private final int colorPrimary;
 
-    // todo 整体颜色修改+渐变
     public PictureAdapter(BaseActivity activity) {
         super(R.layout.list_item_picture);
         mActivity = activity;
@@ -51,6 +55,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp5 = ConvertUtils.dp2px(5);
         imageWidth = imageHeight = (int) (screenWidth / 2) - dp5 * 2;
+        colorPrimary = ContextCompat.getColor(activity, ViewHelper.getColorPrimary(mActivity));
     }
 
     // 切换显示模式
@@ -71,11 +76,41 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         helper.setText(R.id.tvLocation, address);
         GImageView ivPicture = helper.getView(R.id.ivPicture);
         ivPicture.setWidthAndHeight(imageWidth, imageHeight);
-        ivPicture.setDataOss(content);
+        // 主色值设置
+        ivPicture.setBitmapListener(new GImageView.BitmapListener() {
+            @Override
+            public void onBitmapSuccess(GImageView iv, Bitmap bitmap) {
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(@NonNull Palette palette) {
+                        int rgb = 0;
+                        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            rgb = vibrantSwatch.getRgb();
+                        } else {
+                            Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+                            if (mutedSwatch != null) {
+                                rgb = mutedSwatch.getRgb();
+                            }
+                        }
+                        if (rgb != 0) {
+                            helper.setBackgroundColor(R.id.rlBg, rgb);
+                        } else {
+                            helper.setBackgroundColor(R.id.rlBg, colorPrimary);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onBitmapFail(GImageView iv) {
+                helper.setBackgroundColor(R.id.rlBg, colorPrimary);
+            }
+        });
+        // 为瀑布流定制不一样的宽高
         ivPicture.setLoadListener(new GImageView.LoadListener() {
             @Override
             public void onLoadSuccess(GImageView iv, ImageInfo imageInfo) {
-                // 为瀑布流定制不一样的宽高
                 float height = imageInfo.getHeight();
                 float width = imageInfo.getWidth();
                 int finalHeight = (int) (height / width * imageWidth);
@@ -88,10 +123,10 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             public void onLoadFail(GImageView iv) {
             }
         });
+        // 点击全屏
         ivPicture.setClickListener(new GImageView.ClickListener() {
             @Override
             public void onSuccessClick(GImageView iv) {
-                // 点击全屏
                 List<Picture> data = PictureAdapter.this.getData();
                 ArrayList<String> pathList = ConvertHelper.getStrListByPicture(data);
                 if (pathList == null || pathList.size() <= 0) return;
@@ -99,6 +134,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
             }
         });
+        ivPicture.setDataOss(content);
         helper.addOnClickListener(R.id.tvLocation);
     }
 

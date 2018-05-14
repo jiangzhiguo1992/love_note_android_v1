@@ -11,9 +11,10 @@
     app:cardMaxElevation="@dimen/elevation_big">
 
     <RelativeLayout
+        android:id="@+id/rlBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimary">
+        tools:background="?attr/colorPrimary">
 
         <com.jiangzg.mianmian.view.GImageView
             android:id="@+id/ivPicture"

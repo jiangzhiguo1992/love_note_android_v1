@@ -49,13 +49,13 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         if (imgType) {
             tvContent.setVisibility(View.GONE);
             ivContent.setVisibility(View.VISIBLE);
-            ivContent.setDataOss(content);
             ivContent.setClickListener(new GImageView.ClickListener() {
                 @Override
                 public void onSuccessClick(GImageView iv) {
                     BigImageActivity.goActivityByOss(mActivity, content, iv);
                 }
             });
+            ivContent.setDataOss(content);
         } else {
             tvContent.setVisibility(View.VISIBLE);
             ivContent.setVisibility(View.GONE);
