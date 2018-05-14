@@ -115,7 +115,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         // uiSettings
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
-        aMap.setMyLocationEnabled(false);// 不要定位蓝点
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)

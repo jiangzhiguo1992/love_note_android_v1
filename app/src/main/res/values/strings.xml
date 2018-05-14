@@ -496,5 +496,7 @@
     <string name="picture_where">照片呢？</string>
     <string name="input_search_location">输入搜索地址</string>
     <string name="map">地图</string>
+    <string name="my_location">我的位置</string>
+    <string name="lat_lon_colon">经纬度:</string>
 
 </resources>

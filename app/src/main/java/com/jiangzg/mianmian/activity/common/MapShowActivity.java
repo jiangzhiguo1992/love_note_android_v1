@@ -2,12 +2,10 @@ package com.jiangzg.mianmian.activity.common;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 
 import com.amap.api.maps2d.AMap;
@@ -15,7 +13,8 @@ import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MarkerOptions;
-import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -28,9 +27,11 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.MapHelper;
-import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 
@@ -44,11 +45,8 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     EditText etSearch;
 
     private AMap aMap;
-    private GeocodeSearch geocodeSearch;
-    private LocationInfo locationInfo;
     private PoiSearch poiSearch;
     private PoiSearch.OnPoiSearchListener poiSearchListener;
-    private RecyclerHelper recyclerHelper;
 
     // 当前我的位置
     public static void goActivity(final Activity from) {
@@ -111,60 +109,86 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         // uiSettings
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
-        //MapHelper.initMyLocation(aMap); // 要定位蓝点
-
     }
 
     @Override
     protected void initData(Bundle state) {
         if (aMap == null) return;
-        // 逆地理编码 (getAddressByLatLon的回调)
-        //geocodeSearch = MapHelper.initGeocode(mActivity, new MapHelper.GeocodeSearchCallBack() {
-        //    @Override
-        //    public void onSuccess(RegeocodeAddress regeocodeAddress) {
-        //        List<PoiItem> pois = regeocodeAddress.getPois();
-        //        if (pois.size() > 0) {
-        //            PoiItem poiItem = pois.get(0);
-        //            LatLonPoint latLonPoint = poiItem.getLatLonPoint();
-        //            //locationInfo.setLongitude(latLonPoint.getLongitude());
-        //            //locationInfo.setLatitude(latLonPoint.getLatitude());
-        //            //locationInfo.setAddress(poiItem.getAdName());
-        //            String formatAddress = regeocodeAddress.getFormatAddress();
-        //
-        //        }
-        //        // TODO RV
-        //    }
-        //
-        //    @Override
-        //    public void onFailed() {
-        //    }
-        //});
+        // 检索回调
+        poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
+            @Override
+            public void onSuccess(ArrayList<PoiItem> pois) {
+                if (pois == null || pois.size() <= 0) return;
+                PoiItem poiItem = pois.get(0);
+                String title = poiItem.getTitle();
+                LatLonPoint latLonPoint = poiItem.getLatLonPoint();
+                double latitude = latLonPoint.getLatitude();
+                double longitude = latLonPoint.getLongitude();
+                // 根据经纬度
+                MapHelper.moveMapByLatLon(aMap, latitude, longitude);
+                LatLng latLng = new LatLng(latitude, longitude);
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(latLng)
+                        .title(title)
+                        .snippet(getString(R.string.lat_lon_colon) + latitude + "," + longitude)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
+                        .draggable(false)
+                        .visible(true);
+                aMap.addMarker(markerOptions);
+            }
 
-        String address = getIntent().getStringExtra("address");
+            @Override
+            public void onFailed() {
+                ToastUtils.show(getString(R.string.location_search_fail));
+            }
+        });
+        // 设置market
+        final String address = getIntent().getStringExtra("address");
         double latitude = getIntent().getDoubleExtra("latitude", 0);
         double longitude = getIntent().getDoubleExtra("longitude", 0);
-
+        // 目标market
         if (latitude != 0 || longitude != 0) {
-            View view = new View(mActivity);
-            view.setBackgroundColor(Color.BLUE);
             // 根据经纬度
             MapHelper.moveMapByLatLon(aMap, latitude, longitude);
             LatLng latLng = new LatLng(latitude, longitude);
             MarkerOptions markerOptions = new MarkerOptions()
                     .position(latLng)
                     .title(address)
-                    .snippet(address + ":" + latitude + "," + longitude)
+                    .snippet(getString(R.string.lat_lon_colon) + latitude + "," + longitude)
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
                     .draggable(false)
                     .visible(true);
             aMap.addMarker(markerOptions);
-
         } else if (!StringUtils.isEmpty(address)) {
             // 根据地址
-            // search
-        } else {
-            // 只显示自己的
+            poiSearch = MapHelper.startSearch(mActivity, address, latitude, longitude, poiSearchListener);
         }
+        // 我的market
+        LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
+            @Override
+            public void onSuccess(LocationInfo info) {
+                double latitude = info.getLatitude();
+                double longitude = info.getLongitude();
+                LatLng latLng = new LatLng(latitude, longitude);
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .position(latLng)
+                        .title(getString(R.string.my_location))
+                        .snippet(getString(R.string.lat_lon_colon) + latitude + "," + longitude)
+                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
+                        .draggable(false)
+                        .visible(true);
+                aMap.addMarker(markerOptions);
+                if (StringUtils.isEmpty(address) && (latitude == 0 && longitude == 0)) {
+                    // 没有目标位置
+                    MapHelper.moveMapByLatLon(aMap, latitude, longitude);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMsg) {
+                ToastUtils.show(getString(R.string.location_error));
+            }
+        });
     }
 
     @Override
