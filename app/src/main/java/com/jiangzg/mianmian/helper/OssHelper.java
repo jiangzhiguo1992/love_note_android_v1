@@ -861,13 +861,13 @@ public class OssHelper {
 
     // 头像
     public static void downloadAvatar(String objectKey) {
-        File file = ResHelper.newAvatarFile(objectKey);
+        File file = ImgResHelper.newAvatarFile(objectKey);
         downloadObject(null, objectKey, file, null);
     }
 
     // 墙纸
     public static void downloadWall(String objectKey) {
-        File file = ResHelper.newWallPaperFile(objectKey);
+        File file = ImgResHelper.newWallPaperFile(objectKey);
         downloadObject(null, objectKey, file, null);
     }
 

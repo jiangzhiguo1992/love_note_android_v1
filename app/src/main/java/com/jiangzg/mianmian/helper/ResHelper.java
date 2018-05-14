@@ -17,7 +17,6 @@ import com.jiangzg.mianmian.base.MyApp;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by JiangZhiGuo on 2016-10-31.
@@ -178,61 +177,10 @@ public class ResHelper {
         return dir;
     }
 
-    public static File createApkFile(String fileName) {
-        File file = new File(AppInfo.get().getOutCacheDir() + File.separator + "apk", fileName);
-        FileUtils.createFileByDeleteOldFile(file);
-        LogUtils.i(LOG_TAG, "createApkFile: " + file.getAbsolutePath());
-        return file;
-    }
-
-    /**
-     * ****************************************Avatar****************************************
-     */
-    // 获取avatar的本地文件
-    public static File newAvatarFile(String ossKey) {
-        String name = ConvertHelper.getFileNameByOssPath(ossKey);
-        if (StringUtils.isEmpty(name)) {
-            LogUtils.w(LOG_TAG, "newAvatarFile: name == null");
-            return null;
-        }
-        return new File(ResHelper.getAvatarDir(), name);
-    }
-
-    // 获取avatar目录里的所有文件
-    public static List<File> getAvatarDirFiles() {
-        File dir = ResHelper.getAvatarDir();
-        return FileUtils.listFilesAndDirInDir(dir, true);
-    }
-
-    /**
-     * ****************************************WallPaper****************************************
-     */
-    // 获取wp的本地文件
-    public static File newWallPaperFile(String ossKey) {
-        String name = ConvertHelper.getFileNameByOssPath(ossKey);
-        if (StringUtils.isEmpty(name)) {
-            LogUtils.w(LOG_TAG, "newWallPaperFile: name == null");
-            return null;
-        }
-        return new File(ResHelper.getWallPaperDir(), name);
-    }
-
-    // 获取wp目录里的所有文件
-    public static List<File> getWallPaperDirFiles() {
-        File dir = ResHelper.getWallPaperDir();
-        return FileUtils.listFilesAndDirInDir(dir, true);
-    }
-
-    // 获取随机的wp
-    public static File getWallPaperRandom() {
-        List<File> fileList = getWallPaperDirFiles();
-        if (fileList == null || fileList.size() <= 0) {
-            LogUtils.i(LOG_TAG, "getWallPaperRandom: 没有发现WallPaper的存储目录");
-            return null;
-        }
-        Random random = new Random();
-        int nextInt = random.nextInt(fileList.size());
-        return fileList.get(nextInt);
+    public static File getApkDir() {
+        File dir = new File(AppInfo.get().getOutFilesDir(), "apk");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
     }
 
 }

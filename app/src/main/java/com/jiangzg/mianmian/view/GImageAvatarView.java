@@ -33,10 +33,9 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.FrescoHelper;
+import com.jiangzg.mianmian.helper.ImgResHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.ResHelper;
 
 import java.io.File;
 
@@ -150,8 +149,8 @@ public class GImageAvatarView extends SimpleDraweeView {
     }
 
     public void setDateAvatar(String ossKey) {
-        if (CheckHelper.isAvatarExists(ossKey)) {
-            File file = ResHelper.newAvatarFile(ossKey);
+        if (ImgResHelper.isAvatarExists(ossKey)) {
+            File file = ImgResHelper.newAvatarFile(ossKey);
             if (!FileUtils.isFileEmpty(file)) {
                 this.setDataFile(file);
             } else {

@@ -34,10 +34,9 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.FrescoHelper;
+import com.jiangzg.mianmian.helper.ImgResHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.ResHelper;
 
 import java.io.File;
 
@@ -188,8 +187,8 @@ public class GImageView extends SimpleDraweeView {
     }
 
     public void setDateWallPaper(String ossKey) {
-        if (CheckHelper.isWallPaperExists(ossKey)) {
-            File file = ResHelper.newWallPaperFile(ossKey);
+        if (ImgResHelper.isWallPaperExists(ossKey)) {
+            File file = ImgResHelper.newWallPaperFile(ossKey);
             if (!FileUtils.isFileEmpty(file)) {
                 this.setDataFile(file);
             } else {
