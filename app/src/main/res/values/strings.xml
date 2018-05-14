@@ -471,7 +471,7 @@
     <string name="weather">天气</string>
     <string name="ta_entry_info">Ta的登录信息</string>
     <string name="cant_get_ta_entry_info">无法获取Ta的登录信息</string>
-    <string name="no_lob_lat_info_cant_go_map">没有经纬度信息，无法进入地图</string>
+    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
     <string name="current_location">当前位置</string>
     <string name="if_long_time_cant_show_please_down_refresh">如长时间不能显示，请进行下拉刷新</string>
     <string name="about_mian_mian">关于绵绵</string>
@@ -488,11 +488,13 @@
     <string name="please_select_album">请选择相册</string>
     <string name="please_select_time">请选择时间</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
-    <string name="please_select_location">请地图位置</string>
+    <string name="please_select_location">请选择位置</string>
     <string name="complete">完成</string>
     <string name="location_search_fail">位置搜索失败</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
     <string name="now_null">暂无</string>
     <string name="picture_where">照片呢？</string>
+    <string name="input_search_location">输入搜索地址</string>
+    <string name="map">地图</string>
 
 </resources>

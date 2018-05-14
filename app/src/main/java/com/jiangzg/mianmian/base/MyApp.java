@@ -9,6 +9,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.mianmian.helper.FrescoHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
+import com.jiangzg.mianmian.helper.ThemeHelper;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,6 +32,7 @@ public class MyApp extends AppBase {
     public void onCreate() {
         super.onCreate();
         // 自己的
+        setTheme(ThemeHelper.getTheme());
         LogUtils.initApp(DEBUG);
         AppListener.initApp(this);
         ActivityStack.initApp();

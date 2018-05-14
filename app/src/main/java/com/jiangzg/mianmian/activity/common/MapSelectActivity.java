@@ -116,6 +116,27 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
         aMap.setMyLocationEnabled(false);// 不要定位蓝点
+        // recycler
+        recyclerHelper = new RecyclerHelper(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initRefresh(srl, false)
+                .initAdapter(new MapSelectAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
+                        locationInfo = mapSelectAdapter.select(position);
+                    }
+                });
+    }
+
+    @Override
+    protected void initData(Bundle state) {
+        init = true;
+        if (aMap == null) return;
         // 地图拖动回调
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
             @Override
@@ -146,26 +167,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 ToastUtils.show(getString(R.string.location_search_fail));
             }
         });
-        // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
-                .initAdapter(new MapSelectAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
-                .viewLoadMore(new RecyclerHelper.MoreGreyView())
-                .listenerClick(new OnItemClickListener() {
-                    @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
-                        locationInfo = mapSelectAdapter.select(position);
-                    }
-                });
-    }
-
-    @Override
-    protected void initData(Bundle state) {
-        init = true;
         String address = getIntent().getStringExtra("address");
         double latitude = getIntent().getDoubleExtra("latitude", 0);
         double longitude = getIntent().getDoubleExtra("longitude", 0);

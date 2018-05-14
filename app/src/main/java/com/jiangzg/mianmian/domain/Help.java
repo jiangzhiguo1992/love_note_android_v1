@@ -33,6 +33,7 @@ public class Help extends BaseObj {
     public static final int TYPE_PICTURE_EDIT = 22;
     public static final int TYPE_PICTURE_LIST = 23;
     public static final int TYPE_MAP_SELECT = 24;
+    public static final int TYPE_MAP_SHOW = 25;
 
     private int contentType;
     private String title;

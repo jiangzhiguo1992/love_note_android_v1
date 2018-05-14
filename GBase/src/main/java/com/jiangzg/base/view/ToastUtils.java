@@ -7,6 +7,9 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.application.AppUtils;
+import com.jiangzg.base.common.LogUtils;
 
 /**
  * Created by JiangZhiGuo on 2016-10-31.
@@ -14,11 +17,21 @@ import com.jiangzg.base.application.AppBase;
  */
 public class ToastUtils {
 
+    private static final String LOG_TAG = "ToastUtils";
+
     private static Toast toast;
     private static Handler handler;
 
+    // TODO app不在前台是 不toast
     public static void show(final CharSequence message) {
-        if (TextUtils.isEmpty(message)) return;
+        if (TextUtils.isEmpty(message)) {
+            LogUtils.w(LOG_TAG, "show: message == null");
+            return;
+        }
+        if (!AppUtils.isAppForeground(AppInfo.get().getPackageName())) {
+            LogUtils.w(LOG_TAG, "show: isAppForeground == false");
+            return;
+        }
         if (toast == null) {
             toast = createToast(message);
         } else {

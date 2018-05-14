@@ -109,7 +109,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         ScreenUtils.requestPortrait(this); // 竖屏
         BarUtils.requestNoTitle(this); // noTitle
         initTransAnim(this); //  过渡动画
-        ThemeHelper.initTheme(this);
+        this.setTheme(ThemeHelper.getTheme());
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
         mRootViewId = getView(getIntent());

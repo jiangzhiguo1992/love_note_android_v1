@@ -41,7 +41,7 @@ public class MapHelper {
         UiSettings uiSettings = aMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(false); // 缩放按钮
         uiSettings.setCompassEnabled(false); // 指南针
-        uiSettings.setMyLocationButtonEnabled(true);// 刷新定位按钮
+        uiSettings.setMyLocationButtonEnabled(false);// 刷新定位按钮
         uiSettings.setScaleControlsEnabled(false); // 比例尺控件
         uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_RIGHT); // logo位置
     }

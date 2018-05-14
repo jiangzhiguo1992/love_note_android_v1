@@ -22,33 +22,27 @@ public class ThemeHelper {
     public static final int THEME_ORANGE = 6;
     public static final int THEME_BROWN = 7;
 
-    public static void initTheme(Activity activity) {
+    public static int getTheme() {
         int settingsTheme = SPHelper.getTheme();
         switch (settingsTheme) {
             case THEME_PINK:
-                activity.setTheme(R.style.AppThemePink);
-                break;
+                return R.style.AppThemePink;
             case THEME_RED:
-                activity.setTheme(R.style.AppThemeRed);
-                break;
+                return R.style.AppThemeRed;
             case THEME_PURPLE:
-                activity.setTheme(R.style.AppThemePurple);
-                break;
+                return R.style.AppThemePurple;
             case THEME_BLUE:
-                activity.setTheme(R.style.AppThemeBlue);
-                break;
+                return R.style.AppThemeBlue;
             case THEME_GREEN:
-                activity.setTheme(R.style.AppThemeGreen);
-                break;
+                return R.style.AppThemeGreen;
             case THEME_YELLOW:
-                activity.setTheme(R.style.AppThemeYellow);
-                break;
+                return R.style.AppThemeYellow;
             case THEME_ORANGE:
-                activity.setTheme(R.style.AppThemeOrange);
-                break;
+                return R.style.AppThemeOrange;
             case THEME_BROWN:
-                activity.setTheme(R.style.AppThemeBrown);
-                break;
+                return R.style.AppThemeBrown;
+            default:
+                return R.style.AppThemePink;
         }
     }
 
