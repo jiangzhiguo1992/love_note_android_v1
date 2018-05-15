@@ -148,6 +148,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     }
 
     public void showDeleteDialog(final int position) {
+        Picture item = getItem(position);
+        if (!item.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

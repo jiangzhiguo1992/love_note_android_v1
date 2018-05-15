@@ -15,5 +15,6 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:titleTextAppearance="@style/FontWhiteHuge"
         tools:title="标题"/>
 </android.support.design.widget.AppBarLayout>

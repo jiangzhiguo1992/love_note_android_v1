@@ -18,11 +18,11 @@
             android:id="@+id/ctl"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            app:collapsedTitleTextAppearance="@style/FontWhiteNormal"
-            app:contentScrim="#46a8ba"
-            app:expandedTitleMarginEnd="48dp"
-            app:expandedTitleMarginStart="48dp"
-            app:expandedTitleTextAppearance="@style/FontWhiteBig"
+            app:collapsedTitleTextAppearance="@style/FontWhiteHuge"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="top|center_horizontal"
+            app:expandedTitleMarginTop="15dp"
+            app:expandedTitleTextAppearance="@style/FontWhiteHuge"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
@@ -40,39 +40,28 @@
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
                     app:actualImageScaleType="centerCrop"
-                    tools:background="@mipmap/test_bg_2"
+                    tools:background="@mipmap/test_bg_1"
                     tools:scaleType="centerCrop"/>
 
                 <TextView
-                    android:id="@+id/tvTitle"
+                    android:id="@+id/tvPictureCount"
                     style="@style/FontWhiteBig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    tools:text="相册名称"/>
-
-                <TextView
-                    android:id="@+id/tvPictureCount"
-                    style="@style/FontWhiteNormal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvTitle"
+                    android:layout_above="@+id/llAlbumTime"
                     android:gravity="center"
                     android:textStyle="bold"
                     tools:text="总计: 520 张"/>
 
                 <LinearLayout
+                    android:id="@+id/llAlbumTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="20dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView

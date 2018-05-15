@@ -9,4 +9,5 @@
     app:tabIndicatorColor="?attr/colorPrimary"
     app:tabIndicatorHeight="1dp"
     app:tabSelectedTextColor="?attr/colorPrimary"
+    app:tabTextAppearance="@style/FontWhiteNormal"
     app:tabTextColor="@color/font_grey"/>

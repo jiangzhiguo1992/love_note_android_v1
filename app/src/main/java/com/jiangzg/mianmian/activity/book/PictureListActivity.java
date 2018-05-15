@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,9 +23,11 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.PictureAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
+import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
@@ -34,6 +38,7 @@ import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -64,8 +69,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     RelativeLayout rlHead;
     @BindView(R.id.ivCover)
     GImageView ivCover;
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
     @BindView(R.id.tvPictureCount)
     TextView tvPictureCount;
     @BindView(R.id.tvCreateAt)
@@ -122,14 +125,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO tb是封面的虚化/总色
-        // TODO
-        //使用CollapsingToolbarLayout必须把title设置到CollapsingToolbarLayout上，设置到Toolbar上则不会显示
-        ctl.setTitle("压缩后的标题");
-        //通过CollapsingToolbarLayout修改字体颜色
-        //mCollapsingToolbarLayout.setExpandedTitleColor(Color.WHITE);//设置还没收缩时状态下字体颜色
-        //mCollapsingToolbarLayout.setCollapsedTitleTextColor(Color.GREEN);//设置收缩后Toolbar上字体的颜色
-
+        ViewHelper.initTopBar(mActivity, tb, "", true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -195,12 +191,11 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         recyclerHelper.dataRefresh();
     }
 
-    // TODO
-    //@Override
-    //public boolean onCreateOptionsMenu(Menu menu) {
-    //    getMenuInflater().inflate(R.menu.help, menu);
-    //    return super.onCreateOptionsMenu(menu);
-    //}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     protected void onDestroy() {
@@ -213,21 +208,21 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
     }
 
-    // TODO
-    //@Override
-    //public boolean onOptionsItemSelected(MenuItem item) {
-    //    switch (item.getItemId()) {
-    //        case R.id.menuHelp: // 帮助
-    //            HelpActivity.goActivity(mActivity, Help.TYPE_DIARY_LIST);
-    //            return true;
-    //    }
-    //    return super.onOptionsItemSelected(item);
-    //}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.TYPE_PICTURE_LIST);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @OnClick({R.id.fabAdd, R.id.fabModel})
     public void onViewClicked(View view) {
+        // TODO fab的位置
         switch (view.getId()) {
-            case R.id.fabAdd: // 添加 TODO 位置
+            case R.id.fabAdd: // 添加
                 int limitImages = SPHelper.getLimit().getPictureLimitCount();
                 if (limitImages > 0) {
                     PictureEditActivity.goActivity(mActivity, album);
@@ -250,15 +245,15 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             return;
         }
         // data
-        String cover = album.getCover();
         String title = album.getTitle();
+        String cover = album.getCover();
         String createAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
         String updateAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getUpdateAt());
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), updateAt);
         // view
+        ctl.setTitle(title);
         ivCover.setDataOss(cover);
-        tvTitle.setText(title);
         tvCreateAt.setText(createShow);
         tvUpdateAt.setText(updateShow);
     }
@@ -279,6 +274,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 long total = data.getTotal();
                 List<Picture> pictureList = data.getPictureList();
                 recyclerHelper.dataOk(pictureList, total, more);
+                String format = String.format(Locale.getDefault(), mActivity.getString(R.string.total_colon_space_holder_paper), total);
+                tvPictureCount.setText(format);
             }
 
             @Override

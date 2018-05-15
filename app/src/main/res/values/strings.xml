@@ -498,5 +498,6 @@
     <string name="map">地图</string>
     <string name="my_location">我的位置</string>
     <string name="lat_lon_colon">经纬度:</string>
+    <string name="total_colon_space_holder_paper">总计: %d张</string>
 
 </resources>

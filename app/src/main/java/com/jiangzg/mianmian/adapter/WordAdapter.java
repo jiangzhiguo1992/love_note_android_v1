@@ -55,6 +55,8 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
     }
 
     public void showDeleteDialog(final int position) {
+        Word item = getItem(position);
+        if (!item.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
