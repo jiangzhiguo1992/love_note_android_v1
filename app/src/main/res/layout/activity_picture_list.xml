@@ -108,22 +108,19 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
 
-    <!-- app:layout_behavior="@string/behavior_fab_depend_app_bar" -->
-
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
+        android:id="@+id/fabTop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
+        android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_cu_white"
+        android:src="@drawable/ic_go_top_white"
         app:backgroundTint="?attr/colorAccent"
         app:borderWidth="0dp"
         app:elevation="@dimen/elevation_normal"
-        app:fabSize="auto"
+        app:fabSize="mini"
         app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"
-        />
+        app:rippleColor="?attr/colorPrimaryDark"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabModel"
@@ -135,8 +132,21 @@
         app:backgroundTint="?attr/colorAccent"
         app:borderWidth="0dp"
         app:elevation="@dimen/elevation_normal"
-        app:fabSize="auto"
+        app:fabSize="mini"
         app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"
-        />
+        app:rippleColor="?attr/colorPrimaryDark"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_cu_white"
+        app:backgroundTint="?attr/colorAccent"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/elevation_normal"
+        app:fabSize="mini"
+        app:pressedTranslationZ="@dimen/elevation_big"
+        app:rippleColor="?attr/colorPrimaryDark"/>
 </android.support.design.widget.CoordinatorLayout>

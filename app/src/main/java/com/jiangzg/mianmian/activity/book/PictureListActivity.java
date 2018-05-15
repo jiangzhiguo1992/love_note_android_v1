@@ -81,6 +81,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
 
+    @BindView(R.id.fabTop)
+    FloatingActionButton fabTop;
+    @BindView(R.id.fabModel)
+    FloatingActionButton fabModel;
     @BindView(R.id.fabAdd)
     FloatingActionButton fabAdd;
 
@@ -218,10 +222,19 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.fabAdd, R.id.fabModel})
+    @OnClick({R.id.fabTop, R.id.fabModel, R.id.fabAdd})
     public void onViewClicked(View view) {
-        // TODO fab的位置
         switch (view.getId()) {
+            case R.id.fabTop: // 置顶
+                if (rv == null) return;
+                rv.smoothScrollToPosition(0);
+                break;
+            case R.id.fabModel: // 模式
+                if (recyclerHelper == null) return;
+                PictureAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter == null) return;
+                adapter.toggleModel();
+                break;
             case R.id.fabAdd: // 添加
                 int limitImages = SPHelper.getLimit().getPictureLimitCount();
                 if (limitImages > 0) {
@@ -229,12 +242,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 } else {
                     ToastUtils.show(getString(R.string.now_status_cant_upload_img));
                 }
-                break;
-            case R.id.fabModel: // 模式
-                if (recyclerHelper == null) return;
-                PictureAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter == null) return;
-                adapter.toggleModel();
                 break;
         }
     }
