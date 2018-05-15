@@ -286,7 +286,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             return;
         }
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow window = ViewHelper.createPictureCamera(mActivity, channel, cameraFile);
+        PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, channel, cameraFile);
         PopUtils.show(window, root, Gravity.CENTER);
     }
 

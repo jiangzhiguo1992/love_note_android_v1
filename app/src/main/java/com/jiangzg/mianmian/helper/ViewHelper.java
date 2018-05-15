@@ -154,7 +154,7 @@ public class ViewHelper {
     }
 
     @SuppressLint("InflateParams")
-    public static PopupWindow createPictureCamera(final Activity activity, final File cameraFile) {
+    public static PopupWindow createPictureCameraPop(final Activity activity, final File cameraFile) {
         View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);
         View.OnClickListener listener = new View.OnClickListener() {
@@ -215,7 +215,7 @@ public class ViewHelper {
     }
 
     @SuppressLint("InflateParams")
-    public static PopupWindow createPictureCamera(final Activity activity, String show, final File cameraFile) {
+    public static PopupWindow createPictureCameraPop(final Activity activity, String show, final File cameraFile) {
         View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_show_from_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);
         View.OnClickListener listener = new View.OnClickListener() {

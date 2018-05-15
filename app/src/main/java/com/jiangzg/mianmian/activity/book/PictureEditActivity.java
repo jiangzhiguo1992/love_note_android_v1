@@ -323,7 +323,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     private void showImgSelect() {
         if (SPHelper.getVipLimit().getBookPictureTotalCount() > 0) {
             cameraFile = ResHelper.newImageOutCache();
-            PopupWindow popupWindow = ViewHelper.createPictureCamera(mActivity, cameraFile);
+            PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);
         } else {
             ToastUtils.show(getString(R.string.now_status_cant_upload_img));

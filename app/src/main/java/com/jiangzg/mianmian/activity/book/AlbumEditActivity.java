@@ -241,7 +241,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void showImgSelect() {
         cameraFile = ResHelper.newImageOutCache();
-        PopupWindow popupWindow = ViewHelper.createPictureCamera(mActivity, cameraFile);
+        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
