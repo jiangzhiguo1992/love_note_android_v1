@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
@@ -39,12 +38,10 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     Toolbar tb;
     @BindView(R.id.map)
     MapView map;
-    @BindView(R.id.etSearch)
-    EditText etSearch;
 
     private AMap aMap;
-    private PoiSearch poiSearch;
-    private PoiSearch.OnPoiSearchListener poiSearchListener;
+    private PoiSearch poiInit;
+    private PoiSearch.OnPoiSearchListener poiInitListener;
 
     // 当前我的位置
     public static void goActivity(final Activity from) {
@@ -96,7 +93,6 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.map), true);
-
         // map
         if (map != null) {
             map.onCreate(null);
@@ -113,10 +109,11 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     @Override
     protected void initData(Bundle state) {
         if (aMap == null) return;
-        // 检索回调
-        poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
+        // 目标地址回调(根据地址)
+        poiInitListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
             @Override
             public void onSuccess(ArrayList<PoiItem> pois) {
+                if (aMap == null) return;
                 if (pois == null || pois.size() <= 0) return;
                 PoiItem poiItem = pois.get(0);
                 String title = poiItem.getTitle();
@@ -133,7 +130,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
 
             @Override
             public void onFailed() {
-                ToastUtils.show(getString(R.string.location_search_fail));
+                ToastUtils.show(getString(R.string.location_error));
             }
         });
         // 设置market
@@ -150,12 +147,13 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
             }
         } else if (!StringUtils.isEmpty(address)) {
             // 根据地址
-            poiSearch = MapHelper.startSearch(mActivity, address, latitude, longitude, poiSearchListener);
+            poiInit = MapHelper.startSearch(mActivity, address, latitude, longitude, poiInitListener);
         }
         // 我的market
         LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
+                if (aMap == null) return;
                 double latitude = info.getLatitude();
                 double longitude = info.getLongitude();
                 Marker marker = MapHelper.addMaker(aMap, latitude, longitude, getString(R.string.my_location));
@@ -217,10 +215,10 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
             aMap.clear();
             aMap = null;
         }
-        if (poiSearch != null) {
-            poiSearch.setOnPoiSearchListener(null);
+        if (poiInit != null) {
+            poiInit.setOnPoiSearchListener(null);
         }
-        poiSearchListener = null;
+        poiInitListener = null;
     }
 
     @Override

@@ -1,13 +1,11 @@
 package com.jiangzg.mianmian.helper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -48,13 +46,6 @@ public class ViewHelper {
         view.setOutlineProvider(provider);
         // 剔除Outline以外的view ,可以起裁剪作用
         view.setClipToOutline(true);
-    }
-
-    // TODO
-    public static void setVectorTint(@DrawableRes int resId) {
-        VectorDrawableCompat drawable = VectorDrawableCompat.create(MyApp.get().getResources(), resId, MyApp.get().getTheme());
-        if (drawable == null) return;
-        drawable.setTint(Color.RED);
     }
 
     public static void initTopBar(final AppCompatActivity activity, Toolbar tb, String title, boolean navBack) {
@@ -162,6 +153,7 @@ public class ViewHelper {
         }
     }
 
+    @SuppressLint("InflateParams")
     public static PopupWindow createPictureCamera(final Activity activity, final File cameraFile) {
         View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_from_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);
@@ -222,6 +214,7 @@ public class ViewHelper {
         return window;
     }
 
+    @SuppressLint("InflateParams")
     public static PopupWindow createPictureCamera(final Activity activity, String show, final File cameraFile) {
         View view = LayoutInflater.from(activity).inflate(R.layout.pop_select_img_show_from_picture_camera, null);
         final PopupWindow window = PopUtils.createWindow(view);

@@ -21,8 +21,7 @@
         android:layout_below="@id/abl"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
-        android:src="@drawable/ic_location_grey"
-        android:tint="?attr/colorPrimaryDark"/>
+        android:src="@drawable/ic_location_primary"/>
 
     <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"

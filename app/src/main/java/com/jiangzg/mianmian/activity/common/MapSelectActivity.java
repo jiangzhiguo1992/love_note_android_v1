@@ -243,6 +243,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         if (srl != null && !srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
+        if (aMap == null) return;
         // 检查搜索条件
         if (StringUtils.isEmpty(address) && latitude == 0 && longitude == 0) {
             LocationInfo info = LocationInfo.getInfo();
@@ -251,6 +252,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 LocationHelper.startLocation(false, new LocationHelper.LocationCallBack() {
                     @Override
                     public void onSuccess(LocationInfo info) {
+                        if (aMap == null) return;
                         // 拖动map并开始搜索
                         MapHelper.moveMapByLatLon(aMap, info.getLatitude(), info.getLongitude());
                         MapSelectActivity.this.startMapSearch(info.getAddress(), info.getLatitude(), info.getLongitude());

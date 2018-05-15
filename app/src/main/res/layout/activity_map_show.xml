@@ -14,17 +14,4 @@
         android:layout_height="match_parent"
         android:layout_below="@id/abl"/>
 
-    <EditText
-        android:id="@+id/etSearch"
-        style="@style/FontBlackNormal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/abl"
-        android:layout_margin="10dp"
-        android:background="@drawable/shape_solid_white_r5"
-        android:elevation="@dimen/elevation_normal"
-        android:hint="@string/input_search_location"
-        android:maxLines="1"
-        android:padding="10dp"
-        android:singleLine="true"/>
 </RelativeLayout>

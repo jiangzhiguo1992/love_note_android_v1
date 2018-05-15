@@ -2,7 +2,9 @@ package com.jiangzg.mianmian.helper;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.AMapOptions;
 import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.UiSettings;
+import com.amap.api.maps2d.model.BitmapDescriptor;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
@@ -25,6 +28,7 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
@@ -70,11 +74,16 @@ public class MapHelper {
     public static Marker addMaker(AMap aMap, double latitude, double longitude, String title) {
         if (aMap == null) return null;
         LatLng latLng = new LatLng(latitude, longitude);
+        // icon
+        VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.drawable.ic_location_primary, MyApp.get().getTheme());
+        Bitmap bitmap = ConvertUtils.drawable2Bitmap(vectorDrawable);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
+        // options
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title(title)
                 .snippet(MyApp.get().getString(R.string.lat_lon_colon) + latitude + "," + longitude)
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_orange))
+                .icon(icon)
                 .draggable(false)
                 .visible(true);
         return aMap.addMarker(markerOptions);

@@ -159,7 +159,7 @@
             style="@style/FontWhiteSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="35dp"
             android:background="@drawable/shape_stroke_white_r100"
             android:paddingBottom="10dp"
             android:paddingEnd="30dp"
