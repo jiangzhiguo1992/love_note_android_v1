@@ -123,9 +123,10 @@ public abstract class BaseFragment<T> extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        if (mUnBinder != null) {
-            mUnBinder.unbind();
-        }
+        // TODO ?????
+        //if (mUnBinder != null) {
+        //    mUnBinder.unbind();
+        //}
     }
 
     /**

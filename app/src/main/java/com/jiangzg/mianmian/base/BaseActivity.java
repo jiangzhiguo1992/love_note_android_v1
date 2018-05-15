@@ -154,9 +154,11 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mUnBinder != null) {
-            mUnBinder.unbind();
-        }
+        // TODO ??????
+        //if (mUnBinder != null) {
+        //    mUnBinder.unbind();
+        //    mUnBinder = null;
+        //}
     }
 
     /* 触摸事件 */

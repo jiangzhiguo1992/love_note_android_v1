@@ -150,6 +150,13 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                         getPictureList(true);
                     }
                 })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        PictureAdapter pictureAdapter = (PictureAdapter) adapter;
+                        pictureAdapter.showOperation(position);
+                    }
+                })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -158,16 +165,35 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                             case R.id.tvLocation: // 地址
                                 pictureAdapter.onLocationClick(position);
                                 break;
+                            case R.id.tvModifyHorizontal: // 修改
+                            case R.id.tvModifyVertical:
+                                pictureAdapter.goEdit(position, album);
+                                break;
+                            case R.id.tvDeleteHorizontal: // 删除
+                            case R.id.tvDeleteVertical:
+                                pictureAdapter.showDeleteDialog(position);
+                                break;
+                            case R.id.tvCancelHorizontal: // 取消
+                            case R.id.tvCancelVertical:
+                                pictureAdapter.hideOperation();
+                                break;
                         }
                     }
-                })
-                .listenerClick(new OnItemLongClickListener() {
-                    @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        pictureAdapter.showDeleteDialog(position);
-                    }
                 });
+        // recycler
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                PictureAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter != null) adapter.hideOperation();
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override

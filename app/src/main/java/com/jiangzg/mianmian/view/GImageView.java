@@ -125,7 +125,7 @@ public class GImageView extends SimpleDraweeView {
         // request
         ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, mWidth, mHeight);
         ImageRequest imageRequest = requestBuilder.build();
-        // bitmap
+        // bitmap (这里的参数最好不要往外复制，会有问题)
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
         DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(imageRequest, this.getContext());
         dataSource.subscribe(new BaseBitmapDataSubscriber() {

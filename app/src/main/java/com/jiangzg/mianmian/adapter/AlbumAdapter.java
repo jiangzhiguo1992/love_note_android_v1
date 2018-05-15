@@ -29,7 +29,6 @@ import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
-import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageView;
 
@@ -105,7 +104,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         hideOperation();
         // 用户检查
         Album album = getItem(position);
-        if (album.getUserId() != SPHelper.getUser().getId()) {
+        if (!album.isMine()) {
             ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_album));
             return;
         }

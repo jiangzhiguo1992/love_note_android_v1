@@ -124,7 +124,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (diary == null) return super.onPrepareOptionsMenu(menu);
         menu.clear();
-        if (diary.getUserId() == SPHelper.getUser().getId()) {
+        if (diary.isMine()) {
             getMenuInflater().inflate(R.menu.help_del_edit, menu);
         } else {
             getMenuInflater().inflate(R.menu.help, menu);
