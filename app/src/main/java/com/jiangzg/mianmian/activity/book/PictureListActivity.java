@@ -154,7 +154,13 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        pictureAdapter.showOperation(position);
+                        if (isSelectPicture()) {
+                            // 照片选择
+                            pictureAdapter.selectPicture(position);
+                        } else {
+                            // 照片浏览
+                            pictureAdapter.showOperation(position);
+                        }
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
@@ -270,6 +276,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 }
                 break;
         }
+    }
+
+    private boolean isSelectPicture() {
+        return getIntent().getIntExtra("type", TYPE_BROWSE) == TYPE_SELECT;
     }
 
     private void refreshAlbumView() {

@@ -97,6 +97,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     private Call<Result> callUpdate;
     private File cameraFile;
     private List<File> cameraFileList;
+    private boolean isChangeAlbum;
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureEditActivity.class);
@@ -117,6 +118,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        isChangeAlbum = false;
         return R.layout.activity_picture_edit;
     }
 
@@ -175,6 +177,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
             @Override
             public void call(Album album) {
+                PictureEditActivity.this.isChangeAlbum = true;
                 PictureEditActivity.this.album = album;
                 PictureEditActivity.this.refreshAlbum();
             }
@@ -411,8 +414,13 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 RxEvent<ArrayList<Album>> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
                 RxBus.post(eventAlbum);
                 Picture picture = data.getPicture();
-                RxEvent<Picture> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture);
-                RxBus.post(eventPicture);
+                if (isChangeAlbum) {
+                    RxEvent<ArrayList<Picture>> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
+                    RxBus.post(eventPicture);
+                } else {
+                    RxEvent<Picture> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture);
+                    RxBus.post(eventPicture);
+                }
                 // finish
                 mActivity.finish();
             }

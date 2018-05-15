@@ -156,6 +156,13 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         helper.addOnClickListener(R.id.tvCancelHorizontal);
     }
 
+    public void selectPicture(int position) {
+        Picture item = getItem(position);
+        RxEvent<Picture> event = new RxEvent<>(ConsHelper.EVENT_PICTURE_SELECT, item);
+        RxBus.post(event);
+        mActivity.finish();
+    }
+
     // 点击跳转地图
     public void onLocationClick(int position) {
         hideOperation();

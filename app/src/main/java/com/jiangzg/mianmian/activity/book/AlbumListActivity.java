@@ -23,6 +23,7 @@ import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
@@ -61,6 +62,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     private RecyclerHelper recyclerHelper;
     private Observable<List<Album>> obListRefresh;
     private Observable<Album> obListItemRefresh;
+    private Observable<Picture> obPictureSelect;
     private Call<Result> call;
     private int page;
 
@@ -190,6 +192,12 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), album);
             }
         });
+        obPictureSelect = RxBus.register(ConsHelper.EVENT_PICTURE_SELECT, new Action1<Picture>() {
+            @Override
+            public void call(Picture picture) {
+                mActivity.finish();
+            }
+        });
         recyclerHelper.dataRefresh();
     }
 
@@ -207,6 +215,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_PICTURE_SELECT, obPictureSelect);
     }
 
     @Override

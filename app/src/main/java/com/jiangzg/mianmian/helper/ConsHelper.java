@@ -37,10 +37,11 @@ public class ConsHelper {
     public static final int EVENT_WORD_LIST_ITEM_DELETE = 12; // 留言
     public static final int EVENT_ALBUM_LIST_REFRESH = 13; // 相册
     public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 14;
-    public static final int EVENT_ALBUM_SELECT = 15;
-    public static final int EVENT_MAP_SELECT = 16; // 地图
-    public static final int EVENT_PICTURE_LIST_REFRESH = 17; // 照片
-    public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 18;
-    public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 19;
+    public static final int EVENT_ALBUM_SELECT = 15; // 选择
+    public static final int EVENT_PICTURE_SELECT = 16;
+    public static final int EVENT_MAP_SELECT = 17; // 地图
+    public static final int EVENT_PICTURE_LIST_REFRESH = 18; // 照片
+    public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 19;
+    public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 20;
 
 }
