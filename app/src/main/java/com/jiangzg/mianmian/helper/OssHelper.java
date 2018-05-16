@@ -789,18 +789,20 @@ public class OssHelper {
 
     // 日记 (限制大小 + 持久化)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        long imageSize = SPHelper.getVipLimit().getDiaryImageSize();
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;
-            long imageSize = SPHelper.getVipLimit().getDiaryImageSize();
             if (file.length() >= imageSize) {
                 overLimit = true;
                 break;
             }
         }
         if (overLimit) {
-            ToastUtils.show(activity.getString(R.string.file_too_max));
+            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
+            ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(fileList, "");
             }
@@ -820,18 +822,20 @@ public class OssHelper {
 
     // 照片 (限制大小 + 持久化)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        long imageSize = SPHelper.getVipLimit().getPictureSize();
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;
-            long imageSize = SPHelper.getVipLimit().getPictureSize();
             if (file.length() >= imageSize) {
                 overLimit = true;
                 break;
             }
         }
         if (overLimit) {
-            ToastUtils.show(activity.getString(R.string.file_too_max));
+            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
+            ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(fileList, "");
             }

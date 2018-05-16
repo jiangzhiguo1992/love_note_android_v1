@@ -18,6 +18,7 @@ public class Limit {
     // couple
     private int coupleNameLength;
     // book
+    private long bookOssExpireSecond;
     private int souvenirTitleLength;
     private int whisperContentLength;
     private int whisperChannelLength;
@@ -38,6 +39,14 @@ public class Limit {
 
     // square
     private int vipLimitExpireDays;
+
+    public long getBookOssExpireSecond() {
+        return bookOssExpireSecond;
+    }
+
+    public void setBookOssExpireSecond(long bookOssExpireSecond) {
+        this.bookOssExpireSecond = bookOssExpireSecond;
+    }
 
     public int getPictureCount() {
         return pictureCount;

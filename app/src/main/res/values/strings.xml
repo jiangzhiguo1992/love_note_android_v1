@@ -461,7 +461,6 @@
     <string name="add_text">添加文字</string>
     <string name="schedule">日程</string>
     <string name="statistics">统计</string>
-    <string name="file_too_max">文件过大</string>
     <string name="now_just_upload_holder_album" formatted="false">目前只能上传%d个相册哦</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
@@ -499,5 +498,6 @@
     <string name="my_location">我的位置</string>
     <string name="lat_lon_colon">经纬度:</string>
     <string name="total_colon_space_holder_paper">总计: %d张</string>
+    <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
 
 </resources>

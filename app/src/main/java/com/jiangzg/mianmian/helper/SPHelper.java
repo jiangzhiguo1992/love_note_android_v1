@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import android.content.SharedPreferences;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
@@ -96,6 +97,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH = "suggestContentTextLength";
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggestCommentContentLength";
     private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "coupleNameLength";
+    private static final String FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS = "bookOssExpireSeconds";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenirTitleLength";
     private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisperContentLength";
     private static final String FIELD_LIMIT_WHISPER_CHANNEL_LENGTH = "whisperChannelLength";
@@ -310,6 +312,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, limit.getSuggestContentTextLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
+        editor.putLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, limit.getBookOssExpireSecond());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, limit.getWhisperContentLength());
         editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, limit.getWhisperChannelLength());
@@ -341,6 +344,7 @@ public class SPHelper {
         limit.setSuggestContentTextLength(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, 200));
         limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
+        limit.setBookOssExpireSecond(sp.getLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setWhisperContentLength(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, 100));
         limit.setWhisperChannelLength(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, 10));
