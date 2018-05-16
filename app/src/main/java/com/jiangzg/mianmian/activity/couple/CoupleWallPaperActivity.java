@@ -198,13 +198,13 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     public void showImgSelect() {
-        cameraFile = ResHelper.newImageOutCache();
+        cameraFile = ResHelper.newImageOutCacheFile();
         PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
     private void goCropActivity(File source) {
-        cropFile = ResHelper.newImageOutCache();
+        cropFile = ResHelper.newImageOutCacheFile();
         int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
         int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
         Intent intent = IntentFactory.getCrop(source, cropFile, screenWidth, screenHeight);

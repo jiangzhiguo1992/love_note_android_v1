@@ -247,13 +247,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void showAvatarSelect() {
-        cameraFile = ResHelper.newImageOutCache();
+        cameraFile = ResHelper.newImageOutCacheFile();
         PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
     private void goCropActivity(File source) {
-        cropFile = ResHelper.newImageOutCache();
+        cropFile = ResHelper.newImageOutCacheFile();
         Intent intent = IntentFactory.getCrop(source, cropFile, 1, 1);
         ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }

@@ -240,7 +240,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void showImgSelect() {
-        cameraFile = ResHelper.newImageOutCache();
+        cameraFile = ResHelper.newImageOutCacheFile();
         PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }

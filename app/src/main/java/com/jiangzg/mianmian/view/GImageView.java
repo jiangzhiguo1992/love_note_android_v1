@@ -245,6 +245,12 @@ public class GImageView extends SimpleDraweeView {
         }
     }
 
+    // file://
+    public void setDataFile(File file) {
+        Uri parse = ProviderUtils.getUriByFile(file);
+        setController(parse);
+    }
+
     // http:// https:// 需要现场获取oss的url
     private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
@@ -254,12 +260,6 @@ public class GImageView extends SimpleDraweeView {
         } else {
             parse = Uri.parse(url);
         }
-        setController(parse);
-    }
-
-    // file://
-    public void setDataFile(File file) {
-        Uri parse = ProviderUtils.getUriByFile(file);
         setController(parse);
     }
 

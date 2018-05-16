@@ -152,10 +152,10 @@ public class ResHelper {
         return dir;
     }
 
-    public static File newImageOutCache() {
+    public static File newImageOutCacheFile() {
         String fileName = StringUtils.getUUID(10) + ".jpeg";
         File file = new File(getImgCacheDir(), fileName);
-        LogUtils.i(LOG_TAG, "newImageOutCache: " + file.getAbsolutePath());
+        LogUtils.i(LOG_TAG, "newImageOutCacheFile: " + file.getAbsolutePath());
         return file;
     }
 
@@ -165,10 +165,9 @@ public class ResHelper {
         return file;
     }
 
-    public static File getApkDir() {
-        File dir = new File(AppInfo.get().getOutFilesDir(), "apk");
-        FileUtils.createOrExistsDir(dir);
-        return dir;
+    // oss的目录
+    public static String getOssOutDirPath() {
+        return AppInfo.get().getOutFilesDir() + File.separator + "oss" + File.separator;
     }
 
 }

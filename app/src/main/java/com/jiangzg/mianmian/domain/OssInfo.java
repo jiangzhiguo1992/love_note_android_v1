@@ -18,7 +18,6 @@ public class OssInfo {
     private long expiration;
     private long interval;
     // path
-    private String pathVersion;
     private String pathSuggest;
     private String pathCoupleAvatar;
     private String pathCoupleWall;
@@ -109,14 +108,6 @@ public class OssInfo {
 
     public void setExpiration(long expiration) {
         this.expiration = expiration;
-    }
-
-    public String getPathVersion() {
-        return pathVersion;
-    }
-
-    public void setPathVersion(String pathVersion) {
-        this.pathVersion = pathVersion;
     }
 
     public String getPathSuggest() {

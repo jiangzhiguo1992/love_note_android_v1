@@ -1,6 +1,5 @@
 package com.jiangzg.mianmian.helper;
 
-import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -21,18 +20,14 @@ public class OssResHelper {
 
     private static final String LOG_TAG = "OssResHelper";
 
-    // oss的目录
-    private static String getOssOutDirPath() {
-        return AppInfo.get().getOutFilesDir() + File.separator + "oss" + File.separator;
-    }
-
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {
             LogUtils.w(LOG_TAG, "newOutFile: objectKey == null");
             return null;
         }
-        return new File(getOssOutDirPath(), objectKey);
+        LogUtils.i(LOG_TAG, "newOutFile: objectKey == " + objectKey);
+        return new File(ResHelper.getOssOutDirPath(), objectKey);
     }
 
     // 获取ossKey的文件所在目录的所有文件
@@ -68,7 +63,22 @@ public class OssResHelper {
     // ossKey的文件是否存在
     public static boolean isKeyFileExists(String objectKey) {
         File file = newKeyFile(objectKey);
-        return FileUtils.isFileExists(file);
+        boolean fileExists = FileUtils.isFileExists(file);
+        LogUtils.i(LOG_TAG, "isKeyFileExists: " + objectKey + " == " + fileExists);
+        return fileExists;
+    }
+
+    /**
+     * ****************************************Apk****************************************
+     */
+    public static File newApkDir() {
+        return new File(ResHelper.getOssOutDirPath(), "apk");
+    }
+
+    public static File newApkFile(String versionName) {
+        File apkFile = new File(OssResHelper.newApkDir(), versionName + ".apk");
+        LogUtils.i(LOG_TAG, "createApkFile: " + apkFile.getAbsolutePath());
+        return apkFile;
     }
 
     /**
@@ -81,7 +91,7 @@ public class OssResHelper {
             LogUtils.w(LOG_TAG, "getAvatarDir: pathCoupleAvatar == null");
             return null;
         }
-        return new File(getOssOutDirPath(), pathCoupleAvatar);
+        return new File(ResHelper.getOssOutDirPath(), pathCoupleAvatar);
     }
 
     // 刷新本地的avatar
@@ -149,7 +159,7 @@ public class OssResHelper {
             LogUtils.w(LOG_TAG, "getWallPaperDir: pathCoupleWall == null");
             return null;
         }
-        return new File(getOssOutDirPath(), pathCoupleWall);
+        return new File(ResHelper.getOssOutDirPath(), pathCoupleWall);
     }
 
     // 获取随机的wp

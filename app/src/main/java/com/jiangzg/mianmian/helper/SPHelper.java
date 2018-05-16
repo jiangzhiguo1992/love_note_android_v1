@@ -76,7 +76,6 @@ public class SPHelper {
     private static final String FIELD_OSS_BUCKET = "bucket";
     private static final String FIELD_OSS_EXPIRATION = "expiration";
     private static final String FIELD_OSS_INTERVAL = "interval";
-    private static final String FIELD_OSS_PATH_VERSION = "pathVersion";
     private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
     private static final String FIELD_OSS_PATH_COUPLE_WALL = "pathCoupleWall";
@@ -413,7 +412,6 @@ public class SPHelper {
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
         editor.putLong(FIELD_OSS_EXPIRATION, ossInfo.getExpiration());
         editor.putLong(FIELD_OSS_INTERVAL, ossInfo.getInterval());
-        editor.putString(FIELD_OSS_PATH_VERSION, ossInfo.getPathVersion());
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
         editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
@@ -440,7 +438,6 @@ public class SPHelper {
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
         ossInfo.setExpiration(sp.getLong(FIELD_OSS_EXPIRATION, 0));
         ossInfo.setInterval(sp.getLong(FIELD_OSS_INTERVAL, 0));
-        ossInfo.setPathVersion(sp.getString(FIELD_OSS_PATH_VERSION, ""));
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
         ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));

@@ -140,6 +140,12 @@ public class GImageBigView extends PhotoDraweeView {
         }
     }
 
+    // file://
+    public void setDataFile(File file) {
+        Uri parse = ProviderUtils.getUriByFile(file);
+        setController(parse);
+    }
+
     // http:// https:// 需要现场获取oss的url
     private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
@@ -149,12 +155,6 @@ public class GImageBigView extends PhotoDraweeView {
         } else {
             parse = Uri.parse(url);
         }
-        setController(parse);
-    }
-
-    // file://
-    public void setDataFile(File file) {
-        Uri parse = ProviderUtils.getUriByFile(file);
         setController(parse);
     }
 

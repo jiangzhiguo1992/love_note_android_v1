@@ -264,7 +264,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void showImgSelect() {
         if (SPHelper.getVipLimit().getBookDiaryImageCount() > 0) {
-            cameraFile = ResHelper.newImageOutCache();
+            cameraFile = ResHelper.newImageOutCacheFile();
             PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);
         } else {

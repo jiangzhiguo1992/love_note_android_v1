@@ -645,9 +645,7 @@ public class OssHelper {
             }
             return null;
         }
-        if (!FileUtils.isFileExists(target)) {
-            FileUtils.createFileByDeleteOldFile(target);
-        }
+        FileUtils.createFileByDeleteOldFile(target);
         // dialog
         DialogHelper.showWithAnim(progress);
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
@@ -871,9 +869,22 @@ public class OssHelper {
         downloadObject(null, objectKey, file, null);
     }
 
-    // TODO 全屏图
-    public static void downloadScreen() {
+    // TODO 日记
+    public static void downloadDiary(String objectKey) {
+        //File file = OssResHelper.newKeyFile(objectKey);
+        //downloadObject(null, objectKey, file, null);
+    }
 
+    // TODO 照片
+    public static void downloadPicture(String objectKey) {
+        //File file = OssResHelper.newKeyFile(objectKey);
+        //downloadObject(null, objectKey, file, null);
+    }
+
+    // TODO 全屏图 在sd卡中下载
+    public static void downloadBigImage(String objectKey) {
+        //File file = OssResHelper.newKeyFile(objectKey);
+        //downloadObject(null, objectKey, file, null);
     }
 
 }

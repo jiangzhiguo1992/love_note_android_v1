@@ -146,7 +146,7 @@ public class ApiHelper {
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {
             SPHelper.clearVersion();
-            File apkDir = ResHelper.getApkDir();
+            File apkDir = OssResHelper.newApkDir();
             List<File> fileList = FileUtils.listFilesAndDirInDir(apkDir, true);
             ResHelper.deleteFileListInBackground(fileList);
         } else {
