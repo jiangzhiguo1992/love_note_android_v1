@@ -55,6 +55,8 @@ import rx.functions.Action1;
 
 public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
+    private static boolean isFirstOpen = true;
+
     private static final int TYPE_BROWSE = 0;
     private static final int TYPE_SELECT = 1;
 
@@ -329,7 +331,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 String format = String.format(Locale.getDefault(), mActivity.getString(R.string.total_colon_space_holder_paper), total);
                 tvPictureCount.setText(format);
                 // 刷新本地资源
-                OssResHelper.refreshPictureRes(pictureList);
+                if (isFirstOpen) {
+                    isFirstOpen = false;
+                    OssResHelper.refreshPictureRes(pictureList);
+                }
             }
 
             @Override

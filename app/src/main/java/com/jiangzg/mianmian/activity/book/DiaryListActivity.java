@@ -47,6 +47,8 @@ import rx.functions.Action1;
 
 public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
+    private static boolean isFirstOpen = true;
+
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -189,7 +191,10 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 String searchShow = ApiHelper.LIST_SHOW[searchType] + String.format(Locale.getDefault(), getString(R.string.space_bracket_holder), total);
                 tvSearch.setText(searchShow);
                 // 刷新本地资源
-                OssResHelper.refreshDiaryRes(diaryList);
+                if (isFirstOpen) {
+                    isFirstOpen = false;
+                    OssResHelper.refreshDiaryRes(diaryList);
+                }
             }
 
             @Override
