@@ -155,7 +155,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     }
 
     private Runnable getCountDownTask() {
-        final int countDownSec = SPHelper.getLimit().getSmsLimitBetween();
+        final int countDownSec = SPHelper.getLimit().getSmsBetween();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

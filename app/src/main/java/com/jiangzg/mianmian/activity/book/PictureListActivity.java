@@ -35,6 +35,7 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -269,8 +270,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 adapter.toggleModel();
                 break;
             case R.id.fabAdd: // 添加
-                int limitImages = SPHelper.getLimit().getPictureLimitCount();
-                if (limitImages > 0) {
+                int pictureCount = SPHelper.getLimit().getPictureCount();
+                if (pictureCount > 0) {
                     PictureEditActivity.goActivity(mActivity, album);
                 } else {
                     ToastUtils.show(getString(R.string.now_status_cant_upload_img));
@@ -320,11 +321,15 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
+                // data
                 long total = data.getTotal();
                 List<Picture> pictureList = data.getPictureList();
                 recyclerHelper.dataOk(pictureList, total, more);
+                // total
                 String format = String.format(Locale.getDefault(), mActivity.getString(R.string.total_colon_space_holder_paper), total);
                 tvPictureCount.setText(format);
+                // 刷新本地资源
+                OssResHelper.refreshPictureRes(pictureList);
             }
 
             @Override

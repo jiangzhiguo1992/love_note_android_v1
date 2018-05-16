@@ -8,23 +8,23 @@ import java.util.List;
  */
 public class SuggestInfo extends BaseObj {
 
-    private List<SuggestStatus> SuggestStatusList;
-    private List<SuggestContentType> SuggestContentTypeList;
+    private List<SuggestStatus> statusList;
+    private List<SuggestContentType> contentTypeList;
 
-    public List<SuggestStatus> getSuggestStatusList() {
-        return SuggestStatusList;
+    public List<SuggestStatus> getStatusList() {
+        return statusList;
     }
 
-    public void setSuggestStatusList(List<SuggestStatus> suggestStatusList) {
-        SuggestStatusList = suggestStatusList;
+    public void setStatusList(List<SuggestStatus> statusList) {
+        this.statusList = statusList;
     }
 
-    public List<SuggestContentType> getSuggestContentTypeList() {
-        return SuggestContentTypeList;
+    public List<SuggestContentType> getContentTypeList() {
+        return contentTypeList;
     }
 
-    public void setSuggestContentTypeList(List<SuggestContentType> suggestContentTypeList) {
-        SuggestContentTypeList = suggestContentTypeList;
+    public void setContentTypeList(List<SuggestContentType> contentTypeList) {
+        this.contentTypeList = contentTypeList;
     }
 
     public static class SuggestStatus {

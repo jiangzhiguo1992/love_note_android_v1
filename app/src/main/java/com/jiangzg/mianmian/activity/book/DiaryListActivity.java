@@ -29,6 +29,7 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -187,6 +188,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 // searchShow
                 String searchShow = ApiHelper.LIST_SHOW[searchType] + String.format(Locale.getDefault(), getString(R.string.space_bracket_holder), total);
                 tvSearch.setText(searchShow);
+                // 刷新本地资源
+                OssResHelper.refreshDiaryRes(diaryList);
             }
 
             @Override

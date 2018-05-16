@@ -139,10 +139,10 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             @Override
             public void onSuccessClick(GImageView iv) {
                 List<Picture> data = PictureAdapter.this.getData();
-                ArrayList<String> pathList = ConvertHelper.getStrListByPicture(data);
-                if (pathList == null || pathList.size() <= 0) return;
+                ArrayList<String> ossKeyList = ConvertHelper.getOssKeyListByPicture(data);
+                if (ossKeyList == null || ossKeyList.size() <= 0) return;
                 int position = helper.getLayoutPosition();
-                BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
+                BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
             }
         });
         ivPicture.setData(content);

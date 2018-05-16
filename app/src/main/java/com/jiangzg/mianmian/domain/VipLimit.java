@@ -6,117 +6,136 @@ package com.jiangzg.mianmian.domain;
  */
 public class VipLimit {
 
-    private long expireAt;
-
-    private int coupleWallPaperCount;
-
-    private int bookWhisperImageCount;
-    private int bookDiaryImageCount;
-    private long bookDiaryImageSize;
-    private int bookAlbumTotalCount;
-    private int bookPictureTotalCount;
-    private long bookPictureSize;
-    private int bookGiftImageCount;
-    private int bookMeetImageCount;
-    private long bookAudioTotalSize;
-    private long bookVideoTotalSize;
-
+    // vip
+    private long vipExpireAt;
+    // couple
+    private int wallPaperCount;
+    // book
+    private int whisperImageCount;
+    private long diaryImageSize;
+    private int diaryImageCount;
+    private int albumTotalCount;
+    private long pictureSize;
+    private int pictureTotalCount;
+    private int meetImageCount;
+    private int giftImageCount;
+    private long audioSize;
+    private long audioTotalSize;
+    private long videoSize;
+    private long videoTotalSize;
+    // topic
     private boolean topicImageEnable;
 
-    public int getBookPictureTotalCount() {
-        return bookPictureTotalCount;
+    public long getAudioSize() {
+        return audioSize;
     }
 
-    public void setBookPictureTotalCount(int bookPictureTotalCount) {
-        this.bookPictureTotalCount = bookPictureTotalCount;
+    public void setAudioSize(long audioSize) {
+        this.audioSize = audioSize;
     }
 
-    public long getBookPictureSize() {
-        return bookPictureSize;
+    public long getVideoSize() {
+        return videoSize;
     }
 
-    public void setBookPictureSize(long bookPictureSize) {
-        this.bookPictureSize = bookPictureSize;
+    public void setVideoSize(long videoSize) {
+        this.videoSize = videoSize;
     }
 
-    public int getBookAlbumTotalCount() {
-        return bookAlbumTotalCount;
+    public int getPictureTotalCount() {
+        return pictureTotalCount;
     }
 
-    public void setBookAlbumTotalCount(int bookAlbumTotalCount) {
-        this.bookAlbumTotalCount = bookAlbumTotalCount;
+    public void setPictureTotalCount(int pictureTotalCount) {
+        this.pictureTotalCount = pictureTotalCount;
     }
 
-    public long getBookDiaryImageSize() {
-        return bookDiaryImageSize;
+    public long getPictureSize() {
+        return pictureSize;
     }
 
-    public void setBookDiaryImageSize(long bookDiaryImageSize) {
-        this.bookDiaryImageSize = bookDiaryImageSize;
+    public void setPictureSize(long pictureSize) {
+        this.pictureSize = pictureSize;
     }
 
-    public int getBookWhisperImageCount() {
-        return bookWhisperImageCount;
+    public int getAlbumTotalCount() {
+        return albumTotalCount;
     }
 
-    public void setBookWhisperImageCount(int bookWhisperImageCount) {
-        this.bookWhisperImageCount = bookWhisperImageCount;
+    public void setAlbumTotalCount(int albumTotalCount) {
+        this.albumTotalCount = albumTotalCount;
     }
 
-    public long getExpireAt() {
-        return expireAt;
+    public long getDiaryImageSize() {
+        return diaryImageSize;
     }
 
-    public void setExpireAt(long expireAt) {
-        this.expireAt = expireAt;
+    public void setDiaryImageSize(long diaryImageSize) {
+        this.diaryImageSize = diaryImageSize;
     }
 
-    public int getCoupleWallPaperCount() {
-        return coupleWallPaperCount;
+    public int getWhisperImageCount() {
+        return whisperImageCount;
     }
 
-    public void setCoupleWallPaperCount(int coupleWallPaperCount) {
-        this.coupleWallPaperCount = coupleWallPaperCount;
+    public void setWhisperImageCount(int whisperImageCount) {
+        this.whisperImageCount = whisperImageCount;
     }
 
-    public int getBookDiaryImageCount() {
-        return bookDiaryImageCount;
+    public long getVipExpireAt() {
+        return vipExpireAt;
     }
 
-    public void setBookDiaryImageCount(int bookDiaryImageCount) {
-        this.bookDiaryImageCount = bookDiaryImageCount;
+    public void setVipExpireAt(long vipExpireAt) {
+        this.vipExpireAt = vipExpireAt;
     }
 
-    public int getBookGiftImageCount() {
-        return bookGiftImageCount;
+    public int getWallPaperCount() {
+        return wallPaperCount;
     }
 
-    public void setBookGiftImageCount(int bookGiftImageCount) {
-        this.bookGiftImageCount = bookGiftImageCount;
+    public void setWallPaperCount(int wallPaperCount) {
+        this.wallPaperCount = wallPaperCount;
     }
 
-    public int getBookMeetImageCount() {
-        return bookMeetImageCount;
+    public int getDiaryImageCount() {
+        return diaryImageCount;
     }
 
-    public void setBookMeetImageCount(int bookMeetImageCount) {
-        this.bookMeetImageCount = bookMeetImageCount;
+    public void setDiaryImageCount(int diaryImageCount) {
+        this.diaryImageCount = diaryImageCount;
     }
 
-    public long getBookAudioTotalSize() {
-        return bookAudioTotalSize;
+    public int getGiftImageCount() {
+        return giftImageCount;
     }
 
-    public void setBookAudioTotalSize(long bookAudioTotalSize) {
-        this.bookAudioTotalSize = bookAudioTotalSize;
+    public void setGiftImageCount(int giftImageCount) {
+        this.giftImageCount = giftImageCount;
     }
 
-    public long getBookVideoTotalSize() {
-        return bookVideoTotalSize;
+    public int getMeetImageCount() {
+        return meetImageCount;
     }
 
-    public void setBookVideoTotalSize(long bookVideoTotalSize) {
-        this.bookVideoTotalSize = bookVideoTotalSize;
+    public void setMeetImageCount(int meetImageCount) {
+        this.meetImageCount = meetImageCount;
+    }
+
+    public long getAudioTotalSize() {
+        return audioTotalSize;
+    }
+
+    public void setAudioTotalSize(long audioTotalSize) {
+        this.audioTotalSize = audioTotalSize;
+    }
+
+    public long getVideoTotalSize() {
+        return videoTotalSize;
+    }
+
+    public void setVideoTotalSize(long videoTotalSize) {
+        this.videoTotalSize = videoTotalSize;
     }
 
     public boolean isTopicImageEnable() {

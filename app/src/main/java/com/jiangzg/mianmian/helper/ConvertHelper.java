@@ -9,6 +9,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
+import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.User;
 
@@ -191,15 +192,14 @@ public class ConvertHelper {
     /**
      * **************************************列表**************************************
      */
-
-    public static ArrayList<String> getStrListByPicture(List<Picture> pictureList) {
-        ArrayList<String> strList = new ArrayList<>();
-        if (pictureList == null || pictureList.size() <= 0) return strList;
-        for (Picture picture : pictureList) {
-            if (picture == null || StringUtils.isEmpty(picture.getContent())) continue;
-            strList.add(picture.getContent());
+    // 集合类型转换(path -> file)
+    public static List<File> getFileListByPath(List<String> pathList) {
+        List<File> fileList = new ArrayList<>();
+        if (pathList == null || pathList.size() <= 0) return fileList;
+        for (String path : pathList) {
+            fileList.add(new File(path));
         }
-        return strList;
+        return fileList;
     }
 
     // 集合类型转换(string -> uri)
@@ -212,14 +212,30 @@ public class ConvertHelper {
         return uriList;
     }
 
-    // 集合类型转换(string -> file)
-    public static List<File> getFileListByPath(List<String> pathList) {
-        List<File> fileList = new ArrayList<>();
-        if (pathList == null || pathList.size() <= 0) return fileList;
-        for (String path : pathList) {
-            fileList.add(new File(path));
+    // 集合类型转换(Diary -> ossKey)
+    public static ArrayList<String> getOssKeyListByDiary(List<Diary> diaryList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (diaryList == null || diaryList.size() <= 0) return ossKeyList;
+        for (Diary diary : diaryList) {
+            if (diary == null || diary.getImageList() == null || diary.getImageList().size() <= 0) {
+                continue;
+            }
+            ossKeyList.addAll(diary.getImageList());
         }
-        return fileList;
+        return ossKeyList;
+    }
+
+    // 集合类型转换(Picture -> ossKey)
+    public static ArrayList<String> getOssKeyListByPicture(List<Picture> pictureList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (pictureList == null || pictureList.size() <= 0) return ossKeyList;
+        for (Picture picture : pictureList) {
+            if (picture == null || StringUtils.isEmpty(picture.getContent())) {
+                continue;
+            }
+            ossKeyList.add(picture.getContent());
+        }
+        return ossKeyList;
     }
 
     /**

@@ -40,10 +40,10 @@ public class SPHelper {
     private static final String SHARE_DIARY = "shareDiary";
 
     // common
-    private static final String FIELD_THEME = "theme";
-    private static final String FIELD_SET_NOTICE_SYSTEM = "noticeSystem";
-    private static final String FIELD_SET_NOTICE_SOCIAL = "noticeSocial";
-    private static final String FIELD_NOTICE_NO_READ_COUNT = "noticeNoReadCount";
+    private static final String FIELD_COMMON_THEME = "theme";
+    private static final String FIELD_COMMON_NOTICE_SYSTEM = "noticeSystem";
+    private static final String FIELD_COMMON_NOTICE_SOCIAL = "noticeSocial";
+    private static final String FIELD_COMMON_NOTICE_NO_READ_COUNT = "noticeNoReadCount";
     // user
     private static final String FIELD_USER_ID = "id";
     private static final String FIELD_USER_PHONE = "phone";
@@ -51,7 +51,7 @@ public class SPHelper {
     private static final String FIELD_USER_BIRTHDAY = "birthday";
     private static final String FIELD_USER_TOKEN = "userToken";
     // couple
-    private static final String FIELD_CP_ID = "coupleId";
+    private static final String FIELD_CP_ID = "id";
     private static final String FIELD_CP_STATUS = "status";
     private static final String FIELD_CP_UPDATE_AT = "updateAt";
     private static final String FIELD_CP_CREATOR_ID = "creatorId";
@@ -88,46 +88,46 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_BOOK_VIDEO = "pathBookVideo";
     private static final String FIELD_OSS_PATH_BOOK_THUMB = "pathBookThumb";
     // limit
-    private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "smsLimitEffectSec";
-    private static final String FIELD_LIMIT_SMS_BETWEEN = "smsLimitBetween";
-    private static final String FIELD_LIMIT_SMS_MAX_TIME = "smsLimitMaxTime";
-    private static final String FIELD_LIMIT_SMS_MAX_COUNT = "smsLimitMaxCount";
-    private static final String FIELD_LIMIT_SUGGEST_TITLE = "suggestLimitTitle";
-    private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT = "suggestLimitContentText";
-    private static final String FIELD_LIMIT_SUGGEST_PAGE_SIZE = "suggestLimitPageSize";
-    private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT = "suggestCommentLimitContent";
-    private static final String FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE = "suggestCommentLimitPageSize";
-    private static final String FIELD_LIMIT_COUPLE_NAME = "coupleLimitName";
-    private static final String FIELD_LIMIT_SOUVENIR_TITLE = "souvenirLimitTitle";
-    private static final String FIELD_LIMIT_WHISPER_CONTENT = "whisperLimitContent";
-    private static final String FIELD_LIMIT_WHISPER_CHANNEL = "whisperLimitChannel";
-    private static final String FIELD_LIMIT_WORD_CONTENT = "wordLimitContent";
-    private static final String FIELD_LIMIT_DIARY_CONTENT = "diaryLimitContent";
-    private static final String FIELD_LIMIT_ALBUM_TITLE = "albumLimitTitle";
-    private static final String FIELD_LIMIT_PICTURE_COUNT = "pictureLimitCount";
-    private static final String FIELD_LIMIT_TRACK_TITLE = "trackLimitTitle";
-    private static final String FIELD_LIMIT_TRACK_PROCESS = "trackLimitProcess";
-    private static final String FIELD_LIMIT_PROMISE_CONTENT = "promiseLimitContent";
-    private static final String FIELD_LIMIT_AUDIO_TITLE = "audioLimitTitle";
-    private static final String FIELD_LIMIT_VIDEO_TITLE = "videoLimitTitle";
-    private static final String FIELD_LIMIT_GIFT_NAME = "giftLimitName";
-    private static final String FIELD_LIMIT_DREAM_CONTENT = "dreamLimitContent";
-    private static final String FIELD_LIMIT_ANGRY_REASON = "angryLimitReason";
-    private static final String FIELD_LIMIT_AWARD_REASON = "awardLimitReason";
-    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipLimitExpireDays";
+    private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "smsEffectSec";
+    private static final String FIELD_LIMIT_SMS_BETWEEN = "smsBetween";
+    private static final String FIELD_LIMIT_SMS_MAX_TIME = "smsMaxTime";
+    private static final String FIELD_LIMIT_SMS_MAX_COUNT = "smsMaxCount";
+    private static final String FIELD_LIMIT_SUGGEST_TITLE_LENGTH = "suggestTitleLength";
+    private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH = "suggestContentTextLength";
+    private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggestCommentContentLength";
+    private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "coupleNameLength";
+    private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenirTitleLength";
+    private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisperContentLength";
+    private static final String FIELD_LIMIT_WHISPER_CHANNEL_LENGTH = "whisperChannelLength";
+    private static final String FIELD_LIMIT_WORD_CONTENT_LENGTH = "wordContentLength";
+    private static final String FIELD_LIMIT_DIARY_CONTENT_LENGTH = "diaryContentLength";
+    private static final String FIELD_LIMIT_ALBUM_TITLE_LENGTH = "albumTitleLength";
+    private static final String FIELD_LIMIT_PICTURE_COUNT = "pictureCount";
+    private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meetTitleLength";
+    private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meetProcessLength";
+    private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promiseContentLength";
+    private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audioTitleLength";
+    private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "videoTitleLength";
+    private static final String FIELD_LIMIT_GIFT_NAME_LENGTH = "giftNameLength";
+    private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dreamContentLength";
+    private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angryReasonLength";
+    private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "awardReasonLength";
+    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipExpireDays";
     // vipLimit
-    private static final String FIELD_VIP_LIMIT_EXPIRE_AT = "expireAt";
-    private static final String FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT = "coupleWallPaperCount";
-    private static final String FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT = "bookWhisperImageCount";
-    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT = "bookDiaryImageCount";
-    private static final String FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE = "bookDiaryImageSize";
-    private static final String FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT = "bookAlbumTotalCount";
-    private static final String FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT = "bookPictureTotalCount";
-    private static final String FIELD_VIP_LIMIT_BK_PICTURE_SIZE = "bookPictureSize";
-    private static final String FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT = "bookGiftImageCount";
-    private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "bookMeetImageCount";
-    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "bookAudioTotalSize";
-    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "bookVideoTotalSize";
+    private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vipExpireAt";
+    private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wallPaperCount";
+    private static final String FIELD_VIP_LIMIT_WHISPER_IMG_COUNT = "whisperImageCount";
+    private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diaryImageSize";
+    private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diaryImageCount";
+    private static final String FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT = "albumTotalCount";
+    private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "pictureSize";
+    private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "pictureTotalCount";
+    private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "meetImageCount";
+    private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "giftImageCount";
+    private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "audioSize";
+    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "audioTotalSize";
+    private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "videoSize";
+    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "videoTotalSize";
     private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topicImageEnable";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "companyName";
@@ -302,32 +302,30 @@ public class SPHelper {
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_LIMIT).edit();
-        editor.putInt(FIELD_LIMIT_SMS_EFFECT_SEC, limit.getSmsLimitEffectSec());
-        editor.putInt(FIELD_LIMIT_SMS_BETWEEN, limit.getSmsLimitBetween());
-        editor.putInt(FIELD_LIMIT_SMS_MAX_TIME, limit.getSmsLimitMaxTime());
-        editor.putInt(FIELD_LIMIT_SMS_MAX_COUNT, limit.getSmsLimitMaxCount());
-        editor.putInt(FIELD_LIMIT_SUGGEST_TITLE, limit.getSuggestLimitTitle());
-        editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT, limit.getSuggestLimitContentText());
-        editor.putInt(FIELD_LIMIT_SUGGEST_PAGE_SIZE, limit.getSuggestLimitPageSize());
-        editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT, limit.getSuggestCommentLimitContent());
-        editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE, limit.getSuggestCommentLimitPageSize());
-        editor.putInt(FIELD_LIMIT_COUPLE_NAME, limit.getCoupleLimitName());
-        editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE, limit.getSouvenirLimitTitle());
-        editor.putInt(FIELD_LIMIT_WHISPER_CONTENT, limit.getWhisperLimitContent());
-        editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL, limit.getWhisperLimitChannel());
-        editor.putInt(FIELD_LIMIT_WORD_CONTENT, limit.getWordLimitContent());
-        editor.putInt(FIELD_LIMIT_DIARY_CONTENT, limit.getDiaryLimitContent());
-        editor.putInt(FIELD_LIMIT_TRACK_TITLE, limit.getTrackLimitTitle());
-        editor.putInt(FIELD_LIMIT_TRACK_PROCESS, limit.getTrackLimitProcess());
-        editor.putInt(FIELD_LIMIT_ALBUM_TITLE, limit.getAlbumLimitTitle());
-        editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureLimitCount());
-        editor.putInt(FIELD_LIMIT_PROMISE_CONTENT, limit.getPromiseLimitContent());
-        editor.putInt(FIELD_LIMIT_AUDIO_TITLE, limit.getAudioLimitTitle());
-        editor.putInt(FIELD_LIMIT_VIDEO_TITLE, limit.getVideoLimitTitle());
-        editor.putInt(FIELD_LIMIT_GIFT_NAME, limit.getGiftLimitName());
-        editor.putInt(FIELD_LIMIT_DREAM_CONTENT, limit.getDreamLimitContent());
-        editor.putInt(FIELD_LIMIT_ANGRY_REASON, limit.getAngryLimitReason());
-        editor.putInt(FIELD_LIMIT_AWARD_REASON, limit.getAwardLimitReason());
+        editor.putInt(FIELD_LIMIT_SMS_EFFECT_SEC, limit.getSmsEffectSec());
+        editor.putInt(FIELD_LIMIT_SMS_BETWEEN, limit.getSmsBetween());
+        editor.putInt(FIELD_LIMIT_SMS_MAX_TIME, limit.getSmsMaxTime());
+        editor.putInt(FIELD_LIMIT_SMS_MAX_COUNT, limit.getSmsMaxCount());
+        editor.putInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, limit.getSuggestTitleLength());
+        editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, limit.getSuggestContentTextLength());
+        editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
+        editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
+        editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
+        editor.putInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, limit.getWhisperContentLength());
+        editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, limit.getWhisperChannelLength());
+        editor.putInt(FIELD_LIMIT_WORD_CONTENT_LENGTH, limit.getWordContentLength());
+        editor.putInt(FIELD_LIMIT_DIARY_CONTENT_LENGTH, limit.getDiaryContentLength());
+        editor.putInt(FIELD_LIMIT_MEET_TITLE_LENGTH, limit.getMeetTitleLength());
+        editor.putInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, limit.getMeetProcessLength());
+        editor.putInt(FIELD_LIMIT_ALBUM_TITLE_LENGTH, limit.getAlbumTitleLength());
+        editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureCount());
+        editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
+        editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
+        editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
+        editor.putInt(FIELD_LIMIT_GIFT_NAME_LENGTH, limit.getGiftNameLength());
+        editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
+        editor.putInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, limit.getAngryReasonLength());
+        editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipLimitExpireDays());
         editor.apply();
     }
@@ -335,32 +333,30 @@ public class SPHelper {
     public static Limit getLimit() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_LIMIT);
         Limit limit = new Limit();
-        limit.setSmsLimitEffectSec(sp.getInt(FIELD_LIMIT_SMS_EFFECT_SEC, 60 * 5));
-        limit.setSmsLimitBetween(sp.getInt(FIELD_LIMIT_SMS_BETWEEN, 60 * 2));
-        limit.setSmsLimitMaxTime(sp.getInt(FIELD_LIMIT_SMS_MAX_TIME, 60 * 60));
-        limit.setSmsLimitMaxCount(sp.getInt(FIELD_LIMIT_SMS_MAX_COUNT, 5));
-        limit.setSuggestLimitTitle(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE, 20));
-        limit.setSuggestLimitContentText(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT, 200));
-        limit.setSuggestLimitPageSize(sp.getInt(FIELD_LIMIT_SUGGEST_PAGE_SIZE, 30));
-        limit.setSuggestCommentLimitContent(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT, 200));
-        limit.setSuggestCommentLimitPageSize(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_PAGE_SIZE, 30));
-        limit.setCoupleLimitName(sp.getInt(FIELD_LIMIT_COUPLE_NAME, 6));
-        limit.setSouvenirLimitTitle(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE, 20));
-        limit.setWhisperLimitContent(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT, 100));
-        limit.setWhisperLimitChannel(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL, 10));
-        limit.setWordLimitContent(sp.getInt(FIELD_LIMIT_WORD_CONTENT, 100));
-        limit.setDiaryLimitContent(sp.getInt(FIELD_LIMIT_DIARY_CONTENT, 2000));
-        limit.setAlbumLimitTitle(sp.getInt(FIELD_LIMIT_ALBUM_TITLE, 10));
-        limit.setPictureLimitCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
-        limit.setTrackLimitTitle(sp.getInt(FIELD_LIMIT_TRACK_TITLE, 20));
-        limit.setTrackLimitProcess(sp.getInt(FIELD_LIMIT_TRACK_PROCESS, 200));
-        limit.setPromiseLimitContent(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT, 200));
-        limit.setAudioLimitTitle(sp.getInt(FIELD_LIMIT_AUDIO_TITLE, 20));
-        limit.setVideoLimitTitle(sp.getInt(FIELD_LIMIT_VIDEO_TITLE, 20));
-        limit.setGiftLimitName(sp.getInt(FIELD_LIMIT_GIFT_NAME, 20));
-        limit.setDreamLimitContent(sp.getInt(FIELD_LIMIT_DREAM_CONTENT, 1000));
-        limit.setAngryLimitReason(sp.getInt(FIELD_LIMIT_ANGRY_REASON, 200));
-        limit.setAwardLimitReason(sp.getInt(FIELD_LIMIT_AWARD_REASON, 10));
+        limit.setSmsEffectSec(sp.getInt(FIELD_LIMIT_SMS_EFFECT_SEC, 60 * 5));
+        limit.setSmsBetween(sp.getInt(FIELD_LIMIT_SMS_BETWEEN, 60 * 2));
+        limit.setSmsMaxTime(sp.getInt(FIELD_LIMIT_SMS_MAX_TIME, 60 * 60));
+        limit.setSmsMaxCount(sp.getInt(FIELD_LIMIT_SMS_MAX_COUNT, 5));
+        limit.setSuggestTitleLength(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, 20));
+        limit.setSuggestContentTextLength(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, 200));
+        limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
+        limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
+        limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
+        limit.setWhisperContentLength(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, 100));
+        limit.setWhisperChannelLength(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, 10));
+        limit.setWordContentLength(sp.getInt(FIELD_LIMIT_WORD_CONTENT_LENGTH, 100));
+        limit.setDiaryContentLength(sp.getInt(FIELD_LIMIT_DIARY_CONTENT_LENGTH, 2000));
+        limit.setAlbumTitleLength(sp.getInt(FIELD_LIMIT_ALBUM_TITLE_LENGTH, 10));
+        limit.setPictureCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
+        limit.setMeetTitleLength(sp.getInt(FIELD_LIMIT_MEET_TITLE_LENGTH, 20));
+        limit.setMeetProcessLength(sp.getInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, 200));
+        limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
+        limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
+        limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
+        limit.setGiftNameLength(sp.getInt(FIELD_LIMIT_GIFT_NAME_LENGTH, 20));
+        limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
+        limit.setAngryReasonLength(sp.getInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, 200));
+        limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
         limit.setVipLimitExpireDays(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
     }
@@ -385,11 +381,11 @@ public class SPHelper {
         if (suggestInfo == null) {
             suggestInfo = new SuggestInfo();
         }
-        if (suggestInfo.getSuggestStatusList() == null) {
-            suggestInfo.setSuggestStatusList(new ArrayList<SuggestInfo.SuggestStatus>());
+        if (suggestInfo.getStatusList() == null) {
+            suggestInfo.setStatusList(new ArrayList<SuggestInfo.SuggestStatus>());
         }
-        if (suggestInfo.getSuggestContentTypeList() == null) {
-            suggestInfo.setSuggestContentTypeList(new ArrayList<SuggestInfo.SuggestContentType>());
+        if (suggestInfo.getContentTypeList() == null) {
+            suggestInfo.setContentTypeList(new ArrayList<SuggestInfo.SuggestContentType>());
         }
         return suggestInfo;
     }
@@ -459,18 +455,20 @@ public class SPHelper {
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
-        editor.putLong(FIELD_VIP_LIMIT_EXPIRE_AT, vipLimit.getExpireAt());
-        editor.putInt(FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT, vipLimit.getCoupleWallPaperCount());
-        editor.putInt(FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT, vipLimit.getBookWhisperImageCount());
-        editor.putInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, vipLimit.getBookDiaryImageCount());
-        editor.putLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, vipLimit.getBookDiaryImageSize());
-        editor.putInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, vipLimit.getBookAlbumTotalCount());
-        editor.putInt(FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT, vipLimit.getBookPictureTotalCount());
-        editor.putLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, vipLimit.getBookPictureSize());
-        editor.putInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, vipLimit.getBookGiftImageCount());
-        editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getBookMeetImageCount());
-        editor.putLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, vipLimit.getBookAudioTotalSize());
-        editor.putLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, vipLimit.getBookVideoTotalSize());
+        editor.putLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, vipLimit.getVipExpireAt());
+        editor.putInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, vipLimit.getWallPaperCount());
+        editor.putInt(FIELD_VIP_LIMIT_WHISPER_IMG_COUNT, vipLimit.getWhisperImageCount());
+        editor.putInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, vipLimit.getDiaryImageCount());
+        editor.putLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, vipLimit.getDiaryImageSize());
+        editor.putInt(FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT, vipLimit.getAlbumTotalCount());
+        editor.putInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, vipLimit.getPictureTotalCount());
+        editor.putLong(FIELD_VIP_LIMIT_PICTURE_SIZE, vipLimit.getPictureSize());
+        editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
+        editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getMeetImageCount());
+        editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getAudioSize());
+        editor.putLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, vipLimit.getAudioTotalSize());
+        editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getVideoSize());
+        editor.putLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, vipLimit.getVideoTotalSize());
         editor.putBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, vipLimit.isTopicImageEnable());
         editor.apply();
     }
@@ -478,18 +476,20 @@ public class SPHelper {
     public static VipLimit getVipLimit() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT);
         VipLimit vipLimit = new VipLimit();
-        vipLimit.setExpireAt(sp.getLong(FIELD_VIP_LIMIT_EXPIRE_AT, 0));
-        vipLimit.setCoupleWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_CP_WALL_PAPER_COUNT, 1));
-        vipLimit.setBookWhisperImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_WHISPER_IMG_COUNT, 0));
-        vipLimit.setBookDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_DIARY_IMG_COUNT, 0));
-        vipLimit.setBookDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_BK_DIARY_IMG_SIZE, 0));
-        vipLimit.setBookAlbumTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_ALBUM_TOTAL_COUNT, 0));
-        vipLimit.setBookPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_BK_PICTURE_TOTAL_COUNT, 0));
-        vipLimit.setBookPictureSize(sp.getLong(FIELD_VIP_LIMIT_BK_PICTURE_SIZE, 0));
-        vipLimit.setBookGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_BK_GIFT_IMG_COUNT, 0));
-        vipLimit.setBookMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));
-        vipLimit.setBookAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, 0));
-        vipLimit.setBookVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, 0));
+        vipLimit.setVipExpireAt(sp.getLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, 0));
+        vipLimit.setWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, 1));
+        vipLimit.setWhisperImageCount(sp.getInt(FIELD_VIP_LIMIT_WHISPER_IMG_COUNT, 0));
+        vipLimit.setDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, 0));
+        vipLimit.setDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, 0));
+        vipLimit.setAlbumTotalCount(sp.getInt(FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT, 0));
+        vipLimit.setPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, 0));
+        vipLimit.setPictureSize(sp.getLong(FIELD_VIP_LIMIT_PICTURE_SIZE, 0));
+        vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
+        vipLimit.setMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));
+        vipLimit.setAudioSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
+        vipLimit.setAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, 0));
+        vipLimit.setVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
+        vipLimit.setVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, 0));
         vipLimit.setTopicImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, false));
         return vipLimit;
     }
@@ -571,46 +571,46 @@ public class SPHelper {
 
     public static void setTheme(int themeId) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putInt(FIELD_THEME, themeId);
+        editor.putInt(FIELD_COMMON_THEME, themeId);
         editor.apply();
     }
 
     public static int getTheme() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getInt(FIELD_THEME, ThemeHelper.THEME_PINK);
+        return sp.getInt(FIELD_COMMON_THEME, ThemeHelper.THEME_PINK);
     }
 
     public static void setSettingsNoticeSystem(boolean system) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_SET_NOTICE_SYSTEM, system);
+        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, system);
         editor.apply();
     }
 
     public static boolean getSettingsNoticeSystem() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getBoolean(FIELD_SET_NOTICE_SYSTEM, true);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_SYSTEM, true);
     }
 
     public static void setSettingsNoticeSocial(boolean ta) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_SET_NOTICE_SOCIAL, ta);
+        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, ta);
         editor.apply();
     }
 
     public static boolean getSettingsNoticeSocial() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getBoolean(FIELD_SET_NOTICE_SOCIAL, true);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
     }
 
     public static void setNoticeNoReadCount(long count) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putLong(FIELD_NOTICE_NO_READ_COUNT, count);
+        editor.putLong(FIELD_COMMON_NOTICE_NO_READ_COUNT, count);
         editor.apply();
     }
 
     public static long getNoticeNoReadCount() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getLong(FIELD_NOTICE_NO_READ_COUNT, 0);
+        return sp.getLong(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
     }
 
 }

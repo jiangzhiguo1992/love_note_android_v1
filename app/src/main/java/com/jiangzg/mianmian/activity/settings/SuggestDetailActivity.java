@@ -95,7 +95,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Call<Result> callFollow;
     private Call<Result> callCommentGet;
     private int page;
-    private int commentLimit;
+    private int limitCommentContentLength;
 
     public static void goActivity(Activity from, Suggest suggest) {
         Intent intent = new Intent(from, SuggestDetailActivity.class);
@@ -338,17 +338,17 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void onCommentInput(String input) {
-        if (commentLimit <= 0) {
-            commentLimit = SPHelper.getLimit().getSuggestCommentLimitContent();
+        if (limitCommentContentLength <= 0) {
+            limitCommentContentLength = SPHelper.getLimit().getSuggestCommentContentLength();
         }
         int length = input.length();
-        if (length > commentLimit) {
-            CharSequence charSequence = input.subSequence(0, commentLimit);
+        if (length > limitCommentContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitCommentContentLength);
             etComment.setText(charSequence);
             etComment.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, commentLimit);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitCommentContentLength);
         tvCommentLimit.setText(limitShow);
     }
 

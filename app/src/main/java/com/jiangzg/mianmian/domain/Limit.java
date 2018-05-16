@@ -7,134 +7,116 @@ package com.jiangzg.mianmian.domain;
 public class Limit {
 
     // common
-    private int smsLimitEffectSec;
-    private int smsLimitBetween;
-    private int smsLimitMaxTime;
-    private int smsLimitMaxCount;
+    private int smsEffectSec;
+    private int smsBetween;
+    private int smsMaxTime;
+    private int smsMaxCount;
     // settings
-    private int suggestLimitTitle;
-    private int suggestLimitContentText;
-    private int suggestLimitPageSize;
-    private int suggestCommentLimitContent;
-    private int suggestCommentLimitPageSize;
+    private int suggestTitleLength;
+    private int suggestContentTextLength;
+    private int suggestCommentContentLength;
     // couple
-    private int coupleLimitName;
+    private int coupleNameLength;
     // book
-    private int souvenirLimitTitle;
-    private int whisperLimitContent;
-    private int whisperLimitChannel;
-    private int wordLimitContent;
-    private int diaryLimitContent;
-    private int albumLimitTitle;
-    private int pictureLimitCount;
-    private int trackLimitTitle;
-    private int trackLimitProcess;
-    private int promiseLimitContent;
-    private int audioLimitTitle;
-    private int videoLimitTitle;
-    private int giftLimitName;
-    private int dreamLimitContent;
-    private int angryLimitReason;
-    private int awardLimitReason;
+    private int souvenirTitleLength;
+    private int whisperContentLength;
+    private int whisperChannelLength;
+    private int wordContentLength;
+    private int diaryContentLength;
+    private int albumTitleLength;
+    private int pictureCount;
+    private int meetTitleLength;
+    private int meetProcessLength;
+    private int promiseContentLength;
+    private int audioTitleLength;
+    private int videoTitleLength;
+    private int giftNameLength;
+    private int dreamContentLength;
+    private int angryReasonLength;
+    private int awardReasonLength;
     // topic
 
     // square
     private int vipLimitExpireDays;
 
-    public int getPictureLimitCount() {
-        return pictureLimitCount;
+    public int getPictureCount() {
+        return pictureCount;
     }
 
-    public void setPictureLimitCount(int pictureLimitCount) {
-        this.pictureLimitCount = pictureLimitCount;
+    public void setPictureCount(int pictureCount) {
+        this.pictureCount = pictureCount;
     }
 
-    public int getWhisperLimitChannel() {
-        return whisperLimitChannel;
+    public int getWhisperChannelLength() {
+        return whisperChannelLength;
     }
 
-    public void setWhisperLimitChannel(int whisperLimitChannel) {
-        this.whisperLimitChannel = whisperLimitChannel;
+    public void setWhisperChannelLength(int whisperChannelLength) {
+        this.whisperChannelLength = whisperChannelLength;
     }
 
-    public int getSmsLimitEffectSec() {
-        return smsLimitEffectSec;
+    public int getSmsEffectSec() {
+        return smsEffectSec;
     }
 
-    public void setSmsLimitEffectSec(int smsLimitEffectSec) {
-        this.smsLimitEffectSec = smsLimitEffectSec;
+    public void setSmsEffectSec(int smsEffectSec) {
+        this.smsEffectSec = smsEffectSec;
     }
 
-    public int getSmsLimitBetween() {
-        return smsLimitBetween;
+    public int getSmsBetween() {
+        return smsBetween;
     }
 
-    public void setSmsLimitBetween(int smsLimitBetween) {
-        this.smsLimitBetween = smsLimitBetween;
+    public void setSmsBetween(int smsBetween) {
+        this.smsBetween = smsBetween;
     }
 
-    public int getSmsLimitMaxTime() {
-        return smsLimitMaxTime;
+    public int getSmsMaxTime() {
+        return smsMaxTime;
     }
 
-    public void setSmsLimitMaxTime(int smsLimitMaxTime) {
-        this.smsLimitMaxTime = smsLimitMaxTime;
+    public void setSmsMaxTime(int smsMaxTime) {
+        this.smsMaxTime = smsMaxTime;
     }
 
-    public int getSmsLimitMaxCount() {
-        return smsLimitMaxCount;
+    public int getSmsMaxCount() {
+        return smsMaxCount;
     }
 
-    public void setSmsLimitMaxCount(int smsLimitMaxCount) {
-        this.smsLimitMaxCount = smsLimitMaxCount;
+    public void setSmsMaxCount(int smsMaxCount) {
+        this.smsMaxCount = smsMaxCount;
     }
 
-    public int getSuggestLimitTitle() {
-        return suggestLimitTitle;
+    public int getSuggestTitleLength() {
+        return suggestTitleLength;
     }
 
-    public void setSuggestLimitTitle(int suggestLimitTitle) {
-        this.suggestLimitTitle = suggestLimitTitle;
+    public void setSuggestTitleLength(int suggestTitleLength) {
+        this.suggestTitleLength = suggestTitleLength;
     }
 
-    public int getSuggestLimitContentText() {
-        return suggestLimitContentText;
+    public int getSuggestContentTextLength() {
+        return suggestContentTextLength;
     }
 
-    public void setSuggestLimitContentText(int suggestLimitContentText) {
-        this.suggestLimitContentText = suggestLimitContentText;
+    public void setSuggestContentTextLength(int suggestContentTextLength) {
+        this.suggestContentTextLength = suggestContentTextLength;
     }
 
-    public int getSuggestLimitPageSize() {
-        return suggestLimitPageSize;
+    public int getSuggestCommentContentLength() {
+        return suggestCommentContentLength;
     }
 
-    public void setSuggestLimitPageSize(int suggestLimitPageSize) {
-        this.suggestLimitPageSize = suggestLimitPageSize;
+    public void setSuggestCommentContentLength(int suggestCommentContentLength) {
+        this.suggestCommentContentLength = suggestCommentContentLength;
     }
 
-    public int getSuggestCommentLimitContent() {
-        return suggestCommentLimitContent;
+    public int getCoupleNameLength() {
+        return coupleNameLength;
     }
 
-    public void setSuggestCommentLimitContent(int suggestCommentLimitContent) {
-        this.suggestCommentLimitContent = suggestCommentLimitContent;
-    }
-
-    public int getSuggestCommentLimitPageSize() {
-        return suggestCommentLimitPageSize;
-    }
-
-    public void setSuggestCommentLimitPageSize(int suggestCommentLimitPageSize) {
-        this.suggestCommentLimitPageSize = suggestCommentLimitPageSize;
-    }
-
-    public int getCoupleLimitName() {
-        return coupleLimitName;
-    }
-
-    public void setCoupleLimitName(int coupleLimitName) {
-        this.coupleLimitName = coupleLimitName;
+    public void setCoupleNameLength(int coupleNameLength) {
+        this.coupleNameLength = coupleNameLength;
     }
 
     public int getVipLimitExpireDays() {
@@ -145,116 +127,116 @@ public class Limit {
         this.vipLimitExpireDays = vipLimitExpireDays;
     }
 
-    public int getSouvenirLimitTitle() {
-        return souvenirLimitTitle;
+    public int getSouvenirTitleLength() {
+        return souvenirTitleLength;
     }
 
-    public void setSouvenirLimitTitle(int souvenirLimitTitle) {
-        this.souvenirLimitTitle = souvenirLimitTitle;
+    public void setSouvenirTitleLength(int souvenirTitleLength) {
+        this.souvenirTitleLength = souvenirTitleLength;
     }
 
-    public int getWhisperLimitContent() {
-        return whisperLimitContent;
+    public int getWhisperContentLength() {
+        return whisperContentLength;
     }
 
-    public void setWhisperLimitContent(int whisperLimitContent) {
-        this.whisperLimitContent = whisperLimitContent;
+    public void setWhisperContentLength(int whisperContentLength) {
+        this.whisperContentLength = whisperContentLength;
     }
 
-    public int getWordLimitContent() {
-        return wordLimitContent;
+    public int getWordContentLength() {
+        return wordContentLength;
     }
 
-    public void setWordLimitContent(int wordLimitContent) {
-        this.wordLimitContent = wordLimitContent;
+    public void setWordContentLength(int wordContentLength) {
+        this.wordContentLength = wordContentLength;
     }
 
-    public int getDiaryLimitContent() {
-        return diaryLimitContent;
+    public int getDiaryContentLength() {
+        return diaryContentLength;
     }
 
-    public void setDiaryLimitContent(int diaryLimitContent) {
-        this.diaryLimitContent = diaryLimitContent;
+    public void setDiaryContentLength(int diaryContentLength) {
+        this.diaryContentLength = diaryContentLength;
     }
 
-    public int getTrackLimitTitle() {
-        return trackLimitTitle;
+    public int getMeetTitleLength() {
+        return meetTitleLength;
     }
 
-    public void setTrackLimitTitle(int trackLimitTitle) {
-        this.trackLimitTitle = trackLimitTitle;
+    public void setMeetTitleLength(int meetTitleLength) {
+        this.meetTitleLength = meetTitleLength;
     }
 
-    public int getTrackLimitProcess() {
-        return trackLimitProcess;
+    public int getMeetProcessLength() {
+        return meetProcessLength;
     }
 
-    public void setTrackLimitProcess(int trackLimitProcess) {
-        this.trackLimitProcess = trackLimitProcess;
+    public void setMeetProcessLength(int meetProcessLength) {
+        this.meetProcessLength = meetProcessLength;
     }
 
-    public int getAlbumLimitTitle() {
-        return albumLimitTitle;
+    public int getAlbumTitleLength() {
+        return albumTitleLength;
     }
 
-    public void setAlbumLimitTitle(int albumLimitTitle) {
-        this.albumLimitTitle = albumLimitTitle;
+    public void setAlbumTitleLength(int albumTitleLength) {
+        this.albumTitleLength = albumTitleLength;
     }
 
-    public int getPromiseLimitContent() {
-        return promiseLimitContent;
+    public int getPromiseContentLength() {
+        return promiseContentLength;
     }
 
-    public void setPromiseLimitContent(int promiseLimitContent) {
-        this.promiseLimitContent = promiseLimitContent;
+    public void setPromiseContentLength(int promiseContentLength) {
+        this.promiseContentLength = promiseContentLength;
     }
 
-    public int getAudioLimitTitle() {
-        return audioLimitTitle;
+    public int getAudioTitleLength() {
+        return audioTitleLength;
     }
 
-    public void setAudioLimitTitle(int audioLimitTitle) {
-        this.audioLimitTitle = audioLimitTitle;
+    public void setAudioTitleLength(int audioTitleLength) {
+        this.audioTitleLength = audioTitleLength;
     }
 
-    public int getVideoLimitTitle() {
-        return videoLimitTitle;
+    public int getVideoTitleLength() {
+        return videoTitleLength;
     }
 
-    public void setVideoLimitTitle(int videoLimitTitle) {
-        this.videoLimitTitle = videoLimitTitle;
+    public void setVideoTitleLength(int videoTitleLength) {
+        this.videoTitleLength = videoTitleLength;
     }
 
-    public int getGiftLimitName() {
-        return giftLimitName;
+    public int getGiftNameLength() {
+        return giftNameLength;
     }
 
-    public void setGiftLimitName(int giftLimitName) {
-        this.giftLimitName = giftLimitName;
+    public void setGiftNameLength(int giftNameLength) {
+        this.giftNameLength = giftNameLength;
     }
 
-    public int getDreamLimitContent() {
-        return dreamLimitContent;
+    public int getDreamContentLength() {
+        return dreamContentLength;
     }
 
-    public void setDreamLimitContent(int dreamLimitContent) {
-        this.dreamLimitContent = dreamLimitContent;
+    public void setDreamContentLength(int dreamContentLength) {
+        this.dreamContentLength = dreamContentLength;
     }
 
-    public int getAngryLimitReason() {
-        return angryLimitReason;
+    public int getAngryReasonLength() {
+        return angryReasonLength;
     }
 
-    public void setAngryLimitReason(int angryLimitReason) {
-        this.angryLimitReason = angryLimitReason;
+    public void setAngryReasonLength(int angryReasonLength) {
+        this.angryReasonLength = angryReasonLength;
     }
 
-    public int getAwardLimitReason() {
-        return awardLimitReason;
+    public int getAwardReasonLength() {
+        return awardReasonLength;
     }
 
-    public void setAwardLimitReason(int awardLimitReason) {
-        this.awardLimitReason = awardLimitReason;
+    public void setAwardReasonLength(int awardReasonLength) {
+        this.awardReasonLength = awardReasonLength;
     }
 
 }

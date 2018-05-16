@@ -61,7 +61,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     @BindView(R.id.btnSend)
     Button btnSend;
 
-    private int limitContent;
+    private int limitContentLength;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callGet;
     private Call<Result> callAdd;
@@ -87,8 +87,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.word), true);
         // editTextHint
-        limitContent = SPHelper.getLimit().getWordLimitContent();
-        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContent);
+        limitContentLength = SPHelper.getLimit().getWordContentLength();
+        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContentLength);
         etContent.setHint(format);
         etContent.setText("");
         // recycler
@@ -172,8 +172,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             btnSend.setEnabled(true);
         }
         int length = input.length();
-        if (length > limitContent) {
-            CharSequence charSequence = input.subSequence(0, limitContent);
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
             etContent.setText(charSequence);
             etContent.setSelection(charSequence.length());
         }

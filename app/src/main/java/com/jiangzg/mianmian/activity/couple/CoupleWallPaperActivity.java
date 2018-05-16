@@ -184,7 +184,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void addWallPaper() {
-        int count = SPHelper.getVipLimit().getCoupleWallPaperCount();
+        int count = SPHelper.getVipLimit().getWallPaperCount();
         if (recyclerHelper == null) return;
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         if (adapter == null) return;

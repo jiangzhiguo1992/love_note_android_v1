@@ -158,7 +158,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             imgAdapter.setNewData(pictureList);
         } else {
             // 添加
-            int pictureLimitCount = SPHelper.getLimit().getPictureLimitCount();
+            int pictureLimitCount = SPHelper.getLimit().getPictureCount();
             int spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
             final ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
             imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
@@ -321,7 +321,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void showImgSelect() {
-        if (SPHelper.getVipLimit().getBookPictureTotalCount() > 0) {
+        if (SPHelper.getVipLimit().getPictureTotalCount() > 0) {
             cameraFile = ResHelper.newImageOutCacheFile();
             PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);

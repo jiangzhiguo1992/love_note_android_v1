@@ -82,8 +82,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private File cameraFile;
     private File pictureFile;
     private List<SuggestInfo.SuggestContentType> suggestContentTypeList;
-    private int titleLimit;
-    private int contentLimit;
+    private int limitTitleLength;
+    private int limitContentLength;
     private Call<Result> call;
 
     public static void goActivity(Activity from) {
@@ -150,7 +150,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @Override
     protected void initData(Bundle state) {
         SuggestInfo suggestInfo = SPHelper.getSuggestInfo();
-        suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
+        suggestContentTypeList = suggestInfo.getContentTypeList();
     }
 
     @Override
@@ -252,32 +252,32 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void onTitleInput(String s) {
-        if (titleLimit <= 0) {
-            titleLimit = SPHelper.getLimit().getSuggestLimitTitle();
+        if (limitTitleLength <= 0) {
+            limitTitleLength = SPHelper.getLimit().getSuggestTitleLength();
         }
         int length = s.length();
-        if (length > titleLimit) {
-            CharSequence charSequence = s.subSequence(0, titleLimit);
+        if (length > limitTitleLength) {
+            CharSequence charSequence = s.subSequence(0, limitTitleLength);
             etTitle.setText(charSequence);
             etTitle.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, titleLimit);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitTitleLength);
         tvTitleLimit.setText(limitShow);
     }
 
     private void onContentInput(String s) {
-        if (contentLimit <= 0) {
-            contentLimit = SPHelper.getLimit().getSuggestLimitContentText();
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getSuggestContentTextLength();
         }
         int length = s.length();
-        if (length > contentLimit) {
-            CharSequence charSequence = s.subSequence(0, contentLimit);
+        if (length > limitContentLength) {
+            CharSequence charSequence = s.subSequence(0, limitContentLength);
             etContent.setText(charSequence);
             etContent.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, contentLimit);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
         tvContentLimit.setText(limitShow);
     }
 

@@ -77,7 +77,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     LinearLayout llAddText;
 
     private String channel;
-    private int limitChannel;
+    private int limitChannelLength;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
     private File cameraFile;
@@ -235,12 +235,12 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         } else {
             btnChangeChannel.setEnabled(true);
         }
-        if (limitChannel <= 0) {
-            limitChannel = SPHelper.getLimit().getWhisperLimitChannel();
+        if (limitChannelLength <= 0) {
+            limitChannelLength = SPHelper.getLimit().getWhisperChannelLength();
         }
         int length = input.length();
-        if (length > limitChannel) {
-            CharSequence charSequence = input.subSequence(0, limitChannel);
+        if (length > limitChannelLength) {
+            CharSequence charSequence = input.subSequence(0, limitChannelLength);
             etChannel.setText(charSequence);
             etChannel.setSelection(charSequence.length());
         }
@@ -248,14 +248,14 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 文字添加
     private void showEditDialog() {
-        int limitContent = SPHelper.getLimit().getWhisperLimitContent();
+        int limitContentLength = SPHelper.getLimit().getWhisperContentLength();
         String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
-        String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContent);
+        String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContentLength);
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .content(currentChannel)
-                .inputRange(1, limitContent)
+                .inputRange(1, limitContentLength)
                 .input(hint, "", false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
@@ -280,7 +280,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 图片获取
     private void showSelectImgPop() {
-        int imageCount = SPHelper.getVipLimit().getBookWhisperImageCount();
+        int imageCount = SPHelper.getVipLimit().getWhisperImageCount();
         if (imageCount <= 0) {
             ToastUtils.show(getString(R.string.now_status_cant_upload_img));
             return;

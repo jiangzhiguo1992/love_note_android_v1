@@ -268,7 +268,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     private void albumAdd() {
         if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
         BaseQuickAdapter adapter = recyclerHelper.getAdapter();
-        int totalCount = SPHelper.getVipLimit().getBookAlbumTotalCount();
+        int totalCount = SPHelper.getVipLimit().getAlbumTotalCount();
         if (adapter.getData().size() >= totalCount) {
             String toast;
             if (totalCount <= 0) {

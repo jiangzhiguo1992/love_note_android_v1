@@ -127,11 +127,11 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void initData(Bundle state) {
         // search
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getSuggestStatusList();
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
         if (suggestStatusList.size() > 0) {
             searchStatus = suggestStatusList.get(0).getStatus();
         }
-        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
+        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getContentTypeList();
         if (suggestContentTypeList.size() > 0) {
             searchType = suggestContentTypeList.get(0).getContentType();
         }
@@ -228,8 +228,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         dp4 = ConvertUtils.dp2px(4);
         dp5 = ConvertUtils.dp2px(5);
         dp14 = ConvertUtils.dp2px(14);
-        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getSuggestContentTypeList();
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getSuggestStatusList();
+        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getContentTypeList();
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
         for (int i = 0; i < suggestContentTypeList.size(); i++) {
             SuggestInfo.SuggestContentType contentType = suggestContentTypeList.get(i);
             RadioButton rb = getTypeRadioButton(contentType);

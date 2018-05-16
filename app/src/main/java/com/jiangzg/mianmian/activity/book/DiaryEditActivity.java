@@ -88,7 +88,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private Call<Result> callAdd;
     private File cameraFile;
     private List<File> cameraFileList;
-    private int limitContent;
+    private int limitContentLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryEditActivity.class);
@@ -131,11 +131,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         // date
         refreshDateView();
         // recycler
-        int limitImages = SPHelper.getVipLimit().getBookDiaryImageCount();
-        if (limitImages > 0) {
+        int limitImagesCount = SPHelper.getVipLimit().getDiaryImageCount();
+        if (limitImagesCount > 0) {
             rv.setVisibility(View.VISIBLE);
-            int spanCount = limitImages > 3 ? 3 : limitImages;
-            ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImages);
+            int spanCount = limitImagesCount > 3 ? 3 : limitImagesCount;
+            ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImagesCount);
             imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
                 @Override
                 public void onAdd() {
@@ -263,7 +263,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showImgSelect() {
-        if (SPHelper.getVipLimit().getBookDiaryImageCount() > 0) {
+        if (SPHelper.getVipLimit().getDiaryImageCount() > 0) {
             cameraFile = ResHelper.newImageOutCacheFile();
             PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);
@@ -273,17 +273,17 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void onContentInput(String input) {
-        if (limitContent <= 0) {
-            limitContent = SPHelper.getLimit().getDiaryLimitContent();
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getDiaryContentLength();
         }
         int length = input.length();
-        if (length > limitContent) {
-            CharSequence charSequence = input.subSequence(0, limitContent);
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
             etContent.setText(charSequence);
             etContent.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContent);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
         tvContentLimit.setText(limitShow);
         // 设置进去
         diary.setContent(etContent.getText().toString());

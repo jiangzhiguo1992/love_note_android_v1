@@ -70,7 +70,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     Button btnCommit;
 
     private Album album;
-    private int limitTitle;
+    private int limitTitleLength;
     private File cameraFile;
     private File pictureFile;
     private Call<Result> callAdd;
@@ -208,11 +208,11 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             cover = album.getCover();
         }
         // hint
-        if (limitTitle <= 0) {
-            limitTitle = SPHelper.getLimit().getAlbumLimitTitle();
+        if (limitTitleLength <= 0) {
+            limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
         }
         String string = getString(R.string.please_input_album_name_dont_over_holder_text);
-        String format = String.format(Locale.getDefault(), string, limitTitle);
+        String format = String.format(Locale.getDefault(), string, limitTitleLength);
         etTitle.setHint(format);
         // title
         etTitle.setText(title);
@@ -227,12 +227,12 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void onContentInput(String input) {
-        if (limitTitle <= 0) {
-            limitTitle = SPHelper.getLimit().getAlbumLimitTitle();
+        if (limitTitleLength <= 0) {
+            limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
         }
         int length = input.length();
-        if (length > limitTitle) {
-            CharSequence charSequence = input.subSequence(0, limitTitle);
+        if (length > limitTitleLength) {
+            CharSequence charSequence = input.subSequence(0, limitTitleLength);
             etTitle.setText(charSequence);
             etTitle.setSelection(charSequence.length());
         }
