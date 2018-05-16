@@ -42,7 +42,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         final String content = item.getContent();
         // view
         GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setDateAvatar(avatar);
+        ivAvatar.setData(avatar);
         helper.setText(R.id.tvCreateAt, createAt);
         TextView tvContent = helper.getView(R.id.tvContent);
         GImageView ivContent = helper.getView(R.id.ivContent);
@@ -55,7 +55,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
                     BigImageActivity.goActivityByOss(mActivity, content, iv);
                 }
             });
-            ivContent.setDataOss(content);
+            ivContent.setData(content);
         } else {
             tvContent.setVisibility(View.VISIBLE);
             ivContent.setVisibility(View.GONE);

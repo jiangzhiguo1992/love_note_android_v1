@@ -24,15 +24,6 @@ import java.util.List;
  */
 public class ConvertHelper {
 
-    // 全路径截取name
-    public static String getFileNameByOssPath(String objectKey) {
-        if (StringUtils.isEmpty(objectKey)) {
-            return "";
-        }
-        String[] split = objectKey.split("/");
-        return split[split.length - 1].trim();
-    }
-
     /**
      * **************************************用户信息**************************************
      */

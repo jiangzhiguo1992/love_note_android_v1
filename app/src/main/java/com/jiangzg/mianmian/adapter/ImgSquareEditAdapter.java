@@ -77,7 +77,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                         BigImageActivity.goActivityByOss(mActivity, item, iv);
                     }
                 });
-                ivShow.setDataOss(item);
+                ivShow.setData(item);
             } else {
                 // file
                 ivShow.setClickListener(new GImageView.ClickListener() {

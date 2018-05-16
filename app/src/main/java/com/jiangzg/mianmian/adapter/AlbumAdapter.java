@@ -73,7 +73,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
             int randomColor = ViewHelper.getRandomThemePrimaryRes();
             ivAlbum.setDataRes(randomColor);
         } else {
-            ivAlbum.setDataOss(cover);
+            ivAlbum.setData(cover);
         }
         // listener
         helper.addOnClickListener(R.id.tvModify);

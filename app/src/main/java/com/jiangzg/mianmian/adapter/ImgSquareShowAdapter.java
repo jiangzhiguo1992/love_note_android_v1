@@ -50,7 +50,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
             }
         });
-        ivShow.setDataOss(item);
+        ivShow.setData(item);
     }
 
 }

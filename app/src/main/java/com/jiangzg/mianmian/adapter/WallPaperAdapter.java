@@ -60,7 +60,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
             }
         });
         // 优先加载本地文件
-        ivWallPaper.setDateWallPaper(item);
+        ivWallPaper.setData(item);
     }
 
     private void goImgScreen(int position, GImageView view) {

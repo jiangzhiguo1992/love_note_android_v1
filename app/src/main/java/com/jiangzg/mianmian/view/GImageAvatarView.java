@@ -34,8 +34,8 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.mianmian.helper.FrescoHelper;
-import com.jiangzg.mianmian.helper.ImgResHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 
 import java.io.File;
 
@@ -148,9 +148,9 @@ public class GImageAvatarView extends SimpleDraweeView {
         mHeight = height;
     }
 
-    public void setDateAvatar(String ossKey) {
-        if (ImgResHelper.isAvatarExists(ossKey)) {
-            File file = ImgResHelper.newAvatarFile(ossKey);
+    public void setData(String ossKey) {
+        if (OssResHelper.isKeyFileExists(ossKey)) {
+            File file = OssResHelper.newKeyFile(ossKey);
             if (!FileUtils.isFileEmpty(file)) {
                 this.setDataFile(file);
             } else {
@@ -162,7 +162,7 @@ public class GImageAvatarView extends SimpleDraweeView {
     }
 
     // http:// https:// 需要现场获取oss的url
-    public void setDataOss(String objPath) {
+    private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
         Uri parse;
         if (StringUtils.isEmpty(url)) {

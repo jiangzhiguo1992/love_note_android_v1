@@ -145,7 +145,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
             }
         });
-        ivPicture.setDataOss(content);
+        ivPicture.setData(content);
         // listener
         helper.addOnClickListener(R.id.tvLocation);
         helper.addOnClickListener(R.id.tvModifyVertical);

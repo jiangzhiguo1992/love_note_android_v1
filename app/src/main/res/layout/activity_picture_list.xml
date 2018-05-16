@@ -29,6 +29,7 @@
                 android:id="@+id/rlHead"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
                 android:orientation="vertical"
                 app:layout_collapseMode="pin"
                 app:layout_collapseParallaxMultiplier="0.7">
@@ -39,9 +40,11 @@
                     android:layout_height="match_parent"
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
+                    android:visibility="gone"
                     app:actualImageScaleType="centerCrop"
                     tools:background="@mipmap/test_bg_1"
-                    tools:scaleType="centerCrop"/>
+                    tools:scaleType="centerCrop"
+                    tools:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/tvPictureCount"

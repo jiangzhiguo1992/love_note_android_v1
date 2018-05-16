@@ -28,12 +28,14 @@ import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 
 import java.io.File;
@@ -125,8 +127,21 @@ public class GImageBigView extends PhotoDraweeView {
         this.setController(controller);
     }
 
+    public void setData(String ossKey) {
+        if (OssResHelper.isKeyFileExists(ossKey)) {
+            File file = OssResHelper.newKeyFile(ossKey);
+            if (!FileUtils.isFileEmpty(file)) {
+                this.setDataFile(file);
+            } else {
+                this.setDataOss(ossKey);
+            }
+        } else {
+            this.setDataOss(ossKey);
+        }
+    }
+
     // http:// https:// 需要现场获取oss的url
-    public void setDataOss(String objPath) {
+    private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
         Uri parse;
         if (StringUtils.isEmpty(url)) {

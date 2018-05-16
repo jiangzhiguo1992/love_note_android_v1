@@ -48,8 +48,8 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
-import com.jiangzg.mianmian.helper.ImgResHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -176,6 +176,13 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         });
         // refresh
         refreshData();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // TODO ViewFlipper无动画
+        // TODO ViewFlipper随机顺序
     }
 
     @Override
@@ -317,14 +324,14 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
                 refreshWallPaperView();
             }
             // 本地文件刷新
-            ImgResHelper.refreshAvatarRes();
+            OssResHelper.refreshAvatarRes();
             // 头像 + 名称
             String myName = user.getMyNameInCp();
             String taName = user.getTaNameInCp();
             String myAvatar = user.getMyAvatarInCp();
             String taAvatar = user.getTaAvatarInCp();
-            ivAvatarLeft.setDateAvatar(taAvatar);
-            ivAvatarRight.setDateAvatar(myAvatar);
+            ivAvatarLeft.setData(taAvatar);
+            ivAvatarRight.setData(myAvatar);
             tvNameLeft.setText(taName);
             tvNameRight.setText(myName);
             refreshPlaceView();
@@ -335,7 +342,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
     // 墙纸
     private void refreshWallPaperView() {
         // 本地文件刷新
-        ImgResHelper.refreshWallPaperRes();
+        OssResHelper.refreshWallPaperRes();
         // 清除view
         vfWallPaper.removeAllViews();
         WallPaper wallPaper = SPHelper.getWallPaper();
@@ -350,7 +357,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);
-            image.setDateWallPaper(ossKey);
+            image.setData(ossKey);
             vfWallPaper.addView(image);
             vfWallPaper.setAutoStart(false);
             vfWallPaper.stopFlipping();
@@ -359,7 +366,7 @@ public class WeFragment extends BasePagerFragment<WeFragment> {
         // 多图显示
         for (String ossKey : imageList) {
             GImageView image = getViewFlipperImage();
-            image.setDateWallPaper(ossKey);
+            image.setData(ossKey);
             vfWallPaper.addView(image);
         }
         // anim

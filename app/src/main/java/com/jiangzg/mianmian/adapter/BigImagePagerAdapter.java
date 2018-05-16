@@ -20,13 +20,13 @@ import java.util.List;
 public class BigImagePagerAdapter extends PagerAdapter {
 
     private Activity mActivity;
-    private int mType;
     private List<String> mData;
+    private int mType;
 
     public BigImagePagerAdapter(Activity context) {
         mActivity = context;
-        mType = BigImageActivity.TYPE_OSS_SINGLE;
         mData = new ArrayList<>();
+        mType = BigImageActivity.TYPE_OSS_SINGLE;
     }
 
     public void setType(int type) {
@@ -76,7 +76,6 @@ public class BigImagePagerAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         // BigImageView
         GImageBigView ivBig = new GImageBigView(mActivity);
-        // setImage
         String data = mData.get(position);
         switch (mType) {
             case BigImageActivity.TYPE_FILE_SINGLE:
@@ -86,7 +85,7 @@ public class BigImagePagerAdapter extends PagerAdapter {
             case BigImageActivity.TYPE_OSS_SINGLE:
             case BigImageActivity.TYPE_OSS_LIST:
             default:
-                ivBig.setDataOss(data);
+                ivBig.setData(data);
                 break;
         }
         // addView

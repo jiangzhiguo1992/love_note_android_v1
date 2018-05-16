@@ -789,7 +789,7 @@ public class OssHelper {
         compressJpeg(activity, pathBookWhisper, source, callBack);
     }
 
-    // 日记 (限制大小 + 持久化 TODO 到outFile的book缓存中)
+    // 日记 (限制大小 + 持久化)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
@@ -820,7 +820,7 @@ public class OssHelper {
         compressJpeg(activity, pathBookAlbum, source, callBack);
     }
 
-    // 照片 (限制大小 + 持久化 TODO 到outFile的book缓存中)
+    // 照片 (限制大小 + 持久化)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
@@ -861,13 +861,13 @@ public class OssHelper {
 
     // 头像
     public static void downloadAvatar(String objectKey) {
-        File file = ImgResHelper.newAvatarFile(objectKey);
+        File file = OssResHelper.newKeyFile(objectKey);
         downloadObject(null, objectKey, file, null);
     }
 
     // 墙纸
     public static void downloadWall(String objectKey) {
-        File file = ImgResHelper.newWallPaperFile(objectKey);
+        File file = OssResHelper.newKeyFile(objectKey);
         downloadObject(null, objectKey, file, null);
     }
 

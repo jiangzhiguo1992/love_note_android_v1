@@ -29,7 +29,7 @@ public class RxBus {
         Observable<T> observable = Observable.create(new Observable.OnSubscribe<T>() {
             @Override
             public void call(Subscriber<? super T> subscriber) {
-                // TODO: 2017/4/26 这里可以做一些耗时操作
+                // 这里可以做一些耗时操作
                 subscriber.onNext(send); // 发送事件
                 subscriber.onCompleted(); // 完成事件
             }

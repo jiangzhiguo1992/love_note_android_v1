@@ -222,7 +222,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             setCoverVisible(false);
         } else {
             setCoverVisible(true);
-            ivAlbum.setDataOss(cover);
+            ivAlbum.setData(cover);
         }
     }
 

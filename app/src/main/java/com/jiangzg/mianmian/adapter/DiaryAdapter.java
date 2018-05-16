@@ -41,7 +41,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         helper.setText(R.id.tvCount, countShow);
         helper.setText(R.id.tvContent, content);
         GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setDateAvatar(avatar);
+        ivAvatar.setData(avatar);
     }
 
     public void goDiaryDetail(int position) {

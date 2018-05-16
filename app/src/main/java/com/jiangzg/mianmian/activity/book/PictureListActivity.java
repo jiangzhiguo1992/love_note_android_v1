@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -288,15 +289,20 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             return;
         }
         // data
-        String title = album.getTitle();
         String cover = album.getCover();
+        String title = album.getTitle();
         String createAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
         String updateAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getUpdateAt());
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), updateAt);
         // view
+        if (StringUtils.isEmpty(cover)) {
+            ivCover.setVisibility(View.GONE);
+        } else {
+            ivCover.setVisibility(View.VISIBLE);
+            ivCover.setData(cover);
+        }
         ctl.setTitle(title);
-        ivCover.setDataOss(cover);
         tvCreateAt.setText(createShow);
         tvUpdateAt.setText(updateShow);
     }

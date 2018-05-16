@@ -146,6 +146,12 @@ public class ResHelper {
     /**
      * ****************************************File****************************************
      */
+    public static File getImgCacheDir() {
+        File dir = new File(AppInfo.get().getOutCacheDir(), "image");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
+    }
+
     public static File newImageOutCache() {
         String fileName = StringUtils.getUUID(10) + ".jpeg";
         File file = new File(getImgCacheDir(), fileName);
@@ -153,28 +159,10 @@ public class ResHelper {
         return file;
     }
 
-    public static File getImgCacheDir() {
-        File dir = new File(AppInfo.get().getOutCacheDir(), "image");
-        FileUtils.createOrExistsDir(dir);
-        return dir;
-    }
-
     public static File getFrescoCacheDir() {
         File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
-    }
-
-    public static File getAvatarDir() {
-        File dir = new File(AppInfo.get().getOutFilesDir(), "avatar");
-        FileUtils.createOrExistsDir(dir);
-        return dir;
-    }
-
-    public static File getWallPaperDir() {
-        File dir = new File(AppInfo.get().getOutFilesDir(), "wallpaper");
-        FileUtils.createOrExistsDir(dir);
-        return dir;
     }
 
     public static File getApkDir() {

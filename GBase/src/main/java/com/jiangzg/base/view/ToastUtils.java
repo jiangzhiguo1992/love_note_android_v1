@@ -22,7 +22,6 @@ public class ToastUtils {
     private static Toast toast;
     private static Handler handler;
 
-    // TODO app不在前台是 不toast
     public static void show(final CharSequence message) {
         if (TextUtils.isEmpty(message)) {
             LogUtils.w(LOG_TAG, "show: message == null");

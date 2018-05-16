@@ -229,8 +229,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
         boolean breaking = CheckHelper.isCoupleBreaking(me.getCouple());
         // view
-        ivAvatarLeft.setDateAvatar(taAvatar);
-        ivAvatarRight.setDateAvatar(myAvatar);
+        ivAvatarLeft.setData(taAvatar);
+        ivAvatarRight.setData(myAvatar);
         tvNameLeft.setText(taName);
         tvNameRight.setText(myName);
         tvPhoneLeft.setText(taPhone);

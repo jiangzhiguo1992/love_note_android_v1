@@ -78,8 +78,8 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO 回退白屏
-        // TODO 回退动画位置不符
+        // TODO 单图中的图片回退白屏
+        // TODO list中回退动画位置不符
         // TODO 多页下标 1/9
         // TODO Oss下载(会员可无水印?争取用fresco的文件)
 

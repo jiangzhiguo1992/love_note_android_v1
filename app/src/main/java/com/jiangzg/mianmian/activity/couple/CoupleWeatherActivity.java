@@ -198,7 +198,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         if (!StringUtils.isEmpty(predictDate)) {
             tvTime.setText(predictDate);
         }
-        ivAvatarLeft.setDateAvatar(taAvatar);
+        ivAvatarLeft.setData(taAvatar);
         ivIconLeftDay.setImageResource(iconDay);
         ivIconLeftNight.setImageResource(iconNight);
         tvConditionLeft.setText(condition);
@@ -238,7 +238,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         if (!StringUtils.isEmpty(predictDate)) {
             tvTime.setText(predictDate);
         }
-        ivAvatarRight.setDateAvatar(myAvatar);
+        ivAvatarRight.setData(myAvatar);
         ivIconRightDay.setImageResource(iconDay);
         ivIconRightNight.setImageResource(iconNight);
         tvConditionRight.setText(condition);
