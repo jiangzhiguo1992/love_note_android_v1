@@ -21,7 +21,7 @@ import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.fragment.BookFragment;
 import com.jiangzg.mianmian.fragment.SquareFragment;
 import com.jiangzg.mianmian.fragment.TopicFragment;
-import com.jiangzg.mianmian.fragment.WeFragment;
+import com.jiangzg.mianmian.fragment.CoupleFragment;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.service.UpdateService;
 
@@ -40,7 +40,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuSquare};
     private CommonFragmentPagerAdapter<BasePagerFragment> pagerAdapter;
-    private WeFragment weFragment;
+    private CoupleFragment coupleFragment;
     private BookFragment bookFragment;
     private TopicFragment topicFragment;
     private SquareFragment squareFragment;
@@ -88,8 +88,8 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private void initFragment() {
-        if (weFragment == null) {
-            weFragment = WeFragment.newFragment();
+        if (coupleFragment == null) {
+            coupleFragment = CoupleFragment.newFragment();
         }
         if (bookFragment == null) {
             bookFragment = BookFragment.newFragment();
@@ -106,7 +106,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         if (pagerAdapter == null) {
             FragmentManager manager = mActivity.getSupportFragmentManager();
             pagerAdapter = new CommonFragmentPagerAdapter<>(manager);
-            pagerAdapter.addData(0, null, weFragment);
+            pagerAdapter.addData(0, null, coupleFragment);
             pagerAdapter.addData(1, null, bookFragment);
             pagerAdapter.addData(2, null, topicFragment);
             pagerAdapter.addData(3, null, squareFragment);

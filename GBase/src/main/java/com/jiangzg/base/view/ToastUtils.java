@@ -31,17 +31,17 @@ public class ToastUtils {
             LogUtils.w(LOG_TAG, "show: isAppForeground == false");
             return;
         }
-        if (toast == null) {
-            toast = createToast(message);
-        } else {
-            toast.setText(message);
-        }
         if (handler == null) {
             handler = new Handler(Looper.getMainLooper());
         }
         handler.post(new Runnable() {
             @Override
             public void run() {
+                if (toast == null) {
+                    toast = createToast(message);
+                } else {
+                    toast.setText(message);
+                }
                 toast.show();
             }
         });

@@ -115,6 +115,7 @@ public class OssResHelper {
                 }
                 // 加新的
                 for (String ossKey : ossKeyList) {
+                    if (StringUtils.isEmpty(ossKey)) return; // TODO
                     if (!OssResHelper.isKeyFileExists(ossKey)) {
                         // 不存在的的直接下载
                         LogUtils.w(LOG_TAG, "refreshOssResWithDelNoExists: 下载匹配的oss对象 == " + ossKey);
@@ -182,6 +183,7 @@ public class OssResHelper {
                 }
                 // 加新的
                 for (String ossKey : ossKeyList) {
+                    if (StringUtils.isEmpty(ossKey)) return; // TODO
                     if (!OssResHelper.isKeyFileExists(ossKey)) {
                         // 不存在的的直接下载
                         LogUtils.w(LOG_TAG, "refreshOssResWithDelExpire: 下载匹配的oss对象 == " + ossKey);
