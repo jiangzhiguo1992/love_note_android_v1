@@ -11,10 +11,10 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 
 import retrofit2.Call;
 
@@ -80,8 +80,8 @@ public class OssReceiver extends BroadcastReceiver {
     }
 
     private static void initInfo(OssInfo ossInfo) {
-        expire = ossInfo.getExpiration() * 1000;
-        long inter = ossInfo.getInterval() * 1000;
+        expire = ossInfo.getExpireTime() * 1000;
+        long inter = ossInfo.getIntervalSec() * 1000;
         if (inter > 0) {
             interval = inter;
         }

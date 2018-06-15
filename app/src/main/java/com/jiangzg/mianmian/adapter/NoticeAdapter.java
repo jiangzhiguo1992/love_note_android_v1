@@ -2,8 +2,8 @@ package com.jiangzg.mianmian.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.activity.common.WebActivity;
 import com.jiangzg.mianmian.activity.settings.NoticeDetailActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -52,10 +52,17 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         }
         item.setRead(true);
         notifyItemChanged(position); // noReadCount
-        if (!StringUtils.isEmpty(item.getContentUrl())) {
-            WebActivity.goActivity(mActivity, item.getContentUrl());
-        } else {
-            NoticeDetailActivity.goActivity(mActivity, item);
+        switch (item.getContentType()) {
+            case Notice.TYPE_URL: // 网页
+                WebActivity.goActivity(mActivity, item.getContentText());
+                break;
+            case Notice.TYPE_IMAGE: // 图片
+                BigImageActivity.goActivityByOss(mActivity, item.getContentText(), null);
+                break;
+            case Notice.TYPE_TEXT: // 文字
+            default:
+                NoticeDetailActivity.goActivity(mActivity, item);
+                break;
         }
     }
 

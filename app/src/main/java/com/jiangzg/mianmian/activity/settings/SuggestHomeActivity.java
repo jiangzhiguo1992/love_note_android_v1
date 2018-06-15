@@ -89,8 +89,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
-        // suggest
-        suggestInfo = SPHelper.getSuggestInfo();
+        // suggest TODO 这里需要自定义suggestInfo
+        suggestInfo = new SuggestInfo();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)

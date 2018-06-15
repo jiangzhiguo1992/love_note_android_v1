@@ -149,7 +149,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        SuggestInfo suggestInfo = SPHelper.getSuggestInfo();
+        // TODO 这里需要自定义suggestInfo
+        SuggestInfo suggestInfo = new SuggestInfo();
         suggestContentTypeList = suggestInfo.getContentTypeList();
     }
 

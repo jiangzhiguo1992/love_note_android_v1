@@ -9,9 +9,13 @@ import android.os.Parcelable;
  */
 public class Notice extends BaseObj implements Parcelable {
 
+    public static final int TYPE_TEXT = 0; // 文章
+    public static final int TYPE_URL = 1; // 网址
+    public static final int TYPE_IMAGE = 2; // 图片
+
     private String title;
+    private int contentType;
     private String contentText;
-    private String contentUrl;
     private boolean read;
 
     public String getTitle() {
@@ -26,16 +30,16 @@ public class Notice extends BaseObj implements Parcelable {
         return contentText;
     }
 
+    public int getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(int contentType) {
+        this.contentType = contentType;
+    }
+
     public void setContentText(String contentText) {
         this.contentText = contentText;
-    }
-
-    public String getContentUrl() {
-        return contentUrl;
-    }
-
-    public void setContentUrl(String contentUrl) {
-        this.contentUrl = contentUrl;
     }
 
     public boolean isRead() {
@@ -52,8 +56,8 @@ public class Notice extends BaseObj implements Parcelable {
     protected Notice(Parcel in) {
         super(in);
         title = in.readString();
+        contentType = in.readInt();
         contentText = in.readString();
-        contentUrl = in.readString();
         read = in.readByte() != 0;
     }
 
@@ -61,8 +65,8 @@ public class Notice extends BaseObj implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(title);
+        dest.writeInt(contentType);
         dest.writeString(contentText);
-        dest.writeString(contentUrl);
         dest.writeByte((byte) (read ? 1 : 0));
     }
 

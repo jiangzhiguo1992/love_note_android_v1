@@ -11,13 +11,10 @@ import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
-import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.domain.VipLimit;
 import com.jiangzg.mianmian.domain.WallPaper;
-
-import java.util.ArrayList;
 
 /**
  * Created by Fan on 2017/3/2.
@@ -34,7 +31,6 @@ public class SPHelper {
     private static final String SHARE_VERSION = "shareVersion";
     private static final String SHARE_WALL_PAPER = "shareWallPaper";
     private static final String SHARE_LIMIT = "shareLimit";
-    private static final String SHARE_SUGGEST_INFO = "shareSuggestInfo";
     private static final String SHARE_OSS_INFO = "shareOssInfo";
     private static final String SHARE_COMMON_CONST = "shareCommonConst";
     private static final String SHARE_VIP_LIMIT = "shareVipLimit";
@@ -75,8 +71,8 @@ public class SPHelper {
     //private static final String FIELD_OSS_ENDPOINT = "endpoint";
     private static final String FIELD_OSS_DOMAIN = "domain";
     private static final String FIELD_OSS_BUCKET = "bucket";
-    private static final String FIELD_OSS_EXPIRATION = "expiration";
-    private static final String FIELD_OSS_INTERVAL = "interval";
+    private static final String FIELD_OSS_EXPIRE_TIME = "expireTime";
+    private static final String FIELD_OSS_INTERVAL_SEC = "intervalSec";
     private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
     private static final String FIELD_OSS_PATH_COUPLE_WALL = "pathCoupleWall";
@@ -137,8 +133,6 @@ public class SPHelper {
     private static final String FIELD_COMMON_CONST_ABOUT_US_URL = "aboutUsUrl";
     // wallPaper
     private static final String FIELD_WALL_PAPER_JSON = "json";
-    // suggest
-    private static final String FIELD_SUGGEST_INFO = "suggestInfo";
     // diary
     private static final String FIELD_DIARY_HAPPEN = "happen";
     private static final String FIELD_DIARY_CONTENT = "content";
@@ -365,35 +359,6 @@ public class SPHelper {
         return limit;
     }
 
-    public static void setSuggestInfo(SuggestInfo suggestInfo) {
-        if (suggestInfo == null) {
-            LogUtils.w(LOG_TAG, "setSuggestInfo == null");
-            return;
-        }
-        String suggestInfoJson = GsonHelper.get().toJson(suggestInfo);
-        LogUtils.d(LOG_TAG, "setSuggestInfo: " + suggestInfoJson);
-
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_SUGGEST_INFO).edit();
-        editor.putString(FIELD_SUGGEST_INFO, suggestInfoJson);
-        editor.apply();
-    }
-
-    public static SuggestInfo getSuggestInfo() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_SUGGEST_INFO);
-        String json = sp.getString(FIELD_SUGGEST_INFO, "{}");
-        SuggestInfo suggestInfo = GsonHelper.get().fromJson(json, SuggestInfo.class);
-        if (suggestInfo == null) {
-            suggestInfo = new SuggestInfo();
-        }
-        if (suggestInfo.getStatusList() == null) {
-            suggestInfo.setStatusList(new ArrayList<SuggestInfo.SuggestStatus>());
-        }
-        if (suggestInfo.getContentTypeList() == null) {
-            suggestInfo.setContentTypeList(new ArrayList<SuggestInfo.SuggestContentType>());
-        }
-        return suggestInfo;
-    }
-
     public static void setOssInfo(OssInfo ossInfo) {
         clearOssInfo();
         if (ossInfo == null) {
@@ -410,8 +375,8 @@ public class SPHelper {
         //editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
         editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
-        editor.putLong(FIELD_OSS_EXPIRATION, ossInfo.getExpiration());
-        editor.putLong(FIELD_OSS_INTERVAL, ossInfo.getInterval());
+        editor.putLong(FIELD_OSS_EXPIRE_TIME, ossInfo.getExpireTime());
+        editor.putLong(FIELD_OSS_INTERVAL_SEC, ossInfo.getIntervalSec());
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
         editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
@@ -436,8 +401,8 @@ public class SPHelper {
         //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
         ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
-        ossInfo.setExpiration(sp.getLong(FIELD_OSS_EXPIRATION, 0));
-        ossInfo.setInterval(sp.getLong(FIELD_OSS_INTERVAL, 0));
+        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, 0));
+        ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 0));
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
         ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));

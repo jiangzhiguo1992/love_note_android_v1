@@ -34,7 +34,6 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
-import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.domain.VipLimit;
@@ -147,9 +146,6 @@ public class ApiHelper {
         SPHelper.setOssInfo(ossInfo);
         OssHelper.refreshOssClient();
         OssReceiver.startAlarm();
-        // suggest
-        SuggestInfo suggestInfo = data.getSuggestInfo();
-        SPHelper.setSuggestInfo(suggestInfo);
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {

@@ -60,7 +60,6 @@ public class Result implements Serializable {
         private String btnBad;
         private String show;
         private Help help;
-        private SuggestInfo suggestInfo;
         private long total;
         private Suggest suggest;
         private List<Suggest> suggestList;
@@ -337,14 +336,6 @@ public class Result implements Serializable {
 
         public void setSuggestList(List<Suggest> suggestList) {
             this.suggestList = suggestList;
-        }
-
-        public SuggestInfo getSuggestInfo() {
-            return suggestInfo;
-        }
-
-        public void setSuggestInfo(SuggestInfo suggestInfo) {
-            this.suggestInfo = suggestInfo;
         }
 
         public String getShow() {

@@ -15,8 +15,8 @@ public class OssInfo {
     //private String endpoint;
     private String domain; // region 和 endpoint 一般不用
     private String bucket;
-    private long expiration;
-    private long interval;
+    private long expireTime;
+    private long intervalSec;
     // path
     private String pathSuggest;
     private String pathCoupleAvatar;
@@ -30,20 +30,28 @@ public class OssInfo {
     private String pathBookVideo;
     private String pathBookThumb;
 
+    public long getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(long expireTime) {
+        this.expireTime = expireTime;
+    }
+
+    public long getIntervalSec() {
+        return intervalSec;
+    }
+
+    public void setIntervalSec(long intervalSec) {
+        this.intervalSec = intervalSec;
+    }
+
     public String getPathBookWhisper() {
         return pathBookWhisper;
     }
 
     public void setPathBookWhisper(String pathBookWhisper) {
         this.pathBookWhisper = pathBookWhisper;
-    }
-
-    public long getInterval() {
-        return interval;
-    }
-
-    public void setInterval(long interval) {
-        this.interval = interval;
     }
 
     public String getDomain() {
@@ -53,14 +61,6 @@ public class OssInfo {
     public void setDomain(String domain) {
         this.domain = domain;
     }
-
-    //public String getEndpoint() {
-    //    return endpoint;
-    //}
-
-    //public void setEndpoint(String endpoint) {
-    //    this.endpoint = endpoint;
-    //}
 
     public String getSecurityToken() {
         return securityToken;
@@ -86,28 +86,12 @@ public class OssInfo {
         this.accessKeySecret = accessKeySecret;
     }
 
-    //public String getRegion() {
-    //    return region;
-    //}
-
-    //public void setRegion(String region) {
-    //    this.region = region;
-    //}
-
     public String getBucket() {
         return bucket;
     }
 
     public void setBucket(String bucket) {
         this.bucket = bucket;
-    }
-
-    public long getExpiration() {
-        return expiration;
-    }
-
-    public void setExpiration(long expiration) {
-        this.expiration = expiration;
     }
 
     public String getPathSuggest() {
