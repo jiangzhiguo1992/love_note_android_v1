@@ -26,8 +26,8 @@ public class HelpAdapter extends BaseQuickAdapter<Help, BaseViewHolder> {
 
     public void goSubHelp(Activity activity, int position) {
         Help item = getItem(position);
-        int contentType = item.getContentType();
-        HelpActivity.goActivity(activity, contentType);
+        int index = item.getIndex();
+        HelpActivity.goActivity(activity, index);
     }
 
 }

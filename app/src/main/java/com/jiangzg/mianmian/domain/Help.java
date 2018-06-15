@@ -8,45 +8,45 @@ import java.util.List;
  */
 public class Help extends BaseObj {
 
-    public static final int TYPE_ALL = 0;
-    public static final int TYPE_USER_INFO_SET = 1;
-    public static final int TYPE_COUPLE_PAIR = 2;
-    public static final int TYPE_COUPLE_HOME = 3;
-    public static final int TYPE_SUGGEST_HOME = 4;
-    public static final int TYPE_SUGGEST_DETAIL = 5;
-    public static final int TYPE_SUGGEST_ADD = 6;
-    public static final int TYPE_SUGGEST_MINE = 7;
-    public static final int TYPE_SUGGEST_FOLLOW = 8;
-    public static final int TYPE_WALL_PAPER_ADD = 9;
-    public static final int TYPE_COUPLE_INFO = 10;
-    public static final int TYPE_BOOK_HOME = 11;
-    public static final int TYPE_DIARY_LIST = 12;
-    public static final int TYPE_DIARY_EDIT = 13;
-    public static final int TYPE_DIARY_DETAIL = 14;
-    public static final int TYPE_WORD_LIST = 15;
-    public static final int TYPE_WHISPER_LIST = 16;
-    public static final int TYPE_ALBUM_LIST = 17;
-    public static final int TYPE_ALBUM_EDIT = 18;
-    public static final int TYPE_COUPLE_PLACE = 19;
-    public static final int TYPE_COUPLE_WEATHER = 20;
-    public static final int TYPE_NOTICE_LIST = 21;
-    public static final int TYPE_PICTURE_EDIT = 22;
-    public static final int TYPE_PICTURE_LIST = 23;
-    public static final int TYPE_MAP_SELECT = 24;
-    public static final int TYPE_MAP_SHOW = 25;
+    public static final int INDEX_ALL = 0;
+    public static final int INDEX_USER_INFO_SET = 1;
+    public static final int INDEX_COUPLE_PAIR = 2;
+    public static final int INDEX_COUPLE_HOME = 3;
+    public static final int INDEX_SUGGEST_HOME = 4;
+    public static final int INDEX_SUGGEST_DETAIL = 5;
+    public static final int INDEX_SUGGEST_ADD = 6;
+    public static final int INDEX_SUGGEST_MINE = 7;
+    public static final int INDEX_SUGGEST_FOLLOW = 8;
+    public static final int INDEX_WALL_PAPER_ADD = 9;
+    public static final int INDEX_COUPLE_INFO = 10;
+    public static final int INDEX_BOOK_HOME = 11;
+    public static final int INDEX_DIARY_LIST = 12;
+    public static final int INDEX_DIARY_EDIT = 13;
+    public static final int INDEX_DIARY_DETAIL = 14;
+    public static final int INDEX_WORD_LIST = 15;
+    public static final int INDEX_WHISPER_LIST = 16;
+    public static final int INDEX_ALBUM_LIST = 17;
+    public static final int INDEX_ALBUM_EDIT = 18;
+    public static final int INDEX_COUPLE_PLACE = 19;
+    public static final int INDEX_COUPLE_WEATHER = 20;
+    public static final int INDEX_NOTICE_LIST = 21;
+    public static final int INDEX_PICTURE_EDIT = 22;
+    public static final int INDEX_PICTURE_LIST = 23;
+    public static final int INDEX_MAP_SELECT = 24;
+    public static final int INDEX_MAP_SHOW = 25;
 
-    private int contentType;
+    private int index;
     private String title;
     private String desc;
     private List<HelpContent> contentList;
     private List<Help> subList;
 
-    public int getContentType() {
-        return contentType;
+    public int getIndex() {
+        return index;
     }
 
-    public void setContentType(int contentType) {
-        this.contentType = contentType;
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getTitle() {

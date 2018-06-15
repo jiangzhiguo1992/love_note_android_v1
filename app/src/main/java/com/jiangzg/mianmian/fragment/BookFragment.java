@@ -103,7 +103,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mFragment, Help.TYPE_BOOK_HOME);
+                HelpActivity.goActivity(mFragment, Help.INDEX_BOOK_HOME);
                 return true;
             case R.id.menuSettings: // 设置
                 SettingsActivity.goActivity(mFragment);

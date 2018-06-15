@@ -201,7 +201,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         Couple couple = SPHelper.getCouple();
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
-                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_HOME);
+                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_HOME);
                 break;
             case R.id.ivWallPaper:  // 背景图
                 if (CheckHelper.isCoupleBreak(couple)) {

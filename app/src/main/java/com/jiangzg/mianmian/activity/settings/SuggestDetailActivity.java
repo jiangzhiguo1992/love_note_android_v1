@@ -196,7 +196,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_DETAIL);
+                HelpActivity.goActivity(mActivity, Help.INDEX_SUGGEST_DETAIL);
                 return true;
             case R.id.menuDel: // 删除
                 showDelDialog();

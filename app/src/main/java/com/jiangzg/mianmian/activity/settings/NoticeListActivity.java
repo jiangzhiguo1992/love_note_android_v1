@@ -110,7 +110,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_NOTICE_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTICE_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

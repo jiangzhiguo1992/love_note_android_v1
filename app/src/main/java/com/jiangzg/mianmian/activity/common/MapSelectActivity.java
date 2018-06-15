@@ -224,7 +224,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_MAP_SELECT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_MAP_SELECT);
                 return true;
             case R.id.menuComplete: // 完成
                 if (locationInfo == null) {

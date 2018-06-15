@@ -159,7 +159,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_WALL_PAPER_ADD);
+                HelpActivity.goActivity(mActivity, Help.INDEX_WALL_PAPER_ADD);
                 return true;
             case R.id.menuAdd: // 添加
                 addWallPaper();

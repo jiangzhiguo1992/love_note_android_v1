@@ -225,7 +225,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_MAP_SHOW);
+                HelpActivity.goActivity(mActivity, Help.INDEX_MAP_SHOW);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -46,21 +46,21 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
-        intent.putExtra("type", Help.TYPE_ALL);
+        intent.putExtra("index", Help.INDEX_ALL);
         //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, int type) {
+    public static void goActivity(Activity from, int index) {
         Intent intent = new Intent(from, HelpActivity.class);
-        intent.putExtra("type", type);
+        intent.putExtra("index", index);
         //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Fragment from, int type) {
+    public static void goActivity(Fragment from, int index) {
         Intent intent = new Intent(from.getActivity(), HelpActivity.class);
-        intent.putExtra("type", type);
+        intent.putExtra("index", index);
         //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -107,9 +107,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     public void refreshData() {
-        int type = getIntent().getIntExtra("type", Help.TYPE_ALL);
+        int index = getIntent().getIntExtra("index", Help.INDEX_ALL);
         // api
-        call = new RetrofitHelper().call(API.class).helpGet(type);
+        call = new RetrofitHelper().call(API.class).helpGet(index);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

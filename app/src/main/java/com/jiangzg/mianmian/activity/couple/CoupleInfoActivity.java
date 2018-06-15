@@ -181,7 +181,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_INFO);
+                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_INFO);
                 return true;
         }
         return super.onOptionsItemSelected(item);

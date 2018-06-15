@@ -222,7 +222,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_ALBUM_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_ALBUM_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

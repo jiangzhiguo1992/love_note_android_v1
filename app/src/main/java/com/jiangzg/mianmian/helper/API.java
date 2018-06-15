@@ -105,7 +105,7 @@ public interface API {
 
     // 帮助文档
     @GET("set/help")
-    Call<Result> helpGet(@Query("content_type") int contentType);
+    Call<Result> helpGet(@Query("index") int contentType);
 
     // 意见发布
     @POST("set/suggest")

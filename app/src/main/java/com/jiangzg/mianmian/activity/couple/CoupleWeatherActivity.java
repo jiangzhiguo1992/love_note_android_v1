@@ -138,7 +138,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 mActivity.finish();
                 break;
             case R.id.ivHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_COUPLE_WEATHER);
+                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_WEATHER);
                 break;
         }
     }

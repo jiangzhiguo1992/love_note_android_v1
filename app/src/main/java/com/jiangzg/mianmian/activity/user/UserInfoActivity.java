@@ -146,7 +146,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_USER_INFO_SET);
+                HelpActivity.goActivity(mActivity, Help.INDEX_USER_INFO_SET);
                 return true;
         }
         return super.onOptionsItemSelected(item);

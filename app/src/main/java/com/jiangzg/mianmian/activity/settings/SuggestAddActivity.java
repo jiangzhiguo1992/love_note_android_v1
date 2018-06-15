@@ -206,7 +206,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_ADD);
+                HelpActivity.goActivity(mActivity, Help.INDEX_SUGGEST_ADD);
                 return true;
         }
         return super.onOptionsItemSelected(item);

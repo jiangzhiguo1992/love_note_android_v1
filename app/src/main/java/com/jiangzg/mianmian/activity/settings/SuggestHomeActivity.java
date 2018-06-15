@@ -38,7 +38,6 @@ import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
-import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -177,7 +176,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.TYPE_SUGGEST_HOME);
+                HelpActivity.goActivity(mActivity, Help.INDEX_SUGGEST_HOME);
                 return true;
             case R.id.menuTop: // 返回顶部
                 rv.smoothScrollToPosition(0);
