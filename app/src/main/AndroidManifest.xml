@@ -23,19 +23,24 @@
             android:name="com.amap.api.location.APSService"
             android:enabled="true"
             android:exported="true"/>
-        <!-- apk更新 -->
+
+        <!-- data-下载渠道 -->
+        <meta-data
+            android:name="market_channel"
+            android:value="${MARKET_CHANNEL_VALUE}"/>
+
+        <!-- service-apk更新 -->
         <service
             android:name=".service.UpdateService"
             android:enabled="true"
             android:exported="true"/>
-        <!-- 定时器 -->
+        <!-- service-定时器 -->
         <service
             android:name=".service.TimerService"
             android:enabled="true"
             android:exported="true">
         </service>
-
-        <!-- oss -->
+        <!-- receiver-oss -->
         <receiver
             android:name=".broadcast.OssReceiver"
             android:enabled="true"

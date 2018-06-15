@@ -32,30 +32,32 @@ public class CouplePlaceAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> 
         } else {
             time = ConvertHelper.getTimeShowCnSpace_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         }
-        String address = null;
-        Entry.EntryPlace entryPlace = item.getEntryPlace();
-        if (entryPlace != null) {
-            address = entryPlace.getAddress();
-        }
-        if (StringUtils.isEmpty(address)) {
-            address = mActivity.getString(R.string.cant_get_ta_entry_info);
-        }
+        // TODO 没有entry了
+        String address = "";
+        //Entry.EntryPlace entryPlace = item.getEntryPlace();
+        //if (entryPlace != null) {
+        //    address = entryPlace.getAddress();
+        //}
+        //if (StringUtils.isEmpty(address)) {
+        //    address = mActivity.getString(R.string.cant_get_ta_entry_info);
+        //}
         // view
         helper.setText(R.id.tvTime, time);
         helper.setText(R.id.tvAddress, address);
     }
 
+    // TODO
     public void goDiaryDetail(int position) {
         Entry item = getItem(position);
-        Entry.EntryPlace entryPlace = item.getEntryPlace();
-        if (entryPlace == null) {
-            ToastUtils.show(mActivity.getString(R.string.no_location_info_cant_go_map));
-            return;
-        }
-        String address = entryPlace.getAddress();
-        double longitude = entryPlace.getLongitude();
-        double latitude = entryPlace.getLatitude();
-        MapShowActivity.goActivity(mActivity, address, latitude, longitude);
+        //Entry.EntryPlace entryPlace = item.getEntryPlace();
+        //if (entryPlace == null) {
+        //    ToastUtils.show(mActivity.getString(R.string.no_location_info_cant_go_map));
+        //    return;
+        //}
+        //String address = entryPlace.getAddress();
+        //double longitude = entryPlace.getLongitude();
+        //double latitude = entryPlace.getLatitude();
+        //MapShowActivity.goActivity(mActivity, address, latitude, longitude);
     }
 
 }

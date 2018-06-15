@@ -3,10 +3,12 @@ package com.jiangzg.mianmian.helper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.os.Bundle;
 import android.provider.Settings;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -88,6 +90,12 @@ public class ApiHelper {
         String manufacturer = DeviceInfo.get().getManufacturer();
         String model = DeviceInfo.get().getModel();
         entry.setDeviceName(manufacturer + " : " + model);
+        // 下载渠道
+        Bundle appMetaData = AppUtils.getAppMetaData(MyApp.get());
+        if (appMetaData != null) {
+            String marketChannel = appMetaData.getString("market_channel");
+            entry.setMarket(marketChannel);
+        }
         // 手机平台
         entry.setPlatform(DeviceInfo.get().getPlatform());
         // 手机版本

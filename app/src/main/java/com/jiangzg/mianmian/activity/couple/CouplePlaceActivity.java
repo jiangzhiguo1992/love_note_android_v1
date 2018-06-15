@@ -42,7 +42,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private Entry topEntry;
+    //private Entry topEntry; // TODO 界面改版 双人地址都可看 废除entry
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
     private int page;
@@ -100,8 +100,8 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
             entryPlace.setAddress(taPlace.getAddress());
             entryPlace.setLongitude(taPlace.getLongitude());
             entryPlace.setLatitude(taPlace.getLatitude());
-            topEntry = new Entry();
-            topEntry.setEntryPlace(entryPlace);
+            //topEntry = new Entry();
+            //topEntry.setEntryPlace(entryPlace);
         }
         addTopEntry();
         recyclerHelper.dataRefresh();
@@ -130,9 +130,9 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     }
 
     private void addTopEntry() {
-        if (topEntry == null) return;
-        CouplePlaceAdapter adapter = recyclerHelper.getAdapter();
-        adapter.addData(0, topEntry);
+        //if (topEntry == null) return;
+        //CouplePlaceAdapter adapter = recyclerHelper.getAdapter();
+        //adapter.addData(0, topEntry);
     }
 
     private void getData(final boolean more) {

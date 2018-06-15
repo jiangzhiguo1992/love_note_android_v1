@@ -42,10 +42,9 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    //String HOST = "10.0.2.2:30011";
-    String HOST = "192.168.1.114:30011";
+    String HOST = "192.168.1.101:30011";
     //String HOST = "47.94.224.110:30011";
-    String BASE_URL = "http://" + HOST + "/api/v1/zh-CN/"; // BaseURL最好以/结尾
+    String BASE_URL = "http://" + HOST + "/api/v1/"; // BaseURL最好以/结尾
 
     @Streaming // 下载大文件(请求需要放在子线程中)
     @Multipart // 上传文件

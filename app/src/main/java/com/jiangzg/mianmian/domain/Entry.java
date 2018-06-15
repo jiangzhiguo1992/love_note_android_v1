@@ -9,17 +9,17 @@ public class Entry extends BaseObj {
 
     private String deviceId;
     private String deviceName;
+    private String market;
     private String platform;
     private String osVersion;
     private int appVersion;
-    private EntryPlace entryPlace;
 
-    public EntryPlace getEntryPlace() {
-        return entryPlace;
+    public String getMarket() {
+        return market;
     }
 
-    public void setEntryPlace(EntryPlace entryPlace) {
-        this.entryPlace = entryPlace;
+    public void setMarket(String market) {
+        this.market = market;
     }
 
     public String getDeviceId() {

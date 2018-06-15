@@ -1,6 +1,12 @@
 package com.jiangzg.base.application;
 
 import android.app.ActivityManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -17,6 +23,37 @@ import java.util.List;
 public class AppUtils {
 
     private static final String LOG_TAG = "AppUtils";
+
+    /**
+     * 获取manifest中的application下的MetaData
+     */
+    public static Bundle getAppMetaData(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        String packageName = context.getPackageName();
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
+            return applicationInfo.metaData;
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtils.e(LOG_TAG, "getAppMetaData", e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 获取manifest中的activity下的MetaData
+     */
+    public static Bundle getAppActivityMetaData(Context context, ComponentName name) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            ActivityInfo activityInfo = packageManager.getActivityInfo(name, PackageManager.GET_META_DATA);
+            return activityInfo.metaData;
+        } catch (PackageManager.NameNotFoundException e) {
+            LogUtils.e(LOG_TAG, "getAppActivityMetaData", e);
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * 判断App是否在前台运行
