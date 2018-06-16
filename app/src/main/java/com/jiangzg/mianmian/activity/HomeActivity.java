@@ -17,16 +17,11 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.CommonFragmentPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.BasePagerFragment;
-import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.fragment.BookFragment;
+import com.jiangzg.mianmian.fragment.CoupleFragment;
 import com.jiangzg.mianmian.fragment.SquareFragment;
 import com.jiangzg.mianmian.fragment.TopicFragment;
-import com.jiangzg.mianmian.fragment.CoupleFragment;
-import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.service.UpdateService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 import butterknife.BindView;
@@ -72,7 +67,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        checkUpdate();
     }
 
     // 关闭其他栈底activity，栈顶由singleTask来关闭
@@ -161,14 +155,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             }
         }
         vpContent.setCurrentItem(selectItemIndex, true);
-    }
-
-    private void checkUpdate() {
-        Version version = SPHelper.getVersion();
-        if (version == null) return;
-        List<Version> versionList = new ArrayList<>();
-        versionList.add(version);
-        UpdateService.showUpdateDialog(versionList);
     }
 
 }

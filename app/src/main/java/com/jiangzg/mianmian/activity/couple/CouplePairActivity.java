@@ -61,10 +61,10 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     @BindView(R.id.btnInvitee)
     Button btnInvitee;
 
-    @BindView(R.id.tvTaPhone)
-    TextView tvTaPhone;
     @BindView(R.id.cardResult)
     CardView cardResult;
+    @BindView(R.id.tvCardPhone)
+    TextView tvCardPhone;
     @BindView(R.id.tvCardTitle)
     TextView tvCardTitle;
     @BindView(R.id.tvCardMessage)
@@ -178,7 +178,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
 
     private void allViewGone() {
         llInput.setVisibility(View.GONE);
-        tvTaPhone.setVisibility(View.GONE);
         cardResult.setVisibility(View.GONE);
     }
 
@@ -237,7 +236,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             // 没有等待处理的
             coupleId = 0;
             llInput.setVisibility(View.VISIBLE);
-            tvTaPhone.setVisibility(View.GONE);
             cardResult.setVisibility(View.GONE);
             return;
         }
@@ -246,45 +244,50 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         coupleId = couple.getId();
         llInput.setVisibility(View.GONE);
         PairCard pairCard = data.getPairCard();
-        // taPhone
-        tvTaPhone.setVisibility(View.VISIBLE);
-        String taPhone = pairCard.getTaPhone();
-        String phone = String.format(Locale.getDefault(), getString(R.string.ta_colon_space_holder), taPhone);
-        tvTaPhone.setText(phone);
         // card
         cardResult.setVisibility(View.VISIBLE);
+        // taPhone
+        String taPhone = pairCard.getTaPhone();
+        String phone = String.format(Locale.getDefault(), getString(R.string.ta_colon_space_holder), taPhone);
+        if (StringUtils.isEmpty(taPhone)) {
+            tvCardPhone.setVisibility(View.GONE);
+        } else {
+            tvCardPhone.setVisibility(View.VISIBLE);
+            tvCardPhone.setText(phone);
+        }
+
         String title = pairCard.getTitle();
         if (StringUtils.isEmpty(title)) {
             tvCardTitle.setVisibility(View.GONE);
         } else {
-            tvCardTitle.setText(title);
             tvCardTitle.setVisibility(View.VISIBLE);
+            tvCardTitle.setText(title);
         }
         String message = pairCard.getMessage();
         if (StringUtils.isEmpty(message)) {
             if (StringUtils.isEmpty(data.getShow())) {
                 tvCardMessage.setVisibility(View.GONE);
             } else {
-                tvCardMessage.setText(data.getShow());
                 tvCardMessage.setVisibility(View.VISIBLE);
+                tvCardMessage.setText(data.getShow());
             }
         } else {
-            tvCardMessage.setText(message);
             tvCardMessage.setVisibility(View.VISIBLE);
+            tvCardMessage.setText(message);
         }
         String btnGood = pairCard.getBtnGood();
         if (StringUtils.isEmpty(btnGood)) {
             btnCardGood.setVisibility(View.GONE);
         } else {
-            btnCardGood.setText(btnGood);
             btnCardGood.setVisibility(View.VISIBLE);
+            btnCardGood.setText(btnGood);
         }
         String btnBad = pairCard.getBtnBad();
         if (StringUtils.isEmpty(btnBad)) {
             btnCardBad.setVisibility(View.GONE);
         } else {
-            btnCardBad.setText(btnBad);
             btnCardBad.setVisibility(View.VISIBLE);
+            btnCardBad.setText(btnBad);
         }
     }
 
