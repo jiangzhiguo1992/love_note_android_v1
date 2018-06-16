@@ -24,7 +24,6 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.view.GWrapView;
 
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -56,14 +55,19 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         String create = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
         String title = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
         String contentText = item.getContentText();
-        List<String> tagList = item.getTagList();
+        boolean official = item.isOfficial();
+        boolean mine = item.isMine();
         // view
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);
         GWrapView wvTag = helper.getView(R.id.wvTag);
         wvTag.removeAllChild();
-        for (String tag : tagList) {
-            View tagView = getTagView(tag);
+        if (official) {
+            View tagView = getTagView(mActivity.getString(R.string.official));
+            wvTag.addChild(tagView);
+        }
+        if (mine) {
+            View tagView = getTagView(mActivity.getString(R.string.me_de));
             wvTag.addChild(tagView);
         }
     }

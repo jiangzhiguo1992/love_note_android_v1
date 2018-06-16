@@ -10,8 +10,8 @@ import android.os.Parcelable;
 public class BaseObj implements Parcelable {
 
     // status 一般用不到，都在后台处理
-    public static final int STATUS_NOL = 0;
-    public static final int STATUS_DEL = -1;
+    public static final int STATUS_VISIBLE = 0;
+    public static final int STATUS_DELETE = -1;
 
     protected long id;
     protected int status;

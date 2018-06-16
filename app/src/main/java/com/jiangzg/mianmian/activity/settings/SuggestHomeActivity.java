@@ -88,8 +88,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
-        // suggest TODO 这里需要自定义suggestInfo
-        suggestInfo = new SuggestInfo();
+        // suggestInfo
+        suggestInfo = SuggestInfo.getInstance();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -127,13 +127,9 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initData(Bundle state) {
         // search
         List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
-        if (suggestStatusList.size() > 0) {
-            searchStatus = suggestStatusList.get(0).getStatus();
-        }
-        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getContentTypeList();
-        if (suggestContentTypeList.size() > 0) {
-            searchType = suggestContentTypeList.get(0).getContentType();
-        }
+        searchStatus = suggestStatusList.get(0).getStatus();
+        List<SuggestInfo.SuggestType> suggestTypeList = suggestInfo.getTypeList();
+        searchType = suggestTypeList.get(0).getType();
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override
@@ -227,10 +223,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         dp4 = ConvertUtils.dp2px(4);
         dp5 = ConvertUtils.dp2px(5);
         dp14 = ConvertUtils.dp2px(14);
-        List<SuggestInfo.SuggestContentType> suggestContentTypeList = suggestInfo.getContentTypeList();
+        List<SuggestInfo.SuggestType> suggestTypeList = suggestInfo.getTypeList();
         List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
-        for (int i = 0; i < suggestContentTypeList.size(); i++) {
-            SuggestInfo.SuggestContentType contentType = suggestContentTypeList.get(i);
+        for (int i = 0; i < suggestTypeList.size(); i++) {
+            SuggestInfo.SuggestType contentType = suggestTypeList.get(i);
             RadioButton rb = getTypeRadioButton(contentType);
             rgType.addView(rb, i);
         }
@@ -245,7 +241,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         child2.setChecked(true);
     }
 
-    private RadioButton getTypeRadioButton(final SuggestInfo.SuggestContentType contentType) {
+    private RadioButton getTypeRadioButton(final SuggestInfo.SuggestType contentType) {
         RadioButton button = new RadioButton(mActivity);
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.bottomMargin = dp5;
@@ -270,7 +266,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    searchType = contentType.getContentType();
+                    searchType = contentType.getType();
                 }
             }
         });
@@ -317,9 +313,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<Suggest> suggestList = data.getSuggestList();
-                recyclerHelper.dataOk(suggestList, total, more);
+                recyclerHelper.dataOk(suggestList, more);
             }
 
             @Override

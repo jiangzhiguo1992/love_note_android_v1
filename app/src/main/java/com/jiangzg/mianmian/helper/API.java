@@ -42,6 +42,7 @@ import retrofit2.http.Url;
  */
 public interface API {
 
+    // TODO 减少不必要的数据传输
     String HOST = "192.168.1.101:30011";
     //String HOST = "47.94.224.110:30011";
     String BASE_URL = "http://" + HOST + "/api/v1/"; // BaseURL最好以/结尾
@@ -116,19 +117,19 @@ public interface API {
     Call<Result> suggestDel(@Query("sid") long suggestId);
 
     // 意见单个获取
-    @GET("set/suggest?list=0")
+    @GET("set/suggest")
     Call<Result> suggestGet(@Query("sid") long suggestId);
 
     // 意见列表获取
-    @GET("set/suggest?sid=0&list=1&mine=0&follow=0")
-    Call<Result> suggestListHomeGet(@Query("status") int status, @Query("contentType") int contentType, @Query("page") int page);
+    @GET("set/suggest?list=1")
+    Call<Result> suggestListHomeGet(@Query("status") int status, @Query("content_type") int contentType, @Query("page") int page);
 
     // 意见列表获取
-    @GET("set/suggest?sid=0&list=1&mine=1&follow=0")
+    @GET("set/suggest?list=1&mine=1")
     Call<Result> suggestListMineGet(@Query("page") int page);
 
     // 意见列表获取
-    @GET("set/suggest?sid=0&list=1&mine=0&follow=1")
+    @GET("set/suggest?list=1&follow=1")
     Call<Result> suggestListFollowGet(@Query("page") int page);
 
     // 意见评论发表

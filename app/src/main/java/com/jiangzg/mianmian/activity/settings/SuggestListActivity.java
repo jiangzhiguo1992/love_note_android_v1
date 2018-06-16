@@ -16,10 +16,10 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.SuggestAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.BaseObj;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Suggest;
+import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
@@ -172,15 +172,17 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         } else if (entry == ENTRY_FOLLOW) {
             call = new RetrofitHelper().call(API.class).suggestListFollowGet(page);
         } else {
-            call = new RetrofitHelper().call(API.class).suggestListHomeGet(BaseObj.STATUS_NOL, BaseObj.STATUS_NOL, page);
+            SuggestInfo suggestInfo = SuggestInfo.getInstance();
+            int status = suggestInfo.getStatusList().get(0).getStatus();
+            int type = suggestInfo.getTypeList().get(0).getType();
+            call = new RetrofitHelper().call(API.class).suggestListHomeGet(status, type, page);
         }
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<Suggest> suggestList = data.getSuggestList();
-                recyclerHelper.dataOk(suggestList, total, more);
+                recyclerHelper.dataOk(suggestList, more);
             }
 
             @Override

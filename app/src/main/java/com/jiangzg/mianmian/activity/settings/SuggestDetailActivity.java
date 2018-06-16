@@ -41,6 +41,7 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
+import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
@@ -230,7 +231,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initHead() {
         // data
-        List<String> tagList = suggest.getTagList();
+        if (suggest == null) return;
+        boolean top = suggest.isTop();
+        boolean official = suggest.isOfficial();
+        boolean mine = suggest.isMine();
+        String statusShow = suggest.getStatus() > 0 ? SuggestInfo.getStatusShow(suggest.getStatus()) : "";
+        String typeShow = SuggestInfo.getTypeShow(suggest.getContentType());
         String title = suggest.getTitle();
         String create = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
@@ -246,7 +252,25 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         GImageView ivContent = head.findViewById(R.id.ivContent);
         ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
         ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-
+        // tagView
+        wvTag.removeAllChild();
+        if (top) {
+            View tagTop = getTagView(mActivity.getString(R.string.top));
+            wvTag.addChild(tagTop);
+        }
+        if (official) {
+            View tagOfficial = getTagView(mActivity.getString(R.string.official));
+            wvTag.addChild(tagOfficial);
+        }
+        if (mine) {
+            View tagMine = getTagView(mActivity.getString(R.string.me_de));
+            wvTag.addChild(tagMine);
+        }
+        View tagStatus = getTagView(statusShow);
+        wvTag.addChild(tagStatus);
+        View tagType = getTagView(typeShow);
+        wvTag.addChild(tagType);
+        // otherView
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
         tvContent.setText(contentText);
@@ -263,14 +287,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 }
             });
         }
-        wvTag.removeAllChild();
-        for (String tag : tagList) {
-            View tagView = getTagView(tag);
-            wvTag.addChild(tagView);
-        }
     }
 
     private View getTagView(String show) {
+        if (StringUtils.isEmpty(show)) return null;
         int dp7 = ConvertUtils.dp2px(7);
         int dp5 = ConvertUtils.dp2px(5);
         int dp2 = ConvertUtils.dp2px(2);
@@ -312,6 +332,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void initFollowView() {
+        if (suggest == null) return;
         boolean follow = suggest.isFollow();
         String followCount = String.valueOf(suggest.getFollowCount());
         tvFollow.setText(followCount);
@@ -323,6 +344,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void initCommentView() {
+        if (suggest == null) return;
         boolean isComment = suggest.isComment();
         String commentCount = String.valueOf(suggest.getCommentCount());
 

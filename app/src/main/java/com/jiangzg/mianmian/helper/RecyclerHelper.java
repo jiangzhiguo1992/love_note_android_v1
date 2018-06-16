@@ -261,7 +261,6 @@ public class RecyclerHelper {
     }
 
     public void dataOk(List list, boolean more) {
-        if (list == null) return;
         dataOk(list, Integer.MAX_VALUE, more);
     }
 

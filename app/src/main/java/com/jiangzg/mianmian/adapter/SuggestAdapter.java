@@ -14,14 +14,15 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.SuggestDetailActivity;
 import com.jiangzg.mianmian.domain.Suggest;
+import com.jiangzg.mianmian.domain.SuggestInfo;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GWrapView;
 
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -57,6 +58,11 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Suggest item) {
         // data
+        boolean top = item.isTop();
+        boolean official = item.isOfficial();
+        boolean mine = item.isMine();
+        String statusShow = item.getStatus() > 0 ? SuggestInfo.getStatusShow(item.getStatus()) : "";
+        String typeShow = SuggestInfo.getTypeShow(item.getContentType());
         String title = item.getTitle();
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
@@ -81,8 +87,25 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         }
         final boolean follow = item.isFollow();
         boolean comment = item.isComment();
-        List<String> tagList = item.getTagList();
         // view
+        GWrapView wvTag = helper.getView(R.id.wvTag);
+        wvTag.removeAllChild();
+        if (top) {
+            View tagTop = getTagView(mActivity.getString(R.string.top));
+            wvTag.addChild(tagTop);
+        }
+        if (official) {
+            View tagOfficial = getTagView(mActivity.getString(R.string.official));
+            wvTag.addChild(tagOfficial);
+        }
+        if (mine) {
+            View tagMine = getTagView(mActivity.getString(R.string.me_de));
+            wvTag.addChild(tagMine);
+        }
+        View tagStatus = getTagView(statusShow);
+        wvTag.addChild(tagStatus);
+        View tagType = getTagView(typeShow);
+        wvTag.addChild(tagType);
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);
         helper.setText(R.id.tvCreateAt, createShow);
@@ -100,16 +123,10 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         } else {
             ivComment.setImageTintList(colorGreyStateList);
         }
-
-        GWrapView wvTag = helper.getView(R.id.wvTag);
-        wvTag.removeAllChild();
-        for (String tag : tagList) {
-            View tagView = getTagView(tag);
-            wvTag.addChild(tagView);
-        }
     }
 
     private View getTagView(String show) {
+        if (StringUtils.isEmpty(show)) return null;
         TextView textView = new TextView(mActivity);
         textView.setLayoutParams(mTextLayoutParams);
         textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);

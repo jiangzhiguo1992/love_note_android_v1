@@ -116,15 +116,19 @@ public class GWrapView extends FrameLayout {
     }
 
     public void addChild(View child) {
+        if (child == null) return;
         addView(child);
     }
 
     public void addChild(View child, int index) {
+        if (child == null) return;
         addView(child, index);
     }
 
     public void addChilds(List<View> childes) {
+        if (childes == null || childes.size() <= 0) return;
         for (View child : childes) {
+            if (child == null) continue;
             addChild(child);
         }
     }
@@ -134,6 +138,7 @@ public class GWrapView extends FrameLayout {
     }
 
     public void removeChild(View child) {
+        if (child == null) return;
         removeView(child);
     }
 

@@ -1,7 +1,5 @@
 package com.jiangzg.mianmian.domain;
 
-import java.util.List;
-
 /**
  * Created by JZG on 2018/3/14.
  * 意见评论
@@ -9,9 +7,18 @@ import java.util.List;
 public class SuggestComment extends BaseObj {
 
     private long suggestId;
-    private boolean mine;
-    private List<String> tagList;
     private String contentText;
+    // tag标签
+    private boolean official;
+    private boolean mine;
+
+    public boolean isOfficial() {
+        return official;
+    }
+
+    public void setOfficial(boolean official) {
+        this.official = official;
+    }
 
     public long getSuggestId() {
         return suggestId;
@@ -27,14 +34,6 @@ public class SuggestComment extends BaseObj {
 
     public void setMine(boolean mine) {
         this.mine = mine;
-    }
-
-    public List<String> getTagList() {
-        return tagList;
-    }
-
-    public void setTagList(List<String> tagList) {
-        this.tagList = tagList;
     }
 
     public String getContentText() {

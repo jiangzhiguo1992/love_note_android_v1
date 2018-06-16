@@ -81,7 +81,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private int contentType = 0;
     private File cameraFile;
     private File pictureFile;
-    private List<SuggestInfo.SuggestContentType> suggestContentTypeList;
+    private List<SuggestInfo.SuggestType> suggestTypeList;
     private int limitTitleLength;
     private int limitContentLength;
     private Call<Result> call;
@@ -149,9 +149,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        // TODO 这里需要自定义suggestInfo
-        SuggestInfo suggestInfo = new SuggestInfo();
-        suggestContentTypeList = suggestInfo.getContentTypeList();
+        SuggestInfo suggestInfo = SuggestInfo.getInstance();
+        suggestTypeList = suggestInfo.getTypeList();
     }
 
     @Override
@@ -284,10 +283,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     private void showStatusDialog() {
         // 第一个是全部，不要
-        CharSequence[] items = new CharSequence[suggestContentTypeList.size() - 1];
-        for (int i = 1; i < suggestContentTypeList.size(); i++) {
-            SuggestInfo.SuggestContentType contentType = suggestContentTypeList.get(i);
-            int index = contentType.getContentType() - 1;
+        CharSequence[] items = new CharSequence[suggestTypeList.size() - 1];
+        for (int i = 1; i < suggestTypeList.size(); i++) {
+            SuggestInfo.SuggestType contentType = suggestTypeList.get(i);
+            int index = contentType.getType() - 1;
             String show = contentType.getShow();
             items[index] = show;
         }
@@ -300,9 +299,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         // 第一个忽略
-                        SuggestInfo.SuggestContentType suggestContentType = suggestContentTypeList.get(which + 1);
-                        contentType = suggestContentType.getContentType();
-                        tvType.setText(suggestContentType.getShow());
+                        SuggestInfo.SuggestType suggestType = suggestTypeList.get(which + 1);
+                        contentType = suggestType.getType();
+                        tvType.setText(suggestType.getShow());
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -313,7 +312,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     // 检查格式
     private void checkPush() {
-        if (contentType <= suggestContentTypeList.get(0).getContentType()) {
+        if (contentType <= suggestTypeList.get(0).getType()) {
             // 第一个是全部
             ToastUtils.show(getString(R.string.please_choose_classify));
             return;
