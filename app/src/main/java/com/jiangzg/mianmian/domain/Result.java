@@ -53,11 +53,7 @@ public class Result implements Serializable {
         private Couple couple;
         private OssInfo ossInfo;
         private long noticeNoReadCount;
-        private String taPhone;
-        private String title;
-        private String message;
-        private String btnGood;
-        private String btnBad;
+        private PairCard pairCard;
         private String show;
         private Help help;
         private long total;
@@ -89,6 +85,14 @@ public class Result implements Serializable {
         private Notice notice;
         private List<Picture> pictureList;
         private Picture picture;
+
+        public PairCard getPairCard() {
+            return pairCard;
+        }
+
+        public void setPairCard(PairCard pairCard) {
+            this.pairCard = pairCard;
+        }
 
         public List<Picture> getPictureList() {
             return pictureList;
@@ -352,46 +356,6 @@ public class Result implements Serializable {
 
         public void setHelp(Help help) {
             this.help = help;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
-
-        public String getBtnGood() {
-            return btnGood;
-        }
-
-        public void setBtnGood(String btnGood) {
-            this.btnGood = btnGood;
-        }
-
-        public String getBtnBad() {
-            return btnBad;
-        }
-
-        public void setBtnBad(String btnBad) {
-            this.btnBad = btnBad;
-        }
-
-        public String getTaPhone() {
-            return taPhone;
-        }
-
-        public void setTaPhone(String taPhone) {
-            this.taPhone = taPhone;
         }
 
         public OssInfo getOssInfo() {

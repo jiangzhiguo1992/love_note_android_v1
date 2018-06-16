@@ -19,7 +19,6 @@ import android.widget.ViewFlipper;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
@@ -44,7 +43,6 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.domain.Weather;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
@@ -71,19 +69,22 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
+    @BindView(R.id.ivHelp)
+    ImageView ivHelp;
+    @BindView(R.id.ivWallPaper)
+    ImageView ivWallPaper;
+    @BindView(R.id.vfWallPaper)
+    ViewFlipper vfWallPaper;
+
     @BindView(R.id.tvCoupleCountDown)
     TextView tvCoupleCountDown;
     @BindView(R.id.tvAddWallPaper)
     TextView tvAddWallPaper;
     @BindView(R.id.btnPair)
     Button btnPair;
-    @BindView(R.id.vfWallPaper)
-    ViewFlipper vfWallPaper;
-    @BindView(R.id.ivHelp)
-    ImageView ivHelp;
-    @BindView(R.id.ivWallPaper)
-    ImageView ivWallPaper;
 
+    @BindView(R.id.llBottom)
+    LinearLayout llBottom;
     @BindView(R.id.llCoupleInfo)
     LinearLayout llCoupleInfo;
     @BindView(R.id.ivAvatarLeft)
@@ -118,7 +119,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     private Runnable coupleCountDownTask;
     private Observable<WallPaper> obWallPaperRefresh;
     private Observable<Couple> obCoupleRefresh;
-    private Observable<LocationInfo> obLocationRefresh;
     private Place myPlace;
     private Place taPlace;
 
@@ -167,12 +167,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 refreshView();
             }
         });
-        obLocationRefresh = RxBus.register(ConsHelper.EVENT_LOCATION_REFRESH, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo locationInfo) {
-                refreshPlaceView();
-            }
-        });
         // refresh
         refreshData();
     }
@@ -192,7 +186,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         stopCoupleCountDownTask();
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperRefresh);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
-        RxBus.unregister(ConsHelper.EVENT_LOCATION_REFRESH, obLocationRefresh);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair, R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
@@ -246,9 +239,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // 刷新的时候再把自己的位置推送上去
-        Place body = ApiHelper.getPlaceBody();
-        callHomeGet = new RetrofitHelper().call(API.class).coupleHomeGet(body);
+        callHomeGet = new RetrofitHelper().call(API.class).coupleHomeGet();
         RetrofitHelper.enqueue(callHomeGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -268,42 +259,44 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         });
     }
 
-    // 获取自己的位置并上传
+    // 获取自己的位置并上传 TODO 重做
     private void refreshPlaceDate() {
-        LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
-            @Override
-            public void onSuccess(LocationInfo info) {
-                Place body = ApiHelper.getPlaceBody();
-                callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
-                RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
-                    @Override
-                    public void onResponse(int code, String message, Result.Data data) {
-                        LogUtils.i(LOG_TAG, "地理位置刷新");
-                        myPlace = data.getMyPlace();
-                        taPlace = data.getTaPlace();
-                        refreshPlaceView();
-                    }
-
-                    @Override
-                    public void onFailure(String errMsg) {
-                    }
-                });
-            }
-
-            @Override
-            public void onFailed(String errMsg) {
-                LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
-                // 8.0 一个小时只允许获取几次地理位置
-            }
-        });
+        //if (Couple.isBreak(SPHelper.getCouple())) return;
+        //LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
+        //    @Override
+        //    public void onSuccess(LocationInfo info) {
+        //        Place body = ApiHelper.getPlaceBody();
+        //        callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
+        //        RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
+        //            @Override
+        //            public void onResponse(int code, String message, Result.Data data) {
+        //                LogUtils.i(LOG_TAG, "地理位置刷新");
+        //                myPlace = data.getMyPlace();
+        //                taPlace = data.getTaPlace();
+        //                refreshPlaceView();
+        //            }
+        //
+        //            @Override
+        //            public void onFailure(String errMsg) {
+        //            }
+        //        });
+        //    }
+        //
+        //    @Override
+        //    public void onFailed(String errMsg) {
+        //        LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
+        //        // 8.0 一个小时只允许获取几次地理位置
+        //    }
+        //});
     }
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
-        tvCoupleCountDown.setVisibility(View.GONE);
-        btnPair.setVisibility(View.GONE);
         vfWallPaper.setVisibility(View.GONE);
+        btnPair.setVisibility(View.GONE);
         tvAddWallPaper.setVisibility(View.GONE);
+        tvCoupleCountDown.setVisibility(View.GONE);
+        llBottom.setVisibility(View.GONE);
 
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
@@ -312,6 +305,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             btnPair.setVisibility(View.VISIBLE);
         } else {
             // 已经配对
+            llBottom.setVisibility(View.VISIBLE);
             if (Couple.isBreaking(couple)) {
                 // 正在分手
                 tvCoupleCountDown.setVisibility(View.VISIBLE);
@@ -382,18 +376,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         vfWallPaper.setAutoStart(true);
         vfWallPaper.setFlipInterval(10000);
         vfWallPaper.startFlipping();
-    }
-
-    private GImageView getViewFlipperImage() {
-        GImageView image = new GImageView(mActivity);
-        ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        image.setLayoutParams(paramsImage);
-        int screenWidth = ScreenUtils.getScreenWidth(mActivity);
-        int screenHeight = ScreenUtils.getScreenHeight(mActivity);
-        image.setWidthAndHeight(screenWidth, screenHeight);
-        image.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-        image.getHierarchy().setFadeDuration(0);
-        return image;
     }
 
     private void refreshPlaceView() {
@@ -489,6 +471,18 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         int abs = Math.abs((myC - taC));
         String format = String.format(Locale.getDefault(), getString(R.string.differ_holder_c), abs);
         tvWeatherDiffer.setText(format);
+    }
+
+    private GImageView getViewFlipperImage() {
+        GImageView image = new GImageView(mActivity);
+        ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        image.setLayoutParams(paramsImage);
+        int screenWidth = ScreenUtils.getScreenWidth(mActivity);
+        int screenHeight = ScreenUtils.getScreenHeight(mActivity);
+        image.setWidthAndHeight(screenWidth, screenHeight);
+        image.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        image.getHierarchy().setFadeDuration(0);
+        return image;
     }
 
     // 分手倒计时

@@ -4,7 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.SPHelper;
 
 /**
@@ -64,9 +67,12 @@ public class Couple extends BaseObj implements Parcelable {
     public static String getBreakCountDownShow(Couple couple) {
         long breakCountDown = getBreakCountDown(couple);
         long hour = breakCountDown / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        String hourF = hour >= 10 ? "" : "0";
         long min = (breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC)) / (ConstantUtils.MIN / ConstantUtils.SEC);
+        String minF = min >= 10 ? ":" : ":0";
         long sec = breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC) - min * (ConstantUtils.MIN / ConstantUtils.SEC);
-        return hour + ":" + min + ":" + sec;
+        String secF = sec >= 10 ? ":" : ":0";
+        return hourF + hour + minF + min + secF + sec;
     }
 
     public static long getBreakCountDown(Couple couple) {
@@ -91,9 +97,11 @@ public class Couple extends BaseObj implements Parcelable {
     public static String getName(Couple couple, long uid) {
         if (Couple.isEmpty(couple)) return "";
         if (uid == couple.getCreatorId()) {
-            return couple.getCreatorName();
+            String creatorName = couple.getCreatorName();
+            return StringUtils.isEmpty(creatorName) ? MyApp.get().getString(R.string.now_null_nickname) : creatorName;
         } else {
-            return couple.getInviteeName();
+            String inviteeName = couple.getInviteeName();
+            return StringUtils.isEmpty(inviteeName) ? MyApp.get().getString(R.string.now_null_nickname) : inviteeName;
         }
     }
 

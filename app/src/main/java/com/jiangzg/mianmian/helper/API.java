@@ -72,25 +72,13 @@ public interface API {
     @PUT("user")
     Call<Result> userModify(@Body User user);
 
-    // 用户查询
-    //@GET("user")
-    //Call<Result> userGet(@Query("ta") boolean ta);
-
-    // oss
-    @GET("oss")
-    Call<Result> ossGet();
-
     // app开启 welcome login userInfo forget
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);
 
-    // 登录历史获取
-    @GET("entry")
-    Call<Result> entryListGet(@Query("page") int page);
-
-    // 推送登录位置
-    @POST("entry/place")
-    Call<Result> entryPlacePush(@Body Entry.EntryPlace entryPlace);
+    // oss
+    @GET("oss")
+    Call<Result> ossGet();
 
     // 公告列表获取
     @GET("set/notice?list=1")
@@ -158,12 +146,11 @@ public interface API {
 
     // 配对查询
     @GET("couple")
-    Call<Result> coupleGet(@Query("self") boolean self, @Query("phone") String phone,
-                           @Query("cid") long cid, @Query("uid") long uid);
+    Call<Result> coupleGet(@Query("self") boolean self, @Query("uid") long uid);
 
     // cp首页
-    @POST("couple/home")
-    Call<Result> coupleHomeGet(@Body Place place);
+    @GET("couple/home")
+    Call<Result> coupleHomeGet();
 
     // 添加墙纸
     @POST("couple/wallPaper")
@@ -244,10 +231,6 @@ public interface API {
     // picture列表获取
     @GET("book/picture")
     Call<Result> PictureListGet(@Query("aid") long aid, @Query("page") int page);
-
-    // picture获取
-    //@GET("book/picture")
-    //Call<Result> PictureGet(@Query("pid") long pid);
 
     // picture上传
     @POST("book/picture")

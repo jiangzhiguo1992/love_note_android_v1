@@ -49,7 +49,7 @@ public class SPHelper {
     private static final String FIELD_USER_TOKEN = "userToken";
     // couple
     private static final String FIELD_CP_ID = "id";
-    private static final String FIELD_CP_STATUS = "status";
+    private static final String FIELD_CP_CREATE_AT = "createAt";
     private static final String FIELD_CP_UPDATE_AT = "updateAt";
     private static final String FIELD_CP_CREATOR_ID = "creatorId";
     private static final String FIELD_CP_CREATOR_NAME = "creatorName";
@@ -57,6 +57,11 @@ public class SPHelper {
     private static final String FIELD_CP_INVITEE_ID = "inviteeId";
     private static final String FIELD_CP_INVITEE_NAME = "inviteeName";
     private static final String FIELD_CP_INVITEE_AVATAR = "inviteeAvatar";
+    private static final String FIELD_CP_STATE_ID = "stateId";
+    private static final String FIELD_CP_STATE_CREATE_AT = "stateCreateAt";
+    private static final String FIELD_CP_STATE_UPDATE_AT = "stateUpdateAt";
+    private static final String FIELD_CP_STATE_USER_ID = "stateUserId";
+    private static final String FIELD_CP_STATE_STATE = "stateState";
     // version
     private static final String FIELD_VERSION_CREATE_AT = "createAt";
     private static final String FIELD_VERSION_VERSION_CODE = "versionCode";
@@ -184,7 +189,7 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
-        editor.putInt(FIELD_CP_STATUS, couple.getStatus());
+        editor.putLong(FIELD_CP_CREATE_AT, couple.getCreateAt());
         editor.putLong(FIELD_CP_UPDATE_AT, couple.getUpdateAt());
         editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
         editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());
@@ -192,6 +197,14 @@ public class SPHelper {
         editor.putLong(FIELD_CP_INVITEE_ID, couple.getInviteeId());
         editor.putString(FIELD_CP_INVITEE_NAME, couple.getInviteeName());
         editor.putString(FIELD_CP_INVITEE_AVATAR, couple.getInviteeAvatar());
+        Couple.State state = couple.getState();
+        if (state != null) {
+            editor.putLong(FIELD_CP_STATE_ID, state.getId());
+            editor.putLong(FIELD_CP_STATE_CREATE_AT, state.getCreateAt());
+            editor.putLong(FIELD_CP_STATE_UPDATE_AT, state.getUpdateAt());
+            editor.putLong(FIELD_CP_STATE_USER_ID, state.getUserId());
+            editor.putInt(FIELD_CP_STATE_STATE, state.getState());
+        }
         editor.apply();
     }
 
@@ -199,7 +212,7 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
         Couple couple = new Couple();
         couple.setId(sp.getLong(FIELD_CP_ID, 0));
-        couple.setStatus(sp.getInt(FIELD_CP_STATUS, 0));
+        couple.setCreateAt(sp.getLong(FIELD_CP_CREATE_AT, 0));
         couple.setUpdateAt(sp.getLong(FIELD_CP_UPDATE_AT, 0));
         couple.setCreatorId(sp.getLong(FIELD_CP_CREATOR_ID, 0));
         couple.setCreatorName(sp.getString(FIELD_CP_CREATOR_NAME, ""));
@@ -207,6 +220,13 @@ public class SPHelper {
         couple.setInviteeId(sp.getLong(FIELD_CP_INVITEE_ID, 0));
         couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
         couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
+        Couple.State state = new Couple.State();
+        state.setId(sp.getLong(FIELD_CP_STATE_ID, 0));
+        state.setCreateAt(sp.getLong(FIELD_CP_STATE_CREATE_AT, 0));
+        state.setUpdateAt(sp.getLong(FIELD_CP_STATE_UPDATE_AT, 0));
+        state.setUserId(sp.getLong(FIELD_CP_STATE_USER_ID, 0));
+        state.setState(sp.getInt(FIELD_CP_STATE_STATE, 0));
+        couple.setState(state);
         return couple;
     }
 

@@ -95,7 +95,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @BindView(R.id.tvBreakAbout)
     TextView tvBreakAbout;
 
-    private boolean isCreator;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
     private File cameraFile;
@@ -211,6 +210,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         // data
         User me = SPHelper.getUser();
         User ta = SPHelper.getTa();
+        Couple couple = me.getCouple();
         String myName = me.getMyNameInCp();
         String taName = me.getTaNameInCp();
         String myAvatar = me.getMyAvatarInCp();
@@ -226,7 +226,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             long taBirth = ConvertHelper.getJavaTimeByGo(ta.getBirthday());
             taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
-        boolean breaking = Couple.isBreaking(me.getCouple());
+        boolean breaking = Couple.isBreaking(couple);
+
         // view
         ivAvatarLeft.setData(taAvatar);
         ivAvatarRight.setData(myAvatar);
@@ -238,7 +239,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         ivSexRight.setImageResource(meSexRes);
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
-        if (breaking) {
+        if (breaking && couple.getState().getUserId() == me.getId()) {
             tvBreakAbout.setText(R.string.i_regret_i_want_complex);
         } else {
             tvBreakAbout.setText(R.string.i_want_break_pair_relation);
@@ -259,7 +260,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 修改名称对话框
     private void showNameInput() {
-        String show = isCreator ? tvNameRight.getText().toString().trim() : tvNameLeft.getText().toString().trim();
+        String show = SPHelper.getUser().getTaNameInCp().trim();
         String hint = getString(R.string.please_input_nickname);
         int coupleNameLength = SPHelper.getLimit().getCoupleNameLength();
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
@@ -330,9 +331,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 拨打电话
     private void showDial() {
-        String phone = isCreator ? tvPhoneRight.getText().toString().trim() : tvPhoneLeft.getText().toString().trim();
-        Intent dial = IntentFactory.getDial(phone);
-        ActivityTrans.start(mActivity, dial);
+        User ta = SPHelper.getTa();
+        if (ta != null) {
+            String phone = ta.getPhone().trim();
+            Intent dial = IntentFactory.getDial(phone);
+            ActivityTrans.start(mActivity, dial);
+        }
     }
 
     // 用户信息
@@ -345,14 +349,15 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 分手/复合
     private void breakAbout() {
-        Couple couple = SPHelper.getCouple();
-        if (!Couple.isBreaking(couple)) {
-            // 要分手
-            showBreakDialog(couple);
-        } else {
+        User me = SPHelper.getUser();
+        Couple couple = me.getCouple();
+        if (Couple.isBreaking(couple) && couple.getState().getUserId() == me.getId()) {
             // 要复合
             User body = ApiHelper.getCoupleUpdate2GoodBody(couple.getId());
             coupleStatus(body);
+        } else {
+            // 要分手
+            showBreakDialog(couple);
         }
     }
 

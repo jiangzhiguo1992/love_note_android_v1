@@ -351,8 +351,7 @@
     <string name="holder_wave_holder_c">%s~%s℃</string>
     <string name="differ_holder_c" formatted="false">相差 %d℃</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
-    <string name="i_ta_first_come">我和Ta第一次来</string>
-    <string name="i_ta_once_come">我和Ta以前来过</string>
+    <string name="i_want_pair_with_ta">我要和Ta配对</string>
     <string name="couple_info">配对信息</string>
     <string name="break_relation">解除关系</string>
     <string name="file_create_fail">文件创建失败</string>
@@ -500,5 +499,6 @@
     <string name="lat_lon_colon">经纬度:</string>
     <string name="total_colon_space_holder_paper">总计: %d张</string>
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
+    <string name="now_null_nickname">暂无爱称</string>
 
 </resources>

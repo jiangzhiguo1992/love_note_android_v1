@@ -30,7 +30,6 @@ import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
@@ -174,28 +173,6 @@ public class ApiHelper {
                 }
             }, totalWait - between);
         }
-        // 推送登录地区，必须在entry之后
-        pushEntryPlace();
-    }
-
-    public static void pushEntryPlace() {
-        LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
-            @Override
-            public void onSuccess(LocationInfo info) {
-                // api
-                Entry.EntryPlace entryPlaceBody = ApiHelper.getEntryPlaceBody();
-                Call<Result> call = new RetrofitHelper().call(API.class).entryPlacePush(entryPlaceBody);
-                RetrofitHelper.enqueue(call, null, null);
-                // 发送通知
-                RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_LOCATION_REFRESH, info);
-                RxBus.post(event);
-            }
-
-            @Override
-            public void onFailed(String errMsg) {
-
-            }
-        });
     }
 
     public static Sms getSmsLoginBody(String phone) {
@@ -333,16 +310,6 @@ public class ApiHelper {
         WallPaper wallPaper = new WallPaper();
         wallPaper.setImageList(imgList);
         return wallPaper;
-    }
-
-    public static Entry.EntryPlace getEntryPlaceBody() {
-        LocationInfo info = LocationInfo.getInfo();
-        Entry.EntryPlace entryPlace = new Entry.EntryPlace();
-        entryPlace.setLongitude(info.getLongitude());
-        entryPlace.setLatitude(info.getLatitude());
-        entryPlace.setAddress(info.getAddress());
-        entryPlace.setCityId(0);
-        return entryPlace;
     }
 
     public static Place getPlaceBody() {

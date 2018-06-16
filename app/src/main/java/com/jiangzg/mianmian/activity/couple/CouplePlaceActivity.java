@@ -138,22 +138,22 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).entryListGet(page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
-                List<Entry> entryList = data.getEntryList();
-                recyclerHelper.dataOk(entryList, total, more);
-                addTopEntry();
-            }
-
-            @Override
-            public void onFailure(String errMsg) {
-                recyclerHelper.dataFail(more, errMsg);
-            }
-        });
+        //call = new RetrofitHelper().call(API.class).entryListGet(page);
+        //RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        //    @Override
+        //    public void onResponse(int code, String message, Result.Data data) {
+        //        recyclerHelper.viewEmptyShow(data.getShow());
+        //        long total = data.getTotal();
+        //        List<Entry> entryList = data.getEntryList();
+        //        recyclerHelper.dataOk(entryList, total, more);
+        //        addTopEntry();
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(String errMsg) {
+        //        recyclerHelper.dataFail(more, errMsg);
+        //    }
+        //});
     }
 
 }

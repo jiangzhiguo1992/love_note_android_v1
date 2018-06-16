@@ -29,7 +29,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_gradient_black_trans">
+                android:background="@drawable/shape_gradient_primary_trans">
 
                 <ImageView
                     android:id="@+id/ivHelp"
@@ -102,10 +102,13 @@
 
             <!-- 底部信息栏 -->
             <LinearLayout
+                android:id="@+id/llBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_gradient_trans_light_accent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <!-- 用户信息 -->
                 <LinearLayout
