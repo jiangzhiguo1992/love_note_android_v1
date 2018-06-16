@@ -17,6 +17,7 @@ public class Limit {
     private int suggestContentTextLength;
     private int suggestCommentContentLength;
     // couple
+    private long coupleBreakSec;
     private int coupleNameLength;
     // book
     private long bookResExpireSec;
@@ -40,6 +41,14 @@ public class Limit {
 
     // square
     private int vipExpireDay;
+
+    public long getCoupleBreakSec() {
+        return coupleBreakSec;
+    }
+
+    public void setCoupleBreakSec(long coupleBreakSec) {
+        this.coupleBreakSec = coupleBreakSec;
+    }
 
     public int getSmsCodeLength() {
         return smsCodeLength;

@@ -40,7 +40,6 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
@@ -227,7 +226,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             long taBirth = ConvertHelper.getJavaTimeByGo(ta.getBirthday());
             taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
-        boolean breaking = CheckHelper.isCoupleBreaking(me.getCouple());
+        boolean breaking = Couple.isBreaking(me.getCouple());
         // view
         ivAvatarLeft.setData(taAvatar);
         ivAvatarRight.setData(myAvatar);
@@ -339,7 +338,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     // 用户信息
     private void goUserInfo() {
         // 也就改一次，所以直接修改完之后就跳转home吧
-        if (CheckHelper.canUserInfo()) {
+        if (User.canUserInfo()) {
             UserInfoActivity.goActivity(mActivity);
         }
     }
@@ -347,7 +346,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     // 分手/复合
     private void breakAbout() {
         Couple couple = SPHelper.getCouple();
-        if (!CheckHelper.isCoupleBreaking(couple)) {
+        if (!Couple.isBreaking(couple)) {
             // 要分手
             showBreakDialog(couple);
         } else {

@@ -45,7 +45,6 @@ import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.domain.Weather;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
@@ -204,7 +203,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_HOME);
                 break;
             case R.id.ivWallPaper:  // 背景图
-                if (CheckHelper.isCoupleBreak(couple)) {
+                if (Couple.isBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     CoupleWallPaperActivity.goActivity(mActivity);
@@ -214,7 +213,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 CouplePairActivity.goActivity(mActivity);
                 break;
             case R.id.llCoupleInfo: // cp信息
-                if (CheckHelper.isCoupleBreak(couple)) {
+                if (Couple.isBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
                     User ta = SPHelper.getTa();
@@ -226,16 +225,16 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 }
                 break;
             case R.id.llPlace: // 地址信息
-                if (CheckHelper.isCoupleBreak(couple)) {
+                if (Couple.isBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
-                } else if (CheckHelper.checkLocationEnable(mActivity)) {
+                } else if (LocationHelper.checkLocationEnable(mActivity)) {
                     CouplePlaceActivity.goActivity(mActivity, taPlace);
                 }
                 break;
             case R.id.llWeather: // 天气信息
-                if (CheckHelper.isCoupleBreak(couple)) {
+                if (Couple.isBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
-                } else if (CheckHelper.checkLocationEnable(mActivity)) {
+                } else if (LocationHelper.checkLocationEnable(mActivity)) {
                     CoupleWeatherActivity.goActivity(mActivity);
                 }
                 break;
@@ -308,12 +307,12 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
         User user = SPHelper.getUser();
         Couple couple = user.getCouple();
-        if (CheckHelper.isCoupleBreak(couple)) {
+        if (Couple.isBreak(couple)) {
             // 已经分手，或者没有开始过
             btnPair.setVisibility(View.VISIBLE);
         } else {
             // 已经配对
-            if (CheckHelper.isCoupleBreaking(couple)) {
+            if (Couple.isBreaking(couple)) {
                 // 正在分手
                 tvCoupleCountDown.setVisibility(View.VISIBLE);
                 MyApp.get().getHandler().post(getCoupleCountDownTask());
@@ -499,13 +498,13 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 @Override
                 public void run() {
                     Couple couple = SPHelper.getCouple();
-                    long breakCountDown = couple.getBreakCountDown();
+                    long breakCountDown = Couple.getBreakCountDown(couple);
                     if (breakCountDown <= 0) {
                         RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                         RxBus.post(event);
                         MyApp.get().getHandler().removeCallbacks(this);
                     } else {
-                        String breakCountDownShow = couple.getBreakCountDownShow();
+                        String breakCountDownShow = Couple.getBreakCountDownShow(couple);
                         tvCoupleCountDown.setText(breakCountDownShow);
                         MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
                     }

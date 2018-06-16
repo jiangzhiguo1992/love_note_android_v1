@@ -44,7 +44,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
     @Override
     protected void convert(BaseViewHolder helper, Word item) {
         // data
-        String avatar = ConvertHelper.getAvatarByCp(couple, item.getUserId());
+        String avatar = Couple.getAvatar(couple, item.getUserId());
         String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String content = item.getContent();
         // view

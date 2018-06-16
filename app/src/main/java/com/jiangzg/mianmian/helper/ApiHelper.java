@@ -303,8 +303,7 @@ public class ApiHelper {
         User user = SPHelper.getUser();
         user.setType(CoupleUpdateInfo);
         Couple couple = user.getCouple();
-        boolean isCreator = user.isCoupleCreator();
-        if (isCreator) {
+        if (couple.getCreatorId() == user.getId()) {
             couple.setInviteeAvatar(avatar);
             couple.setInviteeName(name);
         } else {

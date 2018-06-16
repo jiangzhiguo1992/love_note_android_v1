@@ -3,8 +3,10 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.mianmian.helper.CheckHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.base.MyApp;
+import com.jiangzg.mianmian.helper.SPHelper;
 
 /**
  * Created by JiangZhiGuo on 2016/9/30.
@@ -28,48 +30,81 @@ public class User extends BaseObj implements Parcelable {
     private int type;
     private String oldPassWord;
 
+    // 是否登录
+    public static boolean noLogin() {
+        String userToken = SPHelper.getUser().getUserToken();
+        return StringUtils.isEmpty(userToken);
+    }
+
+    // 信息是否完善
+    public static boolean canUserInfo() {
+        User user = SPHelper.getUser();
+        int sex = user.getSex();
+        long birthday = user.getBirthday();
+        boolean noSex = sex != User.SEX_BOY && sex != User.SEX_GIRL;
+        boolean noBirth = birthday == 0;
+        return noSex || noBirth;
+    }
+
+    // 性别
     public String getSexShow() {
-        return ConvertHelper.getSexShow(this.getSex());
+        return getSexShow(this.getSex());
+    }
+
+    public static String getSexShow(int sex) {
+        if (sex == User.SEX_GIRL) {
+            return MyApp.get().getString(R.string.girl);
+        } else if (sex == User.SEX_BOY) {
+            return MyApp.get().getString(R.string.boy);
+        }
+        return "";
     }
 
     public int getSexResCircleSmall() {
-        return ConvertHelper.getSexResCircleSmall(this.getSex());
+        return getSexResCircleSmall(this.getSex());
     }
 
+    public static int getSexResCircleSmall(int sex) {
+        if (sex == User.SEX_BOY) {
+            return R.mipmap.ic_sex_boy_circle;
+        } else if (sex == User.SEX_GIRL) {
+            return R.mipmap.ic_sex_girl_circle;
+        }
+        return 0;
+    }
+
+    // ta的id
     public long getTaId() {
         Couple couple = getCouple();
-        return ConvertHelper.getTaIdByCp(couple, this.getId());
+        return Couple.getTaId(couple, this.getId());
     }
 
+    // 名称
     public String getMyNameInCp() {
-        return getNameById(this.getId());
+        return getNameInCp(this.getId());
     }
 
     public String getTaNameInCp() {
-        return getNameById(getTaId());
+        return getNameInCp(getTaId());
     }
 
-    public String getNameById(long uid) {
+    public String getNameInCp(long uid) {
         Couple couple = getCouple();
-        return ConvertHelper.getNameByCp(couple, uid);
+        return Couple.getName(couple, uid);
     }
 
+    // 头像
     public String getMyAvatarInCp() {
-        return getAvatarById(this.getId());
+        return getAvatarInCp(this.getId());
     }
 
     public String getTaAvatarInCp() {
-        return getAvatarById(getTaId());
+        return getAvatarInCp(getTaId());
     }
 
-    public String getAvatarById(long uid) {
+    public String getAvatarInCp(long uid) {
         Couple couple = getCouple();
-        return ConvertHelper.getAvatarByCp(couple, uid);
-    }
-
-    public boolean isCoupleCreator() {
-        Couple couple = getCouple();
-        return CheckHelper.isCoupleCreator(couple, this.getId());
+        return Couple.getAvatar(couple, uid);
     }
 
     public String getOldPassWord() {

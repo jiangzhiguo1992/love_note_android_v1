@@ -35,7 +35,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         String content = item.getContent();
         if (content == null) content = "";
         String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon_holder), content.length());
-        String avatar = ConvertHelper.getAvatarByCp(couple, item.getUserId());
+        String avatar = Couple.getAvatar(couple, item.getUserId());
         // view
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvCount, countShow);

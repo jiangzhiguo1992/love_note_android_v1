@@ -30,7 +30,6 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -262,7 +261,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
 
     // 刷新view
     private void refreshSelfCoupleView(Result.Data data) {
-        if (data == null || CheckHelper.isNullCouple(data.getCouple())) {
+        if (data == null || Couple.isEmpty(data.getCouple())) {
             // 没有等待处理的
             coupleId = 0;
             llInput.setVisibility(View.VISIBLE);
@@ -367,7 +366,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                if (data != null && !CheckHelper.isCoupleBreak(data.getCouple())) {
+                if (data != null && !Couple.isBreak(data.getCouple())) {
                     // 有配对成功的，退出本界面
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);

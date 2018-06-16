@@ -36,7 +36,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, Whisper item) {
         // data
-        String avatar = ConvertHelper.getAvatarByCp(couple, item.getUserId());
+        String avatar = Couple.getAvatar(couple, item.getUserId());
         String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         boolean imgType = item.isImgType();
         final String content = item.getContent();

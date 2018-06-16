@@ -93,6 +93,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_SUGGEST_TITLE_LENGTH = "suggestTitleLength";
     private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH = "suggestContentTextLength";
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggestCommentContentLength";
+    private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "coupleBreakSec";
     private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "coupleNameLength";
     private static final String FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS = "bookOssExpireSeconds";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenirTitleLength";
@@ -175,7 +176,7 @@ public class SPHelper {
 
     public static void setCouple(Couple couple) {
         clearCouple();
-        if (CheckHelper.isNullCouple(couple)) {
+        if (Couple.isEmpty(couple)) {
             LogUtils.w(LOG_TAG, "couple == null");
             return;
         } else {
@@ -198,7 +199,7 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
         Couple couple = new Couple();
         couple.setId(sp.getLong(FIELD_CP_ID, 0));
-        couple.setStatus(sp.getInt(FIELD_CP_STATUS, Couple.CoupleStatusTogether));
+        couple.setStatus(sp.getInt(FIELD_CP_STATUS, 0));
         couple.setUpdateAt(sp.getLong(FIELD_CP_UPDATE_AT, 0));
         couple.setCreatorId(sp.getLong(FIELD_CP_CREATOR_ID, 0));
         couple.setCreatorName(sp.getString(FIELD_CP_CREATOR_NAME, ""));
@@ -307,6 +308,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, limit.getSuggestTitleLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, limit.getSuggestContentTextLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
+        editor.putLong(FIELD_LIMIT_COUPLE_BREAK_SEC, limit.getCoupleBreakSec());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
         editor.putLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, limit.getBookResExpireSec());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
@@ -340,6 +342,7 @@ public class SPHelper {
         limit.setSuggestTitleLength(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, 20));
         limit.setSuggestContentTextLength(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, 200));
         limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
+        limit.setCoupleBreakSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_SEC, 60 * 60 * 24));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
         limit.setBookResExpireSec(sp.getLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));

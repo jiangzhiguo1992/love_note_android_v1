@@ -187,7 +187,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         String happenAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tb.setTitle(happenAt);
         // author
-        String authorName = user.getNameById(userId);
+        String authorName = user.getNameInCp(userId);
         String authorShow = String.format(Locale.getDefault(), getString(R.string.author_space_colon_space_holder), authorName);
         tvAuthor.setText(authorShow);
         // updateAt

@@ -16,9 +16,9 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
-import com.jiangzg.mianmian.helper.CheckHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.view.GImageNativeView;
@@ -92,7 +92,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 检查用户
     private void checkUser() {
-        if (CheckHelper.noLogin()) {
+        if (User.noLogin()) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override

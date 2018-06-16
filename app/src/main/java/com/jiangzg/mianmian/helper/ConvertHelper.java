@@ -8,10 +8,8 @@ import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
-import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Picture;
-import com.jiangzg.mianmian.domain.User;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -24,60 +22,6 @@ import java.util.List;
  * 常用工具类
  */
 public class ConvertHelper {
-
-    /**
-     * **************************************用户信息**************************************
-     */
-
-    // 获取ta的id
-    public static long getTaIdByCp(Couple couple, long mid) {
-        if (CheckHelper.isNullCouple(couple)) return 0;
-        if (mid == couple.getCreatorId()) {
-            return couple.getInviteeId();
-        } else {
-            return couple.getCreatorId();
-        }
-    }
-
-    // 获取在cp中的头像
-    public static String getAvatarByCp(Couple couple, long uid) {
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (uid == couple.getCreatorId()) {
-            return couple.getCreatorAvatar();
-        } else {
-            return couple.getInviteeAvatar();
-        }
-    }
-
-    // 获取在cp中的昵称
-    public static String getNameByCp(Couple couple, long uid) {
-        if (CheckHelper.isNullCouple(couple)) return "";
-        if (uid == couple.getCreatorId()) {
-            return couple.getCreatorName();
-        } else {
-            return couple.getInviteeName();
-        }
-    }
-
-    // 性别显示
-    public static String getSexShow(int sex) {
-        if (sex == User.SEX_GIRL) {
-            return MyApp.get().getString(R.string.girl);
-        } else if (sex == User.SEX_BOY) {
-            return MyApp.get().getString(R.string.boy);
-        }
-        return "";
-    }
-
-    // 性别小圆图显示
-    public static int getSexResCircleSmall(int sex) {
-        if (sex == User.SEX_BOY) {
-            return R.mipmap.ic_sex_boy_circle;
-        } else if (sex == User.SEX_GIRL) {
-            return R.mipmap.ic_sex_girl_circle;
-        }
-        return 0;
-    }
 
     /**
      * **************************************时间**************************************

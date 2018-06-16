@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.mianmian.helper.SPHelper;
 
 /**
  * Created by JZG on 2017/12/18.
@@ -13,37 +14,149 @@ import com.jiangzg.base.time.DateUtils;
 
 public class Couple extends BaseObj implements Parcelable {
 
-    public static final long BreakCountDown = ConstantUtils.DAY / ConstantUtils.SEC;
+    public static final int STATUS_INVITE = 0; // 正在邀请(SelfVisible)
+    public static final int STATUS_INVITE_CANCEL = 1; // 邀请者撤回(NoVisible)
+    public static final int STATUS_INVITE_REJECT = 2; // 被邀请者拒绝(NoVisible)
+    public static final int STATUS_BREAK = 3; // 正在分手(Visible)/已分手(NoVisible)
+    public static final int STATUS_BREAK_ACCEPT = 4; // 被分手者同意(NoVisible)
+    public static final int STATUS_TOGETHER = 520; // 在一起(Visible)
 
-    public static final int CoupleStatusInviteeReject = -2;// 不可见，邀请失败
-    public static final int CoupleStatusComplexReject = -1; // 复合才可见，复合失败
-    public static final int CoupleStatusBreak = 0; // 自己可见/复合才可见，正在分手/已分手
-    public static final int CoupleStatusInvitee = 1;  // 只有自己可见，正在邀请
-    public static final int CoupleStatusComplex = 2; // 只有自己可见，正在复合
-    public static final int CoupleStatusTogether = 3; // 所有人可见，邀请成功，复合成功
+    private long creatorId; // 创建者id
+    private long inviteeId; // 受邀者id
+    private String creatorName; // 创建者昵称(对方修改)
+    private String inviteeName; // 受邀者昵称(对方修改)
+    private String creatorAvatar; // 创建者头像(对方修改)
+    private String inviteeAvatar; // 受邀者头像(对方修改)
+    private State state; // cp状态
 
-    private long creatorId; //创建者id
-    private long inviteeId; //受邀者id
-    private String creatorName; //创建者昵称(对方修改)
-    private String inviteeName; //受邀者昵称(对方修改)
-    private String creatorAvatar; //创建者头像(对方修改)
-    private String inviteeAvatar; //受邀者头像(对方修改)
-
-    public long getBreakCountDown() {
-        long breakAt = this.getUpdateAt() + Couple.BreakCountDown;
-        long currentLong = DateUtils.getCurrentLong() / ConstantUtils.SEC;
-        if (breakAt > currentLong) {
-            return breakAt - currentLong;
-        }
-        return 0;
+    public static boolean isEmpty(Couple couple) {
+        return (couple == null || couple.getId() == 0 || couple.getCreatorId() == 0 || couple.getInviteeId() == 0);
     }
 
-    public String getBreakCountDownShow() {
-        long breakCountDown = getBreakCountDown();
+    public static boolean isBreak(Couple couple) {
+        if (isEmpty(couple)) return true;
+        Couple.State coupleState = couple.getState();
+        if (coupleState == null) return true;
+        int state = coupleState.getState();
+        if (state == Couple.STATUS_INVITE || state == Couple.STATUS_INVITE_CANCEL ||
+                state == Couple.STATUS_INVITE_REJECT || state == Couple.STATUS_BREAK_ACCEPT) {
+            return true;
+        } else if (state == Couple.STATUS_BREAK) {
+            return !isBreaking(couple);
+        } else if (state == Couple.STATUS_TOGETHER) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isBreaking(Couple couple) {
+        if (isEmpty(couple)) return false;
+        Couple.State coupleState = couple.getState();
+        if (coupleState == null) return false;
+        int state = coupleState.getState();
+        if (state == Couple.STATUS_BREAK) {
+            long breakCountDown = getBreakCountDown(couple);
+            return breakCountDown > 0;
+        }
+        return false;
+    }
+
+    public static String getBreakCountDownShow(Couple couple) {
+        long breakCountDown = getBreakCountDown(couple);
         long hour = breakCountDown / (ConstantUtils.HOUR / ConstantUtils.SEC);
         long min = (breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC)) / (ConstantUtils.MIN / ConstantUtils.SEC);
         long sec = breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC) - min * (ConstantUtils.MIN / ConstantUtils.SEC);
         return hour + ":" + min + ":" + sec;
+    }
+
+    public static long getBreakCountDown(Couple couple) {
+        if (isEmpty(couple)) return -1;
+        State state = couple.getState();
+        if (state == null) return -1;
+        long breakAt = state.getCreateAt() + SPHelper.getLimit().getCoupleBreakSec();
+        long currentAt = DateUtils.getCurrentLong() / ConstantUtils.SEC;
+        long countDown = breakAt - currentAt;
+        return countDown > 0 ? countDown : -1;
+    }
+
+    public static long getTaId(Couple couple, long mid) {
+        if (Couple.isEmpty(couple)) return 0;
+        if (mid == couple.getCreatorId()) {
+            return couple.getInviteeId();
+        } else {
+            return couple.getCreatorId();
+        }
+    }
+
+    public static String getName(Couple couple, long uid) {
+        if (Couple.isEmpty(couple)) return "";
+        if (uid == couple.getCreatorId()) {
+            return couple.getCreatorName();
+        } else {
+            return couple.getInviteeName();
+        }
+    }
+
+    public static String getAvatar(Couple couple, long uid) {
+        if (Couple.isEmpty(couple)) return "";
+        if (uid == couple.getCreatorId()) {
+            return couple.getCreatorAvatar();
+        } else {
+            return couple.getInviteeAvatar();
+        }
+    }
+
+    public static class State extends BaseCP implements Parcelable {
+
+        private int state;
+
+        public State() {
+        }
+
+        protected State(Parcel in) {
+            super(in);
+            state = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(state);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<State> CREATOR = new Creator<State>() {
+            @Override
+            public State createFromParcel(Parcel in) {
+                return new State(in);
+            }
+
+            @Override
+            public State[] newArray(int size) {
+                return new State[size];
+            }
+        };
+
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
+        }
+
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public long getCreatorId() {
@@ -105,6 +218,7 @@ public class Couple extends BaseObj implements Parcelable {
         inviteeName = in.readString();
         creatorAvatar = in.readString();
         inviteeAvatar = in.readString();
+        state = in.readParcelable(State.class.getClassLoader());
     }
 
     @Override
@@ -116,6 +230,7 @@ public class Couple extends BaseObj implements Parcelable {
         dest.writeString(inviteeName);
         dest.writeString(creatorAvatar);
         dest.writeString(inviteeAvatar);
+        dest.writeParcelable(state, flags);
     }
 
     @Override
