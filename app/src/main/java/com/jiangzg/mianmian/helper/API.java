@@ -138,11 +138,11 @@ public interface API {
 
     // 配对邀请
     @POST("couple")
-    Call<Result> coupleInvitee(@Body User user); // 主要用到user里phone
+    Call<Result> coupleInvitee(@Body User user);
 
     // 配对更新
     @PUT("couple")
-    Call<Result> coupleUpdate(@Body User user); // 主要用到user里的type和couple
+    Call<Result> coupleUpdate(@Body User user);
 
     // 配对查询
     @GET("couple")
@@ -160,7 +160,7 @@ public interface API {
     @GET("couple/wallPaper")
     Call<Result> coupleWallPaperGet();
 
-    // 推送位置
+    // 推送位置 TODO
     @POST("couple/place")
     Call<Result> couplePlacePush(@Body Place place);
 

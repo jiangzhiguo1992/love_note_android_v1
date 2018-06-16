@@ -64,7 +64,7 @@ public class ApiHelper {
     public static final int MODIFY_PASSWORD = 2;
     public static final int MODIFY_PHONE = 3;
     public static final int MODIFY_INFO = 4;
-    // list类型
+    // list类型 TODO 优化
     public static final int LIST_CP = 0;
     public static final int LIST_MY = 1;
     public static final int LIST_TA = 2;

@@ -77,7 +77,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     private long coupleId;
     private Call<Result> callRefreshSelf;
     private Call<Result> callInvitee;
-    private Call<Result> callGetComplex;
     private Call<Result> callUpdate;
     private Call<Result> callGetVisible;
 
@@ -121,7 +120,6 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
         super.onDestroy();
         RetrofitHelper.cancel(callRefreshSelf);
         RetrofitHelper.cancel(callGetVisible);
-        RetrofitHelper.cancel(callGetComplex);
         RetrofitHelper.cancel(callInvitee);
         RetrofitHelper.cancel(callUpdate);
     }

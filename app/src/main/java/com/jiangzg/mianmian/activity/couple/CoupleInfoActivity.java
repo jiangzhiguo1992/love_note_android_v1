@@ -227,7 +227,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
         boolean breaking = Couple.isBreaking(couple);
-
         // view
         ivAvatarLeft.setData(taAvatar);
         ivAvatarRight.setData(myAvatar);

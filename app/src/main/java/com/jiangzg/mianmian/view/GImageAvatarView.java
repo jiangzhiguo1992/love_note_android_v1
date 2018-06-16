@@ -205,7 +205,7 @@ public class GImageAvatarView extends SimpleDraweeView {
 
         @Override
         public void setAlpha(int alpha) {
-            mFillPaint.setAlpha(alpha);
+            mFillPaint.setAlpha(180);
         }
 
         @Override
@@ -290,7 +290,7 @@ public class GImageAvatarView extends SimpleDraweeView {
 
         @Override
         public void setAlpha(int alpha) {
-            mFillPaint.setAlpha(alpha);
+            mFillPaint.setAlpha(180);
         }
 
         @Override

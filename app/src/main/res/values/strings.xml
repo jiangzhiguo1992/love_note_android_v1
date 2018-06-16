@@ -345,6 +345,7 @@
     <string name="have_new_version">有新版本啦！</string>
     <string name="are_update_check">正在检查更新</string>
     <string name="version_number_colon">版本号:</string>
+    <!-- TODO 记得删除 horizontal_line_2 -->
     <string name="horizontal_line_2">————</string>
     <string name="distance_holder" formatted="false">相距 %s</string>
     <string name="liner_wave_liner_c">— ~ — ℃</string>
