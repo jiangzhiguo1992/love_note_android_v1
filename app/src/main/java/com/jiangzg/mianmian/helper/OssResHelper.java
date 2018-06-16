@@ -283,7 +283,7 @@ public class OssResHelper {
     public static void refreshWallPaperRes() {
         File wallPaperDir = OssResHelper.getWallPaperDir();
         WallPaper wallPaper = SPHelper.getWallPaper();
-        List<String> imageList = wallPaper.getImageList();
+        List<String> imageList = wallPaper.getContentImageList();
         refreshOssResWithDelNoExists(wallPaperDir, imageList);
     }
 

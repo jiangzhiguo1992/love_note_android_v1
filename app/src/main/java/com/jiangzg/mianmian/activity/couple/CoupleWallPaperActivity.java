@@ -19,10 +19,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
@@ -67,7 +65,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private Call<Result> callUpdate;
     private Call<Result> callGet;
     private File cameraFile;
-    private File cropFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, CoupleWallPaperActivity.class);
@@ -129,7 +126,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
             ResHelper.deleteFileInBackground(cameraFile);
-            ResHelper.deleteFileInBackground(cropFile);
             return;
         }
         if (requestCode == ConsHelper.REQUEST_CAMERA) {
@@ -139,7 +135,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 ResHelper.deleteFileInBackground(cameraFile);
                 return;
             }
-            goCropActivity(cameraFile);
+            ossUploadWall(cameraFile);
         } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
@@ -147,11 +143,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
-            goCropActivity(pictureFile);
-        } else if (requestCode == ConsHelper.REQUEST_CROP) {
-            // 裁剪
-            ossUploadWall();
-            ResHelper.deleteFileInBackground(cameraFile);
+            ossUploadWall(pictureFile);
         }
     }
 
@@ -203,26 +195,18 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
-    private void goCropActivity(File source) {
-        cropFile = ResHelper.newImageOutCacheFile();
-        int screenWidth = ScreenUtils.getScreenRealWidth(mActivity);
-        int screenHeight = ScreenUtils.getScreenRealHeight(mActivity);
-        Intent intent = IntentFactory.getCrop(source, cropFile, screenWidth, screenHeight);
-        ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
-    }
-
     // oss上传头像
-    private void ossUploadWall() {
-        OssHelper.uploadWall(mActivity, cropFile, new OssHelper.OssUploadCallBack() {
+    private void ossUploadWall(File file) {
+        OssHelper.uploadWall(mActivity, file, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
                 apiPushData(ossPath);
-                ResHelper.deleteFileInBackground(cropFile);
+                ResHelper.deleteFileInBackground(cameraFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cropFile);
+                ResHelper.deleteFileInBackground(cameraFile);
             }
         });
     }
@@ -259,7 +243,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             srl.setRefreshing(false);
             return;
         }
-        List<String> imageList = wallPaper.getImageList();
+        List<String> imageList = wallPaper.getContentImageList();
         recyclerHelper.dataNew(imageList, 0);
     }
 

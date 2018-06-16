@@ -308,7 +308,7 @@ public class ApiHelper {
 
     public static WallPaper getWallPaperUpdateBody(List<String> imgList) {
         WallPaper wallPaper = new WallPaper();
-        wallPaper.setImageList(imgList);
+        wallPaper.setContentImageList(imgList);
         return wallPaper;
     }
 

@@ -340,13 +340,13 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         vfWallPaper.removeAllViews();
         WallPaper wallPaper = SPHelper.getWallPaper();
         // 无图显示
-        if (wallPaper == null || wallPaper.getImageList() == null || wallPaper.getImageList().size() <= 0) {
+        if (wallPaper == null || wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
             tvAddWallPaper.setVisibility(View.VISIBLE);
             return;
         }
         tvAddWallPaper.setVisibility(View.GONE);
         // 单图显示
-        List<String> imageList = wallPaper.getImageList();
+        List<String> imageList = wallPaper.getContentImageList();
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);

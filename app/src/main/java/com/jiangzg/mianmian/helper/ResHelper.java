@@ -93,7 +93,8 @@ public class ResHelper {
     public static void deleteFileInBackground(final File file) {
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
-        if (!FileUtils.isFileExists(file)) return;
+        //if (!FileUtils.isFileExists(file)) return; // 有时候存在文件也会返回false
+        if (file == null) return;
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
@@ -147,7 +148,7 @@ public class ResHelper {
      * ****************************************File****************************************
      */
     public static File getImgCacheDir() {
-        File dir = new File(AppInfo.get().getOutCacheDir(), "image");
+        File dir = new File(AppInfo.get().getOutCacheDir(), "img");
         FileUtils.createOrExistsDir(dir);
         return dir;
     }

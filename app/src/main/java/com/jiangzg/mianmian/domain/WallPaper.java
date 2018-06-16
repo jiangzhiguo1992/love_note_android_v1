@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class WallPaper extends BaseObj {
 
-    private List<String> imageList;
+    private List<String> contentImageList;
 
-    public List<String> getImageList() {
-        return imageList;
+    public List<String> getContentImageList() {
+        return contentImageList;
     }
 
-    public void setImageList(List<String> imageList) {
-        this.imageList = imageList;
+    public void setContentImageList(List<String> contentImageList) {
+        this.contentImageList = contentImageList;
     }
 
 }
