@@ -305,7 +305,7 @@ public class OssResHelper {
         File diaryDir = OssResHelper.getDiaryDir();
         ArrayList<String> ossKeyList = ConvertHelper.getOssKeyListByDiary(diaryList);
         long currentLong = DateUtils.getCurrentLong();
-        long expireAt = currentLong - SPHelper.getLimit().getBookOssExpireSecond() * 1000;
+        long expireAt = currentLong - SPHelper.getLimit().getBookResExpireSec() * 1000;
         refreshOssResWithDelExpire(diaryDir, ossKeyList, expireAt);
     }
 
@@ -327,7 +327,7 @@ public class OssResHelper {
         File pictureDir = OssResHelper.getPictureDir();
         ArrayList<String> ossKeyList = ConvertHelper.getOssKeyListByPicture(pictureList);
         long currentLong = DateUtils.getCurrentLong();
-        long expireAt = currentLong - SPHelper.getLimit().getBookOssExpireSecond() * 1000;
+        long expireAt = currentLong - SPHelper.getLimit().getBookResExpireSec() * 1000;
         refreshOssResWithDelExpire(pictureDir, ossKeyList, expireAt);
     }
 

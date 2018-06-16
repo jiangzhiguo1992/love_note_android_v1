@@ -85,7 +85,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 refreshData();
             }
         });
-        // TODO book内置加密(app启动后解密一次)
+        // TODO book的密码+指纹验证(app启动后解密一次)
     }
 
     protected void loadData() {

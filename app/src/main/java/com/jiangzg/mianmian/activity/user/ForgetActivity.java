@@ -111,7 +111,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         boolean phone = etPhone.getText().toString().trim().length() > 0;
         boolean pwd = etPwd.getText().toString().trim().length() > 0;
         boolean pwdConfirm = etPwdConfirm.getText().toString().trim().length() > 0;
-        boolean code = etCode.getText().toString().trim().length() > 0;
+        boolean code = etCode.getText().toString().trim().length() == SPHelper.getLimit().getSmsCodeLength();
 
         btnOk.setEnabled(phone && pwd && pwdConfirm && code);
         if (countDownGo >= 0) {
@@ -143,7 +143,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     }
 
     private Runnable getCountDownTask() {
-        final int countDownSec = SPHelper.getLimit().getSmsBetween();
+        final int countDownSec = SPHelper.getLimit().getSmsBetweenSec();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

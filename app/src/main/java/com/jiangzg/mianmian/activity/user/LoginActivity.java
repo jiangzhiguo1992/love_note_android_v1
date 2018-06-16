@@ -179,7 +179,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private void onInputChange() {
         boolean phone = etPhone.getText().toString().trim().length() > 0;
         boolean pwd = etPwd.getText().toString().trim().length() > 0;
-        boolean code = etCode.getText().toString().trim().length() > 0;
+        boolean code = etCode.getText().toString().trim().length() == SPHelper.getLimit().getSmsCodeLength();
         switch (logType) {
             case ApiHelper.LOG_PWD: // 密码
                 btnLogin.setEnabled(phone && pwd);
@@ -238,7 +238,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
 
     private Runnable getCountDownTask() {
-        final int countDownSec = SPHelper.getLimit().getSmsBetween();
+        final int countDownSec = SPHelper.getLimit().getSmsBetweenSec();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

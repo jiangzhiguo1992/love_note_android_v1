@@ -7,9 +7,10 @@ package com.jiangzg.mianmian.domain;
 public class Limit {
 
     // common
+    private int smsCodeLength;
     private int smsEffectSec;
-    private int smsBetween;
-    private int smsMaxTime;
+    private int smsBetweenSec;
+    private int smsMaxSec;
     private int smsMaxCount;
     // settings
     private int suggestTitleLength;
@@ -18,7 +19,7 @@ public class Limit {
     // couple
     private int coupleNameLength;
     // book
-    private long bookOssExpireSecond;
+    private long bookResExpireSec;
     private int souvenirTitleLength;
     private int whisperContentLength;
     private int whisperChannelLength;
@@ -38,14 +39,22 @@ public class Limit {
     // topic
 
     // square
-    private int vipLimitExpireDays;
+    private int vipExpireDay;
 
-    public long getBookOssExpireSecond() {
-        return bookOssExpireSecond;
+    public int getSmsCodeLength() {
+        return smsCodeLength;
     }
 
-    public void setBookOssExpireSecond(long bookOssExpireSecond) {
-        this.bookOssExpireSecond = bookOssExpireSecond;
+    public void setSmsCodeLength(int smsCodeLength) {
+        this.smsCodeLength = smsCodeLength;
+    }
+
+    public long getBookResExpireSec() {
+        return bookResExpireSec;
+    }
+
+    public void setBookResExpireSec(long bookResExpireSec) {
+        this.bookResExpireSec = bookResExpireSec;
     }
 
     public int getPictureCount() {
@@ -72,20 +81,20 @@ public class Limit {
         this.smsEffectSec = smsEffectSec;
     }
 
-    public int getSmsBetween() {
-        return smsBetween;
+    public int getSmsBetweenSec() {
+        return smsBetweenSec;
     }
 
-    public void setSmsBetween(int smsBetween) {
-        this.smsBetween = smsBetween;
+    public void setSmsBetweenSec(int smsBetweenSec) {
+        this.smsBetweenSec = smsBetweenSec;
     }
 
-    public int getSmsMaxTime() {
-        return smsMaxTime;
+    public int getSmsMaxSec() {
+        return smsMaxSec;
     }
 
-    public void setSmsMaxTime(int smsMaxTime) {
-        this.smsMaxTime = smsMaxTime;
+    public void setSmsMaxSec(int smsMaxSec) {
+        this.smsMaxSec = smsMaxSec;
     }
 
     public int getSmsMaxCount() {
@@ -128,12 +137,12 @@ public class Limit {
         this.coupleNameLength = coupleNameLength;
     }
 
-    public int getVipLimitExpireDays() {
-        return vipLimitExpireDays;
+    public int getVipExpireDay() {
+        return vipExpireDay;
     }
 
-    public void setVipLimitExpireDays(int vipLimitExpireDays) {
-        this.vipLimitExpireDays = vipLimitExpireDays;
+    public void setVipExpireDay(int vipExpireDay) {
+        this.vipExpireDay = vipExpireDay;
     }
 
     public int getSouvenirTitleLength() {

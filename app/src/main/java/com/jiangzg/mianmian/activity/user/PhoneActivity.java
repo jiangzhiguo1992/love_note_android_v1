@@ -103,7 +103,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
 
     private void onInputChange() {
         boolean phone = etPhone.getText().toString().trim().length() > 0;
-        boolean code = etCode.getText().toString().trim().length() > 0;
+        boolean code = etCode.getText().toString().trim().length() == SPHelper.getLimit().getSmsCodeLength();
 
         btnChange.setEnabled(phone && code);
         if (countDownGo >= 0) {
@@ -135,7 +135,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     }
 
     private Runnable getCountDownTask() {
-        final int countDownSec = SPHelper.getLimit().getSmsBetween();
+        final int countDownSec = SPHelper.getLimit().getSmsBetweenSec();
         if (countDownTask == null) {
             countDownTask = new Runnable() {
                 @SuppressLint("SetTextI18n")

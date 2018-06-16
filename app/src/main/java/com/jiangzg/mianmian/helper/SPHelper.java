@@ -85,6 +85,7 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_BOOK_VIDEO = "pathBookVideo";
     private static final String FIELD_OSS_PATH_BOOK_THUMB = "pathBookThumb";
     // limit
+    private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "smsCodeLength";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "smsEffectSec";
     private static final String FIELD_LIMIT_SMS_BETWEEN = "smsBetween";
     private static final String FIELD_LIMIT_SMS_MAX_TIME = "smsMaxTime";
@@ -298,15 +299,16 @@ public class SPHelper {
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_LIMIT).edit();
+        editor.putInt(FIELD_LIMIT_SMS_CODE_LENGTH, limit.getSmsCodeLength());
         editor.putInt(FIELD_LIMIT_SMS_EFFECT_SEC, limit.getSmsEffectSec());
-        editor.putInt(FIELD_LIMIT_SMS_BETWEEN, limit.getSmsBetween());
-        editor.putInt(FIELD_LIMIT_SMS_MAX_TIME, limit.getSmsMaxTime());
+        editor.putInt(FIELD_LIMIT_SMS_BETWEEN, limit.getSmsBetweenSec());
+        editor.putInt(FIELD_LIMIT_SMS_MAX_TIME, limit.getSmsMaxSec());
         editor.putInt(FIELD_LIMIT_SMS_MAX_COUNT, limit.getSmsMaxCount());
         editor.putInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, limit.getSuggestTitleLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, limit.getSuggestContentTextLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
-        editor.putLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, limit.getBookOssExpireSecond());
+        editor.putLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, limit.getBookResExpireSec());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, limit.getWhisperContentLength());
         editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, limit.getWhisperChannelLength());
@@ -323,22 +325,23 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
         editor.putInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, limit.getAngryReasonLength());
         editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
-        editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipLimitExpireDays());
+        editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.apply();
     }
 
     public static Limit getLimit() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_LIMIT);
         Limit limit = new Limit();
+        limit.setSmsCodeLength(sp.getInt(FIELD_LIMIT_SMS_CODE_LENGTH, 6));
         limit.setSmsEffectSec(sp.getInt(FIELD_LIMIT_SMS_EFFECT_SEC, 60 * 5));
-        limit.setSmsBetween(sp.getInt(FIELD_LIMIT_SMS_BETWEEN, 60 * 2));
-        limit.setSmsMaxTime(sp.getInt(FIELD_LIMIT_SMS_MAX_TIME, 60 * 60));
+        limit.setSmsBetweenSec(sp.getInt(FIELD_LIMIT_SMS_BETWEEN, 60 * 2));
+        limit.setSmsMaxSec(sp.getInt(FIELD_LIMIT_SMS_MAX_TIME, 60 * 60));
         limit.setSmsMaxCount(sp.getInt(FIELD_LIMIT_SMS_MAX_COUNT, 5));
         limit.setSuggestTitleLength(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, 20));
         limit.setSuggestContentTextLength(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, 200));
         limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
-        limit.setBookOssExpireSecond(sp.getLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
+        limit.setBookResExpireSec(sp.getLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setWhisperContentLength(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, 100));
         limit.setWhisperChannelLength(sp.getInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, 10));
@@ -355,7 +358,7 @@ public class SPHelper {
         limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
         limit.setAngryReasonLength(sp.getInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, 200));
         limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
-        limit.setVipLimitExpireDays(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
+        limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
     }
 
