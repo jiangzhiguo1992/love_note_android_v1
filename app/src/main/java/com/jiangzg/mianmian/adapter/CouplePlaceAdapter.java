@@ -50,7 +50,6 @@ public class CouplePlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseVie
         helper.setText(R.id.tvDistrict, district);
     }
 
-    // TODO
     public void goDiaryDetail(int position) {
         Place item = getItem(position);
         String address = item.getAddress();

@@ -14,9 +14,11 @@ import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
+import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
+import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -32,36 +34,42 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.cvAccount)
-    CardView cvAccount;
+
+    @BindView(R.id.cvSouvenir)
+    CardView cvSouvenir;
+    @BindView(R.id.cvTrends)
+    CardView cvTrends;
+    @BindView(R.id.cvMenses)
+    CardView cvMenses;
+    @BindView(R.id.cvSleep)
+    CardView cvSleep;
+
+    @BindView(R.id.cvWord)
+    CardView cvWord;
     @BindView(R.id.cvWhisper)
     CardView cvWhisper;
     @BindView(R.id.cvDiary)
     CardView cvDiary;
-    @BindView(R.id.cvWord)
-    CardView cvWord;
+    @BindView(R.id.cvAlbum)
+    CardView cvAlbum;
+
     @BindView(R.id.cvAudio)
     CardView cvAudio;
     @BindView(R.id.cvVideo)
     CardView cvVideo;
-    @BindView(R.id.cvAlbum)
-    CardView cvAlbum;
     @BindView(R.id.cvMeet)
     CardView cvMeet;
-    @BindView(R.id.cvGift)
-    CardView cvGift;
-    @BindView(R.id.cvDream)
-    CardView cvDream;
-    @BindView(R.id.cvPromise)
-    CardView cvPromise;
-    @BindView(R.id.cvAngry)
-    CardView cvAngry;
     @BindView(R.id.cvAward)
     CardView cvAward;
-    @BindView(R.id.cvSchedule)
-    CardView cvSchedule;
-    @BindView(R.id.cvStatistics)
-    CardView cvStatistics;
+
+    @BindView(R.id.cvDream)
+    CardView cvDream;
+    @BindView(R.id.cvAngry)
+    CardView cvAngry;
+    @BindView(R.id.cvPromise)
+    CardView cvPromise;
+    @BindView(R.id.cvGift)
+    CardView cvGift;
 
     public static BookFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -85,7 +93,6 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 refreshData();
             }
         });
-        // TODO book的密码+指纹验证(app启动后解密一次)
     }
 
     protected void loadData() {
@@ -112,12 +119,26 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
+    @OnClick({R.id.cvSouvenir, R.id.cvTrends, R.id.cvMenses, R.id.cvSleep,
+            R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
             R.id.cvAudio, R.id.cvVideo, R.id.cvMeet, R.id.cvAward,
-            R.id.cvAngry, R.id.cvGift, R.id.cvPromise, R.id.cvDream,
-            R.id.cvStatistics, R.id.cvAccount, R.id.cvSchedule})
+            R.id.cvDream, R.id.cvAngry, R.id.cvPromise, R.id.cvGift})
     public void onViewClicked(View view) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            // 无配对
+            CouplePairActivity.goActivity(mActivity);
+            return;
+        }
+        // TODO book的密码+指纹验证(app启动后解密一次)
         switch (view.getId()) {
+            case R.id.cvSouvenir: // TODO 纪念日+愿望清单
+                break;
+            case R.id.cvTrends: // TODO 动态+统计
+                break;
+            case R.id.cvMenses: // TODO 姨妈
+                break;
+            case R.id.cvSleep: // TODO 睡眠
+                break;
             case R.id.cvWord: // 留言
                 WordListActivity.goActivity(mFragment);
                 break;
@@ -138,19 +159,13 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvAward: // TODO 补偿
                 break;
-            case R.id.cvAngry: // TODO 生气
+            case R.id.cvDream: // TODO 梦里
                 break;
-            case R.id.cvGift: // TODO 礼物
+            case R.id.cvAngry: // TODO 生气
                 break;
             case R.id.cvPromise: // TODO 承诺
                 break;
-            case R.id.cvDream: // TODO 梦里
-                break;
-            case R.id.cvStatistics: // TODO 统计
-                break;
-            case R.id.cvAccount: // TODO 账本
-                break;
-            case R.id.cvSchedule: // TODO 日程
+            case R.id.cvGift: // TODO 礼物
                 break;
         }
     }

@@ -420,11 +420,10 @@
     <string name="heavy_snow">大雪</string>
     <string name="blizzard">暴雪</string>
     <string name="freezing_rain">冻雨</string>
-    <string name="account_book">账本</string>
     <string name="whisper">耳语</string>
     <string name="diary">日记</string>
     <string name="word">留言</string>
-    <string name="audio">录音</string>
+    <string name="audio">音频</string>
     <string name="video">视频</string>
     <string name="meet">相见</string>
     <string name="gift">礼物</string>
@@ -458,8 +457,6 @@
     <string name="online_can_entry">联网才可以进入哦</string>
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文字</string>
-    <string name="schedule">日程</string>
-    <string name="statistics">统计</string>
     <string name="now_just_upload_holder_album" formatted="false">目前只能上传%d个相册哦</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
