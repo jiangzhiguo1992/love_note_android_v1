@@ -22,6 +22,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
@@ -52,6 +53,7 @@ import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageAvatarView;
 
 import java.io.File;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -92,9 +94,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
 
-    @BindView(R.id.tvBreakAbout)
-    TextView tvBreakAbout;
+    @BindView(R.id.tvPairDays)
+    TextView tvPairDays;
 
+    private Call<Result> callTaGet;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
     private File cameraFile;
@@ -129,17 +132,35 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     protected void initData(Bundle state) {
         setViewData();
+        User ta = SPHelper.getTa();
+        if (ta == null || ta.getId() <= 0 || StringUtils.isEmpty(ta.getPhone())) {
+            getTaData();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.break_help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        User me = SPHelper.getUser();
+        Couple couple = me.getCouple();
+        if (Couple.isBreaking(couple) && couple.getState().getUserId() == me.getId()) {
+            getMenuInflater().inflate(R.menu.complex_help, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.break_help, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RetrofitHelper.cancel(callTaGet);
         RetrofitHelper.cancel(callUpdateInfo);
         RetrofitHelper.cancel(callUpdateStatus);
     }
@@ -178,6 +199,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuBreak: // 解散
+                showBreakDialog(SPHelper.getCouple());
+                return true;
+            case R.id.menuComplex: // 复合
+                User body = ApiHelper.getCoupleUpdate2GoodBody(SPHelper.getCouple().getId());
+                coupleStatus(body);
+                return true;
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_INFO);
                 return true;
@@ -185,7 +213,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoRight, R.id.tvBreakAbout})
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoRight})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAvatarLeft: // 修改ta的头像
@@ -200,17 +228,29 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             case R.id.llUserInfoRight: // 修改我的信息
                 goUserInfo();
                 break;
-            case R.id.tvBreakAbout:
-                breakAbout();
-                break;
         }
+    }
+
+    private void getTaData() {
+        callTaGet = new RetrofitHelper().call(API.class).userGet(true);
+        RetrofitHelper.enqueue(callTaGet, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                User ta = data.getUser();
+                SPHelper.setTa(ta);
+                setViewData();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
     private void setViewData() {
         // data
         User me = SPHelper.getUser();
         User ta = SPHelper.getTa();
-        Couple couple = me.getCouple();
         String myName = me.getMyNameInCp();
         String taName = me.getTaNameInCp();
         String myAvatar = me.getMyAvatarInCp();
@@ -226,7 +266,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             long taBirth = ConvertHelper.getJavaTimeByGo(ta.getBirthday());
             taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
-        boolean breaking = Couple.isBreaking(couple);
+        int togetherDay = SPHelper.getTogetherDay();
         // view
         ivAvatarLeft.setData(taAvatar);
         ivAvatarRight.setData(myAvatar);
@@ -238,11 +278,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         ivSexRight.setImageResource(meSexRes);
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
-        if (breaking && couple.getState().getUserId() == me.getId()) {
-            tvBreakAbout.setText(R.string.i_regret_i_want_complex);
-        } else {
-            tvBreakAbout.setText(R.string.i_want_break_pair_relation);
-        }
+        tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.pair_holder_day), togetherDay));
     }
 
     private void showAvatarSelect() {
@@ -343,20 +379,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         // 也就改一次，所以直接修改完之后就跳转home吧
         if (User.canUserInfo()) {
             UserInfoActivity.goActivity(mActivity);
-        }
-    }
-
-    // 分手/复合
-    private void breakAbout() {
-        User me = SPHelper.getUser();
-        Couple couple = me.getCouple();
-        if (Couple.isBreaking(couple) && couple.getState().getUserId() == me.getId()) {
-            // 要复合
-            User body = ApiHelper.getCoupleUpdate2GoodBody(couple.getId());
-            coupleStatus(body);
-        } else {
-            // 要分手
-            showBreakDialog(couple);
         }
     }
 

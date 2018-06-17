@@ -72,6 +72,10 @@ public interface API {
     @PUT("user")
     Call<Result> userModify(@Body User user);
 
+    // 用户获取
+    @GET("user")
+    Call<Result> userGet(@Query("ta") boolean ta);
+
     // app开启 welcome login userInfo forget
     @POST("entry")
     Call<Result> entryPush(@Body Entry entry);

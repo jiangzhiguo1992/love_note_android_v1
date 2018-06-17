@@ -26,8 +26,9 @@ public class SPHelper {
 
     private static final String SHARE_COMMON = "common";
     private static final String SHARE_USER = "shareUser";
-    private static final String SHARE_COUPLE = "shareCouple";
     private static final String SHARE_TA = "shareTa";
+    private static final String SHARE_COUPLE = "shareCouple";
+    private static final String SHARE_COUPLE_TOGETHER_DAY = "shareCoupleTogetherDay";
     private static final String SHARE_VERSION = "shareVersion";
     private static final String SHARE_WALL_PAPER = "shareWallPaper";
     private static final String SHARE_LIMIT = "shareLimit";
@@ -62,6 +63,8 @@ public class SPHelper {
     private static final String FIELD_CP_STATE_UPDATE_AT = "stateUpdateAt";
     private static final String FIELD_CP_STATE_USER_ID = "stateUserId";
     private static final String FIELD_CP_STATE_STATE = "stateState";
+    // togetherDay
+    private static final String FIELD_COUPLE_TOGETHER_DAY = "togetherDay";
     // version
     private static final String FIELD_VERSION_CREATE_AT = "createAt";
     private static final String FIELD_VERSION_VERSION_CODE = "versionCode";
@@ -179,6 +182,35 @@ public class SPHelper {
         return user;
     }
 
+    public static void setTa(User ta) {
+        clearTa();
+        if (ta == null) {
+            LogUtils.w(LOG_TAG, "ta == null");
+            return;
+        } else {
+            LogUtils.d(LOG_TAG, "setTa: " + GsonHelper.get().toJson(ta));
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_TA).edit();
+        editor.putLong(FIELD_USER_ID, ta.getId());
+        editor.putString(FIELD_USER_PHONE, ta.getPhone());
+        editor.putInt(FIELD_USER_SEX, ta.getSex());
+        editor.putLong(FIELD_USER_BIRTHDAY, ta.getBirthday());
+        editor.apply();
+    }
+
+    public static User getTa() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_TA);
+        User user = new User();
+        user.setId(sp.getLong(FIELD_USER_ID, 0));
+        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
+        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
+        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
+        if (user.getId() == 0 || StringUtils.isEmpty(user.getPhone())) {
+            return null;
+        }
+        return user;
+    }
+
     public static void setCouple(Couple couple) {
         clearCouple();
         if (Couple.isEmpty(couple)) {
@@ -230,33 +262,20 @@ public class SPHelper {
         return couple;
     }
 
-    public static void setTa(User ta) {
-        clearTa();
-        if (ta == null) {
-            LogUtils.w(LOG_TAG, "ta == null");
-            return;
-        } else {
-            LogUtils.d(LOG_TAG, "setTa: " + GsonHelper.get().toJson(ta));
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_TA).edit();
-        editor.putLong(FIELD_USER_ID, ta.getId());
-        editor.putString(FIELD_USER_PHONE, ta.getPhone());
-        editor.putInt(FIELD_USER_SEX, ta.getSex());
-        editor.putLong(FIELD_USER_BIRTHDAY, ta.getBirthday());
+    public static void setTogetherDay(int days) {
+        LogUtils.d(LOG_TAG, "setTogetherDay: " + days);
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER_DAY).edit();
+        editor.putInt(FIELD_COUPLE_TOGETHER_DAY, days);
         editor.apply();
     }
 
-    public static User getTa() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_TA);
-        User user = new User();
-        user.setId(sp.getLong(FIELD_USER_ID, 0));
-        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
-        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
-        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
-        if (user.getId() == 0 || StringUtils.isEmpty(user.getPhone())) {
-            return null;
+    public static int getTogetherDay() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER_DAY);
+        int togetherDay = sp.getInt(FIELD_COUPLE_TOGETHER_DAY, 1);
+        if (togetherDay <= 0) {
+            togetherDay = 1;
         }
-        return user;
+        return togetherDay;
     }
 
     public static void setVersion(Version version) {

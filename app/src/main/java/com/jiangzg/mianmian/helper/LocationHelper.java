@@ -30,7 +30,7 @@ public class LocationHelper {
     //    return permission && enabled;
     //}
 
-    // 检查并请求位置服务
+    // 检查并请求位置服务 TODO 用到地图的都要检查
     public static boolean checkLocationEnable(final Activity activity) {
         if (!PermUtils.isPermissionOK(activity, PermUtils.location)) {
             // 权限不过关
@@ -48,7 +48,7 @@ public class LocationHelper {
             return false;
         }
         //else if (!LocationInfo.isLocationEnabled()) {
-        //    // GPS不过关
+        //    // GPS不过关 废弃 高德可以进行wifi和基站定位
         //    MaterialDialog dialog = DialogHelper.getBuild(activity)
         //            .cancelable(true)
         //            .canceledOnTouchOutside(false)

@@ -21,7 +21,7 @@ import java.util.Locale;
 
 /**
  * Created by gg on 2017/3/24.
- * 定位相关工具类
+ * 定位相关工具类 TODO 全面用高德？
  */
 public class LocationInfo {
 

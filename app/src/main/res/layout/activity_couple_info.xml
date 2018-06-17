@@ -157,17 +157,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvPairDays"
+        style="@style/FontWhiteHuge"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal|bottom">
-
-        <TextView
-            android:id="@+id/tvBreakAbout"
-            style="@style/FontWhiteSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            tools:text="@string/break_relation"/>
-    </LinearLayout>
+        android:gravity="center"
+        android:textStyle="bold"
+        tools:text="@string/pair_holder_day"/>
 </LinearLayout>

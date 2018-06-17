@@ -354,7 +354,7 @@
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_want_pair_with_ta">我要和Ta配对</string>
     <string name="couple_info">配对信息</string>
-    <string name="break_relation">解除关系</string>
+    <string name="dissolve">解散</string>
     <string name="file_create_fail">文件创建失败</string>
     <string name="picture_get_fail">照片获取失败</string>
     <string name="please_input_nickname">请输入昵称</string>
@@ -473,7 +473,6 @@
     <string name="cant_get_ta_entry_info">无法获取Ta的登录信息</string>
     <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
     <string name="current_location">当前位置</string>
-    <string name="if_long_time_cant_show_please_down_refresh">如长时间不能显示，请进行下拉刷新</string>
     <string name="about_mian_mian">关于绵绵</string>
     <string name="dear_give_me_good_judge">亲，给个好评吧</string>
     <string name="change_ta_avatar">更换Ta的头像</string>
@@ -501,5 +500,6 @@
     <string name="total_colon_space_holder_paper">总计: %d张</string>
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
     <string name="now_null_nickname">暂无爱称</string>
+    <string name="pair_holder_day" formatted="false">配对第%d天</string>
 
 </resources>

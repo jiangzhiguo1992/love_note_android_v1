@@ -23,7 +23,6 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
@@ -209,12 +208,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 if (Couple.isBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else {
-                    User ta = SPHelper.getTa();
-                    if (ta == null) {
-                        ToastUtils.show(getString(R.string.if_long_time_cant_show_please_down_refresh));
-                    } else {
-                        CoupleInfoActivity.goActivity(mActivity);
-                    }
+                    CoupleInfoActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llPlace: // 地址信息
@@ -246,6 +240,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 srl.setRefreshing(false);
                 SPHelper.setUser(data.getMe());
                 SPHelper.setTa(data.getTa());
+                SPHelper.setTogetherDay(data.getTogetherDay());
                 SPHelper.setWallPaper(data.getWallPaper());
                 myPlace = data.getMyPlace();
                 taPlace = data.getTaPlace();

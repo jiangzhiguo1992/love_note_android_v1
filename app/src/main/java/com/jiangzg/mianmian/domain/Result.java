@@ -66,6 +66,7 @@ public class Result implements Serializable {
         private List<Entry> entryList;
         private User me;
         private User ta;
+        private int togetherDay;
         private Place place;
         private Place myPlace;
         private Place taPlace;
@@ -85,6 +86,14 @@ public class Result implements Serializable {
         private Notice notice;
         private List<Picture> pictureList;
         private Picture picture;
+
+        public int getTogetherDay() {
+            return togetherDay;
+        }
+
+        public void setTogetherDay(int togetherDay) {
+            this.togetherDay = togetherDay;
+        }
 
         public PairCard getPairCard() {
             return pairCard;
