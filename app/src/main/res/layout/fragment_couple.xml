@@ -190,37 +190,37 @@
                             android:foreground="?attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingBottom="12dp"
+                            android:paddingBottom="10dp"
                             android:paddingEnd="5dp"
                             android:paddingStart="5dp"
-                            android:paddingTop="12dp">
+                            android:paddingTop="10dp">
 
                             <com.jiangzg.mianmian.view.GMarqueeText
                                 android:id="@+id/tvPlaceLeft"
-                                style="@style/FontGreyNormal"
+                                style="@style/FontGreySmall"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                tools:text="@string/horizontal_line_2"/>
+                                tools:text="@string/now_no_address_info"/>
 
                             <TextView
                                 android:id="@+id/tvDistance"
-                                style="@style/FontBlackNormal"
+                                style="@style/FontBlackSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="5dp"
                                 android:layout_marginStart="5dp"
-                                tools:text="@string/distance_holder"/>
+                                tools:text="@string/distance_space_holder"/>
 
                             <com.jiangzg.mianmian.view.GMarqueeText
                                 android:id="@+id/tvPlaceRight"
-                                style="@style/FontGreyNormal"
+                                style="@style/FontGreySmall"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:gravity="center"
-                                tools:text="@string/horizontal_line_2"/>
+                                tools:text="@string/now_no_address_info"/>
                         </LinearLayout>
 
                         <View
@@ -234,10 +234,10 @@
                             android:foreground="?attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingBottom="12dp"
+                            android:paddingBottom="10dp"
                             android:paddingEnd="5dp"
                             android:paddingStart="5dp"
-                            android:paddingTop="12dp">
+                            android:paddingTop="10dp">
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -247,23 +247,23 @@
 
                                 <com.jiangzg.mianmian.view.GMarqueeText
                                     android:id="@+id/tvWeatherLeft"
-                                    style="@style/FontGreyNormal"
+                                    style="@style/FontGreySmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawablePadding="5dp"
                                     android:gravity="center"
                                     tools:drawableStart="@mipmap/w1"
-                                    tools:text="@string/liner_wave_liner_c"/>
+                                    tools:text="@string/now_no_weather_info"/>
                             </RelativeLayout>
 
                             <TextView
                                 android:id="@+id/tvWeatherDiffer"
-                                style="@style/FontBlackNormal"
+                                style="@style/FontBlackSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="5dp"
                                 android:layout_marginStart="5dp"
-                                tools:text="@string/differ_holder_c"/>
+                                tools:text="@string/differ_space_holder"/>
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -273,13 +273,13 @@
 
                                 <com.jiangzg.mianmian.view.GMarqueeText
                                     android:id="@+id/tvWeatherRight"
-                                    style="@style/FontGreyNormal"
+                                    style="@style/FontGreySmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawablePadding="5dp"
                                     android:gravity="center"
                                     tools:drawableStart="@mipmap/w45"
-                                    tools:text="@string/liner_wave_liner_c"/>
+                                    tools:text="@string/now_no_weather_info"/>
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

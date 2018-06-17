@@ -23,14 +23,7 @@ public class LocationHelper {
     private static final String LOG_TAG = "LocationHelper";
     private static final int CODE_SUCCESS = 0; // 以后可能会变
 
-    // 检查位置服务是否可用
-    //public static boolean isLocationEnable() {
-    //    boolean permission = PermUtils.isPermissionOK(MyApp.get(), PermUtils.location);
-    //    boolean enabled = LocationInfo.isLocationEnabled();
-    //    return permission && enabled;
-    //}
-
-    // 检查并请求位置服务 TODO 用到地图的都要检查
+    // 检查并请求位置服务
     public static boolean checkLocationEnable(final Activity activity) {
         if (!PermUtils.isPermissionOK(activity, PermUtils.location)) {
             // 权限不过关
@@ -70,6 +63,13 @@ public class LocationHelper {
         return true;
     }
 
+    // 检查位置服务(GPS)是否可用
+    //public static boolean isLocationEnable() {
+    //    boolean permission = PermUtils.isPermissionOK(MyApp.get(), PermUtils.location);
+    //    boolean enabled = LocationInfo.isLocationEnabled();
+    //    return permission && enabled;
+    //}
+
     /* 定位 并 回调信息 */
     public interface LocationCallBack {
         void onSuccess(LocationInfo info);
@@ -78,8 +78,8 @@ public class LocationHelper {
     }
 
     /* 开启定位 */
-    public static AMapLocationClient startLocation(boolean once, LocationCallBack callBack) {
-        if (!PermUtils.isPermissionOK(MyApp.get(), PermUtils.location)) return null;
+    public static AMapLocationClient startLocation(Activity activity, boolean once, LocationCallBack callBack) {
+        if (!LocationHelper.checkLocationEnable(activity)) return null;
         //初始化定位
         AMapLocationClient mLocationClient = new AMapLocationClient(MyApp.get());
         //给定位客户端对象设置定位参数
@@ -162,6 +162,7 @@ public class LocationHelper {
 
     // 两点距离
     public static float distance(LocationInfo info1, LocationInfo info2) {
+        // 用高德的距离测量
         LatLng latLng1 = new LatLng(info1.getLatitude(), info2.getLongitude());
         LatLng latLng2 = new LatLng(info2.getLatitude(), info2.getLongitude());
         return AMapUtils.calculateLineDistance(latLng1, latLng2);

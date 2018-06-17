@@ -345,12 +345,9 @@
     <string name="have_new_version">有新版本啦！</string>
     <string name="are_update_check">正在检查更新</string>
     <string name="version_number_colon">版本号:</string>
-    <!-- TODO 记得删除 horizontal_line_2 -->
-    <string name="horizontal_line_2">————</string>
-    <string name="distance_holder" formatted="false">相距 %s</string>
-    <string name="liner_wave_liner_c">— ~ — ℃</string>
+    <string name="distance_space_holder" formatted="false">相距 %s</string>
+    <string name="differ_space_holder" formatted="false">相差 %s</string>
     <string name="holder_wave_holder_c">%s~%s℃</string>
-    <string name="differ_holder_c" formatted="false">相差 %d℃</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_want_pair_with_ta">我要和Ta配对</string>
     <string name="couple_info">配对信息</string>
@@ -501,5 +498,7 @@
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
     <string name="now_null_nickname">暂无爱称</string>
     <string name="pair_holder_day" formatted="false">配对第%d天</string>
+    <string name="now_no_address_info">暂无地址信息</string>
+    <string name="now_no_weather_info">暂无天气信息</string>
 
 </resources>

@@ -45,20 +45,11 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
 
     // 当前我的位置
     public static void goActivity(final Activity from) {
-        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent intent = new Intent(from, MapShowActivity.class);
-                // intent.putExtra();
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                ActivityTrans.start(from, intent);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(from);
-            }
-        });
+        if (!LocationHelper.checkLocationEnable(from)) return;
+        Intent intent = new Intent(from, MapShowActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
     }
 
     // 传入的位置
@@ -150,7 +141,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
             poiInit = MapHelper.startSearch(mActivity, address, latitude, longitude, poiInitListener);
         }
         // 我的market
-        LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
+        LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
                 if (aMap == null) return;

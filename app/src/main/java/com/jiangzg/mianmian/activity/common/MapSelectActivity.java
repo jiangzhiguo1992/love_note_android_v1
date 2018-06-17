@@ -62,20 +62,11 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     private RecyclerHelper recyclerHelper;
 
     public static void goActivity(final Activity from) {
-        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent intent = new Intent(from, MapSelectActivity.class);
-                // intent.putExtra();
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                ActivityTrans.start(from, intent);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(from);
-            }
-        });
+        if (!LocationHelper.checkLocationEnable(from)) return;
+        Intent intent = new Intent(from, MapSelectActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(final Activity from, final String address, final double latitude, final double longitude) {
@@ -249,7 +240,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             LocationInfo info = LocationInfo.getInfo();
             if (StringUtils.isEmpty(info.getAddress()) && info.getLatitude() == 0 && info.getLongitude() == 0) {
                 // startLocation
-                LocationHelper.startLocation(false, new LocationHelper.LocationCallBack() {
+                LocationHelper.startLocation(mActivity, false, new LocationHelper.LocationCallBack() {
                     @Override
                     public void onSuccess(LocationInfo info) {
                         if (aMap == null) return;

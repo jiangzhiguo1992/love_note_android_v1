@@ -21,13 +21,13 @@ import java.util.Locale;
 
 /**
  * Created by gg on 2017/3/24.
- * 定位相关工具类 TODO 全面用高德？
+ * 定位相关工具类
  */
 public class LocationInfo {
 
     private static final String LOG_TAG = "LocationInfo";
 
-    private static LocationInfo instance; // info
+    private static LocationInfo instance; // 一般用来存放当前设备的全局的地理位置
 
     private double longitude; // 经度
     private double latitude; // 纬度

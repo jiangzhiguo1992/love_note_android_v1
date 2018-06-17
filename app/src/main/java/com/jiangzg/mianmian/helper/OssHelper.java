@@ -773,7 +773,7 @@ public class OssHelper {
         compressJpeg(activity, pathCoupleAvatar, source, callBack);
     }
 
-    // 墙纸 (裁剪 + 持久化)
+    // 墙纸 (持久化)
     public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();

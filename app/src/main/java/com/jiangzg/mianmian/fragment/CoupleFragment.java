@@ -19,6 +19,7 @@ import android.widget.ViewFlipper;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
@@ -42,6 +43,7 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.domain.Weather;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
@@ -145,8 +147,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                // 第一次进来不要地理位置，entry已经拿过了
-                refreshPlaceDate();
                 refreshData();
             }
         });
@@ -166,6 +166,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 refreshView();
             }
         });
+        // TODO LOCATION-EVENT?????
         // refresh
         refreshData();
     }
@@ -245,6 +246,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 myPlace = data.getMyPlace();
                 taPlace = data.getTaPlace();
                 refreshView();
+                // 刷新地址+天气
+                refreshPlaceDate();
             }
 
             @Override
@@ -254,35 +257,36 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         });
     }
 
-    // 获取自己的位置并上传 TODO 重做
+    // 获取自己的位置并上传
     private void refreshPlaceDate() {
-        //if (Couple.isBreak(SPHelper.getCouple())) return;
-        //LocationHelper.startLocation(true, new LocationHelper.LocationCallBack() {
-        //    @Override
-        //    public void onSuccess(LocationInfo info) {
-        //        Place body = ApiHelper.getPlaceBody();
-        //        callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
-        //        RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
-        //            @Override
-        //            public void onResponse(int code, String message, Result.Data data) {
-        //                LogUtils.i(LOG_TAG, "地理位置刷新");
-        //                myPlace = data.getMyPlace();
-        //                taPlace = data.getTaPlace();
-        //                refreshPlaceView();
-        //            }
-        //
-        //            @Override
-        //            public void onFailure(String errMsg) {
-        //            }
-        //        });
-        //    }
-        //
-        //    @Override
-        //    public void onFailed(String errMsg) {
-        //        LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
-        //        // 8.0 一个小时只允许获取几次地理位置
-        //    }
-        //});
+        if (Couple.isBreak(SPHelper.getCouple())) return;
+        if (!LocationHelper.checkLocationEnable(mActivity)) return;
+        LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
+            @Override
+            public void onSuccess(LocationInfo info) {
+                Place body = ApiHelper.getPlaceBody();
+                callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
+                RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
+                    @Override
+                    public void onResponse(int code, String message, Result.Data data) {
+                        LogUtils.i(LOG_TAG, "地理位置刷新");
+                        myPlace = data.getMyPlace();
+                        taPlace = data.getTaPlace();
+                        refreshPlaceView();
+                    }
+
+                    @Override
+                    public void onFailure(String errMsg) {
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(String errMsg) {
+                LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
+                // 8.0 一个小时只允许获取几次地理位置
+            }
+        });
     }
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
@@ -387,7 +391,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 myInfo.setLatitude(myPlace.getLatitude());
             }
         }
-        myAddress = myInfo.getAddress();
+        myAddress = StringUtils.isEmpty(myInfo.getAddress()) ? getString(R.string.now_no_address_info) : myInfo.getAddress();
+        tvPlaceRight.setText(myAddress);
         // taAddress
         LocationInfo taInfo = new LocationInfo();
         String taAddress;
@@ -396,20 +401,23 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             taInfo.setLongitude(taPlace.getLongitude());
             taInfo.setLatitude(taPlace.getLatitude());
         }
-        taAddress = taInfo.getAddress();
-        // creator
+        taAddress = StringUtils.isEmpty(taInfo.getAddress()) ? getString(R.string.now_no_address_info) : taInfo.getAddress();
         tvPlaceLeft.setText(taAddress);
-        tvPlaceRight.setText(myAddress);
         // distance
         float distance = LocationHelper.distance(myInfo, taInfo);
         String distanceShow;
-        if (distance < 1000) {
-            distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
-        } else {
+        if (distance >= 1000 * 100) {
+            float km = distance / 1000;
+            distanceShow = String.format(Locale.getDefault(), "%.0fkm", km);
+        } else if (distance >= 1000) {
             float km = distance / 1000;
             distanceShow = String.format(Locale.getDefault(), "%.1fkm", km);
+        } else if (distance > 0) {
+            distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
+        } else {
+            distanceShow = "-m";
         }
-        String format = String.format(Locale.getDefault(), getString(R.string.distance_holder), distanceShow);
+        String format = String.format(Locale.getDefault(), getString(R.string.distance_space_holder), distanceShow);
         tvDistance.setText(format);
     }
 
@@ -440,6 +448,9 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 }
             }
         }
+        myTemp = StringUtils.isEmpty(myTemp) ? getString(R.string.now_no_weather_info) : myTemp;
+        tvWeatherRight.setText(myTemp);
+        tvWeatherRight.setCompoundDrawables(myDrawable, null, null, null);
         // taWeather
         if (taPlace != null) {
             Weather taWeather = taPlace.getWeather();
@@ -458,13 +469,12 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 }
             }
         }
+        taTemp = StringUtils.isEmpty(taTemp) ? getString(R.string.now_no_weather_info) : taTemp;
         tvWeatherLeft.setText(taTemp);
-        tvWeatherRight.setText(myTemp);
         tvWeatherLeft.setCompoundDrawables(taDrawable, null, null, null);
-        tvWeatherRight.setCompoundDrawables(myDrawable, null, null, null);
         // diff
-        int abs = Math.abs((myC - taC));
-        String format = String.format(Locale.getDefault(), getString(R.string.differ_holder_c), abs);
+        String abs = Math.abs((myC - taC)) == 0 ? "-℃" : Math.abs((myC - taC)) + "℃";
+        String format = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), abs);
         tvWeatherDiffer.setText(format);
     }
 
