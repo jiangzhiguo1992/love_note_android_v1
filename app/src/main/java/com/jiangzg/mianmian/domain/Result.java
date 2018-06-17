@@ -72,6 +72,7 @@ public class Result implements Serializable {
         private WallPaper wallPaper;
         private Place myPlace;
         private Place taPlace;
+        private List<Place> placeList;
         private WeatherToday myWeatherToday;
         private WeatherToday taWeatherToday;
         private List<WeatherForecast> myWeatherForecastList;
@@ -86,6 +87,14 @@ public class Result implements Serializable {
         private List<Album> albumList;
         private List<Picture> pictureList;
         private Picture picture;
+
+        public List<Place> getPlaceList() {
+            return placeList;
+        }
+
+        public void setPlaceList(List<Place> placeList) {
+            this.placeList = placeList;
+        }
 
         public WeatherToday getMyWeatherToday() {
             return myWeatherToday;

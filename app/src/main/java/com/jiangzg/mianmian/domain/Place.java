@@ -3,12 +3,17 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
+
 /**
  * Created by JZG on 2018/4/17.
  * Place
  */
-public class Place extends BaseObj implements Parcelable {
+public class Place extends BaseObj implements Parcelable, MultiItemEntity {
 
+    private long userId;
     private double longitude;
     private double latitude;
     private String address;
@@ -18,6 +23,20 @@ public class Place extends BaseObj implements Parcelable {
     private String district;
     private String street;
     private String cityId;
+
+    @Override
+    public int getItemType() {
+        boolean isMine = getUserId() == SPHelper.getUser().getId();
+        return isMine ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getCountry() {
         return country;

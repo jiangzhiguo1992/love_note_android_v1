@@ -466,8 +466,7 @@
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
     <string name="place">位置</string>
     <string name="weather">天气</string>
-    <string name="ta_entry_info">Ta的登录信息</string>
-    <string name="cant_get_ta_entry_info">无法获取Ta的登录信息</string>
+    <string name="place_info">位置信息</string>
     <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
     <string name="current_location">当前位置</string>
     <string name="about_mian_mian">关于绵绵</string>
@@ -501,5 +500,6 @@
     <string name="now_no_address_info">暂无地址信息</string>
     <string name="now_no_weather_info">暂无天气信息</string>
     <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
+    <string name="now_no">暂无</string>
 
 </resources>

@@ -25,10 +25,10 @@
         android:drawablePadding="4dp"
         android:drawableStart="@drawable/ic_help_circle_stroke_grey"
         android:gravity="center_vertical"
-        android:paddingBottom="12dp"
+        android:paddingBottom="10dp"
         android:paddingEnd="6dp"
         android:paddingStart="6dp"
-        android:paddingTop="12dp"
+        android:paddingTop="10dp"
         tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>
 
 </android.support.v7.widget.CardView>

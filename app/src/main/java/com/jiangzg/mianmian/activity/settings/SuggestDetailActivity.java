@@ -152,8 +152,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     @Override
     protected void initData(Bundle state) {
         suggest = getIntent().getParcelableExtra("suggest");
-        String title = (suggest == null) ? getString(R.string.suggest_feedback) : suggest.getTitle();
-        ViewHelper.initTopBar(mActivity, tb, title, true);
         // head
         initHead();
         // follow

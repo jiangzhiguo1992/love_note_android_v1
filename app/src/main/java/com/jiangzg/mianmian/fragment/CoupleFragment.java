@@ -218,7 +218,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 if (Couple.isBreak(couple)) {
                     CouplePairActivity.goActivity(mActivity);
                 } else if (LocationHelper.checkLocationEnable(mActivity)) {
-                    CouplePlaceActivity.goActivity(mActivity, taPlace);
+                    CouplePlaceActivity.goActivity(mActivity);
                 }
                 break;
             case R.id.llWeather: // 天气信息
