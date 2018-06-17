@@ -123,7 +123,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                long noticeNoReadCount = data.getNoticeNoReadCount();
+                int noticeNoReadCount = data.getNoticeNoReadCount();
                 SPHelper.setNoticeNoReadCount(noticeNoReadCount);
                 recyclerHelper.viewEmptyShow(data.getShow());
                 long total = data.getTotal();

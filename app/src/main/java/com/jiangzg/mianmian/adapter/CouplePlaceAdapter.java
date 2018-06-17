@@ -57,7 +57,7 @@ public class CouplePlaceAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> 
         //String address = entryPlace.getAddress();
         //double longitude = entryPlace.getLongitude();
         //double latitude = entryPlace.getLatitude();
-        //MapShowActivity.goActivity(mActivity, address, latitude, longitude);
+        //MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
 }

@@ -46,30 +46,36 @@ public class Result implements Serializable {
     }
 
     public static class Data {
-        private CommonConst commonConst;
-        private List<Version> versionList;
-        private Version version;
-        private User user;
-        private Couple couple;
-        private OssInfo ossInfo;
-        private long noticeNoReadCount;
-        private PairCard pairCard;
+
         private String show;
-        private Help help;
         private long total;
+        private User user;
+        private Limit limit;
+        private VipLimit vipLimit;
+        private CommonConst commonConst;
+        private OssInfo ossInfo;
+        private int noticeNoReadCount;
+        private Help help;
+        private Notice notice;
+        private List<Notice> noticeList;
         private Suggest suggest;
         private List<Suggest> suggestList;
         private List<SuggestComment> suggestCommentList;
-        private Limit limit;
-        private VipLimit vipLimit;
-        private WallPaper wallPaper;
-        private List<Entry> entryList;
+        private List<Version> versionList;
+        private PairCard pairCard;
+        private Couple couple;
         private User me;
         private User ta;
+        private String myShow;
+        private String taShow;
         private int togetherDay;
-        private Place place;
+        private WallPaper wallPaper;
         private Place myPlace;
         private Place taPlace;
+        private WeatherToday myWeatherToday;
+        private WeatherToday taWeatherToday;
+        private List<WeatherForecast> myWeatherForecastList;
+        private List<WeatherForecast> taWeatherForecastList;
         private List<Diary> diaryList;
         private Diary diary;
         private List<Word> wordList;
@@ -78,14 +84,40 @@ public class Result implements Serializable {
         private Whisper whisper;
         private Album album;
         private List<Album> albumList;
-        private Weather myWeather;
-        private Weather taWeather;
-        private String myShow;
-        private String taShow;
-        private List<Notice> noticeList;
-        private Notice notice;
         private List<Picture> pictureList;
         private Picture picture;
+
+        public WeatherToday getMyWeatherToday() {
+            return myWeatherToday;
+        }
+
+        public void setMyWeatherToday(WeatherToday myWeatherToday) {
+            this.myWeatherToday = myWeatherToday;
+        }
+
+        public WeatherToday getTaWeatherToday() {
+            return taWeatherToday;
+        }
+
+        public void setTaWeatherToday(WeatherToday taWeatherToday) {
+            this.taWeatherToday = taWeatherToday;
+        }
+
+        public List<WeatherForecast> getMyWeatherForecastList() {
+            return myWeatherForecastList;
+        }
+
+        public void setMyWeatherForecastList(List<WeatherForecast> myWeatherForecastList) {
+            this.myWeatherForecastList = myWeatherForecastList;
+        }
+
+        public List<WeatherForecast> getTaWeatherForecastList() {
+            return taWeatherForecastList;
+        }
+
+        public void setTaWeatherForecastList(List<WeatherForecast> taWeatherForecastList) {
+            this.taWeatherForecastList = taWeatherForecastList;
+        }
 
         public int getTogetherDay() {
             return togetherDay;
@@ -135,11 +167,11 @@ public class Result implements Serializable {
             this.notice = notice;
         }
 
-        public long getNoticeNoReadCount() {
+        public int getNoticeNoReadCount() {
             return noticeNoReadCount;
         }
 
-        public void setNoticeNoReadCount(long noticeNoReadCount) {
+        public void setNoticeNoReadCount(int noticeNoReadCount) {
             this.noticeNoReadCount = noticeNoReadCount;
         }
 
@@ -165,22 +197,6 @@ public class Result implements Serializable {
 
         public void setTa(User ta) {
             this.ta = ta;
-        }
-
-        public Weather getMyWeather() {
-            return myWeather;
-        }
-
-        public void setMyWeather(Weather myWeather) {
-            this.myWeather = myWeather;
-        }
-
-        public Weather getTaWeather() {
-            return taWeather;
-        }
-
-        public void setTaWeather(Weather taWeather) {
-            this.taWeather = taWeather;
         }
 
         public String getMyShow() {
@@ -263,14 +279,6 @@ public class Result implements Serializable {
             this.diaryList = diaryList;
         }
 
-        public Place getPlace() {
-            return place;
-        }
-
-        public void setPlace(Place place) {
-            this.place = place;
-        }
-
         public Place getMyPlace() {
             return myPlace;
         }
@@ -285,14 +293,6 @@ public class Result implements Serializable {
 
         public void setTaPlace(Place taPlace) {
             this.taPlace = taPlace;
-        }
-
-        public List<Entry> getEntryList() {
-            return entryList;
-        }
-
-        public void setEntryList(List<Entry> entryList) {
-            this.entryList = entryList;
         }
 
         public WallPaper getWallPaper() {
@@ -381,14 +381,6 @@ public class Result implements Serializable {
 
         public void setVersionList(List<Version> versionList) {
             this.versionList = versionList;
-        }
-
-        public Version getVersion() {
-            return version;
-        }
-
-        public void setVersion(Version version) {
-            this.version = version;
         }
 
         public User getUser() {

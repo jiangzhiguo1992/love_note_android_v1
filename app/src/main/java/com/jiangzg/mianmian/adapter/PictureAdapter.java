@@ -168,9 +168,9 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         hideOperation();
         Picture item = getItem(position);
         String address = item.getAddress();
-        double latitude = item.getLatitude();
         double longitude = item.getLongitude();
-        MapShowActivity.goActivity(mActivity, address, latitude, longitude);
+        double latitude = item.getLatitude();
+        MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
     public void showOperation(final int position) {

@@ -493,12 +493,13 @@
     <string name="input_search_location">输入搜索地址</string>
     <string name="map">地图</string>
     <string name="my_location">我的位置</string>
-    <string name="lat_lon_colon">经纬度:</string>
+    <string name="lon_lat_colon">经纬度:</string>
     <string name="total_colon_space_holder_paper">总计: %d张</string>
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
     <string name="now_null_nickname">暂无爱称</string>
     <string name="pair_holder_day" formatted="false">配对第%d天</string>
     <string name="now_no_address_info">暂无地址信息</string>
     <string name="now_no_weather_info">暂无天气信息</string>
+    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
 
 </resources>

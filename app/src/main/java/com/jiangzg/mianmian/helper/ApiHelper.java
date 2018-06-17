@@ -156,7 +156,7 @@ public class ApiHelper {
             SPHelper.setVersion(versionList.get(0));
         }
         // noticeNoReadCount
-        long noticeNoReadCount = data.getNoticeNoReadCount();
+        int noticeNoReadCount = data.getNoticeNoReadCount();
         SPHelper.setNoticeNoReadCount(noticeNoReadCount);
         // delay
         long endTime = DateUtils.getCurrentLong();
@@ -312,13 +312,20 @@ public class ApiHelper {
         return wallPaper;
     }
 
-    public static Place getPlaceBody() {
-        LocationInfo info = LocationInfo.getInfo();
+    public static Place getPlaceBody(LocationInfo info) {
+        if (info == null || (info.getLongitude() == 0 && info.getLatitude() == 0)) {
+            info = LocationInfo.getInfo();
+        }
         Place place = new Place();
         place.setLongitude(info.getLongitude());
         place.setLatitude(info.getLatitude());
         place.setAddress(info.getAddress());
-        place.setCityId(0);
+        place.setCountry(info.getCountry());
+        place.setProvince(info.getProvince());
+        place.setCity(info.getCity());
+        place.setDistrict(info.getDistrict());
+        place.setStreet(info.getStreet());
+        place.setCityId(info.getCityId());
         return place;
     }
 
@@ -343,7 +350,7 @@ public class ApiHelper {
         return album;
     }
 
-    public static Picture getPictureBody(long aid, long happenAt, String content, double latitude, double longitude, String address, int cityId) {
+    public static Picture getPictureBody(long aid, long happenAt, String content, double longitude, double latitude, String address, int cityId) {
         Picture picture = new Picture();
         picture.setAlbumId(aid);
         picture.setHappenAt(happenAt);

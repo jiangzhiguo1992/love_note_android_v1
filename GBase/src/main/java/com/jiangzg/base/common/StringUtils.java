@@ -29,6 +29,29 @@ public class StringUtils {
     }
 
     /**
+     * 获取两个字符串相同的前缀
+     */
+    public static String getPrefix(String s1, String s2) {
+        int a = s1.length();
+        int b = s2.length();
+        int c;
+        if (a >= b) {
+            c = b;
+        } else c = a;
+        char[] k = new char[c];
+        for (int i = 0; i < c; i++) {
+            if (s1.charAt(i) == s2.charAt(i)) {
+                k[i] = s1.charAt(i);
+            }
+            if (s1.charAt(i) != s2.charAt(i)) {
+                break;
+            }
+        }
+        return String.valueOf(k);
+
+    }
+
+    /**
      * demo (num,4,3,*) 1860*********241
      */
     public static String replace(String old, int start, int end, CharSequence replace) {

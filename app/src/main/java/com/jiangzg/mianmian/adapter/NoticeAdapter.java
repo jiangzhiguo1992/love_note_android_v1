@@ -46,7 +46,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         Notice item = getItem(position);
         // read
         if (!item.isRead()) {
-            long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
+            int noticeNoReadCount = SPHelper.getNoticeNoReadCount();
             SPHelper.setNoticeNoReadCount(--noticeNoReadCount);
             noticeRead(item.getId());
         }

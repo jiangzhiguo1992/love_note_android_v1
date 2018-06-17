@@ -16,14 +16,11 @@ import com.amap.api.services.poisearch.PoiSearch;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
-import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.MapHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -53,27 +50,18 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     }
 
     // 传入的位置
-    public static void goActivity(final Activity from, final String address, final double latitude, final double longitude) {
-        if (StringUtils.isEmpty(address) && (latitude == 0 && longitude == 0)) {
+    public static void goActivity(final Activity from, final String address, final double longitude, final double latitude) {
+        if (StringUtils.isEmpty(address) && (longitude == 0 && latitude == 0)) {
             ToastUtils.show(from.getString(R.string.no_location_info_cant_go_map));
             return;
         }
-        PermUtils.requestPermissions(from, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent intent = new Intent(from, MapShowActivity.class);
-                intent.putExtra("address", address);
-                intent.putExtra("longitude", longitude);
-                intent.putExtra("latitude", latitude);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                ActivityTrans.start(from, intent);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(from);
-            }
-        });
+        if (!LocationHelper.checkLocationEnable(from)) return;
+        Intent intent = new Intent(from, MapShowActivity.class);
+        intent.putExtra("address", address);
+        intent.putExtra("longitude", longitude);
+        intent.putExtra("latitude", latitude);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
     }
 
     @Override
@@ -109,11 +97,11 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
                 PoiItem poiItem = pois.get(0);
                 String title = poiItem.getTitle();
                 LatLonPoint latLonPoint = poiItem.getLatLonPoint();
-                double latitude = latLonPoint.getLatitude();
                 double longitude = latLonPoint.getLongitude();
+                double latitude = latLonPoint.getLatitude();
                 // 根据经纬度
-                MapHelper.moveMapByLatLon(aMap, latitude, longitude);
-                Marker marker = MapHelper.addMaker(aMap, latitude, longitude, title);
+                MapHelper.moveMapByLatLon(aMap, longitude, latitude);
+                Marker marker = MapHelper.addMaker(aMap, longitude, latitude, title);
                 if (marker != null) {
                     marker.showInfoWindow();
                 }
@@ -126,34 +114,34 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         });
         // 设置market
         final String address = getIntent().getStringExtra("address");
-        double latitude = getIntent().getDoubleExtra("latitude", 0);
         double longitude = getIntent().getDoubleExtra("longitude", 0);
+        double latitude = getIntent().getDoubleExtra("latitude", 0);
         // 目标market
-        if (latitude != 0 || longitude != 0) {
+        if (longitude != 0 || latitude != 0) {
             // 根据经纬度
-            MapHelper.moveMapByLatLon(aMap, latitude, longitude);
-            Marker marker = MapHelper.addMaker(aMap, latitude, longitude, address);
+            MapHelper.moveMapByLatLon(aMap, longitude, latitude);
+            Marker marker = MapHelper.addMaker(aMap, longitude, latitude, address);
             if (marker != null) {
                 marker.showInfoWindow();
             }
         } else if (!StringUtils.isEmpty(address)) {
             // 根据地址
-            poiInit = MapHelper.startSearch(mActivity, address, latitude, longitude, poiInitListener);
+            poiInit = MapHelper.startSearch(mActivity, address, longitude, latitude, poiInitListener);
         }
         // 我的market
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
                 if (aMap == null) return;
-                double latitude = info.getLatitude();
                 double longitude = info.getLongitude();
-                Marker marker = MapHelper.addMaker(aMap, latitude, longitude, getString(R.string.my_location));
+                double latitude = info.getLatitude();
+                Marker marker = MapHelper.addMaker(aMap, longitude, latitude, getString(R.string.my_location));
                 if (marker != null) {
                     marker.showInfoWindow();
                 }
-                if (StringUtils.isEmpty(address) && (latitude == 0 && longitude == 0)) {
+                if (StringUtils.isEmpty(address) && (longitude == 0 && latitude == 0)) {
                     // 没有目标位置
-                    MapHelper.moveMapByLatLon(aMap, latitude, longitude);
+                    MapHelper.moveMapByLatLon(aMap, longitude, latitude);
                 }
             }
 

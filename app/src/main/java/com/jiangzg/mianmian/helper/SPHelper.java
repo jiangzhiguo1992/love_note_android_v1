@@ -616,15 +616,15 @@ public class SPHelper {
         return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
     }
 
-    public static void setNoticeNoReadCount(long count) {
+    public static void setNoticeNoReadCount(int count) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putLong(FIELD_COMMON_NOTICE_NO_READ_COUNT, count);
+        editor.putInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, count);
         editor.apply();
     }
 
-    public static long getNoticeNoReadCount() {
+    public static int getNoticeNoReadCount() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getLong(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
+        return sp.getInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
     }
 
 }

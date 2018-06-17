@@ -71,7 +71,7 @@ public class MapHelper {
         //aMap.setOnMyLocationChangeListener();
     }
 
-    public static Marker addMaker(AMap aMap, double latitude, double longitude, String title) {
+    public static Marker addMaker(AMap aMap, double longitude, double latitude, String title) {
         if (aMap == null) return null;
         LatLng latLng = new LatLng(latitude, longitude);
         // icon
@@ -82,7 +82,7 @@ public class MapHelper {
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(latLng)
                 .title(title)
-                .snippet(MyApp.get().getString(R.string.lat_lon_colon) + latitude + "," + longitude)
+                .snippet(MyApp.get().getString(R.string.lon_lat_colon) + longitude + "," + latitude)
                 .icon(icon)
                 .draggable(false)
                 .visible(true);
@@ -112,9 +112,9 @@ public class MapHelper {
     }
 
     /* 地图移动到指定区域 */
-    public static void moveMapByLatLon(AMap aMap, double latitude, double longitude) {
+    public static void moveMapByLatLon(AMap aMap, double longitude, double latitude) {
         if (aMap == null) return;
-        if (latitude == 0 || longitude == 0) {
+        if (longitude == 0 || latitude == 0) {
             // 单纯放大
             aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         } else {
@@ -176,7 +176,7 @@ public class MapHelper {
     }
 
     /* 响应逆地理编码(在camera回调中调用) */
-    public static void getAddressByLatLon(GeocodeSearch geocodeSearch, double latitude, double longitude) {
+    public static void getAddressByLatLon(GeocodeSearch geocodeSearch, double longitude, double latitude) {
         RegeocodeQuery query = new RegeocodeQuery(new LatLonPoint(latitude, longitude), 200, GeocodeSearch.AMAP);
         // 第一个参数表示一个LatLon，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
         geocodeSearch.getFromLocationAsyn(query);// 设置同步逆地理编码请求
@@ -186,13 +186,13 @@ public class MapHelper {
      * *************************************搜索***************************************************
      * 开始搜索
      */
-    public static PoiSearch startSearch(Context context, String key, double latitude, double longitude,
+    public static PoiSearch startSearch(Context context, String key, double longitude, double latitude,
                                         PoiSearch.OnPoiSearchListener poiSearchListener) {
         PoiSearch.Query query = new PoiSearch.Query(key, "");
         query.setPageSize(100); // 设置每页最多返回多少条poiitem
         query.setPageNum(0); // 设置查第一页
         PoiSearch poiSearch = new PoiSearch(context, query);
-        if (latitude != 0 || longitude != 0) {
+        if (longitude != 0 || latitude != 0) {
             poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 1000)); // 设置周边搜索的中心点以及区域
         }
         if (poiSearchListener != null) {

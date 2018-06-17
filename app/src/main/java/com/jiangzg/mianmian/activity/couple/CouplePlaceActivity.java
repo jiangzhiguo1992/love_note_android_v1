@@ -18,17 +18,13 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.CouplePlaceAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
-
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -96,10 +92,10 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     protected void initData(Bundle state) {
         Place taPlace = getIntent().getParcelableExtra("taPlace");
         if (taPlace != null && !StringUtils.isEmpty(taPlace.getAddress())) {
-            Entry.EntryPlace entryPlace = new Entry.EntryPlace();
-            entryPlace.setAddress(taPlace.getAddress());
-            entryPlace.setLongitude(taPlace.getLongitude());
-            entryPlace.setLatitude(taPlace.getLatitude());
+            //Entry.EntryPlace entryPlace = new Entry.EntryPlace();
+            //entryPlace.setAddress(taPlace.getAddress());
+            //entryPlace.setLongitude(taPlace.getLongitude());
+            //entryPlace.setLatitude(taPlace.getLatitude());
             //topEntry = new Entry();
             //topEntry.setEntryPlace(entryPlace);
         }

@@ -12,15 +12,51 @@ public class Place extends BaseObj implements Parcelable {
     private double longitude;
     private double latitude;
     private String address;
-    private int cityId;
-    private Weather weather;
+    private String country;
+    private String province;
+    private String city;
+    private String district;
+    private String street;
+    private String cityId;
 
-    public Weather getWeather() {
-        return weather;
+    public String getCountry() {
+        return country;
     }
 
-    public void setWeather(Weather weather) {
-        this.weather = weather;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 
     public double getLongitude() {
@@ -47,11 +83,11 @@ public class Place extends BaseObj implements Parcelable {
         this.address = address;
     }
 
-    public int getCityId() {
+    public String getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 
@@ -63,7 +99,12 @@ public class Place extends BaseObj implements Parcelable {
         longitude = in.readDouble();
         latitude = in.readDouble();
         address = in.readString();
-        cityId = in.readInt();
+        country = in.readString();
+        province = in.readString();
+        city = in.readString();
+        district = in.readString();
+        street = in.readString();
+        cityId = in.readString();
     }
 
     @Override
@@ -72,7 +113,12 @@ public class Place extends BaseObj implements Parcelable {
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
         dest.writeString(address);
-        dest.writeInt(cityId);
+        dest.writeString(country);
+        dest.writeString(province);
+        dest.writeString(city);
+        dest.writeString(district);
+        dest.writeString(street);
+        dest.writeString(cityId);
     }
 
     @Override

@@ -164,13 +164,13 @@ public interface API {
     @GET("couple/wallPaper")
     Call<Result> coupleWallPaperGet();
 
-    // 推送位置 TODO
+    // 推送位置
     @POST("couple/place")
     Call<Result> couplePlacePush(@Body Place place);
 
-    // 天气信息
+    // 天气信息 TODO
     @GET("couple/weather?forecast=1")
-    Call<Result> weatherForecastGet();
+    Call<Result> weatherForecastListGet();
 
     // diaryList获取
     @GET("book/diary?did=0&list=1")

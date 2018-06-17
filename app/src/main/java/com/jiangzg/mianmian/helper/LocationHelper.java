@@ -131,15 +131,16 @@ public class LocationHelper {
                 if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
                     // 定位成功回调信息，设置相关消息
                     LogUtils.i(LOG_TAG, "onLocationChanged: success:" + aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude());
-                    LocationInfo info = LocationInfo.getInfo();
-                    info.setLatitude(aMapLocation.getLatitude()); // 纬度
+                    LocationInfo info = LocationInfo.getInfo(); // 用来保存设备位置的对象
                     info.setLongitude(aMapLocation.getLongitude()); // 经度
+                    info.setLatitude(aMapLocation.getLatitude()); // 纬度
                     info.setCountry(aMapLocation.getCountry()); // 国家
                     info.setProvince(aMapLocation.getProvince()); // 省份
                     info.setCity(aMapLocation.getCity()); // 城市
                     info.setDistrict(aMapLocation.getDistrict()); // 城区
                     info.setStreet(aMapLocation.getStreet()); // 街道
-                    //只有wifi会返回此字段
+                    info.setCityId(aMapLocation.getCityCode()); // 城市编号
+                    // 只有wifi会返回此字段
                     String address = aMapLocation.getAddress();
                     if (StringUtils.isEmpty(address)) {
                         address = info.getProvince() + info.getCity() + info.getDistrict() + info.getStreet();
@@ -150,8 +151,7 @@ public class LocationHelper {
                     }
                 } else {
                     // 定位失败，打印相关信息
-                    LogUtils.w(LOG_TAG, "onLocationChanged: ErrCode:" + aMapLocation.getErrorCode()
-                            + ", errInfo:" + aMapLocation.getErrorInfo());
+                    LogUtils.w(LOG_TAG, "onLocationChanged: ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
                     if (callBack != null) {
                         callBack.onFailed(aMapLocation.getErrorInfo());
                     }
@@ -161,10 +161,10 @@ public class LocationHelper {
     }
 
     // 两点距离
-    public static float distance(LocationInfo info1, LocationInfo info2) {
+    public static float distance(double lon1, double lat1, double lon2, double lat2) {
         // 用高德的距离测量
-        LatLng latLng1 = new LatLng(info1.getLatitude(), info2.getLongitude());
-        LatLng latLng2 = new LatLng(info2.getLatitude(), info2.getLongitude());
+        LatLng latLng1 = new LatLng(lat1, lon1);
+        LatLng latLng2 = new LatLng(lat2, lon2);
         return AMapUtils.calculateLineDistance(latLng1, latLng2);
         //DPoint point1 = new DPoint();
         //point1.setLatitude(info1.getLatitude());

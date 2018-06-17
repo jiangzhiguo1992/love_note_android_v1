@@ -37,6 +37,7 @@ public class LocationInfo {
     private String district; // 区
     private String street; // 详
     private String address; // 所有总和
+    private String cityId; // 城市编号
 
     private OnLocationChangeListener mListener; // 外部实现的listener
     private MyLocationListener myLocationListener;  // 内部处理的listener
@@ -113,13 +114,13 @@ public class LocationInfo {
     /**
      * 补充：计算两点之间真实距离(米)
      */
-    public static double getDistance(double latitude1, double longitude1, double latitude2, double longitude2) {
-        // 维度
-        double lat1 = (Math.PI / 180) * latitude1;
-        double lat2 = (Math.PI / 180) * latitude2;
+    public static double getDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
         // 经度
         double lon1 = (Math.PI / 180) * longitude1;
         double lon2 = (Math.PI / 180) * longitude2;
+        // 维度
+        double lat1 = (Math.PI / 180) * latitude1;
+        double lat2 = (Math.PI / 180) * latitude2;
         // 地球半径
         double R = 6371;
         // 两点间距离 km，如果想要米的话，结果*1000就可以了
@@ -127,40 +128,52 @@ public class LocationInfo {
         return d * 1000;
     }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
     }
 
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getProvince() {
+        return province;
     }
 
     public void setProvince(String province) {
         this.province = province;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String city) {
         this.city = city;
     }
 
+    public String getDistrict() {
+        return district;
+    }
+
     public void setDistrict(String district) {
         this.district = district;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
     }
 
     public String getStreet() {
@@ -171,24 +184,20 @@ public class LocationInfo {
         this.street = street;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
     public String getAddress() {
         return address;
     }
 
-    public String getDistrict() {
-        return district;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getProvince() {
-        return province;
+    public String getCityId() {
+        return cityId;
     }
 
-    public String getCity() {
-        return city;
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
     }
 
     @Override
@@ -202,8 +211,7 @@ public class LocationInfo {
                 ", district='" + district + '\'' +
                 ", street='" + street + '\'' +
                 ", address='" + address + '\'' +
-                ", mListener=" + mListener +
-                ", myLocationListener=" + myLocationListener +
+                ", cityId=" + cityId +
                 '}';
     }
 
@@ -214,10 +222,10 @@ public class LocationInfo {
             return instance;
         }
         //经纬度
-        double latitude = location.getLatitude();
         double longitude = location.getLongitude();
-        instance.latitude = latitude;
+        double latitude = location.getLatitude();
         instance.longitude = longitude;
+        instance.latitude = latitude;
         //address
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {

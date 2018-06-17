@@ -24,6 +24,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
@@ -41,7 +42,7 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.WallPaper;
-import com.jiangzg.mianmian.domain.Weather;
+import com.jiangzg.mianmian.domain.WeatherToday;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
@@ -122,6 +123,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     private Observable<Couple> obCoupleRefresh;
     private Place myPlace;
     private Place taPlace;
+    private WeatherToday myWeatherToday;
+    private WeatherToday taWeatherToday;
 
     public static CoupleFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -166,7 +169,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 refreshView();
             }
         });
-        // TODO LOCATION-EVENT?????
         // refresh
         refreshData();
     }
@@ -245,9 +247,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 SPHelper.setWallPaper(data.getWallPaper());
                 myPlace = data.getMyPlace();
                 taPlace = data.getTaPlace();
+                myWeatherToday = data.getMyWeatherToday();
+                taWeatherToday = data.getTaWeatherToday();
                 refreshView();
                 // 刷新地址+天气
-                refreshPlaceDate();
+                refreshPlaceWeatherDate();
             }
 
             @Override
@@ -258,21 +262,25 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     // 获取自己的位置并上传
-    private void refreshPlaceDate() {
-        if (Couple.isBreak(SPHelper.getCouple())) return;
+    private void refreshPlaceWeatherDate() {
+        if (Couple.isBreak(SPHelper.getCouple())) return; // 还是要检查的，防止后台返回错误
         if (!LocationHelper.checkLocationEnable(mActivity)) return;
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
-                Place body = ApiHelper.getPlaceBody();
+                // 设备位置信息获取成功
+                Place body = ApiHelper.getPlaceBody(info);
+                if (body == null || (body.getLongitude() == 0 && body.getLatitude() == 0)) return;
                 callPlaceGet = new RetrofitHelper().call(API.class).couplePlacePush(body);
                 RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
                     @Override
                     public void onResponse(int code, String message, Result.Data data) {
-                        LogUtils.i(LOG_TAG, "地理位置刷新");
                         myPlace = data.getMyPlace();
                         taPlace = data.getTaPlace();
+                        myWeatherToday = data.getMyWeatherToday();
+                        taWeatherToday = data.getTaWeatherToday();
                         refreshPlaceView();
+                        refreshWeatherView();
                     }
 
                     @Override
@@ -284,7 +292,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             @Override
             public void onFailed(String errMsg) {
                 LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
-                // 8.0 一个小时只允许获取几次地理位置
+                ToastUtils.show(String.format(Locale.getDefault(), getString(R.string.address_get_fail_reason_colon_holder), errMsg));
             }
         });
     }
@@ -378,33 +386,18 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     private void refreshPlaceView() {
-        LocationInfo myInfo = LocationInfo.getInfo();
+        String addressDef = getString(R.string.now_no_address_info);
         // myAddress
-        String myAddress;
-        if (myPlace != null) {
-            if (StringUtils.isEmpty(myInfo.getAddress())) {
-                // 优先本地数据
-                myInfo.setAddress(myPlace.getAddress());
-            }
-            if (myInfo.getLatitude() == 0 && myInfo.getLongitude() == 0) {
-                myInfo.setLongitude(myPlace.getLongitude());
-                myInfo.setLatitude(myPlace.getLatitude());
-            }
-        }
-        myAddress = StringUtils.isEmpty(myInfo.getAddress()) ? getString(R.string.now_no_address_info) : myInfo.getAddress();
-        tvPlaceRight.setText(myAddress);
+        String myAddress = (myPlace == null) ? "" : myPlace.getAddress();
+        myAddress = StringUtils.isEmpty(myAddress) ? addressDef : myAddress;
         // taAddress
-        LocationInfo taInfo = new LocationInfo();
-        String taAddress;
-        if (taPlace != null) {
-            taInfo.setAddress(taPlace.getAddress());
-            taInfo.setLongitude(taPlace.getLongitude());
-            taInfo.setLatitude(taPlace.getLatitude());
-        }
-        taAddress = StringUtils.isEmpty(taInfo.getAddress()) ? getString(R.string.now_no_address_info) : taInfo.getAddress();
-        tvPlaceLeft.setText(taAddress);
+        String taAddress = (taPlace == null) ? "" : taPlace.getAddress();
+        taAddress = StringUtils.isEmpty(taAddress) ? addressDef : taAddress;
         // distance
-        float distance = LocationHelper.distance(myInfo, taInfo);
+        float distance = 0F;
+        if (myPlace != null && taPlace != null) {
+            distance = LocationHelper.distance(myPlace.getLongitude(), myPlace.getLatitude(), taPlace.getLongitude(), taPlace.getLatitude());
+        }
         String distanceShow;
         if (distance >= 1000 * 100) {
             float km = distance / 1000;
@@ -418,64 +411,63 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             distanceShow = "-m";
         }
         String format = String.format(Locale.getDefault(), getString(R.string.distance_space_holder), distanceShow);
+        // view
+        tvPlaceRight.setText(myAddress);
+        tvPlaceLeft.setText(taAddress);
         tvDistance.setText(format);
     }
 
     private void refreshWeatherView() {
-        int colorPrimary = ViewHelper.getColorPrimary(mActivity);
-        int colorIcon = ContextCompat.getColor(mActivity, colorPrimary);
-        String myTemp = "";
-        int myC = 0;
-        Drawable myDrawable = null;
-        String taTemp = "";
-        int taC = 0;
-        Drawable taDrawable = null;
+        int colorIcon = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
+        String weatherDef = getString(R.string.now_no_weather_info);
         // myWeather
-        if (myPlace != null) {
-            Weather myWeather = myPlace.getWeather();
-            if (myWeather != null) {
-                Weather.Condition myCondition = myWeather.getCondition();
-                if (myCondition != null && !StringUtils.isEmpty(myCondition.getTemp())) {
-                    String icon = myCondition.getIcon();
-                    String temp = myCondition.getTemp();
-                    myC = Integer.parseInt(temp);
-                    myTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
-                    int myIcon = ConvertHelper.getWeatherIconById(icon);
-                    myDrawable = ViewHelper.getDrawable(mActivity, myIcon);
-                    if (myDrawable != null) {
-                        myDrawable.setTint(colorIcon);
-                    }
-                }
+        int myTemp = 520;
+        String myWeatherShow = "";
+        Drawable myIcon = null;
+        if (myWeatherToday != null && !StringUtils.isEmpty(myWeatherToday.getTemp())) {
+            int weatherIcon = ConvertHelper.getWeatherIconById(myWeatherToday.getIcon());
+            myIcon = ViewHelper.getDrawable(mActivity, weatherIcon);
+            if (myIcon != null) {
+                myIcon.setTint(colorIcon);
             }
+            String temp = myWeatherToday.getTemp();
+            if (StringUtils.isNumber(temp)) {
+                myTemp = Integer.parseInt(temp);
+            }
+            myWeatherShow = temp + "℃ " + myWeatherToday.getCondition() + " " + myWeatherToday.getHumidity();
         }
-        myTemp = StringUtils.isEmpty(myTemp) ? getString(R.string.now_no_weather_info) : myTemp;
-        tvWeatherRight.setText(myTemp);
-        tvWeatherRight.setCompoundDrawables(myDrawable, null, null, null);
+        myWeatherShow = StringUtils.isEmpty(myWeatherShow) ? weatherDef : myWeatherShow;
         // taWeather
-        if (taPlace != null) {
-            Weather taWeather = taPlace.getWeather();
-            if (taWeather != null) {
-                Weather.Condition taCondition = taWeather.getCondition();
-                if (taCondition != null && !StringUtils.isEmpty(taCondition.getTemp())) {
-                    String icon = taCondition.getIcon();
-                    String temp = taCondition.getTemp();
-                    taC = Integer.parseInt(temp);
-                    taTemp = temp + "℃ " + ConvertHelper.getWeatherShowByIcon(icon);
-                    int taIcon = ConvertHelper.getWeatherIconById(icon);
-                    taDrawable = ViewHelper.getDrawable(mActivity, taIcon);
-                    if (taDrawable != null) {
-                        taDrawable.setTint(colorIcon);
-                    }
-                }
+        int taTemp = 520;
+        String taWeatherShow = "";
+        Drawable taIcon = null;
+        if (taWeatherToday != null && !StringUtils.isEmpty(taWeatherToday.getTemp())) {
+            int weatherIcon = ConvertHelper.getWeatherIconById(taWeatherToday.getIcon());
+            taIcon = ViewHelper.getDrawable(mActivity, weatherIcon);
+            if (taIcon != null) {
+                taIcon.setTint(colorIcon);
             }
+            String temp = taWeatherToday.getTemp();
+            if (StringUtils.isNumber(temp)) {
+                taTemp = Integer.parseInt(temp);
+            }
+            taWeatherShow = temp + "℃ " + taWeatherToday.getCondition() + " " + taWeatherToday.getHumidity();
         }
-        taTemp = StringUtils.isEmpty(taTemp) ? getString(R.string.now_no_weather_info) : taTemp;
-        tvWeatherLeft.setText(taTemp);
-        tvWeatherLeft.setCompoundDrawables(taDrawable, null, null, null);
+        taWeatherShow = StringUtils.isEmpty(taWeatherShow) ? weatherDef : taWeatherShow;
         // diff
-        String abs = Math.abs((myC - taC)) == 0 ? "-℃" : Math.abs((myC - taC)) + "℃";
-        String format = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), abs);
-        tvWeatherDiffer.setText(format);
+        String diff;
+        if (myTemp == 520 || taTemp == 520) {
+            diff = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), "-℃");
+        } else {
+            String abs = Math.abs((myTemp - taTemp)) + "℃";
+            diff = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), abs);
+        }
+        // view
+        tvWeatherRight.setText(myWeatherShow);
+        tvWeatherRight.setCompoundDrawables(myIcon, null, null, null);
+        tvWeatherLeft.setText(taWeatherShow);
+        tvWeatherLeft.setCompoundDrawables(taIcon, null, null, null);
+        tvWeatherDiffer.setText(diff);
     }
 
     private GImageView getViewFlipperImage() {
