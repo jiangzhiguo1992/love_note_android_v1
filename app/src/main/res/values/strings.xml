@@ -348,6 +348,7 @@
     <string name="distance_space_holder" formatted="false">相距 %s</string>
     <string name="differ_space_holder" formatted="false">相差 %s</string>
     <string name="holder_wave_holder_c">%s~%s℃</string>
+    <string name="holder_wave_holder">%s~%s</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_want_pair_with_ta">我要和Ta配对</string>
     <string name="couple_info">配对信息</string>
@@ -471,10 +472,6 @@
     <string name="current_location">当前位置</string>
     <string name="about_mian_mian">关于绵绵</string>
     <string name="dear_give_me_good_judge">亲，给个好评吧</string>
-    <string name="change_ta_avatar">更换Ta的头像</string>
-    <string name="holder_level_holder_holder_level_holder" formatted="false">%s级%s~%s级%s</string>
-    <string name="wave">~</string>
-    <string name="cant_get_weather_info">无法获取天气信息</string>
     <string name="new_notice">最新公告</string>
     <string name="about_us">关于我们</string>
     <string name="no_read">未读</string>

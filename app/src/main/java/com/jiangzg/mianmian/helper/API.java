@@ -172,7 +172,7 @@ public interface API {
     @GET("couple/place")
     Call<Result> couplePlaceListGet(@Query("page") int page);
 
-    // 天气信息 TODO
+    // 天气预报
     @GET("couple/weather?forecast=1")
     Call<Result> weatherForecastListGet();
 

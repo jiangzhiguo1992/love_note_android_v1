@@ -8,22 +8,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.WeatherForecastAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.domain.WeatherForecast;
+import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.view.GImageAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
+
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -42,10 +48,10 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @BindView(R.id.llToady)
     LinearLayout llToady;
-    @BindView(R.id.rlTopLeft)
-    RelativeLayout rlTopLeft;
-    @BindView(R.id.rlTopRight)
-    RelativeLayout rlTopRight;
+    @BindView(R.id.llTopLeft)
+    LinearLayout llTopLeft;
+    @BindView(R.id.llTopRight)
+    LinearLayout llTopRight;
     @BindView(R.id.tvShowLeft)
     TextView tvShowLeft;
     @BindView(R.id.tvShowRight)
@@ -81,8 +87,6 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private String myAvatar;
-    private String taAvatar;
     private Call<Result> call;
 
     public static void goActivity(Activity from) {
@@ -106,15 +110,12 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                //.initAdapter(new WeatherForecastAdapter(mActivity))
+                .initAdapter(new WeatherForecastAdapter(mActivity))
                 .setAdapter();
     }
 
     @Override
     protected void initData(Bundle state) {
-        User user = SPHelper.getUser();
-        myAvatar = user.getMyAvatarInCp();
-        taAvatar = user.getTaAvatarInCp();
         getData();
     }
 
@@ -140,104 +141,97 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // TODO 改版
-        //call = new RetrofitHelper().call(API.class).weatherForecastGet();
-        //RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, String message, Result.Data data) {
-        //        srl.setRefreshing(false);
-        //        setTopViewLeft(data.getTaShow(), data.getTaWeather());
-        //        setTopViewRight(data.getMyShow(), data.getMyWeather());
-        //        // recycler
-        //        WeatherForecastAdapter adapter = recyclerHelper.getAdapter();
-        //        adapter.setData(data.getMyWeather(), data.getTaWeather());
-        //    }
-        //
-        //    @Override
-        //    public void onFailure(String errMsg) {
-        //        srl.setRefreshing(false);
-        //    }
-        //});
+        call = new RetrofitHelper().call(API.class).weatherForecastListGet();
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                // right
+                String myShow = data.getMyShow();
+                List<WeatherForecast> myWeatherForecastList = data.getMyWeatherForecastList();
+                setTopViewRight(myShow, myWeatherForecastList);
+                // left
+                String taShow = data.getTaShow();
+                List<WeatherForecast> taWeatherForecastList = data.getTaWeatherForecastList();
+                setTopViewLeft(taShow, taWeatherForecastList);
+                // recycler
+                WeatherForecastAdapter adapter = recyclerHelper.getAdapter();
+                adapter.setData(myWeatherForecastList, taWeatherForecastList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                srl.setRefreshing(false);
+            }
+        });
     }
 
-    //private void setTopViewLeft(String taShow, Weather taWeather) {
-    //    if (!StringUtils.isEmpty(taShow) || taWeather == null || taWeather.getForecast() == null || taWeather.getForecast().size() <= 0) {
-    //        tvShowLeft.setVisibility(View.VISIBLE);
-    //        rlTopLeft.setVisibility(View.GONE);
-    //        tvShowLeft.setText(taShow);
-    //        return;
-    //    }
-    //    tvShowLeft.setVisibility(View.GONE);
-    //    rlTopLeft.setVisibility(View.VISIBLE);
-    //    // data
-    //    Weather.Forecast forecast = taWeather.getForecast().get(0);
-    //    String predictDate = forecast.getPredictDate();
-    //    String conditionDay = forecast.getConditionDay();
-    //    String conditionNight = forecast.getConditionNight();
-    //    String condition = String.format(Locale.getDefault(), "%s~%s", conditionDay, conditionNight);
-    //    String conditionIdDay = forecast.getConditionIdDay();
-    //    int iconDay = ConvertHelper.getWeatherIconById(conditionIdDay);
-    //    String conditionIdNight = forecast.getConditionIdNight();
-    //    int iconNight = ConvertHelper.getWeatherIconById(conditionIdNight);
-    //    String tempDay = forecast.getTempDay();
-    //    String tempNight = forecast.getTempNight();
-    //    String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), tempDay, tempNight);
-    //    String windLevelDay = forecast.getWindLevelDay();
-    //    String windDirDay = forecast.getWindDirDay();
-    //    String windLevelNight = forecast.getWindLevelNight();
-    //    String windDirNight = forecast.getWindDirNight();
-    //    String wind = String.format(Locale.getDefault(), getString(R.string.holder_level_holder_holder_level_holder),
-    //            windLevelDay, windDirDay, windLevelNight, windDirNight);
-    //    // view
-    //    if (!StringUtils.isEmpty(predictDate)) {
-    //        tvTime.setText(predictDate);
-    //    }
-    //    ivAvatarLeft.setData(taAvatar);
-    //    ivIconLeftDay.setImageResource(iconDay);
-    //    ivIconLeftNight.setImageResource(iconNight);
-    //    tvConditionLeft.setText(condition);
-    //    tvTempLeft.setText(temp);
-    //    tvWindLeft.setText(wind);
-    //}
+    private void setTopViewRight(String myShow, List<WeatherForecast> myWeatherForecastList) {
+        if (!StringUtils.isEmpty(myShow) || myWeatherForecastList == null || myWeatherForecastList.size() <= 0) {
+            tvShowRight.setVisibility(View.VISIBLE);
+            llTopRight.setVisibility(View.GONE);
+            tvShowRight.setText(myShow);
+            return;
+        }
+        tvShowRight.setVisibility(View.GONE);
+        llTopRight.setVisibility(View.VISIBLE);
+        // data
+        String myAvatar = SPHelper.getUser().getMyAvatarInCp();
+        WeatherForecast forecast = myWeatherForecastList.get(0);
+        String time = ConvertHelper.getTimeShowCnSpace_MD_YMD_ByGo(forecast.getTimeAt());
+        String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
+        int iconDay = ConvertHelper.getWeatherIconById(forecast.getIconDay());
+        int iconNight = ConvertHelper.getWeatherIconById(forecast.getIconNight());
+        String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
+        String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
+        // view
+        if (!StringUtils.isEmpty(time)) {
+            tvTime.setText(time);
+        }
+        ivAvatarRight.setData(myAvatar);
+        tvConditionRight.setText(condition);
+        tvTempRight.setText(temp);
+        tvWindRight.setText(wind);
+        if (iconDay > 0) {
+            ivIconRightDay.setImageResource(iconDay);
+        }
+        if (iconNight > 0) {
+            ivIconRightNight.setImageResource(iconNight);
+        }
+    }
 
-    //private void setTopViewRight(String myShow, Weather myWeather) {
-    //    if (!StringUtils.isEmpty(myShow) || myWeather == null || myWeather.getForecast() == null || myWeather.getForecast().size() <= 0) {
-    //        tvShowRight.setVisibility(View.VISIBLE);
-    //        rlTopRight.setVisibility(View.GONE);
-    //        tvShowRight.setText(myShow);
-    //        return;
-    //    }
-    //    tvShowRight.setVisibility(View.GONE);
-    //    rlTopRight.setVisibility(View.VISIBLE);
-    //    // data
-    //    Weather.Forecast forecast = myWeather.getForecast().get(0);
-    //    String predictDate = forecast.getPredictDate();
-    //    String conditionDay = forecast.getConditionDay();
-    //    String conditionNight = forecast.getConditionNight();
-    //    String condition = String.format(Locale.getDefault(), "%s~%s", conditionDay, conditionNight);
-    //    String conditionIdDay = forecast.getConditionIdDay();
-    //    int iconDay = ConvertHelper.getWeatherIconById(conditionIdDay);
-    //    String conditionIdNight = forecast.getConditionIdNight();
-    //    int iconNight = ConvertHelper.getWeatherIconById(conditionIdNight);
-    //    String tempDay = forecast.getTempDay();
-    //    String tempNight = forecast.getTempNight();
-    //    String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), tempDay, tempNight);
-    //    String windLevelDay = forecast.getWindLevelDay();
-    //    String windDirDay = forecast.getWindDirDay();
-    //    String windLevelNight = forecast.getWindLevelNight();
-    //    String windDirNight = forecast.getWindDirNight();
-    //    String wind = String.format(Locale.getDefault(), getString(R.string.holder_level_holder_holder_level_holder),
-    //            windLevelDay, windDirDay, windLevelNight, windDirNight);
-    //    // view
-    //    if (!StringUtils.isEmpty(predictDate)) {
-    //        tvTime.setText(predictDate);
-    //    }
-    //    ivAvatarRight.setData(myAvatar);
-    //    ivIconRightDay.setImageResource(iconDay);
-    //    ivIconRightNight.setImageResource(iconNight);
-    //    tvConditionRight.setText(condition);
-    //    tvTempRight.setText(temp);
-    //    tvWindRight.setText(wind);
-    //}
+    private void setTopViewLeft(String taShow, List<WeatherForecast> taWeatherForecastList) {
+        if (!StringUtils.isEmpty(taShow) || taWeatherForecastList == null || taWeatherForecastList.size() <= 0) {
+            tvShowLeft.setVisibility(View.VISIBLE);
+            llTopLeft.setVisibility(View.GONE);
+            tvShowLeft.setText(taShow);
+            return;
+        }
+        tvShowLeft.setVisibility(View.GONE);
+        llTopLeft.setVisibility(View.VISIBLE);
+        // data
+        String taAvatar = SPHelper.getUser().getTaAvatarInCp();
+        WeatherForecast forecast = taWeatherForecastList.get(0);
+        String time = ConvertHelper.getTimeShowCnSpace_MD_YMD_ByGo(forecast.getTimeAt());
+        String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
+        int iconDay = ConvertHelper.getWeatherIconById(forecast.getIconDay());
+        int iconNight = ConvertHelper.getWeatherIconById(forecast.getIconNight());
+        String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
+        String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
+        // view
+        if (!StringUtils.isEmpty(time)) {
+            tvTime.setText(time);
+        }
+        ivAvatarLeft.setData(taAvatar);
+        tvConditionLeft.setText(condition);
+        tvTempLeft.setText(temp);
+        tvWindLeft.setText(wind);
+        if (iconDay > 0) {
+            ivIconLeftDay.setImageResource(iconDay);
+        }
+        if (iconNight > 0) {
+            ivIconLeftNight.setImageResource(iconNight);
+        }
+    }
 
 }

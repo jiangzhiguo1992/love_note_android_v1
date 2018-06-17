@@ -13,7 +13,10 @@
         style="@style/FontBlackBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textStyle="bold"
         tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
@@ -36,8 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"/>
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"/>
 
     <com.jiangzg.mianmian.view.GImageView
         android:id="@+id/ivContent"
@@ -55,7 +58,7 @@
 
     <TextView
         android:id="@+id/tvContent"
-        style="@style/FontGreyNormal"
+        style="@style/FontBlackNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"

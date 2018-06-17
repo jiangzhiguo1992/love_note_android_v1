@@ -76,6 +76,32 @@ public class ConvertHelper {
     }
 
     // 时间显示(有空格)
+    public static String getTimeShowCnSpace_MD_YMD_ByGo(long time) {
+        return getTimeShowCnSpace_MD_YMD_ByJava(getJavaTimeByGo(time));
+    }
+
+    // 时间显示(有空格)
+    public static String getTimeShowCnSpace_MD_YMD_ByJava(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(time));
+        String format;
+        if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "MM" + month + " dd" + day;
+        } else {
+            // 不同年
+            String year = MyApp.get().getString(R.string.year);
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "yyyy" + year + " MM" + month + " dd" + day;
+        }
+        return DateUtils.getString(time, format);
+    }
+
+    // 时间显示(有空格)
     public static String getTimeShowCnSpace_HM_MD_YMD_ByGo(long time) {
         return getTimeShowCnSpace_HM_MD_YMD_ByJava(getJavaTimeByGo(time));
     }

@@ -56,61 +56,67 @@
             android:orientation="horizontal"
             android:padding="10dp">
 
-            <RelativeLayout
-                android:id="@+id/rlTopLeft"
+            <LinearLayout
+                android:id="@+id/llTopLeft"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <com.jiangzg.mianmian.view.GImageAvatarView
-                    android:id="@+id/ivAvatarLeft"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    tools:background="@mipmap/ic_boy_circle"/>
-
-                <ImageView
-                    android:id="@+id/ivIconLeftDay"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ivAvatarLeft"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/ivAvatarLeft"
-                    android:tint="?attr/colorPrimaryDark"
-                    tools:src="@mipmap/w1"/>
+                    android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/ivIconLeftNight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ivAvatarLeft"
-                    android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@id/ivIconLeftDay"
-                    android:tint="?attr/colorPrimaryDark"
-                    tools:src="@mipmap/w1"/>
+                    <com.jiangzg.mianmian.view.GImageAvatarView
+                        android:id="@+id/ivAvatarLeft"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        tools:background="@mipmap/ic_boy_circle"/>
 
-                <TextView
-                    android:id="@+id/tvConditionLeft"
-                    style="@style/FontPrimarySmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/ivAvatarLeft"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/ivAvatarLeft"
-                    android:textColor="?attr/colorPrimaryDark"
-                    android:textStyle="bold"
-                    tools:text="晴天"/>
+                    <ImageView
+                        android:id="@+id/ivIconLeftDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/ivAvatarLeft"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/ivAvatarLeft"
+                        android:tint="?attr/colorPrimaryDark"
+                        tools:src="@mipmap/w1"/>
+
+                    <ImageView
+                        android:id="@+id/ivIconLeftNight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/ivAvatarLeft"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/ivIconLeftDay"
+                        android:tint="?attr/colorPrimaryDark"
+                        tools:src="@mipmap/w1"/>
+
+                    <TextView
+                        android:id="@+id/tvConditionLeft"
+                        style="@style/FontPrimarySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/ivAvatarLeft"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@id/ivAvatarLeft"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:textStyle="bold"
+                        tools:text="晴天"/>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvTempLeft"
                     style="@style/FontPrimaryHuge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivAvatarLeft"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="?attr/colorPrimaryDark"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -121,10 +127,9 @@
                     style="@style/FontPrimarySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvTempLeft"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvShowLeft"
@@ -137,7 +142,7 @@
                 android:textColor="?attr/colorPrimaryDark"
                 android:visibility="gone"
                 tools:text="获取不到天气信息"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvShowRight"
@@ -150,63 +155,69 @@
                 android:textColor="?attr/colorPrimaryDark"
                 android:visibility="gone"
                 tools:text="获取不到天气信息"
-                tools:visibility="visible"/>
+                tools:visibility="gone"/>
 
-            <RelativeLayout
-                android:id="@+id/rlTopRight"
+            <LinearLayout
+                android:id="@+id/llTopRight"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible">
 
-                <com.jiangzg.mianmian.view.GImageAvatarView
-                    android:id="@+id/ivAvatarRight"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    tools:background="@mipmap/ic_girl_circle"/>
-
-                <ImageView
-                    android:id="@+id/ivIconRightDay"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ivAvatarRight"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/ivAvatarRight"
-                    android:tint="?attr/colorPrimaryDark"
-                    tools:src="@mipmap/w1"/>
+                    android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/ivIconRightNight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ivAvatarRight"
-                    android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@id/ivIconRightDay"
-                    android:tint="?attr/colorPrimaryDark"
-                    tools:src="@mipmap/w1"/>
+                    <com.jiangzg.mianmian.view.GImageAvatarView
+                        android:id="@+id/ivAvatarRight"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        tools:background="@mipmap/ic_girl_circle"/>
 
-                <TextView
-                    android:id="@+id/tvConditionRight"
-                    style="@style/FontPrimarySmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/ivAvatarRight"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@id/ivAvatarRight"
-                    android:textColor="?attr/colorPrimaryDark"
-                    android:textStyle="bold"
-                    tools:text="晴天"/>
+                    <ImageView
+                        android:id="@+id/ivIconRightDay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/ivAvatarRight"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@id/ivAvatarRight"
+                        android:tint="?attr/colorPrimaryDark"
+                        tools:src="@mipmap/w1"/>
+
+                    <ImageView
+                        android:id="@+id/ivIconRightNight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/ivAvatarRight"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@id/ivIconRightDay"
+                        android:tint="?attr/colorPrimaryDark"
+                        tools:src="@mipmap/w1"/>
+
+                    <TextView
+                        android:id="@+id/tvConditionRight"
+                        style="@style/FontPrimarySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/ivAvatarRight"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toStartOf="@id/ivAvatarRight"
+                        android:textColor="?attr/colorPrimaryDark"
+                        android:textStyle="bold"
+                        tools:text="晴天"/>
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvTempRight"
                     style="@style/FontPrimaryHuge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/ivAvatarRight"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
                     android:textColor="?attr/colorPrimaryDark"
                     android:textSize="30sp"
                     android:textStyle="bold"
@@ -217,16 +228,16 @@
                     style="@style/FontPrimarySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvTempRight"
                     android:textColor="?attr/colorPrimaryDark"
                     tools:text="3级 东南风"/>
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/llToady"/>
+            android:layout_below="@+id/llToady"
+            android:layout_marginBottom="10dp"/>
     </RelativeLayout>
 </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
