@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="170dp"
     android:layout_marginBottom="3dp"
     android:layout_marginEnd="5dp"
     android:layout_marginStart="5dp"
@@ -17,111 +17,95 @@
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
 
+    <com.jiangzg.mianmian.view.GImageView
+        android:id="@+id/ivAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:foreground="?attr/selectableItemBackground"
+        app:actualImageScaleType="centerCrop"
+        tools:scaleType="centerCrop"
+        tools:src="@mipmap/test_bg_2"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.jiangzg.mianmian.view.GImageView
-            android:id="@+id/ivAlbum"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            app:actualImageScaleType="centerCrop"
-            tools:scaleType="centerCrop"
-            tools:src="@mipmap/test_bg_2"/>
-
-        <LinearLayout
-            android:id="@+id/llOperate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/tvTitle"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
-
-            <TextView
-                android:id="@+id/tvModify"
-                style="@style/FontWhiteNormal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="#c88bc34a"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@string/modify"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvDelete"
-                style="@style/FontWhiteNormal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="#c8f44336"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@string/delete"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tvCancel"
-                style="@style/FontWhiteNormal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="#c89e9e9e"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:text="@string/cancel"
-                android:textStyle="bold"/>
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:background="@color/black_trans_25">
 
         <TextView
             android:id="@+id/tvTitle"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteHuge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/tvUpdateAt"
-            android:background="@color/black_trans_50"
-            android:ellipsize="end"
+            android:layout_centerInParent="true"
             android:gravity="center"
-            android:maxLines="1"
-            android:paddingBottom="5dp"
-            android:paddingEnd="5dp"
-            android:paddingStart="5dp"
-            android:paddingTop="10dp"
+            android:padding="5dp"
             android:textStyle="bold"
             tools:text="相册名称"/>
 
         <TextView
-            android:id="@+id/tvUpdateAt"
-            style="@style/FontWhiteSmall"
+            android:id="@+id/tvTime"
+            style="@style/FontWhiteNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/black_trans_50"
-            android:ellipsize="end"
+            android:layout_below="@+id/tvTitle"
             android:gravity="center"
-            android:maxLines="1"
-            android:paddingBottom="5dp"
-            android:paddingEnd="5dp"
-            android:paddingStart="5dp"
-            tools:text="更新时间: 2015-5-6"/>
+            android:padding="5dp"
+            android:textStyle="bold"
+            tools:text="2015年5月6号 - 6月13号"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/llOperate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvModify"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#c88bc34a"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/modify"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvDelete"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#c8f44336"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvCancel"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#c89e9e9e"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textStyle="bold"/>
+    </LinearLayout>
 </android.support.v7.widget.CardView>

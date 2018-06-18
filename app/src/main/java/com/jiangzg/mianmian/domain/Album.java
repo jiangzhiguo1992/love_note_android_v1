@@ -13,7 +13,25 @@ public class Album extends BaseCP implements Parcelable {
 
     private String title;
     private String cover;
+    private long startAt;
+    private long endAt;
     private List<Picture> pictureList;
+
+    public long getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(long startAt) {
+        this.startAt = startAt;
+    }
+
+    public long getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(long endAt) {
+        this.endAt = endAt;
+    }
 
     public List<Picture> getPictureList() {
         return pictureList;
@@ -46,6 +64,9 @@ public class Album extends BaseCP implements Parcelable {
         super(in);
         title = in.readString();
         cover = in.readString();
+        startAt = in.readLong();
+        endAt = in.readLong();
+        pictureList = in.createTypedArrayList(Picture.CREATOR);
     }
 
     @Override
@@ -53,6 +74,9 @@ public class Album extends BaseCP implements Parcelable {
         super.writeToParcel(dest, flags);
         dest.writeString(title);
         dest.writeString(cover);
+        dest.writeLong(startAt);
+        dest.writeLong(endAt);
+        dest.writeTypedList(pictureList);
     }
 
     @Override

@@ -37,6 +37,32 @@ public class ConvertHelper {
         return time * 1000;
     }
 
+    // 时间显示
+    public static String getTimeShowCn_MD_YMD_ByGo(long time) {
+        return getTimeShowCn_MD_YMD_ByJava(getJavaTimeByGo(time));
+    }
+
+    // 时间显示
+    public static String getTimeShowCn_MD_YMD_ByJava(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(time));
+        String format;
+        if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "MM" + month + "dd" + day;
+        } else {
+            // 不同年
+            String year = MyApp.get().getString(R.string.year);
+            String month = MyApp.get().getString(R.string.month);
+            String day = MyApp.get().getString(R.string.dayR);
+            format = "yyyy" + year + "MM" + month + "dd" + day;
+        }
+        return DateUtils.getString(time, format);
+    }
+
     // 时间显示(有横线)
     public static String getTimeShowLine_HM_MD_YMD_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
@@ -200,10 +226,10 @@ public class ConvertHelper {
         ArrayList<String> ossKeyList = new ArrayList<>();
         if (pictureList == null || pictureList.size() <= 0) return ossKeyList;
         for (Picture picture : pictureList) {
-            if (picture == null || StringUtils.isEmpty(picture.getContent())) {
+            if (picture == null || StringUtils.isEmpty(picture.getContentImage())) {
                 continue;
             }
-            ossKeyList.add(picture.getContent());
+            ossKeyList.add(picture.getContentImage());
         }
         return ossKeyList;
     }

@@ -11,7 +11,7 @@ public class Picture extends BaseCP implements Parcelable{
 
     private long albumId;
     private long happenAt;
-    private String content;
+    private String contentImage;
     private double longitude;
     private double latitude;
     private String address;
@@ -33,12 +33,12 @@ public class Picture extends BaseCP implements Parcelable{
         this.happenAt = happenAt;
     }
 
-    public String getContent() {
-        return content;
+    public String getContentImage() {
+        return contentImage;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContentImage(String contentImage) {
+        this.contentImage = contentImage;
     }
 
     public double getLongitude() {
@@ -80,7 +80,7 @@ public class Picture extends BaseCP implements Parcelable{
         super(in);
         albumId = in.readLong();
         happenAt = in.readLong();
-        content = in.readString();
+        contentImage = in.readString();
         longitude = in.readDouble();
         latitude = in.readDouble();
         address = in.readString();
@@ -92,7 +92,7 @@ public class Picture extends BaseCP implements Parcelable{
         super.writeToParcel(dest, flags);
         dest.writeLong(albumId);
         dest.writeLong(happenAt);
-        dest.writeString(content);
+        dest.writeString(contentImage);
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
         dest.writeString(address);

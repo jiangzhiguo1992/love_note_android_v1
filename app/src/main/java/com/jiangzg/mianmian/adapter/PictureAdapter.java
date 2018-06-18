@@ -79,7 +79,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     protected void convert(final BaseViewHolder helper, Picture item) {
         String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String address = item.getAddress();
-        String content = item.getContent();
+        String content = item.getContentImage();
         // view
         helper.setVisible(R.id.tvHappenAt, mModel == MODEL_DETAIL);
         helper.setVisible(R.id.tvLocation, mModel == MODEL_DETAIL);

@@ -11,35 +11,30 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilTitle"
+    <EditText
+        android:id="@+id/etTitle"
+        style="@style/FontBlackNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/abl"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etTitle"
-            style="@style/FontBlackNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/please_input_album_name"
-            android:maxLines="1"
-            android:singleLine="true"/>
-    </android.support.design.widget.TextInputLayout>
+        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_stroke_primary_r3"
+        android:hint="@string/please_input_album_name"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:singleLine="true"/>
 
     <ImageView
         android:id="@+id/ivAdd"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@+id/tilTitle"
+        android:layout_height="270dp"
+        android:layout_below="@+id/etTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
         android:background="@drawable/shape_stroke_primary_r3"
         android:elevation="@dimen/elevation_normal"
         android:scaleType="fitCenter"
@@ -51,11 +46,11 @@
     <com.jiangzg.mianmian.view.GImageView
         android:id="@+id/ivAlbum"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_below="@+id/tilTitle"
+        android:layout_height="270dp"
+        android:layout_below="@+id/etTitle"
         android:layout_centerHorizontal="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
         android:background="?attr/selectableItemBackground"
         android:foreground="?attr/selectableItemBackground"
         android:visibility="gone"

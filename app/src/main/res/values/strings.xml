@@ -349,6 +349,7 @@
     <string name="differ_space_holder" formatted="false">相差 %s</string>
     <string name="holder_wave_holder_c">%s~%s℃</string>
     <string name="holder_wave_holder">%s~%s</string>
+    <string name="holder_space_line_space_holder">%s - %s</string>
     <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
     <string name="i_want_pair_with_ta">我要和Ta配对</string>
     <string name="couple_info">配对信息</string>

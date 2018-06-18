@@ -354,7 +354,7 @@ public class ApiHelper {
         Picture picture = new Picture();
         picture.setAlbumId(aid);
         picture.setHappenAt(happenAt);
-        picture.setContent(content);
+        picture.setContentImage(content);
         picture.setLongitude(longitude);
         picture.setLatitude(latitude);
         picture.setAddress(address);

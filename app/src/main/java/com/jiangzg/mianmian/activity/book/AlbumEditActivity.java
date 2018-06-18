@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.Gravity;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -65,7 +65,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     @BindView(R.id.ivAlbum)
     GImageView ivAlbum;
     @BindView(R.id.etTitle)
-    TextInputEditText etTitle;
+    EditText etTitle;
     @BindView(R.id.btnCommit)
     Button btnCommit;
 
@@ -276,7 +276,8 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         } else if (!FileUtils.isFileEmpty(pictureFile)) {
             pushImage(pictureFile);
         } else {
-            commit("");
+            String cover = (album == null) ? "" : album.getCover();
+            commit(cover);
         }
     }
 

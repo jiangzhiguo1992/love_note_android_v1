@@ -154,7 +154,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                     .initAdapter(imgAdapter)
                     .setAdapter();
             List<String> pictureList = new ArrayList<>();
-            pictureList.add(picture.getContent());
+            pictureList.add(picture.getContentImage());
             imgAdapter.setNewData(pictureList);
         } else {
             // 添加

@@ -50,9 +50,8 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     public AlbumAdapter(BaseActivity activity) {
         super(R.layout.list_item_album);
         mActivity = activity;
-        float screenWidth = ScreenUtils.getScreenRealWidth(activity);
-        imageWidth = (int) (screenWidth / 2);
-        imageHeight = ConvertUtils.dp2px(250);
+        imageWidth = ScreenUtils.getScreenRealWidth(activity);
+        imageHeight = ConvertUtils.dp2px(200);
         operationPosition = -1;
     }
 
@@ -60,12 +59,15 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     protected void convert(final BaseViewHolder helper, Album item) {
         // data
         String title = item.getTitle();
-        String updateAt = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
-        String time = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), updateAt);
+        long startAt = item.getStartAt();
+        String startTime = (startAt == 0) ? "      " : ConvertHelper.getTimeShowCn_MD_YMD_ByGo(startAt);
+        long endAt = item.getEndAt();
+        String endTime = (endAt == 0) ? "      " : ConvertHelper.getTimeShowCn_MD_YMD_ByGo(endAt);
+        String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_line_space_holder), startTime, endTime);
         String cover = item.getCover();
         // view
         helper.setText(R.id.tvTitle, title);
-        helper.setText(R.id.tvUpdateAt, time);
+        helper.setText(R.id.tvTime, time);
         GImageView ivAlbum = helper.getView(R.id.ivAlbum);
         ivAlbum.setWidthAndHeight(imageWidth, imageHeight);
         if (StringUtils.isEmpty(cover)) {
@@ -115,14 +117,14 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         TextView tvModify = (TextView) getViewByPosition(position, R.id.tvModify);
         TextView tvDelete = (TextView) getViewByPosition(position, R.id.tvDelete);
         TextView tvCancel = (TextView) getViewByPosition(position, R.id.tvCancel);
-        Animation modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_in_100);
+        Animation modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_in_100);
         modify.setInterpolator(new DecelerateInterpolator());
         modify.setFillAfter(true);
-        Animation delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_in_100);
+        Animation delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_in_100);
         delete.setInterpolator(new DecelerateInterpolator());
         delete.setFillAfter(true);
         delete.setStartOffset(50);
-        Animation cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_in_100);
+        Animation cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_in_100);
         cancel.setInterpolator(new DecelerateInterpolator());
         cancel.setFillAfter(true);
         cancel.setStartOffset(100);
@@ -139,14 +141,14 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         TextView tvModify = (TextView) getViewByPosition(operationPosition, R.id.tvModify);
         TextView tvDelete = (TextView) getViewByPosition(operationPosition, R.id.tvDelete);
         TextView tvCancel = (TextView) getViewByPosition(operationPosition, R.id.tvCancel);
-        Animation modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_out_100);
+        Animation modify = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_out_100);
         modify.setInterpolator(new DecelerateInterpolator());
         modify.setFillAfter(true);
-        Animation delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_right_out_100);
+        Animation delete = AnimationUtils.loadAnimation(mActivity, R.anim.slide_top_out_100);
         delete.setInterpolator(new DecelerateInterpolator());
         delete.setFillAfter(true);
         delete.setStartOffset(50);
-        Animation cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_left_out_100);
+        Animation cancel = AnimationUtils.loadAnimation(mActivity, R.anim.slide_bottom_out_100);
         cancel.setInterpolator(new DecelerateInterpolator());
         cancel.setFillAfter(true);
         cancel.setStartOffset(100);
@@ -198,7 +200,6 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     }
 
     private void delAlbumApi(final int position) {
-        hideOperation();
         Album album = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).AlbumDel(album.getId());
         MaterialDialog loading = mActivity.getLoading(true);

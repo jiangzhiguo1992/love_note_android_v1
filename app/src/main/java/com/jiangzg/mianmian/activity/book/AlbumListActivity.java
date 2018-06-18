@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -105,7 +105,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, 2))
+                .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new AlbumAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
