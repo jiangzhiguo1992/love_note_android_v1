@@ -121,6 +121,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                         getData(true);
                     }
                 });
+        // input
+        onChannelInput("");
     }
 
     @Override
@@ -200,19 +202,19 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     private void getData(final boolean more) {
         InputUtils.hideSoftInput(etChannel);
+        channel = etChannel.getText().toString().trim();
+        tvCurrentChannel.setText(getChannelShow());
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         page = more ? page + 1 : 0;
-        channel = refreshCurrentChannelView();
         callGet = new RetrofitHelper().call(API.class).whisperListGet(channel, page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<Whisper> whisperList = data.getWhisperList();
-                recyclerHelper.dataOk(whisperList, total, more);
+                recyclerHelper.dataOk(whisperList, more);
             }
 
             @Override
@@ -222,11 +224,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         });
     }
 
-    private String refreshCurrentChannelView() {
-        String channel = etChannel.getText().toString().trim();
-        String currentChannel = String.format(Locale.getDefault(), getString(R.string.current_channel_colon_space_holder), channel);
-        tvCurrentChannel.setText(currentChannel);
-        return channel;
+    private String getChannelShow() {
+        String channelShow = StringUtils.isEmpty(channel) ? getString(R.string.now_no) : channel;
+        return String.format(Locale.getDefault(), getString(R.string.current_channel_colon_space_holder), channelShow);
     }
 
     private void onChannelInput(String input) {
@@ -249,12 +249,11 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     // 文字添加
     private void showEditDialog() {
         int limitContentLength = SPHelper.getLimit().getWhisperContentLength();
-        String currentChannel = String.format(Locale.getDefault(), getString(R.string.save_channel_colon_space_holder), channel);
         String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContentLength);
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(currentChannel)
+                .content(getChannelShow())
                 .inputRange(1, limitContentLength)
                 .input(hint, "", false, new MaterialDialog.InputCallback() {
                     @Override
@@ -286,7 +285,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             return;
         }
         cameraFile = ResHelper.newImageOutCacheFile();
-        PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, channel, cameraFile);
+        PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, getChannelShow(), cameraFile);
         PopUtils.show(window, root, Gravity.CENTER);
     }
 
@@ -295,7 +294,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         OssHelper.uploadWhisper(mActivity, file, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                final String channel = etChannel.getText().toString().trim();
                 Whisper body = ApiHelper.getWhisperBody(channel, true, ossPath);
                 api(body);
                 ResHelper.deleteFileInBackground(cameraFile);

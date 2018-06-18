@@ -14,19 +14,19 @@ public class Whisper extends BaseCP implements Parcelable, MultiItemEntity {
 
     private String channel;
     private String content;
-    private boolean imgType;
+    private boolean isImage;
 
     @Override
     public int getItemType() {
         return isMine() ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
     }
 
-    public boolean isImgType() {
-        return imgType;
+    public boolean isImage() {
+        return isImage;
     }
 
-    public void setImgType(boolean imgType) {
-        this.imgType = imgType;
+    public void setImage(boolean image) {
+        this.isImage = image;
     }
 
     public String getChannel() {
@@ -52,7 +52,7 @@ public class Whisper extends BaseCP implements Parcelable, MultiItemEntity {
         super(in);
         channel = in.readString();
         content = in.readString();
-        imgType = in.readByte() != 0;
+        isImage = in.readByte() != 0;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Whisper extends BaseCP implements Parcelable, MultiItemEntity {
         super.writeToParcel(dest, flags);
         dest.writeString(channel);
         dest.writeString(content);
-        dest.writeByte((byte) (imgType ? 1 : 0));
+        dest.writeByte((byte) (isImage ? 1 : 0));
     }
 
     @Override

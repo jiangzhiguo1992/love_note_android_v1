@@ -338,7 +338,7 @@ public class ApiHelper {
     public static Whisper getWhisperBody(String channel, boolean isImage, String content) {
         Whisper whisper = new Whisper();
         whisper.setChannel(channel);
-        whisper.setImgType(isImage);
+        whisper.setImage(isImage);
         whisper.setContent(content);
         return whisper;
     }

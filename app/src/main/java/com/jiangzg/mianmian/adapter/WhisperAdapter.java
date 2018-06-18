@@ -38,7 +38,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
         String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        boolean imgType = item.isImgType();
+        boolean isImage = item.isImage();
         final String content = item.getContent();
         // view
         GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
@@ -46,7 +46,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         helper.setText(R.id.tvCreateAt, createAt);
         TextView tvContent = helper.getView(R.id.tvContent);
         GImageView ivContent = helper.getView(R.id.ivContent);
-        if (imgType) {
+        if (isImage) {
             tvContent.setVisibility(View.GONE);
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setClickListener(new GImageView.ClickListener() {
