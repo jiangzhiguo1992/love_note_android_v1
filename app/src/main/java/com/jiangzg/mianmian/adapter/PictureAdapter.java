@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -81,8 +82,13 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         String address = item.getAddress();
         String content = item.getContentImage();
         // view
-        helper.setVisible(R.id.tvHappenAt, mModel == MODEL_DETAIL);
-        helper.setVisible(R.id.tvLocation, mModel == MODEL_DETAIL);
+        if (mModel != MODEL_DETAIL) {
+            helper.setVisible(R.id.tvHappenAt, false);
+            helper.setVisible(R.id.tvLocation, false);
+        } else {
+            helper.setVisible(R.id.tvHappenAt, item.getHappenAt() != 0);
+            helper.setVisible(R.id.tvLocation, !StringUtils.isEmpty(address));
+        }
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvLocation, address);
         GImageView ivPicture = helper.getView(R.id.ivPicture);
@@ -178,7 +184,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         // 用户检查
         Picture item = getItem(position);
         if (!item.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_album));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_push_picture));
             return;
         }
         // view

@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by JZG on 2018/5/7.
  * Picture
  */
-public class Picture extends BaseCP implements Parcelable{
+public class Picture extends BaseCP implements Parcelable {
 
     private long albumId;
     private long happenAt;
@@ -15,7 +15,7 @@ public class Picture extends BaseCP implements Parcelable{
     private double longitude;
     private double latitude;
     private String address;
-    private int cityId;
+    private String cityId;
 
     public long getAlbumId() {
         return albumId;
@@ -65,11 +65,11 @@ public class Picture extends BaseCP implements Parcelable{
         this.address = address;
     }
 
-    public int getCityId() {
+    public String getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 
@@ -84,7 +84,7 @@ public class Picture extends BaseCP implements Parcelable{
         longitude = in.readDouble();
         latitude = in.readDouble();
         address = in.readString();
-        cityId = in.readInt();
+        cityId = in.readString();
     }
 
     @Override
@@ -96,7 +96,7 @@ public class Picture extends BaseCP implements Parcelable{
         dest.writeDouble(longitude);
         dest.writeDouble(latitude);
         dest.writeString(address);
-        dest.writeInt(cityId);
+        dest.writeString(cityId);
     }
 
     @Override

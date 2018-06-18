@@ -350,7 +350,7 @@ public class ApiHelper {
         return album;
     }
 
-    public static Picture getPictureBody(long aid, long happenAt, String content, double longitude, double latitude, String address, int cityId) {
+    public static Picture getPictureBody(long aid, long happenAt, String content, double longitude, double latitude, String address, String cityId) {
         Picture picture = new Picture();
         picture.setAlbumId(aid);
         picture.setHappenAt(happenAt);

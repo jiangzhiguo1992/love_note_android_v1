@@ -189,6 +189,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 picture.setLatitude(info.getLatitude());
                 picture.setLongitude(info.getLongitude());
                 picture.setAddress(info.getAddress());
+                picture.setCityId(info.getCityId());
                 refreshLocationView();
             }
         });
@@ -311,12 +312,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void refreshLocationView() {
-        String location;
-        if (StringUtils.isEmpty(picture.getAddress())) {
-            location = getString(R.string.now_null);
-        } else {
-            location = picture.getAddress();
-        }
+        String location = StringUtils.isEmpty(picture.getAddress()) ? getString(R.string.now_no) : picture.getAddress();
         tvLocation.setText(location);
     }
 
@@ -389,6 +385,10 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                List<Picture> pictureList = data.getPictureList();
+                int total = (pictureList == null) ? 0 : pictureList.size();
+                String toast = String.format(Locale.getDefault(), mActivity.getString(R.string.success_push_holder_paper_picture), total);
+                ToastUtils.show(toast);
                 // event
                 RxEvent<ArrayList<Album>> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
                 RxBus.post(eventAlbum);

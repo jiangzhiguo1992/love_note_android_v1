@@ -328,7 +328,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 List<Picture> pictureList = data.getPictureList();
                 recyclerHelper.dataOk(pictureList, total, more);
                 // total
-                String format = String.format(Locale.getDefault(), mActivity.getString(R.string.total_colon_space_holder_paper), total);
+                String format = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_paper), total);
                 tvPictureCount.setText(format);
                 // 刷新本地资源
                 if (isFirstOpen) {

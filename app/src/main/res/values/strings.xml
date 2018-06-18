@@ -463,6 +463,7 @@
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
     <string name="click_mo_add_cover">点我添加封面</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
+    <string name="can_operation_self_push_picture">只能操作自己上传的照片哦</string>
     <string name="place">位置</string>
     <string name="weather">天气</string>
     <string name="place_info">位置信息</string>
@@ -482,19 +483,19 @@
     <string name="complete">完成</string>
     <string name="location_search_fail">位置搜索失败</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
-    <string name="now_null">暂无</string>
+    <string name="now_no">暂无</string>
     <string name="picture_where">照片呢？</string>
     <string name="input_search_location">输入搜索地址</string>
     <string name="map">地图</string>
     <string name="my_location">我的位置</string>
     <string name="lon_lat_colon">经纬度:</string>
-    <string name="total_colon_space_holder_paper">总计: %d张</string>
+    <string name="holder_paper">%d张</string>
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
     <string name="now_null_nickname">暂无爱称</string>
     <string name="pair_holder_day" formatted="false">配对第%d天</string>
     <string name="now_no_address_info">暂无地址信息</string>
     <string name="now_no_weather_info">暂无天气信息</string>
     <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
-    <string name="now_no">暂无</string>
+    <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
 
 </resources>
