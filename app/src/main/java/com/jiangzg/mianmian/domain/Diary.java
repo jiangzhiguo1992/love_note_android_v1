@@ -12,8 +12,8 @@ import java.util.List;
 public class Diary extends BaseCP implements Parcelable {
 
     private long happenAt;
-    private String content;
-    private List<String> imageList;
+    private String contentText;
+    private List<String> contentImageList;
 
     public long getHappenAt() {
         return happenAt;
@@ -23,20 +23,20 @@ public class Diary extends BaseCP implements Parcelable {
         this.happenAt = happenAt;
     }
 
-    public String getContent() {
-        return content;
+    public String getContentText() {
+        return contentText;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
     }
 
-    public List<String> getImageList() {
-        return imageList;
+    public List<String> getContentImageList() {
+        return contentImageList;
     }
 
-    public void setImageList(List<String> imageList) {
-        this.imageList = imageList;
+    public void setContentImageList(List<String> contentImageList) {
+        this.contentImageList = contentImageList;
     }
 
     public Diary() {
@@ -45,16 +45,16 @@ public class Diary extends BaseCP implements Parcelable {
     protected Diary(Parcel in) {
         super(in);
         happenAt = in.readLong();
-        content = in.readString();
-        imageList = in.createStringArrayList();
+        contentText = in.readString();
+        contentImageList = in.createStringArrayList();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeLong(happenAt);
-        dest.writeString(content);
-        dest.writeStringList(imageList);
+        dest.writeString(contentText);
+        dest.writeStringList(contentImageList);
     }
 
     @Override

@@ -195,7 +195,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
         // imageList
-        List<String> imageList = diary.getImageList();
+        List<String> imageList = diary.getContentImageList();
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             int spanCount = imageList.size() > 3 ? 3 : imageList.size();
@@ -209,7 +209,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             rv.setVisibility(View.GONE);
         }
         // content
-        tvContent.setText(diary.getContent());
+        tvContent.setText(diary.getContentText());
     }
 
     private void showDeleteDialog() {

@@ -145,7 +145,7 @@ public class SPHelper {
     private static final String FIELD_WALL_PAPER_JSON = "json";
     // diary
     private static final String FIELD_DIARY_HAPPEN = "happen";
-    private static final String FIELD_DIARY_CONTENT = "content";
+    private static final String FIELD_DIARY_CONTENT_TEXT = "contentText";
 
     public static void setUser(User user) {
         clearUser();
@@ -539,7 +539,7 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DIARY).edit();
         editor.putLong(FIELD_DIARY_HAPPEN, diary.getHappenAt());
-        editor.putString(FIELD_DIARY_CONTENT, diary.getContent());
+        editor.putString(FIELD_DIARY_CONTENT_TEXT, diary.getContentText());
         editor.apply();
     }
 
@@ -547,7 +547,7 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DIARY);
         Diary diary = new Diary();
         diary.setHappenAt(sp.getLong(FIELD_DIARY_HAPPEN, 0));
-        diary.setContent(sp.getString(FIELD_DIARY_CONTENT, ""));
+        diary.setContentText(sp.getString(FIELD_DIARY_CONTENT_TEXT, ""));
         return diary;
     }
 

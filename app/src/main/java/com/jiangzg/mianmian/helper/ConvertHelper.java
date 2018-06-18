@@ -187,10 +187,10 @@ public class ConvertHelper {
         ArrayList<String> ossKeyList = new ArrayList<>();
         if (diaryList == null || diaryList.size() <= 0) return ossKeyList;
         for (Diary diary : diaryList) {
-            if (diary == null || diary.getImageList() == null || diary.getImageList().size() <= 0) {
+            if (diary == null || diary.getContentImageList() == null || diary.getContentImageList().size() <= 0) {
                 continue;
             }
-            ossKeyList.addAll(diary.getImageList());
+            ossKeyList.addAll(diary.getContentImageList());
         }
         return ossKeyList;
     }

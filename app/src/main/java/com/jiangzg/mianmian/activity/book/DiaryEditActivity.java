@@ -142,8 +142,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                     showImgSelect();
                 }
             });
-            if (diary.getImageList() != null && diary.getImageList().size() > 0) {
-                imgAdapter.setOssData(diary.getImageList());
+            if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
+                imgAdapter.setOssData(diary.getContentImageList());
             }
             recyclerHelper = new RecyclerHelper(mActivity)
                     .initRecycler(rv)
@@ -154,7 +154,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             rv.setVisibility(View.GONE);
         }
         // input
-        etContent.setText(diary.getContent());
+        etContent.setText(diary.getContentText());
     }
 
     @Override
@@ -286,7 +286,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
         tvContentLimit.setText(limitShow);
         // 设置进去
-        diary.setContent(etContent.getText().toString());
+        diary.setContentText(etContent.getText().toString());
     }
 
     private void saveDraft() {
@@ -333,7 +333,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
-        diary.setImageList(ossPathList);
+        diary.setContentImageList(ossPathList);
         if (isTypeUpdate()) {
             updateApi(diary);
         } else {
