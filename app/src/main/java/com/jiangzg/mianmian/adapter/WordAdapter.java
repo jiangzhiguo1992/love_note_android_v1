@@ -4,23 +4,19 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Word;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
-import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
 
 import retrofit2.Call;
 
@@ -28,28 +24,21 @@ import retrofit2.Call;
  * Created by JZG on 2018/3/12.
  * 留言
  */
-public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder> {
+public class WordAdapter extends BaseQuickAdapter<Word, BaseViewHolder> {
 
     private BaseActivity mActivity;
-    private final Couple couple;
 
     public WordAdapter(BaseActivity activity) {
-        super(null);
-        addItemType(ApiHelper.LIST_MY, R.layout.list_item_word_right);
-        addItemType(ApiHelper.LIST_TA, R.layout.list_item_word_left);
+        super(R.layout.list_item_word);
         mActivity = activity;
-        couple = SPHelper.getCouple();
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Word item) {
         // data
-        String avatar = Couple.getAvatar(couple, item.getUserId());
         String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String content = item.getContent();
+        String content = item.getContentText();
         // view
-        GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
-        ivAvatar.setData(avatar);
         helper.setText(R.id.tvCreateAt, createAt);
         helper.setText(R.id.tvContent, content);
     }

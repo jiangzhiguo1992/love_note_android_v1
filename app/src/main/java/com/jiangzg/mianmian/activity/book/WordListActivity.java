@@ -190,9 +190,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<Word> wordList = data.getWordList();
-                recyclerHelper.dataOk(wordList, total, page != 0);
+                recyclerHelper.dataOk(wordList, page != 0);
                 canMore = (wordList != null && wordList.size() > 0);
             }
 

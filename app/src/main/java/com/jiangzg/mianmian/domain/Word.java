@@ -3,29 +3,20 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.mianmian.adapter.WordAdapter;
-import com.jiangzg.mianmian.helper.ApiHelper;
-
 /**
  * Created by JZG on 2018/4/24.
  * 留言
  */
-public class Word extends BaseCP implements Parcelable, MultiItemEntity {
+public class Word extends BaseCP implements Parcelable {
 
-    private String content;
+    private String contentText;
 
-    @Override
-    public int getItemType() {
-        return isMine() ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
+    public String getContentText() {
+        return contentText;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
     }
 
     public Word() {
@@ -33,13 +24,13 @@ public class Word extends BaseCP implements Parcelable, MultiItemEntity {
 
     protected Word(Parcel in) {
         super(in);
-        content = in.readString();
+        contentText = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeString(content);
+        dest.writeString(contentText);
     }
 
     @Override

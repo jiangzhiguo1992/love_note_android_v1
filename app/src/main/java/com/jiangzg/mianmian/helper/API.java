@@ -176,26 +176,6 @@ public interface API {
     @GET("couple/weather?forecast=1")
     Call<Result> weatherForecastListGet();
 
-    // diaryList获取
-    @GET("book/diary?did=0&list=1")
-    Call<Result> diaryListGet(@Query("who") int who, @Query("page") int page);
-
-    // diary获取
-    @GET("book/diary?list=0")
-    Call<Result> diaryGet(@Query("did") long did);
-
-    // diary上传
-    @POST("book/diary")
-    Call<Result> diaryAdd(@Body Diary diary);
-
-    // diary删除
-    @DELETE("book/diary")
-    Call<Result> diaryDel(@Query("did") long did);
-
-    // diary修改
-    @PUT("book/diary")
-    Call<Result> diaryUpdate(@Body Diary diary);
-
     // word获取
     @GET("book/word?list=1")
     Call<Result> wordListGet(@Query("page") int page);
@@ -215,6 +195,26 @@ public interface API {
     // whisper上传
     @POST("book/whisper")
     Call<Result> whisperAdd(@Body Whisper whisper);
+
+    // diaryList获取
+    @GET("book/diary?did=0&list=1")
+    Call<Result> diaryListGet(@Query("who") int who, @Query("page") int page);
+
+    // diary获取
+    @GET("book/diary?list=0")
+    Call<Result> diaryGet(@Query("did") long did);
+
+    // diary上传
+    @POST("book/diary")
+    Call<Result> diaryAdd(@Body Diary diary);
+
+    // diary删除
+    @DELETE("book/diary")
+    Call<Result> diaryDel(@Query("did") long did);
+
+    // diary修改
+    @PUT("book/diary")
+    Call<Result> diaryUpdate(@Body Diary diary);
 
     // albumList获取
     @GET("book/album?aid=0&list=1")
