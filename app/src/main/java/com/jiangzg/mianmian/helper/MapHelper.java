@@ -54,7 +54,7 @@ public class MapHelper {
         uiSettings.setCompassEnabled(false); // 指南针
         uiSettings.setMyLocationButtonEnabled(false); // 刷新定位按钮
         uiSettings.setScaleControlsEnabled(true); // 比例尺控件
-        uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_RIGHT); // logo位置
+        uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_LEFT); // logo位置
     }
 
     /* 地图移动到指定区域 */

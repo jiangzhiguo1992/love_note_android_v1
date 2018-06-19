@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -24,10 +25,8 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.MapSelectAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
@@ -40,10 +39,11 @@ import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 地址选择
- * TODO 地图select 搜索功能+点击item会移动+地址自定义编辑
+ * TODO (搜索功能+地址自定义编辑)+点击item会移动
  */
 public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
@@ -51,6 +51,8 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     Toolbar tb;
     @BindView(R.id.map)
     MapView map;
+    @BindView(R.id.cvLocation)
+    CardView cvLocation;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
@@ -166,7 +168,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_complete, menu);
+        getMenuInflater().inflate(R.menu.search_complete, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -207,8 +209,8 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MAP_SELECT);
+            case R.id.menuSearch: // 搜索
+                // TODO
                 return true;
             case R.id.menuComplete: // 完成
                 if (locationInfo == null) {
@@ -221,6 +223,15 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.cvLocation})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.cvLocation: // 定位
+                // TODO
+                break;
+        }
     }
 
     private void startMapSearch(String address, double longitude, double latitude) {

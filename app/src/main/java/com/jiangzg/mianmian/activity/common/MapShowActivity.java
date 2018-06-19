@@ -4,12 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.Marker;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -18,9 +17,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.MapHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -45,13 +42,13 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     private AMapLocationClient locationMe;
 
     // 当前我的位置
-    public static void goActivity(final Activity from) {
-        if (!LocationHelper.checkLocationEnable(from)) return;
-        Intent intent = new Intent(from, MapShowActivity.class);
-        // intent.putExtra();
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
-    }
+    //public static void goActivity(final Activity from) {
+    //    if (!LocationHelper.checkLocationEnable(from)) return;
+    //    Intent intent = new Intent(from, MapShowActivity.class);
+    //    // intent.putExtra();
+    //    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    //    ActivityTrans.start(from, intent);
+    //}
 
     // 传入的位置
     public static void goActivity(final Activity from, final String address, final double longitude, final double latitude) {
@@ -132,9 +129,10 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
                 if (aMap == null) return;
                 double longitude = info.getLongitude();
                 double latitude = info.getLatitude();
-                MapHelper.setMarker(aMap, longitude, latitude, getString(R.string.my_location));
+                Marker marker = MapHelper.setMarker(aMap, longitude, latitude, getString(R.string.my_location));
                 // 没有Target位置
                 if (StringUtils.isEmpty(tarAddress) && (tarLongitude == 0 && tarLatitude == 0)) {
+                    MapHelper.showMarker(marker);
                     MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
                 }
             }
@@ -152,12 +150,6 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         if (map != null) {
             map.onResume();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -193,16 +185,6 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         }
         poiTargetListener = null;
         LocationHelper.stopLocation(locationMe);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MAP_SHOW);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -32,8 +32,6 @@ public class Help extends BaseObj {
     public static final int INDEX_NOTICE_LIST = 21;
     public static final int INDEX_PICTURE_EDIT = 22;
     public static final int INDEX_PICTURE_LIST = 23;
-    public static final int INDEX_MAP_SELECT = 24;
-    public static final int INDEX_MAP_SHOW = 25;
 
     private int index;
     private String title;
