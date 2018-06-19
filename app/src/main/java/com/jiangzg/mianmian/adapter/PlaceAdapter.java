@@ -18,12 +18,12 @@ import com.jiangzg.mianmian.view.GImageAvatarView;
  * Created by JZG on 2018/3/13.
  * 登录信息适配器
  */
-public class CouplePlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolder> {
+public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolder> {
 
     private FragmentActivity mActivity;
     private final Couple couple;
 
-    public CouplePlaceAdapter(FragmentActivity activity) {
+    public PlaceAdapter(FragmentActivity activity) {
         super(null);
         addItemType(ApiHelper.LIST_MY, R.layout.list_item_couple_place_right);
         addItemType(ApiHelper.LIST_TA, R.layout.list_item_couple_place_left);
@@ -36,7 +36,7 @@ public class CouplePlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseVie
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
         String time = ConvertHelper.getTimeShowCnSpace_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String address = StringUtils.isEmpty(item.getAddress()) ? mActivity.getString(R.string.now_no) : item.getAddress();
+        String address = StringUtils.isEmpty(item.getAddress()) ? mActivity.getString(R.string.now_no_address_info) : item.getAddress();
         String province = StringUtils.isEmail(item.getProvince()) ? mActivity.getString(R.string.now_no) : item.getProvince();
         String city = StringUtils.isEmail(item.getCity()) ? mActivity.getString(R.string.now_no) : item.getCity();
         String district = StringUtils.isEmail(item.getDistrict()) ? mActivity.getString(R.string.now_no) : item.getDistrict();

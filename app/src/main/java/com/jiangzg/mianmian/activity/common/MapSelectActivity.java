@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 /**
- *
+ * 地址选择
  * TODO 地图select 搜索功能+点击item会移动+地址自定义编辑
  */
 public class MapSelectActivity extends BaseActivity<MapSelectActivity> {

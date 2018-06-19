@@ -63,13 +63,6 @@ public class LocationHelper {
         return true;
     }
 
-    // 检查位置服务(GPS)是否可用
-    //public static boolean isLocationEnable() {
-    //    boolean permission = PermUtils.isPermissionOK(MyApp.get(), PermUtils.location);
-    //    boolean enabled = LocationInfo.isLocationEnabled();
-    //    return permission && enabled;
-    //}
-
     /* 定位 并 回调信息 */
     public interface LocationCallBack {
         void onSuccess(LocationInfo info);
@@ -105,7 +98,7 @@ public class LocationHelper {
     private static AMapLocationClientOption getLocationOption(boolean once) {
         AMapLocationClientOption locationOption = new AMapLocationClientOption();
         locationOption.setWifiScan(true); // 获取最新的wifi列表，从而获取更精准的定位结果
-        locationOption.setHttpTimeOut(20000); // 单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒
+        locationOption.setHttpTimeOut(30000); // 单位是毫秒，默认30000毫秒，建议超时时间不要低于8000毫秒
         locationOption.setLocationCacheEnable(true); // 开启缓存机制，无变化时会返回缓存地址
 
         AMapLocationClientOption.AMapLocationMode locationMode;
@@ -114,7 +107,7 @@ public class LocationHelper {
             locationOption.setMockEnable(true); // 可以通过外界第三方软件对GPS位置进行模拟，低耗电无效
         } else {
             locationMode = AMapLocationClientOption.AMapLocationMode.Battery_Saving; // 低耗电
-            locationOption.setInterval(1000); // 设置定位间隔,单位毫秒,默认为2000ms，最低1000ms
+            locationOption.setInterval(2000); // 设置定位间隔,单位毫秒,默认为2000ms，最低1000ms
         }
         locationOption.setLocationMode(locationMode);
         locationOption.setOnceLocation(once); // 获取一次定位结果

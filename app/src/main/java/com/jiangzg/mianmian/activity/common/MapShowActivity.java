@@ -7,9 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.amap.api.location.AMapLocationClient;
 import com.amap.api.maps2d.AMap;
 import com.amap.api.maps2d.MapView;
-import com.amap.api.maps2d.model.Marker;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 
 /**
- * TODO 地图show 我的位置会移动+搜索功能
+ * 地图展示
  */
 public class MapShowActivity extends BaseActivity<MapShowActivity> {
 
@@ -40,8 +40,9 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     MapView map;
 
     private AMap aMap;
-    private PoiSearch poiInit;
-    private PoiSearch.OnPoiSearchListener poiInitListener;
+    private PoiSearch poiTarget;
+    private PoiSearch.OnPoiSearchListener poiTargetListener;
+    private AMapLocationClient locationMe;
 
     // 当前我的位置
     public static void goActivity(final Activity from) {
@@ -85,72 +86,62 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
         // uiSettings
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
-        MapHelper.setMakerPop(aMap, mActivity);
+        MapHelper.initMarkerStyle(aMap, mActivity);
     }
 
     @Override
     protected void initData(Bundle state) {
         if (aMap == null) return;
-        // 目标地址回调(根据地址)
-        poiInitListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
-            @Override
-            public void onSuccess(ArrayList<PoiItem> pois) {
-                if (aMap == null) return;
-                if (pois == null || pois.size() <= 0) return;
-                PoiItem poiItem = pois.get(0);
-                String title = poiItem.getTitle();
-                LatLonPoint latLonPoint = poiItem.getLatLonPoint();
-                double longitude = latLonPoint.getLongitude();
-                double latitude = latLonPoint.getLatitude();
-                // 根据经纬度
-                MapHelper.moveMapByLatLon(aMap, longitude, latitude);
-                Marker marker = MapHelper.addMaker(aMap, longitude, latitude, title);
-                if (marker != null) {
-                    marker.showInfoWindow();
-                }
-            }
-
-            @Override
-            public void onFailed() {
-                ToastUtils.show(getString(R.string.location_error));
-            }
-        });
         // 设置market
-        final String address = getIntent().getStringExtra("address");
-        double longitude = getIntent().getDoubleExtra("longitude", 0);
-        double latitude = getIntent().getDoubleExtra("latitude", 0);
+        final String tarAddress = getIntent().getStringExtra("address");
+        final double tarLongitude = getIntent().getDoubleExtra("longitude", 0);
+        final double tarLatitude = getIntent().getDoubleExtra("latitude", 0);
         // 目标market
-        if (longitude != 0 || latitude != 0) {
+        if (tarLongitude != 0 || tarLatitude != 0) {
             // 根据经纬度
-            MapHelper.moveMapByLatLon(aMap, longitude, latitude);
-            Marker marker = MapHelper.addMaker(aMap, longitude, latitude, address);
-            if (marker != null) {
-                marker.showInfoWindow();
-            }
-        } else if (!StringUtils.isEmpty(address)) {
+            MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
+            MapHelper.showMarker(aMap, tarLongitude, tarLatitude, tarAddress);
+        } else if (!StringUtils.isEmpty(tarAddress)) {
             // 根据地址
-            poiInit = MapHelper.startSearch(mActivity, address, longitude, latitude, poiInitListener);
+            poiTargetListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
+                @Override
+                public void onSuccess(ArrayList<PoiItem> pois) {
+                    if (aMap == null) return;
+                    if (pois == null || pois.size() <= 0) return;
+                    PoiItem poiItem = pois.get(0);
+                    String title = poiItem.getTitle();
+                    LatLonPoint latLonPoint = poiItem.getLatLonPoint();
+                    double longitude = latLonPoint.getLongitude();
+                    double latitude = latLonPoint.getLatitude();
+                    // 根据经纬度
+                    MapHelper.moveMapByLatLon(aMap, longitude, latitude);
+                    MapHelper.showMarker(aMap, longitude, latitude, title);
+                }
+
+                @Override
+                public void onFailed() {
+                    ToastUtils.show(getString(R.string.location_error));
+                }
+            });
+            poiTarget = MapHelper.startSearch(mActivity, tarAddress, tarLongitude, tarLatitude, poiTargetListener);
         }
         // 我的market
-        LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
+        locationMe = LocationHelper.startLocation(mActivity, false, new LocationHelper.LocationCallBack() {
             @Override
             public void onSuccess(LocationInfo info) {
                 if (aMap == null) return;
                 double longitude = info.getLongitude();
                 double latitude = info.getLatitude();
-                Marker marker = MapHelper.addMaker(aMap, longitude, latitude, getString(R.string.my_location));
-                if (marker != null) {
-                    marker.showInfoWindow();
-                }
-                if (StringUtils.isEmpty(address) && (longitude == 0 && latitude == 0)) {
-                    // 没有目标位置
-                    MapHelper.moveMapByLatLon(aMap, longitude, latitude);
+                MapHelper.setMarker(aMap, longitude, latitude, getString(R.string.my_location));
+                // 没有Target位置
+                if (StringUtils.isEmpty(tarAddress) && (tarLongitude == 0 && tarLatitude == 0)) {
+                    MapHelper.moveMapByLatLon(aMap, tarLongitude, tarLatitude);
                 }
             }
 
             @Override
             public void onFailed(String errMsg) {
-                ToastUtils.show(getString(R.string.location_error));
+                //ToastUtils.show(getString(R.string.location_error));
             }
         });
     }
@@ -197,10 +188,11 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
             aMap.clear();
             aMap = null;
         }
-        if (poiInit != null) {
-            poiInit.setOnPoiSearchListener(null);
+        if (poiTarget != null) {
+            poiTarget.setOnPoiSearchListener(null);
         }
-        poiInitListener = null;
+        poiTargetListener = null;
+        LocationHelper.stopLocation(locationMe);
     }
 
     @Override

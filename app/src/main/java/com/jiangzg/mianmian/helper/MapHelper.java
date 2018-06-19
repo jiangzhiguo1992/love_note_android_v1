@@ -30,6 +30,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 
@@ -51,46 +52,41 @@ public class MapHelper {
         UiSettings uiSettings = aMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(false); // 缩放按钮
         uiSettings.setCompassEnabled(false); // 指南针
-        uiSettings.setMyLocationButtonEnabled(false);// 刷新定位按钮
-        uiSettings.setScaleControlsEnabled(false); // 比例尺控件
+        uiSettings.setMyLocationButtonEnabled(false); // 刷新定位按钮
+        uiSettings.setScaleControlsEnabled(true); // 比例尺控件
         uiSettings.setLogoPosition(AMapOptions.LOGO_POSITION_BOTTOM_RIGHT); // logo位置
     }
 
+    /* 地图移动到指定区域 */
+    public static void moveMapByLatLon(AMap aMap, double longitude, double latitude) {
+        if (aMap == null) return;
+        if (longitude == 0 || latitude == 0) {
+            // 单纯放大
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        } else {
+            // 移动到指定位置并放大
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+        }
+    }
+
+    // 自定位坐标
     public static void initMyLocation(AMap aMap) {
         if (aMap == null) return;
         // myLocation
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE); // 只定位一次，没有方向，且将视角移动到地图中心点
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_grey));
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_primary_40));
         myLocationStyle.strokeWidth(Color.BLACK);
         myLocationStyle.strokeColor(5);
         myLocationStyle.showMyLocation(true); // 不仅定位，还要定位蓝点
         // aMap
-        aMap.setMyLocationStyle(myLocationStyle);//设置定位蓝点的Style
+        aMap.setMyLocationStyle(myLocationStyle); // 设置定位蓝点的Style
         aMap.setMyLocationEnabled(true);// 显示定位蓝点，默认是false
         //aMap.setOnMyLocationChangeListener();
     }
 
-    // TODO 地图marker经纬度的逗号左右加+空格
-    public static Marker addMaker(AMap aMap, double longitude, double latitude, String title) {
-        if (aMap == null) return null;
-        LatLng latLng = new LatLng(latitude, longitude);
-        // icon
-        VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.drawable.ic_location_primary, MyApp.get().getTheme());
-        Bitmap bitmap = ConvertUtils.drawable2Bitmap(vectorDrawable);
-        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
-        // options
-        MarkerOptions markerOptions = new MarkerOptions()
-                .position(latLng)
-                .title(title)
-                .snippet(MyApp.get().getString(R.string.lon_lat_colon) + longitude + "," + latitude)
-                .icon(icon)
-                .draggable(false)
-                .visible(true);
-        return aMap.addMarker(markerOptions);
-    }
-
-    public static void setMakerPop(AMap aMap, final Activity activity) {
+    // marker
+    public static void initMarkerStyle(AMap aMap, final Activity activity) {
         if (aMap == null) return;
         aMap.setInfoWindowAdapter(new AMap.InfoWindowAdapter() {
             @Override
@@ -112,20 +108,58 @@ public class MapHelper {
         });
     }
 
-    /* 地图移动到指定区域 */
-    public static void moveMapByLatLon(AMap aMap, double longitude, double latitude) {
-        if (aMap == null) return;
-        if (longitude == 0 || latitude == 0) {
-            // 单纯放大
-            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+    // 只是设置marker，不会显示，点击才能显示
+    public static Marker setMarker(AMap aMap, double longitude, double latitude, String title) {
+        if (aMap == null || (longitude == 0 && latitude == 0)) return null;
+        LatLng latLng = new LatLng(latitude, longitude);
+        // icon
+        VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.drawable.ic_location_primary_40, MyApp.get().getTheme());
+        Bitmap bitmap = ConvertUtils.drawable2Bitmap(vectorDrawable);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
+        // options
+        MarkerOptions markerOptions = new MarkerOptions()
+                .position(latLng)
+                .title(title)
+                .snippet(MyApp.get().getString(R.string.lon_lat_colon) + longitude + " , " + latitude)
+                .icon(icon)
+                .draggable(false)
+                .visible(true);
+        return aMap.addMarker(markerOptions);
+    }
+
+    // 修改marker的信息
+    public static Marker setMarker(Marker marker, double longitude, double latitude, String title) {
+        if (marker == null) return null;
+        LatLng latLng;
+        if (longitude != 0 || latitude != 0) {
+            latLng = new LatLng(latitude, longitude);
         } else {
-            // 移动到指定位置并放大
-            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+            latLng = marker.getPosition();
         }
+        String show;
+        if (!StringUtils.isEmpty(title)) {
+            show = title;
+        } else {
+            show = marker.getTitle();
+        }
+        marker.setPosition(latLng);
+        marker.setTitle(show);
+        return marker;
+    }
+
+    public static Marker showMarker(AMap aMap, double longitude, double latitude, String title) {
+        Marker marker = setMarker(aMap, longitude, latitude, title);
+        showMarker(marker);
+        return marker;
+    }
+
+    public static void showMarker(Marker marker) {
+        if (marker == null) return;
+        marker.showInfoWindow();
     }
 
     /**
-     * ****************************************逆地理***********************************************
+     * **************************************逆地理(坐标->地名)***************************************
      */
     /* 逆地理回调 */
     public interface GeocodeSearchCallBack {
@@ -184,7 +218,7 @@ public class MapHelper {
     }
 
     /**
-     * *************************************搜索***************************************************
+     * ***************************************搜索(地名->坐标)****************************************
      * 开始搜索
      */
     public static PoiSearch startSearch(Context context, String key, double longitude, double latitude,

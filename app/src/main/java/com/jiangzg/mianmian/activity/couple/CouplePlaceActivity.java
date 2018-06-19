@@ -15,7 +15,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
-import com.jiangzg.mianmian.adapter.CouplePlaceAdapter;
+import com.jiangzg.mianmian.adapter.PlaceAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Place;
@@ -64,7 +64,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new CouplePlaceAdapter(mActivity))
+                .initAdapter(new PlaceAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -82,7 +82,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        CouplePlaceAdapter placeAdapter = (CouplePlaceAdapter) adapter;
+                        PlaceAdapter placeAdapter = (PlaceAdapter) adapter;
                         placeAdapter.goDiaryDetail(position);
                     }
                 });
