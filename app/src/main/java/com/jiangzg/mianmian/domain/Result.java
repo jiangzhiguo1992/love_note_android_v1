@@ -10,12 +10,13 @@ import java.util.List;
 
 public class Result implements Serializable {
 
-    public static final int ResultCodeOK = 0;
-    public static final int ResultCodeToast = 1;
-    public static final int ResultCodeDialog = 2;
-    public static final int ResultCodeNoUserInfo = 3;
-    public static final int ResultCodeNoCP = 4;
-    public static final int ResultCodeNoVIP = 5;
+    public static final int RESULT_CODE_NO = -1;// TODO 功能模块开关
+    public static final int RESULT_CODE_OK = 0;
+    public static final int RESULT_CODE_TOAST = 1;
+    public static final int RESULT_CODE_DIALOG = 2;
+    public static final int RESULT_CODE_NO_USER_INFO = 3;
+    public static final int RESULT_CODE_NO_CP = 4;
+    public static final int RESULT_CODE_NO_VIP = 5;
 
     private int code;
     private String message;

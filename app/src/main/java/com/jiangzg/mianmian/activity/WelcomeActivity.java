@@ -101,7 +101,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
             }, TransPageMillis);
         } else {
-            // 有token TODO 上传本地异常，然后再删除
+            // 有token TODO 上传本地Log日志，然后再删除这些日志
             final long startTime = DateUtils.getCurrentLong();
             Entry entry = ApiHelper.getEntryBody();
             call = new RetrofitHelper().call(API.class).entryPush(entry);

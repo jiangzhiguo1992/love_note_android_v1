@@ -199,13 +199,13 @@ public class RetrofitHelper {
             }
             if (StringUtils.isEmpty(errorStr)) {
                 body = new Result();
-                body.setCode(Result.ResultCodeToast);
+                body.setCode(Result.RESULT_CODE_TOAST);
                 body.setMessage(MyApp.get().getString(R.string.err_data_null));
             } else if (errorStr.startsWith("{")) {
                 body = GsonHelper.get().fromJson(errorStr, Result.class);
             } else {
                 body = new Result();
-                body.setCode(Result.ResultCodeToast);
+                body.setCode(Result.RESULT_CODE_TOAST);
                 body.setMessage(MyApp.get().getString(R.string.err_data_parse));
                 LogUtils.w(LOG_TAG, errorStr);
             }
@@ -314,9 +314,9 @@ public class RetrofitHelper {
     private static void check417Code(Activity top, Result body) {
         int code = body.getCode();
         String message = body.getMessage();
-        if (code == Result.ResultCodeToast) { // toast
+        if (code == Result.RESULT_CODE_TOAST) { // toast
             ToastUtils.show(message);
-        } else if (code == Result.ResultCodeDialog) { // dialog
+        } else if (code == Result.RESULT_CODE_DIALOG) { // dialog
             if (top == null) return;
             MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)
@@ -325,15 +325,15 @@ public class RetrofitHelper {
                     .positiveText(R.string.i_know)
                     .build();
             DialogHelper.showWithAnim(dialog);
-        } else if (code == Result.ResultCodeNoUserInfo) { // userInfo
+        } else if (code == Result.RESULT_CODE_NO_USER_INFO) { // userInfo
             ToastUtils.show(message);
             if (top == null) return;
             UserInfoActivity.goActivity(top);
-        } else if (code == Result.ResultCodeNoCP) { // cp
+        } else if (code == Result.RESULT_CODE_NO_CP) { // cp
             ToastUtils.show(message);
             if (top == null) return;
             CouplePairActivity.goActivity(top);
-        } else if (code == Result.ResultCodeNoVIP) { // vip
+        } else if (code == Result.RESULT_CODE_NO_VIP) { // vip
             if (top == null) return;
             MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)

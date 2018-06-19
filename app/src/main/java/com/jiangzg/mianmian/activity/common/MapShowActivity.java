@@ -29,6 +29,9 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
+/**
+ * TODO 地图show 我的位置会移动+搜索功能
+ */
 public class MapShowActivity extends BaseActivity<MapShowActivity> {
 
     @BindView(R.id.tb)

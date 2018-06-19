@@ -71,6 +71,7 @@ public class MapHelper {
         //aMap.setOnMyLocationChangeListener();
     }
 
+    // TODO 地图marker经纬度的逗号左右加+空格
     public static Marker addMaker(AMap aMap, double longitude, double latitude, String title) {
         if (aMap == null) return null;
         LatLng latLng = new LatLng(latitude, longitude);

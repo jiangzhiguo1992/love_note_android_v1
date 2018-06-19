@@ -40,6 +40,10 @@ import java.util.List;
 
 import retrofit2.Call;
 
+/**
+ * apk下载service
+ * TODO apk用notifation下载
+ */
 public class UpdateService extends Service {
 
     private static final String LOG_TAG = "UpdateService";

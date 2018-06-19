@@ -53,9 +53,9 @@ import retrofit2.Call;
 public class ApiHelper {
 
     // cp修改类型
-    public static final int CoupleUpdateGood = 1; // 更好
-    public static final int CoupleUpdateBad = 2; // 更坏
-    public static final int CoupleUpdateInfo = 3;// 信息
+    public static final int COUPLE_UPDATE_GOOD = 1; // 更好
+    public static final int COUPLE_UPDATE_BAD = 2; // 更坏
+    public static final int COUPLE_UPDATE_INFO = 3;// 信息
     // 用户登录类型
     public static final int LOG_PWD = 1;
     public static final int LOG_VER = 2;
@@ -110,7 +110,7 @@ public class ApiHelper {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                if (code == Result.ResultCodeNoUserInfo) {
+                if (code == Result.RESULT_CODE_NO_USER_INFO) {
                     UserInfoActivity.goActivity(mActivity);
                 } else {
                     onEntryFinish(mActivity, code, data);
@@ -260,7 +260,7 @@ public class ApiHelper {
 
     public static User getCoupleUpdate2GoodBody(long cid) {
         User user = new User();
-        user.setType(CoupleUpdateGood);
+        user.setType(COUPLE_UPDATE_GOOD);
         Couple couple = new Couple();
         couple.setId(cid);
         user.setCouple(couple);
@@ -269,7 +269,7 @@ public class ApiHelper {
 
     public static User getCoupleUpdate2BadBody(long cid) {
         User user = new User();
-        user.setType(CoupleUpdateBad);
+        user.setType(COUPLE_UPDATE_BAD);
         Couple couple = new Couple();
         couple.setId(cid);
         user.setCouple(couple);
@@ -278,7 +278,7 @@ public class ApiHelper {
 
     public static User getCoupleUpdateInfo(String avatar, String name) {
         User user = SPHelper.getUser();
-        user.setType(CoupleUpdateInfo);
+        user.setType(COUPLE_UPDATE_INFO);
         Couple couple = user.getCouple();
         if (couple.getCreatorId() == user.getId()) {
             couple.setInviteeAvatar(avatar);

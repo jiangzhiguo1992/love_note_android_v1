@@ -482,7 +482,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         return image;
     }
 
-    // 分手倒计时
+    // 分手倒计时 TODO 要不要放到timeService里？
     private Runnable getCoupleCountDownTask() {
         if (coupleCountDownTask == null) {
             coupleCountDownTask = new Runnable() {

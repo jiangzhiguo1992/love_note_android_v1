@@ -20,6 +20,7 @@ import retrofit2.Call;
 
 /**
  * 定时广播oss更新
+ * TODO WorkManager重整
  */
 public class OssReceiver extends BroadcastReceiver {
 

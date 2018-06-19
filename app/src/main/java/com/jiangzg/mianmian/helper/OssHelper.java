@@ -42,6 +42,7 @@ import top.zibin.luban.OnCompressListener;
 /**
  * Created by JZG on 2018/3/16.
  * 阿里Oss管理类
+ * TODO workmanager替代后台任务(oss重整)
  */
 public class OssHelper {
 

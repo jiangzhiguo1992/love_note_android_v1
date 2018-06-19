@@ -498,4 +498,5 @@
     <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
 
+    <!-- TODO strings整理 -->
 </resources>
