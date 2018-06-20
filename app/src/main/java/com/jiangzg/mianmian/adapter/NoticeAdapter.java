@@ -54,7 +54,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         notifyItemChanged(position); // noReadCount
         switch (item.getContentType()) {
             case Notice.TYPE_URL: // 网页
-                WebActivity.goActivity(mActivity, item.getContentText());
+                WebActivity.goActivity(mActivity, mActivity.getString(R.string.new_notice), item.getContentText());
                 break;
             case Notice.TYPE_IMAGE: // 图片
                 BigImageActivity.goActivityByOss(mActivity, item.getContentText(), null);

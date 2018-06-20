@@ -171,7 +171,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 break;
             case R.id.tvProtocol: // 用户协议
                 String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
-                WebActivity.goActivity(mActivity, userProtocolUrl);
+                WebActivity.goActivity(mActivity, getString(R.string.user_protocol), userProtocolUrl);
                 break;
         }
     }

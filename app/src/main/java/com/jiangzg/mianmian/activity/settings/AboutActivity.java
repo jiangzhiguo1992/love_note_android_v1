@@ -94,11 +94,11 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
                 break;
             case R.id.llProtocol: // 用户协议
                 String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
-                WebActivity.goActivity(mActivity, userProtocolUrl);
+                WebActivity.goActivity(mActivity, getString(R.string.user_protocol), userProtocolUrl);
                 break;
             case R.id.llAbout: // 关于我们
                 String contactUsUrl = SPHelper.getCommonConst().getAboutUsUrl();
-                WebActivity.goActivity(mActivity, contactUsUrl);
+                WebActivity.goActivity(mActivity, getString(R.string.about_us), contactUsUrl);
                 break;
         }
     }
