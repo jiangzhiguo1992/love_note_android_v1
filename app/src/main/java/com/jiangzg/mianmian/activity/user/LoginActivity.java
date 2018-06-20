@@ -128,7 +128,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login_forget, menu);
+        getMenuInflater().inflate(R.menu.forget_pwd, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

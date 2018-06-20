@@ -480,8 +480,10 @@
     <string name="please_select_time">请选择时间</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="please_select_location">请选择位置</string>
+    <string name="address_search">地址搜索</string>
     <string name="complete">完成</string>
     <string name="location_search_fail">位置搜索失败</string>
+    <string name="search_location_no_exist">搜索位置不存在</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
     <string name="now_no">暂无</string>
     <string name="picture_where">照片呢？</string>
@@ -498,5 +500,6 @@
     <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
     <string name="search">搜索</string>
+    <string name="input_search_address">输入搜索地址</string>
 
 </resources>

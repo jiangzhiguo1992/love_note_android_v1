@@ -67,7 +67,6 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
     }
 
     public LocationInfo select(int position) {
-        // view
         int foreSelectIndex = selectIndex;
         selectIndex = position;
         if (foreSelectIndex >= 0) {
@@ -75,8 +74,12 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         }
         if (selectIndex < 0) return null;
         notifyItemChanged(selectIndex);
-        // data
-        PoiItem item = getItem(position);
+        return getSelect();
+    }
+
+    public LocationInfo getSelect() {
+        if (selectIndex < 0 || selectIndex >= getData().size()) return null;
+        PoiItem item = getItem(selectIndex);
         LocationInfo locationInfo = new LocationInfo();
         LatLonPoint latLonPoint = item.getLatLonPoint();
         if (latLonPoint != null) {
@@ -84,6 +87,7 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
             locationInfo.setLongitude(latLonPoint.getLongitude());
         }
         locationInfo.setAddress(item.getTitle());
+        locationInfo.setCityId(item.getCityCode());
         return locationInfo;
     }
 

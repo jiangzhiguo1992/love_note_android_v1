@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
-        flavorDimensions "debug","release" // 多渠道打包分支
+        flavorDimensions "debug", "release" // 多渠道打包分支
     }
     signingConfigs { // 签名信息
         jzg_01 {

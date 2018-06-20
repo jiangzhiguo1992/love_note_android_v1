@@ -111,9 +111,11 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                             }
                         }
                         if (rgb != 0) {
-                            helper.setBackgroundColor(R.id.rlBg, rgb);
+                            helper.setBackgroundColor(R.id.tvHappenAt, rgb);
+                            helper.setBackgroundColor(R.id.tvLocation, rgb);
                         } else {
-                            helper.setBackgroundColor(R.id.rlBg, colorPrimary);
+                            helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
+                            helper.setBackgroundColor(R.id.tvLocation, colorPrimary);
                         }
                     }
                 });
@@ -121,7 +123,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
             @Override
             public void onBitmapFail(GImageView iv) {
-                helper.setBackgroundColor(R.id.rlBg, colorPrimary);
+                helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
+                helper.setBackgroundColor(R.id.tvLocation, colorPrimary);
             }
         });
         // 为瀑布流定制不一样的宽高

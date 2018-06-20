@@ -90,6 +90,8 @@
         <activity android:name=".activity.settings.NoticeDetailActivity"/>
         <activity android:name=".activity.book.PictureEditActivity"/>
         <activity android:name=".activity.common.MapSelectActivity"/>
+        <activity android:name=".activity.common.MapSearchActivity">
+        </activity>
     </application>
 
 </manifest>

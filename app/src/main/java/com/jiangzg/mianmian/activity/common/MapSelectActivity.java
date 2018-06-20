@@ -40,10 +40,12 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * 地址选择
- * TODO (搜索功能+地址自定义编辑)+点击item会移动
+ * TODO (搜索功能+地址自定义编辑)
  */
 public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
@@ -58,12 +60,15 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private boolean init;
     private AMap aMap;
-    private LocationInfo locationInfo;
+    private LocationInfo locationMe;
+    private LocationInfo locationSearch;
+    private LocationInfo locationSelect;
     private PoiSearch poiSearch;
     private PoiSearch.OnPoiSearchListener poiSearchListener;
+    private Observable<LocationInfo> obMapSearch;
     private RecyclerHelper recyclerHelper;
+    private boolean moveWithSearch;
 
     public static void goActivity(final Activity from) {
         if (!LocationHelper.checkLocationEnable(from)) return;
@@ -85,6 +90,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        moveWithSearch = true;
         return R.layout.activity_map_select;
     }
 
@@ -113,14 +119,16 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
-                        locationInfo = mapSelectAdapter.select(position);
+                        LocationInfo locationSelect = mapSelectAdapter.select(position);
+                        // 修改选中位置，移动，但不搜索
+                        setLocationSelect(locationSelect, true, false);
                     }
                 });
     }
 
     @Override
     protected void initData(Bundle state) {
-        init = true;
+        //init = true;
         if (aMap == null) return;
         // 地图拖动回调
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
@@ -132,30 +140,39 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             public void onCameraChangeFinish(CameraPosition cameraPosition) {
                 LatLng target = cameraPosition.target;
                 if (target == null) return;
+                // 修改搜索列表
                 LogUtils.i(LOG_TAG, "onCameraChangeFinish: " + target.longitude + "---" + target.latitude);
-                startMapSearch("", target.longitude, target.latitude);
+                if (moveWithSearch) {
+                    LocationInfo info = new LocationInfo();
+                    info.setLongitude(target.longitude);
+                    info.setLatitude(target.latitude);
+                    setLocationSearch(info);
+                }
+                moveWithSearch = true; // 默认是要搜索的
             }
         });
-        // 检索回调
-        poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
+        // 地图搜索
+        obMapSearch = RxBus.register(ConsHelper.EVENT_MAP_SEARCH, new Action1<LocationInfo>() {
             @Override
-            public void onSuccess(ArrayList<PoiItem> pois) {
-                if (recyclerHelper == null || srl == null) return;
-                locationInfo = ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
-                srl.setRefreshing(false);
-                recyclerHelper.dataNew(pois);
-            }
-
-            @Override
-            public void onFailed() {
-                srl.setRefreshing(false);
-                ToastUtils.show(getString(R.string.location_search_fail));
+            public void call(LocationInfo info) {
+                // 修改选中位置
+                setLocationSelect(info, true, true);
             }
         });
+        // 传入的位置
+        LocationInfo info = null;
         String address = getIntent().getStringExtra("address");
         double longitude = getIntent().getDoubleExtra("longitude", 0);
         double latitude = getIntent().getDoubleExtra("latitude", 0);
-        startMapSearch(address, longitude, latitude);
+        if (!StringUtils.isEmpty(address) && (longitude != 0 && latitude != 0)) {
+            info = new LocationInfo();
+            info.setAddress(address);
+            info.setLongitude(longitude);
+            info.setLatitude(latitude);
+            setLocationSelect(info, true, true);
+        }
+        // 我的位置
+        startMyLocation(info == null);
     }
 
     @Override
@@ -204,20 +221,21 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             poiSearch.setOnPoiSearchListener(null);
         }
         poiSearchListener = null;
+        RxBus.unregister(ConsHelper.EVENT_MAP_SEARCH, obMapSearch);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSearch: // 搜索
-                // TODO
+                MapSearchActivity.goActivity(mActivity);
                 return true;
             case R.id.menuComplete: // 完成
-                if (locationInfo == null) {
+                if (locationSelect == null) {
                     ToastUtils.show(getString(R.string.please_select_location));
                     return true;
                 }
-                RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, locationInfo);
+                RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, locationSelect);
                 RxBus.post(event);
                 mActivity.finish();
                 return true;
@@ -229,52 +247,77 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvLocation: // 定位
-                // TODO
+                setLocationSelect(locationMe, true, true);
                 break;
         }
     }
 
-    private void startMapSearch(String address, double longitude, double latitude) {
+    // 开始我的定位
+    private void startMyLocation(final boolean move) {
+        LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
+            @Override
+            public void onSuccess(LocationInfo info) {
+                if (info == null) return;
+                locationMe = info;
+                if (move) {
+                    setLocationSelect(locationMe, true, true);
+                }
+            }
+
+            @Override
+            public void onFailed(String errMsg) {
+                ToastUtils.show(getString(R.string.location_error));
+            }
+        });
+    }
+
+    // 修改选中位置，地图移动 + 搜索列表
+    private void setLocationSelect(LocationInfo info, boolean move, boolean search) {
+        locationSelect = info;
+        if (locationSelect == null) return;
+        if (move) {
+            moveWithSearch = search;
+            MapHelper.moveMapByLatLon(aMap, locationSelect.getLongitude(), locationSelect.getLatitude());
+        }
+    }
+
+    // 修改搜索列表
+    private void setLocationSearch(LocationInfo info) {
+        if (aMap == null) return;
         if (srl != null && !srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        if (aMap == null) return;
+        if (info != null) locationSearch = info;
+        if (locationSearch == null) return;
         // 检查搜索条件
-        if (StringUtils.isEmpty(address) && longitude == 0 && latitude == 0) {
-            LocationInfo info = LocationInfo.getInfo();
-            if (StringUtils.isEmpty(info.getAddress()) && info.getLongitude() == 0 && info.getLatitude() == 0) {
-                // startLocation
-                LocationHelper.startLocation(mActivity, false, new LocationHelper.LocationCallBack() {
-                    @Override
-                    public void onSuccess(LocationInfo info) {
-                        if (aMap == null) return;
-                        // 拖动map并开始搜索
-                        MapHelper.moveMapByLatLon(aMap, info.getLongitude(), info.getLatitude());
-                        MapSelectActivity.this.startMapSearch(info.getAddress(), info.getLongitude(), info.getLatitude());
-                    }
+        if (StringUtils.isEmpty(locationSearch.getAddress()) && locationSearch.getLongitude() == 0 && locationSearch.getLatitude() == 0) {
+            ToastUtils.show(getString(R.string.search_location_no_exist));
+            return;
+        }
+        // 搜索回调
+        if (poiSearchListener == null) {
+            poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
+                @Override
+                public void onSuccess(ArrayList<PoiItem> pois) {
+                    if (recyclerHelper == null || srl == null) return;
+                    srl.setRefreshing(false);
+                    // list的数据
+                    ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
+                    recyclerHelper.dataNew(pois);
+                    // 选中的数据
+                    setLocationSelect(null, false, false);
+                }
 
-                    @Override
-                    public void onFailed(String errMsg) {
-                        if (srl != null) srl.setRefreshing(false);
-                        ToastUtils.show(getString(R.string.location_error));
-                    }
-                });
-                return;
-            } else {
-                // 自己手机里存的位置
-                address = info.getAddress();
-                longitude = info.getLongitude();
-                latitude = info.getLatitude();
-                MapHelper.moveMapByLatLon(aMap, longitude, latitude);
-            }
+                @Override
+                public void onFailed() {
+                    srl.setRefreshing(false);
+                    ToastUtils.show(getString(R.string.location_search_fail));
+                }
+            });
         }
         // 开始poi检索
-        poiSearch = MapHelper.startSearch(mActivity, address, longitude, latitude, poiSearchListener);
-        if (init) {
-            init = false;
-            // map的移动只有初始定位和原先位置，其他时候只有用户拖动
-            MapHelper.moveMapByLatLon(aMap, longitude, latitude);
-        }
+        poiSearch = MapHelper.startSearch(mActivity, locationSearch.getAddress(),
+                locationSearch.getLongitude(), locationSearch.getLatitude(), poiSearchListener);
     }
 
 }

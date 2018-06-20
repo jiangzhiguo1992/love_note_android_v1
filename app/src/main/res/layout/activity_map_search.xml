@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jiangzg.mianmian.activity.common.MapSearchActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <EditText
+        android:id="@+id/etSearch"
+        style="@style/FontGreyNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/shape_stroke_primary_r3"
+        android:gravity="center"
+        android:hint="@string/input_search_address"
+        android:maxLines="1"
+        android:padding="7dp"
+        android:singleLine="true"/>
+
+    <View style="@style/LineHorizontal"/>
+
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
+</LinearLayout>
