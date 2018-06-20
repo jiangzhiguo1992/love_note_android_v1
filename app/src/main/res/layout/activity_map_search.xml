@@ -9,18 +9,35 @@
 
     <include layout="@layout/view_top_bar"/>
 
-    <EditText
-        android:id="@+id/etSearch"
-        style="@style/FontGreyNormal"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/shape_stroke_primary_r3"
-        android:gravity="center"
-        android:hint="@string/input_search_address"
-        android:maxLines="1"
-        android:padding="7dp"
-        android:singleLine="true"/>
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etSearch"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_stroke_primary_r3"
+            android:gravity="center"
+            android:hint="@string/input_search_address"
+            android:maxLines="1"
+            android:padding="7dp"
+            android:singleLine="true"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="33dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/selector_solid_primary_r3_enable_press"
+            android:text="@string/search"/>
+    </LinearLayout>
 
     <View style="@style/LineHorizontal"/>
 

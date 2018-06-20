@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground">
+
+    <View style="@style/LineHorizontal"/>
+
+    <TextView
+        android:id="@+id/tvAddress"
+        style="@style/FontBlackNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>
+
+    <TextView
+        android:id="@+id/tvLocation"
+        style="@style/FontGreySmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddress"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        tools:text="北京市北京市丰台区莲花池路59号国投财富广场"/>
+</RelativeLayout>

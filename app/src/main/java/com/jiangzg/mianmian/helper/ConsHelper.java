@@ -26,7 +26,6 @@ public class ConsHelper {
     public static final int EVENT_USER_REFRESH = 1; // 用户
     public static final int EVENT_COUPLE_REFRESH = 2; // 配对
     public static final int EVENT_MAP_SELECT = 3; // 选择
-    public static final int EVENT_MAP_SEARCH = 4;
     public static final int EVENT_ALBUM_SELECT = 5;
     public static final int EVENT_PICTURE_SELECT = 6;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 10; // 建议

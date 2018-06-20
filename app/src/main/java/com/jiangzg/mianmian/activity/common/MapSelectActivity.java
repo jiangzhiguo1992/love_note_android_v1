@@ -45,7 +45,6 @@ import rx.functions.Action1;
 
 /**
  * 地址选择
- * TODO (搜索功能+地址自定义编辑)
  */
 public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
@@ -113,13 +112,13 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new MapSelectAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        MapSelectAdapter mapSelectAdapter = (MapSelectAdapter) adapter;
-                        LocationInfo locationSelect = mapSelectAdapter.select(position);
+                        MapSelectAdapter mapAdapter = (MapSelectAdapter) adapter;
+                        LocationInfo locationSelect = mapAdapter.select(position);
                         // 修改选中位置，移动，但不搜索
                         setLocationSelect(locationSelect, true, false);
                     }
@@ -152,11 +151,12 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             }
         });
         // 地图搜索
-        obMapSearch = RxBus.register(ConsHelper.EVENT_MAP_SEARCH, new Action1<LocationInfo>() {
+        obMapSearch = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo info) {
                 // 修改选中位置
-                setLocationSelect(info, true, true);
+                //setLocationSelect(info, true, true);
+                mActivity.finish();
             }
         });
         // 传入的位置
@@ -221,14 +221,14 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             poiSearch.setOnPoiSearchListener(null);
         }
         poiSearchListener = null;
-        RxBus.unregister(ConsHelper.EVENT_MAP_SEARCH, obMapSearch);
+        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obMapSearch);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuSearch: // 搜索
-                MapSearchActivity.goActivity(mActivity);
+                MapSearchActivity.goActivity(mActivity, 0, 0);
                 return true;
             case R.id.menuComplete: // 完成
                 if (locationSelect == null) {
@@ -237,7 +237,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 }
                 RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, locationSelect);
                 RxBus.post(event);
-                mActivity.finish();
+                //mActivity.finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -299,11 +299,12 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
                 @Override
                 public void onSuccess(ArrayList<PoiItem> pois) {
-                    if (recyclerHelper == null || srl == null) return;
-                    srl.setRefreshing(false);
-                    // list的数据
-                    ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
-                    recyclerHelper.dataNew(pois);
+                    if (srl != null) srl.setRefreshing(false);
+                    if (recyclerHelper != null) {
+                        // list的数据
+                        ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
+                        recyclerHelper.dataNew(pois);
+                    }
                     // 选中的数据
                     setLocationSelect(null, false, false);
                 }

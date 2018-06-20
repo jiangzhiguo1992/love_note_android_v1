@@ -62,10 +62,10 @@ public class MapHelper {
         if (aMap == null) return;
         if (longitude == 0 || latitude == 0) {
             // 单纯放大
-            aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(20));
         } else {
             // 移动到指定位置并放大
-            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 15));
+            aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 20));
         }
     }
 
@@ -223,12 +223,18 @@ public class MapHelper {
      */
     public static PoiSearch startSearch(Context context, String key, double longitude, double latitude,
                                         PoiSearch.OnPoiSearchListener poiSearchListener) {
+        // keyWord表示搜索字符串，第二个参数表示POI搜索类型，默认为：生活服务、餐饮服务、商务住宅
+        //共分为以下20种：汽车服务|汽车销售|
+        //汽车维修|摩托车服务|餐饮服务|购物服务|生活服务|体育休闲服务|医疗保健服务|
+        //住宿服务|风景名胜|商务住宅|政府机构及社会团体|科教文化服务|交通设施服务|
+        //金融保险服务|公司企业|道路附属设施|地名地址信息|公共设施
+        //cityCode表示POI搜索区域，（这里可以传空字符串，空字符串代表全国在全国范围内进行搜索）
         PoiSearch.Query query = new PoiSearch.Query(key, "");
         query.setPageSize(100); // 设置每页最多返回多少条poiitem
         query.setPageNum(0); // 设置查第一页
         PoiSearch poiSearch = new PoiSearch(context, query);
         if (longitude != 0 || latitude != 0) {
-            poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 1000)); // 设置周边搜索的中心点以及区域
+            poiSearch.setBound(new PoiSearch.SearchBound(new LatLonPoint(latitude, longitude), 10000)); // 设置周边搜索的中心点以及区域
         }
         if (poiSearchListener != null) {
             poiSearch.setOnPoiSearchListener(poiSearchListener); // 设置数据返回的监听器
