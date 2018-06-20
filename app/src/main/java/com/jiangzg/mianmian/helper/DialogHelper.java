@@ -18,7 +18,6 @@ import com.jiangzg.mianmian.R;
 /**
  * Created by JZG on 2018/3/30.
  * 对话框
- * TODO 错误对话框中，左下角加意见反馈
  */
 public class DialogHelper {
 

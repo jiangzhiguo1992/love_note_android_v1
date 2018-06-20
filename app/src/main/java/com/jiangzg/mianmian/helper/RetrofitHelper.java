@@ -17,8 +17,8 @@ import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.SuggestAddActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
+import com.jiangzg.mianmian.activity.settings.SuggestAddActivity;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
 import com.jiangzg.mianmian.activity.user.UserInfoActivity;
 import com.jiangzg.mianmian.base.MyApp;
@@ -227,7 +227,7 @@ public class RetrofitHelper {
             case 410: // 用户被禁用,应该退出应用
             case 503: // 服务器维护
                 if (top == null) return;
-                MaterialDialog dialogExit = DialogHelper.getBuild(top)
+                MaterialDialog dialog503 = DialogHelper.getBuild(top)
                         .cancelable(false)
                         .canceledOnTouchOutside(false)
                         .content(message)
@@ -239,11 +239,11 @@ public class RetrofitHelper {
                             }
                         })
                         .build();
-                DialogHelper.showWithAnim(dialogExit);
+                DialogHelper.showWithAnim(dialog503);
                 break;
             case 408: // 请求超时
                 if (top == null) return;
-                MaterialDialog dialogTimeOut = DialogHelper.getBuild(top)
+                MaterialDialog dialog408 = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(true)
                         .content(R.string.http_error_time_maybe_setting_wrong)
@@ -257,7 +257,7 @@ public class RetrofitHelper {
                             }
                         })
                         .build();
-                DialogHelper.showWithAnim(dialogTimeOut);
+                DialogHelper.showWithAnim(dialog408);
                 break;
             case 409: // 用户版本过低,提示用户升级
                 if (data == null) return;
@@ -269,7 +269,7 @@ public class RetrofitHelper {
                 break;
             case 500: // 服务器异常
                 if (top == null) return;
-                MaterialDialog dialogService = DialogHelper.getBuild(top)
+                MaterialDialog dialog500 = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(false)
                         .content(R.string.server_error)
@@ -281,11 +281,11 @@ public class RetrofitHelper {
                             }
                         })
                         .build();
-                DialogHelper.showWithAnim(dialogService);
+                DialogHelper.showWithAnim(dialog500);
                 break;
             default: // 404,405...其他错误
                 if (top == null) return;
-                MaterialDialog dialogSuggest = DialogHelper.getBuild(top)
+                MaterialDialog dialogDef = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(false)
                         .content(message)
@@ -298,7 +298,7 @@ public class RetrofitHelper {
                         })
                         .negativeText(R.string.i_know)
                         .build();
-                DialogHelper.showWithAnim(dialogSuggest);
+                DialogHelper.showWithAnim(dialogDef);
                 break;
         }
         // 回调
@@ -311,7 +311,7 @@ public class RetrofitHelper {
         }
     }
 
-    private static void check417Code(Activity top, Result body) {
+    private static void check417Code(final Activity top, Result body) {
         int code = body.getCode();
         String message = body.getMessage();
         if (code == Result.RESULT_CODE_TOAST) { // toast
