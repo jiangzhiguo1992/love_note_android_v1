@@ -6,6 +6,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
@@ -446,8 +447,8 @@ public class SPHelper {
         //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
         ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
-        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, 0));
-        ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 0));
+        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
+        ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 60 * 10));
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
         ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));

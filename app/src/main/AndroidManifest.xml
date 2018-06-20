@@ -42,7 +42,7 @@
         </service>
         <!-- receiver-oss -->
         <receiver
-            android:name=".broadcast.OssReceiver"
+            android:name=".broadcast.OssRefreshReceiver"
             android:enabled="true"
             android:exported="true">
         </receiver>

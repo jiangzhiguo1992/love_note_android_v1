@@ -7,7 +7,6 @@ import android.content.Intent;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.system.AlarmUtils;
-import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.Result;
@@ -20,38 +19,27 @@ import retrofit2.Call;
 
 /**
  * 定时广播oss更新
- * TODO WorkManager重整
  */
-public class OssReceiver extends BroadcastReceiver {
+public class OssRefreshReceiver extends BroadcastReceiver {
 
-    private static String LOG_TAG = "OssReceiver";
-    private static long expire; // 过期时间
-    private static long interval = 10 * 60 * 1000; // 默认十分钟
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        LogUtils.i(LOG_TAG, "收到oss更新广播");
-        AlarmUtils.sendWaitBroadcast(OssReceiver.class, interval); // 继续发送定时
-        ossInfoUpdate();
-    }
+    private static String LOG_TAG = "OssRefreshReceiver";
 
     // ossInfo获取到之后在开始
     public static void startAlarm() {
-        // 初始化信息，ossInfo是从entry中拿到的
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        initInfo(ossInfo);
-        long advance = 5 * ConstantUtils.MIN; // 提前五分钟更新时间
-        long currentLong = DateUtils.getCurrentLong();
-        long between = expire - currentLong;
-        long wait;
-        if (between <= advance) { // 到更新时间了
-            ossInfoUpdate();
-            wait = interval - advance; // 计算下次更新时间
-        } else { // 没到更新时间
-            wait = (expire - currentLong) - advance;
-        }
+        long interval = SPHelper.getOssInfo().getIntervalSec() * 1000;
         // 发送定时广播
-        AlarmUtils.sendWaitBroadcast(OssReceiver.class, wait);
+        AlarmUtils.sendWaitBroadcast(OssRefreshReceiver.class, interval);
+    }
+
+    // startAlarm之后接受
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        LogUtils.i(LOG_TAG, "收到oss更新广播");
+        // 这次广播要刷新的数据
+        ossInfoUpdate();
+        // 继续发送定时，下一次广播
+        long interval = SPHelper.getOssInfo().getIntervalSec() * 1000;
+        AlarmUtils.sendWaitBroadcast(OssRefreshReceiver.class, interval);
     }
 
     // 更新oss信息
@@ -62,8 +50,9 @@ public class OssReceiver extends BroadcastReceiver {
             public void onResponse(int code, String message, Result.Data data) {
                 LogUtils.i(LOG_TAG, "oss更新成功");
                 OssInfo ossInfo = data.getOssInfo();
-                initInfo(ossInfo);
+                // 刷新ossInfo
                 SPHelper.setOssInfo(ossInfo);
+                // 刷新ossClient
                 OssHelper.refreshOssClient();
             }
 
@@ -78,14 +67,6 @@ public class OssReceiver extends BroadcastReceiver {
                 }, 5 * ConstantUtils.SEC);
             }
         });
-    }
-
-    private static void initInfo(OssInfo ossInfo) {
-        expire = ossInfo.getExpireTime() * 1000;
-        long inter = ossInfo.getIntervalSec() * 1000;
-        if (inter > 0) {
-            interval = inter;
-        }
     }
 
 }

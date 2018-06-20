@@ -42,7 +42,6 @@ import top.zibin.luban.OnCompressListener;
 /**
  * Created by JZG on 2018/3/16.
  * 阿里Oss管理类
- * TODO workmanager替代后台任务(oss重整)
  */
 public class OssHelper {
 
@@ -57,6 +56,8 @@ public class OssHelper {
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
+        String expireTime = DateUtils.getString(ConvertHelper.getJavaTimeByGo(ossInfo.getExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        LogUtils.i(LOG_TAG, "refreshOssClient: sts将在 " + expireTime + " 过期");
         bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();
         String accessKeySecret = ossInfo.getAccessKeySecret();

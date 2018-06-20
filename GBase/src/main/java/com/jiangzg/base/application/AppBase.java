@@ -2,6 +2,7 @@ package com.jiangzg.base.application;
 
 import android.app.ActivityManager;
 import android.app.AlarmManager;
+import android.app.DownloadManager;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
 import android.content.ClipboardManager;
@@ -91,6 +92,10 @@ public class AppBase extends MultiDexApplication {
 
     public static AlarmManager getAlarmManager() {
         return (AlarmManager) getInstance().getSystemService(Context.ALARM_SERVICE);
+    }
+
+    public static DownloadManager getDownloadManager() {
+        return (DownloadManager) getInstance().getSystemService(Context.DOWNLOAD_SERVICE);
     }
 
 }

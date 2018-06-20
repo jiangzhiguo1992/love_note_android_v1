@@ -20,7 +20,7 @@ import com.jiangzg.mianmian.activity.HomeActivity;
 import com.jiangzg.mianmian.activity.user.UserInfoActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
-import com.jiangzg.mianmian.broadcast.OssReceiver;
+import com.jiangzg.mianmian.broadcast.OssRefreshReceiver;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
@@ -144,7 +144,7 @@ public class ApiHelper {
         OssInfo ossInfo = data.getOssInfo();
         SPHelper.setOssInfo(ossInfo);
         OssHelper.refreshOssClient();
-        OssReceiver.startAlarm();
+        OssRefreshReceiver.startAlarm();
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {
