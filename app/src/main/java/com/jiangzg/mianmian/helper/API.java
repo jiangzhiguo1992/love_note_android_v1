@@ -42,7 +42,6 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    // TODO 减少不必要的数据传输
     String HOST = "192.168.43.200:30011";
     //String HOST = "47.94.224.110:30011";
     String BASE_URL = "http://" + HOST + "/api/v1/"; // BaseURL最好以/结尾

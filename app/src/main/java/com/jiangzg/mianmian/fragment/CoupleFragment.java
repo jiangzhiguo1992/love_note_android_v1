@@ -58,6 +58,7 @@ import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -176,8 +177,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     @Override
     public void onStart() {
         super.onStart();
-        // TODO ViewFlipper无动画
-        // TODO ViewFlipper随机顺序
+        List<String> contentImageList = SPHelper.getWallPaper().getContentImageList();
+        if (vfWallPaper.getVisibility() == View.VISIBLE && contentImageList != null && contentImageList.size() > 1) {
+            // 当前图片会没有动画效果，所以需要跳下一个
+            vfWallPaper.showNext();
+        }
     }
 
     @Override
@@ -341,6 +345,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
+        if (vfWallPaper.getVisibility() != View.VISIBLE) return;
         // 本地文件刷新
         OssResHelper.refreshWallPaperRes();
         // 清除view
@@ -363,7 +368,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             vfWallPaper.stopFlipping();
             return;
         }
-        // 多图显示
+        // 多图显示，随机顺序
+        Collections.shuffle(imageList);
         for (String ossKey : imageList) {
             GImageView image = getViewFlipperImage();
             image.setData(ossKey);
@@ -482,7 +488,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         return image;
     }
 
-    // 分手倒计时 TODO 要不要放到timeService里？
+    // 分手倒计时
     private Runnable getCoupleCountDownTask() {
         if (coupleCountDownTask == null) {
             coupleCountDownTask = new Runnable() {
