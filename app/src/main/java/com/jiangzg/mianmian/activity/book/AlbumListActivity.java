@@ -27,7 +27,9 @@ import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -256,6 +258,9 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 long total = data.getTotal();
                 List<Album> albumList = data.getAlbumList();
                 recyclerHelper.dataOk(albumList, total, more);
+                // 刷新本地资源
+                List<String> ossKeyList = ConvertHelper.getOssKeyListByAlbum(albumList);
+                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_ALBUM, ossKeyList);
             }
 
             @Override

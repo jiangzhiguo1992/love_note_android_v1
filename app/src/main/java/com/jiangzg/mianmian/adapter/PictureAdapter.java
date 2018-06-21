@@ -92,7 +92,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvLocation, address);
         GImageView ivPicture = helper.getView(R.id.ivPicture);
-        ivPicture.setWidthAndHeight(imageWidth, imageHeight);
+        ivPicture.setWidthAndHeight(imageWidth / 3, imageHeight / 3); // 注意了啊，太高了会崩
         // 主色值设置
         ivPicture.setBitmapListener(new GImageView.BitmapListener() {
             @Override

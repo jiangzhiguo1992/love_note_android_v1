@@ -132,7 +132,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 ThemeActivity.goActivity(mActivity);
                 break;
             case R.id.rlCache:// 缓存
-                clearCache();
+                showCacheDialog();
                 break;
             case R.id.rlSystem: // 系统通知
                 switchSystem.setChecked(!switchSystem.isChecked());
@@ -162,6 +162,25 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 existDialogShow();
                 break;
         }
+    }
+
+    private void showCacheDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .canceledOnTouchOutside(true)
+                .cancelable(true)
+                .content(R.string.confirm_del_cache)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        clearCache();
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+        DialogUtils.show(dialog);
+
     }
 
     private void clearCache() {

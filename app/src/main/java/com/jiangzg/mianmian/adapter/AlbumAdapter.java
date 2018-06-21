@@ -51,7 +51,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         super(R.layout.list_item_album);
         mActivity = activity;
         imageWidth = ScreenUtils.getScreenRealWidth(activity);
-        imageHeight = ConvertUtils.dp2px(200);
+        imageHeight = ConvertUtils.dp2px(170);
         operationPosition = -1;
     }
 

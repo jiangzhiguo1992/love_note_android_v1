@@ -8,8 +8,10 @@ import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
+import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.Whisper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -208,6 +210,19 @@ public class ConvertHelper {
         return uriList;
     }
 
+    // 集合类型转换(Whisper -> ossKey)
+    public static ArrayList<String> getOssKeyListByWhisper(List<Whisper> whisperList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (whisperList == null || whisperList.size() <= 0) return ossKeyList;
+        for (Whisper whisper : whisperList) {
+            if (whisper == null || !whisper.isImage() || StringUtils.isEmpty(whisper.getContent())) {
+                continue;
+            }
+            ossKeyList.add(whisper.getContent());
+        }
+        return ossKeyList;
+    }
+
     // 集合类型转换(Diary -> ossKey)
     public static ArrayList<String> getOssKeyListByDiary(List<Diary> diaryList) {
         ArrayList<String> ossKeyList = new ArrayList<>();
@@ -217,6 +232,19 @@ public class ConvertHelper {
                 continue;
             }
             ossKeyList.addAll(diary.getContentImageList());
+        }
+        return ossKeyList;
+    }
+
+    // 集合类型转换(Album -> ossKey)
+    public static ArrayList<String> getOssKeyListByAlbum(List<Album> albumList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (albumList == null || albumList.size() <= 0) return ossKeyList;
+        for (Album album : albumList) {
+            if (album == null || StringUtils.isEmpty(album.getCover())) {
+                continue;
+            }
+            ossKeyList.add(album.getCover());
         }
         return ossKeyList;
     }

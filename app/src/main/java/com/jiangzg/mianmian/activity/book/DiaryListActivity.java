@@ -27,6 +27,7 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
@@ -46,8 +47,6 @@ import rx.Observable;
 import rx.functions.Action1;
 
 public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
-
-    private static boolean isFirstOpen = true;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -191,10 +190,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 String searchShow = ApiHelper.LIST_SHOW[searchType] + String.format(Locale.getDefault(), getString(R.string.space_bracket_holder), total);
                 tvSearch.setText(searchShow);
                 // 刷新本地资源
-                if (isFirstOpen) {
-                    isFirstOpen = false;
-                    OssResHelper.refreshDiaryRes(diaryList);
-                }
+                List<String> ossKeyList = ConvertHelper.getOssKeyListByDiary(diaryList);
+                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_DIARY, ossKeyList);
             }
 
             @Override

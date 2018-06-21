@@ -75,16 +75,22 @@ public class OssHelper {
         ossClient = new OSSClient(MyApp.get(), ossInfo.getDomain(), credentialProvider, conf);
     }
 
+    private static OSS getOssClient() {
+        if (ossClient == null) {
+            refreshOssClient();
+        }
+        return ossClient;
+    }
+
     // 获取obj的访问url
     public static String getUrl(final String objKey) {
-        if (ossClient == null) return "";
         if (StringUtils.isEmpty(objKey)) {
             LogUtils.w(LOG_TAG, "getUrl: objKey == null");
             return "";
         }
         try {
             // 十分钟过期时间
-            String url = ossClient.presignConstrainedObjectURL(bucket, objKey, 60 * 10);
+            String url = getOssClient().presignConstrainedObjectURL(bucket, objKey, 60 * 10);
             LogUtils.i(LOG_TAG, "getUrl: " + url);
             return url;
         } catch (ClientException e) {
@@ -249,7 +255,7 @@ public class OssHelper {
             }
         });
         // 开始任务
-        final OSSAsyncTask task = ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        final OSSAsyncTask task = getOssClient().asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 DialogUtils.dismiss(progress);
@@ -532,7 +538,7 @@ public class OssHelper {
             }
         });
         // 开始任务
-        final OSSAsyncTask task = ossClient.asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+        final OSSAsyncTask task = getOssClient().asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 final String uploadKey = request.getObjectKey();
@@ -664,7 +670,7 @@ public class OssHelper {
             }
         });
         // 开始任务
-        final OSSAsyncTask task = ossClient.asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
+        final OSSAsyncTask task = getOssClient().asyncGetObject(get, new OSSCompletedCallback<GetObjectRequest, GetObjectResult>() {
             @Override
             public void onSuccess(GetObjectRequest request, GetObjectResult result) {
                 // 请求成功
@@ -782,7 +788,7 @@ public class OssHelper {
         uploadJpeg(activity, pathCoupleWall, source, callBack);
     }
 
-    // 耳语 (压缩)
+    // 耳语 (压缩 + 持久化)
     public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookWhisper = ossInfo.getPathBookWhisper();
@@ -815,7 +821,7 @@ public class OssHelper {
         uploadJpegs(activity, pathBookDiary, fileList, callBack);
     }
 
-    // 相册 (压缩)
+    // 相册 (压缩 + 持久化))
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookAlbum = ossInfo.getPathBookAlbum();

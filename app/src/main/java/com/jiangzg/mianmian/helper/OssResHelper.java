@@ -54,23 +54,23 @@ public class OssResHelper {
         return split[split.length - 1].trim();
     }
 
-    // 获取具体type的dir
-    public static File getResDir(int type) {
+    // 获取具体oss类型的dir
+    public static File getResDir(int ossType) {
         String dirPath = "";
-        switch (type) {
-            case TYPE_COUPLE_AVATAR: // avatar
+        switch (ossType) {
+            case TYPE_COUPLE_AVATAR: // 头像
                 dirPath = SPHelper.getOssInfo().getPathCoupleAvatar();
                 break;
-            case TYPE_COUPLE_WALL: // wall
+            case TYPE_COUPLE_WALL: // 墙纸
                 dirPath = SPHelper.getOssInfo().getPathCoupleWall();
                 break;
-            case TYPE_BOOK_WHISPER: // TODO 耳语
+            case TYPE_BOOK_WHISPER: // 耳语
                 dirPath = SPHelper.getOssInfo().getPathBookWhisper();
                 break;
             case TYPE_BOOK_DIARY: // 日记
                 dirPath = SPHelper.getOssInfo().getPathBookDiary();
                 break;
-            case TYPE_BOOK_ALBUM: // TODO 相册
+            case TYPE_BOOK_ALBUM: // 相册
                 dirPath = SPHelper.getOssInfo().getPathBookAlbum();
                 break;
             case TYPE_BOOK_PICTURE: // 照片
@@ -78,7 +78,7 @@ public class OssResHelper {
                 break;
         }
         if (StringUtils.isEmpty(dirPath)) {
-            LogUtils.w(LOG_TAG, "getResDir: dirPath == null " + type);
+            LogUtils.w(LOG_TAG, "getResDir: dirPath == null " + ossType);
             return null;
         }
         return new File(ResHelper.getOssResDirPath(), dirPath);
@@ -271,8 +271,8 @@ public class OssResHelper {
                     }
                 }
                 // 最后删除过期文件
-                if (existsFileList != null && existsFileList.size() > 0) {
-                    for (File file : existsFileList) {
+                if (expireFileList.size() > 0) {
+                    for (File file : expireFileList) {
                         if (file == null) continue;
                         long lastModified = file.lastModified();
                         String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
