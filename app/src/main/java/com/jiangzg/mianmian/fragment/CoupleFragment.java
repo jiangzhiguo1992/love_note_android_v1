@@ -58,6 +58,7 @@ import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -327,8 +328,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 // 开始墙纸动画
                 refreshWallPaperView();
             }
-            // 本地文件刷新
-            OssResHelper.refreshAvatarRes();
+            // 头像文件刷新
+            List<String> imageList = new ArrayList<>();
+            imageList.add(couple.getCreatorAvatar());
+            imageList.add(couple.getInviteeAvatar());
+            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_AVATAR, imageList);
             // 头像 + 名称
             String myName = user.getMyNameInCp();
             String taName = user.getTaNameInCp();
@@ -346,19 +350,23 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     // 墙纸
     private void refreshWallPaperView() {
         if (vfWallPaper.getVisibility() != View.VISIBLE) return;
-        // 本地文件刷新
-        OssResHelper.refreshWallPaperRes();
+        WallPaper wallPaper = SPHelper.getWallPaper();
+        List<String> imageList;
         // 清除view
         vfWallPaper.removeAllViews();
-        WallPaper wallPaper = SPHelper.getWallPaper();
         // 无图显示
         if (wallPaper == null || wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
             tvAddWallPaper.setVisibility(View.VISIBLE);
+            // 删除本地文件
+            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, new ArrayList<String>());
             return;
+        } else {
+            tvAddWallPaper.setVisibility(View.GONE);
+            // 本地文件刷新
+            imageList = wallPaper.getContentImageList();
+            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, imageList);
         }
-        tvAddWallPaper.setVisibility(View.GONE);
         // 单图显示
-        List<String> imageList = wallPaper.getContentImageList();
         if (imageList.size() == 1) {
             GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);

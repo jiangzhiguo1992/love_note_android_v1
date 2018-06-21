@@ -42,18 +42,18 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    String HOST = "192.168.43.200:30011";
+    String HOST = "192.168.18.5:30011";
     //String HOST = "47.94.224.110:30011";
     String BASE_URL = "http://" + HOST + "/api/v1/"; // BaseURL最好以/结尾
 
     @Streaming // 下载大文件(请求需要放在子线程中)
     @Multipart // 上传文件
     @GET("demo/{path}")
-    Call<List<RxEvent>> demo(@Url String url, @Path("path") String path, // {path}
+    Call<List<Object>> demo(@Url String url, @Path("path") String path, // {path}
                              @Header("key") String key, @HeaderMap Map<String, String> headers,
                              @Query("limit") String limit, @QueryMap Map<String, String> options,
                              @Part("name") String value, @PartMap Map<String, RequestBody> params,
-                             @Body RxEvent event, @Body String requestBody);
+                             @Body Object body, @Body String bodyJson);
 
     // 短信
     @POST("sms")

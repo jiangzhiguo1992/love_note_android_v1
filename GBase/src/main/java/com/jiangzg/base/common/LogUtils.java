@@ -13,7 +13,7 @@ import java.util.Locale;
 /**
  * Created by Jiang on 2016/10/08
  * 日志管理工具类
- * TODO 对应级别上线打印开关 打印堆栈 打印线程 日志文件读写 全局异常补货 json打印
+ * TODO 对应级别上线打印开关 打印堆栈 打印线程 日志文件读写 全局异常捕获 json打印
  */
 public class LogUtils {
 

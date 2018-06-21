@@ -31,7 +31,7 @@ import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.OssResHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 
@@ -206,7 +206,7 @@ public class UpdateService extends Service {
         // 获取下载地址
         String updateUrl = version.getUpdateUrl().trim();
         // 生成apk文件
-        final File apkFile = OssResHelper.newApkFile(version.getVersionName());
+        final File apkFile = ResHelper.newApkFile(version.getVersionName());
         // 开始下载
         OssHelper.downloadApk(top, updateUrl, apkFile, new OssHelper.OssDownloadCallBack() {
             @Override

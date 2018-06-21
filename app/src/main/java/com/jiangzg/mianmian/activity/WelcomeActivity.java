@@ -8,6 +8,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
@@ -24,6 +25,8 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.view.GImageNativeView;
 
 import java.io.File;
+import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -57,13 +60,26 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void initData(Bundle savedInstanceState) {
         // wallPaper
-        File wallPaper = OssResHelper.getWallPaperRandom();
+        File wallPaper = getWallPaperRandom();
         if (!FileUtils.isFileEmpty(wallPaper)) {
             ivBg.setDataFile(wallPaper);
             startAnim();
         }
         // TODO ...非网络性init操作
         checkUser();
+    }
+
+    // 获取随机的wp
+    public File getWallPaperRandom() {
+        File wallPaperDir = OssResHelper.getResDir(OssResHelper.TYPE_COUPLE_WALL);
+        List<File> fileList = FileUtils.listFilesAndDirInDir(wallPaperDir, true);
+        if (fileList == null || fileList.size() <= 0) {
+            LogUtils.i(LOG_TAG, "getWallPaperRandom: 没有WallPaper文件");
+            return null;
+        }
+        Random random = new Random();
+        int nextInt = random.nextInt(fileList.size());
+        return fileList.get(nextInt);
     }
 
     private void startAnim() {

@@ -863,16 +863,16 @@ public class OssHelper {
         downloadObject(progress, objectKey, target, callBack);
     }
 
-    // TODO 全屏图 在sd卡中下载 最好是用fresco的缓存
-    public static void downloadBigImage(String objectKey) {
-        //File file = OssResHelper.newKeyFile(objectKey);
-        //downloadObject(null, objectKey, file, null);
-    }
-
     // 头像+墙纸+日记+照片
     public static void downloadFileByKey(String objectKey) {
         File file = OssResHelper.newKeyFile(objectKey);
         downloadObject(null, objectKey, file, null);
+    }
+
+    // TODO 全屏图 在sd卡中下载 最好是用fresco的缓存
+    public static void downloadBigImage(String objectKey) {
+        //File file = OssResHelper.newKeyFile(objectKey);
+        //downloadObject(null, objectKey, file, null);
     }
 
 }

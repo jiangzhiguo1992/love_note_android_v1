@@ -147,6 +147,7 @@ public class ResHelper {
     /**
      * ****************************************File****************************************
      */
+    // 图片
     public static File getImgCacheDir() {
         File dir = new File(AppInfo.get().getOutCacheDir(), "img");
         FileUtils.createOrExistsDir(dir);
@@ -160,14 +161,26 @@ public class ResHelper {
         return file;
     }
 
+    // apk
+    public static File newApkDir() {
+        return new File(AppInfo.get().getOutFilesDir(), "apk");
+    }
+
+    public static File newApkFile(String versionName) {
+        File apkFile = new File(newApkDir(), versionName + ".apk");
+        LogUtils.i(LOG_TAG, "newApkFile: " + apkFile.getAbsolutePath());
+        return apkFile;
+    }
+
+    // fresco
     public static File getFrescoCacheDir() {
         File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
     }
 
-    // oss的目录
-    public static String getOssOutDirPath() {
+    // oss
+    public static String getOssResDirPath() {
         return AppInfo.get().getOutFilesDir() + File.separator + "oss" + File.separator;
     }
 
