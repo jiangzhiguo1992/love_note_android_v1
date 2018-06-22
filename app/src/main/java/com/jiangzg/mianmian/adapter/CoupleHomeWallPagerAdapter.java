@@ -12,6 +12,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ViewFlipper;
 
 import com.facebook.drawee.drawable.ScalingUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
@@ -28,6 +29,8 @@ import java.util.TimerTask;
  * CoupleHome ViewPager适配器
  */
 public class CoupleHomeWallPagerAdapter extends PagerAdapter {
+
+    private static final String LOG_TAG = "CoupleHomeWallPagerAdapter";
 
     private Context mContext;
     private List<String> ossKeyList;
@@ -48,17 +51,25 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         ossKeyList.clear();
         ossKeyList.add(data);
         notifyDataSetChanged();
+        mPager.setOffscreenPageLimit(1);
         stopAutoNext();
     }
 
     public void newData(List<String> data) {
+        int originalSize = ossKeyList.size();
         ossKeyList.clear();
         if (data != null && data.size() > 0) {
             //Collections.shuffle(data); // 轮播的时候随机，这里就不处理了
             ossKeyList.addAll(data);
             notifyDataSetChanged();
-            startAutoNext();
+            if (originalSize != ossKeyList.size()) {
+                // 记得设置阔值，要不nextInt会超标
+                mPager.setOffscreenPageLimit(ossKeyList.size());
+                // 数量不同时才会重置动画，以免重置时间过长，导致动画结束时，还没有过场
+                startAutoNext();
+            }
         } else {
+            mPager.setOffscreenPageLimit(1);
             stopAutoNext();
         }
     }
@@ -98,10 +109,10 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
 
     private void startAutoNext() {
         if (ossKeyList == null || ossKeyList.size() <= 1) return;
-        // 记得设置阔值，要不nextInt会超标
-        mPager.setOffscreenPageLimit(ossKeyList.size());
         // 第一个页面别忘了加动画
         mPager.getChildAt(0).startAnimation(getAnimation());
+        // 必须停止，要不会有多个timer任务一起执行
+        stopAutoNext();
         if (timer == null) {
             timer = new Timer();
         }
@@ -112,12 +123,27 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
                 MyApp.get().getHandler().post(new Runnable() {
                     @Override
                     public void run() {
+                        if (mPager == null) return;
+                        if (ossKeyList == null || ossKeyList.size() <= 1) return;
                         // 随机展示
                         final int nextInt = new Random().nextInt(ossKeyList.size());
+                        int shouldIndex = nextInt;
+                        if (nextInt == mPager.getCurrentItem()) {
+                            if (nextInt >= ossKeyList.size() - 1) {
+                                shouldIndex = nextInt - 1;
+                            } else {
+                                shouldIndex = nextInt + 1;
+                            }
+                        }
                         // 不要动画(倒退时，也会有动画)
-                        mPager.setCurrentItem(nextInt, false);
+                        mPager.setCurrentItem(shouldIndex, false);
                         // Animation
-                        mPager.getChildAt(nextInt).startAnimation(getAnimation());
+                        View child = mPager.getChildAt(shouldIndex);
+                        if (child != null) {
+                            child.startAnimation(getAnimation());
+                        } else {
+                            LogUtils.w(LOG_TAG, "startAutoNext: child == null");
+                        }
                     }
                 });
             }
@@ -125,7 +151,6 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
     }
 
     private void stopAutoNext() {
-        mPager.setOffscreenPageLimit(1);
         if (timer != null) {
             timer.cancel();
             timer = null;
