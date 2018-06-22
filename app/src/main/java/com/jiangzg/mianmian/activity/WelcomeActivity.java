@@ -65,7 +65,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             ivBg.setDataFile(wallPaper);
             startAnim();
         }
-        // TODO ...非网络性init操作
+        // ...非网络性init操作
         checkUser();
     }
 
@@ -117,7 +117,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
             }, TransPageMillis);
         } else {
-            // 有token TODO 上传本地Log日志，然后再删除这些日志
+            // 有token
             final long startTime = DateUtils.getCurrentLong();
             Entry entry = ApiHelper.getEntryBody();
             call = new RetrofitHelper().call(API.class).entryPush(entry);
@@ -134,6 +134,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
             });
         }
+        // TODO 上传本地Log日志，然后再删除这些日志
     }
 
 

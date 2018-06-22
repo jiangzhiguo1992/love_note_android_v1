@@ -10,16 +10,19 @@ public class ConstantUtils {
      * ****************************** 时间 **********************************
      */
     public static final String FORMAT_CHINA_Y_M_D__H_M_S_S = "yyyyMMdd-HHmmssSSS"; // 一般用于流水号
-    public static final String FORMAT_CHINA_Y_M_D_H_M = "yyyy年MM月dd日 HH:mm";
     public static final String FORMAT_LINE_Y_M_D_H_M_S = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMAT_CHINA_Y_M_D_H_M_S = "yyyy年MM月dd日 HH时mm分ss秒";
     public static final String FORMAT_LINE_Y_M_D_H_M = "yyyy-MM-dd HH:mm";
-    public static final String FORMAT_LINE_M_D_H_M = "MM-dd HH:mm";
+    public static final String FORMAT_CHINA_Y_M_D_H_M = "yyyy年MM月dd日 HH:mm";
+
     public static final String FORMAT_LINE_Y_M_D = "yyyy-MM-dd";
     public static final String FORMAT_POINT_Y_M_D = "yyyy.MM.dd";
     public static final String FORMAT_CHINA_Y_M_D = "yyyy年MM月dd日";
+    public static final String FORMAT_POINT_M_D = "yyyy.MM";
     public static final String FORMAT_CHINA_M_D = "MM月dd日";
     public static final String FORMAT_LINE_M_D = "MM-dd";
-    public static final String FORMAT_POINT_M_D = "yyyy.MM";
+    public static final String FORMAT_LINE_M_D_H_M = "MM-dd HH:mm";
+
     public static final String FORMAT_H_M_S = "HH:mm:ss";
     public static final String FORMAT_H_M = "HH:mm";
     public static final String FORMAT_M_S = "mm:ss";

@@ -1,6 +1,5 @@
 package com.jiangzg.base.time;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 
@@ -29,7 +28,7 @@ public class DateUtils {
             LogUtils.w(LOG_TAG, "getFormat: type == null");
             return null;
         }
-        return new SimpleDateFormat(type, Locale.getDefault());
+        return new SimpleDateFormat(type, Locale.CHINA);
     }
 
     /**

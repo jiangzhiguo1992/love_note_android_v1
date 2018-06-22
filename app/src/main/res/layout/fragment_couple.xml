@@ -14,8 +14,8 @@
         android:orientation="vertical">
 
         <!-- 轮播背景 -->
-        <ViewFlipper
-            android:id="@+id/vfWallPaper"
+        <com.jiangzg.mianmian.view.GNoScrollViewPager
+            android:id="@+id/vpWallPaper"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

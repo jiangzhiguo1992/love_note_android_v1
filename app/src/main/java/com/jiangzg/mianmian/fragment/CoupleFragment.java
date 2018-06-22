@@ -6,24 +6,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
-import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.view.BarUtils;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CoupleInfoActivity;
@@ -32,6 +25,7 @@ import com.jiangzg.mianmian.activity.couple.CouplePlaceActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWallPaperActivity;
 import com.jiangzg.mianmian.activity.couple.CoupleWeatherActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.CoupleHomeWallPagerAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
@@ -54,12 +48,11 @@ import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageAvatarView;
-import com.jiangzg.mianmian.view.GImageView;
 import com.jiangzg.mianmian.view.GMarqueeText;
+import com.jiangzg.mianmian.view.GNoScrollViewPager;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,8 +70,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     ImageView ivHelp;
     @BindView(R.id.ivWallPaper)
     ImageView ivWallPaper;
-    @BindView(R.id.vfWallPaper)
-    ViewFlipper vfWallPaper;
+    @BindView(R.id.vpWallPaper)
+    GNoScrollViewPager vpWallPaper;
 
     @BindView(R.id.tvCoupleCountDown)
     TextView tvCoupleCountDown;
@@ -173,16 +166,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         });
         // refresh
         refreshData();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        List<String> contentImageList = SPHelper.getWallPaper().getContentImageList();
-        if (vfWallPaper.getVisibility() == View.VISIBLE && contentImageList != null && contentImageList.size() > 1) {
-            // 当前图片会没有动画效果，所以需要跳下一个
-            vfWallPaper.showNext();
-        }
     }
 
     @Override
@@ -304,7 +287,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
-        vfWallPaper.setVisibility(View.GONE);
+        vpWallPaper.setVisibility(View.GONE);
         btnPair.setVisibility(View.GONE);
         tvAddWallPaper.setVisibility(View.GONE);
         tvCoupleCountDown.setVisibility(View.GONE);
@@ -324,7 +307,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 MyApp.get().getHandler().post(getCoupleCountDownTask());
             } else {
                 // 没分手
-                vfWallPaper.setVisibility(View.VISIBLE);
+                vpWallPaper.setVisibility(View.VISIBLE);
                 // 开始墙纸动画
                 refreshWallPaperView();
             }
@@ -349,11 +332,12 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 墙纸
     private void refreshWallPaperView() {
-        if (vfWallPaper.getVisibility() != View.VISIBLE) return;
+        if (vpWallPaper.getVisibility() != View.VISIBLE) return;
+        //if (vfWallPaper.getVisibility() != View.VISIBLE) return;
         WallPaper wallPaper = SPHelper.getWallPaper();
         List<String> imageList;
         // 清除view
-        vfWallPaper.removeAllViews();
+        //vfWallPaper.removeAllViews();
         // 无图显示
         if (wallPaper == null || wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
             tvAddWallPaper.setVisibility(View.VISIBLE);
@@ -366,37 +350,20 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             imageList = wallPaper.getContentImageList();
             OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, imageList);
         }
+        // vp适配器
+        CoupleHomeWallPagerAdapter adapter = (CoupleHomeWallPagerAdapter) vpWallPaper.getAdapter();
+        if (adapter == null) {
+            adapter = new CoupleHomeWallPagerAdapter(mActivity, vpWallPaper);
+            vpWallPaper.setAdapter(adapter);
+        }
         // 单图显示
         if (imageList.size() == 1) {
-            GImageView image = getViewFlipperImage();
             String ossKey = imageList.get(0);
-            image.setData(ossKey);
-            vfWallPaper.addView(image);
-            vfWallPaper.setAutoStart(false);
-            vfWallPaper.stopFlipping();
+            adapter.newData(ossKey);
             return;
         }
         // 多图显示，随机顺序
-        Collections.shuffle(imageList);
-        for (String ossKey : imageList) {
-            GImageView image = getViewFlipperImage();
-            image.setData(ossKey);
-            vfWallPaper.addView(image);
-        }
-        // anim
-        Animation in = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_in);
-        Animation out = AnimationUtils.loadAnimation(mActivity, R.anim.alpha_we_bg_out);
-        in.setInterpolator(new DecelerateInterpolator());
-        out.setInterpolator(new DecelerateInterpolator());
-        in.setStartTime(AnimationUtils.currentAnimationTimeMillis());
-        out.setStartTime(AnimationUtils.currentAnimationTimeMillis());
-        // viewFilter
-        vfWallPaper.setAnimateFirstView(true);
-        vfWallPaper.setInAnimation(in);
-        vfWallPaper.setOutAnimation(out);
-        vfWallPaper.setAutoStart(true);
-        vfWallPaper.setFlipInterval(10000);
-        vfWallPaper.startFlipping();
+        adapter.newData(imageList);
     }
 
     private void refreshPlaceView() {
@@ -482,18 +449,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         tvWeatherLeft.setText(taWeatherShow);
         tvWeatherLeft.setCompoundDrawables(taIcon, null, null, null);
         tvWeatherDiffer.setText(diff);
-    }
-
-    private GImageView getViewFlipperImage() {
-        GImageView image = new GImageView(mActivity);
-        ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        image.setLayoutParams(paramsImage);
-        int screenWidth = ScreenUtils.getScreenWidth(mActivity);
-        int screenHeight = ScreenUtils.getScreenHeight(mActivity);
-        image.setWidthAndHeight(screenWidth, screenHeight);
-        image.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-        image.getHierarchy().setFadeDuration(0);
-        return image;
     }
 
     // 分手倒计时

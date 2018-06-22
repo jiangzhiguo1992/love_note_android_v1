@@ -10,7 +10,6 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.util.ArrayMap;
-import android.util.Log;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.common.LogUtils;
@@ -33,7 +32,7 @@ public class ProviderUtils {
      */
     public static File getImgFileByUri(Uri uri) {
         if (uri == null) {
-            Log.w(LOG_TAG, "getImgFileByUri: uri == null");
+            LogUtils.w(LOG_TAG, "getImgFileByUri: uri == null");
             return null;
         }
         String[] project = new String[]{MediaStore.Images.ImageColumns.DATA}; // 字段名
@@ -50,7 +49,7 @@ public class ProviderUtils {
                 if ("primary".equalsIgnoreCase(type)) {
                     data = Environment.getExternalStorageDirectory() + "/" + split[1];
                 } else {
-                    Log.w(LOG_TAG, "Uri2File: externalstorage: primary != externalstorage");
+                    LogUtils.w(LOG_TAG, "Uri2File: externalstorage: primary != externalstorage");
                     return null;
                 }
             } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {

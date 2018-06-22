@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
@@ -32,7 +31,7 @@ public class IntentResult {
      */
     public static String getContactSelect(Intent data) {
         if (data == null) {
-            Log.e(LOG_TAG, "getContactSelect: data == null");
+            LogUtils.w(LOG_TAG, "getContactSelect: data == null");
             return "";
         }
         Uri uri = data.getData();
