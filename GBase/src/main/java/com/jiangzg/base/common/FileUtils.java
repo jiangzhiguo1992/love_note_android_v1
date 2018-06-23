@@ -326,10 +326,11 @@ public class FileUtils {
      */
     public static List<File> listFilesAndDirInDir(File dir, boolean isRecursive) {
         if (isRecursive) return listFilesAndDirInDir(dir);
-        if (dir == null || !isDir(dir)) {
+        if (dir == null) {
             LogUtils.w(FileUtils.class, "listFilesAndDirInDir", "dir == null");
             return new ArrayList<>();
         }
+        if (!isDir(dir)) return new ArrayList<>();
         List<File> list = new ArrayList<>();
         Collections.addAll(list, dir.listFiles());
         return list;
@@ -337,10 +338,11 @@ public class FileUtils {
 
     /*获取目录下所有文件包括子目录*/
     private static List<File> listFilesAndDirInDir(File dir) {
-        if (dir == null || !isDir(dir)) {
+        if (dir == null) {
             LogUtils.w(FileUtils.class, "listFilesAndDirInDir", "dir == null");
             return new ArrayList<>();
         }
+        if (!isDir(dir)) return new ArrayList<>();
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
         for (File file : files) {

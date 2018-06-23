@@ -12,6 +12,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -64,6 +65,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         File wallPaper = getWallPaperRandom();
         if (!FileUtils.isFileEmpty(wallPaper)) {
             ivBg.setVisibility(View.VISIBLE);
+            int width = ScreenUtils.getScreenRealWidth(mActivity);
+            int height = ScreenUtils.getScreenRealHeight(mActivity);
+            ivBg.setWidthAndHeight(width, height);
             ivBg.setDataFile(wallPaper);
             startAnim();
         }

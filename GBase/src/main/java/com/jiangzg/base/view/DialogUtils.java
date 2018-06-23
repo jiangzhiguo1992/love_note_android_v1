@@ -20,7 +20,7 @@ public class DialogUtils {
 
     public static void show(Dialog dialog) {
         if (dialog == null) {
-            LogUtils.w(DialogUtils.class, "show", "dialog == null");
+            LogUtils.i(DialogUtils.class, "show", "dialog == null");
             return;
         }
         if (!dialog.isShowing()) {
@@ -43,7 +43,7 @@ public class DialogUtils {
 
     public static void dismiss(Dialog dialog) {
         if (dialog == null) {
-            LogUtils.w(DialogUtils.class, "dismiss", "dialog == null");
+            LogUtils.i(DialogUtils.class, "dismiss", "dialog == null");
             return;
         }
         if (dialog.isShowing()) {

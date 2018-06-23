@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -31,7 +32,9 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ProviderUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
@@ -93,7 +96,17 @@ public class GImageBigView extends PhotoDraweeView {
 
     private void setController(Uri uri) {
         // request
-        ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, 0, 0); // 不需要采样了
+        Activity top = ActivityStack.getTop();
+        int screenWidth;
+        int screenHeight;
+        if (top != null) {
+            screenWidth = ScreenUtils.getScreenRealWidth(top);
+            screenHeight = ScreenUtils.getScreenRealHeight(top);
+        } else {
+            screenWidth = ScreenUtils.getScreenWidth(MyApp.get());
+            screenHeight = ScreenUtils.getScreenHeight(MyApp.get());
+        }
+        ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, screenWidth, screenHeight); // 不需要采样了
         ImageRequest imageRequest = requestBuilder.build();
         // controller
         PipelineDraweeControllerBuilder builder = FrescoHelper.getPipelineControllerBuilder(this, uri, imageRequest);

@@ -20,8 +20,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
@@ -301,6 +303,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             ivCover.setVisibility(View.GONE);
         } else {
             ivCover.setVisibility(View.VISIBLE);
+            int width = ScreenUtils.getScreenRealWidth(mActivity);
+            int height = ConvertUtils.dp2px(250);
+            ivCover.setWidthAndHeight(width, height);
             ivCover.setData(cover);
         }
         ctl.setTitle(title);
