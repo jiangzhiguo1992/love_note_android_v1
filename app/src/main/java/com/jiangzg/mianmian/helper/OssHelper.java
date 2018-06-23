@@ -161,7 +161,7 @@ public class OssHelper {
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
             @Override
             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                //LogUtils.d(LOG_TAG, "uploadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
+                //LogUtils.d(LOG_TAG, "uploadFile: currentSize: " + currentSize + " totalSize: " + totalSize);
                 if (progress != null && progress.isShowing()) {
                     int percent = (int) (((float) currentSize / (float) totalSize) * 100);
                     progress.setProgress(percent);

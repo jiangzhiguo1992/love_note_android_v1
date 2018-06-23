@@ -1,16 +1,20 @@
 package com.jiangzg.base.common;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.application.AppUtils;
+import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.time.DateUtils;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * Created by Jiang on 2016/10/08
@@ -24,6 +28,30 @@ public class LogUtils {
     public static void initApp(boolean debug) {
         logTagPrefix = "<" + AppInfo.get().getName() + ">";
         open = debug;
+        // 全局异常捕获机制
+        Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                // 记得先打印，要不系统拦截了异常之后，程序会退出
+                LogUtils.e(LogUtils.class, "uncaughtException", e);
+                // 获取系统默认的异常处理器
+                Thread.UncaughtExceptionHandler defHandler = Thread.getDefaultUncaughtExceptionHandler();
+                if (e != null && defHandler != null) {
+                    // 如果用户没有处理，则让系统来处理，一般是弹对话框并退出
+                    defHandler.uncaughtException(t, e);
+                } else {
+                    // 退出顶层activity
+                    Stack<Activity> stack = ActivityStack.getStack();
+                    if (stack == null || stack.size() <= 1) {
+                        AppUtils.appExit();
+                    } else {
+                        Activity top = ActivityStack.getTop();
+                        if (top != null) top.finish();
+                    }
+                }
+            }
+        };
+        Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
     // LogTag
@@ -78,40 +106,38 @@ public class LogUtils {
         return builder.toString();
     }
 
-    // 调试 不会保存到文件，正式关掉
+    // 调试 不会保存到文件
     public static void d(Class cls, String method, String print) {
         if (!open) return;
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         Log.d(tag, print);
     }
 
-    // 正常打印 不会保存到文件，正式也开启
+    // 正常打印 不会保存到文件
     public static void i(Class cls, String method, String print) {
+        if (!open) return;
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         Log.i(tag, print);
     }
 
-    // 非err错误 会保存到文件，正式也开启
+    // 非err错误 会保存到文件
     public static void w(Class cls, String method, String print) {
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
-        Log.w(tag, print);
         String write = "\n" + tag + ": " + print;
         writeLogFile("warn", write);
+        if (!open) return;
+        Log.w(tag, print);
     }
 
-    // err打印 会保存到文件，正式也开启
+    // err打印 会保存到文件
     public static void e(Class cls, String method, Throwable t) {
         if (t == null) return;
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         String print = Log.getStackTraceString(t);
-        Log.e(tag, print);
         String write = "\n" + tag + ": " + print;
         writeLogFile("err", write);
-    }
-
-    // TODO 全局异常捕获
-    public static void cache() {
-
+        if (!open) return;
+        Log.e(tag, print);
     }
 
     // Log目录
