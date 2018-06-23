@@ -69,6 +69,7 @@ public class RetrofitHelper {
         options.put("sign", ""); // TODO
         options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
         options.put("access_token", SPHelper.getUser().getUserToken());
+        // TODO 语言
         return options;
     }
 
