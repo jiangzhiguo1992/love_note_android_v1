@@ -116,11 +116,125 @@ public class OssHelper {
     }
 
     /**
+     * *****************************************单文件上传*****************************************
+     */
+    // 上传任务
+    private static OSSAsyncTask uploadFile(final MaterialDialog progress, final boolean toast, final String ossDirPath,
+                                           final File source, String fileName, final OssUploadCallBack callBack) {
+        // ossDirPath
+        if (StringUtils.isEmpty(ossDirPath)) {
+            if (toast)
+                ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            LogUtils.w(OssHelper.class, "uploadFile", "ossDirPath == null");
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(source, "");
+                    }
+                });
+            }
+            return null;
+        }
+        LogUtils.i(OssHelper.class, "uploadFile", "ossDirPath = " + ossDirPath);
+        // file
+        if (FileUtils.isFileEmpty(source)) {
+            if (toast) ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
+            LogUtils.i(OssHelper.class, "uploadFile", "source == null");
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(source, "");
+                    }
+                });
+            }
+            return null;
+        }
+        // dialog
+        DialogHelper.showWithAnim(progress);
+        // 构造上传请求
+        PutObjectRequest put = new PutObjectRequest(bucket, ossDirPath + fileName, source.getAbsolutePath());
+        // 异步上传时可以设置进度回调
+        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
+            @Override
+            public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
+                //LogUtils.d(LOG_TAG, "uploadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
+                if (progress != null && progress.isShowing()) {
+                    int percent = (int) (((float) currentSize / (float) totalSize) * 100);
+                    progress.setProgress(percent);
+                }
+            }
+        });
+        // 开始任务
+        final OSSAsyncTask task = getOssClient().asyncPutObject(put, new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                DialogUtils.dismiss(progress);
+                // 回调
+                final String uploadKey = request.getObjectKey();
+                LogUtils.i(OssHelper.class, "uploadFile", "onSuccess: getObjectKey = " + uploadKey);
+                if (callBack != null) {
+                    MyApp.get().getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.success(source, uploadKey);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientException, ServiceException serviceException) {
+                DialogUtils.dismiss(progress);
+                // 打印
+                final String uploadKey = request.getObjectKey();
+                LogUtils.w(OssHelper.class, "uploadFile", "onFailure: getObjectKey == " + uploadKey);
+                // 本地异常如网络异常等
+                if (clientException != null) {
+                    if (toast)
+                        ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
+                    LogUtils.e(OssHelper.class, "uploadFile", clientException);
+                }
+                // 服务异常
+                if (serviceException != null) {
+                    if (toast)
+                        ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
+                    LogUtils.e(OssHelper.class, "uploadFile", serviceException);
+                    LogUtils.w(OssHelper.class, "uploadFile", "serviceException = " + serviceException.toString());
+                }
+                // 回调
+                if (callBack != null) {
+                    MyApp.get().getHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callBack.failure(source, "");
+                        }
+                    });
+                }
+            }
+        });
+        // processDialog
+        if (progress != null) {
+            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface dialog) {
+                    LogUtils.i(OssHelper.class, "uploadFile", "cancel");
+                    taskCancel(task);
+                }
+            });
+        }
+        return task;
+    }
+
+    /**
      * *****************************************单图上传*****************************************
      */
     // 启动压缩
-    private static void compressJpg(final Activity activity, final String ossDirPath,
-                                    final File source, final OssUploadCallBack callBack) {
+    private static void compressJpeg(final Activity activity, final String ossDirPath,
+                                     final File source, final OssUploadCallBack callBack) {
         // file
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
@@ -153,7 +267,7 @@ public class OssHelper {
                     public void onStart() {
                         DialogHelper.showWithAnim(progress);
                         String size = ConvertUtils.byte2FitSize(source.length());
-                        LogUtils.d(OssHelper.class, "compressJpg", " 压缩前大小: " + source.getName() + " = " + size);
+                        LogUtils.d(OssHelper.class, "compressJpeg", " 压缩前大小: " + source.getName() + " = " + size);
                     }
 
                     @Override
@@ -166,12 +280,12 @@ public class OssHelper {
                             //ResHelper.deleteFileInBackground(source);
                             //}
                             String size = ConvertUtils.byte2FitSize(file.length());
-                            LogUtils.d(OssHelper.class, "compressJpg", " 压缩后大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "compressJpeg", " 压缩后大小: " + source.getName() + " = " + size);
                             // upload
                             uploadJpeg(activity, ossDirPath, file, callBack);
                         } else {
                             String size = ConvertUtils.byte2FitSize(source.length());
-                            LogUtils.d(OssHelper.class, "compressJpg", " 压缩后大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "compressJpeg", " 压缩后大小: " + source.getName() + " = " + size);
                             // upload
                             uploadJpeg(activity, ossDirPath, source, callBack);
                         }
@@ -189,18 +303,11 @@ public class OssHelper {
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadJpeg(Activity activity, final String ossDirPath,
-                                           final File source, final OssUploadCallBack callBack) {
-        return uploadObject(activity, ossDirPath, source, "jpeg", callBack);
-    }
-
-    // 上传任务
-    private static OSSAsyncTask uploadObject(Activity activity, final String ossDirPath, final File source,
-                                             String suffix, final OssUploadCallBack callBack) {
+    private static OSSAsyncTask uploadJpeg(Activity activity, final String ossDirPath, final File source, final OssUploadCallBack callBack) {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
-            LogUtils.w(OssHelper.class, "uploadObject", "ossDirPath == null");
+            LogUtils.w(OssHelper.class, "uploadJpeg", "ossDirPath == null");
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -212,11 +319,11 @@ public class OssHelper {
             }
             return null;
         }
-        LogUtils.i(OssHelper.class, "uploadObject", "ossDirPath = " + ossDirPath);
+        LogUtils.i(OssHelper.class, "uploadJpeg", "ossDirPath = " + ossDirPath);
         // file
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
-            LogUtils.w(OssHelper.class, "uploadObject", "source == null");
+            LogUtils.w(OssHelper.class, "uploadJpeg", "source == null");
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -238,7 +345,7 @@ public class OssHelper {
                 .build();
         DialogHelper.showWithAnim(progress);
         // objectKey
-        final String objectKey = createObjectKey(ossDirPath, suffix);
+        final String objectKey = createObjectKey(ossDirPath, "jpeg");
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
@@ -259,7 +366,7 @@ public class OssHelper {
                 DialogUtils.dismiss(progress);
                 // 回调
                 final String uploadKey = request.getObjectKey();
-                LogUtils.i(OssHelper.class, "uploadObject", "onSuccess: getObjectKey = " + uploadKey);
+                LogUtils.i(OssHelper.class, "uploadJpeg", "onSuccess: getObjectKey = " + uploadKey);
                 if (callBack != null) {
                     MyApp.get().getHandler().post(new Runnable() {
                         @Override
@@ -275,17 +382,17 @@ public class OssHelper {
                 DialogUtils.dismiss(progress);
                 // 打印
                 final String uploadKey = request.getObjectKey();
-                LogUtils.w(OssHelper.class, "uploadObject", "onFailure: getObjectKey == " + uploadKey);
+                LogUtils.w(OssHelper.class, "uploadJpeg", "onFailure: getObjectKey == " + uploadKey);
                 // 本地异常如网络异常等
                 if (clientException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
-                    LogUtils.e(OssHelper.class, "uploadObject", clientException);
+                    LogUtils.e(OssHelper.class, "uploadJpeg", clientException);
                 }
                 // 服务异常
                 if (serviceException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
-                    LogUtils.e(OssHelper.class, "uploadObject", serviceException);
-                    LogUtils.w(OssHelper.class, "uploadObject", "serviceException = " + serviceException.toString());
+                    LogUtils.e(OssHelper.class, "uploadJpeg", serviceException);
+                    LogUtils.w(OssHelper.class, "uploadJpeg", "serviceException = " + serviceException.toString());
                 }
                 // 回调
                 if (callBack != null) {
@@ -303,7 +410,7 @@ public class OssHelper {
             progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    LogUtils.i(OssHelper.class, "uploadObject", "cancel");
+                    LogUtils.i(OssHelper.class, "uploadJpeg", "cancel");
                     taskCancel(task);
                 }
             });
@@ -315,8 +422,8 @@ public class OssHelper {
      * *****************************************多图上传*****************************************
      */
     // 启动多张压缩
-    private static void compressJpgList(final Activity activity, final String ossDirPath,
-                                        final List<File> sourceList, final OssUploadsCallBack callBack) {
+    private static void compressJpegList(final Activity activity, final String ossDirPath,
+                                         final List<File> sourceList, final OssUploadsCallBack callBack) {
         MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
@@ -324,17 +431,17 @@ public class OssHelper {
                 .progress(true, 0)
                 .progressIndeterminateStyle(false)
                 .build();
-        compressJpgList(activity, progress, ossDirPath, sourceList, 0, callBack);
+        compressJpegList(activity, progress, ossDirPath, sourceList, 0, callBack);
     }
 
-    private static void compressJpgList(final Activity activity, final MaterialDialog progress,
-                                        final String ossDirPath, final List<File> sourceList, final int currentIndex,
-                                        final OssUploadsCallBack callBack) {
+    private static void compressJpegList(final Activity activity, final MaterialDialog progress,
+                                         final String ossDirPath, final List<File> sourceList, final int currentIndex,
+                                         final OssUploadsCallBack callBack) {
         // currentIndex
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
             DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "compressJpgList", "currentIndex = " + currentIndex + " -- sourceList == null");
+            LogUtils.w(OssHelper.class, "compressJpegList", "currentIndex = " + currentIndex + " -- sourceList == null");
             MyApp.get().getHandler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -347,7 +454,7 @@ public class OssHelper {
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "compressJpgList", "currentIndex = " + currentIndex + " -- ossDirPath == null");
+            LogUtils.w(OssHelper.class, "compressJpegList", "currentIndex = " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -364,7 +471,7 @@ public class OssHelper {
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "compressJpgList", "currentIndex = " + currentIndex + " -- source == null");
+            LogUtils.w(OssHelper.class, "compressJpegList", "currentIndex = " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -393,7 +500,7 @@ public class OssHelper {
                     @Override
                     public void onStart() {
                         String size = ConvertUtils.byte2FitSize(source.length());
-                        LogUtils.d(OssHelper.class, "compressJpgList", " 压缩前大小: " + source.getName() + " = " + size);
+                        LogUtils.d(OssHelper.class, "compressJpegList", " 压缩前大小: " + source.getName() + " = " + size);
                         // dialog上面已经显示了
                     }
 
@@ -403,51 +510,45 @@ public class OssHelper {
                         if (FileUtils.isFileExists(file)) {
                             // 压缩完的文件为新文件
                             String size = ConvertUtils.byte2FitSize(file.length());
-                            LogUtils.d(OssHelper.class, "compressJpgList", "压缩后大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "compressJpegList", "压缩后大小: " + source.getName() + " = " + size);
                             sourceList.set(currentIndex, file);
                         } else {
                             // 压缩完保存的还是源文件
                             String size = ConvertUtils.byte2FitSize(source.length());
-                            LogUtils.d(OssHelper.class, "compressJpgList", "压缩后大小: " + source.getName() + " = " + size);
+                            LogUtils.d(OssHelper.class, "compressJpegList", "压缩后大小: " + source.getName() + " = " + size);
                             sourceList.set(currentIndex, source);
                         }
                         // upload
                         if (currentIndex < sourceList.size() - 1) {
                             // 没压缩完
-                            compressJpgList(activity, progress, ossDirPath, sourceList, currentIndex + 1, callBack);
+                            compressJpegList(activity, progress, ossDirPath, sourceList, currentIndex + 1, callBack);
                         } else {
                             // 全压缩完
                             DialogUtils.dismiss(progress);
-                            compressJpgList(activity, ossDirPath, sourceList, callBack);
+                            uploadJpegList(activity, ossDirPath, sourceList, callBack);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        LogUtils.e(OssHelper.class, "compressJpgList", e);
+                        LogUtils.e(OssHelper.class, "compressJpegList", e);
                         // upload
                         if (currentIndex < sourceList.size() - 1) {
                             // 没压缩完
-                            compressJpgList(activity, progress, ossDirPath, sourceList, currentIndex + 1, callBack);
+                            compressJpegList(activity, progress, ossDirPath, sourceList, currentIndex + 1, callBack);
                         } else {
                             // 全压缩完
                             DialogUtils.dismiss(progress);
-                            uploadJpgList(activity, ossDirPath, sourceList, callBack);
+                            uploadJpegList(activity, ossDirPath, sourceList, callBack);
                         }
                     }
                 })
                 .launch();
     }
 
-    // 上传任务
-    private static OSSAsyncTask uploadJpgList(final Activity activity, final String ossDirPath,
-                                              final List<File> sourceList, final OssUploadsCallBack callBack) {
-        return uploadObjects(activity, ossDirPath, sourceList, "jpeg", callBack);
-    }
-
     // 上传任务(有对话框)
-    private static OSSAsyncTask uploadObjects(final Activity activity, final String ossDirPath,
-                                              final List<File> sourceList, String suffix, final OssUploadsCallBack callBack) {
+    private static OSSAsyncTask uploadJpegList(final Activity activity, final String ossDirPath,
+                                               final List<File> sourceList, final OssUploadsCallBack callBack) {
         MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
                 .canceledOnTouchOutside(false)
@@ -455,18 +556,18 @@ public class OssHelper {
                 .progress(false, 100)
                 .negativeText(R.string.cancel_upload)
                 .build();
-        return uploadObjectList(progress, ossDirPath, sourceList, 0, new ArrayList<String>(), suffix, callBack);
+        return uploadJpegList(progress, ossDirPath, sourceList, 0, new ArrayList<String>(), callBack);
     }
 
     // 上传任务
-    private static OSSAsyncTask uploadObjectList(final MaterialDialog progress, final String ossDirPath,
-                                                 final List<File> sourceList, final int currentIndex, final List<String> ossPathList,
-                                                 final String suffix, final OssUploadsCallBack callBack) {
+    private static OSSAsyncTask uploadJpegList(final MaterialDialog progress, final String ossDirPath,
+                                               final List<File> sourceList, final int currentIndex,
+                                               final List<String> ossPathList, final OssUploadsCallBack callBack) {
         // currentIndex
         if (sourceList == null || sourceList.size() <= 0 || sourceList.size() <= currentIndex) {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
             DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "uploadObjectList", "currentIndex = " + currentIndex + " -- sourceList == null");
+            LogUtils.w(OssHelper.class, "uploadJpegList", "currentIndex = " + currentIndex + " -- sourceList == null");
             MyApp.get().getHandler().post(new Runnable() {
                 @Override
                 public void run() {
@@ -479,7 +580,7 @@ public class OssHelper {
         if (StringUtils.isEmpty(ossDirPath)) {
             ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
             DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "uploadObjectList", "currentIndex = " + currentIndex + " -- ossDirPath == null");
+            LogUtils.w(OssHelper.class, "uploadJpegList", "currentIndex = " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -491,13 +592,13 @@ public class OssHelper {
             }
             return null;
         }
-        LogUtils.i(OssHelper.class, "uploadObjectList", "currentIndex = " + currentIndex + " -- ossDirPath = " + ossDirPath);
+        LogUtils.i(OssHelper.class, "uploadJpegList", "currentIndex = " + currentIndex + " -- ossDirPath = " + ossDirPath);
         // file
         final File source = sourceList.get(currentIndex);
         if (FileUtils.isFileEmpty(source)) {
             ToastUtils.show(MyApp.get().getString(R.string.upload_file_no_exists));
             DialogUtils.dismiss(progress);
-            LogUtils.w(OssHelper.class, "uploadObjectList", "currentIndex == " + currentIndex + " -- source == null");
+            LogUtils.w(OssHelper.class, "uploadJpegList", "currentIndex == " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -519,7 +620,7 @@ public class OssHelper {
             }
         }
         // objectKey生成
-        final String objectKey = createObjectKey(ossDirPath, suffix);
+        final String objectKey = createObjectKey(ossDirPath, "jpeg");
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
@@ -538,11 +639,11 @@ public class OssHelper {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
                 final String uploadKey = request.getObjectKey();
-                LogUtils.i(OssHelper.class, "uploadObjectList", "onSuccess: currentIndex = " + currentIndex + " -- getObjectKey = " + uploadKey);
+                LogUtils.i(OssHelper.class, "uploadJpegList", "onSuccess: currentIndex = " + currentIndex + " -- getObjectKey = " + uploadKey);
                 ossPathList.add(uploadKey);
                 if (currentIndex < sourceList.size() - 1) {
                     // 没上传完毕
-                    uploadObjectList(progress, ossDirPath, sourceList, currentIndex + 1, ossPathList, suffix, callBack);
+                    uploadJpegList(progress, ossDirPath, sourceList, currentIndex + 1, ossPathList, callBack);
                 } else {
                     // 已上传完毕
                     DialogUtils.dismiss(progress);
@@ -563,17 +664,17 @@ public class OssHelper {
                 DialogUtils.dismiss(progress);
                 // 打印
                 final String uploadKey = request.getObjectKey();
-                LogUtils.w(OssHelper.class, "uploadObjectList", "onFailure: currentIndex = " + currentIndex + " -- getObjectKey = " + uploadKey);
+                LogUtils.w(OssHelper.class, "uploadJpegList", "onFailure: currentIndex = " + currentIndex + " -- getObjectKey = " + uploadKey);
                 // 本地异常如网络异常等
                 if (clientException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
-                    LogUtils.e(OssHelper.class, "uploadObjectList", clientException);
+                    LogUtils.e(OssHelper.class, "uploadJpegList", clientException);
                 }
                 // 服务异常
                 if (serviceException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_tell_we_this_bug));
-                    LogUtils.e(OssHelper.class, "uploadObjectList", serviceException);
-                    LogUtils.w(OssHelper.class, "uploadObjectList", "serviceException = " + serviceException.toString());
+                    LogUtils.e(OssHelper.class, "uploadJpegList", serviceException);
+                    LogUtils.w(OssHelper.class, "uploadJpegList", "serviceException = " + serviceException.toString());
                 }
                 // 回调
                 if (callBack != null) {
@@ -591,7 +692,7 @@ public class OssHelper {
             progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
                 public void onCancel(DialogInterface dialog) {
-                    LogUtils.i(OssHelper.class, "uploadObjectList", "cancel");
+                    LogUtils.i(OssHelper.class, "uploadJpegList", "cancel");
                     taskCancel(task);
                 }
             });
@@ -758,18 +859,51 @@ public class OssHelper {
     /**
      * *****************************************具体对接*****************************************
      */
+    // 上传本地Log日志，然后再删除这些日志
+    public static void uploadLog() {
+        File logDir = LogUtils.getLogDir();
+        List<File> fileList = FileUtils.listFilesAndDirInDir(logDir, true);
+        // 不存在不上传
+        if (fileList != null && fileList.size() > 0) {
+            OssInfo ossInfo = SPHelper.getOssInfo();
+            String pathLog = ossInfo.getPathLog();
+            // 开始遍历上传
+            for (final File file : fileList) {
+                String fileName;
+                long uid = SPHelper.getUser().getId();
+                if (uid > 0) {
+                    fileName = String.valueOf(uid) + "_" + file.getName();
+                } else {
+                    fileName = StringUtils.getUUID(8) + "_" + file.getName();
+                }
+                uploadFile(null, false, pathLog, file, fileName, new OssUploadCallBack() {
+                    @Override
+                    public void success(File source, String ossPath) {
+                        // 记得删除
+                        FileUtils.deleteFile(file);
+                    }
+
+                    @Override
+                    public void failure(File source, String errMsg) {
+
+                    }
+                });
+            }
+        }
+    }
+
     // 意见 (压缩)
     public static void uploadSuggest(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathSuggest = ossInfo.getPathSuggest();
-        compressJpg(activity, pathSuggest, source, callBack);
+        compressJpeg(activity, pathSuggest, source, callBack);
     }
 
     // 头像 (裁剪 + 压缩 + 持久化)
     public static void uploadAvatar(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleAvatar = ossInfo.getPathCoupleAvatar();
-        compressJpg(activity, pathCoupleAvatar, source, callBack);
+        compressJpeg(activity, pathCoupleAvatar, source, callBack);
     }
 
     // 墙纸 (持久化)
@@ -783,7 +917,7 @@ public class OssHelper {
     public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookWhisper = ossInfo.getPathBookWhisper();
-        compressJpg(activity, pathBookWhisper, source, callBack);
+        compressJpeg(activity, pathBookWhisper, source, callBack);
     }
 
     // 日记 (限制大小 + 持久化)
@@ -809,14 +943,14 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookDiary = ossInfo.getPathBookDiary();
-        uploadJpgList(activity, pathBookDiary, fileList, callBack);
+        uploadJpegList(activity, pathBookDiary, fileList, callBack);
     }
 
     // 相册 (压缩 + 持久化))
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookAlbum = ossInfo.getPathBookAlbum();
-        compressJpg(activity, pathBookAlbum, source, callBack);
+        compressJpeg(activity, pathBookAlbum, source, callBack);
     }
 
     // 照片 (限制大小 + 持久化)
@@ -842,7 +976,7 @@ public class OssHelper {
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookPicture = ossInfo.getPathBookPicture();
-        uploadJpgList(activity, pathBookPicture, fileList, callBack);
+        uploadJpegList(activity, pathBookPicture, fileList, callBack);
     }
 
     // apk

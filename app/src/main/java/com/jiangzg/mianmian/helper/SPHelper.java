@@ -80,6 +80,7 @@ public class SPHelper {
     private static final String FIELD_OSS_BUCKET = "bucket";
     private static final String FIELD_OSS_EXPIRE_TIME = "expireTime";
     private static final String FIELD_OSS_INTERVAL_SEC = "intervalSec";
+    private static final String FIELD_OSS_PATH_LOG = "pathLog";
     private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
     private static final String FIELD_OSS_PATH_COUPLE_WALL = "pathCoupleWall";
@@ -410,6 +411,7 @@ public class SPHelper {
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
         editor.putLong(FIELD_OSS_EXPIRE_TIME, ossInfo.getExpireTime());
         editor.putLong(FIELD_OSS_INTERVAL_SEC, ossInfo.getIntervalSec());
+        editor.putString(FIELD_OSS_PATH_LOG, ossInfo.getPathLog());
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
         editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
@@ -436,6 +438,7 @@ public class SPHelper {
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
         ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
         ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 60 * 10));
+        ossInfo.setPathLog(sp.getString(FIELD_OSS_PATH_LOG, ""));
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
         ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));

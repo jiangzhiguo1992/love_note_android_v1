@@ -140,7 +140,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
             });
         }
-        // TODO 上传本地Log日志，然后再删除这些日志
     }
 
 

@@ -56,7 +56,7 @@ public class DialogUtils {
      */
     public static void setAnim(Dialog dialog, @StyleRes int resId) {
         if (dialog == null || resId == 0) {
-            LogUtils.w(DialogUtils.class, "setAnim", "dialog == null || resId == 0");
+            LogUtils.i(DialogUtils.class, "setAnim", "dialog == null || resId == 0");
             return;
         }
         Window window = dialog.getWindow();

@@ -174,6 +174,8 @@ public class ApiHelper {
                 }
             }, totalWait - between);
         }
+        // 日志上传
+        OssHelper.uploadLog();
     }
 
     public static Sms getSmsLoginBody(String phone) {

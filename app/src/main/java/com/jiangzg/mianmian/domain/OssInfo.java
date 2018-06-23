@@ -18,6 +18,7 @@ public class OssInfo {
     private long expireTime;
     private long intervalSec;
     // path
+    private String pathLog;
     private String pathSuggest;
     private String pathCoupleAvatar;
     private String pathCoupleWall;
@@ -29,6 +30,14 @@ public class OssInfo {
     private String pathBookAudio;
     private String pathBookVideo;
     private String pathBookThumb;
+
+    public String getPathLog() {
+        return pathLog;
+    }
+
+    public void setPathLog(String pathLog) {
+        this.pathLog = pathLog;
+    }
 
     public long getExpireTime() {
         return expireTime;

@@ -15,7 +15,6 @@ import java.util.Map;
 /**
  * Created by Jiang on 2016/10/08
  * 日志管理工具类
- * TODO 打印代码堆栈 全局异常捕获
  */
 public class LogUtils {
 
@@ -82,31 +81,41 @@ public class LogUtils {
     // 调试 不会保存到文件，正式关掉
     public static void d(Class cls, String method, String print) {
         if (!open) return;
-        Log.d(logTagPrefix + "-" + getLogTag(cls) + "-(" + method + "): ", print);
+        String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
+        Log.d(tag, print);
     }
 
     // 正常打印 不会保存到文件，正式也开启
     public static void i(Class cls, String method, String print) {
-        Log.i(logTagPrefix + "-" + getLogTag(cls) + "-(" + method + "): ", print);
+        String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
+        Log.i(tag, print);
     }
 
-    // 非err错误 会保存到文件，正式也开启¬
+    // 非err错误 会保存到文件，正式也开启
     public static void w(Class cls, String method, String print) {
-        Log.w(logTagPrefix + "-" + getLogTag(cls) + "-(" + method + "): ", print);
-        // TODO 写入文件
+        String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
+        Log.w(tag, print);
+        String write = "\n" + tag + ": " + print;
+        writeLogFile("warn", write);
     }
 
     // err打印 会保存到文件，正式也开启
     public static void e(Class cls, String method, Throwable t) {
-        String logTag = getLogTag(cls);
-        //Log.e(LOG_TAG_PREFIX + tag, print);
         if (t == null) return;
-        StackTraceElement[] stackTrace = t.getStackTrace();
-        // TODO 写入文件
+        String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
+        String print = Log.getStackTraceString(t);
+        Log.e(tag, print);
+        String write = "\n" + tag + ": " + print;
+        writeLogFile("err", write);
+    }
+
+    // TODO 全局异常捕获
+    public static void cache() {
+
     }
 
     // Log目录
-    private static File getLogDir() {
+    public static File getLogDir() {
         File logDir = new File(AppInfo.get().getOutFilesDir(), "log");
         FileUtils.createOrExistsDir(logDir); // 并创建
         return logDir;
@@ -125,18 +134,6 @@ public class LogUtils {
                 // 已存在文件的话 就追加写进去
                 FileUtils.createOrExistsFile(logFile);
                 FileUtils.writeFileFromString(logFile, content, true);
-            }
-        });
-    }
-
-    // 日志删除
-    private static void delLogFile() {
-        // 开线程
-        AppBase.getInstance().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                File logDir = getLogDir();
-                FileUtils.deleteFilesAndDirInDir(logDir);
             }
         });
     }
