@@ -18,8 +18,6 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class ActivityTrans {
 
-    private static final String LOG_TAG = "ActivityTrans";
-
     /**
      * Context启动activity
      * 要分享元素过渡动画 目标activity调用 ViewCompat.setTransitionName(share, tag);
@@ -27,7 +25,7 @@ public class ActivityTrans {
     @SafeVarargs
     public static void start(Context from, Intent intent, Pair<View, String>... sharedElements) {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "start: Context == null || intent == null");
+            LogUtils.w(ActivityTrans.class, "start", "Context == null || intent == null");
             return;
         }
         if (from instanceof Activity) {
@@ -38,8 +36,7 @@ public class ActivityTrans {
                 try {
                     startWithElement(activity, intent, sharedElements);
                 } catch (Exception e) {
-                    LogUtils.e(LOG_TAG, "start", e);
-                    activity.startActivity(intent);
+                    LogUtils.e(ActivityTrans.class, "start", e);
                 }
             }
         } else {
@@ -53,7 +50,7 @@ public class ActivityTrans {
     @SafeVarargs
     public static void start(Fragment from, Intent intent, Pair<View, String>... sharedElements) {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "start: Fragment == null || Intent == null");
+            LogUtils.w(ActivityTrans.class, "start", "Fragment == null || Intent == null");
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
@@ -67,8 +64,7 @@ public class ActivityTrans {
                     from.startActivity(intent);
                 }
             } catch (Exception e) {
-                LogUtils.e(LOG_TAG, "start", e);
-                from.startActivity(intent);
+                LogUtils.e(ActivityTrans.class, "start", e);
             }
         }
     }
@@ -79,7 +75,7 @@ public class ActivityTrans {
     @SafeVarargs
     public static void startResult(Activity from, Intent intent, int requestCode, Pair<View, String>... sharedElements) {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "startResult: Activity == null || Intent == null");
+            LogUtils.w(ActivityTrans.class, "startResult", "Activity == null || Intent == null");
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
@@ -88,7 +84,7 @@ public class ActivityTrans {
             try {
                 startWithElement(from, intent, requestCode, sharedElements);
             } catch (Exception e) {
-                LogUtils.e(LOG_TAG, "startResult", e);
+                LogUtils.e(ActivityTrans.class, "startResult", e);
                 from.startActivityForResult(intent, requestCode);
             }
         }
@@ -100,7 +96,7 @@ public class ActivityTrans {
     @SafeVarargs
     public static void startResult(Fragment from, Intent intent, int requestCode, Pair<View, String>... sharedElements) {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "startResult: Fragment == null || Intent == null");
+            LogUtils.w(ActivityTrans.class, "startResult", "Fragment == null || Intent == null");
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
@@ -114,7 +110,7 @@ public class ActivityTrans {
                     from.startActivity(intent);
                 }
             } catch (Exception e) {
-                LogUtils.e(LOG_TAG, "startResult", e);
+                LogUtils.e(ActivityTrans.class, "startResult", e);
                 from.startActivityForResult(intent, requestCode);
             }
         }
@@ -126,12 +122,12 @@ public class ActivityTrans {
     @SafeVarargs
     public static void startResult2Fragment(Fragment from, Intent intent, int requestCode, Pair<View, String>... sharedElements) {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "startResult2Fragment: Fragment == null || Intent == null");
+            LogUtils.w(ActivityTrans.class, "startResult2Fragment", "Fragment == null || Intent == null");
             return;
         }
         FragmentActivity activity = from.getActivity();
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "startResultFragment() from.getActivity() == null");
+            LogUtils.w(ActivityTrans.class, "startResult2Fragment", "FragmentActivity == null");
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
@@ -140,7 +136,7 @@ public class ActivityTrans {
             try {
                 startWithElement(activity, intent, requestCode, sharedElements);
             } catch (Exception e) {
-                LogUtils.e(LOG_TAG, "startResult2Fragment", e);
+                LogUtils.e(ActivityTrans.class, "startResult2Fragment", e);
                 activity.startActivityFromFragment(from, intent, requestCode);
             }
         }
@@ -149,7 +145,7 @@ public class ActivityTrans {
     /* context启动activity */
     private static void startByContext(Context from, Intent intent) {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "startByContext: from == null || intent == null");
+            LogUtils.w(ActivityTrans.class, "startByContext", "from == null || intent == null");
             return;
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // 新栈
@@ -161,7 +157,7 @@ public class ActivityTrans {
     @SafeVarargs
     private static void startWithElement(Activity from, Intent intent, Pair<View, String>... sharedElements) throws Exception {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "startWithElement: from == null || intent == null");
+            LogUtils.w(ActivityTrans.class, "startWithElement", "from == null || intent == null");
             return;
         }
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, sharedElements);
@@ -172,7 +168,7 @@ public class ActivityTrans {
     @SafeVarargs
     private static void startWithElement(Activity from, Intent intent, int requestCode, Pair<View, String>... sharedElements) throws Exception {
         if (from == null || intent == null) {
-            LogUtils.w(LOG_TAG, "startWithElement: from == null || intent == null");
+            LogUtils.w(ActivityTrans.class, "startWithElement", "from == null || intent == null");
             return;
         }
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(from, sharedElements);

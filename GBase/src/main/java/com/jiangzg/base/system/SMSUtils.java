@@ -23,8 +23,6 @@ import java.util.Map;
  */
 public class SMSUtils {
 
-    private static final String LOG_TAG = "SMSUtils";
-
     /**
      * 查询SMS ( date为long，type = 1 为接受的短信， 2 为发送的短信 )
      * <uses-permission android:name="android.permission.READ_SMS"/>
@@ -35,8 +33,10 @@ public class SMSUtils {
         String[] pros = new String[]{"_id", "address", "person", "body", "date", "type"};
         Uri sms_uri = Uri.parse("content://sms");
         Cursor cursor = AppBase.getInstance().getContentResolver().query(sms_uri, pros, null, null, "date desc");
-
-        if (cursor == null) return null;
+        if (cursor == null) {
+            LogUtils.w(SMSUtils.class, "getSMSList", "cursor == null");
+            return new ArrayList<>();
+        }
         while (cursor.moveToNext()) {
             Map<String, String> map = new ArrayMap<>();
             String id = cursor.getString(cursor.getColumnIndex("_id"));
@@ -52,7 +52,7 @@ public class SMSUtils {
             map.put("data", date);
             map.put("type", type);
             list.add(map);
-            LogUtils.i(LOG_TAG, "getSMS: " + id + "-" + address + "-" + person + "-" + body + "-" + date + "-" + type);
+            LogUtils.i(SMSUtils.class, "getSMSList", id + "-" + address + "-" + person + "-" + body + "-" + date + "-" + type);
         }
         cursor.close();
         return list;
@@ -67,14 +67,14 @@ public class SMSUtils {
         ContentValues values = new ContentValues();
         values.put("address", phone);
         values.put("body", body);
-        values.put("type", String.valueOf(type));
         values.put("date", String.valueOf(date));
+        values.put("type", String.valueOf(type));
         try {
             Uri sms_uri = Uri.parse("content://sms");
             AppBase.getInstance().getContentResolver().insert(sms_uri, values);
             return true;
         } catch (Exception e) {
-            LogUtils.e(LOG_TAG, "insertSMS", e);
+            LogUtils.e(SMSUtils.class, "insertSMS", e);
         }
         return false;
     }
@@ -86,7 +86,7 @@ public class SMSUtils {
     @SuppressLint("MissingPermission")
     public static void sendSMS(String phoneNumber, String content) {
         if (StringUtils.isEmpty(content)) {
-            LogUtils.w(LOG_TAG, "sendSMS: content == null");
+            LogUtils.w(SMSUtils.class, "sendSMS", "content == null");
             return;
         }
         PendingIntent sentIntent = PendingIntent.getBroadcast(AppBase.getInstance(), 0, new Intent(), 0);

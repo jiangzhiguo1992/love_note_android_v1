@@ -21,14 +21,12 @@ import java.io.FileNotFoundException;
  */
 public class BitmapCompress {
 
-    private static final String LOG_TAG = "BitmapCompress";
-
     /**
      * 适屏显示image，会向下采样
      */
     public static void showImage(Activity activity, Uri imagePath, ImageView imageView) {
         if (activity == null || imagePath == null || imageView == null) {
-            LogUtils.w(LOG_TAG, "showImage: null");
+            LogUtils.w(BitmapCompress.class, "showImage", "activity == null || imagePath == null || imageView == null");
             return;
         }
         DisplayMetrics display = ScreenUtils.getDisplay(activity);
@@ -55,10 +53,9 @@ public class BitmapCompress {
         //使用BitmapFactory对图片进行适屏的操作,第一个参数就InPutStream
         Bitmap bitmap = null;
         try {
-            bitmap = BitmapFactory.decodeStream
-                    (activity.getContentResolver().openInputStream(imagePath), null, options);
+            bitmap = BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(imagePath), null, options);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.e(BitmapCompress.class, "showImage", e);
         }
         imageView.setImageBitmap(bitmap);
     }
@@ -67,12 +64,12 @@ public class BitmapCompress {
      * 获取bitmap(带压缩) 真正的压缩到200KB左右（建议200KB）
      */
     public static Bitmap compressBySize(File file, long maxByteSize) {
-        if (!FileUtils.isFileExists(file)) {
-            LogUtils.w(LOG_TAG, "compressBySize: file = null");
+        if (FileUtils.isFileEmpty(file)) {
+            LogUtils.w(BitmapCompress.class, "compressBySize", "file == empty");
             return null;
         }
         String absolutePath = file.getAbsolutePath();
-        LogUtils.i(LOG_TAG, "压缩图片文件: " + absolutePath);
+        LogUtils.i(BitmapCompress.class, "compressBySize", "压缩图片文件: " + absolutePath);
         long length = file.length(); // 真正的文件大小
         if (length > maxByteSize) { // 这么算比较准
             int ratio = (int) (length / maxByteSize);
@@ -130,7 +127,7 @@ public class BitmapCompress {
      */
     public static Bitmap compressByQuality(Bitmap src, int quality, boolean recycle) {
         if (BitmapUtils.isEmptyBitmap(src) || quality < 0 || quality > 100) {
-            LogUtils.w(LOG_TAG, "compressByQuality: src == null");
+            LogUtils.w(BitmapCompress.class, "compressByQuality", "src == null");
             return null;
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -150,7 +147,7 @@ public class BitmapCompress {
      */
     public static Bitmap compressBySampleSize(Bitmap src, int sampleSize, boolean recycle) {
         if (BitmapUtils.isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "compressBySampleSize: src == null");
+            LogUtils.w(BitmapCompress.class, "compressBySampleSize", "src == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();

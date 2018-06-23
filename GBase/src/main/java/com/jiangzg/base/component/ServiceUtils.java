@@ -18,14 +18,12 @@ import java.util.Set;
  */
 public class ServiceUtils {
 
-    private static final String LOG_TAG = "ServiceUtils";
-
     /**
      * 判断服务是否运行
      */
     public static boolean isServiceRunning(Class<?> cls) {
         if (cls == null) {
-            LogUtils.w(LOG_TAG, "isServiceRunning: cls == null");
+            LogUtils.w(ServiceUtils.class, "isServiceRunning", "cls == null");
             return false;
         }
         ActivityManager manager = AppBase.getActivityManager();
@@ -45,7 +43,7 @@ public class ServiceUtils {
         Set<Class<?>> runningService = getRunningService();
         if (runningService == null || runningService.size() <= 0) return;
         for (Class<?> cls : runningService) {
-            LogUtils.i(LOG_TAG, "stopAll: " + cls.getSimpleName());
+            LogUtils.i(ServiceUtils.class, "stopAll", cls.getSimpleName());
             stopService(cls);
         }
     }
@@ -56,8 +54,8 @@ public class ServiceUtils {
     public static Set<Class<?>> getRunningService() {
         ActivityManager manager = AppBase.getActivityManager();
         List<ActivityManager.RunningServiceInfo> services = manager.getRunningServices(Integer.MAX_VALUE);
+        if (services == null || services.size() == 0) return new HashSet<>();
         Set<Class<?>> classSet = new HashSet<>();
-        if (services == null || services.size() == 0) return classSet;
         for (ActivityManager.RunningServiceInfo info : services) {
             classSet.add(info.service.getClass());
         }
@@ -69,7 +67,7 @@ public class ServiceUtils {
      */
     public static void startService(Class<?> cls) {
         if (cls == null) {
-            LogUtils.w(LOG_TAG, "startService: cls == null");
+            LogUtils.w(ServiceUtils.class, "startService", "cls == null");
             return;
         }
         Intent intent = new Intent(AppBase.getInstance(), cls);
@@ -81,7 +79,7 @@ public class ServiceUtils {
      */
     public static boolean stopService(Class<?> cls) {
         if (cls == null) {
-            LogUtils.w(LOG_TAG, "stopService: cls == null");
+            LogUtils.w(ServiceUtils.class, "stopService", "cls == null");
             return false;
         }
         Intent intent = new Intent(AppBase.getInstance(), cls);
@@ -105,7 +103,7 @@ public class ServiceUtils {
      */
     public static void bindService(Class<?> cls, ServiceConnection conn, int flags) {
         if (cls == null || conn == null) {
-            LogUtils.w(LOG_TAG, "bindService: cls == null || conn == null");
+            LogUtils.w(ServiceUtils.class, "bindService", "cls == null || conn == null");
             return;
         }
         Intent intent = new Intent(AppBase.getInstance(), cls);
@@ -119,7 +117,7 @@ public class ServiceUtils {
      */
     public static void unbindService(ServiceConnection conn) {
         if (conn == null) {
-            LogUtils.w(LOG_TAG, "unbindService: cls == null");
+            LogUtils.w(ServiceUtils.class, "unbindService", "cls == null");
             return;
         }
         AppBase.getInstance().unbindService(conn);

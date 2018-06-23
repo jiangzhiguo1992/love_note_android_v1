@@ -3,11 +3,14 @@ package com.jiangzg.base.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.jiangzg.base.common.LogUtils;
 
 /**
  * Created by JZG on 2018/4/27.
@@ -16,12 +19,21 @@ import android.view.WindowManager;
 public class DialogUtils {
 
     public static void show(Dialog dialog) {
-        if (dialog == null || dialog.isShowing()) return;
-        dialog.show();
+        if (dialog == null) {
+            LogUtils.w(DialogUtils.class, "show", "dialog == null");
+            return;
+        }
+        if (!dialog.isShowing()) {
+            dialog.show();
+        }
     }
 
     @SuppressLint("MissingPermission")
     public static void showInContext(Dialog dialog) {
+        if (dialog == null) {
+            LogUtils.d(DialogUtils.class, "showInContext", "dialog == null");
+            return;
+        }
         Window window = dialog.getWindow();
         if (window != null) {
             window.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
@@ -30,15 +42,23 @@ public class DialogUtils {
     }
 
     public static void dismiss(Dialog dialog) {
-        if (dialog == null || !dialog.isShowing()) return;
-        dialog.dismiss();
+        if (dialog == null) {
+            LogUtils.w(DialogUtils.class, "dismiss", "dialog == null");
+            return;
+        }
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 
     /**
      * 设置动画，防止闪屏
      */
     public static void setAnim(Dialog dialog, @StyleRes int resId) {
-        if (dialog == null || resId == 0) return;
+        if (dialog == null || resId == 0) {
+            LogUtils.w(DialogUtils.class, "setAnim", "dialog == null || resId == 0");
+            return;
+        }
         Window window = dialog.getWindow();
         if (window != null) {
             window.setWindowAnimations(resId);
@@ -49,6 +69,10 @@ public class DialogUtils {
      * 设置背景透明度
      */
     public static void setBgAlpha(Dialog dialog, float alpha) {
+        if (dialog == null) {
+            LogUtils.w(DialogUtils.class, "setBgAlpha", "dialog == null");
+            return;
+        }
         Window window = dialog.getWindow();
         if (window == null) return;
         WindowManager.LayoutParams lp = window.getAttributes();
@@ -60,6 +84,10 @@ public class DialogUtils {
      * 设置背景暗黑
      */
     public static void setBgBlack(Dialog dialog, float black) {
+        if (dialog == null) {
+            LogUtils.w(DialogUtils.class, "setBgBlack", "dialog == null");
+            return;
+        }
         Window window = dialog.getWindow();
         if (window == null) return;
         WindowManager.LayoutParams lp = window.getAttributes();
@@ -73,13 +101,21 @@ public class DialogUtils {
      *
      * @param theme R.style.DialogCustom
      */
-    public static Dialog createCustom(Activity activity, int viewRes, int theme, int width, int height) {
+    public static Dialog createCustom(Activity activity, @LayoutRes int viewRes, @StyleRes int theme, int width, int height) {
+        if (activity == null || viewRes == 0) {
+            LogUtils.w(DialogUtils.class, "createCustom", "activity == null || viewRes == 0");
+            return null;
+        }
         View view = LayoutInflater.from(activity).inflate(viewRes, null);
         return createCustom(activity, view, theme, width, height);
     }
 
-    public static Dialog createCustom(Activity activity, View view, int theme, int width, int height) {
-        final Dialog dialog = new Dialog(activity, theme);
+    public static Dialog createCustom(Activity activity, View view, @StyleRes int theme, int width, int height) {
+        if (activity == null || view == null || theme == 0) {
+            LogUtils.w(DialogUtils.class, "createCustom", "activity == null || view == null || theme == 0");
+            return null;
+        }
+        Dialog dialog = new Dialog(activity, theme);
         WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
         // 宽高
         if (width > 0) lp.width = width;

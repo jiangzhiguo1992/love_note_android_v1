@@ -26,8 +26,6 @@ import java.io.File;
  */
 public class IntentFactory {
 
-    private static final String LOG_TAG = "IntentFactory";
-
     /*
      * 1.显式方式 直接设置目标组件的ComponentName，用于一个应用内部的消息传递，比如启动另一个Activity或者一个services。
      *           通过Intent的setComponent和setClass来制定目标组件的ComponentName。
@@ -46,7 +44,7 @@ public class IntentFactory {
      */
     private static Intent getComponent(String packageName, String className, Bundle bundle) {
         if (StringUtils.isEmpty(packageName) || StringUtils.isEmpty(className)) {
-            LogUtils.w(LOG_TAG, "getComponent: packageName == null || className == null");
+            LogUtils.w(IntentFactory.class, "getComponent", "packageName == null || className == null");
             return null;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -104,7 +102,7 @@ public class IntentFactory {
         if (FileUtils.isFileEmpty(from) || save == null) { // 源文件不存在
             FileUtils.deleteFile(from);
             FileUtils.deleteFile(save);
-            LogUtils.w(LOG_TAG, "getCrop: from == empty || save == null");
+            LogUtils.w(IntentFactory.class, "getCrop", "from == empty || save == null");
             return null;
         }
         Uri uriFrom = ProviderUtils.getUriByFile(from);
@@ -114,7 +112,7 @@ public class IntentFactory {
 
     public static Intent getCrop(Uri from, Uri save, int aspectX, int aspectY, int outputX, int outputY) {
         if (from == null || save == null) {
-            LogUtils.w(LOG_TAG, "getCrop: from == null || save == null");
+            LogUtils.w(IntentFactory.class, "getCrop", "from == null || save == null");
             return null;
         }
         Intent intent = new Intent("com.android.camera.action.CROP");
@@ -146,7 +144,7 @@ public class IntentFactory {
      */
     public static Intent getApp(String appPackageName) {
         if (StringUtils.isEmpty(appPackageName)) {
-            LogUtils.w(LOG_TAG, "getApp: appPackageName == null");
+            LogUtils.w(IntentFactory.class, "getApp", "appPackageName == null");
             return null;
         }
         return AppBase.getInstance().getPackageManager().getLaunchIntentForPackage(appPackageName);
@@ -168,7 +166,7 @@ public class IntentFactory {
     @SuppressLint("MissingPermission")
     public static Intent getInstall(File file) {
         if (FileUtils.isFileEmpty(file)) {
-            LogUtils.w(LOG_TAG, "getInstall: file == null");
+            LogUtils.w(IntentFactory.class, "getInstall", "file == null");
             return null;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -195,7 +193,7 @@ public class IntentFactory {
      */
     public static Intent getShare(String content, File image) {
         if (FileUtils.isFileEmpty(image) || !FileUtils.isFileExists(image)) {
-            LogUtils.w(LOG_TAG, "getShare: image == empty");
+            LogUtils.i(IntentFactory.class, "getShare", "image == empty");
             return getShare(content);
         }
         return getShare(content, Uri.fromFile(image));
@@ -203,7 +201,7 @@ public class IntentFactory {
 
     public static Intent getShare(String content, Uri uri) {
         if (uri == null) {
-            LogUtils.w(LOG_TAG, "getShare: uri == null");
+            LogUtils.i(IntentFactory.class, "getShare", "uri == null");
             return getShare(content);
         }
         Intent intent = new Intent(Intent.ACTION_SEND);
@@ -215,7 +213,7 @@ public class IntentFactory {
 
     public static Intent getShare(String content) {
         if (StringUtils.isEmpty(content)) {
-            LogUtils.w(LOG_TAG, "getShare: content == null");
+            LogUtils.i(IntentFactory.class, "getShare", "content == null");
         }
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -280,7 +278,8 @@ public class IntentFactory {
      */
     public static Intent getWebBrowse(String url) {
         if (StringUtils.isEmpty(url)) {
-            LogUtils.w(LOG_TAG, "getWebBrowse: url == null");
+            LogUtils.w(IntentFactory.class, "getWebBrowse", "url == null");
+            return null;
         }
         Uri address = Uri.parse(url);
         return new Intent(Intent.ACTION_VIEW, address);

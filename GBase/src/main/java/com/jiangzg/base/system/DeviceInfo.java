@@ -19,8 +19,6 @@ import com.jiangzg.base.common.StringUtils;
  */
 public class DeviceInfo {
 
-    private static final String LOG_TAG = "DeviceInfo";
-
     private static DeviceInfo instance;
 
     private String deviceId; // GSM网络，返回IMEI；CDMA网络，返回MEID
@@ -46,39 +44,33 @@ public class DeviceInfo {
      */
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public String getDeviceId() {
-        if (!StringUtils.isEmpty(deviceId)) {
-            LogUtils.i(LOG_TAG, "getDeviceId: " + deviceId);
-            return deviceId;
+        if (StringUtils.isEmpty(deviceId)) {
+            if (isPhone()) {
+                deviceId = AppBase.getTelephonyManager().getDeviceId();
+            } else {
+                ContentResolver contentResolver = AppBase.getInstance().getContentResolver();
+                deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
+            }
         }
-        if (isPhone()) {
-            deviceId = AppBase.getTelephonyManager().getDeviceId();
-        } else {
-            ContentResolver contentResolver = AppBase.getInstance().getContentResolver();
-            deviceId = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID);
-        }
-        LogUtils.i(LOG_TAG, "getDeviceId: " + deviceId);
+        LogUtils.d(DeviceInfo.class, "getDeviceId", deviceId);
         return deviceId;
     }
 
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public String getPhoneNumber() {
-        if (!StringUtils.isEmpty(phoneNumber)) {
-            LogUtils.i(LOG_TAG, "getPhoneNumber: " + phoneNumber);
-            return phoneNumber;
+        if (StringUtils.isEmpty(phoneNumber)) {
+            phoneNumber = AppBase.getTelephonyManager().getLine1Number();
         }
-        phoneNumber = AppBase.getTelephonyManager().getLine1Number();
-        LogUtils.i(LOG_TAG, "getPhoneNumber: " + phoneNumber);
+        LogUtils.d(DeviceInfo.class, "getPhoneNumber", phoneNumber);
         return phoneNumber;
     }
 
     @SuppressLint({"HardwareIds", "MissingPermission"})
     public String getSimSerial() {
-        if (!StringUtils.isEmpty(simSerial)) {
-            LogUtils.i(LOG_TAG, "getSimSerial: " + simSerial);
-            return simSerial;
+        if (StringUtils.isEmpty(simSerial)) {
+            simSerial = AppBase.getTelephonyManager().getSimSerialNumber();
         }
-        simSerial = AppBase.getTelephonyManager().getSimSerialNumber();
-        LogUtils.i(LOG_TAG, "getSimSerial: " + simSerial);
+        LogUtils.d(DeviceInfo.class, "getSimSerial", simSerial);
         return simSerial;
     }
 
@@ -87,22 +79,20 @@ public class DeviceInfo {
      */
     @SuppressLint("HardwareIds")
     public String getMacAddress() {
-        if (!StringUtils.isEmpty(macAddress)) {
-            LogUtils.i(LOG_TAG, "getMacAddress: " + macAddress);
-            return macAddress;
+        if (StringUtils.isEmpty(macAddress)) {
+            WifiManager wifiManager = AppBase.getWifiManager();
+            WifiInfo info = wifiManager.getConnectionInfo();
+            if (info != null) {
+                macAddress = info.getMacAddress();
+            }
         }
-        WifiManager wifiManager = AppBase.getWifiManager();
-        WifiInfo info = wifiManager.getConnectionInfo();
-        if (info != null) {
-            macAddress = info.getMacAddress();
-        }
-        LogUtils.i(LOG_TAG, "getMacAddress: " + macAddress);
+        LogUtils.d(DeviceInfo.class, "getMacAddress", macAddress);
         return macAddress;
     }
 
     public boolean isPhone() {
         isPhone = AppBase.getTelephonyManager().getPhoneType() != TelephonyManager.PHONE_TYPE_NONE;
-        LogUtils.i(LOG_TAG, "isPhone: " + isPhone);
+        LogUtils.d(DeviceInfo.class, "isPhone", String.valueOf(isPhone));
         return isPhone;
     }
 
@@ -111,47 +101,39 @@ public class DeviceInfo {
         boolean xlarge = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
         boolean large = ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
         isTable = (xlarge || large);
-        LogUtils.i(LOG_TAG, "isTable: " + isTable);
+        LogUtils.d(DeviceInfo.class, "isTable", String.valueOf(isTable));
         return isTable;
     }
 
     public String getManufacturer() {
-        if (!StringUtils.isEmpty(manufacturer)) {
-            LogUtils.i(LOG_TAG, "getManufacturer: " + manufacturer);
-            return manufacturer;
+        if (StringUtils.isEmpty(manufacturer)) {
+            manufacturer = Build.MANUFACTURER;
         }
-        manufacturer = Build.MANUFACTURER;
-        LogUtils.i(LOG_TAG, "getManufacturer: " + manufacturer);
+        LogUtils.d(DeviceInfo.class, "getManufacturer", manufacturer);
         return manufacturer;
     }
 
     public String getModel() {
-        if (!StringUtils.isEmpty(model)) {
-            LogUtils.i(LOG_TAG, "getModel: " + model);
-            return model;
+        if (StringUtils.isEmpty(model)) {
+            model = Build.MODEL;
         }
-        model = Build.MODEL;
-        LogUtils.i(LOG_TAG, "getModel: " + model);
+        LogUtils.d(DeviceInfo.class, "getModel: ", model);
         return model;
     }
 
     public String getPlatform() {
-        if (!StringUtils.isEmpty(platform)) {
-            LogUtils.i(LOG_TAG, "getPlatform: " + platform);
-            return platform;
+        if (StringUtils.isEmpty(platform)) {
+            platform = "Android";
         }
-        platform = "Android";
-        LogUtils.i(LOG_TAG, "getPlatform: " + platform);
+        LogUtils.d(DeviceInfo.class, "getPlatform", platform);
         return platform;
     }
 
     public String getOsVersion() {
-        if (!StringUtils.isEmpty(osVersion)) {
-            LogUtils.i(LOG_TAG, "getOsVersion: " + osVersion);
-            return osVersion;
+        if (StringUtils.isEmpty(osVersion)) {
+            osVersion = Build.VERSION.RELEASE;
         }
-        osVersion = Build.VERSION.RELEASE;
-        LogUtils.i(LOG_TAG, "getOsVersion: " + osVersion);
+        LogUtils.d(DeviceInfo.class, "getOsVersion", osVersion);
         return osVersion;
     }
 

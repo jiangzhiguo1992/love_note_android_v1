@@ -17,8 +17,6 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class ScreenUtils {
 
-    private static final String LOG_TAG = "ScreenUtils";
-
     /**
      * 设置屏幕为竖屏
      * <p>还有一种就是在Activity中加属性android:screenOrientation="landscape"</p>
@@ -29,7 +27,7 @@ public class ScreenUtils {
      */
     public static void requestPortrait(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "requestPortrait: activity == null");
+            LogUtils.w(ScreenUtils.class, "requestPortrait", "activity == null");
             return;
         }
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -40,7 +38,7 @@ public class ScreenUtils {
      */
     public static void requestLandscape(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "requestLandscape: activity == null");
+            LogUtils.w(ScreenUtils.class, "requestLandscape", "activity == null");
             return;
         }
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -51,7 +49,7 @@ public class ScreenUtils {
      */
     public static DisplayMetrics getDisplay(Context context) {
         if (context == null) {
-            LogUtils.w(LOG_TAG, "getDisplay: context == null");
+            LogUtils.w(ScreenUtils.class, "getDisplay", "context == null");
             return null;
         }
         DisplayMetrics displayMetrics;
@@ -69,7 +67,7 @@ public class ScreenUtils {
      */
     public static DisplayMetrics getRealDisplay(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "getRealDisplay: activity == null");
+            LogUtils.w(ScreenUtils.class, "getRealDisplay", "activity == null");
             return null;
         }
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -118,7 +116,7 @@ public class ScreenUtils {
      */
     public static View getMainLayout(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "getMainLayout: context == null");
+            LogUtils.w(ScreenUtils.class, "getMainLayout", "activity == null");
             return null;
         }
         return activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT);
@@ -129,7 +127,7 @@ public class ScreenUtils {
      */
     public static Bitmap captureFullScreen(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "captureFullScreen: context == null");
+            LogUtils.w(ScreenUtils.class, "captureFullScreen", "activity == null");
             return null;
         }
         View view = activity.getWindow().getDecorView();
@@ -148,7 +146,7 @@ public class ScreenUtils {
      */
     public static Bitmap captureNoStatus(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "captureNoStatus: context == null");
+            LogUtils.w(ScreenUtils.class, "captureNoStatus", "activity == null");
             return null;
         }
         View view = activity.getWindow().getDecorView();

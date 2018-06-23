@@ -14,8 +14,6 @@ import java.util.Locale;
  */
 public class LanguageUtils {
 
-    private static final String LOG_TAG = "LanguageUtils";
-
     /* 语言环境 */
     private static Locale getLocale() {
         return AppBase.getInstance().getResources().getConfiguration().locale;

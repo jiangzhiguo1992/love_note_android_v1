@@ -23,8 +23,6 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class PopUtils {
 
-    private static final String LOG_TAG = "PopUtils";
-
     /**
      * 创建PopupWindow
      */
@@ -38,12 +36,12 @@ public class PopUtils {
 
     public static PopupWindow createWindow(Context context, @LayoutRes int layoutId, int width, int height) {
         if (context == null || layoutId == 0) {
-            LogUtils.w(LOG_TAG, "createWindow: context == null || layoutId == 0");
+            LogUtils.w(PopUtils.class, "createWindow", "context == null || layoutId == 0");
             return null;
         }
         View window = LayoutInflater.from(context).inflate(layoutId, null);
         if (window == null) {
-            LogUtils.w(LOG_TAG, "createWindow: window == null");
+            LogUtils.w(PopUtils.class, "createWindow", "window == null");
             return null;
         }
         return createWindow(window, width, height);
@@ -51,7 +49,7 @@ public class PopUtils {
 
     public static PopupWindow createWindow(View window, int width, int height) {
         if (window == null) {
-            LogUtils.w(LOG_TAG, "createWindow: window == null");
+            LogUtils.w(PopUtils.class, "createWindow", "window == null");
             return null;
         }
         final PopupWindow pop = new PopupWindow(window, width, height);
@@ -80,46 +78,70 @@ public class PopUtils {
 
     /* 显示popupWindow ,会依附在anchor的下方 还有偏移量(有动画) */
     public static void show(PopupWindow window, View anchor, int offsetX, int offsetY) {
-        if (window != null && !window.isShowing()) {
+        if (window == null) {
+            LogUtils.w(PopUtils.class, "show", "window == null");
+            return;
+        }
+        if (!window.isShowing()) {
             window.showAsDropDown(anchor, offsetX, offsetY);
         }
     }
 
     public static void show(PopupWindow window, View anchor) {
-        if (window != null && !window.isShowing()) {
+        if (window == null) {
+            LogUtils.w(PopUtils.class, "show", "window == null");
+            return;
+        }
+        if (!window.isShowing()) {
             window.showAsDropDown(anchor);
         }
     }
 
     /* 显示popupWindow ,先按gravity来放 然后再偏移x和y */
     public static void show(PopupWindow window, View parent, int gravity, int offsetX, int offsetY) {
-        if (window != null && !window.isShowing()) {
+        if (window == null || parent == null) {
+            LogUtils.w(PopUtils.class, "show", "window == null || parent == null");
+            return;
+        }
+        if (!window.isShowing()) {
             window.showAtLocation(parent, gravity, offsetX, offsetY);
         }
     }
 
     public static void show(PopupWindow window, View parent, int gravity) {
-        if (window != null && !window.isShowing()) {
+        if (window == null || parent == null) {
+            LogUtils.w(PopUtils.class, "show", "window == null || parent == null");
+            return;
+        }
+        if (!window.isShowing()) {
             window.showAtLocation(parent, gravity, 0, 0);
         }
     }
 
     /* 更新popupWindow宽高 */
     public static void update(PopupWindow pop, int width, int height) {
-        if (pop != null) {
-            pop.update(width, height);
+        if (pop == null) {
+            LogUtils.w(PopUtils.class, "update", "pop == null");
+            return;
         }
+        pop.update(width, height);
     }
 
     public static void update(PopupWindow pop, int x, int y, int width, int height) {
-        if (pop != null) {
-            pop.update(x, y, width, height);
+        if (pop == null) {
+            LogUtils.w(PopUtils.class, "update", "pop == null");
+            return;
         }
+        pop.update(x, y, width, height);
     }
 
     /* 移除popupWindow */
     public static void dismiss(PopupWindow window) {
-        if (window != null && window.isShowing()) {
+        if (window == null) {
+            LogUtils.w(PopUtils.class, "dismiss", "window == null");
+            return;
+        }
+        if (window.isShowing()) {
             window.dismiss();
         }
     }
@@ -129,7 +151,7 @@ public class PopUtils {
      */
     public static PopupMenu createMenu(Context context, View anchor, @MenuRes int menuID, PopupMenu.OnMenuItemClickListener listener) {
         if (context == null || anchor == null || menuID == 0) {
-            LogUtils.w(LOG_TAG, "createMenu: context == null || anchor == null || menuID == 0");
+            LogUtils.w(PopUtils.class, "createMenu", "context == null || anchor == null || menuID == 0");
             return null;
         }
         PopupMenu menu = new PopupMenu(context, anchor);
@@ -142,16 +164,20 @@ public class PopUtils {
 
     /* 显示PopupMenu */
     public static void show(PopupMenu menu) {
-        if (menu != null) {
-            menu.show();
+        if (menu == null) {
+            LogUtils.w(PopUtils.class, "show", "menu == null");
+            return;
         }
+        menu.show();
     }
 
     /* 移除的PopupMenu */
     public static void dismiss(PopupMenu menu) {
-        if (menu != null) {
-            menu.dismiss();
+        if (menu == null) {
+            LogUtils.w(PopUtils.class, "dismiss", "menu == null");
+            return;
         }
+        menu.dismiss();
     }
 
 }

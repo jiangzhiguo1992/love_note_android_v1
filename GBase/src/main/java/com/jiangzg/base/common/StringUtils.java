@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
-    private static final String LOG_TAG = "StringUtils";
-
     /**
      * 获取uuid
      */
@@ -32,6 +30,10 @@ public class StringUtils {
      * 获取两个字符串相同的前缀
      */
     public static String getPrefix(String s1, String s2) {
+        if (s1 == null || s2 == null) {
+            LogUtils.w(StringUtils.class, "getPrefix", "s1 == null || s2 == null");
+            return "";
+        }
         int a = s1.length();
         int b = s2.length();
         int c;
@@ -56,7 +58,7 @@ public class StringUtils {
      */
     public static String replace(String old, int start, int end, CharSequence replace) {
         if (isEmpty(old)) {
-            LogUtils.w(LOG_TAG, "replace: old == null");
+            LogUtils.w(StringUtils.class, "replace", "old == null");
             return "";
         }
         StringBuilder result = new StringBuilder(old);
@@ -76,8 +78,8 @@ public class StringUtils {
      * 获取字符串的长度，如果有中文，则每个中文字符计为2位
      */
     public static int getLength(String validateStr) {
+        if (StringUtils.isEmpty(validateStr)) return 0;
         int valueLength = 0;
-        if (StringUtils.isEmpty(validateStr)) return valueLength;
         String chinese = "[\u0391-\uFFE5]";
         /* 获取字段值的长度，如果含中文字符，则每个中文字符长度为2，否则为1 */
         for (int i = 0; i < validateStr.length(); i++) {
@@ -228,7 +230,7 @@ public class StringUtils {
      * @return 半角字符串
      */
     public static String toDBC(String s) {
-        if (isEmpty(s)) return s;
+        if (isEmpty(s)) return "";
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == 12288)
@@ -248,7 +250,7 @@ public class StringUtils {
      * @return 全角字符串
      */
     public static String toSBC(String s) {
-        if (isEmpty(s)) return s;
+        if (isEmpty(s)) return "";
         char[] chars = s.toCharArray();
         for (int i = 0, len = chars.length; i < len; i++) {
             if (chars[i] == ' ')
@@ -268,7 +270,7 @@ public class StringUtils {
      * @return 首字母大写字符串
      */
     public static String upperFirstLetter(String s) {
-        if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) return s;
+        if (isEmpty(s) || !Character.isLowerCase(s.charAt(0))) return "";
         return String.valueOf((char) (s.charAt(0) - 32)) + s.substring(1);
     }
 
@@ -279,7 +281,7 @@ public class StringUtils {
      * @return 首字母小写字符串
      */
     public static String lowerFirstLetter(String s) {
-        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) return s;
+        if (isEmpty(s) || !Character.isUpperCase(s.charAt(0))) return "";
         return String.valueOf((char) (s.charAt(0) + 32)) + s.substring(1);
     }
 
@@ -290,6 +292,7 @@ public class StringUtils {
      * @return 反转字符串
      */
     public static String reverse(String s) {
+        if (isEmpty(s)) return "";
         int len = s.length();
         if (len <= 1) return s;
         int mid = len >> 1;
@@ -321,10 +324,10 @@ public class StringUtils {
                 int lowByte = 256 + bytes[1];
                 ascii = (256 * highByte + lowByte) - 256 * 256;
             } else {
-                throw new IllegalArgumentException("不是单个汉字");
+                LogUtils.e(StringUtils.class, "getASCII", new IllegalArgumentException("不是单个汉字"));
             }
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "getASCII", e);
+            LogUtils.e(StringUtils.class, "getASCII", e);
         }
         return ascii;
     }

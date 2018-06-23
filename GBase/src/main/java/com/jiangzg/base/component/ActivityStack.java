@@ -26,7 +26,6 @@ import java.util.Stack;
  */
 public class ActivityStack {
 
-    private static final String LOG_TAG = "ActivityStack";
     private static Stack<Activity> STACK; // 任务栈(不会内存泄露)
 
     public static Stack<Activity> getStack() {
@@ -42,7 +41,7 @@ public class ActivityStack {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 getStack().add(activity);
-                LogUtils.i(LOG_TAG, "Activity栈数量:" + getStack().size() + "--taskId:" + activity.getTaskId());
+                LogUtils.i(ActivityStack.class, "onActivityCreated", "Activity栈数量: " + getStack().size() + " -- Activity栈标识: " + activity.getTaskId());
             }
 
             @Override
@@ -72,7 +71,7 @@ public class ActivityStack {
             @Override
             public void onActivityDestroyed(Activity activity) {
                 getStack().remove(activity);
-                LogUtils.i(LOG_TAG, "Activity栈数量:" + getStack().size() + "--taskId:" + activity.getTaskId());
+                LogUtils.i(ActivityStack.class, "onActivityDestroyed", "Activity栈数量: " + getStack().size() + " -- Activity栈标识:" + activity.getTaskId());
             }
         });
     }
@@ -81,11 +80,11 @@ public class ActivityStack {
      * 获取Activity
      */
     public List<Activity> findInStack(Class<?> cls) {
-        List<Activity> activities = new ArrayList<>();
         if (cls == null) {
-            LogUtils.w(LOG_TAG, "findInStack: cls == null");
-            return activities;
+            LogUtils.w(ActivityStack.class, "findInStack", "cls == null");
+            return new ArrayList<>();
         }
+        List<Activity> activities = new ArrayList<>();
         for (Activity activity : getStack()) {
             if (activity.getClass().equals(cls)) {
                 activities.add(activity);
@@ -99,7 +98,7 @@ public class ActivityStack {
      */
     public static boolean findInSystem(String packageName, String className) {
         if (StringUtils.isEmpty(packageName) || StringUtils.isEmpty(className)) {
-            LogUtils.w(LOG_TAG, "findInSystem: packageName == null || className == null");
+            LogUtils.w(ActivityStack.class, "findInSystem", "packageName == null || className == null");
             return false;
         }
         PackageManager packageManager = AppBase.getInstance().getPackageManager();
@@ -136,7 +135,7 @@ public class ActivityStack {
                     }
                 }
             } catch (Exception e) {
-                LogUtils.e(LOG_TAG, "getTop", e);
+                LogUtils.e(ActivityStack.class, "getTop", e);
             }
             return null;
         } else {
@@ -157,6 +156,10 @@ public class ActivityStack {
      * 结束指定的Activity(重载)
      */
     public void finishActivity(Class<?> cls) {
+        if (cls == null) {
+            LogUtils.w(ActivityStack.class, "finishActivity", "cls == null");
+            return;
+        }
         for (Activity activity : getStack()) {
             if (activity.getClass().equals(cls)) {
                 finishActivity(activity);
@@ -169,7 +172,7 @@ public class ActivityStack {
      */
     public void finishOthersActivity(Class<?> cls) {
         if (cls == null) {
-            LogUtils.w(LOG_TAG, "finishOthersActivity: cls == null");
+            LogUtils.w(ActivityStack.class, "finishOthersActivity", "cls == null");
             return;
         }
         for (Activity activity : getStack()) {
@@ -205,7 +208,7 @@ public class ActivityStack {
      */
     private static void finishActivity(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "finishActivity: activity == null");
+            LogUtils.w(ActivityStack.class, "finishActivity", "activity == null");
             return;
         }
         getStack().remove(activity);

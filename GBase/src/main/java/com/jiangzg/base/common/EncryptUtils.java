@@ -25,8 +25,6 @@ import static com.jiangzg.base.common.ConvertUtils.hexString2Bytes;
  */
 public class EncryptUtils {
 
-    private static final String LOG_TAG = "EncryptUtils";
-
     /* ********************** 哈希加密相关 ********************** */
 
     /**
@@ -99,7 +97,7 @@ public class EncryptUtils {
      */
     public static String encryptMD5ToString(byte[] data, byte[] salt) {
         if (data == null || data.length <= 0 || salt == null || salt.length <= 0) {
-            LogUtils.w(LOG_TAG, "encryptMD5ToString: data/salt == null");
+            LogUtils.w(EncryptUtils.class, "encryptMD5ToString", "data/salt == null");
             return "";
         }
         byte[] dataSalt = new byte[data.length + salt.length];
@@ -156,7 +154,7 @@ public class EncryptUtils {
      */
     public static byte[] encryptMD5File(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "encryptMD5File: file == null");
+            LogUtils.w(EncryptUtils.class, "encryptMD5File", "file == null");
             return new byte[0];
         }
         FileInputStream fis = null;
@@ -168,7 +166,7 @@ public class EncryptUtils {
             md.update(buffer);
             return md.digest();
         } catch (NoSuchAlgorithmException | IOException e) {
-            LogUtils.e(LOG_TAG, "", e);
+            LogUtils.e(EncryptUtils.class, "", e);
         } finally {
             FileUtils.closeIO(fis);
         }
@@ -334,7 +332,7 @@ public class EncryptUtils {
      */
     private static byte[] encryptAlgorithm(byte[] data, String algorithm) {
         if (data == null || data.length <= 0) {
-            LogUtils.w(LOG_TAG, "encryptAlgorithm: data == null");
+            LogUtils.w(EncryptUtils.class, "encryptAlgorithm", "data == null");
             return new byte[]{};
         }
         try {
@@ -342,7 +340,7 @@ public class EncryptUtils {
             md.update(data);
             return md.digest();
         } catch (NoSuchAlgorithmException e) {
-            LogUtils.e(LOG_TAG, "encryptAlgorithm", e);
+            LogUtils.e(EncryptUtils.class, "encryptAlgorithm", e);
         }
         return new byte[0];
     }
@@ -374,7 +372,7 @@ public class EncryptUtils {
             return cipher.doFinal(data);
         } catch (NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException
                 | BadPaddingException | IllegalBlockSizeException e) {
-            LogUtils.e(LOG_TAG, "DESTemplet", e);
+            LogUtils.e(EncryptUtils.class, "DESTemplet", e);
         }
         return new byte[0];
     }

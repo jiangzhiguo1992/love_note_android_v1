@@ -1,5 +1,8 @@
 package com.jiangzg.base.time;
 
+import android.support.annotation.StringRes;
+
+import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -11,8 +14,6 @@ import java.util.Calendar;
  * 时间单位类 也可参考Formatter
  */
 public class TimeUnit {
-
-    private static final String LOG_TAG = "TimeUnit";
 
     private int year;
     private int month;
@@ -30,12 +31,11 @@ public class TimeUnit {
         unit.setHour(c.get(Calendar.HOUR));
         unit.setMinute(c.get(Calendar.MINUTE));
         unit.setSecond(c.get(Calendar.SECOND));
-        LogUtils.i(LOG_TAG, unit.toString());
         return unit;
     }
 
     /* between是时间间隔 */
-    public static TimeUnit getByBetween(long between) {
+    public static TimeUnit convertTime2Unit(long between) {
         TimeUnit unit = new TimeUnit();
         // year
         int year = (int) (between / ConstantUtils.YEAR);
@@ -93,14 +93,14 @@ public class TimeUnit {
             second = (int) (between / ConstantUtils.SEC);
         }
         unit.setSecond(second);
-        LogUtils.i(LOG_TAG, unit.toString());
+        LogUtils.d(TimeUnit.class, "convertTime2Unit", unit.toString());
         return unit;
     }
 
     /**
      * 获取时间单位 eg: 1分钟，1小时，1天
      */
-    public ConstantUtils.TimeUnit getUnitType() {
+    public ConstantUtils.TimeUnit getMaxUnit() {
         if (year > 0) return ConstantUtils.TimeUnit.YEAR;
         if (month > 0) return ConstantUtils.TimeUnit.MONTH;
         if (day > 0) return ConstantUtils.TimeUnit.DAY;
@@ -147,36 +147,36 @@ public class TimeUnit {
      * 获取最大有效时间的显示
      */
     public String getMaxShow(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
-                             String yearShow, String monthShow, String dayShow,
-                             String hourShow, String minuteShow, String secondShow) {
+                             @StringRes int yearShow, @StringRes int monthShow, @StringRes int dayShow,
+                             @StringRes int hourShow, @StringRes int minuteShow, @StringRes int secondShow) {
         String yea = "";
         if (year > 0 && y) {
-            yea = year + yearShow;
+            yea = year + AppBase.getInstance().getString(yearShow);
             return yea;
         }
         String mon = "";
         if (!StringUtils.isEmpty(yea) || (month > 0 && mo)) {
-            mon = month + monthShow;
+            mon = month + AppBase.getInstance().getString(monthShow);
             return mon;
         }
         String day = "";
         if (!StringUtils.isEmpty(mon) || (this.day > 0 && d)) {
-            day = this.day + dayShow;
+            day = this.day + AppBase.getInstance().getString(dayShow);
             return day;
         }
         String hou = "";
-        if (!StringUtils.isEmpty(hou) || (hour > 0 && h)) {
-            hou = hour + hourShow;
+        if (!StringUtils.isEmpty(day) || (hour > 0 && h)) {
+            hou = hour + AppBase.getInstance().getString(hourShow);
             return hou;
         }
         String min = "";
         if (!StringUtils.isEmpty(hou) || (minute > 0 && mi)) {
-            min = minute + minuteShow;
+            min = minute + AppBase.getInstance().getString(minuteShow);
             return min;
         }
-        String sec = "";
-        if (!StringUtils.isEmpty(hou) || (second > 0 && s)) {
-            sec = second + secondShow;
+        String sec;
+        if (!StringUtils.isEmpty(min) || (second > 0 && s)) {
+            sec = second + AppBase.getInstance().getString(secondShow);
             return sec;
         }
         return "";

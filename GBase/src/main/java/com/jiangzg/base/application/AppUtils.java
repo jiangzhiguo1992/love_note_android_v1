@@ -22,20 +22,21 @@ import java.util.List;
  */
 public class AppUtils {
 
-    private static final String LOG_TAG = "AppUtils";
-
     /**
      * 获取manifest中的application下的MetaData
      */
     public static Bundle getAppMetaData(Context context) {
+        if (context == null) {
+            LogUtils.w(AppUtils.class, "getAppMetaData", "context == null");
+            return null;
+        }
         PackageManager packageManager = context.getPackageManager();
         String packageName = context.getPackageName();
         try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             return applicationInfo.metaData;
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e(LOG_TAG, "getAppMetaData", e);
-            e.printStackTrace();
+            LogUtils.e(AppUtils.class, "getAppMetaData", e);
         }
         return null;
     }
@@ -44,12 +45,16 @@ public class AppUtils {
      * 获取manifest中的activity下的MetaData
      */
     public static Bundle getAppActivityMetaData(Context context, ComponentName name) {
+        if (context == null || name == null) {
+            LogUtils.w(AppUtils.class, "getAppMetaData", "context == null || name == null");
+            return null;
+        }
         PackageManager packageManager = context.getPackageManager();
         try {
             ActivityInfo activityInfo = packageManager.getActivityInfo(name, PackageManager.GET_META_DATA);
             return activityInfo.metaData;
         } catch (PackageManager.NameNotFoundException e) {
-            LogUtils.e(LOG_TAG, "getAppActivityMetaData", e);
+            LogUtils.e(AppUtils.class, "getAppActivityMetaData", e);
             e.printStackTrace();
         }
         return null;
@@ -62,7 +67,7 @@ public class AppUtils {
      */
     public static boolean isAppForeground(String packageName) {
         if (StringUtils.isEmpty(packageName)) {
-            LogUtils.w(LOG_TAG, "isAppForeground: packageName == null");
+            LogUtils.w(AppUtils.class, "isAppForeground", "packageName == null");
             return false;
         }
         ActivityManager activityManager = AppBase.getActivityManager();
@@ -83,7 +88,7 @@ public class AppUtils {
             ActivityStack.finishAllActivity();
             ServiceUtils.stopAll();
         } catch (Exception e) {
-            LogUtils.e(LOG_TAG, "appExit", e);
+            LogUtils.e(AppUtils.class, "appExit", e);
             System.exit(0); // 非0的都为异常退出
         }
     }
@@ -96,19 +101,16 @@ public class AppUtils {
      */
     public static boolean isAppInstall(String packageName) {
         if (StringUtils.isEmpty(packageName)) {
-            LogUtils.w(LOG_TAG, "isAppInstall: packageName == null");
+            LogUtils.w(AppUtils.class, "isAppInstall", "packageName == null");
             return false;
         }
-        return !isSpace(packageName) && IntentFactory.getApp(packageName) != null;
-    }
-
-    private static boolean isSpace(String s) {
-        if (s == null) return true;
-        for (int i = 0, len = s.length(); i < len; ++i) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return false;
+        boolean isSpace = true;
+        for (int i = 0, len = packageName.length(); i < len; ++i) {
+            if (!Character.isWhitespace(packageName.charAt(i))) {
+                isSpace = false;
             }
         }
-        return true;
+        return isSpace && IntentFactory.getApp(packageName) != null;
     }
+
 }

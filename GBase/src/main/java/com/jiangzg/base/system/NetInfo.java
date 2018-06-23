@@ -23,8 +23,6 @@ import java.util.Enumeration;
  */
 public class NetInfo {
 
-    private static final String LOG_TAG = "NetInfo";
-
     private static NetInfo instance;
     private ConnectListener mListener;
     private NetReceiver receiver;
@@ -45,7 +43,7 @@ public class NetInfo {
      */
     public void addListener(Context context, ConnectListener listener) {
         if (context == null || listener == null) {
-            LogUtils.w(LOG_TAG, "addListener: context == null || listener == null");
+            LogUtils.w(NetInfo.class, "addListener", "context == null || listener == null");
             return;
         }
         mListener = listener;
@@ -57,7 +55,7 @@ public class NetInfo {
      */
     public void removeListener(Context context) {
         if (context == null) {
-            LogUtils.w(LOG_TAG, "removeListener: context == null");
+            LogUtils.w(NetInfo.class, "removeListener", "context == null");
             return;
         }
         mListener = null;
@@ -75,14 +73,13 @@ public class NetInfo {
      * 广播,监听网络变化
      */
     private class NetReceiver extends BroadcastReceiver {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             if (mListener == null) return;
             int type = getNetworkType();
             NetworkInfo.State state = getNetworkState();
             String operator = getNetworkOperator();
-            LogUtils.i(LOG_TAG, "onReceive: " + type + ":" + state + ":" + operator);
+            LogUtils.i(NetInfo.class, "onReceive", type + ":" + state + ":" + operator);
             mListener.onStateChange(type, state, operator);
         }
     }
@@ -107,8 +104,7 @@ public class NetInfo {
      */
     public static boolean isWifi() {
         ConnectivityManager cm = AppBase.getConnectivityManager();
-        return cm != null && cm.getActiveNetworkInfo() != null
-                && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
+        return cm != null && cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
     }
 
     private static NetworkInfo getNetworkInfo() {
@@ -123,32 +119,10 @@ public class NetInfo {
     public static int getNetworkType() {
         NetworkInfo networkInfo = getNetworkInfo();
         if (networkInfo == null) {
-            LogUtils.w(LOG_TAG, "getNetworkType: networkInfo == null");
+            LogUtils.w(NetInfo.class, "getNetworkType", "networkInfo == null");
             return -1;
         }
         return networkInfo.getType();
-    }
-
-    /**
-     * 获取当前网络类型名称
-     */
-    public static String getNetworkName() {
-        int networkType = getNetworkType();
-        return getNetworkName(networkType);
-    }
-
-    public static String getNetworkName(int type) {
-        String name;
-        if (type == ConnectivityManager.TYPE_MOBILE) {
-            name = "流量";
-        } else if (type == ConnectivityManager.TYPE_WIFI) {
-            name = "WIFI";
-        } else if (type == ConnectivityManager.TYPE_BLUETOOTH) {
-            name = "蓝牙";
-        } else {
-            name = "未知";
-        }
-        return name;
     }
 
     /**
@@ -159,7 +133,7 @@ public class NetInfo {
     public static NetworkInfo.State getNetworkState() {
         NetworkInfo networkInfo = getNetworkInfo();
         if (networkInfo == null) {
-            LogUtils.w(LOG_TAG, "getNetworkState: networkInfo == null");
+            LogUtils.w(NetInfo.class, "getNetworkState", "networkInfo == null");
             return NetworkInfo.State.UNKNOWN;
         }
         return networkInfo.getState();
@@ -197,7 +171,7 @@ public class NetInfo {
                 }
             }
         } catch (SocketException e) {
-            LogUtils.e(LOG_TAG, "getIpAddress", e);
+            LogUtils.e(NetInfo.class, "getIpAddress", e);
         }
         return ipAddress;
     }

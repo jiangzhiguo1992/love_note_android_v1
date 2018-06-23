@@ -20,14 +20,12 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class BarUtils {
 
-    private static final String LOG_TAG = "BarUtils";
-
     /**
      * 无actionBar, 要在setContentView之前调用
      */
     public static void requestNoTitle(AppCompatActivity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "requestNoTitle: activity == null");
+            LogUtils.w(BarUtils.class, "requestNoTitle", "activity == null");
             return;
         }
         activity.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -38,7 +36,7 @@ public class BarUtils {
      */
     public static void setStatusHide(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "hideStatusBar: activity == null");
+            LogUtils.w(BarUtils.class, "hideStatusBar", "activity == null");
             return;
         }
         activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -49,7 +47,7 @@ public class BarUtils {
      */
     public static boolean isStatusExists(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "isStatusExists: activity == null");
+            LogUtils.w(BarUtils.class, "isStatusExists", "activity == null");
             return true;
         }
         WindowManager.LayoutParams params = activity.getWindow().getAttributes();
@@ -61,7 +59,7 @@ public class BarUtils {
      */
     public static void fitStatus(View view) {
         if (view == null) {
-            LogUtils.w(LOG_TAG, "fitStatus: view == null");
+            LogUtils.w(BarUtils.class, "fitStatus", "view == null");
             return;
         }
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
@@ -72,7 +70,7 @@ public class BarUtils {
      */
     public static void showStatus(View view) {
         if (view == null) {
-            LogUtils.w(LOG_TAG, "showStatus: view == null");
+            LogUtils.w(BarUtils.class, "showStatus", "view == null");
             return;
         }
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -83,7 +81,7 @@ public class BarUtils {
      */
     public static void hideStatus(View view) {
         if (view == null) {
-            LogUtils.w(LOG_TAG, "hideStatus: view == null");
+            LogUtils.w(BarUtils.class, "hideStatus", "view == null");
             return;
         }
         view.setSystemUiVisibility(View.INVISIBLE);
@@ -95,7 +93,7 @@ public class BarUtils {
      */
     public static int getTopBarHeight(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "getTopBarHeight: activity == null");
+            LogUtils.w(BarUtils.class, "getTopBarHeight", "activity == null");
             return 0;
         }
         View mainLayout = ScreenUtils.getMainLayout(activity);
@@ -108,7 +106,7 @@ public class BarUtils {
      */
     public static int getActionBarHeight(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "getActionBarHeight: activity == null");
+            LogUtils.w(BarUtils.class, "getActionBarHeight", "activity == null");
             return 0;
         }
         Rect frame = new Rect();
@@ -128,7 +126,7 @@ public class BarUtils {
      */
     public static int getStatusBarHeight(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "getStatusBarHeight: activity == null");
+            LogUtils.w(BarUtils.class, "getStatusBarHeight", "activity == null");
             return 0;
         }
         int result = 0;
@@ -150,7 +148,7 @@ public class BarUtils {
      */
     public static void setStatusBarColor(Activity activity, int color) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "setStatusBarColor: activity == null");
+            LogUtils.w(BarUtils.class, "setStatusBarColor", "activity == null");
             return;
         }
         Window window = activity.getWindow();
@@ -165,7 +163,7 @@ public class BarUtils {
 
     public static void setNavigationBarColor(Activity activity, int color) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "setNavigationBarColor: activity == null");
+            LogUtils.w(BarUtils.class, "setNavigationBarColor", "activity == null");
             return;
         }
         Window window = activity.getWindow();
@@ -183,7 +181,7 @@ public class BarUtils {
      */
     public static void setStatusBarTrans(Activity activity, boolean trans) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "setStatusBarTrans: activity == null");
+            LogUtils.w(BarUtils.class, "setStatusBarTrans", "activity == null");
             return;
         }
         Window window = activity.getWindow();
@@ -214,7 +212,7 @@ public class BarUtils {
 
     public static void setNavigationBarTrans(Activity activity, boolean trans) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "setNavigationBarTrans: activity == null");
+            LogUtils.w(BarUtils.class, "setNavigationBarTrans", "activity == null");
             return;
         }
         Window window = activity.getWindow();
@@ -249,7 +247,7 @@ public class BarUtils {
      */
     private static void setRootViewFit(Activity activity, boolean fit) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "setRootViewFit: activity == null");
+            LogUtils.w(BarUtils.class, "setRootViewFit", "activity == null");
             return;
         }
         ViewGroup parent = activity.findViewById(android.R.id.content);

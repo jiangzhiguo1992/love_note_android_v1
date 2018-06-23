@@ -43,13 +43,10 @@ import java.io.OutputStream;
  */
 public class BitmapUtils {
 
-    private static final String LOG_TAG = "BitmapUtils";
-
     /**
      * ************************************Bitmap判断****************************************
      * 判断bitmap对象是否为空
      */
-
     public static boolean isEmptyBitmap(Bitmap src) {
         return src == null || src.getWidth() == 0 || src.getHeight() == 0;
     }
@@ -60,14 +57,13 @@ public class BitmapUtils {
     public static boolean isImage(String filePath) {
         String path = filePath.toUpperCase();
         return path.endsWith(".PNG") || path.endsWith(".JPG") || path.endsWith(".JPEG")
-                || path.endsWith(".FORMAT") || path.endsWith(".BMP")
-                || path.endsWith(".GIF");
+                || path.endsWith(".FORMAT") || path.endsWith(".BMP") || path.endsWith(".GIF");
     }
 
     public static String getImageType(String filePath) {
         File file = FileUtils.getFileByPath(filePath);
         if (!FileUtils.isFileExists(file)) {
-            LogUtils.w(LOG_TAG, "getImageType: file == null");
+            LogUtils.w(BitmapUtils.class, "getImageType", "file == null");
             return "";
         }
         InputStream is = null;
@@ -75,7 +71,7 @@ public class BitmapUtils {
             is = new FileInputStream(file);
             return getImageType(is);
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "getImageType", e);
+            LogUtils.e(BitmapUtils.class, "getImageType", e);
         } finally {
             FileUtils.closeIO(is);
         }
@@ -84,14 +80,14 @@ public class BitmapUtils {
 
     public static String getImageType(InputStream is) {
         if (is == null) {
-            LogUtils.w(LOG_TAG, "getImageType: is == null");
+            LogUtils.w(BitmapUtils.class, "getImageType", "is == null");
             return "";
         }
         try {
             byte[] bytes = new byte[8];
             return is.read(bytes, 0, 8) != -1 ? getImageType(bytes) : null;
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "getImageType", e);
+            LogUtils.e(BitmapUtils.class, "getImageType", e);
         }
         return "";
     }
@@ -140,7 +136,7 @@ public class BitmapUtils {
      */
     public static boolean saveBitmap(Bitmap src, String file, Bitmap.CompressFormat format, boolean recycle) {
         if (!FileUtils.isFileExists(file) || isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "save: file/src == null");
+            LogUtils.w(BitmapUtils.class, "saveBitmap", "file/src == null");
             return false;
         }
         OutputStream os = null;
@@ -150,7 +146,7 @@ public class BitmapUtils {
             ret = src.compress(format, 100, os);
             if (recycle && !src.isRecycled()) src.recycle();
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "save", e);
+            LogUtils.e(BitmapUtils.class, "saveBitmap", e);
         } finally {
             FileUtils.closeIO(os);
         }
@@ -160,7 +156,7 @@ public class BitmapUtils {
     /* 摆正图片旋转角度 */
     private static Bitmap adjustBitmap(File file) {
         if (FileUtils.isFileEmpty(file)) {
-            LogUtils.w(LOG_TAG, "adjust: file == null");
+            LogUtils.w(BitmapUtils.class, "adjustBitmap", "file == null");
             return null;
         }
         Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -168,8 +164,7 @@ public class BitmapUtils {
         if (degree != 0) {
             Matrix m = new Matrix();
             m.setRotate(degree);
-            Bitmap adjust = Bitmap.createBitmap(bitmap, 0, 0,
-                    bitmap.getWidth(), bitmap.getHeight(), m, true);
+            Bitmap adjust = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), m, true);
             if (!bitmap.isRecycled()) {
                 bitmap.recycle();
             }
@@ -201,7 +196,7 @@ public class BitmapUtils {
                 }
             }
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "getRotateDegree", e);
+            LogUtils.e(BitmapUtils.class, "getRotateDegree", e);
         }
         return degree;
     }
@@ -236,7 +231,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(File file, int maxWidth, int maxHeight) {
         if (FileUtils.isFileEmpty(file)) {
-            LogUtils.w(LOG_TAG, "getInstance: file == null");
+            LogUtils.w(BitmapUtils.class, "get", "file == null");
             return null;
         }
         InputStream is = null;
@@ -249,7 +244,7 @@ public class BitmapUtils {
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeStream(is, null, options);
         } catch (FileNotFoundException e) {
-            LogUtils.e(LOG_TAG, "getInstance", e);
+            LogUtils.e(BitmapUtils.class, "getInstance", e);
         } finally {
             FileUtils.closeIO(is);
         }
@@ -266,7 +261,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(String filePath, int maxWidth, int maxHeight) {
         if (FileUtils.isFileEmpty(filePath)) {
-            LogUtils.w(LOG_TAG, "getInstance: filePath == null");
+            LogUtils.w(BitmapUtils.class, "get", "filePath == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -287,7 +282,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(InputStream is, int maxWidth, int maxHeight) {
         if (is == null) {
-            LogUtils.w(LOG_TAG, "getInstance: is == null");
+            LogUtils.w(BitmapUtils.class, "get", "is == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -309,7 +304,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(byte[] data, int offset, int maxWidth, int maxHeight) {
         if (data == null || data.length == 0) {
-            LogUtils.w(LOG_TAG, "getInstance: data == null");
+            LogUtils.w(BitmapUtils.class, "get", "data == null");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -331,7 +326,7 @@ public class BitmapUtils {
      */
     public static Bitmap get(Resources res, int id, int maxWidth, int maxHeight) {
         if (res == null || id == 0) {
-            LogUtils.w(LOG_TAG, "getInstance: res == null || id == 0");
+            LogUtils.w(BitmapUtils.class, "get", "res == null || id == 0");
             return null;
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
@@ -353,7 +348,7 @@ public class BitmapUtils {
      */
     public static Bitmap scale(Bitmap src, int newWidth, int newHeight, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "scale: src == null");
+            LogUtils.w(BitmapUtils.class, "scale", "src == null");
             return src;
         }
         Bitmap ret = Bitmap.createScaledBitmap(src, newWidth, newHeight, true);
@@ -372,7 +367,7 @@ public class BitmapUtils {
      */
     public static Bitmap scale(Bitmap src, float widthRatio, float HeightRatio, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "scale: src == null");
+            LogUtils.w(BitmapUtils.class, "scale", "src == null");
             return src;
         }
         Matrix matrix = new Matrix();
@@ -395,7 +390,7 @@ public class BitmapUtils {
      */
     public static Bitmap clip(Bitmap src, int x, int y, int width, int height, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "clip: src == null");
+            LogUtils.w(BitmapUtils.class, "clip", "src == null");
             return src;
         }
         Bitmap ret = Bitmap.createBitmap(src, x, y, width, height);
@@ -416,7 +411,7 @@ public class BitmapUtils {
      */
     public static Bitmap skew(Bitmap src, float kx, float ky, float px, float py, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "clip: src == null");
+            LogUtils.w(BitmapUtils.class, "clip", "src == null");
             return src;
         }
         Matrix matrix = new Matrix();
@@ -451,7 +446,7 @@ public class BitmapUtils {
      */
     public static Bitmap rotate(Bitmap src, int degrees, float px, float py, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "rotate: src == null");
+            LogUtils.w(BitmapUtils.class, "rotate", "src == null");
             return src;
         }
         if (degrees == 0) return src;
@@ -471,7 +466,7 @@ public class BitmapUtils {
      */
     public static Bitmap toRound(Bitmap src, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "toRound: src == null");
+            LogUtils.w(BitmapUtils.class, "toRound", "src == null");
             return src;
         }
         int width = src.getWidth();
@@ -501,7 +496,7 @@ public class BitmapUtils {
      */
     public static Bitmap toRoundCorner(Bitmap src, float radius, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "toRoundCorner: src == null");
+            LogUtils.w(BitmapUtils.class, "toRoundCorner", "src == null");
             return src;
         }
         int width = src.getWidth();
@@ -532,7 +527,7 @@ public class BitmapUtils {
      */
     public static Bitmap fastBlur(Context context, Bitmap src, float scale, float radius, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "fastBlur: src == null");
+            LogUtils.w(BitmapUtils.class, "fastBlur", "src == null");
             return src;
         }
         int width = src.getWidth();
@@ -540,7 +535,7 @@ public class BitmapUtils {
         int scaleWidth = (int) (width * scale + 0.5f);
         int scaleHeight = (int) (height * scale + 0.5f);
         if (scaleWidth == 0 || scaleHeight == 0) {
-            LogUtils.w(LOG_TAG, "fastBlur: scaleWidth/scaleHeight == null");
+            LogUtils.w(BitmapUtils.class, "fastBlur", "scaleWidth/scaleHeight == null");
             return src;
         }
         Bitmap scaleBitmap = Bitmap.createScaledBitmap(src, scaleWidth, scaleHeight, true);
@@ -573,7 +568,7 @@ public class BitmapUtils {
      */
     public static Bitmap renderScriptBlur(Context context, Bitmap src, float radius) {
         if (isEmptyBitmap(src) || context == null) {
-            LogUtils.w(LOG_TAG, "renderScriptBlur: src == null || context == null");
+            LogUtils.w(BitmapUtils.class, "renderScriptBlur", "src == null || context == null");
             return src;
         }
         RenderScript rs = null;
@@ -611,7 +606,7 @@ public class BitmapUtils {
      */
     public static Bitmap stackBlur(Bitmap src, int radius, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "stackBlur: src == null");
+            LogUtils.w(BitmapUtils.class, "stackBlur", "src == null");
             return src;
         }
         Bitmap ret;
@@ -828,7 +823,7 @@ public class BitmapUtils {
      */
     public static Bitmap addFrame(Bitmap src, int borderWidth, int color, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "addFrame: src == null");
+            LogUtils.w(BitmapUtils.class, "addFrame", "src == null");
             return src;
         }
         int newWidth = src.getWidth() + borderWidth >> 1;
@@ -856,14 +851,14 @@ public class BitmapUtils {
      */
     public static Bitmap addReflection(Bitmap src, int reflectionHeight, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "addReflection: src == null");
+            LogUtils.w(BitmapUtils.class, "addReflection", "src == null");
             return src;
         }
         final int REFLECTION_GAP = 0;
         int srcWidth = src.getWidth();
         int srcHeight = src.getHeight();
         if (0 == srcWidth || srcHeight == 0) {
-            LogUtils.w(LOG_TAG, "addReflection: srcWidth/srcHeight == null");
+            LogUtils.w(BitmapUtils.class, "addReflection", "srcWidth/srcHeight == null");
             return src;
         }
         Matrix matrix = new Matrix();
@@ -871,7 +866,7 @@ public class BitmapUtils {
         Bitmap reflectionBitmap = Bitmap.createBitmap(src, 0, srcHeight - reflectionHeight,
                 srcWidth, reflectionHeight, matrix, false);
         if (null == reflectionBitmap) {
-            LogUtils.w(LOG_TAG, "addReflection: reflectionBitmap == null");
+            LogUtils.w(BitmapUtils.class, "addReflection", "reflectionBitmap == null");
             return src;
         }
         Bitmap ret = Bitmap.createBitmap(srcWidth, srcHeight + reflectionHeight, src.getConfig());
@@ -910,7 +905,7 @@ public class BitmapUtils {
      */
     public static Bitmap addTextWatermark(Bitmap src, String content, int textSize, int color, int alpha, float x, float y, boolean recycle) {
         if (isEmptyBitmap(src) || content == null) {
-            LogUtils.w(LOG_TAG, "addTextWatermark: src/content == null");
+            LogUtils.w(BitmapUtils.class, "addTextWatermark", "src/content == null");
             return src;
         }
         Bitmap ret = src.copy(src.getConfig(), true);
@@ -939,7 +934,7 @@ public class BitmapUtils {
      */
     public static Bitmap addImageWatermark(Bitmap src, Bitmap watermark, int x, int y, int alpha, boolean recycle) {
         if (isEmptyBitmap(src) || isEmptyBitmap(watermark)) {
-            LogUtils.w(LOG_TAG, "addImageWatermark: src/watermark == null");
+            LogUtils.w(BitmapUtils.class, "addImageWatermark", "src/watermark == null");
             return src;
         }
         Bitmap ret = src.copy(src.getConfig(), true);
@@ -962,7 +957,7 @@ public class BitmapUtils {
      */
     public static Bitmap toAlpha(Bitmap src, Boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "toAlpha: src == null");
+            LogUtils.w(BitmapUtils.class, "toAlpha", "src == null");
             return src;
         }
         Bitmap ret = src.extractAlpha();
@@ -979,7 +974,7 @@ public class BitmapUtils {
      */
     public static Bitmap toGray(Bitmap src, boolean recycle) {
         if (isEmptyBitmap(src)) {
-            LogUtils.w(LOG_TAG, "toGray: src == null");
+            LogUtils.w(BitmapUtils.class, "toGray", "src == null");
             return src;
         }
         Bitmap grayBitmap = Bitmap.createBitmap(src.getWidth(),

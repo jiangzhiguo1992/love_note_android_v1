@@ -13,8 +13,6 @@ import java.util.Locale;
  */
 public class CalUtils {
 
-    private static final String LOG_TAG = "CalUtils";
-
     /**
      * ********************************天*****************************
      * 判断是否是同一天
@@ -24,7 +22,7 @@ public class CalUtils {
      */
     public static boolean isSameDay(Calendar c1, Calendar c2) {
         if (c1 == null || c2 == null) {
-            LogUtils.w(LOG_TAG, "isSameDay: c1 == null || c2 == null");
+            LogUtils.w(CalUtils.class, "isSameDay", "c1 == null || c2 == null");
             return false;
         }
         boolean isSameYear = c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR);
@@ -39,7 +37,7 @@ public class CalUtils {
      */
     public static int getWeekIndex(Date time) {
         if (time == null) {
-            LogUtils.w(LOG_TAG, "getWeekIndex: time == null");
+            LogUtils.w(CalUtils.class, "getWeekIndex", "time == null");
             return 0;
         }
         Calendar cal = Calendar.getInstance();
@@ -52,7 +50,7 @@ public class CalUtils {
      */
     public static String getWeek(Date time) {
         if (time == null) {
-            LogUtils.w(LOG_TAG, "getWeek: time == null");
+            LogUtils.w(CalUtils.class, "getWeek", "time == null");
             return "";
         }
         return new SimpleDateFormat("EEEE", Locale.getDefault()).format(time);
@@ -74,7 +72,7 @@ public class CalUtils {
      */
     public static Calendar getFirstDayOfWeek(Date date) {
         if (date == null) {
-            LogUtils.w(LOG_TAG, "getFirstDayOfWeek: date == null");
+            LogUtils.w(CalUtils.class, "getFirstDayOfWeek", "date == null");
             return null;
         }
         Calendar cal = Calendar.getInstance();
@@ -96,7 +94,7 @@ public class CalUtils {
      */
     public static Calendar getFirstDayOfWeek(Date date, int firstDayOfWeek) {
         if (date == null) {
-            LogUtils.w(LOG_TAG, "getFirstDayOfWeek: date == null");
+            LogUtils.w(CalUtils.class, "getFirstDayOfWeek", "date == null");
             return null;
         }
         Calendar cal = Calendar.getInstance();
@@ -129,7 +127,7 @@ public class CalUtils {
      */
     public static int getWeekOfMonth(Date time) {
         if (time == null) {
-            LogUtils.w(LOG_TAG, "getWeekOfMonth: time == null");
+            LogUtils.w(CalUtils.class, "getWeekOfMonth", "time == null");
             return 0;
         }
         Calendar cal = Calendar.getInstance();
@@ -142,7 +140,7 @@ public class CalUtils {
      */
     public static int getMonthsBetween(Calendar d1, Calendar d2) {
         if (d1 == null || d2 == null) {
-            LogUtils.w(LOG_TAG, "getMonthsBetween: d1 == null || d2 == null");
+            LogUtils.w(CalUtils.class, "getMonthsBetween", "d1 == null || d2 == null");
             return 0;
         }
         boolean swaped = false;
@@ -184,7 +182,7 @@ public class CalUtils {
      */
     public static int getWeekOfYear(Date time) {
         if (time == null) {
-            LogUtils.w(LOG_TAG, "getWeekOfYear: time == null");
+            LogUtils.w(CalUtils.class, "getWeekOfYear", "time == null");
             return 0;
         }
         Calendar cal = Calendar.getInstance();

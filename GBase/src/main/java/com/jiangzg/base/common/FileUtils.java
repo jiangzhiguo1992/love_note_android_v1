@@ -27,8 +27,6 @@ import java.util.List;
  */
 public class FileUtils {
 
-    private static final String LOG_TAG = "FileUtils";
-
     /**
      * 根据文件路径获取文件
      */
@@ -123,7 +121,7 @@ public class FileUtils {
      */
     public static boolean createOrExistsFile(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "createOrExistsFile: file == null");
+            LogUtils.w(FileUtils.class, "createOrExistsFile", "file == null");
             return false;
         }
         // 如果存在，是文件则返回true，是目录则返回false
@@ -132,7 +130,7 @@ public class FileUtils {
         try {
             return file.createNewFile();
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "createOrExistsFile", e);
+            LogUtils.e(FileUtils.class, "createOrExistsFile", e);
         }
         return false;
     }
@@ -149,7 +147,7 @@ public class FileUtils {
      */
     public static boolean createFileByDeleteOldFile(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "createFileByDeleteOldFile: file == null");
+            LogUtils.w(FileUtils.class, "createFileByDeleteOldFile", "file == null");
             return false;
         }
         // 文件存在并且删除失败返回false
@@ -159,7 +157,7 @@ public class FileUtils {
         try {
             return file.createNewFile();
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "createFileByDeleteOldFile", e);
+            LogUtils.e(FileUtils.class, "createFileByDeleteOldFile", e);
         }
         return false;
     }
@@ -176,7 +174,7 @@ public class FileUtils {
      */
     private static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) {
         if (srcDir == null || destDir == null) {
-            LogUtils.w(LOG_TAG, "copyOrMoveDir: srcDir == null || destDir == null");
+            LogUtils.w(FileUtils.class, "copyOrMoveDir", "srcDir == null || destDir == null");
             return false;
         }
         // 如果目标目录在源目录中则返回false，看不懂的话好好想想递归怎么结束
@@ -216,7 +214,7 @@ public class FileUtils {
      */
     private static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) {
         if (srcFile == null || destFile == null) {
-            LogUtils.w(LOG_TAG, "copyOrMoveFile: srcFile == null || destFile == null");
+            LogUtils.w(FileUtils.class, "copyOrMoveFile", "srcFile == null || destFile == null");
             return false;
         }
         // 源文件不存在或者不是文件则返回false
@@ -229,7 +227,7 @@ public class FileUtils {
             return writeFileFromIS(destFile, new FileInputStream(srcFile), false)
                     && !(isMove && !deleteFile(srcFile));
         } catch (FileNotFoundException e) {
-            LogUtils.e(LOG_TAG, "copyOrMoveFile", e);
+            LogUtils.e(FileUtils.class, "copyOrMoveFile", e);
         }
         return false;
     }
@@ -248,7 +246,7 @@ public class FileUtils {
      */
     public static boolean deleteDir(File dir) {
         if (dir == null) {
-            LogUtils.w(LOG_TAG, "deleteDir: dir == null");
+            LogUtils.w(FileUtils.class, "deleteDir", "dir == null");
             return false;
         }
         // 目录不存在返回true
@@ -293,7 +291,7 @@ public class FileUtils {
      */
     public static boolean deleteFilesAndDirInDir(File dir) {
         if (dir == null) {
-            LogUtils.w(LOG_TAG, "deleteFilesAndDirInDir: dir == null");
+            LogUtils.w(FileUtils.class, "deleteFilesAndDirInDir", "dir == null");
             return false;
         }
         // 目录不存在返回true
@@ -329,8 +327,8 @@ public class FileUtils {
     public static List<File> listFilesAndDirInDir(File dir, boolean isRecursive) {
         if (isRecursive) return listFilesAndDirInDir(dir);
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "listFilesAndDirInDir: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "listFilesAndDirInDir", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         Collections.addAll(list, dir.listFiles());
@@ -340,8 +338,8 @@ public class FileUtils {
     /*获取目录下所有文件包括子目录*/
     private static List<File> listFilesAndDirInDir(File dir) {
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "listFilesAndDirInDir: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "listFilesAndDirInDir", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -368,8 +366,8 @@ public class FileUtils {
     public static List<File> listFilesAndDirInDirWithFilter(File dir, String suffix, boolean isRecursive) {
         if (isRecursive) return listFilesAndDirInDirWithFilter(dir, suffix);
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "listFilesAndDirInDirWithFilter: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "listFilesAndDirInDirWithFilter", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -384,8 +382,8 @@ public class FileUtils {
     /* 获取目录下所有后缀名为suffix的文件包括子目录*/
     private static List<File> listFilesAndDirInDirWithFilter(File dir, String suffix) {
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "listFilesAndDirInDirWithFilter: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "listFilesAndDirInDirWithFilter", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -414,8 +412,8 @@ public class FileUtils {
     public static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter, boolean isRecursive) {
         if (isRecursive) return listFilesInDirWithFilter(dir, filter);
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "listFilesInDirWithFilter: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "listFilesInDirWithFilter", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -430,8 +428,8 @@ public class FileUtils {
     /*获取目录下所有符合filter的文件包括子目录*/
     private static List<File> listFilesInDirWithFilter(File dir, FilenameFilter filter) {
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "listFilesInDirWithFilter: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "listFilesInDirWithFilter", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -459,8 +457,8 @@ public class FileUtils {
      */
     public static List<File> searchFileAndDirInDir(File dir, String fileName) {
         if (dir == null || !isDir(dir)) {
-            LogUtils.w(LOG_TAG, "searchFileAndDirInDir: dir == null");
-            return null;
+            LogUtils.w(FileUtils.class, "searchFileAndDirInDir", "dir == null");
+            return new ArrayList<>();
         }
         List<File> list = new ArrayList<>();
         File[] files = dir.listFiles();
@@ -488,7 +486,7 @@ public class FileUtils {
      */
     public static String getFileCharsetSimple(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "getFileCharsetSimple: file == null");
+            LogUtils.w(FileUtils.class, "getFileCharsetSimple", "file == null");
             return "";
         }
         int p = 0;
@@ -497,7 +495,7 @@ public class FileUtils {
             is = new BufferedInputStream(new FileInputStream(file));
             p = (is.read() << 8) + is.read();
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "getFileCharsetSimple", e);
+            LogUtils.e(FileUtils.class, "getFileCharsetSimple", e);
         } finally {
             closeIO(is);
         }
@@ -525,7 +523,7 @@ public class FileUtils {
      */
     public static int getFileLines(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "getFileLines: file == null");
+            LogUtils.w(FileUtils.class, "getFileLines", "file == null");
             return 0;
         }
         int count = 1;
@@ -540,7 +538,7 @@ public class FileUtils {
                 }
             }
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "getFileLines", e);
+            LogUtils.e(FileUtils.class, "getFileLines", e);
         } finally {
             closeIO(is);
         }
@@ -552,8 +550,8 @@ public class FileUtils {
      */
     public static String getFileNameNoExtension(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "getFileNameNoExtension: file == null");
-            return null;
+            LogUtils.w(FileUtils.class, "getFileNameNoExtension", "file == null");
+            return "";
         }
         return getFileNameNoExtension(file.getPath());
     }
@@ -579,8 +577,8 @@ public class FileUtils {
      */
     public static String getFileExtension(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "getFileExtension: file == null");
-            return null;
+            LogUtils.w(FileUtils.class, "getFileExtension", "file == null");
+            return "";
         }
         return getFileExtension(file.getPath());
     }
@@ -610,10 +608,10 @@ public class FileUtils {
      */
     public static List<String> readFile2List(File file, int st, int end, String charsetName) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "readFile2List: file == null");
-            return null;
+            LogUtils.w(FileUtils.class, "readFile2List", "file == null");
+            return new ArrayList<>();
         }
-        if (st > end) return null;
+        if (st > end) return new ArrayList<>();
         BufferedReader reader = null;
         try {
             String line;
@@ -631,11 +629,11 @@ public class FileUtils {
             }
             return list;
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "readFile2List", e);
+            LogUtils.e(FileUtils.class, "readFile2List", e);
         } finally {
             closeIO(reader);
         }
-        return null;
+        return new ArrayList<>();
     }
 
     /**
@@ -650,8 +648,8 @@ public class FileUtils {
      */
     public static String readFile2String(File file, String charsetName) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "readFile2String: file == null");
-            return null;
+            LogUtils.w(FileUtils.class, "readFile2String", "file == null");
+            return "";
         }
         BufferedReader reader = null;
         try {
@@ -668,11 +666,11 @@ public class FileUtils {
             // 要去除最后的换行符
             return sb.delete(sb.length() - 2, sb.length()).toString();
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "readFile2String", e);
+            LogUtils.e(FileUtils.class, "readFile2String", e);
         } finally {
             closeIO(reader);
         }
-        return null;
+        return "";
     }
 
     /**
@@ -687,15 +685,15 @@ public class FileUtils {
      */
     public static byte[] readFile2Bytes(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "readFile2Bytes: file == null");
-            return null;
+            LogUtils.w(FileUtils.class, "readFile2Bytes", "file == null");
+            return new byte[]{};
         }
         try {
             return ConvertUtils.inputStream2Bytes(new FileInputStream(file));
         } catch (FileNotFoundException e) {
-            LogUtils.e(LOG_TAG, "readFile2Bytes", e);
+            LogUtils.e(FileUtils.class, "readFile2Bytes", e);
         }
-        return null;
+        return new byte[]{};
     }
 
     /**
@@ -712,7 +710,7 @@ public class FileUtils {
      */
     public static boolean writeFileFromIS(File file, InputStream is, boolean append) {
         if (file == null || is == null) {
-            LogUtils.w(LOG_TAG, "writeFileFromIS: file == null || is == null");
+            LogUtils.w(FileUtils.class, "writeFileFromIS", "file == null || is == null");
             return false;
         }
         if (!createOrExistsFile(file)) return false;
@@ -726,7 +724,7 @@ public class FileUtils {
             }
             return true;
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "writeFileFromIS", e);
+            LogUtils.e(FileUtils.class, "writeFileFromIS", e);
         } finally {
             closeIO(is, os);
         }
@@ -745,7 +743,7 @@ public class FileUtils {
      */
     public static boolean writeFileFromString(File file, String content, boolean append) {
         if (file == null || content == null) {
-            LogUtils.w(LOG_TAG, "writeFileFromString: file == null || content == null");
+            LogUtils.w(FileUtils.class, "writeFileFromString", "file == null || content == null");
             return false;
         }
         if (!createOrExistsFile(file)) return false;
@@ -755,7 +753,7 @@ public class FileUtils {
             fileWriter.write(content);
             return true;
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "writeFileFromString", e);
+            LogUtils.e(FileUtils.class, "writeFileFromString", e);
         } finally {
             closeIO(fileWriter);
         }
@@ -767,7 +765,7 @@ public class FileUtils {
      */
     public static void closeIO(Closeable... closeables) {
         if (closeables == null) {
-            LogUtils.w(LOG_TAG, "closeIO: closeables == null");
+            LogUtils.w(FileUtils.class, "closeIO", "closeables == null");
             return;
         }
         try {
@@ -777,7 +775,7 @@ public class FileUtils {
                 }
             }
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "closeIO", e);
+            LogUtils.e(FileUtils.class, "closeIO", e);
         }
     }
 

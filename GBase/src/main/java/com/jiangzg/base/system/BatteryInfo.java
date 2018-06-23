@@ -15,8 +15,6 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class BatteryInfo {
 
-    private static final String LOG_TAG = "BatteryInfo";
-
     private static BatteryInfo instance;
     private BatteryListener mListener;
     private BatteryReceiver batteryReceiver;
@@ -31,9 +29,7 @@ public class BatteryInfo {
         int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
         int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, 0);
         if (level > 0 && scale > 0) {
-            int percent = (level * 100) / scale;
-            LogUtils.d(LOG_TAG, "getPercent:" + percent);
-            return percent;
+            return (level * 100) / scale;
         }
         return 0;
     }
@@ -54,7 +50,7 @@ public class BatteryInfo {
      */
     public void addListener(Context context, BatteryListener listener) {
         if (context == null || listener == null) {
-            LogUtils.w(LOG_TAG, "addListener: context == null || listener == null");
+            LogUtils.w(BatteryInfo.class, "addListener", "context == null || listener == null");
             return;
         }
         mListener = listener;
@@ -67,7 +63,7 @@ public class BatteryInfo {
      */
     public void removeListener(Context context) {
         if (context == null) {
-            LogUtils.w(LOG_TAG, "removeListener: context == null");
+            LogUtils.w(BatteryInfo.class, "removeListener", "context == null");
             return;
         }
         mListener = null;
@@ -91,25 +87,25 @@ public class BatteryInfo {
             int voltage = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             switch (voltage) {
                 case BatteryManager.BATTERY_STATUS_CHARGING:
-                    LogUtils.d(LOG_TAG, "onReceive: up");
+                    LogUtils.d(BatteryInfo.class, "onReceive", "up");
                     mListener.up();
                     break;
                 case BatteryManager.BATTERY_STATUS_DISCHARGING:
-                    LogUtils.d(LOG_TAG, "onReceive: down");
+                    LogUtils.d(BatteryInfo.class, "onReceive", "down");
                     mListener.down();
                     break;
                 case BatteryManager.BATTERY_STATUS_NOT_CHARGING:
-                    LogUtils.d(LOG_TAG, "onReceive: normal");
+                    LogUtils.d(BatteryInfo.class, "onReceive", "noChange");
                     mListener.normal();
                     break;
                 case BatteryManager.BATTERY_STATUS_FULL:
-                    LogUtils.d(LOG_TAG, "onReceive: full");
+                    LogUtils.d(BatteryInfo.class, "onReceive", "full");
                     mListener.full();
                     break;
             }
             int percent = getPercent();
             if (percent > 0) {
-                LogUtils.d(LOG_TAG, "onReceive: percent ==" + percent);
+                LogUtils.d(BatteryInfo.class, "onReceive", "percent = " + percent);
                 mListener.percent(percent);
             }
         }

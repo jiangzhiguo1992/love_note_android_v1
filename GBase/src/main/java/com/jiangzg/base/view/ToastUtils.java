@@ -17,18 +17,16 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class ToastUtils {
 
-    private static final String LOG_TAG = "ToastUtils";
-
     private static Toast toast;
     private static Handler handler;
 
     public static void show(final CharSequence message) {
         if (TextUtils.isEmpty(message)) {
-            LogUtils.w(LOG_TAG, "show: message == null");
+            LogUtils.d(ToastUtils.class, "show", "message == null");
             return;
         }
         if (!AppUtils.isAppForeground(AppInfo.get().getPackageName())) {
-            LogUtils.w(LOG_TAG, "show: isAppForeground == false");
+            LogUtils.d(ToastUtils.class, "show", "isAppForeground == false");
             return;
         }
         if (handler == null) {

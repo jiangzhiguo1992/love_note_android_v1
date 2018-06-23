@@ -14,8 +14,6 @@ import java.net.URLEncoder;
  */
 public class EncodeUtils {
 
-    private static final String LOG_TAG = "EncodeUtils";
-
     /**
      * URL编码
      * <p>若想自己指定字符集,可以使用{@link #urlEncode(String input, String charset)}方法</p>
@@ -37,13 +35,13 @@ public class EncodeUtils {
      */
     public static String urlEncode(String input, String charset) {
         if (StringUtils.isEmpty(input)) {
-            LogUtils.w(LOG_TAG, "urlEncode: input == null");
+            LogUtils.w(EncodeUtils.class, "urlEncode", "input == null");
             return "";
         }
         try {
             return URLEncoder.encode(input, charset);
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "urlEncode", e);
+            LogUtils.e(EncodeUtils.class, "urlEncode", e);
         }
         return input;
     }
@@ -69,13 +67,13 @@ public class EncodeUtils {
      */
     public static String urlDecode(String input, String charset) {
         if (StringUtils.isEmpty(input)) {
-            LogUtils.w(LOG_TAG, "urlDecode: input == null");
+            LogUtils.w(EncodeUtils.class, "urlDecode", "input == null");
             return "";
         }
         try {
             return URLDecoder.decode(input, charset);
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "urlDecode", e);
+            LogUtils.e(EncodeUtils.class, "urlDecode", e);
         }
         return input;
     }
@@ -98,7 +96,7 @@ public class EncodeUtils {
      */
     public static byte[] base64Encode(byte[] input) {
         if (input == null || input.length <= 0) {
-            LogUtils.w(LOG_TAG, "base64Encode: input == null");
+            LogUtils.w(EncodeUtils.class, "base64Encode", "input == null");
             return new byte[]{};
         }
         return Base64.encode(input, Base64.NO_WRAP);
@@ -112,7 +110,7 @@ public class EncodeUtils {
      */
     public static String base64Encode2String(byte[] input) {
         if (input == null || input.length <= 0) {
-            LogUtils.w(LOG_TAG, "base64Encode2String: input == null");
+            LogUtils.w(EncodeUtils.class, "base64Encode2String", "input == null");
             return "";
         }
         return Base64.encodeToString(input, Base64.NO_WRAP);
@@ -126,7 +124,7 @@ public class EncodeUtils {
      */
     public static byte[] base64Decode(String input) {
         if (StringUtils.isEmpty(input)) {
-            LogUtils.w(LOG_TAG, "base64Decode: input == null");
+            LogUtils.w(EncodeUtils.class, "base64Decode", "input == null");
             return new byte[]{};
         }
         return Base64.decode(input, Base64.NO_WRAP);
@@ -140,7 +138,7 @@ public class EncodeUtils {
      */
     public static byte[] base64Decode(byte[] input) {
         if (input == null || input.length <= 0) {
-            LogUtils.w(LOG_TAG, "base64Decode: input == null");
+            LogUtils.w(EncodeUtils.class, "base64Decode", "input == null");
             return new byte[]{};
         }
         return Base64.decode(input, Base64.NO_WRAP);
@@ -155,7 +153,7 @@ public class EncodeUtils {
      */
     public static byte[] base64UrlSafeEncode(String input) {
         if (StringUtils.isEmpty(input)) {
-            LogUtils.w(LOG_TAG, "base64UrlSafeEncode: input == null");
+            LogUtils.w(EncodeUtils.class, "base64UrlSafeEncode", "input == null");
             return new byte[]{};
         }
         return Base64.encode(input.getBytes(), Base64.URL_SAFE);
@@ -169,45 +167,10 @@ public class EncodeUtils {
      */
     public static String htmlEncode(String input) {
         if (StringUtils.isEmpty(input)) {
-            LogUtils.w(LOG_TAG, "htmlEncode: input == null");
+            LogUtils.w(EncodeUtils.class, "htmlEncode", "input == null");
             return "";
         }
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         return Html.escapeHtml(input);
-        //} else {
-        //    // 参照Html.escapeHtml()中代码
-        //    StringBuilder out = new StringBuilder();
-        //    for (int i = 0, len = input.length(); i < len; i++) {
-        //        char c = input.charAt(i);
-        //        if (c == '<') {
-        //            out.append("&lt;");
-        //        } else if (c == '>') {
-        //            out.append("&gt;");
-        //        } else if (c == '&') {
-        //            out.append("&amp;");
-        //        } else if (c >= 0xD800 && c <= 0xDFFF) {
-        //            if (c < 0xDC00 && i + 1 < len) {
-        //                char d = input.charAt(i + 1);
-        //                if (d >= 0xDC00 && d <= 0xDFFF) {
-        //                    i++;
-        //                    int codepoint = 0x010000 | (int) c - 0xD800 << 10 | (int) d - 0xDC00;
-        //                    out.append("&#").append(codepoint).append(";");
-        //                }
-        //            }
-        //        } else if (c > 0x7E || c < ' ') {
-        //            out.append("&#").append((int) c).append(";");
-        //        } else if (c == ' ') {
-        //            while (i + 1 < len && input.charAt(i + 1) == ' ') {
-        //                out.append("&nbsp;");
-        //                i++;
-        //            }
-        //            out.append(' ');
-        //        } else {
-        //            out.append(c);
-        //        }
-        //    }
-        //    return out.toString();
-        //}
     }
 
     /**
@@ -218,7 +181,7 @@ public class EncodeUtils {
      */
     public static String htmlDecode(String input) {
         if (StringUtils.isEmpty(input)) {
-            LogUtils.w(LOG_TAG, "htmlDecode: input == null");
+            LogUtils.w(EncodeUtils.class, "htmlDecode", "input == null");
             return "";
         }
         return Html.fromHtml(input).toString();

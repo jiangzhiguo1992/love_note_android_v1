@@ -14,8 +14,6 @@ import com.jiangzg.base.common.LogUtils;
  */
 public class FragmentTrans {
 
-    private static final String LOG_TAG = "FragmentTrans";
-
     /**
      * 添加，会遮挡主后面的
      */
@@ -25,11 +23,13 @@ public class FragmentTrans {
 
     public static void add(FragmentManager manager, Fragment fragment, @IdRes int viewId, String tag, boolean stack) {
         if (manager == null || fragment == null) {
-            LogUtils.w(LOG_TAG, "add: manager == null || fragment == null || viewId == 0");
+            LogUtils.w(FragmentTrans.class, "add", "manager == null || fragment == null");
             return;
         }
-        if (fragment.isAdded()) return;
-        LogUtils.i(LOG_TAG, "-->add");
+        if (fragment.isAdded()) {
+            LogUtils.i(FragmentTrans.class, "add", "isAdded = " + fragment.getClass().getSimpleName());
+            return;
+        }
         FragmentTransaction transaction = manager.beginTransaction();
         if (TextUtils.isEmpty(tag)) {
             transaction.add(viewId, fragment);
@@ -39,6 +39,7 @@ public class FragmentTrans {
             transaction.add(viewId, fragment, tag);
         }
         commit(transaction, stack);
+        LogUtils.i(FragmentTrans.class, "add", fragment.getClass().getSimpleName());
     }
 
     /**
@@ -46,14 +47,17 @@ public class FragmentTrans {
      */
     public static void remove(FragmentManager manager, Fragment fragment, boolean stack) {
         if (manager == null || fragment == null) {
-            LogUtils.w(LOG_TAG, "remove: manager == null || fragment == null");
+            LogUtils.w(FragmentTrans.class, "remove", "manager == null || fragment == null");
             return;
         }
-        if (!fragment.isAdded() || fragment.isRemoving()) return;
-        LogUtils.i(LOG_TAG, "-->remove");
+        if (!fragment.isAdded() || fragment.isRemoving()) {
+            LogUtils.i(FragmentTrans.class, "remove", "noAdd = " + fragment.getClass().getSimpleName());
+            return;
+        }
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.remove(fragment);
         commit(transaction, stack);
+        LogUtils.i(FragmentTrans.class, "remove", fragment.getClass().getSimpleName());
     }
 
     /**
@@ -65,15 +69,17 @@ public class FragmentTrans {
 
     public static void replace(FragmentManager manager, Fragment fragment, @IdRes int viewId, String tag, boolean stack) {
         if (manager == null || fragment == null || viewId == 0) {
-            LogUtils.w(LOG_TAG, "replace: manager == null || fragment == null || viewId == 0");
+            LogUtils.w(FragmentTrans.class, "replace", "manager == null || fragment == null || viewId == 0");
             return;
         }
-        if (fragment.isVisible()) return;
+        if (fragment.isVisible()) {
+            LogUtils.i(FragmentTrans.class, "replace", "isVisible = " + fragment.getClass().getSimpleName());
+            return;
+        }
         if (fragment.isAdded()) { // isAdd 则显示(但不会刷新)
             show(manager, fragment, stack);
             return;
         }
-        LogUtils.i(LOG_TAG, "-->replace");
         FragmentTransaction transaction = manager.beginTransaction();
         if (TextUtils.isEmpty(tag)) {
             transaction.replace(viewId, fragment);
@@ -81,6 +87,7 @@ public class FragmentTrans {
             transaction.replace(viewId, fragment, tag);
         }
         commit(transaction, stack);
+        LogUtils.i(FragmentTrans.class, "replace", fragment.getClass().getSimpleName());
     }
 
     /**
@@ -89,14 +96,17 @@ public class FragmentTrans {
      */
     public static void show(FragmentManager manager, Fragment fragment, boolean stack) {
         if (manager == null || fragment == null) {
-            LogUtils.w(LOG_TAG, "show: manager == null || fragment == null");
+            LogUtils.w(FragmentTrans.class, "show", "manager == null || fragment == null");
             return;
         }
-        if (!fragment.isAdded() || !fragment.isHidden()) return;
-        LogUtils.i(LOG_TAG, "-->hide");
+        if (!fragment.isAdded() || !fragment.isHidden()) {
+            LogUtils.i(FragmentTrans.class, "show", "isVisible = " + fragment.getClass().getSimpleName());
+            return;
+        }
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.show(fragment);
         commit(transaction, stack);
+        LogUtils.i(FragmentTrans.class, "show", fragment.getClass().getSimpleName());
     }
 
     /**
@@ -105,20 +115,23 @@ public class FragmentTrans {
      */
     public static void hide(FragmentManager manager, Fragment fragment, boolean stack) {
         if (manager == null || fragment == null) {
-            LogUtils.w(LOG_TAG, "hide: manager == null || fragment == null");
+            LogUtils.w(FragmentTrans.class, "hide", "manager == null || fragment == null");
             return;
         }
-        if (!fragment.isAdded() || fragment.isHidden()) return;
-        LogUtils.i(LOG_TAG, "-->hide");
+        if (!fragment.isAdded() || fragment.isHidden()) {
+            LogUtils.i(FragmentTrans.class, "hide", "isHidden = " + fragment.getClass().getSimpleName());
+            return;
+        }
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.hide(fragment);
         commit(transaction, stack);
+        LogUtils.i(FragmentTrans.class, "hide", fragment.getClass().getSimpleName());
     }
 
     /* 事物提交 最后要commit */
     private static void commit(FragmentTransaction transaction, boolean stack) {
         if (transaction == null) {
-            LogUtils.w(LOG_TAG, "commit: transaction == null");
+            LogUtils.w(FragmentTrans.class, "commit", "transaction == null");
             return;
         }
         if (stack) {
@@ -138,11 +151,11 @@ public class FragmentTrans {
     /* onBackPress里已经处理了 */
     public static boolean goBack(FragmentManager manager) {
         if (manager == null) {
-            LogUtils.w(LOG_TAG, "commit: manager == null");
+            LogUtils.w(FragmentTrans.class, "goBack", "manager == null");
             return false;
         }
         if (manager.getBackStackEntryCount() > 0) {
-            LogUtils.i(LOG_TAG, "-->goBack");
+            LogUtils.i(FragmentTrans.class, "goBack", "-->");
             //manager.popBackStack(); // fragment栈中有fragment时，回退fragment
             manager.popBackStackImmediate();
             return true;

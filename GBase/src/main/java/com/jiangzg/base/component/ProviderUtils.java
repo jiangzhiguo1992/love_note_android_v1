@@ -25,14 +25,12 @@ import java.util.Map;
  */
 public class ProviderUtils {
 
-    private static final String LOG_TAG = "ProviderUtils";
-
     /**
      * uri转file
      */
     public static File getImgFileByUri(Uri uri) {
         if (uri == null) {
-            LogUtils.w(LOG_TAG, "getImgFileByUri: uri == null");
+            LogUtils.w(ProviderUtils.class, "getImgFileByUri", "uri == null");
             return null;
         }
         String[] project = new String[]{MediaStore.Images.ImageColumns.DATA}; // 字段名
@@ -49,7 +47,7 @@ public class ProviderUtils {
                 if ("primary".equalsIgnoreCase(type)) {
                     data = Environment.getExternalStorageDirectory() + "/" + split[1];
                 } else {
-                    LogUtils.w(LOG_TAG, "Uri2File: externalstorage: primary != externalstorage");
+                    LogUtils.w(ProviderUtils.class, "getImgFileByUri", "primary != externalstorage");
                     return null;
                 }
             } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
@@ -58,7 +56,7 @@ public class ProviderUtils {
                 try {
                     aLong = Long.valueOf(docId);
                 } catch (Exception e) {
-                    LogUtils.e(LOG_TAG, "getImgFileByUri", e);
+                    LogUtils.e(ProviderUtils.class, "getImgFileByUri", e);
                     return null;
                 }
                 if (aLong != 0) {
@@ -111,7 +109,7 @@ public class ProviderUtils {
      */
     public static Uri getUriByFile(File file) {
         if (file == null) {
-            LogUtils.w(LOG_TAG, "getUriByFile: file == null");
+            LogUtils.w(ProviderUtils.class, "getUriByFile", "file == null");
             return null;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -187,7 +185,7 @@ public class ProviderUtils {
             for (int i = 0; i < projection.length; i++) {
                 String key = projection[i];
                 String value = cursor.getString(i);
-                LogUtils.d(LOG_TAG, "getProviderColumn: key = " + key + " | value = " + value);
+                LogUtils.d(ProviderUtils.class, "getProviderColumn", "key = " + key + " | value = " + value);
                 map.put(key, value);
             }
             list.add(map);

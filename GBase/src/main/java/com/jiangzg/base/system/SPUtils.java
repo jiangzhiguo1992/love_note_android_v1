@@ -18,8 +18,6 @@ import java.util.Map;
  */
 public class SPUtils {
 
-    private static final String LOG_TAG = "SPUtils";
-
     /* SP集合 */
     private static Map<String, SharedPreferences> mapShare;
 
@@ -33,7 +31,7 @@ public class SPUtils {
             }
             sharedPreferences = mapShare.get(name);
             if (sharedPreferences == null) {
-                LogUtils.i(LOG_TAG, "装载sharedPreferences: " + name);
+                LogUtils.d(SPUtils.class, "getSharedPreferences", name);
                 sharedPreferences = AppBase.getInstance().getSharedPreferences(name, Context.MODE_PRIVATE);
                 mapShare.put(name, sharedPreferences);
             }
@@ -51,7 +49,7 @@ public class SPUtils {
 
     public static void clear(SharedPreferences preferences) {
         if (preferences == null) {
-            LogUtils.w(LOG_TAG, "clear: preferences == null");
+            LogUtils.w(SPUtils.class, "clear", "preferences == null");
             return;
         }
         preferences.edit().clear().apply();

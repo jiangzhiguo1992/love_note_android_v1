@@ -27,7 +27,6 @@ import java.util.Locale;
  */
 public class ConvertUtils {
 
-    private static final String LOG_TAG = "ConvertUtils";
     private static final char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     /**
@@ -40,7 +39,7 @@ public class ConvertUtils {
      */
     public static String bytes2HexString(byte[] bytes) {
         if (bytes == null || bytes.length <= 0) {
-            LogUtils.w(LOG_TAG, "bytes2HexString: bytes == null || bytes.length <= 0");
+            LogUtils.w(ConvertUtils.class, "", "bytes2HexString: bytes == null || bytes.length <= 0");
             return "";
         }
         int len = bytes.length;
@@ -62,12 +61,12 @@ public class ConvertUtils {
      */
     public static byte[] hexString2Bytes(String hexString) {
         if (StringUtils.isEmpty(hexString)) {
-            LogUtils.w(LOG_TAG, "hexString2Bytes: hexString == null");
+            LogUtils.w(ConvertUtils.class, "hexString2Bytes", "hexString == null");
             return new byte[]{};
         }
         int len = hexString.length();
         if (len % 2 != 0) {
-            LogUtils.e(LOG_TAG, "hexString2Bytes", new IllegalArgumentException("长度不是偶数"));
+            LogUtils.e(ConvertUtils.class, "hexString2Bytes", new IllegalArgumentException("长度不是偶数"));
         }
         char[] hexBytes = hexString.toUpperCase().toCharArray();
         byte[] ret = new byte[len >>> 1];
@@ -101,7 +100,7 @@ public class ConvertUtils {
      */
     public static byte[] chars2Bytes(char[] chars) {
         if (chars == null || chars.length <= 0) {
-            LogUtils.w(LOG_TAG, "chars2Bytes: chars == null");
+            LogUtils.w(ConvertUtils.class, "chars2Bytes", "chars == null");
             return new byte[]{};
         }
         int len = chars.length;
@@ -120,7 +119,7 @@ public class ConvertUtils {
      */
     public static char[] bytes2Chars(byte[] bytes) {
         if (bytes == null || bytes.length <= 0) {
-            LogUtils.w(LOG_TAG, "bytes2Chars: bytes == null");
+            LogUtils.w(ConvertUtils.class, "bytes2Chars", "bytes == null");
             return new char[]{};
         }
         int len = bytes.length;
@@ -196,7 +195,7 @@ public class ConvertUtils {
      */
     public static ByteArrayOutputStream input2OutputStream(InputStream is) {
         if (is == null) {
-            LogUtils.w(LOG_TAG, "input2OutputStream: is == null");
+            LogUtils.w(ConvertUtils.class, "input2OutputStream", "is == null");
             return null;
         }
         try {
@@ -208,7 +207,7 @@ public class ConvertUtils {
             }
             return os;
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "input2OutputStream", e);
+            LogUtils.e(ConvertUtils.class, "input2OutputStream", e);
         } finally {
             FileUtils.closeIO(is);
         }
@@ -223,7 +222,7 @@ public class ConvertUtils {
      */
     public ByteArrayInputStream output2InputStream(OutputStream out) {
         if (out == null) {
-            LogUtils.w(LOG_TAG, "output2InputStream: out == null");
+            LogUtils.w(ConvertUtils.class, "output2InputStream", "out == null");
             return null;
         }
         return new ByteArrayInputStream(((ByteArrayOutputStream) out).toByteArray());
@@ -237,7 +236,7 @@ public class ConvertUtils {
      */
     public static byte[] inputStream2Bytes(InputStream is) {
         if (is == null) {
-            LogUtils.w(LOG_TAG, "inputStream2Bytes: is == null");
+            LogUtils.w(ConvertUtils.class, "inputStream2Bytes", "is == null");
             return new byte[]{};
         }
         ByteArrayOutputStream stream = input2OutputStream(is);
@@ -255,7 +254,7 @@ public class ConvertUtils {
      */
     public static InputStream bytes2InputStream(byte[] bytes) {
         if (bytes == null) {
-            LogUtils.w(LOG_TAG, "bytes2InputStream: bytes == null");
+            LogUtils.w(ConvertUtils.class, "bytes2InputStream", "bytes == null");
             return null;
         }
         return new ByteArrayInputStream(bytes);
@@ -269,7 +268,7 @@ public class ConvertUtils {
      */
     public static byte[] outputStream2Bytes(OutputStream out) {
         if (out == null) {
-            LogUtils.w(LOG_TAG, "outputStream2Bytes: out == null");
+            LogUtils.w(ConvertUtils.class, "outputStream2Bytes", "out == null");
             return new byte[]{};
         }
         return ((ByteArrayOutputStream) out).toByteArray();
@@ -283,7 +282,7 @@ public class ConvertUtils {
      */
     public static OutputStream bytes2OutputStream(byte[] bytes) {
         if (bytes == null) {
-            LogUtils.w(LOG_TAG, "bytes2OutputStream: bytes == null");
+            LogUtils.w(ConvertUtils.class, "bytes2OutputStream", "bytes == null");
             return null;
         }
         ByteArrayOutputStream os = null;
@@ -292,7 +291,7 @@ public class ConvertUtils {
             os.write(bytes);
             return os;
         } catch (IOException e) {
-            LogUtils.e(LOG_TAG, "bytes2OutputStream", e);
+            LogUtils.e(ConvertUtils.class, "bytes2OutputStream", e);
         } finally {
             FileUtils.closeIO(os);
         }
@@ -308,13 +307,13 @@ public class ConvertUtils {
      */
     public static String inputStream2String(InputStream is, String charsetName) {
         if (is == null || TextUtils.isEmpty(charsetName)) {
-            LogUtils.w(LOG_TAG, "inputStream2String: bytes == null");
+            LogUtils.w(ConvertUtils.class, "inputStream2String", "bytes == null");
             return "";
         }
         try {
             return new String(inputStream2Bytes(is), charsetName);
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "inputStream2String", e);
+            LogUtils.e(ConvertUtils.class, "inputStream2String", e);
             return "";
         }
     }
@@ -328,13 +327,13 @@ public class ConvertUtils {
      */
     public static InputStream string2InputStream(String string, String charsetName) {
         if (TextUtils.isEmpty(charsetName)) {
-            LogUtils.w(LOG_TAG, "string2InputStream: charsetName == null");
+            LogUtils.w(ConvertUtils.class, "string2InputStream", "charsetName == null");
             return null;
         }
         try {
             return new ByteArrayInputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "string2InputStream", e);
+            LogUtils.e(ConvertUtils.class, "string2InputStream", e);
             return null;
         }
     }
@@ -348,13 +347,13 @@ public class ConvertUtils {
      */
     public static String outputStream2String(OutputStream out, String charsetName) {
         if (out == null) {
-            LogUtils.w(LOG_TAG, "outputStream2String: out == null");
+            LogUtils.w(ConvertUtils.class, "outputStream2String", "out == null");
             return "";
         }
         try {
             return new String(outputStream2Bytes(out), charsetName);
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "outputStream2String", e);
+            LogUtils.e(ConvertUtils.class, "outputStream2String", e);
             return "";
         }
     }
@@ -368,13 +367,13 @@ public class ConvertUtils {
      */
     public static OutputStream string2OutputStream(String string, String charsetName) {
         if (StringUtils.isEmpty(string)) {
-            LogUtils.w(LOG_TAG, "string2OutputStream: string == null");
+            LogUtils.w(ConvertUtils.class, "string2OutputStream", "string == null");
             return null;
         }
         try {
             return bytes2OutputStream(string.getBytes(charsetName));
         } catch (UnsupportedEncodingException e) {
-            LogUtils.e(LOG_TAG, "string2OutputStream", e);
+            LogUtils.e(ConvertUtils.class, "string2OutputStream", e);
             return null;
         }
     }
@@ -388,7 +387,7 @@ public class ConvertUtils {
      */
     public static byte[] bitmap2Bytes(Bitmap bitmap, Bitmap.CompressFormat format) {
         if (bitmap == null) {
-            LogUtils.w(LOG_TAG, "bitmap2Bytes: bitmap == null");
+            LogUtils.w(ConvertUtils.class, "bitmap2Bytes", "bitmap == null");
             return new byte[]{};
         }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -414,7 +413,7 @@ public class ConvertUtils {
      */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
         if (drawable == null) {
-            LogUtils.w(LOG_TAG, "drawable2Bitmap: drawable == null");
+            LogUtils.w(ConvertUtils.class, "drawable2Bitmap", "drawable == null");
             return null;
         }
         Bitmap bitmap = Bitmap.createBitmap(

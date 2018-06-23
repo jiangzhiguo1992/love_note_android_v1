@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.common.LogUtils;
 
 import java.io.File;
 
@@ -24,6 +25,7 @@ public class BroadcastUtils {
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         ContentResolver mContentResolver = app.getContentResolver();
         String where = MediaStore.Images.Media.DATA + "='" + file.getAbsolutePath() + "'";
+        LogUtils.i(BroadcastUtils.class, "refreshMediaFile", "where = " + where);
         mContentResolver.delete(uri, where, null);
         // 发送广播通知已删除，重新扫描
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);

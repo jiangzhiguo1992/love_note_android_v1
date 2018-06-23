@@ -21,7 +21,6 @@ import java.util.Arrays;
  */
 public class AppInfo {
 
-    private static final String LOG_TAG = "AppInfo";
     private static AppInfo instance;
 
     private String name; // APP名称
@@ -37,10 +36,10 @@ public class AppInfo {
     private String inFilesDir; // 内部文件目录 /data/user/0/packageName/files，拍照裁剪没权限
     private String outCacheDir; // sd卡缓存目录 /storage/emulated/0/Android/data/packageName/cache
     private String outFilesDir; // sd卡文件目录 /storage/emulated/0/Android/data/packageName/files
-    private String sdCardDir; // sd卡路径 /storage/emulated/0/
+    private String sdCardDir; // sd卡路径 /storage/emulated/0/ 或 /
 
     /**
-     * 获取当前App信息，4个Dir需要权限
+     * 获取当前App信息
      */
     @SuppressLint({"PackageManagerGetSignatures"})
     public static AppInfo get() {
@@ -77,7 +76,7 @@ public class AppInfo {
                 }
             }
         } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+            LogUtils.e(AppInfo.class, "get", e);
         }
         return instance;
     }
@@ -87,7 +86,7 @@ public class AppInfo {
     }
 
     public String getSHA1() {
-        LogUtils.d(LOG_TAG, "getSHA1: " + SHA1);
+        LogUtils.d(AppInfo.class, "getSHA1", SHA1);
         return SHA1;
     }
 
@@ -96,7 +95,7 @@ public class AppInfo {
     }
 
     public Signature[] getSignature() {
-        LogUtils.d(LOG_TAG, "getSignature: " + Arrays.toString(signature));
+        LogUtils.d(AppInfo.class, "getSignature", Arrays.toString(signature));
         return signature;
     }
 
@@ -113,7 +112,7 @@ public class AppInfo {
     }
 
     public String getPackageName() {
-        LogUtils.d(LOG_TAG, "getPackageName: " + packageName);
+        LogUtils.d(AppInfo.class, "getPackageName", packageName);
         return packageName;
     }
 
@@ -122,7 +121,7 @@ public class AppInfo {
     }
 
     public String getPackagePath() {
-        LogUtils.d(LOG_TAG, "getPackagePath: " + packagePath);
+        LogUtils.d(AppInfo.class, "getPackagePath", packagePath);
         return packagePath;
     }
 
@@ -131,7 +130,7 @@ public class AppInfo {
     }
 
     public boolean isSystem() {
-        LogUtils.d(LOG_TAG, "isSystem: " + isSystem);
+        LogUtils.d(AppInfo.class, "isSystem", String.valueOf(isSystem));
         return isSystem;
     }
 
@@ -140,7 +139,7 @@ public class AppInfo {
     }
 
     public String getName() {
-        LogUtils.d(LOG_TAG, "getName: " + name);
+        LogUtils.d(AppInfo.class, "getName", name);
         return name;
     }
 
@@ -149,7 +148,7 @@ public class AppInfo {
     }
 
     public int getVersionCode() {
-        LogUtils.d(LOG_TAG, "getVersionCode: " + versionCode);
+        LogUtils.d(AppInfo.class, "getVersionCode", String.valueOf(versionCode));
         return versionCode;
     }
 
@@ -158,60 +157,51 @@ public class AppInfo {
     }
 
     public String getVersionName() {
-        LogUtils.d(LOG_TAG, "getVersionNam: " + versionName);
+        LogUtils.d(AppInfo.class, "getVersionNam", versionName);
         return versionName;
     }
 
     public String getInCacheDir() {
-        if (!StringUtils.isEmpty(inCacheDir)) {
-            LogUtils.d(LOG_TAG, "getInCacheDir: " + inCacheDir);
-            return inCacheDir;
+        if (StringUtils.isEmpty(inCacheDir)) {
+            File cacheDir = AppBase.getInstance().getCacheDir();
+            inCacheDir = cacheDir.getAbsolutePath();
         }
-        File cacheDir = AppBase.getInstance().getCacheDir();
-        inCacheDir = cacheDir.getAbsolutePath();
-        LogUtils.d(LOG_TAG, "getInCacheDir: " + inCacheDir);
+        LogUtils.d(AppInfo.class, "getInCacheDir", inCacheDir);
         return inCacheDir;
     }
 
     public String getInFilesDir() {
-        if (!StringUtils.isEmpty(inFilesDir)) {
-            LogUtils.d(LOG_TAG, "getInFilesDir: " + inFilesDir);
-            return inFilesDir;
+        if (StringUtils.isEmpty(inFilesDir)) {
+            File filesDir = AppBase.getInstance().getFilesDir();
+            inFilesDir = filesDir.getAbsolutePath();
         }
-        // 没sd卡 == /data/user/0/packageName/files
-        File filesDir = AppBase.getInstance().getFilesDir();
-        inFilesDir = filesDir.getAbsolutePath();
-        LogUtils.d(LOG_TAG, "getInFilesDir: " + inFilesDir);
+        LogUtils.d(AppInfo.class, "getInFilesDir", inFilesDir);
         return inFilesDir;
     }
 
     public String getOutCacheDir() {
-        if (!StringUtils.isEmpty(outCacheDir)) {
-            LogUtils.d(LOG_TAG, "getOutCacheDir: " + outCacheDir);
-            return outCacheDir;
+        if (StringUtils.isEmpty(outCacheDir)) {
+            File externalCacheDir = AppBase.getInstance().getExternalCacheDir();
+            if (isSDCardExits() && externalCacheDir != null && !StringUtils.isEmpty(externalCacheDir.getAbsolutePath())) {
+                outCacheDir = externalCacheDir.getAbsolutePath();
+            } else {
+                outCacheDir = getInCacheDir();
+            }
         }
-        File externalCacheDir = AppBase.getInstance().getExternalCacheDir();
-        if (isSDCardExits() && externalCacheDir != null) {
-            outCacheDir = externalCacheDir.getAbsolutePath();
-        } else {
-            outCacheDir = getInCacheDir();
-        }
-        LogUtils.d(LOG_TAG, "getOutCacheDir: " + outCacheDir);
+        LogUtils.d(AppInfo.class, "getOutCacheDir", outCacheDir);
         return outCacheDir;
     }
 
     public String getOutFilesDir() {
-        if (!StringUtils.isEmpty(outFilesDir)) {
-            LogUtils.d(LOG_TAG, "getOutFilesDir: " + outFilesDir);
-            return outFilesDir;
+        if (StringUtils.isEmpty(outFilesDir)) {
+            File externalFilesDir = AppBase.getInstance().getExternalFilesDir("");
+            if (isSDCardExits() && externalFilesDir != null && !StringUtils.isEmpty(externalFilesDir.getAbsolutePath())) {
+                outFilesDir = externalFilesDir.getAbsolutePath();
+            } else {
+                outFilesDir = getInFilesDir();
+            }
         }
-        File externalFilesDir = AppBase.getInstance().getExternalFilesDir("");
-        if (isSDCardExits() && externalFilesDir != null) {
-            outFilesDir = externalFilesDir.getAbsolutePath();
-        } else {
-            outFilesDir = getInFilesDir();
-        }
-        LogUtils.d(LOG_TAG, "getOutFilesDir: " + outFilesDir);
+        LogUtils.d(AppInfo.class, "getOutFilesDir", outFilesDir);
         return outFilesDir;
     }
 
@@ -220,18 +210,14 @@ public class AppInfo {
      */
     @SuppressLint("MissingPermission")
     public String getSdCardDir() {
-        if (!StringUtils.isEmpty(sdCardDir)) {
-            LogUtils.d(LOG_TAG, "getSDCardDir: " + sdCardDir);
-            return sdCardDir;
+        if (StringUtils.isEmpty(sdCardDir)) {
+            if (isSDCardExits()) { // 有sd卡 == /storage/emulated/0/
+                this.sdCardDir = Environment.getExternalStorageDirectory().getPath() + File.separator;
+            } else { // 没sd卡 == /
+                this.sdCardDir = Environment.getRootDirectory() + File.separator;
+            }
         }
-        if (isSDCardExits()) {
-            // 有sd卡 ==
-            this.sdCardDir = Environment.getExternalStorageDirectory().getPath() + File.separator;
-        } else {
-            // 没sd卡 == /
-            this.sdCardDir = Environment.getRootDirectory() + File.separator;
-        }
-        LogUtils.d(LOG_TAG, "getSDCardDir: " + sdCardDir);
+        LogUtils.d(AppInfo.class, "getSDCardDir", sdCardDir);
         return this.sdCardDir;
     }
 

@@ -23,24 +23,26 @@ import java.util.Date;
  */
 public class IntentResult {
 
-    private static final String LOG_TAG = "IntentResult";
-
     /**
      * IntentFactory.getContacts返回时调用
      * 在onActivityResult中调用，获取选中的号码
      */
     public static String getContactSelect(Intent data) {
         if (data == null) {
-            LogUtils.w(LOG_TAG, "getContactSelect: data == null");
+            LogUtils.w(IntentResult.class, "getContactSelect", "data == null");
             return "";
         }
         Uri uri = data.getData();
-        Cursor cursor = null;
-        if (uri != null) {
-            ContentResolver contentResolver = AppBase.getInstance().getContentResolver();
-            cursor = contentResolver.query(uri, null, null, null, null);
+        if (uri == null) {
+            LogUtils.w(IntentResult.class, "getContactSelect", "uri == null");
+            return "";
         }
-        if (cursor == null) return "";
+        ContentResolver contentResolver = AppBase.getInstance().getContentResolver();
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        if (cursor == null) {
+            LogUtils.w(IntentResult.class, "getContactSelect", "cursor == null");
+            return "";
+        }
         String num = "";
         while (cursor.moveToNext()) {
             num = cursor.getString(cursor.getColumnIndex("data1"));
@@ -56,7 +58,7 @@ public class IntentResult {
      */
     public static File getPictureFile(Intent data) {
         if (data == null) {
-            LogUtils.w(LOG_TAG, "getPictureFile: data == null");
+            LogUtils.w(IntentResult.class, "getPictureFile", "data == null");
             return null;
         }
         Uri uri = getPictureUri(data);
@@ -64,6 +66,7 @@ public class IntentResult {
         if (uri != null) {
             file = ProviderUtils.getImgFileByUri(uri);
         } else {
+            LogUtils.w(IntentResult.class, "getPictureFile", "uri == null");
             long time = new Date().getTime();
             file = new File(AppInfo.get().getInCacheDir(), time + ".jpeg");
             FileUtils.createFileByDeleteOldFile(file);
@@ -78,7 +81,7 @@ public class IntentResult {
      */
     public static Uri getPictureUri(Intent data) {
         if (data == null || data.getData() == null) {
-            LogUtils.w(LOG_TAG, "getPictureUri: data == null");
+            LogUtils.w(IntentResult.class, "getPictureUri", "data == null");
             return null;
         }
         Uri uri = data.getData();

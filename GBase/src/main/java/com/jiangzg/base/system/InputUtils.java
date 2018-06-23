@@ -19,14 +19,12 @@ import com.jiangzg.base.common.StringUtils;
  */
 public class InputUtils {
 
-    private static final String LOG_TAG = "InputUtils";
-
     /**
      * 软键盘设置, 要在setContentView之前调用
      */
     public static void initActivity(Activity activity) {
         if (activity == null) {
-            LogUtils.w(LOG_TAG, "initActivity: activity == null");
+            LogUtils.w(InputUtils.class, "initActivity", "activity == null");
             return;
         }
         Window window = activity.getWindow();
@@ -43,7 +41,7 @@ public class InputUtils {
      */
     public static boolean hideSoftInput(View focus) {
         if (focus == null) {
-            LogUtils.w(LOG_TAG, "hideSoftInput: focus == null");
+            LogUtils.w(InputUtils.class, "hideSoftInput", "focus == null");
             return false;
         }
         focus.clearFocus();
@@ -56,7 +54,7 @@ public class InputUtils {
      */
     public static boolean showSoftInput(View focus) {
         if (focus == null) {
-            LogUtils.w(LOG_TAG, "showSoftInput: focus == null");
+            LogUtils.w(InputUtils.class, "showSoftInput", "focus == null");
             return false;
         }
         focus.setFocusable(true);
@@ -71,7 +69,7 @@ public class InputUtils {
      */
     public static void toggleSoftInput(View focus) {
         if (focus == null) {
-            LogUtils.w(LOG_TAG, "toggleSoftInput: focus == null");
+            LogUtils.w(InputUtils.class, "toggleSoftInput", "focus == null");
             return;
         }
         focus.setFocusable(true);
@@ -87,7 +85,7 @@ public class InputUtils {
      */
     public static void copyText(String text) {
         if (StringUtils.isEmpty(text)) {
-            LogUtils.w(LOG_TAG, "copyText: text == null");
+            LogUtils.w(InputUtils.class, "copyText", "text == null");
             return;
         }
         ClipData myClip = ClipData.newPlainText("text", text);
@@ -110,7 +108,7 @@ public class InputUtils {
      */
     public static void copyUri(Uri uri) {
         if (uri == null) {
-            LogUtils.w(LOG_TAG, "copyUri: uri == null");
+            LogUtils.w(InputUtils.class, "copyUri", "uri == null");
             return;
         }
         ClipData clipData = ClipData.newUri(AppBase.getInstance().getContentResolver(), "uri", uri);
@@ -131,7 +129,7 @@ public class InputUtils {
      */
     public static void copyIntent(Intent intent) {
         if (intent == null) {
-            LogUtils.w(LOG_TAG, "copyIntent: intent == null");
+            LogUtils.w(InputUtils.class, "copyIntent", "intent == null");
             return;
         }
         ClipData clipData = ClipData.newIntent("intent", intent);

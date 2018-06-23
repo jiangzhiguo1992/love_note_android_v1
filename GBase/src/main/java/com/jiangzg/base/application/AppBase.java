@@ -10,12 +10,17 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by JiangZhiGuo on 2016-12-2.
@@ -24,6 +29,10 @@ import android.view.inputmethod.InputMethodManager;
 public class AppBase extends MultiDexApplication {
 
     private static AppBase instance;
+
+    protected Handler mainHandler; // 主线程handler
+    protected ExecutorService threadPool; // 缓冲线程池
+    //protected ScheduledExecutorService schedule; // 定时线程池
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -40,6 +49,27 @@ public class AppBase extends MultiDexApplication {
     public static AppBase getInstance() {
         return instance;
     }
+
+    public Handler getHandler() {
+        if (null == mainHandler) {
+            mainHandler = new Handler(Looper.getMainLooper());
+        }
+        return mainHandler;
+    }
+
+    public ExecutorService getThread() {
+        if (null == threadPool) {
+            threadPool = Executors.newCachedThreadPool();
+        }
+        return threadPool;
+    }
+
+    //public ScheduledExecutorService getSchedule() {
+    //    if (null == schedule) {
+    //        schedule = Executors.newScheduledThreadPool(1);
+    //    }
+    //    return schedule;
+    //}
 
     //这个获取的是GBase=的res，注意不是app的
     //    public static Resources getResources() {

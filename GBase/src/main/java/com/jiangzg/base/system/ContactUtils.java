@@ -23,8 +23,6 @@ import java.util.Map;
  */
 public class ContactUtils {
 
-    private static final String LOG_TAG = "ContactUtils";
-
     /**
      * ********************************联系人相关*********************************
      * 访问的路径
@@ -42,21 +40,19 @@ public class ContactUtils {
         ContentResolver resolver = AppBase.getInstance().getContentResolver();
 
         List<Map<String, String>> list = new ArrayList<>();
-        Cursor cursorID = resolver.query(ContactsContract.Contacts.CONTENT_URI,
-                new String[]{"_id"}, null, null, null);
+        Cursor cursorID = resolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{"_id"}, null, null, null);
 
         if (cursorID == null) {
-            LogUtils.w(LOG_TAG, "getContacts: cursorID == null");
+            LogUtils.w(ContactUtils.class, "getContacts", "cursorID == null");
             return list;
         }
         while (cursorID.moveToNext()) {
             int contractID = cursorID.getInt(0);
             Uri uri = Uri.parse("content://com.android.contacts/contacts/" + contractID + "/data");
-            Cursor cursorData = resolver.query(uri,
-                    new String[]{"mimetype", "data1", "data2"}, null, null, null);
+            Cursor cursorData = resolver.query(uri, new String[]{"mimetype", "data1", "data2"}, null, null, null);
 
             if (cursorData == null) {
-                LogUtils.w(LOG_TAG, "getContacts: cursorData == null");
+                LogUtils.w(ContactUtils.class, "getContacts", "cursorData == null");
                 return list;
             }
             Map<String, String> map = new ArrayMap<>();
@@ -121,7 +117,7 @@ public class ContactUtils {
             AppBase.getInstance().getContentResolver().applyBatch("com.android.contacts", list);
             return true;
         } catch (RemoteException | OperationApplicationException e) {
-            LogUtils.e(LOG_TAG, "insertContact", e);
+            LogUtils.e(ContactUtils.class, "insertContact", e);
         }
         return false;
     }

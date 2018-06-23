@@ -25,8 +25,6 @@ import java.util.Locale;
  */
 public class LocationInfo {
 
-    private static final String LOG_TAG = "LocationInfo";
-
     private static LocationInfo instance; // 一般用来存放当前设备的全局的地理位置
 
     private double longitude; // 经度
@@ -65,7 +63,7 @@ public class LocationInfo {
      */
     public boolean addListener(final long minTime, final long minDistance, @Nullable final OnLocationChangeListener listener) {
         if (!isLocationEnabled()) {
-            LogUtils.w(LOG_TAG, "addListener--->Fail");
+            LogUtils.w(LocationInfo.class, "addListener", "NoLocationEnabled");
             return false;
         }
         starLocation(minTime, minDistance, listener);
@@ -218,7 +216,7 @@ public class LocationInfo {
     /* 设置本地缓存地址信息，注意这里的context不能是static，还有开线程 */
     public LocationInfo convertLoc2Info(Context context, Location location) {
         if (location == null) {
-            LogUtils.w(LOG_TAG, "convertLoc2Info: location == null");
+            LogUtils.w(LocationInfo.class, "convertLoc2Info", "location == null");
             return instance;
         }
         //经纬度
@@ -240,9 +238,9 @@ public class LocationInfo {
                 instance.address = address.getAddressLine(0);
             }
         } catch (IOException e) { // 手动改location也会造成IOException
-            LogUtils.e(LOG_TAG, "convertLoc2Info", e);
+            LogUtils.e(LocationInfo.class, "convertLoc2Info", e);
         }
-        LogUtils.i(LOG_TAG, getInfo().toString());
+        LogUtils.d(LocationInfo.class, "convertLoc2Info", getInfo().toString());
         return instance;
     }
 
@@ -280,7 +278,7 @@ public class LocationInfo {
          */
         @Override
         public void onLocationChanged(Location location) {
-            LogUtils.i(LOG_TAG, "onLocationChanged: " + location.getLongitude() + "-" + location.getLatitude());
+            LogUtils.d(LocationInfo.class, "onLocationChanged", location.getLongitude() + " - " + location.getLatitude());
             if (mListener != null) {
                 mListener.onLocationChange(location);
             }
@@ -297,13 +295,13 @@ public class LocationInfo {
         public void onStatusChanged(String provider, int status, Bundle extras) {
             switch (status) {
                 case LocationProvider.AVAILABLE:
-                    LogUtils.i(LOG_TAG, "onStatusChanged: 当前为可见状态");
+                    LogUtils.d(LocationInfo.class, "onStatusChanged", "当前为可见状态");
                     break;
                 case LocationProvider.OUT_OF_SERVICE:
-                    LogUtils.i(LOG_TAG, "onStatusChanged: 当前为服务区外状态");
+                    LogUtils.d(LocationInfo.class, "onStatusChanged", "当前为服务区外状态");
                     break;
                 case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                    LogUtils.i(LOG_TAG, "onStatusChanged: 当前为暂停服务状态");
+                    LogUtils.d(LocationInfo.class, "onStatusChanged", "当前为暂停服务状态");
                     break;
             }
             if (mListener != null) {
@@ -316,7 +314,7 @@ public class LocationInfo {
          */
         @Override
         public void onProviderEnabled(String provider) {
-            LogUtils.i(LOG_TAG, "onProviderEnabled: " + provider);
+            LogUtils.i(LocationInfo.class, "onProviderEnabled", provider);
         }
 
         /**
@@ -324,7 +322,7 @@ public class LocationInfo {
          */
         @Override
         public void onProviderDisabled(String provider) {
-            LogUtils.i(LOG_TAG, "onProviderDisabled: " + provider);
+            LogUtils.i(LocationInfo.class, "onProviderDisabled", provider);
         }
     }
 
