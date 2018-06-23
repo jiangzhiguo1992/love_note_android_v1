@@ -30,6 +30,7 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.GsonHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
@@ -44,8 +45,6 @@ import retrofit2.Call;
  * apk下载service
  */
 public class UpdateService extends Service {
-
-    private static final String LOG_TAG = "UpdateService";
 
     public static void checkUpdate(BaseActivity activity) {
         MaterialDialog loading = null;
@@ -191,18 +190,18 @@ public class UpdateService extends Service {
 
     // 开始下载
     private void ossDownloadApk(Version version) {
-        LogUtils.w(LOG_TAG, "ossDownloadApk:");
-        if (version == null || version.getVersionCode() <= 0) {
-            LogUtils.w(LOG_TAG, "ossDownloadApk: version = null");
-            UpdateService.this.stopSelf();
-            return;
-        }
         final Activity top = ActivityStack.getTop();
         if (top == null || !(top instanceof BaseActivity)) {
-            LogUtils.w(LOG_TAG, "ossDownloadApk: top = null");
+            LogUtils.w(UpdateService.class, "ossDownloadApk", "top = null");
             UpdateService.this.stopSelf();
             return;
         }
+        if (version == null || version.getVersionCode() <= 0) {
+            LogUtils.w(UpdateService.class, "ossDownloadApk", "version = null");
+            UpdateService.this.stopSelf();
+            return;
+        }
+        LogUtils.i(UpdateService.class, "ossDownloadApk", GsonHelper.get().toJson(version));
         // 获取下载地址
         String updateUrl = version.getUpdateUrl().trim();
         // 生成apk文件
@@ -223,7 +222,7 @@ public class UpdateService extends Service {
 
     // 启动安装
     private void installApk(File apkFile) {
-        LogUtils.w(LOG_TAG, "installApk: apkFile == " + apkFile.getAbsolutePath());
+        LogUtils.i(UpdateService.class, "installApk", "apkFile = " + apkFile.getAbsolutePath());
         Intent installIntent = IntentFactory.getInstall(apkFile);
         ActivityTrans.start(UpdateService.this, installIntent);
         UpdateService.this.stopSelf();

@@ -54,8 +54,6 @@ import java.io.File;
  */
 public class GImageView extends SimpleDraweeView {
 
-    private static final String LOG_TAG = "GImageView";
-
     private int mWidth, mHeight;
     private ClickListener mClickListener;
     private LoadListener mLoadListener;
@@ -132,7 +130,7 @@ public class GImageView extends SimpleDraweeView {
             @Override
             protected void onNewResultImpl(Bitmap bitmap) {
                 if (bitmap == null) {
-                    LogUtils.w(LOG_TAG, "onNewResultImpl: bitmap == null");
+                    LogUtils.w(GImageView.class, "onNewResultImpl", "bitmap == null");
                     if (mBitmapListener != null) {
                         mBitmapListener.onBitmapFail(GImageView.this);
                     }
@@ -145,7 +143,7 @@ public class GImageView extends SimpleDraweeView {
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                LogUtils.w(LOG_TAG, "onFailureImpl:");
+                LogUtils.w(GImageView.class, "onFailureImpl", "");
                 if (mBitmapListener != null) {
                     mBitmapListener.onBitmapFail(GImageView.this);
                 }
@@ -159,16 +157,16 @@ public class GImageView extends SimpleDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.i(LOG_TAG, "controllerListener: onFinalImageSet: imageInfo == null");
+                    LogUtils.w(GImageView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
+                LogUtils.d(GImageView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
-                        " height = " + imageInfo.getHeight() +
-                        " quality = " + qualityInfo.getQuality() +
-                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        " fullQuality = " + qualityInfo.isOfFullQuality());
+                                " height = " + imageInfo.getHeight() +
+                                " quality = " + qualityInfo.getQuality() +
+                                " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                                " fullQuality = " + qualityInfo.isOfFullQuality());
                 // 加载成功事件
                 if (mLoadListener != null) {
                     mLoadListener.onLoadSuccess(GImageView.this, imageInfo);
@@ -187,7 +185,7 @@ public class GImageView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
+                LogUtils.e(GImageView.class, "onFailure", throwable);
                 // 加载失败事件
                 if (mLoadListener != null) {
                     mLoadListener.onLoadFail(GImageView.this);

@@ -48,8 +48,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class RetrofitHelper {
 
-    private static final String LOG_TAG = "RetrofitHelper";
-
     private HashMap<String, String> mHeaders;
     private Factory mFactory;
     private HttpLoggingInterceptor.Level mLog;
@@ -148,7 +146,7 @@ public class RetrofitHelper {
      */
     public static void enqueue(final Call<Result> call, final MaterialDialog loading, final CallBack callBack) {
         if (call == null) {
-            LogUtils.w(LOG_TAG, "enqueue: call == null");
+            LogUtils.w(RetrofitHelper.class, "enqueue", "call == null");
             return;
         }
         // 对话框
@@ -196,7 +194,7 @@ public class RetrofitHelper {
             try {
                 errorStr = response.errorBody().string();
             } catch (IOException e) {
-                LogUtils.e(LOG_TAG, "checkBody", e);
+                LogUtils.e(RetrofitHelper.class, "onResponseCall", e);
             }
             if (StringUtils.isEmpty(errorStr)) {
                 body = new Result();
@@ -208,7 +206,7 @@ public class RetrofitHelper {
                 body = new Result();
                 body.setCode(Result.RESULT_CODE_TOAST);
                 body.setMessage(MyApp.get().getString(R.string.err_data_parse));
-                LogUtils.w(LOG_TAG, errorStr);
+                LogUtils.w(RetrofitHelper.class, "onResponseCall", errorStr);
             }
         }
         int code = body.getCode();
@@ -357,7 +355,7 @@ public class RetrofitHelper {
     // 失败回调
     private static void onFailureCall(Dialog loading, Throwable t, CallBack callBack) {
         DialogUtils.dismiss(loading);
-        LogUtils.w(LOG_TAG, t.toString());
+        LogUtils.w(RetrofitHelper.class, "onFailureCall", t.toString());
         Class<? extends Throwable> clz = t.getClass();
         String error;
         if (clz.equals(java.net.ConnectException.class)) { // 网络环境
@@ -396,7 +394,7 @@ public class RetrofitHelper {
                     public void log(String message) {
                         String log = message.trim();
                         if (StringUtils.isEmpty(log)) return;
-                        LogUtils.i(LOG_TAG, log);
+                        LogUtils.d(RetrofitHelper.class, "getLogInterceptor", log);
                     }
                 });
         loggingInterceptor.setLevel(log);

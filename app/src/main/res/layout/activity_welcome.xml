@@ -12,8 +12,9 @@
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
         app:actualImageScaleType="centerCrop"
-        app:placeholderImage="@drawable/shape_gradient_primary_light"/>
+        tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/tvOnline"

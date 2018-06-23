@@ -33,8 +33,6 @@ import java.io.File;
  */
 public class GImageNativeView extends SimpleDraweeView {
 
-    private static final String LOG_TAG = "GImageNativeView";
-
     private int mWidth, mHeight;
     private onSuccessClickListener mSuccessClickListener;
 
@@ -106,16 +104,16 @@ public class GImageNativeView extends SimpleDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.i(LOG_TAG, "controllerListener: onFinalImageSet: imageInfo == null");
+                    LogUtils.w(GImageNativeView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
+                LogUtils.d(GImageNativeView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
-                        " height = " + imageInfo.getHeight() +
-                        " quality = " + qualityInfo.getQuality() +
-                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        " fullQuality = " + qualityInfo.isOfFullQuality());
+                                " height = " + imageInfo.getHeight() +
+                                " quality = " + qualityInfo.getQuality() +
+                                " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                                " fullQuality = " + qualityInfo.isOfFullQuality());
                 // 点击事件
                 if (mSuccessClickListener != null) {
                     GImageNativeView.this.setOnClickListener(new OnClickListener() {
@@ -131,7 +129,7 @@ public class GImageNativeView extends SimpleDraweeView {
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
                 ToastUtils.show(MyApp.get().getString(R.string.image_load_fail));
-                LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
+                LogUtils.e(GImageNativeView.class, "onFailure", throwable);
             }
         });
         AbstractDraweeController controller = builder.build();

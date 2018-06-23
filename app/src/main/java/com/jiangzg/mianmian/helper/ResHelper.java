@@ -24,18 +24,14 @@ import java.util.List;
  */
 public class ResHelper {
 
-    private static final String LOG_TAG = "ResHelper";
-
     public static void initApp() {
-        AppListener.addComponentListener(LOG_TAG, new AppListener.ComponentListener() {
+        AppListener.addComponentListener("ResHelper", new AppListener.ComponentListener() {
             @Override
             public void onTrimMemory(int level) {
-                LogUtils.d(LOG_TAG, "清理内存，级别:" + level);
             }
 
             @Override
             public void onLowMemory() {
-                LogUtils.w(LOG_TAG, "内存警告!");
                 FrescoHelper.clearMemoryCaches();
                 // System.gc();
                 // Runtime.getRuntime().gc();
@@ -101,7 +97,7 @@ public class ResHelper {
                 MyApp.get().getThread().execute(new Runnable() {
                     @Override
                     public void run() {
-                        LogUtils.i(LOG_TAG, "deleteFileInBackground: " + file.getAbsolutePath());
+                        LogUtils.d(ResHelper.class, "deleteFileInBackground", file.getAbsolutePath());
                         FileUtils.deleteFile(file);
                         // 发送删除广播
                         BroadcastUtils.refreshMediaFile(file);
@@ -128,7 +124,7 @@ public class ResHelper {
                     public void run() {
                         for (File file : fileList) {
                             if (!FileUtils.isFileExists(file)) return;
-                            LogUtils.i(LOG_TAG, "deleteFileListInBackground: " + file.getAbsolutePath());
+                            LogUtils.d(ResHelper.class, "deleteFileListInBackground", file.getAbsolutePath());
                             FileUtils.deleteFile(file);
                             // 发送删除广播
                             BroadcastUtils.refreshMediaFile(file);
@@ -157,7 +153,7 @@ public class ResHelper {
     public static File newImageOutCacheFile() {
         String fileName = StringUtils.getUUID(10) + ".jpeg";
         File file = new File(getImgCacheDir(), fileName);
-        LogUtils.i(LOG_TAG, "newImageOutCacheFile: " + file.getAbsolutePath());
+        LogUtils.d(ResHelper.class, "newImageOutCacheFile", file.getAbsolutePath());
         return file;
     }
 
@@ -168,7 +164,7 @@ public class ResHelper {
 
     public static File newApkFile(String versionName) {
         File apkFile = new File(newApkDir(), versionName + ".apk");
-        LogUtils.i(LOG_TAG, "newApkFile: " + apkFile.getAbsolutePath());
+        LogUtils.d(ResHelper.class, "newApkFile", apkFile.getAbsolutePath());
         return apkFile;
     }
 

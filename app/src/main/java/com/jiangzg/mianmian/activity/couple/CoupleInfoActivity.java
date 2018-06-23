@@ -305,7 +305,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 .input(hint, show, false, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        LogUtils.i(LOG_TAG, "showNameInput: onInput: " + input.toString());
+                        LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString());
                     }
                 })
                 .inputRange(1, coupleNameLength)

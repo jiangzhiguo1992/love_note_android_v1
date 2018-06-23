@@ -92,7 +92,7 @@ public class FrescoHelper {
         if (width > 0 && height > 0) {
             builder.setResizeOptions(new ResizeOptions(width, height)); // 采样大小
         } else {
-            LogUtils.w(LOG_TAG, "getImageRequestBuilder: width | height <= 0");
+            LogUtils.w(FrescoHelper.class, "getImageRequestBuilder", "width | height == 0");
         }
         return builder;
     }

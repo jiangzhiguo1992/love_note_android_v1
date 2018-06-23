@@ -45,8 +45,6 @@ import java.io.File;
  */
 public class GImageAvatarView extends SimpleDraweeView {
 
-    private static final String LOG_TAG = "GImageAvatarView";
-
     private int mWidth, mHeight;
 
     public GImageAvatarView(Context context, GenericDraweeHierarchy hierarchy) {
@@ -120,22 +118,22 @@ public class GImageAvatarView extends SimpleDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.i(LOG_TAG, "controllerListener: onFinalImageSet: imageInfo == null");
+                    LogUtils.w(GImageAvatarView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
+                LogUtils.d(GImageAvatarView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
-                        " height = " + imageInfo.getHeight() +
-                        " quality = " + qualityInfo.getQuality() +
-                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        " fullQuality = " + qualityInfo.isOfFullQuality());
+                                " height = " + imageInfo.getHeight() +
+                                " quality = " + qualityInfo.getQuality() +
+                                " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                                " fullQuality = " + qualityInfo.isOfFullQuality());
             }
 
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
+                LogUtils.e(GImageAvatarView.class, "onFailure", throwable);
             }
         });
         AbstractDraweeController controller = builder.build();

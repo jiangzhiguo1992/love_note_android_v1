@@ -140,7 +140,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 LatLng target = cameraPosition.target;
                 if (target == null) return;
                 // 修改搜索列表
-                LogUtils.i(LOG_TAG, "onCameraChangeFinish: " + target.longitude + "---" + target.latitude);
+                LogUtils.i(MapSelectActivity.class, "onCameraChangeFinish", target.longitude + "---" + target.latitude);
                 if (moveWithSearch) {
                     LocationInfo info = new LocationInfo();
                     info.setLongitude(target.longitude);

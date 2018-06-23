@@ -279,7 +279,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
             @Override
             public void onFailed(String errMsg) {
-                LogUtils.w(LOG_TAG, "refreshPlaceDate: " + errMsg);
+                LogUtils.w(CoupleFragment.class, "startLocation", errMsg);
                 ToastUtils.show(String.format(Locale.getDefault(), getString(R.string.address_get_fail_reason_colon_holder), errMsg));
             }
         });

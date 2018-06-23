@@ -14,7 +14,7 @@ import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.adapter.CommonFragmentPagerAdapter;
+import com.jiangzg.mianmian.adapter.FragmentPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.fragment.BookFragment;
@@ -35,7 +35,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     BottomNavigationView bnvBottom;
 
     private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuSquare};
-    private CommonFragmentPagerAdapter<BasePagerFragment> pagerAdapter;
+    private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
     private BookFragment bookFragment;
     private TopicFragment topicFragment;
@@ -100,7 +100,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     private void initViewPagerAdapter() {
         if (pagerAdapter == null) {
             FragmentManager manager = mActivity.getSupportFragmentManager();
-            pagerAdapter = new CommonFragmentPagerAdapter<>(manager);
+            pagerAdapter = new FragmentPagerAdapter<>(manager);
             pagerAdapter.addData(0, null, coupleFragment);
             pagerAdapter.addData(1, null, bookFragment);
             pagerAdapter.addData(2, null, topicFragment);
@@ -117,13 +117,13 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
             @Override
             public void onPageSelected(int position) {
-                LogUtils.i(LOG_TAG, "onPageSelected: " + position);
+                LogUtils.i(HomeActivity.class, "onPageSelected", String.valueOf(position));
                 bnvBottom.setSelectedItemId(menuIdArray[position]);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                LogUtils.i(LOG_TAG, "onPageScrollStateChanged: " + state);
+                LogUtils.i(HomeActivity.class, "onPageScrollStateChanged", String.valueOf(state));
             }
         });
     }

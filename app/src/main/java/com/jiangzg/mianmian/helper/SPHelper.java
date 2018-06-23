@@ -23,8 +23,6 @@ import com.jiangzg.mianmian.domain.WallPaper;
  */
 public class SPHelper {
 
-    private static final String LOG_TAG = "SPHelper";
-
     private static final String SHARE_COMMON = "common";
     private static final String SHARE_USER = "shareUser";
     private static final String SHARE_TA = "shareTa";
@@ -152,10 +150,8 @@ public class SPHelper {
         clearUser();
         clearCouple();
         if (user == null) {
-            LogUtils.w(LOG_TAG, "user == null");
+            LogUtils.i(SPHelper.class, "setUser", "user == null");
             return;
-        } else {
-            LogUtils.d(LOG_TAG, "setUser: " + GsonHelper.get().toJson(user));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
         editor.putLong(FIELD_USER_ID, user.getId());
@@ -186,10 +182,8 @@ public class SPHelper {
     public static void setTa(User ta) {
         clearTa();
         if (ta == null) {
-            LogUtils.w(LOG_TAG, "ta == null");
+            LogUtils.i(SPHelper.class, "setTa", "ta == null");
             return;
-        } else {
-            LogUtils.d(LOG_TAG, "setTa: " + GsonHelper.get().toJson(ta));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_TA).edit();
         editor.putLong(FIELD_USER_ID, ta.getId());
@@ -215,10 +209,8 @@ public class SPHelper {
     public static void setCouple(Couple couple) {
         clearCouple();
         if (Couple.isEmpty(couple)) {
-            LogUtils.w(LOG_TAG, "couple == null");
+            LogUtils.i(SPHelper.class, "setCouple", "couple == null");
             return;
-        } else {
-            LogUtils.d(LOG_TAG, "setCouple: " + GsonHelper.get().toJson(couple));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
         editor.putLong(FIELD_CP_ID, couple.getId());
@@ -264,7 +256,7 @@ public class SPHelper {
     }
 
     public static void setTogetherDay(int days) {
-        LogUtils.d(LOG_TAG, "setTogetherDay: " + days);
+        LogUtils.d(SPHelper.class, "setTogetherDay", String.valueOf(days));
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER_DAY).edit();
         editor.putInt(FIELD_COUPLE_TOGETHER_DAY, days);
         editor.apply();
@@ -282,10 +274,8 @@ public class SPHelper {
     public static void setVersion(Version version) {
         clearVersion();
         if (version == null) {
-            LogUtils.w(LOG_TAG, "version == null");
+            LogUtils.i(SPHelper.class, "setVersion", "version == null");
             return;
-        } else {
-            LogUtils.d(LOG_TAG, "setVersion: " + GsonHelper.get().toJson(version));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VERSION).edit();
         editor.putLong(FIELD_VERSION_CREATE_AT, version.getCreateAt());
@@ -313,11 +303,10 @@ public class SPHelper {
     public static void setWallPaper(WallPaper wallPaper) {
         clearWallPaper();
         if (wallPaper == null) {
-            LogUtils.w(LOG_TAG, "wallPaper == null");
+            LogUtils.i(SPHelper.class, "setWallPaper", "wallPaper == null");
             return;
         }
         String json = GsonHelper.get().toJson(wallPaper);
-        LogUtils.d(LOG_TAG, "setWallPaper: " + json);
 
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_WALL_PAPER).edit();
         editor.putString(FIELD_WALL_PAPER_JSON, json);
@@ -336,7 +325,7 @@ public class SPHelper {
 
     public static void setLimit(Limit limit) {
         if (limit == null) {
-            LogUtils.w(LOG_TAG, "setLimit == null");
+            LogUtils.i(SPHelper.class, "setLimit", "limit == null");
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_LIMIT).edit();
@@ -408,10 +397,8 @@ public class SPHelper {
     public static void setOssInfo(OssInfo ossInfo) {
         clearOssInfo();
         if (ossInfo == null) {
-            LogUtils.w(LOG_TAG, "ossInfo == null");
+            LogUtils.i(SPHelper.class, "setOssInfo", "ossInfo == null");
             return;
-        } else {
-            LogUtils.d(LOG_TAG, "setOssInfo: " + GsonHelper.get().toJson(ossInfo));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
         editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
@@ -466,7 +453,7 @@ public class SPHelper {
     public static void setVipLimit(VipLimit vipLimit) {
         clearVipLimit();
         if (vipLimit == null) {
-            LogUtils.w(LOG_TAG, "setVipLimit == null");
+            LogUtils.i(SPHelper.class, "setVipLimit", "vipLimit == null");
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
@@ -511,7 +498,7 @@ public class SPHelper {
 
     public static void setCommonConst(CommonConst commonConst) {
         if (commonConst == null) {
-            LogUtils.w(LOG_TAG, "commonConst == null");
+            LogUtils.i(SPHelper.class, "setCommonConst", "commonConst == null");
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
@@ -533,10 +520,8 @@ public class SPHelper {
     public static void setDiary(Diary diary) {
         clearDiary();
         if (diary == null) {
-            LogUtils.w(LOG_TAG, "diary == null");
+            LogUtils.i(SPHelper.class, "setDiary", "diary == null");
             return;
-        } else {
-            LogUtils.d(LOG_TAG, "setDiary: " + GsonHelper.get().toJson(diary));
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DIARY).edit();
         editor.putLong(FIELD_DIARY_HAPPEN, diary.getHappenAt());

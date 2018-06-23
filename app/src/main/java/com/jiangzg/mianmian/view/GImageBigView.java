@@ -35,8 +35,8 @@ import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
-import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 
 import java.io.File;
 
@@ -47,8 +47,6 @@ import me.relex.photodraweeview.PhotoDraweeView;
  * Fresco的图片控件封装
  */
 public class GImageBigView extends PhotoDraweeView {
-
-    private static final String LOG_TAG = "GBigImageView";
 
     public GImageBigView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
@@ -104,23 +102,23 @@ public class GImageBigView extends PhotoDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.i(LOG_TAG, "controllerListener: onFinalImageSet: imageInfo == null");
+                    LogUtils.w(GImageBigView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.i(LOG_TAG, "setControllerListener: onFinalImageSet: " +
+                LogUtils.d(GImageBigView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
-                        " height = " + imageInfo.getHeight() +
-                        " quality = " + qualityInfo.getQuality() +
-                        " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
-                        " fullQuality = " + qualityInfo.isOfFullQuality());
+                                " height = " + imageInfo.getHeight() +
+                                " quality = " + qualityInfo.getQuality() +
+                                " goodEnoughQuality = " + qualityInfo.isOfGoodEnoughQuality() +
+                                " fullQuality = " + qualityInfo.isOfFullQuality());
                 GImageBigView.this.update(imageInfo.getWidth(), imageInfo.getHeight());
             }
 
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(LOG_TAG, "controllerListener: onFailure: ", throwable);
+                LogUtils.e(GImageBigView.class, "onFailure", throwable);
             }
         });
         AbstractDraweeController controller = builder.build();

@@ -27,7 +27,7 @@ public abstract class BasePagerFragment<M> extends BaseFragment<M> {
         super.setUserVisibleHint(isVisibleToUser);
         //if (isVisibleToUser && canLoad && !isLoaded) {
         if (isVisibleToUser && canLoad && !loadOnce) {
-            LogUtils.i(LOG_TAG, "refreshData: " + LOG_TAG);
+            LogUtils.d(getCls(), "setUserVisibleHint", "refreshData");
             loadOnce = true;
             loadData();
         }
@@ -37,7 +37,7 @@ public abstract class BasePagerFragment<M> extends BaseFragment<M> {
     protected void initData(Bundle state) {
         canLoad = true;
         if (getUserVisibleHint() && !loadOnce) {
-            LogUtils.i(LOG_TAG, "refreshData: " + LOG_TAG);
+            LogUtils.d(getCls(), "initData", "refreshData");
             loadOnce = true;
             loadData();
         }

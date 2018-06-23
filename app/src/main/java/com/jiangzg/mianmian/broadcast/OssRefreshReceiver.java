@@ -22,8 +22,6 @@ import retrofit2.Call;
  */
 public class OssRefreshReceiver extends BroadcastReceiver {
 
-    private static String LOG_TAG = "OssRefreshReceiver";
-
     // ossInfo获取到之后在开始
     public static void startAlarm() {
         long interval = SPHelper.getOssInfo().getIntervalSec() * 1000;
@@ -34,7 +32,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
     // startAlarm之后接受
     @Override
     public void onReceive(Context context, Intent intent) {
-        LogUtils.i(LOG_TAG, "收到oss更新广播");
+        LogUtils.i(OssRefreshReceiver.class, "onReceive", "收到oss更新广播");
         // 这次广播要刷新的数据
         ossInfoUpdate();
         // 继续发送定时，下一次广播
@@ -48,7 +46,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                LogUtils.i(LOG_TAG, "oss更新成功");
+                LogUtils.i(OssRefreshReceiver.class, "ossInfoUpdate", "oss更新成功");
                 OssInfo ossInfo = data.getOssInfo();
                 // 刷新ossInfo
                 SPHelper.setOssInfo(ossInfo);
@@ -61,7 +59,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
                 MyApp.get().getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        LogUtils.w(LOG_TAG, "oss更新失败");
+                        LogUtils.w(OssRefreshReceiver.class, "ossInfoUpdate", "oss更新失败");
                         ossInfoUpdate(); // 重复更新
                     }
                 }, 5 * ConstantUtils.SEC);

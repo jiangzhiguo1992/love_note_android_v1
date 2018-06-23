@@ -20,7 +20,6 @@ import com.jiangzg.mianmian.base.MyApp;
  */
 public class LocationHelper {
 
-    private static final String LOG_TAG = "LocationHelper";
     private static final int CODE_SUCCESS = 0; // 以后可能会变
 
     // 检查并请求位置服务
@@ -123,7 +122,7 @@ public class LocationHelper {
                 if (aMapLocation == null) return;
                 if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
                     // 定位成功回调信息，设置相关消息
-                    LogUtils.i(LOG_TAG, "onLocationChanged: success:" + aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude());
+                    LogUtils.d(LocationHelper.class, "onLocationChanged", aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude() + " - " + aMapLocation.getAddress());
                     LocationInfo info = LocationInfo.getInfo(); // 用来保存设备位置的对象
                     info.setLongitude(aMapLocation.getLongitude()); // 经度
                     info.setLatitude(aMapLocation.getLatitude()); // 纬度
@@ -144,7 +143,7 @@ public class LocationHelper {
                     }
                 } else {
                     // 定位失败，打印相关信息
-                    LogUtils.w(LOG_TAG, "onLocationChanged: ErrCode:" + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
+                    LogUtils.w(LocationHelper.class, "onLocationChanged", "ErrCode: " + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
                     if (callBack != null) {
                         callBack.onFailed(aMapLocation.getErrorInfo());
                     }

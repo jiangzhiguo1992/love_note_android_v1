@@ -4,6 +4,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.jiangzg.base.common.ConstantUtils;
@@ -62,6 +63,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         // wallPaper
         File wallPaper = getWallPaperRandom();
         if (!FileUtils.isFileEmpty(wallPaper)) {
+            ivBg.setVisibility(View.VISIBLE);
             ivBg.setDataFile(wallPaper);
             startAnim();
         }
@@ -74,7 +76,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         File wallPaperDir = OssResHelper.getResDir(OssResHelper.TYPE_COUPLE_WALL);
         List<File> fileList = FileUtils.listFilesAndDirInDir(wallPaperDir, true);
         if (fileList == null || fileList.size() <= 0) {
-            LogUtils.i(LOG_TAG, "getWallPaperRandom: 没有WallPaper文件");
+            LogUtils.i(WelcomeActivity.class, "getWallPaperRandom", "没有WallPaper文件");
             return null;
         }
         Random random = new Random();

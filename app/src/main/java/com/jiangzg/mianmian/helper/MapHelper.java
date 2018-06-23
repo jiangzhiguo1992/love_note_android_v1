@@ -42,8 +42,6 @@ import java.util.ArrayList;
  */
 public class MapHelper {
 
-    private static final String LOG_TAG = "MapHelper";
-
     /**
      * ****************************************地图***********************************************
      */
@@ -185,7 +183,7 @@ public class MapHelper {
                                 String city = regeocodeAddress.getCity();
                                 String district = regeocodeAddress.getDistrict();
                                 String addressName = regeocodeAddress.getFormatAddress();
-                                LogUtils.i(LOG_TAG, "initGeocode: onRegeocodeSearched:  " + province + "---" + city + "---" + district + "---" + addressName);
+                                LogUtils.d(MapHelper.class, "onRegeocodeSearched", province + "---" + city + "---" + district + "---" + addressName);
                                 if (callBack != null) {
                                     callBack.onSuccess(regeocodeAddress);
                                 }
@@ -260,7 +258,7 @@ public class MapHelper {
                     //若当前城市查询不到所需Poi信息，可以通过result.getSearchSuggestionCitys()获取当前Poi搜索的建议城市
                     //如果搜索关键字明显为误输入，则可通过result.getSearchSuggestionKeywords()方法得到搜索关键词建议
                     final ArrayList<PoiItem> pois = poiResult.getPois();
-                    LogUtils.d(LOG_TAG, pois.toString());
+                    LogUtils.d(MapHelper.class, "onPoiSearched", LogUtils.getListLog(pois));
                     MyApp.get().getHandler().post(new Runnable() {
                         @Override
                         public void run() {

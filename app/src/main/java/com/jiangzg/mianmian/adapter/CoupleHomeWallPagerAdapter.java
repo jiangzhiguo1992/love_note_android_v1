@@ -30,8 +30,6 @@ import java.util.TimerTask;
  */
 public class CoupleHomeWallPagerAdapter extends PagerAdapter {
 
-    private static final String LOG_TAG = "CoupleHomeWallPagerAdapter";
-
     private Context mContext;
     private List<String> ossKeyList;
     private Timer timer;
@@ -142,7 +140,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
                         if (child != null) {
                             child.startAnimation(getAnimation());
                         } else {
-                            LogUtils.w(LOG_TAG, "startAutoNext: child == null");
+                            LogUtils.w(CoupleHomeWallPagerAdapter.class, "startAutoNext", "child == null");
                         }
                     }
                 });

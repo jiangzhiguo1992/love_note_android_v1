@@ -44,8 +44,6 @@ import butterknife.Unbinder;
  */
 public abstract class BaseActivity<T> extends AppCompatActivity {
 
-    public final String LOG_TAG = getCls().getSimpleName();
-
     public BaseActivity mActivity;
     public FragmentManager mFragmentManager;
     public View mRootView;

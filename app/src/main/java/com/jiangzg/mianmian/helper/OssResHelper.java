@@ -18,8 +18,6 @@ import java.util.ListIterator;
  */
 public class OssResHelper {
 
-    private static final String LOG_TAG = "OssResHelper";
-
     public static final int TYPE_COUPLE_AVATAR = 10;
     public static final int TYPE_COUPLE_WALL = 11;
     public static final int TYPE_BOOK_WHISPER = 20;
@@ -30,7 +28,7 @@ public class OssResHelper {
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {
-            LogUtils.w(LOG_TAG, "newOutFile: objectKey == null");
+            LogUtils.w(OssResHelper.class, "newOutFile", "objectKey == null");
             return null;
         }
         return new File(ResHelper.getOssResDirPath(), objectKey);
@@ -39,15 +37,15 @@ public class OssResHelper {
     // ossKey的文件是否存在
     public static boolean isKeyFileExists(String objectKey) {
         File file = newKeyFile(objectKey);
-        //boolean fileExists = FileUtils.isFileExists(file);
-        //LogUtils.i(LOG_TAG, "isKeyFileExists: oss文件存在与否: " + objectKey + " == " + fileExists);
-        return FileUtils.isFileExists(file);
+        boolean fileExists = FileUtils.isFileExists(file);
+        LogUtils.d(OssResHelper.class, "isKeyFileExists", "oss文件存在性: " + objectKey + " = " + fileExists);
+        return fileExists;
     }
 
     // ossKey的文件名
     public static String getKeyFileName(String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {
-            LogUtils.w(LOG_TAG, "getKeyFileName: objectKey == null");
+            LogUtils.w(OssResHelper.class, "getKeyFileName", "objectKey == null");
             return "";
         }
         String[] split = objectKey.split("/");
@@ -78,7 +76,7 @@ public class OssResHelper {
                 break;
         }
         if (StringUtils.isEmpty(dirPath)) {
-            LogUtils.w(LOG_TAG, "getResDir: dirPath == null " + ossType);
+            LogUtils.w(OssResHelper.class, "getResDir", ossType + ": dirPath == null ");
             return null;
         }
         return new File(ResHelper.getOssResDirPath(), dirPath);
@@ -103,7 +101,7 @@ public class OssResHelper {
     // 刷新本地oss资源，删除不存在的ossKey
     private static void refreshOssResWithDelNoExists(final File dir, final List<String> ossKeyList) {
         if (!FileUtils.isDir(dir)) {
-            LogUtils.w(LOG_TAG, "(ossExists): 目录不存在");
+            LogUtils.w(OssResHelper.class, "refreshOssResWithDelNoExists", "目录不存在");
             return;
         }
         // 开线程
@@ -113,9 +111,9 @@ public class OssResHelper {
                 List<File> existsFileList = FileUtils.listFilesAndDirInDir(dir, true);
                 if (ossKeyList == null || ossKeyList.size() <= 0) {
                     // 没有oss 直接删除对应的目录
-                    LogUtils.i(LOG_TAG, "(ossExists): 目录(" + dir.getName() + "): 删除全部文件");
+                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 删除全部文件");
                     if (existsFileList == null || existsFileList.size() <= 0) {
-                        LogUtils.i(LOG_TAG, "(ossExists): 目录(" + dir.getName() + "): 没有文件");
+                        LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 没有文件");
                     } else {
                         ResHelper.deleteFileListInBackground(existsFileList);
                     }
@@ -139,21 +137,21 @@ public class OssResHelper {
                         }
                         // 都检查完了，不是对应的文件则删除
                         if (!find) {
-                            LogUtils.i(LOG_TAG, "(ossExists): 目录(" + dir.getName() + "): 删不匹配的文件 == " + file.getName());
+                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 删不匹配的文件 == " + file.getName());
                             ResHelper.deleteFileInBackground(file);
                         } else {
-                            LogUtils.i(LOG_TAG, "(ossExists): 目录(" + dir.getName() + "): 留下匹配的文件 == " + file.getName());
+                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 留下匹配的文件 == " + file.getName());
                         }
                     }
                 } else {
-                    LogUtils.i(LOG_TAG, "(ossExists): 目录(" + dir.getName() + "): 无文件");
+                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 无文件");
                 }
                 // 加新的
                 for (String ossKey : ossKeyList) {
                     if (StringUtils.isEmpty(ossKey)) return;
                     if (!OssResHelper.isKeyFileExists(ossKey)) {
                         // 不存在的的直接下载
-                        LogUtils.i(LOG_TAG, "(ossExists): 目录(" + dir.getName() + "): 下载匹配的文件 == " + ossKey);
+                        LogUtils.i(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 下载匹配的文件 == " + ossKey);
                         OssHelper.downloadFileByKey(ossKey);
                     }
                 }
@@ -164,7 +162,7 @@ public class OssResHelper {
     // 刷新本地oss资源，删除过时的ossKey
     private static void refreshOssResWithDelExpire(final File dir, final List<String> ossKeyList, final long expireAt) {
         if (!FileUtils.isDir(dir)) {
-            LogUtils.w(LOG_TAG, "(ossExpire): 目录不存在");
+            LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录不存在");
             return;
         }
         final String expireTime = DateUtils.getString(expireAt, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
@@ -175,18 +173,18 @@ public class OssResHelper {
                 List<File> existsFileList = FileUtils.listFilesAndDirInDir(dir, true);
                 if (ossKeyList == null || ossKeyList.size() <= 0) {
                     // 没有oss 直接删除对应的目录下超时的
-                    LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 删除全部过期文件");
+                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除全部过期文件");
                     if (existsFileList == null || existsFileList.size() <= 0) {
-                        LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 没有文件");
+                        LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 没有文件");
                     } else {
                         for (File file : existsFileList) {
                             if (file == null) continue;
                             long lastModified = file.lastModified();
                             String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                             if (lastModified > expireAt) {
-                                LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                             } else {
-                                LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                                 ResHelper.deleteFileInBackground(file);
                             }
                         }
@@ -216,9 +214,9 @@ public class OssResHelper {
                             long lastModified = file.lastModified();
                             String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                             if (lastModified > expireAt) {
-                                LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                             } else {
-                                //LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                                //LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                                 expireFileList.add(file);
                             }
                         }
@@ -228,21 +226,21 @@ public class OssResHelper {
                         //if (success) {
                         //    long lastModified = file.lastModified();
                         //    String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
-                        //    LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
+                        //    LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
                         //} else {
-                        //    LogUtils.w(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
+                        //    LogUtils.w(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
                         //}
                         //}
                     }
                 } else {
-                    LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + ") 无文件");
+                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + ") 无文件");
                 }
                 // 加新的 (也就是expireFileList里不存在的文件)
                 for (String ossKey : ossKeyList) {
                     if (StringUtils.isEmpty(ossKey)) return;
                     if (!OssResHelper.isKeyFileExists(ossKey)) {
                         // 不存在的的直接下载
-                        LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 下载匹配的文件 == " + ossKey);
+                        LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 下载匹配的文件 == " + ossKey);
                         OssHelper.downloadFileByKey(ossKey);
                     } else {
                         // 更新文件修改时间(不要在删旧的循环里更新，会重复)
@@ -252,9 +250,9 @@ public class OssResHelper {
                         if (success) {
                             long lastModified = file.lastModified();
                             String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
-                            LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
+                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
                         } else {
-                            LogUtils.w(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
+                            LogUtils.w(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
                         }
                         // 是不是在过期里有
                         if (expireFileList.size() > 0) {
@@ -263,7 +261,7 @@ public class OssResHelper {
                                 File expireFile = iterator.next();
                                 if (expireFile.getName().trim().equals(file.getName().trim())) {
                                     // 过期文件里有oss文件，则从过期里删除
-                                    LogUtils.w(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 取消删除过期但刚更新的文件(" + file.getName() + ")");
+                                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 取消删除过期但刚更新的文件(" + file.getName() + ")");
                                     iterator.remove();
                                 }
                             }
@@ -276,11 +274,11 @@ public class OssResHelper {
                         if (file == null) continue;
                         long lastModified = file.lastModified();
                         String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
-                        LogUtils.i(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                        LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
                     }
                     ResHelper.deleteFileListInBackground(expireFileList);
                 } else {
-                    LogUtils.w(LOG_TAG, "(ossExpire): 目录(" + dir.getName() + "): 没有发现过期文件");
+                    LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 没有发现过期文件");
                 }
             }
         });
