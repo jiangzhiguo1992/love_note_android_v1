@@ -163,6 +163,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
             @Override
             public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
+                recyclerHelper.dataFail(false, errMsg);
             }
         });
     }
