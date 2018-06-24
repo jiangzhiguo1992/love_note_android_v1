@@ -70,8 +70,7 @@ public class AppInfo {
                 Signature[] signatures = piSign.signatures;
                 instance.setSignature(signatures);
                 if (signatures.length > 0) {
-                    String sha1 = EncryptUtils.encryptSHA1ToString(signatures[0].toByteArray()).
-                            replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
+                    String sha1 = EncryptUtils.encryptSHA1ToString(signatures[0].toByteArray()).replaceAll("(?<=[0-9A-F]{2})[0-9A-F]{2}", ":$0");
                     instance.setSHA1(sha1);
                 }
             }

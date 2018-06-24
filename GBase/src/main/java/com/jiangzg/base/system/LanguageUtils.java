@@ -15,7 +15,7 @@ import java.util.Locale;
 public class LanguageUtils {
 
     /* 语言环境 */
-    private static Locale getLocale() {
+    public static Locale getLocale() {
         return AppBase.getInstance().getResources().getConfiguration().locale;
     }
 

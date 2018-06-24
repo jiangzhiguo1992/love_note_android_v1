@@ -8,12 +8,14 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.system.LanguageUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -63,11 +65,11 @@ public class RetrofitHelper {
     public static HashMap<String, String> getHead() {
         HashMap<String, String> options = new HashMap<>();
         options.put("Accept", "application/json");
-        options.put("platform", "android");
-        options.put("sign", ""); // TODO
-        options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
         options.put("access_token", SPHelper.getUser().getUserToken());
-        // TODO 语言
+        options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
+        options.put("platform", "android");
+        options.put("sign", AppInfo.get().getSHA1());
+        options.put("language", LanguageUtils.getLocale().getLanguage());
         return options;
     }
 
@@ -79,7 +81,7 @@ public class RetrofitHelper {
 
     public static HashMap<String, String> getHeadForm() {
         HashMap<String, String> options = getHead();
-        options.put("Content-Type", ""); // TODO
+        options.put("Content-Type", "application/x-www-form-urlencoded");
         return options;
     }
 
