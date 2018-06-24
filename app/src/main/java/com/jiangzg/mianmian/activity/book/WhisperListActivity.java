@@ -111,6 +111,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .initAdapter(new WhisperAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

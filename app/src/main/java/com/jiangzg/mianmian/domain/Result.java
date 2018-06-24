@@ -10,7 +10,6 @@ import java.util.List;
 
 public class Result implements Serializable {
 
-    public static final int RESULT_CODE_NO = -1;// TODO 功能模块开关
     public static final int RESULT_CODE_OK = 0;
     public static final int RESULT_CODE_TOAST = 1;
     public static final int RESULT_CODE_DIALOG = 2;

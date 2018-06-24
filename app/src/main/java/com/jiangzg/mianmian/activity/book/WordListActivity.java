@@ -99,6 +99,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                 .initRefresh(srl, true)
                 .initAdapter(new WordAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

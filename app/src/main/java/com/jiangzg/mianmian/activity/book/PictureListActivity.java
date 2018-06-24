@@ -142,6 +142,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 .initAdapter(new PictureAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

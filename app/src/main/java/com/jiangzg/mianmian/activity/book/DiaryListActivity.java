@@ -93,6 +93,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .initAdapter(new DiaryAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

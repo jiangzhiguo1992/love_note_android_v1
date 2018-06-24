@@ -68,6 +68,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
                 .initAdapter(new NoticeAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

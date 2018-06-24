@@ -112,6 +112,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 .initAdapter(new AlbumAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {

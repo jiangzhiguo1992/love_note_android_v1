@@ -111,6 +111,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new WeatherForecastAdapter(mActivity))
+                .viewEmpty(R.layout.list_empty_white, true, true)
                 .setAdapter();
     }
 

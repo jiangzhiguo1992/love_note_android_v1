@@ -88,6 +88,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 .initRefresh(srl, true)
                 .initAdapter(new WallPaperAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
+                .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
