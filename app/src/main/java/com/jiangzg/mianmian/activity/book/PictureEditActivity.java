@@ -36,6 +36,7 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.PictureList;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
@@ -378,9 +379,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             Picture body = ApiHelper.getPictureBody(picture.getAlbumId(), picture.getHappenAt(), ossPath, picture.getLongitude(), picture.getLatitude(), picture.getAddress(), picture.getCityId());
             pictureList.add(body);
         }
-        Album album = new Album();
-        album.setPictureList(pictureList);
-        callAdd = new RetrofitHelper().call(API.class).pictureListAdd(album);
+        PictureList pictureListBody = new PictureList();
+        pictureListBody.setPictureList(pictureList);
+        callAdd = new RetrofitHelper().call(API.class).pictureListAdd(pictureListBody);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

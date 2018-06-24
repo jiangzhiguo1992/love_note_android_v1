@@ -3,8 +3,6 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
  * Created by JZG on 2018/5/2.
  * Album
@@ -15,7 +13,6 @@ public class Album extends BaseCP implements Parcelable {
     private String cover;
     private long startAt;
     private long endAt;
-    private List<Picture> pictureList;
 
     public long getStartAt() {
         return startAt;
@@ -31,14 +28,6 @@ public class Album extends BaseCP implements Parcelable {
 
     public void setEndAt(long endAt) {
         this.endAt = endAt;
-    }
-
-    public List<Picture> getPictureList() {
-        return pictureList;
-    }
-
-    public void setPictureList(List<Picture> pictureList) {
-        this.pictureList = pictureList;
     }
 
     public String getTitle() {
@@ -66,7 +55,6 @@ public class Album extends BaseCP implements Parcelable {
         cover = in.readString();
         startAt = in.readLong();
         endAt = in.readLong();
-        pictureList = in.createTypedArrayList(Picture.CREATOR);
     }
 
     @Override
@@ -76,7 +64,6 @@ public class Album extends BaseCP implements Parcelable {
         dest.writeString(cover);
         dest.writeLong(startAt);
         dest.writeLong(endAt);
-        dest.writeTypedList(pictureList);
     }
 
     @Override

@@ -49,7 +49,6 @@ import retrofit2.Call;
 /**
  * Created by JZG on 2018/3/27.
  * api辅助类
- * TODO 减少不必要的数据传输
  */
 public class ApiHelper {
 

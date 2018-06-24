@@ -4,9 +4,9 @@ import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.PictureList;
 import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
@@ -50,10 +50,10 @@ public interface API {
     @Multipart // 上传文件
     @GET("demo/{path}")
     Call<List<Object>> demo(@Url String url, @Path("path") String path, // {path}
-                             @Header("key") String key, @HeaderMap Map<String, String> headers,
-                             @Query("limit") String limit, @QueryMap Map<String, String> options,
-                             @Part("name") String value, @PartMap Map<String, RequestBody> params,
-                             @Body Object body, @Body String bodyJson);
+                            @Header("key") String key, @HeaderMap Map<String, String> headers,
+                            @Query("limit") String limit, @QueryMap Map<String, String> options,
+                            @Part("name") String value, @PartMap Map<String, RequestBody> params,
+                            @Body Object body, @Body String bodyJson);
 
     // 短信
     @POST("sms")
@@ -241,7 +241,7 @@ public interface API {
 
     // picture上传
     @POST("book/picture")
-    Call<Result> pictureListAdd(@Body Album album);
+    Call<Result> pictureListAdd(@Body PictureList pictureList);
 
     // picture删除
     @DELETE("book/picture")
