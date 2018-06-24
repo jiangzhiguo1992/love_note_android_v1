@@ -503,5 +503,5 @@
     <string name="input_search_address">输入搜索地址</string>
     <string name="confirm_del_cache">确认清除缓存？</string>
 
-    <!-- TODO 整理，包括drawable和其他资源 -->
+    <!-- TODO 整理 test_bg_01删掉了 ic_couple换一个 ic_favorite只要一个-->
 </resources>

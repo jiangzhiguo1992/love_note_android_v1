@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/menuWe"
-        android:icon="@drawable/ic_we_primary"
+        android:icon="@drawable/ic_couple_primary"
         android:title="@string/title_nav_we"/>
 
     <item
