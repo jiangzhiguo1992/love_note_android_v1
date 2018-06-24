@@ -105,8 +105,11 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         return imageView;
     }
 
+    // 开始轮播
     private void startAutoNext() {
         if (ossKeyList == null || ossKeyList.size() <= 1) return;
+        // 停止其他pager的动画
+        stopOtherAnimation();
         // 第一个页面别忘了加动画
         mPager.getChildAt(0).startAnimation(getAnimation());
         // 必须停止，要不会有多个timer任务一起执行
@@ -123,6 +126,8 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
                     public void run() {
                         if (mPager == null) return;
                         if (ossKeyList == null || ossKeyList.size() <= 1) return;
+                        // 停止其他pager的动画
+                        stopOtherAnimation();
                         // 随机展示
                         final int nextInt = new Random().nextInt(ossKeyList.size());
                         int shouldIndex = nextInt;
@@ -148,6 +153,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         }, 10000, 10000);
     }
 
+    // 停止轮播
     private void stopAutoNext() {
         if (timer != null) {
             timer.cancel();
@@ -155,6 +161,20 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         }
     }
 
+    // 停止其他页面动画
+    private void stopOtherAnimation() {
+        //int currentItem = mPager.getCurrentItem();
+        int childCount = mPager.getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = mPager.getChildAt(i);
+            if (child == null) continue;
+            //if (i != currentItem) {
+            child.clearAnimation();
+            //}
+        }
+    }
+
+    // 获取anim
     private Animation getAnimation() {
         Animation in = AnimationUtils.loadAnimation(mContext, R.anim.alpha_couple_bg_in);
         in.setInterpolator(new DecelerateInterpolator());

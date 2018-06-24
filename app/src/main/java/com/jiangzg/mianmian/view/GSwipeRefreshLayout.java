@@ -48,11 +48,12 @@ public class GSwipeRefreshLayout extends SwipeRefreshLayout {
             case MotionEvent.ACTION_MOVE:
                 final float eventX = event.getX();
                 float xDiff = Math.abs(eventX - mPrevX);
-                // LogUtils.d("refresh" ,"move----" + eventX + "   " + mPrevX + "   " + mTouchSlop);
+                //LogUtils.d(GSwipeRefreshLayout.class, "onInterceptTouchEvent", "yDiff = " + xDiff + " -- mTouchSlop = " + (mTouchSlop + 60));
                 // 增加60的容差，让下拉刷新在竖直滑动时就可以触发
                 if (xDiff > mTouchSlop + 60) {
                     return false;
                 }
+                break;
         }
         return super.onInterceptTouchEvent(event);
     }
