@@ -9,7 +9,7 @@
     android:orientation="vertical"
     tools:context="com.jiangzg.mianmian.activity.HomeActivity">
 
-    <com.jiangzg.mianmian.view.GScrollViewPager
+    <com.jiangzg.mianmian.view.HomePaper
         android:id="@+id/vpContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"

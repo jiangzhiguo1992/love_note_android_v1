@@ -49,8 +49,8 @@ import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GImageAvatarView;
 import com.jiangzg.mianmian.view.GMarqueeText;
-import com.jiangzg.mianmian.view.GNoScrollViewPager;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
+import com.jiangzg.mianmian.view.WallPaperPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +71,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     @BindView(R.id.ivWallPaper)
     ImageView ivWallPaper;
     @BindView(R.id.vpWallPaper)
-    GNoScrollViewPager vpWallPaper;
+    WallPaperPager vpWallPaper;
 
     @BindView(R.id.tvCoupleCountDown)
     TextView tvCoupleCountDown;

@@ -21,7 +21,7 @@ import com.jiangzg.mianmian.fragment.BookFragment;
 import com.jiangzg.mianmian.fragment.CoupleFragment;
 import com.jiangzg.mianmian.fragment.SquareFragment;
 import com.jiangzg.mianmian.fragment.TopicFragment;
-import com.jiangzg.mianmian.view.GScrollViewPager;
+import com.jiangzg.mianmian.view.HomePaper;
 
 import java.util.Stack;
 
@@ -30,7 +30,7 @@ import butterknife.BindView;
 public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @BindView(R.id.vpContent)
-    GScrollViewPager vpContent;
+    HomePaper vpContent;
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
