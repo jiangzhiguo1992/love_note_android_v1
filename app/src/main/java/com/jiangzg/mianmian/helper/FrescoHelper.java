@@ -44,7 +44,7 @@ public class FrescoHelper {
         };
         // 设置缓存目录
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(app)
-                .setBaseDirectoryPath(ResHelper.getFrescoCacheDir())
+                .setBaseDirectoryPath(ResHelper.createFrescoCacheDir())
                 .build();
         // 初始化配置
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)

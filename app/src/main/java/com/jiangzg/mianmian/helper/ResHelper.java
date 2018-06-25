@@ -143,41 +143,67 @@ public class ResHelper {
     /**
      * ****************************************File****************************************
      */
-    // 图片
-    public static File getImgCacheDir() {
-        File dir = new File(AppInfo.get().getOutCacheDir(), "img");
-        FileUtils.createOrExistsDir(dir);
-        return dir;
-    }
-
-    public static File newImageOutCacheFile() {
-        String fileName = StringUtils.getUUID(10) + ".jpeg";
-        File file = new File(getImgCacheDir(), fileName);
-        LogUtils.d(ResHelper.class, "newImageOutCacheFile", file.getAbsolutePath());
-        return file;
-    }
-
-    // apk
+    // apk-目录
     public static File newApkDir() {
         return new File(AppInfo.get().getOutFilesDir(), "apk");
     }
 
+    // apk-文件
     public static File newApkFile(String versionName) {
         File apkFile = new File(newApkDir(), versionName + ".apk");
         LogUtils.d(ResHelper.class, "newApkFile", apkFile.getAbsolutePath());
         return apkFile;
     }
 
-    // fresco
-    public static File getFrescoCacheDir() {
+    // 图片-缓存目录
+    public static File createImgCacheDir() {
+        File dir = new File(AppInfo.get().getOutCacheDir(), "mm_img_cache");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
+    }
+
+    // 图片-缓存文件
+    public static File newImageCacheFile() {
+        String fileName = StringUtils.getUUID(10) + ".jpeg";
+        File file = new File(createImgCacheDir(), fileName);
+        LogUtils.d(ResHelper.class, "newImageCacheFile", file.getAbsolutePath());
+        return file;
+    }
+
+    // 图片-fresco缓存目录
+    public static File createFrescoCacheDir() {
         File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
     }
 
-    // oss
+    // 图片-oss目录
     public static String getOssResDirPath() {
         return AppInfo.get().getOutFilesDir() + File.separator + "oss" + File.separator;
+    }
+
+    // 图片-downLoad目录
+    public static File createSdCardImageDir() {
+        File dir = new File(AppInfo.get().getSdCardDir(), "MianMian");
+        FileUtils.createOrExistsDir(dir);
+        return dir;
+    }
+
+    // 图片-downLoad文件
+    public static File newSdCardImageFile(String objectKey) {
+        if (StringUtils.isEmpty(objectKey)) {
+            LogUtils.w(ResHelper.class, "newSdCardImageFile", "objectKey == null");
+            return null;
+        }
+        String[] split = objectKey.split("/");
+        if (split.length < 0) {
+            LogUtils.w(ResHelper.class, "newSdCardImageFile", "split == null");
+            return null;
+        }
+        String fileName = split[split.length - 1];
+        File file = new File(createSdCardImageDir(), fileName);
+        LogUtils.d(ResHelper.class, "newSdCardImageFile", file.getAbsolutePath());
+        return file;
     }
 
 }

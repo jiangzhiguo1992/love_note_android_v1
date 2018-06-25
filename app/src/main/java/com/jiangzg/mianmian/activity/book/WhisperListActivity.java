@@ -290,7 +290,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             ToastUtils.show(getString(R.string.now_status_cant_upload_img));
             return;
         }
-        cameraFile = ResHelper.newImageOutCacheFile();
+        cameraFile = ResHelper.newImageCacheFile();
         PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, getChannelShow(), cameraFile);
         PopUtils.show(window, root, Gravity.CENTER);
     }

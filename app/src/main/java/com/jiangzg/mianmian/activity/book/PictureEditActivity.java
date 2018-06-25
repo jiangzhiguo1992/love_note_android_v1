@@ -319,7 +319,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void showImgSelect() {
         if (SPHelper.getVipLimit().getPictureTotalCount() > 0) {
-            cameraFile = ResHelper.newImageOutCacheFile();
+            cameraFile = ResHelper.newImageCacheFile();
             PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);
         } else {

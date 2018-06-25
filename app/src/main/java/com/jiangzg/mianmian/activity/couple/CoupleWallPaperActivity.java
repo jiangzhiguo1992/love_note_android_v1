@@ -191,7 +191,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     public void showImgSelect() {
-        cameraFile = ResHelper.newImageOutCacheFile();
+        cameraFile = ResHelper.newImageCacheFile();
         PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }

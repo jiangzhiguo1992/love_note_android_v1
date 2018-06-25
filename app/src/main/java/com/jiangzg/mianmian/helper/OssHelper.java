@@ -23,6 +23,8 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -779,6 +781,66 @@ public class OssHelper {
     /**
      * *****************************************具体对接*****************************************
      */
+    // apk
+    public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
+        MaterialDialog progress = null;
+        if (activity != null) {
+            progress = DialogHelper.getBuild(activity)
+                    .cancelable(false)
+                    .canceledOnTouchOutside(false)
+                    .content(R.string.are_download)
+                    .progress(false, 100)
+                    .negativeText(R.string.cancel_download)
+                    .build();
+        }
+        downloadObject(progress, objectKey, target, callBack);
+    }
+
+    // 头像+墙纸+日记+照片
+    public static void downloadFileByKey(String objectKey) {
+        File file = OssResHelper.newKeyFile(objectKey);
+        downloadObject(null, objectKey, file, null);
+    }
+
+    // 全屏图下载
+    public static void downloadBigImage(final String objectKey) {
+        final Activity top = ActivityStack.getTop();
+        if (top == null) return;
+        // 权限检查
+        PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                File file = ResHelper.newSdCardImageFile(objectKey);
+                // 目标文件创建检查
+                if (file == null) {
+                    ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));
+                    return;
+                }
+                // 重复文件检查
+                if (FileUtils.isFileExists(file)) {
+                    ToastUtils.show(MyApp.get().getString(R.string.already_download));
+                    return;
+                }
+                // 开始下载
+                downloadObject(null, objectKey, file, new OssDownloadCallBack() {
+                    @Override
+                    public void success(String ossPath) {
+                        ToastUtils.show(MyApp.get().getString(R.string.download_success));
+                    }
+
+                    @Override
+                    public void failure(String ossPath) {
+                    }
+                });
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(top);
+            }
+        });
+    }
+
     // 上传本地Log日志，然后再删除这些日志
     public static void uploadLog() {
         File logDir = LogUtils.getLogDir();
@@ -892,33 +954,6 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookPicture = ossInfo.getPathBookPicture();
         uploadJpegList(activity, pathBookPicture, fileList, callBack);
-    }
-
-    // apk
-    public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
-        MaterialDialog progress = null;
-        if (activity != null) {
-            progress = DialogHelper.getBuild(activity)
-                    .cancelable(false)
-                    .canceledOnTouchOutside(false)
-                    .content(R.string.are_download)
-                    .progress(false, 100)
-                    .negativeText(R.string.cancel_download)
-                    .build();
-        }
-        downloadObject(progress, objectKey, target, callBack);
-    }
-
-    // 头像+墙纸+日记+照片
-    public static void downloadFileByKey(String objectKey) {
-        File file = OssResHelper.newKeyFile(objectKey);
-        downloadObject(null, objectKey, file, null);
-    }
-
-    // TODO 全屏图 在sd卡中下载 最好是用fresco的缓存
-    public static void downloadBigImage(String objectKey) {
-        //File file = OssResHelper.newKeyFile(objectKey);
-        //downloadObject(null, objectKey, file, null);
     }
 
 }

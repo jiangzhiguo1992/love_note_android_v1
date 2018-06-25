@@ -237,7 +237,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void showImgSelect() {
-        cameraFile = ResHelper.newImageOutCacheFile();
+        cameraFile = ResHelper.newImageCacheFile();
         PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
