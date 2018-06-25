@@ -43,7 +43,7 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
-    <com.jiangzg.mianmian.view.GImageView
+    <com.jiangzg.mianmian.view.FrescoView
         android:id="@+id/ivAlbum"
         android:layout_width="match_parent"
         android:layout_height="270dp"
@@ -56,7 +56,7 @@
         android:visibility="gone"
         app:actualImageScaleType="centerCrop"
         tools:scaleType="centerCrop"
-        tools:src="@mipmap/test_bg_2"
+        tools:src="@mipmap/ic_launcher"
         tools:visibility="visible"/>
 
     <Button

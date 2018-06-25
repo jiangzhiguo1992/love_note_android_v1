@@ -50,7 +50,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 import java.io.File;
 import java.util.Locale;
@@ -69,7 +69,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     Toolbar tb;
 
     @BindView(R.id.ivAvatarLeft)
-    GImageAvatarView ivAvatarLeft;
+    FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvPhoneLeft)
@@ -82,7 +82,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     TextView tvBirthLeft;
 
     @BindView(R.id.ivAvatarRight)
-    GImageAvatarView ivAvatarRight;
+    FrescoAvatarView ivAvatarRight;
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
     @BindView(R.id.tvPhoneRight)
@@ -119,7 +119,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.couple_info), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.pair_info), true);
         // 沉浸式状态栏
         abl.setBackgroundColor(Color.TRANSPARENT);
         int statusBarHeight = BarUtils.getStatusBarHeight(mActivity);

@@ -43,31 +43,31 @@ import java.io.File;
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
  */
-public class GImageAvatarView extends SimpleDraweeView {
+public class FrescoAvatarView extends SimpleDraweeView {
 
     private int mWidth, mHeight;
 
-    public GImageAvatarView(Context context, GenericDraweeHierarchy hierarchy) {
+    public FrescoAvatarView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
         init(context, null, hierarchy);
     }
 
-    public GImageAvatarView(Context context) {
+    public FrescoAvatarView(Context context) {
         super(context);
         init(context, null, null);
     }
 
-    public GImageAvatarView(Context context, AttributeSet attrs) {
+    public FrescoAvatarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, null);
     }
 
-    public GImageAvatarView(Context context, AttributeSet attrs, int defStyle) {
+    public FrescoAvatarView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, null);
     }
 
-    public GImageAvatarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FrescoAvatarView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, null);
     }
@@ -118,11 +118,11 @@ public class GImageAvatarView extends SimpleDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.w(GImageAvatarView.class, "onFinalImageSet", "imageInfo == null");
+                    LogUtils.w(FrescoAvatarView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.d(GImageAvatarView.class, "onFinalImageSet",
+                LogUtils.d(FrescoAvatarView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
                                 " height = " + imageInfo.getHeight() +
                                 " quality = " + qualityInfo.getQuality() +
@@ -133,7 +133,7 @@ public class GImageAvatarView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(GImageAvatarView.class, "onFailure", throwable);
+                LogUtils.e(FrescoAvatarView.class, "onFailure", throwable);
             }
         });
         AbstractDraweeController controller = builder.build();

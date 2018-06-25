@@ -1,20 +1,7 @@
 <resources>
     <string name="app_name">绵绵</string>
 
-    <string name="prompt">提示</string>
-    <string name="exit_app">您确定要退出？</string>
-    <string name="confirm">确定</string>
-    <string name="cancel">取消</string>
-    <string name="wait">等待…</string>
-    <string name="please_wait">请等待…</string>
-    <string name="no_network_title">网络不能访问</string>
-
-    <string name="server_error">服务器异常</string>
-    <string name="http_error_connect">网络连接错误</string>
-    <string name="http_error_time">网络连接超时</string>
-    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
-    <string name="http_error_request">网络请求异常</string>
-
+    <!-- base -->
     <string name="day1">一</string>
     <string name="day2">二</string>
     <string name="day3">三</string>
@@ -31,341 +18,120 @@
     <string name="month">月</string>
     <string name="year">年</string>
 
-    <string name="press_again_exit">再按一次退出</string>
-    <string name="find_new_version_colon_holder" formatted="false">有新版本:%s</string>
-    <string name="update_now">立即更新</string>
-    <string name="update_delay">以后再说</string>
-    <string name="http_response_error">网络响应异常</string>
-    <string name="http_response_error_403">Key错误</string>
-    <string name="http_response_error_404">资源未找到</string>
-    <string name="http_response_error_409">用户版本过低</string>
-    <string name="http_response_error_410">用户被禁用</string>
-    <string name="http_response_error_500">服务器异常</string>
-    <string name="location_error">定位失败</string>
-
-    <string name="update_perm_alert">检查更新失败，请开启对话框权限</string>
-
-    <string name="input_hint_phone">请输入手机号</string>
-    <string name="input_hint_new_phone">请输入新手机号</string>
-    <string name="input_hint_verify">请输入验证码</string>
-    <string name="login">登录</string>
-    <string name="input_hint_pwd">请输入密码</string>
-    <string name="input_hint_old_pwd">请输入旧密码</string>
-    <string name="input_hint_new_pwd">请输入新密码</string>
-    <string name="input_hint_pwd_confirm">请再次输入密码</string>
-    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
-    <string name="register">注册</string>
-    <string name="modify">修改</string>
-    <string name="verify_login">验证码登录</string>
-    <string name="pwd_login">密码登录</string>
-    <string name="send_validate_code">发送验证码</string>
-    <string name="are_send_validate_code">正在发送验证码…</string>
-    <string name="forget_pwd">忘记密码</string>
-    <string name="title_activity_home">HomeActivity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_bottom">BottomActivity</string>
-    <string name="title_nav_we">我和Ta</string>
-    <string name="title_nav_book">小本本</string>
-    <string name="title_nav_topic">话题</string>
-    <string name="title_nav_square">广场</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-    <string name="small_book">小本本</string>
-    <string name="show_affection">秀恩爱</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_no_cp">NoCpActivity</string>
-
-    <string name="err_un_know_server">服务器未知错误 (把这个bug提交给我们吧)</string>
-    <string name="err_un_know_client">客户端未知错误 (把这个bug提交给我们吧)</string>
-
-    <string name="err_data_null">空数据异常</string>
-    <string name="err_data_parse">数据解析异常</string>
-
-    <string name="loading_sending">正在发送…</string>
-    <string name="loading_loging">正在登录…</string>
-    <string name="please_access_permission">请大人尽快开启此权限，否则影响功能使用</string>
-
-    <string name="title_activity_login">Sign in</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format" formatted="false">Hello World from section: %1$d</string>
-    <string name="user_center">个人中心</string>
-    <string name="feedback">意见反馈</string>
-    <string name="title_activity_settings">Settings</string>
-
-    <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
-    <string name="pref_title_social_recommendations">Enable social recommendations</string>
-    <string name="pref_description_social_recommendations">Recommendations for people to contact
-        based on your message history
-    </string>
-
-    <string name="pref_title_display_name">Display name</string>
-    <string name="pref_default_display_name">John Smith</string>
-
-    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
-    <string-array name="pref_example_list_titles">
-        <item>Always</item>
-        <item>When possible</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_example_list_values">
-        <item>1</item>
-        <item>0</item>
-        <item>-1</item>
-    </string-array>
-
-    <!-- Example settings for Data & Sync -->
-    <string name="pref_header_data_sync">Data &amp; sync</string>
-
-    <string name="pref_title_sync_frequency">Sync frequency</string>
-    <string-array name="pref_sync_frequency_titles">
-        <item>15 minutes</item>
-        <item>30 minutes</item>
-        <item>1 hour</item>
-        <item>3 hours</item>
-        <item>6 hours</item>
-        <item>Never</item>
-    </string-array>
-    <string-array name="pref_sync_frequency_values">
-        <item>15</item>
-        <item>30</item>
-        <item>60</item>
-        <item>180</item>
-        <item>360</item>
-        <item>-1</item>
-    </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Entry 1</item>
-        <item>Entry 2</item>
-        <item>Entry 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value"/>
-
-    <string name="pref_title_system_sync_settings">System sync settings</string>
-
-    <!-- Example settings for Notifications -->
-    <string name="pref_header_notifications">Notifications</string>
-
-    <string name="pref_title_new_message_notifications">New message notifications</string>
-
-    <string name="pref_title_ringtone">Ringtone</string>
-    <string name="pref_ringtone_silent">Silent</string>
-
-    <string name="pref_title_vibrate">Vibrate</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="agree">同意</string>
-    <string name="user_protocol">用户协议</string>
-    <string name="please_check_agree_protocol">请勾选下方的同意用户协议</string>
-    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
-    <string name="set_ok">设置好了</string>
-    <string name="user_info">用户信息</string>
-    <string name="please_select_sex">请选择性别</string>
-    <string name="please_select_birth">请选择生日</string>
-    <string name="loading">正在加载中</string>
-    <string name="more_gesture_after_couple">配对之后解锁更多姿势!</string>
-    <string name="pair">配对</string>
-    <string name="please_input_ta_phone">请输入Ta的手机号</string>
-    <string name="want_find_back_ta">我想找回Ta</string>
-    <string name="want_pair_with_ta">我想和Ta配对</string>
-    <string name="complex">复合</string>
-    <string name="just_is_ta">就是Ta了</string>
-    <string name="we_find_ta">我们找到了Ta</string>
-    <string name="ta_already_no_couple">Ta还没有配对哦！</string>
-    <string name="find_ta">寻找Ta</string>
-    <string name="input_phone_to_pair">输入Ta的手机号就可以配对哦！</string>
-    <string name="send_pair_request">发送配对请求</string>
-    <string name="ta_colon_space_holder" formatted="false">Ta: %s</string>
-    <string name="want_find_back_once_time">想要找回原来那段时光吗？</string>
-    <string name="complex_can_find_once_all">复合可找回原来的点点滴滴</string>
-    <string name="send_complex_request">发送复合请求</string>
-    <string name="u_late_ta_been_invitee">你来晚了一步，有人正在邀请Ta</string>
-    <string name="been_invitee_one_sync">同时只能被一个人邀请哦！</string>
-    <string name="wait_ta_refuse_other_invitee_u_come">等Ta拒绝了别人的邀请后你再来吧！</string>
-    <string name="i_know">我知道了</string>
-    <string name="go_to_setting">前往设置</string>
-    <string name="complex_request_send_please_wait">复合请求已发出，请耐心等待!</string>
-    <string name="a_love_will_be_take_u_ready">一段恋情即将被拾起，你准备好了吗？</string>
-    <string name="pair_request_send_please_wait">配对请求已发出，请耐心等待!</string>
-    <string name="new_trip_will_start_u_ready">新的旅程即将开始，你准备好了吗？</string>
-    <string name="i_go_back_forget_it">我反悔了，还是算了吧</string>
-    <string name="receive_ta_complex_request">收到来自Ta的复合请求</string>
-    <string name="complex_after_all_back">复合之后所有的点点滴滴都将归来</string>
-    <string name="receive_ta_pair_request">收到来自Ta的配对请求</string>
-    <string name="accept_after_new_word_more_gesture">接受之后开启新世界，解锁更多姿势！</string>
-    <string name="refuse_after_can_again_invitee_other">拒绝之后可以重新邀请其他人</string>
-    <string name="cruel_refuse">残忍拒绝</string>
-    <string name="pleasure_accept">欣然接受</string>
-    <string name="ta_already_couple">Ta已经心有所属了</string>
-    <string name="and_u_not_let_go">而你还没有放下手吗？</string>
-    <string name="menses">姨妈</string>
-    <string name="sleep">睡眠</string>
-    <string name="trends">动态</string>
-    <string name="sign">签到</string>
-    <string name="coin">金币</string>
-    <string name="vip">会员</string>
-    <string name="base_settings">基本设置</string>
-    <string name="theme">主题</string>
-    <string name="less_flux_mode">省流量模式</string>
-    <string name="only_wifi_mode_auto_load_image">仅在wifi模式下才会自动加载图片</string>
-    <string name="auto_download_update">自动下载更新</string>
-    <string name="only_wifi_mode_auto_download">仅在wifi模式下会自动下载</string>
-    <string name="clear_cache">清除缓存</string>
-    <string name="are_clear_cache_point">正在清除缓存…</string>
-    <string name="contain_image_audio_video_total_colon_holder" formatted="false">包括图片、音频、视频缓存 (共:%s)</string>
-    <string name="notice_settings">通知设置</string>
-    <string name="system_notice">系统通知</string>
-    <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
-    <string name="social_notice">社交通知</string>
-    <string name="receive_from_social_notice">接受来自其他用户的社交通知</string>
-    <string name="account_settings">账号设置</string>
-    <string name="change_phone">更换手机</string>
-    <string name="change">更换</string>
-    <string name="modify_password">修改密码</string>
-    <string name="about_and_help">关于与帮助</string>
-    <string name="check_update">检查更新</string>
-    <string name="current_version_colon_space_holder" formatted="false">当前版本: %s</string>
-    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
-    <string name="help_document">帮助文档</string>
-    <string name="suggest_feedback">意见反馈</string>
-    <string name="go_rate">去评价</string>
-    <string name="open_protocol">开源许可</string>
-    <string name="contact_us">联系我们</string>
-    <string name="contact_customer_service">联系客服</string>
-    <string name="exist_account">退出账号</string>
-    <string name="settings">设置</string>
-    <string name="girl_pink">少女粉</string>
-    <string name="menses_red">姨妈红</string>
-    <string name="gay_purple">基佬紫</string>
-    <string name="briefs_blue">胖次蓝</string>
-    <string name="sapling_green">草苗绿</string>
-    <string name="egg_yellow">咸蛋黄</string>
-    <string name="fruit_orange">鲜果橙</string>
-    <string name="coffee_brown">咖啡棕</string>
-    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
-    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
-    <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
-    <string name="follow">关注</string>
-    <string name="comment">评论</string>
-    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
-    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
-    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
-    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
-    <string name="official">官方</string>
-    <string name="top">置顶</string>
-    <string name="go_back_top">回到顶部</string>
-    <string name="i_want_push_suggest">朕要提意见</string>
-    <string name="i_want_feedback">我要反馈</string>
-    <string name="my_follow">我的关注</string>
-    <string name="program_error">程序错误</string>
-    <string name="function_add">功能添加</string>
-    <string name="experience_optimize">体验优化</string>
-    <string name="just_debunk">纯粹吐槽</string>
-    <string name="other">其他</string>
-    <string name="no_reply">未回复</string>
-    <string name="already_reply">已回复</string>
-    <string name="no_accept">未采纳</string>
-    <string name="already_accept">已采纳</string>
-    <string name="handle_ing">处理中</string>
-    <string name="handle_over">处理完</string>
-    <string name="all">全部</string>
-    <string name="search_condition_line">————搜索条件————</string>
-    <string name="type_colon">类型:</string>
-    <string name="status_colon">状态:</string>
-    <string name="start_search">开始搜索</string>
-    <string name="my_push">我的发布</string>
-    <string name="holder_storey_in_holder_say" formatted="false">%d楼 于 %s说:</string>
-    <string name="me">我</string>
-    <string name="comment_colon_holder" formatted="false">评论: %d</string>
-    <string name="are_loading">正在加载中…</string>
     <string name="behavior_linear_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorLinearDependAppBar</string>
     <string name="behavior_fab_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorFABDependAppBar</string>
+
+    <!-- common -->
+    <string name="me">我</string>
+    <string name="year_space">年 </string>
+    <string name="month_space">月 </string>
+    <string name="girl">女</string>
+    <string name="boy">男</string>
+    <string name="prompt">提示</string>
+    <string name="confirm">确定</string>
+    <string name="agree">同意</string>
+    <string name="cancel">取消</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="add">添加</string>
+    <string name="send">发送</string>
+    <string name="wait">等待</string>
+    <string name="no_read">未读</string>
+    <string name="search">搜索</string>
+    <string name="complete">完成</string>
+    <string name="now_no">暂无</string>
+    <string name="change">更换</string>
+    <string name="follow">关注</string>
+    <string name="modify">修改</string>
+    <string name="comment">评论</string>
+    <string name="official">官方</string>
+    <string name="top">置顶</string>
+    <string name="all">全部</string>
     <string name="commit">提交</string>
-    <string name="holder_sprit_holder" formatted="false">%d/%d</string>
-    <string name="please_input_comment_content">请输入评论内容</string>
-    <string name="click_me_choose_type">点我选分类</string>
-    <string name="title">标题</string>
-    <string name="please_input_title">请输入标题</string>
-    <string name="content">内容</string>
-    <string name="please_input_content">请输入内容</string>
-    <string name="please_input_content_dont_over_holder_text" formatted="false">请输入内容，不得超过%d字</string>
-    <string name="click_me_add_image">点我添加图片</string>
     <string name="push">发布</string>
-    <string name="please_choose_classify">请选择分类</string>
+    <string name="publish">发表</string>
+    <string name="take_picture">拍照</string>
+    <string name="album">相册</string>
+    <string name="picture">照片</string>
+    <string name="other">其他</string>
+    <string name="wait_point">等待…</string>
+    <string name="please_wait">请等待…</string>
+    <string name="we_de">我们的</string>
+    <string name="me_de">我的</string>
+    <string name="ta_de">Ta的</string>
+    <string name="brutal_refuse">残忍拒绝</string>
+    <string name="after_say">以后再说</string>
+    <string name="set_ok">设置好了</string>
+    <string name="i_know">我知道了</string>
+    <string name="go_to_setting">前往设置</string>
+    <string name="pleasure_accept">欣然接受</string>
+    <string name="go_back_top">回到顶部</string>
+    <string name="start_search">开始搜索</string>
+    <string name="are_task">正在任务</string>
+    <string name="cancel_task">取消任务</string>
     <string name="i_choose_ok">我选好了</string>
     <string name="i_think_again">我再想想</string>
     <string name="confirm_no_wrong">确认无误</string>
     <string name="push_success">发布成功</string>
-    <string name="image_load_fail">图片加载失败</string>
-    <string name="click_retry_load">点击重新加载</string>
-    <string name="wall_paper">墙纸</string>
+    <string name="go_now">现在前往</string>
+    <string name="go_to_know">前往了解</string>
+    <string name="are_deleting">正在删除</string>
+    <string name="are_refresh">正在刷新</string>
+    <string name="loading_sending">正在发送…</string>
+    <string name="press_again_exit">再按一次退出</string>
+    <string name="exit_app">您确定要退出？</string>
+    <string name="holder_sprit_holder" formatted="false">%d/%d</string>
+    <string name="holder_wave_holder">%s~%s</string>
+    <string name="holder_space_line_space_holder">%s - %s</string>
+    <string name="space_bracket_holder" formatted="false"> (%d)</string>
+    <string name="my_follow">我的关注</string>
+    <string name="my_push">我的发布</string>
+
+    <!-- limit -->
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="please_input_comment_content">请输入评论内容</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_content">请输入内容</string>
+    <string name="choose_search_type">选择搜索类型</string>
+    <string name="please_choose_classify">请选择分类</string>
+    <string name="please_input_nickname">请输入昵称</string>
+    <string name="already_arrive_top">已经到达最顶部了</string>
+    <string name="need_check_some_perm">需要勾选某些权限</string>
     <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
     <string name="confirm_delete_this_album">确定要删除这个相册吗</string>
     <string name="confirm_delete_this_picture">确定要删除这张照片吗</string>
-    <string name="take_picture">拍照</string>
-    <string name="album">相册</string>
+    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
+    <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d字</string>
+    <string name="holder_paper">%d张</string>
+    <string name="text_number_colon_holder" formatted="false">字数:%d</string>
+    <string name="author_space_colon_space_holder" formatted="false">作者: %s</string>
+    <string name="comment_colon_holder" formatted="false">评论: %d</string>
+    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
+    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
+    <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
+    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
+    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
+    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
+    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
+    <string name="online_can_entry">联网才可以进入哦</string>
+    <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
+
+    <!-- file -->
+    <string name="are_upload">正在上传</string>
+    <string name="are_download">正在下载</string>
+    <string name="cancel_upload">取消上传</string>
+    <string name="cancel_download">取消下载</string>
+    <string name="loading">正在加载中</string>
+    <string name="are_loading">正在加载中…</string>
+    <string name="image_load_fail">图片加载失败</string>
+    <string name="click_retry_load">点击重新加载</string>
     <string name="image_is_compress">图片正在压缩中…</string>
     <string name="image_compress_fail">图片压缩失败</string>
     <string name="image_get_error">图片获取出错</string>
-    <string name="confirm_exist_account">确定要退出账号吗？</string>
-    <string name="year_space">年</string>
-    <string name="month_space">月</string>
-    <string name="girl">女</string>
-    <string name="boy">男</string>
-    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
-    <string name="sex_colon">性别:</string>
-    <string name="birthday_colon">生日:</string>
-    <string name="have_new_version">有新版本啦！</string>
-    <string name="are_update_check">正在检查更新</string>
-    <string name="version_number_colon">版本号:</string>
-    <string name="distance_space_holder" formatted="false">相距 %s</string>
-    <string name="differ_space_holder" formatted="false">相差 %s</string>
-    <string name="holder_wave_holder_c">%s~%s℃</string>
-    <string name="holder_wave_holder">%s~%s</string>
-    <string name="holder_space_line_space_holder">%s - %s</string>
-    <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
-    <string name="i_want_pair_with_ta">我要和Ta配对</string>
-    <string name="couple_info">配对信息</string>
-    <string name="dissolve">解散</string>
-    <string name="file_create_fail">文件创建失败</string>
-    <string name="picture_get_fail">照片获取失败</string>
-    <string name="please_input_nickname">请输入昵称</string>
-    <string name="are_upload">正在上传</string>
-    <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
-    <string name="are_compress_space_holder_holder" formatted="false">正在压缩 %d/%d</string>
-    <string name="are_task">正在任务</string>
-    <string name="cancel_upload">取消上传</string>
-    <string name="cancel_download">取消下载</string>
-    <string name="cancel_task">取消任务</string>
-    <string name="i_want_break_pair_relation">我想解除配对关系</string>
-    <string name="i_regret_i_want_complex">我后悔了，我想复合</string>
     <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
     <string name="download_fail_tell_we_this_bug">下载失败，可以把这个bug反馈给我们吗</string>
     <string name="file_resolve_fail_tell_we_this_bug">文件解析失败，可以把这个bug反馈给我们吗</string>
@@ -376,30 +142,176 @@
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="not_found_upload_file">没有找到要上传的文件</string>
     <string name="file_no_exits">文件不存在</string>
+    <string name="now_status_cant_upload_img">现在的身份不能上传图片哦</string>
+    <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
+    <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
+    <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
+    <string name="file_create_fail">文件创建失败</string>
+    <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
+    <string name="are_compress_space_holder_holder" formatted="false">正在压缩 %d/%d</string>
+
+    <!-- network -->
+    <string name="no_network_title">网络不能访问</string>
+    <string name="server_error">服务器异常</string>
+    <string name="http_error_connect">网络连接错误</string>
+    <string name="http_error_time">网络连接超时</string>
+    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
+    <string name="http_error_request">网络请求异常</string>
+    <string name="err_un_know_server">服务器未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_un_know_client">客户端未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_data_null">空数据异常</string>
+    <string name="err_data_parse">数据解析异常</string>
+    <string name="http_response_error">网络响应异常</string>
+    <string name="http_response_error_403">Key错误</string>
+    <string name="http_response_error_404">资源未找到</string>
+    <string name="http_response_error_409">用户版本过低</string>
+    <string name="http_response_error_410">用户被禁用</string>
+    <string name="http_response_error_500">服务器异常</string>
+
+    <!-- Nav -->
+    <string name="nav_couple">咱俩</string>
+    <string name="nav_book">本本</string>
+    <string name="nav_topic">话题</string>
+    <string name="nav_square">广场</string>
+
+    <!-- settings -->
+    <string name="settings">设置</string>
+    <string name="base_settings">基本设置</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="confirm_del_cache">确认清除缓存？</string>
+    <string name="are_clear_cache_point">正在清除缓存…</string>
     <string name="cache_clear_success">缓存清理成功</string>
+    <string name="contain_image_audio_video_total_colon_holder" formatted="false">包括图片、音频、视频缓存 (共:%s)</string>
+    <string name="notice_settings">通知设置</string>
+    <string name="system_notice">系统通知</string>
+    <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
+    <string name="social_notice">社交通知</string>
+    <string name="receive_from_social_notice">接受来自其他用户的社交通知</string>
+    <string name="account_settings">账号设置</string>
+    <string name="change_phone">更换手机</string>
+    <string name="modify_password">修改密码</string>
+    <string name="about_and_help">关于与帮助</string>
+    <string name="new_notice">最新公告</string>
+    <string name="help_document">帮助文档</string>
+    <string name="about_mian_mian">关于绵绵</string>
+    <string name="go_rate">去评价</string>
+    <string name="dear_give_me_good_judge">亲，给个好评吧</string>
+    <string name="about_us">关于我们</string>
+    <string name="contact_us">联系我们</string>
+    <string name="contact_customer_service">联系客服</string>
+    <string name="exist_account">退出账号</string>
+    <string name="confirm_exist_account">确定要退出账号吗？</string>
+
+    <!-- theme -->
+    <string name="theme">主题</string>
+    <string name="girl_pink">少女粉</string>
+    <string name="menses_red">姨妈红</string>
+    <string name="gay_purple">基佬紫</string>
+    <string name="briefs_blue">胖次蓝</string>
+    <string name="sapling_green">草苗绿</string>
+    <string name="egg_yellow">咸蛋黄</string>
+    <string name="fruit_orange">鲜果橙</string>
+    <string name="coffee_brown">咖啡棕</string>
+
+    <!-- version -->
+    <string name="check_update">检查更新</string>
+    <string name="update_now">立即更新</string>
     <string name="already_is_latest_version">已是最新版本</string>
-    <string name="are_download">正在下载</string>
-    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
-    <string name="need_check_some_perm">需要勾选某些权限</string>
-    <string name="go_now">现在前往</string>
-    <string name="go_to_know">前往了解</string>
-    <string name="say_after">以后再说</string>
-    <string name="brutal_refuse">残忍拒绝</string>
+    <string name="have_new_version">有新版本啦！</string>
+    <string name="are_update_check">正在检查更新</string>
+    <string name="version_number_colon">版本号:</string>
+    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
+
+    <!-- suggest -->
+    <string name="suggest_feedback">意见反馈</string>
+    <string name="i_want_push_suggest">朕要提意见</string>
+    <string name="i_want_feedback">我要反馈</string>
+    <string name="click_me_choose_type">点我选分类</string>
+    <string name="click_me_add_image">点我添加图片</string>
     <string name="click_me_to_del_image">点我删除照片</string>
-    <string name="are_deleting">正在删除</string>
-    <string name="are_refresh">正在刷新</string>
-    <string name="confirm_del_comment">确定要删除评论吗？</string>
+    <string name="program_error">程序错误</string>
+    <string name="function_add">功能添加</string>
+    <string name="experience_optimize">体验优化</string>
+    <string name="just_debunk">纯粹吐槽</string>
+    <string name="no_reply">未回复</string>
+    <string name="already_reply">已回复</string>
+    <string name="no_accept">未采纳</string>
+    <string name="already_accept">已采纳</string>
+    <string name="handle_ing">处理中</string>
+    <string name="handle_over">处理完</string>
+    <string name="search_condition_line">————搜索条件————</string>
+    <string name="type_colon">类型:</string>
+    <string name="status_colon">状态:</string>
+    <string name="holder_storey_in_holder_say" formatted="false">%d楼 于 %s说:</string>
     <string name="confirm_del_suggest">确定删除意见吗？</string>
-    <string name="confirm_del_this_word">确定删除这个留言吗？</string>
-    <string name="app_start_err">app启动异常</string>
-    <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
+
+    <!-- user -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="input_hint_phone">请输入手机号</string>
+    <string name="input_hint_new_phone">请输入新手机号</string>
+    <string name="input_hint_verify">请输入验证码</string>
+    <string name="input_hint_pwd">请输入密码</string>
+    <string name="input_hint_old_pwd">请输入旧密码</string>
+    <string name="input_hint_new_pwd">请输入新密码</string>
+    <string name="input_hint_pwd_confirm">请再次输入密码</string>
+    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
+    <string name="verify_login">验证码登录</string>
+    <string name="pwd_login">密码登录</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="loading_logging">正在登录…</string>
+    <string name="user_protocol">用户协议</string>
+    <string name="please_check_agree_protocol">请勾选下方的同意用户协议</string>
+    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
+    <string name="user_info">用户信息</string>
+    <string name="please_select_sex">请选择性别</string>
+    <string name="please_select_birth">请选择生日</string>
+    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
+    <string name="sex_colon">性别:</string>
+    <string name="birthday_colon">生日:</string>
+    <string name="send_validate_code">发送验证码</string>
+    <string name="are_send_validate_code">正在发送验证码…</string>
+
+    <!-- couple -->
+    <string name="pair">配对</string>
+    <string name="dissolve">解散</string>
+    <string name="complex">复合</string>
+    <string name="i_want_pair_with_ta">我要和Ta配对</string>
+    <string name="please_input_ta_phone">请输入Ta的手机号</string>
+    <string name="ta_colon_space_holder" formatted="false">Ta: %s</string>
+    <string name="quick_pair_deblock_more_posture">快来和ta配对，解锁更多姿势</string>
+    <string name="pair_info">配对信息</string>
+    <string name="now_null_nickname">暂无爱称</string>
+    <string name="pair_holder_day" formatted="false">配对第%d天</string>
     <string name="u_confirm_break">你确定要解除关系吗？</string>
     <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
     <string name="modify_ta_name">修改Ta的名称</string>
-    <string name="location_func_limit">位置功能受限!</string>
-    <string name="find_location_func_cant_use_normal_look_gps_is_open">发现位置功能不能正常使用，查看是不是GPS没有开启</string>
-    <string name="click_me_add_wall_paper">点我添加墙纸</string>
+    <string name="wall_paper">墙纸</string>
     <string name="click_right_top_add_wall_paper">点击右上角添加墙纸</string>
+    <string name="distance_space_holder" formatted="false">相距 %s</string>
+    <string name="differ_space_holder" formatted="false">相差 %s</string>
+    <string name="now_no_address_info">暂无地址信息</string>
+    <string name="now_no_weather_info">暂无天气信息</string>
+
+    <!-- place -->
+    <string name="place">位置</string>
+    <string name="weather">天气</string>
+    <string name="map">地图</string>
+    <string name="location_error">定位失败</string>
+    <string name="place_info">位置信息</string>
+    <string name="my_location">我的位置</string>
+    <string name="lon_lat_colon">经纬度:</string>
+    <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
+    <string name="input_search_address">输入搜索地址</string>
+    <string name="please_select_location">请选择位置</string>
+    <string name="address_search">地址搜索</string>
+    <string name="location_search_fail">位置搜索失败</string>
+    <string name="search_location_no_exist">搜索位置不存在</string>
+    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
+    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
+
+    <!-- weather -->
+    <string name="holder_wave_holder_c">%s~%s℃</string>
     <string name="sunny">晴天</string>
     <string name="cloudy">多云</string>
     <string name="over_cast">阴</string>
@@ -421,6 +333,11 @@
     <string name="heavy_snow">大雪</string>
     <string name="blizzard">暴雪</string>
     <string name="freezing_rain">冻雨</string>
+
+    <!-- book -->
+    <string name="menses">姨妈</string>
+    <string name="sleep">睡眠</string>
+    <string name="trends">动态</string>
     <string name="whisper">耳语</string>
     <string name="diary">日记</string>
     <string name="word">留言</string>
@@ -432,76 +349,31 @@
     <string name="promise">承诺</string>
     <string name="angry">生气</string>
     <string name="award">补偿</string>
-    <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
-    <string name="publish">发表</string>
-    <string name="choose_search_type">选择搜索类型</string>
-    <string name="we_de">我们的</string>
-    <string name="me_de">我的</string>
-    <string name="ta_de">Ta的</string>
-    <string name="space_bracket_holder" formatted="false"> (%d)</string>
-    <string name="click_me_choose_date">点我选日期</string>
-    <string name="text_number_colon_holder" formatted="false">字数:%d</string>
-    <string name="author_space_colon_space_holder" formatted="false">作者: %s</string>
-    <string name="edit">编辑</string>
-    <string name="delete">删除</string>
-    <string name="add">添加</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
+    <string name="confirm_del_comment">确定要删除评论吗？</string>
+    <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
-    <string name="now_status_cant_upload_img">现在的身份不能上传图片哦</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
-    <string name="send">发送</string>
-    <string name="already_arrive_top">已经到达最顶部了</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>
     <string name="save_channel_colon_space_holder" formatted="false">保存频道: %s</string>
-    <string name="in_here_input_channel">在这里输入频道</string>
-    <string name="online_can_entry">联网才可以进入哦</string>
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文字</string>
     <string name="now_just_upload_holder_album" formatted="false">目前只能上传%d个相册哦</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
-    <string name="click_mo_add_cover">点我添加封面</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
     <string name="can_operation_self_push_picture">只能操作自己上传的照片哦</string>
-    <string name="place">位置</string>
-    <string name="weather">天气</string>
-    <string name="place_info">位置信息</string>
-    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
-    <string name="current_location">当前位置</string>
-    <string name="about_mian_mian">关于绵绵</string>
-    <string name="dear_give_me_good_judge">亲，给个好评吧</string>
-    <string name="new_notice">最新公告</string>
-    <string name="about_us">关于我们</string>
-    <string name="no_read">未读</string>
-    <string name="picture">照片</string>
     <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
     <string name="please_select_album">请选择相册</string>
     <string name="please_select_time">请选择时间</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
-    <string name="please_select_location">请选择位置</string>
-    <string name="address_search">地址搜索</string>
-    <string name="complete">完成</string>
-    <string name="location_search_fail">位置搜索失败</string>
-    <string name="search_location_no_exist">搜索位置不存在</string>
-    <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
-    <string name="now_no">暂无</string>
     <string name="picture_where">照片呢？</string>
-    <string name="input_search_location">输入搜索地址</string>
-    <string name="map">地图</string>
-    <string name="my_location">我的位置</string>
-    <string name="lon_lat_colon">经纬度:</string>
-    <string name="holder_paper">%d张</string>
-    <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
-    <string name="now_null_nickname">暂无爱称</string>
-    <string name="pair_holder_day" formatted="false">配对第%d天</string>
-    <string name="now_no_address_info">暂无地址信息</string>
-    <string name="now_no_weather_info">暂无天气信息</string>
-    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
-    <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
-    <string name="search">搜索</string>
-    <string name="input_search_address">输入搜索地址</string>
-    <string name="confirm_del_cache">确认清除缓存？</string>
 
-    <!-- TODO 整理 test_bg_01删掉了 ic_couple换一个 ic_favorite只要一个-->
+    <!-- square -->
+    <string name="sign">签到</string>
+    <string name="coin">金币</string>
+    <string name="vip">会员</string>
+
 </resources>

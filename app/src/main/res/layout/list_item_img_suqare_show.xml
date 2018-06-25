@@ -17,12 +17,12 @@
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
 
-    <com.jiangzg.mianmian.view.GImageView
+    <com.jiangzg.mianmian.view.FrescoView
         android:id="@+id/ivShow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/selectableItemBackground"
         android:foreground="?attr/selectableItemBackground"
         app:actualImageScaleType="centerCrop"
-        tools:background="@mipmap/test_bg_1"/>
+        tools:background="@mipmap/ic_launcher"/>
 </android.support.v7.widget.CardView>

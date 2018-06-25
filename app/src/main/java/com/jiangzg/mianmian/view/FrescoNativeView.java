@@ -31,32 +31,32 @@ import java.io.File;
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
  */
-public class GImageNativeView extends SimpleDraweeView {
+public class FrescoNativeView extends SimpleDraweeView {
 
     private int mWidth, mHeight;
     private onSuccessClickListener mSuccessClickListener;
 
-    public GImageNativeView(Context context, GenericDraweeHierarchy hierarchy) {
+    public FrescoNativeView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
         init(context, null, hierarchy);
     }
 
-    public GImageNativeView(Context context) {
+    public FrescoNativeView(Context context) {
         super(context);
         init(context, null, null);
     }
 
-    public GImageNativeView(Context context, AttributeSet attrs) {
+    public FrescoNativeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs, null);
     }
 
-    public GImageNativeView(Context context, AttributeSet attrs, int defStyle) {
+    public FrescoNativeView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs, null);
     }
 
-    public GImageNativeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FrescoNativeView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, null);
     }
@@ -104,11 +104,11 @@ public class GImageNativeView extends SimpleDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.w(GImageNativeView.class, "onFinalImageSet", "imageInfo == null");
+                    LogUtils.w(FrescoNativeView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.d(GImageNativeView.class, "onFinalImageSet",
+                LogUtils.d(FrescoNativeView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
                                 " height = " + imageInfo.getHeight() +
                                 " quality = " + qualityInfo.getQuality() +
@@ -116,10 +116,10 @@ public class GImageNativeView extends SimpleDraweeView {
                                 " fullQuality = " + qualityInfo.isOfFullQuality());
                 // 点击事件
                 if (mSuccessClickListener != null) {
-                    GImageNativeView.this.setOnClickListener(new OnClickListener() {
+                    FrescoNativeView.this.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mSuccessClickListener.onClick(GImageNativeView.this);
+                            mSuccessClickListener.onClick(FrescoNativeView.this);
                         }
                     });
                 }
@@ -129,7 +129,7 @@ public class GImageNativeView extends SimpleDraweeView {
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
                 ToastUtils.show(MyApp.get().getString(R.string.image_load_fail));
-                LogUtils.e(GImageNativeView.class, "onFailure", throwable);
+                LogUtils.e(FrescoNativeView.class, "onFailure", throwable);
             }
         });
         AbstractDraweeController controller = builder.build();
@@ -137,7 +137,7 @@ public class GImageNativeView extends SimpleDraweeView {
     }
 
     public interface onSuccessClickListener {
-        void onClick(GImageNativeView iv);
+        void onClick(FrescoNativeView iv);
     }
 
     public void setSuccessClickListener(onSuccessClickListener listener) {

@@ -8,7 +8,7 @@
     android:background="@drawable/shape_gradient_primary_light"
     tools:context="com.jiangzg.mianmian.activity.WelcomeActivity">
 
-    <com.jiangzg.mianmian.view.GImageNativeView
+    <com.jiangzg.mianmian.view.FrescoNativeView
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

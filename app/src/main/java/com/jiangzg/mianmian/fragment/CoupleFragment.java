@@ -47,7 +47,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 import com.jiangzg.mianmian.view.WallPaperPager;
@@ -85,9 +85,9 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     @BindView(R.id.llCoupleInfo)
     LinearLayout llCoupleInfo;
     @BindView(R.id.ivAvatarLeft)
-    GImageAvatarView ivAvatarLeft;
+    FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.ivAvatarRight)
-    GImageAvatarView ivAvatarRight;
+    FrescoAvatarView ivAvatarRight;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
     @BindView(R.id.tvNameRight)

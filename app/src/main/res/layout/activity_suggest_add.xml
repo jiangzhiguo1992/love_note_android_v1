@@ -119,14 +119,14 @@
                 android:textStyle="bold"/>
 
 
-            <com.jiangzg.mianmian.view.GImageNativeView
+            <com.jiangzg.mianmian.view.FrescoNativeView
                 android:id="@+id/ivImage"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_margin="10dp"
                 android:visibility="gone"
                 app:actualImageScaleType="centerCrop"
-                tools:background="@mipmap/test_bg_1"
+                tools:background="@mipmap/ic_launcher"
                 tools:visibility="visible"/>
         </LinearLayout>
     </ScrollView>

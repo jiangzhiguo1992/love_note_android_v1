@@ -10,7 +10,7 @@ import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 import java.util.Locale;
 
@@ -40,7 +40,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvCount, countShow);
         helper.setText(R.id.tvContent, content);
-        GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
+        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
     }
 

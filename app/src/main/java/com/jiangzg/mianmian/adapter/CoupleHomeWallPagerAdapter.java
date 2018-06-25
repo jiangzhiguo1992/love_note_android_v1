@@ -16,7 +16,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +91,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         // view
-        GImageView imageView = new GImageView(mContext);
+        FrescoView imageView = new FrescoView(mContext);
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(paramsImage);
         imageView.setWidthAndHeight(screenWidth, screenHeight);

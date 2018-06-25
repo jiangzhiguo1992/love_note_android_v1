@@ -37,7 +37,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,12 +91,12 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         }
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvLocation, address);
-        GImageView ivPicture = helper.getView(R.id.ivPicture);
+        FrescoView ivPicture = helper.getView(R.id.ivPicture);
         ivPicture.setWidthAndHeight(imageWidth / 3, imageHeight / 3); // 注意了啊，太高了会崩
         // 主色值设置
-        ivPicture.setBitmapListener(new GImageView.BitmapListener() {
+        ivPicture.setBitmapListener(new FrescoView.BitmapListener() {
             @Override
-            public void onBitmapSuccess(GImageView iv, Bitmap bitmap) {
+            public void onBitmapSuccess(FrescoView iv, Bitmap bitmap) {
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(@NonNull Palette palette) {
@@ -122,15 +122,15 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             }
 
             @Override
-            public void onBitmapFail(GImageView iv) {
+            public void onBitmapFail(FrescoView iv) {
                 helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
                 helper.setBackgroundColor(R.id.tvLocation, colorPrimary);
             }
         });
         // 为瀑布流定制不一样的宽高
-        ivPicture.setLoadListener(new GImageView.LoadListener() {
+        ivPicture.setLoadListener(new FrescoView.LoadListener() {
             @Override
-            public void onLoadSuccess(GImageView iv, ImageInfo imageInfo) {
+            public void onLoadSuccess(FrescoView iv, ImageInfo imageInfo) {
                 float width = imageInfo.getWidth();
                 float height = imageInfo.getHeight();
                 int finalHeight = (int) (height / width * imageWidth);
@@ -140,13 +140,13 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             }
 
             @Override
-            public void onLoadFail(GImageView iv) {
+            public void onLoadFail(FrescoView iv) {
             }
         });
         // 点击全屏
-        ivPicture.setClickListener(new GImageView.ClickListener() {
+        ivPicture.setClickListener(new FrescoView.ClickListener() {
             @Override
-            public void onSuccessClick(GImageView iv) {
+            public void onSuccessClick(FrescoView iv) {
                 List<Picture> data = PictureAdapter.this.getData();
                 ArrayList<String> ossKeyList = ConvertHelper.getOssKeyListByPicture(data);
                 if (ossKeyList == null || ossKeyList.size() <= 0) return;
@@ -194,7 +194,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         LinearLayout llOperate;
         TextView tvModify, tvDelete, tvCancel;
         Animation modify, delete, cancel;
-        GImageView ivPicture = (GImageView) getViewByPosition(position, R.id.ivPicture);
+        FrescoView ivPicture = (FrescoView) getViewByPosition(position, R.id.ivPicture);
         if (ivPicture.getLayoutParams().height < imageWidth) {
             // 展示横向
             llOperate = (LinearLayout) getViewByPosition(position, R.id.llOperateHorizontal);
@@ -238,7 +238,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         final LinearLayout llOperate;
         TextView tvModify, tvDelete, tvCancel;
         Animation modify, delete, cancel;
-        GImageView ivPicture = (GImageView) getViewByPosition(operationPosition, R.id.ivPicture);
+        FrescoView ivPicture = (FrescoView) getViewByPosition(operationPosition, R.id.ivPicture);
         if (ivPicture.getLayoutParams().height < imageWidth) {
             // 展示横向
             llOperate = (LinearLayout) getViewByPosition(operationPosition, R.id.llOperateHorizontal);

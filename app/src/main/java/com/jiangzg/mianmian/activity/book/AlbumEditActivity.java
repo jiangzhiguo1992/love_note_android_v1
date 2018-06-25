@@ -42,7 +42,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -63,7 +63,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     @BindView(R.id.ivAdd)
     ImageView ivAdd;
     @BindView(R.id.ivAlbum)
-    GImageView ivAlbum;
+    FrescoView ivAlbum;
     @BindView(R.id.etTitle)
     EditText etTitle;
     @BindView(R.id.btnCommit)
@@ -99,9 +99,9 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.album), true);
         album = getIntent().getParcelableExtra("album");
-        ivAlbum.setClickListener(new GImageView.ClickListener() {
+        ivAlbum.setClickListener(new FrescoView.ClickListener() {
             @Override
-            public void onSuccessClick(GImageView iv) {
+            public void onSuccessClick(FrescoView iv) {
                 if (!FileUtils.isFileEmpty(cameraFile)) {
                     BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
                 } else if (!FileUtils.isFileEmpty(pictureFile)) {

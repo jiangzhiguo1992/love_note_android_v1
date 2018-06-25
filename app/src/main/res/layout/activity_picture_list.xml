@@ -34,7 +34,7 @@
                 app:layout_collapseMode="pin"
                 app:layout_collapseParallaxMultiplier="0.7">
 
-                <com.jiangzg.mianmian.view.GImageView
+                <com.jiangzg.mianmian.view.FrescoView
                     android:id="@+id/ivCover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -42,7 +42,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:visibility="gone"
                     app:actualImageScaleType="centerCrop"
-                    tools:background="@mipmap/test_bg_1"
+                    tools:background="@mipmap/ic_launcher"
                     tools:scaleType="centerCrop"
                     tools:visibility="visible"/>
 

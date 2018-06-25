@@ -6,7 +6,7 @@
         <attr name="custom_layout_index" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="GNumberPicker">
+    <declare-styleable name="BirthPicker">
         <attr name="custom_divider_color" format="color"/>
         <attr name="custom_text_color" format="color"/>
     </declare-styleable>

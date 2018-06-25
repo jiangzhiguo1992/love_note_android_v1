@@ -30,7 +30,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.Locale;
 
@@ -68,7 +68,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         // view
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvTime, time);
-        GImageView ivAlbum = helper.getView(R.id.ivAlbum);
+        FrescoView ivAlbum = helper.getView(R.id.ivAlbum);
         ivAlbum.setWidthAndHeight(imageWidth, imageHeight);
         if (StringUtils.isEmpty(cover)) {
             // 没有封面时，随机给个颜色

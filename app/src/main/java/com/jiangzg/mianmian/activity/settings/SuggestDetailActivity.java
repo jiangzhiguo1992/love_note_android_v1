@@ -52,7 +52,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 import com.jiangzg.mianmian.view.GWrapView;
 
@@ -247,7 +247,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         GWrapView wvTag = head.findViewById(R.id.wvTag);
         TextView tvContent = head.findViewById(R.id.tvContent);
         // imageView
-        GImageView ivContent = head.findViewById(R.id.ivContent);
+        FrescoView ivContent = head.findViewById(R.id.ivContent);
         ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
         ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
         // tagView
@@ -278,9 +278,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         } else {
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setData(contentImgUrl);
-            ivContent.setClickListener(new GImageView.ClickListener() {
+            ivContent.setClickListener(new FrescoView.ClickListener() {
                 @Override
-                public void onSuccessClick(GImageView iv) {
+                public void onSuccessClick(FrescoView iv) {
                     BigImageActivity.goActivityByOss(mActivity, contentImgUrl, iv);
                 }
             });

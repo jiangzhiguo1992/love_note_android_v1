@@ -84,7 +84,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.small_book), false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_book), false);
         fitToolBar(tb);
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

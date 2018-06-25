@@ -20,27 +20,27 @@ import java.lang.reflect.Field;
  * 数字选择器
  */
 
-public class GNumberPicker extends NumberPicker {
+public class BirthPicker extends NumberPicker {
 
     private int mTextColor;
     private int mDividerColor;
 
-    public GNumberPicker(Context context, AttributeSet attrs) {
+    public BirthPicker(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
-    public GNumberPicker(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BirthPicker(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GNumberPicker);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BirthPicker);
         int color = ViewHelper.getColorPrimary(context);
         // 获取参数
-        mTextColor = a.getColor(R.styleable.GNumberPicker_custom_text_color, color);
-        mDividerColor = a.getColor(R.styleable.GNumberPicker_custom_divider_color, color);
+        mTextColor = a.getColor(R.styleable.BirthPicker_custom_text_color, color);
+        mDividerColor = a.getColor(R.styleable.BirthPicker_custom_divider_color, color);
         a.recycle();
         // 设置属性
         setCustomStyle();

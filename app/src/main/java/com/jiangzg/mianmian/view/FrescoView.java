@@ -52,34 +52,34 @@ import java.io.File;
  * Created by JZG on 2018/3/21.
  * Fresco的图片控件封装
  */
-public class GImageView extends SimpleDraweeView {
+public class FrescoView extends SimpleDraweeView {
 
     private int mWidth, mHeight;
     private ClickListener mClickListener;
     private LoadListener mLoadListener;
     private BitmapListener mBitmapListener;
 
-    public GImageView(Context context, GenericDraweeHierarchy hierarchy) {
+    public FrescoView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
         init(context, hierarchy);
     }
 
-    public GImageView(Context context) {
+    public FrescoView(Context context) {
         super(context);
         init(context, null);
     }
 
-    public GImageView(Context context, AttributeSet attrs) {
+    public FrescoView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, null);
     }
 
-    public GImageView(Context context, AttributeSet attrs, int defStyle) {
+    public FrescoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, null);
     }
 
-    public GImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public FrescoView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context, null);
     }
@@ -130,22 +130,22 @@ public class GImageView extends SimpleDraweeView {
             @Override
             protected void onNewResultImpl(Bitmap bitmap) {
                 if (bitmap == null) {
-                    LogUtils.w(GImageView.class, "onNewResultImpl", "bitmap == null");
+                    LogUtils.w(FrescoView.class, "onNewResultImpl", "bitmap == null");
                     if (mBitmapListener != null) {
-                        mBitmapListener.onBitmapFail(GImageView.this);
+                        mBitmapListener.onBitmapFail(FrescoView.this);
                     }
                     return;
                 }
                 if (mBitmapListener != null) {
-                    mBitmapListener.onBitmapSuccess(GImageView.this, bitmap);
+                    mBitmapListener.onBitmapSuccess(FrescoView.this, bitmap);
                 }
             }
 
             @Override
             protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                LogUtils.w(GImageView.class, "onFailureImpl", "");
+                LogUtils.w(FrescoView.class, "onFailureImpl", "");
                 if (mBitmapListener != null) {
-                    mBitmapListener.onBitmapFail(GImageView.this);
+                    mBitmapListener.onBitmapFail(FrescoView.this);
                 }
             }
         }, CallerThreadExecutor.getInstance());
@@ -157,11 +157,11 @@ public class GImageView extends SimpleDraweeView {
             public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
                 super.onFinalImageSet(id, imageInfo, animatable);
                 if (imageInfo == null) {
-                    LogUtils.w(GImageView.class, "onFinalImageSet", "imageInfo == null");
+                    LogUtils.w(FrescoView.class, "onFinalImageSet", "imageInfo == null");
                     return;
                 }
                 QualityInfo qualityInfo = imageInfo.getQualityInfo();
-                LogUtils.d(GImageView.class, "onFinalImageSet",
+                LogUtils.d(FrescoView.class, "onFinalImageSet",
                         " width = " + imageInfo.getWidth() +
                                 " height = " + imageInfo.getHeight() +
                                 " quality = " + qualityInfo.getQuality() +
@@ -169,14 +169,14 @@ public class GImageView extends SimpleDraweeView {
                                 " fullQuality = " + qualityInfo.isOfFullQuality());
                 // 加载成功事件
                 if (mLoadListener != null) {
-                    mLoadListener.onLoadSuccess(GImageView.this, imageInfo);
+                    mLoadListener.onLoadSuccess(FrescoView.this, imageInfo);
                 }
                 // 点击事件
                 if (mClickListener != null) {
-                    GImageView.this.setOnClickListener(new OnClickListener() {
+                    FrescoView.this.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mClickListener.onSuccessClick(GImageView.this);
+                            mClickListener.onSuccessClick(FrescoView.this);
                         }
                     });
                 }
@@ -185,10 +185,10 @@ public class GImageView extends SimpleDraweeView {
             @Override
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
-                LogUtils.e(GImageView.class, "onFailure", throwable);
+                LogUtils.e(FrescoView.class, "onFailure", throwable);
                 // 加载失败事件
                 if (mLoadListener != null) {
-                    mLoadListener.onLoadFail(GImageView.this);
+                    mLoadListener.onLoadFail(FrescoView.this);
                 }
             }
         });
@@ -197,7 +197,7 @@ public class GImageView extends SimpleDraweeView {
     }
 
     public interface ClickListener {
-        void onSuccessClick(GImageView iv);
+        void onSuccessClick(FrescoView iv);
     }
 
     public void setClickListener(ClickListener listener) {
@@ -205,9 +205,9 @@ public class GImageView extends SimpleDraweeView {
     }
 
     public interface LoadListener {
-        void onLoadSuccess(GImageView iv, ImageInfo imageInfo);
+        void onLoadSuccess(FrescoView iv, ImageInfo imageInfo);
 
-        void onLoadFail(GImageView iv);
+        void onLoadFail(FrescoView iv);
     }
 
     public void setLoadListener(LoadListener listener) {
@@ -215,9 +215,9 @@ public class GImageView extends SimpleDraweeView {
     }
 
     public interface BitmapListener {
-        void onBitmapSuccess(GImageView iv, Bitmap bitmap);
+        void onBitmapSuccess(FrescoView iv, Bitmap bitmap);
 
-        void onBitmapFail(GImageView iv);
+        void onBitmapFail(FrescoView iv);
     }
 
     public void setBitmapListener(BitmapListener listener) {

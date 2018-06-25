@@ -20,7 +20,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,12 +50,12 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     @Override
     protected void convert(final BaseViewHolder helper, String item) {
-        GImageView ivWallPaper = helper.getView(R.id.ivWallPaper);
+        FrescoView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(ratio);
         ivWallPaper.setWidthAndHeight(imageWidth / 2, imageHeight / 2);
-        ivWallPaper.setClickListener(new GImageView.ClickListener() {
+        ivWallPaper.setClickListener(new FrescoView.ClickListener() {
             @Override
-            public void onSuccessClick(GImageView iv) {
+            public void onSuccessClick(FrescoView iv) {
                 goImgScreen(helper.getLayoutPosition(), iv);
             }
         });
@@ -63,7 +63,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         ivWallPaper.setData(item);
     }
 
-    private void goImgScreen(int position, GImageView view) {
+    private void goImgScreen(int position, FrescoView view) {
         List<String> data = getData();
         BigImageActivity.goActivityByOssList(mActivity, (ArrayList<String>) data, position, view);
     }

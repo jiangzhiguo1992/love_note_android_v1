@@ -16,7 +16,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.helper.DialogHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
         final int layoutPosition = helper.getLayoutPosition();
-        GImageView ivShow = helper.getView(R.id.ivShow);
+        FrescoView ivShow = helper.getView(R.id.ivShow);
         ImageView ivAdd = helper.getView(R.id.ivAdd);
         if (layoutPosition < getData().size() - 1 || !addShow) {
             // show
@@ -71,18 +71,18 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
             ivShow.setLayoutParams(layoutParams);
             if (layoutPosition < ossSize) {
                 // oss
-                ivShow.setClickListener(new GImageView.ClickListener() {
+                ivShow.setClickListener(new FrescoView.ClickListener() {
                     @Override
-                    public void onSuccessClick(GImageView iv) {
+                    public void onSuccessClick(FrescoView iv) {
                         BigImageActivity.goActivityByOss(mActivity, item, iv);
                     }
                 });
                 ivShow.setData(item);
             } else {
                 // file
-                ivShow.setClickListener(new GImageView.ClickListener() {
+                ivShow.setClickListener(new FrescoView.ClickListener() {
                     @Override
-                    public void onSuccessClick(GImageView iv) {
+                    public void onSuccessClick(FrescoView iv) {
                         BigImageActivity.goActivityByFile(mActivity, item, iv);
                     }
                 });

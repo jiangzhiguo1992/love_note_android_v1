@@ -12,7 +12,7 @@ import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -41,7 +41,7 @@ public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolde
         String city = StringUtils.isEmail(item.getCity()) ? mActivity.getString(R.string.now_no) : item.getCity();
         String district = StringUtils.isEmail(item.getDistrict()) ? mActivity.getString(R.string.now_no) : item.getDistrict();
         // view
-        GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
+        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         helper.setText(R.id.tvTime, time);
         helper.setText(R.id.tvAddress, address);

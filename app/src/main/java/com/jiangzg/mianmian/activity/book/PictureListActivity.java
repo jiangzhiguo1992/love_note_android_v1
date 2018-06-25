@@ -43,7 +43,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -72,7 +72,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     @BindView(R.id.rlHead)
     RelativeLayout rlHead;
     @BindView(R.id.ivCover)
-    GImageView ivCover;
+    FrescoView ivCover;
     @BindView(R.id.tvPictureCount)
     TextView tvPictureCount;
     @BindView(R.id.tvCreateAt)

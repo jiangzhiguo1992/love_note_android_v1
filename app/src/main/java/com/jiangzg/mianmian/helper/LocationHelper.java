@@ -44,8 +44,8 @@ public class LocationHelper {
         //    MaterialDialog dialog = DialogHelper.getBuild(activity)
         //            .cancelable(true)
         //            .canceledOnTouchOutside(false)
-        //            .title(R.string.location_func_limit)
-        //            .content(R.string.find_location_func_cant_use_normal_look_gps_is_open)
+        //            .title(“位置功能受限!“)
+        //            .content(“发现位置功能不能正常使用，查看是不是GPS没有开启“)
         //            .positiveText(R.string.go_to_setting)
         //            .negativeText(R.string.i_think_again)
         //            .onPositive(new MaterialDialog.SingleButtonCallback() {

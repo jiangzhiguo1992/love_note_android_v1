@@ -5,7 +5,7 @@
     <string name="exit_app">Are you sure that you want to exit?</string>
     <string name="confirm">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="wait">Waiting…</string>
+    <string name="wait_point">Waiting…</string>
     <string name="no_network_title">Network can not access.</string>
 
     <string name="http_error_connect">An unexpected network error occurred</string>

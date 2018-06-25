@@ -9,7 +9,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +36,14 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
     @Override
     protected void convert(final BaseViewHolder helper, final String item) {
         final int position = helper.getLayoutPosition();
-        GImageView ivShow = helper.getView(R.id.ivShow);
+        FrescoView ivShow = helper.getView(R.id.ivShow);
         CardView.LayoutParams layoutParams = (CardView.LayoutParams) ivShow.getLayoutParams();
         layoutParams.height = imageHeight;
         ivShow.setLayoutParams(layoutParams);
         ivShow.setWidthAndHeight(imageWidth, imageHeight);
-        ivShow.setClickListener(new GImageView.ClickListener() {
+        ivShow.setClickListener(new FrescoView.ClickListener() {
             @Override
-            public void onSuccessClick(GImageView iv) {
+            public void onSuccessClick(FrescoView iv) {
                 List<String> data = ImgSquareShowAdapter.this.getData();
                 ArrayList<String> pathList = new ArrayList<>();
                 pathList.addAll(data);

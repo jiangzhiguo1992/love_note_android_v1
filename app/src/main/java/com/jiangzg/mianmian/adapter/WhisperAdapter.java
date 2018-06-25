@@ -13,8 +13,8 @@ import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
-import com.jiangzg.mianmian.view.GImageView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
+import com.jiangzg.mianmian.view.FrescoView;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -41,17 +41,17 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         boolean isImage = item.isImage();
         final String content = item.getContent();
         // view
-        GImageAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
+        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         helper.setText(R.id.tvCreateAt, createAt);
         TextView tvContent = helper.getView(R.id.tvContent);
-        GImageView ivContent = helper.getView(R.id.ivContent);
+        FrescoView ivContent = helper.getView(R.id.ivContent);
         if (isImage) {
             tvContent.setVisibility(View.GONE);
             ivContent.setVisibility(View.VISIBLE);
-            ivContent.setClickListener(new GImageView.ClickListener() {
+            ivContent.setClickListener(new FrescoView.ClickListener() {
                 @Override
-                public void onSuccessClick(GImageView iv) {
+                public void onSuccessClick(FrescoView iv) {
                     BigImageActivity.goActivityByOss(mActivity, content, iv);
                 }
             });

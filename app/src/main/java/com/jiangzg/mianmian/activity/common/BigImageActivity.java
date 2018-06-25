@@ -83,6 +83,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         // TODO 多页下标 1/9
         // TODO Oss下载(会员可无水印?争取用fresco的文件)
         // TODO 手指缩放 + 上下滑退出
+        // TODO 添加到小本本
 
         ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type

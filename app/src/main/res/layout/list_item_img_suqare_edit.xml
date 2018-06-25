@@ -17,7 +17,7 @@
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
 
-    <com.jiangzg.mianmian.view.GImageView
+    <com.jiangzg.mianmian.view.FrescoView
         android:id="@+id/ivShow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,7 +25,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:visibility="gone"
         app:actualImageScaleType="centerCrop"
-        tools:background="@mipmap/test_bg_1"
+        tools:background="@mipmap/ic_launcher"
         tools:visibility="visible"/>
 
     <ImageView

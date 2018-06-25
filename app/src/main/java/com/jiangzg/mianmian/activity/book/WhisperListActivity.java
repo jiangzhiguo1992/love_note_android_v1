@@ -255,7 +255,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     // 文字添加
     private void showEditDialog() {
         int limitContentLength = SPHelper.getLimit().getWhisperContentLength();
-        String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContentLength);
+        String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_no_over_holder_text), limitContentLength);
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

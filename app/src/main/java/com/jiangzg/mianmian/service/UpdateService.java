@@ -93,7 +93,7 @@ public class UpdateService extends Service {
                 .title(R.string.have_new_version)
                 .content(content)
                 .positiveText(R.string.update_now)
-                .negativeText(R.string.update_delay)
+                .negativeText(R.string.after_say)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {

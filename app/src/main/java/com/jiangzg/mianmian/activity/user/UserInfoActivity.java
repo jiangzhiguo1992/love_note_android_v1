@@ -32,7 +32,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GNumberPicker;
+import com.jiangzg.mianmian.view.BirthPicker;
 
 import java.util.Calendar;
 import java.util.Stack;
@@ -54,11 +54,11 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.rlBoy)
     RelativeLayout rlBoy;
     @BindView(R.id.npYear)
-    GNumberPicker npYear;
+    BirthPicker npYear;
     @BindView(R.id.npMonth)
-    GNumberPicker npMonth;
+    BirthPicker npMonth;
     @BindView(R.id.npDay)
-    GNumberPicker npDay;
+    BirthPicker npDay;
     @BindView(R.id.btnOk)
     Button btnOk;
 

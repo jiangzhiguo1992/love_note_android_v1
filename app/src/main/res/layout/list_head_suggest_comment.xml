@@ -42,7 +42,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"/>
 
-    <com.jiangzg.mianmian.view.GImageView
+    <com.jiangzg.mianmian.view.FrescoView
         android:id="@+id/ivContent"
         android:layout_width="match_parent"
         android:layout_height="200dp"

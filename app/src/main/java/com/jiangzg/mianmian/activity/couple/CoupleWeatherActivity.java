@@ -25,7 +25,7 @@ import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.view.GImageAvatarView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     TextView tvShowRight;
 
     @BindView(R.id.ivAvatarLeft)
-    GImageAvatarView ivAvatarLeft;
+    FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.ivIconLeftDay)
     ImageView ivIconLeftDay;
     @BindView(R.id.ivIconLeftNight)
@@ -71,7 +71,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     TextView tvWindLeft;
 
     @BindView(R.id.ivAvatarRight)
-    GImageAvatarView ivAvatarRight;
+    FrescoAvatarView ivAvatarRight;
     @BindView(R.id.ivIconRightDay)
     ImageView ivIconRightDay;
     @BindView(R.id.ivIconRightNight)

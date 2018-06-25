@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
-                    <com.jiangzg.mianmian.view.GImageAvatarView
+                    <com.jiangzg.mianmian.view.FrescoAvatarView
                         android:id="@+id/ivAvatarLeft"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center">
 
-                    <com.jiangzg.mianmian.view.GImageAvatarView
+                    <com.jiangzg.mianmian.view.FrescoAvatarView
                         android:id="@+id/ivAvatarRight"
                         android:layout_width="50dp"
                         android:layout_height="50dp"

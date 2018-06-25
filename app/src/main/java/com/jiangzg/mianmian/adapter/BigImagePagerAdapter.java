@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
-import com.jiangzg.mianmian.view.GImageBigView;
+import com.jiangzg.mianmian.view.FrescoBigView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +75,7 @@ public class BigImagePagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         // BigImageView
-        GImageBigView ivBig = new GImageBigView(mActivity);
+        FrescoBigView ivBig = new FrescoBigView(mActivity);
         String data = mData.get(position);
         switch (mType) {
             case BigImageActivity.TYPE_FILE_SINGLE:

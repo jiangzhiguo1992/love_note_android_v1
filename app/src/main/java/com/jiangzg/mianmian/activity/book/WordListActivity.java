@@ -88,7 +88,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.word), true);
         // editTextHint
         limitContentLength = SPHelper.getLimit().getWordContentLength();
-        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_dont_over_holder_text), limitContentLength);
+        String format = String.format(Locale.getDefault(), getString(R.string.please_input_content_no_over_holder_text), limitContentLength);
         etContent.setHint(format);
         etContent.setText("");
         // recycler

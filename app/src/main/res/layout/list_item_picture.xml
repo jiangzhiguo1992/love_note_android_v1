@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.jiangzg.mianmian.view.GImageView
+            <com.jiangzg.mianmian.view.FrescoView
                 android:id="@+id/ivPicture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:maxHeight="500dp"
                 android:minHeight="50dp"
                 app:actualImageScaleType="centerCrop"
-                tools:background="@mipmap/test_bg_2"/>
+                tools:background="@mipmap/ic_launcher"/>
 
             <LinearLayout
                 android:id="@+id/llOperateVertical"
