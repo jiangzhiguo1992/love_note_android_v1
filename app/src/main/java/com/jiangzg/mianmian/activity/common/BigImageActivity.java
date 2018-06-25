@@ -14,10 +14,10 @@ import android.widget.TextView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.BigImagePagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ShareHelper;
 
 import java.util.ArrayList;
@@ -224,11 +224,13 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         ShareHelper.ShareBigImg(objectKey);
     }
 
-    // TODO Oss下载 本地文件不下载
-    // TODO book无水印 其他有水印
-    // TODO book用本地文件 其他下载
+    // 图片下载
     private void downLoad() {
-        ToastUtils.show("下载");
+        // 本地文件不下载
+        if (type == TYPE_FILE_SINGLE || type == TYPE_FILE_LIST) return;
+        // 获取地址并下载
+        String objectKey = dataList.get(vpImage.getCurrentItem());
+        OssHelper.downloadBigImage(objectKey);
     }
 
 }

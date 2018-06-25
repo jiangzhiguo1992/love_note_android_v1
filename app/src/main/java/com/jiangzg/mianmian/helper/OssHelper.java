@@ -810,22 +810,38 @@ public class OssHelper {
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                File file = ResHelper.newSdCardImageFile(objectKey);
+                File target = ResHelper.newSdCardImageFile(objectKey);
                 // 目标文件创建检查
-                if (file == null) {
+                if (target == null) {
                     ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));
                     return;
                 }
-                // 重复文件检查
-                if (FileUtils.isFileExists(file)) {
-                    ToastUtils.show(MyApp.get().getString(R.string.already_download));
+                // 目标文件重复检查
+                String format = MyApp.get().getString(R.string.already_download_to_colon_holder);
+                final String sucToast = String.format(Locale.getDefault(), format, target.getAbsoluteFile());
+                if (FileUtils.isFileExists(target)) {
+                    LogUtils.d(OssHelper.class, "downloadBigImage", "下载文件已存在！");
+                    ToastUtils.show(sucToast);
                     return;
                 }
+                // 在OssRes中是否存在(book之类的缓存)
+                if (OssResHelper.isKeyFileExists(objectKey)) {
+                    File source = OssResHelper.newKeyFile(objectKey);
+                    boolean copy = FileUtils.copyOrMoveFile(source, target, false);
+                    if (copy) {
+                        LogUtils.d(OssHelper.class, "downloadBigImage", "文件复制成功！");
+                        ToastUtils.show(sucToast);
+                        return;
+                    }
+                    LogUtils.w(OssHelper.class, "downloadBigImage", "文件复制失败！");
+                } else {
+                    LogUtils.d(OssHelper.class, "downloadBigImage", "下载本地没有的文件");
+                }
                 // 开始下载
-                downloadObject(null, objectKey, file, new OssDownloadCallBack() {
+                downloadObject(null, objectKey, target, new OssDownloadCallBack() {
                     @Override
                     public void success(String ossPath) {
-                        ToastUtils.show(MyApp.get().getString(R.string.download_success));
+                        ToastUtils.show(sucToast);
                     }
 
                     @Override
@@ -862,7 +878,6 @@ public class OssHelper {
 
                     @Override
                     public void failure(File source, String errMsg) {
-
                     }
                 });
             }

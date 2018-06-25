@@ -165,14 +165,14 @@ public class FileUtils {
     /**
      * 复制或移动目录
      */
-    private static boolean copyOrMoveDir(String srcDirPath, String destDirPath, boolean isMove) {
+    public static boolean copyOrMoveDir(String srcDirPath, String destDirPath, boolean isMove) {
         return copyOrMoveDir(getFileByPath(srcDirPath), getFileByPath(destDirPath), isMove);
     }
 
     /**
      * 复制或移动目录
      */
-    private static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) {
+    public static boolean copyOrMoveDir(File srcDir, File destDir, boolean isMove) {
         if (srcDir == null || destDir == null) {
             LogUtils.w(FileUtils.class, "copyOrMoveDir", "srcDir == null || destDir == null");
             return false;
@@ -205,14 +205,14 @@ public class FileUtils {
     /**
      * 复制或移动文件
      */
-    private static boolean copyOrMoveFile(String srcFilePath, String destFilePath, boolean isMove) {
+    public static boolean copyOrMoveFile(String srcFilePath, String destFilePath, boolean isMove) {
         return copyOrMoveFile(getFileByPath(srcFilePath), getFileByPath(destFilePath), isMove);
     }
 
     /**
      * 复制或移动文件
      */
-    private static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) {
+    public static boolean copyOrMoveFile(File srcFile, File destFile, boolean isMove) {
         if (srcFile == null || destFile == null) {
             LogUtils.w(FileUtils.class, "copyOrMoveFile", "srcFile == null || destFile == null");
             return false;
