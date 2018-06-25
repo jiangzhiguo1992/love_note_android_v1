@@ -3,8 +3,6 @@ package com.jiangzg.mianmian.activity.common;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
@@ -61,8 +59,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         intent.putExtra("type", TYPE_OSS_SINGLE);
         intent.putExtra("imgOss", ossPath);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Pair<View, String> share = Pair.create((View) view, "imgAnim");
-        ActivityTrans.start(from, intent, share);
+        //Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        //ActivityTrans.start(from, intent, share);
+        ActivityTrans.start(from, intent);
     }
 
     public static void goActivityByFile(Activity from, String filePath, SimpleDraweeView view) {
@@ -70,8 +69,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         intent.putExtra("type", TYPE_FILE_SINGLE);
         intent.putExtra("imgFile", filePath);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Pair<View, String> share = Pair.create((View) view, "imgAnim");
-        ActivityTrans.start(from, intent, share);
+        //Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        //ActivityTrans.start(from, intent, share);
+        ActivityTrans.start(from, intent);
     }
 
     public static void goActivityByOssList(Activity from, ArrayList<String> ossPathList, int startIndex, SimpleDraweeView view) {
@@ -80,8 +80,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         intent.putStringArrayListExtra("imgOssList", ossPathList);
         intent.putExtra("showIndex", startIndex);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Pair<View, String> share = Pair.create((View) view, "imgAnim");
-        ActivityTrans.start(from, intent, share);
+        //Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        //ActivityTrans.start(from, intent, share);
+        ActivityTrans.start(from, intent);
     }
 
     public static void goActivityByFileList(Activity from, ArrayList<String> filePathList, int startIndex, SimpleDraweeView view) {
@@ -90,8 +91,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         intent.putStringArrayListExtra("imgFileList", filePathList);
         intent.putExtra("showIndex", startIndex);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        Pair<View, String> share = Pair.create((View) view, "imgAnim");
-        ActivityTrans.start(from, intent, share);
+        //Pair<View, String> share = Pair.create((View) view, "imgAnim");
+        //ActivityTrans.start(from, intent, share);
+        ActivityTrans.start(from, intent);
     }
 
     @Override
@@ -107,10 +109,8 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     protected void initView(Bundle state) {
         // type
         type = getIntent().getIntExtra("type", TYPE_OSS_SINGLE);
-        // TODO 单图中的图片回退白屏
-        // TODO list中回退动画位置不符
         // anim
-        ViewCompat.setTransitionName(vpImage, "imgAnim");
+        //ViewCompat.setTransitionName(vpImage, "imgAnim");
         // navigation
         initBottom();
         // adapter

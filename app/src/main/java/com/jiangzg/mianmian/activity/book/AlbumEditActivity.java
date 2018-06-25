@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,11 +19,13 @@ import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
@@ -99,6 +102,10 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.album), true);
         album = getIntent().getParcelableExtra("album");
+        // view
+        ViewGroup.LayoutParams layoutParams = ivAlbum.getLayoutParams();
+        int width = ScreenUtils.getScreenWidth(mActivity) - (ConvertUtils.dp2px(50) * 2);
+        ivAlbum.setWidthAndHeight(width, layoutParams.height);
         ivAlbum.setClickListener(new FrescoView.ClickListener() {
             @Override
             public void onSuccessClick(FrescoView iv) {
