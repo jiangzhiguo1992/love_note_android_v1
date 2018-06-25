@@ -804,6 +804,11 @@ public class OssHelper {
 
     // 全屏图下载
     public static void downloadBigImage(final String objectKey) {
+        if (StringUtils.isEmpty(objectKey)) {
+            LogUtils.w(OssHelper.class, "downloadBigImage", "下载文件不存在！");
+            ToastUtils.show(MyApp.get().getString(R.string.download_file_no_exists));
+            return;
+        }
         final Activity top = ActivityStack.getTop();
         if (top == null) return;
         // 权限检查

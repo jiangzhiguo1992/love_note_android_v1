@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
@@ -43,6 +45,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @BindView(R.id.ivBg)
     FrescoNativeView ivBg;
+    @BindView(R.id.tvOnline)
+    TextView tvOnline;
 
     private Call<Result> call;
     private boolean exits;
@@ -57,6 +61,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void initView(Bundle savedInstanceState) {
         exits = false;
+        // 底部提示的高度
+        int height = BarUtils.getNavigationBarHeight(mActivity);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
+        layoutParams.bottomMargin += height;
+        tvOnline.setLayoutParams(layoutParams);
     }
 
     @Override

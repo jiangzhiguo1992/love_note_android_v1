@@ -139,6 +139,7 @@
     <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
     <string name="download_fail_please_check_native_net">下载失败，请检查本地网络环境</string>
     <string name="upload_file_no_exists">上传文件不存在</string>
+    <string name="download_file_no_exists">下载文件不存在</string>
     <string name="save_file_no_exists">保存文件不存在</string>
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="not_found_upload_file">没有找到要上传的文件</string>

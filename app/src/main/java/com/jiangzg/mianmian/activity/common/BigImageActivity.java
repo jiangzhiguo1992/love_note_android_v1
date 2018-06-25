@@ -8,6 +8,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -40,8 +41,10 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     ViewPager vpImage;
     @BindView(R.id.vTop)
     View vTop;
-    @BindView(R.id.rlBottom)
-    RelativeLayout rlBottom;
+    @BindView(R.id.llBottom)
+    LinearLayout llBottom;
+    @BindView(R.id.vBottom)
+    View vBottom;
     @BindView(R.id.tvIndex)
     TextView tvIndex;
     @BindView(R.id.ivShare)
@@ -102,11 +105,14 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        // TODO 单图中的图片回退白屏
-        // TODO list中回退动画位置不符
-        ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type
         type = getIntent().getIntExtra("type", TYPE_OSS_SINGLE);
+        // TODO 单图中的图片回退白屏
+        // TODO list中回退动画位置不符
+        // anim
+        ViewCompat.setTransitionName(vpImage, "imgAnim");
+        // navigation
+        initBottom();
         // adapter
         initViewPager();
         // index
@@ -129,6 +135,12 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
                 downLoad();
                 break;
         }
+    }
+
+    private void initBottom() {
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) vBottom.getLayoutParams();
+        layoutParams.height = BarUtils.getNavigationBarHeight(mActivity);
+        vBottom.setLayoutParams(layoutParams);
     }
 
     private void initViewPager() {
@@ -203,7 +215,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     private void toggleScreenView() {
         screenShow = !screenShow;
         vTop.setVisibility(screenShow ? View.VISIBLE : View.GONE);
-        rlBottom.setVisibility(screenShow ? View.VISIBLE : View.GONE);
+        llBottom.setVisibility(screenShow ? View.VISIBLE : View.GONE);
         // 本地文件没有下载和分享
         if (screenShow && (type == TYPE_FILE_LIST || type == TYPE_FILE_SINGLE)) {
             ivShare.setVisibility(View.GONE);

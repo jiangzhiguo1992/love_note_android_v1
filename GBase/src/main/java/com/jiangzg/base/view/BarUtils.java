@@ -141,6 +141,15 @@ public class BarUtils {
     }
 
     /**
+     * 获取底部导航栏的高度
+     */
+    public static int getNavigationBarHeight(Activity activity) {
+        int realHeight = ScreenUtils.getScreenRealHeight(activity);
+        int height = ScreenUtils.getScreenHeight(activity);
+        return realHeight - height;
+    }
+
+    /**
      * ***************************************沉浸式******************************************
      * 着色模式
      * ContextCompat.getColor(id)
