@@ -58,13 +58,8 @@ public class PermUtils {
     }
 
     public static void requestPermissions(Activity activity, int requestCode, String[] permissions, OnPermissionListener listener) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return;
-        if (activity == null) {
-            LogUtils.w(PermUtils.class, "requestPermissions", "activity == null");
-            return;
-        }
-        if (permissions == null || permissions.length <= 0) {
-            LogUtils.w(PermUtils.class, "requestPermissions", "permissions == null");
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || activity == null || permissions == null || permissions.length <= 0) {
+            LogUtils.i(PermUtils.class, "requestPermissions", "requestPermissions: LOW_SDK || activity/permissions == null");
             if (listener != null) {
                 listener.onPermissionGranted(requestCode, permissions);
             }
