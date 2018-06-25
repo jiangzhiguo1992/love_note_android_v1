@@ -13,6 +13,8 @@ import com.jiangzg.mianmian.view.FrescoBigView;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.relex.photodraweeview.OnPhotoTapListener;
+
 /**
  * Created by JiangZhiGuo on 2016-11-9.
  * describe BigImagePagerAdapter
@@ -22,15 +24,17 @@ public class BigImagePagerAdapter extends PagerAdapter {
     private Activity mActivity;
     private List<String> mData;
     private int mType;
+    private onTapListener tapListener;
 
-    public BigImagePagerAdapter(Activity context) {
-        mActivity = context;
-        mData = new ArrayList<>();
-        mType = BigImageActivity.TYPE_OSS_SINGLE;
+    public interface onTapListener {
+        void onTab(View view, float x, float y);
     }
 
-    public void setType(int type) {
+    public BigImagePagerAdapter(Activity context, int type, onTapListener tapListener) {
+        mActivity = context;
+        mData = new ArrayList<>();
         mType = type;
+        this.tapListener = tapListener;
     }
 
     public void setData(List<String> data) {
@@ -60,9 +64,6 @@ public class BigImagePagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        //view.requestLayout();
-        //view.invalidate();
-        //ivBig.refreshDrawableState();
         return view == object;
     }
 
@@ -88,11 +89,17 @@ public class BigImagePagerAdapter extends PagerAdapter {
                 ivBig.setData(data);
                 break;
         }
+        // 单击退出全屏图
+        ivBig.setOnPhotoTapListener(new OnPhotoTapListener() {
+            @Override
+            public void onPhotoTap(View view, float x, float y) {
+                if (tapListener != null) {
+                    tapListener.onTab(view, x, y);
+                }
+            }
+        });
         // addView
         container.addView(ivBig);
-        //ivBig.requestLayout();
-        //ivBig.invalidate();
-        //ivBig.refreshDrawableState();
         return ivBig;
     }
 

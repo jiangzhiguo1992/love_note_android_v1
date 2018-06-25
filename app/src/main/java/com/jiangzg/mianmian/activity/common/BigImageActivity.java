@@ -7,17 +7,25 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.BigImagePagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.helper.ShareHelper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
@@ -26,10 +34,24 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     public static final int TYPE_OSS_LIST = 2;
     public static final int TYPE_FILE_LIST = 3;
 
+    @BindView(R.id.root)
+    RelativeLayout root;
     @BindView(R.id.vpImage)
     ViewPager vpImage;
+    @BindView(R.id.vTop)
+    View vTop;
+    @BindView(R.id.rlBottom)
+    RelativeLayout rlBottom;
+    @BindView(R.id.tvIndex)
+    TextView tvIndex;
+    @BindView(R.id.ivShare)
+    ImageView ivShare;
+    @BindView(R.id.ivDownload)
+    ImageView ivDownload;
 
+    private boolean screenShow;
     private int type;
+    private List<String> dataList;
 
     public static void goActivityByOss(Activity from, String ossPath, SimpleDraweeView view) {
         Intent intent = new Intent(from, BigImageActivity.class);
@@ -71,6 +93,8 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        screenShow = false;
+        dataList = new ArrayList<>();
         BarUtils.setStatusBarTrans(mActivity, true);
         BarUtils.setNavigationBarTrans(mActivity, true);
         return R.layout.activity_big_image;
@@ -80,44 +104,131 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     protected void initView(Bundle state) {
         // TODO 单图中的图片回退白屏
         // TODO list中回退动画位置不符
-        // TODO 多页下标 1/9
-        // TODO Oss下载(会员可无水印?争取用fresco的文件)
-        // TODO 手指缩放 + 上下滑退出
-        // TODO 添加到小本本
-
         ViewCompat.setTransitionName(vpImage, "imgAnim");
         // type
         type = getIntent().getIntExtra("type", TYPE_OSS_SINGLE);
-        int showIndex = getIntent().getIntExtra("showIndex", 0);
         // adapter
-        BigImagePagerAdapter adapter = new BigImagePagerAdapter(mActivity);
-        adapter.setType(type);
+        initViewPager();
+        // index
+        changeIndex();
+        // view
+        toggleScreenView();
+    }
+
+    @Override
+    protected void initData(Bundle state) {
+    }
+
+    @OnClick({R.id.ivShare, R.id.ivDownload})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ivShare: // 分享
+                share();
+                break;
+            case R.id.ivDownload: // 下载
+                downLoad();
+                break;
+        }
+    }
+
+    private void initViewPager() {
+        int showIndex = getIntent().getIntExtra("showIndex", 0);
+        BigImagePagerAdapter adapter = new BigImagePagerAdapter(mActivity, type, new BigImagePagerAdapter.onTapListener() {
+            @Override
+            public void onTab(View view, float x, float y) {
+                toggleScreenView();
+            }
+        });
+        // 根据type设置数据
         switch (type) {
             case TYPE_FILE_LIST:
-                ArrayList<String> imgFileList = getIntent().getStringArrayListExtra("imgFileList");
-                adapter.setData(imgFileList);
+                List<String> imgFileList = getIntent().getStringArrayListExtra("imgFileList");
+                dataList.addAll(imgFileList);
+                adapter.setData(dataList);
                 break;
             case TYPE_OSS_LIST:
-                ArrayList<String> imgOssList = getIntent().getStringArrayListExtra("imgOssList");
-                adapter.setData(imgOssList);
+                List<String> imgOssList = getIntent().getStringArrayListExtra("imgOssList");
+                dataList.addAll(imgOssList);
+                adapter.setData(dataList);
                 break;
             case TYPE_FILE_SINGLE:
                 String imgFile = getIntent().getStringExtra("imgFile");
+                dataList.add(imgFile);
                 adapter.setData(imgFile);
                 break;
             case TYPE_OSS_SINGLE:
             default:
                 String imgOss = getIntent().getStringExtra("imgOss");
+                dataList.add(imgOss);
                 adapter.setData(imgOss);
                 break;
         }
         vpImage.setAdapter(adapter);
         vpImage.setCurrentItem(showIndex, false);
+        // 下标变换监听
+        vpImage.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                changeIndex();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
-    @Override
-    protected void initData(Bundle state) {
+    // 下标切换
+    private void changeIndex() {
+        int currentItem = vpImage.getCurrentItem();
+        switch (type) {
+            case TYPE_FILE_LIST:
+            case TYPE_OSS_LIST:
+                String format = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_sprit_holder), currentItem + 1, dataList.size());
+                tvIndex.setText(format);
+                break;
+            case TYPE_FILE_SINGLE:
+            case TYPE_OSS_SINGLE:
+                // 不显示
+            default:
+                break;
+        }
+    }
 
+    // 点击切换界面
+    private void toggleScreenView() {
+        screenShow = !screenShow;
+        vTop.setVisibility(screenShow ? View.VISIBLE : View.GONE);
+        rlBottom.setVisibility(screenShow ? View.VISIBLE : View.GONE);
+        // 本地文件没有下载和分享
+        if (screenShow && (type == TYPE_FILE_LIST || type == TYPE_FILE_SINGLE)) {
+            ivShare.setVisibility(View.GONE);
+            ivDownload.setVisibility(View.GONE);
+        }
+        // statusBar
+        if (screenShow) {
+            BarUtils.showStatus(root);
+        } else {
+            BarUtils.hideStatus(root);
+        }
+    }
+
+    // 分享
+    private void share() {
+        int currentItem = vpImage.getCurrentItem();
+        String objectKey = dataList.get(currentItem);
+        ShareHelper.ShareBigImg(objectKey);
+    }
+
+    // TODO Oss下载 本地文件不下载
+    // TODO book无水印 其他有水印
+    // TODO book用本地文件 其他下载
+    private void downLoad() {
+        ToastUtils.show("下载");
     }
 
 }
