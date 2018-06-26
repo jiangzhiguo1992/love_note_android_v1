@@ -122,9 +122,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if (diary == null) return super.onPrepareOptionsMenu(menu);
         menu.clear();
-        if (diary.isMine()) {
+        if (diary != null && diary.isMine()) {
             getMenuInflater().inflate(R.menu.help_del_edit, menu);
         } else {
             getMenuInflater().inflate(R.menu.help, menu);
@@ -188,7 +187,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         tb.setTitle(happenAt);
         // author
         String authorName = user.getNameInCp(userId);
-        String authorShow = String.format(Locale.getDefault(), getString(R.string.author_space_colon_space_holder), authorName);
+        String authorShow = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), authorName);
         tvAuthor.setText(authorShow);
         // updateAt
         String update = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);

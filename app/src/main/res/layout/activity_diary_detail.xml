@@ -39,7 +39,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        tools:text="作者: 一二三四五六"/>
+                        tools:text="创建者: 一二三四五六"/>
 
                     <TextView
                         android:id="@+id/tvUpdateAt"
@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        tools:text="更新: 2017年 4月 20日"/>
+                        tools:text="上次编辑: 2017年 4月 20日"/>
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView

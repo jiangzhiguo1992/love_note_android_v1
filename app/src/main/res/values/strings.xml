@@ -108,10 +108,10 @@
     <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d字</string>
     <string name="holder_paper">%d张</string>
     <string name="text_number_colon_holder" formatted="false">字数:%d</string>
-    <string name="author_space_colon_space_holder" formatted="false">作者: %s</string>
     <string name="comment_colon_holder" formatted="false">评论: %d</string>
     <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
     <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
+    <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
     <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
     <string name="master_we_worry">主人，咱们…好像…出错了！</string>
@@ -355,6 +355,7 @@
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
+    <string name="confirm_delete_this_dream">确定删除这个梦？</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
     <string name="change_channel">切换频道</string>
