@@ -33,6 +33,8 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
+import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
@@ -105,6 +107,10 @@ public class FrescoAvatarView extends SimpleDraweeView {
                     mWidth = params.width;
                     mHeight = params.height;
                 }
+                if (mWidth <= 0 || mHeight <= 0) {
+                    mWidth = ScreenUtils.getScreenWidth(MyApp.get()) / 10;
+                    mHeight = ScreenUtils.getScreenHeight(MyApp.get()) / 15;
+                }
             }
         }
         // request
@@ -138,12 +144,6 @@ public class FrescoAvatarView extends SimpleDraweeView {
         });
         AbstractDraweeController controller = builder.build();
         this.setController(controller);
-    }
-
-    // GridList 和 match_parent 需要传，在设置数据源之前调用
-    public void setWidthAndHeight(int width, int height) {
-        mWidth = width;
-        mHeight = height;
     }
 
     public void setData(String ossKey) {

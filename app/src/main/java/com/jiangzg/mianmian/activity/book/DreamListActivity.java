@@ -1,8 +1,8 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,17 +20,16 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
+import com.jiangzg.mianmian.adapter.DreamAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
-import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -45,7 +44,7 @@ import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
+public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -64,12 +63,12 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     private Call<Result> call;
     private int page;
     private int searchType = ApiHelper.LIST_CP;
-    private Observable<List<Diary>> obListRefresh;
-    private Observable<Diary> obListItemRefresh;
-    private Observable<Diary> obListItemDelete;
+    private Observable<List<Dream>> obListRefresh;
+    private Observable<Dream> obListItemRefresh;
+    private Observable<Dream> obListItemDelete;
 
-    public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, DreamListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -78,18 +77,18 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     @Override
     protected int getView(Intent intent) {
         page = 0;
-        return R.layout.activity_diary_list;
+        return R.layout.activity_dream_list;
     }
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new DiaryAdapter(mActivity))
+                .initAdapter(new DreamAdapter(mActivity))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -108,30 +107,30 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
-                        diaryAdapter.goDiaryDetail(position);
+                        DreamAdapter dreamAdapter = (DreamAdapter) adapter;
+                        dreamAdapter.goDreamDetail(position);
                     }
                 });
     }
 
     @Override
     protected void initData(Bundle state) {
-        obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, new Action1<List<Dream>>() {
             @Override
-            public void call(List<Diary> diaries) {
+            public void call(List<Dream> dreams) {
                 recyclerHelper.dataRefresh();
             }
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Diary>() {
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, new Action1<Dream>() {
             @Override
-            public void call(Diary diary) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), diary);
+            public void call(Dream dream) {
+                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Diary>() {
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, new Action1<Dream>() {
             @Override
-            public void call(Diary diary) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), diary);
+            public void call(Dream dream) {
+                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
         recyclerHelper.dataRefresh();
@@ -147,16 +146,16 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     protected void onDestroy() {
         super.onDestroy();
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_DIARY_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_DREAM_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -169,7 +168,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                DiaryEditActivity.goActivity(mActivity);
+                DreamEditActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -178,18 +177,15 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
-        call = new RetrofitHelper().call(API.class).diaryListGet(searchType, page);
+        call = new RetrofitHelper().call(API.class).dreamListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
-                List<Diary> diaryList = data.getDiaryList();
-                recyclerHelper.dataOk(diaryList, more);
+                List<Dream> dreamList = data.getDreamList();
+                recyclerHelper.dataOk(dreamList, more);
                 // searchShow
                 tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
-                // 刷新本地资源
-                List<String> ossKeyList = ConvertHelper.getOssKeyListByDiary(diaryList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_DIARY, ossKeyList);
             }
 
             @Override

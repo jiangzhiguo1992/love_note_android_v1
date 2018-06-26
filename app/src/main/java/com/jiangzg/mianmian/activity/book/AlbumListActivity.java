@@ -256,9 +256,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<Album> albumList = data.getAlbumList();
-                recyclerHelper.dataOk(albumList, total, more);
+                recyclerHelper.dataOk(albumList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ConvertHelper.getOssKeyListByAlbum(albumList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_ALBUM, ossKeyList);

@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
@@ -250,5 +251,25 @@ public interface API {
     // picture上传
     @PUT("book/picture")
     Call<Result> pictureUpdate(@Body Picture picture);
+
+    // dreamList获取
+    @GET("book/dream?did=0&list=1")
+    Call<Result> dreamListGet(@Query("who") int who, @Query("page") int page);
+
+    // dream获取
+    @GET("book/dream?list=0")
+    Call<Result> dreamGet(@Query("did") long did);
+
+    // dream上传
+    @POST("book/dream")
+    Call<Result> dreamAdd(@Body Dream dream);
+
+    // dream删除
+    @DELETE("book/dream")
+    Call<Result> dreamDel(@Query("did") long did);
+
+    // dream修改
+    @PUT("book/dream")
+    Call<Result> dreamUpdate(@Body Dream dream);
 
 }

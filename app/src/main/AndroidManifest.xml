@@ -92,6 +92,12 @@
         <activity android:name=".activity.common.MapSelectActivity"/>
         <activity android:name=".activity.common.MapSearchActivity">
         </activity>
+        <activity android:name=".activity.book.DreamListActivity">
+        </activity>
+        <activity android:name=".activity.book.DreamEditActivity">
+        </activity>
+        <activity android:name=".activity.book.DreamDetailActivity">
+        </activity>
     </application>
 
 </manifest>

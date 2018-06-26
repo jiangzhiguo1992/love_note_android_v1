@@ -11,6 +11,7 @@ import android.view.View;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
+import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
@@ -18,6 +19,7 @@ import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Version;
@@ -159,7 +161,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvAward: // TODO 补偿
                 break;
-            case R.id.cvDream: // TODO 梦里
+            case R.id.cvDream: // 梦里
+                DreamListActivity.goActivity(mActivity);
                 break;
             case R.id.cvAngry: // TODO 生气
                 break;
@@ -180,6 +183,15 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     private void refreshData() {
         // TODO api
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        MyApp.get().getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(false);
+            }
+        }, 2000);
     }
 
 }

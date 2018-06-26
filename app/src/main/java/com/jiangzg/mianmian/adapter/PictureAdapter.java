@@ -101,13 +101,15 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                     @Override
                     public void onGenerated(@NonNull Palette palette) {
                         int rgb = 0;
-                        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            rgb = vibrantSwatch.getRgb();
-                        } else {
-                            Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                            if (mutedSwatch != null) {
-                                rgb = mutedSwatch.getRgb();
+                        if (palette != null) {
+                            Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                            if (vibrantSwatch != null) {
+                                rgb = vibrantSwatch.getRgb();
+                            } else {
+                                Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+                                if (mutedSwatch != null) {
+                                    rgb = mutedSwatch.getRgb();
+                                }
                             }
                         }
                         if (rgb != 0) {

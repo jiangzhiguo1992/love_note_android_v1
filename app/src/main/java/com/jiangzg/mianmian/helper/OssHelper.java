@@ -943,7 +943,7 @@ public class OssHelper {
         uploadJpegList(activity, pathBookDiary, fileList, callBack);
     }
 
-    // 相册 (压缩 + 持久化))
+    // 相册 (压缩 + 持久化)
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookAlbum = ossInfo.getPathBookAlbum();

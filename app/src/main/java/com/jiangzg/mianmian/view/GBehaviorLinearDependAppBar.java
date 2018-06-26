@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
  */
 public class GBehaviorLinearDependAppBar extends CoordinatorLayout.Behavior<LinearLayout> {
 
-
     public GBehaviorLinearDependAppBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }

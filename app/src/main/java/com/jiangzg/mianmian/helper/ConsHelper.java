@@ -42,5 +42,8 @@ public class ConsHelper {
     public static final int EVENT_PICTURE_LIST_REFRESH = 40; // 照片
     public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 41;
     public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 42;
-
+    public static final int EVENT_DREAM_LIST_REFRESH = 31; // 梦里
+    public static final int EVENT_DREAM_LIST_ITEM_DELETE = 32;
+    public static final int EVENT_DREAM_LIST_ITEM_REFRESH = 33;
+    public static final int EVENT_DREAM_DETAIL_REFRESH = 34;
 }

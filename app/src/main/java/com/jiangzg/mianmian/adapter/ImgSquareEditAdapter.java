@@ -65,7 +65,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
             // show
             ivShow.setVisibility(View.VISIBLE);
             ivAdd.setVisibility(View.GONE);
-            ivShow.setWidthAndHeight(imageWidth, imageHeight);
+            ivShow.setWidthAndHeight(imageWidth / 2, imageHeight / 2);
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) ivShow.getLayoutParams();
             layoutParams.height = imageHeight;
             ivShow.setLayoutParams(layoutParams);

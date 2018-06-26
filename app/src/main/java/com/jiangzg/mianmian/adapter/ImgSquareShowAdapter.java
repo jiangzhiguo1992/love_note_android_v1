@@ -40,7 +40,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
         CardView.LayoutParams layoutParams = (CardView.LayoutParams) ivShow.getLayoutParams();
         layoutParams.height = imageHeight;
         ivShow.setLayoutParams(layoutParams);
-        ivShow.setWidthAndHeight(imageWidth, imageHeight);
+        ivShow.setWidthAndHeight(imageWidth / 2, imageHeight / 2);
         ivShow.setClickListener(new FrescoView.ClickListener() {
             @Override
             public void onSuccessClick(FrescoView iv) {

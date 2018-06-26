@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jiangzg.mianmian.activity.book.DiaryListActivity">
+    tools:context="com.jiangzg.mianmian.activity.book.DreamListActivity">
 
     <include layout="@layout/view_top_bar"/>
 

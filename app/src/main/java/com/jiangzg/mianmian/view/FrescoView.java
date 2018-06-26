@@ -40,6 +40,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
@@ -117,6 +118,10 @@ public class FrescoView extends SimpleDraweeView {
                 if (params != null) {
                     mWidth = params.width;
                     mHeight = params.height;
+                }
+                if (mWidth <= 0 || mHeight <= 0) {
+                    mWidth = ScreenUtils.getScreenWidth(MyApp.get()) / 10;
+                    mHeight = ScreenUtils.getScreenHeight(MyApp.get()) / 15;
                 }
             }
         }

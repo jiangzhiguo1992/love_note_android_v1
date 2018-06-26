@@ -87,6 +87,24 @@ public class Result implements Serializable {
         private List<Album> albumList;
         private List<Picture> pictureList;
         private Picture picture;
+        private List<Dream> dreamList;
+        private Dream dream;
+
+        public List<Dream> getDreamList() {
+            return dreamList;
+        }
+
+        public void setDreamList(List<Dream> dreamList) {
+            this.dreamList = dreamList;
+        }
+
+        public Dream getDream() {
+            return dream;
+        }
+
+        public void setDream(Dream dream) {
+            this.dream = dream;
+        }
 
         public List<Place> getPlaceList() {
             return placeList;

@@ -51,6 +51,8 @@ import me.relex.photodraweeview.PhotoDraweeView;
  */
 public class FrescoBigView extends PhotoDraweeView {
 
+    private int mWidth, mHeight;
+
     public FrescoBigView(Context context, GenericDraweeHierarchy hierarchy) {
         super(context, hierarchy);
         init(context, null, hierarchy);
@@ -94,19 +96,22 @@ public class FrescoBigView extends PhotoDraweeView {
         hierarchy.setFailureImage(new ImageFailureFullDrawable(), ScalingUtils.ScaleType.FIT_XY);
     }
 
-    private void setController(Uri uri) {
+    private void setController(final Uri uri) {
         // request
-        Activity top = ActivityStack.getTop();
-        int screenWidth;
-        int screenHeight;
-        if (top != null) {
-            screenWidth = ScreenUtils.getScreenRealWidth(top);
-            screenHeight = ScreenUtils.getScreenRealHeight(top);
+        if (mWidth <= 0 || mHeight <= 0) {
+            Activity top = ActivityStack.getTop();
+            if (top != null) {
+                mWidth = ScreenUtils.getScreenRealWidth(top);
+                mHeight = ScreenUtils.getScreenRealHeight(top);
+            } else {
+                mWidth = ScreenUtils.getScreenWidth(MyApp.get());
+                mHeight = ScreenUtils.getScreenHeight(MyApp.get());
+            }
         } else {
-            screenWidth = ScreenUtils.getScreenWidth(MyApp.get());
-            screenHeight = ScreenUtils.getScreenHeight(MyApp.get());
+            mWidth = mWidth / 3;
+            mHeight = mHeight / 3;
         }
-        ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, screenWidth, screenHeight); // 不需要采样了
+        ImageRequestBuilder requestBuilder = FrescoHelper.getImageRequestBuilder(uri, mWidth, mHeight); // 不需要采样了
         ImageRequest imageRequest = requestBuilder.build();
         // controller
         PipelineDraweeControllerBuilder builder = FrescoHelper.getPipelineControllerBuilder(this, uri, imageRequest);
@@ -132,6 +137,9 @@ public class FrescoBigView extends PhotoDraweeView {
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
                 LogUtils.e(FrescoBigView.class, "onFailure", throwable);
+                if (mWidth > 0 && mHeight > 0) {
+                    setController(uri);
+                }
             }
         });
         AbstractDraweeController controller = builder.build();
