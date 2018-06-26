@@ -47,13 +47,29 @@
                 android:textStyle="bold"
                 tools:text="2017年 12月 31日"/>
 
-            <TextView
-                android:id="@+id/tvCount"
-                style="@style/FontGreySmall"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
-                tools:text="字数:2000"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTextCount"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="top|end"
+                    tools:text="字数:2000"/>
+
+                <TextView
+                    android:id="@+id/tvReadCount"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom|end"
+                    tools:text="阅读:2000"/>
+            </LinearLayout>
         </LinearLayout>
 
         <View

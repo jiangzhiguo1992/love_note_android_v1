@@ -34,7 +34,7 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
         String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         if (content == null) content = "";
-        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon_holder), content.length());
+        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_space_colon_holder), content.length());
         String avatar = Couple.getAvatar(couple, item.getUserId());
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);

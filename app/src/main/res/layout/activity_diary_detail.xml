@@ -29,17 +29,34 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginTop="20dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvAuthor"
+                        android:id="@+id/tvCreator"
                         style="@style/FontGreySmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="start"
                         tools:text="创建者: 一二三四五六"/>
+
+                    <TextView
+                        android:id="@+id/tvTextCount"
+                        style="@style/FontGreySmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="字数: 1000"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tvUpdateAt"
@@ -47,8 +64,17 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
+                        android:gravity="start"
                         tools:text="上次编辑: 2017年 4月 20日"/>
+
+                    <TextView
+                        android:id="@+id/tvReadCount"
+                        style="@style/FontGreySmall"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        tools:text="阅读:36"/>
                 </LinearLayout>
 
                 <android.support.v7.widget.RecyclerView

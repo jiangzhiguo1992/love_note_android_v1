@@ -33,19 +33,24 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Diary item) {
         String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
-        if (content == null) content = "";
-        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_colon_holder), content.length());
+        String textFormat = mActivity.getString(R.string.text_number_space_colon_holder);
+        String textCount = String.format(Locale.getDefault(), textFormat, content == null ? 0 : content.length());
+        String readFormat = mActivity.getString(R.string.read_space_colon_holder);
+        String readCount = String.format(Locale.getDefault(), readFormat, item.getReadCount());
         String avatar = Couple.getAvatar(couple, item.getUserId());
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         helper.setText(R.id.tvHappenAt, happen);
-        helper.setText(R.id.tvCount, countShow);
+        helper.setText(R.id.tvReadCount, readCount);
+        helper.setText(R.id.tvTextCount, textCount);
         helper.setText(R.id.tvContent, content);
     }
 
     public void goDiaryDetail(int position) {
         Diary item = getItem(position);
+        item.setReadCount(item.getReadCount() + 1);
+        notifyItemChanged(position);
         DiaryDetailActivity.goActivity(mActivity, item);
     }
 

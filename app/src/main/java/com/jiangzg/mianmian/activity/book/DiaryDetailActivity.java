@@ -53,10 +53,14 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.tvAuthor)
-    TextView tvAuthor;
+    @BindView(R.id.tvCreator)
+    TextView tvCreator;
     @BindView(R.id.tvUpdateAt)
     TextView tvUpdateAt;
+    @BindView(R.id.tvTextCount)
+    TextView tvTextCount;
+    @BindView(R.id.tvReadCount)
+    TextView tvReadCount;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.tvContent)
@@ -107,7 +111,10 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
             diary = intent.getParcelableExtra("diary");
-            refreshView();
+            if (diary != null) {
+                refreshView();
+                refreshData(diary.getId());
+            }
         } else if (from == FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
@@ -185,14 +192,22 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         // happen
         String happenAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tb.setTitle(happenAt);
-        // author
-        String authorName = user.getNameInCp(userId);
-        String authorShow = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), authorName);
-        tvAuthor.setText(authorShow);
+        // creator
+        String creator = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), user.getNameInCp(userId));
+        tvCreator.setText(creator);
         // updateAt
         String update = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
         String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
+        // textCount
+        String content = diary.getContentText();
+        String textFormat = mActivity.getString(R.string.text_number_space_colon_holder);
+        String textCount = String.format(Locale.getDefault(), textFormat, content == null ? 0 : content.length());
+        tvTextCount.setText(textCount);
+        // readCount
+        String readFormat = mActivity.getString(R.string.read_space_colon_holder);
+        String readCount = String.format(Locale.getDefault(), readFormat, diary.getReadCount());
+        tvReadCount.setText(readCount);
         // imageList
         List<String> imageList = diary.getContentImageList();
         if (imageList != null && imageList.size() > 0) {
@@ -208,7 +223,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             rv.setVisibility(View.GONE);
         }
         // content
-        tvContent.setText(diary.getContentText());
+        tvContent.setText(content);
     }
 
     private void showDeleteDialog() {

@@ -14,6 +14,15 @@ public class Diary extends BaseCP implements Parcelable {
     private long happenAt;
     private String contentText;
     private List<String> contentImageList;
+    private int readCount;
+
+    public int getReadCount() {
+        return readCount;
+    }
+
+    public void setReadCount(int readCount) {
+        this.readCount = readCount;
+    }
 
     public long getHappenAt() {
         return happenAt;
@@ -47,6 +56,7 @@ public class Diary extends BaseCP implements Parcelable {
         happenAt = in.readLong();
         contentText = in.readString();
         contentImageList = in.createStringArrayList();
+        readCount = in.readInt();
     }
 
     @Override
@@ -55,6 +65,7 @@ public class Diary extends BaseCP implements Parcelable {
         dest.writeLong(happenAt);
         dest.writeString(contentText);
         dest.writeStringList(contentImageList);
+        dest.writeInt(readCount);
     }
 
     @Override
