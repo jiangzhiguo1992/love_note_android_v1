@@ -209,7 +209,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 isGo = true;
                 stopCountDownTask();
                 User user = data.getUser();
-                SPHelper.setUser(user);
+                SPHelper.setMe(user);
                 if (code == Result.RESULT_CODE_NO_USER_INFO) {
                     // 一般是会进到这个页面，不排除以后后台会控制
                     UserInfoActivity.goActivity(mActivity);

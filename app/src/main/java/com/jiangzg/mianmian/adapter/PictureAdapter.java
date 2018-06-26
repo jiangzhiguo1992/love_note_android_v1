@@ -129,7 +129,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 helper.setBackgroundColor(R.id.tvLocation, colorPrimary);
             }
         });
-        // 为瀑布流定制不一样的宽高
+        // 为瀑布流定制不一样的宽高(这里起始高度一定不能wrap，否则会一开始就都加在)
         ivPicture.setLoadListener(new FrescoView.LoadListener() {
             @Override
             public void onLoadSuccess(FrescoView iv, ImageInfo imageInfo) {

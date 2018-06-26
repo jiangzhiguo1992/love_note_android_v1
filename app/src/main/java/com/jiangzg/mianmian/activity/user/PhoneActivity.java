@@ -180,7 +180,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
                 isGo = true;
                 stopCountDownTask();
                 User user = data.getUser();
-                SPHelper.setUser(user);
+                SPHelper.setMe(user);
                 mActivity.finish();
             }
 

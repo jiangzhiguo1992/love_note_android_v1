@@ -25,7 +25,7 @@
             <com.jiangzg.mianmian.view.FrescoView
                 android:id="@+id/ivPicture"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 android:maxHeight="500dp"

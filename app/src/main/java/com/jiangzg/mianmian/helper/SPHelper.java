@@ -10,6 +10,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.User;
@@ -23,24 +24,101 @@ import com.jiangzg.mianmian.domain.WallPaper;
  */
 public class SPHelper {
 
-    private static final String SHARE_COMMON = "common";
-    private static final String SHARE_USER = "shareUser";
-    private static final String SHARE_TA = "shareTa";
-    private static final String SHARE_COUPLE = "shareCouple";
-    private static final String SHARE_COUPLE_TOGETHER_DAY = "shareCoupleTogetherDay";
-    private static final String SHARE_VERSION = "shareVersion";
-    private static final String SHARE_WALL_PAPER = "shareWallPaper";
-    private static final String SHARE_LIMIT = "shareLimit";
-    private static final String SHARE_OSS_INFO = "shareOssInfo";
-    private static final String SHARE_COMMON_CONST = "shareCommonConst";
-    private static final String SHARE_VIP_LIMIT = "shareVipLimit";
-    private static final String SHARE_DIARY = "shareDiary";
+    private static final String SHARE_COMMON = "share_common";
+    private static final String SHARE_OSS_INFO = "share_oss_info";
+    private static final String SHARE_LIMIT = "share_limit";
+    private static final String SHARE_VIP_LIMIT = "share_vip_limit";
+    private static final String SHARE_COMMON_CONST = "share_common_const";
+    private static final String SHARE_VERSION = "share_version";
+    private static final String SHARE_ME = "share_me";
+    private static final String SHARE_TA = "share_ta";
+    private static final String SHARE_COUPLE = "share_couple";
+    private static final String SHARE_COUPLE_TOGETHER = "share_couple_together";
+    private static final String SHARE_WALL_PAPER = "share_wall_paper";
+    private static final String SHARE_DRAFT = "share_draft";
 
     // common
     private static final String FIELD_COMMON_THEME = "theme";
-    private static final String FIELD_COMMON_NOTICE_SYSTEM = "noticeSystem";
-    private static final String FIELD_COMMON_NOTICE_SOCIAL = "noticeSocial";
-    private static final String FIELD_COMMON_NOTICE_NO_READ_COUNT = "noticeNoReadCount";
+    private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
+    private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
+    private static final String FIELD_COMMON_NOTICE_NO_READ_COUNT = "notice_no_read_count";
+    // ossInfo
+    private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
+    private static final String FIELD_OSS_KEY_ID = "access_key_id";
+    private static final String FIELD_OSS_KEY_SECRET = "access_key_secret";
+    //private static final String FIELD_OSS_REGION = "region";
+    //private static final String FIELD_OSS_ENDPOINT = "endpoint";
+    private static final String FIELD_OSS_DOMAIN = "domain";
+    private static final String FIELD_OSS_BUCKET = "bucket";
+    private static final String FIELD_OSS_EXPIRE_TIME = "expire_time";
+    private static final String FIELD_OSS_INTERVAL_SEC = "interval_sec";
+    private static final String FIELD_OSS_PATH_LOG = "path_log";
+    private static final String FIELD_OSS_PATH_SUGGEST = "path_suggest";
+    private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "path_couple_avatar";
+    private static final String FIELD_OSS_PATH_COUPLE_WALL = "path_couple_wall";
+    private static final String FIELD_OSS_PATH_BOOK_WHISPER = "path_book_whisper";
+    private static final String FIELD_OSS_PATH_BOOK_DIARY = "path_book_diary";
+    private static final String FIELD_OSS_PATH_BOOK_ALBUM = "path_book_album";
+    private static final String FIELD_OSS_PATH_BOOK_PICTURE = "path_book_picture";
+    private static final String FIELD_OSS_PATH_BOOK_GIFT = "path_book_gift";
+    private static final String FIELD_OSS_PATH_BOOK_AUDIO = "path_book_audio";
+    private static final String FIELD_OSS_PATH_BOOK_VIDEO = "path_book_video";
+    private static final String FIELD_OSS_PATH_BOOK_VIDEO_THUMB = "path_book_video_thumb";
+    // limit
+    private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
+    private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
+    private static final String FIELD_LIMIT_SMS_BETWEEN = "sms_between";
+    private static final String FIELD_LIMIT_SMS_MAX_TIME = "sms_max_time";
+    private static final String FIELD_LIMIT_SMS_MAX_COUNT = "sms_max_count";
+    private static final String FIELD_LIMIT_SUGGEST_TITLE_LENGTH = "suggest_title_length";
+    private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH = "suggest_content_text_length";
+    private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggest_comment_content_length";
+    private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "couple_break_sec";
+    private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "couple_name_length";
+    private static final String FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS = "book_oss_expire_seconds";
+    private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenir_title_length";
+    private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisper_content_length";
+    private static final String FIELD_LIMIT_WHISPER_CHANNEL_LENGTH = "whisper_channel_length";
+    private static final String FIELD_LIMIT_WORD_CONTENT_LENGTH = "word_content_length";
+    private static final String FIELD_LIMIT_DIARY_CONTENT_LENGTH = "diary_content_length";
+    private static final String FIELD_LIMIT_ALBUM_TITLE_LENGTH = "album_title_length";
+    private static final String FIELD_LIMIT_PICTURE_COUNT = "picture_count";
+    private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meet_title_length";
+    private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meet_process_length";
+    private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
+    private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
+    private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
+    private static final String FIELD_LIMIT_GIFT_NAME_LENGTH = "gift_name_length";
+    private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dream_content_length";
+    private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angry_reason_length";
+    private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
+    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
+    // vipLimit
+    private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
+    private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
+    private static final String FIELD_VIP_LIMIT_WHISPER_IMG_COUNT = "whisper_image_count";
+    private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diary_image_size";
+    private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diary_image_count";
+    private static final String FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT = "album_total_count";
+    private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "picture_size";
+    private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "picture_total_count";
+    private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "meet_image_count";
+    private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
+    private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "audio_size";
+    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "audio_total_size";
+    private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
+    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "video_total_size";
+    private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topic_image_enable";
+    // commonConst
+    private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
+    private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "user_protocol_url";
+    private static final String FIELD_COMMON_CONST_ABOUT_US_URL = "about_us_url";
+    // version
+    private static final String FIELD_VERSION_CREATE_AT = "create_at";
+    private static final String FIELD_VERSION_VERSION_CODE = "version_code";
+    private static final String FIELD_VERSION_VERSION_NAME = "version_name";
+    private static final String FIELD_VERSION_UPDATE_LOG = "update_log";
+    private static final String FIELD_VERSION_UPDATE_URL = "update_url";
     // user
     private static final String FIELD_USER_ID = "id";
     private static final String FIELD_USER_PHONE = "phone";
@@ -49,281 +127,175 @@ public class SPHelper {
     private static final String FIELD_USER_TOKEN = "userToken";
     // couple
     private static final String FIELD_CP_ID = "id";
-    private static final String FIELD_CP_CREATE_AT = "createAt";
-    private static final String FIELD_CP_UPDATE_AT = "updateAt";
-    private static final String FIELD_CP_CREATOR_ID = "creatorId";
-    private static final String FIELD_CP_CREATOR_NAME = "creatorName";
-    private static final String FIELD_CP_CREATOR_AVATAR = "creatorAvatar";
-    private static final String FIELD_CP_INVITEE_ID = "inviteeId";
-    private static final String FIELD_CP_INVITEE_NAME = "inviteeName";
-    private static final String FIELD_CP_INVITEE_AVATAR = "inviteeAvatar";
-    private static final String FIELD_CP_STATE_ID = "stateId";
-    private static final String FIELD_CP_STATE_CREATE_AT = "stateCreateAt";
-    private static final String FIELD_CP_STATE_UPDATE_AT = "stateUpdateAt";
-    private static final String FIELD_CP_STATE_USER_ID = "stateUserId";
-    private static final String FIELD_CP_STATE_STATE = "stateState";
+    private static final String FIELD_CP_CREATE_AT = "create_at";
+    private static final String FIELD_CP_UPDATE_AT = "update_at";
+    private static final String FIELD_CP_CREATOR_ID = "creator_id";
+    private static final String FIELD_CP_CREATOR_NAME = "creator_name";
+    private static final String FIELD_CP_CREATOR_AVATAR = "creator_avatar";
+    private static final String FIELD_CP_INVITEE_ID = "invitee_id";
+    private static final String FIELD_CP_INVITEE_NAME = "invitee_name";
+    private static final String FIELD_CP_INVITEE_AVATAR = "invitee_avatar";
+    private static final String FIELD_CP_STATE_ID = "state_id";
+    private static final String FIELD_CP_STATE_CREATE_AT = "state_create_at";
+    private static final String FIELD_CP_STATE_UPDATE_AT = "state_update_at";
+    private static final String FIELD_CP_STATE_USER_ID = "state_user_id";
+    private static final String FIELD_CP_STATE_STATE = "state_state";
     // togetherDay
-    private static final String FIELD_COUPLE_TOGETHER_DAY = "togetherDay";
-    // version
-    private static final String FIELD_VERSION_CREATE_AT = "createAt";
-    private static final String FIELD_VERSION_VERSION_CODE = "versionCode";
-    private static final String FIELD_VERSION_VERSION_NAME = "versionName";
-    private static final String FIELD_VERSION_UPDATE_LOG = "updateLog";
-    private static final String FIELD_VERSION_UPDATE_URL = "updateUrl";
-    // ossInfo
-    private static final String FIELD_OSS_SECURITY_TOKEN = "securityToken";
-    private static final String FIELD_OSS_KEY_ID = "accessKeyId";
-    private static final String FIELD_OSS_KEY_SECRET = "accessKeySecret";
-    //private static final String FIELD_OSS_REGION = "region";
-    //private static final String FIELD_OSS_ENDPOINT = "endpoint";
-    private static final String FIELD_OSS_DOMAIN = "domain";
-    private static final String FIELD_OSS_BUCKET = "bucket";
-    private static final String FIELD_OSS_EXPIRE_TIME = "expireTime";
-    private static final String FIELD_OSS_INTERVAL_SEC = "intervalSec";
-    private static final String FIELD_OSS_PATH_LOG = "pathLog";
-    private static final String FIELD_OSS_PATH_SUGGEST = "pathSuggest";
-    private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "pathCoupleAvatar";
-    private static final String FIELD_OSS_PATH_COUPLE_WALL = "pathCoupleWall";
-    private static final String FIELD_OSS_PATH_BOOK_WHISPER = "pathBookWhisper";
-    private static final String FIELD_OSS_PATH_BOOK_DIARY = "pathBookDiary";
-    private static final String FIELD_OSS_PATH_BOOK_ALBUM = "pathBookAlbum";
-    private static final String FIELD_OSS_PATH_BOOK_PICTURE = "pathBookPicture";
-    private static final String FIELD_OSS_PATH_BOOK_GIFT = "pathBookGift";
-    private static final String FIELD_OSS_PATH_BOOK_AUDIO = "pathBookAudio";
-    private static final String FIELD_OSS_PATH_BOOK_VIDEO = "pathBookVideo";
-    private static final String FIELD_OSS_PATH_BOOK_THUMB = "pathBookThumb";
-    // limit
-    private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "smsCodeLength";
-    private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "smsEffectSec";
-    private static final String FIELD_LIMIT_SMS_BETWEEN = "smsBetween";
-    private static final String FIELD_LIMIT_SMS_MAX_TIME = "smsMaxTime";
-    private static final String FIELD_LIMIT_SMS_MAX_COUNT = "smsMaxCount";
-    private static final String FIELD_LIMIT_SUGGEST_TITLE_LENGTH = "suggestTitleLength";
-    private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH = "suggestContentTextLength";
-    private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggestCommentContentLength";
-    private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "coupleBreakSec";
-    private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "coupleNameLength";
-    private static final String FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS = "bookOssExpireSeconds";
-    private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenirTitleLength";
-    private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisperContentLength";
-    private static final String FIELD_LIMIT_WHISPER_CHANNEL_LENGTH = "whisperChannelLength";
-    private static final String FIELD_LIMIT_WORD_CONTENT_LENGTH = "wordContentLength";
-    private static final String FIELD_LIMIT_DIARY_CONTENT_LENGTH = "diaryContentLength";
-    private static final String FIELD_LIMIT_ALBUM_TITLE_LENGTH = "albumTitleLength";
-    private static final String FIELD_LIMIT_PICTURE_COUNT = "pictureCount";
-    private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meetTitleLength";
-    private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meetProcessLength";
-    private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promiseContentLength";
-    private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audioTitleLength";
-    private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "videoTitleLength";
-    private static final String FIELD_LIMIT_GIFT_NAME_LENGTH = "giftNameLength";
-    private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dreamContentLength";
-    private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angryReasonLength";
-    private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "awardReasonLength";
-    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vipExpireDays";
-    // vipLimit
-    private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vipExpireAt";
-    private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wallPaperCount";
-    private static final String FIELD_VIP_LIMIT_WHISPER_IMG_COUNT = "whisperImageCount";
-    private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diaryImageSize";
-    private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diaryImageCount";
-    private static final String FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT = "albumTotalCount";
-    private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "pictureSize";
-    private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "pictureTotalCount";
-    private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "meetImageCount";
-    private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "giftImageCount";
-    private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "audioSize";
-    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "audioTotalSize";
-    private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "videoSize";
-    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "videoTotalSize";
-    private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topicImageEnable";
-    // commonConst
-    private static final String FIELD_COMMON_CONST_COMPANY_NAME = "companyName";
-    private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "userProtocolUrl";
-    private static final String FIELD_COMMON_CONST_ABOUT_US_URL = "aboutUsUrl";
+    private static final String FIELD_COUPLE_TOGETHER_DAY = "day";
     // wallPaper
     private static final String FIELD_WALL_PAPER_JSON = "json";
-    // diary
-    private static final String FIELD_DIARY_HAPPEN = "happen";
-    private static final String FIELD_DIARY_CONTENT_TEXT = "contentText";
+    // draft
+    private static final String FIELD_DRAFT_DIARY_HAPPEN = "diary_happen";
+    private static final String FIELD_DRAFT_DIARY_CONTENT_TEXT = "diary_content_text";
+    private static final String FIELD_DRAFT_DREAM_HAPPEN = "dream_happen";
+    private static final String FIELD_DRAFT_DREAM_CONTENT_TEXT = "dream_content_text";
 
-    public static void setUser(User user) {
-        clearUser();
-        clearCouple();
-        if (user == null) {
-            LogUtils.i(SPHelper.class, "setUser", "user == null");
+    /**
+     * ***********************************清除***********************************
+     */
+    public static void clearOssInfo() {
+        SPUtils.clear(SHARE_OSS_INFO);
+    }
+
+    public static void clearVipLimit() {
+        SPUtils.clear(SHARE_VIP_LIMIT);
+    }
+
+    public static void clearVersion() {
+        SPUtils.clear(SHARE_VERSION);
+    }
+
+    public static void clearMe() {
+        SPUtils.clear(SHARE_ME);
+    }
+
+    public static void clearTa() {
+        SPUtils.clear(SHARE_TA);
+    }
+
+    public static void clearCouple() {
+        SPUtils.clear(SHARE_COUPLE);
+    }
+
+    public static void clearWallPaper() {
+        SPUtils.clear(SHARE_WALL_PAPER);
+    }
+
+    public static void clearDraft() {
+        SPUtils.clear(SHARE_DRAFT);
+    }
+
+    /**
+     * ***********************************Common***********************************
+     */
+    public static void setTheme(int themeId) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putInt(FIELD_COMMON_THEME, themeId);
+        editor.apply();
+    }
+
+    public static int getTheme() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getInt(FIELD_COMMON_THEME, ThemeHelper.THEME_PINK);
+    }
+
+    public static void setSettingsNoticeSystem(boolean system) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, system);
+        editor.apply();
+    }
+
+    public static boolean getSettingsNoticeSystem() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_SYSTEM, true);
+    }
+
+    public static void setSettingsNoticeSocial(boolean ta) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, ta);
+        editor.apply();
+    }
+
+    public static boolean getSettingsNoticeSocial() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
+    }
+
+    public static void setNoticeNoReadCount(int count) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, count);
+        editor.apply();
+    }
+
+    public static int getNoticeNoReadCount() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
+    }
+
+    /**
+     * ***********************************OssInfo***********************************
+     */
+    public static void setOssInfo(OssInfo ossInfo) {
+        clearOssInfo();
+        if (ossInfo == null) {
+            LogUtils.i(SPHelper.class, "setOssInfo", "ossInfo == null");
             return;
         }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_USER).edit();
-        editor.putLong(FIELD_USER_ID, user.getId());
-        editor.putString(FIELD_USER_PHONE, user.getPhone());
-        editor.putInt(FIELD_USER_SEX, user.getSex());
-        editor.putLong(FIELD_USER_BIRTHDAY, user.getBirthday());
-        editor.putString(FIELD_USER_TOKEN, user.getUserToken());
-        editor.apply();
-        // 存cp
-        Couple couple = user.getCouple();
-        setCouple(couple);
-    }
-
-    public static User getUser() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_USER);
-        User user = new User();
-        user.setId(sp.getLong(FIELD_USER_ID, 0));
-        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
-        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
-        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
-        user.setUserToken(sp.getString(FIELD_USER_TOKEN, ""));
-        // 取cp
-        Couple couple = getCouple();
-        user.setCouple(couple);
-        return user;
-    }
-
-    public static void setTa(User ta) {
-        clearTa();
-        if (ta == null) {
-            LogUtils.i(SPHelper.class, "setTa", "ta == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_TA).edit();
-        editor.putLong(FIELD_USER_ID, ta.getId());
-        editor.putString(FIELD_USER_PHONE, ta.getPhone());
-        editor.putInt(FIELD_USER_SEX, ta.getSex());
-        editor.putLong(FIELD_USER_BIRTHDAY, ta.getBirthday());
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
+        editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
+        editor.putString(FIELD_OSS_KEY_ID, ossInfo.getAccessKeyId());
+        editor.putString(FIELD_OSS_KEY_SECRET, ossInfo.getAccessKeySecret());
+        //editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
+        //editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
+        editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
+        editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
+        editor.putLong(FIELD_OSS_EXPIRE_TIME, ossInfo.getExpireTime());
+        editor.putLong(FIELD_OSS_INTERVAL_SEC, ossInfo.getIntervalSec());
+        editor.putString(FIELD_OSS_PATH_LOG, ossInfo.getPathLog());
+        editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
+        editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
+        editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
+        editor.putString(FIELD_OSS_PATH_BOOK_WHISPER, ossInfo.getPathBookWhisper());
+        editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
+        editor.putString(FIELD_OSS_PATH_BOOK_ALBUM, ossInfo.getPathBookAlbum());
+        editor.putString(FIELD_OSS_PATH_BOOK_PICTURE, ossInfo.getPathBookPicture());
+        editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
+        editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
+        editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
+        editor.putString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ossInfo.getPathBookVideoThumb());
         editor.apply();
     }
 
-    public static User getTa() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_TA);
-        User user = new User();
-        user.setId(sp.getLong(FIELD_USER_ID, 0));
-        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
-        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
-        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
-        if (user.getId() == 0 || StringUtils.isEmpty(user.getPhone())) {
-            return null;
-        }
-        return user;
+    public static OssInfo getOssInfo() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_OSS_INFO);
+        OssInfo ossInfo = new OssInfo();
+        ossInfo.setSecurityToken(sp.getString(FIELD_OSS_SECURITY_TOKEN, ""));
+        ossInfo.setAccessKeyId(sp.getString(FIELD_OSS_KEY_ID, ""));
+        ossInfo.setAccessKeySecret(sp.getString(FIELD_OSS_KEY_SECRET, ""));
+        //ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
+        //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
+        ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
+        ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
+        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
+        ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 60 * 10));
+        ossInfo.setPathLog(sp.getString(FIELD_OSS_PATH_LOG, ""));
+        ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
+        ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
+        ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
+        ossInfo.setPathBookWhisper(sp.getString(FIELD_OSS_PATH_BOOK_WHISPER, ""));
+        ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
+        ossInfo.setPathBookAlbum(sp.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
+        ossInfo.setPathBookPicture(sp.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
+        ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
+        ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
+        ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
+        ossInfo.setPathBookVideoThumb(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ""));
+        return ossInfo;
     }
 
-    public static void setCouple(Couple couple) {
-        clearCouple();
-        if (Couple.isEmpty(couple)) {
-            LogUtils.i(SPHelper.class, "setCouple", "couple == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
-        editor.putLong(FIELD_CP_ID, couple.getId());
-        editor.putLong(FIELD_CP_CREATE_AT, couple.getCreateAt());
-        editor.putLong(FIELD_CP_UPDATE_AT, couple.getUpdateAt());
-        editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
-        editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());
-        editor.putString(FIELD_CP_CREATOR_AVATAR, couple.getCreatorAvatar());
-        editor.putLong(FIELD_CP_INVITEE_ID, couple.getInviteeId());
-        editor.putString(FIELD_CP_INVITEE_NAME, couple.getInviteeName());
-        editor.putString(FIELD_CP_INVITEE_AVATAR, couple.getInviteeAvatar());
-        Couple.State state = couple.getState();
-        if (state != null) {
-            editor.putLong(FIELD_CP_STATE_ID, state.getId());
-            editor.putLong(FIELD_CP_STATE_CREATE_AT, state.getCreateAt());
-            editor.putLong(FIELD_CP_STATE_UPDATE_AT, state.getUpdateAt());
-            editor.putLong(FIELD_CP_STATE_USER_ID, state.getUserId());
-            editor.putInt(FIELD_CP_STATE_STATE, state.getState());
-        }
-        editor.apply();
-    }
-
-    public static Couple getCouple() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
-        Couple couple = new Couple();
-        couple.setId(sp.getLong(FIELD_CP_ID, 0));
-        couple.setCreateAt(sp.getLong(FIELD_CP_CREATE_AT, 0));
-        couple.setUpdateAt(sp.getLong(FIELD_CP_UPDATE_AT, 0));
-        couple.setCreatorId(sp.getLong(FIELD_CP_CREATOR_ID, 0));
-        couple.setCreatorName(sp.getString(FIELD_CP_CREATOR_NAME, ""));
-        couple.setCreatorAvatar(sp.getString(FIELD_CP_CREATOR_AVATAR, ""));
-        couple.setInviteeId(sp.getLong(FIELD_CP_INVITEE_ID, 0));
-        couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
-        couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
-        Couple.State state = new Couple.State();
-        state.setId(sp.getLong(FIELD_CP_STATE_ID, 0));
-        state.setCreateAt(sp.getLong(FIELD_CP_STATE_CREATE_AT, 0));
-        state.setUpdateAt(sp.getLong(FIELD_CP_STATE_UPDATE_AT, 0));
-        state.setUserId(sp.getLong(FIELD_CP_STATE_USER_ID, 0));
-        state.setState(sp.getInt(FIELD_CP_STATE_STATE, 0));
-        couple.setState(state);
-        return couple;
-    }
-
-    public static void setTogetherDay(int days) {
-        LogUtils.d(SPHelper.class, "setTogetherDay", String.valueOf(days));
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER_DAY).edit();
-        editor.putInt(FIELD_COUPLE_TOGETHER_DAY, days);
-        editor.apply();
-    }
-
-    public static int getTogetherDay() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER_DAY);
-        int togetherDay = sp.getInt(FIELD_COUPLE_TOGETHER_DAY, 1);
-        if (togetherDay <= 0) {
-            togetherDay = 1;
-        }
-        return togetherDay;
-    }
-
-    public static void setVersion(Version version) {
-        clearVersion();
-        if (version == null) {
-            LogUtils.i(SPHelper.class, "setVersion", "version == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VERSION).edit();
-        editor.putLong(FIELD_VERSION_CREATE_AT, version.getCreateAt());
-        editor.putInt(FIELD_VERSION_VERSION_CODE, version.getVersionCode());
-        editor.putString(FIELD_VERSION_VERSION_NAME, version.getVersionName());
-        editor.putString(FIELD_VERSION_UPDATE_LOG, version.getUpdateLog());
-        editor.putString(FIELD_VERSION_UPDATE_URL, version.getUpdateUrl());
-        editor.apply();
-    }
-
-    public static Version getVersion() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VERSION);
-        Version version = new Version();
-        version.setCreateAt(sp.getLong(FIELD_VERSION_CREATE_AT, 0));
-        version.setVersionCode(sp.getInt(FIELD_VERSION_VERSION_CODE, 0));
-        version.setVersionName(sp.getString(FIELD_VERSION_VERSION_NAME, ""));
-        version.setUpdateLog(sp.getString(FIELD_VERSION_UPDATE_LOG, ""));
-        version.setUpdateUrl(sp.getString(FIELD_VERSION_UPDATE_URL, ""));
-        if (version.getVersionCode() <= 0 || StringUtils.isEmpty(version.getUpdateUrl())) {
-            return null;
-        }
-        return version;
-    }
-
-    public static void setWallPaper(WallPaper wallPaper) {
-        clearWallPaper();
-        if (wallPaper == null) {
-            LogUtils.i(SPHelper.class, "setWallPaper", "wallPaper == null");
-            return;
-        }
-        String json = GsonHelper.get().toJson(wallPaper);
-
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_WALL_PAPER).edit();
-        editor.putString(FIELD_WALL_PAPER_JSON, json);
-        editor.apply();
-    }
-
-    public static WallPaper getWallPaper() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_WALL_PAPER);
-        WallPaper wallPaper = new WallPaper();
-        String json = GsonHelper.get().toJson(wallPaper);
-        // json解析
-        String newJson = sp.getString(FIELD_WALL_PAPER_JSON, json);
-        wallPaper = GsonHelper.get().fromJson(newJson, WallPaper.class);
-        return wallPaper;
-    }
-
+    /**
+     * ***********************************Limit***********************************
+     */
     public static void setLimit(Limit limit) {
         if (limit == null) {
             LogUtils.i(SPHelper.class, "setLimit", "limit == null");
@@ -395,64 +367,9 @@ public class SPHelper {
         return limit;
     }
 
-    public static void setOssInfo(OssInfo ossInfo) {
-        clearOssInfo();
-        if (ossInfo == null) {
-            LogUtils.i(SPHelper.class, "setOssInfo", "ossInfo == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_OSS_INFO).edit();
-        editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
-        editor.putString(FIELD_OSS_KEY_ID, ossInfo.getAccessKeyId());
-        editor.putString(FIELD_OSS_KEY_SECRET, ossInfo.getAccessKeySecret());
-        //editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
-        //editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
-        editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
-        editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
-        editor.putLong(FIELD_OSS_EXPIRE_TIME, ossInfo.getExpireTime());
-        editor.putLong(FIELD_OSS_INTERVAL_SEC, ossInfo.getIntervalSec());
-        editor.putString(FIELD_OSS_PATH_LOG, ossInfo.getPathLog());
-        editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
-        editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
-        editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
-        editor.putString(FIELD_OSS_PATH_BOOK_WHISPER, ossInfo.getPathBookWhisper());
-        editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
-        editor.putString(FIELD_OSS_PATH_BOOK_ALBUM, ossInfo.getPathBookAlbum());
-        editor.putString(FIELD_OSS_PATH_BOOK_PICTURE, ossInfo.getPathBookPicture());
-        editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
-        editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
-        editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
-        editor.putString(FIELD_OSS_PATH_BOOK_THUMB, ossInfo.getPathBookThumb());
-        editor.apply();
-    }
-
-    public static OssInfo getOssInfo() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_OSS_INFO);
-        OssInfo ossInfo = new OssInfo();
-        ossInfo.setSecurityToken(sp.getString(FIELD_OSS_SECURITY_TOKEN, ""));
-        ossInfo.setAccessKeyId(sp.getString(FIELD_OSS_KEY_ID, ""));
-        ossInfo.setAccessKeySecret(sp.getString(FIELD_OSS_KEY_SECRET, ""));
-        //ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
-        //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
-        ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
-        ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
-        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
-        ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 60 * 10));
-        ossInfo.setPathLog(sp.getString(FIELD_OSS_PATH_LOG, ""));
-        ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
-        ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
-        ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
-        ossInfo.setPathBookWhisper(sp.getString(FIELD_OSS_PATH_BOOK_WHISPER, ""));
-        ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
-        ossInfo.setPathBookAlbum(sp.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
-        ossInfo.setPathBookPicture(sp.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
-        ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
-        ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
-        ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
-        ossInfo.setPathBookThumb(sp.getString(FIELD_OSS_PATH_BOOK_THUMB, ""));
-        return ossInfo;
-    }
-
+    /**
+     * ***********************************VipLimit***********************************
+     */
     public static void setVipLimit(VipLimit vipLimit) {
         clearVipLimit();
         if (vipLimit == null) {
@@ -499,6 +416,9 @@ public class SPHelper {
         return vipLimit;
     }
 
+    /**
+     * ***********************************CommonConst***********************************
+     */
     public static void setCommonConst(CommonConst commonConst) {
         if (commonConst == null) {
             LogUtils.i(SPHelper.class, "setCommonConst", "commonConst == null");
@@ -520,100 +440,241 @@ public class SPHelper {
         return commonConst;
     }
 
-    public static void setDiary(Diary diary) {
-        clearDiary();
-        if (diary == null) {
-            LogUtils.i(SPHelper.class, "setDiary", "diary == null");
+    /**
+     * ***********************************Version***********************************
+     */
+    public static void setVersion(Version version) {
+        clearVersion();
+        if (version == null) {
+            LogUtils.i(SPHelper.class, "setVersion", "version == null");
             return;
         }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DIARY).edit();
-        editor.putLong(FIELD_DIARY_HAPPEN, diary.getHappenAt());
-        editor.putString(FIELD_DIARY_CONTENT_TEXT, diary.getContentText());
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VERSION).edit();
+        editor.putLong(FIELD_VERSION_CREATE_AT, version.getCreateAt());
+        editor.putInt(FIELD_VERSION_VERSION_CODE, version.getVersionCode());
+        editor.putString(FIELD_VERSION_VERSION_NAME, version.getVersionName());
+        editor.putString(FIELD_VERSION_UPDATE_LOG, version.getUpdateLog());
+        editor.putString(FIELD_VERSION_UPDATE_URL, version.getUpdateUrl());
         editor.apply();
     }
 
-    public static Diary getDiary() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DIARY);
+    public static Version getVersion() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VERSION);
+        Version version = new Version();
+        version.setCreateAt(sp.getLong(FIELD_VERSION_CREATE_AT, 0));
+        version.setVersionCode(sp.getInt(FIELD_VERSION_VERSION_CODE, 0));
+        version.setVersionName(sp.getString(FIELD_VERSION_VERSION_NAME, ""));
+        version.setUpdateLog(sp.getString(FIELD_VERSION_UPDATE_LOG, ""));
+        version.setUpdateUrl(sp.getString(FIELD_VERSION_UPDATE_URL, ""));
+        if (version.getVersionCode() <= 0 || StringUtils.isEmpty(version.getUpdateUrl())) {
+            return null;
+        }
+        return version;
+    }
+
+    /**
+     * ***********************************Me***********************************
+     */
+    public static void setMe(User user) {
+        clearMe();
+        clearCouple();
+        if (user == null) {
+            LogUtils.i(SPHelper.class, "setMe", "user == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_ME).edit();
+        editor.putLong(FIELD_USER_ID, user.getId());
+        editor.putString(FIELD_USER_PHONE, user.getPhone());
+        editor.putInt(FIELD_USER_SEX, user.getSex());
+        editor.putLong(FIELD_USER_BIRTHDAY, user.getBirthday());
+        editor.putString(FIELD_USER_TOKEN, user.getUserToken());
+        editor.apply();
+        // 存cp
+        Couple couple = user.getCouple();
+        setCouple(couple);
+    }
+
+    public static User getUser() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_ME);
+        User user = new User();
+        user.setId(sp.getLong(FIELD_USER_ID, 0));
+        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
+        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
+        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
+        user.setUserToken(sp.getString(FIELD_USER_TOKEN, ""));
+        // 取cp
+        Couple couple = getCouple();
+        user.setCouple(couple);
+        return user;
+    }
+
+    /**
+     * ***********************************Ta***********************************
+     */
+    public static void setTa(User ta) {
+        clearTa();
+        if (ta == null) {
+            LogUtils.i(SPHelper.class, "setTa", "ta == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_TA).edit();
+        editor.putLong(FIELD_USER_ID, ta.getId());
+        editor.putString(FIELD_USER_PHONE, ta.getPhone());
+        editor.putInt(FIELD_USER_SEX, ta.getSex());
+        editor.putLong(FIELD_USER_BIRTHDAY, ta.getBirthday());
+        editor.apply();
+    }
+
+    public static User getTa() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_TA);
+        User user = new User();
+        user.setId(sp.getLong(FIELD_USER_ID, 0));
+        user.setPhone(sp.getString(FIELD_USER_PHONE, ""));
+        user.setSex(sp.getInt(FIELD_USER_SEX, 0));
+        user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
+        if (user.getId() == 0 || StringUtils.isEmpty(user.getPhone())) {
+            return null;
+        }
+        return user;
+    }
+
+    /**
+     * ***********************************Couple***********************************
+     */
+    public static void setCouple(Couple couple) {
+        clearCouple();
+        if (Couple.isEmpty(couple)) {
+            LogUtils.i(SPHelper.class, "setCouple", "couple == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE).edit();
+        editor.putLong(FIELD_CP_ID, couple.getId());
+        editor.putLong(FIELD_CP_CREATE_AT, couple.getCreateAt());
+        editor.putLong(FIELD_CP_UPDATE_AT, couple.getUpdateAt());
+        editor.putLong(FIELD_CP_CREATOR_ID, couple.getCreatorId());
+        editor.putString(FIELD_CP_CREATOR_NAME, couple.getCreatorName());
+        editor.putString(FIELD_CP_CREATOR_AVATAR, couple.getCreatorAvatar());
+        editor.putLong(FIELD_CP_INVITEE_ID, couple.getInviteeId());
+        editor.putString(FIELD_CP_INVITEE_NAME, couple.getInviteeName());
+        editor.putString(FIELD_CP_INVITEE_AVATAR, couple.getInviteeAvatar());
+        Couple.State state = couple.getState();
+        if (state != null) {
+            editor.putLong(FIELD_CP_STATE_ID, state.getId());
+            editor.putLong(FIELD_CP_STATE_CREATE_AT, state.getCreateAt());
+            editor.putLong(FIELD_CP_STATE_UPDATE_AT, state.getUpdateAt());
+            editor.putLong(FIELD_CP_STATE_USER_ID, state.getUserId());
+            editor.putInt(FIELD_CP_STATE_STATE, state.getState());
+        }
+        editor.apply();
+    }
+
+    public static Couple getCouple() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
+        Couple couple = new Couple();
+        couple.setId(sp.getLong(FIELD_CP_ID, 0));
+        couple.setCreateAt(sp.getLong(FIELD_CP_CREATE_AT, 0));
+        couple.setUpdateAt(sp.getLong(FIELD_CP_UPDATE_AT, 0));
+        couple.setCreatorId(sp.getLong(FIELD_CP_CREATOR_ID, 0));
+        couple.setCreatorName(sp.getString(FIELD_CP_CREATOR_NAME, ""));
+        couple.setCreatorAvatar(sp.getString(FIELD_CP_CREATOR_AVATAR, ""));
+        couple.setInviteeId(sp.getLong(FIELD_CP_INVITEE_ID, 0));
+        couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
+        couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
+        Couple.State state = new Couple.State();
+        state.setId(sp.getLong(FIELD_CP_STATE_ID, 0));
+        state.setCreateAt(sp.getLong(FIELD_CP_STATE_CREATE_AT, 0));
+        state.setUpdateAt(sp.getLong(FIELD_CP_STATE_UPDATE_AT, 0));
+        state.setUserId(sp.getLong(FIELD_CP_STATE_USER_ID, 0));
+        state.setState(sp.getInt(FIELD_CP_STATE_STATE, 0));
+        couple.setState(state);
+        return couple;
+    }
+
+    public static void setTogetherDay(int days) {
+        LogUtils.d(SPHelper.class, "setTogetherDay", String.valueOf(days));
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER).edit();
+        editor.putInt(FIELD_COUPLE_TOGETHER_DAY, days);
+        editor.apply();
+    }
+
+    public static int getTogetherDay() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER);
+        int togetherDay = sp.getInt(FIELD_COUPLE_TOGETHER_DAY, 1);
+        if (togetherDay <= 0) {
+            togetherDay = 1;
+        }
+        return togetherDay;
+    }
+
+    /**
+     * ***********************************WallPaper***********************************
+     */
+    public static void setWallPaper(WallPaper wallPaper) {
+        clearWallPaper();
+        if (wallPaper == null) {
+            LogUtils.i(SPHelper.class, "setWallPaper", "wallPaper == null");
+            return;
+        }
+        String json = GsonHelper.get().toJson(wallPaper);
+
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_WALL_PAPER).edit();
+        editor.putString(FIELD_WALL_PAPER_JSON, json);
+        editor.apply();
+    }
+
+    public static WallPaper getWallPaper() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_WALL_PAPER);
+        WallPaper wallPaper = new WallPaper();
+        String json = GsonHelper.get().toJson(wallPaper);
+        // json解析
+        String newJson = sp.getString(FIELD_WALL_PAPER_JSON, json);
+        wallPaper = GsonHelper.get().fromJson(newJson, WallPaper.class);
+        return wallPaper;
+    }
+
+    /**
+     * ***********************************Draft***********************************
+     */
+    public static void setDraftDiary(Diary diary) {
+        if (diary == null) {
+            diary = new Diary();
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
+        editor.putLong(FIELD_DRAFT_DIARY_HAPPEN, diary.getHappenAt());
+        editor.putString(FIELD_DRAFT_DIARY_CONTENT_TEXT, diary.getContentText());
+        editor.apply();
+    }
+
+    public static Diary getDraftDiary() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DRAFT);
         Diary diary = new Diary();
-        diary.setHappenAt(sp.getLong(FIELD_DIARY_HAPPEN, 0));
-        diary.setContentText(sp.getString(FIELD_DIARY_CONTENT_TEXT, ""));
+        diary.setHappenAt(sp.getLong(FIELD_DRAFT_DIARY_HAPPEN, 0));
+        diary.setContentText(sp.getString(FIELD_DRAFT_DIARY_CONTENT_TEXT, ""));
+        if (diary.getHappenAt() == 0 && StringUtils.isEmpty(diary.getContentText())) {
+            return null;
+        }
         return diary;
     }
 
-    public static void clearUser() {
-        SPUtils.clear(SHARE_USER);
-    }
-
-    public static void clearCouple() {
-        SPUtils.clear(SHARE_COUPLE);
-    }
-
-    public static void clearTa() {
-        SPUtils.clear(SHARE_TA);
-    }
-
-    public static void clearVersion() {
-        SPUtils.clear(SHARE_VERSION);
-    }
-
-    public static void clearWallPaper() {
-        SPUtils.clear(SHARE_WALL_PAPER);
-    }
-
-    public static void clearOssInfo() {
-        SPUtils.clear(SHARE_OSS_INFO);
-    }
-
-    public static void clearVipLimit() {
-        SPUtils.clear(SHARE_VIP_LIMIT);
-    }
-
-    public static void clearDiary() {
-        SPUtils.clear(SHARE_DIARY);
-    }
-
-    public static void setTheme(int themeId) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putInt(FIELD_COMMON_THEME, themeId);
+    public static void setDraftDream(Dream dream) {
+        if (dream == null) {
+            dream = new Dream();
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
+        editor.putLong(FIELD_DRAFT_DREAM_HAPPEN, dream.getHappenAt());
+        editor.putString(FIELD_DRAFT_DREAM_CONTENT_TEXT, dream.getContentText());
         editor.apply();
     }
 
-    public static int getTheme() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getInt(FIELD_COMMON_THEME, ThemeHelper.THEME_PINK);
-    }
-
-    public static void setSettingsNoticeSystem(boolean system) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, system);
-        editor.apply();
-    }
-
-    public static boolean getSettingsNoticeSystem() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getBoolean(FIELD_COMMON_NOTICE_SYSTEM, true);
-    }
-
-    public static void setSettingsNoticeSocial(boolean ta) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, ta);
-        editor.apply();
-    }
-
-    public static boolean getSettingsNoticeSocial() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
-    }
-
-    public static void setNoticeNoReadCount(int count) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, count);
-        editor.apply();
-    }
-
-    public static int getNoticeNoReadCount() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
+    public static Dream getDraftDream() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DRAFT);
+        Dream dream = new Dream();
+        dream.setHappenAt(sp.getLong(FIELD_DRAFT_DREAM_HAPPEN, 0));
+        dream.setContentText(sp.getString(FIELD_DRAFT_DREAM_CONTENT_TEXT, ""));
+        if (dream.getHappenAt() == 0 && StringUtils.isEmpty(dream.getContentText())) {
+            return null;
+        }
+        return dream;
     }
 
 }

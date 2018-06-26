@@ -231,12 +231,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        SPHelper.clearUser();
-                        SPHelper.clearCouple();
-                        SPHelper.clearTa();
                         SPHelper.clearOssInfo();
                         SPHelper.clearVipLimit();
-                        SPHelper.clearDiary();
+                        SPHelper.clearMe();
+                        SPHelper.clearTa();
+                        SPHelper.clearCouple();
+                        SPHelper.clearDraft();
                         RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);
                         LoginActivity.goActivity(mActivity);

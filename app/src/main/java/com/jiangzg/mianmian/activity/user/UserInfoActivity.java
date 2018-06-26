@@ -220,7 +220,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 User user = data.getUser();
-                SPHelper.setUser(user);
+                SPHelper.setMe(user);
                 ApiHelper.postEntry(mActivity);
             }
 

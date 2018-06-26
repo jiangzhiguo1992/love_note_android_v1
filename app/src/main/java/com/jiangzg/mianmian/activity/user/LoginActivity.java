@@ -287,7 +287,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                 isGo = true;
                 stopCountDownTask();
                 User user = data.getUser();
-                SPHelper.setUser(user);
+                SPHelper.setMe(user);
                 ApiHelper.postEntry(mActivity);
             }
 

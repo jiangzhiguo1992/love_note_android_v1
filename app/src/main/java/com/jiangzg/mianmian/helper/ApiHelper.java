@@ -130,7 +130,7 @@ public class ApiHelper {
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {
         // user
         User user = data.getUser();
-        SPHelper.setUser(user);
+        SPHelper.setMe(user);
         // commonConst
         CommonConst commonConst = data.getCommonConst();
         SPHelper.setCommonConst(commonConst);

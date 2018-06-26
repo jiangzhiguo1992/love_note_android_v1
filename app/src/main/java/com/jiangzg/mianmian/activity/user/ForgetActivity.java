@@ -193,7 +193,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
                 isGo = true;
                 stopCountDownTask();
                 User user = data.getUser();
-                SPHelper.setUser(user);
+                SPHelper.setMe(user);
                 ApiHelper.postEntry(mActivity);
             }
 

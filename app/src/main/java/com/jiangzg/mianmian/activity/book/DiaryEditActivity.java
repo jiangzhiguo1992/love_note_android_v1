@@ -120,7 +120,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (isTypeUpdate()) {
             diary = getIntent().getParcelableExtra("diary");
         } else {
-            diary = SPHelper.getDiary();
+            diary = SPHelper.getDraftDiary();
         }
         if (diary == null) {
             diary = new Diary();
@@ -290,7 +290,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void saveDraft() {
-        SPHelper.setDiary(diary);
+        SPHelper.setDraftDiary(diary);
         ToastUtils.show(getString(R.string.draft_save_success));
     }
 

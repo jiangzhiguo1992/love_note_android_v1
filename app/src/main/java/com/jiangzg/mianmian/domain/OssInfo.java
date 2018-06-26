@@ -29,7 +29,7 @@ public class OssInfo {
     private String pathBookGift;
     private String pathBookAudio;
     private String pathBookVideo;
-    private String pathBookThumb;
+    private String pathBookVideoThumb;
 
     public String getPathLog() {
         return pathLog;
@@ -175,11 +175,11 @@ public class OssInfo {
         this.pathBookVideo = pathBookVideo;
     }
 
-    public String getPathBookThumb() {
-        return pathBookThumb;
+    public String getPathBookVideoThumb() {
+        return pathBookVideoThumb;
     }
 
-    public void setPathBookThumb(String pathBookThumb) {
-        this.pathBookThumb = pathBookThumb;
+    public void setPathBookVideoThumb(String pathBookVideoThumb) {
+        this.pathBookVideoThumb = pathBookVideoThumb;
     }
 }

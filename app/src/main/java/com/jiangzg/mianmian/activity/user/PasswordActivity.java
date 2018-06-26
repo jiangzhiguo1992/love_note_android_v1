@@ -108,7 +108,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 User user = data.getUser();
-                SPHelper.setUser(user);
+                SPHelper.setMe(user);
                 mActivity.finish();
             }
 
