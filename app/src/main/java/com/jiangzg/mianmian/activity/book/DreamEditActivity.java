@@ -29,10 +29,10 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             dream = new Dream();
         }
         if (dream.getHappenAt() == 0) {
-            dream.setHappenAt(ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+            dream.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
         // date
         refreshDateView();
@@ -161,7 +161,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void showDatePicker() {
-        Calendar calendar = DateUtils.getCalendar(ConvertHelper.getJavaTimeByGo(dream.getHappenAt()));
+        Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(dream.getHappenAt()));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -170,7 +170,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
-                dream.setHappenAt(ConvertHelper.getGoTimeByJava(instance.getTimeInMillis()));
+                dream.setHappenAt(TimeHelper.getGoTimeByJava(instance.getTimeInMillis()));
                 refreshDateView();
             }
         }, year, month, day);
@@ -178,7 +178,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
         tvDate.setText(happen);
     }
 

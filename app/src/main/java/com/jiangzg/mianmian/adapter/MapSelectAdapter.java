@@ -16,7 +16,7 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/12.
- * 帮助列表适配器
+ * 地图选择适配器
  */
 public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> {
 

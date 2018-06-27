@@ -19,9 +19,9 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.SuggestComment;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.GWrapView;
 
 import java.util.Locale;
@@ -52,7 +52,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         // data
         int layoutPosition = helper.getLayoutPosition();
         long createdAt = item.getCreateAt();
-        String create = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
+        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
         String title = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
         String contentText = item.getContentText();
         boolean official = item.isOfficial();

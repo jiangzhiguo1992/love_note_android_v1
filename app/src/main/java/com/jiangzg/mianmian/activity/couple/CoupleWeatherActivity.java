@@ -21,10 +21,11 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.WeatherForecast;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -180,10 +181,10 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // data
         String myAvatar = SPHelper.getUser().getMyAvatarInCp();
         WeatherForecast forecast = myWeatherForecastList.get(0);
-        String time = ConvertHelper.getTimeShowCnSpace_MD_YMD_ByGo(forecast.getTimeAt());
+        String time = TimeHelper.getTimeShowCnSpace_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
-        int iconDay = ConvertHelper.getWeatherIconById(forecast.getIconDay());
-        int iconNight = ConvertHelper.getWeatherIconById(forecast.getIconNight());
+        int iconDay = WeatherHelper.getWeatherIconById(forecast.getIconDay());
+        int iconNight = WeatherHelper.getWeatherIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view
@@ -214,10 +215,10 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // data
         String taAvatar = SPHelper.getUser().getTaAvatarInCp();
         WeatherForecast forecast = taWeatherForecastList.get(0);
-        String time = ConvertHelper.getTimeShowCnSpace_MD_YMD_ByGo(forecast.getTimeAt());
+        String time = TimeHelper.getTimeShowCnSpace_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
-        int iconDay = ConvertHelper.getWeatherIconById(forecast.getIconDay());
-        int iconNight = ConvertHelper.getWeatherIconById(forecast.getIconNight());
+        int iconDay = WeatherHelper.getWeatherIconById(forecast.getIconDay());
+        int iconNight = WeatherHelper.getWeatherIconById(forecast.getIconNight());
         String temp = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder_c), forecast.getTempDay(), forecast.getTempNight());
         String wind = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getWindDay(), forecast.getWindNight());
         // view

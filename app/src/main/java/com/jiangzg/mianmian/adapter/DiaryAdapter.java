@@ -8,15 +8,15 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.DiaryDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
- * 意见反馈适配器
+ * 日记适配器
  */
 public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
@@ -31,7 +31,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Diary item) {
-        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         String textFormat = mActivity.getString(R.string.text_number_space_colon_holder);
         String textCount = String.format(Locale.getDefault(), textFormat, content == null ? 0 : content.length());

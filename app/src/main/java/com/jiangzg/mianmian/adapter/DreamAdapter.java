@@ -8,15 +8,15 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.DreamDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Dream;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
- * 意见反馈适配器
+ * 梦境适配器
  */
 public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
 
@@ -31,7 +31,7 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Dream item) {
-        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         if (content == null) content = "";
         String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_space_colon_holder), content.length());

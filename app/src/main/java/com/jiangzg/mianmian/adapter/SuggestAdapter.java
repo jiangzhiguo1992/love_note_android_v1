@@ -19,7 +19,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.SuggestDetailActivity;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestInfo;
-import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GWrapView;
 
@@ -66,10 +66,10 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         String title = item.getTitle();
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
-        String create = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
+        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
         String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_space_holder), create);
         long updatedAt = item.getUpdateAt();
-        String update = ConvertHelper.getTimeShowLine_HM_MD_YMD_ByGo(updatedAt);
+        String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(updatedAt);
         String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), update);
         final long followCount = item.getFollowCount();
         String followShow;

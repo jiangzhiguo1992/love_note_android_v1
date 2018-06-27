@@ -26,12 +26,12 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -111,8 +111,9 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
             diary = intent.getParcelableExtra("diary");
+            refreshView();
+            // 没有详情页的，可以不加
             if (diary != null) {
-                refreshView();
                 refreshData(diary.getId());
             }
         } else if (from == FROM_ID) {
@@ -190,13 +191,13 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         // menu
         invalidateOptionsMenu();
         // happen
-        String happenAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
+        String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tb.setTitle(happenAt);
         // creator
         String creator = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), user.getNameInCp(userId));
         tvCreator.setText(creator);
         // updateAt
-        String update = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
+        String update = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
         String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
         // textCount

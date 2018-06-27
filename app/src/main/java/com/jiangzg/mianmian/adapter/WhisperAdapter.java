@@ -11,8 +11,8 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.helper.ApiHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.FrescoView;
 
@@ -37,7 +37,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
     protected void convert(BaseViewHolder helper, Whisper item) {
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         boolean isImage = item.isImage();
         final String content = item.getContent();
         // view

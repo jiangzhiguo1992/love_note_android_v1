@@ -35,13 +35,13 @@ import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -295,9 +295,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // data
         String cover = album.getCover();
         String title = album.getTitle();
-        String createAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getCreateAt());
+        String createAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
-        String updateAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getUpdateAt());
+        String updateAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getUpdateAt());
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), updateAt);
         // view
         if (StringUtils.isEmpty(cover)) {
@@ -335,7 +335,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 String format = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_paper), total);
                 tvPictureCount.setText(format);
                 // 刷新本地资源
-                List<String> ossKeyList = ConvertHelper.getOssKeyListByPicture(pictureList);
+                List<String> ossKeyList = ListHelper.getOssKeyListByPicture(pictureList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_PICTURE, ossKeyList);
             }
 

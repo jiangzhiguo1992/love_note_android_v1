@@ -24,6 +24,7 @@ public class OssResHelper {
     public static final int TYPE_BOOK_DIARY = 21;
     public static final int TYPE_BOOK_ALBUM = 22;
     public static final int TYPE_BOOK_PICTURE = 23;
+    public static final int TYPE_BOOK_GIFT = 24;
 
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
@@ -73,6 +74,9 @@ public class OssResHelper {
                 break;
             case TYPE_BOOK_PICTURE: // 照片
                 dirPath = SPHelper.getOssInfo().getPathBookPicture();
+                break;
+            case TYPE_BOOK_GIFT: // 礼物
+                dirPath = SPHelper.getOssInfo().getPathBookGift();
                 break;
         }
         if (StringUtils.isEmpty(dirPath)) {

@@ -42,13 +42,13 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 
@@ -259,11 +259,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taPhone = ta == null ? "" : ta.getPhone();
         int meSexRes = me.getSexResCircleSmall();
         int taSexRes = ta == null ? 0 : ta.getSexResCircleSmall();
-        long meBirth = ConvertHelper.getJavaTimeByGo(me.getBirthday());
+        long meBirth = TimeHelper.getJavaTimeByGo(me.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         String taBirthShow = "";
         if (ta != null && ta.getBirthday() != 0) {
-            long taBirth = ConvertHelper.getJavaTimeByGo(ta.getBirthday());
+            long taBirth = TimeHelper.getJavaTimeByGo(ta.getBirthday());
             taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         }
         int togetherDay = SPHelper.getTogetherDay();

@@ -105,9 +105,9 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "meet_image_count";
     private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
     private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "audio_size";
-    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE = "audio_total_size";
+    private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT = "audio_total_count";
     private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
-    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE = "video_total_size";
+    private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT = "video_total_count";
     private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topic_image_enable";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
@@ -276,7 +276,7 @@ public class SPHelper {
         //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
         ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
-        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
+        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
         ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 60 * 10));
         ossInfo.setPathLog(sp.getString(FIELD_OSS_PATH_LOG, ""));
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
@@ -388,9 +388,9 @@ public class SPHelper {
         editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
         editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getMeetImageCount());
         editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getAudioSize());
-        editor.putLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, vipLimit.getAudioTotalSize());
+        editor.putInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, vipLimit.getAudioTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getVideoSize());
-        editor.putLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, vipLimit.getVideoTotalSize());
+        editor.putInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, vipLimit.getVideoTotalCount());
         editor.putBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, vipLimit.isTopicImageEnable());
         editor.apply();
     }
@@ -409,9 +409,9 @@ public class SPHelper {
         vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
         vipLimit.setMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));
         vipLimit.setAudioSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
-        vipLimit.setAudioTotalSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_TOTAL_SIZE, 0));
+        vipLimit.setAudioTotalCount(sp.getInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, 0));
         vipLimit.setVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
-        vipLimit.setVideoTotalSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_TOTAL_SIZE, 0));
+        vipLimit.setVideoTotalCount(sp.getInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, 0));
         vipLimit.setTopicImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, false));
         return vipLimit;
     }

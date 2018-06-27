@@ -40,7 +40,7 @@ import com.jiangzg.mianmian.domain.WeatherToday;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
@@ -406,7 +406,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         String myWeatherShow = "";
         Drawable myIcon = null;
         if (myWeatherToday != null && !StringUtils.isEmpty(myWeatherToday.getTemp())) {
-            int weatherIcon = ConvertHelper.getWeatherIconById(myWeatherToday.getIcon());
+            int weatherIcon = WeatherHelper.getWeatherIconById(myWeatherToday.getIcon());
             myIcon = ViewHelper.getDrawable(mActivity, weatherIcon);
             if (myIcon != null) {
                 myIcon.setTint(colorIcon);
@@ -423,7 +423,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         String taWeatherShow = "";
         Drawable taIcon = null;
         if (taWeatherToday != null && !StringUtils.isEmpty(taWeatherToday.getTemp())) {
-            int weatherIcon = ConvertHelper.getWeatherIconById(taWeatherToday.getIcon());
+            int weatherIcon = WeatherHelper.getWeatherIconById(taWeatherToday.getIcon());
             taIcon = ViewHelper.getDrawable(mActivity, weatherIcon);
             if (taIcon != null) {
                 taIcon.setTint(colorIcon);

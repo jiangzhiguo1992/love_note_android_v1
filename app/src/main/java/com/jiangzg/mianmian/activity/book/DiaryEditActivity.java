@@ -38,13 +38,13 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.io.File;
@@ -126,7 +126,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             diary = new Diary();
         }
         if (diary.getHappenAt() == 0) {
-            diary.setHappenAt(ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+            diary.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
         // date
         refreshDateView();
@@ -241,7 +241,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showDatePicker() {
-        Calendar calendar = DateUtils.getCalendar(ConvertHelper.getJavaTimeByGo(diary.getHappenAt()));
+        Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(diary.getHappenAt()));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -250,7 +250,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
-                diary.setHappenAt(ConvertHelper.getGoTimeByJava(instance.getTimeInMillis()));
+                diary.setHappenAt(TimeHelper.getGoTimeByJava(instance.getTimeInMillis()));
                 refreshDateView();
             }
         }, year, month, day);
@@ -258,7 +258,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvDate.setText(happen);
     }
 

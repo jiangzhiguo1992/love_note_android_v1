@@ -98,6 +98,10 @@
         </activity>
         <activity android:name=".activity.book.DreamDetailActivity">
         </activity>
+        <activity android:name=".activity.book.GiftListActivity">
+        </activity>
+        <activity android:name=".activity.book.GiftEditActivity">
+        </activity>
     </application>
 
 </manifest>

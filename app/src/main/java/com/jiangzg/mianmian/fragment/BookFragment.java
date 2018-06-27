@@ -12,6 +12,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.DreamListActivity;
+import com.jiangzg.mianmian.activity.book.GiftListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
@@ -168,7 +169,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvPromise: // TODO 承诺
                 break;
-            case R.id.cvGift: // TODO 礼物
+            case R.id.cvGift: // 礼物
+                GiftListActivity.goActivity(mActivity);
                 break;
         }
     }

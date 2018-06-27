@@ -13,7 +13,7 @@ import com.jiangzg.mianmian.helper.RxBus;
 
 /**
  * Created by JZG on 2018/3/12.
- * 帮助列表适配器
+ * 地图搜索适配器
  */
 public class MapSearchAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> {
 

@@ -32,10 +32,11 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoView;
 
@@ -78,7 +79,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
     @Override
     protected void convert(final BaseViewHolder helper, Picture item) {
-        String happen = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String address = item.getAddress();
         String content = item.getContentImage();
         // view
@@ -150,7 +151,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             @Override
             public void onSuccessClick(FrescoView iv) {
                 List<Picture> data = PictureAdapter.this.getData();
-                ArrayList<String> ossKeyList = ConvertHelper.getOssKeyListByPicture(data);
+                ArrayList<String> ossKeyList = ListHelper.getOssKeyListByPicture(data);
                 if (ossKeyList == null || ossKeyList.size() <= 0) return;
                 int position = helper.getLayoutPosition();
                 BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);

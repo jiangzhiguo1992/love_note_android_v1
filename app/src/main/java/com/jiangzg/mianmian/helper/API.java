@@ -4,6 +4,7 @@ import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
+import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
 import com.jiangzg.mianmian.domain.Place;
@@ -271,5 +272,21 @@ public interface API {
     // dream修改
     @PUT("book/dream")
     Call<Result> dreamUpdate(@Body Dream dream);
+
+    // giftList获取
+    @GET("book/gift?did=0&list=1")
+    Call<Result> giftListGet(@Query("who") int who, @Query("page") int page);
+
+    // gift上传
+    @POST("book/gift")
+    Call<Result> giftAdd(@Body Gift gift);
+
+    // gift删除
+    @DELETE("book/gift")
+    Call<Result> giftDel(@Query("gid") long gid);
+
+    // gift修改
+    @PUT("book/gift")
+    Call<Result> giftUpdate(@Body Gift gift);
 
 }

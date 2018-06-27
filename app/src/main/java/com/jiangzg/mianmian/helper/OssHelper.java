@@ -56,7 +56,7 @@ public class OssHelper {
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String expireTime = DateUtils.getString(ConvertHelper.getJavaTimeByGo(ossInfo.getExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String expireTime = DateUtils.getString(TimeHelper.getJavaTimeByGo(ossInfo.getExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
         bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();
@@ -920,7 +920,7 @@ public class OssHelper {
     // 日记 (限制大小 + 持久化)
     public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         long imageSize = SPHelper.getVipLimit().getDiaryImageSize();
-        final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
+        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;
@@ -953,7 +953,7 @@ public class OssHelper {
     // 照片 (限制大小 + 持久化)
     public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         long imageSize = SPHelper.getVipLimit().getPictureSize();
-        final List<File> fileList = ConvertHelper.getFileListByPath(sourceList);
+        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
         boolean overLimit = false;
         for (File file : fileList) {
             if (FileUtils.isFileEmpty(file)) continue;

@@ -54,8 +54,6 @@
     <string name="push">发布</string>
     <string name="publish">发表</string>
     <string name="take_picture">拍照</string>
-    <string name="album">相册</string>
-    <string name="picture">照片</string>
     <string name="other">其他</string>
     <string name="wait_point">等待…</string>
     <string name="please_wait">请等待…</string>
@@ -338,20 +336,23 @@
     <string name="freezing_rain">冻雨</string>
 
     <!-- book -->
+    <string name="souvenir">纪念日</string>
+    <string name="trends">动态</string>
     <string name="menses">姨妈</string>
     <string name="sleep">睡眠</string>
-    <string name="trends">动态</string>
+    <string name="word">留言</string>
     <string name="whisper">耳语</string>
     <string name="diary">日记</string>
-    <string name="word">留言</string>
+    <string name="album">相册</string>
+    <string name="picture">照片</string>
     <string name="audio">音频</string>
     <string name="video">视频</string>
     <string name="meet">相见</string>
-    <string name="gift">礼物</string>
-    <string name="dream">梦里</string>
-    <string name="promise">承诺</string>
-    <string name="angry">生气</string>
     <string name="award">补偿</string>
+    <string name="dream">梦境</string>
+    <string name="angry">生气</string>
+    <string name="promise">承诺</string>
+    <string name="gift">礼物</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>

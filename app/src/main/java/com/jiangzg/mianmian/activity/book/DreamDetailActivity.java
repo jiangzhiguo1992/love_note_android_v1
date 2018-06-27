@@ -22,11 +22,11 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -100,6 +100,10 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         if (from == FROM_ALL) {
             dream = intent.getParcelableExtra("dream");
             refreshView();
+            // 没有详情页的，可以不加
+            if (dream != null) {
+                refreshData(dream.getId());
+            }
         } else if (from == FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
@@ -175,14 +179,14 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         // menu
         invalidateOptionsMenu();
         // happen
-        String happenAt = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
+        String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
         tb.setTitle(happenAt);
         // author
         String authorName = user.getNameInCp(userId);
         String authorShow = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), authorName);
         tvAuthor.setText(authorShow);
         // updateAt
-        String update = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
+        String update = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
         String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
         tvUpdateAt.setText(updateShow);
         // content

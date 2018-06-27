@@ -6,7 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.domain.WeatherForecast;
-import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.WeatherHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
- * 意见反馈适配器
+ * 天气适配器
  */
 public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdapter.CoupleWeatherForecast, BaseViewHolder> {
 
@@ -42,8 +43,8 @@ public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdap
             long taTime = taForecast.getTimeAt();
             if (taTime > 0) time = taTime;
             String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), taForecast.getConditionDay(), taForecast.getConditionNight());
-            int iconDay = ConvertHelper.getWeatherIconById(taForecast.getIconDay());
-            int iconNight = ConvertHelper.getWeatherIconById(taForecast.getIconNight());
+            int iconDay = WeatherHelper.getWeatherIconById(taForecast.getIconDay());
+            int iconNight = WeatherHelper.getWeatherIconById(taForecast.getIconNight());
             String temp = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder_c), taForecast.getTempDay(), taForecast.getTempNight());
             String wind = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), taForecast.getWindDay(), taForecast.getWindNight());
             // leftView
@@ -74,8 +75,8 @@ public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdap
             long taTime = myForecast.getTimeAt();
             if (taTime > 0) time = taTime;
             String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), myForecast.getConditionDay(), myForecast.getConditionNight());
-            int iconDay = ConvertHelper.getWeatherIconById(myForecast.getIconDay());
-            int iconNight = ConvertHelper.getWeatherIconById(myForecast.getIconNight());
+            int iconDay = WeatherHelper.getWeatherIconById(myForecast.getIconDay());
+            int iconNight = WeatherHelper.getWeatherIconById(myForecast.getIconNight());
             String temp = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder_c), myForecast.getTempDay(), myForecast.getTempNight());
             String wind = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), myForecast.getWindDay(), myForecast.getWindNight());
             // rightView
@@ -93,7 +94,7 @@ public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdap
             helper.setText(R.id.tvTempRight, temp);
             helper.setText(R.id.tvWindRight, wind);
         }
-        String timeShow = ConvertHelper.getTimeShowCnSpace_MD_YMD_ByGo(time);
+        String timeShow = TimeHelper.getTimeShowCnSpace_MD_YMD_ByGo(time);
         helper.setText(R.id.tvTime, timeShow);
     }
 

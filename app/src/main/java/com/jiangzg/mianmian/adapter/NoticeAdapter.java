@@ -10,15 +10,15 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Notice;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 
 import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/15.
- * 意见反馈评论适配器
+ * 公告适配器
  */
 public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
 
@@ -33,7 +33,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Notice item) {
         // data
         long createdAt = item.getCreateAt();
-        String create = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(createdAt);
+        String create = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(createdAt);
         String title = item.getTitle();
         boolean read = item.isRead();
         // view

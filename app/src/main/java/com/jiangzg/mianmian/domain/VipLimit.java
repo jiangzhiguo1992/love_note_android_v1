@@ -17,14 +17,30 @@ public class VipLimit {
     private int albumTotalCount;
     private long pictureSize;
     private int pictureTotalCount;
+    private long audioSize;
+    private int audioTotalCount;
+    private long videoSize;
+    private int videoTotalCount;
     private int meetImageCount;
     private int giftImageCount;
-    private long audioSize;
-    private long audioTotalSize;
-    private long videoSize;
-    private long videoTotalSize;
     // topic
     private boolean topicImageEnable;
+
+    public int getAudioTotalCount() {
+        return audioTotalCount;
+    }
+
+    public void setAudioTotalCount(int audioTotalCount) {
+        this.audioTotalCount = audioTotalCount;
+    }
+
+    public int getVideoTotalCount() {
+        return videoTotalCount;
+    }
+
+    public void setVideoTotalCount(int videoTotalCount) {
+        this.videoTotalCount = videoTotalCount;
+    }
 
     public long getAudioSize() {
         return audioSize;
@@ -120,22 +136,6 @@ public class VipLimit {
 
     public void setMeetImageCount(int meetImageCount) {
         this.meetImageCount = meetImageCount;
-    }
-
-    public long getAudioTotalSize() {
-        return audioTotalSize;
-    }
-
-    public void setAudioTotalSize(long audioTotalSize) {
-        this.audioTotalSize = audioTotalSize;
-    }
-
-    public long getVideoTotalSize() {
-        return videoTotalSize;
-    }
-
-    public void setVideoTotalSize(long videoTotalSize) {
-        this.videoTotalSize = videoTotalSize;
     }
 
     public boolean isTopicImageEnable() {

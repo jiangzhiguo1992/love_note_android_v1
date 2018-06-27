@@ -37,8 +37,8 @@ import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
@@ -219,7 +219,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 List<Whisper> whisperList = data.getWhisperList();
                 recyclerHelper.dataOk(whisperList, more);
                 // 刷新本地资源
-                List<String> ossKeyList = ConvertHelper.getOssKeyListByWhisper(whisperList);
+                List<String> ossKeyList = ListHelper.getOssKeyListByWhisper(whisperList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_WHISPER, ossKeyList);
             }
 

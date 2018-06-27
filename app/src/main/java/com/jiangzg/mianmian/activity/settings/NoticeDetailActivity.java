@@ -10,7 +10,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Notice;
-import com.jiangzg.mianmian.helper.ConvertHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import butterknife.BindView;
@@ -50,7 +50,7 @@ public class NoticeDetailActivity extends BaseActivity<NoticeDetailActivity> {
         // data
         String title = notice.getTitle();
         long createAt = notice.getCreateAt();
-        String time = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(createAt);
+        String time = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(createAt);
         String contentText = notice.getContentText();
         // view
         tvTitle.setText(title);

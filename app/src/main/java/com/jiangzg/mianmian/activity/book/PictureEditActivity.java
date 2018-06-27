@@ -42,13 +42,13 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.io.File;
@@ -140,7 +140,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             picture = new Picture();
         }
         if (picture.getHappenAt() == 0) {
-            picture.setHappenAt(ConvertHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+            picture.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
         // view
         refreshDateView();
@@ -290,7 +290,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void showDatePicker() {
-        Calendar calendar = DateUtils.getCalendar(ConvertHelper.getJavaTimeByGo(picture.getHappenAt()));
+        Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(picture.getHappenAt()));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -299,7 +299,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
-                picture.setHappenAt(ConvertHelper.getGoTimeByJava(instance.getTimeInMillis()));
+                picture.setHappenAt(TimeHelper.getGoTimeByJava(instance.getTimeInMillis()));
                 refreshDateView();
             }
         }, year, month, day);
@@ -307,7 +307,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void refreshDateView() {
-        String happenShow = ConvertHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(picture.getHappenAt());
+        String happenShow = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(picture.getHappenAt());
         String format = String.format(Locale.getDefault(), getString(R.string.take_camera_in_colon_space_holder), happenShow);
         tvHappenAt.setText(format);
     }

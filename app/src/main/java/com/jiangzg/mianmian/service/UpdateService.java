@@ -28,13 +28,13 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.GsonHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 
 import java.io.File;
 import java.util.List;
@@ -80,7 +80,7 @@ public class UpdateService extends Service {
             Version version = versionList.get(i);
             String versionName = version.getVersionName();
             long createdAt = version.getCreateAt();
-            String create = DateUtils.getString(ConvertHelper.getJavaTimeByGo(createdAt), ConstantUtils.FORMAT_CHINA_M_D);
+            String create = DateUtils.getString(TimeHelper.getJavaTimeByGo(createdAt), ConstantUtils.FORMAT_CHINA_M_D);
             String updateLog = version.getUpdateLog();
             builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)
                     .append("  (").append(create).append(")\n")

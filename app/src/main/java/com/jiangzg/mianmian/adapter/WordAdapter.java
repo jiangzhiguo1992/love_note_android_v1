@@ -13,10 +13,10 @@ import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Word;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.TimeHelper;
 
 import retrofit2.Call;
 
@@ -36,7 +36,7 @@ public class WordAdapter extends BaseQuickAdapter<Word, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Word item) {
         // data
-        String createAt = ConvertHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String content = item.getContentText();
         // view
         helper.setText(R.id.tvCreateAt, createAt);

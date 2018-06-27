@@ -29,7 +29,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
- * 帮助列表适配器
+ * 墙纸适配器
  */
 public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 

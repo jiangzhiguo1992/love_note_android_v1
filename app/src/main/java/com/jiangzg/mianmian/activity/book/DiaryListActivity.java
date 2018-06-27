@@ -27,7 +27,6 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
@@ -188,7 +187,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 // searchShow
                 tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
                 // 刷新本地资源
-                List<String> ossKeyList = ConvertHelper.getOssKeyListByDiary(diaryList);
+                List<String> ossKeyList = ListHelper.getOssKeyListByDiary(diaryList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_DIARY, ossKeyList);
             }
 

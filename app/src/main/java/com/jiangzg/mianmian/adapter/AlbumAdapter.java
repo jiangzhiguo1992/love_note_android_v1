@@ -25,10 +25,10 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.ConvertHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoView;
 
@@ -38,7 +38,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
- * 帮助列表适配器
+ * 相册适配器
  */
 public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
@@ -60,9 +60,9 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         // data
         String title = item.getTitle();
         long startAt = item.getStartAt();
-        String startTime = (startAt == 0) ? "      " : ConvertHelper.getTimeShowCn_MD_YMD_ByGo(startAt);
+        String startTime = (startAt == 0) ? "      " : TimeHelper.getTimeShowCn_MD_YMD_ByGo(startAt);
         long endAt = item.getEndAt();
-        String endTime = (endAt == 0) ? "      " : ConvertHelper.getTimeShowCn_MD_YMD_ByGo(endAt);
+        String endTime = (endAt == 0) ? "      " : TimeHelper.getTimeShowCn_MD_YMD_ByGo(endAt);
         String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_line_space_holder), startTime, endTime);
         String cover = item.getCover();
         // view
