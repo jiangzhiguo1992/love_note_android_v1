@@ -1,12 +1,13 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.support.v4.app.FragmentActivity;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.activity.common.WebActivity;
 import com.jiangzg.mianmian.activity.settings.NoticeDetailActivity;
-import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Notice;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
@@ -22,9 +23,9 @@ import retrofit2.Call;
  */
 public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
 
-    private BaseActivity mActivity;
+    private FragmentActivity mActivity;
 
-    public NoticeAdapter(BaseActivity activity) {
+    public NoticeAdapter(FragmentActivity activity) {
         super(R.layout.list_item_notice);
         mActivity = activity;
     }

@@ -1,12 +1,13 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.support.v4.app.FragmentActivity;
+
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -17,9 +18,9 @@ import com.jiangzg.mianmian.helper.RxBus;
  */
 public class MapSearchAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> {
 
-    private BaseActivity mActivity;
+    private FragmentActivity mActivity;
 
-    public MapSearchAdapter(BaseActivity activity) {
+    public MapSearchAdapter(FragmentActivity activity) {
         super(R.layout.list_item_map_search);
         mActivity = activity;
     }

@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -8,7 +9,6 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
-import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    private final BaseActivity mActivity;
+    private final FragmentActivity mActivity;
     private final int imageWidth;
     private final int imageHeight;
 
-    public ImgSquareShowAdapter(BaseActivity activity, int spanCount) {
+    public ImgSquareShowAdapter(FragmentActivity activity, int spanCount) {
         super(R.layout.list_item_img_suqare_show);
         mActivity = activity;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);

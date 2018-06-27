@@ -1,6 +1,7 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,7 +15,6 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
-import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.view.FrescoView;
 
@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    private final BaseActivity mActivity;
+    private final FragmentActivity mActivity;
     private final int imageWidth;
     private final int imageHeight;
     private int ossSize;
@@ -35,7 +35,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
     private boolean addShow;
     private OnAddClickListener addClickListener;
 
-    public ImgSquareEditAdapter(BaseActivity activity, int spanCount, int limit) {
+    public ImgSquareEditAdapter(FragmentActivity activity, int spanCount, int limit) {
         super(R.layout.list_item_img_suqare_edit);
         mActivity = activity;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
