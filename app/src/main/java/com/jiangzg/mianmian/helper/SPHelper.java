@@ -60,10 +60,10 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_BOOK_DIARY = "path_book_diary";
     private static final String FIELD_OSS_PATH_BOOK_ALBUM = "path_book_album";
     private static final String FIELD_OSS_PATH_BOOK_PICTURE = "path_book_picture";
-    private static final String FIELD_OSS_PATH_BOOK_GIFT = "path_book_gift";
     private static final String FIELD_OSS_PATH_BOOK_AUDIO = "path_book_audio";
     private static final String FIELD_OSS_PATH_BOOK_VIDEO = "path_book_video";
     private static final String FIELD_OSS_PATH_BOOK_VIDEO_THUMB = "path_book_video_thumb";
+    private static final String FIELD_OSS_PATH_BOOK_GIFT = "path_book_gift";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -83,13 +83,13 @@ public class SPHelper {
     private static final String FIELD_LIMIT_DIARY_CONTENT_LENGTH = "diary_content_length";
     private static final String FIELD_LIMIT_ALBUM_TITLE_LENGTH = "album_title_length";
     private static final String FIELD_LIMIT_PICTURE_COUNT = "picture_count";
-    private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meet_title_length";
-    private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meet_process_length";
-    private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
     private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
     private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
-    private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
     private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dream_content_length";
+    private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meet_title_length";
+    private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meet_process_length";
+    private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
+    private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
     private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angry_reason_length";
     private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
@@ -259,10 +259,10 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
         editor.putString(FIELD_OSS_PATH_BOOK_ALBUM, ossInfo.getPathBookAlbum());
         editor.putString(FIELD_OSS_PATH_BOOK_PICTURE, ossInfo.getPathBookPicture());
-        editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
         editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
         editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
         editor.putString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ossInfo.getPathBookVideoThumb());
+        editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
         editor.apply();
     }
 
@@ -286,10 +286,10 @@ public class SPHelper {
         ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
         ossInfo.setPathBookAlbum(sp.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
         ossInfo.setPathBookPicture(sp.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
-        ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
         ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
         ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
         ossInfo.setPathBookVideoThumb(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ""));
+        ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
         return ossInfo;
     }
 
@@ -318,15 +318,15 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_WHISPER_CHANNEL_LENGTH, limit.getWhisperChannelLength());
         editor.putInt(FIELD_LIMIT_WORD_CONTENT_LENGTH, limit.getWordContentLength());
         editor.putInt(FIELD_LIMIT_DIARY_CONTENT_LENGTH, limit.getDiaryContentLength());
-        editor.putInt(FIELD_LIMIT_MEET_TITLE_LENGTH, limit.getMeetTitleLength());
-        editor.putInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, limit.getMeetProcessLength());
         editor.putInt(FIELD_LIMIT_ALBUM_TITLE_LENGTH, limit.getAlbumTitleLength());
         editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureCount());
-        editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
-        editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
         editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
+        editor.putInt(FIELD_LIMIT_MEET_TITLE_LENGTH, limit.getMeetTitleLength());
+        editor.putInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, limit.getMeetProcessLength());
+        editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
+        editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
         editor.putInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, limit.getAngryReasonLength());
         editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
@@ -354,13 +354,13 @@ public class SPHelper {
         limit.setDiaryContentLength(sp.getInt(FIELD_LIMIT_DIARY_CONTENT_LENGTH, 2000));
         limit.setAlbumTitleLength(sp.getInt(FIELD_LIMIT_ALBUM_TITLE_LENGTH, 10));
         limit.setPictureCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
-        limit.setMeetTitleLength(sp.getInt(FIELD_LIMIT_MEET_TITLE_LENGTH, 20));
-        limit.setMeetProcessLength(sp.getInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, 200));
-        limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
         limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
         limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
-        limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
         limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
+        limit.setMeetTitleLength(sp.getInt(FIELD_LIMIT_MEET_TITLE_LENGTH, 20));
+        limit.setMeetProcessLength(sp.getInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, 200));
+        limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
+        limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
         limit.setAngryReasonLength(sp.getInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, 200));
         limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));

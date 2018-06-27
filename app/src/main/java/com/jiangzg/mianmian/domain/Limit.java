@@ -30,13 +30,13 @@ public class Limit {
     private int pictureCount;
     private int audioTitleLength;
     private int videoTitleLength;
+    private int dreamContentLength;
     private int meetTitleLength;
     private int meetProcessLength;
-    private int awardReasonLength;
-    private int dreamContentLength;
-    private int angryReasonLength;
-    private int promiseContentLength;
     private int giftTitleLength;
+    private int promiseContentLength;
+    private int angryReasonLength;
+    private int awardReasonLength;
     // topic
 
     // square

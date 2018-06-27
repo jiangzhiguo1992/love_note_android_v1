@@ -26,10 +26,10 @@ public class OssInfo {
     private String pathBookDiary;
     private String pathBookAlbum;
     private String pathBookPicture;
-    private String pathBookGift;
     private String pathBookAudio;
     private String pathBookVideo;
     private String pathBookVideoThumb;
+    private String pathBookGift;
 
     public String getPathLog() {
         return pathLog;
