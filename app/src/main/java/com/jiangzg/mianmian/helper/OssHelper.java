@@ -882,7 +882,7 @@ public class OssHelper {
             String pathLog = ossInfo.getPathLog();
             // 开始遍历上传
             for (final File file : fileList) {
-                String fileName = String.valueOf(SPHelper.getUser().getId()) + "_" + file.getName();
+                String fileName = String.valueOf(SPHelper.getMe().getId()) + "_" + file.getName();
                 String ossFilePath = pathLog + fileName;
                 uploadFile(null, false, file, ossFilePath, new OssUploadCallBack() {
                     @Override

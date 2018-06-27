@@ -147,7 +147,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
-        User me = SPHelper.getUser();
+        User me = SPHelper.getMe();
         Couple couple = me.getCouple();
         if (Couple.isBreaking(couple) && couple.getState().getUserId() == me.getId()) {
             getMenuInflater().inflate(R.menu.complex_help, menu);
@@ -249,7 +249,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void setViewData() {
         // data
-        User me = SPHelper.getUser();
+        User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
         String myName = me.getMyNameInCp();
         String taName = me.getTaNameInCp();
@@ -295,7 +295,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 修改名称对话框
     private void showNameInput() {
-        String show = SPHelper.getUser().getTaNameInCp().trim();
+        String show = SPHelper.getMe().getTaNameInCp().trim();
         String hint = getString(R.string.please_input_nickname);
         int coupleNameLength = SPHelper.getLimit().getCoupleNameLength();
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)

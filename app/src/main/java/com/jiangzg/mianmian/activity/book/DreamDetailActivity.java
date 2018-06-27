@@ -164,7 +164,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     private void refreshView() {
         if (dream == null) return;
-        User user = SPHelper.getUser();
+        User user = SPHelper.getMe();
         long userId = dream.getUserId();
         long updateAt = dream.getUpdateAt();
         // menu

@@ -293,7 +293,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         tvCoupleCountDown.setVisibility(View.GONE);
         llBottom.setVisibility(View.GONE);
 
-        User user = SPHelper.getUser();
+        User user = SPHelper.getMe();
         Couple couple = user.getCouple();
         if (Couple.isBreak(couple)) {
             // 已经分手，或者没有开始过

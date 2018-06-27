@@ -32,13 +32,13 @@ public class User extends BaseObj implements Parcelable {
 
     // 是否登录
     public static boolean noLogin() {
-        String userToken = SPHelper.getUser().getUserToken();
+        String userToken = SPHelper.getMe().getUserToken();
         return StringUtils.isEmpty(userToken);
     }
 
     // 信息是否完善
     public static boolean canUserInfo() {
-        User user = SPHelper.getUser();
+        User user = SPHelper.getMe();
         int sex = user.getSex();
         long birthday = user.getBirthday();
         boolean noSex = sex != User.SEX_BOY && sex != User.SEX_GIRL;

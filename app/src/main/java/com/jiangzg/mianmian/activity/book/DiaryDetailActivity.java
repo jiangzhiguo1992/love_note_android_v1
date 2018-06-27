@@ -176,7 +176,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     private void refreshView() {
         if (diary == null) return;
-        User user = SPHelper.getUser();
+        User user = SPHelper.getMe();
         long userId = diary.getUserId();
         long updateAt = diary.getUpdateAt();
         // menu

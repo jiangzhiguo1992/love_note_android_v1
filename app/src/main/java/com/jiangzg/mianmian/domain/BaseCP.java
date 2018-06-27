@@ -15,7 +15,7 @@ public class BaseCP extends BaseObj implements Parcelable {
     private long coupleId;
 
     public boolean isMine() {
-        return getUserId() == SPHelper.getUser().getId();
+        return getUserId() == SPHelper.getMe().getId();
     }
 
     public boolean isMine(long mid) {

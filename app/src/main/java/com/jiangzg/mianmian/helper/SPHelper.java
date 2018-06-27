@@ -494,7 +494,7 @@ public class SPHelper {
         setCouple(couple);
     }
 
-    public static User getUser() {
+    public static User getMe() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_ME);
         User user = new User();
         user.setId(sp.getLong(FIELD_USER_ID, 0));

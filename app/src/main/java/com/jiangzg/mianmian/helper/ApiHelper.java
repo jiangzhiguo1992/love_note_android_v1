@@ -279,7 +279,7 @@ public class ApiHelper {
     }
 
     public static User getCoupleUpdateInfo(String avatar, String name) {
-        User user = SPHelper.getUser();
+        User user = SPHelper.getMe();
         user.setType(COUPLE_UPDATE_INFO);
         Couple couple = user.getCouple();
         if (couple.getCreatorId() == user.getId()) {

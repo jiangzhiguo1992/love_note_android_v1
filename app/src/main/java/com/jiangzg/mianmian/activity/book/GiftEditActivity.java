@@ -41,6 +41,7 @@ import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
@@ -81,12 +82,12 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     CardView cvDate;
     @BindView(R.id.tvDate)
     TextView tvDate;
+    @BindView(R.id.rgReceive)
+    RadioGroup rgReceive;
     @BindView(R.id.rbReceiveMe)
     RadioButton rbReceiveMe;
     @BindView(R.id.rbReceiveTa)
     RadioButton rbReceiveTa;
-    @BindView(R.id.rgReceive)
-    RadioGroup rgReceive;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.btnPublish)
@@ -145,7 +146,8 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         }
         // date
         refreshDateView();
-        // TODO receive
+        // receive
+        initReceiveCheck();
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getGiftImageCount();
         if (isTypeUpdate()) {
@@ -168,8 +170,19 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del, menu);
+        getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        if (isTypeUpdate()) {
+            getMenuInflater().inflate(R.menu.help_del, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -243,6 +256,29 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             case R.id.btnPublish: // 发表
                 checkPush();
                 break;
+        }
+    }
+
+    private void initReceiveCheck() {
+        final User user = SPHelper.getMe();
+        rgReceive.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rbReceiveMe: // 送给我
+                        gift.setReceiveId(user.getId());
+                        break;
+                    case R.id.rbReceiveTa: // 送给ta
+                        gift.setReceiveId(user.getTaId());
+                        break;
+                }
+            }
+        });
+        long receiveId = gift.getReceiveId();
+        if (receiveId == 0 || receiveId == user.getId()) {
+            rbReceiveMe.setChecked(true);
+        } else {
+            rbReceiveTa.setChecked(true);
         }
     }
 

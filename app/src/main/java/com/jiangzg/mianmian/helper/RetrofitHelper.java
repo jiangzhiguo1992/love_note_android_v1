@@ -65,7 +65,7 @@ public class RetrofitHelper {
     public static HashMap<String, String> getHead() {
         HashMap<String, String> options = new HashMap<>();
         options.put("Accept", "application/json");
-        options.put("access_token", SPHelper.getUser().getUserToken());
+        options.put("access_token", SPHelper.getMe().getUserToken());
         options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
         options.put("platform", "android");
         options.put("sign", AppInfo.get().getSHA1());

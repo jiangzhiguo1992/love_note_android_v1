@@ -26,7 +26,7 @@ public class Place extends BaseObj implements Parcelable, MultiItemEntity {
 
     @Override
     public int getItemType() {
-        boolean isMine = getUserId() == SPHelper.getUser().getId();
+        boolean isMine = getUserId() == SPHelper.getMe().getId();
         return isMine ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
     }
 
