@@ -29,6 +29,7 @@ public class ConsHelper {
     public static final int EVENT_SUGGEST_LIST_REFRESH = 100; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 101;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 102;
+    public static final int EVENT_SUGGEST_DETAIL_REFRESH = 103;
     public static final int EVENT_USER_REFRESH = 201; // 用户
     public static final int EVENT_COUPLE_REFRESH = 250; // 配对
     public static final int EVENT_WALL_PAPER_REFRESH = 251; // 墙纸
@@ -49,5 +50,9 @@ public class ConsHelper {
     public static final int EVENT_GIFT_LIST_REFRESH = 314; // 礼物
     public static final int EVENT_GIFT_LIST_ITEM_DELETE = 315;
     public static final int EVENT_GIFT_LIST_ITEM_REFRESH = 316;
+    public static final int EVENT_PROMISE_LIST_REFRESH = 317; // 承诺
+    public static final int EVENT_PROMISE_LIST_ITEM_DELETE = 318;
+    public static final int EVENT_PROMISE_LIST_ITEM_REFRESH = 319;
+    public static final int EVENT_PROMISE_DETAIL_REFRESH = 320;
 
 }

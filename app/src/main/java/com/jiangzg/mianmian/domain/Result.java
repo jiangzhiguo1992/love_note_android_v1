@@ -91,6 +91,42 @@ public class Result implements Serializable {
         private Dream dream;
         private List<Gift> giftList;
         private Gift gift;
+        private List<Promise> promiseList;
+        private Promise promise;
+        private List<PromiseBreak> promiseBreakList;
+        private PromiseBreak promiseBreak;
+
+        public List<Promise> getPromiseList() {
+            return promiseList;
+        }
+
+        public void setPromiseList(List<Promise> promiseList) {
+            this.promiseList = promiseList;
+        }
+
+        public Promise getPromise() {
+            return promise;
+        }
+
+        public void setPromise(Promise promise) {
+            this.promise = promise;
+        }
+
+        public List<PromiseBreak> getPromiseBreakList() {
+            return promiseBreakList;
+        }
+
+        public void setPromiseBreakList(List<PromiseBreak> promiseBreakList) {
+            this.promiseBreakList = promiseBreakList;
+        }
+
+        public PromiseBreak getPromiseBreak() {
+            return promiseBreak;
+        }
+
+        public void setPromiseBreak(PromiseBreak promiseBreak) {
+            this.promiseBreak = promiseBreak;
+        }
 
         public List<Gift> getGiftList() {
             return giftList;

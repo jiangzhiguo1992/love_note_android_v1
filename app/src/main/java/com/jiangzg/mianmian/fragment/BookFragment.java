@@ -13,6 +13,7 @@ import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
+import com.jiangzg.mianmian.activity.book.PromiseListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
@@ -60,19 +61,19 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     CardView cvAudio;
     @BindView(R.id.cvVideo)
     CardView cvVideo;
-    @BindView(R.id.cvMeet)
-    CardView cvMeet;
-    @BindView(R.id.cvAward)
-    CardView cvAward;
-
     @BindView(R.id.cvDream)
     CardView cvDream;
-    @BindView(R.id.cvAngry)
-    CardView cvAngry;
-    @BindView(R.id.cvPromise)
-    CardView cvPromise;
+    @BindView(R.id.cvMeet)
+    CardView cvMeet;
+
     @BindView(R.id.cvGift)
     CardView cvGift;
+    @BindView(R.id.cvPromise)
+    CardView cvPromise;
+    @BindView(R.id.cvAngry)
+    CardView cvAngry;
+    @BindView(R.id.cvAward)
+    CardView cvAward;
 
     public static BookFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -124,8 +125,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @OnClick({R.id.cvSouvenir, R.id.cvTrends, R.id.cvMenses, R.id.cvSleep,
             R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
-            R.id.cvAudio, R.id.cvVideo, R.id.cvMeet, R.id.cvAward,
-            R.id.cvDream, R.id.cvAngry, R.id.cvPromise, R.id.cvGift})
+            R.id.cvAudio, R.id.cvVideo, R.id.cvDream, R.id.cvMeet,
+            R.id.cvGift, R.id.cvPromise, R.id.cvAngry, R.id.cvAward})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无配对
@@ -158,19 +159,20 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvVideo: // TODO 视频
                 break;
-            case R.id.cvMeet: // TODO 相见
-                break;
-            case R.id.cvAward: // TODO 补偿
-                break;
             case R.id.cvDream: // 梦里
                 DreamListActivity.goActivity(mActivity);
                 break;
-            case R.id.cvAngry: // TODO 生气
-                break;
-            case R.id.cvPromise: // TODO 承诺
+            case R.id.cvMeet: // TODO 相见
                 break;
             case R.id.cvGift: // 礼物
                 GiftListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvPromise: // 承诺
+                PromiseListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvAngry: // TODO 生气
+                break;
+            case R.id.cvAward: // TODO 补偿
                 break;
         }
     }
@@ -193,7 +195,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             public void run() {
                 srl.setRefreshing(false);
             }
-        }, 2000);
+        }, 1000);
     }
 
 }

@@ -8,6 +8,8 @@ import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
 import com.jiangzg.mianmian.domain.Place;
+import com.jiangzg.mianmian.domain.Promise;
+import com.jiangzg.mianmian.domain.PromiseBreak;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
@@ -274,7 +276,7 @@ public interface API {
     Call<Result> dreamUpdate(@Body Dream dream);
 
     // giftList获取
-    @GET("book/gift?did=0&list=1")
+    @GET("book/gift?gid=0&list=1")
     Call<Result> giftListGet(@Query("who") int who, @Query("page") int page);
 
     // gift上传
@@ -288,5 +290,37 @@ public interface API {
     // gift修改
     @PUT("book/gift")
     Call<Result> giftUpdate(@Body Gift gift);
+
+    // promise获取
+    @GET("book/promise?pid=0&list=1")
+    Call<Result> promiseListGet(@Query("who") int who, @Query("page") int page);
+
+    // promise获取
+    @GET("book/promise?list=0")
+    Call<Result> promiseGet(@Query("pid") long pid);
+
+    // promise上传
+    @POST("book/promise")
+    Call<Result> promiseAdd(@Body Promise promise);
+
+    // promise删除
+    @DELETE("book/promise")
+    Call<Result> promiseDel(@Query("pid") long did);
+
+    // promise修改
+    @PUT("book/promise")
+    Call<Result> promiseUpdate(@Body Promise promise);
+
+    // promiseBreak获取
+    @GET("book/promise/break?pdid=0")
+    Call<Result> promiseBreakListGet(@Query("pid") long pid, @Query("page") int page);
+
+    // promiseBreak上传
+    @POST("book/promise/break")
+    Call<Result> promiseBreakAdd(@Body PromiseBreak promiseBreak);
+
+    // promiseBreak删除
+    @DELETE("book/promise/break")
+    Call<Result> promiseBreakDel(@Query("pbid") long pbid);
 
 }

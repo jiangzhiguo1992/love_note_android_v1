@@ -36,11 +36,11 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Gift item) {
+        String avatarLeft = Couple.getAvatar(couple, Couple.getTaId(couple, item.getReceiveId()));
+        String avatarRight = Couple.getAvatar(couple, item.getReceiveId());
         String title = item.getTitle();
         String happen = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
         String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.on_space_holder_space_send_to), happen);
-        String avatarLeft = Couple.getAvatar(couple, Couple.getTaId(couple, item.getReceiveId()));
-        String avatarRight = Couple.getAvatar(couple, item.getReceiveId());
         List<String> imageList = item.getContentImageList();
         // view
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);

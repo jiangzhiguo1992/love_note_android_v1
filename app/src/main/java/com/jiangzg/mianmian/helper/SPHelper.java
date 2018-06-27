@@ -90,6 +90,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meet_process_length";
     private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
     private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
+    private static final String FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH = "promise_break_content_length";
     private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angry_reason_length";
     private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
@@ -327,6 +328,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, limit.getMeetProcessLength());
         editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
         editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
+        editor.putInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, limit.getPromiseBreakContentLength());
         editor.putInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, limit.getAngryReasonLength());
         editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
@@ -361,6 +363,7 @@ public class SPHelper {
         limit.setMeetProcessLength(sp.getInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, 200));
         limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
         limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
+        limit.setPromiseBreakContentLength(sp.getInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, 100));
         limit.setAngryReasonLength(sp.getInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, 200));
         limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));

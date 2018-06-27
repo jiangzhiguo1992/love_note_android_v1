@@ -29,6 +29,7 @@ import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Place;
+import com.jiangzg.mianmian.domain.PromiseBreak;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
@@ -362,6 +363,14 @@ public class ApiHelper {
         picture.setAddress(address);
         picture.setCityId(cityId);
         return picture;
+    }
+
+    public static PromiseBreak getPromiseBreakBody(long pid, long happenAt, String content) {
+        PromiseBreak promiseBreak = new PromiseBreak();
+        promiseBreak.setPromiseId(pid);
+        promiseBreak.setHappenAt(happenAt);
+        promiseBreak.setContentText(content);
+        return promiseBreak;
     }
 
 }

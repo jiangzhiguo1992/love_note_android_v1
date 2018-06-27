@@ -213,7 +213,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         refreshAlbumView();
         obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new Action1<List<Picture>>() {
             @Override
-            public void call(List<Picture> pictures) {
+            public void call(List<Picture> pictureList) {
                 recyclerHelper.dataRefresh();
             }
         });

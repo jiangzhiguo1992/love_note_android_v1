@@ -31,11 +31,11 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Dream item) {
+        String avatar = Couple.getAvatar(couple, item.getUserId());
         String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         if (content == null) content = "";
         String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_space_colon_holder), content.length());
-        String avatar = Couple.getAvatar(couple, item.getUserId());
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);

@@ -14,13 +14,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.SuggestDetailActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.GWrapView;
 
@@ -120,10 +123,9 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
-                if (mActivity instanceof SuggestDetailActivity) {
-                    SuggestDetailActivity activity = (SuggestDetailActivity) mActivity;
-                    activity.refreshSuggest();
-                }
+                // event
+                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Suggest());
+                RxBus.post(event);
             }
 
             @Override

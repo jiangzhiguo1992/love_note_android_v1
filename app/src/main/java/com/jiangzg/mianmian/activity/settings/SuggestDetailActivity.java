@@ -63,6 +63,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
@@ -95,6 +97,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Call<Result> callCommentAdd;
     private Call<Result> callFollow;
     private Call<Result> callCommentGet;
+    private Observable<Suggest> obDetailRefresh;
     private int page;
     private int limitCommentContentLength;
 
@@ -152,6 +155,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     @Override
     protected void initData(Bundle state) {
         suggest = getIntent().getParcelableExtra("suggest");
+        // event
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Action1<Suggest>() {
+            @Override
+            public void call(Suggest suggest) {
+                refreshSuggest();
+            }
+        });
         // head
         initHead();
         // follow
@@ -164,12 +174,19 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (suggest.isMine()) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        if (suggest != null && suggest.isMine()) {
             getMenuInflater().inflate(R.menu.help_del, menu);
         } else {
             getMenuInflater().inflate(R.menu.help, menu);
         }
-        return super.onCreateOptionsMenu(menu);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -180,6 +197,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.cancel(callFollow);
         RetrofitHelper.cancel(callCommentGet);
         RetrofitHelper.cancel(callCommentAdd);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -310,6 +328,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void getCommentData(final boolean more) {
+        if (suggest == null) return;
         page = more ? page + 1 : 0;
         // api
         callCommentGet = new RetrofitHelper().call(API.class).suggestCommentListGet(suggest.getId(), page);
@@ -410,6 +429,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     // 评论
     private void comment() {
+        if (suggest == null) return;
         InputUtils.hideSoftInput(etComment);
         MaterialDialog loading = getLoading(true);
         String content = etComment.getText().toString();
@@ -449,6 +469,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     // 删除意见
     private void delSuggest() {
+        if (suggest == null) return;
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
         callDel = new RetrofitHelper().call(API.class).suggestDel(suggest.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
@@ -467,6 +488,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     public void refreshSuggest() {
+        if (suggest == null) return;
         callGet = new RetrofitHelper().call(API.class).suggestGet(suggest.getId());
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override

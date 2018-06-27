@@ -35,12 +35,21 @@ public class Limit {
     private int meetProcessLength;
     private int giftTitleLength;
     private int promiseContentLength;
+    private int promiseBreakContentLength;
     private int angryReasonLength;
     private int awardReasonLength;
     // topic
 
     // square
     private int vipExpireDay;
+
+    public int getPromiseBreakContentLength() {
+        return promiseBreakContentLength;
+    }
+
+    public void setPromiseBreakContentLength(int promiseBreakContentLength) {
+        this.promiseBreakContentLength = promiseBreakContentLength;
+    }
 
     public long getCoupleBreakSec() {
         return coupleBreakSec;

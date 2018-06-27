@@ -357,11 +357,15 @@
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
     <string name="confirm_delete_this_dream">确定删除这个梦？</string>
     <string name="confirm_delete_this_gift">确定删除这个礼物？</string>
+    <string name="confirm_delete_this_promise">确定删除这个承诺？</string>
+    <string name="confirm_delete_this_promise_break">确定删除这个违反记录？</string>
     <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
     <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
     <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
     <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
+    <string name="can_operation_self_create_promise">只能操作自己创建的承诺哦</string>
+    <string name="can_operation_self_create_promise_break">只能操作自己创建的违反记录哦</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
@@ -382,6 +386,11 @@
     <string name="on_space_holder_space_send_to" formatted="false">与 %s 送给</string>
     <string name="send_to_me">送给我的</string>
     <string name="send_to_ta">送给Ta的</string>
+    <string name="ci">次</string>
+    <string name="violate">违反</string>
+    <string name="promise_user_colon_space_holder" formatted="false">承诺者: %s</string>
+    <string name="promise_time_colon_space_holder" formatted="false">承诺时间: %s</string>
+    <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
 
     <!-- square -->
     <string name="sign">签到</string>

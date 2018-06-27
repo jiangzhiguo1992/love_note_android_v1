@@ -117,7 +117,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     protected void initData(Bundle state) {
         obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, new Action1<List<Dream>>() {
             @Override
-            public void call(List<Dream> dreams) {
+            public void call(List<Dream> dreamList) {
                 recyclerHelper.dataRefresh();
             }
         });

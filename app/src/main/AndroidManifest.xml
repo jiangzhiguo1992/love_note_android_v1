@@ -102,6 +102,12 @@
         </activity>
         <activity android:name=".activity.book.GiftEditActivity">
         </activity>
+        <activity android:name=".activity.book.PromiseListActivity">
+        </activity>
+        <activity android:name=".activity.book.PromiseEditActivity">
+        </activity>
+        <activity android:name=".activity.book.PromiseDetailActivity">
+        </activity>
     </application>
 
 </manifest>

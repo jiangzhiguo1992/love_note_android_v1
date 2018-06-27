@@ -117,7 +117,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     protected void initData(Bundle state) {
         obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
             @Override
-            public void call(List<Diary> diaries) {
+            public void call(List<Diary> diaryList) {
                 recyclerHelper.dataRefresh();
             }
         });
