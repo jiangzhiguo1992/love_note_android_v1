@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -73,12 +74,12 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.rlDel)
-    RelativeLayout rlDel;
-    @BindView(R.id.rlEdit)
-    RelativeLayout rlEdit;
-    @BindView(R.id.rlAdd)
-    RelativeLayout rlAdd;
+    @BindView(R.id.llDel)
+    LinearLayout llDel;
+    @BindView(R.id.llEdit)
+    LinearLayout llEdit;
+    @BindView(R.id.llAdd)
+    LinearLayout llAdd;
     @BindView(R.id.rlBreak)
     RelativeLayout rlBreak;
     @BindView(R.id.ivBreakClose)
@@ -235,18 +236,18 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         onBreakContentInput(s.toString());
     }
 
-    @OnClick({R.id.rlDel, R.id.rlEdit, R.id.rlAdd,
+    @OnClick({R.id.llDel, R.id.llEdit, R.id.llAdd,
             R.id.ivBreakClose, R.id.cvBreakHappen, R.id.tvBreakCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rlDel:
+            case R.id.llDel:
                 showDelDialog();
                 break;
-            case R.id.rlEdit:
+            case R.id.llEdit:
                 if (promise == null) return;
                 PromiseEditActivity.goActivity(mActivity, promise);
                 break;
-            case R.id.rlAdd:
+            case R.id.llAdd:
                 breakShow(true);
                 break;
             case R.id.ivBreakClose:
@@ -402,7 +403,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     private void refreshDateView() {
-        if (breakHappen == 0){
+        if (breakHappen == 0) {
             breakHappen = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         }
         String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(breakHappen);

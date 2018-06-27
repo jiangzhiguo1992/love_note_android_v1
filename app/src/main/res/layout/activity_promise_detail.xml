@@ -30,72 +30,87 @@
         android:orientation="horizontal"
         app:layout_behavior="@string/behavior_linear_depend_app_bar">
 
-        <RelativeLayout
-            android:id="@+id/rlDel"
+        <LinearLayout
+            android:id="@+id/llDel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_del_grey"/>
 
             <TextView
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="5dp"
-                android:drawableStart="@drawable/ic_del_grey"
                 android:gravity="center"
                 android:text="@string/delete"/>
-        </RelativeLayout>
+        </LinearLayout>
 
         <View style="@style/LineVertical"/>
 
-        <RelativeLayout
-            android:id="@+id/rlEdit"
+        <LinearLayout
+            android:id="@+id/llEdit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_edit_grey"/>
 
             <TextView
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="5dp"
-                android:drawableStart="@drawable/ic_edit_grey"
                 android:gravity="center"
                 android:text="@string/edit"/>
-        </RelativeLayout>
+        </LinearLayout>
 
         <View style="@style/LineVertical"/>
 
-        <RelativeLayout
-            android:id="@+id/rlAdd"
+        <LinearLayout
+            android:id="@+id/llAdd"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
             android:paddingBottom="10dp"
             android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_add_circle_stroke_grey"/>
 
             <TextView
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:drawablePadding="5dp"
-                android:drawableStart="@drawable/ic_add_circle_stroke_grey"
                 android:gravity="center"
                 android:text="@string/violate"/>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
