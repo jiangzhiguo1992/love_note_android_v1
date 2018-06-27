@@ -71,7 +71,7 @@
                     android:gravity="center"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:text="@string/send_to_me"
+                    android:text="@string/me_s_promise"
                     android:textColor="@color/selector_text_check_gray_primary"
                     tools:checked="true"/>
 
@@ -87,7 +87,7 @@
                     android:gravity="center"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
-                    android:text="@string/send_to_ta"
+                    android:text="@string/ta_s_promise"
                     android:textColor="@color/selector_text_check_gray_primary"/>
             </RadioGroup>
 

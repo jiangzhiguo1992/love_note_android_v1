@@ -96,7 +96,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private Call<Result> callDel;
     private File cameraFile;
     private List<File> cameraFileList;
-    private int limitTitleLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftEditActivity.class);
@@ -254,6 +253,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         }
     }
 
+    private boolean isTypeUpdate() {
+        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    }
+
     private void initReceiveCheck() {
         final User user = SPHelper.getMe();
         rgReceive.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -275,10 +278,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         } else {
             rbReceiveTa.setChecked(true);
         }
-    }
-
-    private boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
     }
 
     private void setRecyclerShow(boolean show, int childCount) {
