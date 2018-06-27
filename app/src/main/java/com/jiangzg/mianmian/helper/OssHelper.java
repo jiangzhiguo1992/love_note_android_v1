@@ -274,7 +274,12 @@ public class OssHelper {
         LogUtils.i(OssHelper.class, "uploadFile", "ossFilePath = " + ossFilePath);
         // dialog
         if (progress != null && !progress.isShowing()) {
-            DialogHelper.showWithAnim(progress);
+            MyApp.get().getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    DialogHelper.showWithAnim(progress);
+                }
+            });
         }
         // 构造上传请求
         PutObjectRequest put = new PutObjectRequest(bucket, ossFilePath, source.getAbsolutePath());
@@ -419,12 +424,17 @@ public class OssHelper {
         }
         // progress
         if (progress != null) {
-            String colonShow = MyApp.get().getString(R.string.are_compress_space_holder_holder);
-            String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
-            progress.setContent(progressShow);
-            if (currentIndex <= 0) {
-                DialogHelper.showWithAnim(progress);
-            }
+            MyApp.get().getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    String colonShow = MyApp.get().getString(R.string.are_compress_space_holder_holder);
+                    String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
+                    progress.setContent(progressShow);
+                    if (currentIndex <= 0) {
+                        DialogHelper.showWithAnim(progress);
+                    }
+                }
+            });
         }
         // compress
         Luban.get(MyApp.get())
@@ -546,12 +556,17 @@ public class OssHelper {
         }
         // progress
         if (progress != null) {
-            String colonShow = MyApp.get().getString(R.string.are_upload_space_holder_holder);
-            String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
-            progress.setContent(progressShow);
-            if (currentIndex <= 0) {
-                DialogHelper.showWithAnim(progress);
-            }
+            MyApp.get().getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    String colonShow = MyApp.get().getString(R.string.are_upload_space_holder_holder);
+                    String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
+                    progress.setContent(progressShow);
+                    if (currentIndex <= 0) {
+                        DialogHelper.showWithAnim(progress);
+                    }
+                }
+            });
         }
         // objectKey生成
         String objectKey = createJpegKey(ossDirPath);
@@ -682,7 +697,12 @@ public class OssHelper {
         }
         FileUtils.createFileByDeleteOldFile(target);
         // dialog
-        DialogHelper.showWithAnim(progress);
+        MyApp.get().getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                DialogHelper.showWithAnim(progress);
+            }
+        });
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
         // 异步下载时可以设置进度回调

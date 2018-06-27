@@ -160,7 +160,12 @@ public class RetrofitHelper {
                 }
             });
         }
-        DialogUtils.show(loading);
+        MyApp.get().getHandler().post(new Runnable() {
+            @Override
+            public void run() {
+                DialogUtils.show(loading);
+            }
+        });
         // 开始请求
         call.enqueue(new Callback<Result>() {
             @Override
