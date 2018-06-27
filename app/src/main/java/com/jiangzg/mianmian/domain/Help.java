@@ -36,6 +36,7 @@ public class Help extends BaseObj {
     public static final int INDEX_DREAM_DETAIL = 25;
     public static final int INDEX_DREAM_EDIT = 26;
     public static final int INDEX_GIFT_LIST = 27;
+    public static final int INDEX_GIFT_EDIT = 28;
 
     private int index;
     private String title;

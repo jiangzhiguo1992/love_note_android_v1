@@ -77,6 +77,12 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     public static void goActivity(Activity from, Dream dream) {
+        if (dream == null) {
+            goActivity(from);
+        } else if (!dream.isMine()) {
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_dream));
+            return;
+        }
         Intent intent = new Intent(from, DreamEditActivity.class);
         intent.putExtra("type", TYPE_UPDATE);
         intent.putExtra("dream", dream);

@@ -28,15 +28,15 @@ public class Limit {
     private int diaryContentLength;
     private int albumTitleLength;
     private int pictureCount;
-    private int meetTitleLength;
-    private int meetProcessLength;
-    private int promiseContentLength;
     private int audioTitleLength;
     private int videoTitleLength;
-    private int giftNameLength;
+    private int meetTitleLength;
+    private int meetProcessLength;
+    private int awardReasonLength;
     private int dreamContentLength;
     private int angryReasonLength;
-    private int awardReasonLength;
+    private int promiseContentLength;
+    private int giftTitleLength;
     // topic
 
     // square
@@ -234,12 +234,12 @@ public class Limit {
         this.videoTitleLength = videoTitleLength;
     }
 
-    public int getGiftNameLength() {
-        return giftNameLength;
+    public int getGiftTitleLength() {
+        return giftTitleLength;
     }
 
-    public void setGiftNameLength(int giftNameLength) {
-        this.giftNameLength = giftNameLength;
+    public void setGiftTitleLength(int giftTitleLength) {
+        this.giftTitleLength = giftTitleLength;
     }
 
     public int getDreamContentLength() {

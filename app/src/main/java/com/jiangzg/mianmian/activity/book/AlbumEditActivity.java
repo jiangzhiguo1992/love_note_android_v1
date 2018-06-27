@@ -87,6 +87,12 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     public static void goActivity(Activity from, Album album) {
+        if (album == null) {
+            goActivity(from);
+        } else if (!album.isMine()) {
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_album));
+            return;
+        }
         Intent intent = new Intent(from, AlbumEditActivity.class);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

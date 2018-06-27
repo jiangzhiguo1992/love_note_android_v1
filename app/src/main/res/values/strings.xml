@@ -352,11 +352,17 @@
     <string name="angry">生气</string>
     <string name="promise">承诺</string>
     <string name="gift">礼物</string>
-    <string name="in_here_input_channel">在这里输入频道</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
     <string name="confirm_delete_this_dream">确定删除这个梦？</string>
+    <string name="confirm_delete_this_gift">确定删除这个礼物？</string>
+    <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
+    <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
+    <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
+    <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
+    <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
     <string name="change_channel">切换频道</string>
@@ -368,14 +374,14 @@
     <string name="now_just_upload_holder_picture" formatted="false">目前只能上传%d张照片哦</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
-    <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
-    <string name="can_operation_self_push_picture">只能操作自己上传的照片哦</string>
     <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
     <string name="please_select_album">请选择相册</string>
     <string name="please_select_time">请选择时间</string>
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="picture_where">照片呢？</string>
     <string name="on_space_holder_space_send_to" formatted="false">与 %s 送给</string>
+    <string name="send_to_me">送给我的</string>
+    <string name="send_to_ta">送给Ta的</string>
 
     <!-- square -->
     <string name="sign">签到</string>

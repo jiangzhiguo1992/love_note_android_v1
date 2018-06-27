@@ -109,6 +109,12 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     public static void goActivity(Activity from, Album album, Picture picture) {
+        if (picture == null) {
+            goActivity(from, album);
+        } else if (!picture.isMine()) {
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_picture));
+            return;
+        }
         Intent intent = new Intent(from, PictureEditActivity.class);
         intent.putExtra("type", TYPE_UPDATE);
         intent.putExtra("album", album);

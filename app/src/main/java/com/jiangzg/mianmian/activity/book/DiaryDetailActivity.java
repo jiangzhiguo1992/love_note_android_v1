@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
@@ -124,19 +125,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.help_del_edit, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
-        if (diary != null && diary.isMine()) {
-            getMenuInflater().inflate(R.menu.help_del_edit, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.help, menu);
-        }
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -154,7 +144,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
                 HelpActivity.goActivity(mActivity, Help.INDEX_DIARY_DETAIL);
                 return true;
             case R.id.menuEdit: // 编辑
-                goEditActivity();
+                if (diary == null) return true;
+                DiaryEditActivity.goActivity(mActivity, diary);
                 return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();
@@ -228,6 +219,10 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     private void showDeleteDialog() {
+        if (diary == null || !diary.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_diary));
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -263,11 +258,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             }
         });
 
-    }
-
-    private void goEditActivity() {
-        if (diary == null) return;
-        DiaryEditActivity.goActivity(mActivity, diary);
     }
 
 }

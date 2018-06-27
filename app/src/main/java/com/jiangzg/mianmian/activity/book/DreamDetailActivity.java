@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -112,19 +113,8 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.help_del_edit, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
-        if (dream != null && dream.isMine()) {
-            getMenuInflater().inflate(R.menu.help_del_edit, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.help, menu);
-        }
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -142,7 +132,8 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
                 HelpActivity.goActivity(mActivity, Help.INDEX_DREAM_DETAIL);
                 return true;
             case R.id.menuEdit: // 编辑
-                goEditActivity();
+                if (dream == null) return true;
+                DreamEditActivity.goActivity(mActivity, dream);
                 return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();
@@ -194,6 +185,10 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     }
 
     private void showDeleteDialog() {
+        if (dream == null || !dream.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_dream));
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -229,11 +224,6 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             }
         });
 
-    }
-
-    private void goEditActivity() {
-        if (dream == null) return;
-        DreamEditActivity.goActivity(mActivity, dream);
     }
 
 }

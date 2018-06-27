@@ -88,7 +88,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
     private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
     private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
-    private static final String FIELD_LIMIT_GIFT_NAME_LENGTH = "gift_name_length";
+    private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
     private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dream_content_length";
     private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angry_reason_length";
     private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
@@ -325,7 +325,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
-        editor.putInt(FIELD_LIMIT_GIFT_NAME_LENGTH, limit.getGiftNameLength());
+        editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
         editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
         editor.putInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, limit.getAngryReasonLength());
         editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
@@ -359,7 +359,7 @@ public class SPHelper {
         limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
         limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
         limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
-        limit.setGiftNameLength(sp.getInt(FIELD_LIMIT_GIFT_NAME_LENGTH, 20));
+        limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
         limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
         limit.setAngryReasonLength(sp.getInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, 200));
         limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));

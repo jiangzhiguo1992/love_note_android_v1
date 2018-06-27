@@ -190,7 +190,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         // 用户检查
         Picture item = getItem(position);
         if (!item.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_push_picture));
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_picture));
             return;
         }
         // view

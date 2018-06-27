@@ -48,7 +48,7 @@ public class Gift extends BaseCP implements Parcelable {
         this.contentImageList = contentImageList;
     }
 
-    protected Gift() {
+    public Gift() {
     }
 
     protected Gift(Parcel in) {

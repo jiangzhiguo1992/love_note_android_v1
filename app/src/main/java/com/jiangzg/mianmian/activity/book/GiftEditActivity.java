@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -33,11 +37,13 @@ import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareEditAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ResHelper;
@@ -58,7 +64,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 
-public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
+public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private static final int TYPE_ADD = 0;
     private static final int TYPE_UPDATE = 1;
@@ -67,85 +73,89 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.etTitle)
+    EditText etTitle;
+    @BindView(R.id.tvTitleLimit)
+    TextView tvTitleLimit;
     @BindView(R.id.cvDate)
     CardView cvDate;
     @BindView(R.id.tvDate)
     TextView tvDate;
+    @BindView(R.id.rbReceiveMe)
+    RadioButton rbReceiveMe;
+    @BindView(R.id.rbReceiveTa)
+    RadioButton rbReceiveTa;
+    @BindView(R.id.rgReceive)
+    RadioGroup rgReceive;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.etContent)
-    EditText etContent;
-    @BindView(R.id.tvContentLimit)
-    TextView tvContentLimit;
     @BindView(R.id.btnPublish)
     Button btnPublish;
-    @BindView(R.id.btnDraft)
-    Button btnDraft;
 
-    private Diary diary;
+    private Gift gift;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callUpdate;
     private Call<Result> callAdd;
+    private Call<Result> callDel;
     private File cameraFile;
     private List<File> cameraFileList;
-    private int limitContentLength;
+    private int limitTitleLength;
 
     public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, DiaryEditActivity.class);
+        Intent intent = new Intent(from, GiftEditActivity.class);
         intent.putExtra("type", TYPE_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, Diary diary) {
-        if (diary == null) {
+    public static void goActivity(Activity from, Gift gift) {
+        if (gift == null) {
             goActivity(from);
-        } else if (!diary.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_diary));
+        } else if (!gift.isMine()) {
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_gift));
             return;
         }
-        Intent intent = new Intent(from, DiaryEditActivity.class);
+        Intent intent = new Intent(from, GiftEditActivity.class);
         intent.putExtra("type", TYPE_UPDATE);
-        intent.putExtra("diary", diary);
+        intent.putExtra("gift", gift);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_diary_edit;
+        return R.layout.activity_gift_edit;
     }
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.gift), true);
     }
 
     @Override
     protected void initData(Bundle state) {
         if (isTypeUpdate()) {
-            diary = getIntent().getParcelableExtra("diary");
-        } else {
-            diary = SPHelper.getDraftDiary();
+            gift = getIntent().getParcelableExtra("gift");
         }
-        if (diary == null) {
-            diary = new Diary();
+        if (gift == null) {
+            gift = new Gift();
         }
-        if (diary.getHappenAt() == 0) {
-            diary.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+        if (gift.getHappenAt() == 0) {
+            gift.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
         // date
         refreshDateView();
+        // TODO receive
         // recycler
-        int limitImagesCount = SPHelper.getVipLimit().getDiaryImageCount();
+        int limitImagesCount = SPHelper.getVipLimit().getGiftImageCount();
         if (isTypeUpdate()) {
             // 编辑
-            if (diary.getContentImageList() == null || diary.getContentImageList().size() <= 0) {
+            if (gift.getContentImageList() == null || gift.getContentImageList().size() <= 0) {
                 // 旧数据没有图片
                 setRecyclerShow(limitImagesCount > 0, limitImagesCount);
             } else {
                 // 旧数据有图片
-                int imgCount = Math.max(limitImagesCount, diary.getContentImageList().size());
+                int imgCount = Math.max(limitImagesCount, gift.getContentImageList().size());
                 setRecyclerShow(imgCount > 0, imgCount);
             }
         } else {
@@ -153,12 +163,12 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
         // input
-        etContent.setText(diary.getContentText());
+        etTitle.setText(gift.getTitle());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.help_del, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -167,6 +177,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         super.onDestroy();
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
+        RetrofitHelper.cancel(callDel);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
     }
@@ -209,25 +220,25 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_DIARY_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_GIFT_EDIT);
                 return true;
+            case R.id.menuDel: // 删除
+                showDeleteDialog();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnTextChanged({R.id.etContent})
+    @OnTextChanged({R.id.etTitle})
     public void afterTextChanged(Editable s) {
-        onContentInput(s.toString());
+        onTitleInput(s.toString());
     }
 
-    @OnClick({R.id.cvDate, R.id.btnDraft, R.id.btnPublish})
+    @OnClick({R.id.cvDate, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvDate: // 日期
                 showDatePicker();
-                break;
-            case R.id.btnDraft: // 保存草稿
-                saveDraft();
                 break;
             case R.id.btnPublish: // 发表
                 checkPush();
@@ -253,8 +264,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                 showImgSelect();
             }
         });
-        if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
-            imgAdapter.setOssData(diary.getContentImageList());
+        if (gift.getContentImageList() != null && gift.getContentImageList().size() > 0) {
+            imgAdapter.setOssData(gift.getContentImageList());
         }
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -264,7 +275,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showDatePicker() {
-        Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(diary.getHappenAt()));
+        Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(gift.getHappenAt()));
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -273,7 +284,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
-                diary.setHappenAt(TimeHelper.getGoTimeByJava(instance.getTimeInMillis()));
+                gift.setHappenAt(TimeHelper.getGoTimeByJava(instance.getTimeInMillis()));
                 refreshDateView();
             }
         }, year, month, day);
@@ -281,7 +292,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(gift.getHappenAt());
         tvDate.setText(happen);
     }
 
@@ -291,32 +302,27 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
-    private void onContentInput(String input) {
-        if (limitContentLength <= 0) {
-            limitContentLength = SPHelper.getLimit().getDiaryContentLength();
+    private void onTitleInput(String input) {
+        if (limitTitleLength <= 0) {
+            limitTitleLength = SPHelper.getLimit().getGiftTitleLength();
         }
         int length = input.length();
-        if (length > limitContentLength) {
-            CharSequence charSequence = input.subSequence(0, limitContentLength);
-            etContent.setText(charSequence);
-            etContent.setSelection(charSequence.length());
+        if (length > limitTitleLength) {
+            CharSequence charSequence = input.subSequence(0, limitTitleLength);
+            etTitle.setText(charSequence);
+            etTitle.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
-        tvContentLimit.setText(limitShow);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitTitleLength);
+        tvTitleLimit.setText(limitShow);
         // 设置进去
-        diary.setContentText(etContent.getText().toString());
-    }
-
-    private void saveDraft() {
-        SPHelper.setDraftDiary(diary);
-        ToastUtils.show(getString(R.string.draft_save_success));
+        gift.setTitle(etTitle.getText().toString());
     }
 
     private void checkPush() {
-        String content = etContent.getText().toString();
-        if (StringUtils.isEmpty(content)) {
-            ToastUtils.show(etContent.getHint().toString());
+        String title = etTitle.getText().toString();
+        if (StringUtils.isEmpty(title)) {
+            ToastUtils.show(etTitle.getHint().toString());
             return;
         }
         List<String> fileData = null;
@@ -334,7 +340,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void ossUploadImages(List<String> fileData) {
-        OssHelper.uploadDiary(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
+        OssHelper.uploadGift(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
                 if (recyclerHelper == null) return;
@@ -352,26 +358,24 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
-        diary.setContentImageList(ossPathList);
+        gift.setContentImageList(ossPathList);
         if (isTypeUpdate()) {
-            updateApi(diary);
+            updateApi(gift);
         } else {
-            addApi(diary);
+            addApi(gift);
         }
     }
 
-    private void updateApi(Diary body) {
+    private void updateApi(Gift gift) {
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).diaryUpdate(body);
+        callUpdate = new RetrofitHelper().call(API.class).giftUpdate(gift);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                Diary diary = data.getDiary();
-                RxEvent<Diary> eventList = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary);
+                Gift gift = data.getGift();
+                RxEvent<Gift> eventList = new RxEvent<>(ConsHelper.EVENT_GIFT_LIST_ITEM_REFRESH, gift);
                 RxBus.post(eventList);
-                RxEvent<Diary> eventSingle = new RxEvent<>(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary);
-                RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();
             }
@@ -383,14 +387,51 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         });
     }
 
-    private void addApi(Diary body) {
+    private void addApi(Gift gift) {
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).diaryAdd(body);
+        callAdd = new RetrofitHelper().call(API.class).giftAdd(gift);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
+                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_GIFT_LIST_REFRESH, new ArrayList<Diary>());
+                RxBus.post(event);
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
+    }
+
+    private void showDeleteDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_delete_this_gift)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi();
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi() {
+        if (gift == null) return;
+        MaterialDialog loading = getLoading(true);
+        callDel = new RetrofitHelper().call(API.class).giftDel(gift.getId());
+        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Gift> event = new RxEvent<>(ConsHelper.EVENT_GIFT_LIST_ITEM_DELETE, gift);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
