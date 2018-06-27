@@ -157,7 +157,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         PromiseBreakAdapter promiseBreakAdapter = (PromiseBreakAdapter) adapter;
-                        promiseBreakAdapter.showDeleteDialog(position);
+                        promiseBreakAdapter.showDeleteDialog(position, promise);
                     }
                 });
         // break
@@ -191,8 +191,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             long pid = intent.getLongExtra("pid", 0);
             refreshPromise(pid);
         }
-        // breakHappen
-        breakHappen = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
+        // happen
+        refreshDateView();
     }
 
     @Override
@@ -395,9 +395,18 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 Calendar instance = DateUtils.getCurrentCalendar();
                 instance.set(year, month, dayOfMonth);
                 breakHappen = TimeHelper.getGoTimeByJava(instance.getTimeInMillis());
+                refreshDateView();
             }
         }, year, month, day);
         picker.show();
+    }
+
+    private void refreshDateView() {
+        if (breakHappen == 0){
+            breakHappen = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
+        }
+        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(breakHappen);
+        tvBreakHappen.setText(happen);
     }
 
     private void commitBreak() {

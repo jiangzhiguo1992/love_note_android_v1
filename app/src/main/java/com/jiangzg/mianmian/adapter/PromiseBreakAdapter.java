@@ -43,7 +43,7 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
         helper.setText(R.id.tvContent, content);
     }
 
-    public void showDeleteDialog(final int position) {
+    public void showDeleteDialog(final int position, final Promise promise) {
         PromiseBreak item = getItem(position);
         if (!item.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -55,14 +55,14 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delCommentApi(position);
+                        delCommentApi(position, promise);
                     }
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void delCommentApi(final int position) {
+    private void delCommentApi(final int position, final Promise promise) {
         final PromiseBreak item = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).promiseBreakDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
@@ -71,8 +71,14 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Promise());
-                RxBus.post(event);
+                RxEvent<Promise> eventDetail = new RxEvent<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Promise());
+                RxBus.post(eventDetail);
+                if (promise != null) {
+                    int breakCount = promise.getBreakCount() - 1;
+                    promise.setBreakCount(breakCount < 0 ? 0 : breakCount);
+                    RxEvent<Promise> eventListItem = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
+                    RxBus.post(eventListItem);
+                }
             }
 
             @Override
