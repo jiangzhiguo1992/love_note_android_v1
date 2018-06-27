@@ -132,26 +132,19 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         refreshDateView();
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getDiaryImageCount();
-        if (limitImagesCount > 0) {
-            rv.setVisibility(View.VISIBLE);
-            int spanCount = limitImagesCount > 3 ? 3 : limitImagesCount;
-            ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImagesCount);
-            imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-                @Override
-                public void onAdd() {
-                    showImgSelect();
-                }
-            });
-            if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
-                imgAdapter.setOssData(diary.getContentImageList());
+        if (isTypeUpdate()) {
+            // 编辑
+            if (diary.getContentImageList() == null || diary.getContentImageList().size() <= 0) {
+                // 旧数据没有图片
+                setRecyclerShow(limitImagesCount > 0, limitImagesCount);
+            } else {
+                // 旧数据有图片
+                int imgCount = Math.max(limitImagesCount, diary.getContentImageList().size());
+                setRecyclerShow(imgCount > 0, imgCount);
             }
-            recyclerHelper = new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                    .initAdapter(imgAdapter)
-                    .setAdapter();
         } else {
-            rv.setVisibility(View.GONE);
+            // 添加
+            setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
         // input
         etContent.setText(diary.getContentText());
@@ -240,6 +233,30 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
     }
 
+    private void setRecyclerShow(boolean show, int childCount) {
+        if (!show) {
+            rv.setVisibility(View.GONE);
+            return;
+        }
+        rv.setVisibility(View.VISIBLE);
+        int spanCount = childCount > 3 ? 3 : childCount;
+        ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
+        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
+            @Override
+            public void onAdd() {
+                showImgSelect();
+            }
+        });
+        if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
+            imgAdapter.setOssData(diary.getContentImageList());
+        }
+        recyclerHelper = new RecyclerHelper(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                .initAdapter(imgAdapter)
+                .setAdapter();
+    }
+
     private void showDatePicker() {
         Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(diary.getHappenAt()));
         int year = calendar.get(Calendar.YEAR);
@@ -263,13 +280,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showImgSelect() {
-        if (SPHelper.getVipLimit().getDiaryImageCount() > 0) {
-            cameraFile = ResHelper.newImageCacheFile();
-            PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-            PopUtils.show(popupWindow, root, Gravity.CENTER);
-        } else {
-            ToastUtils.show(getString(R.string.now_status_cant_upload_img));
-        }
+        cameraFile = ResHelper.newImageCacheFile();
+        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
+        PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
     private void onContentInput(String input) {

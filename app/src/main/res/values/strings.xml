@@ -143,7 +143,6 @@
     <string name="access_resource_path_no_exists">访问资源路径不存在</string>
     <string name="not_found_upload_file">没有找到要上传的文件</string>
     <string name="file_no_exits">文件不存在</string>
-    <string name="now_status_cant_upload_img">现在的身份不能上传图片哦</string>
     <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
@@ -366,6 +365,7 @@
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文字</string>
     <string name="now_just_upload_holder_album" formatted="false">目前只能上传%d个相册哦</string>
+    <string name="now_just_upload_holder_picture" formatted="false">目前只能上传%d张照片哦</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>

@@ -277,7 +277,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 if (pictureCount > 0) {
                     PictureEditActivity.goActivity(mActivity, album);
                 } else {
-                    ToastUtils.show(getString(R.string.now_status_cant_upload_img));
+                    String string = getString(R.string.now_just_upload_holder_picture);
+                    ToastUtils.show(String.format(Locale.getDefault(), string, pictureCount));
                 }
                 break;
         }

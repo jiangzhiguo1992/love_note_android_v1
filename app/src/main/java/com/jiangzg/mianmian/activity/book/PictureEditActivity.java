@@ -318,12 +318,14 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void showImgSelect() {
-        if (SPHelper.getVipLimit().getPictureTotalCount() > 0) {
+        int pictureTotalCount = SPHelper.getVipLimit().getPictureTotalCount();
+        if (pictureTotalCount > 0) {
             cameraFile = ResHelper.newImageCacheFile();
             PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
             PopUtils.show(popupWindow, root, Gravity.CENTER);
         } else {
-            ToastUtils.show(getString(R.string.now_status_cant_upload_img));
+            String string = getString(R.string.now_just_upload_holder_picture);
+            ToastUtils.show(String.format(Locale.getDefault(), string, pictureTotalCount));
         }
     }
 

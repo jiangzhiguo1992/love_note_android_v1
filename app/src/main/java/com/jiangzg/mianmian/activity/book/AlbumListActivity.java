@@ -274,14 +274,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         BaseQuickAdapter adapter = recyclerHelper.getAdapter();
         int totalCount = SPHelper.getVipLimit().getAlbumTotalCount();
         if (adapter.getData().size() >= totalCount) {
-            String toast;
-            if (totalCount <= 0) {
-                toast = getString(R.string.now_status_cant_upload_img);
-            } else {
-                String string = getString(R.string.now_just_upload_holder_album);
-                toast = String.format(Locale.getDefault(), string, totalCount);
-            }
-            ToastUtils.show(toast);
+            String string = getString(R.string.now_just_upload_holder_album);
+            ToastUtils.show(String.format(Locale.getDefault(), string, totalCount));
             return;
         }
         AlbumEditActivity.goActivity(mActivity);

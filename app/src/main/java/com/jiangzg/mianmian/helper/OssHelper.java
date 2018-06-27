@@ -638,7 +638,7 @@ public class OssHelper {
      * *****************************************下载*****************************************
      */
     // 下载任务
-    public static OSSAsyncTask downloadObject(final MaterialDialog progress, final String objectKey, final File target, final OssDownloadCallBack callBack) {
+    public static OSSAsyncTask downloadObject(final MaterialDialog progress, final boolean toast, final String objectKey, final File target, final OssDownloadCallBack callBack) {
         // objectKey
         if (StringUtils.isEmpty(objectKey)) {
             // dialog
@@ -646,7 +646,9 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "downloadObject", "objectKey == null");
             // 删除下载文件
             ResHelper.deleteFileInBackground(target);
-            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            if (toast) {
+                ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            }
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -664,7 +666,9 @@ public class OssHelper {
             // dialog
             DialogUtils.dismiss(progress);
             LogUtils.w(OssHelper.class, "downloadObject", "target == null");
-            ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
+            if (toast) {
+                ToastUtils.show(MyApp.get().getString(R.string.save_file_no_exists));
+            }
             // 回调
             if (callBack != null) {
                 MyApp.get().getHandler().post(new Runnable() {
@@ -717,7 +721,9 @@ public class OssHelper {
                     }
                 } else {
                     // toast
-                    ToastUtils.show(MyApp.get().getString(R.string.file_resolve_fail_tell_we_this_bug));
+                    if (toast) {
+                        ToastUtils.show(MyApp.get().getString(R.string.file_resolve_fail_tell_we_this_bug));
+                    }
                     // 删除源文件
                     ResHelper.deleteFileInBackground(target);
                     // 解析失败
@@ -742,12 +748,16 @@ public class OssHelper {
                 LogUtils.w(OssHelper.class, "downloadObject", "onFailure: getObjectKey == " + downloadKey);
                 // 本地异常如网络异常等
                 if (clientException != null) {
-                    ToastUtils.show(MyApp.get().getString(R.string.download_fail_please_check_native_net));
-                    LogUtils.e(OssHelper.class, "downloadObject", clientException);
+                    if (toast) {
+                        ToastUtils.show(MyApp.get().getString(R.string.download_fail_please_check_native_net));
+                        LogUtils.e(OssHelper.class, "downloadObject", clientException);
+                    }
                 }
                 // 服务异常
                 if (serviceException != null) {
-                    ToastUtils.show(MyApp.get().getString(R.string.download_fail_tell_we_this_bug));
+                    if (toast) {
+                        ToastUtils.show(MyApp.get().getString(R.string.download_fail_tell_we_this_bug));
+                    }
                     LogUtils.e(OssHelper.class, "downloadObject", serviceException);
                     LogUtils.w(OssHelper.class, "downloadObject", "serviceException = " + serviceException.toString());
                 }
@@ -793,13 +803,13 @@ public class OssHelper {
                     .negativeText(R.string.cancel_download)
                     .build();
         }
-        downloadObject(progress, objectKey, target, callBack);
+        downloadObject(progress, true, objectKey, target, callBack);
     }
 
-    // 头像+墙纸+日记+照片
-    public static void downloadFileByKey(String objectKey) {
+    // oss缓存文件下载
+    public static void downloadOssFileByKey(String objectKey) {
         File file = OssResHelper.newKeyFile(objectKey);
-        downloadObject(null, objectKey, file, null);
+        downloadObject(null, false, objectKey, file, null);
     }
 
     // 全屏图下载
@@ -843,7 +853,7 @@ public class OssHelper {
                     LogUtils.d(OssHelper.class, "downloadBigImage", "下载本地没有的文件");
                 }
                 // 开始下载
-                downloadObject(null, objectKey, target, new OssDownloadCallBack() {
+                downloadObject(null, true, objectKey, target, new OssDownloadCallBack() {
                     @Override
                     public void success(String ossPath) {
                         ToastUtils.show(sucToast);

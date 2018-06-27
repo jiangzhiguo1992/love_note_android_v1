@@ -285,9 +285,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 图片获取
     private void showSelectImgPop() {
-        int imageCount = SPHelper.getVipLimit().getWhisperImageCount();
-        if (imageCount <= 0) {
-            ToastUtils.show(getString(R.string.now_status_cant_upload_img));
+        if (SPHelper.getVipLimit().getWhisperImageCount() <= 0) {
             return;
         }
         cameraFile = ResHelper.newImageCacheFile();
