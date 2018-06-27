@@ -67,10 +67,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvDate)
-    CardView cvDate;
-    @BindView(R.id.tvDate)
-    TextView tvDate;
+    @BindView(R.id.cvHappenAt)
+    CardView cvHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.etContent)
@@ -220,10 +220,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvDate, R.id.btnDraft, R.id.btnPublish})
+    @OnClick({R.id.cvHappenAt, R.id.btnDraft, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvDate: // 日期
+            case R.id.cvHappenAt: // 日期
                 showDatePicker();
                 break;
             case R.id.btnDraft: // 保存草稿
@@ -282,7 +282,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void refreshDateView() {
         String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
-        tvDate.setText(happen);
+        tvHappenAt.setText(happen);
     }
 
     private void showImgSelect() {

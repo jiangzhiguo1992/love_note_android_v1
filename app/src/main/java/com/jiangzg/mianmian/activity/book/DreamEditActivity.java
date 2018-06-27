@@ -51,10 +51,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvDate)
-    CardView cvDate;
-    @BindView(R.id.tvDate)
-    TextView tvDate;
+    @BindView(R.id.cvHappenAt)
+    CardView cvHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
     @BindView(R.id.etContent)
     EditText etContent;
     @BindView(R.id.tvContentLimit)
@@ -147,10 +147,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvDate, R.id.btnDraft, R.id.btnPublish})
+    @OnClick({R.id.cvHappenAt, R.id.btnDraft, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvDate: // 日期
+            case R.id.cvHappenAt: // 日期
                 showDatePicker();
                 break;
             case R.id.btnDraft: // 保存草稿
@@ -185,7 +185,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     private void refreshDateView() {
         String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
-        tvDate.setText(happen);
+        tvHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {

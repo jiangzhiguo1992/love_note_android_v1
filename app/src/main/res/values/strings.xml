@@ -104,6 +104,7 @@
     <string name="confirm_delete_this_picture">确定要删除这张照片吗</string>
     <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
     <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d字</string>
+    <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d字</string>
     <string name="holder_paper">%d张</string>
     <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
     <string name="read_space_colon_holder" formatted="false">阅读: %d</string>

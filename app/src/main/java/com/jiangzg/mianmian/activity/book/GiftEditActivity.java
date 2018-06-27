@@ -9,7 +9,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,7 +61,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
@@ -74,20 +72,18 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.etTitle)
-    EditText etTitle;
-    @BindView(R.id.tvTitleLimit)
-    TextView tvTitleLimit;
-    @BindView(R.id.cvDate)
-    CardView cvDate;
-    @BindView(R.id.tvDate)
-    TextView tvDate;
+    @BindView(R.id.cvHappenAt)
+    CardView cvHappenAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
     @BindView(R.id.rgReceive)
     RadioGroup rgReceive;
     @BindView(R.id.rbReceiveMe)
     RadioButton rbReceiveMe;
     @BindView(R.id.rbReceiveTa)
     RadioButton rbReceiveTa;
+    @BindView(R.id.etTitle)
+    EditText etTitle;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.btnPublish)
@@ -131,6 +127,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.gift), true);
+        // etTitle
+        String format = getString(R.string.please_input_title_no_over_holder_text);
+        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getGiftTitleLength());
+        etTitle.setHint(hint);
     }
 
     @Override
@@ -242,15 +242,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnTextChanged({R.id.etTitle})
-    public void afterTextChanged(Editable s) {
-        onTitleInput(s.toString());
-    }
-
-    @OnClick({R.id.cvDate, R.id.btnPublish})
+    @OnClick({R.id.cvHappenAt, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvDate: // 日期
+            case R.id.cvHappenAt: // 日期
                 showDatePicker();
                 break;
             case R.id.btnPublish: // 发表
@@ -329,7 +324,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void refreshDateView() {
         String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(gift.getHappenAt());
-        tvDate.setText(happen);
+        tvHappenAt.setText(happen);
     }
 
     private void showImgSelect() {
@@ -338,26 +333,12 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         PopUtils.show(popupWindow, root, Gravity.CENTER);
     }
 
-    private void onTitleInput(String input) {
-        if (limitTitleLength <= 0) {
-            limitTitleLength = SPHelper.getLimit().getGiftTitleLength();
-        }
-        int length = input.length();
-        if (length > limitTitleLength) {
-            CharSequence charSequence = input.subSequence(0, limitTitleLength);
-            etTitle.setText(charSequence);
-            etTitle.setSelection(charSequence.length());
-            length = charSequence.length();
-        }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitTitleLength);
-        tvTitleLimit.setText(limitShow);
-        // 设置进去
-        gift.setTitle(etTitle.getText().toString());
-    }
-
     private void checkPush() {
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
+            ToastUtils.show(etTitle.getHint().toString());
+            return;
+        } else if (title.length() > SPHelper.getLimit().getGiftTitleLength()) {
             ToastUtils.show(etTitle.getHint().toString());
             return;
         }
