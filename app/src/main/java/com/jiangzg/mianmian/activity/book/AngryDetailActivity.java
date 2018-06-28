@@ -4,26 +4,38 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.GiftAdapter;
+import com.jiangzg.mianmian.adapter.PromiseAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Angry;
+import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.Promise;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -32,8 +44,14 @@ import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
@@ -51,10 +69,20 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     TextView tvHappenAt;
     @BindView(R.id.tvContent)
     TextView tvContent;
+    @BindView(R.id.cvGiftAdd)
+    CardView cvGiftAdd;
+    @BindView(R.id.rvGift)
+    RecyclerView rvGift;
+    @BindView(R.id.cvPromiseAdd)
+    CardView cvPromiseAdd;
+    @BindView(R.id.rvPromise)
+    RecyclerView rvPromise;
 
     private Angry angry;
     private Call<Result> callGet;
     private Call<Result> callDel;
+    private Observable<Gift> obGiftSelect;
+    private Observable<Promise> obPromiseSelect;
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
@@ -85,6 +113,20 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        // event
+        obGiftSelect = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, new Action1<Gift>() {
+            @Override
+            public void call(Gift gift) {
+                updateGift(gift);
+            }
+        });
+        obPromiseSelect = RxBus.register(ConsHelper.EVENT_PROMISE_SELECT, new Action1<Promise>() {
+            @Override
+            public void call(Promise promise) {
+                updatePromise(promise);
+            }
+        });
+        // data
         Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
@@ -126,6 +168,18 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick({R.id.cvGiftAdd, R.id.cvPromiseAdd})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.cvGiftAdd: // 添加礼物
+                GiftListActivity.goActivityBySelect(mActivity);
+                break;
+            case R.id.cvPromiseAdd: // 添加承诺
+                PromiseListActivity.goActivityBySelect(mActivity);
+                break;
+        }
+    }
+
     private void refreshData(long aid) {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
@@ -149,6 +203,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     private void refreshView() {
         if (angry == null) return;
         User user = SPHelper.getMe();
+        // avatar
         String avatar = user.getAvatarInCp(angry.getHappenId());
         ivAvatar.setData(avatar);
         // happen
@@ -157,6 +212,65 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         // content
         String content = angry.getContentText();
         tvContent.setText(content);
+        // gift
+        Gift gift = angry.getGift();
+        if (gift == null || gift.getId() <= 0) {
+            // 没有礼物
+            cvGiftAdd.setVisibility(View.VISIBLE);
+            rvGift.setVisibility(View.GONE);
+        } else {
+            // 有礼物
+            cvGiftAdd.setVisibility(View.GONE);
+            rvGift.setVisibility(View.VISIBLE);
+            // recycler
+            List<Gift> giftList = new ArrayList<>();
+            giftList.add(gift);
+            new RecyclerHelper(mActivity)
+                    .initRecycler(rvGift)
+                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initAdapter(new GiftAdapter(mActivity))
+                    .setAdapter()
+                    .listenerClick(new OnItemLongClickListener() {
+                        @Override
+                        public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                            showDeleteGiftDialog();
+                        }
+                    })
+                    .dataNew(giftList);
+        }
+        // promise
+        Promise promise = angry.getPromise();
+        if (promise == null || promise.getId() <= 0) {
+            // 没有承诺
+            cvPromiseAdd.setVisibility(View.VISIBLE);
+            rvPromise.setVisibility(View.GONE);
+        } else {
+            // 有承诺
+            cvPromiseAdd.setVisibility(View.GONE);
+            rvPromise.setVisibility(View.VISIBLE);
+            // recycler
+            List<Promise> promiseList = new ArrayList<>();
+            promiseList.add(promise);
+            new RecyclerHelper(mActivity)
+                    .initRecycler(rvPromise)
+                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initAdapter(new PromiseAdapter(mActivity))
+                    .setAdapter()
+                    .listenerClick(new OnItemClickListener() {
+                        @Override
+                        public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
+                            promiseAdapter.goPromiseDetail(position);
+                        }
+                    })
+                    .listenerClick(new OnItemLongClickListener() {
+                        @Override
+                        public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                            showDeletePromiseDialog();
+                        }
+                    })
+                    .dataNew(promiseList);
+        }
     }
 
     private void showDeleteDialog() {
@@ -200,22 +314,84 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         });
     }
 
-    // TODO UI + 点击事件 + 对应板块的扩展 + 返回值处理 + 调用此方法
-    private void addGift() {
+    private void showDeleteGiftDialog() {
         if (angry == null) return;
-        // TODO
-        // event
-        RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
-        RxBus.post(event);
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_remove_this_gift)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        updateGift(new Gift());
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
-    // TODO UI + 点击事件 + 对应板块的扩展 + 返回值处理 + 调用此方法
-    private void addPromise() {
+    private void showDeletePromiseDialog() {
         if (angry == null) return;
-        // TODO
-        // event
-        RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
-        RxBus.post(event);
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_remove_this_promise)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        updatePromise(new Promise());
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void updateGift(Gift gift) {
+        if (angry == null || gift == null) return;
+        MaterialDialog loading = getLoading(true);
+        angry.setGiftId(gift.getId());
+        callDel = new RetrofitHelper().call(API.class).angryUpdate(angry);
+        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                angry = data.getAngry();
+                // view
+                refreshView();
+                // event
+                RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
+                RxBus.post(event);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
+    }
+
+    private void updatePromise(Promise promise) {
+        if (angry == null || promise == null) return;
+        MaterialDialog loading = getLoading(true);
+        angry.setPromiseId(promise.getId());
+        callDel = new RetrofitHelper().call(API.class).angryUpdate(angry);
+        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                angry = data.getAngry();
+                // view
+                refreshView();
+                // event
+                RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
+                RxBus.post(event);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
 }

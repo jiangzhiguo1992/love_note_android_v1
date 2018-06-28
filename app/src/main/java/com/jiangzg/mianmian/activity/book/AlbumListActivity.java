@@ -47,9 +47,9 @@ import rx.functions.Action1;
 
 public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
-    private static final int TYPE_BROWSE = 0;
-    private static final int TYPE_SELECT_ALBUM = 1;
-    private static final int TYPE_SELECT_PICTURE = 2;
+    private static final int FROM_BROWSE = 0;
+    private static final int FROM_SELECT_ALBUM = 1;
+    private static final int FROM_SELECT_PICTURE = 2;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -69,21 +69,21 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("type", TYPE_BROWSE);
+        intent.putExtra("from", FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelectAlbum(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("type", TYPE_SELECT_ALBUM);
+        intent.putExtra("from", FROM_SELECT_ALBUM);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelectPicture(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("type", TYPE_SELECT_PICTURE);
+        intent.putExtra("from", FROM_SELECT_PICTURE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -240,11 +240,11 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     }
 
     private boolean isSelectAlbum() {
-        return getIntent().getIntExtra("type", TYPE_BROWSE) == TYPE_SELECT_ALBUM;
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT_ALBUM;
     }
 
     private boolean isSelectPicture() {
-        return getIntent().getIntExtra("type", TYPE_BROWSE) == TYPE_SELECT_PICTURE;
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT_PICTURE;
     }
 
     private void getData(final boolean more) {

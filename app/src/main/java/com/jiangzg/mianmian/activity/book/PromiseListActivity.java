@@ -45,6 +45,9 @@ import rx.functions.Action1;
 
 public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
+    private static final int FROM_BROWSE = 0;
+    private static final int FROM_SELECT = 1;
+
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -68,7 +71,14 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PromiseListActivity.class);
-        // intent.putExtra();
+        intent.putExtra("from", FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivityBySelect(Activity from) {
+        Intent intent = new Intent(from, PromiseListActivity.class);
+        intent.putExtra("from", FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -81,7 +91,13 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
+        String title;
+        if (isSelect()) {
+            title = getString(R.string.please_select_promise);
+        } else {
+            title = getString(R.string.promise);
+        }
+        ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -107,7 +123,13 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
-                        promiseAdapter.goPromiseDetail(position);
+                        if (isSelect()) {
+                            // 礼物选择
+                            promiseAdapter.selectPromise(position);
+                        } else {
+                            // 礼物浏览
+                            promiseAdapter.goPromiseDetail(position);
+                        }
                     }
                 });
     }
@@ -137,7 +159,9 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        if (!isSelect()) {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -170,6 +194,10 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                 PromiseEditActivity.goActivity(mActivity);
                 break;
         }
+    }
+
+    private boolean isSelect() {
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
     }
 
     private void getData(final boolean more) {

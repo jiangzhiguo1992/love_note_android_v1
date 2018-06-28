@@ -57,8 +57,8 @@ import rx.functions.Action1;
 
 public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
-    private static final int TYPE_BROWSE = 0;
-    private static final int TYPE_SELECT = 1;
+    private static final int FROM_BROWSE = 0;
+    private static final int FROM_SELECT = 1;
 
     @BindView(R.id.root)
     CoordinatorLayout root;
@@ -103,7 +103,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, long albumId) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("type", TYPE_BROWSE);
+        intent.putExtra("from", FROM_BROWSE);
         intent.putExtra("albumId", albumId);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -111,7 +111,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("type", TYPE_BROWSE);
+        intent.putExtra("from", FROM_BROWSE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -119,7 +119,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivityBySelect(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("type", TYPE_SELECT);
+        intent.putExtra("from", FROM_SELECT);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -285,7 +285,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private boolean isSelectPicture() {
-        return getIntent().getIntExtra("type", TYPE_BROWSE) == TYPE_SELECT;
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
     }
 
     private void refreshAlbumView() {

@@ -374,6 +374,15 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
+        String title = etTitle.getText().toString().trim();
+        if (StringUtils.isEmpty(title)) {
+            ToastUtils.show(etTitle.getHint().toString());
+            return;
+        } else if (title.length() > SPHelper.getLimit().getGiftTitleLength()) {
+            ToastUtils.show(etTitle.getHint().toString());
+            return;
+        }
+        gift.setTitle(title);
         gift.setContentImageList(ossPathList);
         if (isTypeUpdate()) {
             updateApi(gift);

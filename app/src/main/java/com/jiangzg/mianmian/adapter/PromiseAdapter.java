@@ -8,6 +8,9 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.PromiseDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Promise;
+import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
@@ -44,6 +47,13 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
     public void goPromiseDetail(int position) {
         Promise item = getItem(position);
         PromiseDetailActivity.goActivity(mActivity, item);
+    }
+
+    public void selectPromise(int position) {
+        Promise item = getItem(position);
+        RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_SELECT, item);
+        RxBus.post(event);
+        mActivity.finish();
     }
 
 }

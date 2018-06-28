@@ -11,7 +11,10 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.GiftEditActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Gift;
+import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
@@ -67,6 +70,13 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
     public void goEditActivity(int position) {
         Gift item = getItem(position);
         GiftEditActivity.goActivity(mActivity, item);
+    }
+
+    public void selectGift(int position) {
+        Gift item = getItem(position);
+        RxEvent<Gift> event = new RxEvent<>(ConsHelper.EVENT_GIFT_SELECT, item);
+        RxBus.post(event);
+        mActivity.finish();
     }
 
 }

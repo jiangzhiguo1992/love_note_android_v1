@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
@@ -46,6 +47,9 @@ import rx.functions.Action1;
 
 public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
+    private static final int FROM_BROWSE = 0;
+    private static final int FROM_SELECT = 1;
+
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -69,7 +73,14 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftListActivity.class);
-        // intent.putExtra();
+        intent.putExtra("from", FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivityBySelect(Activity from) {
+        Intent intent = new Intent(from, GiftListActivity.class);
+        intent.putExtra("from", FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -82,7 +93,13 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.gift), true);
+        String title;
+        if (isSelect()) {
+            title = getString(R.string.please_select_gift);
+        } else {
+            title = getString(R.string.gift);
+        }
+        ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -102,6 +119,15 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                     @Override
                     public void onMore(int currentCount) {
                         getData(true);
+                    }
+                })
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        GiftAdapter giftAdapter = (GiftAdapter) adapter;
+                        if (isSelect()) {
+                            giftAdapter.selectGift(position);
+                        }
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -138,7 +164,9 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        if (!isSelect()) {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -171,6 +199,10 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                 GiftEditActivity.goActivity(mActivity);
                 break;
         }
+    }
+
+    private boolean isSelect() {
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
     }
 
     private void getData(final boolean more) {
