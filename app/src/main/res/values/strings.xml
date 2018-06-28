@@ -406,7 +406,7 @@
     <string name="promise_user_colon_space_holder" formatted="false">承诺者: %s</string>
     <string name="promise_time_colon_space_holder" formatted="false">承诺时间: %s</string>
     <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
-    <string name="did_award_to_u_gift">有没有补偿给你礼物</string>
+    <string name="did_award_some_gift">有没有补偿什么礼物</string>
     <string name="did_do_some_promise">有没有做出什么承诺</string>
 
     <!-- square -->
