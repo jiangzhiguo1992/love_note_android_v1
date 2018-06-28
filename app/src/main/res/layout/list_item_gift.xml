@@ -37,11 +37,15 @@
 
         <View
             style="@style/LineHorizontal"
-            android:layout_margin="5dp"/>
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:orientation="horizontal">
@@ -74,10 +78,6 @@
                 android:layout_centerVertical="true"
                 tools:background="@mipmap/ic_girl_circle"/>
         </RelativeLayout>
-
-        <View
-            style="@style/LineHorizontal"
-            android:layout_margin="5dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

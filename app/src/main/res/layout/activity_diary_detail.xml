@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -26,56 +27,47 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvCreator"
-                        style="@style/FontGreySmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        tools:text="创建者: 一二三四五六"/>
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/tvTextCount"
                         style="@style/FontGreySmall"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
                         tools:text="字数: 1000"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvUpdateAt"
-                        style="@style/FontGreySmall"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        tools:text="上次编辑: 2017年 4月 20日"/>
 
                     <TextView
                         android:id="@+id/tvReadCount"
                         style="@style/FontGreySmall"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="end"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
                         tools:text="阅读:36"/>
-                </LinearLayout>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="25dp"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
+
+                        <com.jiangzg.mianmian.view.FrescoAvatarView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            tools:background="@mipmap/ic_boy_circle"/>
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv"
@@ -87,7 +79,7 @@
 
                 <TextView
                     android:id="@+id/tvContent"
-                    style="@style/FontBlackNormal"
+                    style="@style/FontBlackBig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"

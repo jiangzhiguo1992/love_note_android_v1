@@ -34,6 +34,7 @@ import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -54,10 +55,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.tvCreator)
-    TextView tvCreator;
-    @BindView(R.id.tvUpdateAt)
-    TextView tvUpdateAt;
+    @BindView(R.id.ivAvatar)
+    FrescoAvatarView ivAvatar;
     @BindView(R.id.tvTextCount)
     TextView tvTextCount;
     @BindView(R.id.tvReadCount)
@@ -177,20 +176,14 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     private void refreshView() {
         if (diary == null) return;
         User user = SPHelper.getMe();
-        long userId = diary.getUserId();
-        long updateAt = diary.getUpdateAt();
         // menu
         invalidateOptionsMenu();
         // happen
         String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tb.setTitle(happenAt);
-        // creator
-        String creator = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), user.getNameInCp(userId));
-        tvCreator.setText(creator);
-        // updateAt
-        String update = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
-        String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
-        tvUpdateAt.setText(updateShow);
+        // avatar
+        String avatar = user.getAvatarInCp(diary.getUserId());
+        ivAvatar.setData(avatar);
         // textCount
         String content = diary.getContentText();
         String textFormat = mActivity.getString(R.string.text_number_space_colon_holder);

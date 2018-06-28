@@ -90,24 +90,15 @@
         <activity android:name=".activity.settings.NoticeDetailActivity"/>
         <activity android:name=".activity.book.PictureEditActivity"/>
         <activity android:name=".activity.common.MapSelectActivity"/>
-        <activity android:name=".activity.common.MapSearchActivity">
-        </activity>
-        <activity android:name=".activity.book.DreamListActivity">
-        </activity>
-        <activity android:name=".activity.book.DreamEditActivity">
-        </activity>
-        <activity android:name=".activity.book.DreamDetailActivity">
-        </activity>
-        <activity android:name=".activity.book.GiftListActivity">
-        </activity>
-        <activity android:name=".activity.book.GiftEditActivity">
-        </activity>
-        <activity android:name=".activity.book.PromiseListActivity">
-        </activity>
-        <activity android:name=".activity.book.PromiseEditActivity">
-        </activity>
-        <activity android:name=".activity.book.PromiseDetailActivity">
-        </activity>
+        <activity android:name=".activity.common.MapSearchActivity"/>
+        <activity android:name=".activity.book.DreamListActivity"/>
+        <activity android:name=".activity.book.DreamEditActivity"/>
+        <activity android:name=".activity.book.DreamDetailActivity"/>
+        <activity android:name=".activity.book.GiftListActivity"/>
+        <activity android:name=".activity.book.GiftEditActivity"/>
+        <activity android:name=".activity.book.PromiseListActivity"/>
+        <activity android:name=".activity.book.PromiseEditActivity"/>
+        <activity android:name=".activity.book.PromiseDetailActivity"/>
     </application>
 
 </manifest>
