@@ -347,12 +347,13 @@
     <string name="picture">照片</string>
     <string name="audio">音频</string>
     <string name="video">视频</string>
-    <string name="meet">相见</string>
-    <string name="award">补偿</string>
-    <string name="dream">梦境</string>
+    <string name="food">美食</string>
+    <string name="travel">游记</string>
     <string name="angry">生气</string>
     <string name="promise">承诺</string>
     <string name="gift">礼物</string>
+    <string name="dream">梦境</string>
+    <string name="award">补偿</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>

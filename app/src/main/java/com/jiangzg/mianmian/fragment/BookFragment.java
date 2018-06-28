@@ -62,10 +62,10 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     CardView cvAudio;
     @BindView(R.id.cvVideo)
     CardView cvVideo;
-    @BindView(R.id.cvDream)
-    CardView cvDream;
-    @BindView(R.id.cvMeet)
-    CardView cvMeet;
+    @BindView(R.id.cvFood)
+    CardView cvFood;
+    @BindView(R.id.cvTravel)
+    CardView cvTravel;
 
     @BindView(R.id.cvGift)
     CardView cvGift;
@@ -73,6 +73,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     CardView cvPromise;
     @BindView(R.id.cvAngry)
     CardView cvAngry;
+    @BindView(R.id.cvDream)
+    CardView cvDream;
+
     @BindView(R.id.cvAward)
     CardView cvAward;
 
@@ -126,8 +129,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @OnClick({R.id.cvSouvenir, R.id.cvTrends, R.id.cvMenses, R.id.cvSleep,
             R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
-            R.id.cvAudio, R.id.cvVideo, R.id.cvDream, R.id.cvMeet,
-            R.id.cvGift, R.id.cvPromise, R.id.cvAngry, R.id.cvAward})
+            R.id.cvAudio, R.id.cvVideo, R.id.cvFood, R.id.cvTravel,
+            R.id.cvGift, R.id.cvPromise, R.id.cvAngry, R.id.cvDream,
+            R.id.cvAward})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无配对
@@ -160,10 +164,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvVideo: // TODO 视频
                 break;
-            case R.id.cvDream: // 梦里
-                DreamListActivity.goActivity(mActivity);
+            case R.id.cvFood: // TODO 美食
                 break;
-            case R.id.cvMeet: // TODO 相见
+            case R.id.cvTravel: // TODO 游记
                 break;
             case R.id.cvGift: // 礼物
                 GiftListActivity.goActivity(mActivity);
@@ -173,6 +176,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvAngry: // 生气
                 AngryListActivity.goActivity(mActivity);
+                break;
+            case R.id.cvDream: // 梦里
+                DreamListActivity.goActivity(mActivity);
                 break;
             case R.id.cvAward: // TODO 补偿
                 break;

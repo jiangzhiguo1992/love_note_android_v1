@@ -86,13 +86,13 @@ public class SPHelper {
     private static final String FIELD_LIMIT_PICTURE_COUNT = "picture_count";
     private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
     private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
-    private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dream_content_length";
     private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meet_title_length";
     private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meet_process_length";
     private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
     private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
     private static final String FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH = "promise_break_content_length";
     private static final String FIELD_LIMIT_ANGRY_CONTENT_LENGTH = "angry_content_length";
+    private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dream_content_length";
     private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
     // vipLimit
@@ -324,13 +324,13 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureCount());
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
-        editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
         editor.putInt(FIELD_LIMIT_MEET_TITLE_LENGTH, limit.getMeetTitleLength());
         editor.putInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, limit.getMeetProcessLength());
         editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
         editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
         editor.putInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, limit.getPromiseBreakContentLength());
         editor.putInt(FIELD_LIMIT_ANGRY_CONTENT_LENGTH, limit.getAngryContentLength());
+        editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
         editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.apply();
@@ -359,13 +359,13 @@ public class SPHelper {
         limit.setPictureCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
         limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
         limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
-        limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
         limit.setMeetTitleLength(sp.getInt(FIELD_LIMIT_MEET_TITLE_LENGTH, 20));
         limit.setMeetProcessLength(sp.getInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, 200));
         limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
         limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
         limit.setPromiseBreakContentLength(sp.getInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, 100));
         limit.setAngryContentLength(sp.getInt(FIELD_LIMIT_ANGRY_CONTENT_LENGTH, 200));
+        limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
         limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
