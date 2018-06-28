@@ -35,6 +35,7 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -85,6 +86,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     private Call<Result> callDel;
     private Observable<Gift> obGiftSelect;
     private Observable<Promise> obPromiseSelect;
+    private Observable<Promise> obPromiseListDelete;
+    private Observable<Promise> obPromiseListRefresh;
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
@@ -128,6 +131,23 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 updatePromise(promise);
             }
         });
+        obPromiseListDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
+            @Override
+            public void call(Promise promise) {
+                ListHelper.removeIndexInAdapter(recyclerPromise.getAdapter(), promise);
+                if (recyclerPromise.getAdapter().getData().size() <= 0) {
+                    // 删除承诺
+                    cvPromiseAdd.setVisibility(View.VISIBLE);
+                    rvPromise.setVisibility(View.GONE);
+                }
+            }
+        });
+        obPromiseListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
+            @Override
+            public void call(Promise promise) {
+                ListHelper.refreshIndexInAdapter(recyclerPromise.getAdapter(), promise);
+            }
+        });
         // data
         Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
@@ -157,6 +177,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         RetrofitHelper.cancel(callGet);
         RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obGiftSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_SELECT, obPromiseSelect);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
     }
 
     @Override
