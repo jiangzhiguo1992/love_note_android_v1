@@ -167,8 +167,6 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     private void refreshView() {
         if (dream == null) return;
         User user = SPHelper.getMe();
-        // menu
-        invalidateOptionsMenu();
         // happen
         String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
         tvHappenAt.setText(happenAt);
@@ -224,7 +222,6 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             public void onFailure(String errMsg) {
             }
         });
-
     }
 
 }

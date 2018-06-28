@@ -176,8 +176,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     private void refreshView() {
         if (diary == null) return;
         User user = SPHelper.getMe();
-        // menu
-        invalidateOptionsMenu();
         // happen
         String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
         tb.setTitle(happenAt);

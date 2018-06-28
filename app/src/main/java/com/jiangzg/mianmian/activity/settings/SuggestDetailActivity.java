@@ -499,6 +499,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 // ListItemRefresh
                 RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
                 RxBus.post(event);
+                // menu
+                mActivity.invalidateOptionsMenu();
             }
 
             @Override

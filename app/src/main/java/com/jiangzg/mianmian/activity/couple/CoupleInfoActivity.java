@@ -239,6 +239,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 User ta = data.getUser();
                 SPHelper.setTa(ta);
                 setViewData();
+                // menu
+                mActivity.invalidateOptionsMenu();
             }
 
             @Override
