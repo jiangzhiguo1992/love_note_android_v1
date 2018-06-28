@@ -95,6 +95,24 @@ public class Result implements Serializable {
         private Promise promise;
         private List<PromiseBreak> promiseBreakList;
         private PromiseBreak promiseBreak;
+        private List<Angry> angryList;
+        private Angry angry;
+
+        public List<Angry> getAngryList() {
+            return angryList;
+        }
+
+        public void setAngryList(List<Angry> angryList) {
+            this.angryList = angryList;
+        }
+
+        public Angry getAngry() {
+            return angry;
+        }
+
+        public void setAngry(Angry angry) {
+            this.angry = angry;
+        }
 
         public List<Promise> getPromiseList() {
             return promiseList;

@@ -24,6 +24,7 @@ import com.jiangzg.mianmian.domain.WallPaper;
  */
 public class SPHelper {
 
+    // 存储集合
     private static final String SHARE_COMMON = "share_common";
     private static final String SHARE_OSS_INFO = "share_oss_info";
     private static final String SHARE_LIMIT = "share_limit";
@@ -91,7 +92,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
     private static final String FIELD_LIMIT_PROMISE_CONTENT_LENGTH = "promise_content_length";
     private static final String FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH = "promise_break_content_length";
-    private static final String FIELD_LIMIT_ANGRY_REASON_LENGTH = "angry_reason_length";
+    private static final String FIELD_LIMIT_ANGRY_CONTENT_LENGTH = "angry_content_length";
     private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
     // vipLimit
@@ -329,7 +330,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
         editor.putInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, limit.getPromiseContentLength());
         editor.putInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, limit.getPromiseBreakContentLength());
-        editor.putInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, limit.getAngryReasonLength());
+        editor.putInt(FIELD_LIMIT_ANGRY_CONTENT_LENGTH, limit.getAngryContentLength());
         editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.apply();
@@ -364,7 +365,7 @@ public class SPHelper {
         limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
         limit.setPromiseContentLength(sp.getInt(FIELD_LIMIT_PROMISE_CONTENT_LENGTH, 200));
         limit.setPromiseBreakContentLength(sp.getInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, 100));
-        limit.setAngryReasonLength(sp.getInt(FIELD_LIMIT_ANGRY_REASON_LENGTH, 200));
+        limit.setAngryContentLength(sp.getInt(FIELD_LIMIT_ANGRY_CONTENT_LENGTH, 200));
         limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;

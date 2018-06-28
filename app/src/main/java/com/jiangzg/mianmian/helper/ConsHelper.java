@@ -54,5 +54,9 @@ public class ConsHelper {
     public static final int EVENT_PROMISE_LIST_ITEM_DELETE = 318;
     public static final int EVENT_PROMISE_LIST_ITEM_REFRESH = 319;
     public static final int EVENT_PROMISE_DETAIL_REFRESH = 320;
+    public static final int EVENT_ANGRY_LIST_REFRESH = 321; // 生气
+    public static final int EVENT_ANGRY_LIST_ITEM_DELETE = 322;
+    public static final int EVENT_ANGRY_LIST_ITEM_REFRESH = 323;
+    public static final int EVENT_ANGRY_DETAIL_REFRESH = 324;
 
 }

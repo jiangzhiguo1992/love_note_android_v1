@@ -1,6 +1,7 @@
 package com.jiangzg.mianmian.helper;
 
 import com.jiangzg.mianmian.domain.Album;
+import com.jiangzg.mianmian.domain.Angry;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
@@ -322,5 +323,25 @@ public interface API {
     // promiseBreak删除
     @DELETE("book/promise/break")
     Call<Result> promiseBreakDel(@Query("pbid") long pbid);
+
+    // angryList获取
+    @GET("book/angry?aid=0&list=1")
+    Call<Result> angryListGet(@Query("who") int who, @Query("page") int page);
+
+    // angry获取
+    @GET("book/angry?list=0")
+    Call<Result> angryGet(@Query("aid") long aid);
+
+    // angry上传
+    @POST("book/angry")
+    Call<Result> angryAdd(@Body Angry angry);
+
+    // angry删除
+    @DELETE("book/angry")
+    Call<Result> angryDel(@Query("aid") long aid);
+
+    // angry修改
+    @PUT("book/angry")
+    Call<Result> angryUpdate(@Body Angry angry);
 
 }

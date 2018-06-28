@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumListActivity;
+import com.jiangzg.mianmian.activity.book.AngryListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
@@ -170,7 +171,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvPromise: // 承诺
                 PromiseListActivity.goActivity(mActivity);
                 break;
-            case R.id.cvAngry: // TODO 生气
+            case R.id.cvAngry: // 生气
+                AngryListActivity.goActivity(mActivity);
                 break;
             case R.id.cvAward: // TODO 补偿
                 break;

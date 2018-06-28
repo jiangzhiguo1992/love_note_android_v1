@@ -36,7 +36,7 @@ public class Limit {
     private int giftTitleLength;
     private int promiseContentLength;
     private int promiseBreakContentLength;
-    private int angryReasonLength;
+    private int angryContentLength;
     private int awardReasonLength;
     // topic
 
@@ -259,12 +259,12 @@ public class Limit {
         this.dreamContentLength = dreamContentLength;
     }
 
-    public int getAngryReasonLength() {
-        return angryReasonLength;
+    public int getAngryContentLength() {
+        return angryContentLength;
     }
 
-    public void setAngryReasonLength(int angryReasonLength) {
-        this.angryReasonLength = angryReasonLength;
+    public void setAngryContentLength(int angryContentLength) {
+        this.angryContentLength = angryContentLength;
     }
 
     public int getAwardReasonLength() {
