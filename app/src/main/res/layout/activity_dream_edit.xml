@@ -62,7 +62,7 @@
                     android:layout_marginTop="3dp"
                     android:background="@drawable/selector_stroke_primary_r3_enable_press"
                     android:gravity="start"
-                    android:hint="@string/please_input_content"
+                    android:hint="@string/please_input_dream_content"
                     android:inputType="textMultiLine"
                     android:minLines="10"
                     android:padding="8dp"/>

@@ -353,6 +353,9 @@
     <string name="angry">生气</string>
     <string name="promise">承诺</string>
     <string name="gift">礼物</string>
+    <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
+    <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
+    <string name="please_input_angry_content">请输入生气的原由</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>

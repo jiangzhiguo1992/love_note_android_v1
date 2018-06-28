@@ -254,6 +254,8 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
                 // event
                 RxEvent<ArrayList<Dream>> event = new RxEvent<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<Dream>());
                 RxBus.post(event);
+                // sp
+                SPHelper.setDraftDream(null);
                 // finish
                 mActivity.finish();
             }

@@ -392,6 +392,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                 // event
                 RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
                 RxBus.post(event);
+                // sp
+                SPHelper.setDraftDiary(null);
                 // finish
                 mActivity.finish();
             }
