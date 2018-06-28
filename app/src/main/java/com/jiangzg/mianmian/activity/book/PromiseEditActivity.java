@@ -74,7 +74,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     private Promise promise;
     private Call<Result> callUpdate;
     private Call<Result> callAdd;
-    private int limitTitleLength;
+    private int limitContentLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PromiseEditActivity.class);
@@ -120,8 +120,8 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         }
         // date
         refreshDateView();
-        // receive
-        initReceiveCheck();
+        // happenUser
+        initHappenCheck();
         // input
         etContent.setText(promise.getContentText());
     }
@@ -170,7 +170,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
     }
 
-    private void initReceiveCheck() {
+    private void initHappenCheck() {
         if (isTypeUpdate()) {
             rgHappenUser.setVisibility(View.GONE);
             return;
@@ -221,17 +221,17 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void onContentInput(String input) {
-        if (limitTitleLength <= 0) {
-            limitTitleLength = SPHelper.getLimit().getPromiseContentLength();
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getPromiseContentLength();
         }
         int length = input.length();
-        if (length > limitTitleLength) {
-            CharSequence charSequence = input.subSequence(0, limitTitleLength);
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
             etContent.setText(charSequence);
             etContent.setSelection(charSequence.length());
             length = charSequence.length();
         }
-        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitTitleLength);
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
         tvContentLimit.setText(limitShow);
         // 设置进去
         promise.setContentText(etContent.getText().toString());

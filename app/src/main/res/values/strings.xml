@@ -393,6 +393,8 @@
     <string name="send_to_ta">送给Ta的</string>
     <string name="me_s_promise">我的承诺</string>
     <string name="ta_s_promise">Ta的承诺</string>
+    <string name="me_s_angry">我生气了</string>
+    <string name="ta_s_angry">Ta生气了</string>
     <string name="ci">次</string>
     <string name="violate">违反</string>
     <string name="promise_user_colon_space_holder" formatted="false">承诺者: %s</string>
