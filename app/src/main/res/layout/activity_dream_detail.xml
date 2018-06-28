@@ -26,15 +26,25 @@
                 android:paddingEnd="10dp"
                 android:paddingStart="10dp">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontBlackBig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    tools:text="2017年 06月 21号"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvAuthor"
+                        android:id="@+id/tvCreator"
                         style="@style/FontGreySmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -42,18 +52,18 @@
                         tools:text="创建者: 一二三四五六"/>
 
                     <TextView
-                        android:id="@+id/tvUpdateAt"
+                        android:id="@+id/tvTextCount"
                         style="@style/FontGreySmall"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        tools:text="上次编辑: 2017年 4月 20日"/>
+                        tools:text="字数: 2000"/>
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvContent"
-                    style="@style/FontBlackNormal"
+                    style="@style/FontBlackBig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"

@@ -48,10 +48,12 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.tvAuthor)
-    TextView tvAuthor;
-    @BindView(R.id.tvUpdateAt)
-    TextView tvUpdateAt;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
+    @BindView(R.id.tvCreator)
+    TextView tvCreator;
+    @BindView(R.id.tvTextCount)
+    TextView tvTextCount;
     @BindView(R.id.tvContent)
     TextView tvContent;
 
@@ -165,23 +167,22 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     private void refreshView() {
         if (dream == null) return;
         User user = SPHelper.getMe();
-        long userId = dream.getUserId();
-        long updateAt = dream.getUpdateAt();
         // menu
         invalidateOptionsMenu();
         // happen
         String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
-        tb.setTitle(happenAt);
+        tvHappenAt.setText(happenAt);
         // author
-        String authorName = user.getNameInCp(userId);
+        String authorName = user.getNameInCp(dream.getUserId());
         String authorShow = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), authorName);
-        tvAuthor.setText(authorShow);
-        // updateAt
-        String update = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(updateAt);
-        String updateShow = String.format(Locale.getDefault(), getString(R.string.forward_edit_colon_space_holder), update);
-        tvUpdateAt.setText(updateShow);
+        tvCreator.setText(authorShow);
+        // textCount
+        String content = dream.getContentText();
+        if (content == null) content = "";
+        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_space_colon_holder), content.length());
+        tvTextCount.setText(countShow);
         // content
-        tvContent.setText(dream.getContentText());
+        tvContent.setText(content);
     }
 
     private void showDeleteDialog() {

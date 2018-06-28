@@ -32,7 +32,8 @@
             <com.jiangzg.mianmian.view.FrescoAvatarView
                 android:id="@+id/ivAvatar"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                tools:background="@mipmap/ic_boy_circle"/>
 
             <TextView
                 android:id="@+id/tvHappenAt"
@@ -58,8 +59,8 @@
 
         <View
             style="@style/LineHorizontal"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/tvContent"
