@@ -116,7 +116,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     public static void goActivity(Activity from, long pid) {
-        Intent intent = new Intent(from, DiaryDetailActivity.class);
+        Intent intent = new Intent(from, PromiseDetailActivity.class);
         intent.putExtra("from", FROM_ID);
         intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
@@ -83,11 +84,11 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         helper.addOnClickListener(R.id.tvCancel);
     }
 
-    public void selectAlbum(int position) {
+    public void selectAlbum(Activity activity, int position) {
+        activity.finish(); // 必须先关闭
         Album item = getItem(position);
         RxEvent<Album> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_SELECT, item);
         RxBus.post(event);
-        mActivity.finish();
     }
 
     public void selectPicture(int position) {

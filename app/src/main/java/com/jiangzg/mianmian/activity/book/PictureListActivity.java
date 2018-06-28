@@ -161,7 +161,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
                         if (isSelectPicture()) {
                             // 照片选择
-                            pictureAdapter.selectPicture(position);
+                            pictureAdapter.selectPicture(mActivity, position);
                         } else {
                             // 照片浏览
                             pictureAdapter.showOperation(position);

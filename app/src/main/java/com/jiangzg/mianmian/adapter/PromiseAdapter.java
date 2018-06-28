@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -49,11 +50,11 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
         PromiseDetailActivity.goActivity(mActivity, item);
     }
 
-    public void selectPromise(int position) {
+    public void selectPromise(Activity activity, int position) {
+        activity.finish(); // 必须先关闭
         Promise item = getItem(position);
         RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_SELECT, item);
         RxBus.post(event);
-        mActivity.finish();
     }
 
 }

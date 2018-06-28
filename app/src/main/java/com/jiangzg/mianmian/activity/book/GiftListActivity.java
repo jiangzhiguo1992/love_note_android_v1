@@ -126,7 +126,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         GiftAdapter giftAdapter = (GiftAdapter) adapter;
                         if (isSelect()) {
-                            giftAdapter.selectGift(position);
+                            giftAdapter.selectGift(mActivity, position);
                         }
                     }
                 })

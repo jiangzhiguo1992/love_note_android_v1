@@ -74,7 +74,7 @@ public class UpdateService extends Service {
     public static void showUpdateDialog(final List<Version> versionList) {
         if (versionList == null || versionList.size() <= 0) return;
         final Activity top = ActivityStack.getTop();
-        if (top == null) return;
+        if (ActivityStack.isActivityFinish(top)) return;
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < versionList.size(); i++) {
             Version version = versionList.get(i);
@@ -139,7 +139,7 @@ public class UpdateService extends Service {
     // 检查权限
     private void checkPerm(final Version version) {
         final Activity top = ActivityStack.getTop();
-        if (top == null || !(top instanceof BaseActivity)) {
+        if (ActivityStack.isActivityFinish(top) || !(top instanceof BaseActivity)) {
             UpdateService.this.stopSelf();
             return;
         }
@@ -191,7 +191,7 @@ public class UpdateService extends Service {
     // 开始下载
     private void ossDownloadApk(Version version) {
         final Activity top = ActivityStack.getTop();
-        if (top == null || !(top instanceof BaseActivity)) {
+        if (ActivityStack.isActivityFinish(top) || !(top instanceof BaseActivity)) {
             LogUtils.w(UpdateService.class, "ossDownloadApk", "top = null");
             UpdateService.this.stopSelf();
             return;

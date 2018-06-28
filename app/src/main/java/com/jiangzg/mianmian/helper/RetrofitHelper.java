@@ -226,13 +226,13 @@ public class RetrofitHelper {
                 ToastUtils.show(message);
                 break;
             case 401: // 用户验证失败
-                if (top == null) return;
+                if (ActivityStack.isActivityFinish(top)) return;
                 LoginActivity.goActivity(top);
                 break;
             case 403: // 禁止访问,key错误
             case 410: // 用户被禁用,应该退出应用
             case 503: // 服务器维护
-                if (top == null) return;
+                if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialog503 = DialogHelper.getBuild(top)
                         .cancelable(false)
                         .canceledOnTouchOutside(false)
@@ -248,7 +248,7 @@ public class RetrofitHelper {
                 DialogHelper.showWithAnim(dialog503);
                 break;
             case 408: // 请求超时
-                if (top == null) return;
+                if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialog408 = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(true)
@@ -274,7 +274,7 @@ public class RetrofitHelper {
                 check417Code(top, body);
                 break;
             case 500: // 服务器异常
-                if (top == null) return;
+                if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialog500 = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(false)
@@ -290,7 +290,7 @@ public class RetrofitHelper {
                 DialogHelper.showWithAnim(dialog500);
                 break;
             default: // 404,405...其他错误
-                if (top == null) return;
+                if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialogDef = DialogHelper.getBuild(top)
                         .cancelable(true)
                         .canceledOnTouchOutside(false)
@@ -323,7 +323,7 @@ public class RetrofitHelper {
         if (code == Result.RESULT_CODE_TOAST) { // toast
             ToastUtils.show(message);
         } else if (code == Result.RESULT_CODE_DIALOG) { // dialog
-            if (top == null) return;
+            if (ActivityStack.isActivityFinish(top)) return;
             MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)
                     .canceledOnTouchOutside(false)
@@ -333,14 +333,14 @@ public class RetrofitHelper {
             DialogHelper.showWithAnim(dialog);
         } else if (code == Result.RESULT_CODE_NO_USER_INFO) { // userInfo
             ToastUtils.show(message);
-            if (top == null) return;
+            if (ActivityStack.isActivityFinish(top)) return;
             UserInfoActivity.goActivity(top);
         } else if (code == Result.RESULT_CODE_NO_CP) { // cp
             ToastUtils.show(message);
-            if (top == null) return;
+            if (ActivityStack.isActivityFinish(top)) return;
             CouplePairActivity.goActivity(top);
         } else if (code == Result.RESULT_CODE_NO_VIP) { // vip
-            if (top == null) return;
+            if (ActivityStack.isActivityFinish(top)) return;
             MaterialDialog dialog = DialogHelper.getBuild(top)
                     .cancelable(true)
                     .canceledOnTouchOutside(false)

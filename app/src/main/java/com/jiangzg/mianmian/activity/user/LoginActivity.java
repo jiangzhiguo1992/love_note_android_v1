@@ -84,7 +84,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         Activity top = ActivityStack.getTop();
         if (top != null) {
             ComponentName name = top.getComponentName();
-            if (name.getClassName().equals("LoginActivity")) {
+            if (name.getClassName().equals(LoginActivity.class.getSimpleName())) {
                 return;
             }
         }

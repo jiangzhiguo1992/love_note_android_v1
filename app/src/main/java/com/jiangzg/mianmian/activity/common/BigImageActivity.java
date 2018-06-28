@@ -242,7 +242,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         if (type == TYPE_FILE_SINGLE || type == TYPE_FILE_LIST) return;
         // 获取地址并下载
         String objectKey = dataList.get(vpImage.getCurrentItem());
-        OssHelper.downloadBigImage(objectKey);
+        OssHelper.downloadBigImage(mActivity, objectKey);
     }
 
 }

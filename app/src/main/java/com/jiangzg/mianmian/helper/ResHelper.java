@@ -88,7 +88,7 @@ public class ResHelper {
 
     public static void deleteFileInBackground(final File file) {
         final Activity top = ActivityStack.getTop();
-        if (top == null) return;
+        if (ActivityStack.isActivityFinish(top)) return;
         //if (!FileUtils.isFileExists(file)) return; // 有时候存在文件也会返回false
         if (file == null) return;
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
@@ -114,7 +114,7 @@ public class ResHelper {
 
     public static void deleteFileListInBackground(final List<File> fileList) {
         final Activity top = ActivityStack.getTop();
-        if (top == null) return;
+        if (ActivityStack.isActivityFinish(top)) return;
         if (fileList == null || fileList.size() <= 0) return;
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override

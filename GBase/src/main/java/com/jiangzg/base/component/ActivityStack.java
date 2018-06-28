@@ -215,4 +215,11 @@ public class ActivityStack {
         activity.finish();
     }
 
+    /**
+     * 是否关闭了
+     */
+    public static boolean isActivityFinish(Activity activity) {
+        return activity == null || activity.isFinishing() || activity.isDestroyed();
+    }
+
 }

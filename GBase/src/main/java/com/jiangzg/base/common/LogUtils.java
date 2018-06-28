@@ -46,7 +46,9 @@ public class LogUtils {
                         AppUtils.appExit();
                     } else {
                         Activity top = ActivityStack.getTop();
-                        if (top != null) top.finish();
+                        if (!ActivityStack.isActivityFinish(top)) {
+                            top.finish();
+                        }
                     }
                 }
             }

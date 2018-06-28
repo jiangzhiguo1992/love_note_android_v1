@@ -23,7 +23,6 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
@@ -833,16 +832,14 @@ public class OssHelper {
     }
 
     // 全屏图下载
-    public static void downloadBigImage(final String objectKey) {
+    public static void downloadBigImage(final Activity activity, final String objectKey) {
         if (StringUtils.isEmpty(objectKey)) {
             LogUtils.w(OssHelper.class, "downloadBigImage", "下载文件不存在！");
             ToastUtils.show(MyApp.get().getString(R.string.download_file_no_exists));
             return;
         }
-        final Activity top = ActivityStack.getTop();
-        if (top == null) return;
         // 权限检查
-        PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
                 File target = ResHelper.newSdCardImageFile(objectKey);
@@ -887,7 +884,7 @@ public class OssHelper {
 
             @Override
             public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(top);
+                DialogHelper.showGoPermDialog(activity);
             }
         });
     }

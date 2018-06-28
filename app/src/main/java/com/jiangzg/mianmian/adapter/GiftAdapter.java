@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -72,11 +73,11 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         GiftEditActivity.goActivity(mActivity, item);
     }
 
-    public void selectGift(int position) {
+    public void selectGift(Activity activity, int position) {
+        activity.finish(); // 必须先关闭
         Gift item = getItem(position);
         RxEvent<Gift> event = new RxEvent<>(ConsHelper.EVENT_GIFT_SELECT, item);
         RxBus.post(event);
-        mActivity.finish();
     }
 
 }

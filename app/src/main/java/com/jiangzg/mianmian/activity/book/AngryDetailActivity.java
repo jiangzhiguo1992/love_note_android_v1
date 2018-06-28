@@ -79,6 +79,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     RecyclerView rvPromise;
 
     private Angry angry;
+    private RecyclerHelper recyclerPromise;
+    private RecyclerHelper recyclerGift;
     private Call<Result> callGet;
     private Call<Result> callDel;
     private Observable<Gift> obGiftSelect;
@@ -153,6 +155,8 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         super.onDestroy();
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
+        RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obGiftSelect);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_SELECT, obPromiseSelect);
     }
 
     @Override
@@ -225,18 +229,20 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             // recycler
             List<Gift> giftList = new ArrayList<>();
             giftList.add(gift);
-            new RecyclerHelper(mActivity)
-                    .initRecycler(rvGift)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new GiftAdapter(mActivity))
-                    .setAdapter()
-                    .listenerClick(new OnItemLongClickListener() {
-                        @Override
-                        public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                            showDeleteGiftDialog();
-                        }
-                    })
-                    .dataNew(giftList);
+            if (recyclerGift == null) {
+                recyclerGift = new RecyclerHelper(mActivity)
+                        .initRecycler(rvGift)
+                        .initLayoutManager(new LinearLayoutManager(mActivity))
+                        .initAdapter(new GiftAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemLongClickListener() {
+                            @Override
+                            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                                showDeleteGiftDialog();
+                            }
+                        });
+            }
+            recyclerGift.dataNew(giftList);
         }
         // promise
         Promise promise = angry.getPromise();
@@ -251,25 +257,27 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             // recycler
             List<Promise> promiseList = new ArrayList<>();
             promiseList.add(promise);
-            new RecyclerHelper(mActivity)
-                    .initRecycler(rvPromise)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new PromiseAdapter(mActivity))
-                    .setAdapter()
-                    .listenerClick(new OnItemClickListener() {
-                        @Override
-                        public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
-                            promiseAdapter.goPromiseDetail(position);
-                        }
-                    })
-                    .listenerClick(new OnItemLongClickListener() {
-                        @Override
-                        public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                            showDeletePromiseDialog();
-                        }
-                    })
-                    .dataNew(promiseList);
+            if (recyclerPromise == null) {
+                recyclerPromise = new RecyclerHelper(mActivity)
+                        .initRecycler(rvPromise)
+                        .initLayoutManager(new LinearLayoutManager(mActivity))
+                        .initAdapter(new PromiseAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemClickListener() {
+                            @Override
+                            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
+                                promiseAdapter.goPromiseDetail(position);
+                            }
+                        })
+                        .listenerClick(new OnItemLongClickListener() {
+                            @Override
+                            public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                                showDeletePromiseDialog();
+                            }
+                        });
+            }
+            recyclerPromise.dataNew(promiseList);
         }
     }
 
