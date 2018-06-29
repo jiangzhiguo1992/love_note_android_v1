@@ -65,14 +65,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="@drawable/selector_check_solid_primary_r3"
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:text="@string/me_s_promise"
-                    android:textColor="@color/selector_text_check_gray_primary"
+                    android:textColor="@color/selector_text_check_primary_white"
                     tools:checked="true"/>
 
                 <RadioButton
@@ -81,14 +81,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="@drawable/selector_check_solid_primary_r3"
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:text="@string/ta_s_promise"
-                    android:textColor="@color/selector_text_check_gray_primary"/>
+                    android:textColor="@color/selector_text_check_primary_white"/>
             </RadioGroup>
 
             <RelativeLayout
@@ -103,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/selector_stroke_primary_r3_enable_press"
+                    android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
                     android:gravity="start"
                     android:hint="@string/please_input_promise_content"
                     android:inputType="textMultiLine"
@@ -128,6 +128,6 @@
         style="@style/FontWhiteBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_solid_dark_press"
+        android:background="@drawable/selector_press_solid_dark_accent"
         android:text="@string/publish"/>
 </LinearLayout>

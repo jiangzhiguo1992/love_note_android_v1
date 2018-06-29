@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:layout_marginEnd="10dp"
-            android:background="@drawable/selector_solid_primary_r3_enable_press"
+            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
             android:text="@string/search"/>
     </LinearLayout>
 

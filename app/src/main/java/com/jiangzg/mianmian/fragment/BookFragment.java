@@ -11,6 +11,7 @@ import android.view.View;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.AngryListActivity;
+import com.jiangzg.mianmian.activity.book.AwardListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
@@ -180,7 +181,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvDream: // 梦里
                 DreamListActivity.goActivity(mActivity);
                 break;
-            case R.id.cvAward: // TODO 补偿
+            case R.id.cvAward: // 补偿
+                AwardListActivity.goActivity(mActivity);
                 break;
         }
     }

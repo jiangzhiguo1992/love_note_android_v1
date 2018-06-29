@@ -161,6 +161,6 @@
         android:layout_height="32dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/selector_solid_primary_r3_enable_press"
+        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
         android:text="@string/start_search"/>
 </LinearLayout>

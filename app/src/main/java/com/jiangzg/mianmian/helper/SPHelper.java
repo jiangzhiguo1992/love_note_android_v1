@@ -93,7 +93,9 @@ public class SPHelper {
     private static final String FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH = "promise_break_content_length";
     private static final String FIELD_LIMIT_ANGRY_CONTENT_LENGTH = "angry_content_length";
     private static final String FIELD_LIMIT_DREAM_CONTENT_LENGTH = "dream_content_length";
-    private static final String FIELD_LIMIT_AWARD_REASON_LENGTH = "award_reason_length";
+    private static final String FIELD_LIMIT_AWARD_CONTENT_LENGTH = "award_content_length";
+    private static final String FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH = "award_rule_title_length";
+    private static final String FIELD_LIMIT_AWARD_RULE_SCORE_MAX = "award_rule_score_max";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
@@ -101,7 +103,6 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_WHISPER_IMG_COUNT = "whisper_image_count";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diary_image_size";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diary_image_count";
-    private static final String FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT = "album_total_count";
     private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "picture_size";
     private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "picture_total_count";
     private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "meet_image_count";
@@ -331,7 +332,9 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, limit.getPromiseBreakContentLength());
         editor.putInt(FIELD_LIMIT_ANGRY_CONTENT_LENGTH, limit.getAngryContentLength());
         editor.putInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, limit.getDreamContentLength());
-        editor.putInt(FIELD_LIMIT_AWARD_REASON_LENGTH, limit.getAwardReasonLength());
+        editor.putInt(FIELD_LIMIT_AWARD_CONTENT_LENGTH, limit.getAwardContentLength());
+        editor.putInt(FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH, limit.getAwardRuleTitleLength());
+        editor.putInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, limit.getAwardRuleScoreMax());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.apply();
     }
@@ -366,7 +369,9 @@ public class SPHelper {
         limit.setPromiseBreakContentLength(sp.getInt(FIELD_LIMIT_PROMISE_BREAK_CONTENT_LENGTH, 100));
         limit.setAngryContentLength(sp.getInt(FIELD_LIMIT_ANGRY_CONTENT_LENGTH, 200));
         limit.setDreamContentLength(sp.getInt(FIELD_LIMIT_DREAM_CONTENT_LENGTH, 1000));
-        limit.setAwardReasonLength(sp.getInt(FIELD_LIMIT_AWARD_REASON_LENGTH, 10));
+        limit.setAwardContentLength(sp.getInt(FIELD_LIMIT_AWARD_CONTENT_LENGTH, 100));
+        limit.setAwardRuleTitleLength(sp.getInt(FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH, 30));
+        limit.setAwardRuleScoreMax(sp.getInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, 100));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
     }
@@ -386,7 +391,6 @@ public class SPHelper {
         editor.putInt(FIELD_VIP_LIMIT_WHISPER_IMG_COUNT, vipLimit.getWhisperImageCount());
         editor.putInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, vipLimit.getDiaryImageCount());
         editor.putLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, vipLimit.getDiaryImageSize());
-        editor.putInt(FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT, vipLimit.getAlbumTotalCount());
         editor.putInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, vipLimit.getPictureTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_PICTURE_SIZE, vipLimit.getPictureSize());
         editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
@@ -407,7 +411,6 @@ public class SPHelper {
         vipLimit.setWhisperImageCount(sp.getInt(FIELD_VIP_LIMIT_WHISPER_IMG_COUNT, 0));
         vipLimit.setDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, 0));
         vipLimit.setDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, 0));
-        vipLimit.setAlbumTotalCount(sp.getInt(FIELD_VIP_LIMIT_ALBUM_TOTAL_COUNT, 0));
         vipLimit.setPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, 0));
         vipLimit.setPictureSize(sp.getLong(FIELD_VIP_LIMIT_PICTURE_SIZE, 0));
         vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));

@@ -65,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/selector_solid_dark_press"
+        android:background="@drawable/selector_press_solid_dark_accent"
         android:enabled="false"
         android:text="@string/commit"/>
 </RelativeLayout>

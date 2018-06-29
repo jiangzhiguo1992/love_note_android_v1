@@ -29,9 +29,20 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/tvHappenAt"
+                        style="@style/FontBlackBig"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:textStyle="bold"
+                        tools:text="2017年 09月 12号"/>
 
                     <TextView
                         android:id="@+id/tvTextCount"
@@ -56,8 +67,9 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
+                        android:layout_below="@+id/tvHappenAt"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="25dp"
                         app:cardElevation="@dimen/elevation_normal"

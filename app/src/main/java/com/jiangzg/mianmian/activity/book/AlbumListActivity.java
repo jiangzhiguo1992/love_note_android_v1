@@ -16,7 +16,6 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.AlbumAdapter;
@@ -32,12 +31,10 @@ import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
-import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -234,7 +231,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fabAdd: // 添加
-                albumAdd();
+                AlbumEditActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -267,18 +264,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 recyclerHelper.dataFail(more, errMsg);
             }
         });
-    }
-
-    private void albumAdd() {
-        if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
-        BaseQuickAdapter adapter = recyclerHelper.getAdapter();
-        int totalCount = SPHelper.getVipLimit().getAlbumTotalCount();
-        if (adapter.getData().size() >= totalCount) {
-            String string = getString(R.string.now_just_upload_holder_album);
-            ToastUtils.show(String.format(Locale.getDefault(), string, totalCount));
-            return;
-        }
-        AlbumEditActivity.goActivity(mActivity);
     }
 
 }

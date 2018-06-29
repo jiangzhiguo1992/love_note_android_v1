@@ -49,6 +49,10 @@ public class Result implements Serializable {
 
         private String show;
         private long total;
+        private long myTotal;
+        private long taTotal;
+        private String myShow;
+        private String taShow;
         private User user;
         private Limit limit;
         private VipLimit vipLimit;
@@ -66,8 +70,6 @@ public class Result implements Serializable {
         private Couple couple;
         private User me;
         private User ta;
-        private String myShow;
-        private String taShow;
         private int togetherDay;
         private WallPaper wallPaper;
         private Place myPlace;
@@ -97,6 +99,58 @@ public class Result implements Serializable {
         private PromiseBreak promiseBreak;
         private List<Angry> angryList;
         private Angry angry;
+        private List<Award> awardList;
+        private Award award;
+        private List<AwardRule> awardRuleList;
+        private AwardRule awardRule;
+
+        public long getMyTotal() {
+            return myTotal;
+        }
+
+        public void setMyTotal(long myTotal) {
+            this.myTotal = myTotal;
+        }
+
+        public long getTaTotal() {
+            return taTotal;
+        }
+
+        public void setTaTotal(long taTotal) {
+            this.taTotal = taTotal;
+        }
+
+        public List<Award> getAwardList() {
+            return awardList;
+        }
+
+        public void setAwardList(List<Award> awardList) {
+            this.awardList = awardList;
+        }
+
+        public Award getAward() {
+            return award;
+        }
+
+        public void setAward(Award award) {
+            this.award = award;
+        }
+
+        public List<AwardRule> getAwardRuleList() {
+            return awardRuleList;
+        }
+
+        public void setAwardRuleList(List<AwardRule> awardRuleList) {
+            this.awardRuleList = awardRuleList;
+        }
+
+        public AwardRule getAwardRule() {
+            return awardRule;
+        }
+
+        public void setAwardRule(AwardRule awardRule) {
+            this.awardRule = awardRule;
+        }
 
         public List<Angry> getAngryList() {
             return angryList;

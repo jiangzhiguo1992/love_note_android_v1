@@ -45,10 +45,6 @@ public class ConsHelper {
     public static final int EVENT_PICTURE_LIST_REFRESH = 307; // 照片
     public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 308;
     public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 309;
-    public static final int EVENT_DREAM_LIST_REFRESH = 310; // 梦境
-    public static final int EVENT_DREAM_LIST_ITEM_DELETE = 311;
-    public static final int EVENT_DREAM_LIST_ITEM_REFRESH = 312;
-    public static final int EVENT_DREAM_DETAIL_REFRESH = 313;
     public static final int EVENT_GIFT_LIST_REFRESH = 314; // 礼物
     public static final int EVENT_GIFT_LIST_ITEM_DELETE = 315;
     public static final int EVENT_GIFT_LIST_ITEM_REFRESH = 316;
@@ -59,5 +55,13 @@ public class ConsHelper {
     public static final int EVENT_ANGRY_LIST_REFRESH = 321; // 生气
     public static final int EVENT_ANGRY_LIST_ITEM_DELETE = 322;
     public static final int EVENT_ANGRY_LIST_ITEM_REFRESH = 323;
+    public static final int EVENT_DREAM_LIST_REFRESH = 310; // 梦境
+    public static final int EVENT_DREAM_LIST_ITEM_DELETE = 311;
+    public static final int EVENT_DREAM_LIST_ITEM_REFRESH = 312;
+    public static final int EVENT_DREAM_DETAIL_REFRESH = 313;
+    public static final int EVENT_AWARD_LIST_REFRESH = 324; // 补偿
+    public static final int EVENT_AWARD_LIST_ITEM_DELETE = 325;
+    public static final int EVENT_AWARD_RULE_LIST_REFRESH = 326;
+    public static final int EVENT_AWARD_RULE_LIST_ITEM_DELETE = 327;
 
 }

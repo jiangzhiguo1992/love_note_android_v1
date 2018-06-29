@@ -354,6 +354,7 @@
     <string name="gift">礼物</string>
     <string name="dream">梦境</string>
     <string name="award">补偿</string>
+    <string name="award_rule">补偿规则</string>
     <string name="please_select_album">请选择相册</string>
     <string name="please_select_time">请选择时间</string>
     <string name="please_select_gift">请选择礼物</string>
@@ -387,7 +388,6 @@
     <string name="save_channel_colon_space_holder" formatted="false">保存频道: %s</string>
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文字</string>
-    <string name="now_just_upload_holder_album" formatted="false">目前只能上传%d个相册哦</string>
     <string name="now_just_upload_holder_picture" formatted="false">目前只能上传%d张照片哦</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>

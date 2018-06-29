@@ -250,7 +250,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         layoutParams.setMarginEnd(dp3);
         button.setLayoutParams(layoutParams);
         button.setPadding(dp14, dp4, dp14, dp4);
-        button.setBackgroundResource(R.drawable.selector_stroke_primary_r3_check);
+        button.setBackgroundResource(R.drawable.selector_check_stroke_solid_primary_r3);
         button.setButtonDrawable(null);
         button.setElevation(dp3);
         button.setGravity(Gravity.CENTER);
@@ -282,7 +282,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         layoutParams.setMarginEnd(dp3);
         button.setLayoutParams(layoutParams);
         button.setPadding(dp14, dp4, dp14, dp4);
-        button.setBackgroundResource(R.drawable.selector_stroke_primary_r3_check);
+        button.setBackgroundResource(R.drawable.selector_check_stroke_solid_primary_r3);
         button.setButtonDrawable(null);
         button.setElevation(dp3);
         button.setGravity(Gravity.CENTER);

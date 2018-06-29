@@ -14,7 +14,6 @@ public class VipLimit {
     private int whisperImageCount;
     private long diaryImageSize;
     private int diaryImageCount;
-    private int albumTotalCount;
     private long pictureSize;
     private int pictureTotalCount;
     private long audioSize;
@@ -72,14 +71,6 @@ public class VipLimit {
 
     public void setPictureSize(long pictureSize) {
         this.pictureSize = pictureSize;
-    }
-
-    public int getAlbumTotalCount() {
-        return albumTotalCount;
-    }
-
-    public void setAlbumTotalCount(int albumTotalCount) {
-        this.albumTotalCount = albumTotalCount;
     }
 
     public long getDiaryImageSize() {

@@ -55,6 +55,8 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
+    @BindView(R.id.tvHappenAt)
+    TextView tvHappenAt;
     @BindView(R.id.ivAvatar)
     FrescoAvatarView ivAvatar;
     @BindView(R.id.tvTextCount)
@@ -178,7 +180,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         User user = SPHelper.getMe();
         // happen
         String happenAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(diary.getHappenAt());
-        tb.setTitle(happenAt);
+        tvHappenAt.setText(happenAt);
         // avatar
         String avatar = user.getAvatarInCp(diary.getUserId());
         ivAvatar.setData(avatar);

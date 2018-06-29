@@ -91,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginStart="10dp"
-            android:background="@drawable/selector_solid_primary_r3_enable_press"
+            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
             android:enabled="false"
             android:text="@string/send_validate_code"/>
     </LinearLayout>
@@ -102,7 +102,7 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/selector_stroke_primary_r3_enable_press"
+        android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
         android:text="@string/verify_login"
         android:textColor="@color/selector_text_press_primary_dark"/>
 
@@ -120,7 +120,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="20dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_solid_primary_r3_enable_press"
+            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
             android:text="@string/register"/>
 
         <Button
@@ -131,7 +131,7 @@
             android:layout_marginEnd="20dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_solid_primary_r3_enable_press"
+            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
             android:enabled="false"
             android:text="@string/login"/>
     </LinearLayout>

@@ -2,6 +2,8 @@ package com.jiangzg.mianmian.helper;
 
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Angry;
+import com.jiangzg.mianmian.domain.Award;
+import com.jiangzg.mianmian.domain.AwardRule;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
@@ -64,6 +66,14 @@ public interface API {
     @POST("sms")
     Call<Result> smsSend(@Body Sms sms);
 
+    // app开启 welcome login userInfo forget
+    @POST("entry")
+    Call<Result> entryPush(@Body Entry entry);
+
+    // oss
+    @GET("oss")
+    Call<Result> ossGet();
+
     // 用户注册
     @POST("user")
     Call<Result> userRegister(@Body User user);
@@ -80,13 +90,13 @@ public interface API {
     @GET("user")
     Call<Result> userGet(@Query("ta") boolean ta);
 
-    // app开启 welcome login userInfo forget
-    @POST("entry")
-    Call<Result> entryPush(@Body Entry entry);
+    // 帮助文档
+    @GET("set/help")
+    Call<Result> helpGet(@Query("index") int contentType);
 
-    // oss
-    @GET("oss")
-    Call<Result> ossGet();
+    // 版本
+    @GET("set/version")
+    Call<Result> checkUpdate(@Query("code") int code);
 
     // 公告列表获取
     @GET("set/notice?list=1")
@@ -95,14 +105,6 @@ public interface API {
     // 公告阅读
     @PUT("set/notice")
     Call<Result> noticeRead(@Query("nid") long nid);
-
-    // 版本
-    @GET("set/version")
-    Call<Result> checkUpdate(@Query("code") int code);
-
-    // 帮助文档
-    @GET("set/help")
-    Call<Result> helpGet(@Query("index") int contentType);
 
     // 意见发布
     @POST("set/suggest")
@@ -256,26 +258,6 @@ public interface API {
     @PUT("book/picture")
     Call<Result> pictureUpdate(@Body Picture picture);
 
-    // dreamList获取
-    @GET("book/dream?did=0&list=1")
-    Call<Result> dreamListGet(@Query("who") int who, @Query("page") int page);
-
-    // dream获取
-    @GET("book/dream?list=0")
-    Call<Result> dreamGet(@Query("did") long did);
-
-    // dream上传
-    @POST("book/dream")
-    Call<Result> dreamAdd(@Body Dream dream);
-
-    // dream删除
-    @DELETE("book/dream")
-    Call<Result> dreamDel(@Query("did") long did);
-
-    // dream修改
-    @PUT("book/dream")
-    Call<Result> dreamUpdate(@Body Dream dream);
-
     // giftList获取
     @GET("book/gift?gid=0&list=1")
     Call<Result> giftListGet(@Query("who") int who, @Query("page") int page);
@@ -343,5 +325,53 @@ public interface API {
     // angry修改
     @PUT("book/angry")
     Call<Result> angryUpdate(@Body Angry angry);
+
+    // dreamList获取
+    @GET("book/dream?did=0&list=1")
+    Call<Result> dreamListGet(@Query("who") int who, @Query("page") int page);
+
+    // dream获取
+    @GET("book/dream?list=0")
+    Call<Result> dreamGet(@Query("did") long did);
+
+    // dream上传
+    @POST("book/dream")
+    Call<Result> dreamAdd(@Body Dream dream);
+
+    // dream删除
+    @DELETE("book/dream")
+    Call<Result> dreamDel(@Query("did") long did);
+
+    // dream修改
+    @PUT("book/dream")
+    Call<Result> dreamUpdate(@Body Dream dream);
+
+    // award获取
+    @GET("book/award?aid=0&score=0&list=1")
+    Call<Result> awardListGet(@Query("who") int who, @Query("page") int page);
+
+    // award获取
+    @GET("book/award?aid=0&list=0&score=1")
+    Call<Result> awardScoreGet();
+
+    // award上传
+    @POST("book/award")
+    Call<Result> awardAdd(@Body Award award);
+
+    // award删除
+    @DELETE("book/award")
+    Call<Result> awardDel(@Query("aid") long aid);
+
+    // awardRule获取
+    @GET("book/award/rule?arid=0&list=1")
+    Call<Result> awardRuleListGet(@Query("who") int who, @Query("page") int page);
+
+    // awardRule上传
+    @POST("book/award/rule")
+    Call<Result> awardRuleAdd(@Body AwardRule awardRule);
+
+    // awardRule删除
+    @DELETE("book/award/rule")
+    Call<Result> awardRuleDel(@Query("arid") long arid);
 
 }

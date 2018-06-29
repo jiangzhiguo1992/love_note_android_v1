@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@drawable/selector_solid_dark_press"
+                    android:background="@drawable/selector_press_solid_dark_accent"
                     android:foreground="?attr/selectableItemBackground"
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"

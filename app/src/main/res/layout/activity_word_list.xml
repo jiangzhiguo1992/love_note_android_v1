@@ -39,7 +39,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_stroke_primary_r3_enable_press"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
             android:gravity="start"
             android:hint="@string/please_input_content"
             android:inputType="textMultiLine"
@@ -53,7 +53,7 @@
             android:layout_width="60dp"
             android:layout_height="35dp"
             android:layout_margin="5dp"
-            android:background="@drawable/selector_solid_primary_r3_enable_press"
+            android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/send"/>
     </LinearLayout>

@@ -37,11 +37,37 @@ public class Limit {
     private int promiseBreakContentLength;
     private int angryContentLength;
     private int dreamContentLength;
-    private int awardReasonLength;
+    private int awardContentLength;
+    private int awardRuleTitleLength;
+    private int awardRuleScoreMax;
     // topic
 
     // square
     private int vipExpireDay;
+
+    public int getAwardContentLength() {
+        return awardContentLength;
+    }
+
+    public void setAwardContentLength(int awardContentLength) {
+        this.awardContentLength = awardContentLength;
+    }
+
+    public int getAwardRuleTitleLength() {
+        return awardRuleTitleLength;
+    }
+
+    public void setAwardRuleTitleLength(int awardRuleTitleLength) {
+        this.awardRuleTitleLength = awardRuleTitleLength;
+    }
+
+    public int getAwardRuleScoreMax() {
+        return awardRuleScoreMax;
+    }
+
+    public void setAwardRuleScoreMax(int awardRuleScoreMax) {
+        this.awardRuleScoreMax = awardRuleScoreMax;
+    }
 
     public int getPromiseBreakContentLength() {
         return promiseBreakContentLength;
@@ -265,14 +291,6 @@ public class Limit {
 
     public void setAngryContentLength(int angryContentLength) {
         this.angryContentLength = angryContentLength;
-    }
-
-    public int getAwardReasonLength() {
-        return awardReasonLength;
-    }
-
-    public void setAwardReasonLength(int awardReasonLength) {
-        this.awardReasonLength = awardReasonLength;
     }
 
 }

@@ -99,12 +99,12 @@
         <activity android:name=".activity.book.PromiseListActivity"/>
         <activity android:name=".activity.book.PromiseEditActivity"/>
         <activity android:name=".activity.book.PromiseDetailActivity"/>
-        <activity android:name=".activity.book.AngryListActivity">
-        </activity>
-        <activity android:name=".activity.book.AngryEditActivity">
-        </activity>
-        <activity android:name=".activity.book.AngryDetailActivity">
-        </activity>
+        <activity android:name=".activity.book.AngryListActivity"/>
+        <activity android:name=".activity.book.AngryEditActivity"/>
+        <activity android:name=".activity.book.AngryDetailActivity"/>
+        <activity android:name=".activity.book.AwardListActivity"/>
+        <activity android:name=".activity.book.AwardEditActivity"/>
+        <activity android:name=".activity.book.AwardRuleListActivity"/>
+        <activity android:name=".activity.book.AwardRuleEditActivity"/>
     </application>
-
 </manifest>
