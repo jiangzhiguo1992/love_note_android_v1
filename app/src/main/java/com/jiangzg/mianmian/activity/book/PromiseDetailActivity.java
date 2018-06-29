@@ -245,7 +245,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 break;
             case R.id.llEdit:
                 if (promise == null) return;
-                PromiseEditActivity.goActivity(mActivity, promise);
+                //PromiseEditActivity.goActivity(mActivity, promise);
                 break;
             case R.id.llAdd:
                 breakShow(true);

@@ -68,7 +68,8 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="16dp"
@@ -84,7 +85,9 @@
                 android:text="@string/edit"/>
         </LinearLayout>
 
-        <View style="@style/LineVertical"/>
+        <View
+            style="@style/LineVertical"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/llAdd"
