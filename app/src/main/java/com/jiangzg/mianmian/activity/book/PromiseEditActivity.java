@@ -238,8 +238,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void checkPush() {
-        String title = etContent.getText().toString();
-        if (StringUtils.isEmpty(title)) {
+        if (StringUtils.isEmpty(promise.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }

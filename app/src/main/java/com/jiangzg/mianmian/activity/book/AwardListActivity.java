@@ -133,8 +133,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             }
         });
         recyclerHelper.dataRefresh();
-        // score
-        getScore();
     }
 
     @Override
@@ -177,30 +175,8 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
         }
     }
 
-    private void getScore() {
-        callScore = new RetrofitHelper().call(API.class).awardScoreGet();
-        RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                String myTotal = String.valueOf(data.getMyTotal());
-                if (data.getMyTotal() > 0) {
-                    myTotal = "+" + myTotal;
-                }
-                String taTotal = String.valueOf(data.getTaTotal());
-                if (data.getTaTotal() > 0) {
-                    taTotal = "+" + taTotal;
-                }
-                tvScoreMe.setText(myTotal);
-                tvScoreTa.setText(taTotal);
-            }
-
-            @Override
-            public void onFailure(String errMsg) {
-            }
-        });
-    }
-
     private void getData(final boolean more) {
+        if (!more) getScore(); // 加载分数
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
@@ -239,6 +215,29 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
+    }
+
+    private void getScore() {
+        callScore = new RetrofitHelper().call(API.class).awardScoreGet();
+        RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                String myTotal = String.valueOf(data.getMyTotal());
+                if (data.getMyTotal() > 0) {
+                    myTotal = "+" + myTotal;
+                }
+                String taTotal = String.valueOf(data.getTaTotal());
+                if (data.getTaTotal() > 0) {
+                    taTotal = "+" + taTotal;
+                }
+                tvScoreMe.setText(myTotal);
+                tvScoreTa.setText(taTotal);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
 }

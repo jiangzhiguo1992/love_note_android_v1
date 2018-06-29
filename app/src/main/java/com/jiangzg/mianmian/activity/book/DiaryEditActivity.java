@@ -314,8 +314,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void checkPush() {
-        String content = etContent.getText().toString();
-        if (StringUtils.isEmpty(content)) {
+        if (StringUtils.isEmpty(diary.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }

@@ -198,8 +198,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void push() {
-        String title = etContent.getText().toString();
-        if (StringUtils.isEmpty(title)) {
+        if (StringUtils.isEmpty(angry.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }
