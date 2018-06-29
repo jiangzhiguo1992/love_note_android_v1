@@ -127,7 +127,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                         AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
                         if (isSelectAlbum()) {
                             // 相册选择
-                            albumAdapter.selectAlbum(mActivity, position);
+                            albumAdapter.selectAlbum(position);
                         } else if (isSelectPicture()) {
                             // 照片列表选择
                             albumAdapter.selectPicture(position);

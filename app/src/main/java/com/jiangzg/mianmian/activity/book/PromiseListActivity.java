@@ -125,7 +125,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                         PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
                         if (isSelect()) {
                             // 礼物选择
-                            promiseAdapter.selectPromise(mActivity, position);
+                            promiseAdapter.selectPromise(position);
                         } else {
                             // 礼物浏览
                             promiseAdapter.goPromiseDetail(position);

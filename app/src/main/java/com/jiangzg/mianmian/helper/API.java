@@ -364,7 +364,7 @@ public interface API {
 
     // awardRule获取
     @GET("book/award/rule?arid=0&list=1")
-    Call<Result> awardRuleListGet(@Query("who") int who, @Query("page") int page);
+    Call<Result> awardRuleListGet(@Query("page") int page);
 
     // awardRule上传
     @POST("book/award/rule")

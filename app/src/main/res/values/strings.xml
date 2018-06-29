@@ -359,6 +359,7 @@
     <string name="please_select_time">请选择时间</string>
     <string name="please_select_gift">请选择礼物</string>
     <string name="please_select_promise">请选择承诺</string>
+    <string name="please_select_rule">请选择规则</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>
@@ -369,6 +370,7 @@
     <string name="confirm_delete_this_promise">确定删除这个承诺？</string>
     <string name="confirm_delete_this_angry">确定删除这个生气？</string>
     <string name="confirm_delete_this_dream">确定删除这个梦？</string>
+    <string name="confirm_delete_this_rule">确定移除这个规则？</string>
     <string name="confirm_remove_this_gift">确定移除这个礼物？</string>
     <string name="confirm_remove_this_promise">确定移除这个承诺？</string>
     <string name="confirm_delete_this_promise_break">确定删除这个违反记录？</string>

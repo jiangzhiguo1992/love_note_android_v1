@@ -28,6 +28,7 @@ public class ConsHelper {
     public static final int EVENT_PICTURE_SELECT = 3;
     public static final int EVENT_GIFT_SELECT = 4;
     public static final int EVENT_PROMISE_SELECT = 5;
+    public static final int EVENT_AWARD_RULE_SELECT = 6;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 100; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 101;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 102;
@@ -60,7 +61,7 @@ public class ConsHelper {
     public static final int EVENT_DREAM_LIST_ITEM_REFRESH = 312;
     public static final int EVENT_DREAM_DETAIL_REFRESH = 313;
     public static final int EVENT_AWARD_LIST_REFRESH = 324; // 补偿
-    public static final int EVENT_AWARD_LIST_ITEM_DELETE = 325;
+    public static final int EVENT_AWARD_LIST_ITEM_DELETE = 325; // 补偿
     public static final int EVENT_AWARD_RULE_LIST_REFRESH = 326;
     public static final int EVENT_AWARD_RULE_LIST_ITEM_DELETE = 327;
 

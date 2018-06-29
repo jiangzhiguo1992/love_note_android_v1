@@ -1,6 +1,5 @@
 package com.jiangzg.mianmian.adapter;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -169,8 +168,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         helper.addOnClickListener(R.id.tvCancelHorizontal);
     }
 
-    public void selectPicture(Activity activity, int position) {
-        activity.finish(); // 必须先关闭
+    public void selectPicture(int position) {
+        mActivity.finish(); // 必须先关闭
         Picture item = getItem(position);
         RxEvent<Picture> event = new RxEvent<>(ConsHelper.EVENT_PICTURE_SELECT, item);
         RxBus.post(event);

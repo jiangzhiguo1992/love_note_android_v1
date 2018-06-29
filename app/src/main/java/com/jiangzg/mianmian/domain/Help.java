@@ -43,6 +43,10 @@ public class Help extends BaseObj {
     public static final int INDEX_ANGRY_LIST = 32;
     public static final int INDEX_ANGRY_EDIT = 33;
     public static final int INDEX_ANGRY_DETAIL = 34;
+    public static final int INDEX_AWARD_LIST = 35;
+    public static final int INDEX_AWARD_EDIT = 36;
+    public static final int INDEX_AWARD_RULE_LIST = 37;
+    public static final int INDEX_AWARD_RULE_EDIT = 38;
 
     private int index;
     private String title;
