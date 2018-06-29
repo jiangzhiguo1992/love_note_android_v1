@@ -16,7 +16,7 @@ import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 /**
  * Created by JZG on 2018/3/13.
- * 登录信息适配器
+ * 地址适配器
  */
 public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolder> {
 
