@@ -130,6 +130,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             @Override
             public void call(Award award) {
                 ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), award);
+                refreshScoreData();
             }
         });
         recyclerHelper.dataRefresh();
@@ -176,7 +177,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     }
 
     private void getData(final boolean more) {
-        if (!more) getScore(); // 加载分数
+        if (!more) refreshScoreData(); // 加载分数
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
@@ -217,7 +218,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void getScore() {
+    private void refreshScoreData() {
         callScore = new RetrofitHelper().call(API.class).awardScoreGet();
         RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
             @Override
