@@ -303,6 +303,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
+                .autoDismiss(true)
                 .title(R.string.modify_ta_name)
                 .input(hint, show, false, new MaterialDialog.InputCallback() {
                     @Override
