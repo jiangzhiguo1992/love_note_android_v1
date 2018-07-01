@@ -32,7 +32,6 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:gravity="center"
-            android:textStyle="bold"
             tools:text="天津波波鱼吃饭"/>
 
         <View
@@ -43,7 +42,7 @@
 
         <TextView
             android:id="@+id/tvLocation"
-            style="@style/FontBlackNormal"
+            style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
@@ -63,16 +62,32 @@
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"/>
 
-        <TextView
-            android:id="@+id/tvHappenAt"
-            style="@style/FontBlackNormal"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
-            android:gravity="center"
-            tools:text="2018年 12月 21号"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvHappenAt"
+                style="@style/FontGreyNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                tools:text="时间: 2018年 12月 21号"/>
+
+            <TextView
+                android:id="@+id/tvCreator"
+                style="@style/FontGreyNormal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                tools:text="创建者: XXXXXXX"/>
+        </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"

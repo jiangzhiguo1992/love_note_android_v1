@@ -405,6 +405,7 @@
     <string name="album_colon_space_holder" formatted="false">相册: %s</string>
     <string name="picture_where">照片呢？</string>
     <string name="on_space_holder_space_send_to" formatted="false">与 %s 送给</string>
+    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
     <string name="send_to_me">送给我的</string>
     <string name="send_to_ta">送给Ta的</string>
     <string name="me_s_promise">我的承诺</string>

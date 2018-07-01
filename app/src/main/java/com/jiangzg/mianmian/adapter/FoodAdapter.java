@@ -13,6 +13,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
@@ -22,9 +23,11 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -35,17 +38,22 @@ import retrofit2.Call;
 public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
     private BaseActivity mActivity;
+    private final Couple couple;
 
     public FoodAdapter(BaseActivity activity) {
         super(R.layout.list_item_food);
         mActivity = activity;
+        couple = SPHelper.getCouple();
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Food item) {
         String title = item.getTitle();
         String address = item.getAddress();
-        String happenShow = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
+        String name = Couple.getName(couple, item.getUserId());
+        String creator = String.format(Locale.getDefault(), mActivity.getString(R.string.creator_colon_space_holder), name);
+        String happen = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
+        String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.time_colon_space_holder), happen);
         List<String> imageList = item.getContentImageList();
         // view
         RecyclerView rv = helper.getView(R.id.rv);
@@ -53,6 +61,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         helper.setVisible(R.id.tvLocation, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvLocation, address);
         helper.setText(R.id.tvHappenAt, happenShow);
+        helper.setText(R.id.tvCreator, creator);
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             int spanCount = imageList.size() > 3 ? 3 : imageList.size();
