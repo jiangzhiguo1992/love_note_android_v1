@@ -75,7 +75,7 @@ public class Food extends BaseCP implements Parcelable {
         this.contentImageList = contentImageList;
     }
 
-    protected Food() {
+    public Food() {
     }
 
     protected Food(Parcel in) {

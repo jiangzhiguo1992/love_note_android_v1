@@ -72,6 +72,8 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.etTitle)
+    EditText etTitle;
     @BindView(R.id.cvHappenAt)
     CardView cvHappenAt;
     @BindView(R.id.tvHappenAt)
@@ -82,8 +84,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     RadioButton rbReceiveMe;
     @BindView(R.id.rbReceiveTa)
     RadioButton rbReceiveTa;
-    @BindView(R.id.etTitle)
-    EditText etTitle;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.btnPublish)
@@ -341,6 +341,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             ToastUtils.show(etTitle.getHint().toString());
             return;
         }
+        gift.setTitle(title);
         List<String> fileData = null;
         List<String> ossPaths = null;
         if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
@@ -374,15 +375,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
-        String title = etTitle.getText().toString().trim();
-        if (StringUtils.isEmpty(title)) {
-            ToastUtils.show(etTitle.getHint().toString());
-            return;
-        } else if (title.length() > SPHelper.getLimit().getGiftTitleLength()) {
-            ToastUtils.show(etTitle.getHint().toString());
-            return;
-        }
-        gift.setTitle(title);
         gift.setContentImageList(ossPathList);
         if (isTypeUpdate()) {
             updateApi(gift);

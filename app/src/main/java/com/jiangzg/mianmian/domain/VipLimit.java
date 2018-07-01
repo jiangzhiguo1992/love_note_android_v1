@@ -20,10 +20,19 @@ public class VipLimit {
     private int audioTotalCount;
     private long videoSize;
     private int videoTotalCount;
+    private int foodImageCount;
     private int meetImageCount;
     private int giftImageCount;
     // topic
     private boolean topicImageEnable;
+
+    public int getFoodImageCount() {
+        return foodImageCount;
+    }
+
+    public void setFoodImageCount(int foodImageCount) {
+        this.foodImageCount = foodImageCount;
+    }
 
     public int getAudioTotalCount() {
         return audioTotalCount;

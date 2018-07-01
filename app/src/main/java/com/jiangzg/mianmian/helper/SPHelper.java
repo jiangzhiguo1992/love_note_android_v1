@@ -87,6 +87,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_PICTURE_COUNT = "picture_count";
     private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
     private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
+    private static final String FIELD_LIMIT_FOOD_TITLE_LENGTH = "food_title_length";
     private static final String FIELD_LIMIT_MEET_TITLE_LENGTH = "meet_title_length";
     private static final String FIELD_LIMIT_MEET_PROCESS_LENGTH = "meet_process_length";
     private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
@@ -106,6 +107,7 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diary_image_count";
     private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "picture_size";
     private static final String FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT = "picture_total_count";
+    private static final String FIELD_VIP_LIMIT_FOOD_IMG_COUNT = "food_image_count";
     private static final String FIELD_VIP_LIMIT_MEET_IMG_COUNT = "meet_image_count";
     private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
     private static final String FIELD_VIP_LIMIT_AUDIO_SIZE = "audio_size";
@@ -328,6 +330,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureCount());
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
+        editor.putInt(FIELD_LIMIT_FOOD_TITLE_LENGTH, limit.getFoodTitleLength());
         editor.putInt(FIELD_LIMIT_MEET_TITLE_LENGTH, limit.getMeetTitleLength());
         editor.putInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, limit.getMeetProcessLength());
         editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
@@ -365,6 +368,7 @@ public class SPHelper {
         limit.setPictureCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
         limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
         limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
+        limit.setFoodTitleLength(sp.getInt(FIELD_LIMIT_FOOD_TITLE_LENGTH, 20));
         limit.setMeetTitleLength(sp.getInt(FIELD_LIMIT_MEET_TITLE_LENGTH, 20));
         limit.setMeetProcessLength(sp.getInt(FIELD_LIMIT_MEET_PROCESS_LENGTH, 200));
         limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));
@@ -397,6 +401,7 @@ public class SPHelper {
         editor.putInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, vipLimit.getPictureTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_PICTURE_SIZE, vipLimit.getPictureSize());
         editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
+        editor.putInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, vipLimit.getFoodImageCount());
         editor.putInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, vipLimit.getMeetImageCount());
         editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getAudioSize());
         editor.putInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, vipLimit.getAudioTotalCount());
@@ -417,6 +422,7 @@ public class SPHelper {
         vipLimit.setPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, 0));
         vipLimit.setPictureSize(sp.getLong(FIELD_VIP_LIMIT_PICTURE_SIZE, 0));
         vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
+        vipLimit.setFoodImageCount(sp.getInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, 0));
         vipLimit.setMeetImageCount(sp.getInt(FIELD_VIP_LIMIT_MEET_IMG_COUNT, 0));
         vipLimit.setAudioSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
         vipLimit.setAudioTotalCount(sp.getInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, 0));

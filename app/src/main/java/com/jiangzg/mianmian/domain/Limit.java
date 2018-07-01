@@ -32,6 +32,7 @@ public class Limit {
     private int videoTitleLength;
     private int meetTitleLength;
     private int meetProcessLength;
+    private int foodTitleLength;
     private int giftTitleLength;
     private int promiseContentLength;
     private int promiseBreakContentLength;
@@ -44,6 +45,14 @@ public class Limit {
 
     // square
     private int vipExpireDay;
+
+    public int getFoodTitleLength() {
+        return foodTitleLength;
+    }
+
+    public void setFoodTitleLength(int foodTitleLength) {
+        this.foodTitleLength = foodTitleLength;
+    }
 
     public int getAwardContentLength() {
         return awardContentLength;
