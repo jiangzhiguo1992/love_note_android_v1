@@ -103,6 +103,24 @@ public class Result implements Serializable {
         private Award award;
         private List<AwardRule> awardRuleList;
         private AwardRule awardRule;
+        private List<Food> foodList;
+        private Food food;
+
+        public List<Food> getFoodList() {
+            return foodList;
+        }
+
+        public void setFoodList(List<Food> foodList) {
+            this.foodList = foodList;
+        }
+
+        public Food getFood() {
+            return food;
+        }
+
+        public void setFood(Food food) {
+            this.food = food;
+        }
 
         public long getMyTotal() {
             return myTotal;

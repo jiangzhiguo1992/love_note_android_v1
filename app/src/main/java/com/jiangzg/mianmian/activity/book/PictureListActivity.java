@@ -163,7 +163,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                             // 照片选择
                             pictureAdapter.selectPicture(position);
                         } else {
-                            // 照片浏览
+                            // 照片操作
                             pictureAdapter.showOperation(position);
                         }
                     }

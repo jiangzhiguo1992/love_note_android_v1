@@ -6,7 +6,7 @@
         android:width="50dp"
         android:height="50dp"
         android:bottom="10dp"
-        android:drawable="@mipmap/ic_launcher"
+        android:drawable="@drawable/demo_anim"
         android:end="10dp"
         android:gravity="center"
         android:left="10dp"

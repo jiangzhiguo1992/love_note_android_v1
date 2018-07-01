@@ -47,6 +47,8 @@ public class Help extends BaseObj {
     public static final int INDEX_AWARD_EDIT = 36;
     public static final int INDEX_AWARD_RULE_LIST = 37;
     public static final int INDEX_AWARD_RULE_EDIT = 38;
+    public static final int INDEX_FOOD_LIST = 39;
+    public static final int INDEX_FOOD_EDIT = 40;
 
     private int index;
     private String title;

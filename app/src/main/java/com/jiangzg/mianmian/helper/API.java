@@ -7,6 +7,7 @@ import com.jiangzg.mianmian.domain.AwardRule;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
+import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
@@ -373,5 +374,17 @@ public interface API {
     // awardRule删除
     @DELETE("book/award/rule")
     Call<Result> awardRuleDel(@Query("arid") long arid);
+
+    // foodList获取
+    @GET("book/food?fid=0&list=1")
+    Call<Result> foodListGet(@Query("page") int page);
+
+    // food上传
+    @POST("book/food")
+    Call<Result> foodAdd(@Body Food food);
+
+    // food删除
+    @DELETE("book/food")
+    Call<Result> foodDel(@Query("fid") long fid);
 
 }

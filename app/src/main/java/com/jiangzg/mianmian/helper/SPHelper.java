@@ -64,6 +64,7 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_BOOK_AUDIO = "path_book_audio";
     private static final String FIELD_OSS_PATH_BOOK_VIDEO = "path_book_video";
     private static final String FIELD_OSS_PATH_BOOK_VIDEO_THUMB = "path_book_video_thumb";
+    private static final String FIELD_OSS_PATH_BOOK_FOOD = "path_book_food";
     private static final String FIELD_OSS_PATH_BOOK_GIFT = "path_book_gift";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
@@ -265,6 +266,7 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
         editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
         editor.putString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ossInfo.getPathBookVideoThumb());
+        editor.putString(FIELD_OSS_PATH_BOOK_FOOD, ossInfo.getPathBookFood());
         editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
         editor.apply();
     }
@@ -292,6 +294,7 @@ public class SPHelper {
         ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
         ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
         ossInfo.setPathBookVideoThumb(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ""));
+        ossInfo.setPathBookFood(sp.getString(FIELD_OSS_PATH_BOOK_FOOD, ""));
         ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
         return ossInfo;
     }

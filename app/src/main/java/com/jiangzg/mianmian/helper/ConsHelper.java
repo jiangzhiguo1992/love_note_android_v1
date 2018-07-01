@@ -24,11 +24,13 @@ public class ConsHelper {
     public static final int REQUEST_BOOK_PICTURE = 1011;
     // RxBus.ID
     public static final int EVENT_MAP_SELECT = 1; // 选择
-    public static final int EVENT_ALBUM_SELECT = 2;
-    public static final int EVENT_PICTURE_SELECT = 3;
-    public static final int EVENT_GIFT_SELECT = 4;
-    public static final int EVENT_PROMISE_SELECT = 5;
-    public static final int EVENT_AWARD_RULE_SELECT = 6;
+    public static final int EVENT_DIARY_SELECT = 2;
+    public static final int EVENT_ALBUM_SELECT = 3;
+    public static final int EVENT_PICTURE_SELECT = 4;
+    public static final int EVENT_FOOD_SELECT = 5;
+    public static final int EVENT_GIFT_SELECT = 6;
+    public static final int EVENT_PROMISE_SELECT = 7;
+    public static final int EVENT_AWARD_RULE_SELECT = 8;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 100; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 101;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 102;
@@ -64,5 +66,7 @@ public class ConsHelper {
     public static final int EVENT_AWARD_LIST_ITEM_DELETE = 325;
     public static final int EVENT_AWARD_RULE_LIST_REFRESH = 326;
     public static final int EVENT_AWARD_RULE_LIST_ITEM_DELETE = 327;
+    public static final int EVENT_FOOD_LIST_REFRESH = 328; // 美食
+    public static final int EVENT_FOOD_LIST_ITEM_DELETE = 329;
 
 }

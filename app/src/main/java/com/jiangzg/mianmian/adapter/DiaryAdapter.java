@@ -8,6 +8,9 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.DiaryDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
@@ -54,4 +57,10 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
         DiaryDetailActivity.goActivity(mActivity, item);
     }
 
+    public void selectDiary(int position) {
+        mActivity.finish(); // 必须先关闭
+        Diary item = getItem(position);
+        RxEvent<Diary> event = new RxEvent<>(ConsHelper.EVENT_DIARY_SELECT, item);
+        RxBus.post(event);
+    }
 }

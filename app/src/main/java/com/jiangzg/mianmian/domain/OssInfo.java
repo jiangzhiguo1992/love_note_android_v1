@@ -29,7 +29,16 @@ public class OssInfo {
     private String pathBookAudio;
     private String pathBookVideo;
     private String pathBookVideoThumb;
+    private String pathBookFood;
     private String pathBookGift;
+
+    public String getPathBookFood() {
+        return pathBookFood;
+    }
+
+    public void setPathBookFood(String pathBookFood) {
+        this.pathBookFood = pathBookFood;
+    }
 
     public String getPathLog() {
         return pathLog;

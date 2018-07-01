@@ -124,10 +124,10 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
                         if (isSelect()) {
-                            // 礼物选择
+                            // 承诺选择
                             promiseAdapter.selectPromise(position);
                         } else {
-                            // 礼物浏览
+                            // 承诺详情
                             promiseAdapter.goPromiseDetail(position);
                         }
                     }

@@ -7,6 +7,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.BaseObj;
 import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Whisper;
@@ -121,6 +122,19 @@ public class ListHelper {
                 continue;
             }
             ossKeyList.add(picture.getContentImage());
+        }
+        return ossKeyList;
+    }
+
+    // 集合类型转换(Food -> ossKey)
+    public static ArrayList<String> getOssKeyListByFood(List<Food> foodList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (foodList == null || foodList.size() <= 0) return ossKeyList;
+        for (Food food : foodList) {
+            if (food == null || food.getContentImageList() == null || food.getContentImageList().size() <= 0) {
+                continue;
+            }
+            ossKeyList.addAll(food.getContentImageList());
         }
         return ossKeyList;
     }

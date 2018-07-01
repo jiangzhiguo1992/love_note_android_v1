@@ -344,10 +344,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 picture.setAlbumId(album.getId());
             }
         }
-        if (picture.getHappenAt() == 0) {
-            ToastUtils.show(getString(R.string.please_select_time));
-            return;
-        }
         if (isTypeUpdate()) {
             // 更新
             commitUpdate();

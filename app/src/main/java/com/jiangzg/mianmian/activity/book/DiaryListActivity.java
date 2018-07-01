@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -46,6 +47,9 @@ import rx.functions.Action1;
 
 public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
+    private static final int FROM_BROWSE = 0;
+    private static final int FROM_SELECT = 1;
+
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -69,7 +73,14 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
-        // intent.putExtra();
+        intent.putExtra("from", FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivityBySelect(Activity from) {
+        Intent intent = new Intent(from, DiaryListActivity.class);
+        intent.putExtra("from", FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -82,7 +93,13 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initView(Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
+        String title;
+        if (isSelect()) {
+            title = getString(R.string.please_select_diary);
+        } else {
+            title = getString(R.string.diary);
+        }
+        ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -108,7 +125,13 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
-                        diaryAdapter.goDiaryDetail(position);
+                        if (isSelect()) {
+                            // 日记选择
+                            diaryAdapter.selectDiary(position);
+                        } else {
+                            // 日记详情
+                            diaryAdapter.goDiaryDetail(position);
+                        }
                     }
                 });
     }
@@ -138,7 +161,9 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        if (!isSelect()) {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -171,6 +196,10 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 DiaryEditActivity.goActivity(mActivity);
                 break;
         }
+    }
+
+    private boolean isSelect() {
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
     }
 
     private void getData(final boolean more) {

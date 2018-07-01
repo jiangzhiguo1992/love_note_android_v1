@@ -1003,6 +1003,14 @@ public class OssHelper {
         uploadJpegList(activity, pathBookPicture, fileList, callBack);
     }
 
+    // 美食 (压缩 + 持久化)
+    public static void uploadFood(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookFood = ossInfo.getPathBookFood();
+        List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        compressJpegList(activity, pathBookFood, fileList, callBack);
+    }
+
     // 礼物 (压缩 + 持久化)
     public static void uploadGift(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
