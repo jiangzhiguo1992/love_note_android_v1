@@ -30,7 +30,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
                 android:hint="@string/please_input_title"
                 android:inputType="text"

@@ -25,7 +25,6 @@ import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.TimeHelper;
 
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -46,8 +45,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Food item) {
         String title = item.getTitle();
         String address = item.getAddress();
-        String happen = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.on_space_holder_space_send_to), happen);
+        String happenShow = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
         List<String> imageList = item.getContentImageList();
         // view
         RecyclerView rv = helper.getView(R.id.rv);
@@ -67,6 +65,8 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         } else {
             rv.setVisibility(View.GONE);
         }
+        // click
+        helper.addOnClickListener(R.id.tvLocation);
     }
 
     public void selectFood(int position) {

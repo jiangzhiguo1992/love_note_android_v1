@@ -186,19 +186,24 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         } else {
             // 添加
             int pictureLimitCount = SPHelper.getLimit().getPictureCount();
-            int spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
-            final ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
-            imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-                @Override
-                public void onAdd() {
-                    showImgSelect();
-                }
-            });
-            recyclerHelper = new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                    .initAdapter(imgAdapter)
-                    .setAdapter();
+            if (pictureLimitCount <= 0) {
+                rv.setVisibility(View.GONE);
+            } else {
+                rv.setVisibility(View.VISIBLE);
+                int spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
+                final ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
+                imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
+                    @Override
+                    public void onAdd() {
+                        showImgSelect();
+                    }
+                });
+                recyclerHelper = new RecyclerHelper(mActivity)
+                        .initRecycler(rv)
+                        .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                        .initAdapter(imgAdapter)
+                        .setAdapter();
+            }
         }
     }
 

@@ -34,7 +34,7 @@
         app:backgroundTint="?attr/colorAccent"
         app:borderWidth="0dp"
         app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
+        app:fabSize="auto"
         app:layout_behavior="@string/behavior_fab_depend_app_bar"
         app:pressedTranslationZ="@dimen/elevation_big"
         app:rippleColor="?attr/colorPrimaryDark"/>

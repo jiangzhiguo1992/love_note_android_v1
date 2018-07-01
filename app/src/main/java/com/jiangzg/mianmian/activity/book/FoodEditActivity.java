@@ -131,19 +131,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         refreshLocationView();
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
-        int spanCount = limitImagesCount > 3 ? 3 : limitImagesCount;
-        ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImagesCount);
-        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-            @Override
-            public void onAdd() {
-                showImgSelect();
-            }
-        });
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                .initAdapter(imgAdapter)
-                .setAdapter();
+        setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         // input
         etTitle.setText(food.getTitle());
     }
@@ -219,6 +207,27 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 checkPush();
                 break;
         }
+    }
+
+    private void setRecyclerShow(boolean show, int childCount) {
+        if (!show) {
+            rv.setVisibility(View.GONE);
+            return;
+        }
+        rv.setVisibility(View.VISIBLE);
+        int spanCount = childCount > 3 ? 3 : childCount;
+        ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
+        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
+            @Override
+            public void onAdd() {
+                showImgSelect();
+            }
+        });
+        recyclerHelper = new RecyclerHelper(mActivity)
+                .initRecycler(rv)
+                .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                .initAdapter(imgAdapter)
+                .setAdapter();
     }
 
     private void showDatePicker() {
