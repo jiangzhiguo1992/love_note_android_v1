@@ -181,7 +181,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvDream: // 梦里
                 DreamListActivity.goActivity(mActivity);
                 break;
-            case R.id.cvAward: // 补偿
+            case R.id.cvAward: // 奖励
                 AwardListActivity.goActivity(mActivity);
                 break;
         }

@@ -60,8 +60,8 @@ public class ConsHelper {
     public static final int EVENT_DREAM_LIST_ITEM_DELETE = 311;
     public static final int EVENT_DREAM_LIST_ITEM_REFRESH = 312;
     public static final int EVENT_DREAM_DETAIL_REFRESH = 313;
-    public static final int EVENT_AWARD_LIST_REFRESH = 324; // 补偿
-    public static final int EVENT_AWARD_LIST_ITEM_DELETE = 325; // 补偿
+    public static final int EVENT_AWARD_LIST_REFRESH = 324; // 奖励
+    public static final int EVENT_AWARD_LIST_ITEM_DELETE = 325;
     public static final int EVENT_AWARD_RULE_LIST_REFRESH = 326;
     public static final int EVENT_AWARD_RULE_LIST_ITEM_DELETE = 327;
 

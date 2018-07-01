@@ -26,7 +26,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
- * 补偿适配器
+ * 奖励适配器
  */
 public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
 
