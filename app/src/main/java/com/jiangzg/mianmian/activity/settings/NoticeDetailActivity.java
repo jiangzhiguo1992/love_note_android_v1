@@ -41,21 +41,17 @@ public class NoticeDetailActivity extends BaseActivity<NoticeDetailActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.new_notice), true);
+        // init
+        Notice notice = getIntent().getParcelableExtra("notice");
+        if (notice == null) return;
+        // view
+        tvTitle.setText(notice.getTitle());
+        tvTime.setText(TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(notice.getCreateAt()));
+        tvContent.setText(notice.getContentText());
     }
 
     @Override
     protected void initData(Bundle state) {
-        Notice notice = getIntent().getParcelableExtra("notice");
-        if (notice == null) return;
-        // data
-        String title = notice.getTitle();
-        long createAt = notice.getCreateAt();
-        String time = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(createAt);
-        String contentText = notice.getContentText();
-        // view
-        tvTitle.setText(title);
-        tvTime.setText(time);
-        tvContent.setText(contentText);
     }
 
 }

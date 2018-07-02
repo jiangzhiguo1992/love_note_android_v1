@@ -87,7 +87,6 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_diary_list;
     }
 
@@ -138,6 +137,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
             @Override
             public void call(List<Diary> diaryList) {
@@ -156,6 +157,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), diary);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

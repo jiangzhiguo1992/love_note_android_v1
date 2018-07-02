@@ -87,17 +87,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         srl.setEnabled(false);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, new Action1<Dream>() {
-            @Override
-            public void call(Dream dream) {
-                if (dream == null) return;
-                refreshData(dream.getId());
-            }
-        });
+        // init
         Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
@@ -111,6 +101,18 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }
+    }
+
+    @Override
+    protected void initData(Bundle state) {
+        // event
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, new Action1<Dream>() {
+            @Override
+            public void call(Dream dream) {
+                if (dream == null) return;
+                refreshData(dream.getId());
+            }
+        });
     }
 
     @Override

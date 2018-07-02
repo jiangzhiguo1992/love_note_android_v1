@@ -87,10 +87,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         angry = new Angry();
         angry.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         // date
@@ -99,6 +96,10 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         initHappenCheck();
         // input
         etContent.setText(angry.getContentText());
+    }
+
+    @Override
+    protected void initData(Bundle state) {
     }
 
     @Override

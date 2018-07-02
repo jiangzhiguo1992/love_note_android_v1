@@ -76,7 +76,6 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_dream_list;
     }
 
@@ -115,6 +114,8 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, new Action1<List<Dream>>() {
             @Override
             public void call(List<Dream> dreamList) {
@@ -133,6 +134,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

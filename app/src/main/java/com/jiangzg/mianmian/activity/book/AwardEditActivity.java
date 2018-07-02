@@ -95,12 +95,21 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.award), true);
+        // init
+        award = new Award();
+        award.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+        // rule
+        refreshRuleView();
+        // date
+        refreshDateView();
+        // happen
+        initHappenCheck();
+        // input
+        etContent.setText(award.getContentText());
     }
 
     @Override
     protected void initData(Bundle state) {
-        award = new Award();
-        award.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         // event
         obSelectAwardRule = RxBus.register(ConsHelper.EVENT_AWARD_RULE_SELECT, new Action1<AwardRule>() {
             @Override
@@ -111,14 +120,6 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
                 refreshRuleView();
             }
         });
-        // rule
-        refreshRuleView();
-        // date
-        refreshDateView();
-        // happen
-        initHappenCheck();
-        // input
-        etContent.setText(award.getContentText());
     }
 
     @Override

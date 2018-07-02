@@ -126,14 +126,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.gift), true);
-        // etTitle
-        String format = getString(R.string.please_input_title_no_over_holder_text);
-        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getGiftTitleLength());
-        etTitle.setHint(hint);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         if (isTypeUpdate()) {
             gift = getIntent().getParcelableExtra("gift");
         }
@@ -143,6 +136,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         if (gift.getHappenAt() == 0) {
             gift.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
+        // etTitle
+        String format = getString(R.string.please_input_title_no_over_holder_text);
+        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getGiftTitleLength());
+        etTitle.setHint(hint);
         // date
         refreshDateView();
         // receive
@@ -165,6 +162,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         }
         // input
         etTitle.setText(gift.getTitle());
+    }
+
+    @Override
+    protected void initData(Bundle state) {
     }
 
     @Override

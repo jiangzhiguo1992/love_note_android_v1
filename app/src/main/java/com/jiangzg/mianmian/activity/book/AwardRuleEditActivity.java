@@ -75,15 +75,16 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.award_rule), true);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         awardRule = new AwardRule();
         // score
         refreshScoreView();
         // input
         etTitle.setText(awardRule.getTitle());
+    }
+
+    @Override
+    protected void initData(Bundle state) {
     }
 
     @Override

@@ -75,7 +75,6 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_angry_list;
     }
 
@@ -114,6 +113,8 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_ANGRY_LIST_REFRESH, new Action1<List<Angry>>() {
             @Override
             public void call(List<Angry> angryList) {
@@ -132,6 +133,7 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), angry);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

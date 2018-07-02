@@ -132,32 +132,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.picture), true);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         album = getIntent().getParcelableExtra("album");
-        // event
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
-            @Override
-            public void call(Album album) {
-                PictureEditActivity.this.isChangeAlbum = true;
-                PictureEditActivity.this.album = album;
-                PictureEditActivity.this.refreshAlbum();
-            }
-        });
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null) return;
-                picture.setLatitude(info.getLatitude());
-                picture.setLongitude(info.getLongitude());
-                picture.setAddress(info.getAddress());
-                picture.setCityId(info.getCityId());
-                refreshLocationView();
-            }
-        });
-        refreshAlbum();
         boolean typeUpdate = isTypeUpdate();
         if (typeUpdate) {
             picture = mActivity.getIntent().getParcelableExtra("picture");
@@ -169,6 +145,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             picture.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
         // view
+        refreshAlbum();
         refreshDateView();
         refreshLocationView();
         // recycler
@@ -205,6 +182,30 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                         .setAdapter();
             }
         }
+    }
+
+    @Override
+    protected void initData(Bundle state) {
+        // event
+        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
+            @Override
+            public void call(Album album) {
+                PictureEditActivity.this.isChangeAlbum = true;
+                PictureEditActivity.this.album = album;
+                PictureEditActivity.this.refreshAlbum();
+            }
+        });
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
+            @Override
+            public void call(LocationInfo info) {
+                if (info == null) return;
+                picture.setLatitude(info.getLatitude());
+                picture.setLongitude(info.getLongitude());
+                picture.setAddress(info.getAddress());
+                picture.setCityId(info.getCityId());
+                refreshLocationView();
+            }
+        });
     }
 
     @Override

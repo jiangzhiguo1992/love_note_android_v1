@@ -127,11 +127,12 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         layoutParams.topMargin += statusBarHeight;
         abl.setLayoutParams(layoutParams);
         abl.setTargetElevation(0);
+        // view
+        setViewData();
     }
 
     @Override
     protected void initData(Bundle state) {
-        setViewData();
         User ta = SPHelper.getTa();
         if (ta == null || ta.getId() <= 0 || StringUtils.isEmpty(ta.getPhone())) {
             getTaData();

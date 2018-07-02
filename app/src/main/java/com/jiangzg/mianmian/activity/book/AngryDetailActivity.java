@@ -114,6 +114,20 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
         srl.setEnabled(false);
+        // init
+        Intent intent = getIntent();
+        int from = intent.getIntExtra("from", FROM_NONE);
+        if (from == FROM_ALL) {
+            angry = intent.getParcelableExtra("angry");
+            refreshView();
+            // 必须加，要获取关联数据
+            if (angry != null) {
+                refreshData(angry.getId());
+            }
+        } else if (from == FROM_ID) {
+            long aid = intent.getLongExtra("aid", 0);
+            refreshData(aid);
+        }
     }
 
     @Override
@@ -148,20 +162,6 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerPromise.getAdapter(), promise);
             }
         });
-        // data
-        Intent intent = getIntent();
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
-            angry = intent.getParcelableExtra("angry");
-            refreshView();
-            // 必须加，要获取关联数据
-            if (angry != null) {
-                refreshData(angry.getId());
-            }
-        } else if (from == FROM_ID) {
-            long aid = intent.getLongExtra("aid", 0);
-            refreshData(aid);
-        }
     }
 
     @Override

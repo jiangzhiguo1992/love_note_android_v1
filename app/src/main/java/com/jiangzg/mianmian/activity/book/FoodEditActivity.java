@@ -103,16 +103,26 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.food), true);
+        // init
+        food = new Food();
+        food.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         // etTitle
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getFoodTitleLength());
         etTitle.setHint(hint);
+        // date
+        refreshDateView();
+        // location
+        refreshLocationView();
+        // recycler
+        int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
+        setRecyclerShow(limitImagesCount > 0, limitImagesCount);
+        // input
+        etTitle.setText(food.getTitle());
     }
 
     @Override
     protected void initData(Bundle state) {
-        food = new Food();
-        food.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         // event
         obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
@@ -125,15 +135,6 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 refreshLocationView();
             }
         });
-        // date
-        refreshDateView();
-        // location
-        refreshLocationView();
-        // recycler
-        int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
-        setRecyclerShow(limitImagesCount > 0, limitImagesCount);
-        // input
-        etTitle.setText(food.getTitle());
     }
 
     @Override

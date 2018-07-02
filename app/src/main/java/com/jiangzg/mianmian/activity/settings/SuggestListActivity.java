@@ -65,7 +65,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_suggest_list;
     }
 
@@ -104,6 +103,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
         // tb
         entry = getIntent().getIntExtra("entry", ENTRY_MINE);
         if (entry == ENTRY_FOLLOW) {

@@ -95,8 +95,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        channel = "";
-        page = 0;
+
         return R.layout.activity_whisper_list;
     }
 
@@ -130,6 +129,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        channel = "";
+        page = 0;
         recyclerHelper.dataRefresh();
     }
 

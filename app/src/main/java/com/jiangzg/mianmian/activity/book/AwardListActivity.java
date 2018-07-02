@@ -81,7 +81,6 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_award_list;
     }
 
@@ -120,6 +119,8 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_AWARD_LIST_REFRESH, new Action1<List<Award>>() {
             @Override
             public void call(List<Award> awardList) {
@@ -133,6 +134,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                 refreshScoreData();
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

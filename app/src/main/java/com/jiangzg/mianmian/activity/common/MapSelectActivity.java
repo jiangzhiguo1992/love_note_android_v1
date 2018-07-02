@@ -89,7 +89,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        moveWithSearch = true;
         return R.layout.activity_map_select;
     }
 
@@ -127,7 +126,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        //init = true;
+        moveWithSearch = true;
         if (aMap == null) return;
         // 地图拖动回调
         aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {

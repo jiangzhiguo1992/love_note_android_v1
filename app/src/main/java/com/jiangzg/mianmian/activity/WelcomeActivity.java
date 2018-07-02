@@ -60,7 +60,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        exits = false;
         // 底部提示的高度
         int height = BarUtils.getNavigationBarHeight(mActivity);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
@@ -70,6 +69,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        exits = false;
         // wallPaper
         File wallPaper = getWallPaperRandom();
         if (!FileUtils.isFileEmpty(wallPaper)) {

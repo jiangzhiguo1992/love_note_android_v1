@@ -87,7 +87,6 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_gift_list;
     }
 
@@ -142,6 +141,8 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_GIFT_LIST_REFRESH, new Action1<List<Gift>>() {
             @Override
             public void call(List<Gift> giftList) {
@@ -160,6 +161,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), gift);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

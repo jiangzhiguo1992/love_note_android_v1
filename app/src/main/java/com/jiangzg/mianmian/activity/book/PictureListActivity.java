@@ -127,13 +127,14 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_picture_list;
     }
 
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "", true);
+        // init
+        album = getIntent().getParcelableExtra("album");
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -205,12 +206,14 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
+        // view
+        refreshAlbumView();
     }
 
     @Override
     protected void initData(Bundle state) {
-        album = getIntent().getParcelableExtra("album");
-        refreshAlbumView();
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new Action1<List<Picture>>() {
             @Override
             public void call(List<Picture> pictureList) {
@@ -229,6 +232,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), picture);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

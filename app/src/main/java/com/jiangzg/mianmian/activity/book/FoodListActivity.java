@@ -77,7 +77,6 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_food_list;
     }
 
@@ -143,6 +142,8 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_FOOD_LIST_REFRESH, new Action1<List<Food>>() {
             @Override
             public void call(List<Food> foodList) {
@@ -155,6 +156,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                 ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), food);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

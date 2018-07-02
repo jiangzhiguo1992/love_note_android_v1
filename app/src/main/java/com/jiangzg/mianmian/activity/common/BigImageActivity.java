@@ -50,7 +50,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     @BindView(R.id.ivDownload)
     ImageView ivDownload;
 
-    private boolean screenShow;
+    private boolean screenShow = false;
     private int type;
     private List<String> dataList;
 
@@ -98,7 +98,6 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        screenShow = false;
         dataList = new ArrayList<>();
         BarUtils.setStatusBarTrans(mActivity, true);
         BarUtils.setNavigationBarTrans(mActivity, true);
@@ -123,6 +122,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        screenShow = false;
     }
 
     @OnClick({R.id.ivShare, R.id.ivDownload})

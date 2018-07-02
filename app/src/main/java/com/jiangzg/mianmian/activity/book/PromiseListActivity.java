@@ -85,7 +85,6 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_promise_list;
     }
 
@@ -136,6 +135,8 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new Action1<List<Promise>>() {
             @Override
             public void call(List<Promise> promiseList) {
@@ -154,6 +155,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                 ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), promise);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

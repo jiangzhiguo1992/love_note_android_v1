@@ -52,7 +52,6 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_couple_place;
     }
 
@@ -91,6 +90,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
         recyclerHelper.dataRefresh();
     }
 

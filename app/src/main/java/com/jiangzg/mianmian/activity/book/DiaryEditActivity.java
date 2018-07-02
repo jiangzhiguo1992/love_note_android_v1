@@ -119,10 +119,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         if (isTypeUpdate()) {
             diary = getIntent().getParcelableExtra("diary");
         } else {
@@ -154,6 +151,10 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         }
         // input
         etContent.setText(diary.getContentText());
+    }
+
+    @Override
+    protected void initData(Bundle state) {
     }
 
     @Override

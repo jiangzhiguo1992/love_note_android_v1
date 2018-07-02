@@ -81,15 +81,18 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_suggest_home;
     }
 
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
-        // suggestInfo
+        // init
         suggestInfo = SuggestInfo.getInstance();
+        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
+        searchStatus = suggestStatusList.get(0).getStatus();
+        List<SuggestInfo.SuggestType> suggestTypeList = suggestInfo.getTypeList();
+        searchType = suggestTypeList.get(0).getType();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -125,11 +128,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        // search
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
-        searchStatus = suggestStatusList.get(0).getStatus();
-        List<SuggestInfo.SuggestType> suggestTypeList = suggestInfo.getTypeList();
-        searchType = suggestTypeList.get(0).getType();
+        page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override

@@ -125,13 +125,30 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_promise_detail;
     }
 
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
+        // init
+        Intent intent = getIntent();
+        int from = intent.getIntExtra("from", FROM_NONE);
+        if (from == FROM_ALL) {
+            promise = getIntent().getParcelableExtra("promise");
+            // view
+            initHead();
+            recyclerHelper.dataRefresh();
+            // 没有详情页的，可以不加
+            if (promise != null) {
+                refreshPromise(promise.getId());
+            }
+        } else if (from == FROM_ID) {
+            long pid = intent.getLongExtra("pid", 0);
+            refreshPromise(pid);
+        }
+        // happen
+        refreshDateView();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -169,6 +186,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Action1<Promise>() {
             @Override
@@ -177,23 +195,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 refreshPromise(PromiseDetailActivity.this.promise.getId());
             }
         });
-        Intent intent = getIntent();
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
-            promise = getIntent().getParcelableExtra("promise");
-            // view
-            initHead();
-            recyclerHelper.dataRefresh();
-            // 没有详情页的，可以不加
-            if (promise != null) {
-                refreshPromise(promise.getId());
-            }
-        } else if (from == FROM_ID) {
-            long pid = intent.getLongExtra("pid", 0);
-            refreshPromise(pid);
-        }
-        // happen
-        refreshDateView();
     }
 
     @Override

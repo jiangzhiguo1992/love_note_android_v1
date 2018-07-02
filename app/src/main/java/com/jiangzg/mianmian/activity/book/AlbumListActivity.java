@@ -87,7 +87,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_album_list;
     }
 
@@ -179,6 +178,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new Action1<List<Album>>() {
             @Override
             public void call(List<Album> albumList) {
@@ -197,6 +198,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                 mActivity.finish();
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

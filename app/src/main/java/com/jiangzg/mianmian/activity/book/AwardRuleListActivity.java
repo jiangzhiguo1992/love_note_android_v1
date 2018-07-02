@@ -75,7 +75,6 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_award_rule_list;
     }
 
@@ -130,6 +129,8 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
+        // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, new Action1<List<AwardRule>>() {
             @Override
             public void call(List<AwardRule> awardRuleList) {
@@ -142,6 +143,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
                 ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), awardRule);
             }
         });
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

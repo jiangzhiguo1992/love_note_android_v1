@@ -53,7 +53,6 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_notice_list;
     }
 
@@ -92,6 +91,7 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = 0;
         recyclerHelper.dataRefresh();
     }
 

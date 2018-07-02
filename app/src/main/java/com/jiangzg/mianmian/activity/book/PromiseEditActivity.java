@@ -105,10 +105,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         if (isTypeUpdate()) {
             promise = getIntent().getParcelableExtra("promise");
         }
@@ -124,6 +121,10 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         initHappenCheck();
         // input
         etContent.setText(promise.getContentText());
+    }
+
+    @Override
+    protected void initData(Bundle state) {
     }
 
     @Override

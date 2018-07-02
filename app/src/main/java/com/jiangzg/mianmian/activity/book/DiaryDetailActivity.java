@@ -98,17 +98,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
         srl.setEnabled(false);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, new Action1<Diary>() {
-            @Override
-            public void call(Diary diary) {
-                if (diary == null) return;
-                refreshData(diary.getId());
-            }
-        });
+        // init
         Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
@@ -122,6 +112,18 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }
+    }
+
+    @Override
+    protected void initData(Bundle state) {
+        // event
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, new Action1<Diary>() {
+            @Override
+            public void call(Diary diary) {
+                if (diary == null) return;
+                refreshData(diary.getId());
+            }
+        });
     }
 
     @Override

@@ -98,10 +98,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
-    }
-
-    @Override
-    protected void initData(Bundle state) {
+        // init
         if (isTypeUpdate()) {
             dream = getIntent().getParcelableExtra("dream");
         } else {
@@ -117,6 +114,10 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         refreshDateView();
         // input
         etContent.setText(dream.getContentText());
+    }
+
+    @Override
+    protected void initData(Bundle state) {
     }
 
     @Override

@@ -110,13 +110,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = 0;
         return R.layout.activity_suggest_detail;
     }
 
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
+        // init
+        suggest = getIntent().getParcelableExtra("suggest");
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -146,6 +147,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                         commentAdapter.showDeleteDialog(position);
                     }
                 });
+        // head
+        initHead();
+        // follow
+        initFollowView();
+        // comment
+        initCommentView();
         // comment
         commentShow(false);
         // comment 防止开始显示错误
@@ -154,7 +161,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected void initData(Bundle state) {
-        suggest = getIntent().getParcelableExtra("suggest");
+        page = 0;
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Action1<Suggest>() {
             @Override
@@ -162,13 +169,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 refreshSuggest();
             }
         });
-        // head
-        initHead();
-        // follow
-        initFollowView();
-        // comment
-        initCommentView();
-        // api
+        // refresh
         recyclerHelper.dataRefresh();
     }
 

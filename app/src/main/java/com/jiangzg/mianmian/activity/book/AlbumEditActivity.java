@@ -107,6 +107,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.album), true);
+        // init
         album = getIntent().getParcelableExtra("album");
         // view
         ViewGroup.LayoutParams layoutParams = ivAlbum.getLayoutParams();

@@ -78,8 +78,6 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        page = -1;
-        canMore = true;
         return R.layout.activity_word_list;
     }
 
@@ -117,6 +115,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     @Override
     protected void initData(Bundle state) {
+        page = -1;
+        canMore = true;
         // event
         obListItemDelete = RxBus.register(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, new Action1<Word>() {
             @Override
