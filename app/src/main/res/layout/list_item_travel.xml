@@ -36,31 +36,10 @@
 
         <View
             style="@style/LineHorizontal"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="5dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tvLocation"
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:paddingBottom="13dp"
-            android:paddingEnd="5dp"
-            android:paddingStart="5dp"
-            android:paddingTop="13dp"
-            android:visibility="gone"
-            tools:text="2018年 12月 21号"
-            tools:visibility="visible"/>
-
-        <View
-            style="@style/LineHorizontal"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
