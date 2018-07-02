@@ -105,6 +105,24 @@ public class Result implements Serializable {
         private AwardRule awardRule;
         private List<Food> foodList;
         private Food food;
+        private List<Travel> travelList;
+        private Travel travel;
+
+        public List<Travel> getTravelList() {
+            return travelList;
+        }
+
+        public void setTravelList(List<Travel> travelList) {
+            this.travelList = travelList;
+        }
+
+        public Travel getTravel() {
+            return travel;
+        }
+
+        public void setTravel(Travel travel) {
+            this.travel = travel;
+        }
 
         public List<Food> getFoodList() {
             return foodList;

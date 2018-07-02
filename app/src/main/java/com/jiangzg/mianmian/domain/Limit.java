@@ -30,8 +30,8 @@ public class Limit {
     private int pictureCount;
     private int audioTitleLength;
     private int videoTitleLength;
-    private int meetTitleLength;
-    private int meetProcessLength;
+    private int travelTitleLength;
+    private int travelPlaceContentLength;
     private int foodTitleLength;
     private int giftTitleLength;
     private int promiseContentLength;
@@ -230,20 +230,20 @@ public class Limit {
         this.diaryContentLength = diaryContentLength;
     }
 
-    public int getMeetTitleLength() {
-        return meetTitleLength;
+    public int getTravelTitleLength() {
+        return travelTitleLength;
     }
 
-    public void setMeetTitleLength(int meetTitleLength) {
-        this.meetTitleLength = meetTitleLength;
+    public void setTravelTitleLength(int travelTitleLength) {
+        this.travelTitleLength = travelTitleLength;
     }
 
-    public int getMeetProcessLength() {
-        return meetProcessLength;
+    public int getTravelPlaceContentLength() {
+        return travelPlaceContentLength;
     }
 
-    public void setMeetProcessLength(int meetProcessLength) {
-        this.meetProcessLength = meetProcessLength;
+    public void setTravelPlaceContentLength(int travelPlaceContentLength) {
+        this.travelPlaceContentLength = travelPlaceContentLength;
     }
 
     public int getAlbumTitleLength() {

@@ -21,7 +21,6 @@ public class VipLimit {
     private long videoSize;
     private int videoTotalCount;
     private int foodImageCount;
-    private int meetImageCount;
     private int giftImageCount;
     // topic
     private boolean topicImageEnable;
@@ -128,14 +127,6 @@ public class VipLimit {
 
     public void setGiftImageCount(int giftImageCount) {
         this.giftImageCount = giftImageCount;
-    }
-
-    public int getMeetImageCount() {
-        return meetImageCount;
-    }
-
-    public void setMeetImageCount(int meetImageCount) {
-        this.meetImageCount = meetImageCount;
     }
 
     public boolean isTopicImageEnable() {

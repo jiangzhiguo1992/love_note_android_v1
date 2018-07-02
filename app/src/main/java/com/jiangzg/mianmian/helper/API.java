@@ -18,6 +18,7 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
+import com.jiangzg.mianmian.domain.Travel;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.domain.Whisper;
@@ -386,5 +387,25 @@ public interface API {
     // food删除
     @DELETE("book/food")
     Call<Result> foodDel(@Query("fid") long fid);
+
+    // travelList获取
+    @GET("book/travel?tid=0&list=1")
+    Call<Result> travelListGet(@Query("page") int page);
+
+    // travel获取
+    @GET("book/travel?list=0")
+    Call<Result> travelGet(@Query("tid") long tid);
+
+    // travel上传
+    @POST("book/travel")
+    Call<Result> travelAdd(@Body Travel travel);
+
+    // travel删除
+    @DELETE("book/travel")
+    Call<Result> travelDel(@Query("tid") long tid);
+
+    // travel修改
+    @PUT("book/travel")
+    Call<Result> travelUpdate(@Body Travel travel);
 
 }

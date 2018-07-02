@@ -385,6 +385,7 @@
     <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
     <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
+    <string name="can_operation_self_create_travel">只能操作自己创建的游记哦</string>
     <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
     <string name="can_operation_self_create_promise">只能操作自己创建的承诺哦</string>
     <string name="can_operation_self_create_promise_break">只能操作自己创建的违反记录哦</string>

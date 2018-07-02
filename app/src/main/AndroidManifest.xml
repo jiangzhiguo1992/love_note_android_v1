@@ -109,6 +109,9 @@
         <activity android:name=".activity.book.AwardRuleEditActivity"/>
         <activity android:name=".activity.book.FoodListActivity"/>
         <activity android:name=".activity.book.FoodEditActivity"/>
+        <activity android:name=".activity.book.TravelListActivity"/>
+        <activity android:name=".activity.book.TravelDetailActivity"/>
+        <activity android:name=".activity.book.TravelEditActivity"/>
     </application>
 
 </manifest>
