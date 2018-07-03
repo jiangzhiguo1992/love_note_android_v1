@@ -252,7 +252,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             rvPlace.setVisibility(View.GONE);
         }
         // album
-        List<Album> albumList = ListHelper.getAlbumListByTravel(travel.getTravelAlbumList());
+        List<Album> albumList = ListHelper.getAlbumListByTravel(travel.getTravelAlbumList(), false);
         if (albumList != null && albumList.size() > 0) {
             llAlbum.setVisibility(View.VISIBLE);
             rvAlbum.setVisibility(View.VISIBLE);
@@ -281,20 +281,20 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             rvAlbum.setVisibility(View.GONE);
         }
         // video
-        ArrayList<Video> videoList = ListHelper.getVideoListByTravel(travel.getTravelVideoList());
+        ArrayList<Video> videoList = ListHelper.getVideoListByTravel(travel.getTravelVideoList(), false);
         if (videoList != null && videoList.size() > 0) {
             llVideo.setVisibility(View.VISIBLE);
             rvVideo.setVisibility(View.VISIBLE);
-            if (recyclerVideo == null) {
-                // TODO
-            }
+            //if (recyclerVideo == null) {
+            // TODO
+            //}
             //recyclerVideo.dataNew(videoList,0);
         } else {
             llVideo.setVisibility(View.GONE);
             rvVideo.setVisibility(View.GONE);
         }
         // food
-        ArrayList<Food> foodList = ListHelper.getFoodListByTravel(travel.getTravelFoodList());
+        ArrayList<Food> foodList = ListHelper.getFoodListByTravel(travel.getTravelFoodList(), false);
         if (foodList != null && foodList.size() > 0) {
             llFood.setVisibility(View.VISIBLE);
             rvFood.setVisibility(View.VISIBLE);
@@ -327,7 +327,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             rvFood.setVisibility(View.GONE);
         }
         // diary
-        ArrayList<Diary> diaryList = ListHelper.getDiaryListByTravel(travel.getTravelDiaryList());
+        ArrayList<Diary> diaryList = ListHelper.getDiaryListByTravel(travel.getTravelDiaryList(), false);
         if (diaryList != null && diaryList.size() > 0) {
             llDiary.setVisibility(View.VISIBLE);
             rvDiary.setVisibility(View.VISIBLE);

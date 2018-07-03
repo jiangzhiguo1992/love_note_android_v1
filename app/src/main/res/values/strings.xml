@@ -102,8 +102,6 @@
     <string name="already_arrive_top">已经到达最顶部了</string>
     <string name="need_check_some_perm">需要勾选某些权限</string>
     <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
-    <string name="confirm_delete_this_album">确定要删除这个相册吗</string>
-    <string name="confirm_delete_this_picture">确定要删除这张照片吗</string>
     <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
     <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d字</string>
     <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d字</string>
@@ -379,8 +377,14 @@
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
+    <string name="confirm_remove_this_diary">确定移除这个日记？</string>
+    <string name="confirm_delete_this_album">确定删除这个相册吗？</string>
+    <string name="confirm_remove_this_album">确定移除这个相册吗？</string>
+    <string name="confirm_delete_this_picture">确定删除这张照片？</string>
     <string name="confirm_delete_this_food">确定删除这个美食？</string>
+    <string name="confirm_remove_this_food">确定移除这个美食？</string>
     <string name="confirm_delete_this_travel">确定删除这个游记？</string>
+    <string name="confirm_delete_this_track">确定删除这个足迹？</string>
     <string name="confirm_delete_this_gift">确定删除这个礼物？</string>
     <string name="confirm_remove_this_gift">确定移除这个礼物？</string>
     <string name="confirm_delete_this_promise">确定删除这个承诺？</string>

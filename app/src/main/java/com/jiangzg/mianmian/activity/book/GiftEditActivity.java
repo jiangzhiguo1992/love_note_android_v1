@@ -335,6 +335,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void checkPush() {
+        if (gift == null) return;
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etTitle.getHint().toString());

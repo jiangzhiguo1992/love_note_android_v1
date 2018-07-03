@@ -9,7 +9,6 @@ import android.os.Parcelable;
  */
 public class TravelPlace extends BaseCP implements Parcelable {
 
-    // TODO 上传更新不要下面的
     private long happenAt;
     private String contentText;
     private double longitude;

@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class TravelDiary extends BaseCP implements Parcelable {
 
     private long diaryId;
-    private Diary diary; // TODO 上传不要这个
+    private Diary diary;
 
     public long getDiaryId() {
         return diaryId;

@@ -169,6 +169,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     }
 
     private void addApi(AwardRule awardRule) {
+        if (awardRule == null) return;
         if (awardRule.getScore() == 0) {
             ToastUtils.show(getString(R.string.please_select_score));
             return;

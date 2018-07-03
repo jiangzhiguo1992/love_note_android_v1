@@ -213,6 +213,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void checkPush() {
+        if (dream == null) return;
         if (StringUtils.isEmpty(dream.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;

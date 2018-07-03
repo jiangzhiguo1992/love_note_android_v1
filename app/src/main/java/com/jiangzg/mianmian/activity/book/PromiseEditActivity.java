@@ -240,6 +240,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void checkPush() {
+        if (promise == null) return;
         if (StringUtils.isEmpty(promise.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;

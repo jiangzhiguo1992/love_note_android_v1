@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class TravelFood extends BaseCP implements Parcelable {
 
     private long foodId;
-    private Food food; // TODO 上传不要这个
+    private Food food;
 
     public long getFoodId() {
         return foodId;

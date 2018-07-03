@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class TravelVideo extends BaseCP implements Parcelable {
 
     private long videoId;
-    private Video video; // TODO 上传不要这个
+    private Video video;
 
     public long getVideoId() {
         return videoId;

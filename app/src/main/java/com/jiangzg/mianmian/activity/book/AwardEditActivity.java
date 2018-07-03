@@ -235,6 +235,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void push() {
+        if (award == null) return;
         if (award.getAwardRuleId() == 0) {
             ToastUtils.show(getString(R.string.please_select_rule));
             return;

@@ -265,6 +265,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private void checkPush() {
+        if (food == null) return;
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etTitle.getHint().toString());

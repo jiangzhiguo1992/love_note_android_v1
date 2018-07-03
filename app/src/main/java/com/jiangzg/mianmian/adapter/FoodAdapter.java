@@ -134,4 +134,21 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
+    public void showDeleteDialogNoApi(final int position) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_remove_this_food)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        remove(position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
 }

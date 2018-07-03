@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class TravelAlbum extends BaseCP implements Parcelable {
 
     private long albumId;
-    private Album album; // TODO 上传不要这个
+    private Album album;
 
     public long getAlbumId() {
         return albumId;
