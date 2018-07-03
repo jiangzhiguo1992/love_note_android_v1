@@ -263,7 +263,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         }
     }
 
-    public void refreshPromise(long pid) {
+    private void refreshPromise(long pid) {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -350,7 +350,10 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     private void showDelDialog() {
-        if (promise == null || !promise.isMine()) return;
+        if (promise == null || !promise.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_promise));
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_delete_this_promise)
                 .cancelable(true)

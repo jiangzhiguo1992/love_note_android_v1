@@ -6,6 +6,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.AwardRule;
@@ -61,7 +62,10 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
 
     public void showDeleteDialog(final int position) {
         AwardRule item = getItem(position);
-        if (!item.isMine()) return;
+        if (!item.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_rule));
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

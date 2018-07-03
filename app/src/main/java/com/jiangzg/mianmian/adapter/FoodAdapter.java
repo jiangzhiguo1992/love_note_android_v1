@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -87,7 +88,10 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
     public void showDeleteDialog(final int position) {
         Food item = getItem(position);
-        if (!item.isMine()) return;
+        if (!item.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_food));
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
