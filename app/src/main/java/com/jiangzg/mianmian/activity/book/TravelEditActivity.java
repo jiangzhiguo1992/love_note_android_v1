@@ -39,6 +39,8 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Travel;
 import com.jiangzg.mianmian.domain.TravelAlbum;
+import com.jiangzg.mianmian.domain.TravelDiary;
+import com.jiangzg.mianmian.domain.TravelFood;
 import com.jiangzg.mianmian.domain.TravelPlace;
 import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.helper.API;
@@ -291,7 +293,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, new Action1<Video>() {
             @Override
             public void call(Video video) {
-                // TODO
+                List<Video> videoList = new ArrayList<>();
+                videoList.add(video);
+                recyclerVideo.dataAdd(videoList);
             }
         });
         obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, new Action1<Food>() {
@@ -445,9 +449,17 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         // bodyVideo
         // TODO
         // bodyFood
-        // TODO
+        if (recyclerFood != null && recyclerFood.getAdapter() != null) {
+            FoodAdapter adapter = recyclerFood.getAdapter();
+            List<TravelFood> foodList = ListHelper.getTravelFoodListByOld(travel.getTravelFoodList(), adapter.getData());
+            body.setTravelFoodList(foodList);
+        }
         // bodyDiary
-        // TODO
+        if (recyclerDiary != null && recyclerDiary.getAdapter() != null) {
+            DiaryAdapter adapter = recyclerDiary.getAdapter();
+            List<TravelDiary> diaryList = ListHelper.getTravelDiaryListByOld(travel.getTravelDiaryList(), adapter.getData());
+            body.setTravelDiaryList(diaryList);
+        }
         if (isTypeUpdate()) {
             updateApi(body);
         } else {
