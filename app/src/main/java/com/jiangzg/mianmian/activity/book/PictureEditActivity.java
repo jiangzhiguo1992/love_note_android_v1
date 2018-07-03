@@ -31,7 +31,6 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapSelectActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareEditAdapter;
-import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Help;
@@ -149,38 +148,39 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         refreshDateView();
         refreshLocationView();
         // recycler
+        ImgSquareEditAdapter imgAdapter = null;
+        int spanCount = 0;
         if (typeUpdate) {
             // 更新
-            ImgSquareShowAdapter imgAdapter = new ImgSquareShowAdapter(mActivity, 1);
-            recyclerHelper = new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, 1))
-                    .initAdapter(imgAdapter)
-                    .setAdapter();
+            spanCount = 1;
+            imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, spanCount);
+            // 不能删除
+            imgAdapter.setCanDel(false);
+            // 更新的话，把数据加载进去
             List<String> pictureList = new ArrayList<>();
             pictureList.add(picture.getContentImage());
-            imgAdapter.setNewData(pictureList);
+            imgAdapter.setOssData(pictureList);
         } else {
             // 添加
             int pictureLimitCount = SPHelper.getLimit().getPictureCount();
-            if (pictureLimitCount <= 0) {
-                rv.setVisibility(View.GONE);
-            } else {
-                rv.setVisibility(View.VISIBLE);
-                int spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
-                final ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
-                imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-                    @Override
-                    public void onAdd() {
-                        showImgSelect();
-                    }
-                });
-                recyclerHelper = new RecyclerHelper(mActivity)
-                        .initRecycler(rv)
-                        .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                        .initAdapter(imgAdapter)
-                        .setAdapter();
-            }
+            spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
+            imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
+            imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
+                @Override
+                public void onAdd() {
+                    showImgSelect();
+                }
+            });
+        }
+        if (spanCount > 0) {
+            rv.setVisibility(View.VISIBLE);
+            recyclerHelper = new RecyclerHelper(mActivity)
+                    .initRecycler(rv)
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                    .initAdapter(imgAdapter)
+                    .setAdapter();
+        } else {
+            rv.setVisibility(View.GONE);
         }
     }
 

@@ -33,6 +33,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
     private int ossSize;
     private int limit;
     private boolean addShow;
+    private boolean canDel;
     private OnAddClickListener addClickListener;
 
     public ImgSquareEditAdapter(FragmentActivity activity, int spanCount, int limit) {
@@ -45,7 +46,12 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         ossSize = 0;
         this.limit = limit;
         addShow = false;
+        canDel = true;
         checkFoot();
+    }
+
+    public void setCanDel(boolean canDel) {
+        this.canDel = canDel;
     }
 
     public interface OnAddClickListener {
@@ -91,7 +97,9 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
             ivShow.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    showDeleteDialog(layoutPosition);
+                    if (ImgSquareEditAdapter.this.canDel) {
+                        showDeleteDialog(layoutPosition);
+                    }
                     return true;
                 }
             });
