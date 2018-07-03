@@ -358,6 +358,11 @@
     <string name="dream">梦境</string>
     <string name="award">奖励</string>
     <string name="award_rule">奖励规则</string>
+    <string name="add_track">添加足迹</string>
+    <string name="add_album">添加相册</string>
+    <string name="add_video">添加视频</string>
+    <string name="add_food">添加美食</string>
+    <string name="add_diary">添加日记</string>
     <string name="please_select_diary">请选择日记</string>
     <string name="please_select_album">请选择相册</string>
     <string name="please_select_food">请选择美食</string>

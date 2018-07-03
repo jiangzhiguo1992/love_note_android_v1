@@ -1,10 +1,340 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jiangzg.mianmian.activity.book.TravelEditActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etTitle"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                android:hint="@string/please_input_title"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:singleLine="true"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvHappenAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="?attr/colorPrimaryDark"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    tools:text="2017年 4月 19日"/>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/llPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/track"/>
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvPlace"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvPlaceAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/add_track"/>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/llAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/album"/>
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvAlbum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAlbumAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/add_album"/>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/llVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/video"/>
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvVideo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvVideoAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/add_video"/>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/llFood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/food"/>
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvFood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvFoodAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/add_food"/>
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/llDiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/diary"/>
+
+                <View
+                    style="@style/LineHorizontal"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvDiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvDiaryAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="?attr/colorPrimary"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:text="@string/add_diary"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnPublish"
+        style="@style/FontWhiteBig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_press_solid_dark_accent"
+        android:text="@string/publish"/>
+</LinearLayout>

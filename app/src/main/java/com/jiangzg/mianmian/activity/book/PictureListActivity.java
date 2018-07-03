@@ -221,13 +221,13 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, new Action1<Picture>() {
             @Override
             public void call(Picture picture) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), picture);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, new Action1<Picture>() {
             @Override
             public void call(Picture picture) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), picture);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
             }
         });
         // refresh

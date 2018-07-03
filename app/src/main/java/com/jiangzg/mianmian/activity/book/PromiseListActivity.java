@@ -146,13 +146,13 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), promise);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), promise);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), promise);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), promise);
             }
         });
         // refresh

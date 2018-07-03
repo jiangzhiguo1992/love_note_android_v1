@@ -148,13 +148,13 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), diary);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), diary);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), diary);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), diary);
             }
         });
         // refresh

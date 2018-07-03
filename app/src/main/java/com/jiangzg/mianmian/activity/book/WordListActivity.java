@@ -121,7 +121,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, new Action1<Word>() {
             @Override
             public void call(Word word) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), word);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), word);
             }
         });
         // refresh

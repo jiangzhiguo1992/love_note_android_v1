@@ -265,7 +265,7 @@ public class OssResHelper {
                         // 是不是在过期里有
                         if (expireFileList.size() > 0) {
                             ListIterator<File> iterator = expireFileList.listIterator();
-                            if (iterator.hasNext()) {
+                            while (iterator.hasNext()) {
                                 File expireFile = iterator.next();
                                 if (expireFile.getName().trim().equals(file.getName().trim())) {
                                     // 过期文件里有oss文件，则从过期里删除

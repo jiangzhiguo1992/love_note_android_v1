@@ -124,13 +124,13 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, new Action1<Angry>() {
             @Override
             public void call(Angry angry) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), angry);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), angry);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, new Action1<Angry>() {
             @Override
             public void call(Angry angry) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), angry);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), angry);
             }
         });
         // refresh

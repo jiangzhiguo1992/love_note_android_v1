@@ -19,7 +19,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
-import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.DreamAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Dream;
@@ -125,13 +124,13 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, new Action1<Dream>() {
             @Override
             public void call(Dream dream) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), dream);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, new Action1<Dream>() {
             @Override
             public void call(Dream dream) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), dream);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
         // refresh

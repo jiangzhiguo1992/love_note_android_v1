@@ -115,7 +115,6 @@
                         android:text="@string/did_award_some_gift"/>
                 </android.support.v7.widget.CardView>
 
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvGift"
                     android:layout_width="match_parent"

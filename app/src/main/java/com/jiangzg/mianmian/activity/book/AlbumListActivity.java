@@ -189,7 +189,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, new Action1<Album>() {
             @Override
             public void call(Album album) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), album);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), album);
             }
         });
         obPictureSelect = RxBus.register(ConsHelper.EVENT_PICTURE_SELECT, new Action1<Picture>() {

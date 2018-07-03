@@ -148,7 +148,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         obPromiseListDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
-                ListHelper.removeIndexInAdapter(recyclerPromise.getAdapter(), promise);
+                ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
                 if (recyclerPromise.getAdapter().getData().size() <= 0) {
                     // 删除承诺
                     cvPromiseAdd.setVisibility(View.VISIBLE);
@@ -159,7 +159,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         obPromiseListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
-                ListHelper.refreshIndexInAdapter(recyclerPromise.getAdapter(), promise);
+                ListHelper.refreshObjInAdapter(recyclerPromise.getAdapter(), promise);
             }
         });
     }

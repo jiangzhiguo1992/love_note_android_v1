@@ -135,13 +135,13 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, new Action1<Travel>() {
             @Override
             public void call(Travel travel) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), travel);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), travel);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, new Action1<Travel>() {
             @Override
             public void call(Travel travel) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), travel);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), travel);
             }
         });
         // refresh

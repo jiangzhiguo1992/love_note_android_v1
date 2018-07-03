@@ -153,7 +153,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, new Action1<Food>() {
             @Override
             public void call(Food food) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), food);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), food);
             }
         });
         // refresh

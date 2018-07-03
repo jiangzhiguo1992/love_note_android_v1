@@ -152,13 +152,13 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_GIFT_LIST_ITEM_DELETE, new Action1<Gift>() {
             @Override
             public void call(Gift gift) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), gift);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), gift);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_GIFT_LIST_ITEM_REFRESH, new Action1<Gift>() {
             @Override
             public void call(Gift gift) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), gift);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), gift);
             }
         });
         // refresh

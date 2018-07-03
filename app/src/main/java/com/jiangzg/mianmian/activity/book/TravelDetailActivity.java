@@ -96,14 +96,14 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     RecyclerView rvDiary;
 
     private Travel travel;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
-    private Observable<Travel> obDetailRefresh;
     private RecyclerHelper recyclerPlace;
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
     private RecyclerHelper recyclerDiary;
+    private Call<Result> callGet;
+    private Call<Result> callDel;
+    private Observable<Travel> obDetailRefresh;
 
     public static void goActivity(Activity from, Travel travel) {
         Intent intent = new Intent(from, TravelDetailActivity.class);

@@ -139,13 +139,13 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
-                ListHelper.refreshIndexInAdapter(recyclerHelper.getAdapter(), suggest);
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
         // refresh

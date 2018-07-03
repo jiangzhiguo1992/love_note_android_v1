@@ -140,7 +140,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
         obListItemDelete = RxBus.register(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, new Action1<AwardRule>() {
             @Override
             public void call(AwardRule awardRule) {
-                ListHelper.removeIndexInAdapter(recyclerHelper.getAdapter(), awardRule);
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), awardRule);
             }
         });
         // refresh
