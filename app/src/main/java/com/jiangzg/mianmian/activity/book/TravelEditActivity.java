@@ -25,6 +25,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     public static void goActivity(Activity from, Travel travel) {
         if (travel == null) {
             goActivity(from);
+            return;
         } else if (!travel.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_travel));
             return;

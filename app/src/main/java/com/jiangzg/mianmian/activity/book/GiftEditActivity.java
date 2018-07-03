@@ -107,6 +107,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     public static void goActivity(Activity from, Gift gift) {
         if (gift == null) {
             goActivity(from);
+            return;
         } else if (!gift.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_gift));
             return;

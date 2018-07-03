@@ -86,6 +86,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     public static void goActivity(Activity from, Promise promise) {
         if (promise == null) {
             goActivity(from);
+            return;
         } else if (!promise.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_promise));
             return;

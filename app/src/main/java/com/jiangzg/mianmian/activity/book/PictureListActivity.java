@@ -24,7 +24,6 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.PictureAdapter;
@@ -40,7 +39,6 @@ import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
-import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoView;
@@ -277,13 +275,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 adapter.toggleModel();
                 break;
             case R.id.fabAdd: // 添加
-                int pictureCount = SPHelper.getLimit().getPictureCount();
-                if (pictureCount > 0) {
-                    PictureEditActivity.goActivity(mActivity, album);
-                } else {
-                    String string = getString(R.string.now_just_upload_holder_picture);
-                    ToastUtils.show(String.format(Locale.getDefault(), string, pictureCount));
-                }
+                PictureEditActivity.goActivity(mActivity, album);
                 break;
         }
     }

@@ -100,6 +100,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     public static void goActivity(Activity from, Diary diary) {
         if (diary == null) {
             goActivity(from);
+            return;
         } else if (!diary.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_diary));
             return;

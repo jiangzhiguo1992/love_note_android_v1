@@ -100,6 +100,12 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     private boolean isChangeAlbum;
 
     public static void goActivity(Activity from, Album album) {
+        int pictureCount = SPHelper.getLimit().getPictureCount();
+        if (pictureCount <= 0) {
+            String string = from.getString(R.string.now_just_upload_holder_picture);
+            ToastUtils.show(String.format(Locale.getDefault(), string, pictureCount));
+            return;
+        }
         Intent intent = new Intent(from, PictureEditActivity.class);
         intent.putExtra("type", TYPE_ADD);
         intent.putExtra("album", album);
@@ -110,6 +116,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     public static void goActivity(Activity from, Album album, Picture picture) {
         if (picture == null) {
             goActivity(from, album);
+            return;
         } else if (!picture.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_picture));
             return;
@@ -148,8 +155,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         refreshDateView();
         refreshLocationView();
         // recycler
-        ImgSquareEditAdapter imgAdapter = null;
-        int spanCount = 0;
+        ImgSquareEditAdapter imgAdapter;
+        int spanCount;
         if (typeUpdate) {
             // 更新
             spanCount = 1;
