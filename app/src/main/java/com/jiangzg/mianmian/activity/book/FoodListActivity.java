@@ -132,7 +132,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         FoodAdapter foodAdapter = (FoodAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.tvLocation: // 地图显示
+                            case R.id.tvAddress: // 地图显示
                                 foodAdapter.goMapShow(position);
                                 break;
                         }

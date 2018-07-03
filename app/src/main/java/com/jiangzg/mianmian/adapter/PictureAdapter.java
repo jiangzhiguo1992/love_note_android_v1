@@ -85,13 +85,13 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         // view
         if (mModel != MODEL_DETAIL) {
             helper.setVisible(R.id.tvHappenAt, false);
-            helper.setVisible(R.id.tvLocation, false);
+            helper.setVisible(R.id.tvAddress, false);
         } else {
             helper.setVisible(R.id.tvHappenAt, item.getHappenAt() != 0);
-            helper.setVisible(R.id.tvLocation, !StringUtils.isEmpty(address));
+            helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         }
         helper.setText(R.id.tvHappenAt, happen);
-        helper.setText(R.id.tvLocation, address);
+        helper.setText(R.id.tvAddress, address);
         FrescoView ivPicture = helper.getView(R.id.ivPicture);
         ivPicture.setWidthAndHeight(imageWidth / 3, imageHeight / 3); // 注意了啊，太高了会崩
         // 主色值设置
@@ -115,10 +115,10 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                         }
                         if (rgb != 0) {
                             helper.setBackgroundColor(R.id.tvHappenAt, rgb);
-                            helper.setBackgroundColor(R.id.tvLocation, rgb);
+                            helper.setBackgroundColor(R.id.tvAddress, rgb);
                         } else {
                             helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
-                            helper.setBackgroundColor(R.id.tvLocation, colorPrimary);
+                            helper.setBackgroundColor(R.id.tvAddress, colorPrimary);
                         }
                     }
                 });
@@ -127,7 +127,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             @Override
             public void onBitmapFail(FrescoView iv) {
                 helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
-                helper.setBackgroundColor(R.id.tvLocation, colorPrimary);
+                helper.setBackgroundColor(R.id.tvAddress, colorPrimary);
             }
         });
         // 为瀑布流定制不一样的宽高(这里起始高度一定不能wrap，否则会一开始就都加在)
@@ -159,7 +159,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         });
         ivPicture.setData(content);
         // listener
-        helper.addOnClickListener(R.id.tvLocation);
+        helper.addOnClickListener(R.id.tvAddress);
         helper.addOnClickListener(R.id.tvModifyVertical);
         helper.addOnClickListener(R.id.tvDeleteVertical);
         helper.addOnClickListener(R.id.tvCancelVertical);

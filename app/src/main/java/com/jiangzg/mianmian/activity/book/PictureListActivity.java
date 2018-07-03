@@ -174,7 +174,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.tvLocation: // 地址
+                            case R.id.tvAddress: // 地址
                                 pictureAdapter.onLocationClick(position);
                                 break;
                             case R.id.tvModifyHorizontal: // 修改

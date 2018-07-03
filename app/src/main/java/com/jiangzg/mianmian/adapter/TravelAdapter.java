@@ -52,10 +52,14 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
         helper.setText(R.id.tvCreator, creator);
         if (placeList != null && placeList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
+            if (placeList.size() > 5) {
+                // 都返回，但是app最多显示5个
+                placeList = placeList.subList(0, 5);
+            }
             new RecyclerHelper(mActivity)
                     .initRecycler(rv)
                     .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter() // TODO
+                    .initAdapter(new TravelPlaceAdapter(mActivity))
                     .setAdapter()
                     .dataNew(placeList, 0);
         } else {

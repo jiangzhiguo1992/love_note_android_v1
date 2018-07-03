@@ -58,8 +58,8 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         // view
         RecyclerView rv = helper.getView(R.id.rv);
         helper.setText(R.id.tvTitle, title);
-        helper.setVisible(R.id.tvLocation, !StringUtils.isEmpty(address));
-        helper.setText(R.id.tvLocation, address);
+        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
+        helper.setText(R.id.tvAddress, address);
         helper.setText(R.id.tvHappenAt, happenShow);
         helper.setText(R.id.tvCreator, creator);
         if (imageList != null && imageList.size() > 0) {
@@ -75,7 +75,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
             rv.setVisibility(View.GONE);
         }
         // click
-        helper.addOnClickListener(R.id.tvLocation);
+        helper.addOnClickListener(R.id.tvAddress);
     }
 
     public void selectFood(int position) {

@@ -8,7 +8,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Travel;
 
 public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
@@ -44,6 +43,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     @Override
     protected void initView(Bundle state) {
+        // TODO travel的所有修改都在edit里做，上传要带place才生成place的数据，不带不修改(其他的外键id也是)
 
     }
 
