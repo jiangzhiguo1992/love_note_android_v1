@@ -96,7 +96,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         PictureListActivity.goActivityBySelect(mActivity, item);
     }
 
-    public void goDetail(int position) {
+    public void goAlbumDetail(int position) {
         hideOperation();
         Album item = getItem(position);
         PictureListActivity.goActivity(mActivity, item);

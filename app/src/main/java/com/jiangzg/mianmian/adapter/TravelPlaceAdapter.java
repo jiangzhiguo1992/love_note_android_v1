@@ -4,6 +4,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.TravelPlace;
 import com.jiangzg.mianmian.helper.TimeHelper;
@@ -33,8 +34,12 @@ public class TravelPlaceAdapter extends BaseQuickAdapter<TravelPlace, BaseViewHo
         helper.setText(R.id.tvContent, content);
     }
 
-    public void deleteItem(final int position) {
-        // TODO
+    public void goMapShow(int position) {
+        TravelPlace item = getItem(position);
+        String address = item.getAddress();
+        double longitude = item.getLongitude();
+        double latitude = item.getLatitude();
+        MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
 }

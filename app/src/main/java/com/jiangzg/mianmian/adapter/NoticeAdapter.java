@@ -43,7 +43,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         helper.setVisible(R.id.tvNoRead, !read);
     }
 
-    public void goDetail(int position) {
+    public void goNoticeDetail(int position) {
         Notice item = getItem(position);
         // read
         if (!item.isRead()) {

@@ -10,6 +10,11 @@ import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.TravelAlbum;
+import com.jiangzg.mianmian.domain.TravelDiary;
+import com.jiangzg.mianmian.domain.TravelFood;
+import com.jiangzg.mianmian.domain.TravelVideo;
+import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.domain.Whisper;
 
 import java.io.File;
@@ -52,7 +57,7 @@ public class ListHelper {
     }
 
     /**
-     * **************************************转换**************************************
+     * **************************************oss转换**************************************
      */
     // 集合类型转换(path -> file)
     public static List<File> getFileListByPath(List<String> pathList) {
@@ -151,4 +156,56 @@ public class ListHelper {
         }
         return ossKeyList;
     }
+
+    /**
+     * **************************************travel转换**************************************
+     */
+    public static ArrayList<Album> getAlbumListByTravel(List<TravelAlbum> travelAlbumList) {
+        ArrayList<Album> albumList = new ArrayList<>();
+        if (travelAlbumList == null || travelAlbumList.size() <= 0) return albumList;
+        for (TravelAlbum travelAlbum : travelAlbumList) {
+            if (travelAlbum == null || travelAlbum.getAlbum() == null || travelAlbum.getAlbum().getId() <= 0) {
+                continue;
+            }
+            albumList.add(travelAlbum.getAlbum());
+        }
+        return albumList;
+    }
+
+    public static ArrayList<Video> getVideoListByTravel(List<TravelVideo> travelVideoList) {
+        ArrayList<Video> videoList = new ArrayList<>();
+        if (travelVideoList == null || travelVideoList.size() <= 0) return videoList;
+        for (TravelVideo travelVideo : travelVideoList) {
+            if (travelVideo == null || travelVideo.getVideo() == null || travelVideo.getVideo().getId() <= 0) {
+                continue;
+            }
+            videoList.add(travelVideo.getVideo());
+        }
+        return videoList;
+    }
+
+    public static ArrayList<Food> getFoodListByTravel(List<TravelFood> travelFoodList) {
+        ArrayList<Food> foodList = new ArrayList<>();
+        if (travelFoodList == null || travelFoodList.size() <= 0) return foodList;
+        for (TravelFood travelFood : travelFoodList) {
+            if (travelFood == null || travelFood.getFood() == null || travelFood.getFood().getId() <= 0) {
+                continue;
+            }
+            foodList.add(travelFood.getFood());
+        }
+        return foodList;
+    }
+
+    public static ArrayList<Diary> getDiaryListByTravel(List<TravelDiary> travelDiaryList) {
+        ArrayList<Diary> diaryList = new ArrayList<>();
+        if (travelDiaryList == null || travelDiaryList.size() <= 0) return diaryList;
+        for (TravelDiary travelDiary : travelDiaryList) {
+            if (travelDiary == null || travelDiary.getDiary() == null || travelDiary.getDiary().getId() <= 0) {
+                continue;
+            }
+            diaryList.add(travelDiary.getDiary());
+        }
+        return diaryList;
+    }
+
 }

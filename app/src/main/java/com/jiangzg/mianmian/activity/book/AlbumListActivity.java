@@ -132,7 +132,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                             albumAdapter.selectPicture(position);
                         } else {
                             // 照片列表浏览
-                            albumAdapter.goDetail(position);
+                            albumAdapter.goAlbumDetail(position);
                         }
                     }
                 })
