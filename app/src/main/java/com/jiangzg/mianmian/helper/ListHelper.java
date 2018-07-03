@@ -13,6 +13,7 @@ import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.TravelAlbum;
 import com.jiangzg.mianmian.domain.TravelDiary;
 import com.jiangzg.mianmian.domain.TravelFood;
+import com.jiangzg.mianmian.domain.TravelPlace;
 import com.jiangzg.mianmian.domain.TravelVideo;
 import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.domain.Whisper;
@@ -160,6 +161,59 @@ public class ListHelper {
     /**
      * **************************************travel转换**************************************
      */
+    // 获取travel中要上传的placeList
+    public static List<TravelPlace> getTravelPlaceListByOld(List<TravelPlace> oldList, List<TravelPlace> adapterList) {
+        List<TravelPlace> returnList = new ArrayList<>();
+        if (oldList == null) {
+            oldList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (oldList.size() > 0) {
+            for (TravelPlace travelPlace : oldList) {
+                if (travelPlace == null || travelPlace.getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(adapterList, travelPlace);
+                // 已存在数据需要给id
+                TravelPlace newPlace = new TravelPlace();
+                newPlace.setId(travelPlace.getId());
+                if (index < 0 || index >= adapterList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newPlace.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newPlace.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newPlace);
+            }
+        }
+        // 检查添加的数据
+        if (adapterList != null && adapterList.size() > 0) {
+            // 先转换成数据集合
+            for (TravelPlace travelPlace : adapterList) {
+                if (travelPlace == null) continue; // 这里不检查id
+                // 对比新旧数据，添加新数据
+                int index = findIndexByIdInList(oldList, travelPlace);
+                if (index < 0 || index >= oldList.size()) {
+                    // 新数据不给id
+                    TravelPlace newPlace = new TravelPlace();
+                    newPlace.setStatus(BaseObj.STATUS_VISIBLE);
+                    newPlace.setHappenAt(travelPlace.getHappenAt());
+                    newPlace.setContentText(travelPlace.getContentText());
+                    newPlace.setLongitude(travelPlace.getLongitude());
+                    newPlace.setLatitude(travelPlace.getLatitude());
+                    newPlace.setAddress(travelPlace.getAddress());
+                    newPlace.setCityId(travelPlace.getCityId());
+                    // 不存在，加进去
+                    returnList.add(newPlace);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
+    }
+
     // 在adapter中显示的album
     public static ArrayList<Album> getAlbumListByTravel(List<TravelAlbum> travelAlbumList, boolean checkStatus) {
         ArrayList<Album> albumList = new ArrayList<>();
@@ -209,6 +263,7 @@ public class ListHelper {
             List<Album> albums = getAlbumListByTravel(travelAlbumList, false);
             for (Album album : albumList) {
                 if (album == null || album.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
                 int index = findIndexByIdInList(albums, album);
                 if (index < 0 || index >= albums.size()) {
                     // 新数据不给id
@@ -273,6 +328,7 @@ public class ListHelper {
             List<Video> videos = getVideoListByTravel(travelVideoList, false);
             for (Video video : videoList) {
                 if (video == null || video.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
                 int index = findIndexByIdInList(videos, video);
                 if (index < 0 || index >= videos.size()) {
                     // 新数据不给id
@@ -337,6 +393,7 @@ public class ListHelper {
             List<Food> foods = getFoodListByTravel(travelFoodList, false);
             for (Food food : foodList) {
                 if (food == null || food.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
                 int index = findIndexByIdInList(foods, food);
                 if (index < 0 || index >= foods.size()) {
                     // 新数据不给id
@@ -401,6 +458,7 @@ public class ListHelper {
             List<Diary> diaries = getDiaryListByTravel(travelDiaryList, false);
             for (Diary diary : diaryList) {
                 if (diary == null || diary.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
                 int index = findIndexByIdInList(diaries, diary);
                 if (index < 0 || index >= diaries.size()) {
                     // 新数据不给id

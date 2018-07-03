@@ -112,6 +112,7 @@
         <activity android:name=".activity.book.TravelListActivity"/>
         <activity android:name=".activity.book.TravelDetailActivity"/>
         <activity android:name=".activity.book.TravelEditActivity"/>
+        <activity android:name=".activity.book.TravelPlaceEditActivity"/>
     </application>
 
 </manifest>

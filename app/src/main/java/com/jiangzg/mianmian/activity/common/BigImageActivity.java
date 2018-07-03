@@ -155,12 +155,12 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         switch (type) {
             case TYPE_FILE_LIST:
                 List<String> imgFileList = getIntent().getStringArrayListExtra("imgFileList");
-                dataList.addAll(imgFileList);
+                dataList.addAll(imgFileList == null ? new ArrayList<String>() : imgFileList);
                 adapter.setData(dataList);
                 break;
             case TYPE_OSS_LIST:
                 List<String> imgOssList = getIntent().getStringArrayListExtra("imgOssList");
-                dataList.addAll(imgOssList);
+                dataList.addAll(imgOssList == null ? new ArrayList<String>() : imgOssList);
                 adapter.setData(dataList);
                 break;
             case TYPE_FILE_SINGLE:

@@ -349,7 +349,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvPlaceAdd: // 足迹
-                // TODO
+                TravelPlaceEditActivity.goActivity(mActivity);
                 break;
             case R.id.cvAlbumAdd: // 相册
                 AlbumListActivity.goActivityBySelectAlbum(mActivity);
@@ -378,7 +378,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void refreshPlaceView() {
         if (travel == null) return;
-        List<TravelPlace> placeList = travel.getTravelPlaceList();
+        List<TravelPlace> placeList = new ArrayList<>();
+        placeList.addAll(travel.getTravelPlaceList() == null ? new ArrayList<TravelPlace>() : travel.getTravelPlaceList()); // 不能用引用
         recyclerPlace.dataNew(placeList, 0);
     }
 
@@ -439,7 +440,11 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         body.setTitle(travel.getTitle());
         body.setHappenAt(travel.getHappenAt());
         // bodyPlace
-        // TODO place只有添加时才全字段
+        if (recyclerPlace != null && recyclerPlace.getAdapter() != null) {
+            TravelPlaceAdapter adapter = recyclerPlace.getAdapter();
+            List<TravelPlace> placeList = ListHelper.getTravelPlaceListByOld(travel.getTravelPlaceList(), adapter.getData());
+            body.setTravelPlaceList(placeList);
+        }
         // bodyAlbum
         if (recyclerAlbum != null && recyclerAlbum.getAdapter() != null) {
             AlbumAdapter adapter = recyclerAlbum.getAdapter();

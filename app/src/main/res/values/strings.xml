@@ -374,6 +374,7 @@
     <string name="please_input_angry_content">请输入生气的原由</string>
     <string name="please_input_rule_content">请输入规则的具体内容</string>
     <string name="please_input_trigger_rule">请输入触犯规则的情景</string>
+    <string name="please_input_track_content">请输入足迹的介绍</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>

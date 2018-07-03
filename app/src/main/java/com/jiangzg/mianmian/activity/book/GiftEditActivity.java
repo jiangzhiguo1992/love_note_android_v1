@@ -367,7 +367,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
-                ossData.addAll(ossPathList);
+                ossData.addAll(ossPathList == null ? new ArrayList<String>() : ossPathList);
                 api(ossData);
             }
 

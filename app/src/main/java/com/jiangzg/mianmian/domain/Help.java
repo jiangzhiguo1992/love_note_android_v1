@@ -41,6 +41,7 @@ public class Help extends BaseObj {
     public static final int INDEX_TRAVEL_LIST = 226;
     public static final int INDEX_TRAVEL_DETAIL = 227;
     public static final int INDEX_TRAVEL_EDIT = 228;
+    public static final int INDEX_TRAVEL_PLACE_EDIT = 229;
     public static final int INDEX_GIFT_LIST = 230;
     public static final int INDEX_GIFT_EDIT = 231;
     public static final int INDEX_PROMISE_LIST = 232;
