@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ListHelper {
 
-    public static <T extends BaseObj> int findIndexInList(List<T> list, T obj) {
+    public static <T extends BaseObj> int findIndexByIdInList(List<T> list, T obj) {
         if (list == null || list.size() <= 0) return -1;
         if (obj == null || obj.getId() == 0) return -1;
         for (int i = 0; i < list.size(); i++) {
@@ -40,19 +40,19 @@ public class ListHelper {
         return -1;
     }
 
-    public static <A extends BaseQuickAdapter, T extends BaseObj> void removeIndexInAdapter(A adapter, T obj) {
-        if (adapter == null) return;
+    public static <A extends BaseQuickAdapter, T extends BaseObj> void removeObjInAdapter(A adapter, T obj) {
+        if (adapter == null || obj == null) return;
         List data = adapter.getData();
-        int index = ListHelper.findIndexInList(data, obj);
-        if (index < 0) return;
+        int index = ListHelper.findIndexByIdInList(data, obj);
+        if (index < 0 || index >= data.size()) return;
         adapter.remove(index);
     }
 
-    public static <A extends BaseQuickAdapter, T extends BaseObj> void refreshIndexInAdapter(A adapter, T obj) {
-        if (adapter == null) return;
+    public static <A extends BaseQuickAdapter, T extends BaseObj> void refreshObjInAdapter(A adapter, T obj) {
+        if (adapter == null || obj == null) return;
         List data = adapter.getData();
-        int index = ListHelper.findIndexInList(data, obj);
-        if (index < 0) return;
+        int index = ListHelper.findIndexByIdInList(data, obj);
+        if (index < 0 || index >= data.size()) return;
         adapter.setData(index, obj);
     }
 
@@ -160,52 +160,260 @@ public class ListHelper {
     /**
      * **************************************travel转换**************************************
      */
-    public static ArrayList<Album> getAlbumListByTravel(List<TravelAlbum> travelAlbumList) {
+    // 在adapter中显示的album
+    public static ArrayList<Album> getAlbumListByTravel(List<TravelAlbum> travelAlbumList, boolean checkStatus) {
         ArrayList<Album> albumList = new ArrayList<>();
         if (travelAlbumList == null || travelAlbumList.size() <= 0) return albumList;
         for (TravelAlbum travelAlbum : travelAlbumList) {
             if (travelAlbum == null || travelAlbum.getAlbum() == null || travelAlbum.getAlbum().getId() <= 0) {
+                // 所有的album都是已经已存在的，必须有id
                 continue;
             }
+            if (checkStatus && travelAlbum.getStatus() <= BaseObj.STATUS_DELETE) continue;
             albumList.add(travelAlbum.getAlbum());
         }
         return albumList;
     }
 
-    public static ArrayList<Video> getVideoListByTravel(List<TravelVideo> travelVideoList) {
+    // 获取travel中要上传的albumList
+    public static List<TravelAlbum> getTravelAlbumListByOld(List<TravelAlbum> travelAlbumList, List<Album> albumList) {
+        List<TravelAlbum> returnList = new ArrayList<>();
+        if (travelAlbumList == null) {
+            travelAlbumList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (travelAlbumList.size() > 0) {
+            for (TravelAlbum travelAlbum : travelAlbumList) {
+                if (travelAlbum == null || travelAlbum.getAlbum() == null || travelAlbum.getAlbum().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(albumList, travelAlbum.getAlbum());
+                // 已存在数据需要给id
+                TravelAlbum newAlbum = new TravelAlbum();
+                newAlbum.setId(travelAlbum.getId());
+                newAlbum.setAlbumId(travelAlbum.getAlbumId());
+                if (index < 0 || index >= albumList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newAlbum.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newAlbum.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newAlbum);
+            }
+        }
+        // 检查添加的数据
+        if (albumList != null && albumList.size() > 0) {
+            // 先转换成数据集合
+            List<Album> albums = getAlbumListByTravel(travelAlbumList, false);
+            for (Album album : albumList) {
+                if (album == null || album.getId() <= 0) continue;
+                int index = findIndexByIdInList(albums, album);
+                if (index < 0 || index >= albums.size()) {
+                    // 新数据不给id
+                    TravelAlbum newAlbum = new TravelAlbum();
+                    newAlbum.setStatus(BaseObj.STATUS_VISIBLE);
+                    newAlbum.setAlbumId(album.getId());
+                    // 不存在，加进去
+                    returnList.add(newAlbum);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
+    }
+
+    // 在adapter中显示的video
+    public static ArrayList<Video> getVideoListByTravel(List<TravelVideo> travelVideoList, boolean checkStatus) {
         ArrayList<Video> videoList = new ArrayList<>();
         if (travelVideoList == null || travelVideoList.size() <= 0) return videoList;
         for (TravelVideo travelVideo : travelVideoList) {
             if (travelVideo == null || travelVideo.getVideo() == null || travelVideo.getVideo().getId() <= 0) {
+                // 所有的video都是已经已存在的，必须有id
                 continue;
             }
+            if (checkStatus && travelVideo.getStatus() <= BaseObj.STATUS_DELETE) continue;
             videoList.add(travelVideo.getVideo());
         }
         return videoList;
     }
 
-    public static ArrayList<Food> getFoodListByTravel(List<TravelFood> travelFoodList) {
+    // 获取travel中要上传的videoList
+    public static List<TravelVideo> getTravelVideoListByOld(List<TravelVideo> travelVideoList, List<Video> videoList) {
+        List<TravelVideo> returnList = new ArrayList<>();
+        if (travelVideoList == null) {
+            travelVideoList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (travelVideoList.size() > 0) {
+            for (TravelVideo travelVideo : travelVideoList) {
+                if (travelVideo == null || travelVideo.getVideo() == null || travelVideo.getVideo().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(videoList, travelVideo.getVideo());
+                // 已存在数据需要给id
+                TravelVideo newVideo = new TravelVideo();
+                newVideo.setId(travelVideo.getId());
+                newVideo.setVideoId(travelVideo.getVideoId());
+                if (index < 0 || index >= videoList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newVideo.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newVideo.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newVideo);
+            }
+        }
+        // 检查添加的数据
+        if (videoList != null && videoList.size() > 0) {
+            // 先转换成数据集合
+            List<Video> videos = getVideoListByTravel(travelVideoList, false);
+            for (Video video : videoList) {
+                if (video == null || video.getId() <= 0) continue;
+                int index = findIndexByIdInList(videos, video);
+                if (index < 0 || index >= videos.size()) {
+                    // 新数据不给id
+                    TravelVideo newVideo = new TravelVideo();
+                    newVideo.setStatus(BaseObj.STATUS_VISIBLE);
+                    newVideo.setVideoId(video.getId());
+                    // 不存在，加进去
+                    returnList.add(newVideo);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
+    }
+
+    // 在adapter中显示的food
+    public static ArrayList<Food> getFoodListByTravel(List<TravelFood> travelFoodList, boolean checkStatus) {
         ArrayList<Food> foodList = new ArrayList<>();
         if (travelFoodList == null || travelFoodList.size() <= 0) return foodList;
         for (TravelFood travelFood : travelFoodList) {
             if (travelFood == null || travelFood.getFood() == null || travelFood.getFood().getId() <= 0) {
+                // 所有的food都是已经已存在的，必须有id
                 continue;
             }
+            if (checkStatus && travelFood.getStatus() <= BaseObj.STATUS_DELETE) continue;
             foodList.add(travelFood.getFood());
         }
         return foodList;
     }
 
-    public static ArrayList<Diary> getDiaryListByTravel(List<TravelDiary> travelDiaryList) {
+    // 获取travel中要上传的foodList
+    public static List<TravelFood> getTravelFoodListByOld(List<TravelFood> travelFoodList, List<Food> foodList) {
+        List<TravelFood> returnList = new ArrayList<>();
+        if (travelFoodList == null) {
+            travelFoodList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (travelFoodList.size() > 0) {
+            for (TravelFood travelFood : travelFoodList) {
+                if (travelFood == null || travelFood.getFood() == null || travelFood.getFood().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(foodList, travelFood.getFood());
+                // 已存在数据需要给id
+                TravelFood newFood = new TravelFood();
+                newFood.setId(travelFood.getId());
+                newFood.setFoodId(travelFood.getFoodId());
+                if (index < 0 || index >= foodList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newFood.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newFood.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newFood);
+            }
+        }
+        // 检查添加的数据
+        if (foodList != null && foodList.size() > 0) {
+            // 先转换成数据集合
+            List<Food> foods = getFoodListByTravel(travelFoodList, false);
+            for (Food food : foodList) {
+                if (food == null || food.getId() <= 0) continue;
+                int index = findIndexByIdInList(foods, food);
+                if (index < 0 || index >= foods.size()) {
+                    // 新数据不给id
+                    TravelFood newFood = new TravelFood();
+                    newFood.setStatus(BaseObj.STATUS_VISIBLE);
+                    newFood.setFoodId(food.getId());
+                    // 不存在，加进去
+                    returnList.add(newFood);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
+    }
+
+    // 在adapter中显示的diary
+    public static ArrayList<Diary> getDiaryListByTravel(List<TravelDiary> travelDiaryList, boolean checkStatus) {
         ArrayList<Diary> diaryList = new ArrayList<>();
         if (travelDiaryList == null || travelDiaryList.size() <= 0) return diaryList;
         for (TravelDiary travelDiary : travelDiaryList) {
             if (travelDiary == null || travelDiary.getDiary() == null || travelDiary.getDiary().getId() <= 0) {
+                // 所有的diary都是已经已存在的，必须有id
                 continue;
             }
+            if (checkStatus && travelDiary.getStatus() <= BaseObj.STATUS_DELETE) continue;
             diaryList.add(travelDiary.getDiary());
         }
         return diaryList;
+    }
+
+    // 获取travel中要上传的diaryList
+    public static List<TravelDiary> getTravelDiaryListByOld(List<TravelDiary> travelDiaryList, List<Diary> diaryList) {
+        List<TravelDiary> returnList = new ArrayList<>();
+        if (travelDiaryList == null) {
+            travelDiaryList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (travelDiaryList.size() > 0) {
+            for (TravelDiary travelDiary : travelDiaryList) {
+                if (travelDiary == null || travelDiary.getDiary() == null || travelDiary.getDiary().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(diaryList, travelDiary.getDiary());
+                // 已存在数据需要给id
+                TravelDiary newDiary = new TravelDiary();
+                newDiary.setId(travelDiary.getId());
+                newDiary.setDiaryId(travelDiary.getDiaryId());
+                if (index < 0 || index >= diaryList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newDiary.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newDiary.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newDiary);
+            }
+        }
+        // 检查添加的数据
+        if (diaryList != null && diaryList.size() > 0) {
+            // 先转换成数据集合
+            List<Diary> diaries = getDiaryListByTravel(travelDiaryList, false);
+            for (Diary diary : diaryList) {
+                if (diary == null || diary.getId() <= 0) continue;
+                int index = findIndexByIdInList(diaries, diary);
+                if (index < 0 || index >= diaries.size()) {
+                    // 新数据不给id
+                    TravelDiary newDiary = new TravelDiary();
+                    newDiary.setStatus(BaseObj.STATUS_VISIBLE);
+                    newDiary.setDiaryId(diary.getId());
+                    // 不存在，加进去
+                    returnList.add(newDiary);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
     }
 
 }

@@ -431,6 +431,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         travel.setTitle(title);
         // 封装body
         Travel body = new Travel();
+        body.setId(travel.getId());
         body.setTitle(travel.getTitle());
         body.setHappenAt(travel.getHappenAt());
         // bodyPlace
@@ -438,8 +439,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         // bodyAlbum
         if (recyclerAlbum != null && recyclerAlbum.getAdapter() != null) {
             AlbumAdapter adapter = recyclerAlbum.getAdapter();
-            List<TravelAlbum> albumList = ListHelper.getTravelAlbumListByOld(this.travel.getTravelAlbumList(), adapter.getData());
-            travel.setTravelAlbumList(albumList);
+            List<TravelAlbum> albumList = ListHelper.getTravelAlbumListByOld(travel.getTravelAlbumList(), adapter.getData());
+            body.setTravelAlbumList(albumList);
         }
         // bodyVideo
         // TODO
