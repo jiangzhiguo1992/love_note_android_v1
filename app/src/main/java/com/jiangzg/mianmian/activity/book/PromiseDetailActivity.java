@@ -131,24 +131,6 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
-        // init
-        Intent intent = getIntent();
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
-            promise = getIntent().getParcelableExtra("promise");
-            // view
-            initHead();
-            recyclerHelper.dataRefresh();
-            // 没有详情页的，可以不加
-            if (promise != null) {
-                refreshPromise(promise.getId());
-            }
-        } else if (from == FROM_ID) {
-            long pid = intent.getLongExtra("pid", 0);
-            refreshPromise(pid);
-        }
-        // happen
-        refreshDateView();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
@@ -178,6 +160,24 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                         promiseBreakAdapter.showDeleteDialog(position, promise);
                     }
                 });
+        // init
+        Intent intent = getIntent();
+        int from = intent.getIntExtra("from", FROM_NONE);
+        if (from == FROM_ALL) {
+            promise = getIntent().getParcelableExtra("promise");
+            // view
+            initHead();
+            recyclerHelper.dataRefresh();
+            // 没有详情页的，可以不加
+            if (promise != null) {
+                refreshPromise(promise.getId());
+            }
+        } else if (from == FROM_ID) {
+            long pid = intent.getLongExtra("pid", 0);
+            refreshPromise(pid);
+        }
+        // happen
+        refreshDateView();
         // break
         breakShow(false);
         // content 防止开始显示错误
@@ -287,7 +287,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     private void initHead() {
         // data
-        if (promise == null) return;
+        if (promise == null || recyclerHelper == null) return;
         User me = SPHelper.getMe();
         String happenName = String.format(Locale.getDefault(), getString(R.string.promise_user_colon_space_holder), me.getNameInCp(promise.getHappenId()));
         String happenTime = String.format(Locale.getDefault(), getString(R.string.promise_time_colon_space_holder), TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(promise.getHappenAt()));
