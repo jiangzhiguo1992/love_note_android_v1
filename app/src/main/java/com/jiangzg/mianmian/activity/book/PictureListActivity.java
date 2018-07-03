@@ -292,9 +292,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // data
         String cover = album.getCover();
         String title = album.getTitle();
-        String createAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getCreateAt());
+        String createAt = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(album.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
-        String updateAt = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(album.getUpdateAt());
+        String updateAt = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(album.getUpdateAt());
         String updateShow = String.format(Locale.getDefault(), getString(R.string.update_at_colon_space_holder), updateAt);
         // view
         if (StringUtils.isEmpty(cover)) {

@@ -46,7 +46,7 @@ public class NoticeDetailActivity extends BaseActivity<NoticeDetailActivity> {
         if (notice == null) return;
         // view
         tvTitle.setText(notice.getTitle());
-        tvTime.setText(TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(notice.getCreateAt()));
+        tvTime.setText(TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(notice.getCreateAt()));
         tvContent.setText(notice.getContentText());
     }
 

@@ -42,7 +42,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
         String title = item.getTitle();
         String name = Couple.getName(couple, item.getUserId());
         String creator = String.format(Locale.getDefault(), mActivity.getString(R.string.creator_colon_space_holder), name);
-        String happen = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
         String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.time_colon_space_holder), happen);
         List<TravelPlace> placeList = item.getTravelPlaceList();
         // view

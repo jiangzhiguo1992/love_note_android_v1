@@ -213,7 +213,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(award.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(award.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

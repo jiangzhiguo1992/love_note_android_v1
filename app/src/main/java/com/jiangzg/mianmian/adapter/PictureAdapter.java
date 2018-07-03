@@ -79,7 +79,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
     @Override
     protected void convert(final BaseViewHolder helper, Picture item) {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String address = item.getAddress();
         String content = item.getContentImage();
         // view

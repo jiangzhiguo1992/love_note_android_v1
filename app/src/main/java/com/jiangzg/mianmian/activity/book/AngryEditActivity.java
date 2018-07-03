@@ -177,7 +177,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(angry.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(angry.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

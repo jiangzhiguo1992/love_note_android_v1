@@ -249,7 +249,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(food.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(food.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

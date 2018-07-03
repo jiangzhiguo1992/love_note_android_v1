@@ -186,7 +186,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(dream.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(dream.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

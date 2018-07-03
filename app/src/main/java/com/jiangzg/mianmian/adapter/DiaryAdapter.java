@@ -39,7 +39,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Diary item) {
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         String textFormat = mActivity.getString(R.string.text_number_space_colon_holder);
         String textCount = String.format(Locale.getDefault(), textFormat, content == null ? 0 : content.length());

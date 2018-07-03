@@ -419,7 +419,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(travel.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(travel.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

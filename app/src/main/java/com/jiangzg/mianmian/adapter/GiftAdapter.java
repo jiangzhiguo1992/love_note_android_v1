@@ -42,7 +42,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         String avatarLeft = Couple.getAvatar(couple, Couple.getTaId(couple, item.getReceiveId()));
         String avatarRight = Couple.getAvatar(couple, item.getReceiveId());
         String title = item.getTitle();
-        String happen = TimeHelper.getTimeShowCn_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
         String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.on_space_holder_space_send_to), happen);
         List<String> imageList = item.getContentImageList();
         // view

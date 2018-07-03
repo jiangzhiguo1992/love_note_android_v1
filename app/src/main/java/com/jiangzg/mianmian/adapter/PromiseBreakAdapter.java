@@ -37,7 +37,7 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
 
     @Override
     protected void convert(BaseViewHolder helper, PromiseBreak item) {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String content = item.getContentText();
         // view
         helper.setText(R.id.tvHappenAt, happen);

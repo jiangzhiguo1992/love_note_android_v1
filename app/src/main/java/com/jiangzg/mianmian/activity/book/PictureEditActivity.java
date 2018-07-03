@@ -325,7 +325,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void refreshDateView() {
-        String happenShow = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(picture.getHappenAt());
+        String happenShow = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(picture.getHappenAt());
         String format = String.format(Locale.getDefault(), getString(R.string.take_camera_in_colon_space_holder), happenShow);
         tvHappenAt.setText(format);
     }

@@ -218,7 +218,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(promise.getHappenAt());
+        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(promise.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

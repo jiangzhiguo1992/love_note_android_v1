@@ -34,7 +34,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Notice item) {
         // data
         long createdAt = item.getCreateAt();
-        String create = TimeHelper.getTimeShowCnSpace_HM_MD_YMD_ByGo(createdAt);
+        String create = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(createdAt);
         String title = item.getTitle();
         boolean read = item.isRead();
         // view
