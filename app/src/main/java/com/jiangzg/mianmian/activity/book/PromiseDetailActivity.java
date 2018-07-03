@@ -1,7 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +13,6 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -51,7 +49,6 @@ import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -391,20 +388,13 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     private void showBreakTimePicker() {
-        Calendar calendar = DateUtils.getCurrentCalendar();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog picker = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
+        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), new DialogHelper.OnPickListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar instance = DateUtils.getCurrentCalendar();
-                instance.set(year, month, dayOfMonth);
-                breakHappen = TimeHelper.getGoTimeByJava(instance.getTimeInMillis());
+            public void onPick(long time) {
+                breakHappen = TimeHelper.getGoTimeByJava(time);
                 refreshDateView();
             }
-        }, year, month, day);
-        picker.show();
+        });
     }
 
     private void refreshDateView() {

@@ -1,10 +1,14 @@
 package com.jiangzg.mianmian.helper;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -12,8 +16,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
+
+import java.util.Calendar;
 
 /**
  * Created by JZG on 2018/3/30.
@@ -75,6 +82,61 @@ public class DialogHelper {
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
+    }
+
+    public interface OnPickListener {
+        void onPick(long time);
+    }
+
+    // 日期+时钟选择器
+    public static void showDateTimePicker(final Context context, long time, final OnPickListener listener) {
+        if (context == null) return;
+        showDatePicker(context, time, new OnPickListener() {
+            @Override
+            public void onPick(long time) {
+                showTimePicker(context, time, listener);
+            }
+        });
+    }
+
+    // 日期选择器
+    public static void showDatePicker(Context context, long time, final OnPickListener listener) {
+        if (context == null) return;
+        final Calendar calendar = DateUtils.getCalendar(time);
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog picker = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                if (listener != null) {
+                    calendar.set(year, month, dayOfMonth);
+                    long timeInMillis = calendar.getTimeInMillis();
+                    listener.onPick(timeInMillis);
+                }
+            }
+        }, year, month, day);
+        picker.show();
+    }
+
+    // 时钟选择器
+    public static void showTimePicker(Context context, long time, final OnPickListener listener) {
+        if (context == null) return;
+        final Calendar calendar = DateUtils.getCalendar(time);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        TimePickerDialog picker = new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                if (listener != null) {
+                    calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                    calendar.set(Calendar.MINUTE, minute);
+                    long timeInMillis = calendar.getTimeInMillis();
+                    listener.onPick(timeInMillis);
+                }
+            }
+        }, hour, minute, true);
+        picker.show();
     }
 
 //public static Dialog showPickerFromPictureCamera(final Activity activity, final File cameraFile) {
