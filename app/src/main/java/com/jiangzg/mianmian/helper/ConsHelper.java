@@ -13,15 +13,17 @@ public class ConsHelper {
     // requestCode
     public static final int REQUEST_APP_INFO = 1001;
     public static final int REQUEST_DEVICE_INFO = 1002;
-    public static final int REQUEST_CAMERA = 1003;
-    public static final int REQUEST_PICTURE = 1004;
-    public static final int REQUEST_CROP = 1005;
-    public static final int REQUEST_INSTALL = 1006;
-    public static final int REQUEST_CONTEXT_ALERT = 1007;
-    public static final int REQUEST_SCAN = 1008;
-    public static final int REQUEST_CONTACT = 1009;
-    public static final int REQUEST_LOCATION = 1010;
-    public static final int REQUEST_BOOK_PICTURE = 1011;
+    public static final int REQUEST_PICTURE = 1003;
+    public static final int REQUEST_AUDIO = 1004;
+    public static final int REQUEST_VIDEO = 1005;
+    public static final int REQUEST_CAMERA = 1006;
+    public static final int REQUEST_CROP = 1007;
+    public static final int REQUEST_INSTALL = 1008;
+    public static final int REQUEST_CONTEXT_ALERT = 1009;
+    public static final int REQUEST_SCAN = 1010;
+    public static final int REQUEST_CONTACT = 1011;
+    public static final int REQUEST_LOCATION = 1012;
+    public static final int REQUEST_BOOK_PICTURE = 1013;
     // RxBus.ID
     public static final int EVENT_MAP_SELECT = 1; // 选择
     public static final int EVENT_DIARY_SELECT = 2;

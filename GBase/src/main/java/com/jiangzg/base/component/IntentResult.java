@@ -64,7 +64,7 @@ public class IntentResult {
         Uri uri = getPictureUri(data);
         File file;
         if (uri != null) {
-            file = ProviderUtils.getImgFileByUri(uri);
+            file = ProviderUtils.getFileByUri(uri);
         } else {
             LogUtils.w(IntentResult.class, "getPictureFile", "uri == null");
             long time = new Date().getTime();

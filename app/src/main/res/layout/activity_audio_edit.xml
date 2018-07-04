@@ -1,10 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jiangzg.mianmian.activity.book.AudioEditActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etTitle"
+                style="@style/FontGreyNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                android:hint="@string/please_input_title"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="10dp"
+                android:singleLine="true"/>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvHappenAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="?attr/colorPrimaryDark"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textStyle="bold"
+                    tools:text="2017年 4月 19日"/>
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAudio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="?attr/colorPrimaryDark"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <TextView
+                    android:id="@+id/tvAudio"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/click_select_audio"
+                    android:textStyle="bold"/>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnPublish"
+        style="@style/FontWhiteBig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_press_solid_dark_accent"
+        android:text="@string/publish"/>
+</LinearLayout>

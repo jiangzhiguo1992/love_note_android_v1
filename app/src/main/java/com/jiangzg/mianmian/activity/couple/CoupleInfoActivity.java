@@ -292,7 +292,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void goCropActivity(File source) {
         cropFile = ResHelper.newImageCacheFile();
-        Intent intent = IntentFactory.getCrop(source, cropFile, 1, 1);
+        Intent intent = IntentFactory.getImageCrop(source, cropFile, 1, 1);
         ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
     }
 

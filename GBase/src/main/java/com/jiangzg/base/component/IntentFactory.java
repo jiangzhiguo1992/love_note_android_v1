@@ -56,7 +56,45 @@ public class IntentFactory {
     }
 
     /**
-     * 拍照
+     * 相册
+     */
+    @SuppressLint("MissingPermission")
+    public static Intent getPicture() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        return intent;
+    }
+
+    /**
+     * 音频 *有mp3、wav、mid等
+     */
+    @SuppressLint("MissingPermission")
+    public static Intent getAudio() {
+        //Intent intent = new Intent();
+        //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        //intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //intent.setType("audio/*");
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+        return intent;
+    }
+
+    /**
+     * 视频 *有mp4、3gp、avi等
+     */
+    @SuppressLint("MissingPermission")
+    public static Intent getVideo() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("video/*");
+        return intent;
+    }
+
+    /**
+     * 拍照 ,可以自定义保存路径
      */
     @SuppressLint("MissingPermission")
     public static Intent getCamera(File cameraFile) {
@@ -76,29 +114,17 @@ public class IntentFactory {
     }
 
     /**
-     * 相册 ,可以自定义保存路径
-     */
-    @SuppressLint("MissingPermission")
-    public static Intent getPicture() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        return intent;
-    }
-
-    /**
      * 裁剪(通用) 1.启动拍照/相册 2.在onActivityForResult里调用此方法，启动裁剪功能
      */
-    public static Intent getCrop(File from, File save) {
-        return getCrop(from, save, 0, 0, 0, 0);
+    public static Intent getImageCrop(File from, File save) {
+        return getImageCrop(from, save, 0, 0, 0, 0);
     }
 
-    public static Intent getCrop(File from, File save, int aspectX, int aspectY) {
-        return getCrop(from, save, aspectX, aspectY, 0, 0);
+    public static Intent getImageCrop(File from, File save, int aspectX, int aspectY) {
+        return getImageCrop(from, save, aspectX, aspectY, 0, 0);
     }
 
-    public static Intent getCrop(File from, File save, int aspectX, int aspectY, int outputX, int outputY) {
+    public static Intent getImageCrop(File from, File save, int aspectX, int aspectY, int outputX, int outputY) {
         if (FileUtils.isFileEmpty(from) || save == null) { // 源文件不存在
             FileUtils.deleteFile(from);
             FileUtils.deleteFile(save);
@@ -107,10 +133,10 @@ public class IntentFactory {
         }
         Uri uriFrom = ProviderUtils.getUriByFile(from);
         Uri uriTo = Uri.fromFile(save); // 照片 截取输出的outputUri，只能使用Uri.fromFile，不能用FileProvider
-        return getCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
+        return getImageCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
     }
 
-    public static Intent getCrop(Uri from, Uri save, int aspectX, int aspectY, int outputX, int outputY) {
+    public static Intent getImageCrop(Uri from, Uri save, int aspectX, int aspectY, int outputX, int outputY) {
         if (from == null || save == null) {
             LogUtils.w(IntentFactory.class, "getCrop", "from == null || save == null");
             return null;

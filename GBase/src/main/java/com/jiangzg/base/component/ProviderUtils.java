@@ -28,9 +28,9 @@ public class ProviderUtils {
     /**
      * uri转file
      */
-    public static File getImgFileByUri(Uri uri) {
+    public static File getFileByUri(Uri uri) {
         if (uri == null) {
-            LogUtils.w(ProviderUtils.class, "getImgFileByUri", "uri == null");
+            LogUtils.w(ProviderUtils.class, "getFileByUri", "uri == null");
             return null;
         }
         String[] project = new String[]{MediaStore.Images.ImageColumns.DATA}; // 字段名
@@ -47,7 +47,7 @@ public class ProviderUtils {
                 if ("primary".equalsIgnoreCase(type)) {
                     data = Environment.getExternalStorageDirectory() + "/" + split[1];
                 } else {
-                    LogUtils.w(ProviderUtils.class, "getImgFileByUri", "primary != externalstorage");
+                    LogUtils.w(ProviderUtils.class, "getFileByUri", "primary != externalstorage");
                     return null;
                 }
             } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
@@ -56,7 +56,7 @@ public class ProviderUtils {
                 try {
                     aLong = Long.valueOf(docId);
                 } catch (Exception e) {
-                    LogUtils.e(ProviderUtils.class, "getImgFileByUri", e);
+                    LogUtils.e(ProviderUtils.class, "getFileByUri", e);
                     return null;
                 }
                 if (aLong != 0) {
