@@ -19,6 +19,7 @@
         android:layout_alignStart="@+id/llContent"
         android:layout_below="@+id/llContent"
         android:layout_marginTop="5dp"
+        android:gravity="center"
         tools:text="录音介绍录音介绍录音介绍录音介绍录音介绍录音介绍录音介绍"
         tools:textColor="@color/black"/>
 

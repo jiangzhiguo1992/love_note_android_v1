@@ -16,20 +16,10 @@ public class Audio extends BaseCP implements Parcelable, MultiItemEntity {
     private String title;
     private String contentAudio;
     private int duration;
-    // app本地使用
-    private boolean isPlay;
 
     @Override
     public int getItemType() {
         return isMine() ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
-    }
-
-    public boolean isPlay() {
-        return isPlay;
-    }
-
-    public void setPlay(boolean play) {
-        isPlay = play;
     }
 
     public long getHappenAt() {

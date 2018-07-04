@@ -12,7 +12,9 @@
 
     <string name="second">秒</string>
     <string name="minute">分钟</string>
+    <string name="minute_short">分</string>
     <string name="hour">小时</string>
+    <string name="hour_short">时</string>
     <string name="dayT">天</string>
     <string name="dayR">日</string>
     <string name="month">月</string>

@@ -6,6 +6,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -34,6 +35,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
 
     private BaseActivity mActivity;
     private final Couple couple;
+    private int playingIndex;
     private final String year;
     private final String month;
     private final String dayT;
@@ -47,11 +49,12 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         addItemType(ApiHelper.LIST_TA, R.layout.list_item_audio_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        playingIndex = -1;
         year = mActivity.getString(R.string.year);
         month = mActivity.getString(R.string.month);
         dayT = mActivity.getString(R.string.dayT);
-        hour = mActivity.getString(R.string.hour);
-        minute = mActivity.getString(R.string.minute);
+        hour = mActivity.getString(R.string.hour_short);
+        minute = mActivity.getString(R.string.minute_short);
         second = mActivity.getString(R.string.second);
     }
 
@@ -59,9 +62,10 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     protected void convert(BaseViewHolder helper, Audio item) {
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        int playIcon = item.isPlay() ? R.drawable.ic_pause_circle_primary : R.drawable.ic_play_circle_primary;
+        int playIcon = (playingIndex == helper.getLayoutPosition()) ? R.drawable.ic_pause_circle_primary : R.drawable.ic_play_circle_primary;
         TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeHelper.getJavaTimeByGo(item.getDuration()));
         String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
+        duration = StringUtils.isEmpty(duration) ? "--" : duration;
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String title = item.getTitle();
         // view
@@ -76,13 +80,28 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     }
 
     public void togglePlayAudio(int position) {
-        // TODO 检查是否下载完毕
         Audio item = getItem(position);
-        item.setPlay(!item.isPlay());
-        notifyItemChanged(position);
+        // 记录上一个播放
+        int oldPlayingIndex = playingIndex;
+        if (oldPlayingIndex == position) {
+            // 点击相同的暂停
+            playingIndex = -1;
+        } else {
+            // 点击不同的播放
+            playingIndex = position;
+        }
+        if (oldPlayingIndex >= 0) {
+            // 中断其他的播放
+            notifyItemChanged(oldPlayingIndex);
+        }
+        if (playingIndex >= 0) {
+            // 开始现在点击的
+            notifyItemChanged(position);
+        }
+        // TODO 检查是否下载完毕
+        // TODO 播放完毕记得刷新 index 和 adapter
         String contentAudio = item.getContentAudio();
 
-        ToastUtils.show(item.isPlay() ? "开始播放" : "开始暂停");
     }
 
     public void showDeleteDialog(final int position) {
