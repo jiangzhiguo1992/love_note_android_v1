@@ -24,8 +24,11 @@ public class OssResHelper {
     public static final int TYPE_BOOK_DIARY = 21;
     public static final int TYPE_BOOK_ALBUM = 22;
     public static final int TYPE_BOOK_PICTURE = 23;
-    public static final int TYPE_BOOK_FOOD = 24;
-    public static final int TYPE_BOOK_GIFT = 25;
+    public static final int TYPE_BOOK_AUDIO = 24;
+    public static final int TYPE_BOOK_VIDEO_THUMB = 25;
+    public static final int TYPE_BOOK_VIDEO = 26;
+    public static final int TYPE_BOOK_FOOD = 27;
+    public static final int TYPE_BOOK_GIFT = 28;
 
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
@@ -75,6 +78,15 @@ public class OssResHelper {
                 break;
             case TYPE_BOOK_PICTURE: // 照片
                 dirPath = SPHelper.getOssInfo().getPathBookPicture();
+                break;
+            case TYPE_BOOK_AUDIO: // 音频
+                dirPath = SPHelper.getOssInfo().getPathBookAudio();
+                break;
+            case TYPE_BOOK_VIDEO_THUMB: // 视频封面
+                dirPath = SPHelper.getOssInfo().getPathBookVideoThumb();
+                break;
+            case TYPE_BOOK_VIDEO: // 视频
+                dirPath = SPHelper.getOssInfo().getPathBookVideo();
                 break;
             case TYPE_BOOK_FOOD: // 美食
                 dirPath = SPHelper.getOssInfo().getPathBookGift();

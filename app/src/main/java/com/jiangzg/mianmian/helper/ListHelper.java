@@ -5,6 +5,7 @@ import android.net.Uri;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.domain.Album;
+import com.jiangzg.mianmian.domain.Audio;
 import com.jiangzg.mianmian.domain.BaseObj;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Food;
@@ -128,6 +129,45 @@ public class ListHelper {
                 continue;
             }
             ossKeyList.add(picture.getContentImage());
+        }
+        return ossKeyList;
+    }
+
+    // 集合类型转换(Audio -> ossKey)
+    public static ArrayList<String> getOssKeyListByAudio(List<Audio> audioList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (audioList == null || audioList.size() <= 0) return ossKeyList;
+        for (Audio audio : audioList) {
+            if (audio == null || audio.getContentAudio() == null) {
+                continue;
+            }
+            ossKeyList.add(audio.getContentAudio());
+        }
+        return ossKeyList;
+    }
+
+    // 集合类型转换(VideoThumb -> ossKey)
+    public static ArrayList<String> getOssKeyListByVideoThumb(List<Video> videoList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (videoList == null || videoList.size() <= 0) return ossKeyList;
+        for (Video video : videoList) {
+            if (video == null || video.getContentThumb() == null) {
+                continue;
+            }
+            ossKeyList.add(video.getContentThumb());
+        }
+        return ossKeyList;
+    }
+
+    // 集合类型转换(Video -> ossKey)
+    public static ArrayList<String> getOssKeyListByVideo(List<Video> videoList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (videoList == null || videoList.size() <= 0) return ossKeyList;
+        for (Video video : videoList) {
+            if (video == null || video.getContentVideo() == null) {
+                continue;
+            }
+            ossKeyList.add(video.getContentVideo());
         }
         return ossKeyList;
     }

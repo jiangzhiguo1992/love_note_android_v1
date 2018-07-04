@@ -382,6 +382,9 @@
     <string name="confirm_delete_this_album">确定删除这个相册吗？</string>
     <string name="confirm_remove_this_album">确定移除这个相册吗？</string>
     <string name="confirm_delete_this_picture">确定删除这张照片？</string>
+    <string name="confirm_delete_this_audio">确定删除这个音频？</string>
+    <string name="confirm_delete_this_video">确定删除这个视频？</string>
+    <string name="confirm_remove_this_video">确定移除这个视频？</string>
     <string name="confirm_delete_this_food">确定删除这个美食？</string>
     <string name="confirm_remove_this_food">确定移除这个美食？</string>
     <string name="confirm_delete_this_travel">确定删除这个游记？</string>
@@ -398,6 +401,8 @@
     <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
     <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
+    <string name="can_operation_self_create_audio">只能操作自己创建的音频哦</string>
+    <string name="can_operation_self_create_video">只能操作自己创建的视频哦</string>
     <string name="can_operation_self_create_food">只能操作自己创建的美食哦</string>
     <string name="can_operation_self_create_travel">只能操作自己创建的游记哦</string>
     <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>

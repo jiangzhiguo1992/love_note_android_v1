@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Angry;
+import com.jiangzg.mianmian.domain.Audio;
 import com.jiangzg.mianmian.domain.Award;
 import com.jiangzg.mianmian.domain.AwardRule;
 import com.jiangzg.mianmian.domain.Diary;
@@ -20,6 +21,7 @@ import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
 import com.jiangzg.mianmian.domain.Travel;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.domain.WallPaper;
 import com.jiangzg.mianmian.domain.Whisper;
 import com.jiangzg.mianmian.domain.Word;
@@ -407,5 +409,33 @@ public interface API {
     // travel修改
     @PUT("book/travel")
     Call<Result> travelUpdate(@Body Travel travel);
+
+    // audioList获取
+    @GET("book/audio?aid=0&list=1")
+    Call<Result> audioListGet(@Query("page") int page);
+
+    // audio上传
+    @POST("book/audio")
+    Call<Result> audioAdd(@Body Audio audio);
+
+    // audio删除
+    @DELETE("book/audio")
+    Call<Result> audioDel(@Query("aid") long aid);
+
+    // videoList获取
+    @GET("book/video?vid=0&list=1")
+    Call<Result> videoListGet(@Query("page") int page);
+
+    // video上传
+    @POST("book/video")
+    Call<Result> videoAdd(@Body Video video);
+
+    // video删除
+    @DELETE("book/video")
+    Call<Result> videoDel(@Query("vid") long vid);
+
+    // video修改
+    @PUT("book/video")
+    Call<Result> videoUpdate(@Body Video video);
 
 }

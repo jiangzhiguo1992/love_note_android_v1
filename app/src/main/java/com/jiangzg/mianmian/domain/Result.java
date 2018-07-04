@@ -62,14 +62,14 @@ public class Result implements Serializable {
         private Help help;
         private Notice notice;
         private List<Notice> noticeList;
+        private List<Version> versionList;
         private Suggest suggest;
         private List<Suggest> suggestList;
         private List<SuggestComment> suggestCommentList;
-        private List<Version> versionList;
-        private PairCard pairCard;
         private Couple couple;
         private User me;
         private User ta;
+        private PairCard pairCard;
         private int togetherDay;
         private WallPaper wallPaper;
         private Place myPlace;
@@ -79,34 +79,70 @@ public class Result implements Serializable {
         private WeatherToday taWeatherToday;
         private List<WeatherForecast> myWeatherForecastList;
         private List<WeatherForecast> taWeatherForecastList;
-        private List<Diary> diaryList;
-        private Diary diary;
-        private List<Word> wordList;
         private Word word;
-        private List<Whisper> whisperList;
+        private List<Word> wordList;
         private Whisper whisper;
+        private List<Whisper> whisperList;
+        private Diary diary;
+        private List<Diary> diaryList;
         private Album album;
         private List<Album> albumList;
-        private List<Picture> pictureList;
         private Picture picture;
-        private List<Dream> dreamList;
-        private Dream dream;
-        private List<Gift> giftList;
-        private Gift gift;
-        private List<Promise> promiseList;
-        private Promise promise;
-        private List<PromiseBreak> promiseBreakList;
-        private PromiseBreak promiseBreak;
-        private List<Angry> angryList;
-        private Angry angry;
-        private List<Award> awardList;
-        private Award award;
-        private List<AwardRule> awardRuleList;
-        private AwardRule awardRule;
-        private List<Food> foodList;
+        private List<Picture> pictureList;
+        private Audio audio;
+        private List<Audio> audioList;
+        private Video video;
+        private List<Video> videoList;
         private Food food;
-        private List<Travel> travelList;
+        private List<Food> foodList;
         private Travel travel;
+        private List<Travel> travelList;
+        private Gift gift;
+        private List<Gift> giftList;
+        private Promise promise;
+        private List<Promise> promiseList;
+        private PromiseBreak promiseBreak;
+        private List<PromiseBreak> promiseBreakList;
+        private Angry angry;
+        private List<Angry> angryList;
+        private Dream dream;
+        private List<Dream> dreamList;
+        private Award award;
+        private List<Award> awardList;
+        private AwardRule awardRule;
+        private List<AwardRule> awardRuleList;
+
+        public Audio getAudio() {
+            return audio;
+        }
+
+        public void setAudio(Audio audio) {
+            this.audio = audio;
+        }
+
+        public List<Audio> getAudioList() {
+            return audioList;
+        }
+
+        public void setAudioList(List<Audio> audioList) {
+            this.audioList = audioList;
+        }
+
+        public Video getVideo() {
+            return video;
+        }
+
+        public void setVideo(Video video) {
+            this.video = video;
+        }
+
+        public List<Video> getVideoList() {
+            return videoList;
+        }
+
+        public void setVideoList(List<Video> videoList) {
+            this.videoList = videoList;
+        }
 
         public List<Travel> getTravelList() {
             return travelList;

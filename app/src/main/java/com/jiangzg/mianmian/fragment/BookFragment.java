@@ -11,6 +11,7 @@ import android.view.View;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.AngryListActivity;
+import com.jiangzg.mianmian.activity.book.AudioListActivity;
 import com.jiangzg.mianmian.activity.book.AwardListActivity;
 import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.DreamListActivity;
@@ -163,7 +164,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvAlbum: // 相册
                 AlbumListActivity.goActivity(mActivity);
                 break;
-            case R.id.cvAudio: // TODO 录音
+            case R.id.cvAudio: // 音频
+                AudioListActivity.goActivity(mActivity);
                 break;
             case R.id.cvVideo: // TODO 视频
                 break;

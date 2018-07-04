@@ -113,6 +113,8 @@
         <activity android:name=".activity.book.TravelDetailActivity"/>
         <activity android:name=".activity.book.TravelEditActivity"/>
         <activity android:name=".activity.book.TravelPlaceEditActivity"/>
+        <activity android:name=".activity.book.AudioListActivity"/>
+        <activity android:name=".activity.book.AudioEditActivity"/>
     </application>
 
 </manifest>
