@@ -34,6 +34,12 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
 
     private BaseActivity mActivity;
     private final Couple couple;
+    private final String year;
+    private final String month;
+    private final String dayT;
+    private final String hour;
+    private final String minute;
+    private final String second;
 
     public AudioAdapter(BaseActivity activity) {
         super(null);
@@ -41,6 +47,12 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         addItemType(ApiHelper.LIST_TA, R.layout.list_item_audio_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        year = mActivity.getString(R.string.year);
+        month = mActivity.getString(R.string.month);
+        dayT = mActivity.getString(R.string.dayT);
+        hour = mActivity.getString(R.string.hour);
+        minute = mActivity.getString(R.string.minute);
+        second = mActivity.getString(R.string.second);
     }
 
     @Override
@@ -48,8 +60,8 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
         int playIcon = item.isPlay() ? R.drawable.ic_pause_circle_primary : R.drawable.ic_play_circle_primary;
-        TimeUnit timeUnit = TimeUnit.convertTime2Unit(item.getDuration());
-        String duration = timeUnit.getAllShow(true, true, true, true, true, true, ":", ":", ":", ":", ":", ":");
+        TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeHelper.getJavaTimeByGo(item.getDuration()));
+        String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
         String happenAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String title = item.getTitle();
         // view
@@ -64,7 +76,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     }
 
     public void togglePlayAudio(int position) {
-        // TODO
+        // TODO 检查是否下载完毕
         Audio item = getItem(position);
         item.setPlay(!item.isPlay());
         notifyItemChanged(position);

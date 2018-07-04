@@ -37,10 +37,24 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
     private final int dp2;
     private final ColorStateList colorPrimaryStateList;
     private final ColorStateList colorGreyStateList;
+    private final String formatCreateAt;
+    private final String formatUpdateAt;
+    private final String formatFollow;
+    private final String formatComment;
+    private final String formatTop;
+    private final String formatOfficial;
+    private final String formatMine;
 
     public SuggestAdapter(FragmentActivity activity) {
         super(R.layout.list_item_suggest);
         mActivity = activity;
+        formatCreateAt = mActivity.getString(R.string.create_at_colon_space_holder);
+        formatUpdateAt = mActivity.getString(R.string.update_at_colon_space_holder);
+        formatFollow = mActivity.getString(R.string.follow);
+        formatComment = mActivity.getString(R.string.comment);
+        formatTop = mActivity.getString(R.string.top);
+        formatOfficial = mActivity.getString(R.string.official);
+        formatMine = mActivity.getString(R.string.me_de);
         // color
         int rId = ViewHelper.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);
@@ -67,21 +81,21 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
-        String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_space_holder), create);
+        String createShow = String.format(Locale.getDefault(), formatCreateAt, create);
         long updatedAt = item.getUpdateAt();
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(updatedAt);
-        String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), update);
+        String updatedShow = String.format(Locale.getDefault(), formatUpdateAt, update);
         final long followCount = item.getFollowCount();
         String followShow;
         if (followCount <= 0) {
-            followShow = mActivity.getString(R.string.follow);
+            followShow = formatFollow;
         } else {
             followShow = String.valueOf(followCount);
         }
         long commentCount = item.getCommentCount();
         String commentShow;
         if (commentCount <= 0) {
-            commentShow = mActivity.getString(R.string.comment);
+            commentShow = formatComment;
         } else {
             commentShow = String.valueOf(commentCount);
         }
@@ -91,15 +105,15 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         GWrapView wvTag = helper.getView(R.id.wvTag);
         wvTag.removeAllChild();
         if (top) {
-            View tagTop = getTagView(mActivity.getString(R.string.top));
+            View tagTop = getTagView(formatTop);
             wvTag.addChild(tagTop);
         }
         if (official) {
-            View tagOfficial = getTagView(mActivity.getString(R.string.official));
+            View tagOfficial = getTagView(formatOfficial);
             wvTag.addChild(tagOfficial);
         }
         if (mine) {
-            View tagMine = getTagView(mActivity.getString(R.string.me_de));
+            View tagMine = getTagView(formatMine);
             wvTag.addChild(tagMine);
         }
         View tagStatus = getTagView(statusShow);

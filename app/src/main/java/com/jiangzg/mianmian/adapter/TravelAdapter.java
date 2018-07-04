@@ -30,20 +30,24 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
 
     private BaseActivity mActivity;
     private final Couple couple;
+    private final String formatCreator;
+    private final String formatTime;
 
     public TravelAdapter(BaseActivity activity) {
         super(R.layout.list_item_travel);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        formatCreator = mActivity.getString(R.string.creator_colon_space_holder);
+        formatTime = mActivity.getString(R.string.time_colon_space_holder);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Travel item) {
         String title = item.getTitle();
         String name = Couple.getName(couple, item.getUserId());
-        String creator = String.format(Locale.getDefault(), mActivity.getString(R.string.creator_colon_space_holder), name);
+        String creator = String.format(Locale.getDefault(), formatCreator, name);
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.time_colon_space_holder), happen);
+        String happenShow = String.format(Locale.getDefault(), formatTime, happen);
         List<TravelPlace> placeList = item.getTravelPlaceList();
         // view
         RecyclerView rv = helper.getView(R.id.rv);

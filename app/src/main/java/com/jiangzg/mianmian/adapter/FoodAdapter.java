@@ -40,11 +40,15 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
     private BaseActivity mActivity;
     private final Couple couple;
+    private final String formatCreator;
+    private final String formatTime;
 
     public FoodAdapter(BaseActivity activity) {
         super(R.layout.list_item_food);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        formatCreator = mActivity.getString(R.string.creator_colon_space_holder);
+        formatTime = mActivity.getString(R.string.time_colon_space_holder);
     }
 
     @Override
@@ -52,9 +56,9 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         String title = item.getTitle();
         String address = item.getAddress();
         String name = Couple.getName(couple, item.getUserId());
-        String creator = String.format(Locale.getDefault(), mActivity.getString(R.string.creator_colon_space_holder), name);
+        String creator = String.format(Locale.getDefault(), formatCreator, name);
         String happen = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.time_colon_space_holder), happen);
+        String happenShow = String.format(Locale.getDefault(), formatTime, happen);
         List<String> imageList = item.getContentImageList();
         // view
         RecyclerView rv = helper.getView(R.id.rv);

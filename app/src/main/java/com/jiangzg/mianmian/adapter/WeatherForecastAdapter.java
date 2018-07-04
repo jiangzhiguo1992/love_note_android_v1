@@ -6,8 +6,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.domain.WeatherForecast;
-import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
+import com.jiangzg.mianmian.helper.WeatherHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,13 @@ import java.util.Locale;
  */
 public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdapter.CoupleWeatherForecast, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
+    private final String formatWave;
+    private final String formatWaveC;
 
     public WeatherForecastAdapter(FragmentActivity activity) {
         super(R.layout.list_item_weather_forecast);
-        mActivity = activity;
+        formatWave = activity.getString(R.string.holder_wave_holder);
+        formatWaveC = activity.getString(R.string.holder_wave_holder_c);
     }
 
     @Override
@@ -42,11 +44,11 @@ public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdap
             // taData
             long taTime = taForecast.getTimeAt();
             if (taTime > 0) time = taTime;
-            String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), taForecast.getConditionDay(), taForecast.getConditionNight());
+            String condition = String.format(Locale.getDefault(), formatWave, taForecast.getConditionDay(), taForecast.getConditionNight());
             int iconDay = WeatherHelper.getWeatherIconById(taForecast.getIconDay());
             int iconNight = WeatherHelper.getWeatherIconById(taForecast.getIconNight());
-            String temp = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder_c), taForecast.getTempDay(), taForecast.getTempNight());
-            String wind = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), taForecast.getWindDay(), taForecast.getWindNight());
+            String temp = String.format(Locale.getDefault(), formatWaveC, taForecast.getTempDay(), taForecast.getTempNight());
+            String wind = String.format(Locale.getDefault(), formatWave, taForecast.getWindDay(), taForecast.getWindNight());
             // leftView
             helper.setText(R.id.tvConditionLeft, condition);
             if (iconDay != 0) {
@@ -74,11 +76,11 @@ public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdap
             // myData
             long taTime = myForecast.getTimeAt();
             if (taTime > 0) time = taTime;
-            String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), myForecast.getConditionDay(), myForecast.getConditionNight());
+            String condition = String.format(Locale.getDefault(), formatWave, myForecast.getConditionDay(), myForecast.getConditionNight());
             int iconDay = WeatherHelper.getWeatherIconById(myForecast.getIconDay());
             int iconNight = WeatherHelper.getWeatherIconById(myForecast.getIconNight());
-            String temp = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder_c), myForecast.getTempDay(), myForecast.getTempNight());
-            String wind = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), myForecast.getWindDay(), myForecast.getWindNight());
+            String temp = String.format(Locale.getDefault(), formatWaveC, myForecast.getTempDay(), myForecast.getTempNight());
+            String wind = String.format(Locale.getDefault(), formatWave, myForecast.getWindDay(), myForecast.getWindNight());
             // rightView
             helper.setText(R.id.tvConditionRight, condition);
             if (iconDay != 0) {

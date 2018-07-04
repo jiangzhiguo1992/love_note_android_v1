@@ -41,6 +41,9 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     private final int dp7;
     private final int dp5;
     private final int dp2;
+    private final String formatStorey;
+    private final String formatOfficial;
+    private final String formatMine;
 
     public SuggestCommentAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest_comment);
@@ -48,6 +51,9 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         dp7 = ConvertUtils.dp2px(7);
         dp5 = ConvertUtils.dp2px(5);
         dp2 = ConvertUtils.dp2px(2);
+        formatStorey = mActivity.getString(R.string.holder_storey_in_holder_say);
+        formatOfficial = mActivity.getString(R.string.official);
+        formatMine = mActivity.getString(R.string.me_de);
     }
 
     @Override
@@ -56,7 +62,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         int layoutPosition = helper.getLayoutPosition();
         long createdAt = item.getCreateAt();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
-        String title = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_storey_in_holder_say), layoutPosition, create);
+        String title = String.format(Locale.getDefault(), formatStorey, layoutPosition, create);
         String contentText = item.getContentText();
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
@@ -66,11 +72,11 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         GWrapView wvTag = helper.getView(R.id.wvTag);
         wvTag.removeAllChild();
         if (official) {
-            View tagView = getTagView(mActivity.getString(R.string.official));
+            View tagView = getTagView(formatOfficial);
             wvTag.addChild(tagView);
         }
         if (mine) {
-            View tagView = getTagView(mActivity.getString(R.string.me_de));
+            View tagView = getTagView(formatMine);
             wvTag.addChild(tagView);
         }
     }

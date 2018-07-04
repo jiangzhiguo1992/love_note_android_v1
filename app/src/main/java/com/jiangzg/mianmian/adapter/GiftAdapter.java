@@ -30,11 +30,13 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
 
     private FragmentActivity mActivity;
     private final Couple couple;
+    private final String formatSend;
 
     public GiftAdapter(FragmentActivity activity) {
         super(R.layout.list_item_gift);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        formatSend = mActivity.getString(R.string.on_space_holder_space_send_to);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         String avatarRight = Couple.getAvatar(couple, item.getReceiveId());
         String title = item.getTitle();
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.on_space_holder_space_send_to), happen);
+        String happenShow = String.format(Locale.getDefault(), formatSend, happen);
         List<String> imageList = item.getContentImageList();
         // view
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);

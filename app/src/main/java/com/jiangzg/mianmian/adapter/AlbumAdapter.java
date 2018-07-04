@@ -46,6 +46,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     private final int imageWidth;
     private final int imageHeight;
     private int operationPosition;
+    private final String formatTime;
 
     public AlbumAdapter(BaseActivity activity) {
         super(R.layout.list_item_album);
@@ -53,6 +54,8 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         imageWidth = ScreenUtils.getScreenRealWidth(activity);
         imageHeight = ConvertUtils.dp2px(170);
         operationPosition = -1;
+
+        formatTime = mActivity.getString(R.string.holder_space_line_space_holder);
     }
 
     @Override
@@ -63,7 +66,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         String startTime = (startAt == 0) ? "      " : TimeHelper.getTimeShowCn_MD_YMD_ByGo(startAt);
         long endAt = item.getEndAt();
         String endTime = (endAt == 0) ? "      " : TimeHelper.getTimeShowCn_MD_YMD_ByGo(endAt);
-        String time = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_line_space_holder), startTime, endTime);
+        String time = String.format(Locale.getDefault(), formatTime, startTime, endTime);
         String cover = item.getCover();
         // view
         helper.setText(R.id.tvTitle, title);

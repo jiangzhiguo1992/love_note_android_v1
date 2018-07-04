@@ -26,6 +26,7 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
     private final int colorFontBlack;
     private final int colorFontWhite;
     private final int colorFontGrey;
+    private final String formatDistance;
 
     public MapSelectAdapter(BaseActivity activity) {
         super(R.layout.list_item_map_select);
@@ -34,6 +35,7 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         colorFontBlack = ContextCompat.getColor(mActivity, R.color.font_black);
         colorFontWhite = ContextCompat.getColor(mActivity, R.color.font_white);
         colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
+        formatDistance = mActivity.getString(R.string.distance_colon_space_holder);
     }
 
     @Override
@@ -46,7 +48,7 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         }
         String adName = item.getAdName();
         String snippet = item.getSnippet();
-        String distance = String.format(Locale.getDefault(), mActivity.getString(R.string.distance_colon_space_holder), item.getDistance());
+        String distance = String.format(Locale.getDefault(), formatDistance, item.getDistance());
         String location = provinceName + cityName + adName + snippet;
 
         helper.setText(R.id.tvAddress, title);

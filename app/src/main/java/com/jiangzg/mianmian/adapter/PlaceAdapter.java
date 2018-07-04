@@ -22,6 +22,8 @@ public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolde
 
     private FragmentActivity mActivity;
     private final Couple couple;
+    private final String formatNo;
+    private final String formatAddress;
 
     public PlaceAdapter(FragmentActivity activity) {
         super(null);
@@ -29,6 +31,8 @@ public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolde
         addItemType(ApiHelper.LIST_TA, R.layout.list_item_place_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        formatNo = mActivity.getString(R.string.now_no);
+        formatAddress = mActivity.getString(R.string.now_no_address_info);
     }
 
     @Override
@@ -36,10 +40,10 @@ public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolde
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String address = StringUtils.isEmpty(item.getAddress()) ? mActivity.getString(R.string.now_no_address_info) : item.getAddress();
-        String province = StringUtils.isEmail(item.getProvince()) ? mActivity.getString(R.string.now_no) : item.getProvince();
-        String city = StringUtils.isEmail(item.getCity()) ? mActivity.getString(R.string.now_no) : item.getCity();
-        String district = StringUtils.isEmail(item.getDistrict()) ? mActivity.getString(R.string.now_no) : item.getDistrict();
+        String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();
+        String province = StringUtils.isEmail(item.getProvince()) ? formatNo : item.getProvince();
+        String city = StringUtils.isEmail(item.getCity()) ? formatNo : item.getCity();
+        String district = StringUtils.isEmail(item.getDistrict()) ? formatNo : item.getDistrict();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);

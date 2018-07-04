@@ -22,11 +22,13 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
 
     private FragmentActivity mActivity;
     private final Couple couple;
+    private final String formatNumber;
 
     public DreamAdapter(FragmentActivity activity) {
         super(R.layout.list_item_dream);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        formatNumber = mActivity.getString(R.string.text_number_space_colon_holder);
     }
 
     @Override
@@ -35,7 +37,7 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         if (content == null) content = "";
-        String countShow = String.format(Locale.getDefault(), mActivity.getString(R.string.text_number_space_colon_holder), content.length());
+        String countShow = String.format(Locale.getDefault(), formatNumber, content.length());
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
