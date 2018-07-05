@@ -97,12 +97,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.settings), true);
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // 缓存大小
         cacheShow();
         // 系统通知
@@ -114,6 +114,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 关于绵绵
         Version version = SPHelper.getVersion();
         ivAbout.setVisibility(version != null ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
     @Override

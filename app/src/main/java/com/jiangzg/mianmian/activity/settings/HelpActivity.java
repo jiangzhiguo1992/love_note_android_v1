@@ -42,6 +42,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     TextView tvShow;
 
     private RecyclerHelper recyclerHelper;
+    private RecyclerHelper recyclerHelperHead;
     private Call<Result> call;
 
     public static void goActivity(Activity from) {
@@ -71,15 +72,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.help_document), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new HelpAdapter())
-                .viewHeader(R.layout.list_head_help)
+                .viewHeader(mActivity, R.layout.list_head_help)
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
@@ -96,13 +96,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         recyclerHelper.dataRefresh();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RecyclerHelper.release(recyclerHelperHead);
         RetrofitHelper.cancel(call);
     }
 
@@ -126,6 +127,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private void refreshView(Result.Data data, String show) {
+        if (recyclerHelper == null) return;
         Help help = data.getHelp();
         if (help == null) {
             tvShow.setVisibility(View.VISIBLE);
@@ -135,13 +137,13 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         }
         rv.setVisibility(View.VISIBLE);
         tvShow.setVisibility(View.GONE);
-
         tb.setTitle(help.getTitle());
         initHead(help);
         recyclerHelper.dataNew(help.getSubList(), 0);
     }
 
     private void initHead(Help help) {
+        if (recyclerHelper == null) return;
         // data
         String desc = help.getDesc();
         List<Help.HelpContent> contentList = help.getContentList();
@@ -152,11 +154,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         tvDesc.setText(desc);
         // content
         RecyclerView rv = head.findViewById(R.id.rv);
-        RecyclerHelper recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new HelpContentAdapter());
-        recyclerHelper.dataNew(contentList, 0);
+        if (recyclerHelperHead == null) {
+            recyclerHelperHead = new RecyclerHelper(rv)
+                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initAdapter(new HelpContentAdapter());
+        }
+        recyclerHelperHead.dataNew(contentList, 0);
     }
 
 }

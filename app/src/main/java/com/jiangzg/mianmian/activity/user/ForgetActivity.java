@@ -66,12 +66,19 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.forget_pwd), true);
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        stopCountDownTask();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callModify);
     }
 
     @Override
@@ -81,13 +88,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         if (isGo) {
             finish();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callModify);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})

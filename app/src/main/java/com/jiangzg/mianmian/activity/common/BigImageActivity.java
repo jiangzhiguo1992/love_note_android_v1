@@ -17,6 +17,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.BigImagePagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.helper.OssHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ShareHelper;
 
 import java.util.ArrayList;
@@ -105,9 +106,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         // type
-        type = getIntent().getIntExtra("type", TYPE_OSS_SINGLE);
+        type = intent.getIntExtra("type", TYPE_OSS_SINGLE);
         // anim
         //ViewCompat.setTransitionName(vpImage, "imgAnim");
         // navigation
@@ -121,8 +122,12 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         screenShow = false;
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
     @OnClick({R.id.ivShare, R.id.ivDownload})

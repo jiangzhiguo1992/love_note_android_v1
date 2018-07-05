@@ -62,26 +62,26 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.change_phone), true);
 
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        stopCountDownTask();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callModify);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         stopCountDownTask();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callModify);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etCode})

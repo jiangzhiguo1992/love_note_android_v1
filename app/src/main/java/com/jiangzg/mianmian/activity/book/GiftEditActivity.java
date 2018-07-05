@@ -122,11 +122,11 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.gift), true);
         // init
         if (isTypeUpdate()) {
-            gift = getIntent().getParcelableExtra("gift");
+            gift = intent.getParcelableExtra("gift");
         }
         if (gift == null) {
             gift = new Gift();
@@ -163,7 +163,17 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
+        RetrofitHelper.cancel(callDel);
+        // 创建成功的cameraFile都要删除
+        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @Override
@@ -181,16 +191,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        RetrofitHelper.cancel(callDel);
-        // 创建成功的cameraFile都要删除
-        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @Override
@@ -296,11 +296,12 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         if (gift.getContentImageList() != null && gift.getContentImageList().size() > 0) {
             imgAdapter.setOssData(gift.getContentImageList());
         }
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                .initAdapter(imgAdapter)
-                .setAdapter();
+        if (recyclerHelper == null) {
+            recyclerHelper = new RecyclerHelper(rv)
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                    .initAdapter(imgAdapter)
+                    .setAdapter();
+        }
     }
 
     private void showDatePicker() {
@@ -370,13 +371,13 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void api(List<String> ossPathList) {
         gift.setContentImageList(ossPathList);
         if (isTypeUpdate()) {
-            updateApi(gift);
+            updateApi();
         } else {
-            addApi(gift);
+            addApi();
         }
     }
 
-    private void updateApi(Gift gift) {
+    private void updateApi() {
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).giftUpdate(gift);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -397,7 +398,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         });
     }
 
-    private void addApi(Gift gift) {
+    private void addApi() {
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).giftAdd(gift);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

@@ -99,13 +99,20 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), false);
         ViewHelper.setLineBottom(tvProtocol);
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        stopCountDownTask();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callLogin);
     }
 
     // 关闭其他activity
@@ -130,13 +137,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.forget_pwd, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callLogin);
     }
 
     @Override

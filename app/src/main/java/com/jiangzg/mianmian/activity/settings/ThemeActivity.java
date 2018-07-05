@@ -68,13 +68,17 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.theme), true);
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         refreshDataView();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
     @OnClick({R.id.rlRed, R.id.rlPink, R.id.rlPurple, R.id.rlBlue, R.id.rlGreen, R.id.rlYellow, R.id.rlOrange, R.id.rlBrown})

@@ -116,11 +116,11 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
         // init
         if (isTypeUpdate()) {
-            diary = getIntent().getParcelableExtra("diary");
+            diary = intent.getParcelableExtra("diary");
         } else {
             diary = SPHelper.getDraftDiary();
         }
@@ -153,22 +153,22 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
+        // 创建成功的cameraFile都要删除
+        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        // 创建成功的cameraFile都要删除
-        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @Override
@@ -256,11 +256,12 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
             imgAdapter.setOssData(diary.getContentImageList());
         }
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                .initAdapter(imgAdapter)
-                .setAdapter();
+        if (recyclerHelper == null) {
+            recyclerHelper = new RecyclerHelper(rv)
+                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                    .initAdapter(imgAdapter)
+                    .setAdapter();
+        }
     }
 
     private void showDatePicker() {
@@ -347,15 +348,15 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void api(List<String> ossPathList) {
         diary.setContentImageList(ossPathList);
         if (isTypeUpdate()) {
-            updateApi(diary);
+            updateApi();
         } else {
-            addApi(diary);
+            addApi();
         }
     }
 
-    private void updateApi(Diary body) {
+    private void updateApi() {
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).diaryUpdate(body);
+        callUpdate = new RetrofitHelper().call(API.class).diaryUpdate(diary);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -376,9 +377,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         });
     }
 
-    private void addApi(Diary body) {
+    private void addApi() {
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).diaryAdd(body);
+        callAdd = new RetrofitHelper().call(API.class).diaryAdd(diary);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

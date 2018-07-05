@@ -70,8 +70,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             int spanCount = imageList.size() > 3 ? 3 : imageList.size();
-            new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
+            new RecyclerHelper(rv)
                     .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
                     .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
                     .setAdapter()

@@ -71,7 +71,7 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.map), true);
         // map
         if (map != null) {
@@ -87,12 +87,12 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         if (aMap == null) return;
         // 设置market
-        final String tarAddress = getIntent().getStringExtra("address");
-        final double tarLongitude = getIntent().getDoubleExtra("longitude", 0);
-        final double tarLatitude = getIntent().getDoubleExtra("latitude", 0);
+        final String tarAddress = intent.getStringExtra("address");
+        final double tarLongitude = intent.getDoubleExtra("longitude", 0);
+        final double tarLatitude = intent.getDoubleExtra("latitude", 0);
         // 目标market
         if (tarLongitude != 0 || tarLatitude != 0) {
             // 根据经纬度
@@ -145,6 +145,15 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
     }
 
     @Override
+    protected void onFinish(Bundle state) {
+        LocationHelper.stopLocation(locationMe);
+        if (poiTarget != null) {
+            poiTarget.setOnPoiSearchListener(null);
+        }
+        poiTargetListener = null;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (map != null) {
@@ -180,11 +189,6 @@ public class MapShowActivity extends BaseActivity<MapShowActivity> {
             aMap.clear();
             aMap = null;
         }
-        if (poiTarget != null) {
-            poiTarget.setOnPoiSearchListener(null);
-        }
-        poiTargetListener = null;
-        LocationHelper.stopLocation(locationMe);
     }
 
 }

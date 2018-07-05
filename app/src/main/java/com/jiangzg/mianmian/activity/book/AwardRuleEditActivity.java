@@ -73,7 +73,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.award_rule), true);
         // init
         awardRule = new AwardRule();
@@ -84,19 +84,18 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
@@ -124,7 +123,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
                 changeScore(false);
                 break;
             case R.id.btnPublish: // 发表
-                addApi(awardRule);
+                addApi();
                 break;
         }
     }
@@ -168,8 +167,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
         awardRule.setTitle(etTitle.getText().toString());
     }
 
-    private void addApi(AwardRule awardRule) {
-        if (awardRule == null) return;
+    private void addApi() {
         if (awardRule.getScore() == 0) {
             ToastUtils.show(getString(R.string.please_select_score));
             return;

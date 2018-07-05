@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.base.MyApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.util.List;
  */
 public class RecyclerHelper {
 
-    private Context mContext;
     private RecyclerView mRecycler;
     private RecyclerView.LayoutManager mLayoutManager;
     private BaseQuickAdapter mAdapter;
@@ -33,19 +33,26 @@ public class RecyclerHelper {
     private LoadMoreView mLoadMore;
     private View mEmpty, mHead, mFoot;
 
-    public RecyclerHelper(Context context) {
-        mContext = context;
+    public RecyclerHelper(RecyclerView recyclerView) {
+        mRecycler = recyclerView;
+    }
+
+    public static void release(RecyclerHelper helper) {
+        if (helper == null) return;
+        helper.mLayoutManager = null;
+        helper.mAdapter = null;
+        helper.mRefresh = null;
+        helper.mRefreshListener = null;
+        helper.mMoreListener = null;
+        helper.mLoadMore = null;
+        helper.mEmpty = null;
+        helper.mHead = null;
+        helper.mFoot = null;
+        helper = null;
     }
 
     /**
      * ************************************初始化***************************************
-     */
-    public RecyclerHelper initRecycler(RecyclerView recyclerView) {
-        mRecycler = recyclerView;
-        return this;
-    }
-
-    /**
      * 布局管理器
      */
     public RecyclerHelper initLayoutManager(RecyclerView.LayoutManager layoutManager) {
@@ -87,9 +94,9 @@ public class RecyclerHelper {
      * ************************************VIEW***************************************
      * 无Data时显示的view
      */
-    public RecyclerHelper viewEmpty(int emptyLayoutId, boolean head, boolean foot) {
-        if (mRecycler == null || mContext == null || emptyLayoutId == 0) return this;
-        View empty = LayoutInflater.from(mContext).inflate(emptyLayoutId, mRecycler, false);
+    public RecyclerHelper viewEmpty(Context context, int emptyLayoutId, boolean head, boolean foot) {
+        if (mRecycler == null || context == null || emptyLayoutId == 0) return this;
+        View empty = LayoutInflater.from(context).inflate(emptyLayoutId, mRecycler, false);
         return viewEmpty(empty, head, foot);
     }
 
@@ -108,7 +115,7 @@ public class RecyclerHelper {
         if (StringUtils.isEmpty(show)) {
             show = tvShow.getText().toString();
             if (StringUtils.isEmpty(show)) {
-                show = mContext.getString(R.string.master_there_nothing);
+                show = MyApp.get().getString(R.string.master_there_nothing);
             }
         }
         tvShow.setText(show);
@@ -121,9 +128,9 @@ public class RecyclerHelper {
     /**
      * list顶部view（可remove）
      */
-    public RecyclerHelper viewHeader(int headLayoutId) {
-        if (mContext == null || mRecycler == null) return this;
-        View head = LayoutInflater.from(mContext).inflate(headLayoutId, mRecycler, false);
+    public RecyclerHelper viewHeader(Context context, int headLayoutId) {
+        if (context == null || mRecycler == null) return this;
+        View head = LayoutInflater.from(context).inflate(headLayoutId, mRecycler, false);
         return viewHeader(head);
     }
 
@@ -142,9 +149,9 @@ public class RecyclerHelper {
     /**
      * list底部view（可remove）
      */
-    public RecyclerHelper viewFooter(int footLayoutId) {
-        if (mContext == null || mRecycler == null) return this;
-        View foot = LayoutInflater.from(mContext).inflate(footLayoutId, mRecycler, false);
+    public RecyclerHelper viewFooter(Context context, int footLayoutId) {
+        if (context == null || mRecycler == null) return this;
+        View foot = LayoutInflater.from(context).inflate(footLayoutId, mRecycler, false);
         return viewFooter(foot);
     }
 

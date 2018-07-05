@@ -102,11 +102,11 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
         // init
         if (isTypeUpdate()) {
-            promise = getIntent().getParcelableExtra("promise");
+            promise = intent.getParcelableExtra("promise");
         }
         if (promise == null) {
             promise = new Promise();
@@ -123,20 +123,19 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -237,13 +236,13 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             return;
         }
         if (isTypeUpdate()) {
-            updateApi(promise);
+            updateApi();
         } else {
-            addApi(promise);
+            addApi();
         }
     }
 
-    private void updateApi(Promise promise) {
+    private void updateApi() {
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).promiseUpdate(promise);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -265,7 +264,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         });
     }
 
-    private void addApi(Promise promise) {
+    private void addApi() {
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).promiseAdd(promise);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

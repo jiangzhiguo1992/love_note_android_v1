@@ -127,14 +127,13 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.travel), true);
         srl.setEnabled(false);
         // init
-        Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
-            travel = getIntent().getParcelableExtra("travel");
+            travel = intent.getParcelableExtra("travel");
             refreshView();
             // 没有详情页的，可以不加
             if (travel != null) {
@@ -147,7 +146,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, new Action1<Travel>() {
             @Override
@@ -159,17 +158,22 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del_edit, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerPlace);
+        RecyclerHelper.release(recyclerAlbum);
+        RecyclerHelper.release(recyclerVideo);
+        RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerDiary);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help_del_edit, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -228,8 +232,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             llPlace.setVisibility(View.VISIBLE);
             rvPlace.setVisibility(View.VISIBLE);
             if (recyclerPlace == null) {
-                recyclerPlace = new RecyclerHelper(mActivity)
-                        .initRecycler(rvPlace)
+                recyclerPlace = new RecyclerHelper(rvPlace)
                         .initLayoutManager(new LinearLayoutManager(mActivity) {
                             @Override
                             public boolean canScrollVertically() {
@@ -257,8 +260,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             llAlbum.setVisibility(View.VISIBLE);
             rvAlbum.setVisibility(View.VISIBLE);
             if (recyclerAlbum == null) {
-                recyclerAlbum = new RecyclerHelper(mActivity)
-                        .initRecycler(rvAlbum)
+                recyclerAlbum = new RecyclerHelper(rvAlbum)
                         .initLayoutManager(new LinearLayoutManager(mActivity) {
                             @Override
                             public boolean canScrollVertically() {
@@ -299,8 +301,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             llFood.setVisibility(View.VISIBLE);
             rvFood.setVisibility(View.VISIBLE);
             if (recyclerFood == null) {
-                recyclerFood = new RecyclerHelper(mActivity)
-                        .initRecycler(rvFood)
+                recyclerFood = new RecyclerHelper(rvFood)
                         .initLayoutManager(new LinearLayoutManager(mActivity) {
                             @Override
                             public boolean canScrollVertically() {
@@ -332,8 +333,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             llDiary.setVisibility(View.VISIBLE);
             rvDiary.setVisibility(View.VISIBLE);
             if (recyclerDiary == null) {
-                recyclerDiary = new RecyclerHelper(mActivity)
-                        .initRecycler(rvDiary)
+                recyclerDiary = new RecyclerHelper(rvDiary)
                         .initLayoutManager(new LinearLayoutManager(mActivity) {
                             @Override
                             public boolean canScrollVertically() {

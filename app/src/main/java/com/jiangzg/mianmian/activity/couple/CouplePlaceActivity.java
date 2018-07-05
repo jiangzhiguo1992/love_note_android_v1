@@ -56,15 +56,14 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.place_info), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new PlaceAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -89,21 +88,21 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         recyclerHelper.dataRefresh();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -123,6 +122,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Place> placeList = data.getPlaceList();
                 recyclerHelper.dataOk(placeList, more);
@@ -130,6 +130,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

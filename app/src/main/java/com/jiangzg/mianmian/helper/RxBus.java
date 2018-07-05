@@ -78,6 +78,7 @@ public class RxBus {
     public static void unregister(int eventId, Observable observable) {
         if (observable == null) return;
         removeObservable(eventId, observable); // 移除此event绑定的观察者
+        observable = null;
     }
 
     /* 获取观察者 */

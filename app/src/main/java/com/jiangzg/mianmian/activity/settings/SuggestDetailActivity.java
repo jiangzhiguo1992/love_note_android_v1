@@ -114,18 +114,17 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // init
-        suggest = getIntent().getParcelableExtra("suggest");
+        suggest = intent.getParcelableExtra("suggest");
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestCommentAdapter(mActivity))
-                .viewHeader(R.layout.list_head_suggest_comment)
-                .viewEmpty(R.layout.list_empty_grey, true, true)
+                .viewHeader(mActivity, R.layout.list_head_suggest_comment)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -160,7 +159,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Action1<Suggest>() {
@@ -171,6 +170,17 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         });
         // refresh
         recyclerHelper.dataRefresh();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callDel);
+        RetrofitHelper.cancel(callFollow);
+        RetrofitHelper.cancel(callCommentGet);
+        RetrofitHelper.cancel(callCommentAdd);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -188,17 +198,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callFollow);
-        RetrofitHelper.cancel(callCommentGet);
-        RetrofitHelper.cancel(callCommentAdd);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -248,7 +247,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initHead() {
         // data
-        if (suggest == null) return;
+        if (suggest == null || recyclerHelper == null) return;
         boolean top = suggest.isTop();
         boolean official = suggest.isOfficial();
         boolean mine = suggest.isMine();
@@ -336,6 +335,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.enqueue(callCommentGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 long total = data.getTotal();
                 List<SuggestComment> suggestCommentList = data.getSuggestCommentList();
@@ -344,6 +344,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

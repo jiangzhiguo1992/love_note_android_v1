@@ -10,6 +10,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Notice;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
@@ -39,10 +40,10 @@ public class NoticeDetailActivity extends BaseActivity<NoticeDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.new_notice), true);
         // init
-        Notice notice = getIntent().getParcelableExtra("notice");
+        Notice notice = intent.getParcelableExtra("notice");
         if (notice == null) return;
         // view
         tvTitle.setText(notice.getTitle());
@@ -51,7 +52,11 @@ public class NoticeDetailActivity extends BaseActivity<NoticeDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
 }

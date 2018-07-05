@@ -36,7 +36,6 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
@@ -58,6 +57,9 @@ import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
+
+    private static final int TYPE_ADD = 0;
+    private static final int TYPE_UPDATE = 1;
 
     @BindView(R.id.root)
     RelativeLayout root;
@@ -81,7 +83,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        // intent.putExtra();
+        intent.putExtra("type", TYPE_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -95,6 +97,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             return;
         }
         Intent intent = new Intent(from, AlbumEditActivity.class);
+        intent.putExtra("type", TYPE_UPDATE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -106,10 +109,17 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.album), true);
         // init
-        album = getIntent().getParcelableExtra("album");
+        if (isTypeUpdate()) {
+            album = intent.getParcelableExtra("album");
+        }
+        if (album == null) {
+            album = new Album();
+        }
+        // input
+        etTitle.setText(album.getTitle());
         // view
         ViewGroup.LayoutParams layoutParams = ivAlbum.getLayoutParams();
         int width = ScreenUtils.getScreenWidth(mActivity) - (ConvertUtils.dp2px(50) * 2);
@@ -121,7 +131,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
                     BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
                 } else if (!FileUtils.isFileEmpty(pictureFile)) {
                     BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
-                } else if (album != null && !StringUtils.isEmpty(album.getCover())) {
+                } else if (!StringUtils.isEmpty(album.getCover())) {
                     BigImageActivity.goActivityByOss(mActivity, album.getCover(), iv);
                 }
             }
@@ -129,22 +139,21 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         refreshDateView();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
+        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
@@ -215,13 +224,13 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         return false;
     }
 
+    public boolean isTypeUpdate() {
+        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    }
+
     private void refreshDateView() {
-        String title = "";
-        String cover = "";
-        if (album != null) {
-            title = album.getTitle();
-            cover = album.getCover();
-        }
+        String title = album.getTitle();
+        String cover = album.getCover();
         // hint
         if (limitTitleLength <= 0) {
             limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
@@ -271,8 +280,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         ResHelper.deleteFileInBackground(cameraFile);
-                        cameraFile = null;
-                        pictureFile = null;
                         setCoverVisible(false);
                     }
                 })
@@ -281,6 +288,11 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void setCoverVisible(boolean show) {
+        if (!show) {
+            cameraFile = null;
+            pictureFile = null;
+            album.setCover("");
+        }
         ivAdd.setVisibility(show ? View.GONE : View.VISIBLE);
         ivAlbum.setVisibility(show ? View.VISIBLE : View.GONE);
     }
@@ -291,8 +303,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         } else if (!FileUtils.isFileEmpty(pictureFile)) {
             pushImage(pictureFile);
         } else {
-            String cover = (album == null) ? "" : album.getCover();
-            commit(cover);
+            commit();
         }
     }
 
@@ -300,7 +311,8 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         OssHelper.uploadAlbum(mActivity, imgFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
-                commit(ossPath);
+                album.setCover(ossPath);
+                commit();
             }
 
             @Override
@@ -309,20 +321,17 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         });
     }
 
-    private void commit(String cover) {
-        String title = etTitle.getText().toString().trim();
-        if (album == null) {
-            Album body = ApiHelper.getAlbumBody(title, cover);
-            addApi(body);
+    private void commit() {
+        album.setTitle(etTitle.getText().toString().trim());
+        if (isTypeUpdate()) {
+            updateApi();
         } else {
-            album.setTitle(title);
-            album.setCover(cover);
-            updateApi(album);
+            addApi();
         }
     }
 
-    private void addApi(Album body) {
-        callAdd = new RetrofitHelper().call(API.class).AlbumAdd(body);
+    private void addApi() {
+        callAdd = new RetrofitHelper().call(API.class).AlbumAdd(album);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
@@ -339,8 +348,8 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         });
     }
 
-    private void updateApi(Album body) {
-        callUpdate = new RetrofitHelper().call(API.class).AlbumUpdate(body);
+    private void updateApi() {
+        callUpdate = new RetrofitHelper().call(API.class).AlbumUpdate(album);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override

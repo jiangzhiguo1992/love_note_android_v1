@@ -83,7 +83,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
         // init
         angry = new Angry();
@@ -97,19 +97,18 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
@@ -190,7 +189,6 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void push() {
-        if (angry == null) return;
         if (StringUtils.isEmpty(angry.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;

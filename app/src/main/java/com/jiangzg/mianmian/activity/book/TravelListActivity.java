@@ -80,7 +80,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         String title;
         if (isSelect()) {
             title = getString(R.string.please_select_travel);
@@ -89,12 +89,11 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new TravelAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -124,24 +123,27 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new Action1<List<Travel>>() {
             @Override
             public void call(List<Travel> travelList) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, new Action1<Travel>() {
             @Override
             public void call(Travel travel) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), travel);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, new Action1<Travel>() {
             @Override
             public void call(Travel travel) {
+                if (recyclerHelper == null) return;
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), travel);
             }
         });
@@ -150,20 +152,20 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     }
 
     @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, obListItemRefresh);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!isSelect()) {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @Override
@@ -196,6 +198,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Travel> travelList = data.getTravelList();
                 recyclerHelper.dataOk(travelList, more);
@@ -203,6 +206,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

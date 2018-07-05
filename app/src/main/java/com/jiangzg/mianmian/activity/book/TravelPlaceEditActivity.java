@@ -76,7 +76,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.track), true);
         // init
         place = new TravelPlace();
@@ -90,7 +90,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
@@ -106,15 +106,14 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
+    protected void onFinish(Bundle state) {
+        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

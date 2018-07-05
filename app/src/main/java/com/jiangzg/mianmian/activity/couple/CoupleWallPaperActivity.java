@@ -79,15 +79,14 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.wall_paper), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new GridLayoutManager(mActivity, 3, LinearLayoutManager.VERTICAL, false))
                 .initRefresh(srl, true)
                 .initAdapter(new WallPaperAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
@@ -105,21 +104,21 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         recyclerHelper.dataRefresh();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help_add, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -171,14 +170,15 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(false, errMsg);
             }
         });
     }
 
     private void addWallPaper() {
-        int count = SPHelper.getVipLimit().getWallPaperCount();
         if (recyclerHelper == null) return;
+        int count = SPHelper.getVipLimit().getWallPaperCount();
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         if (adapter == null) return;
         List<String> data = adapter.getData();
@@ -213,6 +213,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void apiPushData(String ossPath) {
+        if (recyclerHelper == null) return;
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         List<String> objects = new ArrayList<>();
         objects.addAll(adapter.getData());
@@ -237,6 +238,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     private void viewRefresh(Result.Data data) {
+        if (recyclerHelper == null) return;
         recyclerHelper.viewEmptyShow(data.getShow());
         recyclerHelper.setAdapter();
         WallPaper wallPaper = data.getWallPaper();

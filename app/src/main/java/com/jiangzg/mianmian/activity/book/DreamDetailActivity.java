@@ -24,6 +24,7 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -84,11 +85,10 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         srl.setEnabled(false);
         // init
-        Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
             dream = intent.getParcelableExtra("dream");
@@ -104,7 +104,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, new Action1<Dream>() {
             @Override
@@ -116,17 +116,16 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del_edit, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
         RxBus.unregister(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help_del_edit, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

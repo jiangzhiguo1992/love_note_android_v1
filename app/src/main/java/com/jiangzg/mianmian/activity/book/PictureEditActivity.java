@@ -134,13 +134,13 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.picture), true);
         // init
-        album = getIntent().getParcelableExtra("album");
+        album = intent.getParcelableExtra("album");
         boolean typeUpdate = isTypeUpdate();
         if (typeUpdate) {
-            picture = mActivity.getIntent().getParcelableExtra("picture");
+            picture = intent.getParcelableExtra("picture");
         }
         if (picture == null) {
             picture = new Picture();
@@ -179,18 +179,19 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         }
         if (spanCount > 0) {
             rv.setVisibility(View.VISIBLE);
-            recyclerHelper = new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                    .initAdapter(imgAdapter)
-                    .setAdapter();
+            if (recyclerHelper == null) {
+                recyclerHelper = new RecyclerHelper(rv)
+                        .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                        .initAdapter(imgAdapter)
+                        .setAdapter();
+            }
         } else {
             rv.setVisibility(View.GONE);
         }
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
             @Override
@@ -214,20 +215,20 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

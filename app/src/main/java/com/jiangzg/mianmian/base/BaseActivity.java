@@ -15,8 +15,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.facebook.drawee.drawable.ScalingUtils;
-import com.facebook.drawee.view.DraweeTransition;
+import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
@@ -46,7 +45,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
 
     public BaseActivity mActivity;
     public FragmentManager mFragmentManager;
-    public View mRootView;
+    //public View mRootView;
     public int mRootViewId;
     private Unbinder mUnBinder;
     private MaterialDialog mLoading;
@@ -65,10 +64,14 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected abstract int getView(Intent intent);
 
     /* 实例化View */
-    protected abstract void initView(Bundle state);
+    protected abstract void initView(Intent intent, Bundle state);
 
     /* 初始Data */
-    protected abstract void initData(Bundle state);
+    protected abstract void initData(Intent intent, Bundle state);
+
+    /* 注销 */
+    protected abstract void onFinish(Bundle state);
+
 
     public MaterialDialog getLoading(String msg, boolean cancelable, DialogInterface.OnDismissListener listener) {
         MaterialDialog loading = getLoading(msg, cancelable);
@@ -122,11 +125,11 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         // 每次setContentView之后都要bind一下
         mUnBinder = ButterKnife.bind(this);
         // 二次setContentView之后控件是以前view的，所以要重新实例化一次
-        initView(null);
+        initView(getIntent(), null);
         // 二次setContentView的话，可以不用获取数据 只加载数据
         if (!isLoad) {
             isLoad = true;
-            initData(null);
+            initData(getIntent(), null);
         }
     }
 
@@ -145,8 +148,16 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
         // 控制DecorView的大小来控制activity的大小，可做窗口activity
-        mRootView = getWindow().getDecorView();
+        //mRootView = getWindow().getDecorView();
         // setFinishOnTouchOutside(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (isFinishing()) {
+            onFinish(null);
+        }
     }
 
     @Override
@@ -174,8 +185,9 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             onBackPressed();
+            return true;
         }
-        return true;
+        return super.onKeyDown(keyCode, event);
     }
 
     /* 菜单事件 */
@@ -197,8 +209,8 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
             if (nowTime - mLastExitTime > 2000) { // 第一次按
                 ToastUtils.show(getString(R.string.press_again_exit));
             } else { // 返回键连按两次
-                //AppUtils.appExit();
-                super.onBackPressed();
+                AppUtils.appExit();
+                //super.onBackPressed();
             }
             mLastExitTime = nowTime;
         } else {

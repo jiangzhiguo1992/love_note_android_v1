@@ -95,20 +95,18 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-
         return R.layout.activity_whisper_list;
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.whisper), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new WhisperAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_grey, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -128,24 +126,24 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         channel = "";
         page = 0;
         recyclerHelper.dataRefresh();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
         ResHelper.deleteFileInBackground(cameraFile);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -216,6 +214,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Whisper> whisperList = data.getWhisperList();
                 recyclerHelper.dataOk(whisperList, more);
@@ -226,6 +225,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(page != 0, errMsg);
             }
         });
@@ -317,6 +317,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 // editText
                 InputUtils.hideSoftInput(etChannel);
                 // adapter

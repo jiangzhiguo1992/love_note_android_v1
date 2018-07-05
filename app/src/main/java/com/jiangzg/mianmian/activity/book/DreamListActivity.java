@@ -79,15 +79,14 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new DreamAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -112,24 +111,27 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, new Action1<List<Dream>>() {
             @Override
             public void call(List<Dream> dreamList) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, new Action1<Dream>() {
             @Override
             public void call(Dream dream) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, new Action1<Dream>() {
             @Override
             public void call(Dream dream) {
+                if (recyclerHelper == null) return;
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), dream);
             }
         });
@@ -138,18 +140,18 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, obListItemRefresh);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -182,6 +184,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Dream> dreamList = data.getDreamList();
                 recyclerHelper.dataOk(dreamList, more);
@@ -191,6 +194,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

@@ -60,8 +60,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
                 // 都返回，但是app最多显示5个
                 placeList = placeList.subList(0, 5);
             }
-            new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
+            new RecyclerHelper(rv)
                     .initLayoutManager(new LinearLayoutManager(mActivity))
                     .initAdapter(new TravelPlaceAdapter(mActivity))
                     .setAdapter()

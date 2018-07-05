@@ -77,15 +77,14 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.address_search), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new MapSearchAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_grey, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -97,15 +96,15 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // 搜索中心点
-        longitude = getIntent().getDoubleExtra("longitude", 0);
-        latitude = getIntent().getDoubleExtra("latitude", 0);
+        longitude = intent.getDoubleExtra("longitude", 0);
+        latitude = intent.getDoubleExtra("latitude", 0);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         if (poiSearch != null) {
             poiSearch.setOnPoiSearchListener(null);
         }

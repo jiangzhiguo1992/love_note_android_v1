@@ -126,16 +126,15 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new PromiseBreakAdapter(mActivity))
-                .viewHeader(R.layout.list_head_promise_break)
-                .viewEmpty(R.layout.list_empty_grey, true, true)
+                .viewHeader(mActivity, R.layout.list_head_promise_break)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -158,10 +157,9 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                     }
                 });
         // init
-        Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
-            promise = getIntent().getParcelableExtra("promise");
+            promise = intent.getParcelableExtra("promise");
             // view
             initHead();
             recyclerHelper.dataRefresh();
@@ -182,7 +180,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Action1<Promise>() {
@@ -195,19 +193,19 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callBreakAdd);
         RetrofitHelper.cancel(callBreakListGet);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -268,6 +266,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 promise = data.getPromise();
                 // view
@@ -312,6 +311,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         RetrofitHelper.enqueue(callBreakListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<PromiseBreak> promiseBreakList = data.getPromiseBreakList();
                 recyclerHelper.dataOk(promiseBreakList, more);
@@ -319,6 +319,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

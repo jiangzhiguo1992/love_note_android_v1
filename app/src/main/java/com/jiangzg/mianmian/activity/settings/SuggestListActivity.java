@@ -69,15 +69,14 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new SuggestAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -102,10 +101,10 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // tb
-        entry = getIntent().getIntExtra("entry", ENTRY_MINE);
+        entry = intent.getIntExtra("entry", ENTRY_MINE);
         if (entry == ENTRY_FOLLOW) {
             ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_follow), true);
         } else if (entry == ENTRY_MINE) {
@@ -115,18 +114,21 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
             @Override
             public void call(List<Suggest> suggests) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
             @Override
             public void call(Suggest suggest) {
+                if (recyclerHelper == null) return;
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
             }
         });
@@ -135,18 +137,18 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -181,6 +183,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Suggest> suggestList = data.getSuggestList();
                 recyclerHelper.dataOk(suggestList, more);
@@ -188,6 +191,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

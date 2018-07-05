@@ -72,6 +72,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     private Call<Result> callGet;
     private Call<Result> callDel;
     private Observable<Diary> obDetailRefresh;
+    private RecyclerHelper recyclerHelper;
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
@@ -95,11 +96,10 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
         srl.setEnabled(false);
         // init
-        Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
             diary = intent.getParcelableExtra("diary");
@@ -115,7 +115,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, new Action1<Diary>() {
             @Override
@@ -127,17 +127,17 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del_edit, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
         RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help_del_edit, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -200,12 +200,13 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             int spanCount = imageList.size() > 3 ? 3 : imageList.size();
-            new RecyclerHelper(mActivity)
-                    .initRecycler(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                    .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
-                    .setAdapter()
-                    .dataNew(imageList, 0);
+            if (recyclerHelper == null) {
+                recyclerHelper = new RecyclerHelper(rv)
+                        .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
+                        .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
+                        .setAdapter();
+            }
+            recyclerHelper.dataNew(imageList, 0);
         } else {
             rv.setVisibility(View.GONE);
         }

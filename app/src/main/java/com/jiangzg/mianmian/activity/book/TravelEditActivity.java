@@ -138,11 +138,11 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.travel), true);
         // init
         if (isTypeUpdate()) {
-            travel = getIntent().getParcelableExtra("travel");
+            travel = intent.getParcelableExtra("travel");
         }
         if (travel == null) {
             travel = new Travel();
@@ -158,8 +158,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         // date
         refreshDateView();
         // place
-        recyclerPlace = new RecyclerHelper(mActivity)
-                .initRecycler(rvPlace)
+        recyclerPlace = new RecyclerHelper(rvPlace)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
                     @Override
                     public boolean canScrollVertically() {
@@ -184,8 +183,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 });
         refreshPlaceView();
         // album
-        recyclerAlbum = new RecyclerHelper(mActivity)
-                .initRecycler(rvAlbum)
+        recyclerAlbum = new RecyclerHelper(rvAlbum)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
                     @Override
                     public boolean canScrollVertically() {
@@ -212,8 +210,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         // video
         // TODO
         // food
-        recyclerFood = new RecyclerHelper(mActivity)
-                .initRecycler(rvFood)
+        recyclerFood = new RecyclerHelper(rvFood)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
                     @Override
                     public boolean canScrollVertically() {
@@ -242,8 +239,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 });
         refreshFoodView();
         // diary
-        recyclerDiary = new RecyclerHelper(mActivity)
-                .initRecycler(rvDiary)
+        recyclerDiary = new RecyclerHelper(rvDiary)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
                     @Override
                     public boolean canScrollVertically() {
@@ -270,11 +266,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obAddPlace = RxBus.register(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, new Action1<TravelPlace>() {
             @Override
             public void call(TravelPlace travelPlace) {
+                if (recyclerPlace == null) return;
                 List<TravelPlace> placeList = new ArrayList<>();
                 placeList.add(travelPlace);
                 recyclerPlace.dataAdd(placeList);
@@ -283,6 +280,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
             @Override
             public void call(Album album) {
+                if (recyclerAlbum == null) return;
                 List<Album> albumList = new ArrayList<>();
                 albumList.add(album);
                 recyclerAlbum.dataAdd(albumList);
@@ -291,6 +289,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, new Action1<Video>() {
             @Override
             public void call(Video video) {
+                if (recyclerVideo == null) return;
                 List<Video> videoList = new ArrayList<>();
                 videoList.add(video);
                 recyclerVideo.dataAdd(videoList);
@@ -299,6 +298,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, new Action1<Food>() {
             @Override
             public void call(Food food) {
+                if (recyclerFood == null) return;
                 List<Food> foodList = new ArrayList<>();
                 foodList.add(food);
                 recyclerFood.dataAdd(foodList);
@@ -307,6 +307,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
+                if (recyclerDiary == null) return;
                 List<Diary> diaryList = new ArrayList<>();
                 diaryList.add(diary);
                 recyclerDiary.dataAdd(diaryList);
@@ -315,14 +316,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerPlace);
+        RecyclerHelper.release(recyclerAlbum);
+        RecyclerHelper.release(recyclerVideo);
+        RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerDiary);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
@@ -330,6 +329,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
         RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
         RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -375,26 +380,32 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private void refreshPlaceView() {
-        if (travel == null) return;
+        if (travel == null || recyclerPlace == null) return;
         List<TravelPlace> placeList = new ArrayList<>();
         placeList.addAll(travel.getTravelPlaceList() == null ? new ArrayList<TravelPlace>() : travel.getTravelPlaceList()); // 不能用引用
         recyclerPlace.dataNew(placeList, 0);
     }
 
     private void refreshAlbumView() {
-        if (travel == null) return;
+        if (travel == null || recyclerAlbum == null) return;
         List<Album> albumList = ListHelper.getAlbumListByTravel(travel.getTravelAlbumList(), true);
         recyclerAlbum.dataNew(albumList, 0);
     }
 
+    private void refreshVideoView() {
+        if (travel == null || recyclerVideo == null) return;
+        List<Video> videoList = ListHelper.getVideoListByTravel(travel.getTravelVideoList(), true);
+        recyclerVideo.dataNew(videoList, 0);
+    }
+
     private void refreshFoodView() {
-        if (travel == null) return;
+        if (travel == null || recyclerFood == null) return;
         ArrayList<Food> foodList = ListHelper.getFoodListByTravel(travel.getTravelFoodList(), true);
         recyclerFood.dataNew(foodList, 0);
     }
 
     private void refreshDiaryView() {
-        if (travel == null) return;
+        if (travel == null || recyclerDiary == null) return;
         ArrayList<Diary> diaryList = ListHelper.getDiaryListByTravel(travel.getTravelDiaryList(), true);
         recyclerDiary.dataNew(diaryList, 0);
     }

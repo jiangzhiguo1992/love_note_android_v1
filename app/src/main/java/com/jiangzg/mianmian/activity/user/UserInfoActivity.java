@@ -76,7 +76,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.user_info), false);
         // 时间选择器
         npYear.setFormatter(new NumberPicker.Formatter() {
@@ -116,7 +116,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -134,12 +139,6 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
     }
 
     @Override

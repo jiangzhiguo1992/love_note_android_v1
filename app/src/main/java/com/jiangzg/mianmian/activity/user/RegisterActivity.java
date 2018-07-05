@@ -73,13 +73,20 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.register), true);
         ViewHelper.setLineBottom(tvProtocol);
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        stopCountDownTask();
+        RetrofitHelper.cancel(callSms);
+        RetrofitHelper.cancel(callRegister);
     }
 
     @Override
@@ -89,13 +96,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
         if (isGo) {
             finish();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callSms);
-        RetrofitHelper.cancel(callRegister);
     }
 
     @OnTextChanged({R.id.etPhone, R.id.etPwd, R.id.etPwdConfirm, R.id.etCode})

@@ -95,11 +95,11 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         // init
         if (isTypeUpdate()) {
-            dream = getIntent().getParcelableExtra("dream");
+            dream = intent.getParcelableExtra("dream");
         } else {
             dream = SPHelper.getDraftDream();
         }
@@ -116,20 +116,19 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override
@@ -210,13 +209,13 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             return;
         }
         if (isTypeUpdate()) {
-            updateApi(dream);
+            updateApi();
         } else {
-            addApi(dream);
+            addApi();
         }
     }
 
-    private void updateApi(Dream dream) {
+    private void updateApi() {
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).dreamUpdate(dream);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -238,7 +237,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         });
     }
 
-    private void addApi(Dream dream) {
+    private void addApi() {
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).dreamAdd(dream);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

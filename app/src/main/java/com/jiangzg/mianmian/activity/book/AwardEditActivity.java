@@ -91,7 +91,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.award), true);
         // init
         award = new Award();
@@ -107,7 +107,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obSelectAwardRule = RxBus.register(ConsHelper.EVENT_AWARD_RULE_SELECT, new Action1<AwardRule>() {
             @Override
@@ -121,16 +121,15 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
+        RxBus.unregister(ConsHelper.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(ConsHelper.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -226,7 +225,6 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void push() {
-        if (award == null) return;
         if (award.getAwardRuleId() == 0) {
             ToastUtils.show(getString(R.string.please_select_rule));
             return;

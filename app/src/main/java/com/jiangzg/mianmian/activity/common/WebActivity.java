@@ -48,8 +48,8 @@ public class WebActivity extends BaseActivity<WebActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
-        String title = getIntent().getStringExtra("title");
+    protected void initView(Intent intent, Bundle state) {
+        String title = intent.getStringExtra("title");
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // view
         initWebView(false, false);
@@ -58,9 +58,13 @@ public class WebActivity extends BaseActivity<WebActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
-        String url = getIntent().getStringExtra("url");
+    protected void initData(Intent intent, Bundle state) {
+        String url = intent.getStringExtra("url");
         wv.loadUrl(url);
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
     @SuppressLint("SetJavaScriptEnabled")

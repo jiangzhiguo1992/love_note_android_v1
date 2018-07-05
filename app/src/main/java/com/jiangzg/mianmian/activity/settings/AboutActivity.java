@@ -57,12 +57,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.about_mian_mian), true);
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // AppInfo
         String name = AppInfo.get().getName();
         String versionName = AppInfo.get().getVersionName();
@@ -80,6 +80,10 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
         // 公司名
         String companyName = SPHelper.getCommonConst().getCompanyName();
         tvCompany.setText(companyName);
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
     @OnClick({R.id.llUpdate, R.id.llRate, R.id.llProtocol, R.id.llAbout})

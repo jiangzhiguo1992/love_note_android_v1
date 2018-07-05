@@ -99,7 +99,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.i_want_push_suggest), true);
         // input
         etTitle.addTextChangedListener(new TextWatcher() {
@@ -148,22 +148,21 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         SuggestInfo suggestInfo = SuggestInfo.getInstance();
         suggestTypeList = suggestInfo.getTypeList();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(call);
+        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override

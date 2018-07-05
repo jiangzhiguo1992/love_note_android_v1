@@ -59,7 +59,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView(Intent intent, Bundle savedInstanceState) {
         // 底部提示的高度
         int height = BarUtils.getNavigationBarHeight(mActivity);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
@@ -68,7 +68,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    protected void initData(Intent intent, Bundle savedInstanceState) {
         exits = false;
         // wallPaper
         File wallPaper = getWallPaperRandom();
@@ -82,6 +82,19 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         }
         // ...非网络性init操作
         checkUser();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        exits = true;
+        RetrofitHelper.cancel(call);
+        MyApp.get().getHandler().removeCallbacks(checkUser);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish(); // 记得关闭欢迎页
     }
 
     // 获取随机的wp
@@ -105,20 +118,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         set.playTogether(scaleX, scaleY);
         set.setInterpolator(new AccelerateDecelerateInterpolator());
         set.start();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish(); // 记得关闭欢迎页
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        exits = true;
-        RetrofitHelper.cancel(call);
-        MyApp.get().getHandler().removeCallbacks(checkUser);
     }
 
     // 检查用户

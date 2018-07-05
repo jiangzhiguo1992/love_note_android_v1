@@ -211,8 +211,8 @@ public class ActivityStack {
             LogUtils.w(ActivityStack.class, "finishActivity", "activity == null");
             return;
         }
-        getStack().remove(activity);
-        activity.finish();
+        //getStack().remove(activity);
+        activity.finishAndRemoveTask();
     }
 
     /**

@@ -118,7 +118,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.pair_info), true);
         // 沉浸式状态栏
         abl.setBackgroundColor(Color.TRANSPARENT);
@@ -132,11 +132,18 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         User ta = SPHelper.getTa();
         if (ta == null || ta.getId() <= 0 || StringUtils.isEmpty(ta.getPhone())) {
             getTaData();
         }
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callTaGet);
+        RetrofitHelper.cancel(callUpdateInfo);
+        RetrofitHelper.cancel(callUpdateStatus);
     }
 
     @Override
@@ -156,14 +163,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             getMenuInflater().inflate(R.menu.break_help, menu);
         }
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callTaGet);
-        RetrofitHelper.cancel(callUpdateInfo);
-        RetrofitHelper.cancel(callUpdateStatus);
     }
 
     @Override

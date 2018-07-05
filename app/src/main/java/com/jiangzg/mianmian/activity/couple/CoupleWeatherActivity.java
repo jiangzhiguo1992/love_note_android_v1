@@ -105,25 +105,24 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         srl.setEnabled(false);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new WeatherForecastAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter();
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         getData();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
     }
 
@@ -147,6 +146,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (srl == null || recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 // right
                 String myShow = data.getMyShow();
@@ -163,6 +163,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (srl == null || recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 recyclerHelper.dataFail(false, errMsg);
             }

@@ -27,7 +27,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Audio;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
@@ -85,7 +84,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.audio), true);
         // init
         audio = new Audio();
@@ -103,20 +102,18 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
 
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(callAdd);
     }
 
     @Override
@@ -210,7 +207,6 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void checkPush() {
-        if (audio == null) return;
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etTitle.getHint().toString());
@@ -242,7 +238,6 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void addApi() {
-        if (audio == null) return;
         callAdd = new RetrofitHelper().call(API.class).audioAdd(audio);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

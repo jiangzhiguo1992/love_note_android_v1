@@ -73,17 +73,16 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.audio), true);
         // player
         mediaPlayer = PlayerUtils.getMediaPlayer();
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new AudioAdapter(mActivity, mediaPlayer))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -119,23 +118,32 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new Action1<List<Audio>>() {
             @Override
             public void call(List<Audio> audioList) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, new Action1<Audio>() {
             @Override
             public void call(Audio audio) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), audio);
             }
         });
         // refresh
         recyclerHelper.dataRefresh();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override
@@ -147,19 +155,15 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @Override
     protected void onPause() {
         super.onPause();
-        if (recyclerHelper == null) return;
-        AudioAdapter adapter = recyclerHelper.getAdapter();
-        if (adapter == null) return;
-        adapter.stopPlay();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
-        PlayerUtils.destroy(mediaPlayer);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
+        if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
+            // 被遮挡时 停止播放
+            AudioAdapter adapter = recyclerHelper.getAdapter();
+            adapter.stopPlay();
+        }
+        if (isFinishing()) {
+            // 退出时 释放资源
+            PlayerUtils.destroy(mediaPlayer);
+        }
     }
 
     @Override
@@ -188,16 +192,18 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Audio> audioList = data.getAudioList();
                 recyclerHelper.dataOk(audioList, more);
-                // 刷新本地资 TODO 需要这里下载吗
+                // 刷新本地资
                 List<String> ossKeyList = ListHelper.getOssKeyListByAudio(audioList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_AUDIO, ossKeyList);
             }
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

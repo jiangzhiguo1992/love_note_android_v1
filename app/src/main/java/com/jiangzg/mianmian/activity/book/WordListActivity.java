@@ -61,11 +61,11 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     @BindView(R.id.btnSend)
     Button btnSend;
 
-    private int limitContentLength;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callGet;
     private Call<Result> callAdd;
     private Observable<Word> obListItemDelete;
+    private int limitContentLength;
     private int page;
     private boolean canMore;
 
@@ -82,7 +82,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.word), true);
         // editTextHint
         limitContentLength = SPHelper.getLimit().getWordContentLength();
@@ -90,13 +90,11 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         etContent.setHint(format);
         etContent.setText("");
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
-                // 数据倒着来，显示也会倒着来
+        recyclerHelper = new RecyclerHelper(rv) // 数据倒着来，显示也会倒着来
                 .initLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true))
                 .initRefresh(srl, true)
                 .initAdapter(new WordAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
@@ -114,13 +112,14 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = -1;
         canMore = true;
         // event
         obListItemDelete = RxBus.register(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, new Action1<Word>() {
             @Override
             public void call(Word word) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), word);
             }
         });
@@ -129,17 +128,17 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
         RxBus.unregister(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -190,6 +189,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Word> wordList = data.getWordList();
                 recyclerHelper.dataOk(wordList, page != 0);
@@ -198,6 +198,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(page != 0, errMsg);
             }
         });
@@ -206,11 +207,12 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     private void wordPush() {
         String content = etContent.getText().toString();
         Word body = ApiHelper.getWordBody(content);
-        MaterialDialog loading = getLoading(true);
+        MaterialDialog loading = mActivity.getLoading(true);
         callAdd = new RetrofitHelper().call(API.class).wordAdd(body);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 // editText
                 etContent.setText("");
                 InputUtils.hideSoftInput(etContent);

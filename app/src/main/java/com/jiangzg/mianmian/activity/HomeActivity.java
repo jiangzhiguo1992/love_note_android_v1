@@ -56,7 +56,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         initFragment();
         // viewPager
         initViewPagerAdapter();
@@ -67,7 +67,11 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
     }
 
     // 关闭其他栈底activity，栈顶由singleTask来关闭

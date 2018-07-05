@@ -111,11 +111,10 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
         srl.setEnabled(false);
         // init
-        Intent intent = getIntent();
         int from = intent.getIntExtra("from", FROM_NONE);
         if (from == FROM_ALL) {
             angry = intent.getParcelableExtra("angry");
@@ -131,7 +130,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         // event
         obGiftSelect = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, new Action1<Gift>() {
             @Override
@@ -148,6 +147,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         obPromiseListDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
+                if (recyclerPromise == null) return;
                 ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
                 if (recyclerPromise.getAdapter().getData().size() <= 0) {
                     // 删除承诺
@@ -159,26 +159,27 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         obPromiseListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
+                if (recyclerPromise == null) return;
                 ListHelper.refreshObjInAdapter(recyclerPromise.getAdapter(), promise);
             }
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerPromise);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
         RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obGiftSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_SELECT, obPromiseSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help_del, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -252,8 +253,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             List<Gift> giftList = new ArrayList<>();
             giftList.add(gift);
             if (recyclerGift == null) {
-                recyclerGift = new RecyclerHelper(mActivity)
-                        .initRecycler(rvGift)
+                recyclerGift = new RecyclerHelper(rvGift)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
                         .initAdapter(new GiftAdapter(mActivity))
                         .setAdapter()
@@ -280,8 +280,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             List<Promise> promiseList = new ArrayList<>();
             promiseList.add(promise);
             if (recyclerPromise == null) {
-                recyclerPromise = new RecyclerHelper(mActivity)
-                        .initRecycler(rvPromise)
+                recyclerPromise = new RecyclerHelper(rvPromise)
                         .initLayoutManager(new LinearLayoutManager(mActivity))
                         .initAdapter(new PromiseAdapter(mActivity))
                         .setAdapter()

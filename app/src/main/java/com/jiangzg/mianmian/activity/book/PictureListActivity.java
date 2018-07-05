@@ -129,17 +129,16 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "", true);
         // init
-        album = getIntent().getParcelableExtra("album");
+        album = intent.getParcelableExtra("album");
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
                 .initRefresh(srl, false)
                 .initAdapter(new PictureAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_grey, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -195,6 +194,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                if (recyclerHelper == null) return;
                 PictureAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter != null) adapter.hideOperation();
             }
@@ -209,24 +209,27 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new Action1<List<Picture>>() {
             @Override
             public void call(List<Picture> pictureList) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, new Action1<Picture>() {
             @Override
             public void call(Picture picture) {
+                if (recyclerHelper == null) return;
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, new Action1<Picture>() {
             @Override
             public void call(Picture picture) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
             }
         });
@@ -235,20 +238,20 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callPictureList);
         RetrofitHelper.cancel(callAlbum);
         // event
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -269,9 +272,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 rv.smoothScrollToPosition(0);
                 break;
             case R.id.fabModel: // 模式
-                if (recyclerHelper == null) return;
+                if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
                 PictureAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter == null) return;
                 adapter.toggleModel();
                 break;
             case R.id.fabAdd: // 添加
@@ -323,6 +325,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         RetrofitHelper.enqueue(callPictureList, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 // data
                 long total = data.getTotal();
@@ -338,6 +341,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });
@@ -350,6 +354,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         RetrofitHelper.enqueue(callAlbum, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 album = data.getAlbum();
                 refreshAlbumView();
                 recyclerHelper.dataRefresh();
@@ -357,6 +362,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(false, errMsg);
             }
         });

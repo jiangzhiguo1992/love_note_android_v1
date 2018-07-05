@@ -92,7 +92,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         String title;
         if (isSelectAlbum() || isSelectPicture()) {
             title = getString(R.string.please_select_album);
@@ -101,12 +101,11 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new AlbumAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -166,6 +165,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                if (recyclerHelper == null) return;
                 AlbumAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter != null) adapter.hideOperation();
             }
@@ -178,29 +178,42 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new Action1<List<Album>>() {
             @Override
             public void call(List<Album> albumList) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, new Action1<Album>() {
             @Override
             public void call(Album album) {
+                if (recyclerHelper == null) return;
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), album);
             }
         });
         obPictureSelect = RxBus.register(ConsHelper.EVENT_PICTURE_SELECT, new Action1<Picture>() {
             @Override
             public void call(Picture picture) {
-                mActivity.finish();
+                if (!mActivity.isFinishing()) {
+                    mActivity.finish();
+                }
             }
         });
         // refresh
         recyclerHelper.dataRefresh();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_PICTURE_SELECT, obPictureSelect);
     }
 
     @Override
@@ -209,15 +222,6 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
-        RxBus.unregister(ConsHelper.EVENT_PICTURE_SELECT, obPictureSelect);
     }
 
     @Override
@@ -254,6 +258,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Album> albumList = data.getAlbumList();
                 recyclerHelper.dataOk(albumList, more);
@@ -264,6 +269,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

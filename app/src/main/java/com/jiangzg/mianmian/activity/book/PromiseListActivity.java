@@ -90,7 +90,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         String title;
         if (isSelect()) {
             title = getString(R.string.please_select_promise);
@@ -99,12 +99,11 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new PromiseAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_white, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -135,24 +134,27 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new Action1<List<Promise>>() {
             @Override
             public void call(List<Promise> promiseList) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
         obListItemDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
+                if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), promise);
             }
         });
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
             @Override
             public void call(Promise promise) {
+                if (recyclerHelper == null) return;
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), promise);
             }
         });
@@ -161,20 +163,20 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     }
 
     @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obListItemRefresh);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (!isSelect()) {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     @Override
@@ -211,6 +213,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Promise> promiseList = data.getPromiseList();
                 recyclerHelper.dataOk(promiseList, more);
@@ -220,6 +223,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
             @Override
             public void onFailure(String errMsg) {
+                if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, errMsg);
             }
         });

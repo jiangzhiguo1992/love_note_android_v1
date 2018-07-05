@@ -93,7 +93,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     }
 
     @Override
-    protected void initView(Bundle state) {
+    protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.please_select_location), true);
         // map
         if (map != null) {
@@ -106,12 +106,11 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         if (aMap == null) return;
         MapHelper.initMapView(aMap);
         // recycler
-        recyclerHelper = new RecyclerHelper(mActivity)
-                .initRecycler(rv)
+        recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new MapSelectAdapter(mActivity))
-                .viewEmpty(R.layout.list_empty_grey, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .listenerClick(new OnItemClickListener() {
                     @Override
@@ -125,7 +124,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void initData(Intent intent, Bundle state) {
         moveWithSearch = true;
         if (aMap == null) return;
         // 地图拖动回调
@@ -160,9 +159,9 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         });
         // 传入的位置
         LocationInfo info = null;
-        String address = getIntent().getStringExtra("address");
-        double longitude = getIntent().getDoubleExtra("longitude", 0);
-        double latitude = getIntent().getDoubleExtra("latitude", 0);
+        String address = intent.getStringExtra("address");
+        double longitude = intent.getDoubleExtra("longitude", 0);
+        double latitude = intent.getDoubleExtra("latitude", 0);
         if (!StringUtils.isEmpty(address) && (longitude != 0 && latitude != 0)) {
             info = new LocationInfo();
             info.setAddress(address);
@@ -172,6 +171,16 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
         }
         // 我的位置
         startMyLocation(info == null);
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
+        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obMapSearch);
+        if (poiSearch != null) {
+            poiSearch.setOnPoiSearchListener(null);
+        }
+        poiSearchListener = null;
     }
 
     @Override
@@ -216,11 +225,6 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             aMap.clear();
             aMap = null;
         }
-        if (poiSearch != null) {
-            poiSearch.setOnPoiSearchListener(null);
-        }
-        poiSearchListener = null;
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obMapSearch);
     }
 
     @Override

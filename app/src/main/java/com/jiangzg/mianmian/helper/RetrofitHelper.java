@@ -137,9 +137,11 @@ public class RetrofitHelper {
     }
 
     public static void cancel(Call call) {
-        if (call != null && !call.isCanceled()) {
+        if (call == null) return;
+        if (!call.isCanceled()) {
             call.cancel();
         }
+        call = null;
     }
 
     /**
