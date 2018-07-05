@@ -178,19 +178,12 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.clear();
         if (isTypeUpdate()) {
             getMenuInflater().inflate(R.menu.help_del, menu);
         } else {
             getMenuInflater().inflate(R.menu.help, menu);
         }
-        return super.onPrepareOptionsMenu(menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

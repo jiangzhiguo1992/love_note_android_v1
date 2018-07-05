@@ -70,10 +70,10 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     CardView cvHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-    @BindView(R.id.cvLocation)
-    CardView cvLocation;
-    @BindView(R.id.tvLocation)
-    TextView tvLocation;
+    @BindView(R.id.cvAddress)
+    CardView cvAddress;
+    @BindView(R.id.tvAddress)
+    TextView tvAddress;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.btnPublish)
@@ -193,13 +193,13 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvLocation, R.id.btnPublish})
+    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
                 showDatePicker();
                 break;
-            case R.id.cvLocation: // 地址
+            case R.id.cvAddress: // 地址
                 MapSelectActivity.goActivity(mActivity, food.getAddress(), food.getLongitude(), food.getLatitude());
                 break;
             case R.id.btnPublish: // 发表
@@ -247,7 +247,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     private void refreshLocationView() {
         String location = StringUtils.isEmpty(food.getAddress()) ? getString(R.string.now_no) : food.getAddress();
-        tvLocation.setText(location);
+        tvAddress.setText(location);
     }
 
     private void showImgSelect() {

@@ -48,10 +48,10 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     CardView cvHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-    @BindView(R.id.cvLocation)
-    CardView cvLocation;
-    @BindView(R.id.tvLocation)
-    TextView tvLocation;
+    @BindView(R.id.cvAddress)
+    CardView cvAddress;
+    @BindView(R.id.tvAddress)
+    TextView tvAddress;
     @BindView(R.id.etContent)
     EditText etContent;
     @BindView(R.id.tvContentLimit)
@@ -131,13 +131,13 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvLocation, R.id.btnCommit})
+    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.btnCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
                 showDatePicker();
                 break;
-            case R.id.cvLocation: // 地址
+            case R.id.cvAddress: // 地址
                 MapSelectActivity.goActivity(mActivity, place.getAddress(), place.getLongitude(), place.getLatitude());
                 break;
             case R.id.btnCommit: // 提交
@@ -163,7 +163,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
 
     private void refreshLocationView() {
         String location = StringUtils.isEmpty(place.getAddress()) ? getString(R.string.now_no) : place.getAddress();
-        tvLocation.setText(location);
+        tvAddress.setText(location);
     }
 
     private void onContentInput(String input) {

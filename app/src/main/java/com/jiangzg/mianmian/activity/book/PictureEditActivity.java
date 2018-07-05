@@ -79,10 +79,10 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     CardView cvHappenAt;
     @BindView(R.id.tvHappenAt)
     TextView tvHappenAt;
-    @BindView(R.id.cvLocation)
-    CardView cvLocation;
-    @BindView(R.id.tvLocation)
-    TextView tvLocation;
+    @BindView(R.id.cvAddress)
+    CardView cvAddress;
+    @BindView(R.id.tvAddress)
+    TextView tvAddress;
     @BindView(R.id.btnCommit)
     Button btnCommit;
 
@@ -275,7 +275,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvAlbum, R.id.cvHappenAt, R.id.cvLocation, R.id.btnCommit})
+    @OnClick({R.id.cvAlbum, R.id.cvHappenAt, R.id.cvAddress, R.id.btnCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvAlbum: // 相册选取
@@ -284,7 +284,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             case R.id.cvHappenAt: // 时间
                 showDatePicker();
                 break;
-            case R.id.cvLocation: // 位置
+            case R.id.cvAddress: // 位置
                 MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
                 break;
             case R.id.btnCommit: // 提交
@@ -324,7 +324,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void refreshLocationView() {
         String location = StringUtils.isEmpty(picture.getAddress()) ? getString(R.string.now_no) : picture.getAddress();
-        tvLocation.setText(location);
+        tvAddress.setText(location);
     }
 
     private void showImgSelect() {
