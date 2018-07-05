@@ -22,6 +22,7 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -94,10 +95,24 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
         // click
         helper.addOnClickListener(R.id.cvVideo);
         helper.addOnClickListener(R.id.tvAddress);
+        helper.addOnLongClickListener(R.id.cvVideo);
     }
 
     public void playAudio(int position) {
-        // TODO
+        Video item = getItem(position);
+        if (item == null) return;
+        // 检查是否下载完毕
+        String contentVideo = item.getContentVideo();
+        boolean fileExists = OssResHelper.isKeyFileExists(contentVideo);
+        if (!fileExists) {
+            ToastUtils.show(mActivity.getString(R.string.are_download));
+            return;
+        }
+        // TODO 播放去另一个页面
+        //Intent it = new Intent(Intent.ACTION_VIEW);
+        //Uri uri = Uri.parse(videoFilePath);
+        //it.setDataAndType(uri, "video/mp4");
+
     }
 
     public void goMapShow(int position) {

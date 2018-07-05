@@ -14,7 +14,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
@@ -26,6 +26,7 @@ import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -126,11 +127,15 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                         }
                     }
                 })
-                .listenerClick(new OnItemLongClickListener() {
+                .listenerClick(new OnItemChildLongClickListener() {
                     @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
-                        videoAdapter.showDeleteDialog(position);
+                        switch (view.getId()) {
+                            case R.id.cvVideo: // 删除
+                                videoAdapter.showDeleteDialog(position);
+                                break;
+                        }
                     }
                 });
     }
@@ -207,11 +212,11 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Video> videoList = data.getVideoList();
                 recyclerHelper.dataOk(videoList, more);
-                // 刷新本地资 TODO 需要这里弄吗
-                //List<String> ossKeyList1 = ListHelper.getOssKeyListByVideoThumb(videoList);
-                //OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_VIDEO, ossKeyList1);
-                //List<String> ossKeyList2 = ListHelper.getOssKeyListByVideo(videoList);
-                //OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_VIDEO, ossKeyList2);
+                // 刷新本地资
+                List<String> ossKeyList1 = ListHelper.getOssKeyListByVideoThumb(videoList);
+                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_VIDEO, ossKeyList1);
+                List<String> ossKeyList2 = ListHelper.getOssKeyListByVideo(videoList);
+                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_VIDEO, ossKeyList2);
             }
 
             @Override

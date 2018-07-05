@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.StringUtils;
@@ -233,11 +234,15 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                         }
                     }
                 })
-                .listenerClick(new OnItemLongClickListener() {
+                .listenerClick(new OnItemChildLongClickListener() {
                     @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
-                        videoAdapter.showDeleteDialogNoApi(position);
+                        switch (view.getId()) {
+                            case R.id.cvVideo: // 删除
+                                videoAdapter.showDeleteDialogNoApi(position);
+                                break;
+                        }
                     }
                 });
         refreshVideoView();
