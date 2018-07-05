@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -7,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.media.PlayerUtils;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -19,11 +21,14 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
+
+import java.io.File;
 
 import retrofit2.Call;
 
@@ -42,13 +47,15 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     private final String hour;
     private final String minute;
     private final String second;
+    private MediaPlayer mMediaPlayer;
 
-    public AudioAdapter(BaseActivity activity) {
+    public AudioAdapter(BaseActivity activity, MediaPlayer mediaPlayer) {
         super(null);
         addItemType(ApiHelper.LIST_MY, R.layout.list_item_audio_right);
         addItemType(ApiHelper.LIST_TA, R.layout.list_item_audio_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
+        mMediaPlayer = mediaPlayer;
         playingIndex = -1;
         year = mActivity.getString(R.string.year);
         month = mActivity.getString(R.string.month);
@@ -81,6 +88,14 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
 
     public void togglePlayAudio(int position) {
         Audio item = getItem(position);
+        if (item == null) return;
+        // 检查是否下载完毕
+        String contentAudio = item.getContentAudio();
+        boolean fileExists = OssResHelper.isKeyFileExists(contentAudio);
+        if (!fileExists) {
+            ToastUtils.show(mActivity.getString(R.string.are_download));
+            return;
+        }
         // 记录上一个播放
         int oldPlayingIndex = playingIndex;
         if (oldPlayingIndex == position) {
@@ -98,10 +113,50 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
             // 开始现在点击的
             notifyItemChanged(position);
         }
-        // TODO 检查是否下载完毕
-        // TODO 播放完毕记得刷新 index 和 adapter
-        String contentAudio = item.getContentAudio();
+        togglePlay();
+    }
 
+    private void togglePlay() {
+        if (mMediaPlayer == null) {
+            ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
+            return;
+        }
+        if (playingIndex >= 0) {
+            // 播放
+            String contentAudio = getItem(playingIndex).getContentAudio();
+            File audioFile = OssResHelper.newKeyFile(contentAudio);
+            if (audioFile == null) {
+                ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
+                return;
+            }
+            PlayerUtils.setData(mMediaPlayer, audioFile.getAbsolutePath());
+            PlayerUtils.play(mMediaPlayer, new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    int oldPlay = AudioAdapter.this.playingIndex;
+                    AudioAdapter.this.playingIndex = -1;
+                    AudioAdapter.this.notifyItemChanged(oldPlay);
+                }
+            }, null, new MediaPlayer.OnErrorListener() {
+                @Override
+                public boolean onError(MediaPlayer mp, int what, int extra) {
+                    ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
+                    return true;
+                }
+            });
+        } else {
+            // 暂停
+            PlayerUtils.stop(mMediaPlayer);
+        }
+    }
+
+    public void stopPlay() {
+        int oldPlayingIndex = playingIndex;
+        playingIndex = -1;
+        if (oldPlayingIndex >= 0) {
+            notifyItemChanged(oldPlayingIndex);
+        }
+        PlayerUtils.stop(mMediaPlayer);
     }
 
     public void showDeleteDialog(final int position) {

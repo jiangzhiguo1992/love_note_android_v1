@@ -139,7 +139,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无配对
-            CouplePairActivity.goActivity(mActivity);
+            CouplePairActivity.goActivity(mFragment);
             return;
         }
         // TODO book的密码+指纹验证(app启动后解密一次)
@@ -156,39 +156,39 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 WordListActivity.goActivity(mFragment);
                 break;
             case R.id.cvWhisper: // 耳语
-                WhisperListActivity.goActivity(mActivity);
+                WhisperListActivity.goActivity(mFragment);
                 break;
             case R.id.cvDiary: // 日记
                 DiaryListActivity.goActivity(mFragment);
                 break;
             case R.id.cvAlbum: // 相册
-                AlbumListActivity.goActivity(mActivity);
+                AlbumListActivity.goActivity(mFragment);
                 break;
             case R.id.cvAudio: // 音频
-                AudioListActivity.goActivity(mActivity);
+                AudioListActivity.goActivity(mFragment);
                 break;
             case R.id.cvVideo: // TODO 视频
                 break;
             case R.id.cvFood: // 美食
-                FoodListActivity.goActivity(mActivity);
+                FoodListActivity.goActivity(mFragment);
                 break;
             case R.id.cvTravel: // 游记
-                TravelListActivity.goActivity(mActivity);
+                TravelListActivity.goActivity(mFragment);
                 break;
             case R.id.cvGift: // 礼物
-                GiftListActivity.goActivity(mActivity);
+                GiftListActivity.goActivity(mFragment);
                 break;
             case R.id.cvPromise: // 承诺
-                PromiseListActivity.goActivity(mActivity);
+                PromiseListActivity.goActivity(mFragment);
                 break;
             case R.id.cvAngry: // 生气
-                AngryListActivity.goActivity(mActivity);
+                AngryListActivity.goActivity(mFragment);
                 break;
             case R.id.cvDream: // 梦里
-                DreamListActivity.goActivity(mActivity);
+                DreamListActivity.goActivity(mFragment);
                 break;
             case R.id.cvAward: // 奖励
-                AwardListActivity.goActivity(mActivity);
+                AwardListActivity.goActivity(mFragment);
                 break;
         }
     }

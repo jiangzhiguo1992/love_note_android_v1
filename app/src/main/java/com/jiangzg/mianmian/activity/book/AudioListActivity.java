@@ -1,9 +1,10 @@
 package com.jiangzg.mianmian.activity.book;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.media.PlayerUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.AudioAdapter;
@@ -51,14 +53,15 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @BindView(R.id.fabAdd)
     FloatingActionButton fabAdd;
 
+    private MediaPlayer mediaPlayer;
     private RecyclerHelper recyclerHelper;
     private Observable<List<Audio>> obListRefresh;
     private Observable<Audio> obListItemDelete;
     private Call<Result> call;
     private int page;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, AudioListActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), AudioListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -72,12 +75,14 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @Override
     protected void initView(Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.audio), true);
+        // player
+        mediaPlayer = PlayerUtils.getMediaPlayer();
         // recycler
         recyclerHelper = new RecyclerHelper(mActivity)
                 .initRecycler(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new AudioAdapter(mActivity))
+                .initAdapter(new AudioAdapter(mActivity, mediaPlayer))
                 .viewEmpty(R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -140,9 +145,19 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        if (recyclerHelper == null) return;
+        AudioAdapter adapter = recyclerHelper.getAdapter();
+        if (adapter == null) return;
+        adapter.stopPlay();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         RetrofitHelper.cancel(call);
+        PlayerUtils.destroy(mediaPlayer);
         RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
     }
@@ -176,7 +191,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Audio> audioList = data.getAudioList();
                 recyclerHelper.dataOk(audioList, more);
-                // 刷新本地资
+                // 刷新本地资 TODO 需要这里下载吗
                 List<String> ossKeyList = ListHelper.getOssKeyListByAudio(audioList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_BOOK_AUDIO, ossKeyList);
             }

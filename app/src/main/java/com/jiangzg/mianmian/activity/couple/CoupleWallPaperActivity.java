@@ -1,8 +1,8 @@
 package com.jiangzg.mianmian.activity.couple;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -66,8 +66,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private Call<Result> callGet;
     private File cameraFile;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, CoupleWallPaperActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), CoupleWallPaperActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

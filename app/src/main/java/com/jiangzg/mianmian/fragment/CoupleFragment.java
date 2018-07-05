@@ -187,33 +187,33 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 break;
             case R.id.ivWallPaper:  // 背景图
                 if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mFragment);
                 } else {
-                    CoupleWallPaperActivity.goActivity(mActivity);
+                    CoupleWallPaperActivity.goActivity(mFragment);
                 }
                 break;
             case R.id.btnPair: // 配对
-                CouplePairActivity.goActivity(mActivity);
+                CouplePairActivity.goActivity(mFragment);
                 break;
             case R.id.llCoupleInfo: // cp信息
                 if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mFragment);
                 } else {
-                    CoupleInfoActivity.goActivity(mActivity);
+                    CoupleInfoActivity.goActivity(mFragment);
                 }
                 break;
             case R.id.llPlace: // 地址信息
                 if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mFragment);
                 } else if (LocationHelper.checkLocationEnable(mActivity)) {
-                    CouplePlaceActivity.goActivity(mActivity);
+                    CouplePlaceActivity.goActivity(mFragment);
                 }
                 break;
             case R.id.llWeather: // 天气信息
                 if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mActivity);
+                    CouplePairActivity.goActivity(mFragment);
                 } else if (LocationHelper.checkLocationEnable(mActivity)) {
-                    CoupleWeatherActivity.goActivity(mActivity);
+                    CoupleWeatherActivity.goActivity(mFragment);
                 }
                 break;
         }

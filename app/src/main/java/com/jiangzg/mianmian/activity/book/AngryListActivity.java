@@ -1,8 +1,8 @@
 package com.jiangzg.mianmian.activity.book;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -66,8 +66,8 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     private Observable<Angry> obListItemRefresh;
     private Observable<Angry> obListItemDelete;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, AngryListActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), AngryListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

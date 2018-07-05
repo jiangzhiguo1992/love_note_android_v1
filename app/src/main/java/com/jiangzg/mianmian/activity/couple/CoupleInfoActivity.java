@@ -1,11 +1,11 @@
 package com.jiangzg.mianmian.activity.couple;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -103,8 +103,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private File cameraFile;
     private File cropFile;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, CoupleInfoActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), CoupleInfoActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

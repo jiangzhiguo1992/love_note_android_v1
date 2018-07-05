@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -69,8 +70,8 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     private Observable<Promise> obListItemRefresh;
     private Observable<Promise> obListItemDelete;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, PromiseListActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), PromiseListActivity.class);
         intent.putExtra("from", FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

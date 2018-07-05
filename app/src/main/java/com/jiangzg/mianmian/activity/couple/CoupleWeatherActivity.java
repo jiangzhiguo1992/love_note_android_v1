@@ -1,8 +1,8 @@
 package com.jiangzg.mianmian.activity.couple;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -21,11 +21,11 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.WeatherForecast;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
+import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -90,8 +90,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, CoupleWeatherActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), CoupleWeatherActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -64,8 +65,8 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     private Call<Result> call;
     private int page;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, AlbumListActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), AlbumListActivity.class);
         intent.putExtra("from", FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
