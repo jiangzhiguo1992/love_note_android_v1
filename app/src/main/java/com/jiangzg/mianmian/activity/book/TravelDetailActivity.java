@@ -26,6 +26,7 @@ import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.FoodAdapter;
 import com.jiangzg.mianmian.adapter.TravelPlaceAdapter;
+import com.jiangzg.mianmian.adapter.VideoAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Couple;
@@ -287,10 +288,32 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         if (videoList != null && videoList.size() > 0) {
             llVideo.setVisibility(View.VISIBLE);
             rvVideo.setVisibility(View.VISIBLE);
-            //if (recyclerVideo == null) {
-            // TODO
-            //}
-            //recyclerVideo.dataNew(videoList,0);
+            if (recyclerVideo == null) {
+                recyclerVideo = new RecyclerHelper(rvVideo)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new VideoAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemChildClickListener() {
+                            @Override
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                                switch (view.getId()) {
+                                    case R.id.cvVideo: // 播放
+                                        videoAdapter.playAudio(position);
+                                        break;
+                                    case R.id.tvAddress: // 地图
+                                        videoAdapter.goMapShow(position);
+                                        break;
+                                }
+                            }
+                        });
+            }
+            recyclerVideo.dataNew(videoList, 0);
         } else {
             llVideo.setVisibility(View.GONE);
             rvVideo.setVisibility(View.GONE);

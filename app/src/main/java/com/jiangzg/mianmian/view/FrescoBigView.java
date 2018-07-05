@@ -101,11 +101,11 @@ public class FrescoBigView extends PhotoDraweeView {
         if (mWidth <= 0 || mHeight <= 0) {
             Activity top = ActivityStack.getTop();
             if (!ActivityStack.isActivityFinish(top)) {
-                mWidth = ScreenUtils.getScreenRealWidth(top);
-                mHeight = ScreenUtils.getScreenRealHeight(top);
+                mWidth = ScreenUtils.getScreenRealWidth(top) / 2;
+                mHeight = ScreenUtils.getScreenRealHeight(top) / 2;
             } else {
-                mWidth = ScreenUtils.getScreenWidth(MyApp.get());
-                mHeight = ScreenUtils.getScreenHeight(MyApp.get());
+                mWidth = ScreenUtils.getScreenWidth(MyApp.get()) / 2;
+                mHeight = ScreenUtils.getScreenHeight(MyApp.get()) / 2;
             }
         } else {
             mWidth = mWidth / 3;

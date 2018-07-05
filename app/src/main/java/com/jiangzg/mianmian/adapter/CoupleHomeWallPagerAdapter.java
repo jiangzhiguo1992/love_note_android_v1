@@ -94,7 +94,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         FrescoView imageView = new FrescoView(mContext);
         ViewFlipper.LayoutParams paramsImage = new ViewFlipper.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(paramsImage);
-        imageView.setWidthAndHeight(screenWidth, screenHeight);
+        imageView.setWidthAndHeight(screenWidth / 2, screenHeight / 2);
         imageView.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         imageView.getHierarchy().setFadeDuration(0);
         // data

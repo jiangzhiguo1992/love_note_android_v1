@@ -1,7 +1,10 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
@@ -12,8 +15,12 @@ import com.jiangzg.mianmian.activity.book.VideoEditActivity;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
@@ -101,4 +108,27 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
         MapShowActivity.goActivity(mActivity, address, longitude, latitude);
     }
 
+    public void showDeleteDialogNoApi(final int position) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_remove_this_video)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        remove(position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    public void selectGift(int position) {
+        mActivity.finish(); // 必须先关闭
+        Video item = getItem(position);
+        RxEvent<Video> event = new RxEvent<>(ConsHelper.EVENT_VIDEO_SELECT, item);
+        RxBus.post(event);
+    }
 }

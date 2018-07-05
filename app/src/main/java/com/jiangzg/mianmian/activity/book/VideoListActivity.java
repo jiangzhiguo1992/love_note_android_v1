@@ -82,7 +82,13 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.video), true);
+        String title;
+        if (isSelect()) {
+            title = getString(R.string.please_select_video);
+        } else {
+            title = getString(R.string.video);
+        }
+        ViewHelper.initTopBar(mActivity, tb, title, true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -108,8 +114,12 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
                         switch (view.getId()) {
-                            case R.id.cvVideo: // 播放
-                                videoAdapter.playAudio(position);
+                            case R.id.cvVideo:
+                                if (isSelect()) { // 礼物选择
+                                    videoAdapter.selectGift(position);
+                                } else { // 播放
+                                    videoAdapter.playAudio(position);
+                                }
                                 break;
                             case R.id.tvAddress: // 地图
                                 videoAdapter.goMapShow(position);
@@ -166,7 +176,9 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        if (!isSelect()) {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -187,6 +199,10 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 VideoEditActivity.goActivity(mActivity);
                 break;
         }
+    }
+
+    private boolean isSelect() {
+        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
     }
 
     private void getData(final boolean more) {

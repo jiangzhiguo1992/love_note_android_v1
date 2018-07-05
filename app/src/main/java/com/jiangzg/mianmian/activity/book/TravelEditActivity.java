@@ -28,6 +28,7 @@ import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.FoodAdapter;
 import com.jiangzg.mianmian.adapter.TravelPlaceAdapter;
+import com.jiangzg.mianmian.adapter.VideoAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
@@ -40,6 +41,7 @@ import com.jiangzg.mianmian.domain.TravelAlbum;
 import com.jiangzg.mianmian.domain.TravelDiary;
 import com.jiangzg.mianmian.domain.TravelFood;
 import com.jiangzg.mianmian.domain.TravelPlace;
+import com.jiangzg.mianmian.domain.TravelVideo;
 import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
@@ -208,7 +210,37 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 });
         refreshAlbumView();
         // video
-        // TODO
+        recyclerVideo = new RecyclerHelper(rvVideo)
+                .initLayoutManager(new LinearLayoutManager(mActivity) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                })
+                .initAdapter(new VideoAdapter(mActivity))
+                .setAdapter()
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.cvVideo: // 播放
+                                videoAdapter.playAudio(position);
+                                break;
+                            case R.id.tvAddress: // 地图
+                                videoAdapter.goMapShow(position);
+                                break;
+                        }
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                        videoAdapter.showDeleteDialogNoApi(position);
+                    }
+                });
+        refreshVideoView();
         // food
         recyclerFood = new RecyclerHelper(rvFood)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
@@ -358,7 +390,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 AlbumListActivity.goActivityBySelectAlbum(mActivity);
                 break;
             case R.id.cvVideoAdd: // 视频
-                // TODO
+                VideoListActivity.goActivityBySelect(mActivity);
                 break;
             case R.id.cvFoodAdd: // 美食
                 FoodListActivity.goActivityBySelect(mActivity);
@@ -454,7 +486,11 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             body.setTravelAlbumList(albumList);
         }
         // bodyVideo
-        // TODO
+        if (recyclerVideo != null && recyclerVideo.getAdapter() != null) {
+            VideoAdapter adapter = recyclerVideo.getAdapter();
+            List<TravelVideo> videoList = ListHelper.getTravelVideoListByOld(travel.getTravelVideoList(), adapter.getData());
+            body.setTravelVideoList(videoList);
+        }
         // bodyFood
         if (recyclerFood != null && recyclerFood.getAdapter() != null) {
             FoodAdapter adapter = recyclerFood.getAdapter();
