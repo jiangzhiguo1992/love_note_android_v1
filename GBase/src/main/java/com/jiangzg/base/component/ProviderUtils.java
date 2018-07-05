@@ -16,6 +16,7 @@ import com.jiangzg.base.common.LogUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -122,7 +123,7 @@ public class ProviderUtils {
     /**
      * 获取设备里的所有图片信息
      */
-    public static List<Map<String, String>> getImageList() {
+    public static List<Map<String, String>> getImageInfoList() {
         String[] projection = {MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.DISPLAY_NAME,
                 MediaStore.Images.Media.TITLE,
@@ -134,10 +135,24 @@ public class ProviderUtils {
         return getProviderColumn(uri, projection, null, null, orderBy);
     }
 
+    public static Map<String, String> getImageInfo(Uri uri) {
+        if (uri == null) {
+            LogUtils.w(ProviderUtils.class, "getImageInfo", "uri == null");
+            return new HashMap<>();
+        }
+        String[] projection = {MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.DISPLAY_NAME,
+                MediaStore.Images.Media.TITLE,
+                MediaStore.Images.Media.MIME_TYPE,
+                MediaStore.Images.Media.DATA,
+                MediaStore.Images.Media.SIZE};
+        return getProviderColumn(uri, projection);
+    }
+
     /**
      * 获取设备里的所有音频信息
      */
-    public static List<Map<String, String>> getAudioList() {
+    public static List<Map<String, String>> getAudioInfoList() {
         String[] projection = {MediaStore.Audio.Media._ID,
                 MediaStore.Audio.Media.DISPLAY_NAME,
                 MediaStore.Audio.Media.TITLE,
@@ -150,10 +165,25 @@ public class ProviderUtils {
         return getProviderColumn(uri, projection, null, null, orderBy);
     }
 
+    public static Map<String, String> getAudioInfo(Uri uri) {
+        if (uri == null) {
+            LogUtils.w(ProviderUtils.class, "getAudioInfo", "uri == null");
+            return new HashMap<>();
+        }
+        String[] projection = {MediaStore.Audio.Media._ID,
+                MediaStore.Audio.Media.DISPLAY_NAME,
+                MediaStore.Audio.Media.TITLE,
+                MediaStore.Audio.Media.MIME_TYPE,
+                MediaStore.Audio.Media.DURATION,
+                MediaStore.Audio.Media.DATA,
+                MediaStore.Audio.Media.SIZE};
+        return getProviderColumn(uri, projection);
+    }
+
     /**
      * 获取设备里的所有视频信息
      */
-    public static List<Map<String, String>> getVideoList() {
+    public static List<Map<String, String>> getVideoInfoList() {
         String[] projection = {MediaStore.Video.Media._ID,
                 MediaStore.Video.Media.DISPLAY_NAME,
                 MediaStore.Video.Media.TITLE,
@@ -164,6 +194,21 @@ public class ProviderUtils {
         String orderBy = MediaStore.Video.Media.DISPLAY_NAME;
         Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         return getProviderColumn(uri, projection, null, null, orderBy);
+    }
+
+    public static Map<String, String> getVideoInfo(Uri uri) {
+        if (uri == null) {
+            LogUtils.w(ProviderUtils.class, "getVideoInfo", "uri == null");
+            return new HashMap<>();
+        }
+        String[] projection = {MediaStore.Video.Media._ID,
+                MediaStore.Video.Media.DISPLAY_NAME,
+                MediaStore.Video.Media.TITLE,
+                MediaStore.Video.Media.MIME_TYPE,
+                MediaStore.Video.Media.DURATION,
+                MediaStore.Video.Media.DATA,
+                MediaStore.Video.Media.SIZE};
+        return getProviderColumn(uri, projection);
     }
 
     /**
@@ -192,6 +237,23 @@ public class ProviderUtils {
         }
         cursor.close();
         return list;
+    }
+
+    public static Map<String, String> getProviderColumn(Uri uri, String[] projection) {
+        Map<String, String> map = new HashMap<>();
+        Cursor cursor = AppBase.getInstance().getContentResolver()
+                .query(uri, projection, null, null, null);
+        if (null == cursor) return map;
+        if (cursor.moveToNext()) {
+            for (int i = 0; i < projection.length; i++) {
+                String key = projection[i];
+                String value = cursor.getString(i);
+                LogUtils.d(ProviderUtils.class, "getProviderColumn", "key = " + key + " | value = " + value);
+                map.put(key, value);
+            }
+        }
+        cursor.close();
+        return map;
     }
 
 }

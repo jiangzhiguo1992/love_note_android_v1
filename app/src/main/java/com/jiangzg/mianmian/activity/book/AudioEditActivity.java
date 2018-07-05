@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,9 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
@@ -22,18 +27,25 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Audio;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
-import java.util.List;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -58,6 +70,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
 
     private Audio audio;
     private Call<Result> callAdd;
+    private File audioFile;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AudioEditActivity.class);
@@ -109,9 +122,19 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // TODO
-        audio.setDuration(11);
-        refreshAudioView();
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_AUDIO) {
+            // file
+            audioFile = IntentResult.getAudioFile(data);
+            // duration
+            Map<String, String> audioInfo = ProviderUtils.getAudioInfo(data == null ? null : data.getData());
+            String duration = audioInfo.get(MediaStore.Audio.Media.DURATION);
+            if (StringUtils.isNumber(duration)) {
+                audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
+            }
+            // view
+            refreshAudioView();
+        }
     }
 
     @Override
@@ -178,11 +201,12 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
         String second = mActivity.getString(R.string.second);
         TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeHelper.getJavaTimeByGo(audio.getDuration()));
         String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
-        if (StringUtils.isEmpty(duration)) {
-            tvAudio.setText(R.string.click_select_audio);
-        } else {
-            tvAudio.setText(duration);
+        if (StringUtils.isEmpty(duration) && audioFile == null) {
+            tvAudio.setText(R.string.please_select_audio);
+            return;
         }
+        duration = StringUtils.isEmpty(duration) ? "--" : duration;
+        tvAudio.setText(duration);
     }
 
     private void checkPush() {
@@ -194,17 +218,46 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
         } else if (title.length() > SPHelper.getLimit().getAudioTitleLength()) {
             ToastUtils.show(etTitle.getHint().toString());
             return;
+        } else if (FileUtils.isFileEmpty(audioFile)) {
+            ToastUtils.show(getString(R.string.please_select_audio));
+            return;
         }
         audio.setTitle(title);
-        // TODO
-        List<String> fileData = null;
-        List<String> ossPaths = null;
-        ossUploadAudio(fileData);
+        ossUploadAudio(audioFile);
     }
 
-    private void ossUploadAudio(List<String> fileData) {
-        // TODO 上传oss
+    private void ossUploadAudio(File audioFile) {
+        OssHelper.uploadAudio(mActivity, audioFile, new OssHelper.OssUploadCallBack() {
+            @Override
+            public void success(File source, String ossPath) {
+                audio.setContentAudio(ossPath);
+                addApi();
+            }
 
+            @Override
+            public void failure(File source, String errMsg) {
+                // 不能删除本地文件，因为不是自己创建的
+            }
+        });
+    }
+
+    private void addApi() {
+        if (audio == null) return;
+        callAdd = new RetrofitHelper().call(API.class).audioAdd(audio);
+        MaterialDialog loading = getLoading(true);
+        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<ArrayList<Audio>> event = new RxEvent<>(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new ArrayList<Audio>());
+                RxBus.post(event);
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
 

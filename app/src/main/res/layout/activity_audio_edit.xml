@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="@string/click_select_audio"
+                    android:text="@string/please_select_audio"
                     android:textStyle="bold"/>
             </android.support.v7.widget.CardView>
         </LinearLayout>

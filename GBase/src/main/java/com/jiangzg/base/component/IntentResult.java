@@ -11,10 +11,12 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.media.BitmapUtils;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Map;
 
 
 /**
@@ -113,6 +115,40 @@ public class IntentResult {
             }
         }
         return uri;
+    }
+
+    public static File getAudioFile(Intent data) {
+        if (data == null) {
+            LogUtils.w(IntentResult.class, "getAudioFile", "data == null");
+            return null;
+        }
+        Uri uri = data.getData();
+        File file = ProviderUtils.getFileByUri(uri);
+        if (file == null) {
+            Map<String, String> audioInfo = ProviderUtils.getAudioInfo(uri);
+            String path = audioInfo.get(MediaStore.Audio.Media.DATA);
+            if (!StringUtils.isEmpty(path)) {
+                file = new File(path);
+            }
+        }
+        return file;
+    }
+
+    public static File getVideoFile(Intent data) {
+        if (data == null) {
+            LogUtils.w(IntentResult.class, "getVideoFile", "data == null");
+            return null;
+        }
+        Uri uri = data.getData();
+        File file = ProviderUtils.getFileByUri(uri);
+        if (file == null) {
+            Map<String, String> videoInfo = ProviderUtils.getVideoInfo(uri);
+            String path = videoInfo.get(MediaStore.Video.Media.DATA);
+            if (!StringUtils.isEmpty(path)) {
+                file = new File(path);
+            }
+        }
+        return file;
     }
 
 }

@@ -64,6 +64,8 @@ public class IntentFactory {
         intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("image/*");
+        //Intent intent = new Intent(Intent.ACTION_PICK);
+        //intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         return intent;
     }
 
@@ -90,6 +92,8 @@ public class IntentFactory {
         intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("video/*");
+        //Intent intent = new Intent(Intent.ACTION_PICK);
+        //intent.setData(MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         return intent;
     }
 

@@ -148,6 +148,8 @@
     <string name="file_no_exits">文件不存在</string>
     <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
     <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
+    <string name="audio_too_large_cant_over_holder" formatted="false">音频过大，不能超过%s</string>
+    <string name="video_too_large_cant_over_holder" formatted="false">视频过大，不能超过%s</string>
     <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
     <string name="file_create_fail">文件创建失败</string>
     <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
@@ -365,14 +367,14 @@
     <string name="add_diary">添加日记</string>
     <string name="please_select_diary">请选择日记</string>
     <string name="please_select_album">请选择相册</string>
+    <string name="please_select_audio">请选择音频</string>
+    <string name="please_select_video">请选择视频</string>
     <string name="please_select_food">请选择美食</string>
     <string name="please_select_travel">请选择游记</string>
     <string name="please_select_gift">请选择礼物</string>
     <string name="please_select_promise">请选择承诺</string>
     <string name="please_select_rule">请选择规则</string>
     <string name="please_select_score">请选择分数</string>
-    <string name="click_select_audio">点击选择音频</string>
-    <string name="click_select_video">点击选择视频</string>
     <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
     <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
     <string name="please_input_angry_content">请输入生气的原由</string>

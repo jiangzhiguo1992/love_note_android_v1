@@ -122,6 +122,13 @@ public class OssHelper {
         return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + ".jpeg";
     }
 
+    // 给后台看的 所以用CST时区
+    private static String createExtensionKey(String dir, File source) {
+        String uuid = StringUtils.getUUID(8);
+        String extension = FileUtils.getFileExtension(source);
+        return dir + DateUtils.getCurrentString(ConstantUtils.FORMAT_CHINA_Y_M_D__H_M_S_S) + "-" + uuid + extension;
+    }
+
     // 取消任务
     private static void taskCancel(OSSAsyncTask task) {
         if (task != null && !task.isCanceled() && !task.isCompleted()) {
@@ -202,7 +209,7 @@ public class OssHelper {
                 .launch();
     }
 
-    // 上传任务
+    // 上传任务 图片
     private static OSSAsyncTask uploadJpeg(Activity activity, final String ossDirPath, final File source, final OssUploadCallBack callBack) {
         // ossDirPath
         if (StringUtils.isEmpty(ossDirPath)) {
@@ -221,6 +228,35 @@ public class OssHelper {
         }
         // objectKey
         String objectKey = createJpegKey(ossDirPath);
+        // 开始时上传
+        return uploadFileWithDialogToast(activity, source, objectKey, callBack);
+    }
+
+    // 上传任务 根据后缀名
+    private static OSSAsyncTask uploadExtension(Activity activity, final String ossDirPath, final File source, final OssUploadCallBack callBack) {
+        // ossDirPath
+        if (StringUtils.isEmpty(ossDirPath)) {
+            ToastUtils.show(MyApp.get().getString(R.string.access_resource_path_no_exists));
+            LogUtils.w(OssHelper.class, "uploadAudio", "ossDirPath == null");
+            // 回调
+            if (callBack != null) {
+                MyApp.get().getHandler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        callBack.failure(source, "");
+                    }
+                });
+            }
+            return null;
+        }
+        // objectKey
+        String objectKey = createExtensionKey(ossDirPath, source);
+        // 开始时上传
+        return uploadFileWithDialogToast(activity, source, objectKey, callBack);
+    }
+
+    // 上传任务 有对话框和toast
+    private static OSSAsyncTask uploadFileWithDialogToast(Activity activity, final File source, String ossFilePath, final OssUploadCallBack callBack) {
         // dialog
         MaterialDialog progress = DialogHelper.getBuild(activity)
                 .cancelable(false)
@@ -230,10 +266,10 @@ public class OssHelper {
                 .negativeText(R.string.cancel_upload)
                 .build();
         // 开始时上传
-        return uploadFile(progress, true, source, objectKey, callBack);
+        return uploadFile(progress, true, source, ossFilePath, callBack);
     }
 
-    // 上传任务
+    // 上传任务 root
     private static OSSAsyncTask uploadFile(final MaterialDialog progress, final boolean toast, final File source,
                                            String ossFilePath, final OssUploadCallBack callBack) {
         // file
@@ -902,7 +938,7 @@ public class OssHelper {
                 String name = FileUtils.getFileNameNoExtension(file);
                 String userId = String.valueOf(SPHelper.getMe().getId());
                 String extension = FileUtils.getFileExtension(file);
-                String fileName = name + "_" + userId + "." + extension;
+                String fileName = name + "_" + userId + extension;
                 String ossFilePath = pathLog + fileName;
                 uploadFile(null, false, file, ossFilePath, new OssUploadCallBack() {
                     @Override
@@ -1004,6 +1040,47 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathBookPicture = ossInfo.getPathBookPicture();
         uploadJpegList(activity, pathBookPicture, fileList, callBack);
+    }
+
+    // 音频 (限制大小 +  持久化)
+    public static void uploadAudio(Activity activity, final File source, final OssUploadCallBack callBack) {
+        long audioSize = SPHelper.getVipLimit().getAudioSize();
+        if (source != null && source.length() >= audioSize) {
+            String audioSizeFormat = ConvertUtils.byte2FitSize(audioSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.audio_too_large_cant_over_holder), audioSizeFormat);
+            ToastUtils.show(format);
+            if (callBack != null) {
+                callBack.failure(source, "");
+            }
+            return;
+        }
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookAudio = ossInfo.getPathBookAudio();
+        uploadExtension(activity, pathBookAudio, source, callBack);
+    }
+
+    // 视频封面 (压缩 +  持久化)
+    public static void uploadVideoThumb(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookVideoThumb = ossInfo.getPathBookVideoThumb();
+        compressJpeg(activity, pathBookVideoThumb, source, callBack);
+    }
+
+    // 视频 (限制大小 +  持久化)
+    public static void uploadVideo(Activity activity, final File source, final OssUploadCallBack callBack) {
+        long videoSize = SPHelper.getVipLimit().getVideoSize();
+        if (source != null && source.length() >= videoSize) {
+            String videoSizeFormat = ConvertUtils.byte2FitSize(videoSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.video_too_large_cant_over_holder), videoSizeFormat);
+            ToastUtils.show(format);
+            if (callBack != null) {
+                callBack.failure(source, "");
+            }
+            return;
+        }
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathBookVideo = ossInfo.getPathBookVideo();
+        uploadExtension(activity, pathBookVideo, source, callBack);
     }
 
     // 美食 (压缩 + 持久化)

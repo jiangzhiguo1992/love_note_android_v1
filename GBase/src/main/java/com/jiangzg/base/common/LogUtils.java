@@ -155,6 +155,10 @@ public class LogUtils {
         String dateTime = DateUtils.getCurrentString(ConstantUtils.FORMAT_LINE_Y_M_D);
         String logFileName = prefix + "_" + dateTime + ".txt";
         final File logFile = new File(getLogDir(), logFileName);
+        if (logFile.length() >= ConstantUtils.MB) {
+            // 超过1M就不要再写了
+            return;
+        }
         // 开线程
         AppBase.getInstance().getThread().execute(new Runnable() {
             @Override
