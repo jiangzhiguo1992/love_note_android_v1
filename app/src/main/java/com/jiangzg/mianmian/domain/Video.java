@@ -3,11 +3,14 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.jiangzg.mianmian.helper.ApiHelper;
+
 /**
  * Created by JZG on 2018/7/2.
  * Video
  */
-public class Video extends BaseCP implements Parcelable {
+public class Video extends BaseCP implements Parcelable, MultiItemEntity {
 
     private long happenAt;
     private String title;
@@ -18,6 +21,11 @@ public class Video extends BaseCP implements Parcelable {
     private double latitude;
     private String address;
     private String cityId;
+
+    @Override
+    public int getItemType() {
+        return isMine() ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
+    }
 
     public long getHappenAt() {
         return happenAt;

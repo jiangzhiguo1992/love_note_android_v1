@@ -115,6 +115,8 @@
         <activity android:name=".activity.book.TravelPlaceEditActivity"/>
         <activity android:name=".activity.book.AudioListActivity"/>
         <activity android:name=".activity.book.AudioEditActivity"/>
+        <activity android:name=".activity.book.VideoListActivity"/>
+        <activity android:name=".activity.book.VideoEditActivity"/>
     </application>
 
 </manifest>

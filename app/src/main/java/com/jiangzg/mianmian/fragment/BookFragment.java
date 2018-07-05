@@ -19,6 +19,7 @@ import com.jiangzg.mianmian.activity.book.FoodListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
 import com.jiangzg.mianmian.activity.book.PromiseListActivity;
 import com.jiangzg.mianmian.activity.book.TravelListActivity;
+import com.jiangzg.mianmian.activity.book.VideoListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
@@ -167,7 +168,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.cvAudio: // 音频
                 AudioListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvVideo: // TODO 视频
+            case R.id.cvVideo: // 视频
+                VideoListActivity.goActivity(mFragment);
                 break;
             case R.id.cvFood: // 美食
                 FoodListActivity.goActivity(mFragment);
