@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 
@@ -8,7 +9,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -29,6 +33,8 @@ import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.FrescoView;
+
+import java.io.File;
 
 import retrofit2.Call;
 
@@ -98,21 +104,19 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
         helper.addOnLongClickListener(R.id.cvVideo);
     }
 
-    public void playAudio(int position) {
+    public void playVideo(int position) {
         Video item = getItem(position);
         if (item == null) return;
         // 检查是否下载完毕
         String contentVideo = item.getContentVideo();
-        boolean fileExists = OssResHelper.isKeyFileExists(contentVideo);
-        if (!fileExists) {
+        File file = OssResHelper.newKeyFile(contentVideo);
+        if (!FileUtils.isFileExists(file)) {
             ToastUtils.show(mActivity.getString(R.string.are_download));
             return;
         }
-        // TODO 播放去另一个页面
-        //Intent it = new Intent(Intent.ACTION_VIEW);
-        //Uri uri = Uri.parse(videoFilePath);
-        //it.setDataAndType(uri, "video/mp4");
-
+        // 播放调用系统界面
+        Intent intent = IntentFactory.getVideoPlay(file);
+        ActivityTrans.start(mActivity, intent);
     }
 
     public void goMapShow(int position) {

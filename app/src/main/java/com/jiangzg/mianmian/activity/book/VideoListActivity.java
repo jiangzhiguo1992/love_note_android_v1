@@ -118,7 +118,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                                 if (isSelect()) { // 礼物选择
                                     videoAdapter.selectGift(position);
                                 } else { // 播放
-                                    videoAdapter.playAudio(position);
+                                    videoAdapter.playVideo(position);
                                 }
                                 break;
                             case R.id.tvAddress: // 地图

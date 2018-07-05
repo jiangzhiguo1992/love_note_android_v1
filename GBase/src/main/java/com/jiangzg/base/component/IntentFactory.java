@@ -170,6 +170,20 @@ public class IntentFactory {
     }
 
     /**
+     * 获取播放video的意图
+     */
+    public static Intent getVideoPlay(File file) {
+        if (FileUtils.isFileEmpty(file)) {
+            LogUtils.w(IntentFactory.class, "getVideoPlay", "file == null");
+            return null;
+        }
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.parse(file.getAbsolutePath());
+        intent.setDataAndType(uri, "video/mp4");
+        return intent;
+    }
+
+    /**
      * 获取打开当前App的意图
      */
     public static Intent getApp(String appPackageName) {

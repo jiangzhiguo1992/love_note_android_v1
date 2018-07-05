@@ -304,7 +304,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                                 VideoAdapter videoAdapter = (VideoAdapter) adapter;
                                 switch (view.getId()) {
                                     case R.id.cvVideo: // 播放
-                                        videoAdapter.playAudio(position);
+                                        videoAdapter.playVideo(position);
                                         break;
                                     case R.id.tvAddress: // 地图
                                         videoAdapter.goMapShow(position);
