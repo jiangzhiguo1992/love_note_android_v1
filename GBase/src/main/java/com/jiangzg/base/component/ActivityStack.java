@@ -216,7 +216,7 @@ public class ActivityStack {
     }
 
     /**
-     * 是否关闭了
+     * 是否关闭了,一般是有view需要借助activity显示才判断，没有view的话 应该没事
      */
     public static boolean isActivityFinish(Activity activity) {
         return activity == null || activity.isFinishing() || activity.isDestroyed();

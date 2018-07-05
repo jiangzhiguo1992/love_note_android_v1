@@ -170,7 +170,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void refreshDateView() {
-        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(audio.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(audio.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

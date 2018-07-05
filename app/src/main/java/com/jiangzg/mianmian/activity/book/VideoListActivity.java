@@ -57,7 +57,6 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     private RecyclerHelper recyclerHelper;
     private Observable<List<Video>> obListRefresh;
     private Observable<Video> obListItemDelete;
-    private Observable<Video> obListItemRefresh;
     private Call<Result> call;
     private int page;
 
@@ -131,7 +130,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
-                        videoAdapter.goVideoEdit(position);
+                        videoAdapter.showDeleteDialog(position);
                     }
                 });
     }
@@ -154,13 +153,6 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), video);
             }
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_VIDEO_LIST_ITEM_REFRESH, new Action1<Video>() {
-            @Override
-            public void call(Video video) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), video);
-            }
-        });
         // refresh
         recyclerHelper.dataRefresh();
     }
@@ -169,9 +161,8 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, obListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_VIDEO_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override

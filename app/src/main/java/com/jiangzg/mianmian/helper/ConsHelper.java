@@ -56,7 +56,6 @@ public class ConsHelper {
     public static final int EVENT_AUDIO_LIST_ITEM_DELETE = 341;
     public static final int EVENT_VIDEO_LIST_REFRESH = 342; // 视频
     public static final int EVENT_VIDEO_LIST_ITEM_DELETE = 343;
-    public static final int EVENT_VIDEO_LIST_ITEM_REFRESH = 344;
     public static final int EVENT_FOOD_LIST_REFRESH = 345; // 美食
     public static final int EVENT_FOOD_LIST_ITEM_DELETE = 346;
     public static final int EVENT_TRAVEL_LIST_REFRESH = 347; // 游记

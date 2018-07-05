@@ -10,21 +10,26 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.TimeUnit;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.VideoEditActivity;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
+import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Video;
+import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.FrescoView;
+
+import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -95,17 +100,52 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
         // TODO
     }
 
-    public void goVideoEdit(int position) {
-        Video item = getItem(position);
-        VideoEditActivity.goActivity(mActivity, item);
-    }
-
     public void goMapShow(int position) {
         Video item = getItem(position);
         String address = item.getAddress();
         double longitude = item.getLongitude();
         double latitude = item.getLatitude();
         MapShowActivity.goActivity(mActivity, address, longitude, latitude);
+    }
+
+    public void showDeleteDialog(final int position) {
+        Video item = getItem(position);
+        if (!item.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_video));
+            return;
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_delete_this_video)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi(position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi(int position) {
+        final Video item = getItem(position);
+        Call<Result> call = new RetrofitHelper().call(API.class).videoDel(item.getId());
+        MaterialDialog loading = mActivity.getLoading(true);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Video> event = new RxEvent<>(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, item);
+                RxBus.post(event);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+            }
+        });
     }
 
     public void showDeleteDialogNoApi(final int position) {

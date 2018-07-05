@@ -434,8 +434,4 @@ public interface API {
     @DELETE("book/video")
     Call<Result> videoDel(@Query("vid") long vid);
 
-    // video修改
-    @PUT("book/video")
-    Call<Result> videoUpdate(@Body Video video);
-
 }
