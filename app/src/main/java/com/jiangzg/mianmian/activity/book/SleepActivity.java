@@ -2,18 +2,22 @@ package com.jiangzg.mianmian.activity.book;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.FrescoView;
+import com.jiangzg.mianmian.view.FrescoAvatarView;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,10 +26,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.cvDate)
-    CalendarView cvDate;
+    @BindView(R.id.mcvSleep)
+    MaterialCalendarView mcvSleep;
     @BindView(R.id.ivAvatarLeft)
-    FrescoView ivAvatarLeft;
+    FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.tvStateLeft)
     TextView tvStateLeft;
     @BindView(R.id.tvSleep)
@@ -33,7 +37,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @BindView(R.id.cvSleep)
     CardView cvSleep;
     @BindView(R.id.ivAvatarRight)
-    FrescoView ivAvatarRight;
+    FrescoAvatarView ivAvatarRight;
     @BindView(R.id.tvStateRight)
     TextView tvStateRight;
 
@@ -52,7 +56,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.sleep), true);
-
+        // calendar
+        initCalendarView();
     }
 
     @Override
@@ -72,6 +77,24 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 // TODO
                 break;
         }
+    }
+
+    private void initCalendarView() {
+        ViewHelper.initCalenderView(mActivity, mcvSleep);
+        // 设置点击选择日期改变事件
+        mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+
+            }
+        });
+        // 设置滑动选择改变月份事件
+        mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+
+            }
+        });
     }
 
 }

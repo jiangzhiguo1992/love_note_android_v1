@@ -25,11 +25,15 @@ import android.widget.TextView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.MyApp;
+import com.prolificinteractive.materialcalendarview.CalendarMode;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -276,4 +280,33 @@ public class ViewHelper {
         llCancel.setOnClickListener(listener);
         return window;
     }
+
+    public static void initCalenderView(Activity activity, MaterialCalendarView view) {
+        int colorDark = ContextCompat.getColor(activity, ViewHelper.getColorDark(activity));
+        // text
+        view.setHeaderTextAppearance(R.style.FontWhiteBig);
+        view.setWeekDayTextAppearance(R.style.FontWhiteSmall);
+        view.setDateTextAppearance(R.style.FontWhiteNormal);
+        view.setWeekDayLabels(R.array.week_label);
+        view.setTitleMonths(R.array.month_label);
+        // selection
+        view.clearSelection();
+        view.setSelectionColor(colorDark);
+        view.setSelectedDate(DateUtils.getCurrentDate());
+        view.setCurrentDate(DateUtils.getCurrentDate());
+        // arrow
+        view.setLeftArrowMask(null);
+        view.setRightArrowMask(null);
+        // other
+        view.removeDecorators();
+        view.setShowOtherDates(MaterialCalendarView.SHOW_OUT_OF_RANGE);
+        view.setPagingEnabled(true);
+        view.setAllowClickDaysOutsideCurrentMonth(false);
+        view.state().edit()
+                .setFirstDayOfWeek(Calendar.SUNDAY)
+                .setMaximumDate(DateUtils.getCurrentDate())
+                .setCalendarDisplayMode(CalendarMode.MONTHS)
+                .commit();
+    }
+
 }
