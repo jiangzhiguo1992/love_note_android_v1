@@ -1,15 +1,18 @@
 package com.jiangzg.mianmian.helper;
 
-import com.jiangzg.base.common.ConstantUtils;
-
 /**
  * Created by Jiang on 5/26/16.
  * 常量类
  */
 public class ConsHelper {
 
-    // imgLimit
-    public static final int UPLOAD_IMAGE_SIZE_MAX = ConstantUtils.MB * 10;
+    // activityFrom ConsHelper.ACT_
+    public static final int ACT_FROM_BROWSE = 0;
+    public static final int ACT_FROM_SELECT = 1;
+    public static final int ACT_FROM_SELECT_ALBUM = 2;
+    public static final int ACT_FROM_SELECT_PICTURE = 3;
+    public static final int ACT_FROM_ADD = 20;
+    public static final int ACT_FROM_UPDATE = 21;
     // requestCode
     public static final int REQUEST_APP_INFO = 1001;
     public static final int REQUEST_DEVICE_INFO = 1002;

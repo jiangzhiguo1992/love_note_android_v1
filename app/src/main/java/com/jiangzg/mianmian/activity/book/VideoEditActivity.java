@@ -92,7 +92,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, VideoEditActivity.class);
-        //intent.putExtra("type", TYPE_ADD);
+        // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

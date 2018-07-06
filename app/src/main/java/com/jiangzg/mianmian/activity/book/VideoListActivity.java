@@ -43,9 +43,6 @@ import rx.functions.Action1;
 
 public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
-    private static final int FROM_BROWSE = 0;
-    private static final int FROM_SELECT = 1;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -63,14 +60,14 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), VideoListActivity.class);
-        intent.putExtra("from", FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, VideoListActivity.class);
-        intent.putExtra("from", FROM_SELECT);
+        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -83,7 +80,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         String title;
-        if (isSelect()) {
+        if (isFromSelect()) {
             title = getString(R.string.please_select_video);
         } else {
             title = getString(R.string.video);
@@ -115,7 +112,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                         VideoAdapter videoAdapter = (VideoAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.cvVideo:
-                                if (isSelect()) { // 礼物选择
+                                if (isFromSelect()) { // 礼物选择
                                     videoAdapter.selectGift(position);
                                 } else { // 播放
                                     videoAdapter.playVideo(position);
@@ -172,7 +169,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isSelect()) {
+        if (!isFromSelect()) {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -197,8 +194,8 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
         }
     }
 
-    private boolean isSelect() {
-        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
+    private boolean isFromSelect() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

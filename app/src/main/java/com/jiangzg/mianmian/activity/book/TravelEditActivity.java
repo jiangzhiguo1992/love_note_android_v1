@@ -67,9 +67,6 @@ import rx.functions.Action1;
 
 public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_UPDATE = 1;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.etTitle)
@@ -115,7 +112,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, TravelEditActivity.class);
-        intent.putExtra("type", TYPE_ADD);
+        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -129,7 +126,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             return;
         }
         Intent intent = new Intent(from, TravelEditActivity.class);
-        intent.putExtra("type", TYPE_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
         intent.putExtra("travel", travel);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -144,7 +141,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.travel), true);
         // init
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             travel = intent.getParcelableExtra("travel");
         }
         if (travel == null) {
@@ -412,8 +409,8 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         }
     }
 
-    private boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
     private void refreshPlaceView() {
@@ -508,7 +505,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             List<TravelDiary> diaryList = ListHelper.getTravelDiaryListByOld(travel.getTravelDiaryList(), adapter.getData());
             body.setTravelDiaryList(diaryList);
         }
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             updateApi(body);
         } else {
             addApi(body);

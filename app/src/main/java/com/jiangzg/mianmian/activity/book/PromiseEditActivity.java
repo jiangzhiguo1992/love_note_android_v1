@@ -47,9 +47,6 @@ import retrofit2.Call;
 
 public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_UPDATE = 1;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.cvHappenAt)
@@ -76,7 +73,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PromiseEditActivity.class);
-        intent.putExtra("type", TYPE_ADD);
+        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -90,7 +87,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PromiseEditActivity.class);
-        intent.putExtra("type", TYPE_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
         intent.putExtra("promise", promise);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -105,7 +102,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.promise), true);
         // init
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             promise = intent.getParcelableExtra("promise");
         }
         if (promise == null) {
@@ -165,12 +162,12 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         }
     }
 
-    private boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
     private void initHappenCheck() {
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             rgHappenUser.setVisibility(View.GONE);
             return;
         }
@@ -235,7 +232,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             updateApi();
         } else {
             addApi();

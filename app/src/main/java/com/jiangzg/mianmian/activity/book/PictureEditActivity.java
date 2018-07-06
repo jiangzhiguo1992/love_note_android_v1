@@ -62,9 +62,6 @@ import rx.functions.Action1;
 
 public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_UPDATE = 1;
-
     @BindView(R.id.root)
     LinearLayout root;
     @BindView(R.id.tb)
@@ -105,7 +102,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);
-        intent.putExtra("type", TYPE_ADD);
+        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -120,7 +117,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);
-        intent.putExtra("type", TYPE_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
         intent.putExtra("album", album);
         intent.putExtra("picture", picture);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -138,8 +135,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.picture), true);
         // init
         album = intent.getParcelableExtra("album");
-        boolean typeUpdate = isTypeUpdate();
-        if (typeUpdate) {
+        boolean fromUpdate = isFromUpdate();
+        if (fromUpdate) {
             picture = intent.getParcelableExtra("picture");
         }
         if (picture == null) {
@@ -155,7 +152,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         // recycler
         ImgSquareEditAdapter imgAdapter;
         int spanCount;
-        if (typeUpdate) {
+        if (fromUpdate) {
             // 更新
             spanCount = 1;
             imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, spanCount);
@@ -293,8 +290,8 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         }
     }
 
-    private boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
     private void refreshAlbum() {
@@ -348,7 +345,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 picture.setAlbumId(album.getId());
             }
         }
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             // 更新
             commitUpdate();
         } else {

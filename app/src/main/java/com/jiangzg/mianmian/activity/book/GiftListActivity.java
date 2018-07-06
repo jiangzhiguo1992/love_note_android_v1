@@ -48,9 +48,6 @@ import rx.functions.Action1;
 
 public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
-    private static final int FROM_BROWSE = 0;
-    private static final int FROM_SELECT = 1;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -74,14 +71,14 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), GiftListActivity.class);
-        intent.putExtra("from", FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, GiftListActivity.class);
-        intent.putExtra("from", FROM_SELECT);
+        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -94,7 +91,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         String title;
-        if (isSelect()) {
+        if (isFromSelect()) {
             title = getString(R.string.please_select_gift);
         } else {
             title = getString(R.string.gift);
@@ -124,7 +121,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         GiftAdapter giftAdapter = (GiftAdapter) adapter;
-                        if (isSelect()) {
+                        if (isFromSelect()) {
                             // 礼物选择
                             giftAdapter.selectGift(position);
                         }
@@ -179,7 +176,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isSelect()) {
+        if (!isFromSelect()) {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -207,8 +204,8 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
         }
     }
 
-    private boolean isSelect() {
-        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
+    private boolean isFromSelect() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

@@ -62,9 +62,6 @@ import retrofit2.Call;
 
 public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_UPDATE = 1;
-
     @BindView(R.id.root)
     LinearLayout root;
     @BindView(R.id.tb)
@@ -96,7 +93,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftEditActivity.class);
-        intent.putExtra("type", TYPE_ADD);
+        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -110,7 +107,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             return;
         }
         Intent intent = new Intent(from, GiftEditActivity.class);
-        intent.putExtra("type", TYPE_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
         intent.putExtra("gift", gift);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -125,7 +122,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.gift), true);
         // init
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             gift = intent.getParcelableExtra("gift");
         }
         if (gift == null) {
@@ -144,7 +141,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         initReceiveCheck();
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getGiftImageCount();
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             // 编辑
             if (gift.getContentImageList() == null || gift.getContentImageList().size() <= 0) {
                 // 旧数据没有图片
@@ -178,7 +175,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             getMenuInflater().inflate(R.menu.help_del, menu);
         } else {
             getMenuInflater().inflate(R.menu.help, menu);
@@ -245,8 +242,8 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         }
     }
 
-    private boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
     private void initReceiveCheck() {
@@ -363,7 +360,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void api(List<String> ossPathList) {
         gift.setContentImageList(ossPathList);
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             updateApi();
         } else {
             addApi();

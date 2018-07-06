@@ -44,9 +44,6 @@ import retrofit2.Call;
 
 public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_UPDATE = 1;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.cvHappenAt)
@@ -69,7 +66,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DreamEditActivity.class);
-        intent.putExtra("type", TYPE_ADD);
+        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -83,7 +80,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             return;
         }
         Intent intent = new Intent(from, DreamEditActivity.class);
-        intent.putExtra("type", TYPE_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
         intent.putExtra("dream", dream);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -98,7 +95,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
         // init
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             dream = intent.getParcelableExtra("dream");
         } else {
             dream = SPHelper.getDraftDream();
@@ -161,8 +158,8 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         }
     }
 
-    private boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
     private void showDatePicker() {
@@ -208,7 +205,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             ToastUtils.show(etContent.getHint().toString());
             return;
         }
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             updateApi();
         } else {
             addApi();

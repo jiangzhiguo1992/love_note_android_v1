@@ -46,9 +46,6 @@ import rx.functions.Action1;
 
 public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
-    private static final int FROM_BROWSE = 0;
-    private static final int FROM_SELECT = 1;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -72,14 +69,14 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), PromiseListActivity.class);
-        intent.putExtra("from", FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, PromiseListActivity.class);
-        intent.putExtra("from", FROM_SELECT);
+        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -92,7 +89,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         String title;
-        if (isSelect()) {
+        if (isFromSelect()) {
             title = getString(R.string.please_select_promise);
         } else {
             title = getString(R.string.promise);
@@ -122,7 +119,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         PromiseAdapter promiseAdapter = (PromiseAdapter) adapter;
-                        if (isSelect()) {
+                        if (isFromSelect()) {
                             // 承诺选择
                             promiseAdapter.selectPromise(position);
                         } else {
@@ -173,7 +170,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isSelect()) {
+        if (!isFromSelect()) {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -201,8 +198,8 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         }
     }
 
-    private boolean isSelect() {
-        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
+    private boolean isFromSelect() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

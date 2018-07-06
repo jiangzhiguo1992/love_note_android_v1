@@ -45,10 +45,6 @@ import rx.functions.Action1;
 
 public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
-    private static final int FROM_BROWSE = 0;
-    private static final int FROM_SELECT_ALBUM = 1;
-    private static final int FROM_SELECT_PICTURE = 2;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -67,21 +63,21 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), AlbumListActivity.class);
-        intent.putExtra("from", FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelectAlbum(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("from", FROM_SELECT_ALBUM);
+        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT_ALBUM);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelectPicture(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("from", FROM_SELECT_PICTURE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT_PICTURE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -94,7 +90,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         String title;
-        if (isSelectAlbum() || isSelectPicture()) {
+        if (isFromSelectAlbum() || isFromSelectPicture()) {
             title = getString(R.string.please_select_album);
         } else {
             title = getString(R.string.album);
@@ -124,10 +120,10 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        if (isSelectAlbum()) {
+                        if (isFromSelectAlbum()) {
                             // 相册选择
                             albumAdapter.selectAlbum(position);
-                        } else if (isSelectPicture()) {
+                        } else if (isFromSelectPicture()) {
                             // 照片列表选择
                             albumAdapter.selectPicture(position);
                         } else {
@@ -218,7 +214,7 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isSelectAlbum() && !isSelectPicture()) {
+        if (!isFromSelectAlbum() && !isFromSelectPicture()) {
             getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -243,12 +239,12 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
         }
     }
 
-    private boolean isSelectAlbum() {
-        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT_ALBUM;
+    private boolean isFromSelectAlbum() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT_ALBUM;
     }
 
-    private boolean isSelectPicture() {
-        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT_PICTURE;
+    private boolean isFromSelectPicture() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT_PICTURE;
     }
 
     private void getData(final boolean more) {

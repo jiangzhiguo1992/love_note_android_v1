@@ -55,9 +55,6 @@ import rx.functions.Action1;
 
 public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
-    private static final int FROM_BROWSE = 0;
-    private static final int FROM_SELECT = 1;
-
     @BindView(R.id.root)
     CoordinatorLayout root;
     @BindView(R.id.abl)
@@ -101,7 +98,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, long albumId) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
         intent.putExtra("albumId", albumId);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -109,7 +106,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -117,7 +114,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivityBySelect(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", FROM_SELECT);
+        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -157,7 +154,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         PictureAdapter pictureAdapter = (PictureAdapter) adapter;
-                        if (isSelectPicture()) {
+                        if (isFromSelectPicture()) {
                             // 照片选择
                             pictureAdapter.selectPicture(position);
                         } else {
@@ -282,8 +279,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         }
     }
 
-    private boolean isSelectPicture() {
-        return getIntent().getIntExtra("from", FROM_BROWSE) == FROM_SELECT;
+    private boolean isFromSelectPicture() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT;
     }
 
     private void refreshAlbumView() {

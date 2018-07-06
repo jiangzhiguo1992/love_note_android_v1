@@ -58,9 +58,6 @@ import retrofit2.Call;
 
 public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_UPDATE = 1;
-
     @BindView(R.id.root)
     RelativeLayout root;
     @BindView(R.id.tb)
@@ -83,7 +80,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        intent.putExtra("type", TYPE_ADD);
+        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -97,7 +94,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             return;
         }
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        intent.putExtra("type", TYPE_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -112,7 +109,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.album), true);
         // init
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             album = intent.getParcelableExtra("album");
         }
         if (album == null) {
@@ -224,8 +221,8 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         return false;
     }
 
-    public boolean isTypeUpdate() {
-        return getIntent().getIntExtra("type", TYPE_ADD) == TYPE_UPDATE;
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
     private void refreshDateView() {
@@ -323,7 +320,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void commit() {
         album.setTitle(etTitle.getText().toString().trim());
-        if (isTypeUpdate()) {
+        if (isFromUpdate()) {
             updateApi();
         } else {
             addApi();
