@@ -72,13 +72,13 @@ public class Result implements Serializable {
         private PairCard pairCard;
         private int togetherDay;
         private WallPaper wallPaper;
-        private Place myPlace;
-        private Place taPlace;
+        private Place placeMe;
+        private Place placeTa;
         private List<Place> placeList;
-        private WeatherToday myWeatherToday;
-        private WeatherToday taWeatherToday;
-        private List<WeatherForecast> myWeatherForecastList;
-        private List<WeatherForecast> taWeatherForecastList;
+        private WeatherToday weatherTodayMe;
+        private WeatherToday weatherTodayTa;
+        private List<WeatherForecast> weatherForecastListMe;
+        private List<WeatherForecast> weatherForecastListTa;
         private Word word;
         private List<Word> wordList;
         private Whisper whisper;
@@ -312,36 +312,36 @@ public class Result implements Serializable {
             this.placeList = placeList;
         }
 
-        public WeatherToday getMyWeatherToday() {
-            return myWeatherToday;
+        public WeatherToday getWeatherTodayMe() {
+            return weatherTodayMe;
         }
 
-        public void setMyWeatherToday(WeatherToday myWeatherToday) {
-            this.myWeatherToday = myWeatherToday;
+        public void setWeatherTodayMe(WeatherToday weatherTodayMe) {
+            this.weatherTodayMe = weatherTodayMe;
         }
 
-        public WeatherToday getTaWeatherToday() {
-            return taWeatherToday;
+        public WeatherToday getWeatherTodayTa() {
+            return weatherTodayTa;
         }
 
-        public void setTaWeatherToday(WeatherToday taWeatherToday) {
-            this.taWeatherToday = taWeatherToday;
+        public void setWeatherTodayTa(WeatherToday weatherTodayTa) {
+            this.weatherTodayTa = weatherTodayTa;
         }
 
-        public List<WeatherForecast> getMyWeatherForecastList() {
-            return myWeatherForecastList;
+        public List<WeatherForecast> getWeatherForecastListMe() {
+            return weatherForecastListMe;
         }
 
-        public void setMyWeatherForecastList(List<WeatherForecast> myWeatherForecastList) {
-            this.myWeatherForecastList = myWeatherForecastList;
+        public void setWeatherForecastListMe(List<WeatherForecast> weatherForecastListMe) {
+            this.weatherForecastListMe = weatherForecastListMe;
         }
 
-        public List<WeatherForecast> getTaWeatherForecastList() {
-            return taWeatherForecastList;
+        public List<WeatherForecast> getWeatherForecastListTa() {
+            return weatherForecastListTa;
         }
 
-        public void setTaWeatherForecastList(List<WeatherForecast> taWeatherForecastList) {
-            this.taWeatherForecastList = taWeatherForecastList;
+        public void setWeatherForecastListTa(List<WeatherForecast> weatherForecastListTa) {
+            this.weatherForecastListTa = weatherForecastListTa;
         }
 
         public int getTogetherDay() {
@@ -504,20 +504,20 @@ public class Result implements Serializable {
             this.diaryList = diaryList;
         }
 
-        public Place getMyPlace() {
-            return myPlace;
+        public Place getPlaceMe() {
+            return placeMe;
         }
 
-        public void setMyPlace(Place myPlace) {
-            this.myPlace = myPlace;
+        public void setPlaceMe(Place placeMe) {
+            this.placeMe = placeMe;
         }
 
-        public Place getTaPlace() {
-            return taPlace;
+        public Place getPlaceTa() {
+            return placeTa;
         }
 
-        public void setTaPlace(Place taPlace) {
-            this.taPlace = taPlace;
+        public void setPlaceTa(Place placeTa) {
+            this.placeTa = placeTa;
         }
 
         public WallPaper getWallPaper() {

@@ -233,10 +233,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 SPHelper.setTa(data.getUserTa());
                 SPHelper.setTogetherDay(data.getTogetherDay());
                 SPHelper.setWallPaper(data.getWallPaper());
-                myPlace = data.getMyPlace();
-                taPlace = data.getTaPlace();
-                myWeatherToday = data.getMyWeatherToday();
-                taWeatherToday = data.getTaWeatherToday();
+                myPlace = data.getPlaceMe();
+                taPlace = data.getPlaceTa();
+                myWeatherToday = data.getWeatherTodayMe();
+                taWeatherToday = data.getWeatherTodayTa();
                 refreshView();
                 // 刷新地址+天气
                 refreshPlaceWeatherDate();
@@ -263,10 +263,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 RetrofitHelper.enqueue(callPlaceGet, null, new RetrofitHelper.CallBack() {
                     @Override
                     public void onResponse(int code, String message, Result.Data data) {
-                        myPlace = data.getMyPlace();
-                        taPlace = data.getTaPlace();
-                        myWeatherToday = data.getMyWeatherToday();
-                        taWeatherToday = data.getTaWeatherToday();
+                        myPlace = data.getPlaceMe();
+                        taPlace = data.getPlaceTa();
+                        myWeatherToday = data.getWeatherTodayMe();
+                        taWeatherToday = data.getWeatherTodayTa();
                         refreshPlaceView();
                         refreshWeatherView();
                     }
