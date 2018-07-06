@@ -57,7 +57,7 @@
                         android:id="@+id/cvTrends"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="7dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginEnd="3dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
@@ -84,7 +84,7 @@
                         android:id="@+id/cvMenses"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="7dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginEnd="3dp"
                         android:layout_marginStart="3dp"
                         android:layout_weight="1"
@@ -108,10 +108,37 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
+                        android:id="@+id/cvShy"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginStart="3dp"
+                        android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/radius_normal"
+                        app:cardElevation="@dimen/elevation_normal"
+                        app:cardMaxElevation="@dimen/elevation_big">
+
+                        <TextView
+                            style="@style/FontGreyNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="3dp"
+                            android:drawableTop="@drawable/ic_shy_yellow"
+                            android:gravity="center"
+                            android:paddingBottom="8dp"
+                            android:paddingTop="8dp"
+                            android:text="@string/shy"/>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
                         android:id="@+id/cvSleep"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="7dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="3dp"
                         android:layout_weight="1"
@@ -392,7 +419,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="5dp"
-                            android:drawableTop="@drawable/ic_gift_yellow_accent"
+                            android:drawableTop="@drawable/ic_gift_lime"
                             android:gravity="center"
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"
@@ -507,7 +534,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawablePadding="5dp"
-                            android:drawableTop="@drawable/ic_award_lime"
+                            android:drawableTop="@drawable/ic_award_indigo_accent"
                             android:gravity="center"
                             android:paddingBottom="10dp"
                             android:paddingTop="10dp"

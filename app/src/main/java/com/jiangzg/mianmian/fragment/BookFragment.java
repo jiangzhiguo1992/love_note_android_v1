@@ -18,6 +18,7 @@ import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.FoodListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
 import com.jiangzg.mianmian.activity.book.PromiseListActivity;
+import com.jiangzg.mianmian.activity.book.SleepActivity;
 import com.jiangzg.mianmian.activity.book.TravelListActivity;
 import com.jiangzg.mianmian.activity.book.VideoListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
@@ -47,10 +48,13 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @BindView(R.id.cvSouvenir)
     CardView cvSouvenir;
+
     @BindView(R.id.cvTrends)
     CardView cvTrends;
     @BindView(R.id.cvMenses)
     CardView cvMenses;
+    @BindView(R.id.cvShy)
+    CardView cvShy;
     @BindView(R.id.cvSleep)
     CardView cvSleep;
 
@@ -132,7 +136,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvSouvenir, R.id.cvTrends, R.id.cvMenses, R.id.cvSleep,
+    @OnClick({R.id.cvSouvenir,
+            R.id.cvTrends, R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
             R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
             R.id.cvAudio, R.id.cvVideo, R.id.cvFood, R.id.cvTravel,
             R.id.cvGift, R.id.cvPromise, R.id.cvAngry, R.id.cvDream,
@@ -151,7 +156,10 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvMenses: // TODO 姨妈
                 break;
-            case R.id.cvSleep: // TODO 睡眠
+            case R.id.cvShy: // TODO 羞羞
+                break;
+            case R.id.cvSleep: // 睡眠
+                SleepActivity.goActivity(mFragment);
                 break;
             case R.id.cvWord: // 留言
                 WordListActivity.goActivity(mFragment);

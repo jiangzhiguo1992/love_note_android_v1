@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion '26.0.3'
+    buildToolsVersion '27.0.3'
     compileSdkVersion 27 // 最高运行版本
     defaultConfig {
         targetSdkVersion 27 // 最高效果版本
@@ -164,7 +164,7 @@ android {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
             jniLibs.srcDirs = ['libs'] // 指定lib库目录
         }
-        instrumentTest.setRoot('tests') // 指定测试所在的路径
+        androidTest.setRoot('tests') // 指定测试所在的路径
         debug.setRoot('build-types/debug') // 指定debug模式的路径
         release.setRoot('build-types/release') // 指定release模式的路径
     }
@@ -229,9 +229,10 @@ dependencies {
 //    implementation 'com.facebook.fresco:animated-gif:0.13.0'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
+    implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
     // 三方
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0' // oss
-    compile 'com.amap.api:location:3.8.0' // 地图定位
-    compile 'com.amap.api:map2d:5.2.0' // 地图2D
-    compile 'com.amap.api:search:6.1.0' // 地图搜索
+    implementation 'com.amap.api:location:3.8.0' // 地图定位
+    implementation 'com.amap.api:map2d:5.2.0' // 地图2D
+    implementation 'com.amap.api:search:6.1.0' // 地图搜索
 }

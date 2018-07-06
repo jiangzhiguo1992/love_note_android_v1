@@ -79,6 +79,8 @@ public class Result implements Serializable {
         private WeatherToday weatherTodayTa;
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
+        private Sleep sleep;
+        private List<SleepInfo> sleepInfoList;
         private Word word;
         private List<Word> wordList;
         private Whisper whisper;
@@ -111,6 +113,22 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+
+        public Sleep getSleep() {
+            return sleep;
+        }
+
+        public void setSleep(Sleep sleep) {
+            this.sleep = sleep;
+        }
+
+        public List<SleepInfo> getSleepInfoList() {
+            return sleepInfoList;
+        }
+
+        public void setSleepInfoList(List<SleepInfo> sleepInfoList) {
+            this.sleepInfoList = sleepInfoList;
+        }
 
         public Audio getAudio() {
             return audio;

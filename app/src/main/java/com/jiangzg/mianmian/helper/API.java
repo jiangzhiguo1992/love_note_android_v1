@@ -16,6 +16,7 @@ import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Promise;
 import com.jiangzg.mianmian.domain.PromiseBreak;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.Sleep;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
@@ -433,5 +434,17 @@ public interface API {
     // video删除
     @DELETE("book/video")
     Call<Result> videoDel(@Query("vid") long vid);
+
+    // sleepList获取
+    @GET("book/sleep?latest=0&date=1")
+    Call<Result> sleepListGetByDate(@Query("who") int who, @Query("year") int year, @Query("month") int month);
+
+    // sleep获取
+    @GET("book/sleep?latest=1&date=0")
+    Call<Result> sleepLatestGet();
+
+    // sleep上传
+    @POST("book/sleep")
+    Call<Result> sleepAdd(@Body Sleep sleep);
 
 }
