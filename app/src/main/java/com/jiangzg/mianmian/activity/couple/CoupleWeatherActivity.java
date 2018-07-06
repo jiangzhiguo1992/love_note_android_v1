@@ -149,11 +149,11 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 if (srl == null || recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 // right
-                String myShow = data.getMyShow();
+                String myShow = data.getShowMe();
                 List<WeatherForecast> myWeatherForecastList = data.getMyWeatherForecastList();
                 setTopViewRight(myShow, myWeatherForecastList);
                 // left
-                String taShow = data.getTaShow();
+                String taShow = data.getShowTa();
                 List<WeatherForecast> taWeatherForecastList = data.getTaWeatherForecastList();
                 setTopViewLeft(taShow, taWeatherForecastList);
                 // recycler

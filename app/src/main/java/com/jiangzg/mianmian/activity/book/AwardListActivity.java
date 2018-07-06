@@ -228,12 +228,12 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
         RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                String myTotal = String.valueOf(data.getMyTotal());
-                if (data.getMyTotal() > 0) {
+                String myTotal = String.valueOf(data.getTotalMe());
+                if (data.getTotalMe() > 0) {
                     myTotal = "+" + myTotal;
                 }
-                String taTotal = String.valueOf(data.getTaTotal());
-                if (data.getTaTotal() > 0) {
+                String taTotal = String.valueOf(data.getTotalTa());
+                if (data.getTotalTa() > 0) {
                     taTotal = "+" + taTotal;
                 }
                 tvScoreMe.setText(myTotal);

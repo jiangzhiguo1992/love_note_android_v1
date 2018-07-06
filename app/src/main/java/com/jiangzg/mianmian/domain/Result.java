@@ -48,11 +48,11 @@ public class Result implements Serializable {
     public static class Data {
 
         private String show;
+        private String showMe;
+        private String showTa;
         private long total;
-        private long myTotal;
-        private long taTotal;
-        private String myShow;
-        private String taShow;
+        private long totalMe;
+        private long totalTa;
         private User user;
         private Limit limit;
         private VipLimit vipLimit;
@@ -67,8 +67,8 @@ public class Result implements Serializable {
         private List<Suggest> suggestList;
         private List<SuggestComment> suggestCommentList;
         private Couple couple;
-        private User me;
-        private User ta;
+        private User userMe;
+        private User userTa;
         private PairCard pairCard;
         private int togetherDay;
         private WallPaper wallPaper;
@@ -176,20 +176,20 @@ public class Result implements Serializable {
             this.food = food;
         }
 
-        public long getMyTotal() {
-            return myTotal;
+        public long getTotalMe() {
+            return totalMe;
         }
 
-        public void setMyTotal(long myTotal) {
-            this.myTotal = myTotal;
+        public void setTotalMe(long totalMe) {
+            this.totalMe = totalMe;
         }
 
-        public long getTaTotal() {
-            return taTotal;
+        public long getTotalTa() {
+            return totalTa;
         }
 
-        public void setTaTotal(long taTotal) {
-            this.taTotal = taTotal;
+        public void setTotalTa(long totalTa) {
+            this.totalTa = totalTa;
         }
 
         public List<Award> getAwardList() {
@@ -408,36 +408,36 @@ public class Result implements Serializable {
             this.commonConst = commonConst;
         }
 
-        public User getMe() {
-            return me;
+        public User getUserMe() {
+            return userMe;
         }
 
-        public void setMe(User me) {
-            this.me = me;
+        public void setUserMe(User userMe) {
+            this.userMe = userMe;
         }
 
-        public User getTa() {
-            return ta;
+        public User getUserTa() {
+            return userTa;
         }
 
-        public void setTa(User ta) {
-            this.ta = ta;
+        public void setUserTa(User userTa) {
+            this.userTa = userTa;
         }
 
-        public String getMyShow() {
-            return myShow;
+        public String getShowMe() {
+            return showMe;
         }
 
-        public void setMyShow(String myShow) {
-            this.myShow = myShow;
+        public void setShowMe(String showMe) {
+            this.showMe = showMe;
         }
 
-        public String getTaShow() {
-            return taShow;
+        public String getShowTa() {
+            return showTa;
         }
 
-        public void setTaShow(String taShow) {
-            this.taShow = taShow;
+        public void setShowTa(String showTa) {
+            this.showTa = showTa;
         }
 
         public Album getAlbum() {
