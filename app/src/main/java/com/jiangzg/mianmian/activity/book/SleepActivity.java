@@ -165,7 +165,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void initCalendarView() {
-        ViewHelper.initCalenderView(mActivity, mcvSleep);
+        ViewHelper.initMonthView(mActivity, mcvSleep);
         // 设置点击选择日期改变事件
         mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override

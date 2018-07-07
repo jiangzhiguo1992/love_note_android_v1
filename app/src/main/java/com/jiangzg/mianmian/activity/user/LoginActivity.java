@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -57,8 +59,12 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     TextInputEditText etCode;
     @BindView(R.id.btnSendCode)
     Button btnSendCode;
-    @BindView(R.id.btnLoginType)
-    Button btnLoginType;
+    @BindView(R.id.rgLoginType)
+    RadioGroup rgLoginType;
+    @BindView(R.id.rbLoginPwd)
+    RadioButton rbLoginPwd;
+    @BindView(R.id.rbLoginVerify)
+    RadioButton rbLoginVerify;
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.btnRegister)
@@ -75,7 +81,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private Call<Result> callSms;
     private Call<Result> callLogin;
     private boolean isGo = false;
-    private int logType = ApiHelper.LOG_PWD;
+    private int logType;
     private int countDownGo = -1;
     private Runnable countDownTask;
 
@@ -102,6 +108,15 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), false);
         ViewHelper.setLineBottom(tvProtocol);
+        // loginType
+        rgLoginType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                toggleLoginType();
+            }
+        });
+        // 默认密码登录
+        rbLoginPwd.setChecked(true);
     }
 
     @Override
@@ -154,12 +169,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         onInputChange();
     }
 
-    @OnClick({R.id.btnLoginType, R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvProtocol})
+    @OnClick({R.id.btnSendCode, R.id.btnLogin, R.id.btnRegister, R.id.tvProtocol})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnLoginType: // 登录类型
-                toggleType();
-                break;
             case R.id.btnSendCode: // 验证码
                 sendCode();
                 break;
@@ -195,21 +207,19 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         }
     }
 
-    private void toggleType() {
-        if (logType == ApiHelper.LOG_VER) {
-            logType = ApiHelper.LOG_PWD;
-        } else {
+    private void toggleLoginType() {
+        if (rbLoginVerify.isChecked()) {
             logType = ApiHelper.LOG_VER;
+        } else {
+            logType = ApiHelper.LOG_PWD;
         }
         onInputChange();
         switch (logType) {
             case ApiHelper.LOG_PWD: // 显示密码
-                btnLoginType.setText(R.string.verify_login);
                 tilPwd.setVisibility(View.VISIBLE);
                 llVerify.setVisibility(View.GONE);
                 break;
             case ApiHelper.LOG_VER: // 显示验证码
-                btnLoginType.setText(R.string.pwd_login);
                 tilPwd.setVisibility(View.GONE);
                 llVerify.setVisibility(View.VISIBLE);
                 break;

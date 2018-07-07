@@ -10,10 +10,10 @@
     <include layout="@layout/view_top_bar"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/ic_logo_react"/>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -96,15 +96,50 @@
             android:text="@string/send_validate_code"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnLoginType"
-        style="@style/FontPrimarySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
-        android:text="@string/verify_login"
-        android:textColor="@color/selector_text_press_primary_dark"/>
+    <RadioGroup
+        android:id="@+id/rgLoginType"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_stroke_primary_r3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbLoginPwd"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_check_solid_primary_r3"
+            android:button="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:minLines="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            android:text="@string/pwd_login"
+            android:textColor="@color/selector_text_check_primary_white"
+            tools:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/rbLoginVerify"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_check_solid_primary_r3"
+            android:button="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:minLines="1"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:singleLine="true"
+            android:text="@string/verify_login"
+            android:textColor="@color/selector_text_check_primary_white"/>
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"

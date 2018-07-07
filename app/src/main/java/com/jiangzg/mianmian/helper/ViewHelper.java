@@ -281,7 +281,7 @@ public class ViewHelper {
         return window;
     }
 
-    public static void initCalenderView(Activity activity, MaterialCalendarView view) {
+    public static void initMonthView(Activity activity, MaterialCalendarView view) {
         int colorDark = ContextCompat.getColor(activity, ViewHelper.getColorDark(activity));
         // text
         view.setHeaderTextAppearance(R.style.FontWhiteBig);
