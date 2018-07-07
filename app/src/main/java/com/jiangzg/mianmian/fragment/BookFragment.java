@@ -18,6 +18,7 @@ import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.FoodListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
 import com.jiangzg.mianmian.activity.book.PromiseListActivity;
+import com.jiangzg.mianmian.activity.book.ShyActivity;
 import com.jiangzg.mianmian.activity.book.SleepActivity;
 import com.jiangzg.mianmian.activity.book.TravelListActivity;
 import com.jiangzg.mianmian.activity.book.VideoListActivity;
@@ -156,7 +157,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 break;
             case R.id.cvMenses: // TODO 姨妈
                 break;
-            case R.id.cvShy: // TODO 羞羞
+            case R.id.cvShy: // 羞羞
+                ShyActivity.goActivity(mFragment);
                 break;
             case R.id.cvSleep: // 睡眠
                 SleepActivity.goActivity(mFragment);

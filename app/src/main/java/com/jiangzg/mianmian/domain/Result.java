@@ -79,6 +79,8 @@ public class Result implements Serializable {
         private WeatherToday weatherTodayTa;
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
+        private Shy shy;
+        private List<Shy> shyList;
         private Sleep sleep;
         private Sleep sleepMe;
         private Sleep sleepTa;
@@ -116,6 +118,22 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+
+        public Shy getShy() {
+            return shy;
+        }
+
+        public void setShy(Shy shy) {
+            this.shy = shy;
+        }
+
+        public List<Shy> getShyList() {
+            return shyList;
+        }
+
+        public void setShyList(List<Shy> shyList) {
+            this.shyList = shyList;
+        }
 
         public Sleep getSleepMe() {
             return sleepMe;

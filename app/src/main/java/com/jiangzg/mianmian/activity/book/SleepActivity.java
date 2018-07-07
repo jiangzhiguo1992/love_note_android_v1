@@ -59,10 +59,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     RecyclerView rvLeft;
     @BindView(R.id.rvRight)
     RecyclerView rvRight;
-    @BindView(R.id.cvSleep)
-    CardView cvSleep;
-    @BindView(R.id.tvSleep)
-    TextView tvSleep;
+    @BindView(R.id.cvPush)
+    CardView cvPush;
+    @BindView(R.id.tvPush)
+    TextView tvPush;
     @BindView(R.id.ivAvatarLeft)
     FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.ivAvatarRight)
@@ -143,10 +143,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.cvSleep)
+    @OnClick(R.id.cvPush)
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvSleep: // 睡眠
+            case R.id.cvPush: // 睡眠
                 sleepPush();
                 break;
         }
@@ -196,7 +196,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 sleetShowTa = String.format(Locale.getDefault(), getString(R.string.already_sleep_space_holder), timeShow);
             }
         }
-        tvSleep.setText(sleepBtnShow);
+        tvPush.setText(sleepBtnShow);
         tvStateRight.setText(sleepShowMe);
         tvStateLeft.setText(sleetShowTa);
     }

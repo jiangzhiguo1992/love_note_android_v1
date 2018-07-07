@@ -40,13 +40,13 @@ import com.jiangzg.mianmian.domain.WeatherToday;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
-import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
+import com.jiangzg.mianmian.helper.WeatherHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GMarqueeText;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -340,7 +340,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         //vfWallPaper.removeAllViews();
         // 无图显示
         if (wallPaper == null || wallPaper.getContentImageList() == null || wallPaper.getContentImageList().size() <= 0) {
-            tvAddWallPaper.setVisibility(View.VISIBLE);
+            if (vpWallPaper.getAdapter() == null || vpWallPaper.getAdapter().getCount() <= 0) {
+                tvAddWallPaper.setVisibility(View.VISIBLE);
+            } else {
+                tvAddWallPaper.setVisibility(View.GONE);
+            }
             // 删除本地文件
             OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, new ArrayList<String>());
             return;

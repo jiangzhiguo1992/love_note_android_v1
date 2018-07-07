@@ -29,7 +29,7 @@ public class SleepInfoAdapter extends BaseQuickAdapter<SleepInfo, BaseViewHolder
         int hourEnd = calEnd.get(Calendar.HOUR_OF_DAY);
         int minuteEnd = calEnd.get(Calendar.MINUTE);
         String sleepShow = hourStart + " : " + minuteStart + "  -  " + hourEnd + " : " + minuteEnd;
-        helper.setText(R.id.tvSleep, sleepShow);
+        helper.setText(R.id.tvTime, sleepShow);
     }
 
 }

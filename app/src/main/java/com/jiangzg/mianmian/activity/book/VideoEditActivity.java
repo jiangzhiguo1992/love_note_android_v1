@@ -47,6 +47,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
+import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoView;
 
 import java.io.File;
@@ -105,6 +106,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.video), true);
         // init
         video = new Video();
         video.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));

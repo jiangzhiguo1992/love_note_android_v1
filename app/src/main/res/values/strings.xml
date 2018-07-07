@@ -448,6 +448,8 @@
     <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
+    <string name="current_month_space_holder_space_second" formatted="false">本月 %d 次</string>
+    <string name="current_day_space_holder_space_second" formatted="false">今日 %d 次</string>
     <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
     <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
     <string name="good_night">晚安</string>

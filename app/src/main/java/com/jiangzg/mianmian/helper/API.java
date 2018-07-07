@@ -16,6 +16,7 @@ import com.jiangzg.mianmian.domain.Place;
 import com.jiangzg.mianmian.domain.Promise;
 import com.jiangzg.mianmian.domain.PromiseBreak;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.Shy;
 import com.jiangzg.mianmian.domain.Sleep;
 import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.domain.Suggest;
@@ -446,5 +447,13 @@ public interface API {
     // sleep上传
     @POST("book/sleep")
     Call<Result> sleepAdd(@Body Sleep sleep);
+
+    // shyList获取
+    @GET("book/shy?date=1")
+    Call<Result> shyListGetByDate(@Query("year") int year, @Query("month") int month);
+
+    // shy上传
+    @POST("book/shy")
+    Call<Result> shyAdd(@Body Shy shy);
 
 }
