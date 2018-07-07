@@ -100,18 +100,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         srl.setEnabled(false);
         // calendar
         initCalendarView();
-        mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                getSleepInfoListData();
-            }
-        });
-        mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                refreshSleepInfoView();
-            }
-        });
         // sleepInfo
         refreshSleepInfoView();
         // avatar
@@ -166,18 +154,19 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     private void initCalendarView() {
         ViewHelper.initMonthView(mActivity, mcvSleep);
-        // 设置点击选择日期改变事件
-        mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-
-            }
-        });
         // 设置滑动选择改变月份事件
         mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-
+                widget.setSelectedDate(date);
+                getSleepInfoListData();
+            }
+        });
+        // 设置点击选择日期改变事件
+        mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                refreshSleepInfoView();
             }
         });
     }

@@ -24,6 +24,7 @@ import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.media.BitmapUtils;
+import com.jiangzg.base.media.VideoUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
@@ -163,6 +164,12 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             String duration = videoInfo.get(MediaStore.Video.Media.DURATION);
             if (StringUtils.isNumber(duration)) {
                 video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
+            }
+            if (video.getDuration() <= 0 && videoFile != null) {
+                duration = VideoUtils.getVideoDuration(videoFile.getAbsolutePath());
+                if (StringUtils.isNumber(duration)) {
+                    video.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
+                }
             }
             // view
             refreshVideoView();

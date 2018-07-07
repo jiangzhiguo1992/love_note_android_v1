@@ -20,6 +20,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.component.ProviderUtils;
+import com.jiangzg.base.media.VideoUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
@@ -128,6 +129,12 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             String duration = audioInfo.get(MediaStore.Audio.Media.DURATION);
             if (StringUtils.isNumber(duration)) {
                 audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
+            }
+            if (audio.getDuration() <= 0 && audioFile != null) {
+                duration = VideoUtils.getVideoDuration(audioFile.getAbsolutePath());
+                if (StringUtils.isNumber(duration)) {
+                    audio.setDuration((int) TimeHelper.getGoTimeByJava(Integer.parseInt(duration)));
+                }
             }
             // view
             refreshAudioView();

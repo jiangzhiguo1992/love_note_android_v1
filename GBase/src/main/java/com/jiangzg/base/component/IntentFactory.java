@@ -179,7 +179,7 @@ public class IntentFactory {
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = Uri.parse(file.getAbsolutePath());
-        intent.setDataAndType(uri, "video/mp4");
+        intent.setDataAndType(uri, "video/*");
         return intent;
     }
 
