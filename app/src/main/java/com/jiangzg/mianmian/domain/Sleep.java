@@ -9,14 +9,14 @@ import android.os.Parcelable;
  */
 public class Sleep extends BaseCP implements Parcelable {
 
-    private long isSleep;
+    private boolean isSleep;
 
-    public long getIsSleep() {
+    public boolean isSleep() {
         return isSleep;
     }
 
-    public void setIsSleep(long isSleep) {
-        this.isSleep = isSleep;
+    public void setSleep(boolean sleep) {
+        isSleep = sleep;
     }
 
     public Sleep() {
@@ -24,13 +24,13 @@ public class Sleep extends BaseCP implements Parcelable {
 
     protected Sleep(Parcel in) {
         super(in);
-        isSleep = in.readLong();
+        isSleep = in.readByte() != 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeLong(isSleep);
+        dest.writeByte((byte) (isSleep ? 1 : 0));
     }
 
     @Override

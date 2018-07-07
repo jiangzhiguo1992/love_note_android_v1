@@ -80,7 +80,10 @@ public class Result implements Serializable {
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
         private Sleep sleep;
-        private List<SleepInfo> sleepInfoList;
+        private Sleep sleepMe;
+        private Sleep sleepTa;
+        private List<SleepInfo> sleepInfoListMe;
+        private List<SleepInfo> sleepInfoListTa;
         private Word word;
         private List<Word> wordList;
         private Whisper whisper;
@@ -114,20 +117,36 @@ public class Result implements Serializable {
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
 
-        public Sleep getSleep() {
-            return sleep;
+        public Sleep getSleepMe() {
+            return sleepMe;
         }
 
-        public void setSleep(Sleep sleep) {
-            this.sleep = sleep;
+        public void setSleepMe(Sleep sleepMe) {
+            this.sleepMe = sleepMe;
         }
 
-        public List<SleepInfo> getSleepInfoList() {
-            return sleepInfoList;
+        public Sleep getSleepTa() {
+            return sleepTa;
         }
 
-        public void setSleepInfoList(List<SleepInfo> sleepInfoList) {
-            this.sleepInfoList = sleepInfoList;
+        public void setSleepTa(Sleep sleepTa) {
+            this.sleepTa = sleepTa;
+        }
+
+        public List<SleepInfo> getSleepInfoListMe() {
+            return sleepInfoListMe;
+        }
+
+        public void setSleepInfoListMe(List<SleepInfo> sleepInfoListMe) {
+            this.sleepInfoListMe = sleepInfoListMe;
+        }
+
+        public List<SleepInfo> getSleepInfoListTa() {
+            return sleepInfoListTa;
+        }
+
+        public void setSleepInfoListTa(List<SleepInfo> sleepInfoListTa) {
+            this.sleepInfoListTa = sleepInfoListTa;
         }
 
         public Audio getAudio() {
@@ -640,6 +659,14 @@ public class Result implements Serializable {
 
         public void setCouple(Couple couple) {
             this.couple = couple;
+        }
+
+        public Sleep getSleep() {
+            return sleep;
+        }
+
+        public void setSleep(Sleep sleep) {
+            this.sleep = sleep;
         }
     }
 }

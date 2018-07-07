@@ -446,9 +446,13 @@
     <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
     <string name="can_operation_self_create_award">只能操作自己创建的奖励哦</string>
     <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
-    <string name="in_here_input_channel">在这里输入频道</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
+    <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
+    <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
+    <string name="good_night">晚安</string>
+    <string name="i_am_wake">我醒啦</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>
     <string name="save_channel_colon_space_holder" formatted="false">保存频道: %s</string>
@@ -482,5 +486,4 @@
     <string name="sign">签到</string>
     <string name="coin">金币</string>
     <string name="vip">会员</string>
-
 </resources>

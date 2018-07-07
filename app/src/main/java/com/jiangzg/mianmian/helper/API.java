@@ -437,7 +437,7 @@ public interface API {
 
     // sleepList获取
     @GET("book/sleep?latest=0&date=1")
-    Call<Result> sleepListGetByDate(@Query("who") int who, @Query("year") int year, @Query("month") int month);
+    Call<Result> sleepListGetByDate(@Query("year") int year, @Query("month") int month);
 
     // sleep获取
     @GET("book/sleep?latest=1&date=0")

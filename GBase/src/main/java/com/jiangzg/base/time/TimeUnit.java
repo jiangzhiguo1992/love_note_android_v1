@@ -114,6 +114,21 @@ public class TimeUnit {
      * 获取所有有效时间的显示
      */
     public String getAllShow(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
+                             @StringRes int yearShow, @StringRes int monthShow, @StringRes int dayShow,
+                             @StringRes int hourShow, @StringRes int minuteShow, @StringRes int secondShow) {
+        String year = AppBase.getInstance().getString(yearShow);
+        String month = AppBase.getInstance().getString(monthShow);
+        String day = AppBase.getInstance().getString(dayShow);
+        String hour = AppBase.getInstance().getString(hourShow);
+        String minute = AppBase.getInstance().getString(minuteShow);
+        String second = AppBase.getInstance().getString(secondShow);
+        return getAllShow(y, mo, d, h, mi, s, year, month, day, hour, minute, second);
+    }
+
+    /**
+     * 获取所有有效时间的显示
+     */
+    public String getAllShow(boolean y, boolean mo, boolean d, boolean h, boolean mi, boolean s,
                              String yearShow, String monthShow, String dayShow,
                              String hourShow, String minuteShow, String secondShow) {
         String yea = "";
