@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,12 +18,16 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.SleepInfoAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sleep;
 import com.jiangzg.mianmian.domain.SleepInfo;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
@@ -31,6 +39,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -46,6 +55,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.mcvSleep)
     MaterialCalendarView mcvSleep;
+    @BindView(R.id.rvLeft)
+    RecyclerView rvLeft;
+    @BindView(R.id.rvRight)
+    RecyclerView rvRight;
     @BindView(R.id.cvSleep)
     CardView cvSleep;
     @BindView(R.id.tvSleep)
@@ -61,6 +74,8 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     private Sleep sleepMe;
     private Sleep sleepTa;
+    private RecyclerHelper recyclerLeft;
+    private RecyclerHelper recyclerRight;
     private List<SleepInfo> sleepInfoListMe;
     private List<SleepInfo> sleepInfoListTa;
     private Call<Result> callAdd;
@@ -85,6 +100,18 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         srl.setEnabled(false);
         // calendar
         initCalendarView();
+        mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
+            @Override
+            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
+                getSleepInfoListData();
+            }
+        });
+        mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                refreshSleepInfoView();
+            }
+        });
         // sleepInfo
         refreshSleepInfoView();
         // avatar
@@ -105,9 +132,27 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerLeft);
+        RecyclerHelper.release(recyclerRight);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callListGet);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.help, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuHelp: // 帮助
+                HelpActivity.goActivity(mActivity, Help.INDEX_SLEEP);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnClick(R.id.cvSleep)
@@ -168,7 +213,54 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void refreshSleepInfoView() {
-        // TODO
+        rvRight.setVisibility(View.INVISIBLE);
+        rvLeft.setVisibility(View.INVISIBLE);
+        // recycler
+        if (recyclerRight == null) {
+            recyclerRight = new RecyclerHelper(rvRight)
+                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initAdapter(new SleepInfoAdapter())
+                    .setAdapter();
+        }
+        if (recyclerLeft == null) {
+            recyclerLeft = new RecyclerHelper(rvLeft)
+                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initAdapter(new SleepInfoAdapter())
+                    .setAdapter();
+        }
+        // date
+        CalendarDay selectedDate = mcvSleep.getSelectedDate();
+        int day = selectedDate.getDay();
+        // right
+        if (sleepInfoListMe != null && sleepInfoListMe.size() > 0) {
+            List<SleepInfo> selectList = new ArrayList<>();
+            for (SleepInfo info : sleepInfoListMe) {
+                if (info == null) continue;
+                if (info.getStartDay() == day) {
+                    // 寻找对应的sleepInfo
+                    selectList.add(info);
+                }
+            }
+            if (selectList.size() > 0) {
+                rvRight.setVisibility(View.VISIBLE);
+                recyclerRight.dataNew(selectList);
+            }
+        }
+        // left
+        if (sleepInfoListTa != null && sleepInfoListTa.size() > 0) {
+            List<SleepInfo> selectList = new ArrayList<>();
+            for (SleepInfo info : sleepInfoListTa) {
+                if (info == null) continue;
+                if (info.getStartDay() == day) {
+                    // 寻找对应的sleepInfo
+                    selectList.add(info);
+                }
+            }
+            if (selectList.size() > 0) {
+                rvLeft.setVisibility(View.VISIBLE);
+                recyclerLeft.dataNew(selectList);
+            }
+        }
     }
 
     private void getSleepData() {
@@ -193,10 +285,16 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void getSleepInfoListData() {
+        sleepInfoListMe = null;
+        sleepInfoListTa = null;
+        refreshSleepInfoView(); // 先清空选择
         CalendarDay selectedDate = mcvSleep.getSelectedDate();
         if (selectedDate == null) return;
         int year = selectedDate.getYear();
-        int month = selectedDate.getMonth();
+        int month = selectedDate.getMonth() + 1;
+        if (month > 12) {
+            month = 1;
+        }
         callListGet = new RetrofitHelper().call(API.class).sleepListGetByDate(year, month);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override

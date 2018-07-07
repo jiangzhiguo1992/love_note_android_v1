@@ -23,6 +23,9 @@ public class Help extends BaseObj {
     public static final int INDEX_COUPLE_PLACE = 122;
     public static final int INDEX_COUPLE_WEATHER = 123;
     public static final int INDEX_BOOK_HOME = 200;
+    public static final int INDEX_MENSES = 207;
+    public static final int INDEX_SHY = 208;
+    public static final int INDEX_SLEEP = 209;
     public static final int INDEX_WORD_LIST = 210;
     public static final int INDEX_WHISPER_LIST = 211;
     public static final int INDEX_DIARY_LIST = 212;
