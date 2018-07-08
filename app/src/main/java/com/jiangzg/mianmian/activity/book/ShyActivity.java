@@ -81,7 +81,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.sleep), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.shy), true);
         srl.setEnabled(false);
         // calendar
         initCalendarView();
