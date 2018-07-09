@@ -3,6 +3,7 @@ package com.jiangzg.mianmian.activity.user;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -62,10 +63,12 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     @BindView(R.id.btnOk)
     Button btnOk;
 
+    private User me;
     private Call<Result> call;
 
-    public static void goActivity(Activity from) {
+    public static void goActivity(Activity from, User user) {
         Intent intent = new Intent(from, UserInfoActivity.class);
+        intent.putExtra("user", user);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY); // 启动其他activity时消失
         ActivityTrans.start(from, intent);
     }
@@ -117,6 +120,8 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        SPHelper.clearMe(); // 清除数据
+        me = intent.getParcelableExtra("user");
     }
 
     @Override
@@ -212,6 +217,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     private void pushUserInfo(int sex, long birth) {
         User user = ApiHelper.getUserInfoBody(sex, birth);
+        SPHelper.setMe(me); // api要用token
         // api调用
         call = new RetrofitHelper().call(API.class).userModify(user);
         MaterialDialog loading = getLoading(true);
@@ -225,6 +231,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                SPHelper.clearMe();
             }
         });
     }

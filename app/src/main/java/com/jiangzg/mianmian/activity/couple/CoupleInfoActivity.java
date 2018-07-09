@@ -32,7 +32,6 @@ import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
-import com.jiangzg.mianmian.activity.user.UserInfoActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
@@ -213,7 +212,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft, R.id.llUserInfoRight})
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAvatarLeft: // 修改ta的头像
@@ -224,9 +223,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 break;
             case R.id.tvPhoneLeft: // 拨打ta的电话
                 showDial();
-                break;
-            case R.id.llUserInfoRight: // 修改我的信息
-                goUserInfo();
                 break;
         }
     }
@@ -374,14 +370,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             String phone = ta.getPhone().trim();
             Intent dial = IntentFactory.getDial(phone);
             ActivityTrans.start(mActivity, dial);
-        }
-    }
-
-    // 用户信息
-    private void goUserInfo() {
-        // 也就改一次，所以直接修改完之后就跳转home吧
-        if (User.canUserInfo()) {
-            UserInfoActivity.goActivity(mActivity);
         }
     }
 

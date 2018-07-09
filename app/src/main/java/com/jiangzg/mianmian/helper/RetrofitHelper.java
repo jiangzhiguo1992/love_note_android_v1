@@ -336,9 +336,8 @@ public class RetrofitHelper {
             DialogHelper.showWithAnim(dialog);
         } else if (code == Result.RESULT_CODE_NO_USER_INFO) { // userInfo
             ToastUtils.show(message);
-            SPHelper.setMe(data.getUser());
             if (ActivityStack.isActivityFinish(top)) return;
-            UserInfoActivity.goActivity(top);
+            UserInfoActivity.goActivity(top, data.getUser());
         } else if (code == Result.RESULT_CODE_NO_CP) { // cp
             ToastUtils.show(message);
             if (ActivityStack.isActivityFinish(top)) return;

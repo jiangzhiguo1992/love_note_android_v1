@@ -17,7 +17,6 @@ import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.HomeActivity;
-import com.jiangzg.mianmian.activity.user.UserInfoActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.broadcast.OssRefreshReceiver;
@@ -111,11 +110,7 @@ public class ApiHelper {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                if (code == Result.RESULT_CODE_NO_USER_INFO) {
-                    UserInfoActivity.goActivity(mActivity);
-                } else {
-                    onEntryFinish(mActivity, code, data);
-                }
+                onEntryFinish(mActivity, code, data);
             }
 
             @Override
