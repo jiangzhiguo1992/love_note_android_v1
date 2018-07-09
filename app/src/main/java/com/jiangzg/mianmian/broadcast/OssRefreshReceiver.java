@@ -55,7 +55,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 MyApp.get().getHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {

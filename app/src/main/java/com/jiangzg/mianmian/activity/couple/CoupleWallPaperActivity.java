@@ -169,9 +169,9 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(false, errMsg);
+                recyclerHelper.dataFail(false, message);
             }
         });
     }
@@ -232,7 +232,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

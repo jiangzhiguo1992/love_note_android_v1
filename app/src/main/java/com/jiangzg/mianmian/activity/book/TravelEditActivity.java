@@ -608,7 +608,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -627,7 +627,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

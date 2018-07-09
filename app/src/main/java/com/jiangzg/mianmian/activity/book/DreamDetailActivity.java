@@ -159,7 +159,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
             }
         });
@@ -220,7 +220,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

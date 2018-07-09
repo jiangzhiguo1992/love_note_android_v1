@@ -197,9 +197,9 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, errMsg);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }
@@ -241,7 +241,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

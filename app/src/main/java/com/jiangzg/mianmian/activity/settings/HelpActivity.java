@@ -119,9 +119,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                refreshView(new Result.Data(), errMsg);
+                refreshView(new Result.Data(), message);
             }
         });
     }

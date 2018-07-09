@@ -119,7 +119,7 @@ public class ApiHelper {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -129,6 +129,7 @@ public class ApiHelper {
     }
 
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {
+        if (data == null) return;
         // user
         User user = data.getUser();
         SPHelper.setMe(user);

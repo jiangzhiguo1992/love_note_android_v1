@@ -224,9 +224,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(page != 0, errMsg);
+                recyclerHelper.dataFail(page != 0, message);
             }
         });
     }
@@ -327,7 +327,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

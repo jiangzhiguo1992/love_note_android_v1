@@ -148,7 +148,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 btnSendCode.setEnabled(true);
             }
         });
@@ -219,7 +219,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

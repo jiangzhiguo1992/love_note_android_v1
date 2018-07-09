@@ -284,7 +284,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
             }
         });
@@ -309,7 +309,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -327,7 +327,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

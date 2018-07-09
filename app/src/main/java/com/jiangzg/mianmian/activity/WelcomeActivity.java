@@ -142,9 +142,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 }
 
                 @Override
-                public void onFailure(String errMsg) {
-                    // 一直请求
-                    MyApp.get().getHandler().postDelayed(checkUser, 2000);
+                public void onFailure(int code, String message, Result.Data data) {
+                    if (code <= 0) {
+                        // code是417的，有时就不进来了 没有就一直请求
+                        MyApp.get().getHandler().postDelayed(checkUser, 5000);
+                    }
                 }
             });
         }

@@ -124,7 +124,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

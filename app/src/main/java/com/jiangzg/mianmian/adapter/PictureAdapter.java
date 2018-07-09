@@ -329,7 +329,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

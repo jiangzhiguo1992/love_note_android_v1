@@ -186,7 +186,7 @@ public class RetrofitHelper {
     public interface CallBack {
         void onResponse(int code, String message, Result.Data data);
 
-        void onFailure(String errMsg);
+        void onFailure(int code, String message, Result.Data data);
     }
 
     // 成功回调
@@ -314,7 +314,7 @@ public class RetrofitHelper {
             if (status == 200) {
                 callBack.onResponse(code, message, data);
             } else {
-                callBack.onFailure(message);
+                callBack.onFailure(code, message, data);
             }
         }
     }
@@ -322,6 +322,7 @@ public class RetrofitHelper {
     private static void check417Code(final Activity top, Result body) {
         int code = body.getCode();
         String message = body.getMessage();
+        Result.Data data = body.getData();
         if (code == Result.RESULT_CODE_TOAST) { // toast
             ToastUtils.show(message);
         } else if (code == Result.RESULT_CODE_DIALOG) { // dialog
@@ -335,6 +336,7 @@ public class RetrofitHelper {
             DialogHelper.showWithAnim(dialog);
         } else if (code == Result.RESULT_CODE_NO_USER_INFO) { // userInfo
             ToastUtils.show(message);
+            SPHelper.setMe(data.getUser());
             if (ActivityStack.isActivityFinish(top)) return;
             UserInfoActivity.goActivity(top);
         } else if (code == Result.RESULT_CODE_NO_CP) { // cp
@@ -377,7 +379,7 @@ public class RetrofitHelper {
             error = MyApp.get().getString(R.string.http_error_request);
         }
         ToastUtils.show(error);
-        if (callBack != null) callBack.onFailure(error);
+        if (callBack != null) callBack.onFailure(-1, error, null);
     }
 
     /* 获取head */

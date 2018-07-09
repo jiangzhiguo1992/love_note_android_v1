@@ -206,7 +206,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

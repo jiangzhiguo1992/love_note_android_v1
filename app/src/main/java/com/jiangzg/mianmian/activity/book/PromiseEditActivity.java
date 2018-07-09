@@ -256,7 +256,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -275,7 +275,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

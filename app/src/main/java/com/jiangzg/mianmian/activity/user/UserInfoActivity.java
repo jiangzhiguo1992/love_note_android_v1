@@ -224,7 +224,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

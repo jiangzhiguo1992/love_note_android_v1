@@ -337,9 +337,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, errMsg);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }
@@ -358,9 +358,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(false, errMsg);
+                recyclerHelper.dataFail(false, message);
             }
         });
     }

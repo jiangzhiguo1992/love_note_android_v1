@@ -275,7 +275,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
             }
         });
@@ -318,9 +318,9 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, errMsg);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }
@@ -383,7 +383,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -431,7 +431,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

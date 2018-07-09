@@ -350,7 +350,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

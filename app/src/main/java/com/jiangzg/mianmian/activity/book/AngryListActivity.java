@@ -193,9 +193,9 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, errMsg);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }

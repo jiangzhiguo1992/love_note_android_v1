@@ -340,7 +340,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -359,7 +359,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

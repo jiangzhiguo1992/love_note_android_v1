@@ -343,9 +343,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, errMsg);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }
@@ -423,7 +423,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 follow(false);
             }
         });
@@ -447,7 +447,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -484,7 +484,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -506,7 +506,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

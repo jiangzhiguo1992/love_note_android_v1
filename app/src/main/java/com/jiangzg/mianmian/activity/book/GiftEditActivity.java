@@ -382,7 +382,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 // 上传失败不要删除，还可以继续上传
             }
         });
@@ -402,7 +402,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -439,7 +439,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

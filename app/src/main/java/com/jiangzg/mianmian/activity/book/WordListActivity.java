@@ -197,9 +197,9 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(page != 0, errMsg);
+                recyclerHelper.dataFail(page != 0, message);
             }
         });
     }
@@ -224,7 +224,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

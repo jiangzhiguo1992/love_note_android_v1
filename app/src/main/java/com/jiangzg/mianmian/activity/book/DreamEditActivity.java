@@ -229,7 +229,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }
@@ -250,7 +250,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

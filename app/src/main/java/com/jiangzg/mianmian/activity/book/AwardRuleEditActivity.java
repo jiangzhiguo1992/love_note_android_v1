@@ -188,7 +188,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

@@ -66,7 +66,7 @@ public class UpdateService extends Service {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

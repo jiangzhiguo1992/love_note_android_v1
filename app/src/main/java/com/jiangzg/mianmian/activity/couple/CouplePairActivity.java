@@ -204,7 +204,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 refreshSelfCoupleView(null);
             }
@@ -230,7 +230,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 refreshSelfCoupleView(null);
             }
@@ -331,7 +331,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 refreshSelfCoupleView(null);
             }
@@ -364,7 +364,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             }
 
             @Override
-            public void onFailure(String errMsg) {
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 refreshSelfCoupleView(null);
             }
