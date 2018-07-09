@@ -220,6 +220,7 @@ public class RecyclerHelper {
                 mRecycler.post(new Runnable() {
                     @Override
                     public void run() {
+                        if (mMoreListener == null || mAdapter == null) return;
                         mMoreListener.onMore(mAdapter.getItemCount());
                     }
                 });
@@ -241,9 +242,11 @@ public class RecyclerHelper {
         mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (mRefresh == null) return;
                 mRefresh.post(new Runnable() {
                     @Override
                     public void run() {
+                        if (mRefreshListener == null) return;
                         mRefreshListener.onRefresh();
                     }
                 });

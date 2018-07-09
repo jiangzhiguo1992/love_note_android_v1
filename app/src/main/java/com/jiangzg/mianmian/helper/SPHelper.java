@@ -102,7 +102,15 @@ public class SPHelper {
     // vipLimit
     private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
+    private static final String FIELD_VIP_LIMIT_SOUVENIR_COUNT = "souvenir_count";
+    private static final String FIELD_VIP_LIMIT_TRAVEL_PLACE_COUNT = "travel_place_count";
+    private static final String FIELD_VIP_LIMIT_TRAVEL_VIDEO_COUNT = "travel_video_count";
+    private static final String FIELD_VIP_LIMIT_TRAVEL_FOOD_COUNT = "travel_food_count";
+    private static final String FIELD_VIP_LIMIT_TRAVEL_ALBUM_COUNT = "travel_album_count";
+    private static final String FIELD_VIP_LIMIT_TRAVEL_DIARY_COUNT = "travel_diary_count";
     private static final String FIELD_VIP_LIMIT_WHISPER_IMG_COUNT = "whisper_image_count";
+    private static final String FIELD_VIP_LIMIT_FOOD_IMG_COUNT = "food_image_count";
+    private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diary_image_size";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_COUNT = "diary_image_count";
     private static final String FIELD_VIP_LIMIT_PICTURE_SIZE = "picture_size";
@@ -112,8 +120,6 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
     private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT = "video_total_count";
     private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topic_image_enable";
-    private static final String FIELD_VIP_LIMIT_FOOD_IMG_COUNT = "food_image_count";
-    private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "user_protocol_url";
@@ -394,13 +400,19 @@ public class SPHelper {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
         editor.putLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, vipLimit.getVipExpireAt());
         editor.putInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, vipLimit.getWallPaperCount());
+        editor.putInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, vipLimit.getSouvenirCount());
+        editor.putInt(FIELD_VIP_LIMIT_TRAVEL_PLACE_COUNT, vipLimit.getTravelPlaceCount());
+        editor.putInt(FIELD_VIP_LIMIT_TRAVEL_VIDEO_COUNT, vipLimit.getTravelVideoCount());
+        editor.putInt(FIELD_VIP_LIMIT_TRAVEL_FOOD_COUNT, vipLimit.getTravelFoodCount());
+        editor.putInt(FIELD_VIP_LIMIT_TRAVEL_ALBUM_COUNT, vipLimit.getTravelAlbumCount());
+        editor.putInt(FIELD_VIP_LIMIT_TRAVEL_DIARY_COUNT, vipLimit.getTravelDiaryCount());
         editor.putInt(FIELD_VIP_LIMIT_WHISPER_IMG_COUNT, vipLimit.getWhisperImageCount());
+        editor.putInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, vipLimit.getFoodImageCount());
+        editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
         editor.putInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, vipLimit.getDiaryImageCount());
         editor.putLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, vipLimit.getDiaryImageSize());
         editor.putInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, vipLimit.getPictureTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_PICTURE_SIZE, vipLimit.getPictureSize());
-        editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
-        editor.putInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, vipLimit.getFoodImageCount());
         editor.putLong(FIELD_VIP_LIMIT_AUDIO_SIZE, vipLimit.getAudioSize());
         editor.putInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, vipLimit.getAudioTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getVideoSize());
@@ -414,13 +426,19 @@ public class SPHelper {
         VipLimit vipLimit = new VipLimit();
         vipLimit.setVipExpireAt(sp.getLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, 0));
         vipLimit.setWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, 1));
+        vipLimit.setSouvenirCount(sp.getInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, 1));
+        vipLimit.setTravelPlaceCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_PLACE_COUNT, 1));
+        vipLimit.setTravelVideoCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_VIDEO_COUNT, 1));
+        vipLimit.setTravelFoodCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_FOOD_COUNT, 1));
+        vipLimit.setTravelAlbumCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_ALBUM_COUNT, 1));
+        vipLimit.setTravelDiaryCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_DIARY_COUNT, 1));
         vipLimit.setWhisperImageCount(sp.getInt(FIELD_VIP_LIMIT_WHISPER_IMG_COUNT, 0));
+        vipLimit.setFoodImageCount(sp.getInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, 0));
+        vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
         vipLimit.setDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, 0));
         vipLimit.setDiaryImageSize(sp.getLong(FIELD_VIP_LIMIT_DIARY_IMG_SIZE, 0));
         vipLimit.setPictureTotalCount(sp.getInt(FIELD_VIP_LIMIT_PICTURE_TOTAL_COUNT, 0));
         vipLimit.setPictureSize(sp.getLong(FIELD_VIP_LIMIT_PICTURE_SIZE, 0));
-        vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
-        vipLimit.setFoodImageCount(sp.getInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, 0));
         vipLimit.setAudioSize(sp.getLong(FIELD_VIP_LIMIT_AUDIO_SIZE, 0));
         vipLimit.setAudioTotalCount(sp.getInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, 0));
         vipLimit.setVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));

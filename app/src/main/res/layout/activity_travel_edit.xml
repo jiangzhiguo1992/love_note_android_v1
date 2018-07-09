@@ -103,10 +103,12 @@
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimary"
                 app:cardCornerRadius="@dimen/radius_normal"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                app:cardMaxElevation="@dimen/elevation_big"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/FontWhiteNormal"
@@ -158,10 +160,12 @@
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimary"
                 app:cardCornerRadius="@dimen/radius_normal"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                app:cardMaxElevation="@dimen/elevation_big"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/FontWhiteNormal"
@@ -213,10 +217,12 @@
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimary"
                 app:cardCornerRadius="@dimen/radius_normal"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                app:cardMaxElevation="@dimen/elevation_big"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/FontWhiteNormal"
@@ -268,10 +274,12 @@
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimary"
                 app:cardCornerRadius="@dimen/radius_normal"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                app:cardMaxElevation="@dimen/elevation_big"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/FontWhiteNormal"
@@ -323,10 +331,12 @@
                 android:layout_margin="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimary"
                 app:cardCornerRadius="@dimen/radius_normal"
                 app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
+                app:cardMaxElevation="@dimen/elevation_big"
+                tools:visibility="visible">
 
                 <TextView
                     style="@style/FontWhiteNormal"

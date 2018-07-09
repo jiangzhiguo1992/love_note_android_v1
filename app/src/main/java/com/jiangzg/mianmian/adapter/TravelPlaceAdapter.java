@@ -1,9 +1,5 @@
 package com.jiangzg.mianmian.adapter;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
@@ -11,7 +7,6 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.TravelPlace;
-import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 
 /**
@@ -45,23 +40,6 @@ public class TravelPlaceAdapter extends BaseQuickAdapter<TravelPlace, BaseViewHo
         double longitude = item.getLongitude();
         double latitude = item.getLatitude();
         MapShowActivity.goActivity(mActivity, address, longitude, latitude);
-    }
-
-    public void showDeleteDialogNoApi(final int position) {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_track)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        remove(position);
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
     }
 
 }

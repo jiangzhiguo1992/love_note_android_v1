@@ -3,6 +3,8 @@ package com.jiangzg.mianmian.activity.book;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -177,8 +180,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        TravelPlaceAdapter placeAdapter = (TravelPlaceAdapter) adapter;
-                        placeAdapter.showDeleteDialogNoApi(position);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_delete_this_track);
                     }
                 });
         refreshPlaceView();
@@ -202,8 +204,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
-                        albumAdapter.showDeleteDialogNoApi(position);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_album);
                     }
                 });
         refreshAlbumView();
@@ -234,10 +235,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemChildLongClickListener() {
                     @Override
                     public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        VideoAdapter videoAdapter = (VideoAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.cvVideo: // 删除
-                                videoAdapter.showDeleteDialogNoApi(position);
+                                showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_video);
                                 break;
                         }
                     }
@@ -267,8 +267,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        FoodAdapter foodAdapter = (FoodAdapter) adapter;
-                        foodAdapter.showDeleteDialogNoApi(position);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_food);
                     }
                 });
         refreshFoodView();
@@ -292,11 +291,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
-                        diaryAdapter.showDeleteDialogNoApi(position);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_diary);
                     }
                 });
         refreshDiaryView();
+        // addView
+        refreshAddView();
     }
 
     @Override
@@ -309,6 +309,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 List<TravelPlace> placeList = new ArrayList<>();
                 placeList.add(travelPlace);
                 recyclerPlace.dataAdd(placeList);
+                refreshAddView();
             }
         });
         obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
@@ -318,6 +319,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 List<Album> albumList = new ArrayList<>();
                 albumList.add(album);
                 recyclerAlbum.dataAdd(albumList);
+                refreshAddView();
             }
         });
         obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, new Action1<Video>() {
@@ -327,6 +329,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 List<Video> videoList = new ArrayList<>();
                 videoList.add(video);
                 recyclerVideo.dataAdd(videoList);
+                refreshAddView();
             }
         });
         obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, new Action1<Food>() {
@@ -336,6 +339,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 List<Food> foodList = new ArrayList<>();
                 foodList.add(food);
                 recyclerFood.dataAdd(foodList);
+                refreshAddView();
             }
         });
         obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, new Action1<Diary>() {
@@ -345,6 +349,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 List<Diary> diaryList = new ArrayList<>();
                 diaryList.add(diary);
                 recyclerDiary.dataAdd(diaryList);
+                refreshAddView();
             }
         });
     }
@@ -413,6 +418,62 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
     }
 
+    private void refreshAddView() {
+        if (travel == null) {
+            cvPlaceAdd.setVisibility(View.VISIBLE);
+            cvAlbumAdd.setVisibility(View.VISIBLE);
+            cvVideoAdd.setVisibility(View.VISIBLE);
+            cvFoodAdd.setVisibility(View.VISIBLE);
+            cvDiaryAdd.setVisibility(View.VISIBLE);
+            return;
+        }
+        // place
+        int placeCount = SPHelper.getVipLimit().getTravelPlaceCount();
+        if (recyclerPlace == null || recyclerPlace.getAdapter() == null) {
+            cvPlaceAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerPlace.getAdapter().getData().size() < placeCount) {
+            cvPlaceAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvPlaceAdd.setVisibility(View.GONE);
+        }
+        // album
+        int albumCount = SPHelper.getVipLimit().getTravelAlbumCount();
+        if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
+            cvAlbumAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerAlbum.getAdapter().getData().size() < albumCount) {
+            cvAlbumAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvAlbumAdd.setVisibility(View.GONE);
+        }
+        // video
+        int videoCount = SPHelper.getVipLimit().getTravelVideoCount();
+        if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
+            cvVideoAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerVideo.getAdapter().getData().size() < videoCount) {
+            cvVideoAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvVideoAdd.setVisibility(View.GONE);
+        }
+        // food
+        int foodCount = SPHelper.getVipLimit().getTravelFoodCount();
+        if (recyclerFood == null || recyclerFood.getAdapter() == null) {
+            cvFoodAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerFood.getAdapter().getData().size() < foodCount) {
+            cvFoodAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvFoodAdd.setVisibility(View.GONE);
+        }
+        // diary
+        int diaryCount = SPHelper.getVipLimit().getTravelDiaryCount();
+        if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
+            cvDiaryAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerDiary.getAdapter().getData().size() < diaryCount) {
+            cvDiaryAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvDiaryAdd.setVisibility(View.GONE);
+        }
+    }
+
     private void refreshPlaceView() {
         if (travel == null || recyclerPlace == null) return;
         List<TravelPlace> placeList = new ArrayList<>();
@@ -457,6 +518,24 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private void refreshDateView() {
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(travel.getHappenAt());
         tvHappenAt.setText(happen);
+    }
+
+    private void showDeleteDialogNoApi(final BaseQuickAdapter adapter, final int position, @StringRes int contentRes) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(contentRes)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        adapter.remove(position);
+                        refreshAddView();
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void checkPush() {
