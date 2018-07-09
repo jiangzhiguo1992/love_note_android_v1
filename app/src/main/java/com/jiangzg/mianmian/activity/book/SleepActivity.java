@@ -114,7 +114,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        getSleepData();
+        getLatestData();
         getSleepInfoListData();
     }
 
@@ -146,7 +146,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @OnClick(R.id.cvPush)
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvPush: // 睡眠
+            case R.id.cvPush: // 发布
                 sleepPush();
                 break;
         }
@@ -252,7 +252,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         }
     }
 
-    private void getSleepData() {
+    private void getLatestData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -309,6 +309,9 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 sleepMe = data.getSleep();
                 refreshSleepView();
+                if (!sleepMe.isSleep()) {
+                    getSleepInfoListData();
+                }
             }
 
             @Override

@@ -23,20 +23,23 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:padding="10dp">
 
                 <com.prolificinteractive.materialcalendarview.MaterialCalendarView
                     android:id="@+id/mcvSleep"
-                    android:layout_width="300dp"
-                    android:layout_height="300dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/llRv"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"/>
 
                 <LinearLayout
+                    android:id="@+id/llRv"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/mcvSleep"
+                    android:layout_alignParentBottom="true"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.RecyclerView
@@ -54,7 +57,7 @@
                         android:id="@+id/rvRight"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:visibility="invisible"
@@ -65,8 +68,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="150dp"
                 android:orientation="horizontal"
                 android:padding="10dp">
 

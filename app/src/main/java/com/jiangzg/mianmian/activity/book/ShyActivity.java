@@ -192,7 +192,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                recyclerHelper.viewEmptyShow(data.getShow());
                 shyList = data.getShyList();
                 refreshShyInfoView();
             }
@@ -200,7 +199,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             @Override
             public void onFailure(String errMsg) {
                 srl.setRefreshing(false);
-                recyclerHelper.dataFail(false, errMsg);
             }
         });
     }

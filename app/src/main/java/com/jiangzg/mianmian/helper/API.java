@@ -10,6 +10,7 @@ import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
+import com.jiangzg.mianmian.domain.Menses;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
 import com.jiangzg.mianmian.domain.Place;
@@ -455,5 +456,17 @@ public interface API {
     // shy上传
     @POST("book/shy")
     Call<Result> shyAdd(@Body Shy shy);
+
+    // mensesList获取
+    @GET("book/menses?latest=0&date=1")
+    Call<Result> mensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
+
+    // menses获取
+    @GET("book/menses?latest=1&date=0")
+    Call<Result> mensesLatestGet();
+
+    // menses上传
+    @POST("book/menses")
+    Call<Result> mensesAdd(@Body Menses menses);
 
 }

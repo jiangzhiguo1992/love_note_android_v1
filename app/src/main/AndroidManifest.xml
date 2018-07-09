@@ -119,6 +119,7 @@
         <activity android:name=".activity.book.VideoEditActivity"/>
         <activity android:name=".activity.book.SleepActivity"/>
         <activity android:name=".activity.book.ShyActivity"/>
+        <activity android:name=".activity.book.MensesActivity"/>
     </application>
 
 </manifest>

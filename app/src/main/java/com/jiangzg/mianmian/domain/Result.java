@@ -79,6 +79,12 @@ public class Result implements Serializable {
         private WeatherToday weatherTodayTa;
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
+        private Menses menses;
+        private boolean canMe;
+        private boolean canTa;
+        private Menses mensesMe;
+        private Menses mensesTa;
+        private List<Menses> mensesList;
         private Shy shy;
         private List<Shy> shyList;
         private Sleep sleep;
@@ -118,6 +124,54 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+
+        public Menses getMenses() {
+            return menses;
+        }
+
+        public void setMenses(Menses menses) {
+            this.menses = menses;
+        }
+
+        public boolean isCanMe() {
+            return canMe;
+        }
+
+        public void setCanMe(boolean canMe) {
+            this.canMe = canMe;
+        }
+
+        public boolean isCanTa() {
+            return canTa;
+        }
+
+        public void setCanTa(boolean canTa) {
+            this.canTa = canTa;
+        }
+
+        public Menses getMensesMe() {
+            return mensesMe;
+        }
+
+        public void setMensesMe(Menses mensesMe) {
+            this.mensesMe = mensesMe;
+        }
+
+        public Menses getMensesTa() {
+            return mensesTa;
+        }
+
+        public void setMensesTa(Menses mensesTa) {
+            this.mensesTa = mensesTa;
+        }
+
+        public List<Menses> getMensesList() {
+            return mensesList;
+        }
+
+        public void setMensesList(List<Menses> mensesList) {
+            this.mensesList = mensesList;
+        }
 
         public Shy getShy() {
             return shy;
