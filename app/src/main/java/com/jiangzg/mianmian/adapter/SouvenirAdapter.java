@@ -9,6 +9,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.SouvenirDetailDoneActivity;
+import com.jiangzg.mianmian.activity.book.SouvenirDetailWishActivity;
 import com.jiangzg.mianmian.domain.Souvenir;
 import com.jiangzg.mianmian.helper.TimeHelper;
 
@@ -18,13 +19,19 @@ import java.util.Locale;
  * Created by JZG on 2018/3/13.
  * 梦境适配器
  */
-public class SouvenirDoneAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> {
+public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> {
 
     private Fragment mFragment;
+    private boolean done;
+    private String formatGone;
+    private String formatHave;
 
-    public SouvenirDoneAdapter(Fragment fragment) {
+    public SouvenirAdapter(Fragment fragment, boolean done) {
         super(R.layout.list_item_souvenir_done);
         mFragment = fragment;
+        this.done = done;
+        formatGone = mFragment.getString(R.string.already_gone_holder_day);
+        formatHave = mFragment.getString(R.string.just_have_holder_day);
     }
 
     @Override
@@ -32,8 +39,16 @@ public class SouvenirDoneAdapter extends BaseQuickAdapter<Souvenir, BaseViewHold
         String title = item.getTitle();
         long happenAt = TimeHelper.getJavaTimeByGo(item.getHappenAt());
         String happen = DateUtils.getString(happenAt, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
-        long dayCount = (DateUtils.getCurrentLong() - happenAt) / ConstantUtils.DAY;
-        String days = String.format(Locale.getDefault(), mFragment.getString(R.string.holder_day), dayCount);
+        long dayCount;
+        String format;
+        if (DateUtils.getCurrentLong() > happenAt) {
+            dayCount = (DateUtils.getCurrentLong() - happenAt) / ConstantUtils.DAY;
+            format = formatGone;
+        } else {
+            dayCount = (happenAt - DateUtils.getCurrentLong()) / ConstantUtils.DAY;
+            format = formatHave;
+        }
+        String days = String.format(Locale.getDefault(), format, dayCount);
         String address = item.getAddress();
         // view
         helper.setText(R.id.tvTitle, title);
@@ -43,9 +58,13 @@ public class SouvenirDoneAdapter extends BaseQuickAdapter<Souvenir, BaseViewHold
         helper.setText(R.id.tvAddress, address);
     }
 
-    public void goSouvenirDoneDetail(int position) {
+    public void goSouvenirDetail(int position) {
         Souvenir item = getItem(position);
-        SouvenirDetailDoneActivity.goActivity(mFragment, item);
+        if (done) {
+            SouvenirDetailDoneActivity.goActivity(mFragment, item);
+        } else {
+            SouvenirDetailWishActivity.goActivity(mFragment, item);
+        }
     }
 
 }

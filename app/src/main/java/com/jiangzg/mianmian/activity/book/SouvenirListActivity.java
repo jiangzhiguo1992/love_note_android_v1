@@ -16,10 +16,8 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.FragmentPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.domain.Help;
-import com.jiangzg.mianmian.fragment.SouvenirListDoneFragment;
-import com.jiangzg.mianmian.fragment.SouvenirListWishFragment;
+import com.jiangzg.mianmian.fragment.SouvenirListFragment;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import butterknife.BindView;
@@ -53,12 +51,12 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
         String title = getString(R.string.souvenir);
         ViewHelper.initTopBar(mActivity, tb, title, true);
         // fragment
-        SouvenirListDoneFragment souvenirListDoneFragment = SouvenirListDoneFragment.newFragment();
-        SouvenirListWishFragment souvenirListWishFragment = SouvenirListWishFragment.newFragment();
+        SouvenirListFragment souvenirDoneFragment = SouvenirListFragment.newFragment(true);
+        SouvenirListFragment souvenirWishFragment = SouvenirListFragment.newFragment(false);
         // adapter
-        FragmentPagerAdapter<BaseFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
-        adapter.addData(title, souvenirListDoneFragment);
-        adapter.addData(getString(R.string.wish_list), souvenirListWishFragment);
+        FragmentPagerAdapter<SouvenirListFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        adapter.addData(title, souvenirDoneFragment);
+        adapter.addData(getString(R.string.wish_list), souvenirWishFragment);
         // view
         vpFragment.setAdapter(adapter);
         tl.setupWithViewPager(vpFragment);

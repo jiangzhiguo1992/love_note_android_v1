@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -86,7 +87,7 @@ public abstract class BaseFragment<T> extends Fragment {
 
     /* 在这里返回绑定并View,从stack返回的时候也是先执行这个方法,相当于onStart */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mRootView = super.onCreateView(inflater, container, savedInstanceState);
         if (mRootView == null) {
             int layoutId = getView(getArguments()); // 取出Bundle
@@ -98,7 +99,7 @@ public abstract class BaseFragment<T> extends Fragment {
 
     /* 一般在这里进行控件的实例化,加载监听器, 参数view就是fragment的layout */
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(savedInstanceState);
     }

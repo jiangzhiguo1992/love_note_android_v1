@@ -34,7 +34,8 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-
+        // TODO add 显示done的选择
+        // TODO update 根据已有的done显示界面
     }
 
     @Override

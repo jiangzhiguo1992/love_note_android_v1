@@ -298,7 +298,12 @@ public class RecyclerHelper {
      * 刷新数据
      */
     public void dataNew(List list) {
-        if (list == null) return;
+        if (list == null) {
+            if (null != mRefresh) { // 停止刷新
+                mRefresh.setRefreshing(false);
+            }
+            return;
+        }
         dataNew(list, Integer.MAX_VALUE);
     }
 
@@ -327,7 +332,12 @@ public class RecyclerHelper {
      * 更多数据
      */
     public void dataAdd(List list) {
-        if (list == null) return;
+        if (list == null){
+            if (null != mRefresh) { // 停止刷新
+                mRefresh.setRefreshing(false);
+            }
+            return;
+        }
         dataAdd(list, Integer.MAX_VALUE);
     }
 

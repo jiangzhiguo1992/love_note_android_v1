@@ -2,7 +2,6 @@ package com.jiangzg.mianmian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,8 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.SouvenirEditActivity;
-import com.jiangzg.mianmian.adapter.SouvenirDoneAdapter;
+import com.jiangzg.mianmian.adapter.SouvenirAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Souvenir;
@@ -26,33 +24,34 @@ import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragment> {
+public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
 
+    private boolean done;
     private RecyclerHelper recyclerHelper;
     private Observable<List<Souvenir>> obListRefresh;
     private Observable<Souvenir> obListItemDelete;
     private Observable<Souvenir> obListItemRefresh;
     private Call<Result> call;
 
-    public static SouvenirListDoneFragment newFragment() {
+    public static SouvenirListFragment newFragment(boolean done) {
         Bundle bundle = new Bundle();
-        // bundle.putData();
-        return BaseFragment.newInstance(SouvenirListDoneFragment.class, bundle);
+        bundle.putBoolean("done", done);
+        return BaseFragment.newInstance(SouvenirListFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_souvenir_list_done;
+        done = data.getBoolean("done");
+        return R.layout.fragment_souvenir_list;
     }
 
     @Override
@@ -61,7 +60,7 @@ public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragm
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new SouvenirDoneAdapter(mFragment))
+                .initAdapter(new SouvenirAdapter(mFragment, done))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -73,8 +72,8 @@ public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragm
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        SouvenirDoneAdapter souvenirDoneAdapter = (SouvenirDoneAdapter) adapter;
-                        souvenirDoneAdapter.goSouvenirDoneDetail(position);
+                        SouvenirAdapter souvenirAdapter = (SouvenirAdapter) adapter;
+                        souvenirAdapter.goSouvenirDetail(position);
                     }
                 });
     }
@@ -82,21 +81,21 @@ public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragm
     @Override
     protected void initData(Bundle state) {
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_DONE_LIST_REFRESH, new Action1<List<Souvenir>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new Action1<List<Souvenir>>() {
             @Override
             public void call(List<Souvenir> souvenirList) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.dataRefresh();
             }
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SOUVENIR_DONE_LIST_ITEM_DELETE, new Action1<Souvenir>() {
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, new Action1<Souvenir>() {
             @Override
             public void call(Souvenir souvenir) {
                 if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), souvenir);
             }
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_DONE_LIST_ITEM_REFRESH, new Action1<Souvenir>() {
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, new Action1<Souvenir>() {
             @Override
             public void call(Souvenir souvenir) {
                 if (recyclerHelper == null) return;
@@ -111,13 +110,13 @@ public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragm
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DONE_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DONE_LIST_ITEM_DELETE, obListItemDelete);
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DONE_LIST_ITEM_REFRESH, obListItemRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
     private void refreshData() {
-        call = new RetrofitHelper().call(API.class).souvenirListGet(true);
+        call = new RetrofitHelper().call(API.class).souvenirListGet(done);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

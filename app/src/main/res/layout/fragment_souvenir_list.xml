@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_gradient_primary_white"
-    tools:context="com.jiangzg.mianmian.fragment.SouvenirListWishFragment">
+    tools:context="com.jiangzg.mianmian.fragment.SouvenirListFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
