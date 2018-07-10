@@ -221,7 +221,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_GIFT_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_GIFT_EDIT);
                 return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();

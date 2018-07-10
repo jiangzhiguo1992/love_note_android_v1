@@ -132,7 +132,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_DREAM_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_DREAM_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

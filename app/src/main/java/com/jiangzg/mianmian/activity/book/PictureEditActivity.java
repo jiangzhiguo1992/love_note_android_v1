@@ -266,7 +266,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_PICTURE_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_PICTURE_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

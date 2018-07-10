@@ -165,7 +165,7 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_AWARD_RULE_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_AWARD_RULE_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -145,7 +145,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_AUDIO_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_AUDIO_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

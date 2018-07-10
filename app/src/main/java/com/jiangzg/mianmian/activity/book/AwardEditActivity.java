@@ -136,7 +136,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_AWARD_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_AWARD_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

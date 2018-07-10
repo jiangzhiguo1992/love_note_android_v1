@@ -182,7 +182,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_ANGRY_DETAIL);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_ANGRY_DETAIL);
                 return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();

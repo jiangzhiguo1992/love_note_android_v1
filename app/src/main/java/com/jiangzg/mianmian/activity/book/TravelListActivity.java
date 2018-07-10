@@ -169,7 +169,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_TRAVEL_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_TRAVEL_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

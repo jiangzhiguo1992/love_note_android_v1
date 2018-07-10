@@ -137,7 +137,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_SLEEP);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_SLEEP);
                 return true;
         }
         return super.onOptionsItemSelected(item);

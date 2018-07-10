@@ -2,12 +2,14 @@ package com.jiangzg.mianmian.activity.book;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
@@ -21,6 +23,7 @@ import com.jiangzg.mianmian.fragment.SouvenirListWishFragment;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
 
@@ -30,6 +33,8 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
     TabLayout tl;
     @BindView(R.id.vpFragment)
     ViewPager vpFragment;
+    @BindView(R.id.fabAdd)
+    FloatingActionButton fabAdd;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), SouvenirListActivity.class);
@@ -47,7 +52,6 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
     protected void initView(Intent intent, Bundle state) {
         String title = getString(R.string.souvenir);
         ViewHelper.initTopBar(mActivity, tb, title, true);
-        // TODO 滚动隐藏tb
         // fragment
         SouvenirListDoneFragment souvenirListDoneFragment = SouvenirListDoneFragment.newFragment();
         SouvenirListWishFragment souvenirListWishFragment = SouvenirListWishFragment.newFragment();
@@ -62,12 +66,10 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-
     }
 
     @Override
     protected void onFinish(Bundle state) {
-
     }
 
     @Override
@@ -84,6 +86,15 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.fabAdd})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fabAdd: // 添加
+                SouvenirEditActivity.goActivity(mActivity);
+                break;
+        }
     }
 
 }

@@ -182,7 +182,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_VIDEO_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_VIDEO_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

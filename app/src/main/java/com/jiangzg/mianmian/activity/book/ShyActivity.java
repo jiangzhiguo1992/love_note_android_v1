@@ -116,7 +116,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_SHY);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_SHY);
                 return true;
         }
         return super.onOptionsItemSelected(item);

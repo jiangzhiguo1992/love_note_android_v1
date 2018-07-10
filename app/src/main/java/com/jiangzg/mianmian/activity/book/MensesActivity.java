@@ -135,7 +135,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MENSES);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_MENSES);
                 return true;
         }
         return super.onOptionsItemSelected(item);

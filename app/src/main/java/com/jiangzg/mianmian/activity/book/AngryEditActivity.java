@@ -115,7 +115,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_ANGRY_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_ANGRY_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

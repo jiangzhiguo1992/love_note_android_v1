@@ -177,7 +177,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_TRAVEL_DETAIL);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_TRAVEL_DETAIL);
                 return true;
             case R.id.menuEdit: // 编辑
                 if (travel == null) return true;

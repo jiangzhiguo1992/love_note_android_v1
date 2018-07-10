@@ -24,7 +24,6 @@ import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
-import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -128,7 +127,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_DREAM_DETAIL);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_DREAM_DETAIL);
                 return true;
             case R.id.menuEdit: // 编辑
                 if (dream == null) return true;

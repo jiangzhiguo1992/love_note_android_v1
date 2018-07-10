@@ -157,9 +157,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             case R.id.menuHelp: // 帮助
                 int helpType;
                 if (entry == ENTRY_FOLLOW) {
-                    helpType = Help.INDEX_SUGGEST_FOLLOW;
+                    helpType = Help.INDEX_USER_SUGGEST_FOLLOW;
                 } else {
-                    helpType = Help.INDEX_SUGGEST_MINE;
+                    helpType = Help.INDEX_USER_SUGGEST_MINE;
                 }
                 HelpActivity.goActivity(mActivity, helpType);
                 return true;

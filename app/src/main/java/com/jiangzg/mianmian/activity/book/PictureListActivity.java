@@ -255,7 +255,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_PICTURE_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_PICTURE_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

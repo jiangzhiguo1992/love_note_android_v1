@@ -50,6 +50,7 @@
 
     <string name="behavior_linear_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorLinearDependAppBar</string>
     <string name="behavior_fab_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorFABDependAppBar</string>
+    <string name="behavior_fab_depend_app_bar3">com.jiangzg.mianmian.view.GBehaviorFABDependAppBar3</string>
 
     <!-- common -->
     <string name="symbol_add">+</string>

@@ -37,8 +37,6 @@ public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragm
     GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.fabAdd)
-    FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
     private Observable<List<Souvenir>> obListRefresh;
@@ -116,15 +114,6 @@ public class SouvenirListDoneFragment extends BaseFragment<SouvenirListDoneFragm
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DONE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DONE_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DONE_LIST_ITEM_REFRESH, obListItemRefresh);
-    }
-
-    @OnClick({R.id.fabAdd})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.fabAdd: // 添加
-                SouvenirEditActivity.goActivity(mFragment, true);
-                break;
-        }
     }
 
     private void refreshData() {

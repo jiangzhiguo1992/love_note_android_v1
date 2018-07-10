@@ -188,7 +188,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_ALBUM_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_ALBUM_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -140,7 +140,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_DIARY_DETAIL);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_DIARY_DETAIL);
                 return true;
             case R.id.menuEdit: // 编辑
                 if (diary == null) return true;

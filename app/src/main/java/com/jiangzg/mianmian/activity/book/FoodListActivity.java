@@ -179,7 +179,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_FOOD_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_FOOD_LIST);
                 return true;
         }
         return super.onOptionsItemSelected(item);
