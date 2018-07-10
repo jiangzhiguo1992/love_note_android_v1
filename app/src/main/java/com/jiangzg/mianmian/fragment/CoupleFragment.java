@@ -169,8 +169,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callHomeGet);
         RetrofitHelper.cancel(callPlaceGet);
         stopCoupleCountDownTask();

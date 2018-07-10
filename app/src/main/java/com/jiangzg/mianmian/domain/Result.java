@@ -79,6 +79,8 @@ public class Result implements Serializable {
         private WeatherToday weatherTodayTa;
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
+        private Souvenir souvenir;
+        private List<Souvenir> souvenirList;
         private Menses menses;
         private boolean canMe;
         private boolean canTa;
@@ -124,6 +126,22 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+
+        public Souvenir getSouvenir() {
+            return souvenir;
+        }
+
+        public void setSouvenir(Souvenir souvenir) {
+            this.souvenir = souvenir;
+        }
+
+        public List<Souvenir> getSouvenirList() {
+            return souvenirList;
+        }
+
+        public void setSouvenirList(List<Souvenir> souvenirList) {
+            this.souvenirList = souvenirList;
+        }
 
         public Menses getMenses() {
             return menses;

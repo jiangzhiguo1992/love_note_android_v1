@@ -38,4 +38,9 @@ public class SquareFragment extends BasePagerFragment<SquareFragment> {
         ToastUtils.show("Square加载数据");
     }
 
+    @Override
+    protected void onFinish(Bundle state) {
+
+    }
+
 }

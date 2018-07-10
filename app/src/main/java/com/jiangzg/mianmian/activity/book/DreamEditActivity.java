@@ -66,7 +66,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DreamEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -80,7 +80,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             return;
         }
         Intent intent = new Intent(from, DreamEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("dream", dream);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -159,7 +159,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
     }
 
     private void showDatePicker() {

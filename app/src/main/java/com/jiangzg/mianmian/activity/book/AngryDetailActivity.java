@@ -56,10 +56,6 @@ import rx.functions.Action1;
 
 public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
-    private static final int FROM_NONE = 0;
-    private static final int FROM_ID = 1;
-    private static final int FROM_ALL = 2;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -91,7 +87,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
-        intent.putExtra("from", FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
         intent.putExtra("angry", angry);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -99,7 +95,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     public static void goActivity(Activity from, long aid) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", FROM_ID);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("aid", aid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -115,15 +111,15 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.angry), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
+        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
             angry = intent.getParcelableExtra("angry");
             refreshView();
             // 必须加，要获取关联数据
             if (angry != null) {
                 refreshData(angry.getId());
             }
-        } else if (from == FROM_ID) {
+        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long aid = intent.getLongExtra("aid", 0);
             refreshData(aid);
         }

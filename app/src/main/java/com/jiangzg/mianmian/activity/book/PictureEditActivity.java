@@ -102,7 +102,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -117,7 +117,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             return;
         }
         Intent intent = new Intent(from, PictureEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("album", album);
         intent.putExtra("picture", picture);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -291,7 +291,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
     }
 
     private void refreshAlbum() {

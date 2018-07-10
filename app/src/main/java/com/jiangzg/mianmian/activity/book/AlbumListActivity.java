@@ -63,21 +63,21 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), AlbumListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelectAlbum(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT_ALBUM);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT_ALBUM);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelectPicture(Activity from) {
         Intent intent = new Intent(from, AlbumListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT_PICTURE);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT_PICTURE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -240,11 +240,11 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     }
 
     private boolean isFromSelectAlbum() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT_ALBUM;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT_ALBUM;
     }
 
     private boolean isFromSelectPicture() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT_PICTURE;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT_PICTURE;
     }
 
     private void getData(final boolean more) {

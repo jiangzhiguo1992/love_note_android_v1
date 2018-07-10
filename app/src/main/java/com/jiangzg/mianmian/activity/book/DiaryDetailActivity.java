@@ -47,10 +47,6 @@ import rx.functions.Action1;
 
 public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
-    private static final int FROM_NONE = 0;
-    private static final int FROM_ID = 1;
-    private static final int FROM_ALL = 2;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -76,7 +72,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
         intent.putExtra("diary", diary);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -84,7 +80,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, long did) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", FROM_ID);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -100,15 +96,15 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.diary), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
+        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
             diary = intent.getParcelableExtra("diary");
             refreshView();
             // 没有详情页的，可以不加
             if (diary != null) {
                 refreshData(diary.getId());
             }
-        } else if (from == FROM_ID) {
+        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long did = intent.getLongExtra("did", 0);
             refreshData(did);
         }

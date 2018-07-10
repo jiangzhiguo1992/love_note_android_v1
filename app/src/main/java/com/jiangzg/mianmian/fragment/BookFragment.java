@@ -21,6 +21,7 @@ import com.jiangzg.mianmian.activity.book.MensesActivity;
 import com.jiangzg.mianmian.activity.book.PromiseListActivity;
 import com.jiangzg.mianmian.activity.book.ShyActivity;
 import com.jiangzg.mianmian.activity.book.SleepActivity;
+import com.jiangzg.mianmian.activity.book.SouvenirListActivity;
 import com.jiangzg.mianmian.activity.book.TravelListActivity;
 import com.jiangzg.mianmian.activity.book.VideoListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
@@ -152,7 +153,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         }
         // TODO book的密码+指纹验证(app启动后解密一次)
         switch (view.getId()) {
-            case R.id.cvSouvenir: // TODO 纪念日+愿望清单
+            case R.id.cvSouvenir: // 纪念日+愿望清单
+                SouvenirListActivity.goActivity(mFragment);
                 break;
             case R.id.cvTrends: // TODO 动态+统计
                 break;
@@ -226,6 +228,11 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 srl.setRefreshing(false);
             }
         }, 1000);
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+
     }
 
 }

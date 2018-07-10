@@ -20,6 +20,7 @@ import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Shy;
 import com.jiangzg.mianmian.domain.Sleep;
 import com.jiangzg.mianmian.domain.Sms;
+import com.jiangzg.mianmian.domain.Souvenir;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestComment;
 import com.jiangzg.mianmian.domain.Travel;
@@ -189,6 +190,59 @@ public interface API {
     @GET("couple/weather?forecast=1")
     Call<Result> weatherForecastListGet();
 
+
+    // souvenirList获取
+    @GET("book/souvenir?sid=0&list=1")
+    Call<Result> souvenirListGet(@Query("done") boolean done);
+
+    // souvenir获取
+    @GET("book/souvenir?list=0")
+    Call<Result> souvenirGet(@Query("sid") long sid);
+
+    // souvenir上传
+    @POST("book/souvenir")
+    Call<Result> souvenirAdd(@Body Souvenir souvenir);
+
+    // souvenir删除
+    @DELETE("book/souvenir")
+    Call<Result> souvenirDel(@Query("sid") long sid);
+
+    // souvenir修改
+    @PUT("book/souvenir")
+    Call<Result> souvenirUpdate(@Body Souvenir souvenir);
+
+    // mensesList获取
+    @GET("book/menses?latest=0&date=1")
+    Call<Result> mensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
+
+    // menses获取
+    @GET("book/menses?latest=1&date=0")
+    Call<Result> mensesLatestGet();
+
+    // menses上传
+    @POST("book/menses")
+    Call<Result> mensesAdd(@Body Menses menses);
+
+    // shyList获取
+    @GET("book/shy?date=1")
+    Call<Result> shyListGetByDate(@Query("year") int year, @Query("month") int month);
+
+    // shy上传
+    @POST("book/shy")
+    Call<Result> shyAdd(@Body Shy shy);
+
+    // sleepList获取
+    @GET("book/sleep?latest=0&date=1")
+    Call<Result> sleepListGetByDate(@Query("year") int year, @Query("month") int month);
+
+    // sleep获取
+    @GET("book/sleep?latest=1&date=0")
+    Call<Result> sleepLatestGet();
+
+    // sleep上传
+    @POST("book/sleep")
+    Call<Result> sleepAdd(@Body Sleep sleep);
+
     // word获取
     @GET("book/word?list=1")
     Call<Result> wordListGet(@Query("page") int page);
@@ -264,6 +318,62 @@ public interface API {
     // picture上传
     @PUT("book/picture")
     Call<Result> pictureUpdate(@Body Picture picture);
+
+    // audioList获取
+    @GET("book/audio?aid=0&list=1")
+    Call<Result> audioListGet(@Query("page") int page);
+
+    // audio上传
+    @POST("book/audio")
+    Call<Result> audioAdd(@Body Audio audio);
+
+    // audio删除
+    @DELETE("book/audio")
+    Call<Result> audioDel(@Query("aid") long aid);
+
+    // videoList获取
+    @GET("book/video?vid=0&list=1")
+    Call<Result> videoListGet(@Query("page") int page);
+
+    // video上传
+    @POST("book/video")
+    Call<Result> videoAdd(@Body Video video);
+
+    // video删除
+    @DELETE("book/video")
+    Call<Result> videoDel(@Query("vid") long vid);
+
+    // foodList获取
+    @GET("book/food?fid=0&list=1")
+    Call<Result> foodListGet(@Query("page") int page);
+
+    // food上传
+    @POST("book/food")
+    Call<Result> foodAdd(@Body Food food);
+
+    // food删除
+    @DELETE("book/food")
+    Call<Result> foodDel(@Query("fid") long fid);
+
+    // travelList获取
+    @GET("book/travel?tid=0&list=1")
+    Call<Result> travelListGet(@Query("page") int page);
+
+    // travel获取
+    @GET("book/travel?list=0")
+    Call<Result> travelGet(@Query("tid") long tid);
+
+    // travel上传
+    @POST("book/travel")
+    Call<Result> travelAdd(@Body Travel travel);
+
+    // travel删除
+    @DELETE("book/travel")
+    Call<Result> travelDel(@Query("tid") long tid);
+
+    // travel修改
+    @PUT("book/travel")
+    Call<Result> travelUpdate(@Body Travel travel);
 
     // giftList获取
     @GET("book/gift?gid=0&list=1")
@@ -380,93 +490,5 @@ public interface API {
     // awardRule删除
     @DELETE("book/award/rule")
     Call<Result> awardRuleDel(@Query("arid") long arid);
-
-    // foodList获取
-    @GET("book/food?fid=0&list=1")
-    Call<Result> foodListGet(@Query("page") int page);
-
-    // food上传
-    @POST("book/food")
-    Call<Result> foodAdd(@Body Food food);
-
-    // food删除
-    @DELETE("book/food")
-    Call<Result> foodDel(@Query("fid") long fid);
-
-    // travelList获取
-    @GET("book/travel?tid=0&list=1")
-    Call<Result> travelListGet(@Query("page") int page);
-
-    // travel获取
-    @GET("book/travel?list=0")
-    Call<Result> travelGet(@Query("tid") long tid);
-
-    // travel上传
-    @POST("book/travel")
-    Call<Result> travelAdd(@Body Travel travel);
-
-    // travel删除
-    @DELETE("book/travel")
-    Call<Result> travelDel(@Query("tid") long tid);
-
-    // travel修改
-    @PUT("book/travel")
-    Call<Result> travelUpdate(@Body Travel travel);
-
-    // audioList获取
-    @GET("book/audio?aid=0&list=1")
-    Call<Result> audioListGet(@Query("page") int page);
-
-    // audio上传
-    @POST("book/audio")
-    Call<Result> audioAdd(@Body Audio audio);
-
-    // audio删除
-    @DELETE("book/audio")
-    Call<Result> audioDel(@Query("aid") long aid);
-
-    // videoList获取
-    @GET("book/video?vid=0&list=1")
-    Call<Result> videoListGet(@Query("page") int page);
-
-    // video上传
-    @POST("book/video")
-    Call<Result> videoAdd(@Body Video video);
-
-    // video删除
-    @DELETE("book/video")
-    Call<Result> videoDel(@Query("vid") long vid);
-
-    // sleepList获取
-    @GET("book/sleep?latest=0&date=1")
-    Call<Result> sleepListGetByDate(@Query("year") int year, @Query("month") int month);
-
-    // sleep获取
-    @GET("book/sleep?latest=1&date=0")
-    Call<Result> sleepLatestGet();
-
-    // sleep上传
-    @POST("book/sleep")
-    Call<Result> sleepAdd(@Body Sleep sleep);
-
-    // shyList获取
-    @GET("book/shy?date=1")
-    Call<Result> shyListGetByDate(@Query("year") int year, @Query("month") int month);
-
-    // shy上传
-    @POST("book/shy")
-    Call<Result> shyAdd(@Body Shy shy);
-
-    // mensesList获取
-    @GET("book/menses?latest=0&date=1")
-    Call<Result> mensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
-
-    // menses获取
-    @GET("book/menses?latest=1&date=0")
-    Call<Result> mensesLatestGet();
-
-    // menses上传
-    @POST("book/menses")
-    Call<Result> mensesAdd(@Body Menses menses);
 
 }

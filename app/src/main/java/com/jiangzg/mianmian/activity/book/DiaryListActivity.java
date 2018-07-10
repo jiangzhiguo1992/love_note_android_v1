@@ -70,14 +70,14 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivityBySelect(Activity from) {
         Intent intent = new Intent(from, DiaryListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -201,7 +201,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     }
 
     private boolean isFromSelect() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT;
     }
 
     private void getData(final boolean more) {

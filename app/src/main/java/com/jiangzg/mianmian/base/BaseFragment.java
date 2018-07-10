@@ -55,6 +55,11 @@ public abstract class BaseFragment<T> extends Fragment {
      */
     protected abstract void initData(Bundle state);
 
+    /**
+     * 注销
+     */
+    protected abstract void onFinish(Bundle state);
+
     /* 最先调用的，是否展示在界面上 */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -121,6 +126,7 @@ public abstract class BaseFragment<T> extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        onFinish(null);
         // TODO ?????
         //if (mUnBinder != null) {
         //    mUnBinder.unbind();

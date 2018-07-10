@@ -61,10 +61,6 @@ import rx.functions.Action1;
 
 public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
-    private static final int FROM_NONE = 0;
-    private static final int FROM_ID = 1;
-    private static final int FROM_ALL = 2;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -106,7 +102,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     public static void goActivity(Activity from, Promise promise) {
         Intent intent = new Intent(from, PromiseDetailActivity.class);
-        intent.putExtra("from", FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
         intent.putExtra("promise", promise);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -114,7 +110,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     public static void goActivity(Activity from, long pid) {
         Intent intent = new Intent(from, PromiseDetailActivity.class);
-        intent.putExtra("from", FROM_ID);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -157,8 +153,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                     }
                 });
         // init
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
+        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
             promise = intent.getParcelableExtra("promise");
             // view
             initHead();
@@ -167,7 +163,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             if (promise != null) {
                 refreshPromise(promise.getId());
             }
-        } else if (from == FROM_ID) {
+        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
             refreshPromise(pid);
         }

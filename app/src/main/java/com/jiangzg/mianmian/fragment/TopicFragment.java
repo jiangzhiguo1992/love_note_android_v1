@@ -38,4 +38,9 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         ToastUtils.show("Topic加载数据");
     }
 
+    @Override
+    protected void onFinish(Bundle state) {
+
+    }
+
 }

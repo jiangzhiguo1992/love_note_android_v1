@@ -61,10 +61,6 @@ import rx.functions.Action1;
 
 public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
-    private static final int FROM_NONE = 0;
-    private static final int FROM_ID = 1;
-    private static final int FROM_ALL = 2;
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -108,7 +104,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     public static void goActivity(Activity from, Travel travel) {
         Intent intent = new Intent(from, TravelDetailActivity.class);
-        intent.putExtra("from", FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
         intent.putExtra("travel", travel);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -116,7 +112,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     public static void goActivity(Activity from, long tid) {
         Intent intent = new Intent(from, TravelDetailActivity.class);
-        intent.putExtra("from", FROM_ID);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("tid", tid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -132,15 +128,15 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.travel), true);
         srl.setEnabled(false);
         // init
-        int from = intent.getIntExtra("from", FROM_NONE);
-        if (from == FROM_ALL) {
+        int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
             travel = intent.getParcelableExtra("travel");
             refreshView();
             // 没有详情页的，可以不加
             if (travel != null) {
                 refreshTravel(travel.getId());
             }
-        } else if (from == FROM_ID) {
+        } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long tid = intent.getLongExtra("tid", 0);
             refreshTravel(tid);
         }

@@ -98,7 +98,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, long albumId) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
         intent.putExtra("albumId", albumId);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -106,7 +106,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivity(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_BROWSE);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -114,7 +114,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
     public static void goActivityBySelect(Activity from, Album album) {
         Intent intent = new Intent(from, PictureListActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_SELECT);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_SELECT);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -280,7 +280,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private boolean isFromSelectPicture() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_BROWSE) == ConsHelper.ACT_FROM_SELECT;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE) == ConsHelper.ACT_LIST_FROM_SELECT;
     }
 
     private void refreshAlbumView() {

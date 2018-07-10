@@ -120,6 +120,10 @@
         <activity android:name=".activity.book.SleepActivity"/>
         <activity android:name=".activity.book.ShyActivity"/>
         <activity android:name=".activity.book.MensesActivity"/>
+        <activity android:name=".activity.book.SouvenirListActivity"/>
+        <activity android:name=".activity.book.SouvenirEditActivity"/>
+        <activity android:name=".activity.book.SouvenirDetailDoneActivity"/>
+        <activity android:name=".activity.book.SouvenirDetailWishActivity"/>
     </application>
 
 </manifest>

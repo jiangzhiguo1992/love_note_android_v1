@@ -2,9 +2,9 @@
 <android.support.design.widget.TabLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/tlTop"
+    android:id="@+id/tl"
     android:layout_width="match_parent"
-    android:layout_height="44dp"
+    android:layout_height="wrap_content"
     android:background="@drawable/layer_line_bottom_grey"
     app:tabIndicatorColor="?attr/colorPrimary"
     app:tabIndicatorHeight="1dp"

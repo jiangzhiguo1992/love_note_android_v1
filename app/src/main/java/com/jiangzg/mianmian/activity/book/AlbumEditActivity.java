@@ -80,7 +80,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_ADD);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -94,7 +94,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             return;
         }
         Intent intent = new Intent(from, AlbumEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_FROM_UPDATE);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
         intent.putExtra("album", album);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -222,7 +222,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_FROM_ADD) == ConsHelper.ACT_FROM_UPDATE;
+        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
     }
 
     private void refreshDateView() {
