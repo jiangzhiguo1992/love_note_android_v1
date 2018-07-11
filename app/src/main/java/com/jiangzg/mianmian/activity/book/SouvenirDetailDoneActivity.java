@@ -268,6 +268,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         FragmentPagerAdapter<SouvenirForeignFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // viewPager
+        vpFragment.setOffscreenPageLimit(yearNow - yearHappen + 1);
         vpFragment.setAdapter(adapter);
         tl.setupWithViewPager(vpFragment);
     }

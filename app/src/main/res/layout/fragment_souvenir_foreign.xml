@@ -12,35 +12,19 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/llGift"
+        <TextView
+            android:id="@+id/tvGift"
+            style="@style/FontWhiteSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:text="@string/gift"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/gift"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            tools:visibility="visible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvGift"
@@ -49,35 +33,19 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/llTravel"
+        <TextView
+            android:id="@+id/tvTravel"
+            style="@style/FontWhiteSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:text="@string/travel"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/travel"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            tools:visibility="visible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvTravel"
@@ -86,35 +54,19 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/llAlbum"
+        <TextView
+            android:id="@+id/tvAlbum"
+            style="@style/FontWhiteSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:text="@string/album"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/album"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            tools:visibility="visible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvAlbum"
@@ -123,35 +75,19 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/llVideo"
+        <TextView
+            android:id="@+id/tvVideo"
+            style="@style/FontWhiteSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:text="@string/video"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/video"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            tools:visibility="visible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvVideo"
@@ -160,35 +96,19 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/llFood"
+        <TextView
+            android:id="@+id/tvFood"
+            style="@style/FontWhiteSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:text="@string/food"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/food"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            tools:visibility="visible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvFood"
@@ -197,35 +117,19 @@
             android:visibility="gone"
             tools:visibility="visible"/>
 
-        <LinearLayout
-            android:id="@+id/llDiary"
+        <TextView
+            android:id="@+id/tvDiary"
+            style="@style/FontWhiteSmall"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
+            android:gravity="center"
+            android:text="@string/diary"
             android:visibility="gone"
-            tools:visibility="visible">
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-
-            <TextView
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/diary"/>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_weight="1"/>
-        </LinearLayout>
+            tools:visibility="visible"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvDiary"

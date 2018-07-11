@@ -40,10 +40,12 @@
                 <TextView
                     android:id="@+id/tvAddress"
                     style="@style/FontWhiteNormal"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
                     android:padding="10dp"
                     android:textColor="@color/white_trans_75"
@@ -108,6 +110,10 @@
                         tools:text="创建于: XXX"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:background="@color/white"/>
 
             <include layout="@layout/view_tab_bar"/>
 

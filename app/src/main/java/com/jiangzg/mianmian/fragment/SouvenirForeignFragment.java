@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -38,28 +38,28 @@ import butterknife.OnClick;
 
 public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragment> {
 
-    @BindView(R.id.llGift)
-    LinearLayout llGift;
+    @BindView(R.id.tvGift)
+    TextView tvGift;
     @BindView(R.id.rvGift)
     RecyclerView rvGift;
-    @BindView(R.id.llTravel)
-    LinearLayout llTravel;
+    @BindView(R.id.tvTravel)
+    TextView tvTravel;
     @BindView(R.id.rvTravel)
     RecyclerView rvTravel;
-    @BindView(R.id.llAlbum)
-    LinearLayout llAlbum;
+    @BindView(R.id.tvAlbum)
+    TextView tvAlbum;
     @BindView(R.id.rvAlbum)
     RecyclerView rvAlbum;
-    @BindView(R.id.llVideo)
-    LinearLayout llVideo;
+    @BindView(R.id.tvVideo)
+    TextView tvVideo;
     @BindView(R.id.rvVideo)
     RecyclerView rvVideo;
-    @BindView(R.id.llFood)
-    LinearLayout llFood;
+    @BindView(R.id.tvFood)
+    TextView tvFood;
     @BindView(R.id.rvFood)
     RecyclerView rvFood;
-    @BindView(R.id.llDiary)
-    LinearLayout llDiary;
+    @BindView(R.id.tvDiary)
+    TextView tvDiary;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
     @BindView(R.id.btnEdit)
@@ -127,7 +127,7 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
         // gift
         List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), false);
         if (giftList != null && giftList.size() > 0) {
-            llGift.setVisibility(View.VISIBLE);
+            tvGift.setVisibility(View.VISIBLE);
             rvGift.setVisibility(View.VISIBLE);
             if (recyclerGift == null) {
                 recyclerGift = new RecyclerHelper(rvGift)
@@ -142,13 +142,13 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
             }
             recyclerGift.dataNew(giftList, 0);
         } else {
-            llGift.setVisibility(View.GONE);
+            tvGift.setVisibility(View.GONE);
             rvGift.setVisibility(View.GONE);
         }
         // travel
         List<Travel> travelList = ListHelper.getTravelListBySouvenir(souvenir.getSouvenirTravelList(), false);
         if (travelList != null && travelList.size() > 0) {
-            llTravel.setVisibility(View.VISIBLE);
+            tvTravel.setVisibility(View.VISIBLE);
             rvTravel.setVisibility(View.VISIBLE);
             if (recyclerTravel == null) {
                 recyclerTravel = new RecyclerHelper(rvTravel)
@@ -170,13 +170,13 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
             }
             recyclerTravel.dataNew(travelList, 0);
         } else {
-            llTravel.setVisibility(View.GONE);
+            tvTravel.setVisibility(View.GONE);
             rvTravel.setVisibility(View.GONE);
         }
         // album
         List<Album> albumList = ListHelper.getAlbumListBySouvenir(souvenir.getSouvenirAlbumList(), false);
         if (albumList != null && albumList.size() > 0) {
-            llAlbum.setVisibility(View.VISIBLE);
+            tvAlbum.setVisibility(View.VISIBLE);
             rvAlbum.setVisibility(View.VISIBLE);
             if (recyclerAlbum == null) {
                 recyclerAlbum = new RecyclerHelper(rvAlbum)
@@ -198,13 +198,13 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
             }
             recyclerAlbum.dataNew(albumList, 0);
         } else {
-            llAlbum.setVisibility(View.GONE);
+            tvAlbum.setVisibility(View.GONE);
             rvAlbum.setVisibility(View.GONE);
         }
         // video
         ArrayList<Video> videoList = ListHelper.getVideoListBySouvenir(souvenir.getSouvenirVideoList(), false);
         if (videoList != null && videoList.size() > 0) {
-            llVideo.setVisibility(View.VISIBLE);
+            tvVideo.setVisibility(View.VISIBLE);
             rvVideo.setVisibility(View.VISIBLE);
             if (recyclerVideo == null) {
                 recyclerVideo = new RecyclerHelper(rvVideo)
@@ -233,13 +233,13 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
             }
             recyclerVideo.dataNew(videoList, 0);
         } else {
-            llVideo.setVisibility(View.GONE);
+            tvVideo.setVisibility(View.GONE);
             rvVideo.setVisibility(View.GONE);
         }
         // food
         ArrayList<Food> foodList = ListHelper.getFoodListBySouvenir(souvenir.getSouvenirFoodList(), false);
         if (foodList != null && foodList.size() > 0) {
-            llFood.setVisibility(View.VISIBLE);
+            tvFood.setVisibility(View.VISIBLE);
             rvFood.setVisibility(View.VISIBLE);
             if (recyclerFood == null) {
                 recyclerFood = new RecyclerHelper(rvFood)
@@ -265,13 +265,13 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
             }
             recyclerFood.dataNew(foodList, 0);
         } else {
-            llFood.setVisibility(View.GONE);
+            tvFood.setVisibility(View.GONE);
             rvFood.setVisibility(View.GONE);
         }
         // diary
         ArrayList<Diary> diaryList = ListHelper.getDiaryListBySouvenir(souvenir.getSouvenirDiaryList(), false);
         if (diaryList != null && diaryList.size() > 0) {
-            llDiary.setVisibility(View.VISIBLE);
+            tvDiary.setVisibility(View.VISIBLE);
             rvDiary.setVisibility(View.VISIBLE);
             if (recyclerDiary == null) {
                 recyclerDiary = new RecyclerHelper(rvDiary)
@@ -293,7 +293,7 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
             }
             recyclerDiary.dataNew(diaryList, 0);
         } else {
-            llDiary.setVisibility(View.GONE);
+            tvDiary.setVisibility(View.GONE);
             rvDiary.setVisibility(View.GONE);
         }
     }
