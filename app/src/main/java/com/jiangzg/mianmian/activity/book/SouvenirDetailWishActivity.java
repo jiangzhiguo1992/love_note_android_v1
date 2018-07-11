@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -91,7 +92,7 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.souvenir), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.wish_list), true);
         srl.setEnabled(false);
         // init
         int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
@@ -123,8 +124,8 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
     @Override
     protected void onFinish(Bundle state) {
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
-        RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callDel);
     }
 
     @Override
@@ -182,9 +183,6 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     private void refreshView() {
         if (souvenir == null) return;
-        // toolBar
-        String title = getString(souvenir.isDone() ? R.string.souvenir : R.string.wish_list);
-        ViewHelper.initTopBar(mActivity, tb, title, true);
         // title
         tvTitle.setText(souvenir.getTitle());
         // happen
@@ -204,7 +202,12 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
         String days = String.format(Locale.getDefault(), format, dayCount);
         tvDayCount.setText(days);
         // address
-        tvAddress.setText(souvenir.getAddress());
+        if (StringUtils.isEmpty(souvenir.getAddress())) {
+            tvAddress.setVisibility(View.GONE);
+        } else {
+            tvAddress.setVisibility(View.VISIBLE);
+            tvAddress.setText(souvenir.getAddress());
+        }
         // creator
         User user = SPHelper.getMe();
         String name = user.getNameInCp(souvenir.getUserId());
