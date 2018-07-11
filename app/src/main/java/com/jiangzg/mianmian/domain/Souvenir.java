@@ -28,6 +28,54 @@ public class Souvenir extends BaseCP implements Parcelable {
     // api-put关联
     private int year;
 
+    public List<SouvenirGift> getSouvenirGiftList() {
+        return souvenirGiftList;
+    }
+
+    public void setSouvenirGiftList(List<SouvenirGift> souvenirGiftList) {
+        this.souvenirGiftList = souvenirGiftList;
+    }
+
+    public List<SouvenirTravel> getSouvenirTravelList() {
+        return souvenirTravelList;
+    }
+
+    public void setSouvenirTravelList(List<SouvenirTravel> souvenirTravelList) {
+        this.souvenirTravelList = souvenirTravelList;
+    }
+
+    public List<SouvenirAlbum> getSouvenirAlbumList() {
+        return souvenirAlbumList;
+    }
+
+    public void setSouvenirAlbumList(List<SouvenirAlbum> souvenirAlbumList) {
+        this.souvenirAlbumList = souvenirAlbumList;
+    }
+
+    public List<SouvenirVideo> getSouvenirVideoList() {
+        return souvenirVideoList;
+    }
+
+    public void setSouvenirVideoList(List<SouvenirVideo> souvenirVideoList) {
+        this.souvenirVideoList = souvenirVideoList;
+    }
+
+    public List<SouvenirFood> getSouvenirFoodList() {
+        return souvenirFoodList;
+    }
+
+    public void setSouvenirFoodList(List<SouvenirFood> souvenirFoodList) {
+        this.souvenirFoodList = souvenirFoodList;
+    }
+
+    public List<SouvenirDiary> getSouvenirDiaryList() {
+        return souvenirDiaryList;
+    }
+
+    public void setSouvenirDiaryList(List<SouvenirDiary> souvenirDiaryList) {
+        this.souvenirDiaryList = souvenirDiaryList;
+    }
+
     public int getYear() {
         return year;
     }

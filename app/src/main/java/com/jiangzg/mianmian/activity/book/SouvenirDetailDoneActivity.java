@@ -34,6 +34,7 @@ import com.jiangzg.mianmian.fragment.SouvenirForeignFragment;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -243,7 +244,23 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             }
         }
         for (int i = yearHappen; i <= yearNow; i++) {
-            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(souvenir, i);
+            // obj
+            Souvenir s = new Souvenir();
+            s.setId(souvenir.getId());
+            s.setStatus(souvenir.getStatus());
+            s.setCreateAt(souvenir.getCreateAt());
+            s.setUpdateAt(souvenir.getUpdateAt());
+            s.setUserId(souvenir.getUserId());
+            s.setCoupleId(souvenir.getCoupleId());
+            s.setYear(i);
+            s.setSouvenirGiftList(ListHelper.getSouvenirGiftListByYear(souvenir.getSouvenirGiftList(), i));
+            s.setSouvenirTravelList(ListHelper.getSouvenirTravelListByYear(souvenir.getSouvenirTravelList(), i));
+            s.setSouvenirAlbumList(ListHelper.getSouvenirAlbumListByYear(souvenir.getSouvenirAlbumList(), i));
+            s.setSouvenirVideoList(ListHelper.getSouvenirVideoListByYear(souvenir.getSouvenirVideoList(), i));
+            s.setSouvenirFoodList(ListHelper.getSouvenirFoodListByYear(souvenir.getSouvenirFoodList(), i));
+            s.setSouvenirDiaryList(ListHelper.getSouvenirDiaryListByYear(souvenir.getSouvenirDiaryList(), i));
+            // list
+            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(s);
             fragmentList.add(fragment);
             titleList.add(String.valueOf(i));
         }

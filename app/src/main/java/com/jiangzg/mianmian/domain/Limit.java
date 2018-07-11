@@ -22,6 +22,7 @@ public class Limit {
     // book
     private long bookResExpireSec;
     private int souvenirTitleLength;
+    private int souvenirForeignYearCount;
     private int whisperContentLength;
     private int whisperChannelLength;
     private int wordContentLength;
@@ -45,6 +46,14 @@ public class Limit {
 
     // square
     private int vipExpireDay;
+
+    public int getSouvenirForeignYearCount() {
+        return souvenirForeignYearCount;
+    }
+
+    public void setSouvenirForeignYearCount(int souvenirForeignYearCount) {
+        this.souvenirForeignYearCount = souvenirForeignYearCount;
+    }
 
     public int getFoodTitleLength() {
         return foodTitleLength;

@@ -391,6 +391,8 @@
     <string name="award">奖励</string>
     <string name="award_rule">奖励规则</string>
     <string name="add_track">添加足迹</string>
+    <string name="add_gift">添加礼物</string>
+    <string name="add_travel">添加游记</string>
     <string name="add_album">添加相册</string>
     <string name="add_video">添加视频</string>
     <string name="add_food">添加美食</string>
@@ -425,6 +427,7 @@
     <string name="confirm_delete_this_food">确定删除这个美食？</string>
     <string name="confirm_remove_this_food">确定移除这个美食？</string>
     <string name="confirm_delete_this_travel">确定删除这个游记？</string>
+    <string name="confirm_remove_this_travel">确定移除这个游记？</string>
     <string name="confirm_delete_this_track">确定删除这个足迹？</string>
     <string name="confirm_delete_this_gift">确定删除这个礼物？</string>
     <string name="confirm_remove_this_gift">确定移除这个礼物？</string>

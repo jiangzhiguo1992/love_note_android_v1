@@ -29,9 +29,10 @@ public class Help extends BaseObj {
     public static final int INDEX_BOOK_TREND = 310;
     public static final int INDEX_BOOK_LOCK = 320;
     public static final int INDEX_BOOK_SOUVENIR_LIST = 330;
-    public static final int INDEX_BOOK_SOUVENIR_EDIT = 331;
-    public static final int INDEX_BOOK_SOUVENIR_DETAIL_DONE = 332;
-    public static final int INDEX_BOOK_SOUVENIR_DETAIL_WISH = 333;
+    public static final int INDEX_BOOK_SOUVENIR_BODY_EDIT = 331;
+    public static final int INDEX_BOOK_SOUVENIR_FOREIGN_EDIT = 332;
+    public static final int INDEX_BOOK_SOUVENIR_DETAIL_DONE = 333;
+    public static final int INDEX_BOOK_SOUVENIR_DETAIL_WISH = 334;
     public static final int INDEX_BOOK_MENSES = 340;
     public static final int INDEX_BOOK_SHY = 350;
     public static final int INDEX_BOOK_SLEEP = 360;

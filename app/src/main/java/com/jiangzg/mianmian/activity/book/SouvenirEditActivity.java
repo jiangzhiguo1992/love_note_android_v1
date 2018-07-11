@@ -165,7 +165,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_SOUVENIR_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_SOUVENIR_BODY_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);

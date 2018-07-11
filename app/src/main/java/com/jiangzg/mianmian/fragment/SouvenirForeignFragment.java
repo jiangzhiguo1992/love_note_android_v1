@@ -2,28 +2,99 @@ package com.jiangzg.mianmian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.book.SouvenirEditForeignActivity;
+import com.jiangzg.mianmian.adapter.AlbumAdapter;
+import com.jiangzg.mianmian.adapter.DiaryAdapter;
+import com.jiangzg.mianmian.adapter.FoodAdapter;
+import com.jiangzg.mianmian.adapter.GiftAdapter;
+import com.jiangzg.mianmian.adapter.TravelAdapter;
+import com.jiangzg.mianmian.adapter.VideoAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
+import com.jiangzg.mianmian.domain.Album;
+import com.jiangzg.mianmian.domain.Diary;
+import com.jiangzg.mianmian.domain.Food;
+import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Souvenir;
+import com.jiangzg.mianmian.domain.Travel;
+import com.jiangzg.mianmian.domain.Video;
+import com.jiangzg.mianmian.helper.ListHelper;
+import com.jiangzg.mianmian.helper.RecyclerHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragment> {
 
-    public static SouvenirForeignFragment newFragment(Souvenir souvenir, int year) {
+    @BindView(R.id.llGift)
+    LinearLayout llGift;
+    @BindView(R.id.rvGift)
+    RecyclerView rvGift;
+    @BindView(R.id.llTravel)
+    LinearLayout llTravel;
+    @BindView(R.id.rvTravel)
+    RecyclerView rvTravel;
+    @BindView(R.id.llAlbum)
+    LinearLayout llAlbum;
+    @BindView(R.id.rvAlbum)
+    RecyclerView rvAlbum;
+    @BindView(R.id.llVideo)
+    LinearLayout llVideo;
+    @BindView(R.id.rvVideo)
+    RecyclerView rvVideo;
+    @BindView(R.id.llFood)
+    LinearLayout llFood;
+    @BindView(R.id.rvFood)
+    RecyclerView rvFood;
+    @BindView(R.id.llDiary)
+    LinearLayout llDiary;
+    @BindView(R.id.rvDiary)
+    RecyclerView rvDiary;
+    @BindView(R.id.btnEdit)
+    Button btnEdit;
+
+    private Souvenir souvenir;
+    private RecyclerHelper recyclerGift;
+    private RecyclerHelper recyclerTravel;
+    private RecyclerHelper recyclerAlbum;
+    private RecyclerHelper recyclerVideo;
+    private RecyclerHelper recyclerFood;
+    private RecyclerHelper recyclerDiary;
+
+    public static SouvenirForeignFragment newFragment(Souvenir souvenir) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("souvenir", souvenir);
-        bundle.putInt("year", year);
         return BaseFragment.newInstance(SouvenirForeignFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
+        souvenir = data.getParcelable("souvenir");
         return R.layout.fragment_souvenir_foreign;
     }
 
     @Override
     protected void initView(@Nullable Bundle state) {
-
+        // btn
+        if (souvenir == null || !souvenir.isMine()) {
+            btnEdit.setVisibility(View.GONE);
+        } else {
+            btnEdit.setVisibility(View.VISIBLE);
+        }
+        // recycler
+        refreshView();
     }
 
     @Override
@@ -33,12 +104,198 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
 
     @Override
     protected void onFinish(Bundle state) {
-
+        RecyclerHelper.release(recyclerGift);
+        RecyclerHelper.release(recyclerTravel);
+        RecyclerHelper.release(recyclerAlbum);
+        RecyclerHelper.release(recyclerVideo);
+        RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerDiary);
     }
 
-    public void edit() {
-        // TODO edit：foreign的修改只带year和id(包括souvenir)
+    @OnClick({R.id.btnEdit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnEdit:
+                if (souvenir == null) return;
+                SouvenirEditForeignActivity.goActivity(mActivity, souvenir);
+                break;
+        }
+    }
 
+    private void refreshView() {
+        if (souvenir == null) return;
+        // gift
+        List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), false);
+        if (giftList != null && giftList.size() > 0) {
+            llGift.setVisibility(View.VISIBLE);
+            rvGift.setVisibility(View.VISIBLE);
+            if (recyclerGift == null) {
+                recyclerGift = new RecyclerHelper(rvGift)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new GiftAdapter(mActivity))
+                        .setAdapter();
+            }
+            recyclerGift.dataNew(giftList, 0);
+        } else {
+            llGift.setVisibility(View.GONE);
+            rvGift.setVisibility(View.GONE);
+        }
+        // travel
+        List<Travel> travelList = ListHelper.getTravelListBySouvenir(souvenir.getSouvenirTravelList(), false);
+        if (travelList != null && travelList.size() > 0) {
+            llTravel.setVisibility(View.VISIBLE);
+            rvTravel.setVisibility(View.VISIBLE);
+            if (recyclerTravel == null) {
+                recyclerTravel = new RecyclerHelper(rvTravel)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new TravelAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemClickListener() {
+                            @Override
+                            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                TravelAdapter travelAdapter = (TravelAdapter) adapter;
+                                travelAdapter.goTravelDetail(position);
+                            }
+                        });
+            }
+            recyclerTravel.dataNew(travelList, 0);
+        } else {
+            llTravel.setVisibility(View.GONE);
+            rvTravel.setVisibility(View.GONE);
+        }
+        // album
+        List<Album> albumList = ListHelper.getAlbumListBySouvenir(souvenir.getSouvenirAlbumList(), false);
+        if (albumList != null && albumList.size() > 0) {
+            llAlbum.setVisibility(View.VISIBLE);
+            rvAlbum.setVisibility(View.VISIBLE);
+            if (recyclerAlbum == null) {
+                recyclerAlbum = new RecyclerHelper(rvAlbum)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new AlbumAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemClickListener() {
+                            @Override
+                            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                AlbumAdapter albumAdapter = (AlbumAdapter) adapter;
+                                albumAdapter.goAlbumDetail(position);
+                            }
+                        });
+            }
+            recyclerAlbum.dataNew(albumList, 0);
+        } else {
+            llAlbum.setVisibility(View.GONE);
+            rvAlbum.setVisibility(View.GONE);
+        }
+        // video
+        ArrayList<Video> videoList = ListHelper.getVideoListBySouvenir(souvenir.getSouvenirVideoList(), false);
+        if (videoList != null && videoList.size() > 0) {
+            llVideo.setVisibility(View.VISIBLE);
+            rvVideo.setVisibility(View.VISIBLE);
+            if (recyclerVideo == null) {
+                recyclerVideo = new RecyclerHelper(rvVideo)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new VideoAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemChildClickListener() {
+                            @Override
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                VideoAdapter videoAdapter = (VideoAdapter) adapter;
+                                switch (view.getId()) {
+                                    case R.id.cvVideo: // 播放
+                                        videoAdapter.playVideo(position);
+                                        break;
+                                    case R.id.tvAddress: // 地图
+                                        videoAdapter.goMapShow(position);
+                                        break;
+                                }
+                            }
+                        });
+            }
+            recyclerVideo.dataNew(videoList, 0);
+        } else {
+            llVideo.setVisibility(View.GONE);
+            rvVideo.setVisibility(View.GONE);
+        }
+        // food
+        ArrayList<Food> foodList = ListHelper.getFoodListBySouvenir(souvenir.getSouvenirFoodList(), false);
+        if (foodList != null && foodList.size() > 0) {
+            llFood.setVisibility(View.VISIBLE);
+            rvFood.setVisibility(View.VISIBLE);
+            if (recyclerFood == null) {
+                recyclerFood = new RecyclerHelper(rvFood)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new FoodAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemChildClickListener() {
+                            @Override
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                FoodAdapter foodAdapter = (FoodAdapter) adapter;
+                                switch (view.getId()) {
+                                    case R.id.tvAddress:
+                                        foodAdapter.goMapShow(position);
+                                        break;
+                                }
+                            }
+                        });
+            }
+            recyclerFood.dataNew(foodList, 0);
+        } else {
+            llFood.setVisibility(View.GONE);
+            rvFood.setVisibility(View.GONE);
+        }
+        // diary
+        ArrayList<Diary> diaryList = ListHelper.getDiaryListBySouvenir(souvenir.getSouvenirDiaryList(), false);
+        if (diaryList != null && diaryList.size() > 0) {
+            llDiary.setVisibility(View.VISIBLE);
+            rvDiary.setVisibility(View.VISIBLE);
+            if (recyclerDiary == null) {
+                recyclerDiary = new RecyclerHelper(rvDiary)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new DiaryAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemClickListener() {
+                            @Override
+                            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                                DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
+                                diaryAdapter.goDiaryDetail(position);
+                            }
+                        });
+            }
+            recyclerDiary.dataNew(diaryList, 0);
+        } else {
+            llDiary.setVisibility(View.GONE);
+            rvDiary.setVisibility(View.GONE);
+        }
     }
 
 }

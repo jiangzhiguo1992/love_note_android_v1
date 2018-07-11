@@ -124,6 +124,7 @@
         <activity android:name=".activity.book.SouvenirEditActivity"/>
         <activity android:name=".activity.book.SouvenirDetailDoneActivity"/>
         <activity android:name=".activity.book.SouvenirDetailWishActivity"/>
+        <activity android:name=".activity.book.SouvenirEditForeignActivity"/>
     </application>
 
 </manifest>

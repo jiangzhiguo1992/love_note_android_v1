@@ -13,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -23,30 +21,32 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.FoodAdapter;
-import com.jiangzg.mianmian.adapter.TravelPlaceAdapter;
+import com.jiangzg.mianmian.adapter.GiftAdapter;
+import com.jiangzg.mianmian.adapter.TravelAdapter;
 import com.jiangzg.mianmian.adapter.VideoAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Food;
+import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.domain.Souvenir;
+import com.jiangzg.mianmian.domain.SouvenirAlbum;
+import com.jiangzg.mianmian.domain.SouvenirDiary;
+import com.jiangzg.mianmian.domain.SouvenirFood;
+import com.jiangzg.mianmian.domain.SouvenirGift;
+import com.jiangzg.mianmian.domain.SouvenirTravel;
+import com.jiangzg.mianmian.domain.SouvenirVideo;
 import com.jiangzg.mianmian.domain.Travel;
-import com.jiangzg.mianmian.domain.TravelAlbum;
-import com.jiangzg.mianmian.domain.TravelDiary;
-import com.jiangzg.mianmian.domain.TravelFood;
-import com.jiangzg.mianmian.domain.TravelPlace;
-import com.jiangzg.mianmian.domain.TravelVideo;
 import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
@@ -56,12 +56,10 @@ import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
-import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -69,20 +67,18 @@ import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
+public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeignActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.etTitle)
-    EditText etTitle;
-    @BindView(R.id.cvHappenAt)
-    CardView cvHappenAt;
-    @BindView(R.id.tvHappenAt)
-    TextView tvHappenAt;
-    @BindView(R.id.rvPlace)
-    RecyclerView rvPlace;
-    @BindView(R.id.cvPlaceAdd)
-    CardView cvPlaceAdd;
+    @BindView(R.id.rvGift)
+    RecyclerView rvGift;
+    @BindView(R.id.cvGiftAdd)
+    CardView cvGiftAdd;
+    @BindView(R.id.rvTravel)
+    RecyclerView rvTravel;
+    @BindView(R.id.cvTravelAdd)
+    CardView cvTravelAdd;
     @BindView(R.id.rvAlbum)
     RecyclerView rvAlbum;
     @BindView(R.id.cvAlbumAdd)
@@ -102,91 +98,86 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     @BindView(R.id.btnPublish)
     Button btnPublish;
 
-    private Travel travel;
-    private RecyclerHelper recyclerPlace;
+    private Souvenir souvenir;
+    private RecyclerHelper recyclerGift;
+    private RecyclerHelper recyclerTravel;
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
     private RecyclerHelper recyclerDiary;
-    private Observable<TravelPlace> obAddPlace;
+    private Observable<Gift> obSelectGift;
+    private Observable<Travel> obSelectTravel;
     private Observable<Album> obSelectAlbum;
     private Observable<Video> obSelectVideo;
     private Observable<Food> obSelectFood;
     private Observable<Diary> obSelectDiary;
-    private Call<Result> callAdd;
-    private Call<Result> callUpdate;
+    private Call<Result> call;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, TravelEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_ADD);
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
-    }
-
-    public static void goActivity(Activity from, Travel travel) {
-        if (travel == null) {
-            goActivity(from);
-            return;
-        } else if (!travel.isMine()) {
-            ToastUtils.show(from.getString(R.string.can_operation_self_create_travel));
+    public static void goActivity(Activity from, Souvenir souvenir) {
+        if (souvenir == null || !souvenir.isMine()) {
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_souvenir));
             return;
         }
-        Intent intent = new Intent(from, TravelEditActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
-        intent.putExtra("travel", travel);
+        Intent intent = new Intent(from, SouvenirEditForeignActivity.class);
+        intent.putExtra("souvenir", souvenir);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_travel_edit;
+        return R.layout.activity_souvenir_edit_foreign;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.travel), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.souvenir), true);
         // init
-        if (isFromUpdate()) {
-            travel = intent.getParcelableExtra("travel");
+        souvenir = intent.getParcelableExtra("souvenir");
+        if (souvenir == null) {
+            souvenir = new Souvenir();
         }
-        if (travel == null) {
-            travel = new Travel();
-        }
-        if (travel.getHappenAt() == 0) {
-            travel.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
-        }
-        // etTitle
-        String format = getString(R.string.please_input_title_no_over_holder_text);
-        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getTravelTitleLength());
-        etTitle.setHint(hint);
-        etTitle.setText(travel.getTitle());
-        // date
-        refreshDateView();
-        // place
-        recyclerPlace = new RecyclerHelper(rvPlace)
+        // gift
+        recyclerGift = new RecyclerHelper(rvGift)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
                     @Override
                     public boolean canScrollVertically() {
                         return false;
                     }
                 })
-                .initAdapter(new TravelPlaceAdapter(mActivity))
+                .initAdapter(new GiftAdapter(mActivity))
+                .setAdapter()
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_gift);
+                    }
+                });
+        refreshGiftView();
+        // travel
+        recyclerTravel = new RecyclerHelper(rvTravel)
+                .initLayoutManager(new LinearLayoutManager(mActivity) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                })
+                .initAdapter(new TravelAdapter(mActivity))
                 .setAdapter()
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        TravelPlaceAdapter placeAdapter = (TravelPlaceAdapter) adapter;
-                        placeAdapter.goMapShow(position);
+                        TravelAdapter travelAdapter = (TravelAdapter) adapter;
+                        travelAdapter.goTravelDetail(position);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        showDeleteDialogNoApi(adapter, position, R.string.confirm_delete_this_track);
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_travel);
                     }
                 });
-        refreshPlaceView();
+        refreshTravelView();
         // album
         recyclerAlbum = new RecyclerHelper(rvAlbum)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
@@ -305,13 +296,23 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obAddPlace = RxBus.register(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, new Action1<TravelPlace>() {
+        obSelectGift = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, new Action1<Gift>() {
             @Override
-            public void call(TravelPlace travelPlace) {
-                if (recyclerPlace == null) return;
-                List<TravelPlace> placeList = new ArrayList<>();
-                placeList.add(travelPlace);
-                recyclerPlace.dataAdd(placeList);
+            public void call(Gift gift) {
+                if (recyclerGift == null) return;
+                List<Gift> giftList = new ArrayList<>();
+                giftList.add(gift);
+                recyclerGift.dataAdd(giftList);
+                refreshAddView();
+            }
+        });
+        obSelectTravel = RxBus.register(ConsHelper.EVENT_TRAVEL_SELECT, new Action1<Travel>() {
+            @Override
+            public void call(Travel travel) {
+                if (recyclerTravel == null) return;
+                List<Travel> travelList = new ArrayList<>();
+                travelList.add(travel);
+                recyclerTravel.dataAdd(travelList);
                 refreshAddView();
             }
         });
@@ -359,18 +360,19 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerPlace);
+        RecyclerHelper.release(recyclerGift);
+        RecyclerHelper.release(recyclerTravel);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
         RecyclerHelper.release(recyclerDiary);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
+        RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obSelectGift);
+        RxBus.unregister(ConsHelper.EVENT_TRAVEL_SELECT, obSelectTravel);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
         RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
         RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
+        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -383,18 +385,22 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_TRAVEL_EDIT);
+                HelpActivity.goActivity(mActivity, Help.INDEX_BOOK_SOUVENIR_FOREIGN_EDIT);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd, R.id.cvFoodAdd, R.id.cvDiaryAdd,
-            R.id.cvHappenAt, R.id.btnPublish})
+    @OnClick({R.id.cvGiftAdd, R.id.cvTravelAdd, R.id.cvAlbumAdd,
+            R.id.cvVideoAdd, R.id.cvFoodAdd, R.id.cvDiaryAdd,
+            R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvPlaceAdd: // 足迹
-                TravelPlaceEditActivity.goActivity(mActivity);
+            case R.id.cvGiftAdd: // 礼物
+                GiftListActivity.goActivityBySelect(mActivity);
+                break;
+            case R.id.cvTravelAdd: // 游记
+                TravelListActivity.goActivityBySelect(mActivity);
                 break;
             case R.id.cvAlbumAdd: // 相册
                 AlbumListActivity.goActivityBySelectAlbum(mActivity);
@@ -408,121 +414,10 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             case R.id.cvDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvHappenAt: // 日期
-                showDatePicker();
-                break;
             case R.id.btnPublish: // 发表
                 checkPush();
                 break;
         }
-    }
-
-    private boolean isFromUpdate() {
-        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
-    }
-
-    private void refreshAddView() {
-        if (travel == null) {
-            cvPlaceAdd.setVisibility(View.VISIBLE);
-            cvAlbumAdd.setVisibility(View.VISIBLE);
-            cvVideoAdd.setVisibility(View.VISIBLE);
-            cvFoodAdd.setVisibility(View.VISIBLE);
-            cvDiaryAdd.setVisibility(View.VISIBLE);
-            return;
-        }
-        // place
-        int placeCount = SPHelper.getVipLimit().getTravelPlaceCount();
-        if (recyclerPlace == null || recyclerPlace.getAdapter() == null) {
-            cvPlaceAdd.setVisibility(View.VISIBLE);
-        } else if (recyclerPlace.getAdapter().getData().size() < placeCount) {
-            cvPlaceAdd.setVisibility(View.VISIBLE);
-        } else {
-            cvPlaceAdd.setVisibility(View.GONE);
-        }
-        // album
-        int albumCount = SPHelper.getVipLimit().getTravelAlbumCount();
-        if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
-            cvAlbumAdd.setVisibility(View.VISIBLE);
-        } else if (recyclerAlbum.getAdapter().getData().size() < albumCount) {
-            cvAlbumAdd.setVisibility(View.VISIBLE);
-        } else {
-            cvAlbumAdd.setVisibility(View.GONE);
-        }
-        // video
-        int videoCount = SPHelper.getVipLimit().getTravelVideoCount();
-        if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
-            cvVideoAdd.setVisibility(View.VISIBLE);
-        } else if (recyclerVideo.getAdapter().getData().size() < videoCount) {
-            cvVideoAdd.setVisibility(View.VISIBLE);
-        } else {
-            cvVideoAdd.setVisibility(View.GONE);
-        }
-        // food
-        int foodCount = SPHelper.getVipLimit().getTravelFoodCount();
-        if (recyclerFood == null || recyclerFood.getAdapter() == null) {
-            cvFoodAdd.setVisibility(View.VISIBLE);
-        } else if (recyclerFood.getAdapter().getData().size() < foodCount) {
-            cvFoodAdd.setVisibility(View.VISIBLE);
-        } else {
-            cvFoodAdd.setVisibility(View.GONE);
-        }
-        // diary
-        int diaryCount = SPHelper.getVipLimit().getTravelDiaryCount();
-        if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
-            cvDiaryAdd.setVisibility(View.VISIBLE);
-        } else if (recyclerDiary.getAdapter().getData().size() < diaryCount) {
-            cvDiaryAdd.setVisibility(View.VISIBLE);
-        } else {
-            cvDiaryAdd.setVisibility(View.GONE);
-        }
-    }
-
-    private void refreshPlaceView() {
-        if (travel == null || recyclerPlace == null) return;
-        List<TravelPlace> placeList = new ArrayList<>();
-        placeList.addAll(travel.getTravelPlaceList() == null ? new ArrayList<TravelPlace>() : travel.getTravelPlaceList()); // 不能用引用
-        recyclerPlace.dataNew(placeList, 0);
-    }
-
-    private void refreshAlbumView() {
-        if (travel == null || recyclerAlbum == null) return;
-        List<Album> albumList = ListHelper.getAlbumListByTravel(travel.getTravelAlbumList(), true);
-        recyclerAlbum.dataNew(albumList, 0);
-    }
-
-    private void refreshVideoView() {
-        if (travel == null || recyclerVideo == null) return;
-        List<Video> videoList = ListHelper.getVideoListByTravel(travel.getTravelVideoList(), true);
-        recyclerVideo.dataNew(videoList, 0);
-    }
-
-    private void refreshFoodView() {
-        if (travel == null || recyclerFood == null) return;
-        ArrayList<Food> foodList = ListHelper.getFoodListByTravel(travel.getTravelFoodList(), true);
-        recyclerFood.dataNew(foodList, 0);
-    }
-
-    private void refreshDiaryView() {
-        if (travel == null || recyclerDiary == null) return;
-        ArrayList<Diary> diaryList = ListHelper.getDiaryListByTravel(travel.getTravelDiaryList(), true);
-        recyclerDiary.dataNew(diaryList, 0);
-    }
-
-    private void showDatePicker() {
-        if (travel == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(travel.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                travel.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
-        });
-    }
-
-    private void refreshDateView() {
-        if (travel == null) return;
-        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(travel.getHappenAt());
-        tvHappenAt.setText(happen);
     }
 
     private void showDeleteDialogNoApi(final BaseQuickAdapter adapter, final int position, @StringRes int contentRes) {
@@ -543,92 +438,159 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void checkPush() {
-        if (travel == null) return;
-        String title = etTitle.getText().toString();
-        if (StringUtils.isEmpty(title)) {
-            ToastUtils.show(etTitle.getHint().toString());
-            return;
-        } else if (title.length() > SPHelper.getLimit().getTravelTitleLength()) {
-            ToastUtils.show(etTitle.getHint().toString());
+    private void refreshAddView() {
+        if (souvenir == null) {
+            cvGiftAdd.setVisibility(View.VISIBLE);
+            cvTravelAdd.setVisibility(View.VISIBLE);
+            cvAlbumAdd.setVisibility(View.VISIBLE);
+            cvVideoAdd.setVisibility(View.VISIBLE);
+            cvFoodAdd.setVisibility(View.VISIBLE);
+            cvDiaryAdd.setVisibility(View.VISIBLE);
             return;
         }
-        travel.setTitle(title);
+        int limitCount = SPHelper.getLimit().getSouvenirForeignYearCount();
+        // gift
+        if (recyclerGift == null || recyclerGift.getAdapter() == null) {
+            cvGiftAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerGift.getAdapter().getData().size() < limitCount) {
+            cvGiftAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvGiftAdd.setVisibility(View.GONE);
+        }
+        // travel
+        if (recyclerTravel == null || recyclerTravel.getAdapter() == null) {
+            cvTravelAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerTravel.getAdapter().getData().size() < limitCount) {
+            cvTravelAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvTravelAdd.setVisibility(View.GONE);
+        }
+        // album
+        if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
+            cvAlbumAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerAlbum.getAdapter().getData().size() < limitCount) {
+            cvAlbumAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvAlbumAdd.setVisibility(View.GONE);
+        }
+        // video
+        if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
+            cvVideoAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerVideo.getAdapter().getData().size() < limitCount) {
+            cvVideoAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvVideoAdd.setVisibility(View.GONE);
+        }
+        // food
+        if (recyclerFood == null || recyclerFood.getAdapter() == null) {
+            cvFoodAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerFood.getAdapter().getData().size() < limitCount) {
+            cvFoodAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvFoodAdd.setVisibility(View.GONE);
+        }
+        // diary
+        if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
+            cvDiaryAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerDiary.getAdapter().getData().size() < limitCount) {
+            cvDiaryAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvDiaryAdd.setVisibility(View.GONE);
+        }
+    }
+
+    private void refreshGiftView() {
+        if (souvenir == null || recyclerGift == null) return;
+        List<Gift> giftList = ListHelper.getGiftListBySouvenir(souvenir.getSouvenirGiftList(), true);
+        recyclerGift.dataNew(giftList, 0);
+    }
+
+    private void refreshTravelView() {
+        if (souvenir == null || recyclerTravel == null) return;
+        List<Travel> travelList = ListHelper.getTravelListBySouvenir(souvenir.getSouvenirTravelList(), true);
+        recyclerTravel.dataNew(travelList, 0);
+    }
+
+    private void refreshAlbumView() {
+        if (souvenir == null || recyclerAlbum == null) return;
+        List<Album> albumList = ListHelper.getAlbumListBySouvenir(souvenir.getSouvenirAlbumList(), true);
+        recyclerAlbum.dataNew(albumList, 0);
+    }
+
+    private void refreshVideoView() {
+        if (souvenir == null || recyclerVideo == null) return;
+        List<Video> videoList = ListHelper.getVideoListBySouvenir(souvenir.getSouvenirVideoList(), true);
+        recyclerVideo.dataNew(videoList, 0);
+    }
+
+    private void refreshFoodView() {
+        if (souvenir == null || recyclerFood == null) return;
+        ArrayList<Food> foodList = ListHelper.getFoodListBySouvenir(souvenir.getSouvenirFoodList(), true);
+        recyclerFood.dataNew(foodList, 0);
+    }
+
+    private void refreshDiaryView() {
+        if (souvenir == null || recyclerDiary == null) return;
+        ArrayList<Diary> diaryList = ListHelper.getDiaryListBySouvenir(souvenir.getSouvenirDiaryList(), true);
+        recyclerDiary.dataNew(diaryList, 0);
+    }
+
+    private void checkPush() {
+        if (souvenir == null) return;
         // 封装body
-        Travel body = new Travel();
-        body.setId(travel.getId());
-        body.setTitle(travel.getTitle());
-        body.setHappenAt(travel.getHappenAt());
-        // bodyPlace
-        if (recyclerPlace != null && recyclerPlace.getAdapter() != null) {
-            TravelPlaceAdapter adapter = recyclerPlace.getAdapter();
-            List<TravelPlace> placeList = ListHelper.getTravelPlaceListByOld(travel.getTravelPlaceList(), adapter.getData());
-            body.setTravelPlaceList(placeList);
+        Souvenir body = new Souvenir();
+        body.setId(souvenir.getId());
+        body.setYear(souvenir.getYear());
+        // bodyGift
+        if (recyclerGift != null && recyclerGift.getAdapter() != null) {
+            GiftAdapter adapter = recyclerGift.getAdapter();
+            List<SouvenirGift> giftList = ListHelper.getSouvenirGiftListByOld(souvenir.getSouvenirGiftList(), adapter.getData());
+            body.setSouvenirGiftList(giftList);
+        }
+        // bodyTravel
+        if (recyclerTravel != null && recyclerTravel.getAdapter() != null) {
+            TravelAdapter adapter = recyclerTravel.getAdapter();
+            List<SouvenirTravel> travelList = ListHelper.getSouvenirTravelListByOld(souvenir.getSouvenirTravelList(), adapter.getData());
+            body.setSouvenirTravelList(travelList);
         }
         // bodyAlbum
         if (recyclerAlbum != null && recyclerAlbum.getAdapter() != null) {
             AlbumAdapter adapter = recyclerAlbum.getAdapter();
-            List<TravelAlbum> albumList = ListHelper.getTravelAlbumListByOld(travel.getTravelAlbumList(), adapter.getData());
-            body.setTravelAlbumList(albumList);
+            List<SouvenirAlbum> albumList = ListHelper.getSouvenirAlbumListByOld(souvenir.getSouvenirAlbumList(), adapter.getData());
+            body.setSouvenirAlbumList(albumList);
         }
         // bodyVideo
         if (recyclerVideo != null && recyclerVideo.getAdapter() != null) {
             VideoAdapter adapter = recyclerVideo.getAdapter();
-            List<TravelVideo> videoList = ListHelper.getTravelVideoListByOld(travel.getTravelVideoList(), adapter.getData());
-            body.setTravelVideoList(videoList);
+            List<SouvenirVideo> videoList = ListHelper.getSouvenirVideoListByOld(souvenir.getSouvenirVideoList(), adapter.getData());
+            body.setSouvenirVideoList(videoList);
         }
         // bodyFood
         if (recyclerFood != null && recyclerFood.getAdapter() != null) {
             FoodAdapter adapter = recyclerFood.getAdapter();
-            List<TravelFood> foodList = ListHelper.getTravelFoodListByOld(travel.getTravelFoodList(), adapter.getData());
-            body.setTravelFoodList(foodList);
+            List<SouvenirFood> foodList = ListHelper.getSouvenirFoodListByOld(souvenir.getSouvenirFoodList(), adapter.getData());
+            body.setSouvenirFoodList(foodList);
         }
         // bodyDiary
         if (recyclerDiary != null && recyclerDiary.getAdapter() != null) {
             DiaryAdapter adapter = recyclerDiary.getAdapter();
-            List<TravelDiary> diaryList = ListHelper.getTravelDiaryListByOld(travel.getTravelDiaryList(), adapter.getData());
-            body.setTravelDiaryList(diaryList);
+            List<SouvenirDiary> diaryList = ListHelper.getSouvenirDiaryListByOld(souvenir.getSouvenirDiaryList(), adapter.getData());
+            body.setSouvenirDiaryList(diaryList);
         }
-        if (isFromUpdate()) {
-            updateApi(body);
-        } else {
-            addApi(body);
-        }
+        updateApi(body);
     }
 
-    private void updateApi(Travel travel) {
-        if (travel == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).travelUpdate(travel);
+    private void updateApi(Souvenir souvenir) {
+        if (souvenir == null) return;
+        call = new RetrofitHelper().call(API.class).souvenirUpdate(souvenir);
         MaterialDialog loading = getLoading(false);
-        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                Travel travel = data.getTravel();
-                RxEvent<Travel> eventList = new RxEvent<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel);
-                RxBus.post(eventList);
-                RxEvent<Travel> eventSingle = new RxEvent<>(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel);
+                Souvenir souvenir = data.getSouvenir();
+                RxEvent<Souvenir> eventSingle = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
                 RxBus.post(eventSingle);
-                // finish
-                mActivity.finish();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-    }
-
-    private void addApi(Travel travel) {
-        if (travel == null) return;
-        callAdd = new RetrofitHelper().call(API.class).travelAdd(travel);
-        MaterialDialog loading = getLoading(false);
-        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                // event
-                RxEvent<ArrayList<Travel>> event = new RxEvent<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<Travel>());
-                RxBus.post(event);
                 // finish
                 mActivity.finish();
             }
