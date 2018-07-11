@@ -72,7 +72,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("diary", diary);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -97,7 +97,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         srl.setEnabled(false);
         // init
         int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
+        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
             diary = intent.getParcelableExtra("diary");
             refreshView();
             // 没有详情页的，可以不加
@@ -125,9 +125,9 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
@@ -249,7 +249,6 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
-
     }
 
 }

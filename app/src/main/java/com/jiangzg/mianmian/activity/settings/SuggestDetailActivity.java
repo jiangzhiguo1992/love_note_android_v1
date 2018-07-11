@@ -175,12 +175,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
+        RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callFollow);
         RetrofitHelper.cancel(callCommentGet);
         RetrofitHelper.cancel(callCommentAdd);
-        RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override

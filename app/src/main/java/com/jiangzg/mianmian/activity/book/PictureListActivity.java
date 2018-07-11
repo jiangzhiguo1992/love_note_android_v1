@@ -237,12 +237,11 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RetrofitHelper.cancel(callPictureList);
-        RetrofitHelper.cancel(callAlbum);
-        // event
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
+        RetrofitHelper.cancel(callPictureList);
+        RetrofitHelper.cancel(callAlbum);
     }
 
     @Override

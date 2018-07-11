@@ -12,6 +12,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.SouvenirAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Souvenir;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
@@ -21,6 +22,7 @@ import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -98,8 +100,15 @@ public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
         obListItemRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, new Action1<Souvenir>() {
             @Override
             public void call(Souvenir souvenir) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
+                if (recyclerHelper == null || souvenir == null) return;
+                if (souvenir.isDone() == done) {
+                    // 没改变状态则刷新item
+                    ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
+                } else {
+                    // 改变done则刷新list,两个fragment都要刷
+                    RxEvent<ArrayList<Souvenir>> event = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
+                    RxBus.post(event);
+                }
             }
         });
         // refresh
@@ -109,10 +118,10 @@ public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
+        RetrofitHelper.cancel(call);
     }
 
     private void refreshData() {

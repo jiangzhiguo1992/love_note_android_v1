@@ -162,9 +162,9 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_FOOD_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, obListItemDelete);
+        RetrofitHelper.cancel(call);
     }
 
     @Override

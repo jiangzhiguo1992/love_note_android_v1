@@ -25,8 +25,6 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapSelectActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Food;
-import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
@@ -266,16 +264,17 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                Gift gift = data.getGift();
-                RxEvent<Gift> eventList = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, gift);
-                RxBus.post(eventList);
+                Souvenir souvenir = data.getSouvenir();
+                RxEvent<Souvenir> eventRefresh = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
+                RxBus.post(eventRefresh);
+                RxEvent<Souvenir> eventListRefresh = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir);
+                RxBus.post(eventListRefresh);
                 // finish
                 mActivity.finish();
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                // 上传失败不要删除，还可以继续上传
             }
         });
     }
@@ -288,7 +287,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Food>> event = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Food>());
+                RxEvent<ArrayList<Souvenir>> event = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

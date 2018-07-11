@@ -130,9 +130,9 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
+        RxBus.unregister(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override

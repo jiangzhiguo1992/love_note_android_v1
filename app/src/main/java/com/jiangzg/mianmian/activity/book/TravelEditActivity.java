@@ -361,13 +361,13 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
         RecyclerHelper.release(recyclerDiary);
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, obAddPlace);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
         RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
         RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
     }
 
     @Override

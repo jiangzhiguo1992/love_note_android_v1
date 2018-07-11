@@ -104,7 +104,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     public static void goActivity(Activity from, Travel travel) {
         Intent intent = new Intent(from, TravelDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("travel", travel);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -129,7 +129,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         srl.setEnabled(false);
         // init
         int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
+        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
             travel = intent.getParcelableExtra("travel");
             refreshView();
             // 没有详情页的，可以不加
@@ -161,10 +161,9 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
         RecyclerHelper.release(recyclerDiary);
+        RxBus.unregister(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
-
     }
 
     @Override

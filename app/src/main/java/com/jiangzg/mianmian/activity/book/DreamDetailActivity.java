@@ -60,7 +60,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     public static void goActivity(Activity from, Dream dream) {
         Intent intent = new Intent(from, DreamDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("dream", dream);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -85,7 +85,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         srl.setEnabled(false);
         // init
         int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
+        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
             dream = intent.getParcelableExtra("dream");
             refreshView();
             // 没有详情页的，可以不加
@@ -112,9 +112,9 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        RxBus.unregister(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
-        RxBus.unregister(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override

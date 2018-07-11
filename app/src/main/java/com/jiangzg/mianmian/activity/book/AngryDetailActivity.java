@@ -87,7 +87,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("angry", angry);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -112,7 +112,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         srl.setEnabled(false);
         // init
         int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
+        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
             angry = intent.getParcelableExtra("angry");
             refreshView();
             // 必须加，要获取关联数据
@@ -164,12 +164,12 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerPromise);
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callGet);
         RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obGiftSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_SELECT, obPromiseSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
+        RetrofitHelper.cancel(callDel);
+        RetrofitHelper.cancel(callGet);
     }
 
     @Override

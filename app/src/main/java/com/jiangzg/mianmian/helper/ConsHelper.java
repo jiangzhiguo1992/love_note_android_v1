@@ -14,7 +14,7 @@ public class ConsHelper {
     public static final int ACT_EDIT_FROM_ADD = 0;
     public static final int ACT_EDIT_FROM_UPDATE = 1;
     public static final int ACT_DETAIL_FROM_ID = 0;
-    public static final int ACT_DETAIL_FROM_ALL = 1;
+    public static final int ACT_DETAIL_FROM_OBJ = 1;
     // requestCode
     public static final int REQUEST_APP_INFO = 1001;
     public static final int REQUEST_DEVICE_INFO = 1002;

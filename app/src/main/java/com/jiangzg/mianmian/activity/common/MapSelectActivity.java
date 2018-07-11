@@ -303,7 +303,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 @Override
                 public void onSuccess(ArrayList<PoiItem> pois) {
                     if (srl != null) srl.setRefreshing(false);
-                    if (recyclerHelper != null) {
+                    if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {
                         // list的数据
                         ((MapSelectAdapter) recyclerHelper.getAdapter()).select(-1);
                         recyclerHelper.dataNew(pois);

@@ -148,9 +148,9 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
-        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, obListItemDelete);
+        RetrofitHelper.cancel(call);
     }
 
     @Override

@@ -15,7 +15,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
 
     public static void goActivity(Fragment from, Souvenir souvenir) {
         Intent intent = new Intent(from.getActivity(), SouvenirDetailDoneActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("souvenir", souvenir);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -36,7 +36,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        // TODO souvenir的发布者+创建时间+map写在详情
+
     }
 
     @Override

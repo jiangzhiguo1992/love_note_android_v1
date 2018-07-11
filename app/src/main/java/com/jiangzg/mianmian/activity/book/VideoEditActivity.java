@@ -141,8 +141,8 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callAdd);
         RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RetrofitHelper.cancel(callAdd);
         // 记得删除临时文件
         ResHelper.deleteFileInBackground(thumbFile);
     }

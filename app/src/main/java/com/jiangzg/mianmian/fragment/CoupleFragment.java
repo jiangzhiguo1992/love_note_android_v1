@@ -170,11 +170,11 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callHomeGet);
-        RetrofitHelper.cancel(callPlaceGet);
         stopCoupleCountDownTask();
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperRefresh);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
+        RetrofitHelper.cancel(callHomeGet);
+        RetrofitHelper.cancel(callPlaceGet);
     }
 
     @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair, R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})

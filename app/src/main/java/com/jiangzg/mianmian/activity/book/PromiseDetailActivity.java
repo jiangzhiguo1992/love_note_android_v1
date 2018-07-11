@@ -102,7 +102,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     public static void goActivity(Activity from, Promise promise) {
         Intent intent = new Intent(from, PromiseDetailActivity.class);
-        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ALL);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("promise", promise);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -154,7 +154,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 });
         // init
         int from = intent.getIntExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
-        if (from == ConsHelper.ACT_DETAIL_FROM_ALL) {
+        if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
             promise = intent.getParcelableExtra("promise");
             // view
             initHead();
@@ -191,11 +191,11 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RecyclerHelper.release(recyclerHelper);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callBreakAdd);
         RetrofitHelper.cancel(callBreakListGet);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override
