@@ -506,6 +506,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private void showDatePicker() {
+        if (travel == null) return;
         DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(travel.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -516,6 +517,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private void refreshDateView() {
+        if (travel == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(travel.getHappenAt());
         tvHappenAt.setText(happen);
     }
@@ -592,6 +594,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private void updateApi(Travel travel) {
+        if (travel == null) return;
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).travelUpdate(travel);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -614,6 +617,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     }
 
     private void addApi(Travel travel) {
+        if (travel == null) return;
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).travelAdd(travel);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

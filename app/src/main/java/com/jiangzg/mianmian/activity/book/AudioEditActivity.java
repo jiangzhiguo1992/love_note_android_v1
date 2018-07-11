@@ -96,10 +96,9 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getAudioTitleLength());
         etTitle.setHint(hint);
+        etTitle.setText(audio.getTitle());
         // date
         refreshDateView();
-        // input
-        etTitle.setText(audio.getTitle());
     }
 
     @Override
@@ -120,7 +119,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
+        if (resultCode != RESULT_OK || audio == null) return;
         if (requestCode == ConsHelper.REQUEST_AUDIO) {
             // file
             audioFile = IntentResult.getAudioFile(data);
@@ -167,6 +166,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void showDateTimePicker() {
+        if (audio == null) return;
         DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(audio.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -177,6 +177,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void refreshDateView() {
+        if (audio == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(audio.getHappenAt());
         tvHappenAt.setText(happen);
     }
@@ -197,6 +198,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void refreshAudioView() {
+        if (audio == null) return;
         String year = mActivity.getString(R.string.year);
         String month = mActivity.getString(R.string.month);
         String dayT = mActivity.getString(R.string.dayT);
@@ -214,6 +216,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void checkPush() {
+        if (audio == null) return;
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etTitle.getHint().toString());
@@ -230,6 +233,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void ossUploadAudio(File audioFile) {
+        if (audio == null) return;
         OssHelper.uploadAudio(mActivity, audioFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
@@ -245,6 +249,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
     }
 
     private void addApi() {
+        if (audio == null) return;
         callAdd = new RetrofitHelper().call(API.class).audioAdd(audio);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

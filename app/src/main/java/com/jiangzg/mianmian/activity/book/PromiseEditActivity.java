@@ -115,7 +115,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         refreshDateView();
         // happenUser
         initHappenCheck();
-        // input
+        // content
         etContent.setText(promise.getContentText());
     }
 
@@ -167,6 +167,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void initHappenCheck() {
+        if (promise == null) return;
         if (isFromUpdate()) {
             rgHappenUser.setVisibility(View.GONE);
             return;
@@ -176,6 +177,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         rgHappenUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (promise == null) return;
                 switch (checkedId) {
                     case R.id.rbHappenMe: // 我的
                         promise.setHappenId(user.getId());
@@ -195,6 +197,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void showDatePicker() {
+        if (promise == null) return;
         DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(promise.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -205,11 +208,13 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void refreshDateView() {
+        if (promise == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(promise.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {
+        if (promise == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getPromiseContentLength();
         }
@@ -240,6 +245,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void updateApi() {
+        if (promise == null) return;
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).promiseUpdate(promise);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -262,6 +268,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void addApi() {
+        if (promise == null) return;
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).promiseAdd(promise);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

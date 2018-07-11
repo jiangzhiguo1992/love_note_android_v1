@@ -108,7 +108,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
         }
         // date
         refreshDateView();
-        // input
+        // content
         etContent.setText(dream.getContentText());
     }
 
@@ -163,6 +163,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void showDatePicker() {
+        if (dream == null) return;
         DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(dream.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -173,11 +174,13 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void refreshDateView() {
+        if (dream == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(dream.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {
+        if (dream == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getDreamContentLength();
         }
@@ -213,6 +216,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void updateApi() {
+        if (dream == null) return;
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).dreamUpdate(dream);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -235,6 +239,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     }
 
     private void addApi() {
+        if (dream == null) return;
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).dreamAdd(dream);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

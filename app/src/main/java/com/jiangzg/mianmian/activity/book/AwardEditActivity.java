@@ -102,7 +102,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
         refreshDateView();
         // happen
         initHappenCheck();
-        // input
+        // content
         etContent.setText(award.getContentText());
     }
 
@@ -163,6 +163,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void refreshRuleView() {
+        if (award == null) return;
         String scoreShow = "0";
         AwardRule awardRule = award.getAwardRule();
         if (awardRule != null) {
@@ -179,6 +180,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
         rgHappenUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (award == null) return;
                 switch (checkedId) {
                     case R.id.rbHappenMe: // 我的
                         award.setHappenId(user.getId());
@@ -193,6 +195,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void showDatePicker() {
+        if (award == null) return;
         DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(award.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -203,11 +206,13 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void refreshDateView() {
+        if (award == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(award.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {
+        if (award == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getAwardContentLength();
         }
@@ -225,6 +230,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     }
 
     private void push() {
+        if (award == null) return;
         if (award.getAwardRuleId() == 0) {
             ToastUtils.show(getString(R.string.please_select_rule));
             return;

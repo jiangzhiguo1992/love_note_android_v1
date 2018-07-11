@@ -201,7 +201,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo info) {
-                if (info == null) return;
+                if (info == null || picture == null) return;
                 picture.setLatitude(info.getLatitude());
                 picture.setLongitude(info.getLongitude());
                 picture.setAddress(info.getAddress());
@@ -231,7 +231,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
+        if (resultCode != RESULT_OK || picture == null) {
             ResHelper.deleteFileInBackground(cameraFile);
             return;
         }
@@ -282,6 +282,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 showDatePicker();
                 break;
             case R.id.cvAddress: // 位置
+                if (picture == null) return;
                 MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
                 break;
             case R.id.btnCommit: // 提交
@@ -304,6 +305,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void showDatePicker() {
+        if (picture == null) return;
         DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(picture.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -314,12 +316,14 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void refreshDateView() {
+        if (picture == null) return;
         String happenShow = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(picture.getHappenAt());
         String format = String.format(Locale.getDefault(), getString(R.string.take_camera_in_colon_space_holder), happenShow);
         tvHappenAt.setText(format);
     }
 
     private void refreshLocationView() {
+        if (picture == null) return;
         String location = StringUtils.isEmpty(picture.getAddress()) ? getString(R.string.now_no) : picture.getAddress();
         tvAddress.setText(location);
     }
@@ -337,6 +341,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void checkCommit() {
+        if (picture == null) return;
         if ((album == null || album.getId() == 0) && picture.getAlbumId() == 0) {
             ToastUtils.show(getString(R.string.please_select_album));
             return;
@@ -364,6 +369,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void uploadPictureList(List<String> fileData) {
+        if (picture == null) return;
         OssHelper.uploadPicture(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
@@ -378,6 +384,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void commitAdd(List<String> ossPathList) {
+        if (picture == null) return;
         if (ossPathList == null || ossPathList.size() <= 0) return;
         List<Picture> pictureList = new ArrayList<>();
         for (String ossPath : ossPathList) {
@@ -411,6 +418,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     private void commitUpdate() {
+        if (picture == null) return;
         callUpdate = new RetrofitHelper().call(API.class).pictureUpdate(picture);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {

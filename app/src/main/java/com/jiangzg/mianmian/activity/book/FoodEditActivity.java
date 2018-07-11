@@ -108,6 +108,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getFoodTitleLength());
         etTitle.setHint(hint);
+        etTitle.setText(food.getTitle());
         // date
         refreshDateView();
         // location
@@ -115,8 +116,6 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
         setRecyclerShow(limitImagesCount > 0, limitImagesCount);
-        // input
-        etTitle.setText(food.getTitle());
     }
 
     @Override
@@ -125,7 +124,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo info) {
-                if (info == null) return;
+                if (info == null || food == null) return;
                 food.setLatitude(info.getLatitude());
                 food.setLongitude(info.getLongitude());
                 food.setAddress(info.getAddress());
@@ -152,7 +151,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
+        if (resultCode != RESULT_OK || food == null) {
             ResHelper.deleteFileInBackground(cameraFile);
             return;
         }
@@ -200,6 +199,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 showDatePicker();
                 break;
             case R.id.cvAddress: // 地址
+                if (food == null) return;
                 MapSelectActivity.goActivity(mActivity, food.getAddress(), food.getLongitude(), food.getLatitude());
                 break;
             case R.id.btnPublish: // 发表
@@ -231,6 +231,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private void showDatePicker() {
+        if (food == null) return;
         DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(food.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -241,11 +242,13 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private void refreshDateView() {
+        if (food == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(food.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void refreshLocationView() {
+        if (food == null) return;
         String location = StringUtils.isEmpty(food.getAddress()) ? getString(R.string.now_no) : food.getAddress();
         tvAddress.setText(location);
     }
@@ -282,6 +285,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private void ossUploadImages(List<String> fileData) {
+        if (food == null) return;
         OssHelper.uploadFood(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
@@ -300,6 +304,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     }
 
     private void addApi(List<String> ossPathList) {
+        if (food == null) return;
         food.setContentImageList(ossPathList);
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).foodAdd(food);

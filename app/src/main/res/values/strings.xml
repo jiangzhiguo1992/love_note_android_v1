@@ -434,6 +434,7 @@
     <string name="confirm_delete_this_dream">确定删除这个梦？</string>
     <string name="confirm_delete_this_award">确定删除这个奖励？</string>
     <string name="confirm_delete_this_rule">确定删除这个规则？</string>
+    <string name="can_operation_self_create_souvenir">只能操作自己创建的纪念日哦</string>
     <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
     <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
     <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>

@@ -95,7 +95,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
         obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo info) {
-                if (info == null) return;
+                if (info == null || place == null) return;
                 place.setLatitude(info.getLatitude());
                 place.setLongitude(info.getLongitude());
                 place.setAddress(info.getAddress());
@@ -138,6 +138,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
                 showDatePicker();
                 break;
             case R.id.cvAddress: // 地址
+                if (place == null) return;
                 MapSelectActivity.goActivity(mActivity, place.getAddress(), place.getLongitude(), place.getLatitude());
                 break;
             case R.id.btnCommit: // 提交
@@ -147,6 +148,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     }
 
     private void showDatePicker() {
+        if (place == null) return;
         DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(place.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -157,16 +159,19 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     }
 
     private void refreshDateView() {
+        if (place == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(place.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void refreshLocationView() {
+        if (place == null) return;
         String location = StringUtils.isEmpty(place.getAddress()) ? getString(R.string.now_no) : place.getAddress();
         tvAddress.setText(location);
     }
 
     private void onContentInput(String input) {
+        if (place == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getTravelPlaceContentLength();
         }

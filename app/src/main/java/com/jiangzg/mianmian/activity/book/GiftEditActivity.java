@@ -135,6 +135,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getGiftTitleLength());
         etTitle.setHint(hint);
+        etTitle.setText(gift.getTitle());
         // date
         refreshDateView();
         // receive
@@ -155,8 +156,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             // 添加
             setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
-        // input
-        etTitle.setText(gift.getTitle());
     }
 
     @Override
@@ -186,7 +185,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
+        if (resultCode != RESULT_OK || gift == null) {
             ResHelper.deleteFileInBackground(cameraFile);
             return;
         }
@@ -247,10 +246,12 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void initReceiveCheck() {
+        if (gift == null) return;
         final User user = SPHelper.getMe();
         rgReceive.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (gift == null) return;
                 switch (checkedId) {
                     case R.id.rbReceiveMe: // 送给我
                         gift.setReceiveId(user.getId());
@@ -270,6 +271,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void setRecyclerShow(boolean show, int childCount) {
+        if (gift == null) return;
         if (!show) {
             rv.setVisibility(View.GONE);
             return;
@@ -295,6 +297,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void showDatePicker() {
+        if (gift == null) return;
         DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(gift.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -305,6 +308,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void refreshDateView() {
+        if (gift == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(gift.getHappenAt());
         tvHappenAt.setText(happen);
     }
@@ -341,6 +345,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void ossUploadImages(List<String> fileData) {
+        if (gift == null) return;
         OssHelper.uploadGift(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
@@ -359,6 +364,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
+        if (gift == null) return;
         gift.setContentImageList(ossPathList);
         if (isFromUpdate()) {
             updateApi();
@@ -368,6 +374,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void updateApi() {
+        if (gift == null) return;
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).giftUpdate(gift);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -389,6 +396,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     }
 
     private void addApi() {
+        if (gift == null) return;
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).giftAdd(gift);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

@@ -124,6 +124,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         ivAlbum.setClickListener(new FrescoView.ClickListener() {
             @Override
             public void onSuccessClick(FrescoView iv) {
+                if (album == null) return;
                 if (!FileUtils.isFileEmpty(cameraFile)) {
                     BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
                 } else if (!FileUtils.isFileEmpty(pictureFile)) {
@@ -226,17 +227,18 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void refreshDateView() {
+        if (album == null) return;
         String title = album.getTitle();
         String cover = album.getCover();
-        // hint
+        // etTitle
         if (limitTitleLength <= 0) {
             limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
         }
         String string = getString(R.string.please_input_album_name_dont_over_holder_text);
         String format = String.format(Locale.getDefault(), string, limitTitleLength);
         etTitle.setHint(format);
-        // title
         etTitle.setText(title);
+        // btn
         btnCommit.setEnabled(!StringUtils.isEmpty(title));
         // cover
         if (StringUtils.isEmpty(cover)) {
@@ -285,6 +287,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void setCoverVisible(boolean show) {
+        if (album == null) return;
         if (!show) {
             cameraFile = null;
             pictureFile = null;
@@ -305,6 +308,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void pushImage(File imgFile) {
+        if (album == null) return;
         OssHelper.uploadAlbum(mActivity, imgFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
@@ -319,6 +323,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void commit() {
+        if (album == null) return;
         album.setTitle(etTitle.getText().toString().trim());
         if (isFromUpdate()) {
             updateApi();
@@ -328,6 +333,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void addApi() {
+        if (album == null) return;
         callAdd = new RetrofitHelper().call(API.class).AlbumAdd(album);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
@@ -346,6 +352,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void updateApi() {
+        if (album == null) return;
         callUpdate = new RetrofitHelper().call(API.class).AlbumUpdate(album);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {

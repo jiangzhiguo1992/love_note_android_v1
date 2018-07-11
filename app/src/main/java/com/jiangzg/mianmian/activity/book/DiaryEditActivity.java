@@ -145,7 +145,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             // 添加
             setRecyclerShow(limitImagesCount > 0, limitImagesCount);
         }
-        // input
+        // content
         etContent.setText(diary.getContentText());
     }
 
@@ -171,7 +171,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
+        if (resultCode != RESULT_OK || diary == null) {
             ResHelper.deleteFileInBackground(cameraFile);
             return;
         }
@@ -237,6 +237,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void setRecyclerShow(boolean show, int childCount) {
+        if (diary == null) return;
         if (!show) {
             rv.setVisibility(View.GONE);
             return;
@@ -262,6 +263,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void showDatePicker() {
+        if (diary == null) return;
         DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(diary.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -272,6 +274,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void refreshDateView() {
+        if (diary == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvHappenAt.setText(happen);
     }
@@ -283,6 +286,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void onContentInput(String input) {
+        if (diary == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getDiaryContentLength();
         }
@@ -325,6 +329,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void ossUploadImages(List<String> fileData) {
+        if (diary == null) return;
         OssHelper.uploadDiary(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
@@ -343,6 +348,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void api(List<String> ossPathList) {
+        if (diary == null) return;
         diary.setContentImageList(ossPathList);
         if (isFromUpdate()) {
             updateApi();
@@ -352,6 +358,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void updateApi() {
+        if (diary == null) return;
         MaterialDialog loading = getLoading(false);
         callUpdate = new RetrofitHelper().call(API.class).diaryUpdate(diary);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
@@ -375,6 +382,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     }
 
     private void addApi() {
+        if (diary == null) return;
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).diaryAdd(diary);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

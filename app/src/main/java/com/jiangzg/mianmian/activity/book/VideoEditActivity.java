@@ -114,14 +114,13 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getVideoTitleLength());
         etTitle.setHint(hint);
+        etTitle.setText(video.getTitle());
         // date
         refreshDateView();
         // location
         refreshLocationView();
         // video
         refreshVideoView();
-        // input
-        etTitle.setText(video.getTitle());
     }
 
     @Override
@@ -130,7 +129,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
             @Override
             public void call(LocationInfo info) {
-                if (info == null) return;
+                if (info == null || video == null) return;
                 video.setLatitude(info.getLatitude());
                 video.setLongitude(info.getLongitude());
                 video.setAddress(info.getAddress());
@@ -157,7 +156,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) return;
+        if (resultCode != RESULT_OK || video == null) return;
         if (requestCode == ConsHelper.REQUEST_VIDEO) {
             // file
             videoFile = IntentResult.getVideoFile(data);
@@ -195,6 +194,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
                 showDateTimePicker();
                 break;
             case R.id.cvAddress: // 地址
+                if (video == null) return;
                 MapSelectActivity.goActivity(mActivity, video.getAddress(), video.getLongitude(), video.getLatitude());
                 break;
             case R.id.cvVideo: // 视频
@@ -207,6 +207,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void showDateTimePicker() {
+        if (video == null) return;
         DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(video.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -217,11 +218,13 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void refreshDateView() {
+        if (video == null) return;
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(video.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void refreshLocationView() {
+        if (video == null) return;
         String location = StringUtils.isEmpty(video.getAddress()) ? getString(R.string.now_no) : video.getAddress();
         tvAddress.setText(location);
     }
@@ -282,6 +285,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void checkPush() {
+        if (video == null) return;
         String title = etTitle.getText().toString();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etTitle.getHint().toString());
@@ -306,6 +310,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void ossUploadVideoThumb(File thumbFile) {
+        if (video == null) return;
         OssHelper.uploadVideoThumb(mActivity, thumbFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
@@ -322,6 +327,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void ossUploadVideo(File videoFile) {
+        if (video == null) return;
         OssHelper.uploadVideo(mActivity, videoFile, new OssHelper.OssUploadCallBack() {
             @Override
             public void success(File source, String ossPath) {
@@ -338,6 +344,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     private void addApi() {
+        if (video == null) return;
         callAdd = new RetrofitHelper().call(API.class).videoAdd(video);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

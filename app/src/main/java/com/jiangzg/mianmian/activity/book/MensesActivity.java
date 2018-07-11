@@ -163,6 +163,11 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void initCheckView() {
+        if (isMine) {
+            rbMe.setChecked(true);
+        } else {
+            rbTa.setChecked(true);
+        }
         rgUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -171,11 +176,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 getListData();
             }
         });
-        if (isMine) {
-            rbMe.setChecked(true);
-        } else {
-            rbTa.setChecked(true);
-        }
     }
 
     private void refreshLatestView() {

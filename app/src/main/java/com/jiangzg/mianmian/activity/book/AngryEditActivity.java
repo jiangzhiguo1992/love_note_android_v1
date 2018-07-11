@@ -92,7 +92,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         refreshDateView();
         // happen
         initHappenCheck();
-        // input
+        // content
         etContent.setText(angry.getContentText());
     }
 
@@ -143,6 +143,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
         rgHappenUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (angry == null) return;
                 switch (checkedId) {
                     case R.id.rbHappenMe: // 我的
                         angry.setHappenId(user.getId());
@@ -157,6 +158,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void showDatePicker() {
+        if (angry == null) return;
         DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
@@ -167,11 +169,13 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void refreshDateView() {
+        if (angry == null) return;
         String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(angry.getHappenAt());
         tvHappenAt.setText(happen);
     }
 
     private void onContentInput(String input) {
+        if (angry == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getAngryContentLength();
         }
@@ -189,6 +193,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void push() {
+        if (angry == null) return;
         if (StringUtils.isEmpty(angry.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;

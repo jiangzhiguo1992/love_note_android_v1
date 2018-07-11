@@ -78,7 +78,7 @@
 
                 <RadioButton
                     android:id="@+id/rbReceiveMe"
-                    style="@style/FontGreyBig"
+                    style="@style/FontGreyNormal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -94,7 +94,7 @@
 
                 <RadioButton
                     android:id="@+id/rbReceiveTa"
-                    style="@style/FontGreyBig"
+                    style="@style/FontGreyNormal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

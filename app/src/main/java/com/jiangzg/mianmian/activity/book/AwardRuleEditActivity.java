@@ -79,7 +79,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
         awardRule = new AwardRule();
         // score
         refreshScoreView();
-        // input
+        // etTitle
         etTitle.setText(awardRule.getTitle());
     }
 
@@ -129,6 +129,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     }
 
     private void changeScore(boolean add) {
+        if (awardRule == null) return;
         if (scoreMax == 0) {
             scoreMax = SPHelper.getLimit().getAwardRuleScoreMax();
         }
@@ -147,10 +148,12 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     }
 
     private void refreshScoreView() {
+        if (awardRule == null) return;
         tvScore.setText(String.valueOf(awardRule.getScore()));
     }
 
     private void onTitleInput(String input) {
+        if (awardRule == null) return;
         if (limitTitleLength <= 0) {
             limitTitleLength = SPHelper.getLimit().getAwardRuleTitleLength();
         }
@@ -168,6 +171,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     }
 
     private void addApi() {
+        if (awardRule == null) return;
         if (awardRule.getScore() == 0) {
             ToastUtils.show(getString(R.string.please_select_score));
             return;
