@@ -45,7 +45,7 @@ public class FragmentPagerAdapter<T extends Fragment> extends FragmentStatePager
             titleList.add(titles);
         }
         fragmentList.add(fragment);
-        //notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void addData(int index, String titles, T fragment) {
@@ -53,7 +53,7 @@ public class FragmentPagerAdapter<T extends Fragment> extends FragmentStatePager
             titleList.add(index, titles);
         }
         fragmentList.add(index, fragment);
-        //notifyDataSetChanged();
+        notifyDataSetChanged();
     }
 
     public void removeData(int index) {
@@ -63,6 +63,12 @@ public class FragmentPagerAdapter<T extends Fragment> extends FragmentStatePager
         if (fragmentList.size() > index) {
             fragmentList.remove(index);
         }
+        notifyDataSetChanged();
+    }
+
+    public void clearData() {
+        titleList.clear();
+        fragmentList.clear();
         notifyDataSetChanged();
     }
 

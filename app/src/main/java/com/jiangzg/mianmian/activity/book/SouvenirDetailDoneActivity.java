@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +23,14 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.adapter.FragmentPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Souvenir;
 import com.jiangzg.mianmian.domain.User;
+import com.jiangzg.mianmian.fragment.SouvenirForeignFragment;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
@@ -37,6 +41,9 @@ import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -63,6 +70,10 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
     TextView tvCreator;
     @BindView(R.id.tvCreateAt)
     TextView tvCreateAt;
+    @BindView(R.id.tl)
+    TabLayout tl;
+    @BindView(R.id.vpFragment)
+    ViewPager vpFragment;
 
     private Souvenir souvenir;
     private Call<Result> callGet;
@@ -216,6 +227,32 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(souvenir.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
         tvCreateAt.setText(createShow);
+        // foreign
+        List<SouvenirForeignFragment> fragmentList = new ArrayList<>();
+        List<String> titleList = new ArrayList<>();
+        Calendar calHappen = DateUtils.getCalendar(happenAt);
+        int yearHappen = calHappen.get(Calendar.YEAR);
+        Calendar calNow = DateUtils.getCurrentCalendar();
+        int yearNow = calNow.get(Calendar.YEAR);
+        calHappen.set(Calendar.YEAR, yearNow);
+        if (calHappen.getTimeInMillis() > calNow.getTimeInMillis()) {
+            // 今年的还没过
+            --yearNow;
+            if (yearNow < yearHappen) {
+                yearNow = yearHappen;
+            }
+        }
+        for (int i = yearHappen; i <= yearNow; i++) {
+            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(souvenir, i);
+            fragmentList.add(fragment);
+            titleList.add(String.valueOf(i));
+        }
+        // adapter
+        FragmentPagerAdapter<SouvenirForeignFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        adapter.newData(titleList, fragmentList);
+        // viewPager
+        vpFragment.setAdapter(adapter);
+        tl.setupWithViewPager(vpFragment);
     }
 
     private void showDeleteDialog() {
@@ -259,9 +296,4 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         });
     }
 
-
-    public void edit() {
-        // TODO edit：foreign的修改只带year和id(包括souvenir)
-
-    }
 }

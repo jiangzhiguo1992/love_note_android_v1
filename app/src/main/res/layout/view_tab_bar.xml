@@ -5,9 +5,9 @@
     android:id="@+id/tl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/layer_line_bottom_grey"
-    app:tabIndicatorColor="?attr/colorPrimary"
-    app:tabIndicatorHeight="1dp"
-    app:tabSelectedTextColor="?attr/colorPrimary"
+    app:tabIndicatorColor="@color/white_trans_75"
+    app:tabIndicatorHeight="2dp"
+    app:tabMode="scrollable"
+    app:tabSelectedTextColor="@color/font_white"
     app:tabTextAppearance="@style/FontWhiteNormal"
-    app:tabTextColor="@color/font_grey"/>
+    app:tabTextColor="@color/font_white"/>
