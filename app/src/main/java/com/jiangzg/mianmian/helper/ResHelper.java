@@ -179,7 +179,7 @@ public class ResHelper {
 
     // 图片-oss目录
     public static String getOssResDirPath() {
-        return AppInfo.get().getOutFilesDir() + File.separator + "oss" + File.separator;
+        return AppInfo.get().getInFilesDir() + File.separator + "oss" + File.separator;
     }
 
     // 图片-downLoad目录

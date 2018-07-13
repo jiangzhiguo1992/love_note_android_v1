@@ -170,16 +170,32 @@ public class IntentFactory {
     }
 
     /**
-     * 获取播放video的意图
+     * 获取播放video的意图,外部文件
      */
-    public static Intent getVideoPlay(File file) {
+    public static Intent getVideoPlayByOutFile(File file) {
         if (FileUtils.isFileEmpty(file)) {
-            LogUtils.w(IntentFactory.class, "getVideoPlay", "file == null");
+            LogUtils.w(IntentFactory.class, "getVideoPlayByOutFile", "file == null");
             return null;
         }
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = Uri.parse(file.getAbsolutePath());
         intent.setDataAndType(uri, "video/*");
+        return intent;
+    }
+
+    /**
+     * 获取播放video的意图,内部文件
+     */
+    public static Intent getVideoPlayByInFile(File file) {
+        if (FileUtils.isFileEmpty(file)) {
+            LogUtils.w(IntentFactory.class, "getVideoPlayByInFile", "file == null");
+            return null;
+        }
+        Uri uri = ProviderUtils.getUriByFile(file);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+        intent.setDataAndType(uri, "video/*");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
         return intent;
     }
 

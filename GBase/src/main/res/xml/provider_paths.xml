@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
+<paths>
+    <!-- 当前应用的文件分享给其他app的时候，其他app里显示的路径会加前缀，如下的name字段 -->
     <root-path
         name="root_path"
         path="."/>
