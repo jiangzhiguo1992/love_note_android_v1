@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -65,6 +66,13 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     private Observable<List<Dream>> obListRefresh;
     private Observable<Dream> obListItemRefresh;
     private Observable<Dream> obListItemDelete;
+
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, DreamListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DreamListActivity.class);

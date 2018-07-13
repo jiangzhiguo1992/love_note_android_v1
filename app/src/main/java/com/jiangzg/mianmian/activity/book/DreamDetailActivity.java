@@ -67,7 +67,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     }
 
     public static void goActivity(Activity from, long did) {
-        Intent intent = new Intent(from, DiaryDetailActivity.class);
+        Intent intent = new Intent(from, DreamDetailActivity.class);
         intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("did", did);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

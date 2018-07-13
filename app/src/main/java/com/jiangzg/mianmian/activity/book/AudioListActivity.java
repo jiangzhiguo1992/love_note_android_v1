@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -59,6 +60,13 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     private Observable<Audio> obListItemDelete;
     private Call<Result> call;
     private int page;
+
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, AudioListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), AudioListActivity.class);

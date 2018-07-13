@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -33,6 +34,13 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
     ViewPager vpFragment;
     @BindView(R.id.fabAdd)
     FloatingActionButton fabAdd;
+
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, SouvenirListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), SouvenirListActivity.class);

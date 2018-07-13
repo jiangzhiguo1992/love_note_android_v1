@@ -68,6 +68,13 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     private Observable<Diary> obListItemRefresh;
     private Observable<Diary> obListItemDelete;
 
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, DiaryListActivity.class);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), DiaryListActivity.class);
         intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);

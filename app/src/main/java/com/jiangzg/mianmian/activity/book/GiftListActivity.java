@@ -69,6 +69,13 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
     private Observable<Gift> obListItemRefresh;
     private Observable<Gift> obListItemDelete;
 
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, GiftListActivity.class);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), GiftListActivity.class);
         intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);

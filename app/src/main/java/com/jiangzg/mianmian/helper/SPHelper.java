@@ -103,6 +103,7 @@ public class SPHelper {
     // vipLimit
     private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
+    private static final String FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE = "trends_total_enable";
     private static final String FIELD_VIP_LIMIT_SOUVENIR_COUNT = "souvenir_count";
     private static final String FIELD_VIP_LIMIT_TRAVEL_PLACE_COUNT = "travel_place_count";
     private static final String FIELD_VIP_LIMIT_TRAVEL_VIDEO_COUNT = "travel_video_count";
@@ -403,6 +404,7 @@ public class SPHelper {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
         editor.putLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, vipLimit.getVipExpireAt());
         editor.putInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, vipLimit.getWallPaperCount());
+        editor.putBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, vipLimit.isTrendsTotalEnable());
         editor.putInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, vipLimit.getSouvenirCount());
         editor.putInt(FIELD_VIP_LIMIT_TRAVEL_PLACE_COUNT, vipLimit.getTravelPlaceCount());
         editor.putInt(FIELD_VIP_LIMIT_TRAVEL_VIDEO_COUNT, vipLimit.getTravelVideoCount());
@@ -429,6 +431,7 @@ public class SPHelper {
         VipLimit vipLimit = new VipLimit();
         vipLimit.setVipExpireAt(sp.getLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, 0));
         vipLimit.setWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, 1));
+        vipLimit.setTrendsTotalEnable(sp.getBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, false));
         vipLimit.setSouvenirCount(sp.getInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, 1));
         vipLimit.setTravelPlaceCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_PLACE_COUNT, 1));
         vipLimit.setTravelVideoCount(sp.getInt(FIELD_VIP_LIMIT_TRAVEL_VIDEO_COUNT, 1));

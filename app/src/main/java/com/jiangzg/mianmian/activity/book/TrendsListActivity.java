@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
@@ -24,6 +24,7 @@ import com.jiangzg.mianmian.domain.Trends;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -60,12 +61,14 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.trends), true);
+        // total
+        boolean totalEnable = SPHelper.getVipLimit().isTrendsTotalEnable();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new TrendsAdapter(mActivity))
-                .viewHeader(mActivity, R.layout.list_head_trends)
+                .viewHeader(mActivity, totalEnable ? R.layout.list_head_trends : 0)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -81,15 +84,21 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
                         getData(true);
                     }
                 })
-                .listenerClick(new OnItemClickListener() {
+                .listenerClick(new OnItemChildClickListener() {
                     @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         TrendsAdapter trendsAdapter = (TrendsAdapter) adapter;
-                        trendsAdapter.goSomeDitail(position);
+                        switch (view.getId()) {
+                            case R.id.cvContent: // 详情
+                                trendsAdapter.goSomeDetail(position);
+                                break;
+                        }
                     }
                 });
         // head
-        initHead();
+        if (totalEnable) {
+            initHead();
+        }
     }
 
     @Override

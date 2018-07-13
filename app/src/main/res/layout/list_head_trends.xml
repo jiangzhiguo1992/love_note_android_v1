@@ -11,13 +11,13 @@
     android:layout_marginTop="5dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
-    app:cardBackgroundColor="?attr/colorPrimary"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="@dimen/elevation_normal"
     app:cardMaxElevation="@dimen/elevation_big">
 
     <TextView
-        style="@style/FontWhiteHuge"
+        style="@style/FontPrimaryHuge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

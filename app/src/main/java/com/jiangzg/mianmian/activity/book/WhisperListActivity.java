@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -85,6 +86,13 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     private File cameraFile;
     private int page;
     private Call<Result> callGet;
+
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, WhisperListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), WhisperListActivity.class);

@@ -61,6 +61,13 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
     private Call<Result> call;
     private int page;
 
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, AlbumListActivity.class);
+        intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), AlbumListActivity.class);
         intent.putExtra("from", ConsHelper.ACT_LIST_FROM_BROWSE);

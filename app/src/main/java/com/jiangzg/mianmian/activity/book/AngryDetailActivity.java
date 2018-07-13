@@ -94,7 +94,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     }
 
     public static void goActivity(Activity from, long aid) {
-        Intent intent = new Intent(from, DiaryDetailActivity.class);
+        Intent intent = new Intent(from, AngryDetailActivity.class);
         intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("aid", aid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

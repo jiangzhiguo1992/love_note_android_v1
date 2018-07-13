@@ -129,7 +129,7 @@ public class RecyclerHelper {
      * list顶部view（可remove）
      */
     public RecyclerHelper viewHeader(Context context, int headLayoutId) {
-        if (context == null || mRecycler == null) return this;
+        if (context == null || mRecycler == null || headLayoutId == 0) return this;
         View head = LayoutInflater.from(context).inflate(headLayoutId, mRecycler, false);
         return viewHeader(head);
     }
@@ -150,7 +150,7 @@ public class RecyclerHelper {
      * list底部view（可remove）
      */
     public RecyclerHelper viewFooter(Context context, int footLayoutId) {
-        if (context == null || mRecycler == null) return this;
+        if (context == null || mRecycler == null || footLayoutId == 0) return this;
         View foot = LayoutInflater.from(context).inflate(footLayoutId, mRecycler, false);
         return viewFooter(foot);
     }
@@ -332,7 +332,7 @@ public class RecyclerHelper {
      * 更多数据
      */
     public void dataAdd(List list) {
-        if (list == null){
+        if (list == null) {
             if (null != mRefresh) { // 停止刷新
                 mRefresh.setRefreshing(false);
             }

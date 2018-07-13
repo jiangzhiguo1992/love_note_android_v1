@@ -130,6 +130,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         ViewHelper.initTopBar(mActivity, tb, "", true);
         // init
         album = intent.getParcelableExtra("album");
+        if (album == null) {
+            getAlbum(intent.getLongExtra("albumId", 0));
+        }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
@@ -283,10 +286,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private void refreshAlbumView() {
-        if (album == null) {
-            getAlbum();
-            return;
-        }
+        if (album == null) return;
         // data
         String cover = album.getCover();
         String title = album.getTitle();
@@ -312,7 +312,6 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     private void getPictureList(final boolean more) {
         if (album == null) {
             srl.setRefreshing(false);
-            getAlbum();
             return;
         }
         page = more ? page + 1 : 0;
@@ -343,8 +342,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         });
     }
 
-    private void getAlbum() {
-        long albumId = getIntent().getLongExtra("albumId", 0);
+    private void getAlbum(long albumId) {
         callAlbum = new RetrofitHelper().call(API.class).AlbumGet(albumId);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAlbum, loading, new RetrofitHelper.CallBack() {
@@ -352,6 +350,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 album = data.getAlbum();
+                if (album == null) return;
                 refreshAlbumView();
                 recyclerHelper.dataRefresh();
             }

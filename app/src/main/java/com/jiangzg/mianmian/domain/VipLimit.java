@@ -11,6 +11,7 @@ public class VipLimit {
     // couple
     private int wallPaperCount;
     // book
+    private boolean trendsTotalEnable;
     private int souvenirCount;
     private int travelPlaceCount;
     private int travelVideoCount;
@@ -30,6 +31,14 @@ public class VipLimit {
     private int videoTotalCount;
     // topic
     private boolean topicImageEnable;
+
+    public boolean isTrendsTotalEnable() {
+        return trendsTotalEnable;
+    }
+
+    public void setTrendsTotalEnable(boolean trendsTotalEnable) {
+        this.trendsTotalEnable = trendsTotalEnable;
+    }
 
     public int getSouvenirCount() {
         return souvenirCount;

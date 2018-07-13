@@ -1,5 +1,6 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -65,6 +66,13 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     private Observable<List<Angry>> obListRefresh;
     private Observable<Angry> obListItemRefresh;
     private Observable<Angry> obListItemDelete;
+
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, AngryListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), AngryListActivity.class);
