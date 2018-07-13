@@ -14,6 +14,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.TrendsAdapter;
@@ -25,6 +26,7 @@ import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
@@ -44,6 +46,7 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
+    private long createAt;
     private int page;
 
     public static void goActivity(Fragment from) {
@@ -103,6 +106,7 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        createAt = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         page = 0;
         // refresh
         recyclerHelper.dataRefresh();
@@ -145,7 +149,7 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).trendsListGet(page);
+        call = new RetrofitHelper().call(API.class).trendsListGet(createAt, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

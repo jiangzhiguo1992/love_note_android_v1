@@ -192,7 +192,7 @@ public interface API {
 
     // trendsList获取
     @GET("book/trends?trends=1&total=0")
-    Call<Result> trendsListGet(@Query("page") int page);
+    Call<Result> trendsListGet(@Query("create") long create, @Query("page") int page);
 
     // trendsTotal获取
     @GET("book/trends?trends=0&total=1")

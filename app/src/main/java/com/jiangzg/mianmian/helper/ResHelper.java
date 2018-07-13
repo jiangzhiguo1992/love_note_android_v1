@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.helper;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.os.Build;
 
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppListener;
@@ -148,7 +149,13 @@ public class ResHelper {
      */
     // 图片-oss目录
     public static String getOssResDirPath() {
-        return AppInfo.get().getInFilesDir() + File.separator + "oss" + File.separator;
+        String dir; // 7.0以下不能分享文件给外部应用
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            dir = AppInfo.get().getInFilesDir();
+        } else {
+            dir = AppInfo.get().getOutFilesDir();
+        }
+        return dir + File.separator + "oss" + File.separator;
     }
 
     // apk-目录

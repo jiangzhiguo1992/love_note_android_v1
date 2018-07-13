@@ -3,6 +3,7 @@ package com.jiangzg.base.component;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.provider.MediaStore;
 
@@ -46,15 +47,18 @@ public class BroadcastUtils {
             return;
         }
         AppBase app = AppBase.getInstance();
-        try {
-            MediaStore.Images.Media.insertImage(app.getContentResolver(), file.getAbsolutePath(), file.getName(), null);
-        } catch (FileNotFoundException e) {
-            LogUtils.e(BroadcastUtils.class, "insertImage", e);
-        }
+        // 就不往照片里插入了
+        //try {
+        //    MediaStore.Images.Media.insertImage(app.getContentResolver(), file.getAbsolutePath(), file.getName(), null);
+        //} catch (FileNotFoundException e) {
+        //    LogUtils.e(BroadcastUtils.class, "insertImage", e);
+        //}
         // 发送广播通知已添加，重新扫描
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         intent.setData(ProviderUtils.getUriByFile(providerAuth, file));
         app.sendBroadcast(intent);
+        // 二次扫描，利用MediaScannerConnection来做
+        MediaScannerConnection.scanFile(app, new String[]{file.getAbsolutePath()}, null, null);
     }
 
 }

@@ -879,7 +879,7 @@ public class OssHelper {
         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                File target = ResHelper.newSdCardImageFile(objectKey);
+                final File target = ResHelper.newSdCardImageFile(objectKey);
                 // 目标文件创建检查
                 if (target == null) {
                     ToastUtils.show(MyApp.get().getString(R.string.file_create_fail));
@@ -899,6 +899,7 @@ public class OssHelper {
                     boolean copy = FileUtils.copyOrMoveFile(source, target, false);
                     if (copy) {
                         LogUtils.d(OssHelper.class, "downloadBigImage", "文件复制成功！");
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.PROVIDER_AUTH, target);
                         ToastUtils.show(sucToast);
                         return;
                     }
@@ -911,8 +912,7 @@ public class OssHelper {
                     @Override
                     public void success(String ossPath) {
                         // 下载完通知图库媒体
-                        File file = OssResHelper.newKeyFile(ossPath);
-                        BroadcastUtils.refreshMediaImageInsert(ResHelper.PROVIDER_AUTH, file);
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.PROVIDER_AUTH, target);
                         ToastUtils.show(sucToast);
                     }
 
