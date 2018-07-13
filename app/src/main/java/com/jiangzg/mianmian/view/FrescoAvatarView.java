@@ -38,6 +38,7 @@ import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.helper.FrescoHelper;
 import com.jiangzg.mianmian.helper.OssHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 
 import java.io.File;
 
@@ -161,7 +162,7 @@ public class FrescoAvatarView extends SimpleDraweeView {
 
     // file://
     private void setDataFile(File file) {
-        Uri parse = ProviderUtils.getUriByFile(file);
+        Uri parse = ProviderUtils.getUriByFile(ResHelper.PROVIDER_AUTH, file);
         setController(parse);
     }
 

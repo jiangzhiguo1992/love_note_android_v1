@@ -101,18 +101,19 @@ public class IntentFactory {
      * 拍照 ,可以自定义保存路径
      */
     @SuppressLint("MissingPermission")
-    public static Intent getCamera(File cameraFile) {
+    public static Intent getCamera(String providerAuth, File cameraFile) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
         if (cameraFile == null) return intent; // 不加保存路径，图片会被压缩
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, ProviderUtils.getUriByFile(cameraFile));
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, ProviderUtils.getUriByFile(providerAuth, cameraFile));
         } else {
             // android 8.0需要
             ContentValues contentValues = new ContentValues(1);
             contentValues.put(MediaStore.Images.Media.DATA, cameraFile.getAbsolutePath());
             Uri uri = AppBase.getInstance().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            //intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION); // 赋予文件临时权限
         }
         return intent;
     }
@@ -120,22 +121,22 @@ public class IntentFactory {
     /**
      * 裁剪(通用) 1.启动拍照/相册 2.在onActivityForResult里调用此方法，启动裁剪功能
      */
-    public static Intent getImageCrop(File from, File save) {
-        return getImageCrop(from, save, 0, 0, 0, 0);
+    public static Intent getImageCrop(String providerAuth, File from, File save) {
+        return getImageCrop(providerAuth, from, save, 0, 0, 0, 0);
     }
 
-    public static Intent getImageCrop(File from, File save, int aspectX, int aspectY) {
-        return getImageCrop(from, save, aspectX, aspectY, 0, 0);
+    public static Intent getImageCrop(String providerAuth, File from, File save, int aspectX, int aspectY) {
+        return getImageCrop(providerAuth, from, save, aspectX, aspectY, 0, 0);
     }
 
-    public static Intent getImageCrop(File from, File save, int aspectX, int aspectY, int outputX, int outputY) {
+    public static Intent getImageCrop(String providerAuth, File from, File save, int aspectX, int aspectY, int outputX, int outputY) {
         if (FileUtils.isFileEmpty(from) || save == null) { // 源文件不存在
             FileUtils.deleteFile(from);
             FileUtils.deleteFile(save);
             LogUtils.w(IntentFactory.class, "getCrop", "from == empty || save == null");
             return null;
         }
-        Uri uriFrom = ProviderUtils.getUriByFile(from);
+        Uri uriFrom = ProviderUtils.getUriByFile(providerAuth, from);
         Uri uriTo = Uri.fromFile(save); // 照片 截取输出的outputUri，只能使用Uri.fromFile，不能用FileProvider
         return getImageCrop(uriFrom, uriTo, aspectX, aspectY, outputX, outputY);
     }
@@ -166,36 +167,32 @@ public class IntentFactory {
         intent.putExtra("return-data", false); // 不从intent里面拿
         intent.putExtra(MediaStore.EXTRA_OUTPUT, save); // 保存到save文件里
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        return intent;
-    }
-
-    /**
-     * 获取播放video的意图,外部文件
-     */
-    public static Intent getVideoPlayByOutFile(File file) {
-        if (FileUtils.isFileEmpty(file)) {
-            LogUtils.w(IntentFactory.class, "getVideoPlayByOutFile", "file == null");
-            return null;
-        }
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.parse(file.getAbsolutePath());
-        intent.setDataAndType(uri, "video/*");
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION); // 赋予文件临时权限
         return intent;
     }
 
     /**
      * 获取播放video的意图,内部文件
      */
-    public static Intent getVideoPlayByInFile(File file) {
+    public static Intent getVideoPlayByFile(String providerAuth, File file) {
         if (FileUtils.isFileEmpty(file)) {
             LogUtils.w(IntentFactory.class, "getVideoPlayByInFile", "file == null");
             return null;
         }
-        Uri uri = ProviderUtils.getUriByFile(file);
+        Uri uri = ProviderUtils.getUriByFile(providerAuth, file);
+        //Uri uri = Uri.parse(file.getAbsolutePath());
+        if (uri == null) {
+            LogUtils.w(IntentFactory.class, "getVideoPlayByInFile", "uri == null");
+            return null;
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
-        intent.setDataAndType(uri, "video/*");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // 赋予临时权限
+        } else {
+
+        }
+        intent.setDataAndType(uri, AppBase.getInstance().getContentResolver().getType(uri));
+        //intent.putExtra(Intent.EXTRA_STREAM, uri);
         return intent;
     }
 
@@ -224,7 +221,7 @@ public class IntentFactory {
      * 获取安装App的意图
      */
     @SuppressLint("MissingPermission")
-    public static Intent getInstall(File file) {
+    public static Intent getInstall(String providerAuth, File file) {
         if (FileUtils.isFileEmpty(file)) {
             LogUtils.w(IntentFactory.class, "getInstall", "file == null");
             return null;
@@ -240,8 +237,8 @@ public class IntentFactory {
         }
         // 高版本uri获取
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.setDataAndType(ProviderUtils.getUriByFile(file), type);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // 赋予临时权限
+            intent.setDataAndType(ProviderUtils.getUriByFile(providerAuth, file), type);
         } else {
             intent.setDataAndType(Uri.fromFile(file), type);
         }

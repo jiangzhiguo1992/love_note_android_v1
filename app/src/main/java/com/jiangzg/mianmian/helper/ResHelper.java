@@ -24,6 +24,9 @@ import java.util.List;
  */
 public class ResHelper {
 
+    // 要和manifest中的一致
+    public static final String PROVIDER_AUTH = "com.jiangzg.mianmian.fileprovider";
+
     public static void initApp() {
         AppListener.addComponentListener("ResHelper", new AppListener.ComponentListener() {
             @Override
@@ -100,7 +103,7 @@ public class ResHelper {
                         LogUtils.d(ResHelper.class, "deleteFileInBackground", file.getAbsolutePath());
                         FileUtils.deleteFile(file);
                         // 发送删除广播
-                        BroadcastUtils.refreshMediaFileDelete(file);
+                        BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
                     }
                 });
             }
@@ -127,7 +130,7 @@ public class ResHelper {
                             LogUtils.d(ResHelper.class, "deleteFileListInBackground", file.getAbsolutePath());
                             FileUtils.deleteFile(file);
                             // 发送删除广播
-                            BroadcastUtils.refreshMediaFileDelete(file);
+                            BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
                         }
                     }
                 });
@@ -143,21 +146,19 @@ public class ResHelper {
     /**
      * ****************************************File****************************************
      */
+    // 图片-oss目录
+    public static String getOssResDirPath() {
+        return AppInfo.get().getInFilesDir() + File.separator + "oss" + File.separator;
+    }
+
     // apk-目录
     public static File newApkDir() {
         return new File(AppInfo.get().getOutFilesDir(), "apk");
     }
 
-    // apk-文件
-    public static File newApkFile(String versionName) {
-        File apkFile = new File(newApkDir(), versionName + ".apk");
-        LogUtils.d(ResHelper.class, "newApkFile", apkFile.getAbsolutePath());
-        return apkFile;
-    }
-
     // 图片-缓存目录
     public static File createImgCacheDir() {
-        File dir = new File(AppInfo.get().getOutCacheDir(), "mm_img_cache");
+        File dir = new File(AppInfo.get().getOutFilesDir(), "mm_img_cache");
         FileUtils.createOrExistsDir(dir);
         return dir;
     }
@@ -170,16 +171,18 @@ public class ResHelper {
         return file;
     }
 
+    // apk-文件
+    public static File newApkFile(String versionName) {
+        File apkFile = new File(newApkDir(), versionName + ".apk");
+        LogUtils.d(ResHelper.class, "newApkFile", apkFile.getAbsolutePath());
+        return apkFile;
+    }
+
     // 图片-fresco缓存目录
     public static File createFrescoCacheDir() {
         File file = new File(AppInfo.get().getOutCacheDir(), "fresco");
         FileUtils.createOrExistsDir(file);
         return file;
-    }
-
-    // 图片-oss目录
-    public static String getOssResDirPath() {
-        return AppInfo.get().getInFilesDir() + File.separator + "oss" + File.separator;
     }
 
     // 图片-downLoad目录

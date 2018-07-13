@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <!-- 当前应用的文件分享给其他app的时候，其他app里显示的路径会加前缀，如下的name字段 -->
+    <root-path
+        name="root_path"
+        path="."/>
+    <!-- in -->
+    <cache-path
+        name="cache-path"
+        path="cache"/>
+    <files-path
+        name="files-path"
+        path="files"/>
+    <files-path
+        name="oss-path"
+        path="oss"/>
+    <!-- out -->
+    <external-path
+        name="external-path"
+        path="path"/>
+    <external-cache-path
+        name="external-cache-path"
+        path="cache"/>
+    <external-cache-path
+        name="mm_img_cache-path"
+        path="mm_img_cache"/>
+    <external-cache-path
+        name="fresco-path"
+        path="fresco"/>
+    <external-files-path
+        name="external-files-path"
+        path="files"/>
+    <external-files-path
+        name="apk-path"
+        path="apk"/>
+</paths>

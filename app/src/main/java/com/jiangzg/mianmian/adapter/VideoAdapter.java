@@ -27,6 +27,7 @@ import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.OssResHelper;
+import com.jiangzg.mianmian.helper.ResHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -115,7 +116,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
             return;
         }
         // 播放调用系统界面
-        Intent intent = IntentFactory.getVideoPlayByInFile(file);
+        Intent intent = IntentFactory.getVideoPlayByFile(ResHelper.PROVIDER_AUTH, file);
         ActivityTrans.start(mActivity, intent);
     }
 

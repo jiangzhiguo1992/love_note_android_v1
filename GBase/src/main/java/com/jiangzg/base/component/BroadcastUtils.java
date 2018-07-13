@@ -20,7 +20,7 @@ public class BroadcastUtils {
 
     // 多媒体文件删除操作
     @SuppressLint("MissingPermission")
-    public static void refreshMediaFileDelete(File file) {
+    public static void refreshMediaFileDelete(String providerAuth, File file) {
         if (file == null) {
             LogUtils.w(BroadcastUtils.class, "refreshMediaFileDelete", "file == null");
             return;
@@ -34,13 +34,13 @@ public class BroadcastUtils {
         mContentResolver.delete(uri, where, null);
         // 发送广播通知已删除，重新扫描
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        intent.setData(ProviderUtils.getUriByFile(file));
+        intent.setData(ProviderUtils.getUriByFile(providerAuth, file));
         app.sendBroadcast(intent);
     }
 
     // 多媒体图片增加操作
     @SuppressLint("MissingPermission")
-    public static void refreshMediaImageInsert(File file) {
+    public static void refreshMediaImageInsert(String providerAuth, File file) {
         if (file == null) {
             LogUtils.w(BroadcastUtils.class, "insertImage", "file == null");
             return;
@@ -53,7 +53,7 @@ public class BroadcastUtils {
         }
         // 发送广播通知已添加，重新扫描
         Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        intent.setData(ProviderUtils.getUriByFile(file));
+        intent.setData(ProviderUtils.getUriByFile(providerAuth, file));
         app.sendBroadcast(intent);
     }
 

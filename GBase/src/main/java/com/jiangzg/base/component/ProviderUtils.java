@@ -108,13 +108,13 @@ public class ProviderUtils {
     /**
      * file转uri
      */
-    public static Uri getUriByFile(File file) {
+    public static Uri getUriByFile(String authorities, File file) {
         if (file == null) {
             LogUtils.w(ProviderUtils.class, "getUriByFile", "file == null");
             return null;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return FileProvider.getUriForFile(AppBase.getInstance(), "com.jiangzg.base.fileprovider", file);
+            return FileProvider.getUriForFile(AppBase.getInstance(), authorities, file);
         } else {
             return Uri.fromFile(file);
         }

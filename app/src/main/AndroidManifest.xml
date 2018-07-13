@@ -15,6 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeGrey">
 
+        <!-- uri转file 7.0兼容 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.jiangzg.mianmian.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!-- 指定要分享文件所在的目录，在provider_paths文件中定义   -->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"

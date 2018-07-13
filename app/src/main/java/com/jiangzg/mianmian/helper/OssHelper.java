@@ -912,7 +912,7 @@ public class OssHelper {
                     public void success(String ossPath) {
                         // 下载完通知图库媒体
                         File file = OssResHelper.newKeyFile(ossPath);
-                        BroadcastUtils.refreshMediaImageInsert(file);
+                        BroadcastUtils.refreshMediaImageInsert(ResHelper.PROVIDER_AUTH, file);
                         ToastUtils.show(sucToast);
                     }
 

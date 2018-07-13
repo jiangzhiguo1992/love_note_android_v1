@@ -190,7 +190,7 @@ public class ViewHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent camera = IntentFactory.getCamera(cameraFile);
+                                Intent camera = IntentFactory.getCamera(ResHelper.PROVIDER_AUTH, cameraFile);
                                 ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
                             }
 
@@ -251,7 +251,7 @@ public class ViewHelper {
                         PermUtils.requestPermissions(activity, ConsHelper.REQUEST_CAMERA, PermUtils.camera, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
-                                Intent camera = IntentFactory.getCamera(cameraFile);
+                                Intent camera = IntentFactory.getCamera(ResHelper.PROVIDER_AUTH, cameraFile);
                                 ActivityTrans.startResult(activity, camera, ConsHelper.REQUEST_CAMERA);
                             }
 
