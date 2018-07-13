@@ -7,7 +7,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.book.AlbumListActivity;
 import com.jiangzg.mianmian.activity.book.AngryListActivity;
@@ -34,14 +38,26 @@ import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.Souvenir;
+import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class BookFragment extends BasePagerFragment<BookFragment> {
+
+    private static boolean canLock = false; // 是否开启锁
+    private static boolean openLock = false; // 是否解开锁
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -50,6 +66,16 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @BindView(R.id.cvSouvenir)
     CardView cvSouvenir;
+    @BindView(R.id.tvSouvenirEmpty)
+    TextView tvSouvenirEmpty;
+    @BindView(R.id.rlSouvenir)
+    RelativeLayout rlSouvenir;
+    @BindView(R.id.tvSouvenirYear)
+    TextView tvSouvenirYear;
+    @BindView(R.id.tvSouvenirTitle)
+    TextView tvSouvenirTitle;
+    @BindView(R.id.tvSouvenirCountDown)
+    TextView tvSouvenirCountDown;
 
     @BindView(R.id.cvTrends)
     CardView cvTrends;
@@ -90,6 +116,11 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     @BindView(R.id.cvAward)
     CardView cvAward;
 
+    private Souvenir souvenirLatest;
+    private Call<Result> call;
+    private Runnable souvenirCountDownTask;
+    private String souvenirCountDownFormat;
+
     public static BookFragment newFragment() {
         Bundle bundle = new Bundle();
         // bundle.putData();
@@ -105,6 +136,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_book), false);
         fitToolBar(tb);
+        souvenirCountDownFormat = getString(R.string.count_down_space_holder);
         // menu
         tb.inflateMenu(R.menu.help_lock);
         // srl
@@ -114,13 +146,18 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 refreshData();
             }
         });
-        // TODO 纪念日顶部横条展示最近的一个，列表页日历卡片展示年月日，显示倒计时，显示已过多少天
-        // TODO 纪念日到点彩蛋，生日到点彩蛋，刷新界面
-        // TODO icon会变化
+        // souvenir
+        refreshBookView();
     }
 
     protected void loadData() {
         refreshData();
+    }
+
+    @Override
+    protected void onFinish(Bundle state) {
+        stopCoupleCountDownTask();
+        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -208,21 +245,120 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     }
 
     private void refreshData() {
-        // TODO 根据静态变量isLock和canLock来决定主动刷新，没couple时全给展示出来
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            // 无效配对
+            tvSouvenirEmpty.setVisibility(View.VISIBLE);
+            rlSouvenir.setVisibility(View.GONE);
+            return;
+        }
+        if (canLock && !openLock) {
+            // 上锁且没有解开
+            tvSouvenirEmpty.setVisibility(View.VISIBLE);
+            rlSouvenir.setVisibility(View.GONE);
+            return;
+        }
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        MyApp.get().getHandler().postDelayed(new Runnable() {
+        long near = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
+        call = new RetrofitHelper().call(API.class).bookHomeGet(near);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
-            public void run() {
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                souvenirLatest = data.getSouvenirLatest();
+                refreshBookView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
             }
-        }, 1000);
+        });
     }
 
-    @Override
-    protected void onFinish(Bundle state) {
+    private void refreshBookView() {
+        stopCoupleCountDownTask();// 先停止倒计时
+        if (souvenirLatest == null || souvenirLatest.getId() <= 0) {
+            tvSouvenirEmpty.setVisibility(View.VISIBLE);
+            rlSouvenir.setVisibility(View.GONE);
+            return;
+        }
+        tvSouvenirEmpty.setVisibility(View.GONE);
+        rlSouvenir.setVisibility(View.VISIBLE);
+        // data
+        String title = souvenirLatest.getTitle();
+        Calendar calHappen = DateUtils.getCurrentCalendar();
+        long timeNow = calHappen.getTimeInMillis();
+        int yearHappen = calHappen.get(Calendar.YEAR);
+        calHappen.setTimeInMillis(TimeHelper.getJavaTimeByGo(souvenirLatest.getHappenAt()));
+        int yearOriginal = calHappen.get(Calendar.YEAR);
+        calHappen.set(Calendar.YEAR, yearHappen);
+        long timeHappen = calHappen.getTimeInMillis();
+        if (timeHappen < timeNow) {
+            // 是明年的
+            ++yearHappen;
+            calHappen.set(Calendar.YEAR, yearHappen);
+        }
+        int yearBetween = yearHappen - yearOriginal;
+        String yearShow = String.format(Locale.getDefault(), getString(R.string.holder_anniversary), yearBetween);
+        // view
+        tvSouvenirYear.setText(yearShow);
+        tvSouvenirTitle.setText(title);
+        // task
+        MyApp.get().getHandler().post(getSouvenirCountDownTask(calHappen.getTimeInMillis()));
+    }
 
+    private Runnable getSouvenirCountDownTask(final long tartTime) {
+        if (souvenirCountDownTask == null) {
+            souvenirCountDownTask = new Runnable() {
+                @Override
+                public void run() {
+                    long betweenTime = tartTime - DateUtils.getCurrentLong();
+                    if (betweenTime <= 0) {
+                        // TODO 纪念日到点彩蛋，刷新界面
+                        stopCoupleCountDownTask(); // 停止倒计时
+                        refreshData(); // 刷新数据
+                    } else {
+                        tvSouvenirCountDown.setText(getCountDownShow(betweenTime));
+                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                    }
+                }
+            };
+        }
+        return souvenirCountDownTask;
+    }
+
+    private String getCountDownShow(long betweenTime) {
+        long day = betweenTime / ConstantUtils.DAY;
+        long hourTotal = betweenTime - (day * ConstantUtils.DAY);
+        long hour = hourTotal / ConstantUtils.HOUR;
+        long minTotal = hourTotal - (hour * ConstantUtils.HOUR);
+        long min = minTotal / ConstantUtils.MIN;
+        long secTotal = minTotal - (min * ConstantUtils.MIN);
+        long sec = secTotal / ConstantUtils.SEC;
+        String dayShow = String.valueOf(day);
+        String hourShow = String.valueOf(hour);
+        if (hourShow.length() <= 1) {
+            hourShow = "0" + hourShow;
+        }
+        String minShow = String.valueOf(min);
+        if (minShow.length() <= 1) {
+            minShow = "0" + minShow;
+        }
+        String secShow = String.valueOf(sec);
+        if (secShow.length() <= 1) {
+            secShow = "0" + secShow;
+        }
+        String timeShow = " " + dayShow + getString(R.string.dayT) + " " + hourShow + ":" + minShow + ":" + secShow;
+        return String.format(Locale.getDefault(), souvenirCountDownFormat, timeShow);
+    }
+
+    private void stopCoupleCountDownTask() {
+        if (souvenirCountDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(souvenirCountDownTask);
+            souvenirCountDownTask = null;
+        }
     }
 
 }

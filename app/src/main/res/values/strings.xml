@@ -460,6 +460,8 @@
     <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
+    <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
+    <string name="holder_anniversary">%d周年</string>
     <string name="already_gone_holder_day" formatted="false">已过 %d 天</string>
     <string name="just_have_holder_day" formatted="false">还剩 %d 天</string>
     <string name="menses_come">姨妈来了</string>

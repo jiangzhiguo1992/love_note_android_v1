@@ -263,7 +263,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                             btnSendCode.setText(R.string.send_validate_code);
                             countDownGo = -1;
                             onInputChange();
-                            MyApp.get().getHandler().removeCallbacks(this);
+                            stopCountDownTask();
                         }
                     }
                 }

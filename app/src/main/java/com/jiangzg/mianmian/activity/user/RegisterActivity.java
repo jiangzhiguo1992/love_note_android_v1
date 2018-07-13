@@ -170,7 +170,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                             btnSendCode.setText(R.string.send_validate_code);
                             countDownGo = -1;
                             onInputChange();
-                            MyApp.get().getHandler().removeCallbacks(this);
+                            stopCountDownTask();
                         }
                     }
                 }

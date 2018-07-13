@@ -192,7 +192,7 @@ public interface API {
 
     // bookHome获取
     @GET("book/home")
-    Call<Result> bookHomeGet();
+    Call<Result> bookHomeGet(@Query("near") long near);
 
     // trendsList获取
     @GET("book/trends?trends=1&total=0")

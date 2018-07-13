@@ -465,7 +465,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     if (breakCountDown <= 0) {
                         RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                         RxBus.post(event);
-                        MyApp.get().getHandler().removeCallbacks(this);
+                        stopCoupleCountDownTask();
                     } else {
                         String breakCountDownShow = Couple.getBreakCountDownShow(couple);
                         tvCoupleCountDown.setText(breakCountDownShow);

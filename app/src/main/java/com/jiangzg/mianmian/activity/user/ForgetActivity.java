@@ -158,7 +158,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
                             btnSendCode.setText(R.string.send_validate_code);
                             countDownGo = -1;
                             onInputChange();
-                            MyApp.get().getHandler().removeCallbacks(this);
+                            stopCountDownTask();
                         }
                     }
                 }
