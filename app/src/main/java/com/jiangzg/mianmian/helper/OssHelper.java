@@ -23,6 +23,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
@@ -909,6 +910,9 @@ public class OssHelper {
                 downloadObject(null, true, objectKey, target, new OssDownloadCallBack() {
                     @Override
                     public void success(String ossPath) {
+                        // 下载完通知图库媒体
+                        File file = OssResHelper.newKeyFile(ossPath);
+                        BroadcastUtils.refreshMediaImageInsert(file);
                         ToastUtils.show(sucToast);
                     }
 

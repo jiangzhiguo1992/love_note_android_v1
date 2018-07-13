@@ -100,7 +100,7 @@ public class ResHelper {
                         LogUtils.d(ResHelper.class, "deleteFileInBackground", file.getAbsolutePath());
                         FileUtils.deleteFile(file);
                         // 发送删除广播
-                        BroadcastUtils.refreshMediaFile(file);
+                        BroadcastUtils.refreshMediaFileDelete(file);
                     }
                 });
             }
@@ -127,7 +127,7 @@ public class ResHelper {
                             LogUtils.d(ResHelper.class, "deleteFileListInBackground", file.getAbsolutePath());
                             FileUtils.deleteFile(file);
                             // 发送删除广播
-                            BroadcastUtils.refreshMediaFile(file);
+                            BroadcastUtils.refreshMediaFileDelete(file);
                         }
                     }
                 });
