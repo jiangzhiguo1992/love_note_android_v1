@@ -56,75 +56,83 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--common-->
         <activity android:name=".activity.HomeActivity"/>
+        <activity android:name=".activity.common.WebActivity"/>
+        <activity android:name=".activity.common.BigImageActivity"/>
+        <activity android:name=".activity.common.MapShowActivity"/>
+        <activity android:name=".activity.common.MapSelectActivity"/>
+        <activity android:name=".activity.common.MapSearchActivity"/>
+        <!-- user -->
         <activity android:name=".activity.user.LoginActivity"/>
         <activity android:name=".activity.user.RegisterActivity"/>
-        <activity android:name=".activity.couple.CoupleInfoActivity"/>
         <activity android:name=".activity.user.ForgetActivity"/>
-        <activity android:name=".activity.common.WebActivity"/>
-        <activity android:name=".activity.user.UserInfoActivity"/>
-        <activity android:name=".activity.settings.HelpActivity"/>
-        <activity android:name=".activity.common.SettingsActivity"/>
-        <activity android:name=".activity.settings.ThemeActivity"/>
         <activity android:name=".activity.user.PhoneActivity"/>
         <activity android:name=".activity.user.PasswordActivity"/>
+        <activity android:name=".activity.user.UserInfoActivity"/>
+        <!-- settings -->
+        <activity android:name=".activity.common.SettingsActivity"/>
+        <activity android:name=".activity.settings.ThemeActivity"/>
+        <activity android:name=".activity.settings.HelpActivity"/>
+        <activity android:name=".activity.settings.AboutActivity"/>
+        <activity android:name=".activity.settings.NoticeListActivity"/>
+        <activity android:name=".activity.settings.NoticeDetailActivity"/>
         <activity android:name=".activity.settings.SuggestHomeActivity"/>
         <activity android:name=".activity.settings.SuggestDetailActivity"/>
         <activity android:name=".activity.settings.SuggestAddActivity"/>
         <activity android:name=".activity.settings.SuggestListActivity"/>
-        <activity android:name=".activity.couple.CoupleWallPaperActivity"/>
+        <!-- couple -->
         <activity android:name=".activity.couple.CouplePairActivity"/>
+        <activity android:name=".activity.couple.CoupleInfoActivity"/>
+        <activity android:name=".activity.couple.CoupleWallPaperActivity"/>
+        <activity android:name=".activity.couple.CouplePlaceActivity"/>
+        <activity android:name=".activity.couple.CoupleWeatherActivity"/>
+        <!-- book -->
+        <activity android:name=".activity.book.TrendsListActivity"/>
+        <activity android:name=".activity.book.TrendsTotalActivity"/>
+        <activity android:name=".activity.book.SouvenirListActivity"/>
+        <activity android:name=".activity.book.SouvenirEditActivity"/>
+        <activity android:name=".activity.book.SouvenirDetailDoneActivity"/>
+        <activity android:name=".activity.book.SouvenirDetailWishActivity"/>
+        <activity android:name=".activity.book.SouvenirEditForeignActivity"/>
+        <activity android:name=".activity.book.MensesActivity"/>
+        <activity android:name=".activity.book.ShyActivity"/>
+        <activity android:name=".activity.book.SleepActivity"/>
         <activity android:name=".activity.book.WordListActivity"/>
+        <activity android:name=".activity.book.WhisperListActivity"/>
         <activity android:name=".activity.book.DiaryListActivity"/>
         <activity android:name=".activity.book.DiaryEditActivity"/>
         <activity android:name=".activity.book.DiaryDetailActivity"/>
-        <activity android:name=".activity.book.WhisperListActivity"/>
-        <activity android:name=".activity.common.BigImageActivity"/>
         <activity android:name=".activity.book.AlbumListActivity"/>
         <activity android:name=".activity.book.AlbumEditActivity"/>
         <activity android:name=".activity.book.PictureListActivity"/>
-        <activity android:name=".activity.couple.CouplePlaceActivity"/>
-        <activity android:name=".activity.couple.CoupleWeatherActivity"/>
-        <activity android:name=".activity.common.MapShowActivity"/>
-        <activity android:name=".activity.settings.AboutActivity"/>
-        <activity android:name=".activity.settings.NoticeListActivity"/>
-        <activity android:name=".activity.settings.NoticeDetailActivity"/>
         <activity android:name=".activity.book.PictureEditActivity"/>
-        <activity android:name=".activity.common.MapSelectActivity"/>
-        <activity android:name=".activity.common.MapSearchActivity"/>
-        <activity android:name=".activity.book.DreamListActivity"/>
-        <activity android:name=".activity.book.DreamEditActivity"/>
-        <activity android:name=".activity.book.DreamDetailActivity"/>
-        <activity android:name=".activity.book.GiftListActivity"/>
-        <activity android:name=".activity.book.GiftEditActivity"/>
-        <activity android:name=".activity.book.PromiseListActivity"/>
-        <activity android:name=".activity.book.PromiseEditActivity"/>
-        <activity android:name=".activity.book.PromiseDetailActivity"/>
-        <activity android:name=".activity.book.AngryListActivity"/>
-        <activity android:name=".activity.book.AngryEditActivity"/>
-        <activity android:name=".activity.book.AngryDetailActivity"/>
-        <activity android:name=".activity.book.AwardListActivity"/>
-        <activity android:name=".activity.book.AwardEditActivity"/>
-        <activity android:name=".activity.book.AwardRuleListActivity"/>
-        <activity android:name=".activity.book.AwardRuleEditActivity"/>
+        <activity android:name=".activity.book.AudioListActivity"/>
+        <activity android:name=".activity.book.AudioEditActivity"/>
+        <activity android:name=".activity.book.VideoListActivity"/>
+        <activity android:name=".activity.book.VideoEditActivity"/>
         <activity android:name=".activity.book.FoodListActivity"/>
         <activity android:name=".activity.book.FoodEditActivity"/>
         <activity android:name=".activity.book.TravelListActivity"/>
         <activity android:name=".activity.book.TravelDetailActivity"/>
         <activity android:name=".activity.book.TravelEditActivity"/>
         <activity android:name=".activity.book.TravelPlaceEditActivity"/>
-        <activity android:name=".activity.book.AudioListActivity"/>
-        <activity android:name=".activity.book.AudioEditActivity"/>
-        <activity android:name=".activity.book.VideoListActivity"/>
-        <activity android:name=".activity.book.VideoEditActivity"/>
-        <activity android:name=".activity.book.SleepActivity"/>
-        <activity android:name=".activity.book.ShyActivity"/>
-        <activity android:name=".activity.book.MensesActivity"/>
-        <activity android:name=".activity.book.SouvenirListActivity"/>
-        <activity android:name=".activity.book.SouvenirEditActivity"/>
-        <activity android:name=".activity.book.SouvenirDetailDoneActivity"/>
-        <activity android:name=".activity.book.SouvenirDetailWishActivity"/>
-        <activity android:name=".activity.book.SouvenirEditForeignActivity"/>
+        <activity android:name=".activity.book.AngryListActivity"/>
+        <activity android:name=".activity.book.AngryEditActivity"/>
+        <activity android:name=".activity.book.AngryDetailActivity"/>
+        <activity android:name=".activity.book.PromiseListActivity"/>
+        <activity android:name=".activity.book.PromiseEditActivity"/>
+        <activity android:name=".activity.book.PromiseDetailActivity"/>
+        <activity android:name=".activity.book.GiftListActivity"/>
+        <activity android:name=".activity.book.GiftEditActivity"/>
+        <activity android:name=".activity.book.DreamListActivity"/>
+        <activity android:name=".activity.book.DreamEditActivity"/>
+        <activity android:name=".activity.book.DreamDetailActivity"/>
+        <activity android:name=".activity.book.AwardListActivity"/>
+        <activity android:name=".activity.book.AwardEditActivity"/>
+        <activity android:name=".activity.book.AwardRuleListActivity"/>
+        <activity android:name=".activity.book.AwardRuleEditActivity"/>
+        <!-- topic -->
     </application>
 
 </manifest>

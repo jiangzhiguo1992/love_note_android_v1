@@ -23,10 +23,10 @@ import com.jiangzg.mianmian.activity.book.ShyActivity;
 import com.jiangzg.mianmian.activity.book.SleepActivity;
 import com.jiangzg.mianmian.activity.book.SouvenirListActivity;
 import com.jiangzg.mianmian.activity.book.TravelListActivity;
+import com.jiangzg.mianmian.activity.book.TrendsListActivity;
 import com.jiangzg.mianmian.activity.book.VideoListActivity;
 import com.jiangzg.mianmian.activity.book.WhisperListActivity;
 import com.jiangzg.mianmian.activity.book.WordListActivity;
-import com.jiangzg.mianmian.activity.common.SettingsActivity;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
@@ -34,7 +34,6 @@ import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
-import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -106,6 +105,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_book), false);
         fitToolBar(tb);
+        // menu
+        tb.inflateMenu(R.menu.help_lock);
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -113,17 +114,13 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 refreshData();
             }
         });
+        // TODO 纪念日顶部横条展示最近的一个，列表页日历卡片展示年月日，显示倒计时，显示已过多少天
+        // TODO 纪念日到点彩蛋，生日到点彩蛋，刷新界面
+        // TODO icon会变化
     }
 
     protected void loadData() {
         refreshData();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // menu
-        refreshMenu();
     }
 
     @Override
@@ -132,8 +129,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mFragment, Help.INDEX_BOOK_HOME);
                 return true;
-            case R.id.menuSettings: // 设置
-                SettingsActivity.goActivity(mFragment);
+            case R.id.menuLock: // 密码锁
+                // TODO 用户决定是否开启 开关功能 + 初始化密码 + 修改密码 + 忘记密码
+                // TODO book的密码+指纹验证(app启动后解密一次)
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -151,12 +149,12 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             CouplePairActivity.goActivity(mFragment);
             return;
         }
-        // TODO book的密码+指纹验证(app启动后解密一次)
         switch (view.getId()) {
-            case R.id.cvSouvenir: // 纪念日+愿望清单
+            case R.id.cvSouvenir: // 纪念日
                 SouvenirListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvTrends: // TODO 动态+统计
+            case R.id.cvTrends: // 动态
+                TrendsListActivity.goActivity(mFragment);
                 break;
             case R.id.cvMenses: // 姨妈
                 MensesActivity.goActivity(mFragment);
@@ -209,16 +207,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         }
     }
 
-    private void refreshMenu() {
-        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
-        Version version = SPHelper.getVersion();
-        boolean redPoint = (noticeNoReadCount > 0) || (version != null);
-        tb.getMenu().clear();
-        tb.inflateMenu(redPoint ? R.menu.help_settings_point : R.menu.help_settings);
-    }
-
     private void refreshData() {
-        // TODO api
+        // TODO 根据静态变量isLock和canLock来决定主动刷新，没couple时全给展示出来
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }

@@ -368,9 +368,11 @@
     <string name="freezing_rain">冻雨</string>
 
     <!-- book -->
+    <string name="pwd_lock">密码锁</string>
+    <string name="trends">动态</string>
+    <string name="statistics">统计</string>
     <string name="souvenir">纪念日</string>
     <string name="wish_list">愿望清单</string>
-    <string name="trends">动态</string>
     <string name="menses">姨妈</string>
     <string name="shy">羞羞</string>
     <string name="sleep">睡眠</string>

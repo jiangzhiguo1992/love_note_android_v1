@@ -190,6 +190,13 @@ public interface API {
     @GET("couple/weather?forecast=1")
     Call<Result> weatherForecastListGet();
 
+    // trendsList获取
+    @GET("book/trends?trends=1&total=0")
+    Call<Result> trendsListGet(@Query("page") int page);
+
+    // trendsTotal获取
+    @GET("book/trends?trends=0&total=1")
+    Call<Result> trendsTotalGet();
 
     // souvenirList获取
     @GET("book/souvenir?sid=0&list=1")

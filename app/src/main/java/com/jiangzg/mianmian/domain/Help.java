@@ -26,7 +26,8 @@ public class Help extends BaseObj {
     public static final int INDEX_COUPLE_WEATHER = 235;
     // book
     public static final int INDEX_BOOK_HOME = 300;
-    public static final int INDEX_BOOK_TREND = 310;
+    public static final int INDEX_BOOK_TRENDS_LIST = 310;
+    public static final int INDEX_BOOK_TRENDS_TOTAL = 311;
     public static final int INDEX_BOOK_LOCK = 320;
     public static final int INDEX_BOOK_SOUVENIR_LIST = 330;
     public static final int INDEX_BOOK_SOUVENIR_BODY_EDIT = 331;
@@ -71,7 +72,7 @@ public class Help extends BaseObj {
     public static final int INDEX_BOOK_AWARD_RULE_LIST = 502;
     public static final int INDEX_BOOK_AWARD_RULE_EDIT = 503;
     // topic
-    public static final int INDEX_TOPIC_ = 600;
+    public static final int INDEX_TOPIC_HOME = 600;
 
 
     private int index;
