@@ -598,7 +598,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void updateApi(Travel travel) {
         if (travel == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).travelUpdate(travel);
+        callUpdate = new RetrofitHelper().call(API.class).bookTravelUpdate(travel);
         MaterialDialog loading = getLoading(false);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
@@ -621,7 +621,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void addApi(Travel travel) {
         if (travel == null) return;
-        callAdd = new RetrofitHelper().call(API.class).travelAdd(travel);
+        callAdd = new RetrofitHelper().call(API.class).bookTravelAdd(travel);
         MaterialDialog loading = getLoading(false);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

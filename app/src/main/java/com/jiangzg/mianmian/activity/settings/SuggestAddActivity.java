@@ -354,7 +354,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         String content = etContent.getText().toString();
         Suggest body = ApiHelper.getSuggestAddBody(title, contentType, content, imgPath);
         MaterialDialog loading = mActivity.getLoading(false);
-        call = new RetrofitHelper().call(API.class).suggestAdd(body);
+        call = new RetrofitHelper().call(API.class).setSuggestAdd(body);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

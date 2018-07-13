@@ -177,7 +177,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).souvenirGet(sid);
+        callGet = new RetrofitHelper().call(API.class).bookSouvenirGet(sid);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -297,7 +297,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
     private void deleteApi() {
         if (souvenir == null) return;
         MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).souvenirDel(souvenir.getId());
+        callDel = new RetrofitHelper().call(API.class).bookSouvenirDel(souvenir.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

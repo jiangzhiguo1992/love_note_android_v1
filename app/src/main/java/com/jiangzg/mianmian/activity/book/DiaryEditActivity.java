@@ -360,7 +360,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void updateApi() {
         if (diary == null) return;
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).diaryUpdate(diary);
+        callUpdate = new RetrofitHelper().call(API.class).bookDiaryUpdate(diary);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -384,7 +384,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
     private void addApi() {
         if (diary == null) return;
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).diaryAdd(diary);
+        callAdd = new RetrofitHelper().call(API.class).bookDiaryAdd(diary);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

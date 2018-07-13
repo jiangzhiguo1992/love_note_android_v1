@@ -180,7 +180,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
             return;
         }
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).awardRuleAdd(awardRule);
+        callAdd = new RetrofitHelper().call(API.class).bookAwardRuleAdd(awardRule);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

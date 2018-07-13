@@ -197,7 +197,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).audioListGet(page);
+        call = new RetrofitHelper().call(API.class).bookAudioListGet(page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

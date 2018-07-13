@@ -193,7 +193,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
             ToastUtils.show(getString(R.string.already_arrive_top));
         }
         ++page;
-        callGet = new RetrofitHelper().call(API.class).wordListGet(page);
+        callGet = new RetrofitHelper().call(API.class).bookWordListGet(page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -216,7 +216,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         String content = etContent.getText().toString();
         Word body = ApiHelper.getWordBody(content);
         MaterialDialog loading = mActivity.getLoading(true);
-        callAdd = new RetrofitHelper().call(API.class).wordAdd(body);
+        callAdd = new RetrofitHelper().call(API.class).bookWordAdd(body);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

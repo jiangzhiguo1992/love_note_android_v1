@@ -582,7 +582,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private void updateApi(Souvenir souvenir) {
         if (souvenir == null) return;
-        call = new RetrofitHelper().call(API.class).souvenirUpdate(souvenir);
+        call = new RetrofitHelper().call(API.class).bookSouvenirUpdate(souvenir);
         MaterialDialog loading = getLoading(false);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

@@ -171,14 +171,14 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         page = more ? page + 1 : 0;
         // api
         if (entry == ENTRY_MINE) {
-            call = new RetrofitHelper().call(API.class).suggestListMineGet(page);
+            call = new RetrofitHelper().call(API.class).setSuggestListMineGet(page);
         } else if (entry == ENTRY_FOLLOW) {
-            call = new RetrofitHelper().call(API.class).suggestListFollowGet(page);
+            call = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
         } else {
             SuggestInfo suggestInfo = SuggestInfo.getInstance();
             int status = suggestInfo.getStatusList().get(0).getStatus();
             int type = suggestInfo.getTypeList().get(0).getType();
-            call = new RetrofitHelper().call(API.class).suggestListHomeGet(status, type, page);
+            call = new RetrofitHelper().call(API.class).setSuggestListHomeGet(status, type, page);
         }
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override

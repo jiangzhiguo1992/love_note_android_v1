@@ -258,7 +258,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).promiseGet(pid);
+        callGet = new RetrofitHelper().call(API.class).bookPromiseGet(pid);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -303,7 +303,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         if (promise == null) return;
         page = more ? page + 1 : 0;
         // api
-        callBreakListGet = new RetrofitHelper().call(API.class).promiseBreakListGet(promise.getId(), page);
+        callBreakListGet = new RetrofitHelper().call(API.class).bookPromiseBreakListGet(promise.getId(), page);
         RetrofitHelper.enqueue(callBreakListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -368,7 +368,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     private void delPromise() {
         if (promise == null) return;
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).promiseDel(promise.getId());
+        callDel = new RetrofitHelper().call(API.class).bookPromiseDel(promise.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -411,7 +411,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         }
         PromiseBreak promiseBreak = ApiHelper.getPromiseBreakBody(promise.getId(), breakHappen, content);
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callBreakAdd = new RetrofitHelper().call(API.class).promiseBreakAdd(promiseBreak);
+        callBreakAdd = new RetrofitHelper().call(API.class).bookPromiseBreakAdd(promiseBreak);
         RetrofitHelper.enqueue(callBreakAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

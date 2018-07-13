@@ -157,7 +157,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).diaryGet(did);
+        callGet = new RetrofitHelper().call(API.class).bookDiaryGet(did);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -234,7 +234,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     private void deleteApi() {
         if (diary == null) return;
         MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).diaryDel(diary.getId());
+        callDel = new RetrofitHelper().call(API.class).bookDiaryDel(diary.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

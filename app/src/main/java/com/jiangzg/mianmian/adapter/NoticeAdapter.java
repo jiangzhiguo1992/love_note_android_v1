@@ -68,7 +68,7 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
     }
 
     private void noticeRead(long nid) {
-        Call<Result> call = new RetrofitHelper().call(API.class).noticeRead(nid);
+        Call<Result> call = new RetrofitHelper().call(API.class).setNoticeRead(nid);
         RetrofitHelper.enqueue(call, null, null);
     }
 

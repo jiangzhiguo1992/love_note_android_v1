@@ -110,7 +110,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     public void refreshData() {
         int index = getIntent().getIntExtra("index", Help.INDEX_ALL);
         // api
-        call = new RetrofitHelper().call(API.class).helpGet(index);
+        call = new RetrofitHelper().call(API.class).setHelpGet(index);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

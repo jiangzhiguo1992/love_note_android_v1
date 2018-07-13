@@ -218,7 +218,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             srl.setRefreshing(true);
         }
         page = more ? page + 1 : 0;
-        callGet = new RetrofitHelper().call(API.class).whisperListGet(channel, page);
+        callGet = new RetrofitHelper().call(API.class).bookWhisperListGet(channel, page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -320,7 +320,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void api(Whisper whisper) {
-        callAdd = new RetrofitHelper().call(API.class).whisperAdd(whisper);
+        callAdd = new RetrofitHelper().call(API.class).bookWhisperAdd(whisper);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

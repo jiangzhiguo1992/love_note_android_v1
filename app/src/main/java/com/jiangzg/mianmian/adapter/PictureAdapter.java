@@ -318,7 +318,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
     private void deleteApi(int position) {
         final Picture item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).pictureDel(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).bookPictureDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

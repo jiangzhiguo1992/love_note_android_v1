@@ -316,7 +316,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         }
         page = more ? page + 1 : 0;
         // api
-        callPictureList = new RetrofitHelper().call(API.class).PictureListGet(album.getId(), page);
+        callPictureList = new RetrofitHelper().call(API.class).bookPictureListGet(album.getId(), page);
         RetrofitHelper.enqueue(callPictureList, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -343,7 +343,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     }
 
     private void getAlbum(long albumId) {
-        callAlbum = new RetrofitHelper().call(API.class).AlbumGet(albumId);
+        callAlbum = new RetrofitHelper().call(API.class).bookAlbumGet(albumId);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAlbum, loading, new RetrofitHelper.CallBack() {
             @Override

@@ -195,7 +195,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         if (month > 12) {
             month = 1;
         }
-        callListGet = new RetrofitHelper().call(API.class).shyListGetByDate(year, month);
+        callListGet = new RetrofitHelper().call(API.class).bookShyListGetByDate(year, month);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -223,7 +223,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private void shyPush(long happenAt) {
         Shy shy = new Shy();
         shy.setHappenAt(happenAt);
-        callAdd = new RetrofitHelper().call(API.class).shyAdd(shy);
+        callAdd = new RetrofitHelper().call(API.class).bookShyAdd(shy);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

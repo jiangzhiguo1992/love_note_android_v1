@@ -247,7 +247,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     private void updateApi() {
         if (promise == null) return;
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).promiseUpdate(promise);
+        callUpdate = new RetrofitHelper().call(API.class).bookPromiseUpdate(promise);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -270,7 +270,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     private void addApi() {
         if (promise == null) return;
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).promiseAdd(promise);
+        callAdd = new RetrofitHelper().call(API.class).bookPromiseAdd(promise);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

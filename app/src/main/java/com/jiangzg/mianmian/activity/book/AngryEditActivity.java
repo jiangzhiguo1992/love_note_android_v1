@@ -199,7 +199,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             return;
         }
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).angryAdd(angry);
+        callAdd = new RetrofitHelper().call(API.class).bookAngryAdd(angry);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

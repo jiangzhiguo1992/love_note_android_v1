@@ -120,7 +120,7 @@ public class TrendsTotalActivity extends BaseActivity<TrendsTotalActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        call = new RetrofitHelper().call(API.class).trendsTotalGet();
+        call = new RetrofitHelper().call(API.class).bookTrendsTotalGet();
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

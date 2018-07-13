@@ -239,7 +239,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             return;
         }
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).awardAdd(award);
+        callAdd = new RetrofitHelper().call(API.class).bookAwardAdd(award);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

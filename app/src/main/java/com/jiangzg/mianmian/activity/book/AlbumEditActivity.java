@@ -334,7 +334,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void addApi() {
         if (album == null) return;
-        callAdd = new RetrofitHelper().call(API.class).AlbumAdd(album);
+        callAdd = new RetrofitHelper().call(API.class).bookAlbumAdd(album);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
@@ -353,7 +353,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private void updateApi() {
         if (album == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).AlbumUpdate(album);
+        callUpdate = new RetrofitHelper().call(API.class).bookAlbumUpdate(album);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override

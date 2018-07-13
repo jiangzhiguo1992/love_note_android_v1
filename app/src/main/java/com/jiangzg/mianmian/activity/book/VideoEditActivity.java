@@ -345,7 +345,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
     private void addApi() {
         if (video == null) return;
-        callAdd = new RetrofitHelper().call(API.class).videoAdd(video);
+        callAdd = new RetrofitHelper().call(API.class).bookVideoAdd(video);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

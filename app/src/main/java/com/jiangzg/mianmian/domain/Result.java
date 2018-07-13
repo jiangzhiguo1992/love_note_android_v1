@@ -94,6 +94,7 @@ public class Result implements Serializable {
         private long totalAngry;
         private long totalDream;
         private long totalAward;
+        private Souvenir souvenirLatest;
         private Souvenir souvenir;
         private List<Souvenir> souvenirList;
         private Menses menses;
@@ -141,6 +142,14 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+
+        public Souvenir getSouvenirLatest() {
+            return souvenirLatest;
+        }
+
+        public void setSouvenirLatest(Souvenir souvenirLatest) {
+            this.souvenirLatest = souvenirLatest;
+        }
 
         public List<Trends> getTrendsList() {
             return trendsList;

@@ -207,7 +207,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).angryGet(aid);
+        callGet = new RetrofitHelper().call(API.class).bookAngryGet(aid);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -322,7 +322,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     private void deleteApi() {
         if (angry == null) return;
         MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).angryDel(angry.getId());
+        callDel = new RetrofitHelper().call(API.class).bookAngryDel(angry.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -379,7 +379,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         if (angry == null || gift == null) return;
         MaterialDialog loading = getLoading(true);
         angry.setGiftId(gift.getId());
-        callDel = new RetrofitHelper().call(API.class).angryUpdate(angry);
+        callDel = new RetrofitHelper().call(API.class).bookAngryUpdate(angry);
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -401,7 +401,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         if (angry == null || promise == null) return;
         MaterialDialog loading = getLoading(true);
         angry.setPromiseId(promise.getId());
-        callDel = new RetrofitHelper().call(API.class).angryUpdate(angry);
+        callDel = new RetrofitHelper().call(API.class).bookAngryUpdate(angry);
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

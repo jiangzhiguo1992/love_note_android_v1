@@ -228,7 +228,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void getTaData() {
-        callTaGet = new RetrofitHelper().call(API.class).userGet(true);
+        callTaGet = new RetrofitHelper().call(API.class).userGetTa();
         RetrofitHelper.enqueue(callTaGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

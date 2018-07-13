@@ -250,7 +250,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
 
     private void addApi() {
         if (audio == null) return;
-        callAdd = new RetrofitHelper().call(API.class).audioAdd(audio);
+        callAdd = new RetrofitHelper().call(API.class).bookAudioAdd(audio);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

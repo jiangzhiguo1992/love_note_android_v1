@@ -208,7 +208,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).foodListGet(page);
+        call = new RetrofitHelper().call(API.class).bookFoodListGet(page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

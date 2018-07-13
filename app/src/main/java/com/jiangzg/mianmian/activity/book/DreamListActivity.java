@@ -188,7 +188,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
-        call = new RetrofitHelper().call(API.class).dreamListGet(searchType, page);
+        call = new RetrofitHelper().call(API.class).bookDreamListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

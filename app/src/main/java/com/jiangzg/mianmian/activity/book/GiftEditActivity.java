@@ -376,7 +376,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void updateApi() {
         if (gift == null) return;
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).giftUpdate(gift);
+        callUpdate = new RetrofitHelper().call(API.class).bookGiftUpdate(gift);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -398,7 +398,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void addApi() {
         if (gift == null) return;
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).giftAdd(gift);
+        callAdd = new RetrofitHelper().call(API.class).bookGiftAdd(gift);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -435,7 +435,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void deleteApi() {
         if (gift == null) return;
         MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).giftDel(gift.getId());
+        callDel = new RetrofitHelper().call(API.class).bookGiftDel(gift.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

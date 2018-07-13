@@ -331,7 +331,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         if (suggest == null) return;
         page = more ? page + 1 : 0;
         // api
-        callCommentGet = new RetrofitHelper().call(API.class).suggestCommentListGet(suggest.getId(), page);
+        callCommentGet = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
         RetrofitHelper.enqueue(callCommentGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -413,7 +413,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollowCount(newFollowCount);
         initFollowView();
         if (!api) return;
-        callFollow = new RetrofitHelper().call(API.class).suggestFollowToggle(suggest.getId());
+        callFollow = new RetrofitHelper().call(API.class).setSuggestFollowToggle(suggest.getId());
         RetrofitHelper.enqueue(callFollow, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -436,7 +436,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         MaterialDialog loading = getLoading(true);
         String content = etComment.getText().toString();
         SuggestComment body = ApiHelper.getSuggestCommentAddBody(suggest.getId(), content);
-        callCommentAdd = new RetrofitHelper().call(API.class).suggestCommentAdd(body);
+        callCommentAdd = new RetrofitHelper().call(API.class).setSuggestCommentAdd(body);
         RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -473,7 +473,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private void delSuggest() {
         if (suggest == null) return;
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).suggestDel(suggest.getId());
+        callDel = new RetrofitHelper().call(API.class).setSuggestDel(suggest.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -491,7 +491,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     public void refreshSuggest() {
         if (suggest == null) return;
-        callGet = new RetrofitHelper().call(API.class).suggestGet(suggest.getId());
+        callGet = new RetrofitHelper().call(API.class).setSuggestGet(suggest.getId());
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -393,7 +393,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         }
         PictureList pictureListBody = new PictureList();
         pictureListBody.setPictureList(pictureList);
-        callAdd = new RetrofitHelper().call(API.class).pictureListAdd(pictureListBody);
+        callAdd = new RetrofitHelper().call(API.class).bookPictureListAdd(pictureListBody);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
@@ -419,7 +419,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void commitUpdate() {
         if (picture == null) return;
-        callUpdate = new RetrofitHelper().call(API.class).pictureUpdate(picture);
+        callUpdate = new RetrofitHelper().call(API.class).bookPictureUpdate(picture);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override

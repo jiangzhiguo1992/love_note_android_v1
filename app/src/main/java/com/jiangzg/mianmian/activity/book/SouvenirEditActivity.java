@@ -259,7 +259,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     private void updateApi() {
         if (souvenir == null) return;
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).souvenirUpdate(souvenir);
+        callUpdate = new RetrofitHelper().call(API.class).bookSouvenirUpdate(souvenir);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -282,7 +282,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     private void addApi() {
         if (souvenir == null) return;
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).souvenirAdd(souvenir);
+        callAdd = new RetrofitHelper().call(API.class).bookSouvenirAdd(souvenir);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

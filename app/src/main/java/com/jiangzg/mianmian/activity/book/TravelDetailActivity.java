@@ -193,7 +193,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).travelGet(tid);
+        callGet = new RetrofitHelper().call(API.class).bookTravelGet(tid);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -399,7 +399,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     private void delTravel() {
         if (travel == null) return;
         MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-        callDel = new RetrofitHelper().call(API.class).travelDel(travel.getId());
+        callDel = new RetrofitHelper().call(API.class).bookTravelDel(travel.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

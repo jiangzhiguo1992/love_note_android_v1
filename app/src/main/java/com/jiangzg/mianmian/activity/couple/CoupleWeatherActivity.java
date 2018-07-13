@@ -142,7 +142,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        call = new RetrofitHelper().call(API.class).weatherForecastListGet();
+        call = new RetrofitHelper().call(API.class).coupleWeatherForecastListGet();
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -123,7 +123,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
 
     private void delCommentApi(final int position) {
         final SuggestComment item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).suggestCommentDel(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).setSuggestCommentDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

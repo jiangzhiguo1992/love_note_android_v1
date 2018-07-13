@@ -144,7 +144,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).dreamGet(did);
+        callGet = new RetrofitHelper().call(API.class).bookDreamGet(did);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -203,7 +203,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     private void deleteApi() {
         if (dream == null) return;
         MaterialDialog loading = getLoading(true);
-        callDel = new RetrofitHelper().call(API.class).dreamDel(dream.getId());
+        callDel = new RetrofitHelper().call(API.class).bookDreamDel(dream.getId());
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

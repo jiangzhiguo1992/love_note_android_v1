@@ -279,7 +279,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).mensesLatestGet();
+        callGet = new RetrofitHelper().call(API.class).bookMensesLatestGet();
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -308,7 +308,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (month > 12) {
             month = 1;
         }
-        callListGet = new RetrofitHelper().call(API.class).mensesListGetByDate(isMine, year, month);
+        callListGet = new RetrofitHelper().call(API.class).bookMensesListGetByDate(isMine, year, month);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -324,7 +324,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     private void mensesPush() {
         Menses menses = new Menses();
-        callAdd = new RetrofitHelper().call(API.class).mensesAdd(menses);
+        callAdd = new RetrofitHelper().call(API.class).bookMensesAdd(menses);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

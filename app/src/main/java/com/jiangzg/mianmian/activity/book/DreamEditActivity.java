@@ -218,7 +218,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     private void updateApi() {
         if (dream == null) return;
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).dreamUpdate(dream);
+        callUpdate = new RetrofitHelper().call(API.class).bookDreamUpdate(dream);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -241,7 +241,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
     private void addApi() {
         if (dream == null) return;
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).dreamAdd(dream);
+        callAdd = new RetrofitHelper().call(API.class).bookDreamAdd(dream);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -198,7 +198,7 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).travelListGet(page);
+        call = new RetrofitHelper().call(API.class).bookTravelListGet(page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

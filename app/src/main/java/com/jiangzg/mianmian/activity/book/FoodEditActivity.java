@@ -307,7 +307,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         if (food == null) return;
         food.setContentImageList(ossPathList);
         MaterialDialog loading = getLoading(false);
-        callAdd = new RetrofitHelper().call(API.class).foodAdd(food);
+        callAdd = new RetrofitHelper().call(API.class).bookFoodAdd(food);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

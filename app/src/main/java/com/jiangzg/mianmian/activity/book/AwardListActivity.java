@@ -192,7 +192,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
-        callList = new RetrofitHelper().call(API.class).awardListGet(searchType, page);
+        callList = new RetrofitHelper().call(API.class).bookAwardListGet(searchType, page);
         RetrofitHelper.enqueue(callList, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -232,7 +232,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     }
 
     private void refreshScoreData() {
-        callScore = new RetrofitHelper().call(API.class).awardScoreGet();
+        callScore = new RetrofitHelper().call(API.class).bookAwardScoreGet();
         RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

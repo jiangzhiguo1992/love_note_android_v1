@@ -204,7 +204,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     private void delAlbumApi(final int position) {
         Album album = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).AlbumDel(album.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).bookAlbumDel(album.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

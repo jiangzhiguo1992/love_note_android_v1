@@ -213,7 +213,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         page = more ? page + 1 : 0;
         tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
-        call = new RetrofitHelper().call(API.class).promiseListGet(searchType, page);
+        call = new RetrofitHelper().call(API.class).bookPromiseListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

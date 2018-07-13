@@ -264,7 +264,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callGet = new RetrofitHelper().call(API.class).sleepLatestGet();
+        callGet = new RetrofitHelper().call(API.class).bookSleepLatestGet();
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -292,7 +292,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         if (month > 12) {
             month = 1;
         }
-        callListGet = new RetrofitHelper().call(API.class).sleepListGetByDate(year, month);
+        callListGet = new RetrofitHelper().call(API.class).bookSleepListGetByDate(year, month);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -310,7 +310,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     private void sleepPush() {
         Sleep sleep = new Sleep();
         sleep.setSleep(sleepMe == null || !sleepMe.isSleep());
-        callAdd = new RetrofitHelper().call(API.class).sleepAdd(sleep);
+        callAdd = new RetrofitHelper().call(API.class).bookSleepAdd(sleep);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
