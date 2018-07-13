@@ -888,10 +888,12 @@ public class OssHelper {
                 // 目标文件重复检查
                 String format = MyApp.get().getString(R.string.already_download_to_colon_holder);
                 final String sucToast = String.format(Locale.getDefault(), format, target.getAbsoluteFile());
-                if (FileUtils.isFileExists(target)) {
+                if (FileUtils.isFileExists(target) && target.length() > 0) {
                     LogUtils.d(OssHelper.class, "downloadBigImage", "下载文件已存在！");
                     ToastUtils.show(sucToast);
                     return;
+                } else {
+                    FileUtils.deleteFile(target); // 清除空文件
                 }
                 // 在OssRes中是否存在(book之类的缓存)
                 if (OssResHelper.isKeyFileExists(objectKey)) {
