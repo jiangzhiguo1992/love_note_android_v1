@@ -184,6 +184,10 @@ public class MultiLoveUpLayout extends RelativeLayout {
         }
     }
 
+    public boolean isGoing() {
+        return mTimer != null;
+    }
+
     // 开始添加爱心
     public void addLove() {
         MyApp.get().getHandler().post(new Runnable() {

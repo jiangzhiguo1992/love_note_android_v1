@@ -46,6 +46,7 @@ import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
+import com.jiangzg.mianmian.view.MultiLoveUpLayout;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -63,6 +64,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
+    @BindView(R.id.loveSouvenir)
+    MultiLoveUpLayout loveSouvenir;
 
     @BindView(R.id.cvSouvenir)
     CardView cvSouvenir;
@@ -316,10 +319,14 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 public void run() {
                     long betweenTime = tartTime - DateUtils.getCurrentLong();
                     if (betweenTime <= 0) {
-                        // TODO 纪念日到点彩蛋，刷新界面
                         stopCoupleCountDownTask(); // 停止倒计时
                         refreshData(); // 刷新数据
                     } else {
+                        if (betweenTime / ConstantUtils.SEC < 60) {
+                            startLoveAnim();
+                        } else {
+                            stopLoveAnim();
+                        }
                         tvSouvenirCountDown.setText(getCountDownShow(betweenTime));
                         MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
                     }
@@ -327,6 +334,24 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             };
         }
         return souvenirCountDownTask;
+    }
+
+    private void startLoveAnim() {
+        if (loveSouvenir.getVisibility() != View.VISIBLE) {
+            loveSouvenir.setVisibility(View.VISIBLE);
+        }
+        if (!loveSouvenir.isGoing()) {
+            loveSouvenir.startUp(500);
+        }
+    }
+
+    private void stopLoveAnim() {
+        if (loveSouvenir.getVisibility() == View.VISIBLE) {
+            loveSouvenir.setVisibility(View.GONE);
+        }
+        if (loveSouvenir.isGoing()) {
+            loveSouvenir.cancelUp();
+        }
     }
 
     private String getCountDownShow(long betweenTime) {
