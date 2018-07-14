@@ -226,6 +226,7 @@
     <string name="account_settings">账号设置</string>
     <string name="change_phone">更换手机</string>
     <string name="modify_password">修改密码</string>
+    <string name="set_password">设置密码</string>
     <string name="about_and_help">关于与帮助</string>
     <string name="new_notice">最新公告</string>
     <string name="help_document">帮助文档</string>
@@ -460,6 +461,8 @@
     <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
+    <string name="open_lock">开锁</string>
+    <string name="close_lock">关锁</string>
     <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
     <string name="holder_anniversary">%d周年</string>
     <string name="already_gone_holder_day" formatted="false">已过 %d 天</string>

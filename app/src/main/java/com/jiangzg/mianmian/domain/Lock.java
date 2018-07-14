@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class Lock extends BaseCP implements Parcelable {
 
     private String password;
-    private String isLock;
+    private boolean isLock;
 
     public String getPassword() {
         return password;
@@ -20,12 +20,12 @@ public class Lock extends BaseCP implements Parcelable {
         this.password = password;
     }
 
-    public String getIsLock() {
+    public boolean isLock() {
         return isLock;
     }
 
-    public void setIsLock(String isLock) {
-        this.isLock = isLock;
+    public void setLock(boolean lock) {
+        isLock = lock;
     }
 
     public Lock() {
@@ -34,14 +34,14 @@ public class Lock extends BaseCP implements Parcelable {
     protected Lock(Parcel in) {
         super(in);
         password = in.readString();
-        isLock = in.readString();
+        isLock = in.readByte() != 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(password);
-        dest.writeString(isLock);
+        dest.writeByte((byte) (isLock ? 1 : 0));
     }
 
     @Override

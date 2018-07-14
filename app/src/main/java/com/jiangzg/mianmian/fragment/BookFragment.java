@@ -39,10 +39,13 @@ import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.Lock;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Souvenir;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -55,6 +58,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class BookFragment extends BasePagerFragment<BookFragment> {
 
@@ -123,6 +128,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     private boolean isLock = false; // 默认没解开
     private Souvenir souvenirLatest;
     private Call<Result> call;
+    private Observable<Lock> obLockRefresh;
     private Runnable souvenirCountDownTask;
     private String souvenirCountDownFormat;
 
@@ -156,12 +162,24 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     }
 
     protected void loadData() {
+        // event
+        obLockRefresh = RxBus.register(ConsHelper.EVENT_LOCK_REFRESH, new Action1<Lock>() {
+            @Override
+            public void call(Lock lock) {
+                lockBack = true;
+                canLock = (lock != null);
+                isLock = (lock != null && lock.isLock());
+                refreshData();
+            }
+        });
+        // data
         refreshData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
         stopSouvenirCountDownTask();
+        RxBus.unregister(ConsHelper.EVENT_LOCK_REFRESH, obLockRefresh);
         RetrofitHelper.cancel(call);
     }
 

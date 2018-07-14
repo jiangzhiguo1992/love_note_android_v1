@@ -200,13 +200,17 @@ public interface API {
     @POST("book/lock")
     Call<Result> bookLockAdd(@Body Lock lock);
 
-    // lock修改
+    // lock修改密码
     @PUT("book/lock?pwd=1&lock=0")
     Call<Result> bookLockUpdatePwd(@Body Lock lock);
 
-    // lock修改
+    // lock开关锁
     @PUT("book/lock?lock=1&pwd=0")
     Call<Result> bookLockToggle();
+
+    // lock获取
+    @GET("book/lock")
+    Call<Result> bookLockGet();
 
     // trendsList获取
     @GET("book/trends?trends=1&total=0")
