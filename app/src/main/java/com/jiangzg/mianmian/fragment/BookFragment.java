@@ -21,6 +21,7 @@ import com.jiangzg.mianmian.activity.book.DiaryListActivity;
 import com.jiangzg.mianmian.activity.book.DreamListActivity;
 import com.jiangzg.mianmian.activity.book.FoodListActivity;
 import com.jiangzg.mianmian.activity.book.GiftListActivity;
+import com.jiangzg.mianmian.activity.book.LockActivity;
 import com.jiangzg.mianmian.activity.book.MensesActivity;
 import com.jiangzg.mianmian.activity.book.PromiseListActivity;
 import com.jiangzg.mianmian.activity.book.ShyActivity;
@@ -56,6 +57,8 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 public class BookFragment extends BasePagerFragment<BookFragment> {
+
+    private static boolean lockBack = false;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -116,8 +119,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     @BindView(R.id.cvAward)
     CardView cvAward;
 
-    private boolean canLock = false; // 是否开启锁
-    private boolean isLock = false; // 是否锁住
+    private boolean canLock = false; // 默认没锁
+    private boolean isLock = false; // 默认没解开
     private Souvenir souvenirLatest;
     private Call<Result> call;
     private Runnable souvenirCountDownTask;
@@ -169,8 +172,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 HelpActivity.goActivity(mFragment, Help.INDEX_BOOK_HOME);
                 return true;
             case R.id.menuLock: // 密码锁
-                // TODO 用户决定是否开启 开关功能 + 初始化密码 + 修改密码 + 忘记密码
-                // TODO book的密码+指纹验证(app启动后解密一次)
+                LockActivity.goActivity(mFragment);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -188,9 +190,12 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             CouplePairActivity.goActivity(mFragment);
             return;
         }
-        if (canLock && isLock) {
+        if (!lockBack) {
+            // 锁信息没有返回
+            return;
+        } else if (canLock && isLock) {
             // 上锁且没有解开
-            // TODO 解锁
+            LockActivity.goActivity(mFragment);
             return;
         }
         switch (view.getId()) {
@@ -258,12 +263,6 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             rlSouvenir.setVisibility(View.GONE);
             return;
         }
-        if (canLock && isLock) {
-            // 上锁且没有解开
-            tvSouvenirEmpty.setVisibility(View.VISIBLE);
-            rlSouvenir.setVisibility(View.GONE);
-            return;
-        }
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -273,6 +272,9 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
+                lockBack = true;
+                canLock = data.isCanLock();
+                isLock = data.isLock();
                 souvenirLatest = data.getSouvenirLatest();
                 refreshBookView();
             }
@@ -286,6 +288,12 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     private void refreshBookView() {
         stopCoupleCountDownTask();// 先停止倒计时
+        if (!lockBack || (canLock && isLock)) {
+            // 锁信息没有返回，或者是上锁且没有解开
+            tvSouvenirEmpty.setVisibility(View.VISIBLE);
+            rlSouvenir.setVisibility(View.GONE);
+            return;
+        }
         if (souvenirLatest == null || souvenirLatest.getId() <= 0) {
             tvSouvenirEmpty.setVisibility(View.VISIBLE);
             rlSouvenir.setVisibility(View.GONE);

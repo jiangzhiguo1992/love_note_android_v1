@@ -47,6 +47,7 @@ public class ConsHelper {
     public static final int EVENT_USER_REFRESH = 201; // 用户
     public static final int EVENT_COUPLE_REFRESH = 250; // 配对
     public static final int EVENT_WALL_PAPER_REFRESH = 251; // 墙纸
+    public static final int EVENT_LOCK_REFRESH = 310; // 密码锁
     public static final int EVENT_SOUVENIR_LIST_REFRESH = 320; // 纪念日
     public static final int EVENT_SOUVENIR_LIST_ITEM_DELETE = 321;
     public static final int EVENT_SOUVENIR_LIST_ITEM_REFRESH = 322;

@@ -79,6 +79,9 @@ public class Result implements Serializable {
         private WeatherToday weatherTodayTa;
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
+        private Lock lock;
+        private boolean canLock;
+        private boolean isLock;
         private List<Trends> trendsList;
         private long totalSouvenir;
         private long totalWord;
@@ -142,6 +145,30 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+
+        public boolean isCanLock() {
+            return canLock;
+        }
+
+        public void setCanLock(boolean canLock) {
+            this.canLock = canLock;
+        }
+
+        public boolean isLock() {
+            return isLock;
+        }
+
+        public void setLock(boolean lock) {
+            isLock = lock;
+        }
+
+        public Lock getLock() {
+            return lock;
+        }
+
+        public void setLock(Lock lock) {
+            this.lock = lock;
+        }
 
         public Souvenir getSouvenirLatest() {
             return souvenirLatest;

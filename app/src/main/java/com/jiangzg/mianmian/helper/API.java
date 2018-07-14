@@ -11,6 +11,7 @@ import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
+import com.jiangzg.mianmian.domain.Lock;
 import com.jiangzg.mianmian.domain.Menses;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
@@ -194,6 +195,18 @@ public interface API {
     // bookHome获取
     @GET("book/home")
     Call<Result> bookHomeGet(@Query("near") long near);
+
+    // lock上传
+    @POST("book/lock")
+    Call<Result> bookLockAdd(@Body Lock lock);
+
+    // lock修改
+    @PUT("book/lock?pwd=1&lock=0")
+    Call<Result> bookLockUpdatePwd(@Body Lock lock);
+
+    // lock修改
+    @PUT("book/lock?lock=1&pwd=0")
+    Call<Result> bookLockToggle();
 
     // trendsList获取
     @GET("book/trends?trends=1&total=0")

@@ -21,7 +21,8 @@
             android:authorities="com.jiangzg.mianmian.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-            <!-- 指定要分享文件所在的目录，在provider_paths文件中定义   -->
+
+            <!-- 指定要分享文件所在的目录，在provider_paths文件中定义 -->
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
@@ -68,7 +69,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <!--common-->
+        <!-- common -->
         <activity android:name=".activity.HomeActivity"/>
         <activity android:name=".activity.common.WebActivity"/>
         <activity android:name=".activity.common.BigImageActivity"/>
@@ -100,6 +101,7 @@
         <activity android:name=".activity.couple.CouplePlaceActivity"/>
         <activity android:name=".activity.couple.CoupleWeatherActivity"/>
         <!-- book -->
+        <activity android:name=".activity.book.LockActivity"/>
         <activity android:name=".activity.book.TrendsListActivity"/>
         <activity android:name=".activity.book.TrendsTotalActivity"/>
         <activity android:name=".activity.book.SouvenirListActivity"/>
