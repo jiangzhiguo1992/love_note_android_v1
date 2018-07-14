@@ -48,12 +48,6 @@
             android:name=".service.UpdateService"
             android:enabled="true"
             android:exported="true"/>
-        <!-- service-定时器 -->
-        <service
-            android:name=".service.TimerService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
         <!-- receiver-oss -->
         <receiver
             android:name=".broadcast.OssRefreshReceiver"
