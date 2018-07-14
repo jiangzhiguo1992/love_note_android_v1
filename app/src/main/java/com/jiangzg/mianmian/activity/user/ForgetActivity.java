@@ -84,7 +84,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     @Override
     protected void onStop() {
         super.onStop();
-        stopCountDownTask();
         if (isGo) {
             finish();
         }

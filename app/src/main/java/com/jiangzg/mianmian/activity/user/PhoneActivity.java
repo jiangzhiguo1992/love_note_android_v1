@@ -78,12 +78,6 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         RetrofitHelper.cancel(callModify);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        stopCountDownTask();
-    }
-
     @OnTextChanged({R.id.etPhone, R.id.etCode})
     public void afterTextChanged(Editable s) {
         onInputChange();

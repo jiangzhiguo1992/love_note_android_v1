@@ -161,7 +161,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
-        stopCoupleCountDownTask();
+        stopSouvenirCountDownTask();
         RetrofitHelper.cancel(call);
     }
 
@@ -259,6 +259,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     private void refreshData() {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无效配对
+            srl.setRefreshing(false);
             tvSouvenirEmpty.setVisibility(View.VISIBLE);
             rlSouvenir.setVisibility(View.GONE);
             return;
@@ -287,7 +288,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     }
 
     private void refreshBookView() {
-        stopCoupleCountDownTask();// 先停止倒计时
+        stopSouvenirCountDownTask();// 先停止倒计时
         if (!lockBack || (canLock && isLock)) {
             // 锁信息没有返回，或者是上锁且没有解开
             tvSouvenirEmpty.setVisibility(View.VISIBLE);
@@ -331,7 +332,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                 public void run() {
                     long betweenTime = tartTime - DateUtils.getCurrentLong();
                     if (betweenTime <= 0) {
-                        stopCoupleCountDownTask(); // 停止倒计时
+                        stopSouvenirCountDownTask(); // 停止倒计时
                         refreshData(); // 刷新数据
                     } else {
                         if (betweenTime / ConstantUtils.HOUR < 24) {
@@ -391,7 +392,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
         return String.format(Locale.getDefault(), souvenirCountDownFormat, timeShow);
     }
 
-    private void stopCoupleCountDownTask() {
+    private void stopSouvenirCountDownTask() {
         if (souvenirCountDownTask != null) {
             MyApp.get().getHandler().removeCallbacks(souvenirCountDownTask);
             souvenirCountDownTask = null;

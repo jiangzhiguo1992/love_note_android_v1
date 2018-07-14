@@ -92,7 +92,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     @Override
     protected void onStop() {
         super.onStop();
-        stopCountDownTask();
         if (isGo) {
             finish();
         }
