@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.DreamDetailActivity;
+import com.jiangzg.mianmian.activity.note.DreamDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.helper.SPHelper;

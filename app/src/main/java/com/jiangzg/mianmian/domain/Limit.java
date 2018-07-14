@@ -19,9 +19,9 @@ public class Limit {
     // couple
     private long coupleBreakSec;
     private int coupleNameLength;
-    // book
-    private long bookResExpireSec;
-    private int bookLockLength;
+    // note
+    private long noteResExpireSec;
+    private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
     private int whisperContentLength;
@@ -48,12 +48,12 @@ public class Limit {
     // more
     private int vipExpireDay;
 
-    public int getBookLockLength() {
-        return bookLockLength;
+    public int getNoteLockLength() {
+        return noteLockLength;
     }
 
-    public void setBookLockLength(int bookLockLength) {
-        this.bookLockLength = bookLockLength;
+    public void setNoteLockLength(int noteLockLength) {
+        this.noteLockLength = noteLockLength;
     }
 
     public int getSouvenirForeignYearCount() {
@@ -120,12 +120,12 @@ public class Limit {
         this.smsCodeLength = smsCodeLength;
     }
 
-    public long getBookResExpireSec() {
-        return bookResExpireSec;
+    public long getNoteResExpireSec() {
+        return noteResExpireSec;
     }
 
-    public void setBookResExpireSec(long bookResExpireSec) {
-        this.bookResExpireSec = bookResExpireSec;
+    public void setNoteResExpireSec(long noteResExpireSec) {
+        this.noteResExpireSec = noteResExpireSec;
     }
 
     public int getPictureCount() {

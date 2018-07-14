@@ -57,15 +57,15 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_SUGGEST = "path_suggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "path_couple_avatar";
     private static final String FIELD_OSS_PATH_COUPLE_WALL = "path_couple_wall";
-    private static final String FIELD_OSS_PATH_BOOK_WHISPER = "path_book_whisper";
-    private static final String FIELD_OSS_PATH_BOOK_DIARY = "path_book_diary";
-    private static final String FIELD_OSS_PATH_BOOK_ALBUM = "path_book_album";
-    private static final String FIELD_OSS_PATH_BOOK_PICTURE = "path_book_picture";
-    private static final String FIELD_OSS_PATH_BOOK_AUDIO = "path_book_audio";
-    private static final String FIELD_OSS_PATH_BOOK_VIDEO = "path_book_video";
-    private static final String FIELD_OSS_PATH_BOOK_VIDEO_THUMB = "path_book_video_thumb";
-    private static final String FIELD_OSS_PATH_BOOK_FOOD = "path_book_food";
-    private static final String FIELD_OSS_PATH_BOOK_GIFT = "path_book_gift";
+    private static final String FIELD_OSS_PATH_NOTE_WHISPER = "path_note_whisper";
+    private static final String FIELD_OSS_PATH_NOTE_DIARY = "path_note_diary";
+    private static final String FIELD_OSS_PATH_NOTE_ALBUM = "path_note_album";
+    private static final String FIELD_OSS_PATH_NOTE_PICTURE = "path_note_picture";
+    private static final String FIELD_OSS_PATH_NOTE_AUDIO = "path_note_audio";
+    private static final String FIELD_OSS_PATH_NOTE_VIDEO = "path_note_video";
+    private static final String FIELD_OSS_PATH_NOTE_VIDEO_THUMB = "path_note_video_thumb";
+    private static final String FIELD_OSS_PATH_NOTE_FOOD = "path_note_food";
+    private static final String FIELD_OSS_PATH_NOTE_GIFT = "path_note_gift";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -77,8 +77,8 @@ public class SPHelper {
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggest_comment_content_length";
     private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "couple_break_sec";
     private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "couple_name_length";
-    private static final String FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS = "book_oss_expire_seconds";
-    private static final String FIELD_LIMIT_BOOK_LOCK_LENGTH = "book_lock_length";
+    private static final String FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS = "note_oss_expire_seconds";
+    private static final String FIELD_LIMIT_NOTE_LOCK_LENGTH = "note_lock_length";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenir_title_length";
     private static final String FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT = "souvenir_foreign_year_count";
     private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisper_content_length";
@@ -269,15 +269,15 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
         editor.putString(FIELD_OSS_PATH_COUPLE_WALL, ossInfo.getPathCoupleWall());
-        editor.putString(FIELD_OSS_PATH_BOOK_WHISPER, ossInfo.getPathBookWhisper());
-        editor.putString(FIELD_OSS_PATH_BOOK_DIARY, ossInfo.getPathBookDiary());
-        editor.putString(FIELD_OSS_PATH_BOOK_ALBUM, ossInfo.getPathBookAlbum());
-        editor.putString(FIELD_OSS_PATH_BOOK_PICTURE, ossInfo.getPathBookPicture());
-        editor.putString(FIELD_OSS_PATH_BOOK_AUDIO, ossInfo.getPathBookAudio());
-        editor.putString(FIELD_OSS_PATH_BOOK_VIDEO, ossInfo.getPathBookVideo());
-        editor.putString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ossInfo.getPathBookVideoThumb());
-        editor.putString(FIELD_OSS_PATH_BOOK_FOOD, ossInfo.getPathBookFood());
-        editor.putString(FIELD_OSS_PATH_BOOK_GIFT, ossInfo.getPathBookGift());
+        editor.putString(FIELD_OSS_PATH_NOTE_WHISPER, ossInfo.getPathNoteWhisper());
+        editor.putString(FIELD_OSS_PATH_NOTE_DIARY, ossInfo.getPathNoteDiary());
+        editor.putString(FIELD_OSS_PATH_NOTE_ALBUM, ossInfo.getPathNoteAlbum());
+        editor.putString(FIELD_OSS_PATH_NOTE_PICTURE, ossInfo.getPathNotePicture());
+        editor.putString(FIELD_OSS_PATH_NOTE_AUDIO, ossInfo.getPathNoteAudio());
+        editor.putString(FIELD_OSS_PATH_NOTE_VIDEO, ossInfo.getPathNoteVideo());
+        editor.putString(FIELD_OSS_PATH_NOTE_VIDEO_THUMB, ossInfo.getPathNoteVideoThumb());
+        editor.putString(FIELD_OSS_PATH_NOTE_FOOD, ossInfo.getPathNoteFood());
+        editor.putString(FIELD_OSS_PATH_NOTE_GIFT, ossInfo.getPathNoteGift());
         editor.apply();
     }
 
@@ -297,15 +297,15 @@ public class SPHelper {
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
         ossInfo.setPathCoupleWall(sp.getString(FIELD_OSS_PATH_COUPLE_WALL, ""));
-        ossInfo.setPathBookWhisper(sp.getString(FIELD_OSS_PATH_BOOK_WHISPER, ""));
-        ossInfo.setPathBookDiary(sp.getString(FIELD_OSS_PATH_BOOK_DIARY, ""));
-        ossInfo.setPathBookAlbum(sp.getString(FIELD_OSS_PATH_BOOK_ALBUM, ""));
-        ossInfo.setPathBookPicture(sp.getString(FIELD_OSS_PATH_BOOK_PICTURE, ""));
-        ossInfo.setPathBookAudio(sp.getString(FIELD_OSS_PATH_BOOK_AUDIO, ""));
-        ossInfo.setPathBookVideo(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO, ""));
-        ossInfo.setPathBookVideoThumb(sp.getString(FIELD_OSS_PATH_BOOK_VIDEO_THUMB, ""));
-        ossInfo.setPathBookFood(sp.getString(FIELD_OSS_PATH_BOOK_FOOD, ""));
-        ossInfo.setPathBookGift(sp.getString(FIELD_OSS_PATH_BOOK_GIFT, ""));
+        ossInfo.setPathNoteWhisper(sp.getString(FIELD_OSS_PATH_NOTE_WHISPER, ""));
+        ossInfo.setPathNoteDiary(sp.getString(FIELD_OSS_PATH_NOTE_DIARY, ""));
+        ossInfo.setPathNoteAlbum(sp.getString(FIELD_OSS_PATH_NOTE_ALBUM, ""));
+        ossInfo.setPathNotePicture(sp.getString(FIELD_OSS_PATH_NOTE_PICTURE, ""));
+        ossInfo.setPathNoteAudio(sp.getString(FIELD_OSS_PATH_NOTE_AUDIO, ""));
+        ossInfo.setPathNoteVideo(sp.getString(FIELD_OSS_PATH_NOTE_VIDEO, ""));
+        ossInfo.setPathNoteVideoThumb(sp.getString(FIELD_OSS_PATH_NOTE_VIDEO_THUMB, ""));
+        ossInfo.setPathNoteFood(sp.getString(FIELD_OSS_PATH_NOTE_FOOD, ""));
+        ossInfo.setPathNoteGift(sp.getString(FIELD_OSS_PATH_NOTE_GIFT, ""));
         return ossInfo;
     }
 
@@ -328,8 +328,8 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
         editor.putLong(FIELD_LIMIT_COUPLE_BREAK_SEC, limit.getCoupleBreakSec());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
-        editor.putLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, limit.getBookResExpireSec());
-        editor.putInt(FIELD_LIMIT_BOOK_LOCK_LENGTH, limit.getBookLockLength());
+        editor.putLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, limit.getNoteResExpireSec());
+        editor.putInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, limit.getNoteLockLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, limit.getSouvenirForeignYearCount());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, limit.getWhisperContentLength());
@@ -368,8 +368,8 @@ public class SPHelper {
         limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
         limit.setCoupleBreakSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_SEC, 60 * 60 * 24));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
-        limit.setBookResExpireSec(sp.getLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
-        limit.setBookLockLength(sp.getInt(FIELD_LIMIT_BOOK_LOCK_LENGTH, 6));
+        limit.setNoteResExpireSec(sp.getLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
+        limit.setNoteLockLength(sp.getInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, 6));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setSouvenirForeignYearCount(sp.getInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, 1));
         limit.setWhisperContentLength(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, 100));

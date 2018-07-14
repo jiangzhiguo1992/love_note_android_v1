@@ -10,7 +10,7 @@ public class VipLimit {
     private long vipExpireAt;
     // couple
     private int wallPaperCount;
-    // book
+    // note
     private boolean trendsTotalEnable;
     private int souvenirCount;
     private int travelPlaceCount;

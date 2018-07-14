@@ -8,8 +8,8 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.SouvenirDetailDoneActivity;
-import com.jiangzg.mianmian.activity.book.SouvenirDetailWishActivity;
+import com.jiangzg.mianmian.activity.note.SouvenirDetailDoneActivity;
+import com.jiangzg.mianmian.activity.note.SouvenirDetailWishActivity;
 import com.jiangzg.mianmian.domain.Souvenir;
 import com.jiangzg.mianmian.helper.TimeHelper;
 

@@ -895,7 +895,7 @@ public class OssHelper {
                 } else {
                     FileUtils.deleteFile(target); // 清除空文件
                 }
-                // 在OssRes中是否存在(book之类的缓存)
+                // 在OssRes中是否存在(note之类的缓存)
                 if (OssResHelper.isKeyFileExists(objectKey)) {
                     File source = OssResHelper.newKeyFile(objectKey);
                     boolean copy = FileUtils.copyOrMoveFile(source, target, false);
@@ -985,8 +985,8 @@ public class OssHelper {
     // 耳语 (压缩 + 持久化)
     public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookWhisper = ossInfo.getPathBookWhisper();
-        compressJpeg(activity, pathBookWhisper, source, callBack);
+        String pathNoteWhisper = ossInfo.getPathNoteWhisper();
+        compressJpeg(activity, pathNoteWhisper, source, callBack);
     }
 
     // 日记 (限制大小 + 持久化)
@@ -1011,15 +1011,15 @@ public class OssHelper {
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookDiary = ossInfo.getPathBookDiary();
-        uploadJpegList(activity, pathBookDiary, fileList, callBack);
+        String pathNoteDiary = ossInfo.getPathNoteDiary();
+        uploadJpegList(activity, pathNoteDiary, fileList, callBack);
     }
 
     // 相册 (压缩 + 持久化)
     public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookAlbum = ossInfo.getPathBookAlbum();
-        compressJpeg(activity, pathBookAlbum, source, callBack);
+        String pathNoteAlbum = ossInfo.getPathNoteAlbum();
+        compressJpeg(activity, pathNoteAlbum, source, callBack);
     }
 
     // 照片 (限制大小 + 持久化)
@@ -1044,8 +1044,8 @@ public class OssHelper {
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookPicture = ossInfo.getPathBookPicture();
-        uploadJpegList(activity, pathBookPicture, fileList, callBack);
+        String pathNotePicture = ossInfo.getPathNotePicture();
+        uploadJpegList(activity, pathNotePicture, fileList, callBack);
     }
 
     // 音频 (限制大小 +  持久化)
@@ -1061,15 +1061,15 @@ public class OssHelper {
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookAudio = ossInfo.getPathBookAudio();
-        uploadExtension(activity, pathBookAudio, source, callBack);
+        String pathNoteAudio = ossInfo.getPathNoteAudio();
+        uploadExtension(activity, pathNoteAudio, source, callBack);
     }
 
     // 视频封面 (压缩 +  持久化)
     public static void uploadVideoThumb(Activity activity, final File source, final OssUploadCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookVideoThumb = ossInfo.getPathBookVideoThumb();
-        compressJpeg(activity, pathBookVideoThumb, source, callBack);
+        String pathNoteVideoThumb = ossInfo.getPathNoteVideoThumb();
+        compressJpeg(activity, pathNoteVideoThumb, source, callBack);
     }
 
     // 视频 (限制大小 +  持久化)
@@ -1085,24 +1085,24 @@ public class OssHelper {
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookVideo = ossInfo.getPathBookVideo();
-        uploadExtension(activity, pathBookVideo, source, callBack);
+        String pathNoteVideo = ossInfo.getPathNoteVideo();
+        uploadExtension(activity, pathNoteVideo, source, callBack);
     }
 
     // 美食 (压缩 + 持久化)
     public static void uploadFood(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookFood = ossInfo.getPathBookFood();
+        String pathNoteFood = ossInfo.getPathNoteFood();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        compressJpegList(activity, pathBookFood, fileList, callBack);
+        compressJpegList(activity, pathNoteFood, fileList, callBack);
     }
 
     // 礼物 (压缩 + 持久化)
     public static void uploadGift(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathBookGift = ossInfo.getPathBookGift();
+        String pathNoteGift = ossInfo.getPathNoteGift();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        compressJpegList(activity, pathBookGift, fileList, callBack);
+        compressJpegList(activity, pathNoteGift, fileList, callBack);
     }
 
 }

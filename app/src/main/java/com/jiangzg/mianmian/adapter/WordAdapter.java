@@ -64,7 +64,7 @@ public class WordAdapter extends BaseQuickAdapter<Word, BaseViewHolder> {
 
     private void deleteApi(int position) {
         final Word item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).bookWordDel(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).noteWordDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

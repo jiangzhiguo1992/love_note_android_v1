@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.book.AngryEditActivity">
+    tools:context="com.jiangzg.mianmian.activity.note.AngryEditActivity">
 
     <include layout="@layout/view_top_bar"/>
 

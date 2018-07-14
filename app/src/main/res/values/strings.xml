@@ -207,7 +207,7 @@
 
     <!-- Nav -->
     <string name="nav_couple">我和TA</string>
-    <string name="nav_book">小本本</string>
+    <string name="nav_note">小本本</string>
     <string name="nav_topic">秀恩爱</string>
     <string name="nav_more">步行街</string>
 
@@ -372,7 +372,7 @@
     <string name="blizzard">暴雪</string>
     <string name="freezing_rain">冻雨</string>
 
-    <!-- book -->
+    <!-- note -->
     <string name="pwd_lock">密码锁</string>
     <string name="trends">动态</string>
     <string name="statistics">统计</string>

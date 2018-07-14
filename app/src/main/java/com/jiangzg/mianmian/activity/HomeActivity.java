@@ -17,7 +17,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.FragmentPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.BasePagerFragment;
-import com.jiangzg.mianmian.fragment.BookFragment;
+import com.jiangzg.mianmian.fragment.NoteFragment;
 import com.jiangzg.mianmian.fragment.CoupleFragment;
 import com.jiangzg.mianmian.fragment.MoreFragment;
 import com.jiangzg.mianmian.fragment.TopicFragment;
@@ -34,10 +34,10 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
-    private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuMore};
+    private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuNote, R.id.menuTopic, R.id.menuMore};
     private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
-    private BookFragment bookFragment;
+    private NoteFragment noteFragment;
     private TopicFragment topicFragment;
     private MoreFragment moreFragment;
 
@@ -90,8 +90,8 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         if (coupleFragment == null) {
             coupleFragment = CoupleFragment.newFragment();
         }
-        if (bookFragment == null) {
-            bookFragment = BookFragment.newFragment();
+        if (noteFragment == null) {
+            noteFragment = NoteFragment.newFragment();
         }
         if (topicFragment == null) {
             topicFragment = TopicFragment.newFragment();
@@ -106,7 +106,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             FragmentManager manager = mActivity.getSupportFragmentManager();
             pagerAdapter = new FragmentPagerAdapter<>(manager);
             pagerAdapter.addData(0, null, coupleFragment);
-            pagerAdapter.addData(1, null, bookFragment);
+            pagerAdapter.addData(1, null, noteFragment);
             pagerAdapter.addData(2, null, topicFragment);
             pagerAdapter.addData(3, null, moreFragment);
         }

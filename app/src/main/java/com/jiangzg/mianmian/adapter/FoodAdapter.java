@@ -113,7 +113,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
     private void deleteApi(int position) {
         final Food item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).bookFoodDel(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).noteFoodDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

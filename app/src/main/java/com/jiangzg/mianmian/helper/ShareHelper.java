@@ -12,7 +12,7 @@ public class ShareHelper {
     // TODO BigImage
     // TODO coupleInfo分享？
     // TODO WallPaper(拼在一起分享？)
-    // TODO Book(纪念日？统计？礼物？梦里？)
+    // TODO note(纪念日？统计？礼物？梦里？)
     // TODO Topic
     // TODO Square
 

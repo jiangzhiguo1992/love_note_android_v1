@@ -20,15 +20,15 @@ public class OssResHelper {
 
     public static final int TYPE_COUPLE_AVATAR = 10;
     public static final int TYPE_COUPLE_WALL = 11;
-    public static final int TYPE_BOOK_WHISPER = 20;
-    public static final int TYPE_BOOK_DIARY = 21;
-    public static final int TYPE_BOOK_ALBUM = 22;
-    public static final int TYPE_BOOK_PICTURE = 23;
-    public static final int TYPE_BOOK_AUDIO = 24;
-    public static final int TYPE_BOOK_VIDEO_THUMB = 25;
-    public static final int TYPE_BOOK_VIDEO = 26;
-    public static final int TYPE_BOOK_FOOD = 27;
-    public static final int TYPE_BOOK_GIFT = 28;
+    public static final int TYPE_NOTE_WHISPER = 20;
+    public static final int TYPE_NOTE_DIARY = 21;
+    public static final int TYPE_NOTE_ALBUM = 22;
+    public static final int TYPE_NOTE_PICTURE = 23;
+    public static final int TYPE_NOTE_AUDIO = 24;
+    public static final int TYPE_NOTE_VIDEO_THUMB = 25;
+    public static final int TYPE_NOTE_VIDEO = 26;
+    public static final int TYPE_NOTE_FOOD = 27;
+    public static final int TYPE_NOTE_GIFT = 28;
 
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
@@ -67,32 +67,32 @@ public class OssResHelper {
             case TYPE_COUPLE_WALL: // 墙纸
                 dirPath = SPHelper.getOssInfo().getPathCoupleWall();
                 break;
-            case TYPE_BOOK_WHISPER: // 耳语
-                dirPath = SPHelper.getOssInfo().getPathBookWhisper();
+            case TYPE_NOTE_WHISPER: // 耳语
+                dirPath = SPHelper.getOssInfo().getPathNoteWhisper();
                 break;
-            case TYPE_BOOK_DIARY: // 日记
-                dirPath = SPHelper.getOssInfo().getPathBookDiary();
+            case TYPE_NOTE_DIARY: // 日记
+                dirPath = SPHelper.getOssInfo().getPathNoteDiary();
                 break;
-            case TYPE_BOOK_ALBUM: // 相册
-                dirPath = SPHelper.getOssInfo().getPathBookAlbum();
+            case TYPE_NOTE_ALBUM: // 相册
+                dirPath = SPHelper.getOssInfo().getPathNoteAlbum();
                 break;
-            case TYPE_BOOK_PICTURE: // 照片
-                dirPath = SPHelper.getOssInfo().getPathBookPicture();
+            case TYPE_NOTE_PICTURE: // 照片
+                dirPath = SPHelper.getOssInfo().getPathNotePicture();
                 break;
-            case TYPE_BOOK_AUDIO: // 音频
-                dirPath = SPHelper.getOssInfo().getPathBookAudio();
+            case TYPE_NOTE_AUDIO: // 音频
+                dirPath = SPHelper.getOssInfo().getPathNoteAudio();
                 break;
-            case TYPE_BOOK_VIDEO_THUMB: // 视频封面
-                dirPath = SPHelper.getOssInfo().getPathBookVideoThumb();
+            case TYPE_NOTE_VIDEO_THUMB: // 视频封面
+                dirPath = SPHelper.getOssInfo().getPathNoteVideoThumb();
                 break;
-            case TYPE_BOOK_VIDEO: // 视频
-                dirPath = SPHelper.getOssInfo().getPathBookVideo();
+            case TYPE_NOTE_VIDEO: // 视频
+                dirPath = SPHelper.getOssInfo().getPathNoteVideo();
                 break;
-            case TYPE_BOOK_FOOD: // 美食
-                dirPath = SPHelper.getOssInfo().getPathBookGift();
+            case TYPE_NOTE_FOOD: // 美食
+                dirPath = SPHelper.getOssInfo().getPathNoteGift();
                 break;
-            case TYPE_BOOK_GIFT: // 礼物
-                dirPath = SPHelper.getOssInfo().getPathBookGift();
+            case TYPE_NOTE_GIFT: // 礼物
+                dirPath = SPHelper.getOssInfo().getPathNoteGift();
                 break;
         }
         if (StringUtils.isEmpty(dirPath)) {
@@ -114,7 +114,7 @@ public class OssResHelper {
         File resDir = getResDir(type);
         FileUtils.createOrExistsDir(resDir);
         long currentLong = DateUtils.getCurrentLong();
-        long expireAt = currentLong - SPHelper.getLimit().getBookResExpireSec() * 1000;
+        long expireAt = currentLong - SPHelper.getLimit().getNoteResExpireSec() * 1000;
         refreshOssResWithDelExpire(resDir, ossKeyList, expireAt);
     }
 

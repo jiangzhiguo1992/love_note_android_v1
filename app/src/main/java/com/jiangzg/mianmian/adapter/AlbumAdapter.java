@@ -17,8 +17,8 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.AlbumEditActivity;
-import com.jiangzg.mianmian.activity.book.PictureListActivity;
+import com.jiangzg.mianmian.activity.note.AlbumEditActivity;
+import com.jiangzg.mianmian.activity.note.PictureListActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Result;
@@ -204,7 +204,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
 
     private void delAlbumApi(final int position) {
         Album album = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).bookAlbumDel(album.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).noteAlbumDel(album.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

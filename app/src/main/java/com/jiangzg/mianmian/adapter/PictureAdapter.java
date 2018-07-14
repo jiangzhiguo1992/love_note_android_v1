@@ -22,9 +22,9 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.PictureEditActivity;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
+import com.jiangzg.mianmian.activity.note.PictureEditActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Picture;
@@ -318,7 +318,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
     private void deleteApi(int position) {
         final Picture item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).bookPictureDel(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).notePictureDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

@@ -88,7 +88,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
 
     private void deleteApi(int position) {
         final AwardRule item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).bookAwardRuleDel(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).noteAwardRuleDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

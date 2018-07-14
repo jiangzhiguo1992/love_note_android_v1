@@ -125,7 +125,7 @@ public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
     }
 
     private void refreshData() {
-        call = new RetrofitHelper().call(API.class).bookSouvenirListGet(done);
+        call = new RetrofitHelper().call(API.class).noteSouvenirListGet(done);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

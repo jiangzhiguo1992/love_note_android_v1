@@ -22,22 +22,22 @@ public class OssInfo {
     private String pathSuggest;
     private String pathCoupleAvatar;
     private String pathCoupleWall;
-    private String pathBookWhisper;
-    private String pathBookDiary;
-    private String pathBookAlbum;
-    private String pathBookPicture;
-    private String pathBookAudio;
-    private String pathBookVideo;
-    private String pathBookVideoThumb;
-    private String pathBookFood;
-    private String pathBookGift;
+    private String pathNoteWhisper;
+    private String pathNoteDiary;
+    private String pathNoteAlbum;
+    private String pathNotePicture;
+    private String pathNoteAudio;
+    private String pathNoteVideo;
+    private String pathNoteVideoThumb;
+    private String pathNoteFood;
+    private String pathNoteGift;
 
-    public String getPathBookFood() {
-        return pathBookFood;
+    public String getPathNoteFood() {
+        return pathNoteFood;
     }
 
-    public void setPathBookFood(String pathBookFood) {
-        this.pathBookFood = pathBookFood;
+    public void setPathNoteFood(String pathNoteFood) {
+        this.pathNoteFood = pathNoteFood;
     }
 
     public String getPathLog() {
@@ -64,12 +64,12 @@ public class OssInfo {
         this.intervalSec = intervalSec;
     }
 
-    public String getPathBookWhisper() {
-        return pathBookWhisper;
+    public String getPathNoteWhisper() {
+        return pathNoteWhisper;
     }
 
-    public void setPathBookWhisper(String pathBookWhisper) {
-        this.pathBookWhisper = pathBookWhisper;
+    public void setPathNoteWhisper(String pathNoteWhisper) {
+        this.pathNoteWhisper = pathNoteWhisper;
     }
 
     public String getDomain() {
@@ -136,59 +136,59 @@ public class OssInfo {
         this.pathCoupleWall = pathCoupleWall;
     }
 
-    public String getPathBookAlbum() {
-        return pathBookAlbum;
+    public String getPathNoteAlbum() {
+        return pathNoteAlbum;
     }
 
-    public void setPathBookAlbum(String pathBookAlbum) {
-        this.pathBookAlbum = pathBookAlbum;
+    public void setPathNoteAlbum(String pathNoteAlbum) {
+        this.pathNoteAlbum = pathNoteAlbum;
     }
 
-    public String getPathBookPicture() {
-        return pathBookPicture;
+    public String getPathNotePicture() {
+        return pathNotePicture;
     }
 
-    public void setPathBookPicture(String pathBookPicture) {
-        this.pathBookPicture = pathBookPicture;
+    public void setPathNotePicture(String pathNotePicture) {
+        this.pathNotePicture = pathNotePicture;
     }
 
-    public String getPathBookDiary() {
-        return pathBookDiary;
+    public String getPathNoteDiary() {
+        return pathNoteDiary;
     }
 
-    public void setPathBookDiary(String pathBookDiary) {
-        this.pathBookDiary = pathBookDiary;
+    public void setPathNoteDiary(String pathNoteDiary) {
+        this.pathNoteDiary = pathNoteDiary;
     }
 
-    public String getPathBookGift() {
-        return pathBookGift;
+    public String getPathNoteGift() {
+        return pathNoteGift;
     }
 
-    public void setPathBookGift(String pathBookGift) {
-        this.pathBookGift = pathBookGift;
+    public void setPathNoteGift(String pathNoteGift) {
+        this.pathNoteGift = pathNoteGift;
     }
 
-    public String getPathBookAudio() {
-        return pathBookAudio;
+    public String getPathNoteAudio() {
+        return pathNoteAudio;
     }
 
-    public void setPathBookAudio(String pathBookAudio) {
-        this.pathBookAudio = pathBookAudio;
+    public void setPathNoteAudio(String pathNoteAudio) {
+        this.pathNoteAudio = pathNoteAudio;
     }
 
-    public String getPathBookVideo() {
-        return pathBookVideo;
+    public String getPathNoteVideo() {
+        return pathNoteVideo;
     }
 
-    public void setPathBookVideo(String pathBookVideo) {
-        this.pathBookVideo = pathBookVideo;
+    public void setPathNoteVideo(String pathNoteVideo) {
+        this.pathNoteVideo = pathNoteVideo;
     }
 
-    public String getPathBookVideoThumb() {
-        return pathBookVideoThumb;
+    public String getPathNoteVideoThumb() {
+        return pathNoteVideoThumb;
     }
 
-    public void setPathBookVideoThumb(String pathBookVideoThumb) {
-        this.pathBookVideoThumb = pathBookVideoThumb;
+    public void setPathNoteVideoThumb(String pathNoteVideoThumb) {
+        this.pathNoteVideoThumb = pathNoteVideoThumb;
     }
 }

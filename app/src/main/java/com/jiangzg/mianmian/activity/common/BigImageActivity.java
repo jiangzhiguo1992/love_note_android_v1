@@ -17,7 +17,6 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.BigImagePagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.helper.OssHelper;
-import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ShareHelper;
 
 import java.util.ArrayList;

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context="com.jiangzg.mianmian.activity.book.AlbumEditActivity">
+    tools:context="com.jiangzg.mianmian.activity.note.AlbumEditActivity">
 
     <include layout="@layout/view_top_bar"/>
 

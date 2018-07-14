@@ -28,7 +28,7 @@ public class ConsHelper {
     public static final int REQUEST_SCAN = 1010;
     public static final int REQUEST_CONTACT = 1011;
     public static final int REQUEST_LOCATION = 1012;
-    public static final int REQUEST_BOOK_PICTURE = 1013;
+    public static final int REQUEST_NOTE_PICTURE = 1013;
     // RxBus.ID
     public static final int EVENT_MAP_SELECT = 11; // 选择
     public static final int EVENT_DIARY_SELECT = 12;

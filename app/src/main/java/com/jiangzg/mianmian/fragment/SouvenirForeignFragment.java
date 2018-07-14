@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.book.SouvenirEditForeignActivity;
+import com.jiangzg.mianmian.activity.note.SouvenirEditForeignActivity;
 import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.FoodAdapter;

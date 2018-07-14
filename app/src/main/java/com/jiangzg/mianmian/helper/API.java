@@ -192,336 +192,336 @@ public interface API {
     @GET("couple/weather?forecast=1")
     Call<Result> coupleWeatherForecastListGet();
 
-    // bookHome获取
-    @GET("book/home")
-    Call<Result> bookHomeGet(@Query("near") long near);
+    // noteHome获取
+    @GET("note/home")
+    Call<Result> noteHomeGet(@Query("near") long near);
 
     // lock上传
-    @POST("book/lock")
-    Call<Result> bookLockAdd(@Body Lock lock);
+    @POST("note/lock")
+    Call<Result> noteLockAdd(@Body Lock lock);
 
     // lock修改密码
-    @PUT("book/lock?modify=1&toggle=0")
-    Call<Result> bookLockUpdatePwd(@Query("code") String code, @Body Lock lock);
+    @PUT("note/lock?modify=1&toggle=0")
+    Call<Result> noteLockUpdatePwd(@Query("code") String code, @Body Lock lock);
 
     // lock开关锁
-    @PUT("book/lock?toggle=1&modify=0")
-    Call<Result> bookLockToggle(@Body Lock lock);
+    @PUT("note/lock?toggle=1&modify=0")
+    Call<Result> noteLockToggle(@Body Lock lock);
 
     // lock获取
-    @GET("book/lock")
-    Call<Result> bookLockGet();
+    @GET("note/lock")
+    Call<Result> noteLockGet();
 
     // trendsList获取
-    @GET("book/trends?trends=1&total=0")
-    Call<Result> bookTrendsListGet(@Query("create") long create, @Query("page") int page);
+    @GET("note/trends?trends=1&total=0")
+    Call<Result> noteTrendsListGet(@Query("create") long create, @Query("page") int page);
 
     // trendsTotal获取
-    @GET("book/trends?trends=0&total=1")
-    Call<Result> bookTrendsTotalGet();
+    @GET("note/trends?trends=0&total=1")
+    Call<Result> noteTrendsTotalGet();
 
     // souvenirList获取
-    @GET("book/souvenir?sid=0&list=1")
-    Call<Result> bookSouvenirListGet(@Query("done") boolean done);
+    @GET("note/souvenir?sid=0&list=1")
+    Call<Result> noteSouvenirListGet(@Query("done") boolean done);
 
     // souvenir获取
-    @GET("book/souvenir?list=0")
-    Call<Result> bookSouvenirGet(@Query("sid") long sid);
+    @GET("note/souvenir?list=0")
+    Call<Result> noteSouvenirGet(@Query("sid") long sid);
 
     // souvenir上传
-    @POST("book/souvenir")
-    Call<Result> bookSouvenirAdd(@Body Souvenir souvenir);
+    @POST("note/souvenir")
+    Call<Result> noteSouvenirAdd(@Body Souvenir souvenir);
 
     // souvenir删除
-    @DELETE("book/souvenir")
-    Call<Result> bookSouvenirDel(@Query("sid") long sid);
+    @DELETE("note/souvenir")
+    Call<Result> noteSouvenirDel(@Query("sid") long sid);
 
     // souvenir修改
-    @PUT("book/souvenir?year=0")
-    Call<Result> bookSouvenirUpdateBody(@Body Souvenir souvenir);
+    @PUT("note/souvenir?year=0")
+    Call<Result> noteSouvenirUpdateBody(@Body Souvenir souvenir);
 
     // souvenir修改
-    @PUT("book/souvenir")
-    Call<Result> bookSouvenirUpdateForeign(@Query("year") int year, @Body Souvenir souvenir);
+    @PUT("note/souvenir")
+    Call<Result> noteSouvenirUpdateForeign(@Query("year") int year, @Body Souvenir souvenir);
 
     // mensesList获取
-    @GET("book/menses?latest=0&date=1")
-    Call<Result> bookMensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
+    @GET("note/menses?latest=0&date=1")
+    Call<Result> noteMensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
 
     // menses获取
-    @GET("book/menses?latest=1&date=0")
-    Call<Result> bookMensesLatestGet();
+    @GET("note/menses?latest=1&date=0")
+    Call<Result> noteMensesLatestGet();
 
     // menses上传
-    @POST("book/menses")
-    Call<Result> bookMensesAdd(@Body Menses menses);
+    @POST("note/menses")
+    Call<Result> noteMensesAdd(@Body Menses menses);
 
     // shyList获取
-    @GET("book/shy?date=1")
-    Call<Result> bookShyListGetByDate(@Query("year") int year, @Query("month") int month);
+    @GET("note/shy?date=1")
+    Call<Result> noteShyListGetByDate(@Query("year") int year, @Query("month") int month);
 
     // shy上传
-    @POST("book/shy")
-    Call<Result> bookShyAdd(@Body Shy shy);
+    @POST("note/shy")
+    Call<Result> noteShyAdd(@Body Shy shy);
 
     // sleepList获取
-    @GET("book/sleep?latest=0&date=1")
-    Call<Result> bookSleepListGetByDate(@Query("year") int year, @Query("month") int month);
+    @GET("note/sleep?latest=0&date=1")
+    Call<Result> noteSleepListGetByDate(@Query("year") int year, @Query("month") int month);
 
     // sleep获取
-    @GET("book/sleep?latest=1&date=0")
-    Call<Result> bookSleepLatestGet();
+    @GET("note/sleep?latest=1&date=0")
+    Call<Result> noteSleepLatestGet();
 
     // sleep上传
-    @POST("book/sleep")
-    Call<Result> bookSleepAdd(@Body Sleep sleep);
+    @POST("note/sleep")
+    Call<Result> noteSleepAdd(@Body Sleep sleep);
 
     // word获取
-    @GET("book/word?list=1")
-    Call<Result> bookWordListGet(@Query("page") int page);
+    @GET("note/word?list=1")
+    Call<Result> noteWordListGet(@Query("page") int page);
 
     // word上传
-    @POST("book/word")
-    Call<Result> bookWordAdd(@Body Word word);
+    @POST("note/word")
+    Call<Result> noteWordAdd(@Body Word word);
 
     // word删除
-    @DELETE("book/word")
-    Call<Result> bookWordDel(@Query("wid") long wid);
+    @DELETE("note/word")
+    Call<Result> noteWordDel(@Query("wid") long wid);
 
     // whisper获取
-    @GET("book/whisper?list=1")
-    Call<Result> bookWhisperListGet(@Query("channel") String channel, @Query("page") int page);
+    @GET("note/whisper?list=1")
+    Call<Result> noteWhisperListGet(@Query("channel") String channel, @Query("page") int page);
 
     // whisper上传
-    @POST("book/whisper")
-    Call<Result> bookWhisperAdd(@Body Whisper whisper);
+    @POST("note/whisper")
+    Call<Result> noteWhisperAdd(@Body Whisper whisper);
 
     // diaryList获取
-    @GET("book/diary?did=0&list=1")
-    Call<Result> bookDiaryListGet(@Query("who") int who, @Query("page") int page);
+    @GET("note/diary?did=0&list=1")
+    Call<Result> noteDiaryListGet(@Query("who") int who, @Query("page") int page);
 
     // diary获取
-    @GET("book/diary?list=0")
-    Call<Result> bookDiaryGet(@Query("did") long did);
+    @GET("note/diary?list=0")
+    Call<Result> noteDiaryGet(@Query("did") long did);
 
     // diary上传
-    @POST("book/diary")
-    Call<Result> bookDiaryAdd(@Body Diary diary);
+    @POST("note/diary")
+    Call<Result> noteDiaryAdd(@Body Diary diary);
 
     // diary删除
-    @DELETE("book/diary")
-    Call<Result> bookDiaryDel(@Query("did") long did);
+    @DELETE("note/diary")
+    Call<Result> noteDiaryDel(@Query("did") long did);
 
     // diary修改
-    @PUT("book/diary")
-    Call<Result> bookDiaryUpdate(@Body Diary diary);
+    @PUT("note/diary")
+    Call<Result> noteDiaryUpdate(@Body Diary diary);
 
     // albumList获取
-    @GET("book/album?aid=0&list=1")
-    Call<Result> bookAlbumListGet(@Query("page") int page);
+    @GET("note/album?aid=0&list=1")
+    Call<Result> noteAlbumListGet(@Query("page") int page);
 
     // album获取
-    @GET("book/album?list=0")
-    Call<Result> bookAlbumGet(@Query("aid") long aid);
+    @GET("note/album?list=0")
+    Call<Result> noteAlbumGet(@Query("aid") long aid);
 
     // album上传
-    @POST("book/album")
-    Call<Result> bookAlbumAdd(@Body Album album);
+    @POST("note/album")
+    Call<Result> noteAlbumAdd(@Body Album album);
 
     // album删除
-    @DELETE("book/album")
-    Call<Result> bookAlbumDel(@Query("aid") long aid);
+    @DELETE("note/album")
+    Call<Result> noteAlbumDel(@Query("aid") long aid);
 
     // album修改
-    @PUT("book/album")
-    Call<Result> bookAlbumUpdate(@Body Album Album);
+    @PUT("note/album")
+    Call<Result> noteAlbumUpdate(@Body Album Album);
 
     // picture列表获取
-    @GET("book/picture")
-    Call<Result> bookPictureListGet(@Query("aid") long aid, @Query("page") int page);
+    @GET("note/picture")
+    Call<Result> notePictureListGet(@Query("aid") long aid, @Query("page") int page);
 
     // picture上传
-    @POST("book/picture")
-    Call<Result> bookPictureListAdd(@Body PictureList pictureList);
+    @POST("note/picture")
+    Call<Result> notePictureListAdd(@Body PictureList pictureList);
 
     // picture删除
-    @DELETE("book/picture")
-    Call<Result> bookPictureDel(@Query("pid") long pid);
+    @DELETE("note/picture")
+    Call<Result> notePictureDel(@Query("pid") long pid);
 
     // picture上传
-    @PUT("book/picture")
-    Call<Result> bookPictureUpdate(@Body Picture picture);
+    @PUT("note/picture")
+    Call<Result> notePictureUpdate(@Body Picture picture);
 
     // audioList获取
-    @GET("book/audio?aid=0&list=1")
-    Call<Result> bookAudioListGet(@Query("page") int page);
+    @GET("note/audio?aid=0&list=1")
+    Call<Result> noteAudioListGet(@Query("page") int page);
 
     // audio上传
-    @POST("book/audio")
-    Call<Result> bookAudioAdd(@Body Audio audio);
+    @POST("note/audio")
+    Call<Result> noteAudioAdd(@Body Audio audio);
 
     // audio删除
-    @DELETE("book/audio")
-    Call<Result> bookAudioDel(@Query("aid") long aid);
+    @DELETE("note/audio")
+    Call<Result> noteAudioDel(@Query("aid") long aid);
 
     // videoList获取
-    @GET("book/video?vid=0&list=1")
-    Call<Result> bookVideoListGet(@Query("page") int page);
+    @GET("note/video?vid=0&list=1")
+    Call<Result> noteVideoListGet(@Query("page") int page);
 
     // video上传
-    @POST("book/video")
-    Call<Result> bookVideoAdd(@Body Video video);
+    @POST("note/video")
+    Call<Result> noteVideoAdd(@Body Video video);
 
     // video删除
-    @DELETE("book/video")
-    Call<Result> bookVideoDel(@Query("vid") long vid);
+    @DELETE("note/video")
+    Call<Result> noteVideoDel(@Query("vid") long vid);
 
     // foodList获取
-    @GET("book/food?fid=0&list=1")
-    Call<Result> bookFoodListGet(@Query("page") int page);
+    @GET("note/food?fid=0&list=1")
+    Call<Result> noteFoodListGet(@Query("page") int page);
 
     // food上传
-    @POST("book/food")
-    Call<Result> bookFoodAdd(@Body Food food);
+    @POST("note/food")
+    Call<Result> noteFoodAdd(@Body Food food);
 
     // food删除
-    @DELETE("book/food")
-    Call<Result> bookFoodDel(@Query("fid") long fid);
+    @DELETE("note/food")
+    Call<Result> noteFoodDel(@Query("fid") long fid);
 
     // travelList获取
-    @GET("book/travel?tid=0&list=1")
-    Call<Result> bookTravelListGet(@Query("page") int page);
+    @GET("note/travel?tid=0&list=1")
+    Call<Result> noteTravelListGet(@Query("page") int page);
 
     // travel获取
-    @GET("book/travel?list=0")
-    Call<Result> bookTravelGet(@Query("tid") long tid);
+    @GET("note/travel?list=0")
+    Call<Result> noteTravelGet(@Query("tid") long tid);
 
     // travel上传
-    @POST("book/travel")
-    Call<Result> bookTravelAdd(@Body Travel travel);
+    @POST("note/travel")
+    Call<Result> noteTravelAdd(@Body Travel travel);
 
     // travel删除
-    @DELETE("book/travel")
-    Call<Result> bookTravelDel(@Query("tid") long tid);
+    @DELETE("note/travel")
+    Call<Result> noteTravelDel(@Query("tid") long tid);
 
     // travel修改
-    @PUT("book/travel")
-    Call<Result> bookTravelUpdate(@Body Travel travel);
+    @PUT("note/travel")
+    Call<Result> noteTravelUpdate(@Body Travel travel);
 
     // giftList获取
-    @GET("book/gift?gid=0&list=1")
-    Call<Result> bookGiftListGet(@Query("who") int who, @Query("page") int page);
+    @GET("note/gift?gid=0&list=1")
+    Call<Result> noteGiftListGet(@Query("who") int who, @Query("page") int page);
 
     // gift上传
-    @POST("book/gift")
-    Call<Result> bookGiftAdd(@Body Gift gift);
+    @POST("note/gift")
+    Call<Result> noteGiftAdd(@Body Gift gift);
 
     // gift删除
-    @DELETE("book/gift")
-    Call<Result> bookGiftDel(@Query("gid") long gid);
+    @DELETE("note/gift")
+    Call<Result> noteGiftDel(@Query("gid") long gid);
 
     // gift修改
-    @PUT("book/gift")
-    Call<Result> bookGiftUpdate(@Body Gift gift);
+    @PUT("note/gift")
+    Call<Result> noteGiftUpdate(@Body Gift gift);
 
     // promise获取
-    @GET("book/promise?pid=0&list=1")
-    Call<Result> bookPromiseListGet(@Query("who") int who, @Query("page") int page);
+    @GET("note/promise?pid=0&list=1")
+    Call<Result> notePromiseListGet(@Query("who") int who, @Query("page") int page);
 
     // promise获取
-    @GET("book/promise?list=0")
-    Call<Result> bookPromiseGet(@Query("pid") long pid);
+    @GET("note/promise?list=0")
+    Call<Result> notePromiseGet(@Query("pid") long pid);
 
     // promise上传
-    @POST("book/promise")
-    Call<Result> bookPromiseAdd(@Body Promise promise);
+    @POST("note/promise")
+    Call<Result> notePromiseAdd(@Body Promise promise);
 
     // promise删除
-    @DELETE("book/promise")
-    Call<Result> bookPromiseDel(@Query("pid") long did);
+    @DELETE("note/promise")
+    Call<Result> notePromiseDel(@Query("pid") long did);
 
     // promise修改
-    @PUT("book/promise")
-    Call<Result> bookPromiseUpdate(@Body Promise promise);
+    @PUT("note/promise")
+    Call<Result> notePromiseUpdate(@Body Promise promise);
 
     // promiseBreak获取
-    @GET("book/promise/break?pdid=0")
-    Call<Result> bookPromiseBreakListGet(@Query("pid") long pid, @Query("page") int page);
+    @GET("note/promise/break?pdid=0")
+    Call<Result> notePromiseBreakListGet(@Query("pid") long pid, @Query("page") int page);
 
     // promiseBreak上传
-    @POST("book/promise/break")
-    Call<Result> bookPromiseBreakAdd(@Body PromiseBreak promiseBreak);
+    @POST("note/promise/break")
+    Call<Result> notePromiseBreakAdd(@Body PromiseBreak promiseBreak);
 
     // promiseBreak删除
-    @DELETE("book/promise/break")
-    Call<Result> bookPromiseBreakDel(@Query("pbid") long pbid);
+    @DELETE("note/promise/break")
+    Call<Result> notePromiseBreakDel(@Query("pbid") long pbid);
 
     // angryList获取
-    @GET("book/angry?aid=0&list=1")
-    Call<Result> bookAngryListGet(@Query("who") int who, @Query("page") int page);
+    @GET("note/angry?aid=0&list=1")
+    Call<Result> noteAngryListGet(@Query("who") int who, @Query("page") int page);
 
     // angry获取
-    @GET("book/angry?list=0")
-    Call<Result> bookAngryGet(@Query("aid") long aid);
+    @GET("note/angry?list=0")
+    Call<Result> noteAngryGet(@Query("aid") long aid);
 
     // angry上传
-    @POST("book/angry")
-    Call<Result> bookAngryAdd(@Body Angry angry);
+    @POST("note/angry")
+    Call<Result> noteAngryAdd(@Body Angry angry);
 
     // angry删除
-    @DELETE("book/angry")
-    Call<Result> bookAngryDel(@Query("aid") long aid);
+    @DELETE("note/angry")
+    Call<Result> noteAngryDel(@Query("aid") long aid);
 
     // angry修改
-    @PUT("book/angry")
-    Call<Result> bookAngryUpdate(@Body Angry angry);
+    @PUT("note/angry")
+    Call<Result> noteAngryUpdate(@Body Angry angry);
 
     // dreamList获取
-    @GET("book/dream?did=0&list=1")
-    Call<Result> bookDreamListGet(@Query("who") int who, @Query("page") int page);
+    @GET("note/dream?did=0&list=1")
+    Call<Result> noteDreamListGet(@Query("who") int who, @Query("page") int page);
 
     // dream获取
-    @GET("book/dream?list=0")
-    Call<Result> bookDreamGet(@Query("did") long did);
+    @GET("note/dream?list=0")
+    Call<Result> noteDreamGet(@Query("did") long did);
 
     // dream上传
-    @POST("book/dream")
-    Call<Result> bookDreamAdd(@Body Dream dream);
+    @POST("note/dream")
+    Call<Result> noteDreamAdd(@Body Dream dream);
 
     // dream删除
-    @DELETE("book/dream")
-    Call<Result> bookDreamDel(@Query("did") long did);
+    @DELETE("note/dream")
+    Call<Result> noteDreamDel(@Query("did") long did);
 
     // dream修改
-    @PUT("book/dream")
-    Call<Result> bookDreamUpdate(@Body Dream dream);
+    @PUT("note/dream")
+    Call<Result> noteDreamUpdate(@Body Dream dream);
 
     // award获取
-    @GET("book/award?aid=0&score=0&list=1")
-    Call<Result> bookAwardListGet(@Query("who") int who, @Query("page") int page);
+    @GET("note/award?aid=0&score=0&list=1")
+    Call<Result> noteAwardListGet(@Query("who") int who, @Query("page") int page);
 
     // award获取
-    @GET("book/award?aid=0&list=0&score=1")
-    Call<Result> bookAwardScoreGet();
+    @GET("note/award?aid=0&list=0&score=1")
+    Call<Result> noteAwardScoreGet();
 
     // award上传
-    @POST("book/award")
-    Call<Result> bookAwardAdd(@Body Award award);
+    @POST("note/award")
+    Call<Result> noteAwardAdd(@Body Award award);
 
     // award删除
-    @DELETE("book/award")
-    Call<Result> bookAwardDel(@Query("aid") long aid);
+    @DELETE("note/award")
+    Call<Result> noteAwardDel(@Query("aid") long aid);
 
     // awardRule获取
-    @GET("book/award/rule?arid=0&list=1")
-    Call<Result> bookAwardRuleListGet(@Query("page") int page);
+    @GET("note/award/rule?arid=0&list=1")
+    Call<Result> noteAwardRuleListGet(@Query("page") int page);
 
     // awardRule上传
-    @POST("book/award/rule")
-    Call<Result> bookAwardRuleAdd(@Body AwardRule awardRule);
+    @POST("note/award/rule")
+    Call<Result> noteAwardRuleAdd(@Body AwardRule awardRule);
 
     // awardRule删除
-    @DELETE("book/award/rule")
-    Call<Result> bookAwardRuleDel(@Query("arid") long arid);
+    @DELETE("note/award/rule")
+    Call<Result> noteAwardRuleDel(@Query("arid") long arid);
 
 }
