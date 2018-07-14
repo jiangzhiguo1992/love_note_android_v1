@@ -51,18 +51,18 @@ import retrofit2.Call;
  */
 public class ApiHelper {
 
-    // cp修改类型
-    public static final int COUPLE_UPDATE_GOOD = 1; // 更好
-    public static final int COUPLE_UPDATE_BAD = 2; // 更坏
-    public static final int COUPLE_UPDATE_INFO = 3;// 信息
-    // 用户登录类型
+    // user登录类型
     public static final int LOG_PWD = 1;
     public static final int LOG_VER = 2;
-    // 用户修改类型
+    // user修改类型
     public static final int MODIFY_FORGET = 1;
     public static final int MODIFY_PASSWORD = 2;
     public static final int MODIFY_PHONE = 3;
     public static final int MODIFY_INFO = 4;
+    // cp修改类型
+    public static final int COUPLE_UPDATE_GOOD = 1; // 更好
+    public static final int COUPLE_UPDATE_BAD = 2; // 更坏
+    public static final int COUPLE_UPDATE_INFO = 3;// 信息
     // list类型 type要和show相对应
     public static final int LIST_CP = 0;
     public static final int LIST_MY = 1;
