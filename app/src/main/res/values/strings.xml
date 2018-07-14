@@ -206,10 +206,10 @@
     <string name="http_response_error_500">服务器异常</string>
 
     <!-- Nav -->
-    <string name="nav_couple">咱俩</string>
-    <string name="nav_book">本本</string>
+    <string name="nav_couple">我和TA</string>
+    <string name="nav_book">小本本</string>
     <string name="nav_topic">话题</string>
-    <string name="nav_square">广场</string>
+    <string name="nav_more">更多</string>
 
     <!-- settings -->
     <string name="settings">设置</string>

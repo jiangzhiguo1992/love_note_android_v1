@@ -36,12 +36,12 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "话题", false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_topic), false);
         fitToolBar(tb);
     }
 
     protected void loadData() {
-        ToastUtils.show("Topic加载数据");
+        ToastUtils.show(getString(R.string.nav_topic) + " 加载数据");
     }
 
     @Override

@@ -17,8 +17,8 @@
         android:title="@string/nav_topic"/>
 
     <item
-        android:id="@+id/menuSquare"
-        android:icon="@drawable/ic_square_primary"
-        android:title="@string/nav_square"/>
+        android:id="@+id/menuMore"
+        android:icon="@drawable/ic_more_primary"
+        android:title="@string/nav_more"/>
 
 </menu>

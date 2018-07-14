@@ -45,7 +45,7 @@ public class Limit {
     private int awardRuleScoreMax;
     // topic
 
-    // square
+    // more
     private int vipExpireDay;
 
     public int getBookLockLength() {

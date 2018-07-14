@@ -12,30 +12,30 @@ import com.jiangzg.mianmian.helper.ViewHelper;
 
 import butterknife.BindView;
 
-public class SquareFragment extends BasePagerFragment<SquareFragment> {
+public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @BindView(R.id.tb)
     Toolbar tb;
 
-    public static SquareFragment newFragment() {
+    public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
         // bundle.putData();
-        return BaseFragment.newInstance(SquareFragment.class, bundle);
+        return BaseFragment.newInstance(MoreFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_square;
+        return R.layout.fragment_more;
     }
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "广场", false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_more), false);
         fitToolBar(tb);
     }
 
     protected void loadData() {
-        ToastUtils.show("Square加载数据");
+        ToastUtils.show(getString(R.string.nav_more) + " 加载数据");
     }
 
     @Override

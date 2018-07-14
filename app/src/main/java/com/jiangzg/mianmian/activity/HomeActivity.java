@@ -19,7 +19,7 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.fragment.BookFragment;
 import com.jiangzg.mianmian.fragment.CoupleFragment;
-import com.jiangzg.mianmian.fragment.SquareFragment;
+import com.jiangzg.mianmian.fragment.MoreFragment;
 import com.jiangzg.mianmian.fragment.TopicFragment;
 import com.jiangzg.mianmian.view.HomePaper;
 
@@ -34,12 +34,12 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
-    private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuSquare};
+    private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuBook, R.id.menuTopic, R.id.menuMore};
     private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
     private BookFragment bookFragment;
     private TopicFragment topicFragment;
-    private SquareFragment squareFragment;
+    private MoreFragment moreFragment;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HomeActivity.class);
@@ -96,8 +96,8 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         if (topicFragment == null) {
             topicFragment = TopicFragment.newFragment();
         }
-        if (squareFragment == null) {
-            squareFragment = SquareFragment.newFragment();
+        if (moreFragment == null) {
+            moreFragment = MoreFragment.newFragment();
         }
     }
 
@@ -108,7 +108,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             pagerAdapter.addData(0, null, coupleFragment);
             pagerAdapter.addData(1, null, bookFragment);
             pagerAdapter.addData(2, null, topicFragment);
-            pagerAdapter.addData(3, null, squareFragment);
+            pagerAdapter.addData(3, null, moreFragment);
         }
     }
 
