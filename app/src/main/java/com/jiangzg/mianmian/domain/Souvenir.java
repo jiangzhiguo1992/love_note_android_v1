@@ -25,8 +25,6 @@ public class Souvenir extends BaseCP implements Parcelable {
     private List<SouvenirVideo> souvenirVideoList;
     private List<SouvenirFood> souvenirFoodList;
     private List<SouvenirDiary> souvenirDiaryList;
-    // api-put关联
-    private int year;
 
     public List<SouvenirGift> getSouvenirGiftList() {
         return souvenirGiftList;
@@ -74,14 +72,6 @@ public class Souvenir extends BaseCP implements Parcelable {
 
     public void setSouvenirDiaryList(List<SouvenirDiary> souvenirDiaryList) {
         this.souvenirDiaryList = souvenirDiaryList;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
     public long getHappenAt() {
@@ -158,7 +148,6 @@ public class Souvenir extends BaseCP implements Parcelable {
         souvenirVideoList = in.createTypedArrayList(SouvenirVideo.CREATOR);
         souvenirFoodList = in.createTypedArrayList(SouvenirFood.CREATOR);
         souvenirDiaryList = in.createTypedArrayList(SouvenirDiary.CREATOR);
-        year = in.readInt();
     }
 
     @Override
@@ -177,7 +166,6 @@ public class Souvenir extends BaseCP implements Parcelable {
         dest.writeTypedList(souvenirVideoList);
         dest.writeTypedList(souvenirFoodList);
         dest.writeTypedList(souvenirDiaryList);
-        dest.writeInt(year);
     }
 
     @Override

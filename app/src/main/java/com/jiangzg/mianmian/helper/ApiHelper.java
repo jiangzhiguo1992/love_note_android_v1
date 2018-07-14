@@ -20,7 +20,6 @@ import com.jiangzg.mianmian.activity.HomeActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.broadcast.OssRefreshReceiver;
-import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Entry;
@@ -202,50 +201,15 @@ public class ApiHelper {
         return sms;
     }
 
-    public static User getUserRegisterBody(String phone, String pwd, String validateCode) {
+    public static User getUserBody(String phone, String pwd) {
         User user = new User();
-        user.setPhone(phone);
-        String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
-        user.setPassword(md5Pwd);
-        user.setValidateCode(validateCode);
-        return user;
-    }
-
-    public static User getUserForgetBody(String phone, String pwd, String validateCode) {
-        User user = new User();
-        user.setPhone(phone);
-        String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
-        user.setPassword(md5Pwd);
-        user.setValidateCode(validateCode);
-        user.setType(MODIFY_FORGET);
-        return user;
-    }
-
-    public static User getUserLoginBody(String phone, String pwd, String validateCode, int type) {
-        User user = new User();
-        user.setPhone(phone);
-        String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
-        user.setPassword(md5Pwd);
-        user.setValidateCode(validateCode);
-        user.setType(type);
-        return user;
-    }
-
-    public static User getUserPasswordBody(String oldPwd, String newPwd) {
-        User user = new User();
-        String md5OldPwd = EncryptUtils.encryptMD5ToString(oldPwd);
-        user.setOldPassWord(md5OldPwd);
-        String md5NewPwd = EncryptUtils.encryptMD5ToString(newPwd);
-        user.setPassword(md5NewPwd);
-        user.setType(MODIFY_PASSWORD);
-        return user;
-    }
-
-    public static User getUserPhoneBody(String phone, String code) {
-        User user = new User();
-        user.setPhone(phone);
-        user.setValidateCode(code);
-        user.setType(MODIFY_PHONE);
+        if (!StringUtils.isEmpty(phone)) {
+            user.setPhone(phone);
+        }
+        if (!StringUtils.isEmpty(pwd)) {
+            String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
+            user.setPassword(md5Pwd);
+        }
         return user;
     }
 
@@ -253,31 +217,11 @@ public class ApiHelper {
         User user = new User();
         user.setSex(sex);
         user.setBirthday(birthday);
-        user.setType(MODIFY_INFO);
         return user;
     }
 
-    public static User getCoupleUpdate2GoodBody(long cid) {
-        User user = new User();
-        user.setType(COUPLE_UPDATE_GOOD);
-        Couple couple = new Couple();
-        couple.setId(cid);
-        user.setCouple(couple);
-        return user;
-    }
-
-    public static User getCoupleUpdate2BadBody(long cid) {
-        User user = new User();
-        user.setType(COUPLE_UPDATE_BAD);
-        Couple couple = new Couple();
-        couple.setId(cid);
-        user.setCouple(couple);
-        return user;
-    }
-
-    public static User getCoupleUpdateInfo(String avatar, String name) {
+    public static Couple getCoupleUpdateInfo(String avatar, String name) {
         User user = SPHelper.getMe();
-        user.setType(COUPLE_UPDATE_INFO);
         Couple couple = user.getCouple();
         if (couple.getCreatorId() == user.getId()) {
             couple.setInviteeAvatar(avatar);
@@ -286,7 +230,7 @@ public class ApiHelper {
             couple.setCreatorAvatar(avatar);
             couple.setCreatorName(name);
         }
-        return user;
+        return couple;
     }
 
     public static Suggest getSuggestAddBody(String title, int contentType, String contentText, String contentImg) {
@@ -340,13 +284,6 @@ public class ApiHelper {
         whisper.setImage(isImage);
         whisper.setContent(content);
         return whisper;
-    }
-
-    public static Album getAlbumBody(String title, String coverOssPath) {
-        Album album = new Album();
-        album.setTitle(title);
-        album.setCover(coverOssPath);
-        return album;
     }
 
     public static Picture getPictureBody(long aid, long happenAt, String content, double longitude, double latitude, String address, String cityId) {

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -99,9 +100,9 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
             return;
         }
         // api调用
-        User user = ApiHelper.getUserPasswordBody(oldPwd, newPwd);
-        // api调用
-        call = new RetrofitHelper().call(API.class).userModify(user);
+        String md5OldPwd = EncryptUtils.encryptMD5ToString(oldPwd);
+        User user = ApiHelper.getUserBody("", newPwd);
+        call = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PASSWORD, "", md5OldPwd, user);
         MaterialDialog loading = getLoading("", true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

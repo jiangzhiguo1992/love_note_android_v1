@@ -287,9 +287,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         String phone = etPhone.getText().toString().trim();
         String password = etPwd.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        User user = ApiHelper.getUserLoginBody(phone, password, code, logType);
+        User user = ApiHelper.getUserBody(phone, password);
         // api调用
-        callLogin = new RetrofitHelper().call(API.class).userLogin(user);
+        callLogin = new RetrofitHelper().call(API.class).userLogin(logType, code, user);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callLogin, loading, new RetrofitHelper.CallBack() {
             @Override

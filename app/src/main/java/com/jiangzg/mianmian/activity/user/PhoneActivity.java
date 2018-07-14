@@ -170,9 +170,9 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
         // api调用
-        User user = ApiHelper.getUserPhoneBody(phone, code);
+        User user = ApiHelper.getUserBody(phone, "");
         // api调用
-        callModify = new RetrofitHelper().call(API.class).userModify(user);
+        callModify = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_PHONE, code, "", user);
         MaterialDialog loading = getLoading("", true);
         RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
             @Override

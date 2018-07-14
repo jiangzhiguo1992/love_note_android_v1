@@ -21,6 +21,7 @@ public class Limit {
     private int coupleNameLength;
     // book
     private long bookResExpireSec;
+    private int bookLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
     private int whisperContentLength;
@@ -46,6 +47,14 @@ public class Limit {
 
     // square
     private int vipExpireDay;
+
+    public int getBookLockLength() {
+        return bookLockLength;
+    }
+
+    public void setBookLockLength(int bookLockLength) {
+        this.bookLockLength = bookLockLength;
+    }
 
     public int getSouvenirForeignYearCount() {
         return souvenirForeignYearCount;

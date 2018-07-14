@@ -78,6 +78,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "couple_break_sec";
     private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "couple_name_length";
     private static final String FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS = "book_oss_expire_seconds";
+    private static final String FIELD_LIMIT_BOOK_LOCK_LENGTH = "book_lock_length";
     private static final String FIELD_LIMIT_SOUVENIR_TITLE_LENGTH = "souvenir_title_length";
     private static final String FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT = "souvenir_foreign_year_count";
     private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisper_content_length";
@@ -328,6 +329,7 @@ public class SPHelper {
         editor.putLong(FIELD_LIMIT_COUPLE_BREAK_SEC, limit.getCoupleBreakSec());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
         editor.putLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, limit.getBookResExpireSec());
+        editor.putInt(FIELD_LIMIT_BOOK_LOCK_LENGTH, limit.getBookLockLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, limit.getSouvenirTitleLength());
         editor.putInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, limit.getSouvenirForeignYearCount());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, limit.getWhisperContentLength());
@@ -367,6 +369,7 @@ public class SPHelper {
         limit.setCoupleBreakSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_SEC, 60 * 60 * 24));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
         limit.setBookResExpireSec(sp.getLong(FIELD_LIMIT_BOOK_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
+        limit.setBookLockLength(sp.getInt(FIELD_LIMIT_BOOK_LOCK_LENGTH, 6));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setSouvenirForeignYearCount(sp.getInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, 1));
         limit.setWhisperContentLength(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, 100));

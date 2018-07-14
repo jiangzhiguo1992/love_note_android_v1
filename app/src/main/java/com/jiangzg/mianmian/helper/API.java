@@ -5,6 +5,7 @@ import com.jiangzg.mianmian.domain.Angry;
 import com.jiangzg.mianmian.domain.Audio;
 import com.jiangzg.mianmian.domain.Award;
 import com.jiangzg.mianmian.domain.AwardRule;
+import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Entry;
@@ -84,19 +85,19 @@ public interface API {
 
     // 用户注册
     @POST("user")
-    Call<Result> userRegister(@Body User user);
-
-    // 用户登录
-    @POST("user/login")
-    Call<Result> userLogin(@Body User user);
+    Call<Result> userRegister(@Query("code") String code, @Body User user);
 
     // 用户修改
     @PUT("user")
-    Call<Result> userModify(@Body User user);
+    Call<Result> userModify(@Query("type") int type, @Query("code") String code, @Query("old_pwd") String oldPwd, @Body User user);
 
     // 用户获取ta
     @GET("user?ta=1")
     Call<Result> userGetTa();
+
+    // 用户登录
+    @POST("user/login")
+    Call<Result> userLogin(@Query("type") int type, @Query("code") String code, @Body User user);
 
     // 帮助文档
     @GET("set/help")
@@ -160,7 +161,7 @@ public interface API {
 
     // 配对更新
     @PUT("couple")
-    Call<Result> coupleUpdate(@Body User user);
+    Call<Result> coupleUpdate(@Query("type") int type, @Body Couple couple);
 
     // 配对查询
     @GET("couple")
@@ -219,8 +220,12 @@ public interface API {
     Call<Result> bookSouvenirDel(@Query("sid") long sid);
 
     // souvenir修改
+    @PUT("book/souvenir?year=0")
+    Call<Result> bookSouvenirUpdateBody(@Body Souvenir souvenir);
+
+    // souvenir修改
     @PUT("book/souvenir")
-    Call<Result> bookSouvenirUpdate(@Body Souvenir souvenir);
+    Call<Result> bookSouvenirUpdateForeign(@Query("year") int year, @Body Souvenir souvenir);
 
     // mensesList获取
     @GET("book/menses?latest=0&date=1")

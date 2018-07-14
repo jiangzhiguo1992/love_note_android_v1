@@ -3,7 +3,6 @@ package com.jiangzg.mianmian.activity.user;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -219,7 +218,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
         User user = ApiHelper.getUserInfoBody(sex, birth);
         SPHelper.setMe(me); // api要用token
         // api调用
-        call = new RetrofitHelper().call(API.class).userModify(user);
+        call = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_INFO, "", "", user);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

@@ -98,6 +98,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     @BindView(R.id.btnPublish)
     Button btnPublish;
 
+    private int year;
     private Souvenir souvenir;
     private RecyclerHelper recyclerGift;
     private RecyclerHelper recyclerTravel;
@@ -113,12 +114,13 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private Observable<Diary> obSelectDiary;
     private Call<Result> call;
 
-    public static void goActivity(Activity from, Souvenir souvenir) {
+    public static void goActivity(Activity from, int year, Souvenir souvenir) {
         if (souvenir == null || !souvenir.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_souvenir));
             return;
         }
         Intent intent = new Intent(from, SouvenirEditForeignActivity.class);
+        intent.putExtra("year", year);
         intent.putExtra("souvenir", souvenir);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -131,7 +133,8 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.souvenir), true);
+        year = intent.getIntExtra("year", 0);
+        ViewHelper.initTopBar(mActivity, tb, String.valueOf(year), true);
         // init
         souvenir = intent.getParcelableExtra("souvenir");
         if (souvenir == null) {
@@ -540,7 +543,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         // 封装body
         Souvenir body = new Souvenir();
         body.setId(souvenir.getId());
-        body.setYear(souvenir.getYear());
         // bodyGift
         if (recyclerGift != null && recyclerGift.getAdapter() != null) {
             GiftAdapter adapter = recyclerGift.getAdapter();
@@ -582,7 +584,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     private void updateApi(Souvenir souvenir) {
         if (souvenir == null) return;
-        call = new RetrofitHelper().call(API.class).bookSouvenirUpdate(souvenir);
+        call = new RetrofitHelper().call(API.class).bookSouvenirUpdateForeign(year, souvenir);
         MaterialDialog loading = getLoading(false);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

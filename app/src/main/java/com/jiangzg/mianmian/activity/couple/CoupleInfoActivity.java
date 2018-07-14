@@ -202,8 +202,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 showBreakDialog(SPHelper.getCouple());
                 return true;
             case R.id.menuComplex: // 复合
-                User body = ApiHelper.getCoupleUpdate2GoodBody(SPHelper.getCouple().getId());
-                coupleStatus(body);
+                coupleStatus(ApiHelper.COUPLE_UPDATE_GOOD);
                 return true;
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_INFO);
@@ -344,9 +343,9 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     // api 修改couple
     private void apiCoupleInfo(String avatar, String name) {
         MaterialDialog loading = getLoading(true);
-        User body = ApiHelper.getCoupleUpdateInfo(avatar, name);
+        Couple body = ApiHelper.getCoupleUpdateInfo(avatar, name);
         // api
-        callUpdateInfo = new RetrofitHelper().call(API.class).coupleUpdate(body);
+        callUpdateInfo = new RetrofitHelper().call(API.class).coupleUpdate(ApiHelper.COUPLE_UPDATE_INFO, body);
         RetrofitHelper.enqueue(callUpdateInfo, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -384,8 +383,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        User body = ApiHelper.getCoupleUpdate2BadBody(couple.getId());
-                        coupleStatus(body);
+                        coupleStatus(ApiHelper.COUPLE_UPDATE_BAD);
                     }
                 })
                 .build();
@@ -393,10 +391,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     // 分手
-    private void coupleStatus(User body) {
+    private void coupleStatus(int type) {
+        Couple couple = SPHelper.getCouple();
         MaterialDialog loading = getLoading(true);
         // api
-        callUpdateStatus = new RetrofitHelper().call(API.class).coupleUpdate(body);
+        callUpdateStatus = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
         RetrofitHelper.enqueue(callUpdateStatus, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

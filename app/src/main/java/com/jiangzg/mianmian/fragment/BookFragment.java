@@ -57,9 +57,6 @@ import retrofit2.Call;
 
 public class BookFragment extends BasePagerFragment<BookFragment> {
 
-    private static boolean canLock = false; // 是否开启锁
-    private static boolean openLock = false; // 是否解开锁
-
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -119,6 +116,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     @BindView(R.id.cvAward)
     CardView cvAward;
 
+    private boolean canLock = false; // 是否开启锁
+    private boolean isLock = false; // 是否锁住
     private Souvenir souvenirLatest;
     private Call<Result> call;
     private Runnable souvenirCountDownTask;
@@ -185,8 +184,13 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             R.id.cvAward})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
-            // 无配对
+            // 无效配对
             CouplePairActivity.goActivity(mFragment);
+            return;
+        }
+        if (canLock && isLock) {
+            // 上锁且没有解开
+            // TODO 解锁
             return;
         }
         switch (view.getId()) {
@@ -254,7 +258,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
             rlSouvenir.setVisibility(View.GONE);
             return;
         }
-        if (canLock && !openLock) {
+        if (canLock && isLock) {
             // 上锁且没有解开
             tvSouvenirEmpty.setVisibility(View.VISIBLE);
             rlSouvenir.setVisibility(View.GONE);
@@ -322,7 +326,7 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
                         stopCoupleCountDownTask(); // 停止倒计时
                         refreshData(); // 刷新数据
                     } else {
-                        if (betweenTime / ConstantUtils.SEC < 60) {
+                        if (betweenTime / ConstantUtils.HOUR < 24) {
                             startLoveAnim();
                         } else {
                             stopLoveAnim();

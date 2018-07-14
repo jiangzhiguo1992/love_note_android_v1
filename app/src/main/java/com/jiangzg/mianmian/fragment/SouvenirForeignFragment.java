@@ -65,6 +65,7 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
     @BindView(R.id.btnEdit)
     Button btnEdit;
 
+    private int year;
     private Souvenir souvenir;
     private RecyclerHelper recyclerGift;
     private RecyclerHelper recyclerTravel;
@@ -73,14 +74,16 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
     private RecyclerHelper recyclerFood;
     private RecyclerHelper recyclerDiary;
 
-    public static SouvenirForeignFragment newFragment(Souvenir souvenir) {
+    public static SouvenirForeignFragment newFragment(int year, Souvenir souvenir) {
         Bundle bundle = new Bundle();
+        bundle.putInt("year", year);
         bundle.putParcelable("souvenir", souvenir);
         return BaseFragment.newInstance(SouvenirForeignFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
+        year = data.getInt("year");
         souvenir = data.getParcelable("souvenir");
         return R.layout.fragment_souvenir_foreign;
     }
@@ -117,7 +120,7 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
         switch (view.getId()) {
             case R.id.btnEdit:
                 if (souvenir == null) return;
-                SouvenirEditForeignActivity.goActivity(mActivity, souvenir);
+                SouvenirEditForeignActivity.goActivity(mActivity, year, souvenir);
                 break;
         }
     }

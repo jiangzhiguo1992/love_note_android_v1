@@ -252,7 +252,6 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             s.setUpdateAt(souvenir.getUpdateAt());
             s.setUserId(souvenir.getUserId());
             s.setCoupleId(souvenir.getCoupleId());
-            s.setYear(i);
             s.setSouvenirGiftList(ListHelper.getSouvenirGiftListByYear(souvenir.getSouvenirGiftList(), i));
             s.setSouvenirTravelList(ListHelper.getSouvenirTravelListByYear(souvenir.getSouvenirTravelList(), i));
             s.setSouvenirAlbumList(ListHelper.getSouvenirAlbumListByYear(souvenir.getSouvenirAlbumList(), i));
@@ -260,7 +259,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             s.setSouvenirFoodList(ListHelper.getSouvenirFoodListByYear(souvenir.getSouvenirFoodList(), i));
             s.setSouvenirDiaryList(ListHelper.getSouvenirDiaryListByYear(souvenir.getSouvenirDiaryList(), i));
             // list
-            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(s);
+            SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(i, s);
             fragmentList.add(fragment);
             titleList.add(String.valueOf(i));
         }

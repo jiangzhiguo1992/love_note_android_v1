@@ -198,10 +198,10 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
             return;
         }
         String phone = etPhone.getText().toString().trim();
+        User user = ApiHelper.getUserBody(phone, pwd);
         String code = etCode.getText().toString().trim();
-        User user = ApiHelper.getUserRegisterBody(phone, pwd, code);
         // api调用
-        callRegister = new RetrofitHelper().call(API.class).userRegister(user);
+        callRegister = new RetrofitHelper().call(API.class).userRegister(code, user);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callRegister, loading, new RetrofitHelper.CallBack() {
             @Override

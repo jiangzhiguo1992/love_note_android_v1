@@ -19,16 +19,12 @@ public class User extends BaseObj implements Parcelable {
     public static final int SEX_BOY = 2;
 
     private String phone;
-    private String password; // 客户端加密
-    private int sex; // 0女生，1男生
+    private String password;
+    private int sex;
     private long birthday;
     private String userToken;
     // 实体
     private Couple couple;
-    // http
-    private String validateCode;
-    private int type;
-    private String oldPassWord;
 
     // 是否登录
     public static boolean noLogin() {
@@ -107,30 +103,6 @@ public class User extends BaseObj implements Parcelable {
         return Couple.getAvatar(couple, uid);
     }
 
-    public String getOldPassWord() {
-        return oldPassWord;
-    }
-
-    public void setOldPassWord(String oldPassWord) {
-        this.oldPassWord = oldPassWord;
-    }
-
-    public String getValidateCode() {
-        return validateCode;
-    }
-
-    public void setValidateCode(String validateCode) {
-        this.validateCode = validateCode;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -190,9 +162,6 @@ public class User extends BaseObj implements Parcelable {
         birthday = in.readLong();
         userToken = in.readString();
         couple = in.readParcelable(Couple.class.getClassLoader());
-        validateCode = in.readString();
-        type = in.readInt();
-        oldPassWord = in.readString();
     }
 
     @Override
@@ -204,9 +173,6 @@ public class User extends BaseObj implements Parcelable {
         dest.writeLong(birthday);
         dest.writeString(userToken);
         dest.writeParcelable(couple, flags);
-        dest.writeString(validateCode);
-        dest.writeInt(type);
-        dest.writeString(oldPassWord);
     }
 
     @Override

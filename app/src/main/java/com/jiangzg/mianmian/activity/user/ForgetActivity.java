@@ -183,9 +183,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
         }
         String phone = etPhone.getText().toString().trim();
         String code = etCode.getText().toString().trim();
-        User user = ApiHelper.getUserForgetBody(phone, pwd, code);
+        User user = ApiHelper.getUserBody(phone, pwd);
         // api调用
-        callModify = new RetrofitHelper().call(API.class).userModify(user);
+        callModify = new RetrofitHelper().call(API.class).userModify(ApiHelper.MODIFY_FORGET, code, "", user);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callModify, loading, new RetrofitHelper.CallBack() {
             @Override

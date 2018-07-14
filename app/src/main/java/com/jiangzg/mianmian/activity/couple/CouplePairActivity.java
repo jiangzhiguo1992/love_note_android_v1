@@ -305,8 +305,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api
-        User body = ApiHelper.getCoupleUpdate2GoodBody(coupleId);
-        coupleUpdate(body);
+        coupleUpdate(ApiHelper.COUPLE_UPDATE_GOOD, coupleId);
     }
 
     // 变坏
@@ -316,13 +315,14 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api
-        User body = ApiHelper.getCoupleUpdate2BadBody(coupleId);
-        coupleUpdate(body);
+        coupleUpdate(ApiHelper.COUPLE_UPDATE_BAD, coupleId);
     }
 
     // 提交状态更新
-    private void coupleUpdate(User body) {
-        callUpdate = new RetrofitHelper().call(API.class).coupleUpdate(body);
+    private void coupleUpdate(int type, long coupleId) {
+        Couple couple = new Couple();
+        couple.setId(coupleId);
+        callUpdate = new RetrofitHelper().call(API.class).coupleUpdate(type, couple);
         RetrofitHelper.enqueue(callUpdate, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

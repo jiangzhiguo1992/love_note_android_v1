@@ -115,7 +115,6 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
         if (souvenir.getHappenAt() == 0) {
             souvenir.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
         }
-        souvenir.setYear(0);
         // toolBar
         String title = souvenir.isDone() ? getString(R.string.souvenir) : getString(R.string.wish_list);
         ViewHelper.initTopBar(mActivity, tb, title, true);
@@ -259,7 +258,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     private void updateApi() {
         if (souvenir == null) return;
         MaterialDialog loading = getLoading(false);
-        callUpdate = new RetrofitHelper().call(API.class).bookSouvenirUpdate(souvenir);
+        callUpdate = new RetrofitHelper().call(API.class).bookSouvenirUpdateBody(souvenir);
         RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
