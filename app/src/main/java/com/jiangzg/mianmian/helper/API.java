@@ -201,12 +201,12 @@ public interface API {
     Call<Result> bookLockAdd(@Body Lock lock);
 
     // lock修改密码
-    @PUT("book/lock?pwd=1&lock=0")
-    Call<Result> bookLockUpdatePwd(@Body Lock lock);
+    @PUT("book/lock?modify=1&toggle=0")
+    Call<Result> bookLockUpdatePwd(@Query("code") String code, @Body Lock lock);
 
     // lock开关锁
-    @PUT("book/lock?lock=1&pwd=0")
-    Call<Result> bookLockToggle();
+    @PUT("book/lock?toggle=1&modify=0")
+    Call<Result> bookLockToggle(@Body Lock lock);
 
     // lock获取
     @GET("book/lock")

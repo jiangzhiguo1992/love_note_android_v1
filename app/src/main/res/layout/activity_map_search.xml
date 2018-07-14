@@ -27,7 +27,8 @@
             android:hint="@string/input_search_address"
             android:maxLines="1"
             android:padding="7dp"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:textColorHint="@color/font_hint"/>
 
         <Button
             android:id="@+id/btnSearch"

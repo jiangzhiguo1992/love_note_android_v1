@@ -201,6 +201,16 @@ public class ApiHelper {
         return sms;
     }
 
+    public static Sms getSmsLockBody() {
+        Sms sms = new Sms();
+        sms.setSendType(Sms.TYPE_LOCK);
+        User ta = SPHelper.getTa();
+        if (ta != null) {
+            sms.setPhone(ta.getPhone());
+        }
+        return sms;
+    }
+
     public static User getUserBody(String phone, String pwd) {
         User user = new User();
         if (!StringUtils.isEmpty(phone)) {

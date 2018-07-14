@@ -1,10 +1,14 @@
 package com.jiangzg.mianmian.activity.book;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,25 +16,35 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Lock;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
+import com.jiangzg.mianmian.domain.Sms;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class LockActivity extends BaseActivity<LockActivity> {
@@ -45,6 +59,24 @@ public class LockActivity extends BaseActivity<LockActivity> {
     ImageView ivLockClose;
     @BindView(R.id.ivLockOpen)
     ImageView ivLockOpen;
+
+    @BindView(R.id.tilPwd)
+    TextInputLayout tilPwd;
+    @BindView(R.id.etPwd)
+    TextInputEditText etPwd;
+    @BindView(R.id.llCode)
+    LinearLayout llCode;
+    @BindView(R.id.etCode)
+    TextInputEditText etCode;
+    @BindView(R.id.btnSendCode)
+    Button btnSendCode;
+    @BindView(R.id.llOperate)
+    LinearLayout llOperate;
+    @BindView(R.id.btnCancel)
+    Button btnCancel;
+    @BindView(R.id.btnOk)
+    Button btnOk;
+
     @BindView(R.id.btnToggleLock)
     Button btnToggleLock;
     @BindView(R.id.btnPwd)
@@ -53,6 +85,11 @@ public class LockActivity extends BaseActivity<LockActivity> {
     private Lock lock;
     private Call<Result> callGet;
     private Call<Result> callToggle;
+    private Call<Result> callAddPwd;
+    private Call<Result> callModifyPwd;
+    private Call<Result> callSms;
+    private int countDownGo = -1;
+    private Runnable countDownTask;
 
     public static void goActivity(Fragment from) {
         if (Couple.isBreak(SPHelper.getCouple())) {
@@ -73,7 +110,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.pwd_lock), false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.pwd_lock), true);
         srl.setEnabled(false);
     }
 
@@ -84,8 +121,12 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        stopCountDownTask();
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callToggle);
+        RetrofitHelper.cancel(callAddPwd);
+        RetrofitHelper.cancel(callModifyPwd);
+        RetrofitHelper.cancel(callSms);
     }
 
     @Override
@@ -104,14 +145,28 @@ public class LockActivity extends BaseActivity<LockActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btnToggleLock, R.id.btnPwd})
+    @OnTextChanged({R.id.etPwd, R.id.etCode})
+    public void afterTextChanged(Editable s) {
+        onInputChange();
+    }
+
+    @OnClick({R.id.btnToggleLock, R.id.btnPwd, R.id.btnCancel, R.id.btnOk, R.id.btnSendCode})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnToggleLock: // 开锁/关锁
                 toggleLock();
                 break;
             case R.id.btnPwd: // 设置/修改密码
-                // TODO
+                showOperaView();
+                break;
+            case R.id.btnCancel: // 取消
+                refreshView();
+                break;
+            case R.id.btnOk: // 完成
+                push();
+                break;
+            case R.id.btnSendCode: // 验证码
+                sendCode();
                 break;
         }
     }
@@ -140,7 +195,12 @@ public class LockActivity extends BaseActivity<LockActivity> {
     }
 
     private void refreshView() {
+        stopCountDownTask(); // 清空倒计时
         llContent.setVisibility(View.VISIBLE);
+        tilPwd.setVisibility(View.GONE);
+        llCode.setVisibility(View.GONE);
+        llOperate.setVisibility(View.GONE);
+        btnPwd.setVisibility(View.VISIBLE);
         if (lock == null) {
             ivLockOpen.setVisibility(View.VISIBLE);
             ivLockClose.setVisibility(View.GONE);
@@ -154,12 +214,12 @@ public class LockActivity extends BaseActivity<LockActivity> {
             // 状态：关
             ivLockClose.setVisibility(View.VISIBLE);
             ivLockOpen.setVisibility(View.GONE);
-            btnPwd.setText(R.string.open_lock);
+            btnToggleLock.setText(R.string.open_lock);
         } else {
             // 状态：开
             ivLockOpen.setVisibility(View.VISIBLE);
             ivLockClose.setVisibility(View.GONE);
-            btnPwd.setText(R.string.close_lock);
+            btnToggleLock.setText(R.string.close_lock);
         }
     }
 
@@ -188,6 +248,147 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
             }
         });
+    }
+
+    private void onInputChange() {
+        boolean pwd = etPwd.getText().toString().length() == SPHelper.getLimit().getBookLockLength();
+        btnOk.setEnabled(pwd);
+        if (countDownGo >= 0) {
+            btnSendCode.setEnabled(false);
+        } else {
+            btnSendCode.setEnabled(true);
+        }
+    }
+
+    private void showOperaView() {
+        tilPwd.setVisibility(View.VISIBLE);
+        if (lock == null) { // 设置密码
+            llCode.setVisibility(View.GONE);
+        } else { // 修改密码
+            llCode.setVisibility(View.VISIBLE);
+        }
+        llOperate.setVisibility(View.VISIBLE);
+        btnToggleLock.setVisibility(View.GONE);
+        btnPwd.setVisibility(View.GONE);
+        // etPwd
+        String format = getString(R.string.please_input_pwd_no_over_holder_text);
+        String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getBookLockLength());
+        tilPwd.setHint(hint);
+        etPwd.setText("");
+    }
+
+    private void push() {
+        String pwd = etPwd.getText().toString();
+        if (StringUtils.isEmpty(pwd) || pwd.length() > SPHelper.getLimit().getBookLockLength()) {
+            ToastUtils.show(etPwd.getHint());
+            return;
+        }
+        if (lock == null) { // 设置密码
+            addPwd(pwd);
+        } else { // 修改密码
+            modifyPwd(pwd);
+        }
+    }
+
+    private void addPwd(String pwd) {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        Lock body = new Lock();
+        body.setPassword(pwd);
+        callAddPwd = new RetrofitHelper().call(API.class).bookLockAdd(body);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
+        RetrofitHelper.enqueue(callAddPwd, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                lock = data.getLock();
+                refreshView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+    }
+
+    private void modifyPwd(String pwd) {
+        String code = etCode.getText().toString().trim();
+        if (StringUtils.isEmpty(code)) {
+            ToastUtils.show(etCode.getHint());
+            return;
+        }
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        Lock body = new Lock();
+        body.setPassword(pwd);
+        callModifyPwd = new RetrofitHelper().call(API.class).bookLockUpdatePwd(code, body);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
+        RetrofitHelper.enqueue(callModifyPwd, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                lock = data.getLock();
+                refreshView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+    }
+
+    private void sendCode() {
+        btnSendCode.setEnabled(false);
+        // 发送验证码
+        Sms body = ApiHelper.getSmsLockBody();
+        callSms = new RetrofitHelper().call(API.class).smsSend(body);
+        MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
+        RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                countDownGo = 0;
+                MyApp.get().getHandler().post(getCountDownTask());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                btnSendCode.setEnabled(true);
+            }
+        });
+    }
+
+    private Runnable getCountDownTask() {
+        final int countDownSec = SPHelper.getLimit().getSmsBetweenSec();
+        if (countDownTask == null) {
+            countDownTask = new Runnable() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void run() {
+                    if (countDownGo < countDownSec) {
+                        ++countDownGo;
+                        btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
+                        MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
+                    } else {
+                        stopCountDownTask();
+                    }
+                }
+            };
+        }
+        return countDownTask;
+    }
+
+    private void stopCountDownTask() {
+        countDownGo = -1;
+        btnSendCode.setText(R.string.send_validate_code);
+        onInputChange();
+        if (countDownTask != null) {
+            MyApp.get().getHandler().removeCallbacks(countDownTask);
+            countDownTask = null;
+        }
     }
 
 }

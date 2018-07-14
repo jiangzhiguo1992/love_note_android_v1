@@ -108,8 +108,8 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
 
     private void onInputChange() {
         boolean phone = etPhone.getText().toString().trim().length() > 0;
-        boolean pwd = etPwd.getText().toString().trim().length() > 0;
-        boolean pwdConfirm = etPwdConfirm.getText().toString().trim().length() > 0;
+        boolean pwd = etPwd.getText().toString().length() > 0;
+        boolean pwdConfirm = etPwdConfirm.getText().toString().length() > 0;
         boolean code = etCode.getText().toString().trim().length() == SPHelper.getLimit().getSmsCodeLength();
 
         btnOk.setEnabled(phone && pwd && pwdConfirm && code);
@@ -154,9 +154,6 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
                             MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
                         } else {
-                            btnSendCode.setText(R.string.send_validate_code);
-                            countDownGo = -1;
-                            onInputChange();
                             stopCountDownTask();
                         }
                     }
@@ -167,6 +164,9 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     }
 
     private void stopCountDownTask() {
+        countDownGo = -1;
+        btnSendCode.setText(R.string.send_validate_code);
+        onInputChange();
         if (countDownTask != null) {
             MyApp.get().getHandler().removeCallbacks(countDownTask);
             countDownTask = null;
@@ -174,8 +174,8 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     }
 
     private void forget() {
-        String pwd = etPwd.getText().toString().trim();
-        String pwdConfirm = etPwdConfirm.getText().toString().trim();
+        String pwd = etPwd.getText().toString();
+        String pwdConfirm = etPwdConfirm.getText().toString();
         if (!pwd.equals(pwdConfirm)) {
             ToastUtils.show(getString(R.string.twice_pwd_no_equals));
             return;

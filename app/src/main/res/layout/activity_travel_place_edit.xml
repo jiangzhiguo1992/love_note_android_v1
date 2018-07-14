@@ -101,7 +101,8 @@
                     android:hint="@string/please_input_track_content"
                     android:inputType="textMultiLine"
                     android:minLines="10"
-                    android:padding="8dp"/>
+                    android:padding="8dp"
+                    android:textColorHint="@color/font_hint"/>
 
                 <TextView
                     android:id="@+id/tvContentLimit"

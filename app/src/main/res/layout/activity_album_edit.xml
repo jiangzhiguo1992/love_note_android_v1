@@ -25,7 +25,8 @@
         android:hint="@string/please_input_album_name"
         android:maxLines="1"
         android:padding="10dp"
-        android:singleLine="true"/>
+        android:singleLine="true"
+        android:textColorHint="@color/font_hint"/>
 
     <ImageView
         android:id="@+id/ivAdd"

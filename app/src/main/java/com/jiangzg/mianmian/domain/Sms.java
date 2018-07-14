@@ -11,6 +11,8 @@ public class Sms extends BaseObj {
     public static final int TYPE_LOGIN = 2;
     public static final int TYPE_FORGET = 3;
     public static final int TYPE_PHONE = 4;
+    public static final int TYPE_INVITEE = 5;
+    public static final int TYPE_LOCK = 6;
 
     private String phone;
     private int SendType;

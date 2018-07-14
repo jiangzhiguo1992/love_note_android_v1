@@ -84,17 +84,17 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
     }
 
     private void onInputChange() {
-        boolean oldPwd = etOldPwd.getText().toString().trim().length() > 0;
-        boolean newPwd = etNewPwd.getText().toString().trim().length() > 0;
-        boolean newPwdConfirm = etNewPwdConfirm.getText().toString().trim().length() > 0;
+        boolean oldPwd = etOldPwd.getText().toString().length() > 0;
+        boolean newPwd = etNewPwd.getText().toString().length() > 0;
+        boolean newPwdConfirm = etNewPwdConfirm.getText().toString().length() > 0;
 
         btnModify.setEnabled(oldPwd && newPwd && newPwdConfirm);
     }
 
     private void modify() {
-        String oldPwd = etOldPwd.getText().toString().trim();
-        String newPwd = etNewPwd.getText().toString().trim();
-        String newPwdConfirm = etNewPwdConfirm.getText().toString().trim();
+        String oldPwd = etOldPwd.getText().toString();
+        String newPwd = etNewPwd.getText().toString();
+        String newPwdConfirm = etNewPwdConfirm.getText().toString();
         if (!newPwd.equals(newPwdConfirm)) {
             ToastUtils.show(getString(R.string.twice_pwd_no_equals));
             return;

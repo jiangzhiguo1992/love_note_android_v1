@@ -32,7 +32,8 @@
                 android:layout_height="80dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="30dp"
+                tools:background="@mipmap/ic_boy_circle"/>
 
             <TextView
                 android:id="@+id/tvNameLeft"
@@ -101,7 +102,8 @@
                 android:layout_height="80dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="30dp"
+                tools:background="@mipmap/ic_girl_circle"/>
 
             <TextView
                 android:id="@+id/tvNameRight"

@@ -27,6 +27,7 @@
             android:id="@+id/etPhone"
             style="@style/FontBlackNormal"
             android:layout_width="match_parent"
+            android:textColorHint="@color/font_hint"
             android:layout_height="wrap_content"
             android:drawablePadding="15dp"
             android:drawableStart="@drawable/ic_phone_grey"

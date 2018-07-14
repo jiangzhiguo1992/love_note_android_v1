@@ -184,7 +184,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     private void onInputChange() {
         boolean phone = etPhone.getText().toString().trim().length() > 0;
-        boolean pwd = etPwd.getText().toString().trim().length() > 0;
+        boolean pwd = etPwd.getText().toString().length() > 0;
         boolean code = etCode.getText().toString().trim().length() == SPHelper.getLimit().getSmsCodeLength();
         switch (logType) {
             case ApiHelper.LOG_PWD: // 密码
@@ -254,9 +254,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
                             MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
                         } else {
-                            btnSendCode.setText(R.string.send_validate_code);
-                            countDownGo = -1;
-                            onInputChange();
                             stopCountDownTask();
                         }
                     }
@@ -267,6 +264,9 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     }
 
     private void stopCountDownTask() {
+        countDownGo = -1;
+        btnSendCode.setText(R.string.send_validate_code);
+        onInputChange();
         if (countDownTask != null) {
             MyApp.get().getHandler().removeCallbacks(countDownTask);
             countDownTask = null;
@@ -279,7 +279,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
             return;
         }
         String phone = etPhone.getText().toString().trim();
-        String password = etPwd.getText().toString().trim();
+        String password = etPwd.getText().toString();
         String code = etCode.getText().toString().trim();
         User user = ApiHelper.getUserBody(phone, password);
         // api调用

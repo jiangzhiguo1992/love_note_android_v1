@@ -141,9 +141,6 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
                             btnSendCode.setText(String.valueOf(countDownSec - countDownGo) + "s");
                             MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
                         } else {
-                            btnSendCode.setText(R.string.send_validate_code);
-                            countDownGo = -1;
-                            onInputChange();
                             stopCountDownTask();
                         }
                     }
@@ -154,6 +151,9 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     }
 
     private void stopCountDownTask() {
+        countDownGo = -1;
+        btnSendCode.setText(R.string.send_validate_code);
+        onInputChange();
         if (countDownTask != null) {
             MyApp.get().getHandler().removeCallbacks(countDownTask);
             countDownTask = null;

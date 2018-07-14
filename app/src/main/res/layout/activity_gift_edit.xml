@@ -36,7 +36,8 @@
                 android:inputType="text"
                 android:maxLines="1"
                 android:padding="10dp"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:textColorHint="@color/font_hint"/>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvHappenAt"
