@@ -24,6 +24,7 @@ import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Entry;
 import com.jiangzg.mianmian.domain.Limit;
+import com.jiangzg.mianmian.domain.Lock;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Place;
@@ -230,19 +231,6 @@ public class ApiHelper {
         return user;
     }
 
-    public static Couple getCoupleUpdateInfo(String avatar, String name) {
-        User user = SPHelper.getMe();
-        Couple couple = user.getCouple();
-        if (couple.getCreatorId() == user.getId()) {
-            couple.setInviteeAvatar(avatar);
-            couple.setInviteeName(name);
-        } else {
-            couple.setCreatorAvatar(avatar);
-            couple.setCreatorName(name);
-        }
-        return couple;
-    }
-
     public static Suggest getSuggestAddBody(String title, int contentType, String contentText, String contentImg) {
         Suggest suggest = new Suggest();
         suggest.setTitle(title);
@@ -259,10 +247,32 @@ public class ApiHelper {
         return suggestComment;
     }
 
+    public static Couple getCoupleUpdateInfo(String avatar, String name) {
+        User user = SPHelper.getMe();
+        Couple couple = user.getCouple();
+        if (couple.getCreatorId() == user.getId()) {
+            couple.setInviteeAvatar(avatar);
+            couple.setInviteeName(name);
+        } else {
+            couple.setCreatorAvatar(avatar);
+            couple.setCreatorName(name);
+        }
+        return couple;
+    }
+
     public static WallPaper getWallPaperUpdateBody(List<String> imgList) {
         WallPaper wallPaper = new WallPaper();
         wallPaper.setContentImageList(imgList);
         return wallPaper;
+    }
+
+    public static Lock getLockBody(String pwd) {
+        Lock lock = new Lock();
+        if (!StringUtils.isEmpty(pwd)) {
+            String md5Pwd = EncryptUtils.encryptMD5ToString(pwd);
+            lock.setPassword(md5Pwd);
+        }
+        return lock;
     }
 
     public static Place getPlaceBody(LocationInfo info) {

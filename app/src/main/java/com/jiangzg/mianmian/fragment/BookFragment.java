@@ -124,8 +124,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     @BindView(R.id.cvAward)
     CardView cvAward;
 
-    private boolean canLock = false; // 默认没锁
-    private boolean isLock = false; // 默认没解开
+    private boolean canLock;
+    private boolean isLock;
     private Souvenir souvenirLatest;
     private Call<Result> call;
     private Observable<Lock> obLockRefresh;
@@ -162,6 +162,8 @@ public class BookFragment extends BasePagerFragment<BookFragment> {
     }
 
     protected void loadData() {
+        canLock = false; // 默认没锁
+        isLock = false; // 默认没解开
         // event
         obLockRefresh = RxBus.register(ConsHelper.EVENT_LOCK_REFRESH, new Action1<Lock>() {
             @Override

@@ -20,7 +20,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
@@ -88,6 +87,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
     private Call<Result> callAddPwd;
     private Call<Result> callModifyPwd;
     private Call<Result> callSms;
+    private boolean open;
     private int countDownGo = -1;
     private Runnable countDownTask;
 
@@ -116,6 +116,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        open = true; // 默认是要开锁
         refreshData();
     }
 
@@ -154,9 +155,11 @@ public class LockActivity extends BaseActivity<LockActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnToggleLock: // 开锁/关锁
+                open = true;
                 toggleLock();
                 break;
             case R.id.btnPwd: // 设置/修改密码
+                open = false;
                 showOperaView();
                 break;
             case R.id.btnCancel: // 取消
@@ -224,6 +227,17 @@ public class LockActivity extends BaseActivity<LockActivity> {
     }
 
     private void toggleLock() {
+        if (lock == null) return;
+        if (lock.isLock()) {
+            // 需要开锁视图
+            showOperaView();
+        } else {
+            // 直接关锁
+            toggleLockData("");
+        }
+    }
+
+    private void toggleLockData(String pwd) {
         if (lock == null) {
             srl.setRefreshing(false);
             return;
@@ -231,7 +245,8 @@ public class LockActivity extends BaseActivity<LockActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        callToggle = new RetrofitHelper().call(API.class).bookLockToggle();
+        Lock body = ApiHelper.getLockBody(pwd);
+        callToggle = new RetrofitHelper().call(API.class).bookLockToggle(body);
         RetrofitHelper.enqueue(callToggle, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -251,8 +266,14 @@ public class LockActivity extends BaseActivity<LockActivity> {
     }
 
     private void onInputChange() {
+        boolean code = true;
+        if (lock != null && !open) {
+            // 修改密码
+            String c = etCode.getText().toString().trim();
+            code = !StringUtils.isEmpty(c);
+        }
         boolean pwd = etPwd.getText().toString().length() == SPHelper.getLimit().getBookLockLength();
-        btnOk.setEnabled(pwd);
+        btnOk.setEnabled(code && pwd);
         if (countDownGo >= 0) {
             btnSendCode.setEnabled(false);
         } else {
@@ -262,7 +283,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     private void showOperaView() {
         tilPwd.setVisibility(View.VISIBLE);
-        if (lock == null) { // 设置密码
+        if (lock == null || open) { // 设置密码/开锁
             llCode.setVisibility(View.GONE);
         } else { // 修改密码
             llCode.setVisibility(View.VISIBLE);
@@ -279,14 +300,12 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     private void push() {
         String pwd = etPwd.getText().toString();
-        if (StringUtils.isEmpty(pwd) || pwd.length() > SPHelper.getLimit().getBookLockLength()) {
-            ToastUtils.show(etPwd.getHint());
-            return;
-        }
         if (lock == null) { // 设置密码
             addPwd(pwd);
-        } else { // 修改密码
+        } else if (!open) { // 修改密码
             modifyPwd(pwd);
+        } else { // 开锁
+            toggleLockData(pwd);
         }
     }
 
@@ -294,8 +313,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        Lock body = new Lock();
-        body.setPassword(pwd);
+        Lock body = ApiHelper.getLockBody(pwd);
         callAddPwd = new RetrofitHelper().call(API.class).bookLockAdd(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(callAddPwd, loading, new RetrofitHelper.CallBack() {
@@ -314,16 +332,11 @@ public class LockActivity extends BaseActivity<LockActivity> {
     }
 
     private void modifyPwd(String pwd) {
-        String code = etCode.getText().toString().trim();
-        if (StringUtils.isEmpty(code)) {
-            ToastUtils.show(etCode.getHint());
-            return;
-        }
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        Lock body = new Lock();
-        body.setPassword(pwd);
+        String code = etCode.getText().toString().trim();
+        Lock body = ApiHelper.getLockBody(pwd);
         callModifyPwd = new RetrofitHelper().call(API.class).bookLockUpdatePwd(code, body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(callModifyPwd, loading, new RetrofitHelper.CallBack() {
