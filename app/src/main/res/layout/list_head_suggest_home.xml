@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="@string/i_want_push_suggest"/>
+                android:text="@string/i_want_feedback"/>
         </android.support.v7.widget.CardView>
     </LinearLayout>
 

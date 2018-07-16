@@ -1,18 +1,13 @@
 package com.jiangzg.mianmian.adapter;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Result;
@@ -25,7 +20,7 @@ import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.TimeHelper;
-import com.jiangzg.mianmian.view.GWrapView;
+import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.util.Locale;
 
@@ -38,65 +33,44 @@ import retrofit2.Call;
 public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, BaseViewHolder> {
 
     private BaseActivity mActivity;
-    private final int dp7;
-    private final int dp5;
-    private final int dp2;
-    private final String formatStorey;
+    private final String formatFloor;
     private final String formatOfficial;
-    private final String formatMine;
+    private final int colorGrey;
+    private final int colorDark;
+    private final int colorPrimary;
 
     public SuggestCommentAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest_comment);
         mActivity = activity;
-        dp7 = ConvertUtils.dp2px(7);
-        dp5 = ConvertUtils.dp2px(5);
-        dp2 = ConvertUtils.dp2px(2);
-        formatStorey = mActivity.getString(R.string.holder_storey_in_holder_say);
+        formatFloor = mActivity.getString(R.string.holder_floor);
         formatOfficial = mActivity.getString(R.string.official);
-        formatMine = mActivity.getString(R.string.me_de);
+
+        colorGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
+        colorDark = ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity));
+        colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
     }
 
     @Override
     protected void convert(BaseViewHolder helper, SuggestComment item) {
         // data
         int layoutPosition = helper.getLayoutPosition();
-        long createdAt = item.getCreateAt();
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(createdAt);
-        String title = String.format(Locale.getDefault(), formatStorey, layoutPosition, create);
-        String contentText = item.getContentText();
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
+        String title = official ? formatOfficial : String.format(Locale.getDefault(), formatFloor, layoutPosition);
+        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
+        String contentText = item.getContentText();
         // view
-        helper.setText(R.id.tvTitle, title);
+        helper.setText(R.id.tvTime, create);
         helper.setText(R.id.tvContent, contentText);
-        GWrapView wvTag = helper.getView(R.id.wvTag);
-        wvTag.removeAllChild();
+        TextView tvFloor = helper.getView(R.id.tvFloor);
+        tvFloor.setText(title);
         if (official) {
-            View tagView = getTagView(formatOfficial);
-            wvTag.addChild(tagView);
-        }
-        if (mine) {
-            View tagView = getTagView(formatMine);
-            wvTag.addChild(tagView);
-        }
-    }
-
-    private View getTagView(String show) {
-        FrameLayout.LayoutParams mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextLayoutParams.setMarginEnd(dp7);
-
-        TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
-        textView.setPadding(dp5, dp2, dp5, dp2);
-        textView.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            textView.setTextAppearance(R.style.FontWhiteSmall);
+            tvFloor.setTextColor(colorDark);
+        } else if (mine) {
+            tvFloor.setTextColor(colorPrimary);
         } else {
-            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
+            tvFloor.setTextColor(colorGrey);
         }
-        textView.setText(show);
-        return textView;
     }
 
     // 删除评论

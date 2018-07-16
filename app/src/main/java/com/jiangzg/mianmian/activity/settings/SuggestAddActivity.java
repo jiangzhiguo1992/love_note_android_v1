@@ -100,7 +100,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.i_want_push_suggest), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.i_want_feedback), true);
         // input
         etTitle.addTextChangedListener(new TextWatcher() {
             @Override

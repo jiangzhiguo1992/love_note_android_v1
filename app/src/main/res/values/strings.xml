@@ -262,8 +262,7 @@
 
     <!-- suggest -->
     <string name="suggest_feedback">意见反馈</string>
-    <string name="i_want_push_suggest">朕要提意见</string>
-    <string name="i_want_feedback">我要反馈</string>
+    <string name="i_want_feedback">朕要反馈</string>
     <string name="click_me_choose_type">点我选分类</string>
     <string name="click_me_add_image">点我添加图片</string>
     <string name="click_me_to_del_image">点我删除照片</string>
@@ -280,8 +279,8 @@
     <string name="search_condition_line">————搜索条件————</string>
     <string name="type_colon">类型:</string>
     <string name="status_colon">状态:</string>
-    <string name="holder_storey_in_holder_say" formatted="false">%d楼 于 %s说:</string>
     <string name="confirm_del_suggest">确定删除意见吗？</string>
+    <string name="holder_floor" formatted="false">%d楼</string>
 
     <!-- user -->
     <string name="login">登录</string>
