@@ -113,12 +113,12 @@
             android:text="@string/type_colon"/>
 
         <HorizontalScrollView
-            android:id="@+id/hsvType"
+            android:id="@+id/hsvKind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <RadioGroup
-                android:id="@+id/rgType"
+                android:id="@+id/rgKind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">

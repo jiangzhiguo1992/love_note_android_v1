@@ -69,7 +69,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private Observable<Suggest> obListItemRefresh;
     private int page;
     private int searchStatus;
-    private int searchType;
+    private int searchKind;
     private SuggestInfo suggestInfo;
 
     public static void goActivity(Activity from) {
@@ -91,8 +91,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         suggestInfo = SuggestInfo.getInstance();
         List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
         searchStatus = suggestStatusList.get(0).getStatus();
-        List<SuggestInfo.SuggestType> suggestTypeList = suggestInfo.getTypeList();
-        searchType = suggestTypeList.get(0).getType();
+        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
+        searchKind = suggestKindList.get(0).getKind();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -190,8 +190,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         CardView cvFollow = head.findViewById(R.id.cvFollow);
         CardView cvAdd = head.findViewById(R.id.cvAdd);
         HorizontalScrollView hsvStatus = head.findViewById(R.id.hsvStatus);
-        HorizontalScrollView hsvType = head.findViewById(R.id.hsvType);
-        RadioGroup rgType = head.findViewById(R.id.rgType);
+        HorizontalScrollView hsvKind = head.findViewById(R.id.hsvKind);
+        RadioGroup rgKind = head.findViewById(R.id.rgKind);
         RadioGroup rgStatus = head.findViewById(R.id.rgStatus);
         Button btnSearch = head.findViewById(R.id.btnSearch);
         cvMy.setOnClickListener(new View.OnClickListener() {
@@ -220,30 +220,30 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         });
         // 动态组件拼装
         hsvStatus.setHorizontalScrollBarEnabled(false);
-        hsvType.setHorizontalScrollBarEnabled(false);
+        hsvKind.setHorizontalScrollBarEnabled(false);
         dp3 = ConvertUtils.dp2px(3);
         dp4 = ConvertUtils.dp2px(4);
         dp5 = ConvertUtils.dp2px(5);
         dp14 = ConvertUtils.dp2px(14);
-        List<SuggestInfo.SuggestType> suggestTypeList = suggestInfo.getTypeList();
+        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
         List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
-        for (int i = 0; i < suggestTypeList.size(); i++) {
-            SuggestInfo.SuggestType contentType = suggestTypeList.get(i);
-            RadioButton rb = getTypeRadioButton(contentType);
-            rgType.addView(rb, i);
+        for (int i = 0; i < suggestKindList.size(); i++) {
+            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
+            RadioButton rb = getKindRadioButton(kind);
+            rgKind.addView(rb, i);
         }
         for (int i = 0; i < suggestStatusList.size(); i++) {
             SuggestInfo.SuggestStatus status = suggestStatusList.get(i);
             RadioButton rb = getStatusRadioButton(status);
             rgStatus.addView(rb, i);
         }
-        RadioButton child1 = (RadioButton) rgType.getChildAt(0);
+        RadioButton child1 = (RadioButton) rgKind.getChildAt(0);
         child1.setChecked(true);
         RadioButton child2 = (RadioButton) rgStatus.getChildAt(0);
         child2.setChecked(true);
     }
 
-    private RadioButton getTypeRadioButton(final SuggestInfo.SuggestType contentType) {
+    private RadioButton getKindRadioButton(final SuggestInfo.SuggestKind kind) {
         RadioButton button = new RadioButton(mActivity);
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.bottomMargin = dp5;
@@ -261,14 +261,14 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         } else {
             button.setTextAppearance(mActivity, R.style.FontWhiteNormal);
         }
-        button.setText(contentType.getShow());
+        button.setText(kind.getShow());
         ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
         button.setTextColor(colorStateList);
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    searchType = contentType.getType();
+                    searchKind = kind.getKind();
                 }
             }
         });
@@ -310,7 +310,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).setSuggestListHomeGet(searchStatus, searchType, page);
+        call = new RetrofitHelper().call(API.class).setSuggestListHomeGet(searchStatus, searchKind, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

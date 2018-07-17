@@ -252,7 +252,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean official = suggest.isOfficial();
         boolean mine = suggest.isMine();
         String statusShow = suggest.getStatus() > 0 ? SuggestInfo.getStatusShow(suggest.getStatus()) : "";
-        String typeShow = SuggestInfo.getTypeShow(suggest.getContentType());
+        String kindShow = SuggestInfo.getKindShow(suggest.getKind());
         String title = suggest.getTitle();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
@@ -284,8 +284,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         }
         View tagStatus = getTagView(statusShow);
         wvTag.addChild(tagStatus);
-        View tagType = getTagView(typeShow);
-        wvTag.addChild(tagType);
+        View tagKind = getTagView(kindShow);
+        wvTag.addChild(tagKind);
         // otherView
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);

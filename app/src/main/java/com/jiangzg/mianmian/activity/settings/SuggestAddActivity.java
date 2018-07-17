@@ -61,8 +61,8 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.tvType)
-    TextView tvType;
+    @BindView(R.id.tvKind)
+    TextView tvKind;
     @BindView(R.id.tvTitleLimit)
     TextView tvTitleLimit;
     @BindView(R.id.etTitle)
@@ -78,10 +78,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @BindView(R.id.btnPush)
     Button btnPush;
 
-    private int contentType = 0;
+    private int kind = 0;
     private File cameraFile;
     private File pictureFile;
-    private List<SuggestInfo.SuggestType> suggestTypeList;
+    private List<SuggestInfo.SuggestKind> suggestKindList;
     private int limitTitleLength;
     private int limitContentLength;
     private Call<Result> call;
@@ -150,7 +150,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         SuggestInfo suggestInfo = SuggestInfo.getInstance();
-        suggestTypeList = suggestInfo.getTypeList();
+        suggestKindList = suggestInfo.getKindList();
     }
 
     @Override
@@ -210,10 +210,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.tvType, R.id.tvImageToggle, R.id.btnPush})
+    @OnClick({R.id.tvKind, R.id.tvImageToggle, R.id.btnPush})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tvType: // 选分类
+            case R.id.tvKind: // 选分类
                 showStatusDialog();
                 break;
             case R.id.tvImageToggle: // 操作照片
@@ -282,11 +282,11 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     private void showStatusDialog() {
         // 第一个是全部，不要
-        CharSequence[] items = new CharSequence[suggestTypeList.size() - 1];
-        for (int i = 1; i < suggestTypeList.size(); i++) {
-            SuggestInfo.SuggestType contentType = suggestTypeList.get(i);
-            int index = contentType.getType() - 1;
-            String show = contentType.getShow();
+        CharSequence[] items = new CharSequence[suggestKindList.size() - 1];
+        for (int i = 1; i < suggestKindList.size(); i++) {
+            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
+            int index = kind.getKind() - 1;
+            String show = kind.getShow();
             items[index] = show;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -294,13 +294,13 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.please_choose_classify)
                 .items(items)
-                .itemsCallbackSingleChoice(contentType - 1, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(kind - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         // 第一个忽略
-                        SuggestInfo.SuggestType suggestType = suggestTypeList.get(which + 1);
-                        contentType = suggestType.getType();
-                        tvType.setText(suggestType.getShow());
+                        SuggestInfo.SuggestKind suggestKind = suggestKindList.get(which + 1);
+                        kind = suggestKind.getKind();
+                        tvKind.setText(suggestKind.getShow());
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -311,7 +311,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     // 检查格式
     private void checkPush() {
-        if (contentType <= suggestTypeList.get(0).getType()) {
+        if (kind <= suggestKindList.get(0).getKind()) {
             // 第一个是全部
             ToastUtils.show(getString(R.string.please_choose_classify));
             return;
@@ -352,7 +352,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void pushSuggest(String imgPath) {
         String title = etTitle.getText().toString();
         String content = etContent.getText().toString();
-        Suggest body = ApiHelper.getSuggestAddBody(title, contentType, content, imgPath);
+        Suggest body = ApiHelper.getSuggestAddBody(title, kind, content, imgPath);
         MaterialDialog loading = mActivity.getLoading(false);
         call = new RetrofitHelper().call(API.class).setSuggestAdd(body);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {

@@ -16,14 +16,14 @@ public class Suggest extends BaseObj implements Parcelable {
     public static final int STATUS_HANDLE_ING = 5;
     public static final int STATUS_HANDLE_OVER = 6;
 
-    public static final int TYPE_ALL = 0;
-    public static final int TYPE_ERROR = 1;
-    public static final int TYPE_FUNCTION = 2;
-    public static final int TYPE_OPTIMIZE = 3;
-    public static final int TYPE_DEBUNK = 4;
+    public static final int KIND_ALL = 0;
+    public static final int KIND_ERROR = 1;
+    public static final int KIND_FUNCTION = 2;
+    public static final int KIND_OPTIMIZE = 3;
+    public static final int KIND_DEBUNK = 4;
 
+    private int kind;
     private String title;
-    private int contentType;
     private String contentText;
     private String contentImg;
     // tag标签
@@ -52,12 +52,12 @@ public class Suggest extends BaseObj implements Parcelable {
         this.top = top;
     }
 
-    public int getContentType() {
-        return contentType;
+    public int getKind() {
+        return kind;
     }
 
-    public void setContentType(int contentType) {
-        this.contentType = contentType;
+    public void setKind(int kind) {
+        this.kind = kind;
     }
 
     public boolean isMine() {
@@ -130,7 +130,7 @@ public class Suggest extends BaseObj implements Parcelable {
     protected Suggest(Parcel in) {
         super(in);
         title = in.readString();
-        contentType = in.readInt();
+        kind = in.readInt();
         contentText = in.readString();
         contentImg = in.readString();
         official = in.readByte() != 0;
@@ -146,7 +146,7 @@ public class Suggest extends BaseObj implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeString(title);
-        dest.writeInt(contentType);
+        dest.writeInt(kind);
         dest.writeString(contentText);
         dest.writeString(contentImg);
         dest.writeByte((byte) (official ? 1 : 0));

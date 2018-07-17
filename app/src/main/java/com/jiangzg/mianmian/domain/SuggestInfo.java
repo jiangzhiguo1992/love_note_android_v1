@@ -13,7 +13,7 @@ import java.util.List;
 public class SuggestInfo extends BaseObj {
 
     private List<SuggestStatus> statusList;
-    private List<SuggestType> typeList;
+    private List<SuggestKind> kindList;
 
     public static SuggestInfo getInstance() {
         SuggestInfo info = new SuggestInfo();
@@ -27,14 +27,14 @@ public class SuggestInfo extends BaseObj {
         statusList.add(new SuggestStatus(Suggest.STATUS_HANDLE_ING, MyApp.get().getString(R.string.handle_ing)));
         statusList.add(new SuggestStatus(Suggest.STATUS_HANDLE_OVER, MyApp.get().getString(R.string.handle_over)));
         info.setStatusList(statusList);
-        // type
-        List<SuggestType> typeList = new ArrayList<>();
-        typeList.add(new SuggestType(Suggest.TYPE_ALL, MyApp.get().getString(R.string.all)));
-        typeList.add(new SuggestType(Suggest.TYPE_ERROR, MyApp.get().getString(R.string.program_error)));
-        typeList.add(new SuggestType(Suggest.TYPE_FUNCTION, MyApp.get().getString(R.string.function_add)));
-        typeList.add(new SuggestType(Suggest.TYPE_OPTIMIZE, MyApp.get().getString(R.string.experience_optimize)));
-        typeList.add(new SuggestType(Suggest.TYPE_DEBUNK, MyApp.get().getString(R.string.just_debunk)));
-        info.setTypeList(typeList);
+        // kind
+        List<SuggestKind> kindList = new ArrayList<>();
+        kindList.add(new SuggestKind(Suggest.KIND_ALL, MyApp.get().getString(R.string.all)));
+        kindList.add(new SuggestKind(Suggest.KIND_ERROR, MyApp.get().getString(R.string.program_error)));
+        kindList.add(new SuggestKind(Suggest.KIND_FUNCTION, MyApp.get().getString(R.string.function_add)));
+        kindList.add(new SuggestKind(Suggest.KIND_OPTIMIZE, MyApp.get().getString(R.string.experience_optimize)));
+        kindList.add(new SuggestKind(Suggest.KIND_DEBUNK, MyApp.get().getString(R.string.just_debunk)));
+        info.setKindList(kindList);
         return info;
     }
 
@@ -49,11 +49,11 @@ public class SuggestInfo extends BaseObj {
         return "";
     }
 
-    public static String getTypeShow(int type) {
+    public static String getKindShow(int kind) {
         SuggestInfo info = getInstance();
-        List<SuggestType> typeList = info.getTypeList();
-        for (SuggestType t : typeList) {
-            if (t.getType() == type) {
+        List<SuggestKind> kindList = info.getKindList();
+        for (SuggestKind t : kindList) {
+            if (t.getKind() == kind) {
                 return t.getShow();
             }
         }
@@ -68,12 +68,12 @@ public class SuggestInfo extends BaseObj {
         this.statusList = statusList;
     }
 
-    public List<SuggestType> getTypeList() {
-        return typeList;
+    public List<SuggestKind> getKindList() {
+        return kindList;
     }
 
-    public void setTypeList(List<SuggestType> typeList) {
-        this.typeList = typeList;
+    public void setKindList(List<SuggestKind> kindList) {
+        this.kindList = kindList;
     }
 
     public static class SuggestStatus {
@@ -102,21 +102,21 @@ public class SuggestInfo extends BaseObj {
         }
     }
 
-    public static class SuggestType {
-        private int type;
+    public static class SuggestKind {
+        private int kind;
         private String show;
 
-        public SuggestType(int type, String show) {
-            this.type = type;
+        public SuggestKind(int kind, String show) {
+            this.kind = kind;
             this.show = show;
         }
 
-        public int getType() {
-            return type;
+        public int getKind() {
+            return kind;
         }
 
-        public void setType(int type) {
-            this.type = type;
+        public void setKind(int kind) {
+            this.kind = kind;
         }
 
         public String getShow() {

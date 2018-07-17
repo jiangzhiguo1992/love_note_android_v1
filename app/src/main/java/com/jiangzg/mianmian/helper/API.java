@@ -130,7 +130,7 @@ public interface API {
 
     // 意见列表获取
     @GET("set/suggest?list=1")
-    Call<Result> setSuggestListHomeGet(@Query("status") int status, @Query("content_type") int contentType, @Query("page") int page);
+    Call<Result> setSuggestListHomeGet(@Query("status") int status, @Query("kind") int kind, @Query("page") int page);
 
     // 意见列表获取
     @GET("set/suggest?list=1&mine=1")

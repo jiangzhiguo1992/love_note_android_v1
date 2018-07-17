@@ -231,10 +231,10 @@ public class ApiHelper {
         return user;
     }
 
-    public static Suggest getSuggestAddBody(String title, int contentType, String contentText, String contentImg) {
+    public static Suggest getSuggestAddBody(String title, int kind, String contentText, String contentImg) {
         Suggest suggest = new Suggest();
         suggest.setTitle(title);
-        suggest.setContentType(contentType);
+        suggest.setKind(kind);
         suggest.setContentText(contentText);
         suggest.setContentImg(contentImg);
         return suggest;

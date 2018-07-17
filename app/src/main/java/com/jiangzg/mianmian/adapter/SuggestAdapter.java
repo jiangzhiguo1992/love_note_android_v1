@@ -76,7 +76,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
         String statusShow = item.getStatus() > 0 ? SuggestInfo.getStatusShow(item.getStatus()) : "";
-        String typeShow = SuggestInfo.getTypeShow(item.getContentType());
+        String kindShow = SuggestInfo.getKindShow(item.getKind());
         String title = item.getTitle();
         String contentText = item.getContentText();
         long createdAt = item.getCreateAt();
@@ -118,8 +118,8 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         }
         View tagStatus = getTagView(statusShow);
         wvTag.addChild(tagStatus);
-        View tagType = getTagView(typeShow);
-        wvTag.addChild(tagType);
+        View tagKind = getTagView(kindShow);
+        wvTag.addChild(tagKind);
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);
         helper.setText(R.id.tvCreateAt, createShow);

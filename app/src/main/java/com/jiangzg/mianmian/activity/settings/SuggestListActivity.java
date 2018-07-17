@@ -177,8 +177,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         } else {
             SuggestInfo suggestInfo = SuggestInfo.getInstance();
             int status = suggestInfo.getStatusList().get(0).getStatus();
-            int type = suggestInfo.getTypeList().get(0).getType();
-            call = new RetrofitHelper().call(API.class).setSuggestListHomeGet(status, type, page);
+            int kind = suggestInfo.getKindList().get(0).getKind();
+            call = new RetrofitHelper().call(API.class).setSuggestListHomeGet(status, kind, page);
         }
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
