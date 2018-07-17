@@ -146,7 +146,7 @@ public interface API {
 
     // 意见评论删除
     @DELETE("set/suggest/comment")
-    Call<Result> setSuggestCommentDel(@Query("sid") long suggestCommentId);
+    Call<Result> setSuggestCommentDel(@Query("scid") long suggestCommentId);
 
     // 意见评论获取
     @GET("set/suggest/comment")
