@@ -91,13 +91,13 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         dShy = ViewHelper.getDrawable(mActivity, R.drawable.ic_shy_yellow);
         dSleep = ViewHelper.getDrawable(mActivity, R.drawable.ic_sleep_teal_dark);
         dWord = ViewHelper.getDrawable(mActivity, R.drawable.ic_word_indigo_dark);
-        dWhisper = ViewHelper.getDrawable(mActivity, R.drawable.ic_whisper_orange);
+        dWhisper = ViewHelper.getDrawable(mActivity, R.drawable.ic_whisper_red_accent);
         dDiary = ViewHelper.getDrawable(mActivity, R.drawable.ic_diary_pink_accent);
-        dPhoto = ViewHelper.getDrawable(mActivity, R.drawable.ic_photo_green);
+        dPhoto = ViewHelper.getDrawable(mActivity, R.drawable.ic_photo_orange);
         dAudio = ViewHelper.getDrawable(mActivity, R.drawable.ic_audio_teal_accent);
         dVideo = ViewHelper.getDrawable(mActivity, R.drawable.ic_video_purple_accent);
         dFood = ViewHelper.getDrawable(mActivity, R.drawable.ic_food_yellow_dark);
-        dTravel = ViewHelper.getDrawable(mActivity, R.drawable.ic_travel_red);
+        dTravel = ViewHelper.getDrawable(mActivity, R.drawable.ic_travel_green);
         dGift = ViewHelper.getDrawable(mActivity, R.drawable.ic_gift_lime);
         dPromise = ViewHelper.getDrawable(mActivity, R.drawable.ic_promise_blue);
         dAngry = ViewHelper.getDrawable(mActivity, R.drawable.ic_angry_purple_dark);
