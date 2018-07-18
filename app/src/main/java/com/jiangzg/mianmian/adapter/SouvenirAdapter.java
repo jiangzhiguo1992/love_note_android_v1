@@ -27,7 +27,7 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
     private String formatHave;
 
     public SouvenirAdapter(Fragment fragment, boolean done) {
-        super(R.layout.list_item_souvenir_done);
+        super(R.layout.list_item_souvenir);
         mFragment = fragment;
         this.done = done;
         formatGone = mFragment.getString(R.string.already_gone_holder_day);
