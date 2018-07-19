@@ -396,6 +396,11 @@
     <string name="dream">梦境</string>
     <string name="award">奖励</string>
     <string name="award_rule">奖励规则</string>
+    <string name="casual_note">随笔</string>
+    <string name="live">生活</string>
+    <string name="media">多媒体</string>
+    <string name="note">笔记</string>
+    <string name="eat_drink_play_happy">吃喝玩乐</string>
     <string name="add_track">添加足迹</string>
     <string name="add_gift">添加礼物</string>
     <string name="add_travel">添加游记</string>

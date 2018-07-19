@@ -18,6 +18,7 @@ import com.jiangzg.mianmian.activity.note.AlbumListActivity;
 import com.jiangzg.mianmian.activity.note.AngryListActivity;
 import com.jiangzg.mianmian.activity.note.AudioListActivity;
 import com.jiangzg.mianmian.activity.note.AwardListActivity;
+import com.jiangzg.mianmian.activity.note.BookTotalActivity;
 import com.jiangzg.mianmian.activity.note.DiaryListActivity;
 import com.jiangzg.mianmian.activity.note.DreamListActivity;
 import com.jiangzg.mianmian.activity.note.FoodListActivity;
@@ -85,42 +86,45 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @BindView(R.id.tvSouvenirCountDown)
     TextView tvSouvenirCountDown;
 
+    @BindView(R.id.cvTotal)
+    CardView cvTotal;
     @BindView(R.id.cvTrends)
     CardView cvTrends;
-    @BindView(R.id.cvMenses)
-    CardView cvMenses;
-    @BindView(R.id.cvShy)
-    CardView cvShy;
-    @BindView(R.id.cvSleep)
-    CardView cvSleep;
 
     @BindView(R.id.cvWord)
     CardView cvWord;
     @BindView(R.id.cvWhisper)
     CardView cvWhisper;
-    @BindView(R.id.cvDiary)
-    CardView cvDiary;
-    @BindView(R.id.cvAlbum)
-    CardView cvAlbum;
+
+    @BindView(R.id.cvShy)
+    CardView cvShy;
+    @BindView(R.id.cvMenses)
+    CardView cvMenses;
+    @BindView(R.id.cvSleep)
+    CardView cvSleep;
 
     @BindView(R.id.cvAudio)
     CardView cvAudio;
     @BindView(R.id.cvVideo)
     CardView cvVideo;
+    @BindView(R.id.cvAlbum)
+    CardView cvAlbum;
+
+    @BindView(R.id.cvGift)
+    CardView cvGift;
     @BindView(R.id.cvFood)
     CardView cvFood;
     @BindView(R.id.cvTravel)
     CardView cvTravel;
 
-    @BindView(R.id.cvGift)
-    CardView cvGift;
-    @BindView(R.id.cvPromise)
-    CardView cvPromise;
     @BindView(R.id.cvAngry)
     CardView cvAngry;
     @BindView(R.id.cvDream)
     CardView cvDream;
-
+    @BindView(R.id.cvDiary)
+    CardView cvDiary;
+    @BindView(R.id.cvPromise)
+    CardView cvPromise;
     @BindView(R.id.cvAward)
     CardView cvAward;
 
@@ -140,7 +144,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_note;
+        return R.layout.fragment_note_2;
     }
 
     @Override
@@ -198,12 +202,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvSouvenir,
-            R.id.cvTrends, R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
-            R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAlbum,
-            R.id.cvAudio, R.id.cvVideo, R.id.cvFood, R.id.cvTravel,
-            R.id.cvGift, R.id.cvPromise, R.id.cvAngry, R.id.cvDream,
-            R.id.cvAward})
+    @OnClick({R.id.cvSouvenir, R.id.cvTrends, R.id.cvTotal,
+            R.id.cvWord, R.id.cvWhisper,
+            R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
+            R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum,
+            R.id.cvGift, R.id.cvFood, R.id.cvTravel,
+            R.id.cvAngry, R.id.cvDream, R.id.cvDiary, R.id.cvPromise, R.id.cvAward})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无效配对
@@ -222,17 +226,11 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvSouvenir: // 纪念日
                 SouvenirListActivity.goActivity(mFragment);
                 break;
+            case R.id.cvTotal: // 统计
+                BookTotalActivity.goActivity(mFragment);
+                break;
             case R.id.cvTrends: // 动态
                 TrendsListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvMenses: // 姨妈
-                MensesActivity.goActivity(mFragment);
-                break;
-            case R.id.cvShy: // 羞羞
-                ShyActivity.goActivity(mFragment);
-                break;
-            case R.id.cvSleep: // 睡眠
-                SleepActivity.goActivity(mFragment);
                 break;
             case R.id.cvWord: // 留言
                 WordListActivity.goActivity(mFragment);
@@ -240,11 +238,14 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvWhisper: // 耳语
                 WhisperListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvDiary: // 日记
-                DiaryListActivity.goActivity(mFragment);
+            case R.id.cvShy: // 羞羞
+                ShyActivity.goActivity(mFragment);
                 break;
-            case R.id.cvAlbum: // 相册
-                AlbumListActivity.goActivity(mFragment);
+            case R.id.cvMenses: // 姨妈
+                MensesActivity.goActivity(mFragment);
+                break;
+            case R.id.cvSleep: // 睡眠
+                SleepActivity.goActivity(mFragment);
                 break;
             case R.id.cvAudio: // 音频
                 AudioListActivity.goActivity(mFragment);
@@ -252,23 +253,29 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvVideo: // 视频
                 VideoListActivity.goActivity(mFragment);
                 break;
+            case R.id.cvAlbum: // 相册
+                AlbumListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvGift: // 礼物
+                GiftListActivity.goActivity(mFragment);
+                break;
             case R.id.cvFood: // 美食
                 FoodListActivity.goActivity(mFragment);
                 break;
             case R.id.cvTravel: // 游记
                 TravelListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvGift: // 礼物
-                GiftListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvPromise: // 承诺
-                PromiseListActivity.goActivity(mFragment);
-                break;
             case R.id.cvAngry: // 生气
                 AngryListActivity.goActivity(mFragment);
                 break;
             case R.id.cvDream: // 梦里
                 DreamListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvDiary: // 日记
+                DiaryListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvPromise: // 承诺
+                PromiseListActivity.goActivity(mFragment);
                 break;
             case R.id.cvAward: // 奖励
                 AwardListActivity.goActivity(mFragment);

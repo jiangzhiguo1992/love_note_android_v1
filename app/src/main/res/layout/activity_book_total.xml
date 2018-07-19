@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.jiangzg.mianmian.activity.note.BookTotalActivity">
+
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_primary_white">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvShow"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:text="后台显示信息"
+                    tools:visibility="visible"/>
+
+                <LinearLayout
+                    android:id="@+id/llTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <!-- 第三行 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvSouvenir"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_souvenir_primary_dark"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="10000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvWord"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_word_green_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="10000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvDiary"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_diary_pink_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvPicture"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_photo_teal_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <!-- 第四行 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvAudio"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_audio_teal_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvVideo"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_video_teal_accnet"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvFood"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_food_lime_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="10000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvTravel"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_travel_lime_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
+
+                    <!-- 第五行 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvGift"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_gift_lime_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvPromise"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_promise_pink_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="2dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvAngry"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_angry_pink_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="2dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvDream"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_dream_pink_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvAward"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_award_pink_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
+</LinearLayout>
