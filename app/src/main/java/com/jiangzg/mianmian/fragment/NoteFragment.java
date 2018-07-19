@@ -116,6 +116,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     CardView cvFood;
     @BindView(R.id.cvTravel)
     CardView cvTravel;
+    @BindView(R.id.cvAward)
+    CardView cvAward;
 
     @BindView(R.id.cvAngry)
     CardView cvAngry;
@@ -125,8 +127,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     CardView cvDiary;
     @BindView(R.id.cvPromise)
     CardView cvPromise;
-    @BindView(R.id.cvAward)
-    CardView cvAward;
 
     private boolean canLock;
     private boolean isLock;
@@ -206,8 +206,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             R.id.cvWord, R.id.cvWhisper,
             R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
             R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum,
-            R.id.cvGift, R.id.cvFood, R.id.cvTravel,
-            R.id.cvAngry, R.id.cvDream, R.id.cvDiary, R.id.cvPromise, R.id.cvAward})
+            R.id.cvGift, R.id.cvFood, R.id.cvTravel, R.id.cvAward,
+            R.id.cvAngry, R.id.cvDream, R.id.cvDiary, R.id.cvPromise})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无效配对
@@ -265,6 +265,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvTravel: // 游记
                 TravelListActivity.goActivity(mFragment);
                 break;
+            case R.id.cvAward: // 奖励
+                AwardListActivity.goActivity(mFragment);
+                break;
             case R.id.cvAngry: // 生气
                 AngryListActivity.goActivity(mFragment);
                 break;
@@ -276,9 +279,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 break;
             case R.id.cvPromise: // 承诺
                 PromiseListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvAward: // 奖励
-                AwardListActivity.goActivity(mFragment);
                 break;
         }
     }

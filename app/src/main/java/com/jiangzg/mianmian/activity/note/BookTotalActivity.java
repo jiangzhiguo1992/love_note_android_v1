@@ -1,8 +1,8 @@
 package com.jiangzg.mianmian.activity.note;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -26,7 +26,7 @@ import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class TrendsTotalActivity extends BaseActivity<TrendsTotalActivity> {
+public class BookTotalActivity extends BaseActivity<BookTotalActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -65,8 +65,8 @@ public class TrendsTotalActivity extends BaseActivity<TrendsTotalActivity> {
 
     private Call<Result> call;
 
-    public static void goActivity(Activity from) {
-        Intent intent = new Intent(from, TrendsTotalActivity.class);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), BookTotalActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -74,7 +74,7 @@ public class TrendsTotalActivity extends BaseActivity<TrendsTotalActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_trends_total;
+        return R.layout.activity_book_total;
     }
 
     @Override

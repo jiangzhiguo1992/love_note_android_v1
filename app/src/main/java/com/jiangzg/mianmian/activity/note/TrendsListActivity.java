@@ -3,7 +3,6 @@ package com.jiangzg.mianmian.activity.note;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +24,6 @@ import com.jiangzg.mianmian.domain.Trends;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
-import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
@@ -64,14 +62,11 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.trends), true);
-        // total
-        boolean totalEnable = SPHelper.getVipLimit().isTrendsTotalEnable();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
                 .initAdapter(new TrendsAdapter(mActivity))
-                .viewHeader(mActivity, totalEnable ? R.layout.list_head_trends : 0)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -98,10 +93,6 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
                         }
                     }
                 });
-        // head
-        if (totalEnable) {
-            initHead();
-        }
     }
 
     @Override
@@ -132,18 +123,6 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void initHead() {
-        if (recyclerHelper == null) return;
-        View head = recyclerHelper.getViewHead();
-        CardView root = head.findViewById(R.id.root);
-        root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TrendsTotalActivity.goActivity(mActivity);
-            }
-        });
     }
 
     private void getData(final boolean more) {

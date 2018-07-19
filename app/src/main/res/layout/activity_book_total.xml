@@ -33,7 +33,7 @@
                     android:gravity="center"
                     android:visibility="gone"
                     tools:text="后台显示信息"
-                    tools:visibility="visible"/>
+                    tools:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@+id/llTotal"
@@ -45,18 +45,51 @@
                     android:visibility="gone"
                     tools:visibility="visible">
 
-                    <!-- 第三行 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            style="@style/FontWhiteSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/note"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+                    </LinearLayout>
+
+                    <!-- 笔记 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvSouvenir"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
+                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -71,7 +104,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_souvenir_primary_dark"
+                                android:drawableTop="@drawable/ic_souvenir_pink_dark"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
@@ -79,11 +112,13 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvWord"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -98,7 +133,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_word_green_accent"
+                                android:drawableTop="@drawable/ic_word_indigo_dark"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
@@ -106,11 +141,13 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvDiary"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -133,11 +170,13 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvAward"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:layout_marginEnd="10dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -147,12 +186,12 @@
                             app:cardMaxElevation="@dimen/elevation_big">
 
                             <TextView
-                                android:id="@+id/tvPicture"
+                                android:id="@+id/tvAward"
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_photo_teal_accent"
+                                android:drawableTop="@drawable/ic_award_indigo_accent"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
@@ -160,18 +199,238 @@
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
 
-                    <!-- 第四行 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:weightSum="4">
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvDream"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
+                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvDream"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_dream_brown"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvGift"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvGift"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_gift_lime"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvFood"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvFood"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_food_yellow_dark"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="10000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvTravel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvTravel"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_travel_red"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvAngry"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvAngry"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_angry_purple_dark"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvPromise"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                android:id="@+id/tvPromise"
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_promise_blue"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                tools:text="100000"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+
+                        <TextView
+                            style="@style/FontWhiteSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/media"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"
+                            android:background="@color/white"/>
+                    </LinearLayout>
+
+                    <!-- 多媒体 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvAudio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -194,11 +453,13 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvVideo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -213,7 +474,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_video_teal_accnet"
+                                android:drawableTop="@drawable/ic_video_purple_accent"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
@@ -221,188 +482,13 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                android:id="@+id/tvFood"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_food_lime_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                tools:text="10000"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                android:id="@+id/tvTravel"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_travel_lime_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                tools:text="100000"/>
-                        </android.support.v7.widget.CardView>
-
-                    </LinearLayout>
-
-                    <!-- 第五行 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                android:id="@+id/tvGift"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_gift_lime_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                tools:text="100000"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                android:id="@+id/tvPromise"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_promise_pink_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                tools:text="100000"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                android:id="@+id/tvAngry"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_angry_pink_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                tools:text="100000"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                android:id="@+id/tvDream"
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_dream_pink_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                tools:text="100000"/>
-                        </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
-
-                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvPhoto"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -412,12 +498,12 @@
                             app:cardMaxElevation="@dimen/elevation_big">
 
                             <TextView
-                                android:id="@+id/tvAward"
+                                android:id="@+id/tvPicture"
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_award_pink_accent"
+                                android:drawableTop="@drawable/ic_photo_green"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"

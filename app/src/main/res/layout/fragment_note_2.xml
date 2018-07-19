@@ -569,7 +569,7 @@
                                     android:layout_height="30dp"
                                     android:layout_alignParentEnd="true"
                                     android:layout_marginBottom="5dp"
-                                    android:src="@drawable/ic_video_teal_accnet"/>
+                                    android:src="@drawable/ic_video_teal_accent"/>
 
                                 <View
                                     android:layout_width="match_parent"
