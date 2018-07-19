@@ -12,8 +12,7 @@
     <com.jiangzg.mianmian.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_gradient_primary_white">
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -28,216 +27,138 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    <!-- 第一行 -->
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cvSouvenir"
+
+                    <!-- 纪念日 -->
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/radius_normal"
-                        app:cardElevation="@dimen/elevation_normal"
-                        app:cardMaxElevation="@dimen/elevation_big">
+                        android:background="@drawable/shape_gradient_primary_grey">
 
-                        <LinearLayout
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvSouvenir"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:layout_margin="10dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
 
-                            <ImageView
-                                android:layout_width="50dp"
-                                android:layout_height="50dp"
-                                android:layout_marginEnd="10dp"
-                                android:src="@drawable/ic_souvenir_pink_dark"/>
-
-                            <RelativeLayout
-                                android:id="@+id/rlSouvenir"
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center_vertical|start"
-                                android:visibility="gone"
-                                tools:visibility="visible">
-
-                                <TextView
-                                    android:id="@+id/tvSouvenirYear"
-                                    style="@style/FontPrimaryBig"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    tools:text="三周年"/>
-
-                                <TextView
-                                    android:id="@+id/tvSouvenirTitle"
-                                    style="@style/FontGreyNormal"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignBottom="@+id/tvSouvenirYear"
-                                    android:layout_alignTop="@+id/tvSouvenirYear"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_toEndOf="@+id/tvSouvenirYear"
-                                    android:ellipsize="end"
-                                    android:gravity="center"
-                                    android:minLines="1"
-                                    android:singleLine="true"
-                                    android:textStyle="bold"
-                                    tools:text="第一次拉手手"/>
-
-                                <TextView
-                                    android:id="@+id/tvSouvenirCountDown"
-                                    style="@style/FontPrimaryHuge"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@+id/tvSouvenirYear"
-                                    android:layout_marginTop="3dp"
-                                    android:gravity="center"
-                                    android:textStyle="bold"
-                                    tools:text="倒计时 XX天 XX:XX:XX"/>
-                            </RelativeLayout>
-
-                            <TextView
-                                android:id="@+id/tvSouvenirEmpty"
-                                style="@style/FontGreyBig"
-                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:text="@string/per_day_is_souvenir"
-                                android:textStyle="bold"
-                                android:visibility="gone"
-                                tools:visibility="gone"/>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                                android:gravity="center"
+                                android:orientation="horizontal"
+                                android:padding="10dp">
 
-                    <!-- 第二行 -->
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:src="@drawable/ic_souvenir_pink_dark"/>
+
+                                <RelativeLayout
+                                    android:id="@+id/rlSouvenir"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical|start"
+                                    android:visibility="gone"
+                                    tools:visibility="visible">
+
+                                    <TextView
+                                        android:id="@+id/tvSouvenirYear"
+                                        style="@style/FontPrimaryBig"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        tools:text="三周年"/>
+
+                                    <TextView
+                                        android:id="@+id/tvSouvenirTitle"
+                                        style="@style/FontGreyNormal"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignBottom="@+id/tvSouvenirYear"
+                                        android:layout_alignTop="@+id/tvSouvenirYear"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_toEndOf="@+id/tvSouvenirYear"
+                                        android:ellipsize="end"
+                                        android:gravity="center"
+                                        android:minLines="1"
+                                        android:singleLine="true"
+                                        android:textStyle="bold"
+                                        tools:text="第一次拉手手"/>
+
+                                    <TextView
+                                        android:id="@+id/tvSouvenirCountDown"
+                                        style="@style/FontPrimaryHuge"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/tvSouvenirYear"
+                                        android:layout_marginTop="3dp"
+                                        android:gravity="center"
+                                        android:textStyle="bold"
+                                        tools:text="倒计时 XX天 XX:XX:XX"/>
+                                </RelativeLayout>
+
+                                <TextView
+                                    android:id="@+id/tvSouvenirEmpty"
+                                    style="@style/FontGreyBig"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/per_day_is_souvenir"
+                                    android:textStyle="bold"
+                                    android:visibility="gone"
+                                    tools:visibility="gone"/>
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+                    </RelativeLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvTrends"
-                            android:layout_width="0dp"
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/FontGreySmall"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="3dp"
-                                android:drawableTop="@drawable/ic_trends_grey"
-                                android:gravity="center"
-                                android:paddingBottom="8dp"
-                                android:paddingTop="8dp"
-                                android:text="@string/trends"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvMenses"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginStart="3dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="3dp"
-                                android:drawableTop="@drawable/ic_menses_red_dark"
-                                android:gravity="center"
-                                android:paddingBottom="8dp"
-                                android:paddingTop="8dp"
-                                android:text="@string/menses"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvShy"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
-                            android:layout_marginStart="3dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="3dp"
-                                android:drawableTop="@drawable/ic_shy_yellow"
-                                android:gravity="center"
-                                android:paddingBottom="8dp"
-                                android:paddingTop="8dp"
-                                android:text="@string/shy"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvSleep"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
                             android:layout_marginEnd="10dp"
-                            android:layout_marginStart="3dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
+                            android:layout_marginStart="10dp"
+                            android:text="@string/casual_note"
+                            android:textColor="@color/font_hint"/>
 
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="3dp"
-                                android:drawableTop="@drawable/ic_sleep_teal_dark"
-                                android:gravity="center"
-                                android:paddingBottom="8dp"
-                                android:paddingTop="8dp"
-                                android:text="@string/sleep"/>
-                        </android.support.v7.widget.CardView>
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
                     </LinearLayout>
 
-                    <!-- 第三行 -->
+                    <!-- 随笔 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cvWord"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="35dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -263,8 +184,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginStart="35dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -284,75 +205,170 @@
                                 android:paddingTop="10dp"
                                 android:text="@string/whisper"/>
                         </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvDiary"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_diary_pink_accent"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                android:text="@string/diary"/>
-                        </android.support.v7.widget.CardView>
-
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvAlbum"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_photo_green"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                android:text="@string/album"/>
-                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
-                    <!-- 第四行 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/FontGreySmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/live"
+                            android:textColor="@color/font_hint"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+                    <!-- 生活 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvShy"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_shy_yellow"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/shy"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvMenses"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_menses_red_dark"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/menses"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvSleep"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_sleep_teal_dark"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/sleep"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/FontGreySmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/media"
+                            android:textColor="@color/font_hint"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+                    <!-- 多媒体 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cvAudio"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -378,8 +394,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -401,12 +418,105 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvAlbum"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_photo_green"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/album"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/FontGreySmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/eat_drink_play_happy"
+                            android:textColor="@color/font_hint"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+                    <!-- 吃喝玩乐 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvGift"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_gift_lime"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/gift"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:id="@+id/cvFood"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -432,8 +542,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -453,75 +564,80 @@
                                 android:paddingTop="10dp"
                                 android:text="@string/travel"/>
                         </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvAward"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_award_indigo_accent"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/award"/>
+                        </android.support.v7.widget.CardView>
                     </LinearLayout>
 
-                    <!-- 第五行 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvGift"
-                            android:layout_width="0dp"
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/FontGreySmall"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
+                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
+                            android:text="@string/note"
+                            android:textColor="@color/font_hint"/>
 
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_gift_lime"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                android:text="@string/gift"/>
-                        </android.support.v7.widget.CardView>
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
 
-                        <android.support.v7.widget.CardView
-                            android:id="@+id/cvPromise"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
-                            android:layout_weight="1"
-                            android:background="?attr/selectableItemBackground"
-                            android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/radius_normal"
-                            app:cardElevation="@dimen/elevation_normal"
-                            app:cardMaxElevation="@dimen/elevation_big">
-
-                            <TextView
-                                style="@style/FontGreyNormal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_promise_blue"
-                                android:gravity="center"
-                                android:paddingBottom="10dp"
-                                android:paddingTop="10dp"
-                                android:text="@string/promise"/>
-                        </android.support.v7.widget.CardView>
+                    <!-- 笔记 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
 
                         <android.support.v7.widget.CardView
                             android:id="@+id/cvAngry"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -543,12 +659,41 @@
                         </android.support.v7.widget.CardView>
 
                         <android.support.v7.widget.CardView
+                            android:id="@+id/cvPromise"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_promise_blue"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/promise"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
                             android:id="@+id/cvDream"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -568,21 +713,15 @@
                                 android:paddingTop="10dp"
                                 android:text="@string/dream"/>
                         </android.support.v7.widget.CardView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
 
                         <android.support.v7.widget.CardView
-                            android:id="@+id/cvAward"
+                            android:id="@+id/cvDiary"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -596,11 +735,102 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="5dp"
-                                android:drawableTop="@drawable/ic_award_indigo_accent"
+                                android:drawableTop="@drawable/ic_diary_pink_accent"
                                 android:gravity="center"
                                 android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
-                                android:text="@string/award"/>
+                                android:text="@string/diary"/>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/FontGreySmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/other"
+                            android:textColor="@color/font_hint"/>
+
+                        <View
+                            style="@style/LineHorizontal"
+                            android:layout_weight="1"/>
+                    </LinearLayout>
+
+                    <!-- 其他 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvTotal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginEnd="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_total_grey_dark"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/statistics"/>
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/cvTrends"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:foreground="?attr/selectableItemBackground"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="@dimen/radius_normal"
+                            app:cardElevation="@dimen/elevation_normal"
+                            app:cardMaxElevation="@dimen/elevation_big">
+
+                            <TextView
+                                style="@style/FontGreyNormal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="5dp"
+                                android:drawableTop="@drawable/ic_trends_grey"
+                                android:gravity="center"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="10dp"
+                                android:text="@string/trends"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
                 </LinearLayout>

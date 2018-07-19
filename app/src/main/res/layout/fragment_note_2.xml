@@ -1194,7 +1194,7 @@
                                     android:layout_height="30dp"
                                     android:layout_alignParentEnd="true"
                                     android:layout_marginBottom="5dp"
-                                    android:src="@drawable/ic_total_brown_accent"/>
+                                    android:src="@drawable/ic_total_grey_dark"/>
 
                                 <View
                                     android:layout_width="match_parent"

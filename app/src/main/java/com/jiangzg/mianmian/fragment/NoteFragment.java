@@ -144,7 +144,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     @Override
     protected int getView(Bundle data) {
-        return R.layout.fragment_note_2;
+        return R.layout.fragment_note_3;
     }
 
     @Override
