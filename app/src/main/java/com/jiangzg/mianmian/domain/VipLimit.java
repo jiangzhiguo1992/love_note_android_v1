@@ -13,11 +13,6 @@ public class VipLimit {
     // note
     private boolean noteTotalEnable;
     private int souvenirCount;
-    private int travelPlaceCount;
-    private int travelVideoCount;
-    private int travelFoodCount;
-    private int travelAlbumCount;
-    private int travelDiaryCount;
     private long videoSize;
     private int videoTotalCount;
     private long audioSize;
@@ -46,46 +41,6 @@ public class VipLimit {
 
     public void setSouvenirCount(int souvenirCount) {
         this.souvenirCount = souvenirCount;
-    }
-
-    public int getTravelPlaceCount() {
-        return travelPlaceCount;
-    }
-
-    public void setTravelPlaceCount(int travelPlaceCount) {
-        this.travelPlaceCount = travelPlaceCount;
-    }
-
-    public int getTravelVideoCount() {
-        return travelVideoCount;
-    }
-
-    public void setTravelVideoCount(int travelVideoCount) {
-        this.travelVideoCount = travelVideoCount;
-    }
-
-    public int getTravelFoodCount() {
-        return travelFoodCount;
-    }
-
-    public void setTravelFoodCount(int travelFoodCount) {
-        this.travelFoodCount = travelFoodCount;
-    }
-
-    public int getTravelAlbumCount() {
-        return travelAlbumCount;
-    }
-
-    public void setTravelAlbumCount(int travelAlbumCount) {
-        this.travelAlbumCount = travelAlbumCount;
-    }
-
-    public int getTravelDiaryCount() {
-        return travelDiaryCount;
-    }
-
-    public void setTravelDiaryCount(int travelDiaryCount) {
-        this.travelDiaryCount = travelDiaryCount;
     }
 
     public int getFoodImageCount() {

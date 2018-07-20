@@ -431,7 +431,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             return;
         }
         // place
-        int placeCount = SPHelper.getVipLimit().getTravelPlaceCount();
+        int placeCount = SPHelper.getLimit().getTravelPlaceCount();
         if (recyclerPlace == null || recyclerPlace.getAdapter() == null) {
             cvPlaceAdd.setVisibility(View.VISIBLE);
         } else if (recyclerPlace.getAdapter().getData().size() < placeCount) {
@@ -440,7 +440,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             cvPlaceAdd.setVisibility(View.GONE);
         }
         // album
-        int albumCount = SPHelper.getVipLimit().getTravelAlbumCount();
+        int albumCount = SPHelper.getLimit().getTravelAlbumCount();
         if (recyclerAlbum == null || recyclerAlbum.getAdapter() == null) {
             cvAlbumAdd.setVisibility(View.VISIBLE);
         } else if (recyclerAlbum.getAdapter().getData().size() < albumCount) {
@@ -449,7 +449,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             cvAlbumAdd.setVisibility(View.GONE);
         }
         // video
-        int videoCount = SPHelper.getVipLimit().getTravelVideoCount();
+        int videoCount = SPHelper.getLimit().getTravelVideoCount();
         if (recyclerVideo == null || recyclerVideo.getAdapter() == null) {
             cvVideoAdd.setVisibility(View.VISIBLE);
         } else if (recyclerVideo.getAdapter().getData().size() < videoCount) {
@@ -458,7 +458,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             cvVideoAdd.setVisibility(View.GONE);
         }
         // food
-        int foodCount = SPHelper.getVipLimit().getTravelFoodCount();
+        int foodCount = SPHelper.getLimit().getTravelFoodCount();
         if (recyclerFood == null || recyclerFood.getAdapter() == null) {
             cvFoodAdd.setVisibility(View.VISIBLE);
         } else if (recyclerFood.getAdapter().getData().size() < foodCount) {
@@ -467,7 +467,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             cvFoodAdd.setVisibility(View.GONE);
         }
         // diary
-        int diaryCount = SPHelper.getVipLimit().getTravelDiaryCount();
+        int diaryCount = SPHelper.getLimit().getTravelDiaryCount();
         if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
             cvDiaryAdd.setVisibility(View.VISIBLE);
         } else if (recyclerDiary.getAdapter().getData().size() < diaryCount) {

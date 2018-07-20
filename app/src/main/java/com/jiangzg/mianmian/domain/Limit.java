@@ -24,6 +24,11 @@ public class Limit {
     private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
+    private int travelPlaceCount;
+    private int travelVideoCount;
+    private int travelFoodCount;
+    private int travelAlbumCount;
+    private int travelDiaryCount;
     private int audioTitleLength;
     private int videoTitleLength;
     private int albumTitleLength;
@@ -47,6 +52,46 @@ public class Limit {
 
     // more
     private int vipExpireDay;
+
+    public int getTravelPlaceCount() {
+        return travelPlaceCount;
+    }
+
+    public void setTravelPlaceCount(int travelPlaceCount) {
+        this.travelPlaceCount = travelPlaceCount;
+    }
+
+    public int getTravelVideoCount() {
+        return travelVideoCount;
+    }
+
+    public void setTravelVideoCount(int travelVideoCount) {
+        this.travelVideoCount = travelVideoCount;
+    }
+
+    public int getTravelFoodCount() {
+        return travelFoodCount;
+    }
+
+    public void setTravelFoodCount(int travelFoodCount) {
+        this.travelFoodCount = travelFoodCount;
+    }
+
+    public int getTravelAlbumCount() {
+        return travelAlbumCount;
+    }
+
+    public void setTravelAlbumCount(int travelAlbumCount) {
+        this.travelAlbumCount = travelAlbumCount;
+    }
+
+    public int getTravelDiaryCount() {
+        return travelDiaryCount;
+    }
+
+    public void setTravelDiaryCount(int travelDiaryCount) {
+        this.travelDiaryCount = travelDiaryCount;
+    }
 
     public int getNoteLockLength() {
         return noteLockLength;
