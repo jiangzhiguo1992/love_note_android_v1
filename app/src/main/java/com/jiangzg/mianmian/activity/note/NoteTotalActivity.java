@@ -20,13 +20,14 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class BookTotalActivity extends BaseActivity<BookTotalActivity> {
+public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -66,7 +67,8 @@ public class BookTotalActivity extends BaseActivity<BookTotalActivity> {
     private Call<Result> call;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), BookTotalActivity.class);
+        if (!SPHelper.getVipLimit().isNoteTotalEnable()) return;
+        Intent intent = new Intent(from.getActivity(), NoteTotalActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -74,7 +76,7 @@ public class BookTotalActivity extends BaseActivity<BookTotalActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_book_total;
+        return R.layout.activity_note_total;
     }
 
     @Override

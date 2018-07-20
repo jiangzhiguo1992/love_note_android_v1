@@ -11,33 +11,33 @@ public class VipLimit {
     // couple
     private int wallPaperCount;
     // note
-    private boolean trendsTotalEnable;
+    private boolean noteTotalEnable;
     private int souvenirCount;
     private int travelPlaceCount;
     private int travelVideoCount;
     private int travelFoodCount;
     private int travelAlbumCount;
     private int travelDiaryCount;
-    private int whisperImageCount;
-    private int foodImageCount;
-    private int giftImageCount;
-    private long diaryImageSize;
-    private int diaryImageCount;
-    private long pictureSize;
-    private int pictureTotalCount;
-    private long audioSize;
-    private int audioTotalCount;
     private long videoSize;
     private int videoTotalCount;
+    private long audioSize;
+    private int audioTotalCount;
+    private long pictureSize;
+    private int pictureTotalCount;
+    private long diaryImageSize;
+    private int diaryImageCount;
+    private int whisperImageCount;
+    private int giftImageCount;
+    private int foodImageCount;
     // topic
     private boolean topicImageEnable;
 
-    public boolean isTrendsTotalEnable() {
-        return trendsTotalEnable;
+    public boolean isNoteTotalEnable() {
+        return noteTotalEnable;
     }
 
-    public void setTrendsTotalEnable(boolean trendsTotalEnable) {
-        this.trendsTotalEnable = trendsTotalEnable;
+    public void setNoteTotalEnable(boolean noteTotalEnable) {
+        this.noteTotalEnable = noteTotalEnable;
     }
 
     public int getSouvenirCount() {

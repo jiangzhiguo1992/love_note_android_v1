@@ -982,72 +982,6 @@ public class OssHelper {
         uploadJpeg(activity, pathCoupleWall, source, callBack);
     }
 
-    // 耳语 (压缩 + 持久化)
-    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteWhisper = ossInfo.getPathNoteWhisper();
-        compressJpeg(activity, pathNoteWhisper, source, callBack);
-    }
-
-    // 日记 (限制大小 + 持久化)
-    public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        long imageSize = SPHelper.getVipLimit().getDiaryImageSize();
-        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        boolean overLimit = false;
-        for (File file : fileList) {
-            if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= imageSize) {
-                overLimit = true;
-                break;
-            }
-        }
-        if (overLimit) {
-            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
-            ToastUtils.show(format);
-            if (callBack != null) {
-                callBack.failure(fileList, "");
-            }
-            return;
-        }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteDiary = ossInfo.getPathNoteDiary();
-        uploadJpegList(activity, pathNoteDiary, fileList, callBack);
-    }
-
-    // 相册 (压缩 + 持久化)
-    public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNoteAlbum = ossInfo.getPathNoteAlbum();
-        compressJpeg(activity, pathNoteAlbum, source, callBack);
-    }
-
-    // 照片 (限制大小 + 持久化)
-    public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
-        long imageSize = SPHelper.getVipLimit().getPictureSize();
-        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
-        boolean overLimit = false;
-        for (File file : fileList) {
-            if (FileUtils.isFileEmpty(file)) continue;
-            if (file.length() >= imageSize) {
-                overLimit = true;
-                break;
-            }
-        }
-        if (overLimit) {
-            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
-            ToastUtils.show(format);
-            if (callBack != null) {
-                callBack.failure(fileList, "");
-            }
-            return;
-        }
-        OssInfo ossInfo = SPHelper.getOssInfo();
-        String pathNotePicture = ossInfo.getPathNotePicture();
-        uploadJpegList(activity, pathNotePicture, fileList, callBack);
-    }
-
     // 音频 (限制大小 +  持久化)
     public static void uploadAudio(Activity activity, final File source, final OssUploadCallBack callBack) {
         long audioSize = SPHelper.getVipLimit().getAudioSize();
@@ -1087,6 +1021,72 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathNoteVideo = ossInfo.getPathNoteVideo();
         uploadExtension(activity, pathNoteVideo, source, callBack);
+    }
+
+    // 相册 (压缩 + 持久化)
+    public static void uploadAlbum(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathNoteAlbum = ossInfo.getPathNoteAlbum();
+        compressJpeg(activity, pathNoteAlbum, source, callBack);
+    }
+
+    // 照片 (限制大小 + 持久化)
+    public static void uploadPicture(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        long imageSize = SPHelper.getVipLimit().getPictureSize();
+        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        boolean overLimit = false;
+        for (File file : fileList) {
+            if (FileUtils.isFileEmpty(file)) continue;
+            if (file.length() >= imageSize) {
+                overLimit = true;
+                break;
+            }
+        }
+        if (overLimit) {
+            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
+            ToastUtils.show(format);
+            if (callBack != null) {
+                callBack.failure(fileList, "");
+            }
+            return;
+        }
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathNotePicture = ossInfo.getPathNotePicture();
+        uploadJpegList(activity, pathNotePicture, fileList, callBack);
+    }
+
+    // 耳语 (压缩 + 持久化)
+    public static void uploadWhisper(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathNoteWhisper = ossInfo.getPathNoteWhisper();
+        compressJpeg(activity, pathNoteWhisper, source, callBack);
+    }
+
+    // 日记 (限制大小 + 持久化)
+    public static void uploadDiary(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        long imageSize = SPHelper.getVipLimit().getDiaryImageSize();
+        final List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        boolean overLimit = false;
+        for (File file : fileList) {
+            if (FileUtils.isFileEmpty(file)) continue;
+            if (file.length() >= imageSize) {
+                overLimit = true;
+                break;
+            }
+        }
+        if (overLimit) {
+            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
+            ToastUtils.show(format);
+            if (callBack != null) {
+                callBack.failure(fileList, "");
+            }
+            return;
+        }
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathNoteDiary = ossInfo.getPathNoteDiary();
+        uploadJpegList(activity, pathNoteDiary, fileList, callBack);
     }
 
     // 美食 (压缩 + 持久化)

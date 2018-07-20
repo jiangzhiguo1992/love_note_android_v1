@@ -105,7 +105,7 @@
                 android:id="@+id/llBottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_gradient_trans_light_accent"
+                android:background="@drawable/shape_gradient_trans_primary"
                 android:orientation="vertical"
                 android:visibility="gone"
                 tools:visibility="visible">

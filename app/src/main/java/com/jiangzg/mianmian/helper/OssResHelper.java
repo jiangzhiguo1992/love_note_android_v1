@@ -18,17 +18,17 @@ import java.util.ListIterator;
  */
 public class OssResHelper {
 
-    public static final int TYPE_COUPLE_AVATAR = 10;
-    public static final int TYPE_COUPLE_WALL = 11;
-    public static final int TYPE_NOTE_WHISPER = 20;
-    public static final int TYPE_NOTE_DIARY = 21;
-    public static final int TYPE_NOTE_ALBUM = 22;
-    public static final int TYPE_NOTE_PICTURE = 23;
-    public static final int TYPE_NOTE_AUDIO = 24;
-    public static final int TYPE_NOTE_VIDEO_THUMB = 25;
-    public static final int TYPE_NOTE_VIDEO = 26;
-    public static final int TYPE_NOTE_FOOD = 27;
-    public static final int TYPE_NOTE_GIFT = 28;
+    public static final int TYPE_COUPLE_AVATAR = 100;
+    public static final int TYPE_COUPLE_WALL = 110;
+    public static final int TYPE_NOTE_AUDIO = 200;
+    public static final int TYPE_NOTE_VIDEO_THUMB = 210;
+    public static final int TYPE_NOTE_VIDEO = 220;
+    public static final int TYPE_NOTE_ALBUM = 230;
+    public static final int TYPE_NOTE_PICTURE = 240;
+    public static final int TYPE_NOTE_WHISPER = 250;
+    public static final int TYPE_NOTE_DIARY = 260;
+    public static final int TYPE_NOTE_GIFT = 270;
+    public static final int TYPE_NOTE_FOOD = 280;
 
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {

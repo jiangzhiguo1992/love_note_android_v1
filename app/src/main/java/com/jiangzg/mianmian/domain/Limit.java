@@ -24,25 +24,25 @@ public class Limit {
     private int noteLockLength;
     private int souvenirTitleLength;
     private int souvenirForeignYearCount;
-    private int whisperContentLength;
-    private int whisperChannelLength;
-    private int wordContentLength;
-    private int diaryContentLength;
-    private int albumTitleLength;
-    private int pictureCount;
     private int audioTitleLength;
     private int videoTitleLength;
-    private int travelTitleLength;
-    private int travelPlaceContentLength;
-    private int foodTitleLength;
-    private int giftTitleLength;
-    private int promiseContentLength;
-    private int promiseBreakContentLength;
-    private int angryContentLength;
-    private int dreamContentLength;
+    private int albumTitleLength;
+    private int pictureCount;
+    private int wordContentLength;
+    private int whisperContentLength;
+    private int whisperChannelLength;
+    private int diaryContentLength;
     private int awardContentLength;
     private int awardRuleTitleLength;
     private int awardRuleScoreMax;
+    private int dreamContentLength;
+    private int giftTitleLength;
+    private int foodTitleLength;
+    private int travelTitleLength;
+    private int travelPlaceContentLength;
+    private int angryContentLength;
+    private int promiseContentLength;
+    private int promiseBreakContentLength;
     // topic
 
     // more

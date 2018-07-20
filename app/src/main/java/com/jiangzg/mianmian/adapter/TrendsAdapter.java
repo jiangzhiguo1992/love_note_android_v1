@@ -147,25 +147,30 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
             case Trends.TRENDS_CON_TYPE_SOUVENIR: // 纪念日
             case Trends.TRENDS_CON_TYPE_WISH: // 愿望清单
                 return dSouvenir;
-            case Trends.TRENDS_CON_TYPE_MENSES: // 姨妈
-                return dMenses;
             case Trends.TRENDS_CON_TYPE_SHY: // 羞羞
                 return dShy;
+            case Trends.TRENDS_CON_TYPE_MENSES: // 姨妈
+                return dMenses;
             case Trends.TRENDS_CON_TYPE_SLEEP: // 睡眠
                 return dSleep;
+            case Trends.TRENDS_CON_TYPE_AUDIO: // 音频
+                return dAudio;
+            case Trends.TRENDS_CON_TYPE_VIDEO: // 视频
+                return dVideo;
+            case Trends.TRENDS_CON_TYPE_ALBUM: // 相册
+            case Trends.TRENDS_CON_TYPE_PICTURE: // 照片
+                return dPhoto;
             case Trends.TRENDS_CON_TYPE_WORD: // 留言
                 return dWord;
             case Trends.TRENDS_CON_TYPE_WHISPER: // 耳语
                 return dWhisper;
             case Trends.TRENDS_CON_TYPE_DIARY: // 日记
                 return dDiary;
-            case Trends.TRENDS_CON_TYPE_ALBUM: // 相册
-            case Trends.TRENDS_CON_TYPE_PICTURE: // 照片
-                return dPhoto;
-            case Trends.TRENDS_CON_TYPE_AUDIO: // 音频
-                return dAudio;
-            case Trends.TRENDS_CON_TYPE_VIDEO: // 视频
-                return dVideo;
+            case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
+            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 规则
+                return dAward;
+            case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
+                return dDream;
             case Trends.TRENDS_CON_TYPE_FOOD: // 美食
                 return dFood;
             case Trends.TRENDS_CON_TYPE_TRAVEL: // 游记
@@ -176,11 +181,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 return dPromise;
             case Trends.TRENDS_CON_TYPE_ANGRY: // 生气
                 return dAngry;
-            case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
-                return dDream;
-            case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
-            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 规则
-                return dAward;
         }
         return null;
     }
@@ -211,14 +211,28 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                     SouvenirDetailWishActivity.goActivity(mActivity, contentId);
                 }
                 break;
-            case Trends.TRENDS_CON_TYPE_MENSES: // 姨妈
-                MensesActivity.goActivity(mActivity);
-                break;
             case Trends.TRENDS_CON_TYPE_SHY: // 羞羞
                 ShyActivity.goActivity(mActivity);
                 break;
+            case Trends.TRENDS_CON_TYPE_MENSES: // 姨妈
+                MensesActivity.goActivity(mActivity);
+                break;
             case Trends.TRENDS_CON_TYPE_SLEEP: // 睡眠
                 SleepActivity.goActivity(mActivity);
+                break;
+            case Trends.TRENDS_CON_TYPE_AUDIO: // 音频
+                AudioListActivity.goActivity(mActivity);
+                break;
+            case Trends.TRENDS_CON_TYPE_VIDEO: // 视频
+                VideoListActivity.goActivity(mActivity);
+                break;
+            case Trends.TRENDS_CON_TYPE_ALBUM: // 相册
+            case Trends.TRENDS_CON_TYPE_PICTURE: // 照片
+                if (contentId <= Trends.TRENDS_CON_ID_LIST) {
+                    AlbumListActivity.goActivity(mActivity);
+                } else {
+                    PictureListActivity.goActivity(mActivity, contentId);
+                }
                 break;
             case Trends.TRENDS_CON_TYPE_WORD: // 留言
                 WordListActivity.goActivity(mActivity);
@@ -233,19 +247,21 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                     DiaryDetailActivity.goActivity(mActivity, contentId);
                 }
                 break;
-            case Trends.TRENDS_CON_TYPE_ALBUM: // 相册
-            case Trends.TRENDS_CON_TYPE_PICTURE: // 照片
+            case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
+                AwardListActivity.goActivity(mActivity);
+                break;
+            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 奖励规则
+                AwardRuleListActivity.goActivity(mActivity);
+                break;
+            case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
                 if (contentId <= Trends.TRENDS_CON_ID_LIST) {
-                    AlbumListActivity.goActivity(mActivity);
+                    DreamListActivity.goActivity(mActivity);
                 } else {
-                    PictureListActivity.goActivity(mActivity, contentId);
+                    DreamDetailActivity.goActivity(mActivity, contentId);
                 }
                 break;
-            case Trends.TRENDS_CON_TYPE_AUDIO: // 音频
-                AudioListActivity.goActivity(mActivity);
-                break;
-            case Trends.TRENDS_CON_TYPE_VIDEO: // 视频
-                VideoListActivity.goActivity(mActivity);
+            case Trends.TRENDS_CON_TYPE_GIFT: // 礼物
+                GiftListActivity.goActivity(mActivity);
                 break;
             case Trends.TRENDS_CON_TYPE_FOOD: // 美食
                 FoodListActivity.goActivity(mActivity);
@@ -256,9 +272,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 } else {
                     TravelDetailActivity.goActivity(mActivity, contentId);
                 }
-                break;
-            case Trends.TRENDS_CON_TYPE_GIFT: // 礼物
-                GiftListActivity.goActivity(mActivity);
                 break;
             case Trends.TRENDS_CON_TYPE_PROMISE: // 承诺
                 if (contentId <= Trends.TRENDS_CON_ID_LIST) {
@@ -273,19 +286,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 } else {
                     AngryDetailActivity.goActivity(mActivity, contentId);
                 }
-                break;
-            case Trends.TRENDS_CON_TYPE_DREAM: // 梦境
-                if (contentId <= Trends.TRENDS_CON_ID_LIST) {
-                    DreamListActivity.goActivity(mActivity);
-                } else {
-                    DreamDetailActivity.goActivity(mActivity, contentId);
-                }
-                break;
-            case Trends.TRENDS_CON_TYPE_AWARD: // 奖励
-                AwardListActivity.goActivity(mActivity);
-                break;
-            case Trends.TRENDS_CON_TYPE_AWARD_RULE: // 奖励规则
-                AwardRuleListActivity.goActivity(mActivity);
                 break;
         }
     }

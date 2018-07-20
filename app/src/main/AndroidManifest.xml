@@ -96,15 +96,8 @@
         <activity android:name=".activity.couple.CoupleWeatherActivity"/>
         <!-- book -->
         <activity android:name=".activity.note.LockActivity"/>
-        <activity android:name=".activity.note.BookTotalActivity"/>
+        <activity android:name=".activity.note.NoteTotalActivity"/>
         <activity android:name=".activity.note.TrendsListActivity"/>
-        <activity android:name=".activity.note.SouvenirListActivity"/>
-        <activity android:name=".activity.note.SouvenirEditActivity"/>
-        <activity android:name=".activity.note.SouvenirDetailDoneActivity"/>
-        <activity android:name=".activity.note.SouvenirDetailWishActivity"/>
-        <activity android:name=".activity.note.SouvenirEditForeignActivity"/>
-        <activity android:name=".activity.note.WordListActivity"/>
-        <activity android:name=".activity.note.WhisperListActivity"/>
         <activity android:name=".activity.note.ShyActivity"/>
         <activity android:name=".activity.note.MensesActivity"/>
         <activity android:name=".activity.note.SleepActivity"/>
@@ -116,6 +109,23 @@
         <activity android:name=".activity.note.AlbumEditActivity"/>
         <activity android:name=".activity.note.PictureListActivity"/>
         <activity android:name=".activity.note.PictureEditActivity"/>
+        <activity android:name=".activity.note.SouvenirListActivity"/>
+        <activity android:name=".activity.note.SouvenirEditActivity"/>
+        <activity android:name=".activity.note.SouvenirDetailDoneActivity"/>
+        <activity android:name=".activity.note.SouvenirDetailWishActivity"/>
+        <activity android:name=".activity.note.SouvenirEditForeignActivity"/>
+        <activity android:name=".activity.note.WordListActivity"/>
+        <activity android:name=".activity.note.WhisperListActivity"/>
+        <activity android:name=".activity.note.DiaryListActivity"/>
+        <activity android:name=".activity.note.DiaryEditActivity"/>
+        <activity android:name=".activity.note.DiaryDetailActivity"/>
+        <activity android:name=".activity.note.AwardListActivity"/>
+        <activity android:name=".activity.note.AwardEditActivity"/>
+        <activity android:name=".activity.note.AwardRuleListActivity"/>
+        <activity android:name=".activity.note.AwardRuleEditActivity"/>
+        <activity android:name=".activity.note.DreamListActivity"/>
+        <activity android:name=".activity.note.DreamEditActivity"/>
+        <activity android:name=".activity.note.DreamDetailActivity"/>
         <activity android:name=".activity.note.GiftListActivity"/>
         <activity android:name=".activity.note.GiftEditActivity"/>
         <activity android:name=".activity.note.FoodListActivity"/>
@@ -127,19 +137,9 @@
         <activity android:name=".activity.note.AngryListActivity"/>
         <activity android:name=".activity.note.AngryEditActivity"/>
         <activity android:name=".activity.note.AngryDetailActivity"/>
-        <activity android:name=".activity.note.DreamListActivity"/>
-        <activity android:name=".activity.note.DreamEditActivity"/>
-        <activity android:name=".activity.note.DreamDetailActivity"/>
-        <activity android:name=".activity.note.DiaryListActivity"/>
-        <activity android:name=".activity.note.DiaryEditActivity"/>
-        <activity android:name=".activity.note.DiaryDetailActivity"/>
         <activity android:name=".activity.note.PromiseListActivity"/>
         <activity android:name=".activity.note.PromiseEditActivity"/>
         <activity android:name=".activity.note.PromiseDetailActivity"/>
-        <activity android:name=".activity.note.AwardListActivity"/>
-        <activity android:name=".activity.note.AwardEditActivity"/>
-        <activity android:name=".activity.note.AwardRuleListActivity"/>
-        <activity android:name=".activity.note.AwardRuleEditActivity"/>
         <!-- topic -->
     </application>
 

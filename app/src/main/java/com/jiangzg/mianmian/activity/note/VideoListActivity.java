@@ -218,7 +218,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 recyclerHelper.dataOk(videoList, more);
                 // 刷新本地资
                 List<String> ossKeyList1 = ListHelper.getOssKeyListByVideoThumb(videoList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_VIDEO, ossKeyList1);
+                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_VIDEO_THUMB, ossKeyList1);
                 List<String> ossKeyList2 = ListHelper.getOssKeyListByVideo(videoList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_VIDEO, ossKeyList2);
             }

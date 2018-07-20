@@ -22,15 +22,15 @@ public class OssInfo {
     private String pathSuggest;
     private String pathCoupleAvatar;
     private String pathCoupleWall;
-    private String pathNoteWhisper;
-    private String pathNoteDiary;
-    private String pathNoteAlbum;
-    private String pathNotePicture;
-    private String pathNoteAudio;
     private String pathNoteVideo;
     private String pathNoteVideoThumb;
-    private String pathNoteFood;
+    private String pathNoteAudio;
+    private String pathNoteAlbum;
+    private String pathNotePicture;
+    private String pathNoteWhisper;
+    private String pathNoteDiary;
     private String pathNoteGift;
+    private String pathNoteFood;
 
     public String getPathNoteFood() {
         return pathNoteFood;
