@@ -7,6 +7,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,6 +55,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
@@ -76,6 +78,10 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     TextView tvAddress;
     @BindView(R.id.rv)
     RecyclerView rv;
+    @BindView(R.id.etContent)
+    EditText etContent;
+    @BindView(R.id.tvContentLimit)
+    TextView tvContentLimit;
     @BindView(R.id.btnPublish)
     Button btnPublish;
 
@@ -85,6 +91,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     private Call<Result> callAdd;
     private File cameraFile;
     private List<File> cameraFileList;
+    private int limitContentLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, FoodEditActivity.class);
@@ -116,6 +123,8 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
         setRecyclerShow(limitImagesCount > 0, limitImagesCount);
+        // content
+        etContent.setText(food.getContentText());
     }
 
     @Override
@@ -149,6 +158,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK || food == null) {
@@ -190,6 +200,11 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnTextChanged({R.id.etContent})
+    public void afterTextChanged(Editable s) {
+        onContentInput(s.toString());
     }
 
     @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.btnPublish})
@@ -257,6 +272,24 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         cameraFile = ResHelper.newImageCacheFile();
         PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(popupWindow, root, Gravity.CENTER);
+    }
+
+    private void onContentInput(String input) {
+        if (food == null) return;
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getFoodContentLength();
+        }
+        int length = input.length();
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
+            etContent.setText(charSequence);
+            etContent.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
+        tvContentLimit.setText(limitShow);
+        // 设置进去
+        food.setContentText(etContent.getText().toString());
     }
 
     private void checkPush() {

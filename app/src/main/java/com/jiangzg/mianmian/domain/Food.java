@@ -13,11 +13,20 @@ public class Food extends BaseCP implements Parcelable {
 
     private long happenAt;
     private String title;
+    private String contentText;
     private double longitude;
     private double latitude;
     private String address;
     private String cityId;
     private List<String> contentImageList;
+
+    public String getContentText() {
+        return contentText;
+    }
+
+    public void setContentText(String contentText) {
+        this.contentText = contentText;
+    }
 
     public long getHappenAt() {
         return happenAt;

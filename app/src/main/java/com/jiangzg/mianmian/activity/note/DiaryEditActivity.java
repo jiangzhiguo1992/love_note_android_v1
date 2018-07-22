@@ -310,10 +310,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void checkPush() {
         if (diary == null) return;
-        if (StringUtils.isEmpty(diary.getContentText())) {
-            ToastUtils.show(etContent.getHint().toString());
-            return;
-        }
         List<String> fileData = null;
         List<String> ossPaths = null;
         if (recyclerHelper != null && recyclerHelper.getAdapter() != null) {

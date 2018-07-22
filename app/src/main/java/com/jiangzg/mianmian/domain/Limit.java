@@ -43,6 +43,7 @@ public class Limit {
     private int dreamContentLength;
     private int giftTitleLength;
     private int foodTitleLength;
+    private int foodContentLength;
     private int travelTitleLength;
     private int travelPlaceContentLength;
     private int angryContentLength;
@@ -52,6 +53,14 @@ public class Limit {
 
     // more
     private int vipExpireDay;
+
+    public int getFoodContentLength() {
+        return foodContentLength;
+    }
+
+    public void setFoodContentLength(int foodContentLength) {
+        this.foodContentLength = foodContentLength;
+    }
 
     public int getTravelPlaceCount() {
         return travelPlaceCount;

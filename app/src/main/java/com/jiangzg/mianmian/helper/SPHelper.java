@@ -95,6 +95,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
     private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
     private static final String FIELD_LIMIT_FOOD_TITLE_LENGTH = "food_title_length";
+    private static final String FIELD_LIMIT_FOOD_CONTENT_LENGTH = "food_content_length";
     private static final String FIELD_LIMIT_TRAVEL_TITLE_LENGTH = "travel_title_length";
     private static final String FIELD_LIMIT_TRAVEL_PLACE_CONTENT_LENGTH = "travel_place_content_length";
     private static final String FIELD_LIMIT_GIFT_TITLE_LENGTH = "gift_title_length";
@@ -346,6 +347,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
         editor.putInt(FIELD_LIMIT_FOOD_TITLE_LENGTH, limit.getFoodTitleLength());
+        editor.putInt(FIELD_LIMIT_FOOD_CONTENT_LENGTH, limit.getFoodContentLength());
         editor.putInt(FIELD_LIMIT_TRAVEL_TITLE_LENGTH, limit.getTravelTitleLength());
         editor.putInt(FIELD_LIMIT_TRAVEL_PLACE_CONTENT_LENGTH, limit.getTravelPlaceContentLength());
         editor.putInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, limit.getGiftTitleLength());
@@ -391,6 +393,7 @@ public class SPHelper {
         limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
         limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
         limit.setFoodTitleLength(sp.getInt(FIELD_LIMIT_FOOD_TITLE_LENGTH, 20));
+        limit.setFoodContentLength(sp.getInt(FIELD_LIMIT_FOOD_CONTENT_LENGTH, 200));
         limit.setTravelTitleLength(sp.getInt(FIELD_LIMIT_TRAVEL_TITLE_LENGTH, 20));
         limit.setTravelPlaceContentLength(sp.getInt(FIELD_LIMIT_TRAVEL_PLACE_CONTENT_LENGTH, 200));
         limit.setGiftTitleLength(sp.getInt(FIELD_LIMIT_GIFT_TITLE_LENGTH, 20));

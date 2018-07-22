@@ -109,6 +109,38 @@
                 android:layout_marginTop="10dp"
                 android:visibility="gone"
                 tools:visibility="visible"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp">
+
+                <EditText
+                    android:id="@+id/etContent"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+                    android:gravity="start"
+                    android:hint="@string/please_input_content"
+                    android:inputType="textMultiLine"
+                    android:minLines="10"
+                    android:padding="8dp"
+                    android:textColorHint="@color/font_hint"/>
+
+                <TextView
+                    android:id="@+id/tvContentLimit"
+                    style="@style/FontGreySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/etContent"
+                    android:layout_marginTop="3dp"
+                    tools:text="0/2000"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

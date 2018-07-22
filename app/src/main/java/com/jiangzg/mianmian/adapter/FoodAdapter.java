@@ -60,6 +60,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         String happen = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String happenShow = String.format(Locale.getDefault(), formatTime, happen);
         List<String> imageList = item.getContentImageList();
+        String contentText = item.getContentText();
         // view
         RecyclerView rv = helper.getView(R.id.rv);
         helper.setText(R.id.tvTitle, title);
@@ -78,6 +79,8 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         } else {
             rv.setVisibility(View.GONE);
         }
+        helper.setVisible(R.id.tvContent,!StringUtils.isEmpty(contentText));
+        helper.setText(R.id.tvContent, contentText);
         // click
         helper.addOnClickListener(R.id.tvAddress);
     }
