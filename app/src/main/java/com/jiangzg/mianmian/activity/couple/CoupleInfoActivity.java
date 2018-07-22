@@ -71,6 +71,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     FrescoAvatarView ivAvatarLeft;
     @BindView(R.id.tvNameLeft)
     TextView tvNameLeft;
+    @BindView(R.id.llPhoneLeft)
+    LinearLayout llPhoneLeft;
     @BindView(R.id.tvPhoneLeft)
     TextView tvPhoneLeft;
     @BindView(R.id.llUserInfoLeft)
@@ -84,6 +86,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     FrescoAvatarView ivAvatarRight;
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
+    @BindView(R.id.llPhoneRight)
+    LinearLayout llPhoneRight;
     @BindView(R.id.tvPhoneRight)
     TextView tvPhoneRight;
     @BindView(R.id.llUserInfoRight)
@@ -211,7 +215,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.tvPhoneLeft})
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAvatarLeft: // 修改ta的头像
@@ -220,7 +224,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             case R.id.tvNameLeft: // 修改ta的昵称
                 showNameInput();
                 break;
-            case R.id.tvPhoneLeft: // 拨打ta的电话
+            case R.id.llPhoneLeft: // 拨打ta的电话
                 showDial();
                 break;
         }

@@ -256,6 +256,10 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 // event
                 RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
                 RxBus.post(event);
+                // finish
+                if (lock != null && !lock.isLock()) {
+                    mActivity.finish();
+                }
             }
 
             @Override
@@ -322,6 +326,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
                 lock = data.getLock();
                 refreshView();
+                // event
+                RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
+                RxBus.post(event);
             }
 
             @Override
@@ -345,6 +352,9 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 srl.setRefreshing(false);
                 lock = data.getLock();
                 refreshView();
+                // event
+                RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
+                RxBus.post(event);
             }
 
             @Override

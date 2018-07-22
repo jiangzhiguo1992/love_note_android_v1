@@ -42,22 +42,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="7dp"
                 android:paddingTop="7dp"
                 tools:text="名字最多六字"/>
 
-            <TextView
-                android:id="@+id/tvPhoneLeft"
-                style="@style/FontWhiteNormal"
+            <LinearLayout
+                android:id="@+id/llPhoneLeft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:paddingBottom="7dp"
-                android:paddingTop="7dp"
-                tools:text="18600757123"/>
+                android:paddingTop="7dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_call_white"/>
+
+                <TextView
+                    android:id="@+id/tvPhoneLeft"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="18600757123"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llUserInfoLeft"
@@ -65,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="7dp"
@@ -112,22 +128,37 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:paddingBottom="7dp"
                 android:paddingTop="7dp"
                 tools:text="名字最多六字"/>
 
-            <TextView
-                android:id="@+id/tvPhoneRight"
-                style="@style/FontWhiteNormal"
+            <LinearLayout
+                android:id="@+id/llPhoneRight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
+                android:orientation="horizontal"
                 android:paddingBottom="7dp"
-                android:paddingTop="7dp"
-                tools:text="18600757123"/>
+                android:paddingTop="7dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_call_white"/>
+
+                <TextView
+                    android:id="@+id/tvPhoneRight"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    tools:text="18600757123"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llUserInfoRight"
@@ -135,6 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/shape_stroke_white_r100"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:paddingBottom="7dp"

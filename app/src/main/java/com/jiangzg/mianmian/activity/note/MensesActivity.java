@@ -207,13 +207,13 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         if (!canMe) {
             cvPush.setVisibility(View.GONE);
         } else {
-            if (mensesMe == null || mensesMe.getId() <= 0) {
-                cvPush.setVisibility(View.GONE);
-            } else {
-                cvPush.setVisibility(View.VISIBLE);
-                String pushShow = mensesMe.isStart() ? getString(R.string.menses_gone) : getString(R.string.menses_come);
-                tvPush.setText(pushShow);
+            if (mensesMe == null) {
+                mensesMe = new Menses();
+                mensesMe.setStart(false);
             }
+            cvPush.setVisibility(View.VISIBLE);
+            String pushShow = mensesMe.isStart() ? getString(R.string.menses_gone) : getString(R.string.menses_come);
+            tvPush.setText(pushShow);
         }
     }
 
