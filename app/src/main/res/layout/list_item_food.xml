@@ -99,8 +99,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
             android:visibility="gone"
             tools:text="美食评价美食评价美食评价美食评价美食评价美食评价美食评价"
             tools:visibility="visible"/>
