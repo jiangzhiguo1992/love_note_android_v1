@@ -19,6 +19,7 @@ import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -158,6 +159,7 @@ public class FrescoNativeView extends SimpleDraweeView {
 
     // file://
     public void setDataFile(File file) {
+        if (file == null) return;
         Uri parse = ProviderUtils.getUriByFile(ResHelper.PROVIDER_AUTH, file);
         setController(parse);
     }

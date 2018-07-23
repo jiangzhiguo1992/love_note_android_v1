@@ -213,7 +213,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                     UserInfoActivity.goActivity(mActivity, user);
                 } else {
                     SPHelper.setMe(user);
-                    ApiHelper.onEntryFinish(mActivity, code, data);
+                    ApiHelper.postEntry(mActivity);
                 }
             }
 

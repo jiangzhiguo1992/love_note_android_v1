@@ -131,12 +131,12 @@ public class OssResHelper {
                 List<File> existsFileList = FileUtils.listFilesAndDirInDir(dir, true);
                 if (ossKeyList == null || ossKeyList.size() <= 0) {
                     // 没有oss 直接删除对应的目录
-                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 删除全部文件");
-                    if (existsFileList == null || existsFileList.size() <= 0) {
-                        LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 没有文件");
-                    } else {
-                        ResHelper.deleteFileListInBackground(existsFileList);
-                    }
+                    //LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 删除全部文件");
+                    //if (existsFileList == null || existsFileList.size() <= 0) {
+                    //    LogUtils.d(OssResHelper.class, "refreshOssResWithDelNoExists", "目录(" + dir.getName() + "): 没有文件");
+                    //} else {
+                    //    ResHelper.deleteFileListInBackground(existsFileList);
+                    //}
                     return;
                 }
                 // 删旧的(放在上面可以少判断点)
@@ -193,22 +193,22 @@ public class OssResHelper {
                 List<File> existsFileList = FileUtils.listFilesAndDirInDir(dir, true);
                 if (ossKeyList == null || ossKeyList.size() <= 0) {
                     // 没有oss 直接删除对应的目录下超时的
-                    LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除全部过期文件");
-                    if (existsFileList == null || existsFileList.size() <= 0) {
-                        LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 没有文件");
-                    } else {
-                        for (File file : existsFileList) {
-                            if (file == null) continue;
-                            long lastModified = file.lastModified();
-                            String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
-                            if (lastModified > expireAt) {
-                                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
-                            } else {
-                                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
-                                ResHelper.deleteFileInBackground(file);
-                            }
-                        }
-                    }
+                    //    LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除全部过期文件");
+                    //    if (existsFileList == null || existsFileList.size() <= 0) {
+                    //        LogUtils.d(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 没有文件");
+                    //    } else {
+                    //        for (File file : existsFileList) {
+                    //            if (file == null) continue;
+                    //            long lastModified = file.lastModified();
+                    //            String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+                    //            if (lastModified > expireAt) {
+                    //                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 留下没过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                    //            } else {
+                    //                LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 删除已过期文件(" + file.getName() + "): 修改时间 == " + lastModifyTime + " , 过期时间 == " + expireTime);
+                    //                ResHelper.deleteFileInBackground(file);
+                    //            }
+                    //        }
+                    //    }
                     return;
                 }
                 // 过期的文件 (也就是ossKeyList里不存在的文件)

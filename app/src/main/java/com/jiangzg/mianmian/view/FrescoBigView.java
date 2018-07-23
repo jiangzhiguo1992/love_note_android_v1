@@ -148,6 +148,7 @@ public class FrescoBigView extends PhotoDraweeView {
     }
 
     public void setData(String ossKey) {
+        if (StringUtils.isEmpty(ossKey)) return;
         if (OssResHelper.isKeyFileExists(ossKey)) {
             File file = OssResHelper.newKeyFile(ossKey);
             if (!FileUtils.isFileEmpty(file)) {
@@ -162,6 +163,7 @@ public class FrescoBigView extends PhotoDraweeView {
 
     // file://
     public void setDataFile(File file) {
+        if (file == null) return;
         Uri parse = ProviderUtils.getUriByFile(ResHelper.PROVIDER_AUTH, file);
         setController(parse);
     }

@@ -237,6 +237,7 @@ public class FrescoView extends SimpleDraweeView {
     }
 
     public void setData(String ossKey) {
+        if (StringUtils.isEmpty(ossKey)) return;
         if (OssResHelper.isKeyFileExists(ossKey)) {
             File file = OssResHelper.newKeyFile(ossKey);
             if (!FileUtils.isFileEmpty(file)) {
@@ -251,6 +252,7 @@ public class FrescoView extends SimpleDraweeView {
 
     // file://
     public void setDataFile(File file) {
+        if (file == null) return;
         Uri parse = ProviderUtils.getUriByFile(ResHelper.PROVIDER_AUTH, file);
         setController(parse);
     }
