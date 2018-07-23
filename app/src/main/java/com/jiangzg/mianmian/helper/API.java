@@ -16,6 +16,13 @@ import com.jiangzg.mianmian.domain.Menses;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.PictureList;
 import com.jiangzg.mianmian.domain.Place;
+import com.jiangzg.mianmian.domain.Post;
+import com.jiangzg.mianmian.domain.PostCollect;
+import com.jiangzg.mianmian.domain.PostComment;
+import com.jiangzg.mianmian.domain.PostCommentPoint;
+import com.jiangzg.mianmian.domain.PostCommentReport;
+import com.jiangzg.mianmian.domain.PostPoint;
+import com.jiangzg.mianmian.domain.PostReport;
 import com.jiangzg.mianmian.domain.Promise;
 import com.jiangzg.mianmian.domain.PromiseBreak;
 import com.jiangzg.mianmian.domain.Result;
@@ -523,5 +530,85 @@ public interface API {
     // awardRule删除
     @DELETE("note/award/rule")
     Call<Result> noteAwardRuleDel(@Query("arid") long arid);
+
+    // topicHome获取
+    @GET("topic/home")
+    Call<Result> topicHomeGet();
+
+    // messageList获取
+    @GET("topic/message?mine=1")
+    Call<Result> topicMessageListGet(@Query("kind") int kind, @Query("page") int page);
+
+    // post上传
+    @POST("topic/post")
+    Call<Result> topicPostAdd(@Body Post post);
+
+    // post删除
+    @DELETE("topic/post")
+    Call<Result> topicPostDel(@Query("pid") long pid);
+
+    //  postList获取
+    @GET("topic/post?list=1&collect=0&mine=0&pid=0")
+    Call<Result> topicPostListGet(@Query("create") long create, @Query("kind") int kind,
+                                  @Query("sub_kind") int subKind, @Query("search") String search,
+                                  @Query("lon") double lon, @Query("lat") double lat,
+                                  @Query("official") boolean official, @Query("well") boolean well,
+                                  @Query("order") int order, @Query("page") int page);
+
+    // postCollectList获取
+    @GET("topic/post?list=0&collect=1&mine=0&pid=0")
+    Call<Result> topicPostCollectListGet(@Query("me") boolean me, @Query("page") int page);
+
+    // postMineList获取
+    @GET("topic/post?list=0&collect=0&mine=1&pid=0")
+    Call<Result> topicPostMineListGet(@Query("page") int page);
+
+    // post获取
+    @GET("topic/post?list=0&collect=0&mine=0")
+    Call<Result> topicPostGet(@Query("pid") int kind);
+
+    // postReport上传
+    @POST("topic/post/report")
+    Call<Result> topicPostReportAdd(@Body PostReport postReport);
+
+    // postPoint上传
+    @POST("topic/post/point")
+    Call<Result> topicPostPointAdd(@Body PostPoint postPoint);
+
+    // postCollect上传
+    @POST("topic/post/collect")
+    Call<Result> topicPostCollectAdd(@Body PostCollect postCollect);
+
+    // postComment上传
+    @POST("topic/post/comment")
+    Call<Result> topicPostCommentAdd(@Body PostComment postComment);
+
+    // postComment删除
+    @DELETE("topic/post/comment")
+    Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
+
+    //  postCommentList获取
+    @GET("topic/post/comment?list=1&sub_list=0&uid=0&pcid=0")
+    Call<Result> topicPostCommentListGet(@Query("pid") long pid, @Query("order") int order, @Query("page") int page);
+
+    //  postCommentSubList获取
+    @GET("topic/post/comment?list=0&sub_list=1&uid=0&pcid=0")
+    Call<Result> topicPostCommentSubListGet(@Query("pid") long pid, @Query("tcid") long tcid, @Query("order") int order, @Query("page") int page);
+
+    //  postCommentList获取
+    @GET("topic/post/comment?list=0&sub_list=0&pcid=0")
+    Call<Result> topicPostCommentUserListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
+
+    //  postCommentList获取
+    @GET("topic/post/comment?list=0&sub_list=0&uid=0")
+    Call<Result> topicPostCommentGet(@Query("pcid") long pcid);
+
+    // postCommentReport上传
+    @POST("topic/post/comment/report")
+    Call<Result> topicPostCommentReportAdd(@Body PostCommentReport postCommentReport);
+
+    // postCommentPoint上传
+    @POST("topic/post/comment/point")
+    Call<Result> topicPostCommentPointAdd(@Body PostCommentPoint postCommentPoint);
 
 }

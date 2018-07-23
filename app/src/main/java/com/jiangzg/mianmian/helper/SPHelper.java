@@ -106,6 +106,11 @@ public class SPHelper {
     private static final String FIELD_LIMIT_AWARD_CONTENT_LENGTH = "award_content_length";
     private static final String FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH = "award_rule_title_length";
     private static final String FIELD_LIMIT_AWARD_RULE_SCORE_MAX = "award_rule_score_max";
+    private static final String FIELD_LIMIT_POST_TITLE_LENGTH = "postTitleLength";
+    private static final String FIELD_LIMIT_POST_CONTENT_LENGTH = "postContentLength";
+    private static final String FIELD_LIMIT_POST_LON_LAT_DIFF_MAX = "postLonLatDiffMax";
+    private static final String FIELD_LIMIT_POST_SCREEN_REPORT_COUNT = "postScreenReportCount";
+    private static final String FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH = "postCommentContentLength";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
@@ -123,7 +128,7 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT = "audio_total_count";
     private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
     private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT = "video_total_count";
-    private static final String FIELD_VIP_LIMIT_TOPIC_IMG = "topic_image_enable";
+    private static final String FIELD_VIP_LIMIT_TOPIC_COUNT = "topic_image_count";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "user_protocol_url";
@@ -358,6 +363,11 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_AWARD_CONTENT_LENGTH, limit.getAwardContentLength());
         editor.putInt(FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH, limit.getAwardRuleTitleLength());
         editor.putInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, limit.getAwardRuleScoreMax());
+        editor.putInt(FIELD_LIMIT_POST_TITLE_LENGTH, limit.getPostTitleLength());
+        editor.putInt(FIELD_LIMIT_POST_CONTENT_LENGTH, limit.getPostContentLength());
+        editor.putFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, (float) limit.getPostLonLatDiffMax());
+        editor.putInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, limit.getPostScreenReportCount());
+        editor.putInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, limit.getPostCommentContentLength());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.apply();
     }
@@ -404,6 +414,11 @@ public class SPHelper {
         limit.setAwardContentLength(sp.getInt(FIELD_LIMIT_AWARD_CONTENT_LENGTH, 100));
         limit.setAwardRuleTitleLength(sp.getInt(FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH, 30));
         limit.setAwardRuleScoreMax(sp.getInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, 100));
+        limit.setPostTitleLength(sp.getInt(FIELD_LIMIT_POST_TITLE_LENGTH, 20));
+        limit.setPostContentLength(sp.getInt(FIELD_LIMIT_POST_CONTENT_LENGTH, 100));
+        limit.setPostLonLatDiffMax(sp.getFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, 0.11F));
+        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 100));
+        limit.setPostCommentContentLength(sp.getInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, 100));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
     }
@@ -433,7 +448,7 @@ public class SPHelper {
         editor.putInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, vipLimit.getAudioTotalCount());
         editor.putLong(FIELD_VIP_LIMIT_VIDEO_SIZE, vipLimit.getVideoSize());
         editor.putInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, vipLimit.getVideoTotalCount());
-        editor.putBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, vipLimit.isTopicImageEnable());
+        editor.putInt(FIELD_VIP_LIMIT_TOPIC_COUNT, vipLimit.getTopicImageCount());
         editor.apply();
     }
 
@@ -455,7 +470,7 @@ public class SPHelper {
         vipLimit.setAudioTotalCount(sp.getInt(FIELD_VIP_LIMIT_AUDIO_TOTAL_COUNT, 0));
         vipLimit.setVideoSize(sp.getLong(FIELD_VIP_LIMIT_VIDEO_SIZE, 0));
         vipLimit.setVideoTotalCount(sp.getInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, 0));
-        vipLimit.setTopicImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_TOPIC_IMG, false));
+        vipLimit.setTopicImageCount(sp.getInt(FIELD_VIP_LIMIT_TOPIC_COUNT, 0));
         return vipLimit;
     }
 

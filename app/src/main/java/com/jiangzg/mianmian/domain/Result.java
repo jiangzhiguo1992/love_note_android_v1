@@ -66,6 +66,7 @@ public class Result implements Serializable {
         private Suggest suggest;
         private List<Suggest> suggestList;
         private List<SuggestComment> suggestCommentList;
+        // couple
         private Couple couple;
         private User userMe;
         private User userTa;
@@ -79,6 +80,7 @@ public class Result implements Serializable {
         private WeatherToday weatherTodayTa;
         private List<WeatherForecast> weatherForecastListMe;
         private List<WeatherForecast> weatherForecastListTa;
+        // note
         private Lock lock;
         private boolean canLock;
         private boolean isLock;
@@ -145,6 +147,133 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+        // topic
+        private List<TopicMessageInfo> topicMessageInfoList;
+        private List<PostKindInfo> postKindInfoList;
+        private List<PostOrderInfo> postOrderInfoList;
+        private List<PostCommentOrderInfo> postCommentOrderInfoList;
+        private List<TopicMessage> topicMessageList;
+        private Post post;
+        private List<Post> postList;
+        private PostReport postReport;
+        private PostPoint postPoint;
+        private PostCollect postCollect;
+        private PostComment postComment;
+        private List<PostComment> postCommentList;
+        private PostCommentReport postCommentReport;
+        private PostCommentPoint postCommentPoint;
+
+        public List<TopicMessage> getTopicMessageList() {
+            return topicMessageList;
+        }
+
+        public void setTopicMessageList(List<TopicMessage> topicMessageList) {
+            this.topicMessageList = topicMessageList;
+        }
+
+        public Post getPost() {
+            return post;
+        }
+
+        public void setPost(Post post) {
+            this.post = post;
+        }
+
+        public List<Post> getPostList() {
+            return postList;
+        }
+
+        public void setPostList(List<Post> postList) {
+            this.postList = postList;
+        }
+
+        public PostReport getPostReport() {
+            return postReport;
+        }
+
+        public void setPostReport(PostReport postReport) {
+            this.postReport = postReport;
+        }
+
+        public PostPoint getPostPoint() {
+            return postPoint;
+        }
+
+        public void setPostPoint(PostPoint postPoint) {
+            this.postPoint = postPoint;
+        }
+
+        public PostCollect getPostCollect() {
+            return postCollect;
+        }
+
+        public void setPostCollect(PostCollect postCollect) {
+            this.postCollect = postCollect;
+        }
+
+        public PostComment getPostComment() {
+            return postComment;
+        }
+
+        public void setPostComment(PostComment postComment) {
+            this.postComment = postComment;
+        }
+
+        public List<PostComment> getPostCommentList() {
+            return postCommentList;
+        }
+
+        public void setPostCommentList(List<PostComment> postCommentList) {
+            this.postCommentList = postCommentList;
+        }
+
+        public PostCommentReport getPostCommentReport() {
+            return postCommentReport;
+        }
+
+        public void setPostCommentReport(PostCommentReport postCommentReport) {
+            this.postCommentReport = postCommentReport;
+        }
+
+        public PostCommentPoint getPostCommentPoint() {
+            return postCommentPoint;
+        }
+
+        public void setPostCommentPoint(PostCommentPoint postCommentPoint) {
+            this.postCommentPoint = postCommentPoint;
+        }
+
+        public List<TopicMessageInfo> getTopicMessageInfoList() {
+            return topicMessageInfoList;
+        }
+
+        public void setTopicMessageInfoList(List<TopicMessageInfo> topicMessageInfoList) {
+            this.topicMessageInfoList = topicMessageInfoList;
+        }
+
+        public List<PostKindInfo> getPostKindInfoList() {
+            return postKindInfoList;
+        }
+
+        public void setPostKindInfoList(List<PostKindInfo> postKindInfoList) {
+            this.postKindInfoList = postKindInfoList;
+        }
+
+        public List<PostOrderInfo> getPostOrderInfoList() {
+            return postOrderInfoList;
+        }
+
+        public void setPostOrderInfoList(List<PostOrderInfo> postOrderInfoList) {
+            this.postOrderInfoList = postOrderInfoList;
+        }
+
+        public List<PostCommentOrderInfo> getPostCommentOrderInfoList() {
+            return postCommentOrderInfoList;
+        }
+
+        public void setPostCommentOrderInfoList(List<PostCommentOrderInfo> postCommentOrderInfoList) {
+            this.postCommentOrderInfoList = postCommentOrderInfoList;
+        }
 
         public boolean isCanLock() {
             return canLock;

@@ -25,7 +25,7 @@ public class VipLimit {
     private int giftImageCount;
     private int foodImageCount;
     // topic
-    private boolean topicImageEnable;
+    private int topicImageCount;
 
     public boolean isNoteTotalEnable() {
         return noteTotalEnable;
@@ -147,11 +147,11 @@ public class VipLimit {
         this.giftImageCount = giftImageCount;
     }
 
-    public boolean isTopicImageEnable() {
-        return topicImageEnable;
+    public int getTopicImageCount() {
+        return topicImageCount;
     }
 
-    public void setTopicImageEnable(boolean topicImageEnable) {
-        this.topicImageEnable = topicImageEnable;
+    public void setTopicImageCount(int topicImageCount) {
+        this.topicImageCount = topicImageCount;
     }
 }

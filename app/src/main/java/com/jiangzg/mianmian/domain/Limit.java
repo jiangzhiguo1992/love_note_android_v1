@@ -50,9 +50,53 @@ public class Limit {
     private int promiseContentLength;
     private int promiseBreakContentLength;
     // topic
-
+    private int postTitleLength;
+    private int postContentLength;
+    private double postLonLatDiffMax;
+    private int postScreenReportCount;
+    private int postCommentContentLength;
     // more
     private int vipExpireDay;
+
+    public int getPostTitleLength() {
+        return postTitleLength;
+    }
+
+    public void setPostTitleLength(int postTitleLength) {
+        this.postTitleLength = postTitleLength;
+    }
+
+    public int getPostContentLength() {
+        return postContentLength;
+    }
+
+    public void setPostContentLength(int postContentLength) {
+        this.postContentLength = postContentLength;
+    }
+
+    public double getPostLonLatDiffMax() {
+        return postLonLatDiffMax;
+    }
+
+    public void setPostLonLatDiffMax(double postLonLatDiffMax) {
+        this.postLonLatDiffMax = postLonLatDiffMax;
+    }
+
+    public int getPostScreenReportCount() {
+        return postScreenReportCount;
+    }
+
+    public void setPostScreenReportCount(int postScreenReportCount) {
+        this.postScreenReportCount = postScreenReportCount;
+    }
+
+    public int getPostCommentContentLength() {
+        return postCommentContentLength;
+    }
+
+    public void setPostCommentContentLength(int postCommentContentLength) {
+        this.postCommentContentLength = postCommentContentLength;
+    }
 
     public int getFoodContentLength() {
         return foodContentLength;
