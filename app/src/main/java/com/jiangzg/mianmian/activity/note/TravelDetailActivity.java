@@ -156,14 +156,14 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callDel);
+        RxBus.unregister(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerPlace);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
         RecyclerHelper.release(recyclerDiary);
-        RxBus.unregister(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, obDetailRefresh);
-        RetrofitHelper.cancel(callGet);
-        RetrofitHelper.cancel(callDel);
     }
 
     @Override

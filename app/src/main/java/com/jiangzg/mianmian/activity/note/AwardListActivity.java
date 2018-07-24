@@ -149,11 +149,11 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_AWARD_LIST_REFRESH, obListRefresh);
-        RxBus.unregister(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, obListItemDelete);
         RetrofitHelper.cancel(callList);
         RetrofitHelper.cancel(callScore);
+        RxBus.unregister(ConsHelper.EVENT_AWARD_LIST_REFRESH, obListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, obListItemDelete);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

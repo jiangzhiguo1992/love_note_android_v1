@@ -124,10 +124,10 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
+        RxBus.unregister(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, obDetailRefresh);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

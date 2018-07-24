@@ -155,9 +155,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
+        RecyclerHelper.release(recyclerHelper);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
     }

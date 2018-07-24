@@ -127,10 +127,10 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callListGet);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

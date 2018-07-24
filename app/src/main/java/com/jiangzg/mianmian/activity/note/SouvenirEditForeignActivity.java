@@ -363,19 +363,19 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerGift);
-        RecyclerHelper.release(recyclerTravel);
-        RecyclerHelper.release(recyclerAlbum);
-        RecyclerHelper.release(recyclerVideo);
-        RecyclerHelper.release(recyclerFood);
-        RecyclerHelper.release(recyclerDiary);
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obSelectGift);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_SELECT, obSelectTravel);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
         RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
         RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
-        RetrofitHelper.cancel(call);
+        RecyclerHelper.release(recyclerGift);
+        RecyclerHelper.release(recyclerTravel);
+        RecyclerHelper.release(recyclerAlbum);
+        RecyclerHelper.release(recyclerVideo);
+        RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerDiary);
     }
 
     @Override

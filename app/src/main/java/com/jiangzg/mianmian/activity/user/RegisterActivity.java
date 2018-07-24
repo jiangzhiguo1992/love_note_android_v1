@@ -84,9 +84,9 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        stopCountDownTask();
         RetrofitHelper.cancel(callSms);
         RetrofitHelper.cancel(callRegister);
+        stopCountDownTask();
     }
 
     @Override

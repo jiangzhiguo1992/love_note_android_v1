@@ -123,9 +123,9 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     @Override
     protected void onFinish(Bundle state) {
-        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
+        RxBus.unregister(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override

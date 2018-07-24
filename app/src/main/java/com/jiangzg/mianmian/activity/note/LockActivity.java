@@ -122,12 +122,12 @@ public class LockActivity extends BaseActivity<LockActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        stopCountDownTask();
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callToggle);
         RetrofitHelper.cancel(callAddPwd);
         RetrofitHelper.cancel(callModifyPwd);
         RetrofitHelper.cancel(callSms);
+        stopCountDownTask();
     }
 
     @Override

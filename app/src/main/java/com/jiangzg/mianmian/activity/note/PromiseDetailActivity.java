@@ -190,12 +190,12 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callBreakAdd);
         RetrofitHelper.cancel(callBreakListGet);
+        RxBus.unregister(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, obDetailRefresh);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

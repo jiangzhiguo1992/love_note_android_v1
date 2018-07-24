@@ -212,11 +212,11 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, obListItemRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_SELECT, obPictureSelect);
-        RetrofitHelper.cancel(call);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

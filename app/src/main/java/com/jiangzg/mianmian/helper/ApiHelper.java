@@ -64,6 +64,9 @@ public class ApiHelper {
     public static final int COUPLE_UPDATE_GOOD = 1; // 更好
     public static final int COUPLE_UPDATE_BAD = 2; // 更坏
     public static final int COUPLE_UPDATE_INFO = 3;// 信息
+    // order
+    public static final int COMMENT_ORDER_POINT = 0;
+    public static final int COMMENT_ORDER_CREATE = 1;
     // list类型 type要和show相对应
     public static final int LIST_CP = 0;
     public static final int LIST_MY = 1;

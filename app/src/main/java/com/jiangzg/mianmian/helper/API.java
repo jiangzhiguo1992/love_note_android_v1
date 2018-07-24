@@ -553,7 +553,7 @@ public interface API {
                                   @Query("sub_kind") int subKind, @Query("search") String search,
                                   @Query("lon") double lon, @Query("lat") double lat,
                                   @Query("official") boolean official, @Query("well") boolean well,
-                                  @Query("order") int order, @Query("page") int page);
+                                  @Query("page") int page);
 
     // postCollectList获取
     @GET("topic/post?list=0&collect=1&mine=0&pid=0")

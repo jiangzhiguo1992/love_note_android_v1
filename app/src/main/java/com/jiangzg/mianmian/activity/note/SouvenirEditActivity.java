@@ -149,9 +149,9 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
+        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
     }
 
     @Override

@@ -112,9 +112,9 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RxBus.unregister(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callGet);
+        RxBus.unregister(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, obDetailRefresh);
     }
 
     @Override

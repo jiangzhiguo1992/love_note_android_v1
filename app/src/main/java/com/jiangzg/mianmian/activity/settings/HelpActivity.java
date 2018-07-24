@@ -102,9 +102,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
         RecyclerHelper.release(recyclerHelperHead);
-        RetrofitHelper.cancel(call);
     }
 
     public void refreshData() {

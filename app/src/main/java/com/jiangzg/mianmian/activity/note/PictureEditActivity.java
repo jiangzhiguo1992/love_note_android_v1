@@ -213,11 +213,11 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
-        RetrofitHelper.cancel(callAdd);
-        RetrofitHelper.cancel(callUpdate);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
     }

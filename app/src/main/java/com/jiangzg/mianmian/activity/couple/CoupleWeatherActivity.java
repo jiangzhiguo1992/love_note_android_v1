@@ -122,8 +122,8 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @OnClick({R.id.ivBack, R.id.ivHelp})

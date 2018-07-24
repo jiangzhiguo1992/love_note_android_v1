@@ -142,9 +142,9 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
+        RecyclerHelper.release(recyclerHelper);
         ResHelper.deleteFileInBackground(cameraFile);
     }
 

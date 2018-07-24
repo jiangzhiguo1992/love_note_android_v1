@@ -110,9 +110,9 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callUpdate);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

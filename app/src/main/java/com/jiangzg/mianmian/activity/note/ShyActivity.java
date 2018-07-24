@@ -109,9 +109,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callListGet);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

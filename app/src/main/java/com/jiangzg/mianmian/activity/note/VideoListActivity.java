@@ -168,10 +168,10 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, obListItemDelete);
-        RetrofitHelper.cancel(call);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

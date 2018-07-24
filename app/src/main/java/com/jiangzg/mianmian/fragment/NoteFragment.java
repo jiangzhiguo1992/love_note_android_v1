@@ -182,9 +182,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
-        stopSouvenirCountDownTask();
-        RxBus.unregister(ConsHelper.EVENT_LOCK_REFRESH, obLockRefresh);
         RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_LOCK_REFRESH, obLockRefresh);
+        stopSouvenirCountDownTask();
     }
 
     @Override

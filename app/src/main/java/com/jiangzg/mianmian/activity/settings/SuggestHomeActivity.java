@@ -156,11 +156,11 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
+        RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
-        RetrofitHelper.cancel(call);
     }
 
     @Override

@@ -150,8 +150,6 @@ public class Result implements Serializable {
         // topic
         private List<TopicMessageInfo> topicMessageInfoList;
         private List<PostKindInfo> postKindInfoList;
-        private List<PostOrderInfo> postOrderInfoList;
-        private List<PostCommentOrderInfo> postCommentOrderInfoList;
         private List<TopicMessage> topicMessageList;
         private Post post;
         private List<Post> postList;
@@ -257,22 +255,6 @@ public class Result implements Serializable {
 
         public void setPostKindInfoList(List<PostKindInfo> postKindInfoList) {
             this.postKindInfoList = postKindInfoList;
-        }
-
-        public List<PostOrderInfo> getPostOrderInfoList() {
-            return postOrderInfoList;
-        }
-
-        public void setPostOrderInfoList(List<PostOrderInfo> postOrderInfoList) {
-            this.postOrderInfoList = postOrderInfoList;
-        }
-
-        public List<PostCommentOrderInfo> getPostCommentOrderInfoList() {
-            return postCommentOrderInfoList;
-        }
-
-        public void setPostCommentOrderInfoList(List<PostCommentOrderInfo> postCommentOrderInfoList) {
-            this.postCommentOrderInfoList = postCommentOrderInfoList;
         }
 
         public boolean isCanLock() {

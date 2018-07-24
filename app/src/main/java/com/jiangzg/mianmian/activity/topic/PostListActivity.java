@@ -62,18 +62,16 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, kindInfo.getName(), true);
-        List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
-        if (postSubKindInfoList == null || postSubKindInfoList.size() <= 0) {
-            mActivity.finish();
-            return;
-        }
         // fragment
+        List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
         List<String> titleList = new ArrayList<>();
         List<PostListFragment> fragmentList = new ArrayList<>();
-        for (PostSubKindInfo subKindInfo : postSubKindInfoList) {
-            if (subKindInfo == null || !subKindInfo.isEnable()) continue;
-            fragmentList.add(PostListFragment.newFragment(subKindInfo));
-            titleList.add(subKindInfo.getName());
+        if (postSubKindInfoList != null && postSubKindInfoList.size() > 0) {
+            for (PostSubKindInfo subKindInfo : postSubKindInfoList) {
+                if (subKindInfo == null || !subKindInfo.isEnable()) continue;
+                fragmentList.add(PostListFragment.newFragment(kindInfo, subKindInfo));
+                titleList.add(subKindInfo.getName());
+            }
         }
         // adapter
         FragmentPagerAdapter<PostListFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());

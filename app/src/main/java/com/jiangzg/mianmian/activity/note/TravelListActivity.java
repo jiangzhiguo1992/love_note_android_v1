@@ -157,11 +157,11 @@ public class TravelListActivity extends BaseActivity<TravelListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
+        RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, obListItemRefresh);
-        RetrofitHelper.cancel(call);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override

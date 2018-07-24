@@ -128,11 +128,11 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerLeft);
-        RecyclerHelper.release(recyclerRight);
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callListGet);
+        RecyclerHelper.release(recyclerLeft);
+        RecyclerHelper.release(recyclerRight);
     }
 
     @Override

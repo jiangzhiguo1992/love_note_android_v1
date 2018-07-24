@@ -145,9 +145,9 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         RetrofitHelper.cancel(callAdd);
+        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
+        RecyclerHelper.release(recyclerHelper);
         // 创建成功的cameraFile都要删除
         ResHelper.deleteFileListInBackground(cameraFileList);
     }

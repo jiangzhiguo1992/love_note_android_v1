@@ -18,9 +18,7 @@ import com.jiangzg.mianmian.adapter.TopicHomeKindAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.domain.Help;
-import com.jiangzg.mianmian.domain.PostCommentOrderInfo;
 import com.jiangzg.mianmian.domain.PostKindInfo;
-import com.jiangzg.mianmian.domain.PostOrderInfo;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.TopicMessageInfo;
 import com.jiangzg.mianmian.domain.Version;
@@ -41,8 +39,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     public static List<TopicMessageInfo> topicMessageInfoList;
     public static List<PostKindInfo> postKindInfoList;
-    public static List<PostOrderInfo> postOrderInfoList;
-    public static List<PostCommentOrderInfo> postCommentOrderInfoList;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -74,7 +70,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
                 .initAdapter(new TopicHomeKindAdapter(mActivity, mFragment))
-                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, false, false)
                 .viewHeader(mActivity, R.layout.list_head_topic)
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -171,8 +167,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 srl.setRefreshing(false);
                 topicMessageInfoList = data.getTopicMessageInfoList();
                 postKindInfoList = ListHelper.getPostKindInfoEnableList(data.getPostKindInfoList());
-                postOrderInfoList = data.getPostOrderInfoList();
-                postCommentOrderInfoList = data.getPostCommentOrderInfoList();
                 recyclerHelper.dataNew(postKindInfoList, 0);
             }
 

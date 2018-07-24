@@ -163,13 +163,13 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerPromise);
+        RetrofitHelper.cancel(callDel);
+        RetrofitHelper.cancel(callGet);
         RxBus.unregister(ConsHelper.EVENT_GIFT_SELECT, obGiftSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_SELECT, obPromiseSelect);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, obPromiseListDelete);
         RxBus.unregister(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, obPromiseListRefresh);
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callGet);
+        RecyclerHelper.release(recyclerPromise);
     }
 
     @Override

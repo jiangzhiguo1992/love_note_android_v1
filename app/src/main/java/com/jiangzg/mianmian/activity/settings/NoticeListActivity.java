@@ -96,8 +96,8 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RecyclerHelper.release(recyclerHelper);
         RetrofitHelper.cancel(call);
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override
