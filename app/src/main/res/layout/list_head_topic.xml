@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btnMyPush"
+        style="@style/FontWhiteNormal"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+        android:text="@string/my_push"/>
+
+    <Button
+        android:id="@+id/btnMyCollect"
+        style="@style/FontWhiteNormal"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+        android:text="@string/my_collect"/>
+
+    <Button
+        android:id="@+id/btnMyMessage"
+        style="@style/FontWhiteNormal"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+        android:text="@string/my_message"/>
+</LinearLayout>

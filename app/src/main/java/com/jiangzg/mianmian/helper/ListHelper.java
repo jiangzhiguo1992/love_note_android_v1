@@ -11,6 +11,8 @@ import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
+import com.jiangzg.mianmian.domain.PostKindInfo;
+import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.SouvenirAlbum;
 import com.jiangzg.mianmian.domain.SouvenirDiary;
 import com.jiangzg.mianmian.domain.SouvenirFood;
@@ -998,4 +1000,29 @@ public class ListHelper {
         return returnList;
     }
 
+    /**
+     * **************************************topic转换**************************************
+     */
+    public static ArrayList<PostKindInfo> getPostKindInfoEnableList(List<PostKindInfo> infoList) {
+        ArrayList<PostKindInfo> returnList = new ArrayList<>();
+        if (infoList == null || infoList.size() <= 0) {
+            return returnList;
+        }
+        for (PostKindInfo info : infoList) {
+            if (info != null && info.isEnable()) {
+                ArrayList<PostSubKindInfo> returnSubList = new ArrayList<>();
+                List<PostSubKindInfo> subKindInfoList = info.getPostSubKindInfoList();
+                if (subKindInfoList != null && subKindInfoList.size() > 0) {
+                    for (PostSubKindInfo subInfo : subKindInfoList) {
+                        if (subInfo != null && subInfo.isEnable()) {
+                            returnSubList.add(subInfo);
+                        }
+                    }
+                }
+                info.setPostSubKindInfoList(returnSubList);
+                returnList.add(info);
+            }
+        }
+        return returnList;
+    }
 }

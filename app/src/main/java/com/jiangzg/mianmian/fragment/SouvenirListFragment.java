@@ -132,7 +132,7 @@ public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Souvenir> souvenirList = data.getSouvenirList();
-                recyclerHelper.dataNew(souvenirList);
+                recyclerHelper.dataNew(souvenirList, 0);
             }
 
             @Override

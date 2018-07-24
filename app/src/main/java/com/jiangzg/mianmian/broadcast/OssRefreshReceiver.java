@@ -62,7 +62,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
                         LogUtils.w(OssRefreshReceiver.class, "ossInfoUpdate", "oss更新失败");
                         ossInfoUpdate(); // 重复更新
                     }
-                }, 5 * ConstantUtils.SEC);
+                }, ConstantUtils.MIN);
             }
         });
     }

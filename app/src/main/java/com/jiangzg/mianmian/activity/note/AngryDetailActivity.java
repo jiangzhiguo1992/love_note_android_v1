@@ -260,7 +260,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                             }
                         });
             }
-            recyclerGift.dataNew(giftList);
+            recyclerGift.dataNew(giftList, 0);
         }
         // promise
         Promise promise = angry.getPromise();
@@ -294,7 +294,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                             }
                         });
             }
-            recyclerPromise.dataNew(promiseList);
+            recyclerPromise.dataNew(promiseList, 0);
         }
     }
 

@@ -240,7 +240,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             }
             if (selectList.size() > 0) {
                 rvRight.setVisibility(View.VISIBLE);
-                recyclerRight.dataNew(selectList);
+                recyclerRight.dataNew(selectList, 0);
             }
         }
         // left
@@ -255,7 +255,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             }
             if (selectList.size() > 0) {
                 rvLeft.setVisibility(View.VISIBLE);
-                recyclerLeft.dataNew(selectList);
+                recyclerLeft.dataNew(selectList, 0);
             }
         }
     }

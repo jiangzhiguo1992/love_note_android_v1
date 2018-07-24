@@ -177,7 +177,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 }
             }
         }
-        recyclerHelper.dataNew(dayList);
+        recyclerHelper.dataNew(dayList, 0);
         tvMonth.setText(String.format(Locale.getDefault(), monthFormat, monthCount));
         tvDay.setText(String.format(Locale.getDefault(), dayFormat, dayCount));
     }

@@ -674,7 +674,6 @@ public class SPHelper {
             return;
         }
         String json = GsonHelper.get().toJson(wallPaper);
-
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_WALL_PAPER).edit();
         editor.putString(FIELD_WALL_PAPER_JSON, json);
         editor.apply();

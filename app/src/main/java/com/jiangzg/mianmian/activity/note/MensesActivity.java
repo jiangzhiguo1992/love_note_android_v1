@@ -271,7 +271,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             rv.setVisibility(View.INVISIBLE);
         } else {
             rv.setVisibility(View.VISIBLE);
-            recyclerHelper.dataNew(mensesList);
+            recyclerHelper.dataNew(mensesList, 0);
         }
     }
 

@@ -15,6 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeGrey">
 
+        <!-- 全屏适配 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4"/>
+
         <!-- uri转file 7.0兼容 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -141,6 +146,7 @@
         <activity android:name=".activity.note.PromiseEditActivity"/>
         <activity android:name=".activity.note.PromiseDetailActivity"/>
         <!-- topic -->
+        <activity android:name=".activity.topic.PostListActivity"/>
     </application>
 
 </manifest>

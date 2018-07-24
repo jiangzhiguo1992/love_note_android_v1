@@ -360,6 +360,7 @@ public class OssHelper {
                         ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
                     }
                     LogUtils.e(OssHelper.class, "uploadFile", clientException);
+                    refreshOssClient();
                 }
                 // 服务异常
                 if (serviceException != null) {
@@ -654,6 +655,7 @@ public class OssHelper {
                 if (clientException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
                     LogUtils.e(OssHelper.class, "uploadJpegList", clientException);
+                    refreshOssClient();
                 }
                 // 服务异常
                 if (serviceException != null) {
@@ -808,6 +810,7 @@ public class OssHelper {
                         ToastUtils.show(MyApp.get().getString(R.string.download_fail_please_check_native_net));
                         LogUtils.e(OssHelper.class, "downloadObject", clientException);
                     }
+                    refreshOssClient();
                 }
                 // 服务异常
                 if (serviceException != null) {
