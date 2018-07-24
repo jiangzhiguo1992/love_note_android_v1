@@ -114,7 +114,9 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mFragmentManager = getSupportFragmentManager();
         mRootViewId = getView(getIntent());
-        setContentView(mRootViewId);
+        if (mRootViewId != 0) {
+            setContentView(mRootViewId);
+        }
     }
 
     /* setContentView()或addContentView()后调用,view只是加载出来，没有实例化.

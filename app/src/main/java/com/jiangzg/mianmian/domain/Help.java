@@ -73,6 +73,7 @@ public class Help extends BaseObj {
     public static final int INDEX_NOTE_AWARD_RULE_EDIT = 503;
     // topic
     public static final int INDEX_TOPIC_HOME = 600;
+    public static final int INDEX_POST_LIST = 610;
 
 
     private int index;

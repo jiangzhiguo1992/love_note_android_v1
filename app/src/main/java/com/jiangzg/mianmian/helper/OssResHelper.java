@@ -145,6 +145,11 @@ public class OssResHelper {
                     for (File file : existsFileList) {
                         // 文件不存在则直接检查下一个文件
                         if (file == null) continue;
+                        if (file.length() <= 0) {
+                            // 空文件
+                            ResHelper.deleteFileInBackground(file);
+                            continue;
+                        }
                         boolean find = false;
                         // 检查是不是oss里对应的文件
                         for (String ossKey : ossKeyList) {
@@ -219,6 +224,11 @@ public class OssResHelper {
                     for (File file : existsFileList) {
                         // 文件不存在则直接检查下一个文件
                         if (file == null) continue;
+                        if (file.length() <= 0) {
+                            // 空文件
+                            ResHelper.deleteFileInBackground(file);
+                            continue;
+                        }
                         boolean find = false;
                         // 检查是不是oss里对应的文件
                         for (String ossKey : ossKeyList) {
@@ -272,7 +282,7 @@ public class OssResHelper {
                             String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
                             LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
                         } else {
-                            LogUtils.w(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
+                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
                         }
                         // 是不是在过期里有
                         if (expireFileList.size() > 0) {

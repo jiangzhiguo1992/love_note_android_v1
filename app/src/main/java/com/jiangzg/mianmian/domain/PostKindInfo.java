@@ -48,10 +48,14 @@ public class PostKindInfo implements Parcelable {
         this.postSubKindInfoList = postSubKindInfoList;
     }
 
+    public PostKindInfo() {
+    }
+
     protected PostKindInfo(Parcel in) {
         id = in.readInt();
         enable = in.readByte() != 0;
         name = in.readString();
+        postSubKindInfoList = in.createTypedArrayList(PostSubKindInfo.CREATOR);
     }
 
     @Override
@@ -59,6 +63,7 @@ public class PostKindInfo implements Parcelable {
         dest.writeInt(id);
         dest.writeByte((byte) (enable ? 1 : 0));
         dest.writeString(name);
+        dest.writeTypedList(postSubKindInfoList);
     }
 
     @Override

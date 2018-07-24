@@ -147,6 +147,8 @@
         <activity android:name=".activity.note.PromiseDetailActivity"/>
         <!-- topic -->
         <activity android:name=".activity.topic.PostListActivity"/>
+        <activity android:name=".activity.topic.PostAddActivity"/>
+        <activity android:name=".activity.topic.PostSearchActivity"/>
     </application>
 
 </manifest>
