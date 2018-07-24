@@ -47,6 +47,8 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     ViewPager vpFragment;
     @BindView(R.id.tvSearch)
     TextView tvSearch;
+    @BindView(R.id.llTop)
+    LinearLayout llTop;
     @BindView(R.id.llSearch)
     LinearLayout llSearch;
     @BindView(R.id.llAdd)
@@ -75,6 +77,8 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, kindInfo.getName(), true);
+        // search
+        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
         // fragment
         List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
         List<String> titleList = new ArrayList<>();
@@ -121,9 +125,13 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.llSearch, R.id.llAdd})
+    @OnClick({R.id.llTop, R.id.llSearch, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.llTop: // 置顶
+                RxEvent<Boolean> event = new RxEvent<>(ConsHelper.EVENT_POST_GO_TOP, true);
+                RxBus.post(event);
+                break;
             case R.id.llSearch: // 搜索
                 showSearchDialog();
                 break;

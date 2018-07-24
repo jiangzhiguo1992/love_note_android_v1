@@ -53,6 +53,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private double lon, lat;
     private boolean official, well;
     private int page;
+    private Observable<Boolean> obGoTop;
     private Observable<Boolean> obSearchNormal;
     private Observable<Boolean> obSearchOfficial;
     private Observable<Boolean> obSearchWell;
@@ -111,10 +112,17 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         official = false;
         well = false;
         // event
+        obGoTop = RxBus.register(ConsHelper.EVENT_POST_GO_TOP, new Action1<Boolean>() {
+            @Override
+            public void call(Boolean isTrue) {
+                if (!mFragment.getUserVisibleHint() || !isTrue || rv == null) return;
+                rv.smoothScrollToPosition(0);
+            }
+        });
         obSearchNormal = RxBus.register(ConsHelper.EVENT_POST_SEARCH_NORMAL, new Action1<Boolean>() {
             @Override
-            public void call(Boolean search) {
-                if (!mFragment.getUserVisibleHint() || !search) return;
+            public void call(Boolean isTrue) {
+                if (!mFragment.getUserVisibleHint() || !isTrue) return;
                 official = false;
                 well = false;
                 getData(false);
@@ -122,8 +130,8 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         });
         obSearchOfficial = RxBus.register(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, new Action1<Boolean>() {
             @Override
-            public void call(Boolean search) {
-                if (!mFragment.getUserVisibleHint() || !search) return;
+            public void call(Boolean isTrue) {
+                if (!mFragment.getUserVisibleHint() || !isTrue) return;
                 official = true;
                 well = false;
                 getData(false);
@@ -131,8 +139,8 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         });
         obSearchWell = RxBus.register(ConsHelper.EVENT_POST_SEARCH_WELL, new Action1<Boolean>() {
             @Override
-            public void call(Boolean search) {
-                if (!mFragment.getUserVisibleHint() || !search) return;
+            public void call(Boolean isTrue) {
+                if (!mFragment.getUserVisibleHint() || !isTrue) return;
                 official = false;
                 well = true;
                 getData(false);
@@ -166,6 +174,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_POST_GO_TOP, obGoTop);
         RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_NORMAL, obSearchNormal);
         RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
         RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_WELL, obSearchWell);

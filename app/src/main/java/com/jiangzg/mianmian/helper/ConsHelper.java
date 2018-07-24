@@ -99,8 +99,9 @@ public class ConsHelper {
     public static final int EVENT_POST_COMMENT_LIST_ITEM_DELETE = 5201;
     public static final int EVENT_POST_COMMENT_LIST_ITEM_REFRESH = 5202;
     public static final int EVENT_POST_COMMENT_DETAIL_REFRESH = 5203;
-    public static final int EVENT_POST_SEARCH_NORMAL = 5300;
-    public static final int EVENT_POST_SEARCH_OFFICIAL = 5301;
-    public static final int EVENT_POST_SEARCH_WELL = 5302;
+    public static final int EVENT_POST_GO_TOP = 5300;
+    public static final int EVENT_POST_SEARCH_NORMAL = 5301;
+    public static final int EVENT_POST_SEARCH_OFFICIAL = 5302;
+    public static final int EVENT_POST_SEARCH_WELL = 5303;
 
 }

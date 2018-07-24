@@ -108,45 +108,67 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabTop"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_go_top_white"
-        app:backgroundTint="?attr/colorAccent"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
-        app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"/>
+        android:layout_gravity="bottom"
+        android:background="@drawable/layer_line_border_grey_in_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_behavior="@string/behavior_linear_depend_app_bar3">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabModel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_line_3_white"
-        app:backgroundTint="?attr/colorAccent"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
-        app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"/>
+        <LinearLayout
+            android:id="@+id/llShow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_cu_white"
-        app:backgroundTint="?attr/colorAccent"
-        app:borderWidth="0dp"
-        app:elevation="@dimen/elevation_normal"
-        app:fabSize="mini"
-        app:pressedTranslationZ="@dimen/elevation_big"
-        app:rippleColor="?attr/colorPrimaryDark"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_recycler_grey"/>
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/show"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_add_circle_stroke_grey"/>
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add"/>
+        </LinearLayout>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

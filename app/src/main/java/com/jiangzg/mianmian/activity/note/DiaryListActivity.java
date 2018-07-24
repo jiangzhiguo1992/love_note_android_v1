@@ -245,9 +245,10 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
                         searchType = which;
                         tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
-                        getData(false);
+                        recyclerHelper.dataRefresh();
                         DialogUtils.dismiss(dialog);
                         return true;
                     }

@@ -47,7 +47,35 @@
         android:background="@drawable/layer_line_border_grey_in_white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_behavior="@string/behavior_linear_depend_app_bar">
+        app:layout_behavior="@string/behavior_linear_depend_app_bar3">
+
+        <LinearLayout
+            android:id="@+id/llTop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_go_top_grey"/>
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/top"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
 
         <LinearLayout
             android:id="@+id/llSearch"

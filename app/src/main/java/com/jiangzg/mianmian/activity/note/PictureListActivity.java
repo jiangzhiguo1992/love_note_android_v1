@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -80,12 +80,10 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
 
-    @BindView(R.id.fabTop)
-    FloatingActionButton fabTop;
-    @BindView(R.id.fabModel)
-    FloatingActionButton fabModel;
-    @BindView(R.id.fabAdd)
-    FloatingActionButton fabAdd;
+    @BindView(R.id.llShow)
+    LinearLayout llShow;
+    @BindView(R.id.llAdd)
+    LinearLayout llAdd;
 
     private Album album;
     private RecyclerHelper recyclerHelper;
@@ -263,19 +261,15 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.fabTop, R.id.fabModel, R.id.fabAdd})
+    @OnClick({R.id.llShow, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fabTop: // 置顶
-                if (rv == null) return;
-                rv.smoothScrollToPosition(0);
-                break;
-            case R.id.fabModel: // 模式
+            case R.id.llShow: // 显示
                 if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
                 PictureAdapter adapter = recyclerHelper.getAdapter();
                 adapter.toggleModel();
                 break;
-            case R.id.fabAdd: // 添加
+            case R.id.llAdd: // 添加
                 PictureEditActivity.goActivity(mActivity, album);
                 break;
         }

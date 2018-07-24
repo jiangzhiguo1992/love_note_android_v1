@@ -48,9 +48,10 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="behavior_linear_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorLinearDependAppBar</string>
     <string name="behavior_fab_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorFABDependAppBar</string>
     <string name="behavior_fab_depend_app_bar3">com.jiangzg.mianmian.view.GBehaviorFABDependAppBar3</string>
+    <string name="behavior_linear_depend_app_bar">com.jiangzg.mianmian.view.GBehaviorLinearDependAppBar</string>
+    <string name="behavior_linear_depend_app_bar3">com.jiangzg.mianmian.view.GBehaviorLinearDependAppBar3</string>
 
     <!-- common -->
     <string name="symbol_add">+</string>
@@ -89,6 +90,7 @@
     <string name="push">发布</string>
     <string name="publish">发表</string>
     <string name="take_picture">拍照</string>
+    <string name="show">显示</string>
     <string name="other">其他</string>
     <string name="wait_point">等待…</string>
     <string name="please_wait">请等待…</string>
