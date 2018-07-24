@@ -27,8 +27,8 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
 
     public WhisperAdapter(BaseActivity activity) {
         super(null);
-        addItemType(ApiHelper.LIST_MY, R.layout.list_item_whisper_right);
-        addItemType(ApiHelper.LIST_TA, R.layout.list_item_whisper_left);
+        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_whisper_right);
+        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_whisper_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
     }

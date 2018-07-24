@@ -62,7 +62,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
     private int page;
-    private int searchType = ApiHelper.LIST_CP;
+    private int searchType = ApiHelper.LIST_NOTE_CP;
     private Observable<List<Dream>> obListRefresh;
     private Observable<Dream> obListItemRefresh;
     private Observable<Dream> obListItemDelete;
@@ -89,6 +89,8 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.dream), true);
+        // search
+        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -186,7 +188,6 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
         call = new RetrofitHelper().call(API.class).noteDreamListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -196,8 +197,6 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Dream> dreamList = data.getDreamList();
                 recyclerHelper.dataOk(dreamList, more);
-                // searchShow
-                tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
             }
 
             @Override
@@ -213,11 +212,12 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.choose_search_type)
-                .items(ApiHelper.LIST_SHOW)
+                .items(ApiHelper.LIST_NOTE_SHOW)
                 .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         searchType = which;
+                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
                         getData(false);
                         DialogUtils.dismiss(dialog);
                         return true;

@@ -19,7 +19,7 @@ public class Audio extends BaseCP implements Parcelable, MultiItemEntity {
 
     @Override
     public int getItemType() {
-        return isMine() ? ApiHelper.LIST_MY : ApiHelper.LIST_TA;
+        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
     }
 
     public long getHappenAt() {

@@ -81,6 +81,8 @@
     <string name="go_in">进入</string>
     <string name="comment">评论</string>
     <string name="official">官方</string>
+    <string name="well">精华</string>
+    <string name="normal">普通</string>
     <string name="top">置顶</string>
     <string name="all">全部</string>
     <string name="commit">提交</string>

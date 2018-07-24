@@ -64,7 +64,7 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> call;
     private int page;
-    private int searchType = ApiHelper.LIST_CP;
+    private int searchType = ApiHelper.LIST_NOTE_CP;
     private Observable<List<Gift>> obListRefresh;
     private Observable<Gift> obListItemRefresh;
     private Observable<Gift> obListItemDelete;
@@ -104,6 +104,8 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
             title = getString(R.string.gift);
         }
         ViewHelper.initTopBar(mActivity, tb, title, true);
+        // search
+        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -217,7 +219,6 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
 
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
-        tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
         // api
         call = new RetrofitHelper().call(API.class).noteGiftListGet(searchType, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -227,8 +228,6 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Gift> giftList = data.getGiftList();
                 recyclerHelper.dataOk(giftList, more);
-                // searchShow
-                tvSearch.setText(ApiHelper.LIST_SHOW[searchType]);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByGift(giftList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_GIFT, ossKeyList);
@@ -247,11 +246,12 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.choose_search_type)
-                .items(ApiHelper.LIST_SHOW)
+                .items(ApiHelper.LIST_NOTE_SHOW)
                 .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         searchType = which;
+                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
                         getData(false);
                         DialogUtils.dismiss(dialog);
                         return true;

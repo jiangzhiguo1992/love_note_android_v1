@@ -68,13 +68,21 @@ public class ApiHelper {
     public static final int COMMENT_ORDER_POINT = 0;
     public static final int COMMENT_ORDER_CREATE = 1;
     // list类型 type要和show相对应
-    public static final int LIST_CP = 0;
-    public static final int LIST_MY = 1;
-    public static final int LIST_TA = 2;
-    public static final String[] LIST_SHOW = new String[]{
+    public static final int LIST_NOTE_CP = 0;
+    public static final int LIST_NOTE_MY = 1;
+    public static final int LIST_NOTE_TA = 2;
+    public static final String[] LIST_NOTE_SHOW = new String[]{
             MyApp.get().getString(R.string.we_de),
             MyApp.get().getString(R.string.me_de),
             MyApp.get().getString(R.string.ta_de)
+    };
+    public static final int LIST_TOPIC_NORMAL = 0;
+    public static final int LIST_TOPIC_OFFICIAL = 1;
+    public static final int LIST_TOPIC_WELL = 2;
+    public static final String[] LIST_TOPIC_SHOW = new String[]{
+            MyApp.get().getString(R.string.normal),
+            MyApp.get().getString(R.string.official),
+            MyApp.get().getString(R.string.well)
     };
 
     @SuppressLint("HardwareIds")

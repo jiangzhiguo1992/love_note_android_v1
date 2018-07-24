@@ -9,20 +9,22 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jiangzg.base.system.LocationInfo;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
-import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.domain.PostKindInfo;
 import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
-import com.jiangzg.mianmian.helper.OssResHelper;
+import com.jiangzg.mianmian.helper.LocationHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
@@ -50,7 +52,10 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private long create;
     private double lon, lat;
     private boolean official, well;
-    private int order, page;
+    private int page;
+    private Observable<Boolean> obSearchNormal;
+    private Observable<Boolean> obSearchOfficial;
+    private Observable<Boolean> obSearchWell;
     private Observable<List<Post>> obListRefresh;
     private Observable<Post> obListItemRefresh;
     private Observable<Post> obListItemDelete;
@@ -103,7 +108,36 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     @Override
     protected void loadData() {
         page = 0;
+        official = false;
+        well = false;
         // event
+        obSearchNormal = RxBus.register(ConsHelper.EVENT_POST_SEARCH_NORMAL, new Action1<Boolean>() {
+            @Override
+            public void call(Boolean search) {
+                if (!mFragment.getUserVisibleHint() || !search) return;
+                official = false;
+                well = false;
+                getData(false);
+            }
+        });
+        obSearchOfficial = RxBus.register(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, new Action1<Boolean>() {
+            @Override
+            public void call(Boolean search) {
+                if (!mFragment.getUserVisibleHint() || !search) return;
+                official = true;
+                well = false;
+                getData(false);
+            }
+        });
+        obSearchWell = RxBus.register(ConsHelper.EVENT_POST_SEARCH_WELL, new Action1<Boolean>() {
+            @Override
+            public void call(Boolean search) {
+                if (!mFragment.getUserVisibleHint() || !search) return;
+                official = false;
+                well = true;
+                getData(false);
+            }
+        });
         obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, new Action1<List<Post>>() {
             @Override
             public void call(List<Post> postList) {
@@ -132,6 +166,9 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
+        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_NORMAL, obSearchNormal);
+        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
+        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_WELL, obSearchWell);
         RxBus.unregister(ConsHelper.EVENT_POST_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
@@ -139,6 +176,39 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     }
 
     private void getData(final boolean more) {
+        if (subKindInfo == null) return;
+        if (kindInfo.isLonLat()) {
+            PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
+                @Override
+                public void onPermissionGranted(int requestCode, String[] permissions) {
+                    LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
+                        @Override
+                        public void onSuccess(LocationInfo info) {
+                            lon = info.getLongitude();
+                            lat = info.getLatitude();
+                            getDataWithLonLat(more);
+                        }
+
+                        @Override
+                        public void onFailed(String errMsg) {
+                            ToastUtils.show(getString(R.string.location_error));
+                        }
+                    });
+                }
+
+                @Override
+                public void onPermissionDenied(int requestCode, String[] permissions) {
+                    DialogHelper.showGoPermDialog(mActivity);
+                }
+            });
+        } else {
+            lon = 0;
+            lat = 0;
+            getDataWithLonLat(more);
+        }
+    }
+
+    private void getDataWithLonLat(final boolean more) {
         if (subKindInfo == null) return;
         page = more ? page + 1 : 0;
         if (!more || create <= 0) {
@@ -151,11 +221,8 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
-                List<Diary> diaryList = data.getDiaryList();
-                recyclerHelper.dataOk(diaryList, more);
-                // 刷新本地资源
-                List<String> ossKeyList = ListHelper.getOssKeyListByDiary(diaryList);
-                OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_DIARY, ossKeyList);
+                List<Post> postList = data.getPostList();
+                recyclerHelper.dataOk(postList, more);
             }
 
             @Override

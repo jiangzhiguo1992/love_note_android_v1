@@ -2,7 +2,6 @@ package com.jiangzg.mianmian.activity.topic;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,9 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.FragmentPagerAdapter;
@@ -20,7 +23,12 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.PostKindInfo;
 import com.jiangzg.mianmian.domain.PostSubKindInfo;
+import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.fragment.PostListFragment;
+import com.jiangzg.mianmian.helper.ApiHelper;
+import com.jiangzg.mianmian.helper.ConsHelper;
+import com.jiangzg.mianmian.helper.DialogHelper;
+import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.util.ArrayList;
@@ -37,10 +45,15 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     TabLayout tl;
     @BindView(R.id.vpFragment)
     ViewPager vpFragment;
-    @BindView(R.id.fabAdd)
-    FloatingActionButton fabAdd;
+    @BindView(R.id.tvSearch)
+    TextView tvSearch;
+    @BindView(R.id.llSearch)
+    LinearLayout llSearch;
+    @BindView(R.id.llAdd)
+    LinearLayout llAdd;
 
     private PostKindInfo kindInfo;
+    private int searchType = ApiHelper.LIST_TOPIC_NORMAL;
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
         if (kindInfo == null) {
@@ -108,13 +121,48 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.fabAdd})
+    @OnClick({R.id.llSearch, R.id.llAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fabAdd: // 添加
+            case R.id.llSearch: // 搜索
+                showSearchDialog();
+                break;
+            case R.id.llAdd: // 添加
                 PostAddActivity.goActivity(mActivity, kindInfo);
                 break;
         }
+    }
+
+    private void showSearchDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.choose_search_type)
+                .items(ApiHelper.LIST_TOPIC_SHOW)
+                .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        searchType = which;
+                        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
+                        RxEvent<Boolean> event;
+                        switch (searchType) {
+                            case ApiHelper.LIST_TOPIC_OFFICIAL: // 官方
+                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
+                                break;
+                            case ApiHelper.LIST_TOPIC_WELL: // 精华
+                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
+                                break;
+                            default: // 普通
+                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_NORMAL, true);
+                                break;
+                        }
+                        RxBus.post(event);
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
 }

@@ -27,8 +27,8 @@ public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolde
 
     public PlaceAdapter(FragmentActivity activity) {
         super(null);
-        addItemType(ApiHelper.LIST_MY, R.layout.list_item_place_right);
-        addItemType(ApiHelper.LIST_TA, R.layout.list_item_place_left);
+        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_place_right);
+        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_place_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
         formatNo = mActivity.getString(R.string.now_no);

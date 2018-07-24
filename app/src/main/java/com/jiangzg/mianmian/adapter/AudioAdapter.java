@@ -51,8 +51,8 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
 
     public AudioAdapter(BaseActivity activity, MediaPlayer mediaPlayer) {
         super(null);
-        addItemType(ApiHelper.LIST_MY, R.layout.list_item_audio_right);
-        addItemType(ApiHelper.LIST_TA, R.layout.list_item_audio_left);
+        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_audio_right);
+        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_audio_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
         mMediaPlayer = mediaPlayer;
