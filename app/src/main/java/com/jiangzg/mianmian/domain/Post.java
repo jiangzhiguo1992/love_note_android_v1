@@ -3,7 +3,13 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.base.MyApp;
+import com.jiangzg.mianmian.helper.ListHelper;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by JZG on 2018/7/23.
@@ -31,13 +37,68 @@ public class Post extends BaseCP implements Parcelable {
     private List<String> contentImageList;
     private boolean screen;
     private boolean hot;
-    private boolean couple;
+    private Couple couple;
     private boolean mine;
     private boolean our;
     private boolean report;
+    private boolean read;
     private boolean point;
     private boolean collect;
     private boolean comment;
+
+    public static String getShowCount(int count) {
+        int unit = 10000; // 万
+        if (count < unit) {
+            return String.valueOf(count);
+        }
+        return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand), count / unit);
+    }
+
+    public List<String> getTagShowList(boolean kind, boolean subKind) {
+        List<String> showList = new ArrayList<>();
+        boolean top = this.isTop();
+        boolean official = this.isOfficial();
+        boolean well = this.isWell();
+        boolean screen = this.isScreen();
+        boolean hot = this.isHot();
+        boolean mine = this.isMine();
+        boolean isTa = this.isOur() && !this.isMine();
+        // show
+        if (kind || subKind) {
+            PostKindInfo info = ListHelper.getKindShowByList(this.getKind(), this.getSubKind());
+            if (kind && info != null) {
+                showList.add(info.getName());
+            }
+            if (subKind && info != null && info.getPostSubKindInfoList() != null && info.getPostSubKindInfoList().size() > 0) {
+                PostSubKindInfo subKindInfo = info.getPostSubKindInfoList().get(0);
+                showList.add(subKindInfo.getName());
+            }
+        }
+        if (top) showList.add(MyApp.get().getString(R.string.top));
+        if (official) showList.add(MyApp.get().getString(R.string.official));
+        if (well) showList.add(MyApp.get().getString(R.string.well));
+        if (screen) showList.add(MyApp.get().getString(R.string.screen));
+        if (hot) showList.add(MyApp.get().getString(R.string.hot));
+        if (mine) showList.add(MyApp.get().getString(R.string.me_de));
+        if (isTa) showList.add(MyApp.get().getString(R.string.ta_de));
+        return showList;
+    }
+
+    public Couple getCouple() {
+        return couple;
+    }
+
+    public void setCouple(Couple couple) {
+        this.couple = couple;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 
     public int getKind() {
         return kind;
@@ -191,14 +252,6 @@ public class Post extends BaseCP implements Parcelable {
         this.hot = hot;
     }
 
-    public boolean isCouple() {
-        return couple;
-    }
-
-    public void setCouple(boolean couple) {
-        this.couple = couple;
-    }
-
     @Override
     public boolean isMine() {
         return mine;
@@ -273,10 +326,11 @@ public class Post extends BaseCP implements Parcelable {
         contentImageList = in.createStringArrayList();
         screen = in.readByte() != 0;
         hot = in.readByte() != 0;
-        couple = in.readByte() != 0;
+        couple = in.readParcelable(Couple.class.getClassLoader());
         mine = in.readByte() != 0;
         our = in.readByte() != 0;
         report = in.readByte() != 0;
+        read = in.readByte() != 0;
         point = in.readByte() != 0;
         collect = in.readByte() != 0;
         comment = in.readByte() != 0;
@@ -304,10 +358,11 @@ public class Post extends BaseCP implements Parcelable {
         dest.writeStringList(contentImageList);
         dest.writeByte((byte) (screen ? 1 : 0));
         dest.writeByte((byte) (hot ? 1 : 0));
-        dest.writeByte((byte) (couple ? 1 : 0));
+        dest.writeParcelable(couple, flags);
         dest.writeByte((byte) (mine ? 1 : 0));
         dest.writeByte((byte) (our ? 1 : 0));
         dest.writeByte((byte) (report ? 1 : 0));
+        dest.writeByte((byte) (read ? 1 : 0));
         dest.writeByte((byte) (point ? 1 : 0));
         dest.writeByte((byte) (collect ? 1 : 0));
         dest.writeByte((byte) (comment ? 1 : 0));
@@ -329,4 +384,5 @@ public class Post extends BaseCP implements Parcelable {
             return new Post[size];
         }
     };
+
 }

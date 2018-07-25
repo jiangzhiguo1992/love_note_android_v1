@@ -14,6 +14,7 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.adapter.PostAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.domain.Post;
@@ -81,7 +82,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
-                //.initAdapter(new DiaryAdapter(mActivity)) // TODO
+                .initAdapter(new PostAdapter(mActivity, false, true))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -100,8 +101,8 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        //DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
-                        // TODO
+                        PostAdapter postAdapter = (PostAdapter) adapter;
+                        postAdapter.goPostDetail(position);
                     }
                 });
     }
@@ -125,7 +126,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 if (!mFragment.getUserVisibleHint() || !isTrue) return;
                 official = false;
                 well = false;
-                getData(false);
+                recyclerHelper.dataRefresh();
             }
         });
         obSearchOfficial = RxBus.register(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, new Action1<Boolean>() {
@@ -134,7 +135,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 if (!mFragment.getUserVisibleHint() || !isTrue) return;
                 official = true;
                 well = false;
-                getData(false);
+                recyclerHelper.dataRefresh();
             }
         });
         obSearchWell = RxBus.register(ConsHelper.EVENT_POST_SEARCH_WELL, new Action1<Boolean>() {
@@ -143,7 +144,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 if (!mFragment.getUserVisibleHint() || !isTrue) return;
                 official = false;
                 well = true;
-                getData(false);
+                recyclerHelper.dataRefresh();
             }
         });
         obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, new Action1<List<Post>>() {

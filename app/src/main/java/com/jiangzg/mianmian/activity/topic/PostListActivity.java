@@ -94,6 +94,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         FragmentPagerAdapter<PostListFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // view
+        vpFragment.setOffscreenPageLimit(fragmentList.size());
         vpFragment.setAdapter(adapter);
         tl.setupWithViewPager(vpFragment);
     }

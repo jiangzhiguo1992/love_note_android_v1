@@ -27,6 +27,7 @@ import com.jiangzg.mianmian.domain.TravelPlace;
 import com.jiangzg.mianmian.domain.TravelVideo;
 import com.jiangzg.mianmian.domain.Video;
 import com.jiangzg.mianmian.domain.Whisper;
+import com.jiangzg.mianmian.fragment.TopicFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -1024,5 +1025,33 @@ public class ListHelper {
             }
         }
         return returnList;
+    }
+
+    public static PostKindInfo getKindShowByList(int kind, int subKind) {
+        PostKindInfo returnInfo = new PostKindInfo();
+        ArrayList<PostSubKindInfo> subKindInfoList = new ArrayList<>();
+        PostSubKindInfo subKindInfo = new PostSubKindInfo();
+        subKindInfoList.add(subKindInfo);
+        returnInfo.setPostSubKindInfoList(subKindInfoList);
+        // 遍历kind
+        if (TopicFragment.postKindInfoList != null && TopicFragment.postKindInfoList.size() > 0) {
+            for (PostKindInfo info : TopicFragment.postKindInfoList) {
+                if (info == null) continue;
+                if (info.getId() == kind) {
+                    returnInfo.setName(info.getName());
+                    List<PostSubKindInfo> postSubKindInfoList = info.getPostSubKindInfoList();
+                    // 遍历subKind
+                    if (postSubKindInfoList != null && postSubKindInfoList.size() > 0) {
+                        for (PostSubKindInfo subInfo : postSubKindInfoList) {
+                            if (subInfo == null) continue;
+                            if (subInfo.getId() == subKind) {
+                                subKindInfo.setName(subInfo.getName());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return returnInfo;
     }
 }

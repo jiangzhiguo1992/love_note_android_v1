@@ -83,6 +83,10 @@
     <string name="comment">评论</string>
     <string name="official">官方</string>
     <string name="well">精华</string>
+    <string name="hot">热门</string>
+    <string name="point">点赞</string>
+    <string name="collect">收藏</string>
+    <string name="screen">屏蔽</string>
     <string name="normal">普通</string>
     <string name="top">置顶</string>
     <string name="all">全部</string>
@@ -144,6 +148,8 @@
     <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
     <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
     <string name="holder_paper">%d张</string>
+    <string name="holder_thousand">%d万</string>
+    <string name="already_report">已举报</string>
     <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
     <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
     <string name="comment_colon_holder" formatted="false">评论: %d</string>
