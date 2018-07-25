@@ -13,10 +13,11 @@ public class OssInfo {
     // oss
     //private String region;
     //private String endpoint;
-    private String domain; // region 和 endpoint 一般不用
+    private String domain;
     private String bucket;
-    private long expireTime;
-    private long intervalSec;
+    private long stsExpireTime;
+    private long ossRefreshSec;
+    private long urlExpireSec;
     // path
     private String pathLog;
     private String pathSuggest;
@@ -31,6 +32,23 @@ public class OssInfo {
     private String pathNoteDiary;
     private String pathNoteGift;
     private String pathNoteFood;
+    private String pathTopicPost;
+
+    public String getPathTopicPost() {
+        return pathTopicPost;
+    }
+
+    public void setPathTopicPost(String pathTopicPost) {
+        this.pathTopicPost = pathTopicPost;
+    }
+
+    public long getUrlExpireSec() {
+        return urlExpireSec;
+    }
+
+    public void setUrlExpireSec(long urlExpireSec) {
+        this.urlExpireSec = urlExpireSec;
+    }
 
     public String getPathNoteFood() {
         return pathNoteFood;
@@ -48,20 +66,20 @@ public class OssInfo {
         this.pathLog = pathLog;
     }
 
-    public long getExpireTime() {
-        return expireTime;
+    public long getStsExpireTime() {
+        return stsExpireTime;
     }
 
-    public void setExpireTime(long expireTime) {
-        this.expireTime = expireTime;
+    public void setStsExpireTime(long stsExpireTime) {
+        this.stsExpireTime = stsExpireTime;
     }
 
-    public long getIntervalSec() {
-        return intervalSec;
+    public long getOssRefreshSec() {
+        return ossRefreshSec;
     }
 
-    public void setIntervalSec(long intervalSec) {
-        this.intervalSec = intervalSec;
+    public void setOssRefreshSec(long ossRefreshSec) {
+        this.ossRefreshSec = ossRefreshSec;
     }
 
     public String getPathNoteWhisper() {

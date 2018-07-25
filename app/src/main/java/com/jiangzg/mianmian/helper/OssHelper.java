@@ -49,16 +49,15 @@ public class OssHelper {
 
     // oos 对象
     private static OSS ossClient;
-    private static String bucket;
 
     /**
      * 刷新ossClient
      */
     public static void refreshOssClient() {
         OssInfo ossInfo = SPHelper.getOssInfo();
-        String expireTime = DateUtils.getString(TimeHelper.getJavaTimeByGo(ossInfo.getExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String expireTime = DateUtils.getString(TimeHelper.getJavaTimeByGo(ossInfo.getStsExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
-        bucket = ossInfo.getBucket();
+        String bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();
         String accessKeySecret = ossInfo.getAccessKeySecret();
         String securityToken = ossInfo.getSecurityToken();
@@ -89,8 +88,11 @@ public class OssHelper {
             return "";
         }
         try {
+            OssInfo ossInfo = SPHelper.getOssInfo();
+            String bucket = ossInfo.getBucket();
+            long urlExpireTime = SPHelper.getOssInfo().getUrlExpireSec() * 1000;
             // 十分钟过期时间
-            String url = getOssClient().presignConstrainedObjectURL(bucket, objKey, 60 * 10);
+            String url = getOssClient().presignConstrainedObjectURL(bucket, objKey, urlExpireTime);
             LogUtils.d(OssHelper.class, "getUrl", url);
             return url;
         } catch (ClientException e) {
@@ -318,6 +320,7 @@ public class OssHelper {
             });
         }
         // 构造上传请求
+        String bucket = SPHelper.getOssInfo().getBucket();
         PutObjectRequest put = new PutObjectRequest(bucket, ossFilePath, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
@@ -608,6 +611,7 @@ public class OssHelper {
         // objectKey生成
         String objectKey = createJpegKey(ossDirPath);
         // 构造上传请求
+        String bucket = SPHelper.getOssInfo().getBucket();
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
@@ -742,6 +746,7 @@ public class OssHelper {
             }
         });
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
+        String bucket = SPHelper.getOssInfo().getBucket();
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
         // 异步下载时可以设置进度回调
         get.setProgressListener(new OSSProgressCallback<GetObjectRequest>() {

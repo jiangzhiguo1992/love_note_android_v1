@@ -24,7 +24,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
 
     // ossInfo获取到之后在开始
     public static void startAlarm() {
-        long interval = SPHelper.getOssInfo().getIntervalSec() * 1000;
+        long interval = SPHelper.getOssInfo().getOssRefreshSec() * 1000;
         // 发送定时广播
         AlarmUtils.sendWaitBroadcast(OssRefreshReceiver.class, interval);
     }
@@ -36,7 +36,7 @@ public class OssRefreshReceiver extends BroadcastReceiver {
         // 这次广播要刷新的数据
         ossInfoUpdate();
         // 继续发送定时，下一次广播
-        long interval = SPHelper.getOssInfo().getIntervalSec() * 1000;
+        long interval = SPHelper.getOssInfo().getOssRefreshSec() * 1000;
         AlarmUtils.sendWaitBroadcast(OssRefreshReceiver.class, interval);
     }
 

@@ -51,8 +51,9 @@ public class SPHelper {
     //private static final String FIELD_OSS_ENDPOINT = "endpoint";
     private static final String FIELD_OSS_DOMAIN = "domain";
     private static final String FIELD_OSS_BUCKET = "bucket";
-    private static final String FIELD_OSS_EXPIRE_TIME = "expire_time";
-    private static final String FIELD_OSS_INTERVAL_SEC = "interval_sec";
+    private static final String FIELD_OSS_STS_EXPIRE_TIME = "sts_expire_time";
+    private static final String FIELD_OSS_OSS_REFRESH_SEC = "oss_refresh_sec";
+    private static final String FIELD_OSS_URL_EXPIRE_SEC = "url_expire_sec";
     private static final String FIELD_OSS_PATH_LOG = "path_log";
     private static final String FIELD_OSS_PATH_SUGGEST = "path_suggest";
     private static final String FIELD_OSS_PATH_COUPLE_AVATAR = "path_couple_avatar";
@@ -66,6 +67,7 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_NOTE_VIDEO_THUMB = "path_note_video_thumb";
     private static final String FIELD_OSS_PATH_NOTE_FOOD = "path_note_food";
     private static final String FIELD_OSS_PATH_NOTE_GIFT = "path_note_gift";
+    private static final String FIELD_OSS_PATH_TOPIC_POST = "path_topic_post";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -269,8 +271,9 @@ public class SPHelper {
         //editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
         editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
-        editor.putLong(FIELD_OSS_EXPIRE_TIME, ossInfo.getExpireTime());
-        editor.putLong(FIELD_OSS_INTERVAL_SEC, ossInfo.getIntervalSec());
+        editor.putLong(FIELD_OSS_STS_EXPIRE_TIME, ossInfo.getStsExpireTime());
+        editor.putLong(FIELD_OSS_OSS_REFRESH_SEC, ossInfo.getOssRefreshSec());
+        editor.putLong(FIELD_OSS_URL_EXPIRE_SEC, ossInfo.getUrlExpireSec());
         editor.putString(FIELD_OSS_PATH_LOG, ossInfo.getPathLog());
         editor.putString(FIELD_OSS_PATH_SUGGEST, ossInfo.getPathSuggest());
         editor.putString(FIELD_OSS_PATH_COUPLE_AVATAR, ossInfo.getPathCoupleAvatar());
@@ -284,6 +287,7 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_NOTE_VIDEO_THUMB, ossInfo.getPathNoteVideoThumb());
         editor.putString(FIELD_OSS_PATH_NOTE_FOOD, ossInfo.getPathNoteFood());
         editor.putString(FIELD_OSS_PATH_NOTE_GIFT, ossInfo.getPathNoteGift());
+        editor.putString(FIELD_OSS_PATH_TOPIC_POST, ossInfo.getPathTopicPost());
         editor.apply();
     }
 
@@ -297,8 +301,9 @@ public class SPHelper {
         //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
         ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
-        ossInfo.setExpireTime(sp.getLong(FIELD_OSS_EXPIRE_TIME, TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 10));
-        ossInfo.setIntervalSec(sp.getLong(FIELD_OSS_INTERVAL_SEC, 60 * 10));
+        ossInfo.setStsExpireTime(sp.getLong(FIELD_OSS_STS_EXPIRE_TIME, TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 30));
+        ossInfo.setOssRefreshSec(sp.getLong(FIELD_OSS_OSS_REFRESH_SEC, 60 * 30));
+        ossInfo.setUrlExpireSec(sp.getLong(FIELD_OSS_URL_EXPIRE_SEC, 60 * 10));
         ossInfo.setPathLog(sp.getString(FIELD_OSS_PATH_LOG, ""));
         ossInfo.setPathSuggest(sp.getString(FIELD_OSS_PATH_SUGGEST, ""));
         ossInfo.setPathCoupleAvatar(sp.getString(FIELD_OSS_PATH_COUPLE_AVATAR, ""));
@@ -312,6 +317,7 @@ public class SPHelper {
         ossInfo.setPathNoteVideoThumb(sp.getString(FIELD_OSS_PATH_NOTE_VIDEO_THUMB, ""));
         ossInfo.setPathNoteFood(sp.getString(FIELD_OSS_PATH_NOTE_FOOD, ""));
         ossInfo.setPathNoteGift(sp.getString(FIELD_OSS_PATH_NOTE_GIFT, ""));
+        ossInfo.setPathTopicPost(sp.getString(FIELD_OSS_PATH_TOPIC_POST, ""));
         return ossInfo;
     }
 

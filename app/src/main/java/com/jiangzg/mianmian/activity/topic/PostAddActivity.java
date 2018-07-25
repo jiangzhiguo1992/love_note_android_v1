@@ -33,7 +33,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-
+        // TODO 发布保存草稿，area带地址
     }
 
     @Override

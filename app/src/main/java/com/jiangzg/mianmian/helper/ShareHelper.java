@@ -10,8 +10,7 @@ public class ShareHelper {
 
     // TODO 分享链接的话 链接会过期 分享本地文件的话 用fresco？
     // TODO BigImage
-    // TODO coupleInfo分享？
-    // TODO WallPaper(拼在一起分享？)
+    // TODO coupleInfo？WallPaper拼在一起？
     // TODO note(纪念日？统计？礼物？梦里？)
     // TODO Topic
     // TODO Square
