@@ -123,8 +123,8 @@
     <string name="press_again_exit">再按一次退出</string>
     <string name="exit_app">您确定要退出？</string>
     <string name="holder_sprit_holder" formatted="false">%d/%d</string>
-    <string name="holder_wave_holder">%s~%s</string>
-    <string name="holder_space_line_space_holder">%s - %s</string>
+    <string name="holder_wave_holder" formatted="false">%s~%s</string>
+    <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>
     <string name="space_bracket_holder" formatted="false"> (%d)</string>
     <string name="my_follow">我的关注</string>
     <string name="my_push">我的发布</string>
@@ -137,8 +137,8 @@
     <string name="please_input_comment_content">请输入评论内容</string>
     <string name="please_input_title">请输入标题</string>
     <string name="please_input_content">请输入内容</string>
-    <string name="choose_search_type">选择搜索类型</string>
-    <string name="please_choose_classify">请选择分类</string>
+    <string name="select_search_type">选择搜索类型</string>
+    <string name="please_select_classify">请选择分类</string>
     <string name="please_input_nickname">请输入昵称</string>
     <string name="already_arrive_top">已经到达最顶部了</string>
     <string name="need_check_some_perm">需要勾选某些权限</string>
@@ -147,9 +147,8 @@
     <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d个字</string>
     <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
     <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
-    <string name="holder_paper">%d张</string>
-    <string name="holder_thousand">%d万</string>
-    <string name="already_report">已举报</string>
+    <string name="holder_paper" formatted="false">%d张</string>
+    <string name="holder_thousand" formatted="false">%d万</string>
     <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
     <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
     <string name="comment_colon_holder" formatted="false">评论: %d</string>
@@ -481,7 +480,7 @@
     <string name="open_lock">开锁</string>
     <string name="close_lock">关锁</string>
     <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
-    <string name="holder_anniversary">%d周年</string>
+    <string name="holder_anniversary" formatted="false">%d周年</string>
     <string name="already_gone_holder_day" formatted="false">已过 %d 天</string>
     <string name="just_have_holder_day" formatted="false">还剩 %d 天</string>
     <string name="menses_come">姨妈来了</string>
@@ -526,6 +525,10 @@
     <string name="did_do_some_promise">有没有做出什么承诺</string>
     <string name="me_s_award">我的奖励</string>
     <string name="ta_s_award">TA的奖励</string>
+
+    <!-- topic -->
+    <string name="post">帖子</string>
+    <string name="already_report">已举报</string>
 
     <!-- square -->
     <string name="sign">签到</string>

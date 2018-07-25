@@ -21,6 +21,7 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.topic.PostDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Post;
+import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -74,7 +75,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         // data
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();
-        List<String> tagShowList = item.getTagShowList(kindShow, subKindShow);
+        List<String> tagShowList = ListHelper.getTagShowList(item, kindShow, subKindShow);
         String title = item.getTitle();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();

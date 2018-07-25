@@ -13,17 +13,8 @@ public class PostKindInfo implements Parcelable {
 
     private int id;
     private boolean enable;
-    private boolean lonLat;
     private String name;
     private List<PostSubKindInfo> postSubKindInfoList;
-
-    public boolean isLonLat() {
-        return lonLat;
-    }
-
-    public void setLonLat(boolean lonLat) {
-        this.lonLat = lonLat;
-    }
 
     public String getName() {
         return name;
@@ -63,7 +54,6 @@ public class PostKindInfo implements Parcelable {
     protected PostKindInfo(Parcel in) {
         id = in.readInt();
         enable = in.readByte() != 0;
-        lonLat = in.readByte() != 0;
         name = in.readString();
         postSubKindInfoList = in.createTypedArrayList(PostSubKindInfo.CREATOR);
     }
@@ -72,7 +62,6 @@ public class PostKindInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeByte((byte) (enable ? 1 : 0));
-        dest.writeByte((byte) (lonLat ? 1 : 0));
         dest.writeString(name);
         dest.writeTypedList(postSubKindInfoList);
     }

@@ -11,7 +11,25 @@ public class PostSubKindInfo implements Parcelable {
 
     private int id;
     private boolean enable;
+    private boolean lonLat;
+    private boolean push;
     private String name;
+
+    public boolean isLonLat() {
+        return lonLat;
+    }
+
+    public void setLonLat(boolean lonLat) {
+        this.lonLat = lonLat;
+    }
+
+    public boolean isPush() {
+        return push;
+    }
+
+    public void setPush(boolean push) {
+        this.push = push;
+    }
 
     public int getId() {
         return id;
@@ -43,6 +61,8 @@ public class PostSubKindInfo implements Parcelable {
     protected PostSubKindInfo(Parcel in) {
         id = in.readInt();
         enable = in.readByte() != 0;
+        lonLat = in.readByte() != 0;
+        push = in.readByte() != 0;
         name = in.readString();
     }
 
@@ -50,6 +70,8 @@ public class PostSubKindInfo implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeByte((byte) (enable ? 1 : 0));
+        dest.writeByte((byte) (lonLat ? 1 : 0));
+        dest.writeByte((byte) (push ? 1 : 0));
         dest.writeString(name);
     }
 

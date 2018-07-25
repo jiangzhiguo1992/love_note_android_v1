@@ -54,36 +54,6 @@ public class Post extends BaseCP implements Parcelable {
         return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand), count / unit);
     }
 
-    public List<String> getTagShowList(boolean kind, boolean subKind) {
-        List<String> showList = new ArrayList<>();
-        boolean top = this.isTop();
-        boolean official = this.isOfficial();
-        boolean well = this.isWell();
-        boolean screen = this.isScreen();
-        boolean hot = this.isHot();
-        boolean mine = this.isMine();
-        boolean isTa = this.isOur() && !this.isMine();
-        // show
-        if (kind || subKind) {
-            PostKindInfo info = ListHelper.getKindShowByList(this.getKind(), this.getSubKind());
-            if (kind && info != null) {
-                showList.add(info.getName());
-            }
-            if (subKind && info != null && info.getPostSubKindInfoList() != null && info.getPostSubKindInfoList().size() > 0) {
-                PostSubKindInfo subKindInfo = info.getPostSubKindInfoList().get(0);
-                showList.add(subKindInfo.getName());
-            }
-        }
-        if (top) showList.add(MyApp.get().getString(R.string.top));
-        if (official) showList.add(MyApp.get().getString(R.string.official));
-        if (well) showList.add(MyApp.get().getString(R.string.well));
-        if (screen) showList.add(MyApp.get().getString(R.string.screen));
-        if (hot) showList.add(MyApp.get().getString(R.string.hot));
-        if (mine) showList.add(MyApp.get().getString(R.string.me_de));
-        if (isTa) showList.add(MyApp.get().getString(R.string.ta_de));
-        return showList;
-    }
-
     public Couple getCouple() {
         return couple;
     }

@@ -292,7 +292,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .title(R.string.please_choose_classify)
+                .title(R.string.please_select_classify)
                 .items(items)
                 .itemsCallbackSingleChoice(kind - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
@@ -313,7 +313,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void checkPush() {
         if (kind <= suggestKindList.get(0).getKind()) {
             // 第一个是全部
-            ToastUtils.show(getString(R.string.please_choose_classify));
+            ToastUtils.show(getString(R.string.please_select_classify));
             return;
         }
         String title = etTitle.getText().toString();

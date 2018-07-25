@@ -13,6 +13,7 @@ import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Dream;
 import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.domain.OssInfo;
+import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.domain.User;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.domain.VipLimit;
@@ -171,6 +172,14 @@ public class SPHelper {
     private static final String FIELD_DRAFT_DIARY_CONTENT_TEXT = "diary_content_text";
     private static final String FIELD_DRAFT_DREAM_HAPPEN = "dream_happen";
     private static final String FIELD_DRAFT_DREAM_CONTENT_TEXT = "dream_content_text";
+    private static final String FIELD_DRAFT_POST_KIND = "post_kind";
+    private static final String FIELD_DRAFT_POST_SUB_KIND = "post_sub_kind";
+    private static final String FIELD_DRAFT_POST_TITLE = "post_title";
+    private static final String FIELD_DRAFT_POST_CONTENT_TEXT = "post_content_text";
+    private static final String FIELD_DRAFT_POST_LONGITUDE = "post_longitude";
+    private static final String FIELD_DRAFT_POST_LATITUDE = "post_latitude";
+    private static final String FIELD_DRAFT_POST_ADDRESS = "post_address";
+    private static final String FIELD_DRAFT_POST_CITY_ID = "post_city_id";
 
     /**
      * ***********************************清除***********************************
@@ -699,9 +708,7 @@ public class SPHelper {
      * ***********************************Draft***********************************
      */
     public static void setDraftDiary(Diary diary) {
-        if (diary == null) {
-            diary = new Diary();
-        }
+        if (diary == null) return;
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
         editor.putLong(FIELD_DRAFT_DIARY_HAPPEN, diary.getHappenAt());
         editor.putString(FIELD_DRAFT_DIARY_CONTENT_TEXT, diary.getContentText());
@@ -720,9 +727,7 @@ public class SPHelper {
     }
 
     public static void setDraftDream(Dream dream) {
-        if (dream == null) {
-            dream = new Dream();
-        }
+        if (dream == null) return;
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
         editor.putLong(FIELD_DRAFT_DREAM_HAPPEN, dream.getHappenAt());
         editor.putString(FIELD_DRAFT_DREAM_CONTENT_TEXT, dream.getContentText());
@@ -738,6 +743,37 @@ public class SPHelper {
             return null;
         }
         return dream;
+    }
+
+    public static void setDraftPost(Post post) {
+        if (post == null) return;
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
+        editor.putInt(FIELD_DRAFT_POST_KIND, post.getKind());
+        editor.putInt(FIELD_DRAFT_POST_SUB_KIND, post.getSubKind());
+        editor.putString(FIELD_DRAFT_POST_TITLE, post.getTitle());
+        editor.putString(FIELD_DRAFT_POST_CONTENT_TEXT, post.getContentText());
+        editor.putFloat(FIELD_DRAFT_POST_LONGITUDE, (float) post.getLongitude());
+        editor.putFloat(FIELD_DRAFT_POST_LATITUDE, (float) post.getLatitude());
+        editor.putString(FIELD_DRAFT_POST_ADDRESS, post.getAddress());
+        editor.putString(FIELD_DRAFT_POST_CITY_ID, post.getCityId());
+        editor.apply();
+    }
+
+    public static Post getDraftPost() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_DRAFT);
+        Post post = new Post();
+        post.setKind(sp.getInt(FIELD_DRAFT_POST_KIND, 0));
+        post.setSubKind(sp.getInt(FIELD_DRAFT_POST_SUB_KIND, 0));
+        post.setTitle(sp.getString(FIELD_DRAFT_POST_TITLE, ""));
+        post.setContentText(sp.getString(FIELD_DRAFT_POST_CONTENT_TEXT, ""));
+        post.setLongitude(sp.getFloat(FIELD_DRAFT_POST_LONGITUDE, 0));
+        post.setLatitude(sp.getFloat(FIELD_DRAFT_POST_LATITUDE, 0));
+        post.setAddress(sp.getString(FIELD_DRAFT_POST_ADDRESS, ""));
+        post.setCityId(sp.getString(FIELD_DRAFT_POST_CITY_ID, ""));
+        if (post.getKind() == 0) {
+            return null;
+        }
+        return post;
     }
 
 }

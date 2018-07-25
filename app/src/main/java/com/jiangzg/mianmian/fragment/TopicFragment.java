@@ -22,17 +22,18 @@ import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.PostKindInfo;
+import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.TopicMessageInfo;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.API;
-import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -169,7 +170,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 topicMessageInfoList = data.getTopicMessageInfoList();
-                postKindInfoList = ListHelper.getPostKindInfoEnableList(data.getPostKindInfoList());
+                postKindInfoList = getPostKindInfoEnableList(data.getPostKindInfoList());
                 recyclerHelper.dataNew(postKindInfoList, 0);
             }
 
@@ -179,6 +180,30 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 recyclerHelper.viewEmptyShow(message);
             }
         });
+    }
+
+    // getPostKindInfoEnableList 获取可以显示的kind
+    public ArrayList<PostKindInfo> getPostKindInfoEnableList(List<PostKindInfo> infoList) {
+        ArrayList<PostKindInfo> returnList = new ArrayList<>();
+        if (infoList == null || infoList.size() <= 0) {
+            return returnList;
+        }
+        for (PostKindInfo info : infoList) {
+            if (info != null && info.isEnable()) {
+                ArrayList<PostSubKindInfo> returnSubList = new ArrayList<>();
+                List<PostSubKindInfo> subKindInfoList = info.getPostSubKindInfoList();
+                if (subKindInfoList != null && subKindInfoList.size() > 0) {
+                    for (PostSubKindInfo subInfo : subKindInfoList) {
+                        if (subInfo != null && subInfo.isEnable()) {
+                            returnSubList.add(subInfo);
+                        }
+                    }
+                }
+                info.setPostSubKindInfoList(returnSubList);
+                returnList.add(info);
+            }
+        }
+        return returnList;
     }
 
 }

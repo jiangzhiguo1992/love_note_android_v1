@@ -236,7 +236,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .title(R.string.choose_search_type)
+                .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_NOTE_SHOW)
                 .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override

@@ -153,7 +153,14 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                PostAddActivity.goActivity(mActivity, kindInfo);
+                if (vpFragment == null || kindInfo == null) return;
+                int currentItem = vpFragment.getCurrentItem();
+                List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
+                if (postSubKindInfoList != null && currentItem >= 0 && currentItem < postSubKindInfoList.size()) {
+                    PostSubKindInfo subKindInfo = postSubKindInfoList.get(currentItem);
+                    if (subKindInfo == null) return;
+                    PostAddActivity.goActivity(mActivity, kindInfo.getId(), subKindInfo.getId());
+                }
                 break;
         }
     }
@@ -162,7 +169,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .title(R.string.choose_search_type)
+                .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_TOPIC_SHOW)
                 .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override

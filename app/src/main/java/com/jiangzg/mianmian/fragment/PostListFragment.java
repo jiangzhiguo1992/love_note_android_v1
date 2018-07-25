@@ -194,7 +194,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
 
     private void getData(final boolean more) {
         if (subKindInfo == null) return;
-        if (kindInfo.isLonLat()) {
+        if (subKindInfo.isLonLat()) {
             PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
                 @Override
                 public void onPermissionGranted(int requestCode, String[] permissions) {
