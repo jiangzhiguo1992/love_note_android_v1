@@ -137,7 +137,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         if (imageList == null || imageList.size() <= 0) {
             rvImage.setVisibility(View.GONE);
         } else {
-            // TODO 只显示3张
+            // TODO 只显示3张 还有img点击问题
             rvImage.setVisibility(View.VISIBLE);
             int spanCount = imageList.size() > 3 ? 3 : imageList.size();
             new RecyclerHelper(rvImage)
@@ -147,7 +147,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                     .dataNew(imageList, 0);
         }
         // address
-        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
+        helper.setVisible(R.id.llAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
         // time
         helper.setText(R.id.tvCreateAt, createShow);

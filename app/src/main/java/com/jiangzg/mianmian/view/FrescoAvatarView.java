@@ -109,8 +109,8 @@ public class FrescoAvatarView extends SimpleDraweeView {
                     mHeight = params.height;
                 }
                 if (mWidth <= 0 || mHeight <= 0) {
-                    mWidth = ScreenUtils.getScreenWidth(MyApp.get()) / 10;
-                    mHeight = ScreenUtils.getScreenHeight(MyApp.get()) / 15;
+                    mWidth = ScreenUtils.getScreenWidth(MyApp.get()) / 20;
+                    mHeight = ScreenUtils.getScreenHeight(MyApp.get()) / 30;
                 }
             }
         }

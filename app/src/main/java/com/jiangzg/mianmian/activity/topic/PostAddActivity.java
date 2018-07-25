@@ -376,6 +376,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     }
 
     private void saveDraft() {
+        if (post == null) return;
+        post.setTitle(etTitle.getText().toString());
         SPHelper.setDraftPost(post);
         ToastUtils.show(getString(R.string.draft_save_success));
     }
@@ -442,8 +444,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // event TODO
-                RxEvent<ArrayList<Post>> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_REFRESH, new ArrayList<Post>());
+                // event
+                RxEvent<Integer> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_REFRESH, post.getSubKind());
                 RxBus.post(event);
                 // sp
                 SPHelper.setDraftPost(null);

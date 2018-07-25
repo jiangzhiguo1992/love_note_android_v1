@@ -59,7 +59,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private Observable<Boolean> obSearchNormal;
     private Observable<Boolean> obSearchOfficial;
     private Observable<Boolean> obSearchWell;
-    private Observable<List<Post>> obListRefresh;
+    private Observable<Integer> obListRefresh;
     private Observable<Post> obListItemRefresh;
     private Observable<Post> obListItemDelete;
 
@@ -148,10 +148,11 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 recyclerHelper.dataRefresh();
             }
         });
-        obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, new Action1<List<Post>>() {
+        obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, new Action1<Integer>() {
             @Override
-            public void call(List<Post> postList) {
-                if (recyclerHelper == null) return;
+            public void call(Integer subKindId) {
+                if (recyclerHelper == null || subKindInfo == null || subKindInfo.getId() != subKindId)
+                    return;
                 recyclerHelper.dataRefresh();
             }
         });
