@@ -120,7 +120,7 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
         switch (view.getId()) {
             case R.id.btnEdit:
                 if (souvenir == null) return;
-                SouvenirEditForeignActivity.goActivity(mActivity, year, souvenir);
+                SouvenirEditForeignActivity.goActivity(mFragment, year, souvenir);
                 break;
         }
     }

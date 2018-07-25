@@ -14,6 +14,9 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
+import com.jiangzg.mianmian.activity.topic.PostCollectActivity;
+import com.jiangzg.mianmian.activity.topic.PostMineActivity;
+import com.jiangzg.mianmian.activity.topic.TopicMessageActivity;
 import com.jiangzg.mianmian.adapter.TopicHomeKindAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
@@ -137,21 +140,21 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         btnMyPush.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                PostMineActivity.goActivity(mFragment);
             }
         });
         // 收藏
         btnMyCollect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                PostCollectActivity.goActivity(mFragment);
             }
         });
         // 消息
         btnMyMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO
+                TopicMessageActivity.goActivity(mFragment);
             }
         });
     }

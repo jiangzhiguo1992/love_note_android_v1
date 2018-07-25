@@ -146,9 +146,14 @@
         <activity android:name=".activity.note.PromiseEditActivity"/>
         <activity android:name=".activity.note.PromiseDetailActivity"/>
         <!-- topic -->
+        <activity android:name=".activity.topic.TopicMessageActivity"/>
+        <activity android:name=".activity.topic.PostMineActivity"/>
+        <activity android:name=".activity.topic.PostCollectActivity"/>
         <activity android:name=".activity.topic.PostListActivity"/>
         <activity android:name=".activity.topic.PostAddActivity"/>
         <activity android:name=".activity.topic.PostSearchActivity"/>
+        <activity android:name=".activity.topic.PostDetailActivity"/>
+        <activity android:name=".activity.topic.PostSubCommentListActivity"/>
     </application>
 
 </manifest>

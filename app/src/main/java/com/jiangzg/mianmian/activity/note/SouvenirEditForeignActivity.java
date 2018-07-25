@@ -1,10 +1,10 @@
 package com.jiangzg.mianmian.activity.note;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -114,12 +114,12 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private Observable<Diary> obSelectDiary;
     private Call<Result> call;
 
-    public static void goActivity(Activity from, int year, Souvenir souvenir) {
+    public static void goActivity(Fragment from, int year, Souvenir souvenir) {
         if (souvenir == null || !souvenir.isMine()) {
             ToastUtils.show(from.getString(R.string.can_operation_self_create_souvenir));
             return;
         }
-        Intent intent = new Intent(from, SouvenirEditForeignActivity.class);
+        Intent intent = new Intent(from.getActivity(), SouvenirEditForeignActivity.class);
         intent.putExtra("year", year);
         intent.putExtra("souvenir", souvenir);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

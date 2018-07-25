@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
+import com.jiangzg.mianmian.activity.topic.PostDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
@@ -188,7 +189,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             item.setRead(true);
             notifyItemChanged(position);
         }
-        // TODO
+        PostDetailActivity.goActivity(mActivity, item);
     }
 
 }
