@@ -351,7 +351,7 @@
     <string name="lon_lat_colon">经纬度:</string>
     <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
     <string name="input_search_address">输入搜索地址</string>
-    <string name="please_select_location">请选择位置</string>
+    <string name="please_select_address">请选择地址</string>
     <string name="address_search">地址搜索</string>
     <string name="location_search_fail">位置搜索失败</string>
     <string name="search_location_no_exist">搜索位置不存在</string>

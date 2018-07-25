@@ -1050,6 +1050,35 @@ public class ListHelper {
         return returnList;
     }
 
+    // getIndexInKindList
+    public static int getIndexInKindList(int kindId) {
+        if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
+            return 0;
+        for (int i = 0; i < TopicFragment.postKindInfoList.size(); i++) {
+            PostKindInfo kindInfo = TopicFragment.postKindInfoList.get(i);
+            if (kindInfo == null) continue;
+            if (kindInfo.getId() == kindId) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    // getIndexInSubKindList
+    public static int getIndexInSubKindPushList(int kindId, int subKindId) {
+        List<PostSubKindInfo> subKindPushList = getSubKindPushList(kindId);
+        if (subKindPushList == null || subKindPushList.size() <= 0)
+            return 0;
+        for (int i = 0; i < subKindPushList.size(); i++) {
+            PostSubKindInfo subKindInfo = subKindPushList.get(i);
+            if (subKindInfo == null) continue;
+            if (subKindInfo.getId() == subKindId) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     // getKindShowList 获取kind的显示list
     public static List<String> getKindShowList() {
         List<String> returnList = new ArrayList<>();

@@ -94,7 +94,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.please_select_location), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.please_select_address), true);
         // map
         if (map != null) {
             map.onCreate(null);
@@ -235,7 +235,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                 return true;
             case R.id.menuComplete: // 完成
                 if (locationSelect == null) {
-                    ToastUtils.show(getString(R.string.please_select_location));
+                    ToastUtils.show(getString(R.string.please_select_address));
                     return true;
                 }
                 RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, locationSelect);

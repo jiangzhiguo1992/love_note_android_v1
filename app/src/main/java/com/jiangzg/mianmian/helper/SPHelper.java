@@ -708,7 +708,9 @@ public class SPHelper {
      * ***********************************Draft***********************************
      */
     public static void setDraftDiary(Diary diary) {
-        if (diary == null) return;
+        if (diary == null) {
+            diary = new Diary();
+        }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
         editor.putLong(FIELD_DRAFT_DIARY_HAPPEN, diary.getHappenAt());
         editor.putString(FIELD_DRAFT_DIARY_CONTENT_TEXT, diary.getContentText());
@@ -727,7 +729,9 @@ public class SPHelper {
     }
 
     public static void setDraftDream(Dream dream) {
-        if (dream == null) return;
+        if (dream == null) {
+            dream = new Dream();
+        }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
         editor.putLong(FIELD_DRAFT_DREAM_HAPPEN, dream.getHappenAt());
         editor.putString(FIELD_DRAFT_DREAM_CONTENT_TEXT, dream.getContentText());
@@ -746,7 +750,9 @@ public class SPHelper {
     }
 
     public static void setDraftPost(Post post) {
-        if (post == null) return;
+        if (post == null) {
+            post = new Post();
+        }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_DRAFT).edit();
         editor.putInt(FIELD_DRAFT_POST_KIND, post.getKind());
         editor.putInt(FIELD_DRAFT_POST_SUB_KIND, post.getSubKind());

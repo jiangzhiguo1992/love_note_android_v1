@@ -1113,4 +1113,12 @@ public class OssHelper {
         compressJpegList(activity, pathNoteGift, fileList, callBack);
     }
 
+    // 帖子 (压缩)
+    public static void uploadPost(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathTopicPost = ossInfo.getPathTopicPost();
+        List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        compressJpegList(activity, pathTopicPost, fileList, callBack);
+    }
+
 }
