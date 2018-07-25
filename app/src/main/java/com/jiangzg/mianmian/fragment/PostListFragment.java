@@ -22,6 +22,7 @@ import com.jiangzg.mianmian.domain.PostKindInfo;
 import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.ApiHelper;
 import com.jiangzg.mianmian.helper.ConsHelper;
 import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
@@ -183,6 +184,12 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
+    }
+
+    public int getSearchType() {
+        if (official) return ApiHelper.LIST_TOPIC_OFFICIAL;
+        if (well) return ApiHelper.LIST_TOPIC_WELL;
+        return ApiHelper.LIST_TOPIC_NORMAL;
     }
 
     private void getData(final boolean more) {

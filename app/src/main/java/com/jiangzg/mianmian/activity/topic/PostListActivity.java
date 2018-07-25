@@ -82,7 +82,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         // fragment
         List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
         List<String> titleList = new ArrayList<>();
-        List<PostListFragment> fragmentList = new ArrayList<>();
+        final List<PostListFragment> fragmentList = new ArrayList<>();
         if (postSubKindInfoList != null && postSubKindInfoList.size() > 0) {
             for (PostSubKindInfo subKindInfo : postSubKindInfoList) {
                 if (subKindInfo == null || !subKindInfo.isEnable()) continue;
@@ -97,6 +97,22 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         vpFragment.setOffscreenPageLimit(fragmentList.size());
         vpFragment.setAdapter(adapter);
         tl.setupWithViewPager(vpFragment);
+        vpFragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                PostListFragment fragment = fragmentList.get(position);
+                searchType = fragment.getSearchType();
+                tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
     @Override
