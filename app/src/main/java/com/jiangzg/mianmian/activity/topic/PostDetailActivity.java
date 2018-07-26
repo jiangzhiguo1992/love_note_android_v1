@@ -27,6 +27,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -37,6 +39,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
+import com.jiangzg.mianmian.adapter.PostCommentAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Help;
@@ -61,6 +64,7 @@ import com.jiangzg.mianmian.view.FrescoAvatarView;
 import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 import com.jiangzg.mianmian.view.GWrapView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -116,6 +120,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
     private Observable<Long> obPostDetailRefresh;
+    private Observable<PostComment> obPostCommentListRefresh;
+    private Observable<PostComment> obPostCommentListItemDelete;
     private Observable<PostComment> obPostCommentListItemRefresh;
     private Call<Result> callGet;
     private Call<Result> callDel;
@@ -155,7 +161,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                //.initAdapter(new PromiseBreakAdapter(mActivity)) // TODO comment有楼主的标识 有几楼的标识 有@TA的选项 置顶
+                .initAdapter(new PostCommentAdapter(mActivity))
                 .viewHeader(mActivity, R.layout.list_head_post_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
@@ -163,20 +169,41 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
-                        getCommentData(false);
+                        getCommentData(false, false);
                     }
                 })
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        getCommentData(true);
+                        getCommentData(true, false);
+                    }
+                })
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
+                        commentAdapter.goSubCommentDetail(position);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        //PromiseBreakAdapter promiseBreakAdapter = (PromiseBreakAdapter) adapter;
-                        // TODO 删除
+                        PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
+                        commentAdapter.showDeleteDialog(position);
+                    }
+                })
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.llPoint: // 点赞
+                                commentAdapter.pointPush(position, true);
+                                break;
+                            case R.id.llReport: // 举报
+                                commentAdapter.reportPush(position, true);
+                                break;
+                        }
                     }
                 });
         // init
@@ -214,6 +241,21 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 refreshPost(pid);
             }
         });
+        obPostCommentListRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, new Action1<PostComment>() {
+            @Override
+            public void call(PostComment postComment) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataRefresh();
+            }
+        });
+        obPostCommentListItemDelete = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, new Action1<PostComment>() {
+            @Override
+            public void call(PostComment postComment) {
+                if (recyclerHelper == null) return;
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), postComment);
+                // TODO 删除之后的bottom更新
+            }
+        });
         obPostCommentListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, new Action1<PostComment>() {
             @Override
             public void call(PostComment postComment) {
@@ -235,6 +277,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         RetrofitHelper.cancel(callPoint);
         RetrofitHelper.cancel(callCollect);
         RxBus.unregister(ConsHelper.EVENT_POST_DETAIL_REFRESH, obPostDetailRefresh);
+        RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, obPostCommentListRefresh);
+        RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, obPostCommentListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, obPostCommentListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
@@ -357,7 +401,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_space_holder), create);
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(post.getUpdateAt());
         String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), update);
-        boolean report = post.isReport();
 
         View head = recyclerHelper.getViewHead();
         // couple
@@ -397,7 +440,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 wvTag.addChild(tagView);
             }
         }
-        if (report) wvTag.addChild(getTagView(mActivity.getString(R.string.already_report)));
         // title
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         if (StringUtils.isEmpty(title)) {
@@ -414,7 +456,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             tvContent.setVisibility(View.VISIBLE);
             tvContent.setText(contentText);
         }
-        // rvImage TODO 全屏铺满？
+        // rvImage TODO 全屏铺满？ 不要竖直滚动！是不是他在捣乱乱滚动
         RecyclerView rvImage = head.findViewById(R.id.rvImage);
         if (imageList == null || imageList.size() <= 0) {
             rvImage.setVisibility(View.GONE);
@@ -481,17 +523,39 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     private void showCommentUserDialog() {
+        if (post == null) return;
+        List<String> showList = new ArrayList<>();
+        showList.add(getString(R.string.all));
+        showList.add(getString(R.string.floor_master));
+        showList.add(getString(R.string.me_de));
+        int selectIndex = 0;
+        if (searchUserId == post.getUserId()) {
+            selectIndex = 1;
+        } else if (searchUserId == SPHelper.getMe().getId()) {
+            selectIndex = 2;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderType, new MaterialDialog.ListCallbackSingleChoice() {
+                .items(showList)
+                .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        orderType = which;
+                        if (post == null) return true;
+                        switch (which) {
+                            case 1: // 楼主
+                                searchUserId = post.getUserId();
+                                break;
+                            case 2: // 我的
+                                searchUserId = SPHelper.getMe().getId();
+                                break;
+                            default: // 全部
+                                searchUserId = 0;
+                                break;
+                        }
                         initCommentUserView();
-                        getCommentData(false);
+                        getCommentData(false, true);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -511,7 +575,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         orderType = which;
                         initCommentOrderView();
-                        getCommentData(false);
+                        getCommentData(false, true);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -521,6 +585,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     private void initCommentUserView() {
+        if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
         TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
         if (searchUserId == post.getUserId()) {
@@ -533,6 +598,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     private void initCommentOrderView() {
+        if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         if (orderType >= 0 && orderType < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
@@ -542,7 +608,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
     }
 
-    private void getCommentData(final boolean more) {
+    private void getCommentData(final boolean more, final boolean top) {
         if (post == null) return;
         page = more ? page + 1 : 0;
         // api
@@ -558,6 +624,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<PostComment> postCommentList = data.getPostCommentList();
                 recyclerHelper.dataOk(postCommentList, more);
+                // TODO 更新之后的滚动问题
+                if (top && rv != null) rv.smoothScrollToPosition(0);
             }
 
             @Override
@@ -685,6 +753,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 post.setComment(true);
                 post.setCommentCount(post.getCommentCount() + 1);
                 initCommentView();
+                // refresh
+                getCommentData(false, true);
                 // event
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
@@ -739,7 +809,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 post.setCommentCount(post.getCommentCount() + 1);
                 initCommentView();
                 // refresh
-                getCommentData(false);
+                getCommentData(false, true);
                 // event
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);

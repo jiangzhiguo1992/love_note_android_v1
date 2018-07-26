@@ -531,11 +531,13 @@
 
     <!-- topic -->
     <string name="post">帖子</string>
+    <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="jab_ta">戳TA</string>
     <string name="floor_master">楼主</string>
     <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
     <string name="confirm_delete_this_post">确定删除这个帖子？</string>
+    <string name="jab_a_little">戳了一下</string>
 
     <!-- square -->
     <string name="sign">签到</string>

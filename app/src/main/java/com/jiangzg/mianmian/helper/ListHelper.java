@@ -14,6 +14,7 @@ import com.jiangzg.mianmian.domain.Food;
 import com.jiangzg.mianmian.domain.Gift;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Post;
+import com.jiangzg.mianmian.domain.PostComment;
 import com.jiangzg.mianmian.domain.PostKindInfo;
 import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.SouvenirAlbum;
@@ -1147,10 +1148,10 @@ public class ListHelper {
         boolean top = post.isTop();
         boolean official = post.isOfficial();
         boolean well = post.isWell();
-        boolean screen = post.isScreen();
         boolean hot = post.isHot();
         boolean mine = post.isMine();
         boolean isTa = post.isOur() && !post.isMine();
+        boolean report = post.isReport();
         // show
         if (kind || subKind) {
             PostKindInfo kindInfo = ListHelper.getPostKindInfoById(post.getKind());
@@ -1165,8 +1166,22 @@ public class ListHelper {
         if (top) showList.add(MyApp.get().getString(R.string.top));
         if (official) showList.add(MyApp.get().getString(R.string.official));
         if (well) showList.add(MyApp.get().getString(R.string.well));
-        if (screen) showList.add(MyApp.get().getString(R.string.screen));
         if (hot) showList.add(MyApp.get().getString(R.string.hot));
+        if (mine) showList.add(MyApp.get().getString(R.string.me_de));
+        if (isTa) showList.add(MyApp.get().getString(R.string.ta_de));
+        if (report) showList.add(MyApp.get().getString(R.string.already_report));
+        return showList;
+    }
+
+    // getPostCommentTagShowList 获取postComment的tagList
+    public static List<String> getPostCommentTagShowList(PostComment postComment) {
+        List<String> showList = new ArrayList<>();
+        if (postComment == null) return showList;
+        boolean official = postComment.isOfficial();
+        boolean mine = postComment.isMine();
+        boolean isTa = postComment.isOur() && !postComment.isMine();
+        // show
+        if (official) showList.add(MyApp.get().getString(R.string.official));
         if (mine) showList.add(MyApp.get().getString(R.string.me_de));
         if (isTa) showList.add(MyApp.get().getString(R.string.ta_de));
         return showList;

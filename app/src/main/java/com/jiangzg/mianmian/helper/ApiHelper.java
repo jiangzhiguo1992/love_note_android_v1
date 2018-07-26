@@ -355,7 +355,7 @@ public class ApiHelper {
         PostComment postComment = new PostComment();
         postComment.setPostId(pid);
         postComment.setToCommentId(tcid);
-        postComment.setKind(PostComment.KIND_TA);
+        postComment.setKind(PostComment.KIND_JAB);
         postComment.setContentText("");
         return postComment;
     }

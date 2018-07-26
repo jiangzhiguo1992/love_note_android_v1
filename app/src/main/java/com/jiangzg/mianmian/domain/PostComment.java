@@ -3,20 +3,28 @@ package com.jiangzg.mianmian.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 /**
  * Created by JZG on 2018/7/23.
  * PostComment
  */
-public class PostComment extends BaseCP implements Parcelable {
+public class PostComment extends BaseCP implements Parcelable, MultiItemEntity {
 
     public static final int KIND_TEXT = 0;
-    public static final int KIND_TA = 1;
+    public static final int KIND_JAB = 1;
+
+    @Override
+    public int getItemType() {
+        return kind;
+    }
 
     private long postId;
     private long toCommentId;
     private int kind;
     private String contentText;
     private boolean official;
+    private int subCommentCount;
     private int reportCount;
     private int pointCount;
     // 关联
@@ -24,8 +32,25 @@ public class PostComment extends BaseCP implements Parcelable {
     private Couple couple;
     private boolean mine;
     private boolean our;
+    private boolean subComment;
     private boolean report;
     private boolean point;
+
+    public boolean isSubComment() {
+        return subComment;
+    }
+
+    public void setSubComment(boolean subComment) {
+        this.subComment = subComment;
+    }
+
+    public int getSubCommentCount() {
+        return subCommentCount;
+    }
+
+    public void setSubCommentCount(int subCommentCount) {
+        this.subCommentCount = subCommentCount;
+    }
 
     public long getPostId() {
         return postId;
@@ -142,12 +167,14 @@ public class PostComment extends BaseCP implements Parcelable {
         kind = in.readInt();
         contentText = in.readString();
         official = in.readByte() != 0;
+        subCommentCount = in.readInt();
         reportCount = in.readInt();
         pointCount = in.readInt();
         screen = in.readByte() != 0;
         couple = in.readParcelable(Couple.class.getClassLoader());
         mine = in.readByte() != 0;
         our = in.readByte() != 0;
+        subComment = in.readByte() != 0;
         report = in.readByte() != 0;
         point = in.readByte() != 0;
     }
@@ -160,12 +187,14 @@ public class PostComment extends BaseCP implements Parcelable {
         dest.writeInt(kind);
         dest.writeString(contentText);
         dest.writeByte((byte) (official ? 1 : 0));
+        dest.writeInt(subCommentCount);
         dest.writeInt(reportCount);
         dest.writeInt(pointCount);
         dest.writeByte((byte) (screen ? 1 : 0));
         dest.writeParcelable(couple, flags);
         dest.writeByte((byte) (mine ? 1 : 0));
         dest.writeByte((byte) (our ? 1 : 0));
+        dest.writeByte((byte) (subComment ? 1 : 0));
         dest.writeByte((byte) (report ? 1 : 0));
         dest.writeByte((byte) (point ? 1 : 0));
     }
@@ -186,4 +215,5 @@ public class PostComment extends BaseCP implements Parcelable {
             return new PostComment[size];
         }
     };
+
 }

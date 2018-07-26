@@ -72,6 +72,11 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
+        if (item.isScreen()) {
+            helper.setVisible(R.id.root, false);
+            return;
+        }
+        helper.setVisible(R.id.root, true);
         // data
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();
@@ -88,7 +93,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String collectCount = item.getCollectCount() > 0 ? Post.getShowCount(item.getCollectCount()) : mActivity.getString(R.string.collect);
         String commentCount = item.getCommentCount() > 0 ? Post.getShowCount(item.getCommentCount()) : mActivity.getString(R.string.comment);
         boolean read = item.isRead();
-        boolean report = item.isReport();
         boolean point = item.isPoint();
         boolean collect = item.isCollect();
         boolean comment = item.isComment();
@@ -158,7 +162,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setText(R.id.tvComment, commentCount);
         // user
         helper.setTextColor(R.id.tvTitle, read ? colorFontGrey : colorFontBlack);
-        if (report) wvTag.addChild(getTagView(mActivity.getString(R.string.already_report)));
         ImageView ivPoint = helper.getView(R.id.ivPoint);
         ivPoint.setImageTintList(point ? colorPrimaryStateList : colorGreyStateList);
         ImageView ivCollect = helper.getView(R.id.ivCollect);
@@ -188,6 +191,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     public void goPostDetail(int position) {
         Post item = getItem(position);
+        if (item == null || item.isScreen()) return;
         if (!item.isRead()) {
             item.setRead(true);
             notifyItemChanged(position);

@@ -56,14 +56,14 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         int layoutPosition = helper.getLayoutPosition();
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
-        String title = official ? formatOfficial : String.format(Locale.getDefault(), formatFloor, layoutPosition);
+        String floor = official ? formatOfficial : String.format(Locale.getDefault(), formatFloor, layoutPosition);
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
         String contentText = item.getContentText();
         // view
         helper.setText(R.id.tvTime, create);
         helper.setText(R.id.tvContent, contentText);
         TextView tvFloor = helper.getView(R.id.tvFloor);
-        tvFloor.setText(title);
+        tvFloor.setText(floor);
         if (official) {
             tvFloor.setTextColor(colorDark);
         } else if (mine) {

@@ -7,12 +7,14 @@ import android.os.Bundle;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.PostComment;
 
 public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListActivity> {
 
-    public static void goActivity(Activity from) {
+    public static void goActivity(Activity from, PostComment postComment) {
+        if (postComment == null) return;
         Intent intent = new Intent(from, PostSubCommentListActivity.class);
-        // intent.putExtra();
+        intent.putExtra("postComment", postComment);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

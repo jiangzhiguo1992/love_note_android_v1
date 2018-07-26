@@ -24,7 +24,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-
+        // TODO 注意被删除的帖子
     }
 
     @Override
