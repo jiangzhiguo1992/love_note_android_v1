@@ -91,7 +91,7 @@
         android:layout_alignStart="@+id/cvVideo"
         android:layout_below="@+id/cvVideo"
         android:layout_marginTop="5dp"
-        android:drawableEnd="@drawable/ic_location_grey"
+        android:drawableEnd="@drawable/ic_location_15_grey"
         android:drawablePadding="5dp"
         android:gravity="end|center_vertical"
         android:visibility="gone"

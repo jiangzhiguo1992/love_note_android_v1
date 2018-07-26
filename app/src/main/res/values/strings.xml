@@ -535,5 +535,6 @@
     <string name="sign">签到</string>
     <string name="coin">金币</string>
     <string name="vip">会员</string>
+    <string name="jab_ta">戳TA</string>
 
 </resources>

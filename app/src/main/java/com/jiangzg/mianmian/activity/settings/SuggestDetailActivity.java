@@ -278,14 +278,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             View tagOfficial = getTagView(mActivity.getString(R.string.official));
             wvTag.addChild(tagOfficial);
         }
-        if (mine) {
-            View tagMine = getTagView(mActivity.getString(R.string.me_de));
-            wvTag.addChild(tagMine);
-        }
         View tagStatus = getTagView(statusShow);
         wvTag.addChild(tagStatus);
         View tagKind = getTagView(kindShow);
         wvTag.addChild(tagKind);
+        if (mine) {
+            View tagMine = getTagView(mActivity.getString(R.string.me_de));
+            wvTag.addChild(tagMine);
+        }
         // otherView
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);

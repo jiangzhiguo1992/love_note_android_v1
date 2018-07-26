@@ -97,7 +97,8 @@
         app:behavior_hideable="true"
         app:behavior_peekHeight="200dp"
         app:elevation="4dp"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        tools:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/rlCommentTop"

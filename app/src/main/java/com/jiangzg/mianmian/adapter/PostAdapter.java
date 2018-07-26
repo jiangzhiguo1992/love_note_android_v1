@@ -147,7 +147,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             adapter.setVisibleLimit(3);
         }
         // address
-        helper.setVisible(R.id.llAddress, !StringUtils.isEmpty(address));
+        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
         // time
         helper.setText(R.id.tvCreateAt, createShow);

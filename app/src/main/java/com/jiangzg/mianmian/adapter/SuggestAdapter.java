@@ -112,14 +112,14 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
             View tagOfficial = getTagView(formatOfficial);
             wvTag.addChild(tagOfficial);
         }
-        if (mine) {
-            View tagMine = getTagView(formatMine);
-            wvTag.addChild(tagMine);
-        }
         View tagStatus = getTagView(statusShow);
         wvTag.addChild(tagStatus);
         View tagKind = getTagView(kindShow);
         wvTag.addChild(tagKind);
+        if (mine) {
+            View tagMine = getTagView(formatMine);
+            wvTag.addChild(tagMine);
+        }
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);
         helper.setText(R.id.tvCreateAt, createShow);

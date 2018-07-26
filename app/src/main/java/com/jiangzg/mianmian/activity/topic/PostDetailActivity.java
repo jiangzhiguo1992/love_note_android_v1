@@ -6,9 +6,7 @@ import android.os.Bundle;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.note.DiaryDetailActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.helper.ConsHelper;
 

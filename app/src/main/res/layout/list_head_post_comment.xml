@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/llCouple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="13dp"
+            app:cardElevation="@dimen/elevation_normal"
+            app:cardMaxElevation="@dimen/elevation_big">
+
+            <com.jiangzg.mianmian.view.FrescoAvatarView
+                android:id="@+id/ivAvatarLeft"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                tools:background="@mipmap/ic_girl_circle"/>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvNameLeft"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minLines="1"
+            android:singleLine="true"
+            tools:text="左边的名字"/>
+
+        <TextView
+            android:id="@+id/tvNameRight"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:minLines="1"
+            android:singleLine="true"
+            tools:text="右边的名字"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="5dp"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="13dp"
+            app:cardElevation="@dimen/elevation_normal"
+            app:cardMaxElevation="@dimen/elevation_big">
+
+            <com.jiangzg.mianmian.view.FrescoAvatarView
+                android:id="@+id/ivAvatarRight"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                tools:background="@mipmap/ic_boy_circle"/>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <com.jiangzg.mianmian.view.GWrapView
+        android:id="@+id/wvTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/FontBlackNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:visibility="gone"
+        tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/tvContent"
+        style="@style/FontGreyNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:visibility="gone"
+        tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"
+        tools:visibility="visible"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/tvAddress"
+        style="@style/FontGreySmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:drawablePadding="3dp"
+        android:drawableStart="@drawable/ic_location_15_grey"
+        android:gravity="start|center_vertical"
+        android:visibility="gone"
+        tools:text="北京天津山西杭州苏州上海"
+        tools:visibility="visible"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCreateAt"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="发表于:2017-12-31"/>
+
+        <TextView
+            android:id="@+id/tvUpdateAt"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:maxLines="1"
+            android:singleLine="true"
+            tools:text="更新于:2017-12-31"/>
+    </LinearLayout>
+</LinearLayout>

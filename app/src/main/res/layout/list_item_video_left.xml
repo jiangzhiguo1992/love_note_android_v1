@@ -92,7 +92,7 @@
         android:layout_below="@+id/cvVideo"
         android:layout_marginTop="5dp"
         android:drawablePadding="5dp"
-        android:drawableStart="@drawable/ic_location_grey"
+        android:drawableStart="@drawable/ic_location_15_grey"
         android:gravity="start|center_vertical"
         android:visibility="gone"
         tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班北京市 房山区 西坪小学 5号楼 二年级 3班"
