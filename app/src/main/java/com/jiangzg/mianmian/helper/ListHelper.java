@@ -1007,29 +1007,35 @@ public class ListHelper {
     /**
      * **************************************topic转换**************************************
      */
-    // isKindPushEnable kind是否可以发表
-    public static boolean isKindPushEnable(int kindId, int subKindId) {
+    // getPostKindInfoById
+    public static PostKindInfo getPostKindInfoById(int kindId) {
         if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
-            return false;
+            return null;
         for (PostKindInfo info : TopicFragment.postKindInfoList) {
             if (info == null) continue;
             if (info.getId() == kindId) {
-                List<PostSubKindInfo> subKindInfoList = info.getPostSubKindInfoList();
-                if (subKindInfoList != null && subKindInfoList.size() > 0) {
-                    for (PostSubKindInfo subKindInfo : subKindInfoList) {
-                        if (subKindInfo == null) continue;
-                        if (subKindInfo.getId() == subKindId) {
-                            return subKindInfo.isPush();
-                        }
-                    }
-                }
+                return info;
             }
         }
-        return false;
+        return null;
     }
 
-    // getSubKindPushList 获取可发表的subKindList
-    public static List<PostSubKindInfo> getSubKindPushList(int kindId) {
+    // getPostSubKindInfoById
+    public static PostSubKindInfo getPostSubKindInfoById(int kindId, int subKindId) {
+        PostKindInfo kindInfo = getPostKindInfoById(kindId);
+        if (kindInfo == null || kindInfo.getPostSubKindInfoList() == null || kindInfo.getPostSubKindInfoList().size() <= 0)
+            return null;
+        for (PostSubKindInfo info : kindInfo.getPostSubKindInfoList()) {
+            if (info == null) continue;
+            if (info.getId() == subKindId) {
+                return info;
+            }
+        }
+        return null;
+    }
+
+    // getPostSubKindPushList 获取可发表的subKindList
+    public static List<PostSubKindInfo> getPostSubKindPushList(int kindId) {
         List<PostSubKindInfo> returnList = new ArrayList<>();
         if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
             return returnList;
@@ -1050,8 +1056,29 @@ public class ListHelper {
         return returnList;
     }
 
-    // getIndexInKindList
-    public static int getIndexInKindList(int kindId) {
+    // isPostSubKindPushEnable kind是否可以发表
+    public static boolean isPostSubKindPushEnable(int kindId, int subKindId) {
+        if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
+            return false;
+        for (PostKindInfo info : TopicFragment.postKindInfoList) {
+            if (info == null) continue;
+            if (info.getId() == kindId) {
+                List<PostSubKindInfo> subKindInfoList = info.getPostSubKindInfoList();
+                if (subKindInfoList != null && subKindInfoList.size() > 0) {
+                    for (PostSubKindInfo subKindInfo : subKindInfoList) {
+                        if (subKindInfo == null) continue;
+                        if (subKindInfo.getId() == subKindId) {
+                            return subKindInfo.isPush();
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // getIndexInPostKindList
+    public static int getIndexInPostKindList(int kindId) {
         if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
             return 0;
         for (int i = 0; i < TopicFragment.postKindInfoList.size(); i++) {
@@ -1064,9 +1091,9 @@ public class ListHelper {
         return 0;
     }
 
-    // getIndexInSubKindList
-    public static int getIndexInSubKindPushList(int kindId, int subKindId) {
-        List<PostSubKindInfo> subKindPushList = getSubKindPushList(kindId);
+    // getIndexInPostSubKindPushList
+    public static int getIndexInPostSubKindPushList(int kindId, int subKindId) {
+        List<PostSubKindInfo> subKindPushList = getPostSubKindPushList(kindId);
         if (subKindPushList == null || subKindPushList.size() <= 0)
             return 0;
         for (int i = 0; i < subKindPushList.size(); i++) {
@@ -1079,8 +1106,8 @@ public class ListHelper {
         return 0;
     }
 
-    // getKindShowList 获取kind的显示list
-    public static List<String> getKindShowList() {
+    // getPostKindShowList 获取kind的显示list
+    public static List<String> getPostKindShowList() {
         List<String> returnList = new ArrayList<>();
         if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
             return returnList;
@@ -1091,8 +1118,8 @@ public class ListHelper {
         return returnList;
     }
 
-    // getSubKindPushShowList 获取subKind的显示list
-    public static List<String> getSubKindPushShowList(int kindId) {
+    // getPostSubKindPushShowList 获取subKind的显示list
+    public static List<String> getPostSubKindPushShowList(int kindId) {
         List<String> returnList = new ArrayList<>();
         if (TopicFragment.postKindInfoList == null || TopicFragment.postKindInfoList.size() <= 0)
             return returnList;
@@ -1113,8 +1140,8 @@ public class ListHelper {
         return returnList;
     }
 
-    // getTagShowList 获取post的tagList
-    public static List<String> getTagShowList(Post post, boolean kind, boolean subKind) {
+    // getPostTagShowList 获取post的tagList
+    public static List<String> getPostTagShowList(Post post, boolean kind, boolean subKind) {
         List<String> showList = new ArrayList<>();
         if (post == null) return showList;
         boolean top = post.isTop();
@@ -1126,12 +1153,12 @@ public class ListHelper {
         boolean isTa = post.isOur() && !post.isMine();
         // show
         if (kind || subKind) {
-            PostKindInfo info = ListHelper.getKindInfoByList(post.getKind(), post.getSubKind());
-            if (kind && info != null) {
-                showList.add(info.getName());
+            PostKindInfo kindInfo = ListHelper.getPostKindInfoById(post.getKind());
+            if (kind && kindInfo != null) {
+                showList.add(kindInfo.getName());
             }
-            if (subKind && info != null && info.getPostSubKindInfoList() != null && info.getPostSubKindInfoList().size() > 0) {
-                PostSubKindInfo subKindInfo = info.getPostSubKindInfoList().get(0);
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfoById(post.getKind(), post.getSubKind());
+            if (subKind && subKindInfo != null) {
                 showList.add(subKindInfo.getName());
             }
         }
@@ -1143,36 +1170,6 @@ public class ListHelper {
         if (mine) showList.add(MyApp.get().getString(R.string.me_de));
         if (isTa) showList.add(MyApp.get().getString(R.string.ta_de));
         return showList;
-    }
-
-    // getKindInfoByList 获取对应的kind
-    public static PostKindInfo getKindInfoByList(int kindId, int subKindId) {
-        PostKindInfo returnInfo = new PostKindInfo();
-        ArrayList<PostSubKindInfo> subKindInfoList = new ArrayList<>();
-        PostSubKindInfo subKindInfo = new PostSubKindInfo();
-        subKindInfoList.add(subKindInfo);
-        returnInfo.setPostSubKindInfoList(subKindInfoList);
-        // 遍历kind
-        if (TopicFragment.postKindInfoList != null && TopicFragment.postKindInfoList.size() > 0) {
-            for (PostKindInfo info : TopicFragment.postKindInfoList) {
-                if (info == null) continue;
-                if (info.getId() == kindId) {
-                    returnInfo.setName(info.getName());
-                    List<PostSubKindInfo> postSubKindInfoList = info.getPostSubKindInfoList();
-                    // 遍历subKind
-                    if (postSubKindInfoList != null && postSubKindInfoList.size() > 0) {
-                        for (PostSubKindInfo subInfo : postSubKindInfoList) {
-                            if (subInfo == null) continue;
-                            if (subInfo.getId() == subKindId) {
-                                subKindInfo.setName(subInfo.getName());
-                            }
-                        }
-                    }
-                    return returnInfo;
-                }
-            }
-        }
-        return returnInfo;
     }
 
 }

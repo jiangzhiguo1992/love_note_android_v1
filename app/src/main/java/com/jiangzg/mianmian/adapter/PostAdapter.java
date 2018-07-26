@@ -75,7 +75,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         // data
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();
-        List<String> tagShowList = ListHelper.getTagShowList(item, kindShow, subKindShow);
+        List<String> tagShowList = ListHelper.getPostTagShowList(item, kindShow, subKindShow);
         String title = item.getTitle();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();

@@ -265,8 +265,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             mActivity.finish();
             return;
         }
-        if (!ListHelper.isKindPushEnable(kindId, subKindId)) {
-            List<PostSubKindInfo> subKindPushList = ListHelper.getSubKindPushList(kindId);
+        if (!ListHelper.isPostSubKindPushEnable(kindId, subKindId)) {
+            List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindPushList(kindId);
             PostSubKindInfo subKindInfo = null;
             for (PostSubKindInfo subInfo : subKindPushList) {
                 if (subInfo != null) {
@@ -283,17 +283,17 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         post.setKind(kindId);
         post.setSubKind(subKindId);
         // view
-        PostKindInfo kindInfo = ListHelper.getKindInfoByList(kindId, subKindId);
-        PostSubKindInfo subKindInfo = kindInfo.getPostSubKindInfoList().get(0);
-        String kindShow = StringUtils.isEmpty(kindInfo.getName()) ? getString(R.string.please_select_classify) : kindInfo.getName();
-        String subKindShow = StringUtils.isEmpty(subKindInfo.getName()) ? getString(R.string.please_select_classify) : subKindInfo.getName();
+        PostKindInfo kindInfo = ListHelper.getPostKindInfoById(kindId);
+        PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfoById(kindId, subKindId);
+        String kindShow = (kindInfo == null || StringUtils.isEmpty(kindInfo.getName())) ? getString(R.string.please_select_classify) : kindInfo.getName();
+        String subKindShow = (subKindInfo == null || StringUtils.isEmpty(subKindInfo.getName())) ? getString(R.string.please_select_classify) : subKindInfo.getName();
         tvKind.setText(kindShow);
         tvSubKind.setText(subKindShow);
     }
 
     private void showSelectKindDialog() {
-        List<String> kindShowList = ListHelper.getKindShowList();
-        int selectIndex = ListHelper.getIndexInKindList(post.getKind());
+        List<String> kindShowList = ListHelper.getPostKindShowList();
+        int selectIndex = ListHelper.getIndexInPostKindList(post.getKind());
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -305,7 +305,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                         if (post == null) return true;
                         PostKindInfo kindInfo = TopicFragment.postKindInfoList.get(which);
                         if (kindInfo != null) {
-                            List<PostSubKindInfo> subKindPushList = ListHelper.getSubKindPushList(kindInfo.getId());
+                            List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindPushList(kindInfo.getId());
                             if (subKindPushList != null && subKindPushList.size() > 0) {
                                 PostSubKindInfo subKindInfo = subKindPushList.get(0);
                                 refreshPostKind(kindInfo.getId(), subKindInfo.getId());
@@ -321,8 +321,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     private void showSelectSubKindDialog() {
         if (post == null) return;
-        List<String> subKindPushShowList = ListHelper.getSubKindPushShowList(post.getKind());
-        int selectIndex = ListHelper.getIndexInSubKindPushList(post.getKind(), post.getSubKind());
+        List<String> subKindPushShowList = ListHelper.getPostSubKindPushShowList(post.getKind());
+        int selectIndex = ListHelper.getIndexInPostSubKindPushList(post.getKind(), post.getSubKind());
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -332,7 +332,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (post == null) return true;
-                        List<PostSubKindInfo> subKindPushList = ListHelper.getSubKindPushList(post.getKind());
+                        List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindPushList(post.getKind());
                         PostSubKindInfo subKindInfo = subKindPushList.get(which);
                         if (subKindInfo != null) {
                             refreshPostKind(post.getKind(), subKindInfo.getId());
@@ -395,9 +395,8 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             ToastUtils.show(etContent.getHint().toString());
             return;
         } else if (post.getLongitude() == 0 && post.getLatitude() == 0) {
-            PostKindInfo kindInfo = ListHelper.getKindInfoByList(post.getKind(), post.getSubKind());
-            PostSubKindInfo subKindInfo = kindInfo.getPostSubKindInfoList().get(0);
-            if (subKindInfo.isLonLat()) {
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfoById(post.getKind(), post.getSubKind());
+            if (subKindInfo != null && subKindInfo.isLonLat()) {
                 ToastUtils.show(getString(R.string.please_select_address));
                 return;
             }
