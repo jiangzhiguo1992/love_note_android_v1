@@ -169,13 +169,13 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
-                        getCommentData(false, false);
+                        getCommentData(false);
                     }
                 })
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        getCommentData(true, false);
+                        getCommentData(true);
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -215,7 +215,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             recyclerHelper.dataRefresh();
         } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
-            refreshPost(pid);
+            refreshPost(pid, true);
         }
         // point
         initPointView();
@@ -238,7 +238,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         obPostDetailRefresh = RxBus.register(ConsHelper.EVENT_POST_DETAIL_REFRESH, new Action1<Long>() {
             @Override
             public void call(Long pid) {
-                refreshPost(pid);
+                refreshPost(pid, false);
             }
         });
         obPostCommentListRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, new Action1<PostComment>() {
@@ -253,7 +253,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             public void call(PostComment postComment) {
                 if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), postComment);
-                // TODO 删除之后的bottom更新
             }
         });
         obPostCommentListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, new Action1<PostComment>() {
@@ -353,7 +352,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
     }
 
-    private void refreshPost(long pid) {
+    private void refreshPost(long pid, final boolean comment) {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -370,7 +369,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 initCollectView();
                 initCommentView();
                 // comment
-                recyclerHelper.dataRefresh();
+                if (comment) recyclerHelper.dataRefresh();
                 // event
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
@@ -456,7 +455,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             tvContent.setVisibility(View.VISIBLE);
             tvContent.setText(contentText);
         }
-        // rvImage TODO 全屏铺满？ 不要竖直滚动！是不是他在捣乱乱滚动
+        // rvImage TODO 全屏铺满？ 不要竖直滚动！是不是他在捣乱更新之后的乱滚动
         RecyclerView rvImage = head.findViewById(R.id.rvImage);
         if (imageList == null || imageList.size() <= 0) {
             rvImage.setVisibility(View.GONE);
@@ -542,7 +541,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (post == null) return true;
+                        if (post == null || recyclerHelper == null) return true;
                         switch (which) {
                             case 1: // 楼主
                                 searchUserId = post.getUserId();
@@ -555,7 +554,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                                 break;
                         }
                         initCommentUserView();
-                        getCommentData(false, true);
+                        recyclerHelper.dataRefresh();
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -573,9 +572,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .itemsCallbackSingleChoice(orderType, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
                         orderType = which;
                         initCommentOrderView();
-                        getCommentData(false, true);
+                        recyclerHelper.dataRefresh();
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -593,6 +593,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else if (searchUserId == SPHelper.getMe().getId()) {
             tvCommentUser.setText(R.string.me_de);
         } else {
+            // TODO 这里有commentCount的
             tvCommentUser.setText(R.string.all);
         }
     }
@@ -608,7 +609,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
     }
 
-    private void getCommentData(final boolean more, final boolean top) {
+    private void getCommentData(final boolean more) {
         if (post == null) return;
         page = more ? page + 1 : 0;
         // api
@@ -624,8 +625,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<PostComment> postCommentList = data.getPostCommentList();
                 recyclerHelper.dataOk(postCommentList, more);
-                // TODO 更新之后的滚动问题
-                if (top && rv != null) rv.smoothScrollToPosition(0);
             }
 
             @Override
@@ -750,11 +749,12 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 post.setComment(true);
                 post.setCommentCount(post.getCommentCount() + 1);
                 initCommentView();
                 // refresh
-                getCommentData(false, true);
+                recyclerHelper.dataRefresh();
                 // event
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
@@ -803,13 +803,14 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 etComment.setText("");
                 commentShow(false);
                 post.setComment(true);
                 post.setCommentCount(post.getCommentCount() + 1);
                 initCommentView();
                 // refresh
-                getCommentData(false, true);
+                recyclerHelper.dataRefresh();
                 // event
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);

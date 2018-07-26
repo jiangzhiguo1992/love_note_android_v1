@@ -26,6 +26,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // TODO 顶部mine可删除
 
     }
 

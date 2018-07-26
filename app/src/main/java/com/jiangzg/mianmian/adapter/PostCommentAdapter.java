@@ -137,6 +137,9 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 ImageView ivReport = helper.getView(R.id.ivReport);
                 ivReport.setImageTintList(report ? colorStatePrimary : colorStateGrey);
             }
+            // listener
+            helper.addOnClickListener(R.id.llPoint);
+            helper.addOnClickListener(R.id.llReport);
         } else if (item.getItemType() == PostComment.KIND_JAB) {
             // jab
             if (couple == null) {
@@ -151,9 +154,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 ivAvatarRight.setData(couple.getInviteeAvatar());
             }
         }
-        // listener
-        helper.addOnClickListener(R.id.llPoint);
-        helper.addOnClickListener(R.id.llReport);
     }
 
     private View getTagView(String show) {
@@ -204,7 +204,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxEvent<PostComment> event = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, item);
+                RxEvent<Long> event = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
                 RxBus.post(event);
             }
 
@@ -223,7 +223,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         }
         item.setPoint(newPoint);
         item.setPointCount(newPointCount);
-        notifyItemChanged(position);
+        notifyItemChanged(position + getHeaderLayoutCount());
         if (!api) return;
         PostCommentPoint body = new PostCommentPoint();
         body.setPostCommentId(item.getId());
@@ -231,9 +231,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // event
-                RxEvent<PostComment> event = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, item);
-                RxBus.post(event);
             }
 
             @Override
@@ -245,9 +242,9 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
 
     public void reportPush(final int position, boolean api) {
         final PostComment item = getItem(position);
-        if (item.isOfficial()) return;
+        if (item.isReport() || item.isOfficial()) return;
         item.setReport(true);
-        notifyItemChanged(position);
+        notifyItemChanged(position + getHeaderLayoutCount());
         if (!api) return;
         PostCommentReport body = new PostCommentReport();
         body.setPostCommentId(item.getId());
@@ -255,9 +252,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // event
-                RxEvent<PostComment> event = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, item);
-                RxBus.post(event);
             }
 
             @Override
@@ -269,6 +263,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
 
     public void goSubCommentDetail(int position) {
         PostComment item = getItem(position);
+        if (item == null || item.isScreen()) return;
         PostSubCommentListActivity.goActivity(mActivity, item);
     }
 
