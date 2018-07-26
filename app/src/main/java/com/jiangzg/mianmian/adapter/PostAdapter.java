@@ -138,15 +138,13 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             rvImage.setVisibility(View.GONE);
         } else {
             rvImage.setVisibility(View.VISIBLE);
-            if (imageList.size() > 3) {
-                imageList = imageList.subList(0, 3);
-                // TODO 剩余提示
-            }
+            ImgSquareShowAdapter adapter = new ImgSquareShowAdapter(mActivity, 3);
             new RecyclerHelper(rvImage)
                     .initLayoutManager(new GridLayoutManager(mActivity, 3))
-                    .initAdapter(new ImgSquareShowAdapter(mActivity, 3))
+                    .initAdapter(adapter)
                     .setAdapter()
                     .dataNew(imageList, 0);
+            adapter.setVisibleLimit(3);
         }
         // address
         helper.setVisible(R.id.llAddress, !StringUtils.isEmpty(address));

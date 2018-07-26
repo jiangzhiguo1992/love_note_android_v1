@@ -155,6 +155,7 @@
     <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
     <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
     <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
+    <string name="total_holder_paper" formatted="false">总共%d张</string>
     <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
     <string name="master_there_nothing">主人，这里啥也没有啊！</string>
     <string name="master_we_worry">主人，咱们…好像…出错了！</string>

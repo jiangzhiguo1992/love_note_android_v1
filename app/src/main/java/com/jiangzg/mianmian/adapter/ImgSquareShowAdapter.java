@@ -13,6 +13,7 @@ import com.jiangzg.mianmian.view.FrescoView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -23,6 +24,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
     private final FragmentActivity mActivity;
     private final int imageWidth;
     private final int imageHeight;
+    private int visibleLimit, totalCount;
 
     public ImgSquareShowAdapter(FragmentActivity activity, int spanCount) {
         super(R.layout.list_item_img_suqare_show);
@@ -31,6 +33,20 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
         int dp10 = ConvertUtils.dp2px(10);
         // 左右是5+5 中间也是5+5 有变动要跟着改
         imageWidth = imageHeight = (int) ((screenWidth - dp10 - (dp10 * spanCount)) / spanCount);
+        visibleLimit = -1;
+        totalCount = 0;
+    }
+
+    public void setVisibleLimit(int limitSize) {
+        List<String> data = getData();
+        if (limitSize > 0 && limitSize < data.size()) {
+            visibleLimit = limitSize;
+            totalCount = data.size();
+            setNewData(data.subList(0, visibleLimit));
+        } else {
+            visibleLimit = -1;
+            totalCount = 0;
+        }
     }
 
     @Override
@@ -51,6 +67,13 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
             }
         });
         ivShow.setData(item);
+        // limit
+        if (helper.getLayoutPosition() == visibleLimit - 1) {
+            helper.setVisible(R.id.llLimit, true);
+            helper.setText(R.id.tvLimit, String.format(Locale.getDefault(), mActivity.getString(R.string.total_holder_paper), totalCount));
+        } else {
+            helper.setVisible(R.id.llLimit, false);
+        }
     }
 
 }
