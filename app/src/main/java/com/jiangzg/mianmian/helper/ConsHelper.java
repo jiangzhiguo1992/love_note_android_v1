@@ -98,11 +98,7 @@ public class ConsHelper {
     public static final int EVENT_POST_LIST_REFRESH = 5200;
     public static final int EVENT_POST_LIST_ITEM_DELETE = 5201;
     public static final int EVENT_POST_LIST_ITEM_REFRESH = 5202;
-    public static final int EVENT_POST_COMMENT_LIST_REFRESH = 5300;
-    public static final int EVENT_POST_COMMENT_LIST_ITEM_DELETE = 5301;
+    public static final int EVENT_POST_DETAIL_REFRESH = 5203;
     public static final int EVENT_POST_COMMENT_LIST_ITEM_REFRESH = 5302;
-    public static final int EVENT_POST_SUB_COMMENT_LIST_REFRESH = 5400;
-    public static final int EVENT_POST_SUB_COMMENT_LIST_ITEM_DELETE = 5401;
-    public static final int EVENT_POST_SUB_COMMENT_LIST_ITEM_REFRESH = 5402;
 
 }

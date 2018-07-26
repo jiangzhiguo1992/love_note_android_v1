@@ -95,11 +95,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Call<Result> callGet;
     private Call<Result> callDel;
     private Call<Result> callCommentAdd;
+    private Call<Result> callCommentListGet;
     private Call<Result> callFollow;
-    private Call<Result> callCommentGet;
     private Observable<Suggest> obDetailRefresh;
-    private int page;
-    private int limitCommentContentLength;
+    private int page, limitCommentContentLength;
 
     public static void goActivity(Activity from, Suggest suggest) {
         Intent intent = new Intent(from, SuggestDetailActivity.class);
@@ -177,7 +176,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callFollow);
-        RetrofitHelper.cancel(callCommentGet);
+        RetrofitHelper.cancel(callCommentListGet);
         RetrofitHelper.cancel(callCommentAdd);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, obDetailRefresh);
         RecyclerHelper.release(recyclerHelper);
@@ -243,6 +242,29 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 comment();
                 break;
         }
+    }
+
+    public void refreshSuggest() {
+        if (suggest == null) return;
+        callGet = new RetrofitHelper().call(API.class).setSuggestGet(suggest.getId());
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                suggest = data.getSuggest();
+                initHead();
+                initFollowView();
+                initCommentView();
+                // event
+                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
+                RxBus.post(event);
+                // menu
+                mActivity.invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
     private void initHead() {
@@ -331,8 +353,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         if (suggest == null) return;
         page = more ? page + 1 : 0;
         // api
-        callCommentGet = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
-        RetrofitHelper.enqueue(callCommentGet, null, new RetrofitHelper.CallBack() {
+        callCommentListGet = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
+        RetrofitHelper.enqueue(callCommentListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -352,8 +374,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initFollowView() {
         if (suggest == null) return;
+        // data
         boolean follow = suggest.isFollow();
         String followCount = String.valueOf(suggest.getFollowCount());
+        // view
         tvFollow.setText(followCount);
         if (follow) {
             ivFollow.setImageResource(R.drawable.ic_visibility_on_primary);
@@ -364,9 +388,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     private void initCommentView() {
         if (suggest == null) return;
+        // data
         boolean isComment = suggest.isComment();
         String commentCount = String.valueOf(suggest.getCommentCount());
-
+        // view
         tvComment.setText(commentCount);
         if (isComment) {
             int rId = ViewHelper.getColorPrimary(mActivity);
@@ -417,7 +442,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.enqueue(callFollow, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // ListItemRefresh
+                // event
                 RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
                 RxBus.post(event);
             }
@@ -477,32 +502,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // ListItemDelete
+                // event
                 RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest);
                 RxBus.post(event);
                 mActivity.finish();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-    }
-
-    public void refreshSuggest() {
-        if (suggest == null) return;
-        callGet = new RetrofitHelper().call(API.class).setSuggestGet(suggest.getId());
-        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                suggest = data.getSuggest();
-                initFollowView();
-                initCommentView();
-                // ListItemRefresh
-                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
-                RxBus.post(event);
-                // menu
-                mActivity.invalidateOptionsMenu();
             }
 
             @Override

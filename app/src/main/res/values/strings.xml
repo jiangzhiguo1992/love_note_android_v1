@@ -88,6 +88,7 @@
     <string name="collect">收藏</string>
     <string name="screen">屏蔽</string>
     <string name="normal">普通</string>
+    <string name="time">时间</string>
     <string name="top">置顶</string>
     <string name="all">全部</string>
     <string name="commit">提交</string>
@@ -138,6 +139,7 @@
     <string name="please_input_title">请输入标题</string>
     <string name="please_input_content">请输入内容</string>
     <string name="select_search_type">选择搜索类型</string>
+    <string name="select_order_type">选择排序类型</string>
     <string name="please_select_classify">请选择分类</string>
     <string name="please_input_nickname">请输入昵称</string>
     <string name="already_arrive_top">已经到达最顶部了</string>
@@ -530,11 +532,14 @@
     <!-- topic -->
     <string name="post">帖子</string>
     <string name="already_report">已举报</string>
+    <string name="jab_ta">戳TA</string>
+    <string name="floor_master">楼主</string>
+    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
+    <string name="confirm_delete_this_post">确定删除这个帖子？</string>
 
     <!-- square -->
     <string name="sign">签到</string>
     <string name="coin">金币</string>
     <string name="vip">会员</string>
-    <string name="jab_ta">戳TA</string>
 
 </resources>

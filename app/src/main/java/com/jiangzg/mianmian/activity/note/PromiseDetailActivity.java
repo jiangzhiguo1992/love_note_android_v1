@@ -372,7 +372,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // ListItemDelete
+                // event
                 RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise);
                 RxBus.post(event);
                 mActivity.finish();

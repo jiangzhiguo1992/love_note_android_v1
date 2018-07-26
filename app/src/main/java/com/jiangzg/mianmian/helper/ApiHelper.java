@@ -28,6 +28,7 @@ import com.jiangzg.mianmian.domain.Lock;
 import com.jiangzg.mianmian.domain.OssInfo;
 import com.jiangzg.mianmian.domain.Picture;
 import com.jiangzg.mianmian.domain.Place;
+import com.jiangzg.mianmian.domain.PostComment;
 import com.jiangzg.mianmian.domain.PromiseBreak;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Sms;
@@ -64,9 +65,13 @@ public class ApiHelper {
     public static final int COUPLE_UPDATE_GOOD = 1; // 更好
     public static final int COUPLE_UPDATE_BAD = 2; // 更坏
     public static final int COUPLE_UPDATE_INFO = 3;// 信息
-    // order
+    // order类型 type要和show相对应
     public static final int COMMENT_ORDER_POINT = 0;
     public static final int COMMENT_ORDER_CREATE = 1;
+    public static final String[] LIST_COMMENT_ORDER_SHOW = new String[]{
+            MyApp.get().getString(R.string.point),
+            MyApp.get().getString(R.string.time),
+    };
     // list类型 type要和show相对应
     public static final int LIST_NOTE_CP = 0;
     public static final int LIST_NOTE_MY = 1;
@@ -335,6 +340,24 @@ public class ApiHelper {
         promiseBreak.setHappenAt(happenAt);
         promiseBreak.setContentText(content);
         return promiseBreak;
+    }
+
+    public static PostComment getPostCommentTextBody(long pid, long tcid, String content) {
+        PostComment postComment = new PostComment();
+        postComment.setPostId(pid);
+        postComment.setToCommentId(tcid);
+        postComment.setKind(PostComment.KIND_TEXT);
+        postComment.setContentText(content);
+        return postComment;
+    }
+
+    public static PostComment getPostCommentJabBody(long pid, long tcid) {
+        PostComment postComment = new PostComment();
+        postComment.setPostId(pid);
+        postComment.setToCommentId(tcid);
+        postComment.setKind(PostComment.KIND_TA);
+        postComment.setContentText("");
+        return postComment;
     }
 
 }

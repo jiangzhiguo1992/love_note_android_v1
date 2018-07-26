@@ -74,7 +74,8 @@ public class Help extends BaseObj {
     // topic
     public static final int INDEX_TOPIC_HOME = 600;
     public static final int INDEX_POST_LIST = 610;
-    public static final int INDEX_POST_EDIT = 611;
+    public static final int INDEX_POST_ADD = 611;
+    public static final int INDEX_POST_DETAIL = 612;
 
 
     private int index;

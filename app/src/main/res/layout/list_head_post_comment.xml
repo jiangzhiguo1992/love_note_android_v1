@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone"
@@ -89,22 +89,18 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="15dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 
     <TextView
         android:id="@+id/tvTitle"
-        style="@style/FontBlackNormal"
+        style="@style/FontBlackBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:singleLine="true"
         android:visibility="gone"
         tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"
         tools:visibility="visible"/>
@@ -114,9 +110,9 @@
         style="@style/FontGreyNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="3"
         android:visibility="gone"
@@ -129,6 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="3dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -137,10 +134,9 @@
         style="@style/FontGreySmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
         android:drawablePadding="3dp"
         android:drawableStart="@drawable/ic_location_15_grey"
         android:gravity="start|center_vertical"
@@ -151,10 +147,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -178,4 +174,40 @@
             android:singleLine="true"
             tools:text="更新于:2017-12-31"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/background_color"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvCommentUser"
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            tools:text="全部"/>
+
+        <TextView
+            android:id="@+id/tvCommentSort"
+            style="@style/FontPrimaryNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:padding="10dp"
+            tools:text="排序"/>
+    </RelativeLayout>
 </LinearLayout>
