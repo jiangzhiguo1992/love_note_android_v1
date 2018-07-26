@@ -64,10 +64,19 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
                     .initLayoutManager(new LinearLayoutManager(mActivity))
                     .initAdapter(new TravelPlaceAdapter(mActivity))
                     .setAdapter()
+                    .listenerClick(new com.chad.library.adapter.base.listener.OnItemClickListener() {
+                        @Override
+                        public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            TravelPlaceAdapter placeAdapter = (TravelPlaceAdapter) adapter;
+                            placeAdapter.goMapShow(position);
+                        }
+                    })
                     .dataNew(placeList, 0);
         } else {
             rv.setVisibility(View.GONE);
         }
+        // click
+        helper.addOnClickListener(R.id.rv);
     }
 
     public void selectTravel(int position) {

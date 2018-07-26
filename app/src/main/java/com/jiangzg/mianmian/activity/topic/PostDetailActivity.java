@@ -37,8 +37,9 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        // TODO post列表最多显示3张(个别kind直接铺满item)，post详情页图片竖排
+        // TODO post详情页图片竖排
         // TODO 举报在详情里才会有、官方的post/comment不能举报和屏蔽
+        // TODO comment有楼主的标识 有几楼的标识 有@TA的选项 置顶
     }
 
     @Override

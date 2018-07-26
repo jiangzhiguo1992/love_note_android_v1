@@ -240,6 +240,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                         SPHelper.clearMe();
                         SPHelper.clearTa();
                         SPHelper.clearCouple();
+                        SPHelper.clearWallPaper();
                         SPHelper.clearDraft();
                         RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);

@@ -66,6 +66,8 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         } else {
             rv.setVisibility(View.GONE);
         }
+        // click
+        helper.addOnClickListener(R.id.rv);
     }
 
     public void goEditActivity(int position) {

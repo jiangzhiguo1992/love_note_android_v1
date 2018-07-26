@@ -137,12 +137,14 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         if (imageList == null || imageList.size() <= 0) {
             rvImage.setVisibility(View.GONE);
         } else {
-            // TODO 只显示3张 还有img点击问题
             rvImage.setVisibility(View.VISIBLE);
-            int spanCount = imageList.size() > 3 ? 3 : imageList.size();
+            if (imageList.size() > 3) {
+                imageList = imageList.subList(0, 3);
+                // TODO 剩余提示
+            }
             new RecyclerHelper(rvImage)
-                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                    .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
+                    .initLayoutManager(new GridLayoutManager(mActivity, 3))
+                    .initAdapter(new ImgSquareShowAdapter(mActivity, 3))
                     .setAdapter()
                     .dataNew(imageList, 0);
         }
@@ -165,6 +167,8 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         ivCollect.setImageTintList(collect ? colorPrimaryStateList : colorGreyStateList);
         ImageView ivComment = helper.getView(R.id.ivComment);
         ivComment.setImageTintList(comment ? colorPrimaryStateList : colorGreyStateList);
+        // listener
+        helper.addOnClickListener(R.id.rvImage);
     }
 
     private View getTagView(String show) {

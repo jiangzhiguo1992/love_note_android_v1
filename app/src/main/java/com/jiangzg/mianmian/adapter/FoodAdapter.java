@@ -79,10 +79,11 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         } else {
             rv.setVisibility(View.GONE);
         }
-        helper.setVisible(R.id.tvContent,!StringUtils.isEmpty(contentText));
+        helper.setVisible(R.id.tvContent, !StringUtils.isEmpty(contentText));
         helper.setText(R.id.tvContent, contentText);
         // click
         helper.addOnClickListener(R.id.tvAddress);
+        helper.addOnClickListener(R.id.rv);
     }
 
     public void selectFood(int position) {
