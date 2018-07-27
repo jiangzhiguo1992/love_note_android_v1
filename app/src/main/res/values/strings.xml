@@ -537,6 +537,7 @@
     <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
     <string name="confirm_delete_this_post">确定删除这个帖子？</string>
     <string name="jab_a_little">戳了一下</string>
+    <string name="all_space_brackets_holder_brackets">全部 (%d)</string>
 
     <!-- square -->
     <string name="sign">签到</string>

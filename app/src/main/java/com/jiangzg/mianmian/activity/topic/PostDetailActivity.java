@@ -134,6 +134,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private long searchUserId;
 
     public static void goActivity(Activity from, Post post) {
+        if (post == null) return;
         Intent intent = new Intent(from, PostDetailActivity.class);
         intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_OBJ);
         intent.putExtra("post", post);
@@ -142,6 +143,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     public static void goActivity(Activity from, long pid) {
+        if (pid == 0) return;
         Intent intent = new Intent(from, PostDetailActivity.class);
         intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
         intent.putExtra("pid", pid);
@@ -602,8 +604,13 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         } else if (searchUserId == SPHelper.getMe().getId()) {
             tvCommentUser.setText(R.string.me_de);
         } else {
-            // TODO 这里有commentCount的
-            tvCommentUser.setText(R.string.all);
+            String commentAll;
+            if (post == null) {
+                commentAll = getString(R.string.all);
+            } else {
+                commentAll = String.format(Locale.getDefault(), getString(R.string.all_space_brackets_holder_brackets), post.getCommentCount());
+            }
+            tvCommentUser.setText(commentAll);
         }
     }
 
