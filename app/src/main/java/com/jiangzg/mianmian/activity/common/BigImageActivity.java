@@ -237,7 +237,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     private void share() {
         int currentItem = vpImage.getCurrentItem();
         String objectKey = dataList.get(currentItem);
-        ShareHelper.ShareBigImg(objectKey);
+        ShareHelper.shareBigImg(objectKey);
     }
 
     // 图片下载

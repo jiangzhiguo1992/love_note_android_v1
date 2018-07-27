@@ -1,6 +1,8 @@
 package com.jiangzg.mianmian.helper;
 
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.mianmian.domain.Post;
 
 /**
  * Created by JZG on 2018/4/28.
@@ -8,14 +10,16 @@ import com.jiangzg.base.view.ToastUtils;
  */
 public class ShareHelper {
 
-    // TODO 分享链接的话 链接会过期 分享本地文件的话 用fresco？
-    // TODO BigImage
-    // TODO coupleInfo？WallPaper拼在一起？
-    // TODO note(纪念日？统计？礼物？梦里？)
-    // TODO Topic
-    // TODO Square
-
-    public static void ShareBigImg(String objectKey) {
+    public static void shareBigImg(String objectKey) {
+        if (StringUtils.isEmpty(objectKey)) return;
+        // TODO 分享链接的话 链接会过期 分享本地文件的话 用fresco？
+        // TODO 建议这里生成的url过期时间长一点
         ToastUtils.show("分享大图");
+    }
+
+    public static void shareTopicPost(Post post) {
+        if (post == null) return;
+        // TODO
+        ToastUtils.show("分享帖子");
     }
 }

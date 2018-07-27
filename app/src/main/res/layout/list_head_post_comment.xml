@@ -101,6 +101,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:textStyle="bold"
         android:visibility="gone"
         tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"
         tools:visibility="visible"/>
