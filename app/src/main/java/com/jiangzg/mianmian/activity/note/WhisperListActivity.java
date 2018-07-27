@@ -199,7 +199,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnChangeChannel: // 切换频道
-                getData(false);
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataRefresh();
                 break;
             case R.id.llAddImage: // 添加图片
                 showSelectImgPop();
@@ -211,13 +212,10 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void getData(final boolean more) {
+        page = more ? page + 1 : 0;
         InputUtils.hideSoftInput(etChannel);
         channel = etChannel.getText().toString().trim();
         tvCurrentChannel.setText(getChannelShow());
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        page = more ? page + 1 : 0;
         callGet = new RetrofitHelper().call(API.class).noteWhisperListGet(channel, page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
@@ -234,7 +232,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(page != 0, message);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }

@@ -20,7 +20,6 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.WordAdapter;
@@ -68,7 +67,6 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     private Observable<Word> obListItemDelete;
     private int limitContentLength;
     private int page;
-    private boolean canMore;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WordListActivity.class);
@@ -98,16 +96,23 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         etContent.setHint(format);
         etContent.setText("");
         // recycler
-        recyclerHelper = new RecyclerHelper(rv) // 数据倒着来，显示也会倒着来
-                .initLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, true))
+        recyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, true)
                 .initAdapter(new WordAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
-                        getDataMore();
+                        getData(false);
+                    }
+                })
+                .listenerMore(new RecyclerHelper.MoreListener() {
+                    @Override
+                    public void onMore(int currentCount) {
+                        getData(true);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
@@ -121,8 +126,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        page = -1;
-        canMore = true;
+        page = 0;
         // event
         obListItemDelete = RxBus.register(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, new Action1<Word>() {
             @Override
@@ -187,12 +191,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         }
     }
 
-    private void getDataMore() {
-        if (!canMore) {
-            srl.setRefreshing(false);
-            ToastUtils.show(getString(R.string.already_arrive_top));
-        }
-        ++page;
+    private void getData(final boolean more) {
+        page = more ? page + 1 : 0;
         callGet = new RetrofitHelper().call(API.class).noteWordListGet(page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
@@ -200,14 +200,13 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Word> wordList = data.getWordList();
-                recyclerHelper.dataOk(wordList, page != 0);
-                canMore = (wordList != null && wordList.size() > 0);
+                recyclerHelper.dataOk(wordList, more);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(page != 0, message);
+                recyclerHelper.dataFail(more, message);
             }
         });
     }
@@ -227,7 +226,6 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                 // adapter
                 WordAdapter adapter = recyclerHelper.getAdapter();
                 adapter.addData(0, data.getWord());
-                // 下移，因为layoutManager是反转的，所以这里的最下方是0
                 rv.smoothScrollToPosition(0);
             }
 

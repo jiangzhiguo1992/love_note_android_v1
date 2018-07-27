@@ -455,14 +455,23 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             tvContent.setVisibility(View.VISIBLE);
             tvContent.setText(contentText);
         }
-        // rvImage TODO 全屏铺满？ 不要竖直滚动！是不是他在捣乱更新之后的乱滚动
+        // rvImage
         RecyclerView rvImage = head.findViewById(R.id.rvImage);
         if (imageList == null || imageList.size() <= 0) {
             rvImage.setVisibility(View.GONE);
         } else {
             rvImage.setVisibility(View.VISIBLE);
+            rvImage.setEnabled(false); // 不加一进来会抢焦点
+            rvImage.setFocusable(false);
+            rvImage.setFocusableInTouchMode(false);
+            rvImage.setNestedScrollingEnabled(false);
             new RecyclerHelper(rvImage)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initLayoutManager(new LinearLayoutManager(mActivity) {
+                        @Override
+                        public boolean canScrollVertically() {
+                            return false;
+                        }
+                    })
                     .initAdapter(new ImgSquareShowAdapter(mActivity, 1))
                     .setAdapter()
                     .dataNew(imageList, 0);

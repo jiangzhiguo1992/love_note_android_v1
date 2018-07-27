@@ -142,7 +142,6 @@
     <string name="select_order_type">选择排序类型</string>
     <string name="please_select_classify">请选择分类</string>
     <string name="please_input_nickname">请输入昵称</string>
-    <string name="already_arrive_top">已经到达最顶部了</string>
     <string name="need_check_some_perm">需要勾选某些权限</string>
     <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
     <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
