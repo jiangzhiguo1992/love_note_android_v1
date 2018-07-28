@@ -21,6 +21,7 @@ public class PostComment extends BaseCP implements Parcelable, MultiItemEntity {
 
     private long postId;
     private long toCommentId;
+    private int floor;
     private int kind;
     private String contentText;
     private boolean official;
@@ -35,6 +36,14 @@ public class PostComment extends BaseCP implements Parcelable, MultiItemEntity {
     private boolean subComment;
     private boolean report;
     private boolean point;
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
 
     public boolean isSubComment() {
         return subComment;
@@ -164,6 +173,7 @@ public class PostComment extends BaseCP implements Parcelable, MultiItemEntity {
         super(in);
         postId = in.readLong();
         toCommentId = in.readLong();
+        floor = in.readInt();
         kind = in.readInt();
         contentText = in.readString();
         official = in.readByte() != 0;
@@ -184,6 +194,7 @@ public class PostComment extends BaseCP implements Parcelable, MultiItemEntity {
         super.writeToParcel(dest, flags);
         dest.writeLong(postId);
         dest.writeLong(toCommentId);
+        dest.writeInt(floor);
         dest.writeInt(kind);
         dest.writeString(contentText);
         dest.writeByte((byte) (official ? 1 : 0));

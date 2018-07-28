@@ -83,8 +83,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         }
         helper.setVisible(R.id.root, true);
         // data
-        int layoutPosition = helper.getLayoutPosition();
-        String floor = String.format(Locale.getDefault(), formatFloor, layoutPosition);
+        String floor = String.format(Locale.getDefault(), formatFloor, item.getFloor());
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
         List<String> tagShowList = ListHelper.getPostCommentTagShowList(item);
         Couple couple = item.getCouple();
@@ -263,7 +262,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
 
     public void goSubCommentDetail(int position) {
         PostComment item = getItem(position);
-        if (item == null || item.isScreen()) return;
         PostSubCommentListActivity.goActivity(mActivity, item);
     }
 

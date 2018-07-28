@@ -47,6 +47,7 @@ import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.domain.PostCollect;
 import com.jiangzg.mianmian.domain.PostComment;
 import com.jiangzg.mianmian.domain.PostPoint;
+import com.jiangzg.mianmian.domain.PostReport;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
@@ -58,6 +59,7 @@ import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.RxBus;
 import com.jiangzg.mianmian.helper.SPHelper;
+import com.jiangzg.mianmian.helper.ShareHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
@@ -286,7 +288,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // TODO 举报在详情里才会有、官方的post/comment不能举报和屏蔽
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -294,10 +295,22 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
-        if (post != null && post.isMine()) {
-            getMenuInflater().inflate(R.menu.help_del, menu);
-        } else {
+        if (post == null) {
             getMenuInflater().inflate(R.menu.help, menu);
+        } else {
+            if (post.isOfficial()) {
+                if (post.isMine()) { // 分享 + (删除 + 帮助)
+                    getMenuInflater().inflate(R.menu.share_del_help, menu);
+                } else { // 分享 + (帮助)
+                    getMenuInflater().inflate(R.menu.share_help, menu);
+                }
+            } else {
+                if (post.isMine()) { // 分享 + (举报 + 删除 + 帮助)
+                    getMenuInflater().inflate(R.menu.share_report_del_help, menu);
+                } else { // 分享 + (举报 + 帮助)
+                    getMenuInflater().inflate(R.menu.share_report_help, menu);
+                }
+            }
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -316,6 +329,12 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, Help.INDEX_POST_DETAIL);
+                return true;
+            case R.id.menuShare: // 分享
+                ShareHelper.shareTopicPost(post);
+                return true;
+            case R.id.menuReport: // 举报
+                report();
                 return true;
             case R.id.menuDel: // 删除
                 showPostDelDialog();
@@ -537,11 +556,13 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         List<String> showList = new ArrayList<>();
         showList.add(getString(R.string.all));
         showList.add(getString(R.string.floor_master));
-        showList.add(getString(R.string.me_de));
+        if (!post.isMine()) {
+            showList.add(getString(R.string.me_de));
+        }
         int selectIndex = 0;
         if (searchUserId == post.getUserId()) {
             selectIndex = 1;
-        } else if (searchUserId == SPHelper.getMe().getId()) {
+        } else if (!post.isMine() && searchUserId == SPHelper.getMe().getId()) {
             selectIndex = 2;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -870,6 +891,26 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post);
                 RxBus.post(event);
                 mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    private void report() {
+        if (post == null) return;
+        MaterialDialog loading = getLoading(true);
+        PostReport postReport = new PostReport();
+        postReport.setPostId(post.getId());
+        callReport = new RetrofitHelper().call(API.class).topicPostReportAdd(postReport);
+        RetrofitHelper.enqueue(callReport, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.post(event);
             }
 
             @Override
