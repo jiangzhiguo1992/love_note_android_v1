@@ -165,7 +165,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new PostCommentAdapter(mActivity))
+                .initAdapter(new PostCommentAdapter(mActivity, false))
                 .viewHeader(mActivity, R.layout.list_head_post_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
@@ -421,7 +421,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_space_holder), create);
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(post.getUpdateAt());
         String updatedShow = String.format(Locale.getDefault(), mActivity.getString(R.string.update_at_colon_space_holder), update);
-
+        // view
         View head = recyclerHelper.getViewHead();
         // couple
         LinearLayout llCouple = head.findViewById(R.id.llCouple);

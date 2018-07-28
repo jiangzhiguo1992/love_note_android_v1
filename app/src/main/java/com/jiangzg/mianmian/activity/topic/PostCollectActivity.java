@@ -25,6 +25,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         // TODO 注意被删除的帖子
+        // TODO controller配合 我的消息 更新有提醒view
     }
 
     @Override

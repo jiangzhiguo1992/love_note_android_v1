@@ -50,17 +50,19 @@ import retrofit2.Call;
 public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, BaseViewHolder> {
 
     private BaseActivity mActivity;
+    private boolean subComment;
     private final String formatFloor;
     private final ColorStateList colorStateGrey;
     private final ColorStateList colorStatePrimary;
     private final FrameLayout.LayoutParams mTextLayoutParams;
     private final int dp5, dp2;
 
-    public PostCommentAdapter(BaseActivity activity) {
+    public PostCommentAdapter(BaseActivity activity, boolean subComment) {
         super(null);
         addItemType(PostComment.KIND_TEXT, R.layout.list_item_post_comment_text);
         addItemType(PostComment.KIND_JAB, R.layout.list_item_post_comment_jab);
         mActivity = activity;
+        this.subComment = subComment;
         formatFloor = mActivity.getString(R.string.holder_floor);
         // color
         int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
@@ -123,8 +125,9 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 ivAvatarRight.setData(couple.getInviteeAvatar());
             }
             helper.setText(R.id.tvContent, contentText);
-            helper.setText(R.id.tvPointCount, pointCount);
+            helper.setVisible(R.id.llComment, !subComment);
             helper.setText(R.id.tvCommentCount, commentCount);
+            helper.setText(R.id.tvPointCount, pointCount);
             ImageView ivComment = helper.getView(R.id.ivComment);
             ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateGrey);
             ImageView ivPoint = helper.getView(R.id.ivPoint);
@@ -203,8 +206,12 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxEvent<Long> event = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
-                RxBus.post(event);
+                RxEvent<Long> eventPostDetail = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
+                RxBus.post(eventPostDetail);
+                if (subComment) {
+                    RxEvent<PostComment> eventPostCommentDetail = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item);
+                    RxBus.post(eventPostCommentDetail);
+                }
             }
 
             @Override
@@ -261,6 +268,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
     }
 
     public void goSubCommentDetail(int position) {
+        if (subComment) return;
         PostComment item = getItem(position);
         PostSubCommentListActivity.goActivity(mActivity, item);
     }

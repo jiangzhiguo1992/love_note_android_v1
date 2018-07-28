@@ -102,5 +102,6 @@ public class ConsHelper {
     public static final int EVENT_POST_COMMENT_LIST_REFRESH = 5300;
     public static final int EVENT_POST_COMMENT_LIST_ITEM_DELETE = 5301;
     public static final int EVENT_POST_COMMENT_LIST_ITEM_REFRESH = 5302;
+    public static final int EVENT_POST_COMMENT_DETAIL_REFRESH = 5400;
 
 }
