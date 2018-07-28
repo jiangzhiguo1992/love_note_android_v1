@@ -809,6 +809,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorComment.setState(state);
+        if (!show) InputUtils.hideSoftInput(etComment);
     }
 
     private void onCommentInput(String input) {

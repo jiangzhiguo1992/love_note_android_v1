@@ -125,7 +125,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 ivAvatarRight.setData(couple.getInviteeAvatar());
             }
             helper.setText(R.id.tvContent, contentText);
-            helper.setVisible(R.id.llComment, !subComment);
+            helper.setVisible(R.id.llComment, !this.subComment);
             helper.setText(R.id.tvCommentCount, commentCount);
             helper.setText(R.id.tvPointCount, pointCount);
             ImageView ivComment = helper.getView(R.id.ivComment);
@@ -209,7 +209,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 RxEvent<Long> eventPostDetail = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
                 RxBus.post(eventPostDetail);
                 if (subComment) {
-                    RxEvent<PostComment> eventPostCommentDetail = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item);
+                    RxEvent<Long> eventPostCommentDetail = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId());
                     RxBus.post(eventPostCommentDetail);
                 }
             }

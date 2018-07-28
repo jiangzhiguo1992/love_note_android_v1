@@ -425,6 +425,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorComment.setState(state);
+        if (!show) InputUtils.hideSoftInput(etComment);
     }
 
     // 关注

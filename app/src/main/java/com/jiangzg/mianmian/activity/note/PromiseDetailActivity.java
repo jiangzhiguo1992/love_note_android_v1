@@ -25,6 +25,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
@@ -342,6 +343,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorBreak.setState(state);
+        if (!show) InputUtils.hideSoftInput(etBreakContent);
     }
 
     private void showDelDialog() {

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -24,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -31,7 +33,9 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.PostCommentAdapter;
@@ -41,6 +45,7 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.domain.PostComment;
 import com.jiangzg.mianmian.domain.PostCommentPoint;
+import com.jiangzg.mianmian.domain.PostCommentReport;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
@@ -96,8 +101,9 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private PostComment postComment;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
-    private Observable<PostComment> obPostCommentDetail;
+    private Observable<Long> obPostCommentDetail;
     private Call<Result> callGet;
+    private Call<Result> callDel;
     private Call<Result> callCommentAdd;
     private Call<Result> callSubCommentListGet;
     private Call<Result> callReport;
@@ -154,22 +160,20 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 子的处理？
-                        //PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
-                        //commentAdapter.showDeleteDialog(position);
+                        PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
+                        commentAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 子的处理？
-                        //PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
+                        PostCommentAdapter commentAdapter = (PostCommentAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.llPoint: // 点赞
-                                //commentAdapter.pointPush(position, true);
+                                commentAdapter.pointPush(position, true);
                                 break;
                             case R.id.llReport: // 举报
-                                //commentAdapter.reportPush(position, true);
+                                commentAdapter.reportPush(position, true);
                                 break;
                         }
                     }
@@ -179,7 +183,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         if (from == ConsHelper.ACT_DETAIL_FROM_OBJ) {
             postComment = intent.getParcelableExtra("postComment");
             // view
-            initHead();
+            initHeadAndBottom();
             recyclerHelper.dataRefresh();
         } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long pcid = intent.getLongExtra("pcid", 0);
@@ -196,11 +200,10 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         page = 0;
         orderType = ApiHelper.COMMENT_ORDER_POINT;
         // event
-        obPostCommentDetail = RxBus.register(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, new Action1<PostComment>() {
+        obPostCommentDetail = RxBus.register(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, new Action1<Long>() {
             @Override
-            public void call(PostComment postComment) {
-                if (postComment == null) return;
-                refreshPostComment(postComment.getId(), false);
+            public void call(Long pcid) {
+                refreshPostComment(pcid, false);
             }
         });
         // refresh
@@ -210,6 +213,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callCommentAdd);
         RetrofitHelper.cancel(callSubCommentListGet);
         RetrofitHelper.cancel(callReport);
@@ -223,6 +227,9 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    // TODO del
+    // TODO item的del之后不能再提交
 
     @Override
     public void onBackPressed() {
@@ -261,7 +268,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 commentShow(false);
                 break;
             case R.id.tvCommentCommit: // 评论提交
-                //commentPush();
+                commentPush();
                 break;
         }
     }
@@ -278,7 +285,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 srl.setRefreshing(false);
                 postComment = data.getPostComment();
                 // view
-                initHead();
+                initHeadAndBottom();
                 // subComment
                 if (subComment) recyclerHelper.dataRefresh();
                 // event
@@ -293,7 +300,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         });
     }
 
-    private void initHead() {
+    private void initHeadAndBottom() {
         if (postComment == null || recyclerHelper == null) return;
         // color
         int colorIconGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
@@ -396,7 +403,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             llReport.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //report();
+                    report(true);
                 }
             });
         }
@@ -499,7 +506,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         }
         postComment.setPoint(newPoint);
         postComment.setPointCount(newPointCount);
-        initHead();
+        initHeadAndBottom();
         if (!api) return;
         PostCommentPoint postCommentPoint = new PostCommentPoint();
         postCommentPoint.setPostCommentId(postComment.getId());
@@ -519,9 +526,34 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         });
     }
 
+    private void report(boolean api) {
+        if (postComment == null) return;
+        // view
+        postComment.setReport(true);
+        postComment.setReportCount(postComment.getReportCount() + 1);
+        initHeadAndBottom();
+        if (!api) return;
+        PostCommentReport postCommentReport = new PostCommentReport();
+        postCommentReport.setPostCommentId(postComment.getId());
+        callReport = new RetrofitHelper().call(API.class).topicPostCommentReportAdd(postCommentReport);
+        RetrofitHelper.enqueue(callReport, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<PostComment> event = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
+                RxBus.post(event);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                report(false);
+            }
+        });
+    }
+
     private void jab() {
         if (postComment == null) return;
-        PostComment body = ApiHelper.getPostCommentJabBody(postComment.getPostId(), 0);
+        PostComment body = ApiHelper.getPostCommentJabBody(postComment.getPostId(), postComment.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         callCommentAdd = new RetrofitHelper().call(API.class).topicPostCommentAdd(body);
         RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
@@ -530,12 +562,14 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 if (recyclerHelper == null) return;
                 postComment.setSubComment(true);
                 postComment.setSubCommentCount(postComment.getSubCommentCount() + 1);
-                //initCommentView(); // TODO
+                initHeadAndBottom();
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                //RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-                //RxBus.post(event);
+                RxEvent<Long> eventPostDetail = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId());
+                RxBus.post(eventPostDetail);
+                RxEvent<PostComment> eventPostCommentItem = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
+                RxBus.post(eventPostCommentItem);
             }
 
             @Override
@@ -550,6 +584,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         }
         int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
         behaviorComment.setState(state);
+        if (!show) InputUtils.hideSoftInput(etComment);
     }
 
     private void onCommentInput(String input) {
@@ -567,97 +602,78 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         tvCommentLimit.setText(limitShow);
     }
 
-    //private void commentPush() {
-    //    if (post == null) return;
-    //    String content = etComment.getText().toString().trim();
-    //    if (StringUtils.isEmpty(content)) {
-    //        ToastUtils.show(etComment.getHint());
-    //        return;
-    //    }
-    //    InputUtils.hideSoftInput(etComment);
-    //    PostComment postComment = ApiHelper.getPostCommentTextBody(post.getId(), 0, content);
-    //    MaterialDialog loading = getLoading(true);
-    //    callCommentAdd = new RetrofitHelper().call(API.class).topicPostCommentAdd(postComment);
-    //    RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
-    //        @Override
-    //        public void onResponse(int code, String message, Result.Data data) {
-    //            if (recyclerHelper == null) return;
-    //            etComment.setText("");
-    //            commentShow(false);
-    //            post.setComment(true);
-    //            post.setCommentCount(post.getCommentCount() + 1);
-    //            initCommentView();
-    //            // refresh
-    //            recyclerHelper.dataRefresh();
-    //            // event
-    //            RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-    //            RxBus.post(event);
-    //        }
-    //
-    //        @Override
-    //        public void onFailure(int code, String message, Result.Data data) {
-    //        }
-    //    });
-    //}
+    private void commentPush() {
+        if (postComment == null) return;
+        String content = etComment.getText().toString().trim();
+        if (StringUtils.isEmpty(content)) {
+            ToastUtils.show(etComment.getHint());
+            return;
+        }
+        InputUtils.hideSoftInput(etComment);
+        PostComment body = ApiHelper.getPostCommentTextBody(postComment.getPostId(), postComment.getId(), content);
+        MaterialDialog loading = getLoading(true);
+        callCommentAdd = new RetrofitHelper().call(API.class).topicPostCommentAdd(body);
+        RetrofitHelper.enqueue(callCommentAdd, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                etComment.setText("");
+                commentShow(false);
+                postComment.setSubComment(true);
+                postComment.setSubCommentCount(postComment.getSubCommentCount() + 1);
+                initHeadAndBottom();
+                // refresh
+                recyclerHelper.dataRefresh();
+                // event
+                RxEvent<Long> eventPostDetail = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId());
+                RxBus.post(eventPostDetail);
+                RxEvent<PostComment> eventPostCommentItem = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment);
+                RxBus.post(eventPostCommentItem);
+            }
 
-    //private void showPostDelDialog() {
-    //    if (post == null || !post.isMine()) {
-    //        ToastUtils.show(mActivity.getString(R.string.can_delete_self_create_post));
-    //        return;
-    //    }
-    //    MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-    //            .content(R.string.confirm_delete_this_post)
-    //            .cancelable(true)
-    //            .canceledOnTouchOutside(false)
-    //            .positiveText(R.string.confirm_no_wrong)
-    //            .negativeText(R.string.i_think_again)
-    //            .onPositive(new MaterialDialog.SingleButtonCallback() {
-    //                @Override
-    //                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-    //                    delPost();
-    //                }
-    //            })
-    //            .build();
-    //    DialogHelper.showWithAnim(dialog);
-    //}
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
 
-    //private void delPost() {
-    //    if (post == null) return;
-    //    MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
-    //    callDel = new RetrofitHelper().call(API.class).topicPostDel(post.getId());
-    //    RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
-    //        @Override
-    //        public void onResponse(int code, String message, Result.Data data) {
-    //            // event
-    //            RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post);
-    //            RxBus.post(event);
-    //            mActivity.finish();
-    //        }
-    //
-    //        @Override
-    //        public void onFailure(int code, String message, Result.Data data) {
-    //        }
-    //    });
-    //}
+    private void showPostDelDialog() {
+        if (postComment == null || !postComment.isMine()) return;
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .content(R.string.confirm_delete_this_post)
+                .cancelable(true)
+                .canceledOnTouchOutside(false)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        delPostComment();
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
 
-    //private void report() {
-    //    if (post == null) return;
-    //    MaterialDialog loading = getLoading(true);
-    //    PostReport postReport = new PostReport();
-    //    postReport.setPostId(post.getId());
-    //    callReport = new RetrofitHelper().call(API.class).topicPostReportAdd(postReport);
-    //    RetrofitHelper.enqueue(callReport, loading, new RetrofitHelper.CallBack() {
-    //        @Override
-    //        public void onResponse(int code, String message, Result.Data data) {
-    //            // event
-    //            RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
-    //            RxBus.post(event);
-    //        }
-    //
-    //        @Override
-    //        public void onFailure(int code, String message, Result.Data data) {
-    //        }
-    //    });
-    //}
+    private void delPostComment() {
+        if (postComment == null) return;
+        MaterialDialog loading = getLoading(getString(R.string.are_deleting), true);
+        callDel = new RetrofitHelper().call(API.class).topicPostCommentDel(postComment.getId());
+        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Long> eventPostDetail = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, postComment.getPostId());
+                RxBus.post(eventPostDetail);
+                RxEvent<PostComment> eventPostCommentItem = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment);
+                RxBus.post(eventPostCommentItem);
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
 
 }
