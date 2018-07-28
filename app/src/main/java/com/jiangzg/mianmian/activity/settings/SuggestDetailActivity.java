@@ -251,14 +251,14 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 suggest = data.getSuggest();
+                // view
                 initHead();
                 initFollowView();
                 initCommentView();
+                mActivity.invalidateOptionsMenu();
                 // event
                 RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
                 RxBus.post(event);
-                // menu
-                mActivity.invalidateOptionsMenu();
             }
 
             @Override

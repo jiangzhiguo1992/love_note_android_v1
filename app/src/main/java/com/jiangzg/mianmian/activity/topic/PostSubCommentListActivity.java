@@ -228,8 +228,16 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         return super.onCreateOptionsMenu(menu);
     }
 
-    // TODO del
-    // TODO item的del之后不能再提交
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        if (postComment == null || !postComment.isMine()) {
+            getMenuInflater().inflate(R.menu.help, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.help_del, menu);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public void onBackPressed() {
@@ -245,6 +253,9 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mActivity, Help.INDEX_POST_COMMENT_DETAIL);
+                return true;
+            case R.id.menuDel: // 删除
+                showPostCommentDelDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -286,6 +297,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 postComment = data.getPostComment();
                 // view
                 initHeadAndBottom();
+                mActivity.invalidateOptionsMenu();
                 // subComment
                 if (subComment) recyclerHelper.dataRefresh();
                 // event
@@ -637,7 +649,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         });
     }
 
-    private void showPostDelDialog() {
+    private void showPostCommentDelDialog() {
         if (postComment == null || !postComment.isMine()) return;
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_delete_this_post)

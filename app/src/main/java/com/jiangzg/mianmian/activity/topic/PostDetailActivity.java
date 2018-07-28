@@ -389,13 +389,12 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 initPointView();
                 initCollectView();
                 initCommentView();
+                mActivity.invalidateOptionsMenu();
                 // comment
                 if (comment) recyclerHelper.dataRefresh();
                 // event
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
-                // menu
-                mActivity.invalidateOptionsMenu();
             }
 
             @Override
