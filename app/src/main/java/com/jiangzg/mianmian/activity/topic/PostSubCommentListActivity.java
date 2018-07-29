@@ -3,7 +3,6 @@ package com.jiangzg.mianmian.activity.topic;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -13,13 +12,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -30,7 +26,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
@@ -361,7 +356,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             wvTag.setVisibility(View.VISIBLE);
             wvTag.removeAllChild();
             for (String tag : tagShowList) {
-                View tagView = getTagView(tag);
+                View tagView = ViewHelper.getWrapTextView(mActivity, tag);
                 if (tagView == null) continue;
                 wvTag.addChild(tagView);
             }
@@ -433,28 +428,6 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
     }
 
-    private View getTagView(String show) {
-        if (StringUtils.isEmpty(show)) return null;
-        int dp7 = ConvertUtils.dp2px(7);
-        int dp5 = ConvertUtils.dp2px(5);
-        int dp2 = ConvertUtils.dp2px(2);
-        FrameLayout.LayoutParams mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextLayoutParams.setMarginEnd(dp7);
-        TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
-        //textView.setBackgroundResource(resId);
-        textView.setPadding(dp5, dp2, dp5, dp2);
-        textView.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            textView.setTextAppearance(R.style.FontWhiteSmall);
-        } else {
-            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
-        }
-        textView.setText(show);
-        return textView;
-    }
-
     private void showCommentSortDialog() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
@@ -522,7 +495,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         if (!api) return;
         PostCommentPoint postCommentPoint = new PostCommentPoint();
         postCommentPoint.setPostCommentId(postComment.getId());
-        callPoint = new RetrofitHelper().call(API.class).topicPostCommentPointAdd(postCommentPoint);
+        callPoint = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(postCommentPoint);
         RetrofitHelper.enqueue(callPoint, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

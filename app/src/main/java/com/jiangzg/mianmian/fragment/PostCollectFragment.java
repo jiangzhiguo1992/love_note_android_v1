@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.PostAdapter;
 import com.jiangzg.mianmian.base.BaseFragment;
@@ -83,6 +84,13 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         PostAdapter postAdapter = (PostAdapter) adapter;
                         postAdapter.goPostDetail(position);
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        PostAdapter postAdapter = (PostAdapter) adapter;
+                        postAdapter.showCollectDeleteDialog(position);
                     }
                 });
     }

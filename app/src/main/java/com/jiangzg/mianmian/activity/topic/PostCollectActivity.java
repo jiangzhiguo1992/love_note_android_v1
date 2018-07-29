@@ -67,12 +67,10 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-
     }
 
     @Override
     protected void onFinish(Bundle state) {
-
     }
 
     @Override

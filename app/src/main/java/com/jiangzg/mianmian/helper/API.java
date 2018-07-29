@@ -573,11 +573,11 @@ public interface API {
 
     // postPoint上传
     @POST("topic/post/point")
-    Call<Result> topicPostPointAdd(@Body PostPoint postPoint);
+    Call<Result> topicPostPointToggle(@Body PostPoint postPoint);
 
     // postCollect上传
     @POST("topic/post/collect")
-    Call<Result> topicPostCollectAdd(@Body PostCollect postCollect);
+    Call<Result> topicPostCollectToggle(@Body PostCollect postCollect);
 
     // postComment上传
     @POST("topic/post/comment")
@@ -609,6 +609,6 @@ public interface API {
 
     // postCommentPoint上传
     @POST("topic/post/comment/point")
-    Call<Result> topicPostCommentPointAdd(@Body PostCommentPoint postCommentPoint);
+    Call<Result> topicPostCommentPointToggle(@Body PostCommentPoint postCommentPoint);
 
 }

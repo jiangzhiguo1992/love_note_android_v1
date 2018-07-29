@@ -1,20 +1,13 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.settings.SuggestDetailActivity;
 import com.jiangzg.mianmian.domain.Suggest;
@@ -32,9 +25,6 @@ import java.util.Locale;
 public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private FragmentActivity mActivity;
-    private final FrameLayout.LayoutParams mTextLayoutParams;
-    private final int dp5;
-    private final int dp2;
     private final ColorStateList colorPrimaryStateList;
     private final ColorStateList colorGreyStateList;
     private final String formatCreateAt;
@@ -61,12 +51,6 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         int colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
         colorGreyStateList = ColorStateList.valueOf(colorGrey);
-        // wrap
-        int dp7 = ConvertUtils.dp2px(7);
-        dp5 = ConvertUtils.dp2px(5);
-        dp2 = ConvertUtils.dp2px(2);
-        mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextLayoutParams.setMarginEnd(dp7);
     }
 
     @Override
@@ -105,19 +89,19 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         GWrapView wvTag = helper.getView(R.id.wvTag);
         wvTag.removeAllChild();
         if (top) {
-            View tagTop = getTagView(formatTop);
+            View tagTop = ViewHelper.getWrapTextView(mActivity, formatTop);
             wvTag.addChild(tagTop);
         }
         if (official) {
-            View tagOfficial = getTagView(formatOfficial);
+            View tagOfficial = ViewHelper.getWrapTextView(mActivity, formatOfficial);
             wvTag.addChild(tagOfficial);
         }
-        View tagStatus = getTagView(statusShow);
+        View tagStatus = ViewHelper.getWrapTextView(mActivity, statusShow);
         wvTag.addChild(tagStatus);
-        View tagKind = getTagView(kindShow);
+        View tagKind = ViewHelper.getWrapTextView(mActivity, kindShow);
         wvTag.addChild(tagKind);
         if (mine) {
-            View tagMine = getTagView(formatMine);
+            View tagMine = ViewHelper.getWrapTextView(mActivity, formatMine);
             wvTag.addChild(tagMine);
         }
         helper.setText(R.id.tvTitle, title);
@@ -137,22 +121,6 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         } else {
             ivComment.setImageTintList(colorGreyStateList);
         }
-    }
-
-    private View getTagView(String show) {
-        if (StringUtils.isEmpty(show)) return null;
-        TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
-        textView.setPadding(dp5, dp2, dp5, dp2);
-        textView.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            textView.setTextAppearance(R.style.FontWhiteSmall);
-        } else {
-            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
-        }
-        textView.setText(show);
-        return textView;
     }
 
     public void goSuggestDetail(int position) {

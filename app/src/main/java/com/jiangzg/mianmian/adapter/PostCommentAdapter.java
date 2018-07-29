@@ -1,22 +1,15 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.content.res.ColorStateList;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
@@ -54,8 +47,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
     private final String formatFloor;
     private final ColorStateList colorStateGrey;
     private final ColorStateList colorStatePrimary;
-    private final FrameLayout.LayoutParams mTextLayoutParams;
-    private final int dp5, dp2;
 
     public PostCommentAdapter(BaseActivity activity, boolean subComment) {
         super(null);
@@ -69,12 +60,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         colorStateGrey = ColorStateList.valueOf(colorGrey);
         colorStatePrimary = ColorStateList.valueOf(colorPrimary);
-        // wrap
-        int dp7 = ConvertUtils.dp2px(7);
-        dp5 = ConvertUtils.dp2px(5);
-        dp2 = ConvertUtils.dp2px(2);
-        mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextLayoutParams.setMarginEnd(dp7);
     }
 
     @Override
@@ -106,7 +91,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             wvTag.setVisibility(View.VISIBLE);
             wvTag.removeAllChild();
             for (String tag : tagShowList) {
-                View tagView = getTagView(tag);
+                View tagView = ViewHelper.getWrapTextView(mActivity, tag);
                 if (tagView == null) continue;
                 wvTag.addChild(tagView);
             }
@@ -156,23 +141,6 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 ivAvatarRight.setData(couple.getInviteeAvatar());
             }
         }
-    }
-
-    private View getTagView(String show) {
-        if (StringUtils.isEmpty(show)) return null;
-        TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
-        //textView.setBackgroundResource(resId);
-        textView.setPadding(dp5, dp2, dp5, dp2);
-        textView.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            textView.setTextAppearance(R.style.FontWhiteSmall);
-        } else {
-            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
-        }
-        textView.setText(show);
-        return textView;
     }
 
     // 删除评论
@@ -233,7 +201,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         if (!api) return;
         PostCommentPoint body = new PostCommentPoint();
         body.setPostCommentId(item.getId());
-        Call<Result> call = new RetrofitHelper().call(API.class).topicPostCommentPointAdd(body);
+        Call<Result> call = new RetrofitHelper().call(API.class).topicPostCommentPointToggle(body);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

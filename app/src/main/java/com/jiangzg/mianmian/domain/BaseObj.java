@@ -18,6 +18,10 @@ public class BaseObj implements Parcelable {
     protected long updateAt;
     protected long createAt;
 
+    public boolean isDelete() {
+        return status <= STATUS_DELETE;
+    }
+
     public long getId() {
         return id;
     }

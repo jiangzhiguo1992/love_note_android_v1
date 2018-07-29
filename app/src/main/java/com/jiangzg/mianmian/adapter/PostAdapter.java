@@ -1,28 +1,31 @@
 package com.jiangzg.mianmian.adapter;
 
 import android.content.res.ColorStateList;
-import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.topic.PostDetailActivity;
 import com.jiangzg.mianmian.domain.Couple;
 import com.jiangzg.mianmian.domain.Post;
+import com.jiangzg.mianmian.domain.PostCollect;
+import com.jiangzg.mianmian.domain.PostComment;
+import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.helper.API;
+import com.jiangzg.mianmian.helper.DialogHelper;
 import com.jiangzg.mianmian.helper.ListHelper;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.TimeHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 import com.jiangzg.mianmian.view.FrescoAvatarView;
@@ -30,6 +33,8 @@ import com.jiangzg.mianmian.view.GWrapView;
 
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -40,8 +45,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     private FragmentActivity mActivity;
     private boolean kindShow, subKindShow;
     private final ColorStateList colorPrimaryStateList, colorGreyStateList;
-    private final FrameLayout.LayoutParams mTextLayoutParams;
-    private final int dp5, dp2;
     private final String formatCreateAt, formatUpdateAt;
     private final int colorPrimary, colorFontGrey, colorFontBlack;
 
@@ -59,12 +62,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         colorGreyStateList = ColorStateList.valueOf(colorIconGrey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
-        // wrap
-        int dp7 = ConvertUtils.dp2px(7);
-        dp5 = ConvertUtils.dp2px(5);
-        dp2 = ConvertUtils.dp2px(2);
-        mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        mTextLayoutParams.setMarginEnd(dp7);
         // format
         formatCreateAt = mActivity.getString(R.string.create_at_colon_space_holder);
         formatUpdateAt = mActivity.getString(R.string.update_at_colon_space_holder);
@@ -72,12 +69,20 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
-        // TODO 注意被删除的帖子
+        helper.setVisible(R.id.tvCover, item.isScreen() || item.isDelete());
         if (item.isScreen()) {
-            helper.setVisible(R.id.root, false);
+            helper.setVisible(R.id.tvCover, true);
+            helper.setVisible(R.id.llInfo, false);
+            helper.setText(R.id.tvCover, R.string.post_already_be_screen);
+            return;
+        } else if (item.isDelete()) {
+            helper.setVisible(R.id.tvCover, true);
+            helper.setVisible(R.id.llInfo, false);
+            helper.setText(R.id.tvCover, R.string.post_already_be_delete);
             return;
         }
-        helper.setVisible(R.id.root, true);
+        helper.setVisible(R.id.tvCover, false);
+        helper.setVisible(R.id.llInfo, true);
         // data
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();
@@ -126,7 +131,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             wvTag.setVisibility(View.VISIBLE);
             wvTag.removeAllChild();
             for (String tag : tagShowList) {
-                View tagView = getTagView(tag);
+                View tagView = ViewHelper.getWrapTextView(mActivity, tag);
                 if (tagView == null) continue;
                 wvTag.addChild(tagView);
             }
@@ -170,34 +175,51 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         ImageView ivComment = helper.getView(R.id.ivComment);
         ivComment.setImageTintList(comment ? colorPrimaryStateList : colorGreyStateList);
         // listener
-        helper.addOnClickListener(R.id.rvImage);
-    }
-
-    private View getTagView(String show) {
-        if (StringUtils.isEmpty(show)) return null;
-        TextView textView = new TextView(mActivity);
-        textView.setLayoutParams(mTextLayoutParams);
-        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
-        //textView.setBackgroundResource(resId);
-        textView.setPadding(dp5, dp2, dp5, dp2);
-        textView.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            textView.setTextAppearance(R.style.FontWhiteSmall);
-        } else {
-            textView.setTextAppearance(mActivity, R.style.FontWhiteSmall);
-        }
-        textView.setText(show);
-        return textView;
+        if (!item.isScreen() && !item.isDelete()) helper.addOnClickListener(R.id.rvImage);
     }
 
     public void goPostDetail(int position) {
         Post item = getItem(position);
-        if (item == null || item.isScreen()) return;
+        if (item == null || item.isScreen() || item.isDelete()) return;
         if (!item.isRead()) {
             item.setRead(true);
             notifyItemChanged(position);
         }
         PostDetailActivity.goActivity(mActivity, item);
+    }
+
+    public void showCollectDeleteDialog(final int position) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_del_collect)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        delCollect(position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void delCollect(final int position) {
+        Post item = getItem(position);
+        PostCollect postCollect = new PostCollect();
+        postCollect.setPostId(item.getId());
+        Call<Result> callCollect = new RetrofitHelper().call(API.class).topicPostCollectToggle(postCollect);
+        RetrofitHelper.enqueue(callCollect, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                remove(position);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
 }

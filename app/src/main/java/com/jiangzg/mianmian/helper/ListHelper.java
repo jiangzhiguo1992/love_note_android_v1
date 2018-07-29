@@ -277,7 +277,7 @@ public class ListHelper {
                 // 所有的album都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && travelAlbum.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && travelAlbum.isDelete()) continue;
             albumList.add(travelAlbum.getAlbum());
         }
         return albumList;
@@ -342,7 +342,7 @@ public class ListHelper {
                 // 所有的video都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && travelVideo.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && travelVideo.isDelete()) continue;
             videoList.add(travelVideo.getVideo());
         }
         return videoList;
@@ -407,7 +407,7 @@ public class ListHelper {
                 // 所有的food都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && travelFood.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && travelFood.isDelete()) continue;
             foodList.add(travelFood.getFood());
         }
         return foodList;
@@ -472,7 +472,7 @@ public class ListHelper {
                 // 所有的diary都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && travelDiary.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && travelDiary.isDelete()) continue;
             diaryList.add(travelDiary.getDiary());
         }
         return diaryList;
@@ -540,7 +540,7 @@ public class ListHelper {
                 // 所有的gift都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirGift.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && souvenirGift.isDelete()) continue;
             giftList.add(souvenirGift.getGift());
         }
         return giftList;
@@ -619,7 +619,7 @@ public class ListHelper {
                 // 所有的travel都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirTravel.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && souvenirTravel.isDelete()) continue;
             travelList.add(souvenirTravel.getTravel());
         }
         return travelList;
@@ -698,7 +698,7 @@ public class ListHelper {
                 // 所有的album都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirAlbum.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && souvenirAlbum.isDelete()) continue;
             albumList.add(souvenirAlbum.getAlbum());
         }
         return albumList;
@@ -777,7 +777,7 @@ public class ListHelper {
                 // 所有的video都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirVideo.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && souvenirVideo.isDelete()) continue;
             videoList.add(souvenirVideo.getVideo());
         }
         return videoList;
@@ -856,7 +856,7 @@ public class ListHelper {
                 // 所有的food都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirFood.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && souvenirFood.isDelete()) continue;
             foodList.add(souvenirFood.getFood());
         }
         return foodList;
@@ -935,7 +935,7 @@ public class ListHelper {
                 // 所有的diary都是已经已存在的，必须有id
                 continue;
             }
-            if (checkStatus && souvenirDiary.getStatus() <= BaseObj.STATUS_DELETE) continue;
+            if (checkStatus && souvenirDiary.isDelete()) continue;
             diaryList.add(souvenirDiary.getDiary());
         }
         return diaryList;

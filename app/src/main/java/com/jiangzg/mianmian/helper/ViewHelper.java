@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,14 +15,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.system.PermUtils;
@@ -281,6 +288,33 @@ public class ViewHelper {
         return window;
     }
 
+    // getWrapTextView
+    public static View getWrapTextView(Context context, String show) {
+        if (context == null || StringUtils.isEmpty(show)) {
+            LogUtils.w(ViewHelper.class, "getWrapTextView", "context == null || show == null");
+            return null;
+        }
+        int dp7 = ConvertUtils.dp2px(7);
+        int dp5 = ConvertUtils.dp2px(5);
+        int dp2 = ConvertUtils.dp2px(2);
+        FrameLayout.LayoutParams mTextLayoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTextLayoutParams.setMarginEnd(dp7);
+        TextView textView = new TextView(context);
+        textView.setLayoutParams(mTextLayoutParams);
+        textView.setBackgroundResource(R.drawable.shape_solid_primary_r2);
+        //textView.setBackgroundResource(resId);
+        textView.setPadding(dp5, dp2, dp5, dp2);
+        textView.setGravity(Gravity.CENTER);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            textView.setTextAppearance(R.style.FontWhiteSmall);
+        } else {
+            textView.setTextAppearance(context, R.style.FontWhiteSmall);
+        }
+        textView.setText(show);
+        return textView;
+    }
+
+    // initMonthView
     public static void initMonthView(Activity activity, MaterialCalendarView view) {
         int colorDark = ContextCompat.getColor(activity, ViewHelper.getColorDark(activity));
         // text
