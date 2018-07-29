@@ -24,6 +24,7 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // TODO controller配合 我的消息 更新有提醒view
 
     }
 

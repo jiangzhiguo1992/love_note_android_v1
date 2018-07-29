@@ -55,8 +55,17 @@ public class Limit {
     private double postLonLatDiffMax;
     private int postScreenReportCount;
     private int postCommentContentLength;
+    private int postCommentScreenReportCount;
     // more
     private int vipExpireDay;
+
+    public int getPostCommentScreenReportCount() {
+        return postCommentScreenReportCount;
+    }
+
+    public void setPostCommentScreenReportCount(int postCommentScreenReportCount) {
+        this.postCommentScreenReportCount = postCommentScreenReportCount;
+    }
 
     public int getPostTitleLength() {
         return postTitleLength;

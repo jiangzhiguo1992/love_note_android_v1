@@ -114,6 +114,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_POST_LON_LAT_DIFF_MAX = "postLonLatDiffMax";
     private static final String FIELD_LIMIT_POST_SCREEN_REPORT_COUNT = "postScreenReportCount";
     private static final String FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH = "postCommentContentLength";
+    private static final String FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT = "postCommentScreenReportCount";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
@@ -383,6 +384,7 @@ public class SPHelper {
         editor.putFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, (float) limit.getPostLonLatDiffMax());
         editor.putInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, limit.getPostScreenReportCount());
         editor.putInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, limit.getPostCommentContentLength());
+        editor.putInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, limit.getPostCommentScreenReportCount());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.apply();
     }
@@ -432,8 +434,9 @@ public class SPHelper {
         limit.setPostTitleLength(sp.getInt(FIELD_LIMIT_POST_TITLE_LENGTH, 20));
         limit.setPostContentLength(sp.getInt(FIELD_LIMIT_POST_CONTENT_LENGTH, 100));
         limit.setPostLonLatDiffMax(sp.getFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, 0.11F));
-        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 100));
+        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 30));
         limit.setPostCommentContentLength(sp.getInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, 100));
+        limit.setPostCommentScreenReportCount(sp.getInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, 20));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         return limit;
     }
