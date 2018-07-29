@@ -56,6 +56,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
 
     private PostKindInfo kindInfo;
     private int searchType = ApiHelper.LIST_TOPIC_NORMAL;
+    private PostSubKindInfo subKindInfo;
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
         if (kindInfo == null) {
@@ -71,6 +72,9 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     @Override
     protected int getView(Intent intent) {
         kindInfo = intent.getParcelableExtra("kindInfo");
+        if (kindInfo.getPostSubKindInfoList() != null && kindInfo.getPostSubKindInfoList().size() > 0) {
+            subKindInfo = kindInfo.getPostSubKindInfoList().get(0);
+        }
         return R.layout.activity_post_list;
     }
 
@@ -106,6 +110,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
             public void onPageSelected(int position) {
                 PostListFragment fragment = fragmentList.get(position);
                 searchType = fragment.getSearchType();
+                subKindInfo = fragment.getSubKindInfo();
                 tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
             }
 
@@ -136,7 +141,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 HelpActivity.goActivity(mActivity, Help.INDEX_POST_LIST);
                 return true;
             case R.id.menuSearch: // 搜索
-                PostSearchActivity.goActivity(mActivity, kindInfo);
+                PostSearchActivity.goActivity(mActivity, kindInfo, subKindInfo);
                 return true;
         }
         return super.onOptionsItemSelected(item);

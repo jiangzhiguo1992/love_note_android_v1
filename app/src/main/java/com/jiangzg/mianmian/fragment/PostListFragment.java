@@ -187,6 +187,10 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         RecyclerHelper.release(recyclerHelper);
     }
 
+    public PostSubKindInfo getSubKindInfo() {
+        return subKindInfo;
+    }
+
     public int getSearchType() {
         if (official) return ApiHelper.LIST_TOPIC_OFFICIAL;
         if (well) return ApiHelper.LIST_TOPIC_WELL;
@@ -194,7 +198,10 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     }
 
     private void getData(final boolean more) {
-        if (subKindInfo == null) return;
+        if (subKindInfo == null) {
+            if (srl.isRefreshing()) srl.setRefreshing(false);
+            return;
+        }
         if (subKindInfo.isLonLat()) {
             PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
                 @Override
@@ -209,6 +216,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
 
                         @Override
                         public void onFailed(String errMsg) {
+                            if (srl.isRefreshing()) srl.setRefreshing(false);
                             ToastUtils.show(getString(R.string.location_error));
                         }
                     });
@@ -216,6 +224,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
 
                 @Override
                 public void onPermissionDenied(int requestCode, String[] permissions) {
+                    if (srl.isRefreshing()) srl.setRefreshing(false);
                     DialogHelper.showGoPermDialog(mActivity);
                 }
             });

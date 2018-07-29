@@ -131,6 +131,7 @@
     <string name="my_push">我的发布</string>
     <string name="my_collect">我的收藏</string>
     <string name="my_message">我的消息</string>
+    <string name="please_input_search_content">请输入搜索内容</string>
 
     <!-- limit -->
     <string name="title">标题</string>

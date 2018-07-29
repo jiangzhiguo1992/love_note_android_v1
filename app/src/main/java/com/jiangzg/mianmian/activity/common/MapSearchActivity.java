@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.poisearch.PoiSearch;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 
 /**
  * 地址搜索
@@ -42,8 +40,8 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
     Toolbar tb;
     @BindView(R.id.etSearch)
     EditText etSearch;
-    @BindView(R.id.btnSearch)
-    Button btnSearch;
+    @BindView(R.id.tvSearch)
+    TextView tvSearch;
     @BindView(R.id.rv)
     RecyclerView rv;
     @BindView(R.id.srl)
@@ -78,7 +76,7 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.address_search), true);
+        ViewHelper.initTopBar(mActivity, tb, "", true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -111,25 +109,24 @@ public class MapSearchActivity extends BaseActivity<MapSearchActivity> {
         poiSearchListener = null;
     }
 
-    @OnTextChanged({R.id.etSearch})
-    public void afterTextChanged(Editable s) {
-        btnSearch.setEnabled(!StringUtils.isEmpty(s.toString()));
-    }
-
-    @OnClick({R.id.btnSearch})
+    @OnClick({R.id.tvSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnSearch: // 搜索
+            case R.id.tvSearch: // 搜索
                 search();
                 break;
         }
     }
 
     private void search() {
+        String address = etSearch.getText().toString().trim();
+        if (StringUtils.isEmpty(address)) {
+            ToastUtils.show(etSearch.getHint().toString());
+            return;
+        }
         if (srl != null && !srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        String address = etSearch.getText().toString().trim();
         // 搜索回调
         if (poiSearchListener == null) {
             poiSearchListener = MapHelper.getPoiSearchListener(new MapHelper.SearchCallBack() {
