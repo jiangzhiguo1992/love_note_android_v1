@@ -72,6 +72,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
+        // TODO 注意被删除的帖子
         if (item.isScreen()) {
             helper.setVisible(R.id.root, false);
             return;
