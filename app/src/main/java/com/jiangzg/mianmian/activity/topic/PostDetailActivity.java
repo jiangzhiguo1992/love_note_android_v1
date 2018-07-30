@@ -43,6 +43,7 @@ import com.jiangzg.mianmian.domain.PostCollect;
 import com.jiangzg.mianmian.domain.PostComment;
 import com.jiangzg.mianmian.domain.PostPoint;
 import com.jiangzg.mianmian.domain.PostReport;
+import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.helper.API;
@@ -159,7 +160,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new PostCommentAdapter(mActivity, false))
                 .viewHeader(mActivity, R.layout.list_head_post_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
@@ -529,7 +530,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         showList.add(getString(R.string.all));
         showList.add(getString(R.string.floor_master));
         if (!post.isMine()) {
-            showList.add(getString(R.string.me_de));
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfoById(post.getKind(), post.getSubKind());
+            if (subKindInfo == null || !subKindInfo.isAnonymous()) {
+                showList.add(getString(R.string.me_de));
+            }
         }
         int selectIndex = 0;
         if (searchUserId == post.getUserId()) {

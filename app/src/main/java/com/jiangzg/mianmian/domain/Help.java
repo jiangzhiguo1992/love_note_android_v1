@@ -73,13 +73,13 @@ public class Help extends BaseObj {
     public static final int INDEX_NOTE_AWARD_RULE_EDIT = 503;
     // topic
     public static final int INDEX_TOPIC_HOME = 600;
-    public static final int INDEX_POST_LIST = 610;
-    public static final int INDEX_POST_ADD = 611;
-    public static final int INDEX_POST_DETAIL = 612;
-    public static final int INDEX_POST_COMMENT_DETAIL = 613;
-    public static final int INDEX_POST_MINE = 614;
-    public static final int INDEX_POST_COLLECT = 615;
-
+    public static final int INDEX_TOPIC_MESSAGE = 610;
+    public static final int INDEX_POST_MINE = 620;
+    public static final int INDEX_POST_COLLECT = 630;
+    public static final int INDEX_POST_LIST = 640;
+    public static final int INDEX_POST_ADD = 641;
+    public static final int INDEX_POST_DETAIL = 642;
+    public static final int INDEX_POST_COMMENT_DETAIL = 643;
 
     private int index;
     private String title;

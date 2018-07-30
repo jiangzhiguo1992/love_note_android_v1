@@ -134,7 +134,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
+                .initRefresh(srl, true)
                 .initAdapter(new PostCommentAdapter(mActivity, true))
                 .viewHeader(mActivity, R.layout.list_head_post_sub_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
