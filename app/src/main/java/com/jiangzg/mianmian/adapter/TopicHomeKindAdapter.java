@@ -51,14 +51,18 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
         }
         String name = item.getName();
         TopicInfo topicInfo = getTopicInfo(item.getId());
-        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.today_post_colon_holder), topicInfo.getPostCount());
-        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.today_comment_colon_holder), topicInfo.getCommentCount());
+        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.post_colon_space_holder), topicInfo.getPostCount());
+        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.comment_colon_space_holder), topicInfo.getCommentCount());
+        String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.point_colon_space_holder), topicInfo.getPointCount());
+        String collectCount = String.format(Locale.getDefault(), mActivity.getString(R.string.collect_colon_space_holder), topicInfo.getCollectCount());
         // view
         CardView root = helper.getView(R.id.root);
         root.setCardBackgroundColor(color);
         helper.setText(R.id.tvName, name);
         helper.setText(R.id.tvPostCount, postCount);
         helper.setText(R.id.tvCommentCount, commentCount);
+        helper.setText(R.id.tvPointCount, pointCount);
+        helper.setText(R.id.tvCollectCount, collectCount);
     }
 
     public void goPostList(int position) {
