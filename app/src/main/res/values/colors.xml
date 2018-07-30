@@ -26,6 +26,14 @@
     <color name="black_trans_25">#3F000000</color>
     <color name="trans_00">#00FFFFFF</color>
 
+    <!-- topic -->
+    <color name="topic_kind_1">#E07B8F</color>
+    <color name="topic_kind_2">#E3ABC0</color>
+    <color name="topic_kind_3">#A6D0F0</color>
+    <color name="topic_kind_4">#FA873D</color>
+    <color name="topic_kind_5">#57D4CC</color>
+    <color name="topic_kind_6">#8F6678</color>
+
     <!-- red -->
     <color name="theme_red_dark">#D32F2F</color>
     <color name="theme_red_primary">#F44336</color>

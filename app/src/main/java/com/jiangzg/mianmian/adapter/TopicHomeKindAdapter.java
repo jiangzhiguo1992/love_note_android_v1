@@ -68,20 +68,18 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
 
     private List<Integer> getColorList() {
         List<Integer> colorList = new ArrayList<>();
-        int indigo = ContextCompat.getColor(mActivity, R.color.theme_indigo_accent);
-        int blue = ContextCompat.getColor(mActivity, R.color.theme_blue_accent);
-        int teal = ContextCompat.getColor(mActivity, R.color.theme_teal_accent);
-        int green = ContextCompat.getColor(mActivity, R.color.theme_green_accent);
-        int lime = ContextCompat.getColor(mActivity, R.color.theme_lime_accent);
-        int orange = ContextCompat.getColor(mActivity, R.color.theme_orange_accent);
-        int pink = ContextCompat.getColor(mActivity, R.color.theme_red_accent);
-        colorList.add(indigo);
-        colorList.add(blue);
-        colorList.add(teal);
-        colorList.add(green);
-        colorList.add(lime);
-        colorList.add(orange);
-        colorList.add(pink);
+        int k1 = ContextCompat.getColor(mActivity, R.color.topic_kind_1);
+        int k2 = ContextCompat.getColor(mActivity, R.color.topic_kind_2);
+        int k3 = ContextCompat.getColor(mActivity, R.color.topic_kind_3);
+        int k4 = ContextCompat.getColor(mActivity, R.color.topic_kind_4);
+        int k5 = ContextCompat.getColor(mActivity, R.color.topic_kind_5);
+        int k6 = ContextCompat.getColor(mActivity, R.color.topic_kind_6);
+        colorList.add(k1);
+        colorList.add(k2);
+        colorList.add(k3);
+        colorList.add(k4);
+        colorList.add(k5);
+        colorList.add(k6);
         return colorList;
     }
 

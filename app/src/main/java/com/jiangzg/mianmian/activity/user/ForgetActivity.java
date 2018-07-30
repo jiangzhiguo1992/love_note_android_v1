@@ -68,6 +68,7 @@ public class ForgetActivity extends BaseActivity<ForgetActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.forget_pwd), true);
+        // TODO icon更换
     }
 
     @Override

@@ -58,6 +58,7 @@ public class PasswordActivity extends BaseActivity<PasswordActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.modify_password), true);
+        // TODO icon更换
     }
 
     @Override

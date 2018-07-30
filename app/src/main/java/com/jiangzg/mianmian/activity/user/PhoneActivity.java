@@ -64,7 +64,7 @@ public class PhoneActivity extends BaseActivity<PhoneActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.change_phone), true);
-
+        // TODO icon更换
     }
 
     @Override

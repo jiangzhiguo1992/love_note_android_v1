@@ -79,6 +79,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // TODO 性别icon更换
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.user_info), false);
         // 时间选择器
         npYear.setFormatter(new NumberPicker.Formatter() {

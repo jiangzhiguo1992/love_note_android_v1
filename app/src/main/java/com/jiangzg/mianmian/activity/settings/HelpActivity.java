@@ -107,6 +107,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         RecyclerHelper.release(recyclerHelperHead);
     }
 
+    // TODO 数据本地化
     public void refreshData() {
         int index = getIntent().getIntExtra("index", Help.INDEX_ALL);
         // api

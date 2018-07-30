@@ -209,10 +209,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial})
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.switchSystem:
+            case R.id.switchSystem: // TODO 系统通知
                 SPHelper.setSettingsNoticeSystem(isChecked);
                 break;
-            case R.id.switchSocial:
+            case R.id.switchSocial: // TODO 社交通知
                 SPHelper.setSettingsNoticeSocial(isChecked);
                 break;
         }

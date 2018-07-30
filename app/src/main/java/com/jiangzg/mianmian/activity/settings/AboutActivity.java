@@ -59,6 +59,7 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.about_mian_mian), true);
+        // TODO icon更换
     }
 
     @Override

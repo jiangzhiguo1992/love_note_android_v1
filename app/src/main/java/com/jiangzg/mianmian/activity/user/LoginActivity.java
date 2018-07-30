@@ -106,6 +106,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // TODO icon更换
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), false);
         ViewHelper.setLineBottom(tvProtocol);
         // loginType
