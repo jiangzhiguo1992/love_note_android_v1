@@ -15,8 +15,7 @@ import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.FragmentPagerAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
-import com.jiangzg.mianmian.domain.TopicMessageInfo;
-import com.jiangzg.mianmian.fragment.TopicFragment;
+import com.jiangzg.mianmian.domain.TopicMessage;
 import com.jiangzg.mianmian.fragment.TopicMessageFragment;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
@@ -51,15 +50,34 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_collect), true);
         // fragment
         List<String> titleList = new ArrayList<>();
+        titleList.add(getString(R.string.all));
+        titleList.add(getString(R.string.official));
+        titleList.add(getString(R.string.post_report));
+        titleList.add(getString(R.string.post_point));
+        titleList.add(getString(R.string.post_collect));
+        titleList.add(getString(R.string.post_comment));
+        titleList.add(getString(R.string.comment_reply));
+        titleList.add(getString(R.string.comment_report));
+        titleList.add(getString(R.string.comment_point));
         List<TopicMessageFragment> fragmentList = new ArrayList<>();
-        if (TopicFragment.topicMessageInfoList != null && TopicFragment.topicMessageInfoList.size() > 0) {
-            for (TopicMessageInfo info : TopicFragment.topicMessageInfoList) {
-                if (info == null) continue;
-                titleList.add(info.getName());
-                TopicMessageFragment fragment = TopicMessageFragment.newFragment(info);
-                fragmentList.add(fragment);
-            }
-        }
+        TopicMessageFragment all = TopicMessageFragment.newFragment(TopicMessage.KIND_ALL);
+        TopicMessageFragment official = TopicMessageFragment.newFragment(TopicMessage.KIND_OFFICIAL_TEXT);
+        TopicMessageFragment postReport = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_REPORT);
+        TopicMessageFragment postPoint = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_POINT);
+        TopicMessageFragment postCollect = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_COLLECT);
+        TopicMessageFragment postComment = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_COMMENT);
+        TopicMessageFragment commentReply = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_REPLY);
+        TopicMessageFragment commentReport = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_REPORT);
+        TopicMessageFragment commentPoint = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_POINT);
+        fragmentList.add(all);
+        fragmentList.add(official);
+        fragmentList.add(postReport);
+        fragmentList.add(postPoint);
+        fragmentList.add(postCollect);
+        fragmentList.add(postComment);
+        fragmentList.add(commentReply);
+        fragmentList.add(commentReport);
+        fragmentList.add(commentPoint);
         // adapter
         FragmentPagerAdapter<TopicMessageFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);

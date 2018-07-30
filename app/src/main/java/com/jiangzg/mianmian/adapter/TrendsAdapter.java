@@ -43,7 +43,7 @@ import com.jiangzg.mianmian.view.FrescoAvatarView;
 
 /**
  * Created by JZG on 2018/3/12.
- * 耳语
+ * 动态
  */
 public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHolder> {
 

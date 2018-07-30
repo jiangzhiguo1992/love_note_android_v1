@@ -24,7 +24,6 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.PostKindInfo;
 import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.domain.TopicMessageInfo;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
@@ -41,7 +40,6 @@ import retrofit2.Call;
 
 public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
-    public static List<TopicMessageInfo> topicMessageInfoList;
     public static List<PostKindInfo> postKindInfoList;
 
     @BindView(R.id.tb)
@@ -169,7 +167,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                topicMessageInfoList = data.getTopicMessageInfoList();
                 postKindInfoList = getPostKindInfoEnableList(data.getPostKindInfoList());
                 recyclerHelper.dataNew(postKindInfoList, 0);
             }

@@ -543,6 +543,14 @@
     <string name="all_space_brackets_holder_brackets">全部 (%d)</string>
     <string name="post_already_be_screen">帖子已被屏蔽</string>
     <string name="post_already_be_delete">帖子已被删除</string>
+    <string name="receive_new_message">收到了一条新消息</string>
+    <string name="post_report">帖子举报</string>
+    <string name="post_point">帖子点赞</string>
+    <string name="post_collect">帖子收藏</string>
+    <string name="post_comment">帖子评论</string>
+    <string name="comment_reply">评论回复</string>
+    <string name="comment_report">评论举报</string>
+    <string name="comment_point">评论点赞</string>
 
     <!-- square -->
     <string name="sign">签到</string>
