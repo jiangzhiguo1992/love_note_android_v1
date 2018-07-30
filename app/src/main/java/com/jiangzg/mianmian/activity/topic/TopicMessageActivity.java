@@ -52,6 +52,8 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
         List<String> titleList = new ArrayList<>();
         titleList.add(getString(R.string.all));
         titleList.add(getString(R.string.official));
+        titleList.add(getString(R.string.jab_in_post));
+        titleList.add(getString(R.string.jab_in_comment));
         titleList.add(getString(R.string.post_report));
         titleList.add(getString(R.string.post_point));
         titleList.add(getString(R.string.post_collect));
@@ -62,6 +64,8 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
         List<TopicMessageFragment> fragmentList = new ArrayList<>();
         TopicMessageFragment all = TopicMessageFragment.newFragment(TopicMessage.KIND_ALL);
         TopicMessageFragment official = TopicMessageFragment.newFragment(TopicMessage.KIND_OFFICIAL_TEXT);
+        TopicMessageFragment jabPost = TopicMessageFragment.newFragment(TopicMessage.KIND_JAB_IN_POST);
+        TopicMessageFragment jabComment = TopicMessageFragment.newFragment(TopicMessage.KIND_JAB_IN_COMMENT);
         TopicMessageFragment postReport = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_REPORT);
         TopicMessageFragment postPoint = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_POINT);
         TopicMessageFragment postCollect = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_COLLECT);
@@ -71,6 +75,8 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
         TopicMessageFragment commentPoint = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_POINT);
         fragmentList.add(all);
         fragmentList.add(official);
+        fragmentList.add(jabPost);
+        fragmentList.add(jabComment);
         fragmentList.add(postReport);
         fragmentList.add(postPoint);
         fragmentList.add(postCollect);

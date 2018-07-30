@@ -8,13 +8,15 @@ public class TopicMessage extends BaseCP {
 
     public static final int KIND_ALL = 0;
     public static final int KIND_OFFICIAL_TEXT = 1;
-    public static final int KIND_POST_BE_REPORT = 10;
-    public static final int KIND_POST_BE_POINT = 11;
-    public static final int KIND_POST_BE_COLLECT = 12;
-    public static final int KIND_POST_BE_COMMENT = 13;
-    public static final int KIND_COMMENT_BE_REPLY = 20;
-    public static final int KIND_COMMENT_BE_REPORT = 21;
-    public static final int KIND_COMMENT_BE_POINT = 22;
+    public static final int KIND_JAB_IN_POST = 10;
+    public static final int KIND_JAB_IN_COMMENT = 11;
+    public static final int KIND_POST_BE_REPORT = 20;
+    public static final int KIND_POST_BE_POINT = 21;
+    public static final int KIND_POST_BE_COLLECT = 22;
+    public static final int KIND_POST_BE_COMMENT = 23;
+    public static final int KIND_COMMENT_BE_REPLY = 30;
+    public static final int KIND_COMMENT_BE_REPORT = 31;
+    public static final int KIND_COMMENT_BE_POINT = 32;
 
     private int kind;
     private String contentText;

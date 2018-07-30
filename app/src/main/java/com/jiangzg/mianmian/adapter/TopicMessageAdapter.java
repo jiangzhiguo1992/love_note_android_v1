@@ -53,12 +53,14 @@ public class TopicMessageAdapter extends BaseQuickAdapter<TopicMessage, BaseView
         long contentId = item.getContentId();
         if (kind == TopicMessage.KIND_ALL || kind == TopicMessage.KIND_OFFICIAL_TEXT) return;
         switch (kind) {
+            case TopicMessage.KIND_JAB_IN_POST: // 被戳
             case TopicMessage.KIND_POST_BE_REPORT: // 举报
             case TopicMessage.KIND_POST_BE_POINT: // 点赞
             case TopicMessage.KIND_POST_BE_COLLECT: // 收藏
             case TopicMessage.KIND_POST_BE_COMMENT: // 评论
                 PostDetailActivity.goActivity(mActivity, contentId);
                 return;
+            case TopicMessage.KIND_JAB_IN_COMMENT: // 被戳
             case TopicMessage.KIND_COMMENT_BE_REPLY: // 回复
             case TopicMessage.KIND_COMMENT_BE_REPORT: // 举报
             case TopicMessage.KIND_COMMENT_BE_POINT: // 点赞

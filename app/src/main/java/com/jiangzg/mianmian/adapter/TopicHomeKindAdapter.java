@@ -43,8 +43,6 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
     protected void convert(BaseViewHolder helper, PostKindInfo item) {
         // data
         int position = helper.getLayoutPosition();
-        //boolean isLeft = position % 2 == 1;
-        boolean isLeft = false;
         Integer color;
         if (position - 1 >= colorList.size()) {
             color = colorList.get((position - 1) % colorList.size());
@@ -58,10 +56,7 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
         // view
         CardView root = helper.getView(R.id.root);
         root.setCardBackgroundColor(color);
-        helper.setVisible(R.id.tvNameLeft, isLeft);
-        helper.setVisible(R.id.tvNameRight, !isLeft);
-        helper.setText(R.id.tvNameLeft, name);
-        helper.setText(R.id.tvNameRight, name);
+        helper.setText(R.id.tvName, name);
         helper.setText(R.id.tvPostCount, postCount);
         helper.setText(R.id.tvCommentCount, commentCount);
     }
@@ -73,20 +68,20 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
 
     private List<Integer> getColorList() {
         List<Integer> colorList = new ArrayList<>();
-        int pink = ContextCompat.getColor(mActivity, R.color.theme_pink_primary);
-        int purple = ContextCompat.getColor(mActivity, R.color.theme_purple_accent);
-        int blue = ContextCompat.getColor(mActivity, R.color.theme_blue_primary);
-        int teal = ContextCompat.getColor(mActivity, R.color.theme_teal_primary);
-        int green = ContextCompat.getColor(mActivity, R.color.theme_green_primary);
-        int orange = ContextCompat.getColor(mActivity, R.color.theme_orange_primary);
-        int brown = ContextCompat.getColor(mActivity, R.color.theme_brown_accent);
-        colorList.add(pink);
-        colorList.add(purple);
+        int indigo = ContextCompat.getColor(mActivity, R.color.theme_indigo_accent);
+        int blue = ContextCompat.getColor(mActivity, R.color.theme_blue_accent);
+        int teal = ContextCompat.getColor(mActivity, R.color.theme_teal_accent);
+        int green = ContextCompat.getColor(mActivity, R.color.theme_green_accent);
+        int lime = ContextCompat.getColor(mActivity, R.color.theme_lime_accent);
+        int orange = ContextCompat.getColor(mActivity, R.color.theme_orange_accent);
+        int pink = ContextCompat.getColor(mActivity, R.color.theme_red_accent);
+        colorList.add(indigo);
         colorList.add(blue);
         colorList.add(teal);
         colorList.add(green);
+        colorList.add(lime);
         colorList.add(orange);
-        colorList.add(brown);
+        colorList.add(pink);
         return colorList;
     }
 
