@@ -149,6 +149,7 @@ public class Result implements Serializable {
         private List<AwardRule> awardRuleList;
         // topic
         private List<PostKindInfo> postKindInfoList;
+        private List<TopicInfo> topicInfoList;
         private List<TopicMessage> topicMessageList;
         private Post post;
         private List<Post> postList;
@@ -159,6 +160,14 @@ public class Result implements Serializable {
         private List<PostComment> postCommentList;
         private PostCommentReport postCommentReport;
         private PostCommentPoint postCommentPoint;
+
+        public List<TopicInfo> getTopicInfoList() {
+            return topicInfoList;
+        }
+
+        public void setTopicInfoList(List<TopicInfo> topicInfoList) {
+            this.topicInfoList = topicInfoList;
+        }
 
         public List<TopicMessage> getTopicMessageList() {
             return topicMessageList;

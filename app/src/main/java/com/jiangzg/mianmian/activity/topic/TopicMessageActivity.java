@@ -47,7 +47,7 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_collect), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_message), true);
         // fragment
         List<String> titleList = new ArrayList<>();
         titleList.add(getString(R.string.all));

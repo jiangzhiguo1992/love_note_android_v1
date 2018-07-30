@@ -10,7 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.topic.PostListActivity;
 import com.jiangzg.mianmian.domain.PostKindInfo;
-import com.jiangzg.mianmian.domain.PostSubKindInfo;
+import com.jiangzg.mianmian.domain.TopicInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,19 +24,27 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
 
     private Fragment mFragment;
     private Activity mActivity;
+    private List<TopicInfo> topicInfoList;
     private final List<Integer> colorList;
 
     public TopicHomeKindAdapter(Activity activity, Fragment fragment) {
         super(R.layout.list_item_topic_home_kind);
         mActivity = activity;
         mFragment = fragment;
+        topicInfoList = new ArrayList<>();
         colorList = getColorList();
+    }
+
+    public void setTopicInfoList(List<TopicInfo> topicInfoList) {
+        this.topicInfoList = topicInfoList;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, PostKindInfo item) {
+        // data
         int position = helper.getLayoutPosition();
-        boolean isLeft = position % 2 == 1;
+        //boolean isLeft = position % 2 == 1;
+        boolean isLeft = false;
         Integer color;
         if (position - 1 >= colorList.size()) {
             color = colorList.get((position - 1) % colorList.size());
@@ -44,28 +52,21 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
             color = colorList.get(position - 1);
         }
         String name = item.getName();
-        List<PostSubKindInfo> postSubKindInfoList = item.getPostSubKindInfoList();
-        String countShow = String.format(Locale.getDefault(), "内有%d个板块", postSubKindInfoList == null ? 0 : postSubKindInfoList.size());
-        //helper.setVisible(R.id.tvNameRight, isLeft);
-        //helper.setVisible(R.id.tvSubCountLeft, isLeft);
-        //helper.setVisible(R.id.tvNameLeft, !isLeft);
-        //helper.setVisible(R.id.tvSubCountRight, !isLeft);
-        helper.setVisible(R.id.tvNameRight, true);
-        helper.setVisible(R.id.tvSubCountLeft, true);
-        helper.setVisible(R.id.tvNameLeft, false);
-        helper.setVisible(R.id.tvSubCountRight, false);
+        TopicInfo topicInfo = getTopicInfo(item.getId());
+        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.today_post_colon_holder), topicInfo.getPostCount());
+        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.today_comment_colon_holder), topicInfo.getCommentCount());
         // view
         CardView root = helper.getView(R.id.root);
         root.setCardBackgroundColor(color);
+        helper.setVisible(R.id.tvNameLeft, isLeft);
+        helper.setVisible(R.id.tvNameRight, !isLeft);
+        helper.setText(R.id.tvNameLeft, name);
         helper.setText(R.id.tvNameRight, name);
-        helper.setText(R.id.tvSubCountLeft, countShow);
-        //helper.setText(R.id.tvNameLeft, name);
-        //helper.setText(R.id.tvSubCountRight, countShow);
-        // TODO 今日发帖量：XXX
-        // TODO 今日阅读数：XXX
+        helper.setText(R.id.tvPostCount, postCount);
+        helper.setText(R.id.tvCommentCount, commentCount);
     }
 
-    public void goAngryDetail(int position) {
+    public void goPostList(int position) {
         PostKindInfo item = getItem(position);
         PostListActivity.goActivity(mFragment, item);
     }
@@ -87,6 +88,15 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
         colorList.add(orange);
         colorList.add(brown);
         return colorList;
+    }
+
+    private TopicInfo getTopicInfo(int kind) {
+        if (topicInfoList == null || topicInfoList.size() <= 0) return new TopicInfo();
+        for (TopicInfo info : topicInfoList) {
+            if (info == null) continue;
+            if (info.getKind() == kind) return info;
+        }
+        return new TopicInfo();
     }
 
 }

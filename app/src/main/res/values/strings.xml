@@ -531,6 +531,8 @@
 
     <!-- topic -->
     <string name="post">帖子</string>
+    <string name="today_post_colon_holder" formatted="false">今日帖子:%d</string>
+    <string name="today_comment_colon_holder" formatted="false">今日评论:%d</string>
     <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="jab_ta">戳TA</string>
@@ -540,7 +542,7 @@
     <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
     <string name="confirm_delete_this_post">确定删除这个帖子？</string>
     <string name="jab_a_little">戳了一下</string>
-    <string name="all_space_brackets_holder_brackets">全部 (%d)</string>
+    <string name="all_space_brackets_holder_brackets" formatted="false">全部 (%d)</string>
     <string name="post_already_be_screen">帖子已被屏蔽</string>
     <string name="post_already_be_delete">帖子已被删除</string>
     <string name="receive_new_message">收到了一条新消息</string>

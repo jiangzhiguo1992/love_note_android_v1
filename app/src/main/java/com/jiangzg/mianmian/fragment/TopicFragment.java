@@ -24,6 +24,7 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.PostKindInfo;
 import com.jiangzg.mianmian.domain.PostSubKindInfo;
 import com.jiangzg.mianmian.domain.Result;
+import com.jiangzg.mianmian.domain.TopicInfo;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
@@ -85,7 +86,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                         TopicHomeKindAdapter homeKindAdapter = (TopicHomeKindAdapter) adapter;
-                        homeKindAdapter.goAngryDetail(position);
+                        homeKindAdapter.goPostList(position);
                     }
                 });
         // head
@@ -166,13 +167,20 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 srl.setRefreshing(false);
+                TopicHomeKindAdapter adapter = recyclerHelper.getAdapter();
+                if (adapter != null) {
+                    List<TopicInfo> topicInfoList = data.getTopicInfoList();
+                    adapter.setTopicInfoList(topicInfoList);
+                }
                 postKindInfoList = getPostKindInfoEnableList(data.getPostKindInfoList());
                 recyclerHelper.dataNew(postKindInfoList, 0);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 recyclerHelper.viewEmptyShow(message);
             }
