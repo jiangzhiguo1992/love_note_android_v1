@@ -76,7 +76,6 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.register), true);
         ViewHelper.setLineBottom(tvProtocol);
-        // TODO icon更换
     }
 
     @Override

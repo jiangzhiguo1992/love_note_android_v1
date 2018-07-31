@@ -11,18 +11,18 @@
     <include layout="@layout/view_top_bar"/>
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:src="@mipmap/ic_launcher_react"/>
 
     <TextView
         android:id="@+id/tvAppInfo"
         style="@style/FontBlackNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="10dp"
         tools:text="绵绵 v1.0.1"/>
 
     <View style="@style/LineHorizontal"/>
