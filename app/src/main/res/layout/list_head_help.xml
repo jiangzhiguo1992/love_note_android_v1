@@ -9,14 +9,16 @@
 
     <TextView
         android:id="@+id/tvDesc"
-        style="@style/FontBlackNormal"
+        style="@style/FontGreyBig"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:padding="10dp"
         tools:text="撒飒飒"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="3dp"/>
 </LinearLayout>

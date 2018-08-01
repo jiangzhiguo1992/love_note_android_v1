@@ -128,25 +128,21 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         }
     }
 
-    // TODO
+    // TODO 数据本地化 + strings整理
     private Help getHelpByIndex(int index) {
         Help help;
         switch (index) {
-            case Help.INDEX_USER_SUGGEST_HOME:
-                help = getHelpSuggestHome(Help.INDEX_USER_SUGGEST_HOME);
-                break;
-
             case Help.INDEX_ALL:
             default:
                 help = getHelpAll(Help.INDEX_ALL);
                 break;
+            case Help.INDEX_USER_SUGGEST_HOME:
+                help = getHelpSuggestHome(Help.INDEX_USER_SUGGEST_HOME);
+                break;
+            case Help.INDEX_COUPLE_HOME:
+                help = getHelpCoupleHome(Help.INDEX_COUPLE_HOME);
+                break;
         }
-        return help;
-    }
-
-    private Help getHelpSuggestHome(int index) {
-        Help help = new Help();
-
         return help;
     }
 
@@ -154,30 +150,77 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.help_document));
-        help.setDesc("帮助文档有助于帮助大家更快的理解这个app的玩法，有不明白的地方，就来这里找找答案吧");
+        help.setDesc("《" + getString(R.string.help_document) + "》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion("怎么注册账号？");
-        c1.setAnswer("请跳转注册页面");
+        c1.setQuestion("这是一个什么样的app？");
+        c1.setAnswer("一款专注于情侣的生活记录和恋爱分享app，没有商城！没有商城！没有游戏！没有游戏！");
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion("怎么登录账号？");
-        c2.setAnswer("注册完之后才能登录哦\\n具体请见登录页面");
+        c2.setQuestion("我没有情侣，可以玩这个app吗？");
+        c2.setAnswer("没有情侣的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。" +
+                "\n比如说《" + getString(R.string.nav_couple) + "》和《" + getString(R.string.nav_note) + "》模块，只有在本app配对之后，才能正常使用，但是像《" + getString(R.string.nav_topic) + "》之类的分享模块，是可以正常浏览的。");
         contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("这个app只有办会员才能玩吗？");
+        c3.setAnswer("并不是！！！" +
+                "\napp中的硬收费项只有会员，而且就算不办会员，app也能正常使用。" +
+                "\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，毕竟多敲几行代码就能搞定。" +
+                "\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。");
+        contentList.add(c3);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
         s1.setIndex(Help.INDEX_COUPLE_HOME);
-        s1.setTitle("情侣配对");
+        s1.setTitle(getString(R.string.nav_couple));
         subList.add(s1);
         Help s2 = new Help();
         s2.setIndex(Help.INDEX_NOTE_HOME);
-        s2.setTitle("小本本");
+        s2.setTitle(getString(R.string.nav_note));
         subList.add(s2);
+        Help s3 = new Help();
+        s3.setIndex(Help.INDEX_TOPIC_HOME);
+        s3.setTitle(getString(R.string.nav_topic));
+        subList.add(s3);
+        Help s4 = new Help();
+        s4.setIndex(Help.INDEX_MORE_HOME);
+        s4.setTitle(getString(R.string.nav_more));
+        subList.add(s4);
         help.setSubList(subList);
         return help;
+    }
+
+    private Help getHelpSuggestHome(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.suggest_feedback));
+        help.setDesc("《意见反馈》旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。" +
+                "\n(注：如果没有第一时间回复，那可能是管理员在偷懒。)");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("类型和状态是什么？");
+        c1.setAnswer("类型：意见反馈的种类，在提交意见反馈时选择，这样分类的话，可以加快管理员的审核速度和方便用户浏览。" +
+                "\n状态：意见反馈的处理进度，一般为管理员回复并设置。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("《关注》有什么用？");
+        c2.setAnswer("当您很想知道一个意见反馈的后续处理时，可以点击关注，这样在管理员回复的时候，就能收到推送消息了。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("我可以在这里发表什么内容？");
+        c3.setAnswer("如状态所述的几个类型的内容都可以。" +
+                "\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题，最好截图(app崩溃但没退出去的情况下)。" +
+                "\n再次注意：任何在本区域捣乱者，将会被给予警告处理，情节严重者，给予封号处理。");
+        contentList.add(c3);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpCoupleHome(int index) {
+        return null;
     }
 
 }
