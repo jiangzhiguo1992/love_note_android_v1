@@ -103,10 +103,10 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
         // menu
-        refreshMenu();
+        if (isVisibleToUser) refreshMenu();
     }
 
     @Override
