@@ -14,10 +14,8 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.WeatherForecastAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.WeatherForecast;
 import com.jiangzg.mianmian.helper.API;
@@ -44,8 +42,6 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     ImageView ivBack;
     @BindView(R.id.tvTime)
     TextView tvTime;
-    @BindView(R.id.ivHelp)
-    ImageView ivHelp;
 
     @BindView(R.id.llToady)
     LinearLayout llToady;
@@ -126,14 +122,11 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.ivBack, R.id.ivHelp})
+    @OnClick({R.id.ivBack})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivBack: // 返回
                 mActivity.finish();
-                break;
-            case R.id.ivHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_WEATHER);
                 break;
         }
     }

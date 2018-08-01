@@ -23,10 +23,8 @@ import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.WallPaperAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.WallPaper;
@@ -117,7 +115,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_add, menu);
+        getMenuInflater().inflate(R.menu.add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -150,9 +148,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_WALL_PAPER);
-                return true;
             case R.id.menuAdd: // 添加
                 addWallPaper();
                 return true;

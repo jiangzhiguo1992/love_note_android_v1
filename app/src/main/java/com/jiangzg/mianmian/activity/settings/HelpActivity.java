@@ -220,7 +220,46 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpCoupleHome(int index) {
-        return null;
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.nav_couple));
+        help.setDesc("《" + getString(R.string.nav_couple) + "》模块用来展示情侣双方的各项信息，包括但不仅限于双方头像和昵称，双方所在地和天气状况。");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("为什么我和TA配对了，还是显示没配对界面呢？");
+        c1.setAnswer("亲，下拉刷试试看哦！前提是对方已经同意了邀请哦。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("怎么设置" + getString(R.string.wall_paper) + "？");
+        c2.setAnswer("点击左上角，即可进入" + getString(R.string.wall_paper) + "界面，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("为什么TA的位置和天气信息没有数据？");
+        c3.setAnswer("原因有以下几点：" +
+                "\n1.对方没有登录过app。" +
+                "\n2.没有开启地理位置获取权限，导致不能上传位置给服务器，以及获取不到位置相关的天气信息。" +
+                "\n3.没有开启GPS，或者是GPS信号差，导致长时间获取不到位置信息。" +
+                "\n4.部分地区的位置和天气暂时无法获取，如国外。" +
+                "\n5.如果还是有问题，记得双方都下拉刷新试试能不能正常显示。如不能，请移步《意见反馈》中，反馈给我们。");
+        contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion("位置和天气的更新逻辑是什么？");
+        c4.setAnswer("为了确保用户设备的电量持久，以及为了遵守android高版本的开发准则。app不会在后台无限制的获取用户的地理位置，只有在app启动或者是下拉刷新的时候，才会获取用户的位置，进而更新天气信息。所以当位置和天气信息不准时，下拉刷新看看吧。");
+        contentList.add(c4);
+        help.setContentList(contentList);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_COUPLE_PAIR);
+        s1.setTitle(getString(R.string.pair));
+        subList.add(s1);
+        Help s2 = new Help();
+        s2.setIndex(Help.INDEX_COUPLE_INFO);
+        s2.setTitle(getString(R.string.pair_info));
+        subList.add(s2);
+        help.setSubList(subList);
+        return help;
     }
 
 }

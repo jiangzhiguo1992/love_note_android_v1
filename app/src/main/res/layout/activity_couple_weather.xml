@@ -46,13 +46,14 @@
             android:foreground="?attr/selectableItemBackground"
             android:padding="13dp"
             android:src="@drawable/ic_help_circle_solid_white"
-            android:tint="?attr/colorPrimary"/>
+            android:tint="?attr/colorPrimary"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@+id/llToady"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivHelp"
+            android:layout_below="@id/tvTime"
             android:orientation="horizontal"
             android:padding="10dp">
 
