@@ -21,13 +21,11 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.GiftAdapter;
 import com.jiangzg.mianmian.adapter.PromiseAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Angry;
 import com.jiangzg.mianmian.domain.Gift;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Promise;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
@@ -174,16 +172,13 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del, menu);
+        getMenuInflater().inflate(R.menu.del, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_ANGRY_DETAIL);
-                return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();
                 return true;

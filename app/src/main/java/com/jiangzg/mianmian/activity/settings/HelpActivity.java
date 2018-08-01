@@ -291,7 +291,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         help.setTitle(getString(R.string.pair_info));
         help.setDesc("用来展示和修改双方的信息，还可以打电话哦！");
         // content
-        long breakHour = SPHelper.getLimit().getCoupleBreakSec() / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        long breakNeedDay = 20; // TODO
+        long breakContinueHour = SPHelper.getLimit().getCoupleBreakSec() / (ConstantUtils.HOUR / ConstantUtils.SEC);
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion("为什么我不能修改自己的头像和昵称？");
@@ -301,8 +302,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion("《解散》是干嘛的？");
         c2.setAnswer("点击解散之后会出现两种状况:" +
-                "\n1.配对持续时长小于一定天数时，直接解散。" +
-                "\n2.配对持续时长大于一定天数时，会有" + breakHour + "小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。" +
+                "\n1.配对持续时长小于" + breakNeedDay + "天时，直接解散。" +
+                "\n2.配对持续时长大于" + breakNeedDay + "天时，会有" + breakContinueHour + "小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。" +
                 "\n具体分割天数，由后台人员定制，小绵也不得而知。" +
                 "\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小绵觉得还是多磨合一下的好。" +
                 "\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。");

@@ -20,9 +20,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.MapShowActivity;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Souvenir;
@@ -130,16 +128,13 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help_del_edit, menu);
+        getMenuInflater().inflate(R.menu.del_edit, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_SOUVENIR_DETAIL_WISH);
-                return true;
             case R.id.menuEdit: // 编辑
                 if (souvenir == null) return true;
                 SouvenirEditActivity.goActivity(mActivity, souvenir);

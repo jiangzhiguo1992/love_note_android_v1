@@ -112,7 +112,7 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_TRENDS_TOTAL);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_NOTE_TOTAL);
                 return true;
         }
         return super.onOptionsItemSelected(item);

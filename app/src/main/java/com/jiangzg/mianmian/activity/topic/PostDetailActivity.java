@@ -32,12 +32,10 @@ import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareShowAdapter;
 import com.jiangzg.mianmian.adapter.PostCommentAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.domain.PostCollect;
 import com.jiangzg.mianmian.domain.PostComment;
@@ -283,28 +281,20 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
-        if (post == null) {
-            getMenuInflater().inflate(R.menu.help, menu);
-        } else {
+        if (post != null) {
             if (post.isOfficial()) {
                 if (post.isMine()) { // 分享 + (删除 + 帮助)
-                    getMenuInflater().inflate(R.menu.share_del_help, menu);
+                    getMenuInflater().inflate(R.menu.share_del, menu);
                 } else { // 分享 + (帮助)
-                    getMenuInflater().inflate(R.menu.share_help, menu);
+                    getMenuInflater().inflate(R.menu.share, menu);
                 }
             } else {
                 if (post.isMine()) { // 分享 + (举报 + 删除 + 帮助)
-                    getMenuInflater().inflate(R.menu.share_report_del_help, menu);
+                    getMenuInflater().inflate(R.menu.share_report_del, menu);
                 } else { // 分享 + (举报 + 帮助)
-                    getMenuInflater().inflate(R.menu.share_report_help, menu);
+                    getMenuInflater().inflate(R.menu.share_report, menu);
                 }
             }
         }
@@ -323,9 +313,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_POST_DETAIL);
-                return true;
             case R.id.menuShare: // 分享
                 ShareHelper.shareTopicPost(post);
                 return true;

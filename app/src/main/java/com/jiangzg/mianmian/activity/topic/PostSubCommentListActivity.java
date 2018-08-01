@@ -32,11 +32,9 @@ import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.PostCommentAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Couple;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Post;
 import com.jiangzg.mianmian.domain.PostComment;
 import com.jiangzg.mianmian.domain.PostCommentPoint;
@@ -226,10 +224,9 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
-        if (postComment == null || !postComment.isMine()) {
+        if (postComment != null && postComment.isMine()) {
+            getMenuInflater().inflate(R.menu.del, menu);
             getMenuInflater().inflate(R.menu.help, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.help_del, menu);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -246,9 +243,6 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_POST_COMMENT_DETAIL);
-                return true;
             case R.id.menuDel: // 删除
                 showPostCommentDelDialog();
                 return true;

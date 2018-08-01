@@ -30,12 +30,10 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.ImgSquareEditAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Gift;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.User;
@@ -175,7 +173,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isFromUpdate()) {
-            getMenuInflater().inflate(R.menu.help_del, menu);
+            getMenuInflater().inflate(R.menu.del, menu);
         } else {
             getMenuInflater().inflate(R.menu.help, menu);
         }
@@ -219,9 +217,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_GIFT_EDIT);
-                return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();
                 break;
