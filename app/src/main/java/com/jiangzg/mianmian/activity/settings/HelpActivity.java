@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.HelpContentAdapter;
@@ -19,6 +20,7 @@ import com.jiangzg.mianmian.adapter.HelpSubAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
+import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
 import java.util.ArrayList;
@@ -94,10 +96,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     private void refreshView(Help help) {
         if (recyclerHelper == null) return;
-        if (help == null) {
-            recyclerHelper.dataFail(false, "没有找到相关帮助文档");
-            return;
-        }
+        if (help == null) return;
         tb.setTitle(help.getTitle());
         initHead(help);
         recyclerHelper.dataNew(help.getSubList(), 0);
@@ -142,6 +141,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             case Help.INDEX_COUPLE_HOME:
                 help = getHelpCoupleHome(Help.INDEX_COUPLE_HOME);
                 break;
+            case Help.INDEX_COUPLE_PAIR:
+                help = getHelpCouplePair(Help.INDEX_COUPLE_PAIR);
+                break;
+            case Help.INDEX_COUPLE_INFO:
+                help = getHelpCoupleInfo(Help.INDEX_COUPLE_INFO);
+                break;
         }
         return help;
     }
@@ -150,7 +155,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.help_document));
-        help.setDesc("《" + getString(R.string.help_document) + "》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧");
+        help.setDesc("《帮助文档》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -231,8 +236,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setAnswer("亲，下拉刷试试看哦！前提是对方已经同意了邀请哦。");
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion("怎么设置" + getString(R.string.wall_paper) + "？");
-        c2.setAnswer("点击左上角，即可进入" + getString(R.string.wall_paper) + "界面，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。");
+        c2.setQuestion("怎么设置背景图？");
+        c2.setAnswer("点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。");
         contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion("为什么TA的位置和天气信息没有数据？");
@@ -259,6 +264,50 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s2.setTitle(getString(R.string.pair_info));
         subList.add(s2);
         help.setSubList(subList);
+        return help;
+    }
+
+    private Help getHelpCouplePair(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.pair));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("只能输手机号配对吗？");
+        c1.setAnswer("是的，我们摒弃了邀请码的配对方式，采用更坦诚的手机号邀请方式。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("为什么提示我邀请过于频繁？");
+        c2.setAnswer("在被拒绝或者是配对解散后，有一定的冷却时间，冷却时间内不能再邀请相同的人哦。\n所以，还请大人们不要调皮了！");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpCoupleInfo(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.pair_info));
+        help.setDesc("用来展示和修改双方的信息，还可以打电话哦！");
+        // content
+        long breakHour = SPHelper.getLimit().getCoupleBreakSec() / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("为什么我不能修改自己的头像和昵称？");
+        c1.setAnswer("没错！你只能修改对方的信息，不能修改自己的！" +
+                "\n试想一下，恋爱过程中，你的形象完全取决与你的TA，多么有意思的一件事啊。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("《解散》是干嘛的？");
+        c2.setAnswer("点击解散之后会出现两种状况:" +
+                "\n1.配对持续时长小于一定天数时，直接解散。" +
+                "\n2.配对持续时长大于一定天数时，会有" + breakHour + "小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。" +
+                "\n具体分割天数，由后台人员定制，小绵也不得而知。" +
+                "\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小绵觉得还是多磨合一下的好。" +
+                "\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。");
+        contentList.add(c2);
+        help.setContentList(contentList);
         return help;
     }
 

@@ -17,7 +17,7 @@ public class Help extends BaseObj implements Parcelable {
     // couple
     public static final int INDEX_COUPLE_HOME = 200;
     public static final int INDEX_COUPLE_PAIR = 210;
-    public static final int INDEX_COUPLE_INFO = 215;
+    public static final int INDEX_COUPLE_INFO = 220;
     // note
     public static final int INDEX_NOTE_HOME = 300;
     public static final int INDEX_NOTE_TRENDS_LIST = 310;
