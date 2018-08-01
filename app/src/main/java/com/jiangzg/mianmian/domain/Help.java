@@ -1,12 +1,15 @@
 package com.jiangzg.mianmian.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by JZG on 2018/3/12.
  * 帮助文档
  */
-public class Help extends BaseObj {
+public class Help extends BaseObj implements Parcelable {
 
     public static final int INDEX_ALL = 0;
     // user
@@ -130,6 +133,7 @@ public class Help extends BaseObj {
     }
 
     public static class HelpContent {
+
         private String question;
         private String answer;
 
@@ -155,5 +159,39 @@ public class Help extends BaseObj {
 
     public Help() {
     }
+
+    protected Help(Parcel in) {
+        super(in);
+        index = in.readInt();
+        title = in.readString();
+        desc = in.readString();
+        subList = in.createTypedArrayList(Help.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(index);
+        dest.writeString(title);
+        dest.writeString(desc);
+        dest.writeTypedList(subList);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Help> CREATOR = new Creator<Help>() {
+        @Override
+        public Help createFromParcel(Parcel in) {
+            return new Help(in);
+        }
+
+        @Override
+        public Help[] newArray(int size) {
+            return new Help[size];
+        }
+    };
 
 }

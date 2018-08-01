@@ -7,6 +7,7 @@ import com.jiangzg.mianmian.domain.Post;
 /**
  * Created by JZG on 2018/4/28.
  * 分享
+ * TODO 微信，朋友圈，QQ，QQ空间，微博
  */
 public class ShareHelper {
 

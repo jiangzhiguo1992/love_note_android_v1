@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,31 +8,10 @@
     android:orientation="vertical"
     tools:context="com.jiangzg.mianmian.activity.settings.HelpActivity">
 
-    <include
-        android:id="@+id/topBar"
-        layout="@layout/view_top_bar"/>
+    <include layout="@layout/view_top_bar"/>
 
-    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
-        android:id="@+id/srl"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/topBar">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
-
-    <TextView
-        android:id="@+id/tvShow"
-        style="@style/FontGreyNormal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/topBar"
-        android:gravity="center_horizontal"
-        android:paddingTop="50dp"
-        android:visibility="gone"
-        tools:text="show"
-        tools:visibility="visible"/>
-</RelativeLayout>
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -14,36 +14,26 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.adapter.HelpAdapter;
 import com.jiangzg.mianmian.adapter.HelpContentAdapter;
+import com.jiangzg.mianmian.adapter.HelpSubAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
-import com.jiangzg.mianmian.domain.Result;
-import com.jiangzg.mianmian.helper.API;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
-import com.jiangzg.mianmian.helper.RetrofitHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
-import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import java.util.List;
 
 import butterknife.BindView;
-import retrofit2.Call;
 
 public class HelpActivity extends BaseActivity<HelpActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.srl)
-    GSwipeRefreshLayout srl;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.tvShow)
-    TextView tvShow;
 
     private RecyclerHelper recyclerHelper;
     private RecyclerHelper recyclerHelperHead;
-    private Call<Result> call;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
@@ -77,67 +67,36 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initRefresh(srl, false)
-                .initAdapter(new HelpAdapter())
+                .initAdapter(new HelpSubAdapter())
                 .viewHeader(mActivity, R.layout.list_head_help)
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        refreshData();
-                    }
-                })
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        HelpAdapter helpAdapter = (HelpAdapter) adapter;
-                        helpAdapter.goSubHelp(mActivity, position);
+                        HelpSubAdapter helpSubAdapter = (HelpSubAdapter) adapter;
+                        helpSubAdapter.goSubHelp(mActivity, position);
                     }
                 });
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        recyclerHelper.dataRefresh();
+        int index = intent.getIntExtra("index", Help.INDEX_ALL);
+        Help help = getHelp(index);
+        refreshView(help);
     }
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
         RecyclerHelper.release(recyclerHelperHead);
     }
 
-    // TODO 数据本地化
-    public void refreshData() {
-        int index = getIntent().getIntExtra("index", Help.INDEX_ALL);
-        // api
-        call = new RetrofitHelper().call(API.class).setHelpGet(index);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                refreshView(data, data.getShow());
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                refreshView(new Result.Data(), message);
-            }
-        });
-    }
-
-    private void refreshView(Result.Data data, String show) {
+    private void refreshView(Help help) {
         if (recyclerHelper == null) return;
-        Help help = data.getHelp();
         if (help == null) {
-            tvShow.setVisibility(View.VISIBLE);
-            rv.setVisibility(View.GONE);
-            tvShow.setText(show);
+            recyclerHelper.dataFail(false, "没有找到相关帮助文档");
             return;
         }
-        rv.setVisibility(View.VISIBLE);
-        tvShow.setVisibility(View.GONE);
         tb.setTitle(help.getTitle());
         initHead(help);
         recyclerHelper.dataNew(help.getSubList(), 0);
@@ -155,12 +114,38 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         tvDesc.setText(desc);
         // content
         RecyclerView rv = head.findViewById(R.id.rv);
-        if (recyclerHelperHead == null) {
-            recyclerHelperHead = new RecyclerHelper(rv)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new HelpContentAdapter());
+        if (contentList == null || contentList.size() <= 0) {
+            rv.setVisibility(View.GONE);
+        } else {
+            rv.setVisibility(View.VISIBLE);
+            if (recyclerHelperHead == null) {
+                recyclerHelperHead = new RecyclerHelper(rv)
+                        .initLayoutManager(new LinearLayoutManager(mActivity))
+                        .initAdapter(new HelpContentAdapter());
+            }
+            recyclerHelperHead.dataNew(contentList, 0);
         }
-        recyclerHelperHead.dataNew(contentList, 0);
+    }
+
+    // TODO
+    private Help getHelp(int index) {
+        Help help = new Help();
+
+        // no_data_help = 没有找到相关帮助文档
+        //help_root_title = 帮助文档
+        //help_root_desc = 帮助文档有助于帮助大家更快的理解这个app的玩法，有不明白的地方，就来这里找找答案吧
+        //        help_root_q1 = 怎么注册账号？
+        //help_root_a1 = 请跳转注册页面
+        //help_root_q2 = 怎么登录账号？
+        //help_root_a2 = 注册完之后才能登录哦\n具体请见登录页面
+        //        help_root_q3 = 密码忘了怎么办？
+        //help_root_a3 = 密码忘了没关系，只要手机还在，密码就能找回，账号就不会丢
+        //        help_couple_home_title = 情侣配对
+        //help_couple_home_desc = 快来和心仪的TA配对吧
+        //help_note_home_title = 小本本
+        //help_note_home_desc = 曾经的很多事我都没有忘记，只是暂时想不起来
+
+        return help;
     }
 
 }
