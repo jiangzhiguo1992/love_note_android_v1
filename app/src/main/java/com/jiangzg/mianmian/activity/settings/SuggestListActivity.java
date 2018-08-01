@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,7 +14,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.SuggestAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.Suggest;
 import com.jiangzg.mianmian.domain.SuggestInfo;
@@ -143,28 +140,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, obListItemDelete);
         RxBus.unregister(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                int helpType;
-                if (entry == ENTRY_FOLLOW) {
-                    helpType = Help.INDEX_USER_SUGGEST_FOLLOW;
-                } else {
-                    helpType = Help.INDEX_USER_SUGGEST_MINE;
-                }
-                HelpActivity.goActivity(mActivity, helpType);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void getData(final boolean more) {

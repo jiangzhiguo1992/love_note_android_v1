@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,7 +14,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.adapter.NoticeAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Notice;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.helper.API;
@@ -98,22 +95,6 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
         RecyclerHelper.release(recyclerHelper);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_USER_NOTICE_LIST);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void getData(final boolean more) {

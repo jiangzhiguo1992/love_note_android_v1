@@ -84,7 +84,7 @@ public class UpdateService extends Service {
             String updateLog = version.getUpdateLog();
             builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)
                     .append("  (").append(create).append(")\n")
-                    .append(updateLog).append("\n\n");
+                    .append(updateLog).append("\n\n"); // TODO 换行问题
         }
         String content = builder.toString();
         MaterialDialog dialog = DialogHelper.getBuild(top)

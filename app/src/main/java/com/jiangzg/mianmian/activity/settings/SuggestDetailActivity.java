@@ -32,7 +32,6 @@ import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.BigImageActivity;
 import com.jiangzg.mianmian.adapter.SuggestCommentAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Suggest;
@@ -179,18 +178,10 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
         if (suggest != null && suggest.isMine()) {
-            getMenuInflater().inflate(R.menu.help_del, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.help, menu);
+            getMenuInflater().inflate(R.menu.del, menu);
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -207,9 +198,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_USER_SUGGEST_DETAIL);
-                return true;
             case R.id.menuDel: // 删除
                 showDelDialog();
                 return true;

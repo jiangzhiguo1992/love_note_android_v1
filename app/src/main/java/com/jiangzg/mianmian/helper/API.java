@@ -67,8 +67,9 @@ import retrofit2.http.Url;
 public interface API {
 
     String HOST = "192.168.18.5:30011";
-    //String HOST = "mianmian.jiangzhiguo.com";
-    String BASE_URL = "http://" + HOST + "/api/v1/"; // BaseURL最好以/结尾
+    //String HOST = "47.94.146.21"; // TODO 删除
+    //String HOST = "api.mianmian520.com";
+    String BASE_URL = "http://" + HOST + "/v1/"; // BaseURL最好以/结尾
 
     @Streaming // 下载大文件(请求需要放在子线程中)
     @Multipart // 上传文件
@@ -106,10 +107,6 @@ public interface API {
     // 用户登录
     @POST("user/login")
     Call<Result> userLogin(@Query("type") int type, @Query("code") String code, @Body User user);
-
-    // 帮助文档
-    @GET("set/help")
-    Call<Result> setHelpGet(@Query("index") int contentType);
 
     // 版本
     @GET("set/version")

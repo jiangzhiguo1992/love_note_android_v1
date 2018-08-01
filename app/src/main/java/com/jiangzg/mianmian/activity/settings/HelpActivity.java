@@ -21,6 +21,7 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -81,7 +82,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         int index = intent.getIntExtra("index", Help.INDEX_ALL);
-        Help help = getHelp(index);
+        Help help = getHelpByIndex(index);
         refreshView(help);
     }
 
@@ -128,23 +129,54 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     // TODO
-    private Help getHelp(int index) {
+    private Help getHelpByIndex(int index) {
+        Help help;
+        switch (index) {
+            case Help.INDEX_USER_SUGGEST_HOME:
+                help = getHelpSuggestHome(Help.INDEX_USER_SUGGEST_HOME);
+                break;
+
+            case Help.INDEX_ALL:
+            default:
+                help = getHelpAll(Help.INDEX_ALL);
+                break;
+        }
+        return help;
+    }
+
+    private Help getHelpSuggestHome(int index) {
         Help help = new Help();
 
-        // no_data_help = 没有找到相关帮助文档
-        //help_root_title = 帮助文档
-        //help_root_desc = 帮助文档有助于帮助大家更快的理解这个app的玩法，有不明白的地方，就来这里找找答案吧
-        //        help_root_q1 = 怎么注册账号？
-        //help_root_a1 = 请跳转注册页面
-        //help_root_q2 = 怎么登录账号？
-        //help_root_a2 = 注册完之后才能登录哦\n具体请见登录页面
-        //        help_root_q3 = 密码忘了怎么办？
-        //help_root_a3 = 密码忘了没关系，只要手机还在，密码就能找回，账号就不会丢
-        //        help_couple_home_title = 情侣配对
-        //help_couple_home_desc = 快来和心仪的TA配对吧
-        //help_note_home_title = 小本本
-        //help_note_home_desc = 曾经的很多事我都没有忘记，只是暂时想不起来
+        return help;
+    }
 
+    private Help getHelpAll(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.help_document));
+        help.setDesc("帮助文档有助于帮助大家更快的理解这个app的玩法，有不明白的地方，就来这里找找答案吧");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("怎么注册账号？");
+        c1.setAnswer("请跳转注册页面");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("怎么登录账号？");
+        c2.setAnswer("注册完之后才能登录哦\\n具体请见登录页面");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_COUPLE_HOME);
+        s1.setTitle("情侣配对");
+        subList.add(s1);
+        Help s2 = new Help();
+        s2.setIndex(Help.INDEX_NOTE_HOME);
+        s2.setTitle("小本本");
+        subList.add(s2);
+        help.setSubList(subList);
         return help;
     }
 
