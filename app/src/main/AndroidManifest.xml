@@ -154,6 +154,7 @@
         <activity android:name=".activity.topic.PostSearchActivity"/>
         <activity android:name=".activity.topic.PostDetailActivity"/>
         <activity android:name=".activity.topic.PostSubCommentListActivity"/>
+        <!-- more -->
     </application>
 
 </manifest>
