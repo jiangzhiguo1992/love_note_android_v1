@@ -82,9 +82,10 @@ public class UpdateService extends Service {
             long createdAt = version.getCreateAt();
             String create = DateUtils.getString(TimeHelper.getJavaTimeByGo(createdAt), ConstantUtils.FORMAT_CHINA_M_D);
             String updateLog = version.getUpdateLog();
+            updateLog = updateLog.replace("\\n", "\n"); // 换行问题
             builder.append(MyApp.get().getString(R.string.version_number_colon)).append(versionName)
                     .append("  (").append(create).append(")\n")
-                    .append(updateLog).append("\n\n"); // TODO 换行问题
+                    .append(updateLog).append("\n\n");
         }
         String content = builder.toString();
         MaterialDialog dialog = DialogHelper.getBuild(top)
