@@ -173,7 +173,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_USER_SUGGEST_HOME);
+                HelpActivity.goActivity(mActivity, Help.INDEX_USER_SUGGEST);
                 return true;
             case R.id.menuTop: // 返回顶部
                 rv.smoothScrollToPosition(0);

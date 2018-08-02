@@ -13,7 +13,7 @@ public class Help extends BaseObj implements Parcelable {
 
     public static final int INDEX_ALL = 0;
     // user
-    public static final int INDEX_USER_SUGGEST_HOME = 120;
+    public static final int INDEX_USER_SUGGEST = 120;
     // couple
     public static final int INDEX_COUPLE_HOME = 200;
     public static final int INDEX_COUPLE_PAIR = 210;
@@ -21,23 +21,23 @@ public class Help extends BaseObj implements Parcelable {
     // note
     public static final int INDEX_NOTE_HOME = 300;
     public static final int INDEX_NOTE_LOCK = 310;
-    public static final int INDEX_NOTE_SOUVENIR_LIST = 320;
+    public static final int INDEX_NOTE_SOUVENIR = 320;
     public static final int INDEX_NOTE_SHY = 330;
     public static final int INDEX_NOTE_MENSES = 331;
     public static final int INDEX_NOTE_SLEEP = 332;
-    public static final int INDEX_NOTE_AUDIO_LIST = 340;
-    public static final int INDEX_NOTE_VIDEO_LIST = 341;
-    public static final int INDEX_NOTE_ALBUM_LIST = 342;
-    public static final int INDEX_NOTE_WORD_LIST = 360;
-    public static final int INDEX_NOTE_WHISPER_LIST = 361;
-    public static final int INDEX_NOTE_DIARY_LIST = 362;
-    public static final int INDEX_NOTE_AWARD_LIST = 363;
-    public static final int INDEX_NOTE_DREAM_LIST = 364;
-    public static final int INDEX_NOTE_GIFT_LIST = 365;
-    public static final int INDEX_NOTE_FOOD_LIST = 366;
-    public static final int INDEX_NOTE_TRAVEL_LIST = 367;
-    public static final int INDEX_NOTE_ANGRY_LIST = 368;
-    public static final int INDEX_NOTE_PROMISE_LIST = 369;
+    public static final int INDEX_NOTE_AUDIO = 340;
+    public static final int INDEX_NOTE_VIDEO = 341;
+    public static final int INDEX_NOTE_ALBUM = 342;
+    public static final int INDEX_NOTE_WORD = 360;
+    public static final int INDEX_NOTE_WHISPER = 361;
+    public static final int INDEX_NOTE_DIARY = 362;
+    public static final int INDEX_NOTE_AWARD = 363;
+    public static final int INDEX_NOTE_DREAM = 364;
+    public static final int INDEX_NOTE_GIFT = 365;
+    public static final int INDEX_NOTE_FOOD = 366;
+    public static final int INDEX_NOTE_TRAVEL = 367;
+    public static final int INDEX_NOTE_ANGRY = 368;
+    public static final int INDEX_NOTE_PROMISE = 369;
     // topic
     public static final int INDEX_TOPIC_HOME = 400;
     // more

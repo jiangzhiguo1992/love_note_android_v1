@@ -168,7 +168,7 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_DREAM_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_DREAM);
                 return true;
         }
         return super.onOptionsItemSelected(item);

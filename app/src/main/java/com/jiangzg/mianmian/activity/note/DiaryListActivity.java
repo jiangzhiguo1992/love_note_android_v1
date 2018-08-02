@@ -190,7 +190,7 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_DIARY_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_DIARY);
                 return true;
         }
         return super.onOptionsItemSelected(item);

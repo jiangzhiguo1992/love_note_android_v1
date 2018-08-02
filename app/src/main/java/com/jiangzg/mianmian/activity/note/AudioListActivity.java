@@ -179,7 +179,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_AUDIO_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_AUDIO);
                 return true;
         }
         return super.onOptionsItemSelected(item);

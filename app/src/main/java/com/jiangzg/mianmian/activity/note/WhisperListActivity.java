@@ -184,7 +184,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_WHISPER_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_WHISPER);
                 return true;
         }
         return super.onOptionsItemSelected(item);

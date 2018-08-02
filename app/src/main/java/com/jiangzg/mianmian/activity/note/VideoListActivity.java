@@ -186,7 +186,7 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_VIDEO_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_VIDEO);
                 return true;
         }
         return super.onOptionsItemSelected(item);

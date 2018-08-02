@@ -88,7 +88,7 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_SOUVENIR_LIST);
+                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_SOUVENIR);
                 return true;
         }
         return super.onOptionsItemSelected(item);
