@@ -73,6 +73,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -88,7 +90,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                tools:src="@drawable/ic_vip_red"/>
+                                android:src="@drawable/ic_vip_red"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -128,6 +130,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -183,6 +187,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -198,7 +204,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                tools:src="@drawable/ic_sign_green"/>
+                                android:src="@drawable/ic_sign_green"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -272,6 +278,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -327,6 +335,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -382,6 +392,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -471,6 +483,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"
@@ -526,6 +540,8 @@
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/radius_normal"
                         app:cardElevation="@dimen/elevation_normal"

@@ -126,17 +126,13 @@ public class ApiHelper {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                onEntryFinish(mActivity, code, data);
+                onEntryFinish(0, 0, mActivity, code, data);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
-    }
-
-    public static void onEntryFinish(Activity mActivity, int code, Result.Data data) {
-        onEntryFinish(0, 0, mActivity, code, data);
     }
 
     public static void onEntryFinish(long startTime, long totalWait, final Activity mActivity, int code, Result.Data data) {

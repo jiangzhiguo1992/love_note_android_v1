@@ -155,6 +155,9 @@
         <activity android:name=".activity.topic.PostDetailActivity"/>
         <activity android:name=".activity.topic.PostSubCommentListActivity"/>
         <!-- more -->
+        <activity android:name=".activity.more.VipActivity"/>
+        <activity android:name=".activity.more.CoinActivity"/>
+        <activity android:name=".activity.more.SignActivity"/>
     </application>
 
 </manifest>

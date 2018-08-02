@@ -2,6 +2,7 @@ package com.jiangzg.mianmian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,9 +13,13 @@ import android.widget.TextView;
 
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
+import com.jiangzg.mianmian.activity.more.CoinActivity;
+import com.jiangzg.mianmian.activity.more.SignActivity;
+import com.jiangzg.mianmian.activity.more.VipActivity;
 import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.base.BaseFragment;
 import com.jiangzg.mianmian.base.BasePagerFragment;
+import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.SPHelper;
@@ -78,10 +83,18 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_more), false);
         fitToolBar(tb);
+        // srl
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
     }
 
     protected void loadData() {
-        //ToastUtils.show(getString(R.string.nav_more) + " 加载数据");
+        // data
+        refreshData();
     }
 
     @Override
@@ -126,21 +139,60 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvVip: // 会员
+                VipActivity.goActivity(mFragment);
                 break;
             case R.id.cvCoin: // 金币
+                CoinActivity.goActivity(mFragment);
                 break;
             case R.id.cvSign: // 签到
+                SignActivity.goActivity(mFragment);
                 break;
             case R.id.cvWife: // 夫妻相
+                // TODO
                 break;
             case R.id.cvLetter: // 情书展
+                // TODO
                 break;
             case R.id.cvStory: // 故事会
+                // TODO
                 break;
             case R.id.cvWish: // 许愿树
+                // TODO
                 break;
             case R.id.cvPostcard: // 明信卡
+                // TODO
                 break;
         }
     }
+
+    private void refreshData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        // TODO
+        MyApp.get().getHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                srl.setRefreshing(false);
+            }
+        }, 1000);
+        //call = new RetrofitHelper().call(API.class).noteHomeGet(near);
+        //RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        //    @Override
+        //    public void onResponse(int code, String message, Result.Data data) {
+        //        srl.setRefreshing(false);
+        //        lockBack = true;
+        //        canLock = data.isCanLock();
+        //        isLock = data.isLock();
+        //        souvenirLatest = data.getSouvenirLatest();
+        //        refreshNoteView();
+        //    }
+        //
+        //    @Override
+        //    public void onFailure(int code, String message, Result.Data data) {
+        //        srl.setRefreshing(false);
+        //    }
+        //});
+    }
+
 }

@@ -20,6 +20,7 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.couple.CouplePairActivity;
+import com.jiangzg.mianmian.activity.more.VipActivity;
 import com.jiangzg.mianmian.activity.settings.SuggestAddActivity;
 import com.jiangzg.mianmian.activity.user.LoginActivity;
 import com.jiangzg.mianmian.activity.user.UserInfoActivity;
@@ -353,8 +354,7 @@ public class RetrofitHelper {
                     .onPositive(new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            // TODO 跳转VIP购买页面
-                            ToastUtils.show("跳转VIP购买页面");
+                            VipActivity.goActivity(top);
                         }
                     })
                     .build();
