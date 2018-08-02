@@ -2,10 +2,13 @@ package com.jiangzg.mianmian.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.jiangzg.mianmian.R;
 import com.jiangzg.mianmian.activity.common.SettingsActivity;
@@ -16,13 +19,49 @@ import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
+import com.jiangzg.mianmian.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.srl)
+    GSwipeRefreshLayout srl;
+    @BindView(R.id.tvVip)
+    TextView tvVip;
+    @BindView(R.id.cvVip)
+    CardView cvVip;
+    @BindView(R.id.tvCoin)
+    TextView tvCoin;
+    @BindView(R.id.cvCoin)
+    CardView cvCoin;
+    @BindView(R.id.tvSign)
+    TextView tvSign;
+    @BindView(R.id.cvSign)
+    CardView cvSign;
+    @BindView(R.id.tvWife)
+    TextView tvWife;
+    @BindView(R.id.cvWife)
+    CardView cvWife;
+    @BindView(R.id.tvLetter)
+    TextView tvLetter;
+    @BindView(R.id.cvLetter)
+    CardView cvLetter;
+    @BindView(R.id.tvStory)
+    TextView tvStory;
+    @BindView(R.id.cvStory)
+    CardView cvStory;
+    @BindView(R.id.tvWish)
+    TextView tvWish;
+    @BindView(R.id.cvWish)
+    CardView cvWish;
+    @BindView(R.id.tvPostcard)
+    TextView tvPostcard;
+    @BindView(R.id.cvPostcard)
+    CardView cvPostcard;
 
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -81,4 +120,27 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         return super.onOptionsItemSelected(item);
     }
 
+    @OnClick({R.id.cvVip, R.id.cvCoin, R.id.cvSign,
+            R.id.cvWife, R.id.cvLetter, R.id.cvStory,
+            R.id.cvWish, R.id.cvPostcard})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.cvVip: // 会员
+                break;
+            case R.id.cvCoin: // 金币
+                break;
+            case R.id.cvSign: // 签到
+                break;
+            case R.id.cvWife: // 夫妻相
+                break;
+            case R.id.cvLetter: // 情书展
+                break;
+            case R.id.cvStory: // 故事会
+                break;
+            case R.id.cvWish: // 许愿树
+                break;
+            case R.id.cvPostcard: // 明信卡
+                break;
+        }
+    }
 }

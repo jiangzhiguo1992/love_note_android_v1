@@ -562,6 +562,14 @@
     <string name="sign">签到</string>
     <string name="coin">金币</string>
     <string name="vip">会员</string>
+    <string name="consume_about">消费相关</string>
+    <string name="quick_match">快来比拼</string>
+    <string name="wife_picture">夫妻相</string>
+    <string name="love_letter_show">情书展</string>
+    <string name="story_meet">故事会</string>
+    <string name="wish_future">许愿未来</string>
+    <string name="wish_tree">许愿树</string>
+    <string name="postcard">明信卡</string>
 
 
 </resources>

@@ -34,7 +34,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
-    private int[] menuIdArray = new int[]{R.id.menuWe, R.id.menuNote, R.id.menuTopic, R.id.menuMore};
+    private int[] menuIdArray = new int[]{R.id.menuCouple, R.id.menuNote, R.id.menuTopic, R.id.menuMore};
     private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
     private NoteFragment noteFragment;

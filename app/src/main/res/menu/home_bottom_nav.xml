@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuWe"
-        android:icon="@drawable/ic_couple_primary"
+        android:id="@+id/menuCouple"
+        android:icon="@drawable/ic_nav_couple_primary"
         android:title="@string/nav_couple"/>
 
     <item
         android:id="@+id/menuNote"
-        android:icon="@drawable/ic_note_primary"
+        android:icon="@drawable/ic_nav_note_primary"
         android:title="@string/nav_note"/>
 
     <item
         android:id="@+id/menuTopic"
-        android:icon="@drawable/ic_topic_primary"
+        android:icon="@drawable/ic_nav_topic_primary"
         android:title="@string/nav_topic"/>
 
     <item
         android:id="@+id/menuMore"
-        android:icon="@drawable/ic_more_primary"
+        android:icon="@drawable/ic_nav_more_primary"
         android:title="@string/nav_more"/>
 
 </menu>
