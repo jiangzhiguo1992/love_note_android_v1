@@ -151,6 +151,66 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             case Help.INDEX_NOTE_HOME:
                 help = getHelpNoteHome(Help.INDEX_NOTE_HOME);
                 break;
+            case Help.INDEX_NOTE_LOCK:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_SOUVENIR:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_SHY:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_MENSES:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_SLEEP:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_AUDIO:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_VIDEO:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_ALBUM:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_WORD:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_WHISPER:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_DIARY:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_AWARD:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_DREAM:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_GIFT:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_FOOD:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_TRAVEL:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_ANGRY:
+                help = null;
+                break;
+            case Help.INDEX_NOTE_PROMISE:
+                help = null;
+                break;
+            case Help.INDEX_TOPIC_HOME:
+                help = null;
+                break;
+            case Help.INDEX_MORE_HOME:
+                help = null;
+                break;
         }
         return help;
     }
