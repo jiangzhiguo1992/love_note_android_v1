@@ -19,6 +19,7 @@ import com.jiangzg.mianmian.adapter.HelpContentAdapter;
 import com.jiangzg.mianmian.adapter.HelpSubAdapter;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Help;
+import com.jiangzg.mianmian.domain.Limit;
 import com.jiangzg.mianmian.helper.RecyclerHelper;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -268,6 +269,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     }
 
     private Help getHelpCouplePair(int index) {
+        long intervalSec = SPHelper.getLimit().getCoupleInviteIntervalSec();
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.pair));
@@ -279,20 +281,21 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion("为什么提示我邀请过于频繁？");
-        c2.setAnswer("在被拒绝或者是配对解散后，有一定的冷却时间，冷却时间内不能再邀请相同的人哦。\n所以，还请大人们不要调皮了！");
+        c2.setAnswer("在被拒绝或者是配对解散后，有" + intervalSec + "秒的冷却时间，冷却时间内不能再邀请相同的人哦。\n所以，还请大人们不要调皮了呢！");
         contentList.add(c2);
         help.setContentList(contentList);
         return help;
     }
 
     private Help getHelpCoupleInfo(int index) {
+        Limit limit = SPHelper.getLimit();
+        long breakNeedDay = limit.getCoupleBreakNeedSec() / (ConstantUtils.DAY / ConstantUtils.SEC);
+        long breakContinueHour = limit.getCoupleBreakSec() / (ConstantUtils.HOUR / ConstantUtils.SEC);
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.pair_info));
         help.setDesc("用来展示和修改双方的信息，还可以打电话哦！");
         // content
-        long breakNeedDay = 20; // TODO
-        long breakContinueHour = SPHelper.getLimit().getCoupleBreakSec() / (ConstantUtils.HOUR / ConstantUtils.SEC);
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion("为什么我不能修改自己的头像和昵称？");
@@ -304,7 +307,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setAnswer("点击解散之后会出现两种状况:" +
                 "\n1.配对持续时长小于" + breakNeedDay + "天时，直接解散。" +
                 "\n2.配对持续时长大于" + breakNeedDay + "天时，会有" + breakContinueHour + "小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。" +
-                "\n具体分割天数，由后台人员定制，小绵也不得而知。" +
                 "\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小绵觉得还是多磨合一下的好。" +
                 "\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。");
         contentList.add(c2);

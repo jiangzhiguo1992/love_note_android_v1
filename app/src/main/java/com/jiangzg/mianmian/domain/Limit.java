@@ -17,6 +17,8 @@ public class Limit {
     private int suggestContentTextLength;
     private int suggestCommentContentLength;
     // couple
+    private long coupleInviteIntervalSec;
+    private long coupleBreakNeedSec;
     private long coupleBreakSec;
     private int coupleNameLength;
     // note
@@ -58,6 +60,22 @@ public class Limit {
     private int postCommentScreenReportCount;
     // more
     private int vipExpireDay;
+
+    public long getCoupleInviteIntervalSec() {
+        return coupleInviteIntervalSec;
+    }
+
+    public void setCoupleInviteIntervalSec(long coupleInviteIntervalSec) {
+        this.coupleInviteIntervalSec = coupleInviteIntervalSec;
+    }
+
+    public long getCoupleBreakNeedSec() {
+        return coupleBreakNeedSec;
+    }
+
+    public void setCoupleBreakNeedSec(long coupleBreakNeedSec) {
+        this.coupleBreakNeedSec = coupleBreakNeedSec;
+    }
 
     public int getPostCommentScreenReportCount() {
         return postCommentScreenReportCount;

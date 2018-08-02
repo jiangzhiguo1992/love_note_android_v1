@@ -78,6 +78,8 @@ public class SPHelper {
     private static final String FIELD_LIMIT_SUGGEST_TITLE_LENGTH = "suggest_title_length";
     private static final String FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH = "suggest_content_text_length";
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggest_comment_content_length";
+    private static final String FIELD_LIMIT_COUPLE_INVITE_INTERVAL_SEC = "couple_invite_interval_sec";
+    private static final String FIELD_LIMIT_COUPLE_BREAK_NEED_SEC = "couple_break_need_sec";
     private static final String FIELD_LIMIT_COUPLE_BREAK_SEC = "couple_break_sec";
     private static final String FIELD_LIMIT_COUPLE_NAME_LENGTH = "couple_name_length";
     private static final String FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS = "note_oss_expire_seconds";
@@ -348,6 +350,8 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, limit.getSuggestTitleLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, limit.getSuggestContentTextLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
+        editor.putLong(FIELD_LIMIT_COUPLE_INVITE_INTERVAL_SEC, limit.getCoupleInviteIntervalSec());
+        editor.putLong(FIELD_LIMIT_COUPLE_BREAK_NEED_SEC, limit.getCoupleBreakNeedSec());
         editor.putLong(FIELD_LIMIT_COUPLE_BREAK_SEC, limit.getCoupleBreakSec());
         editor.putInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, limit.getCoupleNameLength());
         editor.putLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, limit.getNoteResExpireSec());
@@ -400,6 +404,8 @@ public class SPHelper {
         limit.setSuggestTitleLength(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, 20));
         limit.setSuggestContentTextLength(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_TEXT_LENGTH, 200));
         limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
+        limit.setCoupleInviteIntervalSec(sp.getLong(FIELD_LIMIT_COUPLE_INVITE_INTERVAL_SEC, 3 * 60));
+        limit.setCoupleBreakNeedSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_NEED_SEC, 60 * 60 * 24 * 20));
         limit.setCoupleBreakSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_SEC, 60 * 60 * 24));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
         limit.setNoteResExpireSec(sp.getLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
