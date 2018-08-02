@@ -50,7 +50,7 @@ import java.util.Random;
 public class ViewHelper {
 
     /**
-     * TODO 剪切view , 还有设置四大属性的方法，太多了 不封装了
+     * 剪切view , 还有设置四大属性的方法，太多了 不封装了
      */
     public static void clipView(View view, ViewOutlineProvider provider) {
         // 设置Outline , provider在外部自己实现
