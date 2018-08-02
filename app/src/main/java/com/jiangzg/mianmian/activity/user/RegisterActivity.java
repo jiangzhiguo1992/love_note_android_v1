@@ -17,7 +17,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.WebActivity;
+import com.jiangzg.mianmian.activity.settings.UserProtocolActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.base.MyApp;
 import com.jiangzg.mianmian.domain.Result;
@@ -112,8 +112,7 @@ public class RegisterActivity extends BaseActivity<RegisterActivity> {
                 register();
                 break;
             case R.id.tvProtocol: // 用户协议
-                String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
-                WebActivity.goActivity(mActivity, getString(R.string.user_protocol), userProtocolUrl);
+                UserProtocolActivity.goActivity(mActivity);
                 break;
         }
     }

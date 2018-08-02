@@ -7,8 +7,24 @@ package com.jiangzg.mianmian.domain;
 public class CommonConst {
 
     private String companyName;
-    private String userProtocolUrl;
-    private String aboutUsUrl;
+    private String officialQQ;
+    private String contactEmail;
+
+    public String getOfficialQQ() {
+        return officialQQ;
+    }
+
+    public void setOfficialQQ(String officialQQ) {
+        this.officialQQ = officialQQ;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -18,19 +34,4 @@ public class CommonConst {
         this.companyName = companyName;
     }
 
-    public String getUserProtocolUrl() {
-        return userProtocolUrl;
-    }
-
-    public void setUserProtocolUrl(String userProtocolUrl) {
-        this.userProtocolUrl = userProtocolUrl;
-    }
-
-    public String getAboutUsUrl() {
-        return aboutUsUrl;
-    }
-
-    public void setAboutUsUrl(String aboutUsUrl) {
-        this.aboutUsUrl = aboutUsUrl;
-    }
 }

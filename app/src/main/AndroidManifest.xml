@@ -86,13 +86,14 @@
         <activity android:name=".activity.common.SettingsActivity"/>
         <activity android:name=".activity.settings.ThemeActivity"/>
         <activity android:name=".activity.settings.HelpActivity"/>
-        <activity android:name=".activity.settings.AboutActivity"/>
         <activity android:name=".activity.settings.NoticeListActivity"/>
         <activity android:name=".activity.settings.NoticeDetailActivity"/>
         <activity android:name=".activity.settings.SuggestHomeActivity"/>
         <activity android:name=".activity.settings.SuggestDetailActivity"/>
         <activity android:name=".activity.settings.SuggestAddActivity"/>
         <activity android:name=".activity.settings.SuggestListActivity"/>
+        <activity android:name=".activity.settings.AboutActivity"/>
+        <activity android:name=".activity.settings.UserProtocolActivity"/>
         <!-- couple -->
         <activity android:name=".activity.couple.CouplePairActivity"/>
         <activity android:name=".activity.couple.CoupleInfoActivity"/>

@@ -235,8 +235,8 @@
     <string name="contain_image_audio_video_total_colon_holder" formatted="false">包括图片、音频、视频缓存 (共:%s)</string>
     <string name="notice_settings">通知设置</string>
     <string name="system_notice">系统通知</string>
-    <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
     <string name="social_notice">社交通知</string>
+    <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
     <string name="receive_from_social_notice">接受来自其他用户的社交通知</string>
     <string name="account_settings">账号设置</string>
     <string name="change_phone">更换手机</string>
@@ -245,12 +245,10 @@
     <string name="about_and_help">关于与帮助</string>
     <string name="new_notice">最新公告</string>
     <string name="help_document">帮助文档</string>
-    <string name="about_mian_mian">关于绵绵</string>
-    <string name="go_rate">去评价</string>
-    <string name="dear_give_me_good_judge">亲，给个好评吧</string>
-    <string name="about_us">关于我们</string>
+    <string name="about_app">关于绵绵</string>
+    <string name="must_comply">一定要遵守哦！</string>
+    <string name="official_qq">官方QQ群</string>
     <string name="contact_us">联系我们</string>
-    <string name="contact_customer_service">联系客服</string>
     <string name="exist_account">退出账号</string>
     <string name="confirm_exist_account">确定要退出账号吗？</string>
 

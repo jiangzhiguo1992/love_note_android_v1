@@ -44,6 +44,10 @@ public class SPHelper {
     private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
     private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
     private static final String FIELD_COMMON_NOTICE_NO_READ_COUNT = "notice_no_read_count";
+    // commonConst
+    private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
+    private static final String FIELD_COMMON_CONST_OFFICIAL_QQ = "official_qq";
+    private static final String FIELD_COMMON_CONST_CONTACT_EMAIL = "contact_email";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
     private static final String FIELD_OSS_KEY_ID = "access_key_id";
@@ -135,10 +139,6 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_VIDEO_SIZE = "video_size";
     private static final String FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT = "video_total_count";
     private static final String FIELD_VIP_LIMIT_TOPIC_COUNT = "topic_image_count";
-    // commonConst
-    private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
-    private static final String FIELD_COMMON_CONST_USER_PROTOCOL_URL = "user_protocol_url";
-    private static final String FIELD_COMMON_CONST_ABOUT_US_URL = "about_us_url";
     // version
     private static final String FIELD_VERSION_CREATE_AT = "create_at";
     private static final String FIELD_VERSION_VERSION_CODE = "version_code";
@@ -264,6 +264,30 @@ public class SPHelper {
     public static int getNoticeNoReadCount() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
         return sp.getInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
+    }
+
+    /**
+     * ***********************************CommonConst***********************************
+     */
+    public static void setCommonConst(CommonConst commonConst) {
+        if (commonConst == null) {
+            LogUtils.i(SPHelper.class, "setCommonConst", "commonConst == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
+        editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
+        editor.putString(FIELD_COMMON_CONST_OFFICIAL_QQ, commonConst.getOfficialQQ());
+        editor.putString(FIELD_COMMON_CONST_CONTACT_EMAIL, commonConst.getContactEmail());
+        editor.apply();
+    }
+
+    public static CommonConst getCommonConst() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_CONST);
+        CommonConst commonConst = new CommonConst();
+        commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
+        commonConst.setOfficialQQ(sp.getString(FIELD_COMMON_CONST_OFFICIAL_QQ, ""));
+        commonConst.setContactEmail(sp.getString(FIELD_COMMON_CONST_CONTACT_EMAIL, ""));
+        return commonConst;
     }
 
     /**
@@ -496,30 +520,6 @@ public class SPHelper {
         vipLimit.setVideoTotalCount(sp.getInt(FIELD_VIP_LIMIT_VIDEO_TOTAL_COUNT, 0));
         vipLimit.setTopicImageCount(sp.getInt(FIELD_VIP_LIMIT_TOPIC_COUNT, 0));
         return vipLimit;
-    }
-
-    /**
-     * ***********************************CommonConst***********************************
-     */
-    public static void setCommonConst(CommonConst commonConst) {
-        if (commonConst == null) {
-            LogUtils.i(SPHelper.class, "setCommonConst", "commonConst == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
-        editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
-        editor.putString(FIELD_COMMON_CONST_USER_PROTOCOL_URL, commonConst.getUserProtocolUrl());
-        editor.putString(FIELD_COMMON_CONST_ABOUT_US_URL, commonConst.getAboutUsUrl());
-        editor.apply();
-    }
-
-    public static CommonConst getCommonConst() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_CONST);
-        CommonConst commonConst = new CommonConst();
-        commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
-        commonConst.setUserProtocolUrl(sp.getString(FIELD_COMMON_CONST_USER_PROTOCOL_URL, ""));
-        commonConst.setAboutUsUrl(sp.getString(FIELD_COMMON_CONST_ABOUT_US_URL, ""));
-        return commonConst;
     }
 
     /**

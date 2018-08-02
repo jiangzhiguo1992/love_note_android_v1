@@ -10,11 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.application.AppInfo;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.common.WebActivity;
 import com.jiangzg.mianmian.base.BaseActivity;
+import com.jiangzg.mianmian.domain.CommonConst;
 import com.jiangzg.mianmian.domain.Version;
 import com.jiangzg.mianmian.helper.SPHelper;
 import com.jiangzg.mianmian.helper.ViewHelper;
@@ -35,12 +35,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     LinearLayout llUpdate;
     @BindView(R.id.tvUpdateSummary)
     TextView tvUpdateSummary;
-    @BindView(R.id.llRate)
-    LinearLayout llRate;
     @BindView(R.id.llProtocol)
     LinearLayout llProtocol;
-    @BindView(R.id.llAbout)
-    LinearLayout llAbout;
+    @BindView(R.id.tvQQ)
+    TextView tvQQ;
+    @BindView(R.id.tvContact)
+    TextView tvContact;
     @BindView(R.id.tvCompany)
     TextView tvCompany;
 
@@ -58,11 +58,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.about_mian_mian), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.about_app), true);
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        CommonConst commonConst = SPHelper.getCommonConst();
         // AppInfo
         String name = AppInfo.get().getName();
         String versionName = AppInfo.get().getVersionName();
@@ -77,8 +78,14 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
             tvUpdateSummary.setTextColor(ContextCompat.getColor(mActivity, R.color.font_grey));
         }
         tvUpdateSummary.setText(versionNewShow);
+        // 官方qq群
+        String officialQQ = commonConst.getOfficialQQ();
+        tvQQ.setText(StringUtils.isEmpty(officialQQ) ? getString(R.string.now_no) : officialQQ);
+        // 联系我们
+        String contactEmail = commonConst.getContactEmail();
+        tvContact.setText(StringUtils.isEmpty(contactEmail) ? getString(R.string.now_no) : contactEmail);
         // 公司名
-        String companyName = SPHelper.getCommonConst().getCompanyName();
+        String companyName = commonConst.getCompanyName();
         tvCompany.setText(companyName);
     }
 
@@ -86,23 +93,14 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.llUpdate, R.id.llRate, R.id.llProtocol, R.id.llAbout})
+    @OnClick({R.id.llUpdate, R.id.llProtocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llUpdate: // 软件更新
                 UpdateService.checkUpdate(mActivity);
                 break;
-            case R.id.llRate: // 去评价
-                Intent market = IntentFactory.getMarket("");
-                // TODO 机型适配问题
-                break;
             case R.id.llProtocol: // 用户协议
-                String userProtocolUrl = SPHelper.getCommonConst().getUserProtocolUrl();
-                WebActivity.goActivity(mActivity, getString(R.string.user_protocol), userProtocolUrl);
-                break;
-            case R.id.llAbout: // 关于我们
-                String contactUsUrl = SPHelper.getCommonConst().getAboutUsUrl();
-                WebActivity.goActivity(mActivity, getString(R.string.about_us), contactUsUrl);
+                UserProtocolActivity.goActivity(mActivity);
                 break;
         }
     }

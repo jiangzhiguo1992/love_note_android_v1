@@ -54,9 +54,9 @@ public class Result implements Serializable {
         private long totalMe;
         private long totalTa;
         private User user;
+        private CommonConst commonConst;
         private Limit limit;
         private VipLimit vipLimit;
-        private CommonConst commonConst;
         private OssInfo ossInfo;
         private int noticeNoReadCount;
         private Help help;

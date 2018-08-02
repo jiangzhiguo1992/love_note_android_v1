@@ -265,7 +265,7 @@
                     style="@style/FontBlackNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/about_mian_mian"/>
+                    android:text="@string/about_app"/>
 
                 <ImageView
                     android:id="@+id/ivAbout"
