@@ -9,8 +9,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +26,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.mianmian.R;
-import com.jiangzg.mianmian.activity.settings.HelpActivity;
 import com.jiangzg.mianmian.adapter.AlbumAdapter;
 import com.jiangzg.mianmian.adapter.DiaryAdapter;
 import com.jiangzg.mianmian.adapter.FoodAdapter;
@@ -38,7 +35,6 @@ import com.jiangzg.mianmian.base.BaseActivity;
 import com.jiangzg.mianmian.domain.Album;
 import com.jiangzg.mianmian.domain.Diary;
 import com.jiangzg.mianmian.domain.Food;
-import com.jiangzg.mianmian.domain.Help;
 import com.jiangzg.mianmian.domain.Result;
 import com.jiangzg.mianmian.domain.RxEvent;
 import com.jiangzg.mianmian.domain.Travel;
@@ -371,22 +367,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
         RecyclerHelper.release(recyclerDiary);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_TRAVEL_EDIT);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @OnClick({R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd, R.id.cvFoodAdd, R.id.cvDiaryAdd,

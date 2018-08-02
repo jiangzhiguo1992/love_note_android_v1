@@ -148,6 +148,9 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             case Help.INDEX_COUPLE_INFO:
                 help = getHelpCoupleInfo(Help.INDEX_COUPLE_INFO);
                 break;
+            case Help.INDEX_NOTE_HOME:
+                help = getHelpNoteHome(Help.INDEX_NOTE_HOME);
+                break;
         }
         return help;
     }
@@ -283,6 +286,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion("为什么提示我邀请过于频繁？");
         c2.setAnswer("在被拒绝或者是配对解散后，有" + intervalSec + "秒的冷却时间，冷却时间内不能再邀请相同的人哦。\n所以，还请大人们不要调皮了呢！");
         contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("我和TA原来配对过，再配对会怎么样？");
+        c3.setAnswer("两个人有过配对经历，再次配对视为复合。配对之后，恢复解散之前的状态，数据也原封不动。");
+        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }
@@ -311,6 +318,105 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 "\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。");
         contentList.add(c2);
         help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteHome(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.nav_note));
+        help.setDesc("《" + getString(R.string.nav_note) + "》是app最核心的模块，生活记录模块。" +
+                "\n恋爱生活中的点点滴滴，都应该被记录下来，不管是多微不足道的事都值得被记录。");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("数据放在这里安全吗？");
+        c1.setAnswer("请放心！此模块中的数据全为私有数据，除了你和TA之外无人可以访问。如果双方解除配对了，那么此配对中的记录模块的数据将不见天日，除非复合。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("为什么有的模块进不去？");
+        c2.setAnswer("目前可能会有极个别小板块在未开会员的情况下是不允许进入的。不排除以后会消除这种限制。");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_NOTE_LOCK);
+        s1.setTitle(getString(R.string.pwd_lock));
+        subList.add(s1);
+        Help s2 = new Help();
+        s2.setIndex(Help.INDEX_NOTE_SOUVENIR_LIST);
+        s2.setTitle(getString(R.string.souvenir));
+        subList.add(s2);
+        Help s3 = new Help();
+        s3.setIndex(Help.INDEX_NOTE_SHY);
+        s3.setTitle(getString(R.string.shy));
+        subList.add(s3);
+        Help s4 = new Help();
+        s4.setIndex(Help.INDEX_NOTE_MENSES);
+        s4.setTitle(getString(R.string.menses));
+        subList.add(s4);
+        Help s5 = new Help();
+        s5.setIndex(Help.INDEX_NOTE_SLEEP);
+        s5.setTitle(getString(R.string.sleep));
+        subList.add(s5);
+        Help s6 = new Help();
+        s6.setIndex(Help.INDEX_NOTE_AUDIO_LIST);
+        s6.setTitle(getString(R.string.audio));
+        subList.add(s6);
+        Help s7 = new Help();
+        s7.setIndex(Help.INDEX_NOTE_VIDEO_LIST);
+        s7.setTitle(getString(R.string.video));
+        subList.add(s7);
+        Help s8 = new Help();
+        s8.setIndex(Help.INDEX_NOTE_ALBUM_LIST);
+        s8.setTitle(getString(R.string.album));
+        subList.add(s8);
+        Help s9 = new Help();
+        s9.setIndex(Help.INDEX_NOTE_WORD_LIST);
+        s9.setTitle(getString(R.string.word));
+        subList.add(s9);
+        Help s10 = new Help();
+        s10.setIndex(Help.INDEX_NOTE_WHISPER_LIST);
+        s10.setTitle(getString(R.string.whisper));
+        subList.add(s10);
+        Help s11 = new Help();
+        s11.setIndex(Help.INDEX_NOTE_DIARY_LIST);
+        s11.setTitle(getString(R.string.diary));
+        subList.add(s11);
+        Help s12 = new Help();
+        s12.setIndex(Help.INDEX_NOTE_AWARD_LIST);
+        s12.setTitle(getString(R.string.award));
+        subList.add(s12);
+        Help s13 = new Help();
+        s13.setIndex(Help.INDEX_NOTE_DREAM_LIST);
+        s13.setTitle(getString(R.string.dream));
+        subList.add(s13);
+        Help s14 = new Help();
+        s14.setIndex(Help.INDEX_NOTE_DREAM_LIST);
+        s14.setTitle(getString(R.string.dream));
+        subList.add(s14);
+        Help s15 = new Help();
+        s15.setIndex(Help.INDEX_NOTE_GIFT_LIST);
+        s15.setTitle(getString(R.string.gift));
+        subList.add(s15);
+        Help s16 = new Help();
+        s16.setIndex(Help.INDEX_NOTE_FOOD_LIST);
+        s16.setTitle(getString(R.string.food));
+        subList.add(s16);
+        Help s17 = new Help();
+        s17.setIndex(Help.INDEX_NOTE_TRAVEL_LIST);
+        s17.setTitle(getString(R.string.travel));
+        subList.add(s17);
+        Help s18 = new Help();
+        s18.setIndex(Help.INDEX_NOTE_ANGRY_LIST);
+        s18.setTitle(getString(R.string.angry));
+        subList.add(s18);
+        Help s19 = new Help();
+        s19.setIndex(Help.INDEX_NOTE_PROMISE_LIST);
+        s19.setTitle(getString(R.string.promise));
+        subList.add(s19);
+        help.setSubList(subList);
         return help;
     }
 

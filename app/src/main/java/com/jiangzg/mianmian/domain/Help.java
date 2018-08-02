@@ -21,34 +21,27 @@ public class Help extends BaseObj implements Parcelable {
     // note
     public static final int INDEX_NOTE_HOME = 300;
     public static final int INDEX_NOTE_LOCK = 310;
-    public static final int INDEX_NOTE_TRENDS_LIST = 320;
-    public static final int INDEX_NOTE_NOTE_TOTAL = 321;
-    public static final int INDEX_NOTE_SOUVENIR_LIST = 330;
-    public static final int INDEX_NOTE_SOUVENIR_BODY_EDIT = 331;
-    public static final int INDEX_NOTE_SOUVENIR_FOREIGN_EDIT = 332;
-    public static final int INDEX_NOTE_TRAVEL_LIST = 335;
-    public static final int INDEX_NOTE_TRAVEL_EDIT = 336;
-    public static final int INDEX_NOTE_SHY = 340;
-    public static final int INDEX_NOTE_MENSES = 342;
-    public static final int INDEX_NOTE_SLEEP = 344;
-    public static final int INDEX_NOTE_AUDIO_LIST = 350;
-    public static final int INDEX_NOTE_VIDEO_LIST = 351;
-    public static final int INDEX_NOTE_ALBUM_LIST = 352;
-    public static final int INDEX_NOTE_PICTURE_LIST = 353;
-    public static final int INDEX_NOTE_WORD_LIST = 370;
-    public static final int INDEX_NOTE_WHISPER_LIST = 371;
-    public static final int INDEX_NOTE_DIARY_LIST = 372;
-    public static final int INDEX_NOTE_AWARD_LIST = 373;
-    public static final int INDEX_NOTE_AWARD_RULE_LIST = 374;
-    public static final int INDEX_NOTE_DREAM_LIST = 375;
-    public static final int INDEX_NOTE_GIFT_LIST = 376;
-    public static final int INDEX_NOTE_FOOD_LIST = 377;
-    public static final int INDEX_NOTE_ANGRY_LIST = 378;
-    public static final int INDEX_NOTE_PROMISE_LIST = 379;
+    public static final int INDEX_NOTE_SOUVENIR_LIST = 320;
+    public static final int INDEX_NOTE_SHY = 330;
+    public static final int INDEX_NOTE_MENSES = 331;
+    public static final int INDEX_NOTE_SLEEP = 332;
+    public static final int INDEX_NOTE_AUDIO_LIST = 340;
+    public static final int INDEX_NOTE_VIDEO_LIST = 341;
+    public static final int INDEX_NOTE_ALBUM_LIST = 342;
+    public static final int INDEX_NOTE_WORD_LIST = 360;
+    public static final int INDEX_NOTE_WHISPER_LIST = 361;
+    public static final int INDEX_NOTE_DIARY_LIST = 362;
+    public static final int INDEX_NOTE_AWARD_LIST = 363;
+    public static final int INDEX_NOTE_DREAM_LIST = 364;
+    public static final int INDEX_NOTE_GIFT_LIST = 365;
+    public static final int INDEX_NOTE_FOOD_LIST = 366;
+    public static final int INDEX_NOTE_TRAVEL_LIST = 367;
+    public static final int INDEX_NOTE_ANGRY_LIST = 368;
+    public static final int INDEX_NOTE_PROMISE_LIST = 369;
     // topic
-    public static final int INDEX_TOPIC_HOME = 600;
+    public static final int INDEX_TOPIC_HOME = 400;
     // more
-    public static final int INDEX_MORE_HOME = 700;
+    public static final int INDEX_MORE_HOME = 500;
 
     private int index;
     private String title;
