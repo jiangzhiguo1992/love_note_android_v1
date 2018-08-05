@@ -133,9 +133,9 @@ public class FrescoHelper {
             }
         }
         // 再剔除oss的endpoint
-        String endpoint = SPHelper.getOssInfo().getDomain();
-        if (url.contains(endpoint + "/")) {
-            String[] split = url.trim().split(endpoint + "/");
+        String domain = SPHelper.getOssInfo().getDomain();
+        if (url.contains(domain + "/")) {
+            String[] split = url.trim().split(domain + "/");
             if (split.length >= 2) {
                 url = split[1];
             }

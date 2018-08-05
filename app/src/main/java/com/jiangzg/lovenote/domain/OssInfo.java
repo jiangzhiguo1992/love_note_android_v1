@@ -11,8 +11,7 @@ public class OssInfo {
     private String accessKeyId;
     private String accessKeySecret;
     // oss
-    //private String region;
-    //private String endpoint;
+    private String region;
     private String domain;
     private String bucket;
     private long stsExpireTime;
@@ -33,6 +32,14 @@ public class OssInfo {
     private String pathNoteGift;
     private String pathNoteFood;
     private String pathTopicPost;
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 
     public String getPathTopicPost() {
         return pathTopicPost;

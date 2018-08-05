@@ -52,8 +52,7 @@ public class SPHelper {
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
     private static final String FIELD_OSS_KEY_ID = "access_key_id";
     private static final String FIELD_OSS_KEY_SECRET = "access_key_secret";
-    //private static final String FIELD_OSS_REGION = "region";
-    //private static final String FIELD_OSS_ENDPOINT = "endpoint";
+    private static final String FIELD_OSS_REGION = "region";
     private static final String FIELD_OSS_DOMAIN = "domain";
     private static final String FIELD_OSS_BUCKET = "bucket";
     private static final String FIELD_OSS_STS_EXPIRE_TIME = "sts_expire_time";
@@ -303,8 +302,7 @@ public class SPHelper {
         editor.putString(FIELD_OSS_SECURITY_TOKEN, ossInfo.getSecurityToken());
         editor.putString(FIELD_OSS_KEY_ID, ossInfo.getAccessKeyId());
         editor.putString(FIELD_OSS_KEY_SECRET, ossInfo.getAccessKeySecret());
-        //editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
-        //editor.putString(FIELD_OSS_ENDPOINT, ossInfo.getEndpoint());
+        editor.putString(FIELD_OSS_REGION, ossInfo.getRegion());
         editor.putString(FIELD_OSS_DOMAIN, ossInfo.getDomain());
         editor.putString(FIELD_OSS_BUCKET, ossInfo.getBucket());
         editor.putLong(FIELD_OSS_STS_EXPIRE_TIME, ossInfo.getStsExpireTime());
@@ -333,8 +331,7 @@ public class SPHelper {
         ossInfo.setSecurityToken(sp.getString(FIELD_OSS_SECURITY_TOKEN, ""));
         ossInfo.setAccessKeyId(sp.getString(FIELD_OSS_KEY_ID, ""));
         ossInfo.setAccessKeySecret(sp.getString(FIELD_OSS_KEY_SECRET, ""));
-        //ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
-        //ossInfo.setEndpoint(sp.getString(FIELD_OSS_ENDPOINT, ""));
+        ossInfo.setRegion(sp.getString(FIELD_OSS_REGION, ""));
         ossInfo.setDomain(sp.getString(FIELD_OSS_DOMAIN, ""));
         ossInfo.setBucket(sp.getString(FIELD_OSS_BUCKET, ""));
         ossInfo.setStsExpireTime(sp.getLong(FIELD_OSS_STS_EXPIRE_TIME, TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()) + 60 * 30));
