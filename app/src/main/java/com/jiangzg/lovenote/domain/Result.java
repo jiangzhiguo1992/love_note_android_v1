@@ -113,8 +113,7 @@ public class Result implements Serializable {
         private Sleep sleep;
         private Sleep sleepMe;
         private Sleep sleepTa;
-        private List<SleepInfo> sleepInfoListMe;
-        private List<SleepInfo> sleepInfoListTa;
+        private List<Sleep> sleepList;
         private Word word;
         private List<Word> wordList;
         private Whisper whisper;
@@ -505,20 +504,12 @@ public class Result implements Serializable {
             this.sleepTa = sleepTa;
         }
 
-        public List<SleepInfo> getSleepInfoListMe() {
-            return sleepInfoListMe;
+        public List<Sleep> getSleepList() {
+            return sleepList;
         }
 
-        public void setSleepInfoListMe(List<SleepInfo> sleepInfoListMe) {
-            this.sleepInfoListMe = sleepInfoListMe;
-        }
-
-        public List<SleepInfo> getSleepInfoListTa() {
-            return sleepInfoListTa;
-        }
-
-        public void setSleepInfoListTa(List<SleepInfo> sleepInfoListTa) {
-            this.sleepInfoListTa = sleepInfoListTa;
+        public void setSleepList(List<Sleep> sleepList) {
+            this.sleepList = sleepList;
         }
 
         public Audio getAudio() {

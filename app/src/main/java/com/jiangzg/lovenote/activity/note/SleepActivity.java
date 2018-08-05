@@ -20,12 +20,11 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.adapter.SleepInfoAdapter;
+import com.jiangzg.lovenote.adapter.SleepAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sleep;
-import com.jiangzg.lovenote.domain.SleepInfo;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -77,8 +76,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     private Sleep sleepTa;
     private RecyclerHelper recyclerLeft;
     private RecyclerHelper recyclerRight;
-    private List<SleepInfo> sleepInfoListMe;
-    private List<SleepInfo> sleepInfoListTa;
+    private List<Sleep> sleepList;
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
@@ -108,22 +106,22 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         srl.setEnabled(false);
         // calendar
         initCalendarView();
-        // sleepInfo
-        refreshSleepInfoView();
+        // data
+        refreshSleepListView();
         // avatar
         User me = SPHelper.getMe();
         String myAvatar = me.getMyAvatarInCp();
         String taAvatarInCp = me.getTaAvatarInCp();
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatarInCp);
-        // sleepCouple
-        refreshSleepView();
+        // latest
+        refreshSleepLatestView();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
         getLatestData();
-        getSleepInfoListData();
+        getSleepListData();
     }
 
     @Override
@@ -167,19 +165,19 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 widget.setSelectedDate(date);
-                getSleepInfoListData();
+                getSleepListData();
             }
         });
         // 设置点击选择日期改变事件
         mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                refreshSleepInfoView();
+                refreshSleepListView();
             }
         });
     }
 
-    private void refreshSleepView() {
+    private void refreshSleepLatestView() {
         String sleepBtnShow = getString(R.string.good_night);
         String sleepShowMe = getString(R.string.now_no);
         if (sleepMe != null && sleepMe.getId() > 0) {
@@ -209,54 +207,47 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         tvStateLeft.setText(sleetShowTa);
     }
 
-    private void refreshSleepInfoView() {
+    private void refreshSleepListView() {
         rvRight.setVisibility(View.INVISIBLE);
         rvLeft.setVisibility(View.INVISIBLE);
         // recycler
         if (recyclerRight == null) {
             recyclerRight = new RecyclerHelper(rvRight)
                     .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new SleepInfoAdapter())
+                    .initAdapter(new SleepAdapter(mActivity))
                     .setAdapter();
         }
         if (recyclerLeft == null) {
             recyclerLeft = new RecyclerHelper(rvLeft)
                     .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new SleepInfoAdapter())
+                    .initAdapter(new SleepAdapter(mActivity))
                     .setAdapter();
         }
         // date
         CalendarDay selectedDate = mcvSleep.getSelectedDate();
         int day = selectedDate.getDay();
-        // right
-        if (sleepInfoListMe != null && sleepInfoListMe.size() > 0) {
-            List<SleepInfo> selectList = new ArrayList<>();
-            for (SleepInfo info : sleepInfoListMe) {
-                if (info == null) continue;
-                if (info.getStartDay() == day) {
-                    // 寻找对应的sleepInfo
-                    selectList.add(info);
+        // view
+        List<Sleep> selectLeftList = new ArrayList<>();
+        List<Sleep> selectRightList = new ArrayList<>();
+        if (sleepList != null && sleepList.size() > 0) {
+            for (Sleep s : sleepList) {
+                if (s == null) continue;
+                if (s.getDayOfMonth() == day) {
+                    if (s.isMine()) { // 我的
+                        selectRightList.add(s);
+                    } else { // TA的
+                        selectLeftList.add(s);
+                    }
                 }
-            }
-            if (selectList.size() > 0) {
-                rvRight.setVisibility(View.VISIBLE);
-                recyclerRight.dataNew(selectList, 0);
             }
         }
-        // left
-        if (sleepInfoListTa != null && sleepInfoListTa.size() > 0) {
-            List<SleepInfo> selectList = new ArrayList<>();
-            for (SleepInfo info : sleepInfoListTa) {
-                if (info == null) continue;
-                if (info.getStartDay() == day) {
-                    // 寻找对应的sleepInfo
-                    selectList.add(info);
-                }
-            }
-            if (selectList.size() > 0) {
-                rvLeft.setVisibility(View.VISIBLE);
-                recyclerLeft.dataNew(selectList, 0);
-            }
+        if (selectRightList.size() > 0) {
+            rvRight.setVisibility(View.VISIBLE);
+            recyclerRight.dataNew(selectRightList, 0);
+        }
+        if (selectLeftList.size() > 0) {
+            rvLeft.setVisibility(View.VISIBLE);
+            recyclerLeft.dataNew(selectLeftList, 0);
         }
     }
 
@@ -271,7 +262,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 srl.setRefreshing(false);
                 sleepMe = data.getSleepMe();
                 sleepTa = data.getSleepTa();
-                refreshSleepView();
+                refreshSleepLatestView();
             }
 
             @Override
@@ -281,10 +272,12 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         });
     }
 
-    private void getSleepInfoListData() {
-        sleepInfoListMe = null;
-        sleepInfoListTa = null;
-        refreshSleepInfoView(); // 先清空选择
+    private void getSleepListData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        sleepList = null;
+        refreshSleepListView(); // 先清空选择
         CalendarDay selectedDate = mcvSleep.getSelectedDate();
         if (selectedDate == null) return;
         int year = selectedDate.getYear();
@@ -296,13 +289,14 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                sleepInfoListMe = data.getSleepInfoListMe();
-                sleepInfoListTa = data.getSleepInfoListTa();
-                refreshSleepInfoView();
+                srl.setRefreshing(false);
+                sleepList = data.getSleepList();
+                refreshSleepListView();
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
             }
         });
     }
@@ -316,10 +310,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 sleepMe = data.getSleep();
-                refreshSleepView();
-                if (!sleepMe.isSleep()) {
-                    getSleepInfoListData();
-                }
+                // view
+                refreshSleepLatestView();
+                // data
+                getSleepListData();
             }
 
             @Override

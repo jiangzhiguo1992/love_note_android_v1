@@ -9,7 +9,34 @@ import android.os.Parcelable;
  */
 public class Sleep extends BaseCP implements Parcelable {
 
+    private int year;
+    private int monthOfYear;
+    private int dayOfMonth;
     private boolean isSleep;
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonthOfYear() {
+        return monthOfYear;
+    }
+
+    public void setMonthOfYear(int monthOfYear) {
+        this.monthOfYear = monthOfYear;
+    }
+
+    public int getDayOfMonth() {
+        return dayOfMonth;
+    }
+
+    public void setDayOfMonth(int dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
+    }
 
     public boolean isSleep() {
         return isSleep;
@@ -24,12 +51,18 @@ public class Sleep extends BaseCP implements Parcelable {
 
     protected Sleep(Parcel in) {
         super(in);
+        year = in.readInt();
+        monthOfYear = in.readInt();
+        dayOfMonth = in.readInt();
         isSleep = in.readByte() != 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        dest.writeInt(year);
+        dest.writeInt(monthOfYear);
+        dest.writeInt(dayOfMonth);
         dest.writeByte((byte) (isSleep ? 1 : 0));
     }
 
