@@ -7,7 +7,7 @@ android {
         targetSdkVersion 27 // 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        applicationId "com.jiangzg.mianmian" // 要和manifest一致
+        applicationId "com.jiangzg.lovenote" // 要和manifest一致
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
@@ -15,7 +15,10 @@ android {
     }
     signingConfigs { // 签名信息
         jzg_01 {
-            storeFile file('/Users/gg/Documents/mine/android/key/jzg_01')
+            // MD5 = 76:52:5C:1C:8E:17:3B:45:B0:BF:17:01:C9:AD:24:5C
+            // SHA1 = B5:1B:D6:6B:B5:C0:7A:8A:D3:EC:E1:6B:08:A0:F4:7C:C3:0C:27:DA
+            // SHA256 = 9C:65:BE:24:EC:6A:4D:9B:9A:5B:A0:32:0A:87:2E:67:3C:73:17:AA:E9:73:A4:FE:AD:2D:DF:56:48:A5:57:25
+            storeFile file('./key/jzg_01')
             storePassword 'laojiang1'
             keyAlias 'jzg_01'
             keyPassword 'laojiang1'
@@ -76,6 +79,10 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
         }
+        rongyao { // 荣耀应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "rongyao"]
+        }
         vivo { // vivo应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
@@ -91,14 +98,6 @@ android {
         nubiya { // 努比亚应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nubiya"]
-        }
-        yijia { // 一加应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yijia"]
-        }
-        jinli { // 金立应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jinli"]
         }
         nuojiya { // 诺基亚应用市场
             dimension "release"
@@ -125,10 +124,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
         }
-        wo { // 沃商店
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "wo"]
-        }
         //---------------------专职市场----------------------
         wandoujia { // 豌豆荚
             dimension "release"
@@ -141,22 +136,6 @@ android {
         yingyonghui { // 应用汇
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
-        }
-        mumayi { // 木蚂蚁
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "mumayi"]
-        }
-        nineone { // 91手机助手
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nineone"]
-        }
-        anzhi { // 安智市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "anzhi"]
-        }
-        anzhuo { // 安卓市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "anzhuo"]
         }
     }
     sourceSets { // 源码设置
