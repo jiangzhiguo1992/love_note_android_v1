@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.note.AlbumListActivity;
@@ -86,11 +87,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @BindView(R.id.tvSouvenirCountDown)
     TextView tvSouvenirCountDown;
 
-    @BindView(R.id.cvTotal)
-    CardView cvTotal;
-    @BindView(R.id.cvTrends)
-    CardView cvTrends;
-
     @BindView(R.id.cvShy)
     CardView cvShy;
     @BindView(R.id.cvMenses)
@@ -125,6 +121,13 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     CardView cvAngry;
     @BindView(R.id.cvPromise)
     CardView cvPromise;
+
+    @BindView(R.id.cvTotal)
+    CardView cvTotal;
+    @BindView(R.id.cvTrends)
+    CardView cvTrends;
+    @BindView(R.id.cvRecycle)
+    CardView cvRecycle;
 
     private boolean canLock;
     private boolean isLock;
@@ -200,11 +203,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvSouvenir, R.id.cvTrends, R.id.cvTotal,
+    @OnClick({R.id.cvSouvenir,
             R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
             R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum,
             R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAward, R.id.cvDream,
-            R.id.cvGift, R.id.cvFood, R.id.cvTravel, R.id.cvAngry, R.id.cvPromise})
+            R.id.cvGift, R.id.cvFood, R.id.cvTravel, R.id.cvAngry, R.id.cvPromise,
+            R.id.cvTrends, R.id.cvTotal, R.id.cvRecycle})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             // 无效配对
@@ -222,12 +226,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         switch (view.getId()) {
             case R.id.cvSouvenir: // 纪念日
                 SouvenirListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvTotal: // 统计
-                NoteTotalActivity.goActivity(mFragment);
-                break;
-            case R.id.cvTrends: // 动态
-                TrendsListActivity.goActivity(mFragment);
                 break;
             case R.id.cvShy: // 羞羞
                 ShyActivity.goActivity(mFragment);
@@ -276,6 +274,15 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 break;
             case R.id.cvPromise: // 承诺
                 PromiseListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvTotal: // 统计
+                NoteTotalActivity.goActivity(mFragment);
+                break;
+            case R.id.cvTrends: // 动态
+                TrendsListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvRecycle: // 回收箱
+                ToastUtils.show(getString(R.string.function_no_open_please_wait));
                 break;
         }
     }

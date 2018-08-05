@@ -86,7 +86,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         browse = mActivity.getString(R.string.browse);
         // conDrawable
         dSouvenir = ViewHelper.getDrawable(mActivity, R.drawable.ic_souvenir_pink_dark);
-        ViewHelper.getDrawable(mActivity, R.drawable.ic_trends_grey);
+        ViewHelper.getDrawable(mActivity, R.drawable.ic_trends_blue_dark);
         dMenses = ViewHelper.getDrawable(mActivity, R.drawable.ic_menses_red_dark);
         dShy = ViewHelper.getDrawable(mActivity, R.drawable.ic_shy_yellow);
         dSleep = ViewHelper.getDrawable(mActivity, R.drawable.ic_sleep_teal_dark);

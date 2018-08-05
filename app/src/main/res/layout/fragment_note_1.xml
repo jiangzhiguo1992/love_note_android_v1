@@ -136,7 +136,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="3dp"
-                                android:drawableTop="@drawable/ic_trends_grey"
+                                android:drawableTop="@drawable/ic_trends_blue_dark"
                                 android:gravity="center"
                                 android:paddingBottom="8dp"
                                 android:paddingTop="8dp"
