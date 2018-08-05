@@ -23,6 +23,7 @@ import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.adapter.WallPaperAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
@@ -43,7 +44,6 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -178,8 +178,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         if (adapter == null) return;
         List<String> data = adapter.getData();
         if (data.size() >= count) {
-            String format = String.format(Locale.getDefault(), getString(R.string.now_just_can_push_holder_img), count);
-            ToastUtils.show(format);
+            VipActivity.goActivity(mActivity);
             return;
         }
         showImgSelect();

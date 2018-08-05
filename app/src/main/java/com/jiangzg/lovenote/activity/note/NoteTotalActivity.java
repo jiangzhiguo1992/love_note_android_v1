@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -63,7 +64,10 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
     private Call<Result> call;
 
     public static void goActivity(Fragment from) {
-        if (!SPHelper.getVipLimit().isNoteTotalEnable()) return;
+        if (!SPHelper.getVipLimit().isNoteTotalEnable()) {
+            VipActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), NoteTotalActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

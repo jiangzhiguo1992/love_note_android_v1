@@ -29,6 +29,7 @@ import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.WhisperAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -293,6 +294,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     // 图片获取
     private void showSelectImgPop() {
         if (SPHelper.getVipLimit().getWhisperImageCount() <= 0) {
+            VipActivity.goActivity(mActivity);
             return;
         }
         cameraFile = ResHelper.newImageCacheFile();
