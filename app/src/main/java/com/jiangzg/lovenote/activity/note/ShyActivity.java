@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
@@ -94,7 +93,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         // calendar
         initCalendarView();
         // info
-        refreshShyInfoView();
+        refreshShyListView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -153,12 +152,12 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         mcvShy.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                refreshShyInfoView();
+                refreshShyListView();
             }
         });
     }
 
-    private void refreshShyInfoView() {
+    private void refreshShyListView() {
         if (recyclerHelper == null || mcvShy == null) return;
         String monthFormat = getString(R.string.current_month_space_holder_space_second);
         String dayFormat = getString(R.string.current_day_space_holder_space_second);
@@ -169,9 +168,10 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             monthCount = shyList.size();
             CalendarDay currentDate = mcvShy.getSelectedDate();
             Calendar calToday = DateUtils.getCalendar(currentDate.getDate().getTime());
+            int day = calToday.get(Calendar.DAY_OF_MONTH);
             for (Shy shy : shyList) {
-                Calendar shyDay = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(shy.getHappenAt()));
-                if (CalUtils.isSameDay(calToday, shyDay)) {
+                if (shy == null) continue;
+                if (day == shy.getDayOfMonth()) {
                     dayList.add(shy);
                     ++dayCount;
                 }
@@ -187,7 +187,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             srl.setRefreshing(true);
         }
         shyList = null;
-        refreshShyInfoView(); // 先清空选择
+        refreshShyListView(); // 先清空选择
         CalendarDay selectedDate = mcvShy.getSelectedDate();
         if (selectedDate == null) return;
         int year = selectedDate.getYear();
@@ -201,7 +201,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 shyList = data.getShyList();
-                refreshShyInfoView();
+                refreshShyListView();
             }
 
             @Override
