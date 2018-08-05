@@ -16,7 +16,7 @@ import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.system.InputUtils;
@@ -115,11 +115,15 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
                         getData(true);
                     }
                 })
-                .listenerClick(new OnItemLongClickListener() {
+                .listenerClick(new OnItemChildLongClickListener() {
                     @Override
-                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildLongClick(BaseQuickAdapter adapter, View view, int position) {
                         WordAdapter wordAdapter = (WordAdapter) adapter;
-                        wordAdapter.showDeleteDialog(position);
+                        switch (view.getId()) {
+                            case R.id.cvContent:
+                                wordAdapter.showDeleteDialog(position);
+                                break;
+                        }
                     }
                 });
     }

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
@@ -12,6 +13,7 @@ import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Word;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -24,23 +26,28 @@ import retrofit2.Call;
  * Created by JZG on 2018/3/12.
  * 留言
  */
-public class WordAdapter extends BaseQuickAdapter<Word, BaseViewHolder> {
+public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder> {
 
     private BaseActivity mActivity;
 
     public WordAdapter(BaseActivity activity) {
-        super(R.layout.list_item_word);
+        //super(R.layout.list_item_word);
+        super(null);
+        addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_word_right);
+        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_word_left);
         mActivity = activity;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Word item) {
         // data
-        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String createAt = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
         String content = item.getContentText();
         // view
         helper.setText(R.id.tvCreateAt, createAt);
         helper.setText(R.id.tvContent, content);
+        // click
+        helper.addOnLongClickListener(R.id.cvContent);
     }
 
     public void showDeleteDialog(final int position) {

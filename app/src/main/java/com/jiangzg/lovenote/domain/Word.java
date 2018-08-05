@@ -3,13 +3,21 @@ package com.jiangzg.lovenote.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.jiangzg.lovenote.helper.ApiHelper;
+
 /**
  * Created by JZG on 2018/4/24.
  * 留言
  */
-public class Word extends BaseCP implements Parcelable {
+public class Word extends BaseCP implements Parcelable, MultiItemEntity {
 
     private String contentText;
+
+    @Override
+    public int getItemType() {
+        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
+    }
 
     public String getContentText() {
         return contentText;
