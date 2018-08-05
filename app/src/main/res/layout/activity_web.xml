@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.common.WebActivity">
+    tools:context="com.jiangzg.lovenote.activity.common.WebActivity">
 
     <include layout="@layout/view_top_bar"/>
 

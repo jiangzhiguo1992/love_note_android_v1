@@ -33,7 +33,7 @@
         android:singleLine="true"
         tools:text="创建于:2017-01-12"/>
 
-    <com.jiangzg.mianmian.view.GWrapView
+    <com.jiangzg.lovenote.view.GWrapView
         android:id="@+id/wvTag"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
         android:layout_marginStart="10dp"
         tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈"/>
 
-    <com.jiangzg.mianmian.view.FrescoView
+    <com.jiangzg.lovenote.view.FrescoView
         android:id="@+id/ivContent"
         android:layout_width="match_parent"
         android:layout_height="200dp"

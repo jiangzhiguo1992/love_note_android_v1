@@ -18,7 +18,7 @@
         android:layout_height="match_parent">
 
         <!-- 顶图 -->
-        <com.jiangzg.mianmian.view.FrescoView
+        <com.jiangzg.lovenote.view.FrescoView
             android:id="@+id/ivTop"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -36,7 +36,7 @@
         </RelativeLayout>
 
         <!-- 头像 -->
-        <com.jiangzg.mianmian.view.FrescoAvatarView
+        <com.jiangzg.lovenote.view.FrescoAvatarView
             android:id="@+id/ivAvatarLeft"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -46,7 +46,7 @@
             tools:background="@mipmap/ic_boy_circle"/>
 
         <!-- 头像 -->
-        <com.jiangzg.mianmian.view.FrescoAvatarView
+        <com.jiangzg.lovenote.view.FrescoAvatarView
             android:id="@+id/ivAvatarRight"
             android:layout_width="40dp"
             android:layout_height="40dp"

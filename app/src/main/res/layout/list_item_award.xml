@@ -67,7 +67,7 @@
         app:cardElevation="@dimen/elevation_big"
         app:cardMaxElevation="@dimen/elevation_huge">
 
-        <com.jiangzg.mianmian.view.FrescoAvatarView
+        <com.jiangzg.lovenote.view.FrescoAvatarView
             android:id="@+id/ivAvatar"
             android:layout_width="40dp"
             android:layout_height="40dp"

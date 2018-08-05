@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.settings.ThemeActivity">
+    tools:context="com.jiangzg.lovenote.activity.settings.ThemeActivity">
 
     <include layout="@layout/view_top_bar"/>
 

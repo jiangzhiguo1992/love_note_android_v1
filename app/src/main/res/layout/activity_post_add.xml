@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.topic.PostAddActivity">
+    tools:context="com.jiangzg.lovenote.activity.topic.PostAddActivity">
 
     <include layout="@layout/view_top_bar"/>
 

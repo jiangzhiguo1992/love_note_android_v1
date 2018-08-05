@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.settings.UserProtocolActivity">
+    tools:context="com.jiangzg.lovenote.activity.settings.UserProtocolActivity">
 
     <include layout="@layout/view_top_bar"/>
 

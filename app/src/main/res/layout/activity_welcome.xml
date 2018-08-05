@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_gradient_primary_light"
-    tools:context="com.jiangzg.mianmian.activity.WelcomeActivity">
+    tools:context="com.jiangzg.lovenote.activity.WelcomeActivity">
 
-    <com.jiangzg.mianmian.view.FrescoNativeView
+    <com.jiangzg.lovenote.view.FrescoNativeView
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

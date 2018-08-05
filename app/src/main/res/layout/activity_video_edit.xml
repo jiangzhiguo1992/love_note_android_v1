@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.note.VideoEditActivity">
+    tools:context="com.jiangzg.lovenote.activity.note.VideoEditActivity">
 
     <include layout="@layout/view_top_bar"/>
 
@@ -110,7 +110,7 @@
                 app:cardElevation="@dimen/elevation_normal"
                 app:cardMaxElevation="@dimen/elevation_big">
 
-                <com.jiangzg.mianmian.view.FrescoView
+                <com.jiangzg.lovenote.view.FrescoView
                     android:id="@+id/ivThumb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

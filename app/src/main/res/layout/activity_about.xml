@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.settings.AboutActivity">
+    tools:context="com.jiangzg.lovenote.activity.settings.AboutActivity">
 
     <include layout="@layout/view_top_bar"/>
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:layout_marginTop="10dp"
-        tools:text="绵绵 v1.0.1"/>
+        tools:text="软件 v1.0.1"/>
 
     <View style="@style/LineHorizontal"/>
 

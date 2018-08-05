@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.jiangzg.mianmian.view.FrescoView
+            <com.jiangzg.lovenote.view.FrescoView
                 android:id="@+id/ivPicture"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"

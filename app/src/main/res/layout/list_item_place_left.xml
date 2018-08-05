@@ -29,7 +29,7 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatar"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

@@ -63,14 +63,14 @@
                 android:gravity="center"
                 tools:text="与 2017年12月31日 送给"/>
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarLeft"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 tools:background="@mipmap/ic_boy_circle"/>
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarRight"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

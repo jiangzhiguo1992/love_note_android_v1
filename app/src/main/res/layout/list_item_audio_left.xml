@@ -23,7 +23,7 @@
         tools:text="录音介绍录音介绍录音介绍录音介绍录音介绍录音介绍录音介绍"
         tools:textColor="@color/black"/>
 
-    <com.jiangzg.mianmian.view.FrescoAvatarView
+    <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"

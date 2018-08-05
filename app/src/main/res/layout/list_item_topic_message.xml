@@ -29,14 +29,14 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarLeft"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="10dp"
                 tools:background="@mipmap/ic_sex_boy_circle"/>
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarRight"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.mianmian.activity.note.NoteTotalActivity">
+    tools:context="com.jiangzg.lovenote.activity.note.NoteTotalActivity">
 
     <include layout="@layout/view_top_bar"/>
 
-    <com.jiangzg.mianmian.view.GSwipeRefreshLayout
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -516,5 +516,5 @@
                 </LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
-    </com.jiangzg.mianmian.view.GSwipeRefreshLayout>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>

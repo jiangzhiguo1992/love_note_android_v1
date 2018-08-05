@@ -50,7 +50,7 @@
                 app:cardElevation="@dimen/elevation_normal"
                 app:cardMaxElevation="@dimen/elevation_big">
 
-                <com.jiangzg.mianmian.view.FrescoAvatarView
+                <com.jiangzg.lovenote.view.FrescoAvatarView
                     android:id="@+id/ivAvatarLeft"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
@@ -92,7 +92,7 @@
                 app:cardElevation="@dimen/elevation_normal"
                 app:cardMaxElevation="@dimen/elevation_big">
 
-                <com.jiangzg.mianmian.view.FrescoAvatarView
+                <com.jiangzg.lovenote.view.FrescoAvatarView
                     android:id="@+id/ivAvatarRight"
                     android:layout_width="26dp"
                     android:layout_height="26dp"
@@ -100,7 +100,7 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
 
-        <com.jiangzg.mianmian.view.GWrapView
+        <com.jiangzg.lovenote.view.GWrapView
             android:id="@+id/wvTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

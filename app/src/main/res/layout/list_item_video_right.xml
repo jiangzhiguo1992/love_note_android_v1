@@ -11,7 +11,7 @@
     android:paddingStart="10dp"
     android:paddingTop="5dp">
 
-    <com.jiangzg.mianmian.view.FrescoAvatarView
+    <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatar"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -31,7 +31,7 @@
         app:cardElevation="@dimen/elevation_normal"
         app:cardMaxElevation="@dimen/elevation_big">
 
-        <com.jiangzg.mianmian.view.FrescoView
+        <com.jiangzg.lovenote.view.FrescoView
             android:id="@+id/ivThumb"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -14,7 +14,7 @@
     app:cardElevation="@dimen/elevation_small"
     app:cardMaxElevation="@dimen/elevation_normal">
 
-    <com.jiangzg.mianmian.view.FrescoView
+    <com.jiangzg.lovenote.view.FrescoView
         android:id="@+id/ivShow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

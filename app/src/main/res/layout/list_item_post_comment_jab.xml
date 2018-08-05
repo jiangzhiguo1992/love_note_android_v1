@@ -38,7 +38,7 @@
             tools:text="2015-06-09"/>
     </LinearLayout>
 
-    <com.jiangzg.mianmian.view.GWrapView
+    <com.jiangzg.lovenote.view.GWrapView
         android:id="@+id/wvTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             app:cardMaxElevation="@dimen/elevation_big"
             tools:visibility="visible">
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarLeft"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -101,7 +101,7 @@
             app:cardMaxElevation="@dimen/elevation_big"
             tools:visibility="visible">
 
-            <com.jiangzg.mianmian.view.FrescoAvatarView
+            <com.jiangzg.lovenote.view.FrescoAvatarView
                 android:id="@+id/ivAvatarRight"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
