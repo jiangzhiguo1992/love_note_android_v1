@@ -25,15 +25,34 @@
         android:visibility="gone"
         tools:visibility="visible">
 
-        <com.jiangzg.lovenote.view.GWrapView
-            android:id="@+id/wvTag"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
-            tools:visibility="visible"/>
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <com.jiangzg.lovenote.view.GWrapView
+                android:id="@+id/wvTag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <TextView
+                android:id="@+id/tvUpdateAt"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="2017-12-31"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -76,46 +95,10 @@
             tools:visibility="visible"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvUpdateAt"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:maxLines="1"
-                android:singleLine="true"
-                tools:text="2017-12-31"/>
-
-            <TextView
-                android:id="@+id/tvAddress"
-                style="@style/FontGreySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:drawableEnd="@drawable/ic_location_15_grey"
-                android:drawablePadding="3dp"
-                android:gravity="end|center_vertical"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:visibility="gone"
-                tools:text="北京天津山西杭州苏州上海北京天津山西杭州苏州上海北京天津山西杭州苏州上海北京天津山西杭州苏州上海"
-                tools:visibility="visible"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/llBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:gravity="bottom|end">
 
             <LinearLayout
@@ -146,14 +129,14 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="20dp"
+                        app:cardCornerRadius="15dp"
                         app:cardElevation="@dimen/elevation_normal"
                         app:cardMaxElevation="@dimen/elevation_big">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarLeft"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             tools:background="@mipmap/ic_girl_circle"/>
                     </android.support.v7.widget.CardView>
 
@@ -168,14 +151,14 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="20dp"
+                        app:cardCornerRadius="15dp"
                         app:cardElevation="@dimen/elevation_normal"
                         app:cardMaxElevation="@dimen/elevation_big">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarRight"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             tools:background="@mipmap/ic_boy_circle"/>
                     </android.support.v7.widget.CardView>
 
@@ -201,8 +184,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="1dp"
+                        android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minLines="1"
@@ -214,8 +197,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_marginBottom="3dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="1dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minLines="1"

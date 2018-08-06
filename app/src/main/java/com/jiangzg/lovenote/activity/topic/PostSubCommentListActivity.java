@@ -45,7 +45,6 @@ import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -54,7 +53,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-import com.jiangzg.lovenote.view.GWrapView;
 
 import java.util.List;
 import java.util.Locale;
@@ -304,6 +302,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private void initHeadAndBottom() {
         if (postComment == null || recyclerHelper == null) return;
         // color
+        int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         int colorIconGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
         int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         ColorStateList colorStateIconGrey = ColorStateList.valueOf(colorIconGrey);
@@ -313,20 +312,20 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         Couple couple = postComment.getCouple();
         String floor = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_floor), postComment.getFloor());
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(postComment.getCreateAt());
-        List<String> tagShowList = ListHelper.getPostCommentTagShowList(postComment);
         String contentText = postComment.getContentText();
         String pointCount = postComment.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(postComment.getPointCount()) : mActivity.getString(R.string.point);
         boolean official = postComment.isOfficial();
+        boolean our = postComment.isOur();
         boolean subComment = postComment.isSubComment();
         final boolean point = postComment.isPoint();
         boolean report = postComment.isReport();
         // view
         View head = recyclerHelper.getViewHead();
+        TextView tvOfficial = head.findViewById(R.id.tvOfficial);
         TextView tvFloor = head.findViewById(R.id.tvFloor);
         FrescoAvatarView ivAvatarLeft = head.findViewById(R.id.ivAvatarLeft);
         FrescoAvatarView ivAvatarRight = head.findViewById(R.id.ivAvatarRight);
         TextView tvTime = head.findViewById(R.id.tvTime);
-        GWrapView wvTag = head.findViewById(R.id.wvTag);
         TextView tvContent = head.findViewById(R.id.tvContent);
         LinearLayout llOperate = head.findViewById(R.id.llOperate);
         LinearLayout llPoint = head.findViewById(R.id.llPoint);
@@ -342,19 +341,10 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         // set
+        tvOfficial.setVisibility(official ? View.VISIBLE : View.GONE);
         tvFloor.setText(floor);
+        tvFloor.setTextColor(our ? colorPrimary : colorFontGrey);
         tvTime.setText(create);
-        if (tagShowList == null || tagShowList.size() <= 0) {
-            wvTag.setVisibility(View.GONE);
-        } else {
-            wvTag.setVisibility(View.VISIBLE);
-            wvTag.removeAllChild();
-            for (String tag : tagShowList) {
-                View tagView = ViewHelper.getWrapTextView(mActivity, tag);
-                if (tagView == null) continue;
-                wvTag.addChild(tagView);
-            }
-        }
         if (kind == PostComment.KIND_JAB) {
             ivAvatarLeft.setVisibility(View.GONE);
             ivAvatarRight.setVisibility(View.GONE);

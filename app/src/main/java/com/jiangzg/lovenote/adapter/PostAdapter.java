@@ -44,7 +44,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     private FragmentActivity mActivity;
     private boolean kindShow, subKindShow;
     private final ColorStateList colorPrimaryStateList, colorGreyStateList;
-    private final String formatCreateAt, formatUpdateAt;
     private final int colorPrimary, colorFontGrey, colorFontBlack;
 
 
@@ -61,9 +60,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
         colorGreyStateList = ColorStateList.valueOf(colorIconGrey);
         colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
-        // format
-        formatCreateAt = mActivity.getString(R.string.create_at_colon_space_holder);
-        formatUpdateAt = mActivity.getString(R.string.update_at_colon_space_holder);
     }
 
     @Override
@@ -86,11 +82,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();
         List<String> tagShowList = ListHelper.getPostTagShowList(item, kindShow, subKindShow);
+        String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
         String title = item.getTitle();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();
-        String address = item.getAddress();
-        String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
         String pointCount = item.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(item.getPointCount()) : mActivity.getString(R.string.point);
         String collectCount = item.getCollectCount() > 0 ? CountHelper.getShowCount2Thousand(item.getCollectCount()) : mActivity.getString(R.string.collect);
         String commentCount = item.getCommentCount() > 0 ? CountHelper.getShowCount2Thousand(item.getCommentCount()) : mActivity.getString(R.string.comment);
@@ -111,6 +106,8 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                 wvTag.addChild(tagView);
             }
         }
+        // time
+        helper.setText(R.id.tvUpdateAt, update);
         // title
         helper.setVisible(R.id.tvTitle, !StringUtils.isEmpty(title));
         helper.setText(R.id.tvTitle, title);
@@ -131,11 +128,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                     .dataNew(imageList, 0);
             adapter.setVisibleLimit(3);
         }
-        // address
-        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
-        helper.setText(R.id.tvAddress, address);
-        // time
-        helper.setText(R.id.tvUpdateAt, update);
         // couple
         if (couple == null) {
             helper.setVisible(R.id.llCouple, false);
@@ -181,8 +173,8 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         ivCollect.setImageTintList(collect ? colorPrimaryStateList : colorGreyStateList);
         ImageView ivComment = helper.getView(R.id.ivComment);
         ivComment.setImageTintList(comment ? colorPrimaryStateList : colorGreyStateList);
-        // listener
-        if (!item.isScreen() && !item.isDelete()) helper.addOnClickListener(R.id.rvImage);
+        // listener 不要了，点击区域有bug
+        //if (!item.isScreen() && !item.isDelete()) helper.addOnClickListener(R.id.rvImage);
     }
 
     public void goPostDetail(int position) {
