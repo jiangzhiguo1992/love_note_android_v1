@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.adapter;
 import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -23,15 +22,12 @@ import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
-import com.jiangzg.lovenote.view.GWrapView;
 
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -45,8 +41,8 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
     private BaseActivity mActivity;
     private boolean subComment;
     private final String formatFloor;
-    private final ColorStateList colorStateGrey;
-    private final ColorStateList colorStatePrimary;
+    private final int colorPrimary, colorFontGrey;
+    private final ColorStateList colorStatePrimary, colorStateIconGrey;
 
     public PostCommentAdapter(BaseActivity activity, boolean subComment) {
         super(null);
@@ -56,10 +52,11 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         this.subComment = subComment;
         formatFloor = mActivity.getString(R.string.holder_floor);
         // color
+        colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);
-        int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
-        colorStateGrey = ColorStateList.valueOf(colorGrey);
+        colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         colorStatePrimary = ColorStateList.valueOf(colorPrimary);
+        colorStateIconGrey = ColorStateList.valueOf(colorGrey);
     }
 
     @Override
@@ -72,30 +69,21 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         // data
         String floor = String.format(Locale.getDefault(), formatFloor, item.getFloor());
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
-        List<String> tagShowList = ListHelper.getPostCommentTagShowList(item);
+        // 官方 我的 ta的
         Couple couple = item.getCouple();
         String contentText = item.getContentText();
         String commentCount = item.getSubCommentCount() > 0 ? CountHelper.getShowCount2Thousand(item.getSubCommentCount()) : mActivity.getString(R.string.comment);
         String pointCount = item.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(item.getPointCount()) : mActivity.getString(R.string.point);
         boolean official = item.isOfficial();
+        boolean our = item.isOur();
         boolean subComment = item.isSubComment();
         boolean point = item.isPoint();
         boolean report = item.isReport();
         // view
+        helper.setVisible(R.id.tvOfficial, official);
         helper.setText(R.id.tvFloor, floor);
+        helper.setTextColor(R.id.tvFloor, our ? colorPrimary : colorFontGrey);
         helper.setText(R.id.tvTime, create);
-        GWrapView wvTag = helper.getView(R.id.wvTag);
-        if (tagShowList == null || tagShowList.size() <= 0) {
-            wvTag.setVisibility(View.GONE);
-        } else {
-            wvTag.setVisibility(View.VISIBLE);
-            wvTag.removeAllChild();
-            for (String tag : tagShowList) {
-                View tagView = ViewHelper.getWrapTextView(mActivity, tag);
-                if (tagView == null) continue;
-                wvTag.addChild(tagView);
-            }
-        }
         if (item.getItemType() == PostComment.KIND_TEXT) {
             // text
             if (couple == null) {
@@ -114,15 +102,15 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             helper.setText(R.id.tvCommentCount, commentCount);
             helper.setText(R.id.tvPointCount, pointCount);
             ImageView ivComment = helper.getView(R.id.ivComment);
-            ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateGrey);
+            ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
             ImageView ivPoint = helper.getView(R.id.ivPoint);
-            ivPoint.setImageTintList(point ? colorStatePrimary : colorStateGrey);
+            ivPoint.setImageTintList(point ? colorStatePrimary : colorStateIconGrey);
             if (official) {
                 helper.setVisible(R.id.llReport, false);
             } else {
                 helper.setVisible(R.id.llReport, true);
                 ImageView ivReport = helper.getView(R.id.ivReport);
-                ivReport.setImageTintList(report ? colorStatePrimary : colorStateGrey);
+                ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
             }
             // listener
             helper.addOnClickListener(R.id.llPoint);

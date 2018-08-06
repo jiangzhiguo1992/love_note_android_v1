@@ -1173,18 +1173,4 @@ public class ListHelper {
         return showList;
     }
 
-    // getPostCommentTagShowList 获取postComment的tagList
-    public static List<String> getPostCommentTagShowList(PostComment postComment) {
-        List<String> showList = new ArrayList<>();
-        if (postComment == null) return showList;
-        boolean official = postComment.isOfficial();
-        boolean mine = postComment.isMine();
-        boolean isTa = postComment.isOur() && !postComment.isMine();
-        // show
-        if (official) showList.add(MyApp.get().getString(R.string.official));
-        if (mine) showList.add(MyApp.get().getString(R.string.me_de));
-        if (isTa) showList.add(MyApp.get().getString(R.string.ta_de));
-        return showList;
-    }
-
 }
