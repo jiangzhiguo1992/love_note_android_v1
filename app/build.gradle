@@ -179,7 +179,7 @@ android {
     }
 }
 
-dependencies {
+dependencies { // 及时更新
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':GBase')
     implementation 'com.android.support:multidex:1.0.3'

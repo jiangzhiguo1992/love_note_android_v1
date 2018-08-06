@@ -161,6 +161,8 @@ public class ApiHelper {
             File apkDir = ResHelper.newApkDir();
             List<File> fileList = FileUtils.listFilesAndDirInDir(apkDir, true);
             ResHelper.deleteFileListInBackground(fileList);
+            // 日志上传(只限最新版本)
+            OssHelper.uploadLog();
         } else {
             SPHelper.setVersion(versionList.get(0));
         }
@@ -182,8 +184,6 @@ public class ApiHelper {
                 }
             }, totalWait - between);
         }
-        // 日志上传
-        OssHelper.uploadLog();
     }
 
     public static Sms getSmsLoginBody(String phone) {
