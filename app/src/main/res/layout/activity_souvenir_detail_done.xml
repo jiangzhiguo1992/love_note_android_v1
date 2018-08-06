@@ -29,7 +29,7 @@
 
                 <TextView
                     android:id="@+id/tvTitle"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -37,7 +37,6 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:textStyle="bold"
                     tools:text="在一起在一起在一起"/>
 
                 <TextView
@@ -68,22 +67,20 @@
 
                     <TextView
                         android:id="@+id/tvHappenAt"
-                        style="@style/FontWhiteNormal"
+                        style="@style/FontWhiteNormalBold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textStyle="bold"
                         tools:text="2017年12月31日 51:53"/>
 
                     <TextView
                         android:id="@+id/tvDayCount"
-                        style="@style/FontWhiteNormal"
+                        style="@style/FontWhiteNormalBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         tools:text="13650天"/>
                 </LinearLayout>
 

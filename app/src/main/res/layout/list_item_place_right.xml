@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/tvTime"
-                style="@style/FontGreyNormal"
+                style="@style/FontGreyNormalBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -39,7 +39,6 @@
                 android:gravity="center"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textStyle="bold"
                 tools:text="2017年 12月 31日 12:21"/>
 
             <com.jiangzg.lovenote.view.FrescoAvatarView

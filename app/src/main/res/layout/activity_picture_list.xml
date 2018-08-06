@@ -48,7 +48,7 @@
 
                 <TextView
                     android:id="@+id/tvPictureCount"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/tvCreateAt"
@@ -56,31 +56,28 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:textSize="30sp"
-                    android:textStyle="bold"
                     tools:text="520 张"/>
 
                 <TextView
                     android:id="@+id/tvCreateAt"
-                    style="@style/FontWhiteSmall"
+                    style="@style/FontWhiteSmallBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_above="@+id/tvUpdateAt"
                     android:layout_marginBottom="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:textStyle="bold"
                     tools:text="创建时间:2018-5-6"/>
 
                 <TextView
                     android:id="@+id/tvUpdateAt"
-                    style="@style/FontWhiteSmall"
+                    style="@style/FontWhiteSmallBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_marginBottom="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
-                    android:textStyle="bold"
                     tools:text="更新时间:2018-5-6"/>
             </RelativeLayout>
 

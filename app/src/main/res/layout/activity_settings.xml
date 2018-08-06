@@ -20,12 +20,11 @@
             android:orientation="vertical">
 
             <TextView
-                style="@style/FontPrimaryNormal"
+                style="@style/FontPrimaryNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/base_settings"
-                android:textStyle="bold"/>
+                android:text="@string/base_settings"/>
 
             <TextView
                 android:id="@+id/tvTheme"
@@ -70,12 +69,11 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                style="@style/FontPrimaryNormal"
+                style="@style/FontPrimaryNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/notice_settings"
-                android:textStyle="bold"/>
+                android:text="@string/notice_settings"/>
 
             <RelativeLayout
                 android:id="@+id/rlSystem"
@@ -154,12 +152,11 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                style="@style/FontPrimaryNormal"
+                style="@style/FontPrimaryNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/account_settings"
-                android:textStyle="bold"/>
+                android:text="@string/account_settings"/>
 
             <TextView
                 android:id="@+id/tvPhone"
@@ -190,12 +187,11 @@
                 android:layout_marginStart="16dp"/>
 
             <TextView
-                style="@style/FontPrimaryNormal"
+                style="@style/FontPrimaryNormalBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="@string/about_and_help"
-                android:textStyle="bold"/>
+                android:text="@string/about_and_help"/>
 
             <RelativeLayout
                 android:id="@+id/rlNotice"

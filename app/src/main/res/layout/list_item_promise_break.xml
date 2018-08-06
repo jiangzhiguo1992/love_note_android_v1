@@ -28,11 +28,10 @@
 
         <TextView
             android:id="@+id/tvHappenAt"
-            style="@style/FontGreyNormal"
+            style="@style/FontGreyNormalBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textStyle="bold"
             tools:text="2017年 12月 31日"/>
 
         <View

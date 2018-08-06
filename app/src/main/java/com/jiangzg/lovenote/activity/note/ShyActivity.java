@@ -225,7 +225,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             srl.setRefreshing(true);
         }
         shyList = null;
-        refreshMonthView(); // 先清空标记
+        //refreshMonthView(); // cal视图自动清空
         refreshDayView(); // 先清空标记
         int year = calClick.get(Calendar.YEAR);
         int month = calClick.get(Calendar.MONTH) + 1;

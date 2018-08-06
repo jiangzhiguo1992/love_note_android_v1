@@ -76,7 +76,7 @@
 
                                     <TextView
                                         android:id="@+id/tvSouvenirTitle"
-                                        style="@style/FontGreyNormal"
+                                        style="@style/FontGreyNormalBold"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignBottom="@+id/tvSouvenirYear"
@@ -87,29 +87,26 @@
                                         android:gravity="center"
                                         android:minLines="1"
                                         android:singleLine="true"
-                                        android:textStyle="bold"
                                         tools:text="第一次拉手手"/>
 
                                     <TextView
                                         android:id="@+id/tvSouvenirCountDown"
-                                        style="@style/FontPrimaryHuge"
+                                        style="@style/FontPrimaryHugeBold"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/tvSouvenirYear"
                                         android:layout_marginTop="3dp"
                                         android:gravity="center"
-                                        android:textStyle="bold"
                                         tools:text="倒计时 XX天 XX:XX:XX"/>
                                 </RelativeLayout>
 
                                 <TextView
                                     android:id="@+id/tvSouvenirEmpty"
-                                    style="@style/FontGreyBig"
+                                    style="@style/FontGreyBigBold"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="center_vertical"
                                     android:text="@string/per_day_is_souvenir"
-                                    android:textStyle="bold"
                                     android:visibility="gone"
                                     tools:visibility="gone"/>
                             </LinearLayout>

@@ -193,10 +193,9 @@
 
     <TextView
         android:id="@+id/tvPairDays"
-        style="@style/FontWhiteHuge"
+        style="@style/FontWhiteHugeBold"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:textStyle="bold"
         tools:text="@string/pair_holder_day"/>
 </LinearLayout>

@@ -55,7 +55,7 @@
 
                 <TextView
                     android:id="@+id/tvConditionLeft"
-                    style="@style/FontWhiteSmall"
+                    style="@style/FontWhiteSmallBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/ivIconLeftDay"
@@ -63,7 +63,6 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/ivIconLeftDay"
-                    android:textStyle="bold"
                     tools:text="晴天 晴天"/>
 
                 <ImageView
@@ -76,12 +75,11 @@
 
                 <TextView
                     android:id="@+id/tvTempLeft"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvConditionLeft"
                     android:textSize="25sp"
-                    android:textStyle="bold"
                     tools:text="19~19℃"/>
 
                 <TextView
@@ -135,7 +133,7 @@
 
                 <TextView
                     android:id="@+id/tvConditionRight"
-                    style="@style/FontWhiteSmall"
+                    style="@style/FontWhiteSmallBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/ivIconRightDay"
@@ -143,7 +141,6 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_toEndOf="@+id/ivIconRightDay"
-                    android:textStyle="bold"
                     tools:text="晴天 晴天"/>
 
                 <ImageView
@@ -156,12 +153,11 @@
 
                 <TextView
                     android:id="@+id/tvTempRight"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvConditionRight"
                     android:textSize="25sp"
-                    android:textStyle="bold"
                     tools:text="19~19℃"/>
 
                 <TextView

@@ -18,14 +18,13 @@
 
         <TextView
             android:id="@+id/tvCurrentChannel"
-            style="@style/FontPrimaryNormal"
+            style="@style/FontPrimaryNormalBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:maxLines="1"
             android:singleLine="true"
-            android:textStyle="bold"
             tools:text="@string/current_channel_colon_space_holder"/>
 
         <LinearLayout

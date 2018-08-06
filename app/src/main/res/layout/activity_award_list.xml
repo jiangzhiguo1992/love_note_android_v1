@@ -23,7 +23,7 @@
 
             <TextView
                 android:id="@+id/tvScoreTa"
-                style="@style/FontWhiteHuge"
+                style="@style/FontWhiteHugeBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -32,12 +32,11 @@
                 android:paddingTop="5dp"
                 android:shadowColor="@color/black_trans_50"
                 android:shadowRadius="10"
-                android:textStyle="bold"
                 tools:text="+10"/>
 
             <TextView
                 android:id="@+id/tvScoreMe"
-                style="@style/FontWhiteHuge"
+                style="@style/FontWhiteHugeBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -46,7 +45,6 @@
                 android:paddingTop="5dp"
                 android:shadowColor="@color/black_trans_50"
                 android:shadowRadius="10"
-                android:textStyle="bold"
                 tools:text="+10"/>
         </LinearLayout>
 

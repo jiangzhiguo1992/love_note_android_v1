@@ -34,13 +34,12 @@
 
                     <TextView
                         android:id="@+id/tvHappenAt"
-                        style="@style/FontBlackBig"
+                        style="@style/FontBlackBigBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:textStyle="bold"
                         tools:text="2017年 09月 12号"/>
 
                     <TextView

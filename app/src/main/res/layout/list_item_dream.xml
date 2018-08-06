@@ -37,7 +37,7 @@
 
             <TextView
                 android:id="@+id/tvHappenAt"
-                style="@style/FontBlackNormal"
+                style="@style/FontBlackNormalBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -45,7 +45,6 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textStyle="bold"
                 tools:text="2017年 12月 31日"/>
 
             <TextView

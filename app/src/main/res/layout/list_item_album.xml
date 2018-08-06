@@ -34,25 +34,23 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            style="@style/FontWhiteHuge"
+            style="@style/FontWhiteHugeBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:padding="5dp"
             android:textSize="25sp"
-            android:textStyle="bold"
             tools:text="相册名称"/>
 
         <TextView
             android:id="@+id/tvTime"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteNormalBold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvTitle"
             android:gravity="center"
             android:padding="5dp"
-            android:textStyle="bold"
             tools:text="2015年5月6号 - 6月13号"/>
     </RelativeLayout>
 
@@ -66,7 +64,7 @@
 
         <TextView
             android:id="@+id/tvModify"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteNormalBold"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -76,12 +74,11 @@
             android:focusableInTouchMode="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="@string/modify"
-            android:textStyle="bold"/>
+            android:text="@string/modify"/>
 
         <TextView
             android:id="@+id/tvDelete"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteNormalBold"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -91,12 +88,11 @@
             android:focusableInTouchMode="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="@string/delete"
-            android:textStyle="bold"/>
+            android:text="@string/delete"/>
 
         <TextView
             android:id="@+id/tvCancel"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteNormalBold"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -106,7 +102,6 @@
             android:focusableInTouchMode="true"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="@string/cancel"
-            android:textStyle="bold"/>
+            android:text="@string/cancel"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

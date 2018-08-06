@@ -29,7 +29,7 @@
 
                 <Button
                     android:id="@+id/btnScoreAdd"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -37,23 +37,21 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                     android:text="@string/symbol_add"
-                    android:textSize="35sp"
-                    android:textStyle="bold"/>
+                    android:textSize="35sp"/>
 
                 <TextView
                     android:id="@+id/tvScore"
-                    style="@style/FontBlackHuge"
+                    style="@style/FontBlackHugeBold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="30sp"
-                    android:textStyle="bold"
                     tools:text="0"/>
 
                 <Button
                     android:id="@+id/btnScoreSub"
-                    style="@style/FontWhiteHuge"
+                    style="@style/FontWhiteHugeBold"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginBottom="5dp"
@@ -61,8 +59,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                     android:text="@string/symbol_sub"
-                    android:textSize="35sp"
-                    android:textStyle="bold"/>
+                    android:textSize="35sp"/>
             </LinearLayout>
 
             <RelativeLayout

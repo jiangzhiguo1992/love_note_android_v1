@@ -33,28 +33,26 @@
 
             <TextView
                 android:id="@+id/tvScore"
-                style="@style/FontBlackHuge"
+                style="@style/FontBlackHugeBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="4dp"
                 android:textSize="30sp"
-                android:textStyle="bold"
                 tools:text="-10"/>
 
             <View style="@style/LineVertical"/>
 
             <TextView
                 android:id="@+id/tvUseCount"
-                style="@style/FontBlackHuge"
+                style="@style/FontBlackHugeBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="4dp"
                 android:textSize="30sp"
-                android:textStyle="bold"
                 tools:text="10"/>
         </LinearLayout>
 

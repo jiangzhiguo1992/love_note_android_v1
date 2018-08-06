@@ -43,7 +43,7 @@
 
                 <TextView
                     android:id="@+id/tvModifyVertical"
-                    style="@style/FontWhiteNormal"
+                    style="@style/FontWhiteNormalBold"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -53,12 +53,11 @@
                     android:focusableInTouchMode="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:text="@string/modify"
-                    android:textStyle="bold"/>
+                    android:text="@string/modify"/>
 
                 <TextView
                     android:id="@+id/tvDeleteVertical"
-                    style="@style/FontWhiteNormal"
+                    style="@style/FontWhiteNormalBold"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -68,12 +67,11 @@
                     android:focusableInTouchMode="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:text="@string/delete"
-                    android:textStyle="bold"/>
+                    android:text="@string/delete"/>
 
                 <TextView
                     android:id="@+id/tvCancelVertical"
-                    style="@style/FontWhiteNormal"
+                    style="@style/FontWhiteNormalBold"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -83,8 +81,7 @@
                     android:focusableInTouchMode="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:text="@string/cancel"
-                    android:textStyle="bold"/>
+                    android:text="@string/cancel"/>
             </LinearLayout>
 
             <LinearLayout
@@ -97,7 +94,7 @@
 
                 <TextView
                     android:id="@+id/tvModifyHorizontal"
-                    style="@style/FontWhiteNormal"
+                    style="@style/FontWhiteNormalBold"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -107,12 +104,11 @@
                     android:focusableInTouchMode="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:text="@string/modify"
-                    android:textStyle="bold"/>
+                    android:text="@string/modify"/>
 
                 <TextView
                     android:id="@+id/tvDeleteHorizontal"
-                    style="@style/FontWhiteNormal"
+                    style="@style/FontWhiteNormalBold"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -122,12 +118,11 @@
                     android:focusableInTouchMode="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:text="@string/delete"
-                    android:textStyle="bold"/>
+                    android:text="@string/delete"/>
 
                 <TextView
                     android:id="@+id/tvCancelHorizontal"
-                    style="@style/FontWhiteNormal"
+                    style="@style/FontWhiteNormalBold"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -137,8 +132,7 @@
                     android:focusableInTouchMode="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:text="@string/cancel"
-                    android:textStyle="bold"/>
+                    android:text="@string/cancel"/>
             </LinearLayout>
         </FrameLayout>
 

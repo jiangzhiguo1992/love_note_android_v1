@@ -27,9 +27,9 @@ public class CalendarView {
     public static void initMonthView(Activity activity, MaterialCalendarView view) {
         if (view == null) return;
         // text
-        view.setHeaderTextAppearance(R.style.FontWhiteBig);
-        view.setWeekDayTextAppearance(R.style.FontWhiteSmall);
-        view.setDateTextAppearance(R.style.FontWhiteNormal);
+        view.setHeaderTextAppearance(R.style.FontWhiteHugeBold);
+        view.setWeekDayTextAppearance(R.style.FontWhiteSmallBold);
+        view.setDateTextAppearance(R.style.FontWhiteNormalBold);
         view.setWeekDayLabels(R.array.week_label);
         view.setTitleMonths(R.array.month_label);
         // decorator

@@ -32,6 +32,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.view.CalendarView;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -159,7 +160,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void initCalendarView() {
-        ViewHelper.initMonthView(mActivity, mcvSleep);
+        CalendarView.initMonthView(mActivity, mcvSleep);
         // 设置滑动选择改变月份事件
         mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override

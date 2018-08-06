@@ -42,9 +42,17 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
+    <style name="FontBlackSmallBold" parent="FontBlackSmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontBlackNormal">
         <item name="android:textColor">@color/font_black</item>
         <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="FontBlackNormalBold" parent="FontBlackNormal">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="FontBlackBig">
@@ -52,9 +60,17 @@
         <item name="android:textSize">@dimen/font_big</item>
     </style>
 
+    <style name="FontBlackBigBold" parent="FontBlackBig">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontBlackHuge">
         <item name="android:textColor">@color/font_black</item>
         <item name="android:textSize">@dimen/font_huge</item>
+    </style>
+
+    <style name="FontBlackHugeBold" parent="FontBlackHuge">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- 白色字体 -->
@@ -63,9 +79,17 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
+    <style name="FontWhiteSmallBold" parent="FontWhiteSmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontWhiteNormal">
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="FontWhiteNormalBold" parent="FontWhiteNormal">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="FontWhiteBig">
@@ -73,9 +97,17 @@
         <item name="android:textSize">@dimen/font_big</item>
     </style>
 
+    <style name="FontWhiteBigBold" parent="FontWhiteBig">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontWhiteHuge">
         <item name="android:textColor">@color/font_white</item>
         <item name="android:textSize">@dimen/font_huge</item>
+    </style>
+
+    <style name="FontWhiteHugeBold" parent="FontWhiteHuge">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- 灰色字体 -->
@@ -84,9 +116,17 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
+    <style name="FontGreySmallBold" parent="FontGreySmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontGreyNormal">
         <item name="android:textColor">@color/font_grey</item>
         <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="FontGreyNormalBold" parent="FontGreyNormal">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="FontGreyBig">
@@ -94,9 +134,17 @@
         <item name="android:textSize">@dimen/font_big</item>
     </style>
 
+    <style name="FontGreyBigBold" parent="FontGreyBig">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontGreyHuge">
         <item name="android:textColor">@color/font_grey</item>
         <item name="android:textSize">@dimen/font_huge</item>
+    </style>
+
+    <style name="FontGreyHugeBold" parent="FontGreyHuge">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- 主题色字体 -->
@@ -105,9 +153,17 @@
         <item name="android:textSize">@dimen/font_small</item>
     </style>
 
+    <style name="FontPrimarySmallBold" parent="FontPrimarySmall">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontPrimaryNormal">
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="FontPrimaryNormalBold" parent="FontPrimaryNormal">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="FontPrimaryBig">
@@ -115,9 +171,17 @@
         <item name="android:textSize">@dimen/font_big</item>
     </style>
 
+    <style name="FontPrimaryBigBold" parent="FontPrimaryBig">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="FontPrimaryHuge">
         <item name="android:textColor">?attr/colorPrimary</item>
         <item name="android:textSize">@dimen/font_huge</item>
+    </style>
+
+    <style name="FontPrimaryHugeBold" parent="FontPrimaryHuge">
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

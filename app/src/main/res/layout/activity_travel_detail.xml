@@ -27,12 +27,11 @@
 
                 <TextView
                     android:id="@+id/tvTitle"
-                    style="@style/FontBlackBig"
+                    style="@style/FontBlackBigBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:gravity="center"
-                    android:textStyle="bold"
                     tools:text="天津波波鱼吃饭"/>
 
                 <LinearLayout
