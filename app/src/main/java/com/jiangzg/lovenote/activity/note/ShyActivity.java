@@ -30,6 +30,7 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.view.CalendarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -66,6 +67,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
     private Call<Result> callListGet;
+    private Calendar calClick;
+    private CalendarView.ClickDecorator clickDecorator;
+    private CalendarView.SelectedDecorator selectedDecorator;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ShyActivity.class);
@@ -92,8 +96,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         srl.setEnabled(false);
         // calendar
         initCalendarView();
-        // info
-        refreshShyListView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -103,6 +105,8 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        calClick = DateUtils.getCurrentCalendar();
+        // data
         getShyListData();
     }
 
@@ -139,12 +143,13 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void initCalendarView() {
-        ViewHelper.initMonthView(mActivity, mcvShy);
+        CalendarView.initMonthView(mActivity, mcvShy);
         // 设置滑动选择改变月份事件
         mcvShy.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                widget.setSelectedDate(date);
+                calClick = date.getCalendar();
+                mcvShy.clearSelection();
                 getShyListData();
             }
         });
@@ -152,34 +157,65 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         mcvShy.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                refreshShyListView();
+                if (selected) calClick = date.getCalendar();
+                mcvShy.clearSelection();
+                refreshDayView();
             }
         });
+        // view
+        refreshMonthView();
+        refreshDayView();
     }
 
-    private void refreshShyListView() {
+    private void refreshMonthView() {
         if (recyclerHelper == null || mcvShy == null) return;
         String monthFormat = getString(R.string.current_month_space_holder_space_second);
-        String dayFormat = getString(R.string.current_day_space_holder_space_second);
         int monthCount = 0;
-        int dayCount = 0;
-        List<Shy> dayList = new ArrayList<>();
+        List<Calendar> selectedList = new ArrayList<>();
         if (shyList != null && shyList.size() > 0) {
             monthCount = shyList.size();
-            CalendarDay currentDate = mcvShy.getSelectedDate();
-            Calendar calToday = DateUtils.getCalendar(currentDate.getDate().getTime());
-            int day = calToday.get(Calendar.DAY_OF_MONTH);
+            for (Shy shy : shyList) {
+                if (shy == null) continue;
+                Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(shy.getHappenAt()));
+                selectedList.add(calendar);
+            }
+        }
+        // decorator
+        if (selectedDecorator == null) {
+            selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectedList);
+            mcvShy.addDecorator(selectedDecorator);
+        } else {
+            selectedDecorator.setSelectedList(selectedList);
+            mcvShy.invalidateDecorators();
+        }
+        // other
+        tvMonth.setText(String.format(Locale.getDefault(), monthFormat, monthCount));
+    }
+
+    private void refreshDayView() {
+        if (recyclerHelper == null || mcvShy == null) return;
+        String dayFormat = getString(R.string.current_day_space_holder_space_second);
+        List<Shy> dayList = new ArrayList<>();
+        if (shyList != null && shyList.size() > 0) {
+            int day = calClick.get(Calendar.DAY_OF_MONTH);
             for (Shy shy : shyList) {
                 if (shy == null) continue;
                 if (day == shy.getDayOfMonth()) {
                     dayList.add(shy);
-                    ++dayCount;
                 }
             }
         }
+        // decorator
+        if (clickDecorator == null) {
+            clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
+            mcvShy.addDecorator(clickDecorator);
+        } else {
+            clickDecorator.setClick(calClick);
+            mcvShy.invalidateDecorators();
+        }
+        // other
         recyclerHelper.dataNew(dayList, 0);
-        tvMonth.setText(String.format(Locale.getDefault(), monthFormat, monthCount));
-        tvDay.setText(String.format(Locale.getDefault(), dayFormat, dayCount));
+        tvDay.setText(String.format(Locale.getDefault(), dayFormat, dayList.size()));
     }
 
     private void getShyListData() {
@@ -187,11 +223,10 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             srl.setRefreshing(true);
         }
         shyList = null;
-        refreshShyListView(); // 先清空选择
-        CalendarDay selectedDate = mcvShy.getSelectedDate();
-        if (selectedDate == null) return;
-        int year = selectedDate.getYear();
-        int month = selectedDate.getMonth() + 1;
+        refreshMonthView(); // 先清空标记
+        refreshDayView(); // 先清空标记
+        int year = calClick.get(Calendar.YEAR);
+        int month = calClick.get(Calendar.MONTH) + 1;
         if (month > 12) {
             month = 1;
         }
@@ -201,7 +236,9 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 shyList = data.getShyList();
-                refreshShyListView();
+                // view
+                refreshMonthView();
+                refreshDayView();
             }
 
             @Override
