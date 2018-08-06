@@ -42,6 +42,7 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -253,12 +254,22 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             s.setSouvenirVideoList(ListHelper.getSouvenirVideoListByYear(souvenir.getSouvenirVideoList(), i));
             s.setSouvenirFoodList(ListHelper.getSouvenirFoodListByYear(souvenir.getSouvenirFoodList(), i));
             s.setSouvenirDiaryList(ListHelper.getSouvenirDiaryListByYear(souvenir.getSouvenirDiaryList(), i));
-            // list
+            // title
+            String title;
+            int betweenYear = i - yearHappen;
+            if (betweenYear <= 0) {
+                title = String.valueOf(yearHappen);
+            } else {
+                title = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_anniversary), betweenYear);
+            }
+            titleList.add(title);
+            // fragment
             SouvenirForeignFragment fragment = SouvenirForeignFragment.newFragment(i, s);
             fragmentList.add(fragment);
-            titleList.add(String.valueOf(i));
         }
         // adapter
+        Collections.reverse(titleList);
+        Collections.reverse(fragmentList);
         FragmentPagerAdapter<SouvenirForeignFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // viewPager
