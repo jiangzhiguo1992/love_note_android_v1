@@ -95,6 +95,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.shy), true);
         srl.setEnabled(false);
         // calendar
+        calClick = DateUtils.getCurrentCalendar();
         initCalendarView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -105,8 +106,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        calClick = DateUtils.getCurrentCalendar();
-        // data
         getShyListData();
     }
 

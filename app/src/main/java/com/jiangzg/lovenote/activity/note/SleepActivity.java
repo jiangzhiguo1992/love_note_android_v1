@@ -116,6 +116,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatarInCp);
         // calendar
+        calClick = DateUtils.getCurrentCalendar();
         initCalendarView();
         // latest
         refreshSleepLatestView();
@@ -123,8 +124,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        calClick = DateUtils.getCurrentCalendar();
-        // data
         getLatestData();
         getSleepListData();
     }

@@ -117,6 +117,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         isMine = (SPHelper.getMe().getSex() == User.SEX_GIRL);
         canMe = false;
         // calendar
+        calClick = DateUtils.getCurrentCalendar();
         initCalendarView();
         // checkView
         initCheckView();
@@ -126,8 +127,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        calClick = DateUtils.getCurrentCalendar();
-        // data
         getLatestData();
         getListData();
     }
