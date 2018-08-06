@@ -150,6 +150,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
                 calClick = date.getCalendar();
                 mcvShy.clearSelection();
+                // data
                 getShyListData();
             }
         });
@@ -159,6 +160,15 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
                 if (selected) calClick = date.getCalendar();
                 mcvShy.clearSelection();
+                // calendar 要放到这里操作，不让click转移到下一个month
+                if (clickDecorator == null) {
+                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
+                    mcvShy.addDecorator(clickDecorator);
+                } else {
+                    clickDecorator.setClick(calClick);
+                    mcvShy.invalidateDecorators();
+                }
+                // view
                 refreshDayView();
             }
         });
@@ -181,7 +191,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 selectedList.add(calendar);
             }
         }
-        // calendar
         if (selectedDecorator == null) {
             selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectedList);
             mcvShy.addDecorator(selectedDecorator);
@@ -195,14 +204,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     private void refreshDayView() {
         if (recyclerHelper == null || mcvShy == null) return;
-        // calendar
-        if (clickDecorator == null) {
-            clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
-            mcvShy.addDecorator(clickDecorator);
-        } else {
-            clickDecorator.setClick(calClick);
-            mcvShy.invalidateDecorators();
-        }
         // data
         String dayFormat = getString(R.string.current_day_space_holder_space_second);
         List<Shy> dayList = new ArrayList<>();
@@ -225,7 +226,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             srl.setRefreshing(true);
         }
         shyList = null;
-        //refreshMonthView(); // cal视图自动清空
         refreshDayView(); // 先清空标记
         int year = calClick.get(Calendar.YEAR);
         int month = calClick.get(Calendar.MONTH) + 1;
