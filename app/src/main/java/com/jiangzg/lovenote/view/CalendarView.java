@@ -12,11 +12,8 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -26,7 +23,7 @@ import java.util.List;
 public class CalendarView {
 
     // initMonthView
-    public static void initMonthView(Activity activity, MaterialCalendarView view) {
+    public static void initMonthView(MaterialCalendarView view) {
         if (view == null) return;
         // text
         view.setHeaderTextAppearance(R.style.FontWhiteHugeBold);
@@ -83,10 +80,6 @@ public class CalendarView {
             view.setSelectionDrawable(drawable);
         }
 
-        public Calendar getClick() {
-            return click;
-        }
-
         public void setClick(Calendar click) {
             this.click = click;
         }
@@ -120,10 +113,6 @@ public class CalendarView {
         @Override
         public void decorate(DayViewFacade view) {
             view.setSelectionDrawable(drawable);
-        }
-
-        public List<Calendar> getSelectedList() {
-            return selectedList;
         }
 
         public void setSelectedList(List<Calendar> selectedList) {
@@ -181,35 +170,31 @@ public class CalendarView {
             view.setSelectionDrawable(drawable);
         }
 
-        public List<Menses> getMensesList() {
-            return mensesList;
-        }
-
         public void setMensesList(List<Menses> mensesList) {
             this.mensesList = mensesList;
         }
     }
 
     // 红点视图
-    public class EventDecorator implements DayViewDecorator {
-
-        private int color;
-        private HashSet<CalendarDay> dates;
-
-        public EventDecorator(int color, Collection<CalendarDay> dates) {
-            this.color = color;
-            this.dates = new HashSet<>(dates);
-        }
-
-        @Override
-        public boolean shouldDecorate(CalendarDay day) {
-            return dates.contains(day);
-        }
-
-        @Override
-        public void decorate(DayViewFacade view) {
-            view.addSpan(new DotSpan(5, color));
-        }
-    }
+    //public class EventDecorator implements DayViewDecorator {
+    //
+    //    private int color;
+    //    private HashSet<CalendarDay> dates;
+    //
+    //    public EventDecorator(int color, Collection<CalendarDay> dates) {
+    //        this.color = color;
+    //        this.dates = new HashSet<>(dates);
+    //    }
+    //
+    //    @Override
+    //    public boolean shouldDecorate(CalendarDay day) {
+    //        return dates.contains(day);
+    //    }
+    //
+    //    @Override
+    //    public void decorate(DayViewFacade view) {
+    //        view.addSpan(new DotSpan(5, color));
+    //    }
+    //}
 
 }

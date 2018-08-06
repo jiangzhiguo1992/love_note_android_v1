@@ -143,7 +143,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void initCalendarView() {
-        CalendarView.initMonthView(mActivity, mcvShy);
+        CalendarView.initMonthView(mcvShy);
         // 设置滑动选择改变月份事件
         mcvShy.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
@@ -191,6 +191,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 selectedList.add(calendar);
             }
         }
+        // calendar
         if (selectedDecorator == null) {
             selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectedList);
             mcvShy.addDecorator(selectedDecorator);
@@ -203,7 +204,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void refreshDayView() {
-        if (recyclerHelper == null || mcvShy == null) return;
+        if (recyclerHelper == null || mcvShy == null || calClick == null) return;
         // data
         String dayFormat = getString(R.string.current_day_space_holder_space_second);
         List<Shy> dayList = new ArrayList<>();
@@ -222,6 +223,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void getShyListData() {
+        if (calClick == null) return;
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }

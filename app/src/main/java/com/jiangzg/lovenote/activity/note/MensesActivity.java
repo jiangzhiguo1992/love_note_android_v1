@@ -166,7 +166,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void initCalendarView() {
-        CalendarView.initMonthView(mActivity, mcvMenses);
+        CalendarView.initMonthView(mcvMenses);
         // 设置滑动选择改变月份事件
         mcvMenses.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
@@ -324,6 +324,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 canTa = data.isCanTa();
                 mensesMe = data.getMensesMe();
                 mensesTa = data.getMensesTa();
+                // view
                 refreshLatestView();
             }
 
@@ -335,6 +336,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void getListData() {
+        if (calClick == null) return;
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
