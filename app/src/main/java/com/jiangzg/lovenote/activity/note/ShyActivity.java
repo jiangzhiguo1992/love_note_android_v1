@@ -170,6 +170,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private void refreshMonthView() {
         if (recyclerHelper == null || mcvShy == null) return;
         String monthFormat = getString(R.string.current_month_space_holder_space_second);
+        // data
         int monthCount = 0;
         List<Calendar> selectedList = new ArrayList<>();
         if (shyList != null && shyList.size() > 0) {
@@ -180,7 +181,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 selectedList.add(calendar);
             }
         }
-        // decorator
+        // calendar
         if (selectedDecorator == null) {
             selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectedList);
             mcvShy.addDecorator(selectedDecorator);
@@ -188,12 +189,21 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             selectedDecorator.setSelectedList(selectedList);
             mcvShy.invalidateDecorators();
         }
-        // other
+        // view
         tvMonth.setText(String.format(Locale.getDefault(), monthFormat, monthCount));
     }
 
     private void refreshDayView() {
         if (recyclerHelper == null || mcvShy == null) return;
+        // calendar
+        if (clickDecorator == null) {
+            clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
+            mcvShy.addDecorator(clickDecorator);
+        } else {
+            clickDecorator.setClick(calClick);
+            mcvShy.invalidateDecorators();
+        }
+        // data
         String dayFormat = getString(R.string.current_day_space_holder_space_second);
         List<Shy> dayList = new ArrayList<>();
         if (shyList != null && shyList.size() > 0) {
@@ -205,15 +215,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 }
             }
         }
-        // decorator
-        if (clickDecorator == null) {
-            clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
-            mcvShy.addDecorator(clickDecorator);
-        } else {
-            clickDecorator.setClick(calClick);
-            mcvShy.invalidateDecorators();
-        }
-        // other
+        // view
         recyclerHelper.dataNew(dayList, 0);
         tvDay.setText(String.format(Locale.getDefault(), dayFormat, dayList.size()));
     }
