@@ -12,6 +12,7 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import java.util.Calendar;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 public class CalendarView {
 
     // initMonthView
-    public static void initMonthView(MaterialCalendarView view, Calendar current) {
+    public static void initMonthView(Activity activity, MaterialCalendarView view, Calendar current) {
         if (view == null) return;
         // text
         view.setHeaderTextAppearance(R.style.FontWhiteHugeBold);
@@ -33,15 +34,15 @@ public class CalendarView {
         view.setTitleMonths(R.array.month_label);
         // decorator
         view.removeDecorators();
+        view.addDecorator(new PointDecorator(ContextCompat.getColor(activity, R.color.white), current));
         //view.invalidateDecorators();
         // selection
         view.clearSelection();
         view.setSelected(false);
         view.setAllowClickDaysOutsideCurrentMonth(false);
-        //int colorDark = ContextCompat.getColor(activity, ViewHelper.getColorDark(activity));
         //Date currentDate = DateUtils.getCurrentDate();
         //view.clearSelection();
-        //view.setSelectionColor(colorDark);
+        //view.setSelectionColor(ContextCompat.getColor(activity, ViewHelper.getColorDark(activity)));
         //view.setSelectedDate(currentDate);
         // arrow
         view.setLeftArrowMask(null);
@@ -56,6 +57,29 @@ public class CalendarView {
                 //.setMaximumDate(DateUtils.getCurrentDate())
                 .setCalendarDisplayMode(CalendarMode.MONTHS)
                 .commit();
+    }
+
+    // 点点视图
+    public static class PointDecorator implements DayViewDecorator {
+
+        private int color;
+        private Calendar calendar;
+
+        PointDecorator(int color, Calendar calendar) {
+            this.color = color;
+            this.calendar = calendar;
+        }
+
+        @Override
+        public boolean shouldDecorate(CalendarDay day) {
+            Calendar cal = day.getCalendar();
+            return (calendar != null && calendar.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR));
+        }
+
+        @Override
+        public void decorate(DayViewFacade view) {
+            view.addSpan(new DotSpan(8, color));
+        }
     }
 
     // 点击视图(不加会有默认的accent圆圈)
@@ -174,27 +198,5 @@ public class CalendarView {
             this.mensesList = mensesList;
         }
     }
-
-    // 红点视图
-    //public class EventDecorator implements DayViewDecorator {
-    //
-    //    private int color;
-    //    private HashSet<CalendarDay> dates;
-    //
-    //    public EventDecorator(int color, Collection<CalendarDay> dates) {
-    //        this.color = color;
-    //        this.dates = new HashSet<>(dates);
-    //    }
-    //
-    //    @Override
-    //    public boolean shouldDecorate(CalendarDay day) {
-    //        return dates.contains(day);
-    //    }
-    //
-    //    @Override
-    //    public void decorate(DayViewFacade view) {
-    //        view.addSpan(new DotSpan(5, color));
-    //    }
-    //}
 
 }

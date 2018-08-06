@@ -145,7 +145,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         clickYear = calendar.get(Calendar.YEAR);
         clickMonth = calendar.get(Calendar.MONTH) + 1;
         clickDay = -1;
-        CalendarView.initMonthView(mcvShy, calendar);
+        CalendarView.initMonthView(mActivity, mcvShy, calendar);
         // 设置滑动选择改变月份事件
         mcvShy.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override

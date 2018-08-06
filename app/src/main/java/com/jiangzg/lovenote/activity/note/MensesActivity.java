@@ -168,7 +168,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         clickYear = calendar.get(Calendar.YEAR);
         clickMonth = calendar.get(Calendar.MONTH) + 1;
         clickDay = -1;
-        CalendarView.initMonthView(mcvMenses, calendar);
+        CalendarView.initMonthView(mActivity, mcvMenses, calendar);
         // 设置滑动选择改变月份事件
         mcvMenses.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
