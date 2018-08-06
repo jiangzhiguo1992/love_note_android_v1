@@ -874,6 +874,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
+                post.setReport(true);
                 RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
