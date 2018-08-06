@@ -21,6 +21,7 @@ import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostCollect;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -31,7 +32,6 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GWrapView;
 
 import java.util.List;
-import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -90,38 +90,14 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();
         String address = item.getAddress();
-        String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
-        String createShow = String.format(Locale.getDefault(), formatCreateAt, create);
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
-        String updatedShow = String.format(Locale.getDefault(), formatUpdateAt, update);
-        String pointCount = item.getPointCount() > 0 ? Post.getShowCount(item.getPointCount()) : mActivity.getString(R.string.point);
-        String collectCount = item.getCollectCount() > 0 ? Post.getShowCount(item.getCollectCount()) : mActivity.getString(R.string.collect);
-        String commentCount = item.getCommentCount() > 0 ? Post.getShowCount(item.getCommentCount()) : mActivity.getString(R.string.comment);
+        String pointCount = item.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(item.getPointCount()) : mActivity.getString(R.string.point);
+        String collectCount = item.getCollectCount() > 0 ? CountHelper.getShowCount2Thousand(item.getCollectCount()) : mActivity.getString(R.string.collect);
+        String commentCount = item.getCommentCount() > 0 ? CountHelper.getShowCount2Thousand(item.getCommentCount()) : mActivity.getString(R.string.comment);
         boolean read = item.isRead();
         boolean point = item.isPoint();
         boolean collect = item.isCollect();
         boolean comment = item.isComment();
-        // couple
-        if (couple == null) {
-            helper.setVisible(R.id.llCouple, false);
-        } else {
-            helper.setVisible(R.id.llCouple, true);
-            helper.setText(R.id.tvNameLeft, couple.getCreatorName());
-            helper.setText(R.id.tvNameRight, couple.getInviteeName());
-            if (isOur) {
-                if (item.getUserId() == couple.getCreatorId()) {
-                    helper.setTextColor(R.id.tvNameLeft, colorPrimary);
-                    helper.setTextColor(R.id.tvNameRight, colorFontGrey);
-                } else {
-                    helper.setTextColor(R.id.tvNameLeft, colorFontGrey);
-                    helper.setTextColor(R.id.tvNameRight, colorPrimary);
-                }
-            }
-            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
-            ivAvatarLeft.setData(couple.getCreatorAvatar());
-            ivAvatarRight.setData(couple.getInviteeAvatar());
-        }
         // tag
         GWrapView wvTag = helper.getView(R.id.wvTag);
         if (tagShowList == null || tagShowList.size() <= 0) {
@@ -159,8 +135,40 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
         // time
-        helper.setText(R.id.tvCreateAt, createShow);
-        helper.setText(R.id.tvUpdateAt, updatedShow);
+        helper.setText(R.id.tvUpdateAt, update);
+        // couple
+        if (couple == null) {
+            helper.setVisible(R.id.llCouple, false);
+        } else {
+            helper.setVisible(R.id.llCouple, true);
+            helper.setVisible(R.id.llCoupleName, false);
+            helper.setVisible(R.id.rlCoupleAvatar, false);
+            String creatorName = couple.getCreatorName();
+            String inviteeName = couple.getInviteeName();
+            if (!StringUtils.isEmpty(creatorName) || !StringUtils.isEmpty(inviteeName)) {
+                helper.setVisible(R.id.llCoupleName, true);
+                helper.setText(R.id.tvNameLeft, creatorName);
+                helper.setText(R.id.tvNameRight, inviteeName);
+                if (isOur) {
+                    if (item.getUserId() == couple.getCreatorId()) {
+                        helper.setTextColor(R.id.tvNameLeft, colorPrimary);
+                        helper.setTextColor(R.id.tvNameRight, colorFontGrey);
+                    } else {
+                        helper.setTextColor(R.id.tvNameLeft, colorFontGrey);
+                        helper.setTextColor(R.id.tvNameRight, colorPrimary);
+                    }
+                }
+            }
+            String creatorAvatar = couple.getCreatorAvatar();
+            String inviteeAvatar = couple.getInviteeAvatar();
+            if (!StringUtils.isEmpty(creatorAvatar) || !StringUtils.isEmpty(inviteeAvatar)) {
+                helper.setVisible(R.id.rlCoupleAvatar, true);
+                FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+                FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+                ivAvatarLeft.setData(couple.getCreatorAvatar());
+                ivAvatarRight.setData(couple.getInviteeAvatar());
+            }
+        }
         // count
         helper.setText(R.id.tvPoint, pointCount);
         helper.setText(R.id.tvCollect, collectCount);

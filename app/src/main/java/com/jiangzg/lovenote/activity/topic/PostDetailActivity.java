@@ -47,6 +47,7 @@ import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -639,7 +640,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null) return;
         // data
         boolean point = post.isPoint();
-        String pointCount = post.getPointCount() > 0 ? Post.getShowCount(post.getPointCount()) : mActivity.getString(R.string.point);
+        String pointCount = post.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(post.getPointCount()) : mActivity.getString(R.string.point);
         // view
         tvPoint.setText(pointCount);
         if (point) {
@@ -655,7 +656,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null) return;
         // data
         boolean collect = post.isCollect();
-        String collectCount = post.getCollectCount() > 0 ? Post.getShowCount(post.getCollectCount()) : mActivity.getString(R.string.collect);
+        String collectCount = post.getCollectCount() > 0 ? CountHelper.getShowCount2Thousand(post.getCollectCount()) : mActivity.getString(R.string.collect);
         // view
         tvCollect.setText(collectCount);
         if (collect) {
@@ -671,7 +672,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null) return;
         // data
         boolean comment = post.isComment();
-        String commentCount = post.getCommentCount() > 0 ? Post.getShowCount(post.getCommentCount()) : mActivity.getString(R.string.comment);
+        String commentCount = post.getCommentCount() > 0 ? CountHelper.getShowCount2Thousand(post.getCommentCount()) : mActivity.getString(R.string.comment);
         // view
         tvComment.setText(commentCount);
         if (comment) {

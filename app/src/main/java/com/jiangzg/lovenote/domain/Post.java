@@ -3,11 +3,7 @@ package com.jiangzg.lovenote.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
-
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by JZG on 2018/7/23.
@@ -43,14 +39,6 @@ public class Post extends BaseCP implements Parcelable {
     private boolean point;
     private boolean collect;
     private boolean comment;
-
-    public static String getShowCount(int count) {
-        int unit = 10000; // 万
-        if (count < unit) {
-            return String.valueOf(count);
-        }
-        return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand), count / unit);
-    }
 
     public Couple getCouple() {
         return couple;
