@@ -86,7 +86,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
-    private Calendar calClick;
+    private int clickYear, clickMonth, clickDay;
     private CalendarView.ClickDecorator clickDecorator;
     private CalendarView.MensesDecorator mensesDecorator;
 
@@ -117,7 +117,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         isMine = (SPHelper.getMe().getSex() == User.SEX_GIRL);
         canMe = false;
         // calendar
-        calClick = DateUtils.getCurrentCalendar();
         initCalendarView();
         // checkView
         initCheckView();
@@ -165,14 +164,19 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void initCalendarView() {
-        CalendarView.initMonthView(mcvMenses);
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        clickYear = calendar.get(Calendar.YEAR);
+        clickMonth = calendar.get(Calendar.MONTH) + 1;
+        clickDay = -1;
+        CalendarView.initMonthView(mcvMenses, calendar);
         // 设置滑动选择改变月份事件
         mcvMenses.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                calClick = date.getCalendar();
                 mcvMenses.clearSelection();
                 // data
+                clickYear = date.getYear();
+                clickMonth = date.getMonth() + 1;
                 getListData();
             }
         });
@@ -180,20 +184,58 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         mcvMenses.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                if (selected) calClick = date.getCalendar();
                 mcvMenses.clearSelection();
+                // data
+                Calendar calendar = date.getCalendar();
+                clickYear = calendar.get(Calendar.YEAR);
+                clickMonth = calendar.get(Calendar.MONTH) + 1;
+                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
                 // calendar
                 if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
+                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
                     mcvMenses.addDecorator(clickDecorator);
                 } else {
-                    clickDecorator.setClick(calClick);
+                    clickDecorator.setClick(calendar);
                     mcvMenses.invalidateDecorators();
                 }
             }
         });
         // view
         refreshMonthView("");
+    }
+
+    private void refreshMonthView(String show) {
+        // calendar
+        if (!StringUtils.isEmpty(show)) {
+            mcvMenses.setVisibility(View.GONE);
+            tvShow.setVisibility(View.VISIBLE);
+            tvShow.setText(show);
+            return;
+        }
+        mcvMenses.setVisibility(View.VISIBLE);
+        tvShow.setVisibility(View.GONE);
+        // calendar
+        if (mensesDecorator == null) {
+            mensesDecorator = new CalendarView.MensesDecorator(mActivity, mensesList);
+            mcvMenses.addDecorator(mensesDecorator);
+        } else {
+            mensesDecorator.setMensesList(mensesList);
+            mcvMenses.invalidateDecorators();
+        }
+        // recycler
+        if (recyclerHelper == null) {
+            recyclerHelper = new RecyclerHelper(rv)
+                    .initLayoutManager(new LinearLayoutManager(mActivity))
+                    .initAdapter(new MensesAdapter())
+                    .viewEmpty(mActivity, R.layout.list_empty_primary, true, true)
+                    .setAdapter();
+        }
+        if (mensesList == null || mensesList.size() <= 0) {
+            rv.setVisibility(View.INVISIBLE);
+        } else {
+            rv.setVisibility(View.VISIBLE);
+            recyclerHelper.dataNew(mensesList, 0);
+        }
     }
 
     private void initCheckView() {
@@ -276,40 +318,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         return tipShow;
     }
 
-    private void refreshMonthView(String show) {
-        // calendar
-        if (!StringUtils.isEmpty(show)) {
-            mcvMenses.setVisibility(View.GONE);
-            tvShow.setVisibility(View.VISIBLE);
-            tvShow.setText(show);
-            return;
-        }
-        mcvMenses.setVisibility(View.VISIBLE);
-        tvShow.setVisibility(View.GONE);
-        // calendar
-        if (mensesDecorator == null) {
-            mensesDecorator = new CalendarView.MensesDecorator(mActivity, mensesList);
-            mcvMenses.addDecorator(mensesDecorator);
-        } else {
-            mensesDecorator.setMensesList(mensesList);
-            mcvMenses.invalidateDecorators();
-        }
-        // recycler
-        if (recyclerHelper == null) {
-            recyclerHelper = new RecyclerHelper(rv)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new MensesAdapter())
-                    .viewEmpty(mActivity, R.layout.list_empty_primary, true, true)
-                    .setAdapter();
-        }
-        if (mensesList == null || mensesList.size() <= 0) {
-            rv.setVisibility(View.INVISIBLE);
-        } else {
-            rv.setVisibility(View.VISIBLE);
-            recyclerHelper.dataNew(mensesList, 0);
-        }
-    }
-
     private void getLatestData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
@@ -335,18 +343,14 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     }
 
     private void getListData() {
-        if (calClick == null) return;
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
+        // clear (data + view)
+        clickDay = -1;
         mensesList = null;
-        refreshLatestView(); // 先清空选择
-        int year = calClick.get(Calendar.YEAR);
-        int month = calClick.get(Calendar.MONTH) + 1;
-        if (month > 12) {
-            month = 1;
-        }
-        callListGet = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, year, month);
+        // call
+        callListGet = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, clickYear, clickMonth);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

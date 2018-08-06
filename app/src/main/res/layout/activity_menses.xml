@@ -30,6 +30,7 @@
                     android:id="@+id/mcvMenses"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:padding="10dp"
                     android:visibility="gone"
                     tools:visibility="visible"/>
 
@@ -47,10 +48,10 @@
                 style="@style/FontPrimaryHugeBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:gravity="center"
-                android:paddingBottom="30dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
                 android:textSize="25sp"
                 tools:text="已开始 00:00:00"/>
 

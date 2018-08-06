@@ -82,7 +82,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
-    private Calendar calClick;
+    private int clickYear, clickMonth, clickDay;
     private CalendarView.ClickDecorator clickDecorator;
     private CalendarView.SelectedDecorator selectedDecorator;
 
@@ -116,7 +116,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatarInCp);
         // calendar
-        calClick = DateUtils.getCurrentCalendar();
         initCalendarView();
         // latest
         refreshSleepLatestView();
@@ -163,14 +162,19 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void initCalendarView() {
-        CalendarView.initMonthView(mcvSleep);
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        clickYear = calendar.get(Calendar.YEAR);
+        clickMonth = calendar.get(Calendar.MONTH) + 1;
+        clickDay = -1;
+        CalendarView.initMonthView(mcvSleep, calendar);
         // 设置滑动选择改变月份事件
         mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                calClick = date.getCalendar();
                 mcvSleep.clearSelection();
                 // data
+                clickYear = date.getYear();
+                clickMonth = date.getMonth() + 1;
                 getSleepListData();
             }
         });
@@ -178,14 +182,18 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                if (selected) calClick = date.getCalendar();
                 mcvSleep.clearSelection();
-                // calendar 要放到这里操作，不让click转移到下一个month
+                // data
+                Calendar calendar = date.getCalendar();
+                clickYear = calendar.get(Calendar.YEAR);
+                clickMonth = calendar.get(Calendar.MONTH) + 1;
+                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
+                // calendar
                 if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
+                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
                     mcvSleep.addDecorator(clickDecorator);
                 } else {
-                    clickDecorator.setClick(calClick);
+                    clickDecorator.setClick(calendar);
                     mcvSleep.invalidateDecorators();
                 }
                 // view
@@ -219,7 +227,6 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void refreshDayView() {
-        if (calClick == null) return;
         rvRight.setVisibility(View.INVISIBLE);
         rvLeft.setVisibility(View.INVISIBLE);
         // recycler
@@ -235,15 +242,13 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                     .initAdapter(new SleepAdapter(mActivity))
                     .setAdapter();
         }
-        // date
-        int day = calClick.get(Calendar.DAY_OF_MONTH);
         // view
         List<Sleep> selectLeftList = new ArrayList<>();
         List<Sleep> selectRightList = new ArrayList<>();
         if (sleepList != null && sleepList.size() > 0) {
             for (Sleep s : sleepList) {
                 if (s == null) continue;
-                if (s.getDayOfMonth() == day) {
+                if (s.getDayOfMonth() == clickDay) {
                     if (s.isMine()) { // 我的
                         selectRightList.add(s);
                     } else { // TA的
@@ -315,18 +320,15 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     }
 
     private void getSleepListData() {
-        if (calClick == null) return;
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
+        // clear (data + view)
+        clickDay = -1;
         sleepList = null;
-        refreshDayView(); // 先清空选择
-        int year = calClick.get(Calendar.YEAR);
-        int month = calClick.get(Calendar.MONTH) + 1;
-        if (month > 12) {
-            month = 1;
-        }
-        callListGet = new RetrofitHelper().call(API.class).noteSleepListGetByDate(year, month);
+        refreshDayView();
+        // call
+        callListGet = new RetrofitHelper().call(API.class).noteSleepListGetByDate(clickYear, clickMonth);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -23,7 +23,7 @@ import java.util.List;
 public class CalendarView {
 
     // initMonthView
-    public static void initMonthView(MaterialCalendarView view) {
+    public static void initMonthView(MaterialCalendarView view, Calendar current) {
         if (view == null) return;
         // text
         view.setHeaderTextAppearance(R.style.FontWhiteHugeBold);
@@ -43,11 +43,11 @@ public class CalendarView {
         //view.clearSelection();
         //view.setSelectionColor(colorDark);
         //view.setSelectedDate(currentDate);
-        //view.setCurrentDate(currentDate);
         // arrow
         view.setLeftArrowMask(null);
         view.setRightArrowMask(null);
         // other
+        view.setCurrentDate(current);
         view.setShowOtherDates(MaterialCalendarView.SHOW_OUT_OF_RANGE);
         view.setPagingEnabled(true);
         view.setAllowClickDaysOutsideCurrentMonth(false);

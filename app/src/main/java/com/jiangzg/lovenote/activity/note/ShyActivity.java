@@ -67,7 +67,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
     private Call<Result> callListGet;
-    private Calendar calClick;
+    private int clickYear, clickMonth, clickDay;
     private CalendarView.ClickDecorator clickDecorator;
     private CalendarView.SelectedDecorator selectedDecorator;
 
@@ -95,7 +95,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.shy), true);
         srl.setEnabled(false);
         // calendar
-        calClick = DateUtils.getCurrentCalendar();
         initCalendarView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -142,14 +141,19 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void initCalendarView() {
-        CalendarView.initMonthView(mcvShy);
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        clickYear = calendar.get(Calendar.YEAR);
+        clickMonth = calendar.get(Calendar.MONTH) + 1;
+        clickDay = -1;
+        CalendarView.initMonthView(mcvShy, calendar);
         // 设置滑动选择改变月份事件
         mcvShy.setOnMonthChangedListener(new OnMonthChangedListener() {
             @Override
             public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                calClick = date.getCalendar();
                 mcvShy.clearSelection();
                 // data
+                clickYear = date.getYear();
+                clickMonth = date.getMonth() + 1;
                 getShyListData();
             }
         });
@@ -157,14 +161,18 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         mcvShy.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                if (selected) calClick = date.getCalendar();
                 mcvShy.clearSelection();
-                // calendar 要放到这里操作，不让click转移到下一个month
+                // data
+                Calendar calendar = date.getCalendar();
+                clickYear = calendar.get(Calendar.YEAR);
+                clickMonth = calendar.get(Calendar.MONTH) + 1;
+                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
+                // calendar
                 if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calClick);
+                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
                     mcvShy.addDecorator(clickDecorator);
                 } else {
-                    clickDecorator.setClick(calClick);
+                    clickDecorator.setClick(calendar);
                     mcvShy.invalidateDecorators();
                 }
                 // view
@@ -203,15 +211,14 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void refreshDayView() {
-        if (recyclerHelper == null || mcvShy == null || calClick == null) return;
+        if (recyclerHelper == null || mcvShy == null) return;
         // data
         String dayFormat = getString(R.string.current_day_space_holder_space_second);
         List<Shy> dayList = new ArrayList<>();
         if (shyList != null && shyList.size() > 0) {
-            int day = calClick.get(Calendar.DAY_OF_MONTH);
             for (Shy shy : shyList) {
                 if (shy == null) continue;
-                if (day == shy.getDayOfMonth()) {
+                if (clickDay == shy.getDayOfMonth()) {
                     dayList.add(shy);
                 }
             }
@@ -222,18 +229,15 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void getShyListData() {
-        if (calClick == null) return;
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
+        // clear (data + view)
+        clickDay = -1;
         shyList = null;
-        refreshDayView(); // 先清空标记
-        int year = calClick.get(Calendar.YEAR);
-        int month = calClick.get(Calendar.MONTH) + 1;
-        if (month > 12) {
-            month = 1;
-        }
-        callListGet = new RetrofitHelper().call(API.class).noteShyListGetByDate(year, month);
+        refreshDayView();
+        // call
+        callListGet = new RetrofitHelper().call(API.class).noteShyListGetByDate(clickYear, clickMonth);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
