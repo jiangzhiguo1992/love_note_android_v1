@@ -66,28 +66,31 @@
             android:paddingStart="10dp">
 
             <LinearLayout
-                android:id="@+id/llComment"
+                android:id="@+id/llReport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="5dp">
+                android:padding="5dp"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <ImageView
-                    android:id="@+id/ivComment"
+                    android:id="@+id/ivReport"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/ic_comment_grey"/>
+                    android:src="@drawable/ic_report_grey"/>
 
                 <TextView
-                    android:id="@+id/tvCommentCount"
                     style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:gravity="center_vertical"
-                    tools:text="评论"/>
+                    android:text="@string/report"/>
             </LinearLayout>
 
             <LinearLayout
@@ -118,33 +121,29 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/llReport"
+                android:id="@+id/llComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="5dp"
-                android:visibility="gone"
-                tools:visibility="visible">
+                android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/ivReport"
+                    android:id="@+id/ivComment"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
-                    android:src="@drawable/ic_report_grey"/>
+                    android:src="@drawable/ic_comment_grey"/>
 
                 <TextView
+                    android:id="@+id/tvCommentCount"
                     style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:gravity="center_vertical"
-                    android:text="@string/report"/>
+                    tools:text="评论"/>
             </LinearLayout>
-
         </LinearLayout>
 
         <TextView

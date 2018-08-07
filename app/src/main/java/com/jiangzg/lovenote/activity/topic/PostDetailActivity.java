@@ -293,9 +293,9 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 }
             } else {
                 if (post.isMine()) { // 分享 + (举报 + 删除 + 帮助)
-                    getMenuInflater().inflate(R.menu.share_report_del, menu);
+                    getMenuInflater().inflate(R.menu.report_share_del, menu);
                 } else { // 分享 + (举报 + 帮助)
-                    getMenuInflater().inflate(R.menu.share_report, menu);
+                    getMenuInflater().inflate(R.menu.report_share, menu);
                 }
             }
         }

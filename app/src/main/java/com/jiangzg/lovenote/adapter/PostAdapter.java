@@ -86,9 +86,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String title = item.getTitle();
         String contentText = item.getContentText();
         List<String> imageList = item.getContentImageList();
-        String pointCount = item.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(item.getPointCount()) : mActivity.getString(R.string.point);
-        String collectCount = item.getCollectCount() > 0 ? CountHelper.getShowCount2Thousand(item.getCollectCount()) : mActivity.getString(R.string.collect);
-        String commentCount = item.getCommentCount() > 0 ? CountHelper.getShowCount2Thousand(item.getCommentCount()) : mActivity.getString(R.string.comment);
+        String pointCount = CountHelper.getShowCount2Thousand(item.getPointCount());
+        String collectCount = CountHelper.getShowCount2Thousand(item.getCollectCount());
+        String commentCount = CountHelper.getShowCount2Thousand(item.getCommentCount());
         boolean read = item.isRead();
         boolean point = item.isPoint();
         boolean collect = item.isCollect();

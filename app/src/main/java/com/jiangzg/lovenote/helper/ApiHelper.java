@@ -81,11 +81,11 @@ public class ApiHelper {
             MyApp.get().getString(R.string.me_de),
             MyApp.get().getString(R.string.ta_de)
     };
-    public static final int LIST_TOPIC_NORMAL = 0;
+    public static final int LIST_TOPIC_ALL = 0;
     public static final int LIST_TOPIC_OFFICIAL = 1;
     public static final int LIST_TOPIC_WELL = 2;
     public static final String[] LIST_TOPIC_SHOW = new String[]{
-            MyApp.get().getString(R.string.normal),
+            MyApp.get().getString(R.string.all),
             MyApp.get().getString(R.string.official),
             MyApp.get().getString(R.string.well)
     };

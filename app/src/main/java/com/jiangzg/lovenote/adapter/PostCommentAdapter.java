@@ -72,8 +72,8 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
         // 官方 我的 ta的
         Couple couple = item.getCouple();
         String contentText = item.getContentText();
-        String commentCount = item.getSubCommentCount() > 0 ? CountHelper.getShowCount2Thousand(item.getSubCommentCount()) : mActivity.getString(R.string.comment);
-        String pointCount = item.getPointCount() > 0 ? CountHelper.getShowCount2Thousand(item.getPointCount()) : mActivity.getString(R.string.point);
+        String commentCount = CountHelper.getShowCount2Thousand(item.getSubCommentCount());
+        String pointCount = CountHelper.getShowCount2Thousand(item.getPointCount());
         boolean official = item.isOfficial();
         boolean our = item.isOur();
         boolean subComment = item.isSubComment();

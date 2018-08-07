@@ -166,7 +166,8 @@
                         android:layout_height="20dp"
                         android:layout_centerInParent="true"
                         android:elevation="@dimen/elevation_huge"
-                        android:src="@drawable/ic_heart_solid_pink"/>
+                        android:src="@drawable/ic_heart_solid_pink"
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -215,7 +216,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/llPoint"
+                    android:id="@+id/llComment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -223,14 +224,14 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:id="@+id/ivPoint"
+                        android:id="@+id/ivComment"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginEnd="6dp"
-                        android:src="@drawable/ic_point_up_grey"/>
+                        android:src="@drawable/ic_comment_grey"/>
 
                     <TextView
-                        android:id="@+id/tvPoint"
+                        android:id="@+id/tvComment"
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -267,7 +268,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/llComment"
+                    android:id="@+id/llPoint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -275,14 +276,14 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:id="@+id/ivComment"
+                        android:id="@+id/ivPoint"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:layout_marginEnd="6dp"
-                        android:src="@drawable/ic_comment_grey"/>
+                        android:src="@drawable/ic_point_up_grey"/>
 
                     <TextView
-                        android:id="@+id/tvComment"
+                        android:id="@+id/tvPoint"
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -89,33 +89,6 @@
         tools:visibility="visible">
 
         <LinearLayout
-            android:id="@+id/llPoint"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?attr/selectableItemBackground"
-            android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="5dp">
-
-            <ImageView
-                android:id="@+id/ivPoint"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/ic_point_up_grey"/>
-
-            <TextView
-                android:id="@+id/tvPointCount"
-                style="@style/FontGreySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:gravity="center_vertical"
-                tools:text="点赞"/>
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/llReport"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -141,6 +114,33 @@
                 android:layout_marginStart="5dp"
                 android:gravity="center_vertical"
                 android:text="@string/report"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPoint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/ivPoint"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/ic_point_up_grey"/>
+
+            <TextView
+                android:id="@+id/tvPointCount"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:gravity="center_vertical"
+                tools:text="点赞"/>
         </LinearLayout>
     </LinearLayout>
 

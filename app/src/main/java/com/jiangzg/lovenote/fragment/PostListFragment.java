@@ -194,7 +194,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     public int getSearchType() {
         if (official) return ApiHelper.LIST_TOPIC_OFFICIAL;
         if (well) return ApiHelper.LIST_TOPIC_WELL;
-        return ApiHelper.LIST_TOPIC_NORMAL;
+        return ApiHelper.LIST_TOPIC_ALL;
     }
 
     private void getData(final boolean more) {

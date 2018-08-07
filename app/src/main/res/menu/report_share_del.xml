@@ -3,16 +3,16 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuShare"
-        android:icon="@drawable/ic_share_white"
-        android:title="@string/search"
-        app:showAsAction="ifRoom"/>
-
-    <item
         android:id="@+id/menuReport"
         android:icon="@drawable/ic_report_white"
         android:title="@string/report"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menuShare"
+        android:icon="@drawable/ic_share_white"
+        android:title="@string/search"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/menuDel"

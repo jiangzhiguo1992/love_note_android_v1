@@ -53,7 +53,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     LinearLayout llAdd;
 
     private PostKindInfo kindInfo;
-    private int searchType = ApiHelper.LIST_TOPIC_NORMAL;
+    private int searchType = ApiHelper.LIST_TOPIC_ALL;
     private PostSubKindInfo subKindInfo;
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
