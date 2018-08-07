@@ -121,6 +121,14 @@ public class SPHelper {
     private static final String FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH = "postCommentContentLength";
     private static final String FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT = "postCommentScreenReportCount";
     private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
+    private static final String FIELD_LIMIT_COIN_SIGN_MIN_COUNT = "coin_sign_min_count";
+    private static final String FIELD_LIMIT_COIN_SIGN_MAX_COUNT = "coin_sign_max_count";
+    private static final String FIELD_LIMIT_COIN_SIGN_CONTINUE_INCREASE_COUNT = "coin_sign_continue_increase_count";
+    private static final String FIELD_LIMIT_COIN_WIFE_POST_ADD_COUNT = "coin_wife_post_add_count";
+    private static final String FIELD_LIMIT_COIN_LETTER_POST_ADD_COUNT = "coin_letter_post_add_count";
+    private static final String FIELD_LIMIT_COIN_TOPIC_POST_ADD_COUNT = "coin_topic_post_add_count";
+    private static final String FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT = "coin_wish_perHour_count";
+    private static final String FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT = "coin_plane_perDay_count";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
@@ -411,6 +419,14 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, limit.getPostCommentContentLength());
         editor.putInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, limit.getPostCommentScreenReportCount());
         editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
+        editor.putInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, limit.getCoinSignMinCount());
+        editor.putInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, limit.getCoinSignMaxCount());
+        editor.putInt(FIELD_LIMIT_COIN_SIGN_CONTINUE_INCREASE_COUNT, limit.getCoinSignContinueIncreaseCount());
+        editor.putInt(FIELD_LIMIT_COIN_WIFE_POST_ADD_COUNT, limit.getCoinWifePostAddCount());
+        editor.putInt(FIELD_LIMIT_COIN_LETTER_POST_ADD_COUNT, limit.getCoinLetterPostAddCount());
+        editor.putInt(FIELD_LIMIT_COIN_TOPIC_POST_ADD_COUNT, limit.getCoinTopicPostAddCount());
+        editor.putInt(FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT, limit.getCoinWishPerHourCount());
+        editor.putInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, limit.getCoinPlanePerDayCount());
         editor.apply();
     }
 
@@ -460,11 +476,19 @@ public class SPHelper {
         limit.setAwardRuleScoreMax(sp.getInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, 100));
         limit.setPostTitleLength(sp.getInt(FIELD_LIMIT_POST_TITLE_LENGTH, 20));
         limit.setPostContentLength(sp.getInt(FIELD_LIMIT_POST_CONTENT_LENGTH, 100));
-        limit.setPostLonLatDiffMax(sp.getFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, 0.11F));
-        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 30));
+        limit.setPostLonLatDiffMax(sp.getFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, 0.1F));
+        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 0));
         limit.setPostCommentContentLength(sp.getInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, 100));
         limit.setPostCommentScreenReportCount(sp.getInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, 20));
         limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
+        limit.setCoinSignMinCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, 1));
+        limit.setCoinSignMaxCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, 10));
+        limit.setCoinSignContinueIncreaseCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_CONTINUE_INCREASE_COUNT, 1));
+        limit.setCoinWifePostAddCount(sp.getInt(FIELD_LIMIT_COIN_WIFE_POST_ADD_COUNT, 0));
+        limit.setCoinLetterPostAddCount(sp.getInt(FIELD_LIMIT_COIN_LETTER_POST_ADD_COUNT, 0));
+        limit.setCoinTopicPostAddCount(sp.getInt(FIELD_LIMIT_COIN_TOPIC_POST_ADD_COUNT, 0));
+        limit.setCoinWishPerHourCount(sp.getInt(FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT, 0));
+        limit.setCoinPlanePerDayCount(sp.getInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, 0));
         return limit;
     }
 

@@ -383,7 +383,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cvDiscuss"
+                        android:id="@+id/cvTopic"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -408,7 +408,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_discuss_blue"/>
+                                android:src="@drawable/ic_topic_blue"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -424,10 +424,10 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/discuss_meet"/>
+                                    android:text="@string/rob_topic"/>
 
                                 <TextView
-                                    android:id="@+id/tvDiscuss"
+                                    android:id="@+id/tvTopic"
                                     style="@style/FontGreySmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -531,7 +531,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cvPostcard"
+                        android:id="@+id/cvPlane"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -556,7 +556,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:src="@drawable/ic_postcard_purple_accent"/>
+                                android:src="@drawable/ic_plane_purple_accent"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -572,10 +572,10 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/postcard"/>
+                                    android:text="@string/paper_plane"/>
 
                                 <TextView
-                                    android:id="@+id/tvPostcard"
+                                    android:id="@+id/tvPlane"
                                     style="@style/FontGreySmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

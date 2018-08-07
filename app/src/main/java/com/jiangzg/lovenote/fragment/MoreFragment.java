@@ -37,38 +37,41 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.tvVip)
-    TextView tvVip;
+
     @BindView(R.id.cvVip)
     CardView cvVip;
-    @BindView(R.id.tvCoin)
-    TextView tvCoin;
+    @BindView(R.id.tvVip)
+    TextView tvVip;
     @BindView(R.id.cvCoin)
     CardView cvCoin;
-    @BindView(R.id.tvSign)
-    TextView tvSign;
+    @BindView(R.id.tvCoin)
+    TextView tvCoin;
     @BindView(R.id.cvSign)
     CardView cvSign;
-    @BindView(R.id.tvWife)
-    TextView tvWife;
+    @BindView(R.id.tvSign)
+    TextView tvSign;
+
     @BindView(R.id.cvWife)
     CardView cvWife;
-    @BindView(R.id.tvLetter)
-    TextView tvLetter;
+    @BindView(R.id.tvWife)
+    TextView tvWife;
     @BindView(R.id.cvLetter)
     CardView cvLetter;
-    @BindView(R.id.tvDiscuss)
-    TextView tvDiscuss;
-    @BindView(R.id.cvDiscuss)
-    CardView cvDiscuss;
-    @BindView(R.id.tvWish)
-    TextView tvWish;
+    @BindView(R.id.tvLetter)
+    TextView tvLetter;
+    @BindView(R.id.cvTopic)
+    CardView cvTopic;
+    @BindView(R.id.tvTopic)
+    TextView tvTopic;
+
     @BindView(R.id.cvWish)
     CardView cvWish;
-    @BindView(R.id.tvPostcard)
-    TextView tvPostcard;
-    @BindView(R.id.cvPostcard)
-    CardView cvPostcard;
+    @BindView(R.id.tvWish)
+    TextView tvWish;
+    @BindView(R.id.cvPlane)
+    CardView cvPlane;
+    @BindView(R.id.tvPlane)
+    TextView tvPlane;
 
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -136,8 +139,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     @OnClick({R.id.cvVip, R.id.cvCoin, R.id.cvSign,
-            R.id.cvWife, R.id.cvLetter, R.id.cvDiscuss,
-            R.id.cvWish, R.id.cvPostcard})
+            R.id.cvWife, R.id.cvLetter, R.id.cvTopic,
+            R.id.cvWish, R.id.cvPlane})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvVip: // 会员
@@ -167,13 +170,13 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvLetter: // 情书展
                 // TODO
                 break;
-            case R.id.cvDiscuss: // 讨论会
+            case R.id.cvTopic: // 抢话题
                 // TODO
                 break;
             case R.id.cvWish: // 许愿树
                 // TODO
                 break;
-            case R.id.cvPostcard: // 明信卡
+            case R.id.cvPlane: // 纸飞机
                 // TODO
                 break;
         }

@@ -60,6 +60,78 @@ public class Limit {
     private int postCommentScreenReportCount;
     // more
     private int vipExpireDay;
+    private int coinSignMinCount;
+    private int coinSignMaxCount;
+    private int coinSignContinueIncreaseCount;
+    private int coinWifePostAddCount;
+    private int coinLetterPostAddCount;
+    private int coinTopicPostAddCount;
+    private int coinWishPerHourCount;
+    private int coinPlanePerDayCount;
+
+    public int getCoinSignMinCount() {
+        return coinSignMinCount;
+    }
+
+    public void setCoinSignMinCount(int coinSignMinCount) {
+        this.coinSignMinCount = coinSignMinCount;
+    }
+
+    public int getCoinSignMaxCount() {
+        return coinSignMaxCount;
+    }
+
+    public void setCoinSignMaxCount(int coinSignMaxCount) {
+        this.coinSignMaxCount = coinSignMaxCount;
+    }
+
+    public int getCoinSignContinueIncreaseCount() {
+        return coinSignContinueIncreaseCount;
+    }
+
+    public void setCoinSignContinueIncreaseCount(int coinSignContinueIncreaseCount) {
+        this.coinSignContinueIncreaseCount = coinSignContinueIncreaseCount;
+    }
+
+    public int getCoinWifePostAddCount() {
+        return coinWifePostAddCount;
+    }
+
+    public void setCoinWifePostAddCount(int coinWifePostAddCount) {
+        this.coinWifePostAddCount = coinWifePostAddCount;
+    }
+
+    public int getCoinLetterPostAddCount() {
+        return coinLetterPostAddCount;
+    }
+
+    public void setCoinLetterPostAddCount(int coinLetterPostAddCount) {
+        this.coinLetterPostAddCount = coinLetterPostAddCount;
+    }
+
+    public int getCoinTopicPostAddCount() {
+        return coinTopicPostAddCount;
+    }
+
+    public void setCoinTopicPostAddCount(int coinTopicPostAddCount) {
+        this.coinTopicPostAddCount = coinTopicPostAddCount;
+    }
+
+    public int getCoinWishPerHourCount() {
+        return coinWishPerHourCount;
+    }
+
+    public void setCoinWishPerHourCount(int coinWishPerHourCount) {
+        this.coinWishPerHourCount = coinWishPerHourCount;
+    }
+
+    public int getCoinPlanePerDayCount() {
+        return coinPlanePerDayCount;
+    }
+
+    public void setCoinPlanePerDayCount(int coinPlanePerDayCount) {
+        this.coinPlanePerDayCount = coinPlanePerDayCount;
+    }
 
     public long getCoupleInviteIntervalSec() {
         return coupleInviteIntervalSec;
