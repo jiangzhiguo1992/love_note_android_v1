@@ -303,6 +303,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion("怎么设置背景图？");
         c2.setAnswer("点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。");
         contentList.add(c2);
+        // TODO 墙纸是什么？
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion("为什么TA的位置和天气信息没有数据？");
         c3.setAnswer("原因有以下几点：" +

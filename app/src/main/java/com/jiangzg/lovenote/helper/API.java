@@ -583,19 +583,19 @@ public interface API {
     @DELETE("topic/post/comment")
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
 
-    //  postCommentList获取
+    // postCommentList获取
     @GET("topic/post/comment?list=1&sub_list=0&uid=0&pcid=0")
     Call<Result> topicPostCommentListGet(@Query("pid") long pid, @Query("order") int order, @Query("page") int page);
 
-    //  postCommentSubList获取
+    // postCommentSubList获取
     @GET("topic/post/comment?list=0&sub_list=1&uid=0&pcid=0")
     Call<Result> topicPostCommentSubListGet(@Query("pid") long pid, @Query("tcid") long tcid, @Query("order") int order, @Query("page") int page);
 
-    //  postCommentList获取
+    // postCommentList获取
     @GET("topic/post/comment?list=0&sub_list=0&pcid=0")
     Call<Result> topicPostCommentUserListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
 
-    //  postCommentList获取
+    // postCommentList获取
     @GET("topic/post/comment?list=0&sub_list=0&uid=0")
     Call<Result> topicPostCommentGet(@Query("pcid") long pcid);
 
@@ -606,5 +606,41 @@ public interface API {
     // postCommentPoint上传
     @POST("topic/post/comment/point")
     Call<Result> topicPostCommentPointToggle(@Body PostCommentPoint postCommentPoint);
+
+    // moreHome获取
+    @GET("more/home")
+    Call<Result> moreHomeGet();
+
+    // broadcast获取
+    @GET("more/broadcast")
+    Call<Result> moreBroadcastGet(@Query("bid") long bid);
+
+    // vipList获取
+    @GET("more/vip?list=1&latest=0")
+    Call<Result> moreVipListGet(@Query("page") int page);
+
+    // vipLatest获取
+    @GET("more/vip?list=0&latest=1")
+    Call<Result> moreVipLatestGet();
+
+    // coinList获取
+    @GET("more/coin?list=1&latest=0")
+    Call<Result> moreCoinListGet(@Query("page") int page);
+
+    // coinLatest获取
+    @GET("more/coin?list=0&latest=1")
+    Call<Result> moreCoinLatestGet();
+
+    // sign上传
+    @POST("more/sign")
+    Call<Result> moreSignAdd();
+
+    // signList获取
+    @GET("more/sign?date=1&today=0")
+    Call<Result> moreSignDateGet(@Query("year") int year, @Query("month") int month);
+
+    // sign获取
+    @GET("more/sign?date=0&today=1")
+    Call<Result> moreSignTodayGet();
 
 }

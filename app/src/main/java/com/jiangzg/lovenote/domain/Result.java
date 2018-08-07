@@ -159,6 +159,79 @@ public class Result implements Serializable {
         private List<PostComment> postCommentList;
         private PostCommentReport postCommentReport;
         private PostCommentPoint postCommentPoint;
+        // more
+        private Broadcast broadcast;
+        private List<Broadcast> broadcastList;
+        private Vip vip;
+        private List<Vip> vipList;
+        private Coin coin;
+        private List<Coin> coinList;
+        private Sign sign;
+        private List<Sign> signList;
+
+        public List<Sign> getSignList() {
+            return signList;
+        }
+
+        public void setSignList(List<Sign> signList) {
+            this.signList = signList;
+        }
+
+        public List<Coin> getCoinList() {
+            return coinList;
+        }
+
+        public void setCoinList(List<Coin> coinList) {
+            this.coinList = coinList;
+        }
+
+        public List<Vip> getVipList() {
+            return vipList;
+        }
+
+        public void setVipList(List<Vip> vipList) {
+            this.vipList = vipList;
+        }
+
+        public Broadcast getBroadcast() {
+            return broadcast;
+        }
+
+        public void setBroadcast(Broadcast broadcast) {
+            this.broadcast = broadcast;
+        }
+
+        public List<Broadcast> getBroadcastList() {
+            return broadcastList;
+        }
+
+        public void setBroadcastList(List<Broadcast> broadcastList) {
+            this.broadcastList = broadcastList;
+        }
+
+        public Vip getVip() {
+            return vip;
+        }
+
+        public void setVip(Vip vip) {
+            this.vip = vip;
+        }
+
+        public Coin getCoin() {
+            return coin;
+        }
+
+        public void setCoin(Coin coin) {
+            this.coin = coin;
+        }
+
+        public Sign getSign() {
+            return sign;
+        }
+
+        public void setSign(Sign sign) {
+            this.sign = sign;
+        }
 
         public List<TopicInfo> getTopicInfoList() {
             return topicInfoList;

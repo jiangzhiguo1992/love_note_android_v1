@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.SettingsActivity;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.more.CoinActivity;
 import com.jiangzg.lovenote.activity.more.SignActivity;
 import com.jiangzg.lovenote.activity.more.VipActivity;
@@ -20,6 +21,7 @@ import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -139,12 +141,24 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvVip: // 会员
+                if (Couple.isBreak(SPHelper.getCouple())) {
+                    CouplePairActivity.goActivity(mFragment);
+                    return;
+                }
                 VipActivity.goActivity(mFragment);
                 break;
             case R.id.cvCoin: // 金币
+                if (Couple.isBreak(SPHelper.getCouple())) {
+                    CouplePairActivity.goActivity(mFragment);
+                    return;
+                }
                 CoinActivity.goActivity(mFragment);
                 break;
             case R.id.cvSign: // 签到
+                if (Couple.isBreak(SPHelper.getCouple())) {
+                    CouplePairActivity.goActivity(mFragment);
+                    return;
+                }
                 SignActivity.goActivity(mFragment);
                 break;
             case R.id.cvWife: // 夫妻相
