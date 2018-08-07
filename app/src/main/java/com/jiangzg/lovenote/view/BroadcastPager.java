@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.BroadcastActivity;
-import com.jiangzg.lovenote.domain.BaseObj;
 import com.jiangzg.lovenote.domain.Broadcast;
 import com.jiangzg.lovenote.helper.TimeHelper;
 
@@ -55,7 +53,7 @@ public class BroadcastPager extends ViewPager {
     public void initView(Fragment fragment) {
         this.fragment = fragment;
         width = ScreenUtils.getScreenWidth(context);
-        height = ConvertUtils.dp2px(130); // 和ViewPager的高度对应
+        height = ConvertUtils.dp2px(180); // 和ViewPager的高度对应
         if (mHandler == null) {
             mHandler = new Handler() {
                 @Override
@@ -74,17 +72,16 @@ public class BroadcastPager extends ViewPager {
                 }
             };
         }
+    }
+
+    public void setDataList(List<Broadcast> broadcastList) {
         if (adapter == null) {
             adapter = new MyPagerAdapter();
             setAdapter(adapter);
         }
-        adapter.setBroadcastList(null);
-        adapter.notifyDataSetChanged();
-    }
-
-    public void setDataList(List<Broadcast> broadcastList) {
         adapter.setBroadcastList(broadcastList);
         adapter.notifyDataSetChanged();
+        recycle(false);
         recycle(true);
     }
 
@@ -116,11 +113,6 @@ public class BroadcastPager extends ViewPager {
             } else {
                 this.broadcastList = broadcastList;
             }
-            if (this.broadcastList.size() <= 0) {
-                Broadcast broadcast = new Broadcast();
-                broadcast.setStatus(BaseObj.STATUS_DELETE);
-                this.broadcastList.add(broadcast);
-            }
         }
 
         @Override
@@ -138,75 +130,57 @@ public class BroadcastPager extends ViewPager {
             container.removeView((View) object);
         }
 
-        // 这里的instant不是当前的Item吗？为什么size = 3的时候只有0和2
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, final int position) {
-            int size = broadcastList.size();
+            // view
+            View root = LayoutInflater.from(context).inflate(R.layout.pager_item_broadcast, null);
+            FrescoView ivBroadcast = root.findViewById(R.id.ivBroadcast);
+            TextView tvTitle = root.findViewById(R.id.tvTitle);
+            TextView tvTime = root.findViewById(R.id.tvTime);
+            // data
             final Broadcast broadcast = broadcastList.get(position);
-            View root;
-            if (size <= 1 && broadcast.getStatus() == BaseObj.STATUS_DELETE) {
-                // 没有广播
-                root = new TextView(context);
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                root.setLayoutParams(params);
-                ((TextView) root).setGravity(Gravity.CENTER);
-                ((TextView) root).setTextAppearance(context, R.style.FontGreyNormal);
-                ((TextView) root).setText(R.string.now_no_broadcast);
-            } else {
-                // 有广播
-                root = LayoutInflater.from(context).inflate(R.layout.pager_item_broadcast, null);
-                FrescoView ivBroadcast = root.findViewById(R.id.ivBroadcast);
-                TextView tvTitle = root.findViewById(R.id.tvTitle);
-                TextView tvTime = root.findViewById(R.id.tvTime);
-                // data
-                String cover = broadcast.getCover();
-                String title = broadcast.getTitle();
-                String start = broadcast.getStartAt() != 0 ? TimeHelper.getTimeShowCn_MD_YMD_ByGo(broadcast.getStartAt()) : "";
-                String end = broadcast.getEndAt() != 0 ? TimeHelper.getTimeShowCn_MD_YMD_ByGo(broadcast.getEndAt()) : "";
-                String time = String.format(Locale.getDefault(), context.getString(R.string.holder_space_line_space_holder), start, end);
-                // set
-                ivBroadcast.setWidthAndHeight(width, height);
-                ivBroadcast.setData(cover);
-                tvTitle.setText(title);
-                tvTime.setText(time);
-                // 触摸监听
-                root.setOnTouchListener(new OnTouchListener() {
-                    @SuppressLint("ClickableViewAccessibility")
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        switch (event.getAction()) {
-                            case MotionEvent.ACTION_DOWN: // 按下时清空消息队列,停止轮播
-                                recycle(false);
-                                break;
-                            case MotionEvent.ACTION_CANCEL: // 动作滑动一半取消后,继续发送轮播消息
-                                recycle(true);
-                                break;
-                            case MotionEvent.ACTION_UP: // 抬起后,进入详情页面
-                                recycle(true);
-                                BroadcastActivity.goActivity(fragment, broadcast);
-                                break;
-                        }
-                        return true;
+            String cover = broadcast.getCover();
+            String title = broadcast.getTitle();
+            String start = broadcast.getStartAt() != 0 ? TimeHelper.getTimeShowCn_MD_YMD_ByGo(broadcast.getStartAt()) : "";
+            String end = broadcast.getEndAt() != 0 ? TimeHelper.getTimeShowCn_MD_YMD_ByGo(broadcast.getEndAt()) : "";
+            String time = String.format(Locale.getDefault(), context.getString(R.string.holder_space_line_space_holder), start, end);
+            // set
+            ivBroadcast.setWidthAndHeight(width, height);
+            ivBroadcast.setData(cover);
+            tvTitle.setText(title);
+            tvTime.setText(time);
+            // 触摸监听
+            root.setOnTouchListener(new OnTouchListener() {
+                @SuppressLint("ClickableViewAccessibility")
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: // 按下时清空消息队列,停止轮播
+                            recycle(false);
+                            break;
+                        case MotionEvent.ACTION_CANCEL: // 动作滑动一半取消后,继续发送轮播消息
+                            recycle(true);
+                            break;
+                        case MotionEvent.ACTION_UP: // 抬起后,进入详情页面
+                            recycle(true);
+                            BroadcastActivity.goActivity(fragment, broadcast);
+                            break;
                     }
-                });
-            }
+                    return true;
+                }
+            });
             //一定不能少，将imageView加入到viewPager中
             container.addView(root);
             return root;
         }
     }
 
-    ///**
-    // * 事件拦截机制,处理滑动viewPager导致tab切换的bug
-    // * onInterceptTouchEvent为事件拦截
-    // * onTouchEvent为事件处理
-    // */
-    //@Override
-    //public boolean dispatchTouchEvent(MotionEvent ev) {
-    //    // 请求父控件不要拦截触摸事件
-    //    getParent().requestDisallowInterceptTouchEvent(true);
-    //    return super.dispatchTouchEvent(ev);
-    //}
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        // 请求父控件不要拦截触摸事件
+        getParent().requestDisallowInterceptTouchEvent(true);
+        return super.dispatchTouchEvent(ev);
+    }
 
 }

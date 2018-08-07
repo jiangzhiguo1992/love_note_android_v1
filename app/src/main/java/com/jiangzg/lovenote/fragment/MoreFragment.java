@@ -20,17 +20,23 @@ import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.domain.Broadcast;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
+import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Version;
+import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.BroadcastPager;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
@@ -38,6 +44,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
+    @BindView(R.id.tvBroadcast)
+    TextView tvBroadcast;
     @BindView(R.id.vpBroadcast)
     BroadcastPager vpBroadcast;
 
@@ -76,6 +84,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.tvPlane)
     TextView tvPlane;
 
+    private Call<Result> call;
+
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
         // bundle.putData();
@@ -100,6 +110,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         });
         // broadcast
         vpBroadcast.initView(mFragment);
+        initBroadcast(null);
     }
 
     protected void loadData() {
@@ -109,7 +120,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @Override
     protected void onFinish(Bundle state) {
-
+        RetrofitHelper.cancel(call);
     }
 
     @Override
@@ -191,30 +202,33 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // TODO
-        MyApp.get().getHandler().postDelayed(new Runnable() {
+        call = new RetrofitHelper().call(API.class).moreHomeGet();
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
-            public void run() {
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                List<Broadcast> broadcastList = data.getBroadcastList();
+                // view
+                initBroadcast(broadcastList);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
             }
-        }, 1000);
-        //call = new RetrofitHelper().call(API.class).noteHomeGet(near);
-        //RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
-        //    @Override
-        //    public void onResponse(int code, String message, Result.Data data) {
-        //        srl.setRefreshing(false);
-        //        lockBack = true;
-        //        canLock = data.isCanLock();
-        //        isLock = data.isLock();
-        //        souvenirLatest = data.getSouvenirLatest();
-        //        refreshNoteView();
-        //    }
-        //
-        //    @Override
-        //    public void onFailure(int code, String message, Result.Data data) {
-        //        srl.setRefreshing(false);
-        //    }
-        //});
+        });
+    }
+
+    private void initBroadcast(List<Broadcast> broadcastList) {
+        if (broadcastList == null || broadcastList.size() <= 0) {
+            tvBroadcast.setVisibility(View.VISIBLE);
+            vpBroadcast.setVisibility(View.GONE);
+            vpBroadcast.setDataList(broadcastList);
+        } else {
+            tvBroadcast.setVisibility(View.GONE);
+            vpBroadcast.setVisibility(View.VISIBLE);
+        }
+        vpBroadcast.setDataList(broadcastList);
     }
 
 }

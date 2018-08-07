@@ -22,10 +22,22 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/tvBroadcast"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:gravity="center"
+                    android:text="@string/now_no_broadcast"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
+
                 <com.jiangzg.lovenote.view.BroadcastPager
                     android:id="@+id/vpBroadcast"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"/>
+                    android:layout_height="180dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
