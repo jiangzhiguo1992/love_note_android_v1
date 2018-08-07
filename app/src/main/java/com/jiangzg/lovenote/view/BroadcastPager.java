@@ -1,12 +1,12 @@
 package com.jiangzg.lovenote.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.activity.common.WebActivity;
 import com.jiangzg.lovenote.activity.more.BroadcastActivity;
 import com.jiangzg.lovenote.domain.Broadcast;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -33,26 +35,23 @@ import java.util.Locale;
  */
 public class BroadcastPager extends ViewPager {
 
-    private Context context;
-    private Fragment fragment;
+    private Activity activity;
     private Handler mHandler;
     private MyPagerAdapter adapter;
     private int width, height;
 
     public BroadcastPager(@NonNull Context context) {
         super(context);
-        this.context = context;
     }
 
     public BroadcastPager(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
     }
 
     @SuppressLint("HandlerLeak")
-    public void initView(Fragment fragment) {
-        this.fragment = fragment;
-        width = ScreenUtils.getScreenWidth(context);
+    public void initView(Activity activity) {
+        this.activity = activity;
+        width = ScreenUtils.getScreenWidth(activity);
         height = ConvertUtils.dp2px(180); // 和ViewPager的高度对应
         if (mHandler == null) {
             mHandler = new Handler() {
@@ -72,16 +71,18 @@ public class BroadcastPager extends ViewPager {
                 }
             };
         }
+        this.setPageTransformer(true, new GPageTransFormer(GPageTransFormer.TYPE_SCALE_FADE));
     }
 
     public void setDataList(List<Broadcast> broadcastList) {
+        recycle(false);
         if (adapter == null) {
             adapter = new MyPagerAdapter();
             setAdapter(adapter);
         }
         adapter.setBroadcastList(broadcastList);
         adapter.notifyDataSetChanged();
-        recycle(false);
+        this.setOffscreenPageLimit(broadcastList == null ? 0 : broadcastList.size());
         recycle(true);
     }
 
@@ -91,7 +92,7 @@ public class BroadcastPager extends ViewPager {
     public void recycle(boolean recycle) {
         if (recycle) {
             // 发送message开始轮播
-            mHandler.sendEmptyMessageDelayed(1, 2000);
+            mHandler.sendEmptyMessageDelayed(1, 4000);
         } else {
             // 清空消息队列,停止轮播
             mHandler.removeCallbacksAndMessages(null);
@@ -134,7 +135,7 @@ public class BroadcastPager extends ViewPager {
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, final int position) {
             // view
-            View root = LayoutInflater.from(context).inflate(R.layout.pager_item_broadcast, null);
+            View root = LayoutInflater.from(activity).inflate(R.layout.pager_item_broadcast, null);
             FrescoView ivBroadcast = root.findViewById(R.id.ivBroadcast);
             TextView tvTitle = root.findViewById(R.id.tvTitle);
             TextView tvTime = root.findViewById(R.id.tvTime);
@@ -142,9 +143,9 @@ public class BroadcastPager extends ViewPager {
             final Broadcast broadcast = broadcastList.get(position);
             String cover = broadcast.getCover();
             String title = broadcast.getTitle();
-            String start = broadcast.getStartAt() != 0 ? TimeHelper.getTimeShowCn_MD_YMD_ByGo(broadcast.getStartAt()) : "";
-            String end = broadcast.getEndAt() != 0 ? TimeHelper.getTimeShowCn_MD_YMD_ByGo(broadcast.getEndAt()) : "";
-            String time = String.format(Locale.getDefault(), context.getString(R.string.holder_space_line_space_holder), start, end);
+            String start = broadcast.getStartAt() != 0 ? TimeHelper.getTimeShowLine_MD_YMD_ByGo(broadcast.getStartAt()) : "";
+            String end = broadcast.getEndAt() != 0 ? TimeHelper.getTimeShowLine_MD_YMD_ByGo(broadcast.getEndAt()) : "";
+            String time = String.format(Locale.getDefault(), activity.getString(R.string.holder_space_space_holder), start, end);
             // set
             ivBroadcast.setWidthAndHeight(width, height);
             ivBroadcast.setData(cover);
@@ -164,7 +165,7 @@ public class BroadcastPager extends ViewPager {
                             break;
                         case MotionEvent.ACTION_UP: // 抬起后,进入详情页面
                             recycle(true);
-                            BroadcastActivity.goActivity(fragment, broadcast);
+                            go(broadcast);
                             break;
                     }
                     return true;
@@ -181,6 +182,22 @@ public class BroadcastPager extends ViewPager {
         // 请求父控件不要拦截触摸事件
         getParent().requestDisallowInterceptTouchEvent(true);
         return super.dispatchTouchEvent(ev);
+    }
+
+    private void go(Broadcast broadcast) {
+        if (broadcast == null) return;
+        switch (broadcast.getContentType()) {
+            case Broadcast.TYPE_URL: // 网页
+                WebActivity.goActivity(activity, broadcast.getTitle(), broadcast.getContentText());
+                break;
+            case Broadcast.TYPE_IMAGE: // 图片
+                BigImageActivity.goActivityByOss(activity, broadcast.getContentText(), null);
+                break;
+            case Broadcast.TYPE_TEXT: // 文字
+            default:
+                BroadcastActivity.goActivity(activity, broadcast);
+                break;
+        }
     }
 
 }

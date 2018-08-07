@@ -109,7 +109,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             }
         });
         // broadcast
-        vpBroadcast.initView(mFragment);
+        vpBroadcast.initView(mActivity);
         initBroadcast(null);
     }
 

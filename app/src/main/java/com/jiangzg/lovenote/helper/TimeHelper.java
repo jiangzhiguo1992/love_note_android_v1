@@ -25,6 +25,22 @@ public class TimeHelper {
         return time * 1000;
     }
 
+    // 时间显示(有横线)(一般不用)
+    public static String getTimeShowLine_MD_YMD_ByGo(long time) {
+        Calendar cNow = DateUtils.getCurrentCalendar();
+        Calendar cTime = DateUtils.getCurrentCalendar();
+        cTime.setTime(new Date(getJavaTimeByGo(time)));
+        String format;
+        if (cNow.get(Calendar.YEAR) == cTime.get(Calendar.YEAR)) {
+            // 同一年
+            format = ConstantUtils.FORMAT_LINE_M_D;
+        } else {
+            // 不同年
+            format = ConstantUtils.FORMAT_LINE_Y_M_D;
+        }
+        return DateUtils.getString(getJavaTimeByGo(time), format);
+    }
+
     // 时间显示(有横线)
     public static String getTimeShowLine_HM_MD_YMD_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
