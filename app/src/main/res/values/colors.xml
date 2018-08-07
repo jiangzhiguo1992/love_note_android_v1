@@ -61,49 +61,49 @@
     <!-- blue -->
     <color name="theme_blue_dark">#1976D2</color>
     <color name="theme_blue_primary">#2196F3</color>
-    <color name="theme_blue_accent">#448AFF</color>
+    <color name="theme_blue_accent">#5b98fd</color>
     <color name="theme_blue_light">#BBDEFB</color>
 
     <!-- teal -->
     <color name="theme_teal_dark">#00796B</color>
     <color name="theme_teal_primary">#009688</color>
-    <color name="theme_teal_accent">#00BCD4</color>
+    <color name="theme_teal_accent">#12a0b3</color>
     <color name="theme_teal_light">#B2DFDB</color>
 
     <!-- green -->
     <color name="theme_green_dark">#689F38</color>
     <color name="theme_green_primary">#8BC34A</color>
-    <color name="theme_green_accent">#A0E156</color>
+    <color name="theme_green_accent">#adf15f</color>
     <color name="theme_green_light">#DCEDC8</color>
 
     <!-- lime -->
     <color name="theme_lime_dark">#AFB42B</color>
     <color name="theme_lime_primary">#CDDC39</color>
-    <color name="theme_lime_accent">#CDDC39</color>
+    <color name="theme_lime_accent">#c7d448</color>
     <color name="theme_lime_light">#F0F4C3</color>
 
     <!-- yellow -->
     <color name="theme_yellow_dark">#FBC02D</color>
     <color name="theme_yellow_primary">#FFEB3B</color>
-    <color name="theme_yellow_accent">#FFEE59</color>
+    <color name="theme_yellow_accent">#fded62</color>
     <color name="theme_yellow_light">#FFF9C4</color>
 
     <!-- orange -->
     <color name="theme_orange_dark">#F57C00</color>
     <color name="theme_orange_primary">#FF9800</color>
-    <color name="theme_orange_accent">#FDAE39</color>
+    <color name="theme_orange_accent">#ffb64a</color>
     <color name="theme_orange_light">#FFE0B2</color>
 
     <!-- brown -->
     <color name="theme_brown_dark">#5D4037</color>
     <color name="theme_brown_primary">#795548</color>
-    <color name="theme_brown_accent">#996B5B</color>
+    <color name="theme_brown_accent">#a77564</color>
     <color name="theme_brown_light">#D7CCC8</color>
 
     <!-- grey -->
     <color name="theme_grey_dark">#616161</color>
     <color name="theme_grey_primary">#9E9E9E</color>
-    <color name="theme_grey_accent">#A6A6A6</color>
+    <color name="theme_grey_accent">#b1b1b1</color>
     <color name="theme_grey_light">#F5F5F5</color>
 
 </resources>

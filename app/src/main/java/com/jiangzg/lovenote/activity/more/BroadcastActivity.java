@@ -7,10 +7,11 @@ import android.support.v4.app.Fragment;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Broadcast;
 
 public class BroadcastActivity extends BaseActivity<BroadcastActivity> {
 
-    public static void goActivity(Fragment from) {
+    public static void goActivity(Fragment from, Broadcast broadcast) {
         Intent intent = new Intent(from.getActivity(), BroadcastActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

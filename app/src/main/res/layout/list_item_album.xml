@@ -10,8 +10,6 @@
     android:layout_marginEnd="5dp"
     android:layout_marginStart="5dp"
     android:layout_marginTop="2dp"
-    android:background="?attr/selectableItemBackground"
-    android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/radius_normal"
     app:cardElevation="@dimen/elevation_normal"

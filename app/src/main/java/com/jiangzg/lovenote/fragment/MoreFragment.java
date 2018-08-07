@@ -26,6 +26,7 @@ import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.view.BroadcastPager;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import butterknife.BindView;
@@ -37,6 +38,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
+    @BindView(R.id.vpBroadcast)
+    BroadcastPager vpBroadcast;
 
     @BindView(R.id.cvVip)
     CardView cvVip;
@@ -95,6 +98,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 refreshData();
             }
         });
+        // broadcast
+        vpBroadcast.initView(mFragment);
     }
 
     protected void loadData() {
