@@ -61,6 +61,7 @@
     <string name="month_space">月 </string>
     <string name="girl">女</string>
     <string name="boy">男</string>
+    <string name="nil">无</string>
     <string name="prompt">提示</string>
     <string name="confirm">确定</string>
     <string name="agree">同意</string>
@@ -562,6 +563,7 @@
     <string name="comment_point">评论点赞</string>
 
     <!-- square -->
+    <string name="broadcast">广播</string>
     <string name="sign">签到</string>
     <string name="coin">金币</string>
     <string name="vip">会员</string>
@@ -574,6 +576,7 @@
     <string name="wish_tree">许愿树</string>
     <string name="paper_plane">纸飞机</string>
     <string name="now_no_broadcast">暂无广播</string>
-
+    <string name="start_time_colon_holder" formatted="false">开始时间：%s</string>
+    <string name="end_time_colon_holder" formatted="false">结束时间：%s</string>
 
 </resources>
