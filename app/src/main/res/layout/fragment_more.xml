@@ -32,8 +32,8 @@
                     android:visibility="gone"
                     tools:visibility="visible"/>
 
-                <com.jiangzg.lovenote.view.BroadcastPager
-                    android:id="@+id/vpBroadcast"
+                <com.jiangzg.lovenote.view.BroadcastBanner
+                    android:id="@+id/bb"
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:visibility="gone"

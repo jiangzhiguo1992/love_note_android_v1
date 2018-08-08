@@ -29,7 +29,7 @@ import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.view.BroadcastPager;
+import com.jiangzg.lovenote.view.BroadcastBanner;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -46,8 +46,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     GSwipeRefreshLayout srl;
     @BindView(R.id.tvBroadcast)
     TextView tvBroadcast;
-    @BindView(R.id.vpBroadcast)
-    BroadcastPager vpBroadcast;
+    @BindView(R.id.bb)
+    BroadcastBanner bb;
 
     @BindView(R.id.cvVip)
     CardView cvVip;
@@ -85,6 +85,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     TextView tvPlane;
 
     private Call<Result> call;
+    private List<Broadcast> broadcastList;
 
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -109,7 +110,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             }
         });
         // broadcast
-        vpBroadcast.initView(mActivity);
+        bb.initView(mActivity);
         initBroadcast(null);
     }
 
@@ -207,7 +208,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                List<Broadcast> broadcastList = data.getBroadcastList();
+                broadcastList = data.getBroadcastList();
                 // view
                 initBroadcast(broadcastList);
             }
@@ -222,13 +223,12 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     private void initBroadcast(List<Broadcast> broadcastList) {
         if (broadcastList == null || broadcastList.size() <= 0) {
             tvBroadcast.setVisibility(View.VISIBLE);
-            vpBroadcast.setVisibility(View.GONE);
-            vpBroadcast.setDataList(broadcastList);
+            bb.setVisibility(View.GONE);
         } else {
             tvBroadcast.setVisibility(View.GONE);
-            vpBroadcast.setVisibility(View.VISIBLE);
+            bb.setVisibility(View.VISIBLE);
+            bb.setDataList(broadcastList);
         }
-        vpBroadcast.setDataList(broadcastList);
     }
 
 }
