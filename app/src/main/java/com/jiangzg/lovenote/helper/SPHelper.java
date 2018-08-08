@@ -130,7 +130,6 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT = "coin_wish_perHour_count";
     private static final String FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT = "coin_plane_perDay_count";
     // vipLimit
-    private static final String FIELD_VIP_LIMIT_VIP_EXPIRE_AT = "vip_expire_at";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
     private static final String FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE = "note_total_enable";
     private static final String FIELD_VIP_LIMIT_SOUVENIR_COUNT = "souvenir_count";
@@ -502,7 +501,6 @@ public class SPHelper {
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT).edit();
-        editor.putLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, vipLimit.getVipExpireAt());
         editor.putInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, vipLimit.getWallPaperCount());
         editor.putBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, vipLimit.isNoteTotalEnable());
         editor.putInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, vipLimit.getSouvenirCount());
@@ -524,7 +522,6 @@ public class SPHelper {
     public static VipLimit getVipLimit() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_VIP_LIMIT);
         VipLimit vipLimit = new VipLimit();
-        vipLimit.setVipExpireAt(sp.getLong(FIELD_VIP_LIMIT_VIP_EXPIRE_AT, 0));
         vipLimit.setWallPaperCount(sp.getInt(FIELD_VIP_LIMIT_WALL_PAPER_COUNT, 1));
         vipLimit.setNoteTotalEnable(sp.getBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, false));
         vipLimit.setSouvenirCount(sp.getInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, 1));

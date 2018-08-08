@@ -32,7 +32,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-
+        // TODO
     }
 
     @Override

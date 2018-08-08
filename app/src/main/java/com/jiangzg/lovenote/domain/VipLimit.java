@@ -6,8 +6,6 @@ package com.jiangzg.lovenote.domain;
  */
 public class VipLimit {
 
-    // vip
-    private long vipExpireAt;
     // couple
     private int wallPaperCount;
     // note
@@ -113,14 +111,6 @@ public class VipLimit {
 
     public void setWhisperImageCount(int whisperImageCount) {
         this.whisperImageCount = whisperImageCount;
-    }
-
-    public long getVipExpireAt() {
-        return vipExpireAt;
-    }
-
-    public void setVipExpireAt(long vipExpireAt) {
-        this.vipExpireAt = vipExpireAt;
     }
 
     public int getWallPaperCount() {

@@ -24,7 +24,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-
+        // TODO
     }
 
     @Override
