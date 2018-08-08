@@ -24,6 +24,7 @@ import com.jiangzg.lovenote.domain.Broadcast;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
+import com.jiangzg.lovenote.domain.Sign;
 import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -33,6 +34,7 @@ import com.jiangzg.lovenote.view.BroadcastBanner;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -112,6 +114,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         // broadcast
         bb.initView(mActivity);
         initBroadcast(null);
+        initSign(null);
     }
 
     protected void loadData() {
@@ -209,8 +212,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 broadcastList = data.getBroadcastList();
+                Sign sign = data.getSign();
                 // view
                 initBroadcast(broadcastList);
+                initSign(sign);
             }
 
             @Override
@@ -229,6 +234,12 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             bb.setVisibility(View.VISIBLE);
             bb.setDataList(broadcastList);
         }
+    }
+
+    private void initSign(Sign sign) {
+        int continueDay = (sign == null) ? 0 : sign.getContinueDay();
+        String signShow = String.format(Locale.getDefault(), getString(R.string.continue_holder_day), continueDay);
+        tvSign.setText(signShow);
     }
 
 }
