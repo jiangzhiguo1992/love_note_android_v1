@@ -124,7 +124,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         getLatestData();
-        getSleepListData();
+        getSleepMonthData();
     }
 
     @Override
@@ -175,7 +175,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 // data
                 clickYear = date.getYear();
                 clickMonth = date.getMonth() + 1;
-                getSleepListData();
+                getSleepMonthData();
             }
         });
         // 设置点击选择日期改变事件
@@ -319,7 +319,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         });
     }
 
-    private void getSleepListData() {
+    private void getSleepMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -358,7 +358,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 // view
                 refreshSleepLatestView();
                 // data
-                getSleepListData();
+                getSleepMonthData();
             }
 
             @Override

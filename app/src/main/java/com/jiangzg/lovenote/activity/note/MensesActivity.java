@@ -127,7 +127,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         getLatestData();
-        getListData();
+        getMensesMonthData();
     }
 
     @Override
@@ -177,7 +177,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 // data
                 clickYear = date.getYear();
                 clickMonth = date.getMonth() + 1;
-                getListData();
+                getMensesMonthData();
             }
         });
         // 设置点击选择日期改变事件
@@ -249,7 +249,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 isMine = (R.id.rbMe == checkedId);
                 refreshLatestView();
-                getListData();
+                getMensesMonthData();
             }
         });
     }
@@ -342,7 +342,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         });
     }
 
-    private void getListData() {
+    private void getMensesMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -378,7 +378,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 // view
                 refreshLatestView();
                 // data
-                getListData();
+                getMensesMonthData();
             }
 
             @Override

@@ -108,6 +108,7 @@ public class BroadcastBanner extends Banner {
         public void displayImage(Context context, Object path, ImageView imageView) {
             String url = (String) path;
             FrescoView view = (FrescoView) imageView;
+            view.setWidthAndHeight(ScreenUtils.getScreenWidth(context), ConvertUtils.dp2px(180));
             view.setData(url);
         }
 
@@ -117,7 +118,6 @@ public class BroadcastBanner extends Banner {
             FrescoView view = new FrescoView(context);
             view.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
             view.getHierarchy().setFadeDuration(0);
-            view.setWidthAndHeight(ScreenUtils.getScreenWidth(context), ConvertUtils.dp2px(180));
             return new FrescoView(context);
         }
     }

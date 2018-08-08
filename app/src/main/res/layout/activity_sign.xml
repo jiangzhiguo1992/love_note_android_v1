@@ -1,10 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jiangzg.lovenote.activity.more.SignActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_primary_white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                android:id="@+id/mcvSign"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/cvState"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    tools:background="@color/black_trans_25">
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarLeft"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        tools:background="@mipmap/ic_boy_circle"/>
+
+                    <TextView
+                        android:id="@+id/tvCountLeft"
+                        style="@style/FontPrimaryNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="本月签到8次"/>
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvState"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="?attr/colorPrimary"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
+
+                    <TextView
+                        android:id="@+id/tvState"
+                        style="@style/FontWhiteHuge"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        tools:text="签到"/>
+                </android.support.v7.widget.CardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@+id/cvState"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="5dp"
+                    tools:background="@color/black_trans_25">
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarRight"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginBottom="10dp"
+                        tools:background="@mipmap/ic_girl_circle"/>
+
+                    <TextView
+                        android:id="@+id/tvCountRight"
+                        style="@style/FontPrimaryNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="本月签到8次"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+</LinearLayout>

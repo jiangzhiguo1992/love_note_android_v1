@@ -105,7 +105,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        getShyListData();
+        getShyMonthData();
     }
 
     @Override
@@ -154,7 +154,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 // data
                 clickYear = date.getYear();
                 clickMonth = date.getMonth() + 1;
-                getShyListData();
+                getShyMonthData();
             }
         });
         // 设置点击选择日期改变事件
@@ -228,7 +228,16 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         tvDay.setText(String.format(Locale.getDefault(), dayFormat, dayList.size()));
     }
 
-    private void getShyListData() {
+    private void showDatePicker() {
+        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), new DialogHelper.OnPickListener() {
+            @Override
+            public void onPick(long time) {
+                shyPush(TimeHelper.getGoTimeByJava(time));
+            }
+        });
+    }
+
+    private void getShyMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
@@ -255,15 +264,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         });
     }
 
-    private void showDatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                shyPush(TimeHelper.getGoTimeByJava(time));
-            }
-        });
-    }
-
     private void shyPush(long happenAt) {
         Shy shy = new Shy();
         shy.setHappenAt(happenAt);
@@ -272,7 +272,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                getShyListData();
+                getShyMonthData();
             }
 
             @Override
