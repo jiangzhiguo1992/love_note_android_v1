@@ -128,10 +128,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
+    public void onStart() {
+        super.onStart();
         // menu
-        if (isVisibleToUser) tb.invalidate();
+        tb.invalidate();
     }
 
     // 不能和note的一样，会显示不出来

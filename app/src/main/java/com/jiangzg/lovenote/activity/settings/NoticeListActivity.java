@@ -108,9 +108,8 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
                 int noticeNoReadCount = data.getNoticeNoReadCount();
                 SPHelper.setNoticeNoReadCount(noticeNoReadCount);
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<Notice> noticeList = data.getNoticeList();
-                recyclerHelper.dataOk(noticeList, total, more);
+                recyclerHelper.dataOk(noticeList, more);
             }
 
             @Override
