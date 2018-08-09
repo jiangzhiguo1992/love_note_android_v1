@@ -392,7 +392,7 @@
                     </android.support.v7.widget.CardView>
 
                     <android.support.v7.widget.CardView
-                        android:id="@+id/cvTopic"
+                        android:id="@+id/cvDiscuss"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -433,10 +433,10 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/rob_topic"/>
+                                    android:text="@string/discuss_meet"/>
 
                                 <TextView
-                                    android:id="@+id/tvTopic"
+                                    android:id="@+id/tvDiscuss"
                                     style="@style/FontGreySmall"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

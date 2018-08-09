@@ -65,7 +65,7 @@ public class ApiHelper {
     public static final int COUPLE_UPDATE_GOOD = 1; // 更好
     public static final int COUPLE_UPDATE_BAD = 2; // 更坏
     public static final int COUPLE_UPDATE_INFO = 3;// 信息
-    // order类型 type要和show相对应
+    // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
     private static final int LIST_COMMENT_ORDER_TIME = 1;
     public static final int[] LIST_COMMENT_ORDER_TYPE = new int[]{
@@ -76,7 +76,7 @@ public class ApiHelper {
             MyApp.get().getString(R.string.point),
             MyApp.get().getString(R.string.time)
     };
-    // list类型 type要和show相对应
+    // note search类型
     private static final int LIST_NOTE_CP = 0;
     public static final int LIST_NOTE_MY = 1;
     public static final int LIST_NOTE_TA = 2;
@@ -90,6 +90,7 @@ public class ApiHelper {
             MyApp.get().getString(R.string.me_de),
             MyApp.get().getString(R.string.ta_de)
     };
+    // topic search类型
     public static final int LIST_TOPIC_ALL = 0;
     public static final int LIST_TOPIC_OFFICIAL = 1;
     public static final int LIST_TOPIC_WELL = 2;

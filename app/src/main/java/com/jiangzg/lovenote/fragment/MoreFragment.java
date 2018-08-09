@@ -72,10 +72,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     CardView cvLetter;
     @BindView(R.id.tvLetter)
     TextView tvLetter;
-    @BindView(R.id.cvTopic)
-    CardView cvTopic;
-    @BindView(R.id.tvTopic)
-    TextView tvTopic;
+    @BindView(R.id.cvDiscuss)
+    CardView cvDiscuss;
+    @BindView(R.id.tvDiscuss)
+    TextView tvDiscuss;
 
     @BindView(R.id.cvWish)
     CardView cvWish;
@@ -159,7 +159,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     }
 
     @OnClick({R.id.cvVip, R.id.cvCoin, R.id.cvSign,
-            R.id.cvWife, R.id.cvLetter, R.id.cvTopic,
+            R.id.cvWife, R.id.cvLetter, R.id.cvDiscuss,
             R.id.cvWish, R.id.cvPlane})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -190,7 +190,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvLetter: // 情书展
                 // TODO
                 break;
-            case R.id.cvTopic: // 抢话题
+            case R.id.cvDiscuss: // 讨论会
                 // TODO
                 break;
             case R.id.cvWish: // 许愿树
