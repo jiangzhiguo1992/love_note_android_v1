@@ -258,7 +258,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         boolean official = suggest.isOfficial();
         boolean mine = suggest.isMine();
-        String statusShow = suggest.getStatus() > 0 ? SuggestInfo.getStatusShow(suggest.getStatus()) : "";
+        String statusShow = SuggestInfo.getStatusShow(suggest.getStatus());
         String kindShow = SuggestInfo.getKindShow(suggest.getKind());
         String title = suggest.getTitle();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());

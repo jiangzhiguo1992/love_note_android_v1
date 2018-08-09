@@ -33,8 +33,6 @@ import retrofit2.Call;
 public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, BaseViewHolder> {
 
     private BaseActivity mActivity;
-    private final String formatFloor;
-    private final String formatOfficial;
     private final int colorGrey;
     private final int colorDark;
     private final int colorPrimary;
@@ -42,8 +40,6 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     public SuggestCommentAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest_comment);
         mActivity = activity;
-        formatFloor = mActivity.getString(R.string.holder_floor);
-        formatOfficial = mActivity.getString(R.string.official);
 
         colorGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         colorDark = ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity));
@@ -53,17 +49,16 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     @Override
     protected void convert(BaseViewHolder helper, SuggestComment item) {
         // data
-        int layoutPosition = helper.getLayoutPosition();
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
-        String floor = official ? formatOfficial : String.format(Locale.getDefault(), formatFloor, layoutPosition);
+        String floor = official ? mActivity.getString(R.string.official) : "";
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
+        String top = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), floor, create);
         String contentText = item.getContentText();
         // view
-        helper.setText(R.id.tvTime, create);
         helper.setText(R.id.tvContent, contentText);
-        TextView tvFloor = helper.getView(R.id.tvFloor);
-        tvFloor.setText(floor);
+        TextView tvFloor = helper.getView(R.id.tvTop);
+        tvFloor.setText(top);
         if (official) {
             tvFloor.setTextColor(colorDark);
         } else if (mine) {
