@@ -53,7 +53,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     LinearLayout llAdd;
 
     private PostKindInfo kindInfo;
-    private int searchType = ApiHelper.LIST_TOPIC_ALL;
+    private int searchIndex;
     private PostSubKindInfo subKindInfo;
 
     public static void goActivity(Fragment from, PostKindInfo kindInfo) {
@@ -80,7 +80,8 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, kindInfo.getName(), true);
         // search
-        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
+        searchIndex = 0;
+        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchIndex]);
         // fragment
         List<PostSubKindInfo> postSubKindInfoList = kindInfo.getPostSubKindInfoList();
         List<String> titleList = new ArrayList<>();
@@ -107,9 +108,15 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
             @Override
             public void onPageSelected(int position) {
                 PostListFragment fragment = fragmentList.get(position);
-                searchType = fragment.getSearchType();
+                int searchType = fragment.getSearchType();
+                for (int i = 0; i < ApiHelper.LIST_TOPIC_TYPE.length; i++) {
+                    if (searchType == ApiHelper.LIST_TOPIC_TYPE[i]) {
+                        searchIndex = i;
+                        break;
+                    }
+                }
                 subKindInfo = fragment.getSubKindInfo();
-                tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
+                tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchIndex]);
             }
 
             @Override
@@ -171,13 +178,17 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_TOPIC_SHOW)
-                .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        searchType = which;
-                        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchType]);
+                        if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE.length
+                                || which >= ApiHelper.LIST_TOPIC_SHOW.length) {
+                            return true;
+                        }
+                        searchIndex = which;
+                        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchIndex]);
                         RxEvent<Boolean> event;
-                        switch (searchType) {
+                        switch (ApiHelper.LIST_TOPIC_TYPE[searchIndex]) {
                             case ApiHelper.LIST_TOPIC_OFFICIAL: // 官方
                                 event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
                                 break;

@@ -69,7 +69,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     private Call<Result> callList;
     private Call<Result> callScore;
     private int page;
-    private int searchType = ApiHelper.LIST_NOTE_CP;
+    private int searchIndex;
     private Observable<List<Award>> obListRefresh;
     private Observable<Award> obListItemDelete;
 
@@ -96,7 +96,8 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.award), true);
         // search
-        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
+        searchIndex = 0;
+        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -193,6 +194,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
         if (!more) refreshScoreData(); // 加载分数
         page = more ? page + 1 : 0;
         // api
+        int searchType = ApiHelper.LIST_NOTE_TYPE[searchIndex];
         callList = new RetrofitHelper().call(API.class).noteAwardListGet(searchType, page);
         RetrofitHelper.enqueue(callList, null, new RetrofitHelper.CallBack() {
             @Override
@@ -217,12 +219,16 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_NOTE_SHOW)
-                .itemsCallbackSingleChoice(searchType, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        searchType = which;
-                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchType]);
+                        if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length
+                                || which >= ApiHelper.LIST_NOTE_SHOW.length) {
+                            return true;
+                        }
+                        searchIndex = which;
+                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
                         recyclerHelper.dataRefresh();
                         DialogUtils.dismiss(dialog);
                         return true;
