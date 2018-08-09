@@ -9,18 +9,18 @@ import android.os.Parcelable;
  */
 public class Suggest extends BaseObj implements Parcelable {
 
-    public static final int STATUS_REPLY_NO = 1;
-    public static final int STATUS_REPLY_YES = 2;
-    public static final int STATUS_ACCEPT_NO = 3;
-    public static final int STATUS_ACCEPT_YES = 4;
-    public static final int STATUS_HANDLE_ING = 5;
-    public static final int STATUS_HANDLE_OVER = 6;
+    public static final int STATUS_REPLY_NO = 0;
+    public static final int STATUS_REPLY_YES = 10;
+    public static final int STATUS_ACCEPT_NO = 20;
+    public static final int STATUS_ACCEPT_YES = 30;
+    public static final int STATUS_HANDLE_ING = 40;
+    public static final int STATUS_HANDLE_OVER = 50;
 
     public static final int KIND_ALL = 0;
-    public static final int KIND_ERROR = 1;
-    public static final int KIND_FUNCTION = 2;
-    public static final int KIND_OPTIMIZE = 3;
-    public static final int KIND_DEBUNK = 4;
+    public static final int KIND_ERROR = 10;
+    public static final int KIND_FUNCTION = 20;
+    public static final int KIND_OPTIMIZE = 30;
+    public static final int KIND_DEBUNK = 40;
 
     private int kind;
     private String title;

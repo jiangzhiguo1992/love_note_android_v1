@@ -99,7 +99,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     private Call<Result> callSubCommentListGet;
     private Call<Result> callReport;
     private Call<Result> callPoint;
-    private int page, orderType, limitCommentContentLength;
+    private int page, orderIndex, limitCommentContentLength;
 
     public static void goActivity(Activity from, PostComment postComment) {
         if (postComment == null) return;
@@ -189,7 +189,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
-        orderType = ApiHelper.COMMENT_ORDER_POINT;
+        orderIndex = 0;
         // event
         obPostCommentDetail = RxBus.register(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, new Action1<Long>() {
             @Override
@@ -418,11 +418,14 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_order_type)
                 .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderType, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(orderIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        orderType = which;
+                        if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
+                            return true;
+                        }
+                        orderIndex = which;
                         initCommentOrderView();
                         recyclerHelper.dataRefresh();
                         DialogUtils.dismiss(dialog);
@@ -437,8 +440,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
-        if (orderType >= 0 && orderType < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
-            tvCommentSort.setText(ApiHelper.LIST_COMMENT_ORDER_SHOW[orderType]);
+        if (orderIndex >= 0 && orderIndex < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
+            tvCommentSort.setText(ApiHelper.LIST_COMMENT_ORDER_SHOW[orderIndex]);
         } else {
             tvCommentSort.setText("");
         }
@@ -448,6 +451,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         if (postComment == null) return;
         page = more ? page + 1 : 0;
         // api
+        int orderType = ApiHelper.LIST_COMMENT_ORDER_TYPE[orderIndex];
         callSubCommentListGet = new RetrofitHelper().call(API.class).topicPostCommentSubListGet(postComment.getPostId(), postComment.getId(), orderType, page);
         RetrofitHelper.enqueue(callSubCommentListGet, null, new RetrofitHelper.CallBack() {
             @Override

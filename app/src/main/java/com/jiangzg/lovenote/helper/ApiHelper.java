@@ -66,13 +66,12 @@ public class ApiHelper {
     public static final int COUPLE_UPDATE_BAD = 2; // 更坏
     public static final int COUPLE_UPDATE_INFO = 3;// 信息
     // order类型 type要和show相对应
-    public static final int COMMENT_ORDER_POINT = 0;
-    public static final int COMMENT_ORDER_CREATE = 1;
+    public static final int[] LIST_COMMENT_ORDER_TYPE = new int[]{0, 1};
     public static final String[] LIST_COMMENT_ORDER_SHOW = new String[]{
             MyApp.get().getString(R.string.point),
-            MyApp.get().getString(R.string.time),
+            MyApp.get().getString(R.string.time)
     };
-    // list类型 type要和show相对应
+    // list类型 type要和show相对应 TODO int也弄成数组
     public static final int LIST_NOTE_CP = 0;
     public static final int LIST_NOTE_MY = 1;
     public static final int LIST_NOTE_TA = 2;

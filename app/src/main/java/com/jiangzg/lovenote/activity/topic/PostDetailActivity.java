@@ -127,7 +127,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private Call<Result> callReport;
     private Call<Result> callPoint;
     private Call<Result> callCollect;
-    private int page, orderType, limitCommentContentLength;
+    private int page, orderIndex, limitCommentContentLength;
     private long searchUserId;
 
     public static void goActivity(Activity from, Post post) {
@@ -231,7 +231,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
-        orderType = ApiHelper.COMMENT_ORDER_POINT;
+        orderIndex = 0;
         searchUserId = 0;
         // event
         obPostDetailRefresh = RxBus.register(ConsHelper.EVENT_POST_DETAIL_REFRESH, new Action1<Long>() {
@@ -565,11 +565,14 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_order_type)
                 .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderType, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(orderIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        orderType = which;
+                        if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
+                            return true;
+                        }
+                        orderIndex = which;
                         initCommentOrderView();
                         recyclerHelper.dataRefresh();
                         DialogUtils.dismiss(dialog);
@@ -603,8 +606,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
-        if (orderType >= 0 && orderType < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
-            tvCommentSort.setText(ApiHelper.LIST_COMMENT_ORDER_SHOW[orderType]);
+        if (orderIndex >= 0 && orderIndex < ApiHelper.LIST_COMMENT_ORDER_SHOW.length) {
+            tvCommentSort.setText(ApiHelper.LIST_COMMENT_ORDER_SHOW[orderIndex]);
         } else {
             tvCommentSort.setText("");
         }
@@ -614,6 +617,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null) return;
         page = more ? page + 1 : 0;
         // api
+        int orderType = ApiHelper.LIST_COMMENT_ORDER_TYPE[orderIndex];
         if (searchUserId > 0) {
             callCommentListGet = new RetrofitHelper().call(API.class).topicPostCommentUserListGet(post.getId(), searchUserId, orderType, page);
         } else {
