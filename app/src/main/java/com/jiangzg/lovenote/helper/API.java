@@ -32,6 +32,7 @@ import com.jiangzg.lovenote.domain.Sms;
 import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.domain.Suggest;
 import com.jiangzg.lovenote.domain.SuggestComment;
+import com.jiangzg.lovenote.domain.SuggestFollow;
 import com.jiangzg.lovenote.domain.Travel;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.domain.Video;
@@ -128,19 +129,19 @@ public interface API {
     Call<Result> setSuggestDel(@Query("sid") long suggestId);
 
     // 意见单个获取
-    @GET("set/suggest")
+    @GET("set/suggest?list=0&mine=0&follow=0")
     Call<Result> setSuggestGet(@Query("sid") long suggestId);
 
     // 意见列表获取
-    @GET("set/suggest?list=1")
-    Call<Result> setSuggestListHomeGet(@Query("status") int status, @Query("kind") int kind, @Query("page") int page);
+    @GET("set/suggest?list=1&mine=0&follow=0&sid=0")
+    Call<Result> setSuggestListGet(@Query("status") int status, @Query("kind") int kind, @Query("page") int page);
 
     // 意见列表获取
-    @GET("set/suggest?list=1&mine=1")
+    @GET("set/suggest?list=0&mine=1&follow=0&sid=0")
     Call<Result> setSuggestListMineGet(@Query("page") int page);
 
     // 意见列表获取
-    @GET("set/suggest?list=1&follow=1")
+    @GET("set/suggest?list=0&mine=0&follow=1&sid=0")
     Call<Result> setSuggestListFollowGet(@Query("page") int page);
 
     // 意见评论发表
@@ -157,7 +158,7 @@ public interface API {
 
     // 意见关注
     @POST("set/suggest/follow")
-    Call<Result> setSuggestFollowToggle(@Query("sid") long suggestId);
+    Call<Result> setSuggestFollowToggle(@Body SuggestFollow suggestFollow);
 
     // 配对邀请
     @POST("couple")

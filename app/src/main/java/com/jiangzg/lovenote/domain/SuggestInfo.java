@@ -41,7 +41,9 @@ public class SuggestInfo extends BaseObj {
     public static String getStatusShow(int status) {
         SuggestInfo info = getInstance();
         List<SuggestStatus> statusList = info.getStatusList();
-        for (SuggestStatus s : statusList) {
+        // 不要全部
+        for (int i = 1; i < statusList.size(); i++) {
+            SuggestStatus s = statusList.get(i);
             if (s.getStatus() == status) {
                 return s.getShow();
             }
@@ -52,9 +54,11 @@ public class SuggestInfo extends BaseObj {
     public static String getKindShow(int kind) {
         SuggestInfo info = getInstance();
         List<SuggestKind> kindList = info.getKindList();
-        for (SuggestKind t : kindList) {
-            if (t.getKind() == kind) {
-                return t.getShow();
+        // 不要全部
+        for (int i = 1; i < kindList.size(); i++) {
+            SuggestKind s = kindList.get(i);
+            if (s.getKind() == kind) {
+                return s.getShow();
             }
         }
         return "";

@@ -25,16 +25,15 @@ public class Suggest extends BaseObj implements Parcelable {
     private int kind;
     private String title;
     private String contentText;
-    private String contentImg;
-    // tag标签
-    private boolean top;
-    private boolean official;
-    private boolean mine;
-    // 外键
-    private boolean follow;
-    private boolean comment;
+    private String contentImage;
     private long followCount;
     private long commentCount;
+    private boolean top;
+    private boolean official;
+    // 外键
+    private boolean mine;
+    private boolean follow;
+    private boolean comment;
 
     public boolean isOfficial() {
         return official;
@@ -68,12 +67,12 @@ public class Suggest extends BaseObj implements Parcelable {
         this.mine = mine;
     }
 
-    public String getContentImg() {
-        return contentImg;
+    public String getContentImage() {
+        return contentImage;
     }
 
-    public void setContentImg(String contentImg) {
-        this.contentImg = contentImg;
+    public void setContentImage(String contentImage) {
+        this.contentImage = contentImage;
     }
 
     public boolean isComment() {
@@ -132,7 +131,7 @@ public class Suggest extends BaseObj implements Parcelable {
         title = in.readString();
         kind = in.readInt();
         contentText = in.readString();
-        contentImg = in.readString();
+        contentImage = in.readString();
         official = in.readByte() != 0;
         top = in.readByte() != 0;
         follow = in.readByte() != 0;
@@ -148,7 +147,7 @@ public class Suggest extends BaseObj implements Parcelable {
         dest.writeString(title);
         dest.writeInt(kind);
         dest.writeString(contentText);
-        dest.writeString(contentImg);
+        dest.writeString(contentImage);
         dest.writeByte((byte) (official ? 1 : 0));
         dest.writeByte((byte) (top ? 1 : 0));
         dest.writeByte((byte) (follow ? 1 : 0));

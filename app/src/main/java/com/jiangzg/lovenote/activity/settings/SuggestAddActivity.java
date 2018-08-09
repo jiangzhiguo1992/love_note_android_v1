@@ -262,13 +262,11 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void showStatusDialog() {
-        // 第一个是全部，不要
         CharSequence[] items = new CharSequence[suggestKindList.size() - 1];
         for (int i = 1; i < suggestKindList.size(); i++) {
             SuggestInfo.SuggestKind kind = suggestKindList.get(i);
-            int index = kind.getKind() - 1;
-            String show = kind.getShow();
-            items[index] = show;
+            // 第一个是全部，不要
+            items[i - 1] = kind.getShow();
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)

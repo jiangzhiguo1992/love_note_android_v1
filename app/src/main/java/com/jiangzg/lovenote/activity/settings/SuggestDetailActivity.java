@@ -36,6 +36,7 @@ import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Suggest;
 import com.jiangzg.lovenote.domain.SuggestComment;
+import com.jiangzg.lovenote.domain.SuggestFollow;
 import com.jiangzg.lovenote.domain.SuggestInfo;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
@@ -262,7 +263,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         String title = suggest.getTitle();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
-        final String contentImgUrl = suggest.getContentImg();
+        final String contentImgUrl = suggest.getContentImage();
         String contentText = suggest.getContentText();
         // view
         View head = recyclerHelper.getViewHead();
@@ -321,9 +322,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
-                long total = data.getTotal();
                 List<SuggestComment> suggestCommentList = data.getSuggestCommentList();
-                recyclerHelper.dataOk(suggestCommentList, total, more);
+                recyclerHelper.dataOk(suggestCommentList, more);
             }
 
             @Override
@@ -401,7 +401,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         suggest.setFollowCount(newFollowCount);
         initFollowView();
         if (!api) return;
-        callFollow = new RetrofitHelper().call(API.class).setSuggestFollowToggle(suggest.getId());
+        SuggestFollow suggestFollow = new SuggestFollow(suggest.getId());
+        callFollow = new RetrofitHelper().call(API.class).setSuggestFollowToggle(suggestFollow);
         RetrofitHelper.enqueue(callFollow, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

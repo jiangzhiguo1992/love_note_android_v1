@@ -263,7 +263,7 @@ public class ApiHelper {
         suggest.setTitle(title);
         suggest.setKind(kind);
         suggest.setContentText(contentText);
-        suggest.setContentImg(contentImg);
+        suggest.setContentImage(contentImg);
         return suggest;
     }
 

@@ -310,7 +310,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).setSuggestListHomeGet(searchStatus, searchKind, page);
+        call = new RetrofitHelper().call(API.class).setSuggestListGet(searchStatus, searchKind, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
