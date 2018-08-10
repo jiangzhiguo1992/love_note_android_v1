@@ -390,7 +390,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     private void initHead() {
-        if (post == null || post.isScreen() || post.isDelete() || recyclerHelper == null) return;
+        if (post == null || post.isScreen() || post.isDelete() || recyclerHelper == null) {
+            mActivity.finish();
+            return;
+        }
         int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
         // data
