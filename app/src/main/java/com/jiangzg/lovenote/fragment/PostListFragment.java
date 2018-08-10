@@ -121,7 +121,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
                 rv.smoothScrollToPosition(0);
             }
         });
-        obSearchNormal = RxBus.register(ConsHelper.EVENT_POST_SEARCH_NORMAL, new Action1<Boolean>() {
+        obSearchNormal = RxBus.register(ConsHelper.EVENT_POST_SEARCH_ALL, new Action1<Boolean>() {
             @Override
             public void call(Boolean isTrue) {
                 if (!mFragment.getUserVisibleHint() || !isTrue) return;
@@ -150,9 +150,11 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         });
         obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, new Action1<Integer>() {
             @Override
-            public void call(Integer subKindId) {
-                if (recyclerHelper == null || subKindInfo == null || subKindInfo.getKind() != subKindId)
+            public void call(Integer subKind) {
+                if (recyclerHelper == null || subKindInfo == null || (subKind > 0 && subKindInfo.getKind() != subKind)) {
+                    // 全部是可以更新的
                     return;
+                }
                 recyclerHelper.dataRefresh();
             }
         });
@@ -178,7 +180,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_POST_GO_TOP, obGoTop);
-        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_NORMAL, obSearchNormal);
+        RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_ALL, obSearchNormal);
         RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, obSearchOfficial);
         RxBus.unregister(ConsHelper.EVENT_POST_SEARCH_WELL, obSearchWell);
         RxBus.unregister(ConsHelper.EVENT_POST_LIST_REFRESH, obListRefresh);

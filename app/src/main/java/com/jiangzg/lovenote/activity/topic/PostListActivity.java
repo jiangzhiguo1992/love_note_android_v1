@@ -196,7 +196,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                                 event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
                                 break;
                             default: // 普通
-                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_NORMAL, true);
+                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_ALL, true);
                                 break;
                         }
                         RxBus.post(event);

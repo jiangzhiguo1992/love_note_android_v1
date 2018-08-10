@@ -677,6 +677,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
 
     private void initCommentView() {
         if (post == null) return;
+        // head
+        initCommentUserView();
         // data
         boolean comment = post.isComment();
         String commentCount = post.getCommentCount() > 0 ? CountHelper.getShowCount2Thousand(post.getCommentCount()) : mActivity.getString(R.string.comment);

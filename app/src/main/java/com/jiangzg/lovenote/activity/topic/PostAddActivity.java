@@ -394,9 +394,9 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                // event
-                RxEvent<Integer> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_REFRESH, post.getSubKind());
-                RxBus.post(event);
+                // event 先不刷新
+                //RxEvent<Integer> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_REFRESH, post.getSubKind());
+                //RxBus.post(event);
                 // sp
                 SPHelper.setDraftPost(null);
                 // finish
