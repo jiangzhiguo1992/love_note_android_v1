@@ -1,16 +1,19 @@
 package com.jiangzg.lovenote.domain;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JZG on 2018/7/30.
  * TopicInfo
  */
-public class TopicInfo extends BaseObj {
+public class TopicInfo extends BaseObj implements Parcelable {
 
     private int kind;
     private int year;
     private int dayOfYear;
-    private int browseCount;
     private int postCount;
+    private int browseCount;
     private int commentCount;
     private int reportCount;
     private int pointCount;
@@ -87,4 +90,49 @@ public class TopicInfo extends BaseObj {
     public void setCollectCount(int collectCount) {
         this.collectCount = collectCount;
     }
+
+    protected TopicInfo(Parcel in) {
+        super(in);
+        kind = in.readInt();
+        year = in.readInt();
+        dayOfYear = in.readInt();
+        browseCount = in.readInt();
+        postCount = in.readInt();
+        commentCount = in.readInt();
+        reportCount = in.readInt();
+        pointCount = in.readInt();
+        collectCount = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeInt(kind);
+        dest.writeInt(year);
+        dest.writeInt(dayOfYear);
+        dest.writeInt(browseCount);
+        dest.writeInt(postCount);
+        dest.writeInt(commentCount);
+        dest.writeInt(reportCount);
+        dest.writeInt(pointCount);
+        dest.writeInt(collectCount);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<TopicInfo> CREATOR = new Creator<TopicInfo>() {
+        @Override
+        public TopicInfo createFromParcel(Parcel in) {
+            return new TopicInfo(in);
+        }
+
+        @Override
+        public TopicInfo[] newArray(int size) {
+            return new TopicInfo[size];
+        }
+    };
+
 }

@@ -24,7 +24,6 @@ import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.PostSubKindInfo;
 import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.TopicInfo;
 import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -169,11 +168,6 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 srl.setRefreshing(false);
-                TopicHomeKindAdapter adapter = recyclerHelper.getAdapter();
-                if (adapter != null) {
-                    List<TopicInfo> topicInfoList = data.getTopicInfoList();
-                    adapter.setTopicInfoList(topicInfoList);
-                }
                 postKindInfoList = getPostKindInfoEnableList(data.getPostKindInfoList());
                 recyclerHelper.dataNew(postKindInfoList, 0);
             }

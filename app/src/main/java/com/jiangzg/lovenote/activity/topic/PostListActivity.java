@@ -166,7 +166,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 if (postSubKindInfoList != null && currentItem >= 0 && currentItem < postSubKindInfoList.size()) {
                     PostSubKindInfo subKindInfo = postSubKindInfoList.get(currentItem);
                     if (subKindInfo == null) return;
-                    PostAddActivity.goActivity(mActivity, kindInfo.getId(), subKindInfo.getId());
+                    PostAddActivity.goActivity(mActivity, kindInfo, subKindInfo.getKind());
                 }
                 break;
         }

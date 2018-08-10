@@ -39,6 +39,7 @@ import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostCollect;
 import com.jiangzg.lovenote.domain.PostComment;
+import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.PostPoint;
 import com.jiangzg.lovenote.domain.PostReport;
 import com.jiangzg.lovenote.domain.PostSubKindInfo;
@@ -395,7 +396,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         // data
         boolean isOur = post.isOur();
         Couple couple = post.getCouple();
-        List<String> tagShowList = ListHelper.getPostTagShowList(post, true, true);
+        PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
+        List<String> tagShowList = ListHelper.getPostTagListShow(kindInfo, post, true, true);
         String title = post.getTitle();
         String contentText = post.getContentText();
         List<String> imageList = post.getContentImageList();
@@ -518,7 +520,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         showList.add(getString(R.string.all));
         showList.add(getString(R.string.floor_master));
         if (!post.isMine()) {
-            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfoById(post.getKind(), post.getSubKind());
+            PostKindInfo kindInfo = ListHelper.getPostKindInfo(post.getKind());
+            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
             if (subKindInfo == null || !subKindInfo.isAnonymous()) {
                 showList.add(getString(R.string.me_de));
             }

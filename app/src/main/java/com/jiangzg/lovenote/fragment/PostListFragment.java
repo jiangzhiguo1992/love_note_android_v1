@@ -151,7 +151,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
         obListRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_REFRESH, new Action1<Integer>() {
             @Override
             public void call(Integer subKindId) {
-                if (recyclerHelper == null || subKindInfo == null || subKindInfo.getId() != subKindId)
+                if (recyclerHelper == null || subKindInfo == null || subKindInfo.getKind() != subKindId)
                     return;
                 recyclerHelper.dataRefresh();
             }
@@ -242,7 +242,7 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
             create = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         }
         // api
-        call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindInfo.getId(), subKindInfo.getId(), "", lon, lat, official, well, page);
+        call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindInfo.getKind(), subKindInfo.getKind(), "", lon, lat, official, well, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

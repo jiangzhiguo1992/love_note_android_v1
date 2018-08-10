@@ -24,19 +24,13 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
 
     private Fragment mFragment;
     private Activity mActivity;
-    private List<TopicInfo> topicInfoList;
     private final List<Integer> colorList;
 
     public TopicHomeKindAdapter(Activity activity, Fragment fragment) {
         super(R.layout.list_item_topic_home_kind);
         mActivity = activity;
         mFragment = fragment;
-        topicInfoList = new ArrayList<>();
         colorList = getColorList();
-    }
-
-    public void setTopicInfoList(List<TopicInfo> topicInfoList) {
-        this.topicInfoList = topicInfoList;
     }
 
     @Override
@@ -50,11 +44,11 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
             color = colorList.get(position - 1);
         }
         String name = item.getName();
-        TopicInfo topicInfo = getTopicInfo(item.getId());
-        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.post_colon_space_holder), topicInfo.getPostCount());
-        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.comment_colon_space_holder), topicInfo.getCommentCount());
-        String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.point_colon_space_holder), topicInfo.getPointCount());
-        String collectCount = String.format(Locale.getDefault(), mActivity.getString(R.string.collect_colon_space_holder), topicInfo.getCollectCount());
+        TopicInfo topicInfo = item.getTopicInfo();
+        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.post_colon_space_holder), topicInfo == null ? 0 : topicInfo.getPostCount());
+        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.comment_colon_space_holder), topicInfo == null ? 0 : topicInfo.getCommentCount());
+        String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.point_colon_space_holder), topicInfo == null ? 0 : topicInfo.getPointCount());
+        String collectCount = String.format(Locale.getDefault(), mActivity.getString(R.string.collect_colon_space_holder), topicInfo == null ? 0 : topicInfo.getCollectCount());
         // view
         CardView root = helper.getView(R.id.root);
         root.setCardBackgroundColor(color);
@@ -85,15 +79,6 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
         colorList.add(k5);
         colorList.add(k6);
         return colorList;
-    }
-
-    private TopicInfo getTopicInfo(int kind) {
-        if (topicInfoList == null || topicInfoList.size() <= 0) return new TopicInfo();
-        for (TopicInfo info : topicInfoList) {
-            if (info == null) continue;
-            if (info.getKind() == kind) return info;
-        }
-        return new TopicInfo();
     }
 
 }

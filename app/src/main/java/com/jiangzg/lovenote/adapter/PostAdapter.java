@@ -19,6 +19,7 @@ import com.jiangzg.lovenote.activity.topic.PostDetailActivity;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostCollect;
+import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.CountHelper;
@@ -81,7 +82,8 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         // data
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();
-        List<String> tagShowList = ListHelper.getPostTagShowList(item, kindShow, subKindShow);
+        PostKindInfo kindInfo = ListHelper.getPostKindInfo(item.getKind());
+        List<String> tagShowList = ListHelper.getPostTagListShow(kindInfo, item, kindShow, subKindShow);
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getUpdateAt());
         String title = item.getTitle();
         String contentText = item.getContentText();

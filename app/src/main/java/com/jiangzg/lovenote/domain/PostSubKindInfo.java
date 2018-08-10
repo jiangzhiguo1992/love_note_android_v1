@@ -9,12 +9,12 @@ import android.os.Parcelable;
  */
 public class PostSubKindInfo implements Parcelable {
 
-    private int id;
+    private int kind;
     private boolean enable;
+    private String name;
     private boolean push;
     private boolean lonLat;
     private boolean anonymous;
-    private String name;
 
     public boolean isAnonymous() {
         return anonymous;
@@ -40,12 +40,12 @@ public class PostSubKindInfo implements Parcelable {
         this.push = push;
     }
 
-    public int getId() {
-        return id;
+    public int getKind() {
+        return kind;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setKind(int kind) {
+        this.kind = kind;
     }
 
     public boolean isEnable() {
@@ -68,7 +68,7 @@ public class PostSubKindInfo implements Parcelable {
     }
 
     protected PostSubKindInfo(Parcel in) {
-        id = in.readInt();
+        kind = in.readInt();
         enable = in.readByte() != 0;
         push = in.readByte() != 0;
         lonLat = in.readByte() != 0;
@@ -78,7 +78,7 @@ public class PostSubKindInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeInt(kind);
         dest.writeByte((byte) (enable ? 1 : 0));
         dest.writeByte((byte) (push ? 1 : 0));
         dest.writeByte((byte) (lonLat ? 1 : 0));

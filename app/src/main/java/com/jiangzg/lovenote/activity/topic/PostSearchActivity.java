@@ -201,9 +201,9 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
         // api
         int kindId = 0, subKindId = 0;
         if (kindInfo != null) {
-            kindId = kindInfo.getId();
+            kindId = kindInfo.getKind();
             if (subKindInfo != null) {
-                subKindId = subKindInfo.getId();
+                subKindId = subKindInfo.getKind();
             }
         }
         call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindId, subKindId, title, lon, lat, false, false, page);

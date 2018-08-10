@@ -11,10 +11,19 @@ import java.util.List;
  */
 public class PostKindInfo implements Parcelable {
 
-    private int id;
+    private int kind;
     private boolean enable;
     private String name;
     private List<PostSubKindInfo> postSubKindInfoList;
+    private TopicInfo topicInfo;
+
+    public TopicInfo getTopicInfo() {
+        return topicInfo;
+    }
+
+    public void setTopicInfo(TopicInfo topicInfo) {
+        this.topicInfo = topicInfo;
+    }
 
     public String getName() {
         return name;
@@ -24,12 +33,12 @@ public class PostKindInfo implements Parcelable {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public int getKind() {
+        return kind;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setKind(int kind) {
+        this.kind = kind;
     }
 
     public boolean isEnable() {
@@ -52,18 +61,20 @@ public class PostKindInfo implements Parcelable {
     }
 
     protected PostKindInfo(Parcel in) {
-        id = in.readInt();
+        kind = in.readInt();
         enable = in.readByte() != 0;
         name = in.readString();
         postSubKindInfoList = in.createTypedArrayList(PostSubKindInfo.CREATOR);
+        topicInfo = in.readParcelable(TopicInfo.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeInt(kind);
         dest.writeByte((byte) (enable ? 1 : 0));
         dest.writeString(name);
         dest.writeTypedList(postSubKindInfoList);
+        dest.writeParcelable(topicInfo, flags);
     }
 
     @Override

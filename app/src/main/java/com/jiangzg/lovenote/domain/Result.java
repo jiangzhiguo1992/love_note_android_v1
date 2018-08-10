@@ -148,7 +148,6 @@ public class Result implements Serializable {
         private List<AwardRule> awardRuleList;
         // topic
         private List<PostKindInfo> postKindInfoList;
-        private List<TopicInfo> topicInfoList;
         private List<TopicMessage> topicMessageList;
         private Post post;
         private List<Post> postList;
@@ -231,14 +230,6 @@ public class Result implements Serializable {
 
         public void setSign(Sign sign) {
             this.sign = sign;
-        }
-
-        public List<TopicInfo> getTopicInfoList() {
-            return topicInfoList;
-        }
-
-        public void setTopicInfoList(List<TopicInfo> topicInfoList) {
-            this.topicInfoList = topicInfoList;
         }
 
         public List<TopicMessage> getTopicMessageList() {
