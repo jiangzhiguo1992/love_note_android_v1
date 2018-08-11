@@ -11,8 +11,18 @@ public class Album extends BaseCP implements Parcelable {
 
     private String title;
     private String cover;
+    private int pictureCount;
+
     private long startAt;
     private long endAt;
+
+    public int getPictureCount() {
+        return pictureCount;
+    }
+
+    public void setPictureCount(int pictureCount) {
+        this.pictureCount = pictureCount;
+    }
 
     public long getStartAt() {
         return startAt;
@@ -53,6 +63,7 @@ public class Album extends BaseCP implements Parcelable {
         super(in);
         title = in.readString();
         cover = in.readString();
+        pictureCount = in.readInt();
         startAt = in.readLong();
         endAt = in.readLong();
     }
@@ -62,6 +73,7 @@ public class Album extends BaseCP implements Parcelable {
         super.writeToParcel(dest, flags);
         dest.writeString(title);
         dest.writeString(cover);
+        dest.writeInt(pictureCount);
         dest.writeLong(startAt);
         dest.writeLong(endAt);
     }

@@ -227,6 +227,9 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             public void call(Picture picture) {
                 if (recyclerHelper == null) return;
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
+                if (album == null) return;
+                album.setPictureCount(album.getPictureCount() - 1);
+                refreshAlbumView();
             }
         });
         // refresh
@@ -270,6 +273,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // data
         String cover = album.getCover();
         String title = album.getTitle();
+        String count = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_paper), album.getPictureCount() < 0 ? 0 : album.getPictureCount());
         String createAt = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(album.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
         String updateAt = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(album.getUpdateAt());
@@ -285,6 +289,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
             ivCover.setData(cover);
         }
         ctl.setTitle(title);
+        tvPictureCount.setText(count);
         tvCreateAt.setText(createShow);
         tvUpdateAt.setText(updateShow);
     }
@@ -303,12 +308,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 // data
-                long total = data.getTotal();
                 List<Picture> pictureList = data.getPictureList();
-                recyclerHelper.dataOk(pictureList, total, more);
-                // total
-                String format = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_paper), total);
-                tvPictureCount.setText(format);
+                recyclerHelper.dataOk(pictureList, more);
                 // 刷新本地资源
                 List<String> ossKeyList = ListHelper.getOssKeyListByPicture(pictureList);
                 OssResHelper.refreshResWithDelExpire(OssResHelper.TYPE_NOTE_PICTURE, ossKeyList);
