@@ -105,7 +105,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     public void onStart() {
         super.onStart();
         // menu
-        tb.invalidate();
+        refreshMenu();
     }
 
     @Override
