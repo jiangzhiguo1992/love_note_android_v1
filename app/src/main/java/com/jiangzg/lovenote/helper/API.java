@@ -357,7 +357,7 @@ public interface API {
     Call<Result> notePictureUpdate(@Body Picture picture);
 
     // audioList获取
-    @GET("note/audio?aid=0&list=1")
+    @GET("note/audio?list=1")
     Call<Result> noteAudioListGet(@Query("page") int page);
 
     // audio上传
@@ -369,7 +369,7 @@ public interface API {
     Call<Result> noteAudioDel(@Query("aid") long aid);
 
     // videoList获取
-    @GET("note/video?vid=0&list=1")
+    @GET("note/video?list=1")
     Call<Result> noteVideoListGet(@Query("page") int page);
 
     // video上传
@@ -381,7 +381,7 @@ public interface API {
     Call<Result> noteVideoDel(@Query("vid") long vid);
 
     // foodList获取
-    @GET("note/food?fid=0&list=1")
+    @GET("note/food?list=1")
     Call<Result> noteFoodListGet(@Query("page") int page);
 
     // food上传
@@ -413,7 +413,7 @@ public interface API {
     Call<Result> noteTravelUpdate(@Body Travel travel);
 
     // giftList获取
-    @GET("note/gift?gid=0&list=1")
+    @GET("note/gift?list=1")
     Call<Result> noteGiftListGet(@Query("who") int who, @Query("page") int page);
 
     // gift上传
@@ -449,7 +449,7 @@ public interface API {
     Call<Result> notePromiseUpdate(@Body Promise promise);
 
     // promiseBreak获取
-    @GET("note/promise/break?pdid=0")
+    @GET("note/promise/break")
     Call<Result> notePromiseBreakListGet(@Query("pid") long pid, @Query("page") int page);
 
     // promiseBreak上传
@@ -501,11 +501,11 @@ public interface API {
     Call<Result> noteDreamUpdate(@Body Dream dream);
 
     // award获取
-    @GET("note/award?aid=0&score=0&list=1")
+    @GET("note/award?score=0&list=1")
     Call<Result> noteAwardListGet(@Query("who") int who, @Query("page") int page);
 
     // award获取
-    @GET("note/award?aid=0&list=0&score=1")
+    @GET("note/award?list=0&score=1")
     Call<Result> noteAwardScoreGet();
 
     // award上传
@@ -517,7 +517,7 @@ public interface API {
     Call<Result> noteAwardDel(@Query("aid") long aid);
 
     // awardRule获取
-    @GET("note/award/rule?arid=0&list=1")
+    @GET("note/award/rule?list=1")
     Call<Result> noteAwardRuleListGet(@Query("page") int page);
 
     // awardRule上传
