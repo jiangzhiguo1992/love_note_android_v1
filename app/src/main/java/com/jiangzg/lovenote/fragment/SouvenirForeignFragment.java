@@ -20,6 +20,7 @@ import com.jiangzg.lovenote.adapter.GiftAdapter;
 import com.jiangzg.lovenote.adapter.TravelAdapter;
 import com.jiangzg.lovenote.adapter.VideoAdapter;
 import com.jiangzg.lovenote.base.BaseFragment;
+import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.domain.Album;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
@@ -36,7 +37,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragment> {
+public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFragment> {
 
     @BindView(R.id.tvGift)
     TextView tvGift;
@@ -101,8 +102,7 @@ public class SouvenirForeignFragment extends BaseFragment<SouvenirForeignFragmen
     }
 
     @Override
-    protected void initData(Bundle state) {
-
+    protected void loadData() {
     }
 
     @Override

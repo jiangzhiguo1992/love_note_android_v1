@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.SouvenirAdapter;
 import com.jiangzg.lovenote.base.BaseFragment;
+import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Souvenir;
@@ -30,7 +31,7 @@ import retrofit2.Call;
 import rx.Observable;
 import rx.functions.Action1;
 
-public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
+public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
@@ -81,7 +82,7 @@ public class SouvenirListFragment extends BaseFragment<SouvenirListFragment> {
     }
 
     @Override
-    protected void initData(Bundle state) {
+    protected void loadData() {
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new Action1<List<Souvenir>>() {
             @Override
