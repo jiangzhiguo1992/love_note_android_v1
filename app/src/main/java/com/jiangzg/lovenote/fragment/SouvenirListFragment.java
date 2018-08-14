@@ -44,6 +44,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
     private Observable<Souvenir> obListItemDelete;
     private Observable<Souvenir> obListItemRefresh;
     private Call<Result> call;
+    private int page;
 
     public static SouvenirListFragment newFragment(boolean done) {
         Bundle bundle = new Bundle();
@@ -69,7 +70,13 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
                     @Override
                     public void onRefresh() {
-                        refreshData();
+                        getData(false);
+                    }
+                })
+                .listenerMore(new RecyclerHelper.MoreListener() {
+                    @Override
+                    public void onMore(int currentCount) {
+                        getData(true);
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -83,6 +90,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
 
     @Override
     protected void loadData() {
+        page = 0;
         // event
         obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new Action1<List<Souvenir>>() {
             @Override
@@ -125,15 +133,16 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
         RxBus.unregister(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, obListItemRefresh);
     }
 
-    private void refreshData() {
-        call = new RetrofitHelper().call(API.class).noteSouvenirListGet(done);
+    private void getData(final boolean more) {
+        page = more ? page + 1 : 0;
+        call = new RetrofitHelper().call(API.class).noteSouvenirListGet(done, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Souvenir> souvenirList = data.getSouvenirList();
-                recyclerHelper.dataNew(souvenirList, 0);
+                recyclerHelper.dataOk(souvenirList, more);
             }
 
             @Override

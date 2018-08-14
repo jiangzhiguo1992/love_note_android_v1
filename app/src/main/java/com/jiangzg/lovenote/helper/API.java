@@ -226,7 +226,7 @@ public interface API {
 
     // souvenirList获取
     @GET("note/souvenir?sid=0&list=1")
-    Call<Result> noteSouvenirListGet(@Query("done") boolean done);
+    Call<Result> noteSouvenirListGet(@Query("done") boolean done, @Query("page") int page);
 
     // souvenir获取
     @GET("note/souvenir?list=0")
