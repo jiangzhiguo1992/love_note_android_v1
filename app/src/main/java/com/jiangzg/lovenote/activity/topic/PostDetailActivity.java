@@ -125,6 +125,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     private Call<Result> callDel;
     private Call<Result> callCommentAdd;
     private Call<Result> callCommentListGet;
+    private Call<Result> callRead;
     private Call<Result> callReport;
     private Call<Result> callPoint;
     private Call<Result> callCollect;
@@ -262,8 +263,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), postComment);
             }
         });
-        // refresh
-        recyclerHelper.dataRefresh();
+        // refresh 上面做过了
+        //recyclerHelper.dataRefresh();
     }
 
     @Override
@@ -272,6 +273,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         RetrofitHelper.cancel(callDel);
         RetrofitHelper.cancel(callCommentAdd);
         RetrofitHelper.cancel(callCommentListGet);
+        RetrofitHelper.cancel(callRead);
         RetrofitHelper.cancel(callReport);
         RetrofitHelper.cancel(callPoint);
         RetrofitHelper.cancel(callCollect);
@@ -393,6 +395,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         if (post == null || post.isScreen() || post.isDelete() || recyclerHelper == null) {
             mActivity.finish();
             return;
+        } else {
+            postRead(post.getId());
         }
         int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         int colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
@@ -895,6 +899,11 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+    }
+
+    private void postRead(long pid) {
+        callRead = new RetrofitHelper().call(API.class).topicPostRead(pid);
+        RetrofitHelper.enqueue(callRead, null, null);
     }
 
 }

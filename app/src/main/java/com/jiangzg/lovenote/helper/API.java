@@ -564,6 +564,10 @@ public interface API {
     @GET("topic/post?list=0&collect=0&mine=0")
     Call<Result> topicPostGet(@Query("pid") long pid);
 
+    // postRead上传
+    @POST("topic/post/read")
+    Call<Result> topicPostRead(@Query("pid") long pid);
+
     // postReport上传
     @POST("topic/post/report")
     Call<Result> topicPostReportAdd(@Body PostReport postReport);
