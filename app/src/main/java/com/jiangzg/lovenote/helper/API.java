@@ -624,13 +624,13 @@ public interface API {
     @GET("more/vip?home=0&list=1")
     Call<Result> moreVipListGet(@Query("page") int page);
 
-    // coinList获取
-    @GET("more/coin?list=1&latest=0")
-    Call<Result> moreCoinListGet(@Query("page") int page);
+    // coinHome获取
+    @GET("more/coin?home=1&list=0")
+    Call<Result> moreCoinHomeGet();
 
-    // coinLatest获取
-    @GET("more/coin?list=0&latest=1")
-    Call<Result> moreCoinLatestGet();
+    // coinList获取
+    @GET("more/coin?home=0&list=1")
+    Call<Result> moreCoinListGet(@Query("page") int page);
 
     // sign上传
     @POST("more/sign")

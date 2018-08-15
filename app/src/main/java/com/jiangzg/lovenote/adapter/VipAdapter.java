@@ -28,7 +28,7 @@ public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
     public VipAdapter(FragmentActivity activity) {
         super(null);
         addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_vip_right);
-        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_place_left);
+        addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_vip_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
     }
