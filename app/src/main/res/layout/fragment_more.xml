@@ -26,7 +26,7 @@
                     android:id="@+id/tvBroadcast"
                     style="@style/FontGreyNormal"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"
+                    android:layout_height="160dp"
                     android:gravity="center"
                     android:text="@string/now_no_broadcast"
                     android:visibility="gone"
@@ -319,7 +319,7 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/wife_picture"/>
+                                    android:text="@string/nav_wife"/>
 
                                 <TextView
                                     android:id="@+id/tvWife"
@@ -376,7 +376,7 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/love_letter_show"/>
+                                    android:text="@string/nav_letter"/>
 
                                 <TextView
                                     android:id="@+id/tvLetter"
@@ -433,7 +433,7 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/discuss_meet"/>
+                                    android:text="@string/nav_discuss"/>
 
                                 <TextView
                                     android:id="@+id/tvDiscuss"
@@ -524,7 +524,7 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/wish_tree"/>
+                                    android:text="@string/nav_wish"/>
 
                                 <TextView
                                     android:id="@+id/tvWish"
@@ -581,7 +581,7 @@
                                     android:gravity="center"
                                     android:maxLines="1"
                                     android:singleLine="true"
-                                    android:text="@string/paper_plane"/>
+                                    android:text="@string/nav_plane"/>
 
                                 <TextView
                                     android:id="@+id/tvPlane"

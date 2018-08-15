@@ -564,17 +564,17 @@
 
     <!-- square -->
     <string name="broadcast">广播</string>
-    <string name="sign">签到</string>
-    <string name="coin">金币</string>
-    <string name="vip">会员</string>
     <string name="consume_about">消费相关</string>
     <string name="quick_match">快来比拼</string>
-    <string name="wife_picture">夫妻相</string>
-    <string name="love_letter_show">情书展</string>
-    <string name="discuss_meet">讨论会</string>
     <string name="wish_future">许愿未来</string>
-    <string name="wish_tree">许愿树</string>
-    <string name="paper_plane">纸飞机</string>
+    <string name="vip">会员</string>
+    <string name="coin">金币</string>
+    <string name="sign">签到</string>
+    <string name="nav_wife">夫妻相</string>
+    <string name="nav_letter">情书展</string>
+    <string name="nav_discuss">讨论会</string>
+    <string name="nav_wish">许愿树</string>
+    <string name="nav_plane">纸飞机</string>
     <string name="now_no_broadcast">暂无广播</string>
     <string name="start_time_colon_holder" formatted="false">开始时间：%s</string>
     <string name="end_time_colon_holder" formatted="false">结束时间：%s</string>
@@ -605,6 +605,6 @@
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
     <string name="unknown_platform">未知平台</string>
-    <string name="coin_get_desc">金币来源介绍\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与%s给予%d个\n参与%s给予%d个\n参与%s给予%d个\n每期活动只能获得一次</string>
+    <string name="coin_get_desc">金币来源介绍\n\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与 %s 给予%d个\n参与 %s 给予%d个\n参与 %s 给予%d个\n每期活动只能获得一次</string>
 
 </resources>

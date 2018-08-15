@@ -162,6 +162,8 @@
         <activity android:name=".activity.more.VipBuyActivity"/>
         <activity android:name=".activity.more.CoinActivity"/>
         <activity android:name=".activity.more.SignActivity"/>
+        <activity android:name=".activity.more.CoinBuyActivity"/>
+        <activity android:name=".activity.more.CoinListActivity"/>
     </application>
 
 </manifest>

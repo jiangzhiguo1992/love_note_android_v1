@@ -61,12 +61,57 @@ public class Limit {
     // more
     private int coinSignMinCount;
     private int coinSignMaxCount;
-    private int coinSignContinueIncreaseCount;
-    private int coinWifePostAddCount;
-    private int coinLetterPostAddCount;
-    private int coinTopicPostAddCount;
+    private int coinSignIncreaseCount;
+    private int coinWifeAddCount;
+    private int coinLetterAddCount;
+    private int coinDiscussAddCount;
     private int coinWishPerHourCount;
     private int coinPlanePerDayCount;
+    private int wifeScreenReportCount;
+    private int letterScreenReportCount;
+    private int discussScreenReportCount;
+    private int letterContentLength;
+    private int discussContentLength;
+
+    public int getWifeScreenReportCount() {
+        return wifeScreenReportCount;
+    }
+
+    public void setWifeScreenReportCount(int wifeScreenReportCount) {
+        this.wifeScreenReportCount = wifeScreenReportCount;
+    }
+
+    public int getLetterScreenReportCount() {
+        return letterScreenReportCount;
+    }
+
+    public void setLetterScreenReportCount(int letterScreenReportCount) {
+        this.letterScreenReportCount = letterScreenReportCount;
+    }
+
+    public int getDiscussScreenReportCount() {
+        return discussScreenReportCount;
+    }
+
+    public void setDiscussScreenReportCount(int discussScreenReportCount) {
+        this.discussScreenReportCount = discussScreenReportCount;
+    }
+
+    public int getLetterContentLength() {
+        return letterContentLength;
+    }
+
+    public void setLetterContentLength(int letterContentLength) {
+        this.letterContentLength = letterContentLength;
+    }
+
+    public int getDiscussContentLength() {
+        return discussContentLength;
+    }
+
+    public void setDiscussContentLength(int discussContentLength) {
+        this.discussContentLength = discussContentLength;
+    }
 
     public int getCoinSignMinCount() {
         return coinSignMinCount;
@@ -84,36 +129,36 @@ public class Limit {
         this.coinSignMaxCount = coinSignMaxCount;
     }
 
-    public int getCoinSignContinueIncreaseCount() {
-        return coinSignContinueIncreaseCount;
+    public int getCoinSignIncreaseCount() {
+        return coinSignIncreaseCount;
     }
 
-    public void setCoinSignContinueIncreaseCount(int coinSignContinueIncreaseCount) {
-        this.coinSignContinueIncreaseCount = coinSignContinueIncreaseCount;
+    public void setCoinSignIncreaseCount(int coinSignIncreaseCount) {
+        this.coinSignIncreaseCount = coinSignIncreaseCount;
     }
 
-    public int getCoinWifePostAddCount() {
-        return coinWifePostAddCount;
+    public int getCoinWifeAddCount() {
+        return coinWifeAddCount;
     }
 
-    public void setCoinWifePostAddCount(int coinWifePostAddCount) {
-        this.coinWifePostAddCount = coinWifePostAddCount;
+    public void setCoinWifeAddCount(int coinWifeAddCount) {
+        this.coinWifeAddCount = coinWifeAddCount;
     }
 
-    public int getCoinLetterPostAddCount() {
-        return coinLetterPostAddCount;
+    public int getCoinLetterAddCount() {
+        return coinLetterAddCount;
     }
 
-    public void setCoinLetterPostAddCount(int coinLetterPostAddCount) {
-        this.coinLetterPostAddCount = coinLetterPostAddCount;
+    public void setCoinLetterAddCount(int coinLetterAddCount) {
+        this.coinLetterAddCount = coinLetterAddCount;
     }
 
-    public int getCoinTopicPostAddCount() {
-        return coinTopicPostAddCount;
+    public int getCoinDiscussAddCount() {
+        return coinDiscussAddCount;
     }
 
-    public void setCoinTopicPostAddCount(int coinTopicPostAddCount) {
-        this.coinTopicPostAddCount = coinTopicPostAddCount;
+    public void setCoinDiscussAddCount(int coinDiscussAddCount) {
+        this.coinDiscussAddCount = coinDiscussAddCount;
     }
 
     public int getCoinWishPerHourCount() {
