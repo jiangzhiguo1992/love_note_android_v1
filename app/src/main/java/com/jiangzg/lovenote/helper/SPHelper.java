@@ -120,7 +120,6 @@ public class SPHelper {
     private static final String FIELD_LIMIT_POST_SCREEN_REPORT_COUNT = "postScreenReportCount";
     private static final String FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH = "postCommentContentLength";
     private static final String FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT = "postCommentScreenReportCount";
-    private static final String FIELD_LIMIT_VIP_EXPIRE_DAYS = "vip_expire_days";
     private static final String FIELD_LIMIT_COIN_SIGN_MIN_COUNT = "coin_sign_min_count";
     private static final String FIELD_LIMIT_COIN_SIGN_MAX_COUNT = "coin_sign_max_count";
     private static final String FIELD_LIMIT_COIN_SIGN_CONTINUE_INCREASE_COUNT = "coin_sign_continue_increase_count";
@@ -417,7 +416,6 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, limit.getPostScreenReportCount());
         editor.putInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, limit.getPostCommentContentLength());
         editor.putInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, limit.getPostCommentScreenReportCount());
-        editor.putInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, limit.getVipExpireDay());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, limit.getCoinSignMinCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, limit.getCoinSignMaxCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_CONTINUE_INCREASE_COUNT, limit.getCoinSignContinueIncreaseCount());
@@ -479,7 +477,6 @@ public class SPHelper {
         limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 0));
         limit.setPostCommentContentLength(sp.getInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, 100));
         limit.setPostCommentScreenReportCount(sp.getInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, 20));
-        limit.setVipExpireDay(sp.getInt(FIELD_LIMIT_VIP_EXPIRE_DAYS, 30));
         limit.setCoinSignMinCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, 1));
         limit.setCoinSignMaxCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, 10));
         limit.setCoinSignContinueIncreaseCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_CONTINUE_INCREASE_COUNT, 1));

@@ -9,19 +9,6 @@ import android.os.Parcelable;
  */
 public class Coin extends BaseCP implements Parcelable {
 
-    //CoinKindAddByPlayPay     = 100 // +商店充值
-    //CoinKindAddBySignDay     = 110 // +每日签到
-    //CoinKindAddByWifePost    = 200 // +发表夫妻
-    //CoinKindSubByWifeUp      = 201 // -夫妻推送
-    //CoinKindAddByLetterPost  = 210 // +发表情书
-    //CoinKindSubByLetterUp    = 211 // -情书推送
-    //CoinKindAddByDiscussPost = 220 // +发表话题
-    //CoinKindSubByDiscussUp   = 221 // -话题推送
-    //CoinKindWishByPost       = 300 // -发表许愿
-    //CoinKindWishByBless      = 301 // -许愿祝福
-    //CoinKindPlaneByPost      = 310 // -发表飞机
-    //CoinKindPlaneByBless     = 311 // -飞机祝福
-
     private int kind;
     private long billId;
     private int change;

@@ -59,7 +59,6 @@ public class Limit {
     private int postCommentContentLength;
     private int postCommentScreenReportCount;
     // more
-    private int vipExpireDay;
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignContinueIncreaseCount;
@@ -403,14 +402,6 @@ public class Limit {
 
     public void setCoupleNameLength(int coupleNameLength) {
         this.coupleNameLength = coupleNameLength;
-    }
-
-    public int getVipExpireDay() {
-        return vipExpireDay;
-    }
-
-    public void setVipExpireDay(int vipExpireDay) {
-        this.vipExpireDay = vipExpireDay;
     }
 
     public int getSouvenirTitleLength() {

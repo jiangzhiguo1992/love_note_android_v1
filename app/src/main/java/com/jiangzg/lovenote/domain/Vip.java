@@ -9,10 +9,6 @@ import android.os.Parcelable;
  */
 public class Vip extends BaseCP implements Parcelable {
 
-    //VipBillPlatformWX       = 100
-    //VipBillPlatformALI      = 110
-    //VipBillPlatformBeeCloud = 200
-
     private int billPlatform;
     private long billId;
     private int expireDays;
