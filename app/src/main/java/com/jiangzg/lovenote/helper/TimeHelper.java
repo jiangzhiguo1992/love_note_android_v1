@@ -80,7 +80,7 @@ public class TimeHelper {
     }
 
     // 时间显示(y年 M月 d日)(一般不用)
-    public static String getTimeShowCn_MD_YMD_ByGo(long time) {
+    public static String getTimeShowLocal_MD_YMD_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
@@ -101,7 +101,7 @@ public class TimeHelper {
     }
 
     // 时间显示(y年 M月 d日 / HH:mm)
-    public static String getTimeShowCn_HM_MD_YMD_ByGo(long time) {
+    public static String getTimeShowLocal_HM_MD_YMD_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(getJavaTimeByGo(time)));
@@ -125,7 +125,7 @@ public class TimeHelper {
     }
 
     // 时间显示(y年M月d日 HH:mm)
-    public static String getTimeShowCn_HM_MDHM_YMDHM_ByGo(long time) {
+    public static String getTimeShowLocal_HM_MDHM_YMDHM_ByGo(long time) {
         Calendar cNow = DateUtils.getCurrentCalendar();
         Calendar cTime = DateUtils.getCurrentCalendar();
         cTime.setTime(new Date(getJavaTimeByGo(time)));

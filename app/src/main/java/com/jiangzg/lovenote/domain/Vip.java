@@ -3,17 +3,59 @@ package com.jiangzg.lovenote.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.helper.ApiHelper;
+
 /**
  * Created by JZG on 2018/8/7.
  * Vip
  */
-public class Vip extends BaseCP implements Parcelable {
+public class Vip extends BaseCP implements Parcelable, MultiItemEntity {
+
+    public static final int VIP_FROM_TYPE_USER_BUY = 100; // 用户购买
+    public static final int VIP_FROM_TYPE_USER_SEND = 110; // 用户赠送
+    public static final int VIP_FROM_TYPE_SYS_AWARD = 210; // 系统奖励
+    public static final int VIP_FROM_TYPE_SYS_MAKE = 220; // 系统补偿
+
+    public static final int VIP_BILL_PLATFORM_WX = 1; // 微信
+    public static final int VIP_BILL_PLATFORM_ALI = 2; // 阿里
 
     private int fromType;
     private int billPlatform;
     private long billId;
     private int expireDays;
     private long expireAt;
+
+    @Override
+    public int getItemType() {
+        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
+    }
+
+    public static String getFromTypeShow(int type) {
+        switch (type) {
+            case VIP_FROM_TYPE_USER_BUY:
+                return MyApp.get().getString(R.string.user_buy);
+            case VIP_FROM_TYPE_USER_SEND:
+                return MyApp.get().getString(R.string.user_send);
+            case VIP_FROM_TYPE_SYS_AWARD:
+                return MyApp.get().getString(R.string.sys_award);
+            case VIP_FROM_TYPE_SYS_MAKE:
+                return MyApp.get().getString(R.string.sys_make);
+        }
+        return MyApp.get().getString(R.string.unknown_from_type);
+    }
+
+    public static String getPlatformShow(int form) {
+        switch (form) {
+            case VIP_BILL_PLATFORM_WX:
+                return MyApp.get().getString(R.string.we_chat);
+            case VIP_BILL_PLATFORM_ALI:
+                return MyApp.get().getString(R.string.ali_pay);
+        }
+        return MyApp.get().getString(R.string.unknown_platform);
+    }
 
     public int getBillPlatform() {
         return billPlatform;
@@ -93,4 +135,5 @@ public class Vip extends BaseCP implements Parcelable {
             return new Vip[size];
         }
     };
+
 }

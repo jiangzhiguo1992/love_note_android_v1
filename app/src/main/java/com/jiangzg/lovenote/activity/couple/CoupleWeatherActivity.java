@@ -175,7 +175,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // data
         String myAvatar = SPHelper.getMe().getMyAvatarInCp();
         WeatherForecast forecast = myWeatherForecastList.get(0);
-        String time = TimeHelper.getTimeShowCn_MD_YMD_ByGo(forecast.getTimeAt());
+        String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
         int iconDay = WeatherHelper.getWeatherIconById(forecast.getIconDay());
         int iconNight = WeatherHelper.getWeatherIconById(forecast.getIconNight());
@@ -209,7 +209,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         // data
         String taAvatar = SPHelper.getMe().getTaAvatarInCp();
         WeatherForecast forecast = taWeatherForecastList.get(0);
-        String time = TimeHelper.getTimeShowCn_MD_YMD_ByGo(forecast.getTimeAt());
+        String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
         int iconDay = WeatherHelper.getWeatherIconById(forecast.getIconDay());
         int iconNight = WeatherHelper.getWeatherIconById(forecast.getIconNight());

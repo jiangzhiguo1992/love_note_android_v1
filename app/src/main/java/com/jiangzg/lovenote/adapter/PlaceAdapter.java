@@ -39,7 +39,7 @@ public class PlaceAdapter extends BaseMultiItemQuickAdapter<Place, BaseViewHolde
     protected void convert(BaseViewHolder helper, Place item) {
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        String time = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String time = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();
         String province = StringUtils.isEmail(item.getProvince()) ? formatNo : item.getProvince();
         String city = StringUtils.isEmail(item.getCity()) ? formatNo : item.getCity();

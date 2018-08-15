@@ -1,21 +1,18 @@
-package com.jiangzg.lovenote.activity.couple;
+package com.jiangzg.lovenote.activity.more;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.adapter.PlaceAdapter;
+import com.jiangzg.lovenote.adapter.VipAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Place;
 import com.jiangzg.lovenote.domain.Result;
+import com.jiangzg.lovenote.domain.Vip;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -27,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
+public class VipListActivity extends BaseActivity<VipListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -40,25 +37,26 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     private Call<Result> call;
     private int page;
 
-    public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), CouplePlaceActivity.class);
+    public static void goActivity(Activity from) {
+        Intent intent = new Intent(from, VipListActivity.class);
+        // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_couple_place;
+        return R.layout.activity_vip_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.place_info), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.history_info), true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initRefresh(srl, false)
-                .initAdapter(new PlaceAdapter(mActivity))
+                .initAdapter(new VipAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -72,13 +70,6 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                     @Override
                     public void onMore(int currentCount) {
                         getData(true);
-                    }
-                })
-                .listenerClick(new OnItemClickListener() {
-                    @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        PlaceAdapter placeAdapter = (PlaceAdapter) adapter;
-                        placeAdapter.goDiaryDetail(position);
                     }
                 });
     }
@@ -98,14 +89,14 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     private void getData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        call = new RetrofitHelper().call(API.class).couplePlaceListGet(page);
+        call = new RetrofitHelper().call(API.class).moreVipListGet(page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
-                List<Place> placeList = data.getPlaceList();
-                recyclerHelper.dataOk(placeList, more);
+                List<Vip> vipList = data.getVipList();
+                recyclerHelper.dataOk(vipList, more);
             }
 
             @Override

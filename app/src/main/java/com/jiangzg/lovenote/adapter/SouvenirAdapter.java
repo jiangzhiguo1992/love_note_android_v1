@@ -38,7 +38,7 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
     protected void convert(BaseViewHolder helper, Souvenir item) {
         String title = item.getTitle();
         long happenAt = TimeHelper.getJavaTimeByGo(item.getHappenAt());
-        String happen = DateUtils.getString(happenAt, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
+        String happen = DateUtils.getString(happenAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         long dayCount;
         String format;
         if (DateUtils.getCurrentLong() > happenAt) {

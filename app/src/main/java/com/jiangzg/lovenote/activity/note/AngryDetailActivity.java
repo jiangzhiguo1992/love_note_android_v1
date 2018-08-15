@@ -225,7 +225,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         String avatar = user.getAvatarInCp(angry.getHappenId());
         ivAvatar.setData(avatar);
         // happen
-        String happenAt = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(angry.getHappenAt());
+        String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(angry.getHappenAt());
         tvHappenAt.setText(happenAt);
         // content
         String content = angry.getContentText();

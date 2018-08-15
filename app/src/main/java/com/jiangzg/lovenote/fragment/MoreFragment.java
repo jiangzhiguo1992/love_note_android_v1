@@ -117,6 +117,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         });
         // broadcast
         bb.initView(mActivity);
+        initBroadcast(null);
     }
 
     protected void loadData() {
@@ -245,15 +246,21 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     private void initVip(Vip vip) {
         String vipInfo;
         if (vip == null || TimeHelper.getJavaTimeByGo(vip.getExpireAt()) <= DateUtils.getCurrentLong()) {
+            vipInfo = "∑(✘Д✘๑ )";
+        } else {
             vipInfo = "(*ˇωˇ*人)";
-        }else {
-            vipInfo = "";
         }
-        tvVip.setText();
+        tvVip.setText(vipInfo);
     }
 
     private void initCoin(Coin coin) {
-
+        String coinShow;
+        if (coin == null) {
+            coinShow = String.valueOf(0);
+        } else {
+            coinShow = String.valueOf(coin.getCount());
+        }
+        tvCoin.setText(coinShow);
     }
 
     private void initSign(Sign sign) {

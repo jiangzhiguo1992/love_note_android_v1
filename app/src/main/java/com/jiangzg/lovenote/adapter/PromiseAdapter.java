@@ -33,7 +33,7 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Promise item) {
         String avatar = Couple.getAvatar(couple, item.getHappenId());
-        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
         String breakCount = String.valueOf(item.getBreakCount());
         String content = item.getContentText();
         // view

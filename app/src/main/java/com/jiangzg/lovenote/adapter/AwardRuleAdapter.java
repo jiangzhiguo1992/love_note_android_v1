@@ -54,7 +54,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
         String title = item.getTitle();
         String creator = Couple.getName(couple, item.getUserId());
         String creatorShow = String.format(Locale.getDefault(), formatCreator, creator);
-        String createAt = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String createAt = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String createShow = String.format(Locale.getDefault(), formatCreateAt, createAt);
         // view
         helper.setText(R.id.tvScore, score);

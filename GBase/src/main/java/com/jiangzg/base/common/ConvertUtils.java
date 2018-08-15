@@ -177,13 +177,13 @@ public class ConvertUtils {
         if (byteNum < 0) {
             return "";
         } else if (byteNum < ConstantUtils.KB) {
-            return String.format(Locale.getDefault(), "%.3fB", (double) byteNum);
+            return String.format(Locale.getDefault(), "%.1fB", (double) byteNum);
         } else if (byteNum < ConstantUtils.MB) {
-            return String.format(Locale.getDefault(), "%.3fKB", (double) byteNum / ConstantUtils.KB);
+            return String.format(Locale.getDefault(), "%.1fKB", (double) byteNum / ConstantUtils.KB);
         } else if (byteNum < ConstantUtils.GB) {
-            return String.format(Locale.getDefault(), "%.3fMB", (double) byteNum / ConstantUtils.MB);
+            return String.format(Locale.getDefault(), "%.1fMB", (double) byteNum / ConstantUtils.MB);
         } else {
-            return String.format(Locale.getDefault(), "%.3fGB", (double) byteNum / ConstantUtils.GB);
+            return String.format(Locale.getDefault(), "%.1fGB", (double) byteNum / ConstantUtils.GB);
         }
     }
 

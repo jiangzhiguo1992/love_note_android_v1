@@ -254,7 +254,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void refreshDateView() {
         if (diary == null) return;
-        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(diary.getHappenAt());
+        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

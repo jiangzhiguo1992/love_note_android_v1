@@ -57,7 +57,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         String address = item.getAddress();
         String name = Couple.getName(couple, item.getUserId());
         String creator = String.format(Locale.getDefault(), formatCreator, name);
-        String happen = TimeHelper.getTimeShowCn_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String happenShow = String.format(Locale.getDefault(), formatTime, happen);
         List<String> imageList = item.getContentImageList();
         String contentText = item.getContentText();

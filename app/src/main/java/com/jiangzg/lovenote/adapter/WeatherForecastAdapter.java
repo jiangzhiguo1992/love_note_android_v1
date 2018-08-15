@@ -96,7 +96,7 @@ public class WeatherForecastAdapter extends BaseQuickAdapter<WeatherForecastAdap
             helper.setText(R.id.tvTempRight, temp);
             helper.setText(R.id.tvWindRight, wind);
         }
-        String timeShow = TimeHelper.getTimeShowCn_MD_YMD_ByGo(time);
+        String timeShow = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(time);
         helper.setText(R.id.tvTime, timeShow);
     }
 

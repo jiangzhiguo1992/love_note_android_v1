@@ -304,7 +304,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void refreshDateView() {
         if (gift == null) return;
-        String happen = TimeHelper.getTimeShowCn_HM_MD_YMD_ByGo(gift.getHappenAt());
+        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(gift.getHappenAt());
         tvHappenAt.setText(happen);
     }
 

@@ -10,10 +10,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
@@ -211,10 +211,10 @@ public class VipActivity extends BaseActivity<VipActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnHistory: // 历史信息
-                // TODO
+                VipListActivity.goActivity(mActivity);
                 break;
             case R.id.btnBuy: // 购买
-                // TODO
+                VipBuyActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -229,18 +229,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
         // vipInfo
         String vipInfo;
         if (vip != null) {
-            long diff = TimeHelper.getJavaTimeByGo(vip.getExpireAt() - DateUtils.getCurrentLong());
-            TimeUnit timeUnit = TimeUnit.convertTime2Unit(Math.abs(diff));
-            String maxShow = timeUnit.getMaxShow(true, true, true, true, true, true,
-                    R.string.year, R.string.month, R.string.dayT,
-                    R.string.hour_short, R.string.minute_short, R.string.second);
-            if (diff < 0) {
-                // 已过期
-                vipInfo = String.format(Locale.getDefault(), getString(R.string.already_over_due_holder), maxShow);
-            } else {
-                // 进行中
-                vipInfo = String.format(Locale.getDefault(), getString(R.string.count_down_space_holder), maxShow);
-            }
+            String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(vip.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+            vipInfo = String.format(Locale.getDefault(), getString(R.string.on_space_holder_space_over__due), time);
         } else {
             vipInfo = getString(R.string.no_handle);
         }

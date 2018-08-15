@@ -158,6 +158,8 @@
         <!-- more -->
         <activity android:name=".activity.more.BroadcastActivity"/>
         <activity android:name=".activity.more.VipActivity"/>
+        <activity android:name=".activity.more.VipListActivity"/>
+        <activity android:name=".activity.more.VipBuyActivity"/>
         <activity android:name=".activity.more.CoinActivity"/>
         <activity android:name=".activity.more.SignActivity"/>
     </application>

@@ -63,9 +63,9 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
         // data
         String title = item.getTitle();
         long startAt = item.getStartAt();
-        String startTime = (startAt == 0) ? "      " : TimeHelper.getTimeShowCn_MD_YMD_ByGo(startAt);
+        String startTime = (startAt == 0) ? "      " : TimeHelper.getTimeShowLocal_MD_YMD_ByGo(startAt);
         long endAt = item.getEndAt();
-        String endTime = (endAt == 0) ? "      " : TimeHelper.getTimeShowCn_MD_YMD_ByGo(endAt);
+        String endTime = (endAt == 0) ? "      " : TimeHelper.getTimeShowLocal_MD_YMD_ByGo(endAt);
         String time = String.format(Locale.getDefault(), formatTime, startTime, endTime);
         String cover = item.getCover();
         // view
