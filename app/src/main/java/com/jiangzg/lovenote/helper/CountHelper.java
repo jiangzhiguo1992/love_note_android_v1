@@ -17,7 +17,7 @@ public class CountHelper {
         if (count < unit) {
             return String.valueOf(count);
         }
-        return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand), count / unit);
+        return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand_point1), (double) count / (double) unit);
     }
 
 }

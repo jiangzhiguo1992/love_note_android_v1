@@ -104,5 +104,6 @@ public class ConsHelper {
     public static final int EVENT_POST_COMMENT_LIST_ITEM_REFRESH = 5302;
     public static final int EVENT_POST_COMMENT_DETAIL_REFRESH = 5303;
     public static final int EVENT_VIP_INFO_REFRESH = 6100;
+    public static final int EVENT_COIN_INFO_REFRESH = 6200;
 
 }

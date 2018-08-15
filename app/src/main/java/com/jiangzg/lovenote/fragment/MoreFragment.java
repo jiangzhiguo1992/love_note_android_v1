@@ -30,6 +30,7 @@ import com.jiangzg.lovenote.domain.Sign;
 import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.domain.Vip;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -258,7 +259,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         if (coin == null) {
             coinShow = String.valueOf(0);
         } else {
-            coinShow = String.valueOf(coin.getCount());
+            coinShow = CountHelper.getShowCount2Thousand(coin.getCount());
         }
         tvCoin.setText(coinShow);
     }

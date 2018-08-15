@@ -153,7 +153,7 @@
     <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
     <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
     <string name="holder_paper" formatted="false">%d张</string>
-    <string name="holder_thousand" formatted="false">%d万</string>
+    <string name="holder_thousand_point1" formatted="false">%.1f万</string>
     <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
     <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
     <string name="comment_colon_holder" formatted="false">评论: %d</string>
@@ -535,10 +535,10 @@
 
     <!-- topic -->
     <string name="post">帖子</string>
-    <string name="post_colon_space_holder" formatted="false">帖子: %d</string>
-    <string name="comment_colon_space_holder" formatted="false">评论: %d</string>
-    <string name="point_colon_space_holder" formatted="false">点赞: %d</string>
-    <string name="collect_colon_space_holder" formatted="false">收藏: %d</string>
+    <string name="post_colon_space_holder" formatted="false">帖子: %s</string>
+    <string name="comment_colon_space_holder" formatted="false">评论: %s</string>
+    <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
+    <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
     <string name="report">举报</string>
     <string name="already_report">已举报</string>
     <string name="jab_ta">戳TA</string>
@@ -605,5 +605,6 @@
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
     <string name="unknown_platform">未知平台</string>
+    <string name="coin_get_desc">金币来源介绍\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与%s给予%d个\n参与%s给予%d个\n参与%s给予%d个\n每期活动只能获得一次</string>
 
 </resources>

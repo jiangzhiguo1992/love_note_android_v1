@@ -11,6 +11,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.topic.PostListActivity;
 import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.TopicInfo;
+import com.jiangzg.lovenote.helper.CountHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,10 +46,10 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
         }
         String name = item.getName();
         TopicInfo topicInfo = item.getTopicInfo();
-        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.post_colon_space_holder), topicInfo == null ? 0 : topicInfo.getPostCount());
-        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.comment_colon_space_holder), topicInfo == null ? 0 : topicInfo.getCommentCount());
-        String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.point_colon_space_holder), topicInfo == null ? 0 : topicInfo.getPointCount());
-        String collectCount = String.format(Locale.getDefault(), mActivity.getString(R.string.collect_colon_space_holder), topicInfo == null ? 0 : topicInfo.getCollectCount());
+        String postCount = String.format(Locale.getDefault(), mActivity.getString(R.string.post_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getPostCount()));
+        String commentCount = String.format(Locale.getDefault(), mActivity.getString(R.string.comment_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getCommentCount()));
+        String pointCount = String.format(Locale.getDefault(), mActivity.getString(R.string.point_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getPointCount()));
+        String collectCount = String.format(Locale.getDefault(), mActivity.getString(R.string.collect_colon_space_holder), topicInfo == null ? 0 : CountHelper.getShowCount2Thousand(topicInfo.getCollectCount()));
         // view
         CardView root = helper.getView(R.id.root);
         root.setCardBackgroundColor(color);

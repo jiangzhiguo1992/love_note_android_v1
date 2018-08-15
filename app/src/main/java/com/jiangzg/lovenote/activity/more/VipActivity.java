@@ -14,6 +14,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
@@ -213,8 +214,9 @@ public class VipActivity extends BaseActivity<VipActivity> {
             case R.id.btnHistory: // 历史信息
                 VipListActivity.goActivity(mActivity);
                 break;
-            case R.id.btnBuy: // 购买
-                VipBuyActivity.goActivity(mActivity);
+            case R.id.btnBuy: // 前往购买
+                ToastUtils.show("敬请期待");
+                //VipBuyActivity.goActivity(mActivity);
                 break;
         }
     }
@@ -226,7 +228,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
         String taAvatar = me.getTaAvatarInCp();
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatar);
-        // vipInfo
+        // vip
         String vipInfo;
         if (vip != null) {
             String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(vip.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
