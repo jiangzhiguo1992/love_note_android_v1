@@ -29,6 +29,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.OssInfo;
 
@@ -985,6 +986,18 @@ public class OssHelper {
 
     // 墙纸 (持久化)
     public static void uploadWall(Activity activity, final File source, final OssUploadCallBack callBack) {
+        long wallPaperSize = SPHelper.getVipLimit().getWallPaperSize();
+        if (source != null && source.length() >= wallPaperSize) {
+            String sizeFormat = ConvertUtils.byte2FitSize(wallPaperSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
+            ToastUtils.show(format);
+            if (callBack != null) {
+                callBack.failure(source, "");
+            }
+            // vip跳转
+            VipActivity.goActivity(activity);
+            return;
+        }
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathCoupleWall = ossInfo.getPathCoupleWall();
         uploadJpeg(activity, pathCoupleWall, source, callBack);
@@ -994,12 +1007,14 @@ public class OssHelper {
     public static void uploadAudio(Activity activity, final File source, final OssUploadCallBack callBack) {
         long audioSize = SPHelper.getVipLimit().getAudioSize();
         if (source != null && source.length() >= audioSize) {
-            String audioSizeFormat = ConvertUtils.byte2FitSize(audioSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.audio_too_large_cant_over_holder), audioSizeFormat);
+            String sizeFormat = ConvertUtils.byte2FitSize(audioSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.audio_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(source, "");
             }
+            // vip跳转
+            VipActivity.goActivity(activity);
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -1018,12 +1033,14 @@ public class OssHelper {
     public static void uploadVideo(Activity activity, final File source, final OssUploadCallBack callBack) {
         long videoSize = SPHelper.getVipLimit().getVideoSize();
         if (source != null && source.length() >= videoSize) {
-            String videoSizeFormat = ConvertUtils.byte2FitSize(videoSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.video_too_large_cant_over_holder), videoSizeFormat);
+            String sizeFormat = ConvertUtils.byte2FitSize(videoSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.video_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(source, "");
             }
+            // vip跳转
+            VipActivity.goActivity(activity);
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -1051,12 +1068,14 @@ public class OssHelper {
             }
         }
         if (overLimit) {
-            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
+            String sizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(fileList, "");
             }
+            // vip跳转
+            VipActivity.goActivity(activity);
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();
@@ -1084,12 +1103,14 @@ public class OssHelper {
             }
         }
         if (overLimit) {
-            String imageSizeFormat = ConvertUtils.byte2FitSize(imageSize);
-            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), imageSizeFormat);
+            String sizeFormat = ConvertUtils.byte2FitSize(imageSize);
+            String format = String.format(Locale.getDefault(), activity.getString(R.string.image_too_large_cant_over_holder), sizeFormat);
             ToastUtils.show(format);
             if (callBack != null) {
                 callBack.failure(fileList, "");
             }
+            // vip跳转
+            VipActivity.goActivity(activity);
             return;
         }
         OssInfo ossInfo = SPHelper.getOssInfo();

@@ -159,7 +159,6 @@ public class Result implements Serializable {
         private PostCommentReport postCommentReport;
         private PostCommentPoint postCommentPoint;
         // more
-        private Broadcast broadcast;
         private List<Broadcast> broadcastList;
         private Vip vip;
         private List<Vip> vipList;
@@ -190,14 +189,6 @@ public class Result implements Serializable {
 
         public void setVipList(List<Vip> vipList) {
             this.vipList = vipList;
-        }
-
-        public Broadcast getBroadcast() {
-            return broadcast;
-        }
-
-        public void setBroadcast(Broadcast broadcast) {
-            this.broadcast = broadcast;
         }
 
         public List<Broadcast> getBroadcastList() {

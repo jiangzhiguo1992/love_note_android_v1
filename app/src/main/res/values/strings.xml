@@ -580,5 +580,9 @@
     <string name="end_time_colon_holder" formatted="false">结束时间：%s</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
     <string name="continue_holder_day" formatted="false">连续%d天</string>
+    <string name="click_look_more_info">点击查看更多信息</string>
+    <string name="history_info">历史信息</string>
+    <string name="go_to_buy">前往购买</string>
+    <string name="no_vip">非会员</string>
 
 </resources>

@@ -108,7 +108,7 @@ public class BroadcastBanner extends Banner {
         public void displayImage(Context context, Object path, ImageView imageView) {
             String url = (String) path;
             FrescoView view = (FrescoView) imageView;
-            view.setWidthAndHeight(ScreenUtils.getScreenWidth(context), ConvertUtils.dp2px(180));
+            view.setWidthAndHeight(ScreenUtils.getScreenWidth(context), ConvertUtils.dp2px(160));
             view.setData(url);
         }
 

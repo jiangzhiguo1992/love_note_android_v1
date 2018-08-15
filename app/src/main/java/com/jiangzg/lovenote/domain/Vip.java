@@ -9,6 +9,7 @@ import android.os.Parcelable;
  */
 public class Vip extends BaseCP implements Parcelable {
 
+    private int fromType;
     private int billPlatform;
     private long billId;
     private int expireDays;
@@ -46,11 +47,20 @@ public class Vip extends BaseCP implements Parcelable {
         this.expireAt = expireAt;
     }
 
+    public int getFromType() {
+        return fromType;
+    }
+
+    public void setFromType(int fromType) {
+        this.fromType = fromType;
+    }
+
     public Vip() {
     }
 
     protected Vip(Parcel in) {
         super(in);
+        fromType = in.readInt();
         billPlatform = in.readInt();
         billId = in.readLong();
         expireDays = in.readInt();
@@ -60,6 +70,7 @@ public class Vip extends BaseCP implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        dest.writeInt(fromType);
         dest.writeInt(billPlatform);
         dest.writeLong(billId);
         dest.writeInt(expireDays);

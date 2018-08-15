@@ -293,7 +293,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
     // 图片获取
     private void showSelectImgPop() {
-        if (SPHelper.getVipLimit().getWhisperImageCount() <= 0) {
+        if (!SPHelper.getVipLimit().isWhisperImageEnable()) {
             VipActivity.goActivity(mActivity);
             return;
         }

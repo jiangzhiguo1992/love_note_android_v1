@@ -7,6 +7,7 @@ package com.jiangzg.lovenote.domain;
 public class VipLimit {
 
     // couple
+    private long wallPaperSize;
     private int wallPaperCount;
     // note
     private boolean noteTotalEnable;
@@ -19,11 +20,27 @@ public class VipLimit {
     private int pictureTotalCount;
     private long diaryImageSize;
     private int diaryImageCount;
-    private int whisperImageCount;
+    private boolean whisperImageEnable;
     private int giftImageCount;
     private int foodImageCount;
     // topic
     private int topicImageCount;
+
+    public long getWallPaperSize() {
+        return wallPaperSize;
+    }
+
+    public void setWallPaperSize(long wallPaperSize) {
+        this.wallPaperSize = wallPaperSize;
+    }
+
+    public boolean isWhisperImageEnable() {
+        return whisperImageEnable;
+    }
+
+    public void setWhisperImageEnable(boolean whisperImageEnable) {
+        this.whisperImageEnable = whisperImageEnable;
+    }
 
     public boolean isNoteTotalEnable() {
         return noteTotalEnable;
@@ -103,14 +120,6 @@ public class VipLimit {
 
     public void setDiaryImageSize(long diaryImageSize) {
         this.diaryImageSize = diaryImageSize;
-    }
-
-    public int getWhisperImageCount() {
-        return whisperImageCount;
-    }
-
-    public void setWhisperImageCount(int whisperImageCount) {
-        this.whisperImageCount = whisperImageCount;
     }
 
     public int getWallPaperCount() {

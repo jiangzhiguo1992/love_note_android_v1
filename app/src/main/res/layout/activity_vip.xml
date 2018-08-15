@@ -1,10 +1,686 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jiangzg.lovenote.activity.more.VipActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_gradient_white_primary">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarLeft"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="20dp"
+                        tools:background="@mipmap/ic_boy_circle"/>
+
+                    <TextView
+                        android:id="@+id/tvVipInfo"
+                        style="@style/FontPrimaryNormalBold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        tools:text="29天后到期/已过期19天/未办理过会员"/>
+
+                    <com.jiangzg.lovenote.view.FrescoAvatarView
+                        android:id="@+id/ivAvatarRight"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="20dp"
+                        tools:background="@mipmap/ic_girl_circle"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnHistory"
+                        style="@style/FontWhiteNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                        android:text="@string/history_info"/>
+
+                    <Button
+                        android:id="@+id/btnBuy"
+                        style="@style/FontWhiteNormal"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                        android:text="@string/go_to_buy"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llLimit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:id="@+id/llLimitTop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="invisible"/>
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="@string/no_vip"/>
+
+                        <TextView
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="@string/vip"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitWallSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/wall_paper"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftWallSize"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上传1张"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightWallSize"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上传10张"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitWallCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/wall_paper"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftWallCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上传1张"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightWallCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上传10张"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitTotal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/statistics"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftTotal"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="未开启"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightTotal"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="开启"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitSouvenir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/souvenir"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftSouvenir"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightSouvenir"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitVideoSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/video"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftVideoSize"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightVideoSize"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitVideoCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/video"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftVideoCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightVideoCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitAudioSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/audio"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftAudioSize"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightAudioSize"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitAudioCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/audio"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftAudioCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightAudioCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitPictureSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/picture"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftPictureSize"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightPictureSize"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitPictureCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/picture"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftPictureCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightPictureCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitDiaryImageSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/diary"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftDiaryImageSize"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightDiaryImageSize"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="单个大小"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitDiaryImageCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/diary"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftDiaryImageCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightDiaryImageCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitWhisperImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/whisper"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftWhisperImage"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="未开启"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightWhisperImage"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="开启"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitGiftImageCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/gift"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftGiftImageCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightGiftImageCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitFoodImageCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/food"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftFoodImageCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightFoodImageCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llLimitPostImageCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/nav_topic"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftPostImageCount"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightPostImageCount"
+                            style="@style/FontWhiteNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+</LinearLayout>
