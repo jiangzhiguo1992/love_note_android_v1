@@ -616,13 +616,13 @@ public interface API {
     @GET("more/home")
     Call<Result> moreHomeGet();
 
-    // vipList获取
-    @GET("more/vip?list=1&latest=0")
-    Call<Result> moreVipListGet(@Query("page") int page);
+    // vipHome获取
+    @GET("more/vip?home=1&list=0")
+    Call<Result> moreVipHomeGet();
 
-    // vipLatest获取
-    @GET("more/vip?list=0&latest=1")
-    Call<Result> moreVipLatestGet();
+    // vipList获取
+    @GET("more/vip?home=0&list=1")
+    Call<Result> moreVipListGet(@Query("page") int page);
 
     // coinList获取
     @GET("more/coin?list=1&latest=0")

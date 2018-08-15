@@ -584,5 +584,17 @@
     <string name="history_info">历史信息</string>
     <string name="go_to_buy">前往购买</string>
     <string name="no_vip">非会员</string>
+    <string name="already_over_due_holder" formatted="false">已过期 %s</string>
+    <string name="no_handle">未办理</string>
+    <string name="open">开启</string>
+    <string name="refuse">禁止</string>
+    <string name="open_image_upload">开启图片上传</string>
+    <string name="refuse_image_upload">禁止图片上传</string>
+    <string name="can_add_holder" formatted="false">可添加%d个</string>
+    <string name="single_paper_max_holder" formatted="false">单张最大%s</string>
+    <string name="can_upload_holder_paper" formatted="false">可上传%d张</string>
+    <string name="single_max_holder" formatted="false">单个最大%s</string>
+    <string name="can_upload_holder" formatted="false">可上传%d个</string>
+    <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
 
 </resources>

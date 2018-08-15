@@ -160,12 +160,30 @@ public class Result implements Serializable {
         private PostCommentPoint postCommentPoint;
         // more
         private List<Broadcast> broadcastList;
+        private VipLimit vipYesLimit;
+        private VipLimit vipNoLimit;
         private Vip vip;
         private List<Vip> vipList;
         private Coin coin;
         private List<Coin> coinList;
         private Sign sign;
         private List<Sign> signList;
+
+        public VipLimit getVipYesLimit() {
+            return vipYesLimit;
+        }
+
+        public void setVipYesLimit(VipLimit vipYesLimit) {
+            this.vipYesLimit = vipYesLimit;
+        }
+
+        public VipLimit getVipNoLimit() {
+            return vipNoLimit;
+        }
+
+        public void setVipNoLimit(VipLimit vipNoLimit) {
+            this.vipNoLimit = vipNoLimit;
+        }
 
         public List<Sign> getSignList() {
             return signList;

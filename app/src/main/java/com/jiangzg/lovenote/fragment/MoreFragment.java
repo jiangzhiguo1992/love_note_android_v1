@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.SettingsActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
@@ -21,14 +22,17 @@ import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.domain.Broadcast;
+import com.jiangzg.lovenote.domain.Coin;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sign;
 import com.jiangzg.lovenote.domain.Version;
+import com.jiangzg.lovenote.domain.Vip;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.BroadcastBanner;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -113,8 +117,6 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         });
         // broadcast
         bb.initView(mActivity);
-        initBroadcast(null);
-        initSign(null);
     }
 
     protected void loadData() {
@@ -212,9 +214,13 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 broadcastList = data.getBroadcastList();
+                Vip vip = data.getVip();
+                Coin coin = data.getCoin();
                 Sign sign = data.getSign();
                 // view
                 initBroadcast(broadcastList);
+                initVip(vip);
+                initCoin(coin);
                 initSign(sign);
             }
 
@@ -234,6 +240,20 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             bb.setVisibility(View.VISIBLE);
             bb.setDataList(broadcastList);
         }
+    }
+
+    private void initVip(Vip vip) {
+        String vipInfo;
+        if (vip == null || TimeHelper.getJavaTimeByGo(vip.getExpireAt()) <= DateUtils.getCurrentLong()) {
+            vipInfo = "(*ˇωˇ*人)";
+        }else {
+            vipInfo = "";
+        }
+        tvVip.setText();
+    }
+
+    private void initCoin(Coin coin) {
+
     }
 
     private void initSign(Sign sign) {

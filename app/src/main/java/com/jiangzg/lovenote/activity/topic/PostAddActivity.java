@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.PostSubKindInfo;
 import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
@@ -130,7 +129,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         // content
         etContent.setText(post.getContentText());
         // recycler
-        int limitImagesCount = SPHelper.getVipLimit().getTopicImageCount();
+        int limitImagesCount = SPHelper.getVipLimit().getTopicPostImageCount();
         if (limitImagesCount <= 0) {
             rvImage.setVisibility(View.GONE);
         } else {

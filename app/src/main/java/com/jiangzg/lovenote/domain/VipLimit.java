@@ -24,7 +24,7 @@ public class VipLimit {
     private int giftImageCount;
     private int foodImageCount;
     // topic
-    private int topicImageCount;
+    private int topicPostImageCount;
 
     public long getWallPaperSize() {
         return wallPaperSize;
@@ -146,11 +146,11 @@ public class VipLimit {
         this.giftImageCount = giftImageCount;
     }
 
-    public int getTopicImageCount() {
-        return topicImageCount;
+    public int getTopicPostImageCount() {
+        return topicPostImageCount;
     }
 
-    public void setTopicImageCount(int topicImageCount) {
-        this.topicImageCount = topicImageCount;
+    public void setTopicPostImageCount(int topicPostImageCount) {
+        this.topicPostImageCount = topicPostImageCount;
     }
 }
