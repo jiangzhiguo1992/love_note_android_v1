@@ -605,6 +605,12 @@
     <string name="we_chat">微信</string>
     <string name="ali_pay">支付宝</string>
     <string name="unknown_platform">未知平台</string>
+    <string name="unknown_kind">未知类型</string>
     <string name="coin_get_desc">金币来源介绍\n\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与 %s 给予%d个\n参与 %s 给予%d个\n参与 %s 给予%d个\n每期活动只能获得一次</string>
+    <string name="play_pay">商店充值</string>
+    <string name="every_day_sign">每日签到</string>
+    <string name="go_in_spae">参与</string>
+    <string name="throw_coin_space">投币</string>
+    <string name="bless_space">祝福</string>
 
 </resources>
