@@ -164,7 +164,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             }
         });
         // refresh
-        recyclerHelper.dataRefresh();
+        //recyclerHelper.dataRefresh();
+        refreshSuggest();
     }
 
     @Override
@@ -231,16 +232,22 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     public void refreshSuggest() {
         if (suggest == null) return;
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
         callGet = new RetrofitHelper().call(API.class).setSuggestGet(suggest.getId());
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
                 suggest = data.getSuggest();
                 // view
                 initHead();
                 initFollowView();
                 initCommentView();
                 mActivity.invalidateOptionsMenu();
+                // data
+                if (recyclerHelper != null) recyclerHelper.dataRefresh();
                 // event
                 RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
                 RxBus.post(event);
@@ -248,6 +255,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
             }
         });
     }
