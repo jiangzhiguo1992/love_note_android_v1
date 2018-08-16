@@ -70,6 +70,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     Button btnPublish;
 
     private Award award;
+    private AwardRule rule;
     private Observable<AwardRule> obSelectAwardRule;
     private Call<Result> callAdd;
     private int limitContentLength;
@@ -110,7 +111,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             public void call(AwardRule awardRule) {
                 if (awardRule == null) return;
                 award.setAwardRuleId(awardRule.getId());
-                award.setAwardRule(awardRule);
+                rule = awardRule;
                 refreshRuleView();
             }
         });
@@ -145,10 +146,9 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     private void refreshRuleView() {
         if (award == null) return;
         String scoreShow = "0";
-        AwardRule awardRule = award.getAwardRule();
-        if (awardRule != null) {
-            scoreShow = String.valueOf(awardRule.getScore());
-            if (awardRule.getScore() > 0) {
+        if (rule != null) {
+            scoreShow = String.valueOf(rule.getScore());
+            if (rule.getScore() > 0) {
                 scoreShow = "+" + scoreShow;
             }
         }

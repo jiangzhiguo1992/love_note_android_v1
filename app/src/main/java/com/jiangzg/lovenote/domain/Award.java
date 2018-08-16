@@ -13,7 +13,15 @@ public class Award extends BaseCP implements Parcelable {
     private long awardRuleId;
     private long happenAt;
     private String contentText;
-    private AwardRule awardRule;
+    private int scoreChange;
+
+    public int getScoreChange() {
+        return scoreChange;
+    }
+
+    public void setScoreChange(int scoreChange) {
+        this.scoreChange = scoreChange;
+    }
 
     public long getHappenId() {
         return happenId;
@@ -47,14 +55,6 @@ public class Award extends BaseCP implements Parcelable {
         this.contentText = contentText;
     }
 
-    public AwardRule getAwardRule() {
-        return awardRule;
-    }
-
-    public void setAwardRule(AwardRule awardRule) {
-        this.awardRule = awardRule;
-    }
-
     public Award() {
     }
 
@@ -64,7 +64,7 @@ public class Award extends BaseCP implements Parcelable {
         awardRuleId = in.readLong();
         happenAt = in.readLong();
         contentText = in.readString();
-        awardRule = in.readParcelable(AwardRule.class.getClassLoader());
+        scoreChange = in.readInt();
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Award extends BaseCP implements Parcelable {
         dest.writeLong(awardRuleId);
         dest.writeLong(happenAt);
         dest.writeString(contentText);
-        dest.writeParcelable(awardRule, flags);
+        dest.writeInt(scoreChange);
     }
 
     @Override

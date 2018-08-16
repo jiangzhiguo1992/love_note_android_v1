@@ -213,7 +213,11 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             post = intent.getParcelableExtra("post");
             // view
             initHead();
-            recyclerHelper.dataRefresh();
+            if (post != null) {
+                refreshPost(post.getId(), true);
+            } else {
+                recyclerHelper.dataRefresh();
+            }
         } else if (from == ConsHelper.ACT_DETAIL_FROM_ID) {
             long pid = intent.getLongExtra("pid", 0);
             refreshPost(pid, true);

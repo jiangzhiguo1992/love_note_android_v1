@@ -10,7 +10,6 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Award;
-import com.jiangzg.lovenote.domain.AwardRule;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.User;
@@ -47,13 +46,9 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
         String avatar = me.getAvatarInCp(item.getHappenId());
         String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String content = item.getContentText();
-        String scoreShow = "";
-        AwardRule awardRule = item.getAwardRule();
-        if (awardRule != null) {
-            scoreShow = String.valueOf(awardRule.getScore());
-            if (awardRule.getScore() > 0) {
-                scoreShow = "+" + scoreShow;
-            }
+        String scoreShow = String.valueOf(item.getScoreChange());
+        if (item.getScoreChange() > 0) {
+            scoreShow = "+" + scoreShow;
         }
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
