@@ -11,10 +11,9 @@ public class Album extends BaseCP implements Parcelable {
 
     private String title;
     private String cover;
-    private int pictureCount;
-
     private long startAt;
     private long endAt;
+    private int pictureCount;
 
     public int getPictureCount() {
         return pictureCount;

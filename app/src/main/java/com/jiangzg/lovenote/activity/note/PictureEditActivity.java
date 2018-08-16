@@ -383,7 +383,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 String toast = String.format(Locale.getDefault(), mActivity.getString(R.string.success_push_holder_paper_picture), total);
                 ToastUtils.show(toast);
                 // event
-                RxEvent<ArrayList<Album>> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxEvent<ArrayList<Album>> eventListAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.post(eventListAlbum);
+                RxEvent<Album> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
                 RxBus.post(eventAlbum);
                 RxEvent<ArrayList<Picture>> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
                 RxBus.post(eventPicture);
@@ -405,7 +407,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Album>> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxEvent<ArrayList<Album>> eventListAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.post(eventListAlbum);
+                RxEvent<Album> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
                 RxBus.post(eventAlbum);
                 Picture picture = data.getPicture();
                 if (isChangeAlbum) {

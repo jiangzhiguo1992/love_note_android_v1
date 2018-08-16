@@ -54,6 +54,7 @@ public class ConsHelper {
     public static final int EVENT_VIDEO_LIST_ITEM_DELETE = 4031;
     public static final int EVENT_ALBUM_LIST_REFRESH = 4040; // 相册
     public static final int EVENT_ALBUM_LIST_ITEM_REFRESH = 4041;
+    public static final int EVENT_ALBUM_DETAIL_REFRESH = 4042;
     public static final int EVENT_PICTURE_LIST_REFRESH = 4050; // 照片
     public static final int EVENT_PICTURE_LIST_ITEM_REFRESH = 4051;
     public static final int EVENT_PICTURE_LIST_ITEM_DELETE = 4052;

@@ -87,6 +87,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> callPictureList;
     private Call<Result> callAlbum;
+    private Observable<Album> obAlbumRefresh;
     private Observable<List<Picture>> obListRefresh;
     private Observable<Picture> obListItemRefresh;
     private Observable<Picture> obListItemDelete;
@@ -127,7 +128,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         // init
         album = intent.getParcelableExtra("album");
         if (album == null) {
-            getAlbum(intent.getLongExtra("albumId", 0));
+            refreshAlbum(intent.getLongExtra("albumId", 0));
         }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -208,6 +209,13 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
+        obAlbumRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, new Action1<Album>() {
+            @Override
+            public void call(Album a) {
+                if (album == null) return;
+                refreshAlbum(album.getId());
+            }
+        });
         obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new Action1<List<Picture>>() {
             @Override
             public void call(List<Picture> pictureList) {
@@ -240,6 +248,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callPictureList);
         RetrofitHelper.cancel(callAlbum);
+        RxBus.unregister(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, obAlbumRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, obListItemRefresh);
         RxBus.unregister(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, obListItemDelete);
@@ -323,7 +332,7 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
         });
     }
 
-    private void getAlbum(long albumId) {
+    private void refreshAlbum(long albumId) {
         callAlbum = new RetrofitHelper().call(API.class).noteAlbumGet(albumId);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAlbum, loading, new RetrofitHelper.CallBack() {
