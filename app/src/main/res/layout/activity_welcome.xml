@@ -8,6 +8,16 @@
     android:background="@drawable/shape_gradient_primary_light"
     tools:context="com.jiangzg.lovenote.activity.WelcomeActivity">
 
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_app_name"
+        android:tint="@color/white"/>
+
     <com.jiangzg.lovenote.view.FrescoNativeView
         android:id="@+id/ivBg"
         android:layout_width="match_parent"
@@ -16,13 +26,13 @@
         app:actualImageScaleType="centerCrop"
         tools:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/tvOnline"
-        style="@style/FontWhiteSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/online_can_entry"/>
+    <!--<TextView-->
+    <!--android:id="@+id/tvOnline"-->
+    <!--style="@style/FontPrimarySmallBold"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:text="@string/online_can_entry"/>-->
 </RelativeLayout>

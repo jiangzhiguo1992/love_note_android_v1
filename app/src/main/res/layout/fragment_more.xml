@@ -264,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="@string/quick_match"
+                        android:text="@string/match_activity"
                         android:textColor="@color/font_hint"/>
 
                     <View

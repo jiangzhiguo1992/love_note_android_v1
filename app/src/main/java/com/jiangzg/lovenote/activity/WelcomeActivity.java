@@ -41,12 +41,12 @@ import retrofit2.Call;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
-    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
+    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 3);
 
     @BindView(R.id.ivBg)
     FrescoNativeView ivBg;
-    @BindView(R.id.tvOnline)
-    TextView tvOnline;
+    //@BindView(R.id.tvOnline)
+    //TextView tvOnline;
 
     private Call<Result> call;
     private boolean exits;
@@ -61,10 +61,10 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     @Override
     protected void initView(Intent intent, Bundle savedInstanceState) {
         // 底部提示的高度
-        int height = BarUtils.getNavigationBarHeight(mActivity);
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
-        layoutParams.bottomMargin += height;
-        tvOnline.setLayoutParams(layoutParams);
+        //int height = BarUtils.getNavigationBarHeight(mActivity);
+        //RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
+        //layoutParams.bottomMargin += height;
+        //tvOnline.setLayoutParams(layoutParams);
     }
 
     @Override

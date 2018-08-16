@@ -51,7 +51,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.history_info), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.vip), true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))

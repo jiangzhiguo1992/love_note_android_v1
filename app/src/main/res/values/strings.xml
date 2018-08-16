@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">绵绵</string>
+    <string name="app_name">鱼笙</string>
 
     <!-- base -->
     <string name="day1">一</string>
@@ -248,7 +248,7 @@
     <string name="about_and_help">关于与帮助</string>
     <string name="new_notice">最新公告</string>
     <string name="help_document">帮助文档</string>
-    <string name="about_app">关于绵绵</string>
+    <string name="about_app">关于鱼笙</string>
     <string name="must_comply">一定要遵守哦！</string>
     <string name="official_qq">官方QQ群</string>
     <string name="contact_us">联系我们</string>
@@ -565,7 +565,7 @@
     <!-- square -->
     <string name="broadcast">广播</string>
     <string name="consume_about">消费相关</string>
-    <string name="quick_match">快来比拼</string>
+    <string name="match_activity">比拼活动</string>
     <string name="wish_future">许愿未来</string>
     <string name="vip">会员</string>
     <string name="coin">金币</string>
