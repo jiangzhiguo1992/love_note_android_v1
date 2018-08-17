@@ -51,8 +51,6 @@ public class Result implements Serializable {
         private String showMe;
         private String showTa;
         private long total;
-        private long totalMe;
-        private long totalTa;
         private User user;
         private CommonConst commonConst;
         private Limit limit;
@@ -142,6 +140,8 @@ public class Result implements Serializable {
         private List<Angry> angryList;
         private Dream dream;
         private List<Dream> dreamList;
+        private AwardScore awardScoreMe;
+        private AwardScore awardScoreTa;
         private Award award;
         private List<Award> awardList;
         private AwardRule awardRule;
@@ -649,20 +649,20 @@ public class Result implements Serializable {
             this.food = food;
         }
 
-        public long getTotalMe() {
-            return totalMe;
+        public AwardScore getAwardScoreMe() {
+            return awardScoreMe;
         }
 
-        public void setTotalMe(long totalMe) {
-            this.totalMe = totalMe;
+        public void setAwardScoreMe(AwardScore awardScoreMe) {
+            this.awardScoreMe = awardScoreMe;
         }
 
-        public long getTotalTa() {
-            return totalTa;
+        public AwardScore getAwardScoreTa() {
+            return awardScoreTa;
         }
 
-        public void setTotalTa(long totalTa) {
-            this.totalTa = totalTa;
+        public void setAwardScoreTa(AwardScore awardScoreTa) {
+            this.awardScoreTa = awardScoreTa;
         }
 
         public List<Award> getAwardList() {

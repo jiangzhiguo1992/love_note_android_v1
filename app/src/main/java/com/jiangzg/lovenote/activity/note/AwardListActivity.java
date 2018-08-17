@@ -23,6 +23,7 @@ import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.AwardAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Award;
+import com.jiangzg.lovenote.domain.AwardScore;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -243,16 +244,26 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
         RetrofitHelper.enqueue(callScore, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                String totalMe = String.valueOf(data.getTotalMe());
-                if (data.getTotalMe() > 0) {
-                    totalMe = "+" + totalMe;
+                AwardScore awardScoreMe = data.getAwardScoreMe();
+                AwardScore awardScoreTa = data.getAwardScoreTa();
+                String scoreMe = "0";
+                if (awardScoreMe != null) {
+                    long totalScore = awardScoreMe.getTotalScore();
+                    scoreMe = String.valueOf(totalScore);
+                    if (totalScore > 0) {
+                        scoreMe = "+" + scoreMe;
+                    }
                 }
-                String totalTa = String.valueOf(data.getTotalTa());
-                if (data.getTotalTa() > 0) {
-                    totalTa = "+" + totalTa;
+                String scoreTa = "0";
+                if (awardScoreTa != null) {
+                    long totalScore = awardScoreTa.getTotalScore();
+                    scoreTa = String.valueOf(totalScore);
+                    if (totalScore > 0) {
+                        scoreTa = "+" + scoreTa;
+                    }
                 }
-                tvScoreMe.setText(totalMe);
-                tvScoreTa.setText(totalTa);
+                tvScoreMe.setText(scoreMe);
+                tvScoreTa.setText(scoreTa);
             }
 
             @Override
