@@ -18,10 +18,14 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.AliPayResult;
 import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.domain.Result;
+import com.jiangzg.lovenote.domain.RxEvent;
+import com.jiangzg.lovenote.domain.Vip;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
+import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
@@ -149,6 +153,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         });
     }
 
+    // 支付宝
     private void startAliPay(final String orderInfo) {
         PayHelper.payByAli(mActivity, orderInfo, new PayHelper.AliCallBack() {
             @Override
@@ -163,16 +168,19 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         });
     }
 
+    // 微信
     private void startWeChatPay() {
         // TODO
     }
 
     private void checkPayResult() {
-        callBefore = new RetrofitHelper().call(API.class).morePayAfterCheck();
+        callAfter = new RetrofitHelper().call(API.class).morePayAfterCheck();
         MaterialDialog loading = mActivity.getLoading(false);
-        RetrofitHelper.enqueue(callBefore, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
+                RxEvent<Vip> event = new RxEvent<>(ConsHelper.EVENT_VIP_INFO_REFRESH, new Vip());
+                RxBus.post(event);
             }
 
             @Override

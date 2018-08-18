@@ -614,7 +614,7 @@
     <string name="vip_buy">会员购买</string>
     <string name="alipay_pay">支付宝支付</string>
     <string name="wechat_pay">微信支付</string>
-    <string name="pay_vip_goods_format" formatted="false">%s\n%d天\n%sRMB</string>
+    <string name="pay_vip_goods_format" formatted="false">%s\n%d 天\n%s RMB</string>
     <string name="pay_error">支付异常</string>
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
 
