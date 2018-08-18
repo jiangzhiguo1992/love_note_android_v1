@@ -158,10 +158,6 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         // TODO
     }
 
-    private void waitPayResult(final int payPlatform) {
-        // TODO
-    }
-
     private void checkPayResult() {
         // TODO
     }

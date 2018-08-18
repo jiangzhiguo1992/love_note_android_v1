@@ -617,7 +617,7 @@ public interface API {
     Call<Result> moreHomeGet();
 
     // payBefore获取
-    @GET("more/pay?before=1")
+    @GET("more/bill?before=1")
     Call<Result> morePayBeforeAliGet(@Query("pay_platform") int payPlatform, @Query("goods") int goods);
 
     // vipHome获取
