@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
@@ -46,6 +47,11 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     Button btnAliPay;
     @BindView(R.id.btnWeChatPay)
     Button btnWeChatPay;
+    @BindView(R.id.tvBillCheck)
+    TextView tvBillCheck;
+
+    private Call<Result> callBefore;
+    private Call<Result> callAfter;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, VipBuyActivity.class);
@@ -67,15 +73,15 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-
     }
 
     @Override
     protected void onFinish(Bundle state) {
-
+        RetrofitHelper.cancel(callBefore);
+        RetrofitHelper.cancel(callAfter);
     }
 
-    @OnClick({R.id.btnAliPay, R.id.btnWeChatPay})
+    @OnClick({R.id.btnAliPay, R.id.btnWeChatPay, R.id.tvBillCheck})
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btnAliPay: // 支付宝支付
@@ -83,6 +89,9 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
                 break;
             case R.id.btnWeChatPay: // 微信支付
                 payBefore(ApiHelper.BILL_PAY_PLATFORM_WX);
+                break;
+            case R.id.tvBillCheck:// 检查
+                checkPayResult();
                 break;
         }
     }
@@ -121,9 +130,9 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         } else {
             return;
         }
-        Call<Result> call = new RetrofitHelper().call(API.class).morePayBeforeAliGet(payPlatform, goods);
+        callBefore = new RetrofitHelper().call(API.class).morePayBeforeGet(payPlatform, goods);
         MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callBefore, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (payPlatform == ApiHelper.BILL_PAY_PLATFORM_ALI) {
@@ -144,12 +153,12 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         PayHelper.payByAli(mActivity, orderInfo, new PayHelper.AliCallBack() {
             @Override
             public void onSuccess(AliPayResult result) {
-                String memo = result.getMemo();
+                //String memo = result.getMemo();
                 String resultStatus = result.getResultStatus();
-                AliPayResult.Result result1 = result.getResult();
-                // TODO 结果处理
-                // TODO 界面也要变化
-                // TODO 轮询服务器 请求服务器处理结果
+                //AliPayResult.Result result1 = result.getResult();
+                if (resultStatus.equals(String.valueOf(AliPayResult.RESULT_STATUS_OK))) {
+                    checkPayResult();
+                }
             }
         });
     }
@@ -159,7 +168,17 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     }
 
     private void checkPayResult() {
-        // TODO
+        callBefore = new RetrofitHelper().call(API.class).morePayAfterCheck();
+        MaterialDialog loading = mActivity.getLoading(false);
+        RetrofitHelper.enqueue(callBefore, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
 }
