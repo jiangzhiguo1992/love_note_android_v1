@@ -104,13 +104,12 @@ public class ApiHelper {
             MyApp.get().getString(R.string.official),
             MyApp.get().getString(R.string.well)
     };
-
-    public static final int PAY_PLATFORM_ALIPAY = 100;
-    public static final int PAY_PLATFORM_WECHAT = 200;
-
-    public static final int VIP_GOODS_1 = 101;
-    public static final int VIP_GOODS_2 = 201;
-    public static final int VIP_GOODS_3 = 520;
+    // bill
+    public static final int BILL_PAY_PLATFORM_ALI = 100;
+    public static final int BILL_PAY_PLATFORM_WX = 200;
+    public static final int BILL_GOODS_VIP_1 = 1101;
+    public static final int BILL_GOODS_VIP_2 = 1201;
+    public static final int BILL_GOODS_VIP_3 = 1520;
 
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {

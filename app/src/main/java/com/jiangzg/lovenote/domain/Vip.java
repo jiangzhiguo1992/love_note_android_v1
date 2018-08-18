@@ -15,8 +15,7 @@ import com.jiangzg.lovenote.helper.ApiHelper;
 public class Vip extends BaseCP implements Parcelable, MultiItemEntity {
 
     public static final int VIP_FROM_TYPE_USER_BUY = 100; // 用户购买
-    public static final int VIP_FROM_TYPE_USER_SEND = 110; // 用户赠送
-    public static final int VIP_FROM_TYPE_SYS_AWARD = 210; // 系统奖励
+    public static final int VIP_FROM_TYPE_SYS_SEND = 210; // 系统赠送
     public static final int VIP_FROM_TYPE_SYS_MAKE = 220; // 系统补偿
 
     public static final int VIP_BILL_PLATFORM_WX = 1; // 微信
@@ -37,10 +36,8 @@ public class Vip extends BaseCP implements Parcelable, MultiItemEntity {
         switch (type) {
             case VIP_FROM_TYPE_USER_BUY:
                 return MyApp.get().getString(R.string.user_buy);
-            case VIP_FROM_TYPE_USER_SEND:
-                return MyApp.get().getString(R.string.user_send);
-            case VIP_FROM_TYPE_SYS_AWARD:
-                return MyApp.get().getString(R.string.sys_award);
+            case VIP_FROM_TYPE_SYS_SEND:
+                return MyApp.get().getString(R.string.sys_send);
             case VIP_FROM_TYPE_SYS_MAKE:
                 return MyApp.get().getString(R.string.sys_make);
         }

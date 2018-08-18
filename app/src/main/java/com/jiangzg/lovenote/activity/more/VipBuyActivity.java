@@ -79,10 +79,10 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btnAliPay: // 支付宝支付
-                payBefore(ApiHelper.PAY_PLATFORM_ALIPAY);
+                payBefore(ApiHelper.BILL_PAY_PLATFORM_ALI);
                 break;
             case R.id.btnWeChatPay: // 微信支付
-                payBefore(ApiHelper.PAY_PLATFORM_WECHAT);
+                payBefore(ApiHelper.BILL_PAY_PLATFORM_WX);
                 break;
         }
     }
@@ -113,11 +113,11 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     public void payBefore(final int payPlatform) {
         final int goods;
         if (rbGoods1.isChecked()) {
-            goods = ApiHelper.VIP_GOODS_1;
+            goods = ApiHelper.BILL_GOODS_VIP_1;
         } else if (rbGoods2.isChecked()) {
-            goods = ApiHelper.VIP_GOODS_2;
+            goods = ApiHelper.BILL_GOODS_VIP_2;
         } else if (rbGoods3.isChecked()) {
-            goods = ApiHelper.VIP_GOODS_3;
+            goods = ApiHelper.BILL_GOODS_VIP_3;
         } else {
             return;
         }
@@ -126,11 +126,11 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                if (payPlatform == ApiHelper.PAY_PLATFORM_ALIPAY) {
+                if (payPlatform == ApiHelper.BILL_PAY_PLATFORM_ALI) {
                     String orderInfo = data.getAliOrderInfo();
                     startAliPay(orderInfo);
-                } else if (payPlatform == ApiHelper.PAY_PLATFORM_WECHAT) {
-                    // TODO
+                } else if (payPlatform == ApiHelper.BILL_PAY_PLATFORM_WX) {
+                    startWeChatPay();
                 }
             }
 
@@ -154,7 +154,11 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         });
     }
 
-    private void waitPayResult() {
+    private void startWeChatPay() {
+        // TODO
+    }
+
+    private void waitPayResult(final int payPlatform) {
         // TODO
     }
 
