@@ -108,9 +108,9 @@ public class ApiHelper {
     public static final int PAY_PLATFORM_ALIPAY = 100;
     public static final int PAY_PLATFORM_WECHAT = 200;
 
-    public static final int VIP_GOODS_1_MONTH = 101;
-    public static final int VIP_GOODS_1_YEAR = 201;
-    public static final int VIP_GOODS_FOREVER = 520;
+    public static final int VIP_GOODS_1 = 101;
+    public static final int VIP_GOODS_2 = 201;
+    public static final int VIP_GOODS_3 = 520;
 
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {

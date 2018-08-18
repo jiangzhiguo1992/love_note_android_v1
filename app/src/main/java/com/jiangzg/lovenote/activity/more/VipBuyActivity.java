@@ -82,7 +82,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
                 payBefore(ApiHelper.PAY_PLATFORM_ALIPAY);
                 break;
             case R.id.btnWeChatPay: // 微信支付
-                // TODO
+                payBefore(ApiHelper.PAY_PLATFORM_WECHAT);
                 break;
         }
     }
@@ -113,15 +113,15 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     public void payBefore(final int payPlatform) {
         final int goods;
         if (rbGoods1.isChecked()) {
-            goods = ApiHelper.VIP_GOODS_1_MONTH;
+            goods = ApiHelper.VIP_GOODS_1;
         } else if (rbGoods2.isChecked()) {
-            goods = ApiHelper.VIP_GOODS_1_YEAR;
+            goods = ApiHelper.VIP_GOODS_2;
         } else if (rbGoods3.isChecked()) {
-            goods = ApiHelper.VIP_GOODS_FOREVER;
+            goods = ApiHelper.VIP_GOODS_3;
         } else {
             return;
         }
-        Call<Result> call = new RetrofitHelper().call(API.class).morePayAliOrderInfoGet(payPlatform, goods);
+        Call<Result> call = new RetrofitHelper().call(API.class).morePayBeforeAliGet(payPlatform, goods);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
@@ -136,7 +136,6 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-
             }
         });
     }
