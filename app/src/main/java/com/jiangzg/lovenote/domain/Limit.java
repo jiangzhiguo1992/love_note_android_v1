@@ -59,6 +59,15 @@ public class Limit {
     private int postCommentContentLength;
     private int postCommentScreenReportCount;
     // more
+    private String payVipGoods1Title;
+    private int payVipGoods1Days;
+    private String payVipGoods1Amount;
+    private String payVipGoods2Title;
+    private int payVipGoods2Days;
+    private String payVipGoods2Amount;
+    private String payVipGoods3Title;
+    private int payVipGoods3Days;
+    private String payVipGoods3Amount;
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
@@ -72,6 +81,78 @@ public class Limit {
     private int discussScreenReportCount;
     private int letterContentLength;
     private int discussContentLength;
+
+    public int getPayVipGoods1Days() {
+        return payVipGoods1Days;
+    }
+
+    public void setPayVipGoods1Days(int payVipGoods1Days) {
+        this.payVipGoods1Days = payVipGoods1Days;
+    }
+
+    public int getPayVipGoods2Days() {
+        return payVipGoods2Days;
+    }
+
+    public void setPayVipGoods2Days(int payVipGoods2Days) {
+        this.payVipGoods2Days = payVipGoods2Days;
+    }
+
+    public int getPayVipGoods3Days() {
+        return payVipGoods3Days;
+    }
+
+    public void setPayVipGoods3Days(int payVipGoods3Days) {
+        this.payVipGoods3Days = payVipGoods3Days;
+    }
+
+    public String getPayVipGoods1Title() {
+        return payVipGoods1Title;
+    }
+
+    public void setPayVipGoods1Title(String payVipGoods1Title) {
+        this.payVipGoods1Title = payVipGoods1Title;
+    }
+
+    public String getPayVipGoods1Amount() {
+        return payVipGoods1Amount;
+    }
+
+    public void setPayVipGoods1Amount(String payVipGoods1Amount) {
+        this.payVipGoods1Amount = payVipGoods1Amount;
+    }
+
+    public String getPayVipGoods2Title() {
+        return payVipGoods2Title;
+    }
+
+    public void setPayVipGoods2Title(String payVipGoods2Title) {
+        this.payVipGoods2Title = payVipGoods2Title;
+    }
+
+    public String getPayVipGoods2Amount() {
+        return payVipGoods2Amount;
+    }
+
+    public void setPayVipGoods2Amount(String payVipGoods2Amount) {
+        this.payVipGoods2Amount = payVipGoods2Amount;
+    }
+
+    public String getPayVipGoods3Title() {
+        return payVipGoods3Title;
+    }
+
+    public void setPayVipGoods3Title(String payVipGoods3Title) {
+        this.payVipGoods3Title = payVipGoods3Title;
+    }
+
+    public String getPayVipGoods3Amount() {
+        return payVipGoods3Amount;
+    }
+
+    public void setPayVipGoods3Amount(String payVipGoods3Amount) {
+        this.payVipGoods3Amount = payVipGoods3Amount;
+    }
 
     public int getWifeScreenReportCount() {
         return wifeScreenReportCount;

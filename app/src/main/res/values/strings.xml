@@ -606,12 +606,16 @@
     <string name="ali_pay">支付宝</string>
     <string name="unknown_platform">未知平台</string>
     <string name="unknown_kind">未知类型</string>
-    <string name="coin_get_desc">金币来源介绍\n\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与 %s 给予%d个\n参与 %s 给予%d个\n参与 %s 给予%d个\n每期活动只能获得一次</string>
+    <string name="coin_get_desc" formatted="false">金币来源介绍\n\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与 %s 给予%d个\n参与 %s 给予%d个\n参与 %s 给予%d个\n每期活动只能获得一次</string>
     <string name="play_pay">商店充值</string>
     <string name="every_day_sign">每日签到</string>
     <string name="go_in_spae">参与</string>
     <string name="throw_coin_space">投币</string>
     <string name="bless_space">祝福</string>
     <string name="vip_buy">会员购买</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="pay_vip_goods_format" formatted="false">%s\n%d天\n%sRMB</string>
+    <string name="pay_error">支付异常</string>
 
 </resources>

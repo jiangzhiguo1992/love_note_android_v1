@@ -4,6 +4,9 @@ import android.app.Activity;
 
 import com.alipay.sdk.app.PayTask;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.system.PermUtils;
+import com.jiangzg.base.view.ToastUtils;
+import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.AliPayResult;
 
@@ -12,7 +15,6 @@ import java.util.Map;
 /**
  * Created by JZG on 2018/8/17.
  * PayHelper
- * TODO 微信
  */
 public class PayHelper {
 
@@ -21,6 +23,20 @@ public class PayHelper {
     }
 
     public static void payByAli(final Activity activity, final String orderInfo, final AliCallBack callBack) {
+        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_DEVICE_INFO, PermUtils.deviceInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                payByAliNoPermission(activity, orderInfo, callBack);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(activity);
+            }
+        });
+    }
+
+    private static void payByAliNoPermission(final Activity activity, final String orderInfo, final AliCallBack callBack) {
         // 必须异步调用
         MyApp.get().getThread().execute(new Runnable() {
             @Override
@@ -29,7 +45,7 @@ public class PayHelper {
                 Map<String, String> result = aliPay.payV2(orderInfo, true);
                 if (result == null || result.isEmpty()) {
                     LogUtils.w(PayHelper.class, "payByAli", "result == null");
-                    // TODO
+                    ToastUtils.show(activity.getString(R.string.pay_error));
                     return;
                 }
                 LogUtils.d(PayHelper.class, "payByAli", "result = " + result.toString());
