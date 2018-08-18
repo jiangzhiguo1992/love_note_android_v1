@@ -215,8 +215,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
                 VipListActivity.goActivity(mActivity);
                 break;
             case R.id.btnBuy: // 前往购买
-                ToastUtils.show("敬请期待");
-                //VipBuyActivity.goActivity(mActivity);
+                VipBuyActivity.goActivity(mActivity);
                 break;
         }
     }

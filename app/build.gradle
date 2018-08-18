@@ -211,6 +211,7 @@ dependencies { // 及时更新
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
     // 三方
+    implementation files('libs/alipaySdk-20180601.jar') // aliPay
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0' // oss
     implementation 'com.amap.api:location:3.8.0' // 地图定位
     implementation 'com.amap.api:map2d:5.2.0' // 地图2D

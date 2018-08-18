@@ -616,6 +616,10 @@ public interface API {
     @GET("more/home")
     Call<Result> moreHomeGet();
 
+    // payAliOrderInfo获取
+    @GET("more/pay?home=0&order_info=1")
+    Call<Result> morePayAliOrderInfoGet(@Query("pay_platform") int payPlatform, @Query("goods") int goods);
+
     // vipHome获取
     @GET("more/vip?home=1&list=0")
     Call<Result> moreVipHomeGet();

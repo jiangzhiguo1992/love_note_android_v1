@@ -105,6 +105,13 @@ public class ApiHelper {
             MyApp.get().getString(R.string.well)
     };
 
+    public static final int PAY_PLATFORM_ALIPAY = 100;
+    public static final int PAY_PLATFORM_WECHAT = 200;
+
+    public static final int VIP_GOODS_1_MONTH = 101;
+    public static final int VIP_GOODS_1_YEAR = 201;
+    public static final int VIP_GOODS_FOREVER = 520;
+
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {
         Entry entry = new Entry();
