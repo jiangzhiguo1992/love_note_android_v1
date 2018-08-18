@@ -63,7 +63,6 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.vip_buy), true);
         initGoodsCheck();
-        initPayPlatformCheck();
     }
 
     @Override
@@ -80,31 +79,16 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btnAliPay: // 支付宝支付
-                getOrderInfo();
+                payBefore(ApiHelper.PAY_PLATFORM_ALIPAY);
                 break;
             case R.id.btnWeChatPay: // 微信支付
+                // TODO
                 break;
         }
     }
 
     @SuppressLint("SetTextI18n")
     private void initGoodsCheck() {
-        //rgGoods.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-        //    @Override
-        //    public void onCheckedChanged(RadioGroup group, int checkedId) {
-        //        switch (checkedId) {
-        //            case R.id.rbGoods1: // 一月
-        //
-        //                break;
-        //            case R.id.rbGoods2: // 一年
-        //
-        //                break;
-        //            case R.id.rbGoods3: // 永久
-        //
-        //                break;
-        //        }
-        //    }
-        //});
         Limit limit = SPHelper.getLimit();
         String format = getString(R.string.pay_vip_goods_format);
         String goods1 = String.format(Locale.getDefault(), format, limit.getPayVipGoods1Title(), limit.getPayVipGoods1Days(), limit.getPayVipGoods1Amount());
@@ -117,10 +101,6 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         refreshPayBtn();
     }
 
-    private void initPayPlatformCheck() {
-
-    }
-
     private void refreshPayBtn() {
         if (!rbGoods1.isChecked() && !rbGoods2.isChecked() && !rbGoods3.isChecked()) {
             btnAliPay.setEnabled(false);
@@ -130,8 +110,8 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         btnWeChatPay.setEnabled(true);
     }
 
-    public void getOrderInfo() {
-        int goods, payPlatform;
+    public void payBefore(final int payPlatform) {
+        final int goods;
         if (rbGoods1.isChecked()) {
             goods = ApiHelper.VIP_GOODS_1_MONTH;
         } else if (rbGoods2.isChecked()) {
@@ -141,14 +121,17 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         } else {
             return;
         }
-        payPlatform = ApiHelper.PAY_PLATFORM_ALIPAY;
         Call<Result> call = new RetrofitHelper().call(API.class).morePayAliOrderInfoGet(payPlatform, goods);
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                String orderInfo = data.getOrderInfo();
-                startPay(orderInfo);
+                if (payPlatform == ApiHelper.PAY_PLATFORM_ALIPAY) {
+                    String orderInfo = data.getAliOrderInfo();
+                    startAliPay(orderInfo);
+                } else if (payPlatform == ApiHelper.PAY_PLATFORM_WECHAT) {
+                    // TODO
+                }
             }
 
             @Override
@@ -158,7 +141,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         });
     }
 
-    private void startPay(final String orderInfo) {
+    private void startAliPay(final String orderInfo) {
         PayHelper.payByAli(mActivity, orderInfo, new PayHelper.AliCallBack() {
             @Override
             public void onSuccess(AliPayResult result) {
@@ -170,6 +153,14 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
                 // TODO 轮询服务器 请求服务器处理结果
             }
         });
+    }
+
+    private void waitPayResult() {
+        // TODO
+    }
+
+    private void checkPayResult() {
+        // TODO
     }
 
 }

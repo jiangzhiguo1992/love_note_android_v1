@@ -160,7 +160,7 @@ public class Result implements Serializable {
         private PostCommentPoint postCommentPoint;
         // more
         private List<Broadcast> broadcastList;
-        private String orderInfo; // TODO
+        private String aliOrderInfo;
         private VipLimit vipYesLimit;
         private VipLimit vipNoLimit;
         private Vip vip;
@@ -170,12 +170,12 @@ public class Result implements Serializable {
         private Sign sign;
         private List<Sign> signList;
 
-        public String getOrderInfo() {
-            return orderInfo;
+        public String getAliOrderInfo() {
+            return aliOrderInfo;
         }
 
-        public void setOrderInfo(String orderInfo) {
-            this.orderInfo = orderInfo;
+        public void setAliOrderInfo(String aliOrderInfo) {
+            this.aliOrderInfo = aliOrderInfo;
         }
 
         public VipLimit getVipYesLimit() {

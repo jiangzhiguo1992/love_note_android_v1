@@ -109,8 +109,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                android:text="@string/wechat_pay"
-                android:visibility="gone"/>
+                android:text="@string/wechat_pay"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
