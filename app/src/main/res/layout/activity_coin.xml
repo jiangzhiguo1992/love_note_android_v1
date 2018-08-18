@@ -15,89 +15,62 @@
         android:layout_height="match_parent"
         android:background="@drawable/shape_gradient_white_primary">
 
-        <android.support.v4.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <com.jiangzg.lovenote.view.FrescoAvatarView
+                    android:id="@+id/ivAvatarLeft"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="20dp"
+                    tools:background="@mipmap/ic_boy_circle"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <com.jiangzg.lovenote.view.FrescoAvatarView
-                        android:id="@+id/ivAvatarLeft"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="20dp"
-                        tools:background="@mipmap/ic_boy_circle"/>
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/tvCoinCount"
                         style="@style/FontPrimaryBigBold"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center"
                         tools:text="10000"/>
 
-                    <com.jiangzg.lovenote.view.FrescoAvatarView
-                        android:id="@+id/ivAvatarRight"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="20dp"
-                        tools:background="@mipmap/ic_girl_circle"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/btnHistory"
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                        android:text="@string/history_info"/>
-
                     <Button
                         android:id="@+id/btnBuy"
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
+                        style="@style/FontWhiteSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="5dp"
                         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                         android:text="@string/go_to_buy"/>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvGetInfo"
-                        style="@style/FontWhiteBig"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        tools:text="金币来源介绍\n\n1.用户购买\n\n2.每日签到\n普通签到给予%d个\n连续签到叠加%d个\n最多可累计%d个\n\n3.参与活动\n参与%s给予%d个\n参与%s给予%d个\n参与%s给予%d个\n每期活动只能获得一次"/>
-                </LinearLayout>
+                <com.jiangzg.lovenote.view.FrescoAvatarView
+                    android:id="@+id/ivAvatarRight"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="20dp"
+                    tools:background="@mipmap/ic_girl_circle"/>
             </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>

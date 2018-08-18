@@ -68,6 +68,15 @@ public class Limit {
     private String payVipGoods3Title;
     private int payVipGoods3Days;
     private String payVipGoods3Amount;
+    private String payCoinGoods1Title;
+    private int payCoinGoods1Count;
+    private String payCoinGoods1Amount;
+    private String payCoinGoods2Title;
+    private int payCoinGoods2Count;
+    private String payCoinGoods2Amount;
+    private String payCoinGoods3Title;
+    private int payCoinGoods3Count;
+    private String payCoinGoods3Amount;
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
@@ -81,6 +90,78 @@ public class Limit {
     private int discussScreenReportCount;
     private int letterContentLength;
     private int discussContentLength;
+
+    public String getPayCoinGoods1Title() {
+        return payCoinGoods1Title;
+    }
+
+    public void setPayCoinGoods1Title(String payCoinGoods1Title) {
+        this.payCoinGoods1Title = payCoinGoods1Title;
+    }
+
+    public int getPayCoinGoods1Count() {
+        return payCoinGoods1Count;
+    }
+
+    public void setPayCoinGoods1Count(int payCoinGoods1Count) {
+        this.payCoinGoods1Count = payCoinGoods1Count;
+    }
+
+    public String getPayCoinGoods1Amount() {
+        return payCoinGoods1Amount;
+    }
+
+    public void setPayCoinGoods1Amount(String payCoinGoods1Amount) {
+        this.payCoinGoods1Amount = payCoinGoods1Amount;
+    }
+
+    public String getPayCoinGoods2Title() {
+        return payCoinGoods2Title;
+    }
+
+    public void setPayCoinGoods2Title(String payCoinGoods2Title) {
+        this.payCoinGoods2Title = payCoinGoods2Title;
+    }
+
+    public int getPayCoinGoods2Count() {
+        return payCoinGoods2Count;
+    }
+
+    public void setPayCoinGoods2Count(int payCoinGoods2Count) {
+        this.payCoinGoods2Count = payCoinGoods2Count;
+    }
+
+    public String getPayCoinGoods2Amount() {
+        return payCoinGoods2Amount;
+    }
+
+    public void setPayCoinGoods2Amount(String payCoinGoods2Amount) {
+        this.payCoinGoods2Amount = payCoinGoods2Amount;
+    }
+
+    public String getPayCoinGoods3Title() {
+        return payCoinGoods3Title;
+    }
+
+    public void setPayCoinGoods3Title(String payCoinGoods3Title) {
+        this.payCoinGoods3Title = payCoinGoods3Title;
+    }
+
+    public int getPayCoinGoods3Count() {
+        return payCoinGoods3Count;
+    }
+
+    public void setPayCoinGoods3Count(int payCoinGoods3Count) {
+        this.payCoinGoods3Count = payCoinGoods3Count;
+    }
+
+    public String getPayCoinGoods3Amount() {
+        return payCoinGoods3Amount;
+    }
+
+    public void setPayCoinGoods3Amount(String payCoinGoods3Amount) {
+        this.payCoinGoods3Amount = payCoinGoods3Amount;
+    }
 
     public int getPayVipGoods1Days() {
         return payVipGoods1Days;

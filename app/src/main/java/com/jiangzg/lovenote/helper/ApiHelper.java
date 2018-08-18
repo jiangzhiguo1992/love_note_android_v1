@@ -109,7 +109,10 @@ public class ApiHelper {
     public static final int BILL_PAY_PLATFORM_WX = 200;
     public static final int BILL_GOODS_VIP_1 = 1101;
     public static final int BILL_GOODS_VIP_2 = 1201;
-    public static final int BILL_GOODS_VIP_3 = 1520;
+    public static final int BILL_GOODS_VIP_3 = 1301;
+    public static final int BILL_GOODS_COIN_1 = 2101;
+    public static final int BILL_GOODS_COIN_2 = 2201;
+    public static final int BILL_GOODS_COIN_3 = 2301;
 
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {
