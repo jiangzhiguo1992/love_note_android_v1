@@ -169,6 +169,87 @@ public class Result implements Serializable {
         private List<Coin> coinList;
         private Sign sign;
         private List<Sign> signList;
+        private MatchPeriod wifePeriod;
+        private MatchPeriod letterPeriod;
+        private MatchPeriod discussPeriod;
+        private List<MatchPeriod> matchPeriodList;
+        private MatchWork matchWork;
+        private List<MatchWork> matchWorkList;
+        private MatchReport matchReport;
+        private MatchPoint matchPoint;
+        private MatchCoin matchCoin;
+
+        public MatchPeriod getWifePeriod() {
+            return wifePeriod;
+        }
+
+        public void setWifePeriod(MatchPeriod wifePeriod) {
+            this.wifePeriod = wifePeriod;
+        }
+
+        public MatchPeriod getLetterPeriod() {
+            return letterPeriod;
+        }
+
+        public void setLetterPeriod(MatchPeriod letterPeriod) {
+            this.letterPeriod = letterPeriod;
+        }
+
+        public MatchPeriod getDiscussPeriod() {
+            return discussPeriod;
+        }
+
+        public void setDiscussPeriod(MatchPeriod discussPeriod) {
+            this.discussPeriod = discussPeriod;
+        }
+
+        public List<MatchPeriod> getMatchPeriodList() {
+            return matchPeriodList;
+        }
+
+        public void setMatchPeriodList(List<MatchPeriod> matchPeriodList) {
+            this.matchPeriodList = matchPeriodList;
+        }
+
+        public MatchWork getMatchWork() {
+            return matchWork;
+        }
+
+        public void setMatchWork(MatchWork matchWork) {
+            this.matchWork = matchWork;
+        }
+
+        public List<MatchWork> getMatchWorkList() {
+            return matchWorkList;
+        }
+
+        public void setMatchWorkList(List<MatchWork> matchWorkList) {
+            this.matchWorkList = matchWorkList;
+        }
+
+        public MatchReport getMatchReport() {
+            return matchReport;
+        }
+
+        public void setMatchReport(MatchReport matchReport) {
+            this.matchReport = matchReport;
+        }
+
+        public MatchPoint getMatchPoint() {
+            return matchPoint;
+        }
+
+        public void setMatchPoint(MatchPoint matchPoint) {
+            this.matchPoint = matchPoint;
+        }
+
+        public MatchCoin getMatchCoin() {
+            return matchCoin;
+        }
+
+        public void setMatchCoin(MatchCoin matchCoin) {
+            this.matchCoin = matchCoin;
+        }
 
         public String getAliOrderInfo() {
             return aliOrderInfo;

@@ -59,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="@string/consume_about"
+                        android:text="@string/nav_pay"
                         android:textColor="@color/font_hint"/>
 
                     <View
@@ -264,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="@string/match_activity"
+                        android:text="@string/nav_match"
                         android:textColor="@color/font_hint"/>
 
                     <View
@@ -469,7 +469,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
-                        android:text="@string/wish_future"
+                        android:text="@string/nav_future"
                         android:textColor="@color/font_hint"/>
 
                     <View

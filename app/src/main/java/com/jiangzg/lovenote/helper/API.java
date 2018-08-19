@@ -12,6 +12,10 @@ import com.jiangzg.lovenote.domain.Entry;
 import com.jiangzg.lovenote.domain.Food;
 import com.jiangzg.lovenote.domain.Gift;
 import com.jiangzg.lovenote.domain.Lock;
+import com.jiangzg.lovenote.domain.MatchCoin;
+import com.jiangzg.lovenote.domain.MatchPoint;
+import com.jiangzg.lovenote.domain.MatchReport;
+import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Menses;
 import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.PictureList;
@@ -647,5 +651,37 @@ public interface API {
     // signList获取
     @GET("more/sign?date=1&today=0")
     Call<Result> moreSignDateGet(@Query("year") int year, @Query("month") int month);
+
+    // matchPeriodList获取
+    @GET("more/match/period?list=1")
+    Call<Result> moreMatchPeriodListGet(@Query("kind") int kind, @Query("page") int page);
+
+    // matchWork上传
+    @POST("more/match/work")
+    Call<Result> moreMatchWorkAdd(@Body MatchWork matchWork);
+
+    // matchWork删除
+    @DELETE("more/match/work")
+    Call<Result> moreMatchWorkDel(@Query("mwid") long mwid);
+
+    // matchWorkList获取
+    @GET("more/match/work?our=0")
+    Call<Result> moreMatchWordPeriodListGet(@Query("mpid") long mpid, @Query("order") int order, @Query("page") int page);
+
+    // matchWorkList获取
+    @GET("more/match/work?our=1")
+    Call<Result> moreMatchWordOurListGet(@Query("kind") int kind, @Query("page") int page);
+
+    // matchReport上传
+    @POST("more/match/report")
+    Call<Result> moreMatchReportAdd(@Body MatchReport matchReport);
+
+    // matchPoint上传
+    @POST("more/match/point")
+    Call<Result> moreMatchPointAdd(@Body MatchPoint matchPoint);
+
+    // matchCoin上传
+    @POST("more/match/coin")
+    Call<Result> moreMatchCoinAdd(@Body MatchCoin matchCoin);
 
 }

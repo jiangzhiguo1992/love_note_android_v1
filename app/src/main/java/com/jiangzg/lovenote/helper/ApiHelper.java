@@ -113,6 +113,20 @@ public class ApiHelper {
     public static final int BILL_GOODS_COIN_1 = 2101;
     public static final int BILL_GOODS_COIN_2 = 2201;
     public static final int BILL_GOODS_COIN_3 = 2301;
+    // match search类型
+    private static final int LIST_MATCH_COIN = 0;
+    private static final int LIST_MATCH_POINT = 1;
+    private static final int LIST_MATCH_NEW = 2;
+    public static final int[] LIST_MATCH_TYPE = new int[]{
+            LIST_MATCH_COIN,
+            LIST_MATCH_POINT,
+            LIST_MATCH_NEW
+    };
+    public static final String[] LIST_MATCH_SHOW = new String[]{
+            MyApp.get().getString(R.string.coin_board),
+            MyApp.get().getString(R.string.point_board),
+            MyApp.get().getString(R.string.new_board)
+    };
 
     @SuppressLint("HardwareIds")
     public static Entry getEntryBody() {

@@ -80,16 +80,35 @@ public class Limit {
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
-    private int coinWifeAddCount;
-    private int coinLetterAddCount;
-    private int coinDiscussAddCount;
     private int coinWishPerHourCount;
     private int coinPlanePerDayCount;
-    private int wifeScreenReportCount;
-    private int letterScreenReportCount;
-    private int discussScreenReportCount;
-    private int letterContentLength;
-    private int discussContentLength;
+    private int matchWorkScreenReportCount;
+    private int matchWorkTitleLength;
+    private int matchWorkContentLength;
+
+    public int getMatchWorkScreenReportCount() {
+        return matchWorkScreenReportCount;
+    }
+
+    public void setMatchWorkScreenReportCount(int matchWorkScreenReportCount) {
+        this.matchWorkScreenReportCount = matchWorkScreenReportCount;
+    }
+
+    public int getMatchWorkTitleLength() {
+        return matchWorkTitleLength;
+    }
+
+    public void setMatchWorkTitleLength(int matchWorkTitleLength) {
+        this.matchWorkTitleLength = matchWorkTitleLength;
+    }
+
+    public int getMatchWorkContentLength() {
+        return matchWorkContentLength;
+    }
+
+    public void setMatchWorkContentLength(int matchWorkContentLength) {
+        this.matchWorkContentLength = matchWorkContentLength;
+    }
 
     public String getPayCoinGoods1Title() {
         return payCoinGoods1Title;
@@ -235,46 +254,6 @@ public class Limit {
         this.payVipGoods3Amount = payVipGoods3Amount;
     }
 
-    public int getWifeScreenReportCount() {
-        return wifeScreenReportCount;
-    }
-
-    public void setWifeScreenReportCount(int wifeScreenReportCount) {
-        this.wifeScreenReportCount = wifeScreenReportCount;
-    }
-
-    public int getLetterScreenReportCount() {
-        return letterScreenReportCount;
-    }
-
-    public void setLetterScreenReportCount(int letterScreenReportCount) {
-        this.letterScreenReportCount = letterScreenReportCount;
-    }
-
-    public int getDiscussScreenReportCount() {
-        return discussScreenReportCount;
-    }
-
-    public void setDiscussScreenReportCount(int discussScreenReportCount) {
-        this.discussScreenReportCount = discussScreenReportCount;
-    }
-
-    public int getLetterContentLength() {
-        return letterContentLength;
-    }
-
-    public void setLetterContentLength(int letterContentLength) {
-        this.letterContentLength = letterContentLength;
-    }
-
-    public int getDiscussContentLength() {
-        return discussContentLength;
-    }
-
-    public void setDiscussContentLength(int discussContentLength) {
-        this.discussContentLength = discussContentLength;
-    }
-
     public int getCoinSignMinCount() {
         return coinSignMinCount;
     }
@@ -297,30 +276,6 @@ public class Limit {
 
     public void setCoinSignIncreaseCount(int coinSignIncreaseCount) {
         this.coinSignIncreaseCount = coinSignIncreaseCount;
-    }
-
-    public int getCoinWifeAddCount() {
-        return coinWifeAddCount;
-    }
-
-    public void setCoinWifeAddCount(int coinWifeAddCount) {
-        this.coinWifeAddCount = coinWifeAddCount;
-    }
-
-    public int getCoinLetterAddCount() {
-        return coinLetterAddCount;
-    }
-
-    public void setCoinLetterAddCount(int coinLetterAddCount) {
-        this.coinLetterAddCount = coinLetterAddCount;
-    }
-
-    public int getCoinDiscussAddCount() {
-        return coinDiscussAddCount;
-    }
-
-    public void setCoinDiscussAddCount(int coinDiscussAddCount) {
-        this.coinDiscussAddCount = coinDiscussAddCount;
     }
 
     public int getCoinWishPerHourCount() {

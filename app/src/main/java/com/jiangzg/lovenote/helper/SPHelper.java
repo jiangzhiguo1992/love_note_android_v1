@@ -141,16 +141,11 @@ public class SPHelper {
     private static final String FIELD_LIMIT_COIN_SIGN_MIN_COUNT = "coin_sign_min_count";
     private static final String FIELD_LIMIT_COIN_SIGN_MAX_COUNT = "coin_sign_max_count";
     private static final String FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT = "coin_sign_increase_count";
-    private static final String FIELD_LIMIT_COIN_WIFE_ADD_COUNT = "coin_wife_post_add_count";
-    private static final String FIELD_LIMIT_COIN_LETTER_ADD_COUNT = "coin_letter_add_count";
-    private static final String FIELD_LIMIT_COIN_TOPIC_ADD_COUNT = "coin_topic_add_count";
     private static final String FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT = "coin_wish_perHour_count";
     private static final String FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT = "coin_plane_perDay_count";
-    private static final String FIELD_LIMIT_WIFE_SCREEN_REPORT_COUNT = "wife_screen_report_count";
-    private static final String FIELD_LIMIT_LETTER_SCREEN_REPORT_COUNT = "letter_screen_report_count";
-    private static final String FIELD_LIMIT_DISCUSS_SCREEN_REPORT_COUNT = "discuss_screen_report_count";
-    private static final String FIELD_LIMIT_LETTER_CONTENT_LENGTH = "letter_content_length";
-    private static final String FIELD_LIMIT_DISCUSS_CONTENT_LENGTH = "discuss_content_length";
+    private static final String FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT = "match_work_screen_report_count";
+    private static final String FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH = "match_work_title_length";
+    private static final String FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH = "match_work_content_length";
     // vipLimit
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_SIZE = "wall_paper_size";
     private static final String FIELD_VIP_LIMIT_WALL_PAPER_COUNT = "wall_paper_count";
@@ -461,16 +456,11 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, limit.getCoinSignMinCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, limit.getCoinSignMaxCount());
         editor.putInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, limit.getCoinSignIncreaseCount());
-        editor.putInt(FIELD_LIMIT_COIN_WIFE_ADD_COUNT, limit.getCoinWifeAddCount());
-        editor.putInt(FIELD_LIMIT_COIN_LETTER_ADD_COUNT, limit.getCoinLetterAddCount());
-        editor.putInt(FIELD_LIMIT_COIN_TOPIC_ADD_COUNT, limit.getCoinDiscussAddCount());
         editor.putInt(FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT, limit.getCoinWishPerHourCount());
         editor.putInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, limit.getCoinPlanePerDayCount());
-        editor.putInt(FIELD_LIMIT_WIFE_SCREEN_REPORT_COUNT, limit.getWifeScreenReportCount());
-        editor.putInt(FIELD_LIMIT_LETTER_SCREEN_REPORT_COUNT, limit.getLetterScreenReportCount());
-        editor.putInt(FIELD_LIMIT_DISCUSS_SCREEN_REPORT_COUNT, limit.getDiscussScreenReportCount());
-        editor.putInt(FIELD_LIMIT_LETTER_CONTENT_LENGTH, limit.getLetterContentLength());
-        editor.putInt(FIELD_LIMIT_DISCUSS_CONTENT_LENGTH, limit.getDiscussContentLength());
+        editor.putInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, limit.getMatchWorkScreenReportCount());
+        editor.putInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, limit.getMatchWorkTitleLength());
+        editor.putInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, limit.getMatchWorkContentLength());
         editor.apply();
     }
 
@@ -521,7 +511,7 @@ public class SPHelper {
         limit.setPostTitleLength(sp.getInt(FIELD_LIMIT_POST_TITLE_LENGTH, 20));
         limit.setPostContentLength(sp.getInt(FIELD_LIMIT_POST_CONTENT_LENGTH, 100));
         limit.setPostLonLatDiffMax(sp.getFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, 0.1F));
-        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 0));
+        limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 10));
         limit.setPostCommentContentLength(sp.getInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, 100));
         limit.setPostCommentScreenReportCount(sp.getInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, 20));
         limit.setPayVipGoods1Title(sp.getString(FIELD_LIMIT_PAY_VIP_GOODS_1_TITLE, ""));
@@ -545,16 +535,11 @@ public class SPHelper {
         limit.setCoinSignMinCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MIN_COUNT, 1));
         limit.setCoinSignMaxCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_MAX_COUNT, 10));
         limit.setCoinSignIncreaseCount(sp.getInt(FIELD_LIMIT_COIN_SIGN_INCREASE_COUNT, 1));
-        limit.setCoinWifeAddCount(sp.getInt(FIELD_LIMIT_COIN_WIFE_ADD_COUNT, 0));
-        limit.setCoinLetterAddCount(sp.getInt(FIELD_LIMIT_COIN_LETTER_ADD_COUNT, 0));
-        limit.setCoinDiscussAddCount(sp.getInt(FIELD_LIMIT_COIN_TOPIC_ADD_COUNT, 0));
         limit.setCoinWishPerHourCount(sp.getInt(FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT, 0));
         limit.setCoinPlanePerDayCount(sp.getInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, 0));
-        limit.setWifeScreenReportCount(sp.getInt(FIELD_LIMIT_WIFE_SCREEN_REPORT_COUNT, 0));
-        limit.setLetterScreenReportCount(sp.getInt(FIELD_LIMIT_LETTER_SCREEN_REPORT_COUNT, 0));
-        limit.setDiscussScreenReportCount(sp.getInt(FIELD_LIMIT_DISCUSS_SCREEN_REPORT_COUNT, 0));
-        limit.setLetterContentLength(sp.getInt(FIELD_LIMIT_LETTER_CONTENT_LENGTH, 0));
-        limit.setDiscussContentLength(sp.getInt(FIELD_LIMIT_DISCUSS_CONTENT_LENGTH, 0));
+        limit.setMatchWorkScreenReportCount(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 10));
+        limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 0));
+        limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 0));
         return limit;
     }
 
