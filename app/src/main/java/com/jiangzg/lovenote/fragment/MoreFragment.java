@@ -16,6 +16,10 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.SettingsActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.more.CoinActivity;
+import com.jiangzg.lovenote.activity.more.MatchDiscussListActivity;
+import com.jiangzg.lovenote.activity.more.MatchLetterListActivity;
+import com.jiangzg.lovenote.activity.more.MatchPeriodListActivity;
+import com.jiangzg.lovenote.activity.more.MatchWifeListActivity;
 import com.jiangzg.lovenote.activity.more.SignActivity;
 import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
@@ -25,6 +29,7 @@ import com.jiangzg.lovenote.domain.Broadcast;
 import com.jiangzg.lovenote.domain.Coin;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
+import com.jiangzg.lovenote.domain.MatchPeriod;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sign;
 import com.jiangzg.lovenote.domain.Version;
@@ -93,6 +98,9 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     private Call<Result> call;
     private List<Broadcast> broadcastList;
+    private MatchPeriod wifePeriod;
+    private MatchPeriod letterPeriod;
+    private MatchPeriod discussPeriod;
 
     public static MoreFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -189,13 +197,25 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 SignActivity.goActivity(mFragment);
                 break;
             case R.id.cvWife: // 夫妻相
-                // TODO
+                if (wifePeriod == null || wifePeriod.getId() <= 0) {
+                    MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
+                } else {
+                    MatchWifeListActivity.goActivity(mFragment, wifePeriod.getId());
+                }
                 break;
             case R.id.cvLetter: // 情书展
-                // TODO
+                if (letterPeriod == null || letterPeriod.getId() <= 0) {
+                    MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_LETTER_SHOW);
+                } else {
+                    MatchLetterListActivity.goActivity(mFragment, letterPeriod.getId());
+                }
                 break;
             case R.id.cvDiscuss: // 讨论会
-                // TODO
+                if (discussPeriod == null || discussPeriod.getId() <= 0) {
+                    MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_DISCUSS_MEET);
+                } else {
+                    MatchDiscussListActivity.goActivity(mFragment, discussPeriod.getId());
+                }
                 break;
             case R.id.cvWish: // 许愿树
                 // TODO
@@ -219,11 +239,13 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 Vip vip = data.getVip();
                 Coin coin = data.getCoin();
                 Sign sign = data.getSign();
+                wifePeriod = data.getWifePeriod();
+                letterPeriod = data.getLetterPeriod();
+                discussPeriod = data.getDiscussPeriod();
                 // view
                 initBroadcast(broadcastList);
-                initVip(vip);
-                initCoin(coin);
-                initSign(sign);
+                initPay(vip, coin, sign);
+                initMatch();
             }
 
             @Override
@@ -244,7 +266,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         }
     }
 
-    private void initVip(Vip vip) {
+    private void initPay(Vip vip, Coin coin, Sign sign) {
+        // vip
         String vipInfo;
         if (vip == null || TimeHelper.getJavaTimeByGo(vip.getExpireAt()) <= DateUtils.getCurrentLong()) {
             vipInfo = "∑(✘Д✘๑ )";
@@ -252,9 +275,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             vipInfo = "(*ˇωˇ*人)";
         }
         tvVip.setText(vipInfo);
-    }
-
-    private void initCoin(Coin coin) {
+        // coin
         String coinShow;
         if (coin == null) {
             coinShow = String.valueOf(0);
@@ -262,12 +283,31 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             coinShow = CountHelper.getShowCount2Thousand(coin.getCount());
         }
         tvCoin.setText(coinShow);
-    }
-
-    private void initSign(Sign sign) {
+        // sign
         int continueDay = (sign == null) ? 0 : sign.getContinueDay();
         String signShow = String.format(Locale.getDefault(), getString(R.string.continue_holder_day), continueDay);
         tvSign.setText(signShow);
+    }
+
+    private void initMatch() {
+        if (wifePeriod == null || wifePeriod.getId() <= 0) {
+            tvWife.setText(R.string.now_no_activity);
+        } else {
+            String show = String.format(Locale.getDefault(), getString(R.string.the_holder_period), wifePeriod.getPeriod());
+            tvWife.setText(show);
+        }
+        if (letterPeriod == null || letterPeriod.getId() <= 0) {
+            tvLetter.setText(R.string.now_no_activity);
+        } else {
+            String show = String.format(Locale.getDefault(), getString(R.string.the_holder_period), letterPeriod.getPeriod());
+            tvLetter.setText(show);
+        }
+        if (discussPeriod == null || discussPeriod.getId() <= 0) {
+            tvDiscuss.setText(R.string.now_no_activity);
+        } else {
+            String show = String.format(Locale.getDefault(), getString(R.string.the_holder_period), discussPeriod.getPeriod());
+            tvDiscuss.setText(show);
+        }
     }
 
 }

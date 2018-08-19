@@ -612,5 +612,7 @@
     <string name="coin_board">金币榜</string>
     <string name="point_board">点赞榜</string>
     <string name="new_board">新人榜</string>
+    <string name="now_no_activity">暂无活动</string>
+    <string name="the_holder_period" formatted="false">第%d期</string>
 
 </resources>

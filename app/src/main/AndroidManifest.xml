@@ -179,6 +179,9 @@
         <activity android:name=".activity.more.SignActivity"/>
         <activity android:name=".activity.more.CoinBuyActivity"/>
         <activity android:name=".activity.more.MatchWifeListActivity"/>
+        <activity android:name=".activity.more.MatchPeriodListActivity"/>
+        <activity android:name=".activity.more.MatchLetterListActivity"/>
+        <activity android:name=".activity.more.MatchDiscussListActivity"/>
     </application>
 
 </manifest>
