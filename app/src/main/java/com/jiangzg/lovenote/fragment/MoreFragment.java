@@ -18,7 +18,7 @@ import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.more.CoinActivity;
 import com.jiangzg.lovenote.activity.more.MatchDiscussListActivity;
 import com.jiangzg.lovenote.activity.more.MatchLetterListActivity;
-import com.jiangzg.lovenote.activity.more.MatchPeriodListActivity;
+import com.jiangzg.lovenote.activity.more.MatchWifeActivity;
 import com.jiangzg.lovenote.activity.more.MatchWifeListActivity;
 import com.jiangzg.lovenote.activity.more.SignActivity;
 import com.jiangzg.lovenote.activity.more.VipActivity;
@@ -198,21 +198,21 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 break;
             case R.id.cvWife: // 夫妻相
                 if (wifePeriod == null || wifePeriod.getId() <= 0) {
-                    MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
+                    MatchWifeActivity.goActivity(mFragment);
                 } else {
                     MatchWifeListActivity.goActivity(mFragment, wifePeriod);
                 }
                 break;
             case R.id.cvLetter: // 情书展
                 if (letterPeriod == null || letterPeriod.getId() <= 0) {
-                    MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_LETTER_SHOW);
+                    //MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_LETTER_SHOW);
                 } else {
                     MatchLetterListActivity.goActivity(mFragment, letterPeriod);
                 }
                 break;
             case R.id.cvDiscuss: // 讨论会
                 if (discussPeriod == null || discussPeriod.getId() <= 0) {
-                    MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_DISCUSS_MEET);
+                    //MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_DISCUSS_MEET);
                 } else {
                     MatchDiscussListActivity.goActivity(mFragment, discussPeriod);
                 }

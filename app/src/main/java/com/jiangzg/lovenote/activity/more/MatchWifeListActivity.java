@@ -3,6 +3,7 @@ package com.jiangzg.lovenote.activity.more;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +26,7 @@ import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
+import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -32,6 +34,7 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -83,7 +86,8 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 .initLayoutManager(new GridLayoutManager(mActivity, 2))
                 .initRefresh(srl, true)
                 .initAdapter(new MatchWifeAdapter(mActivity))
-                .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
+                .viewHeader(mActivity, R.layout.list_head_match_work)
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
                 .listenerRefresh(new RecyclerHelper.RefreshListener() {
@@ -166,10 +170,36 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             mActivity.finish();
             return;
         }
-        // TODO 本期介绍
-        // TODO 往期在这里
-        //MatchPeriodListActivity.goActivity(mActivity, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
-        // TODO 我们的
+        // view
+        View head = recyclerHelper.getViewHead();
+        CardView root = head.findViewById(R.id.root);
+        TextView tvTitle = head.findViewById(R.id.tvTitle);
+        TextView tvPeriod = head.findViewById(R.id.tvPeriod);
+        TextView tvCoin = head.findViewById(R.id.tvCoin);
+        TextView tvWorksCount = head.findViewById(R.id.tvWorksCount);
+        TextView tvCoinCount = head.findViewById(R.id.tvCoinCount);
+        TextView tvPointCount = head.findViewById(R.id.tvPointCount);
+        // data
+        String title = period.getTitle();
+        String periodShow = String.format(Locale.getDefault(), getString(R.string.the_holder_period), this.period.getPeriod());
+        String coinChange = String.format(Locale.getDefault(), getString(R.string.go_in_award_colon_holder_coin), period.getCoinChange());
+        String workCount = String.format(Locale.getDefault(), getString(R.string.total_works_count_colon_holder), CountHelper.getShowCount2Thousand(period.getWorksCount()));
+        String coinCount = String.format(Locale.getDefault(), getString(R.string.total_coin_count_colon_holder), CountHelper.getShowCount2Thousand(period.getCoinCount()));
+        String pointCount = String.format(Locale.getDefault(), getString(R.string.total_point_count_colon_holder), CountHelper.getShowCount2Thousand(period.getPointCount()));
+        // set
+        tvTitle.setText(title);
+        tvPeriod.setText(periodShow);
+        tvCoin.setText(coinChange);
+        tvWorksCount.setText(workCount);
+        tvCoinCount.setText(coinCount);
+        tvPointCount.setText(pointCount);
+        // listener
+        root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MatchWifeActivity.goActivity(mActivity);
+            }
+        });
     }
 
     private void getData(final boolean more) {
