@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/black_trans_50"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -51,6 +52,7 @@
                     android:id="@+id/ivReport"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
+                    android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_report_white"/>
 
                 <TextView
@@ -58,6 +60,7 @@
                     style="@style/FontWhiteSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:maxLines="1"
                     android:singleLine="true"
                     tools:text="1111111"/>
@@ -78,6 +81,7 @@
                     android:id="@+id/ivCoin"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
+                    android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_coin_yellow_dark"/>
 
                 <TextView
@@ -85,6 +89,7 @@
                     style="@style/FontWhiteSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:maxLines="1"
                     android:singleLine="true"
                     tools:text="1111111"/>
@@ -105,6 +110,7 @@
                     android:id="@+id/ivPoint"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
+                    android:layout_marginEnd="2dp"
                     android:src="@drawable/ic_point_up_grey"/>
 
                 <TextView
@@ -112,6 +118,7 @@
                     style="@style/FontWhiteSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:maxLines="1"
                     android:singleLine="true"
                     tools:text="1111111"/>

@@ -14,6 +14,8 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.domain.MatchPoint;
+import com.jiangzg.lovenote.domain.MatchReport;
 import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -101,7 +103,7 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         MatchWork item = getItem(position);
         if (item == null || item.isScreen() || item.isDelete()) return;
         String contentImage = item.getContentImage();
-        BigImageActivity.goActivityByFile(mActivity, contentImage, null);
+        BigImageActivity.goActivityByOss(mActivity, contentImage, null);
     }
 
     public void showDeleteDialog(final int position) {
@@ -116,14 +118,14 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delCollect(position);
+                        delWife(position);
                     }
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void delCollect(final int position) {
+    private void delWife(final int position) {
         MatchWork item = getItem(position);
         Call<Result> call = new RetrofitHelper().call(API.class).moreMatchWorkDel(item.getId());
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -136,6 +138,58 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+    }
+
+    public void reportAdd(final int position, boolean api) {
+        final MatchWork item = getItem(position);
+        if (item.isReport()) return;
+        item.setReport(true);
+        notifyItemChanged(position + getHeaderLayoutCount());
+        if (!api) return;
+        MatchReport body = new MatchReport();
+        body.setMatchWorkId(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchReportAdd(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                reportAdd(position, false);
+            }
+        });
+    }
+
+    public void pointToggle(final int position, boolean api) {
+        final MatchWork item = getItem(position);
+        boolean newPoint = !item.isPoint();
+        int newPointCount = newPoint ? item.getPointCount() + 1 : item.getPointCount() - 1;
+        if (newPointCount < 0) {
+            newPointCount = 0;
+        }
+        item.setPoint(newPoint);
+        item.setPointCount(newPointCount);
+        notifyItemChanged(position + getHeaderLayoutCount());
+        if (!api) return;
+        MatchPoint body = new MatchPoint();
+        body.setMatchWorkId(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchPointAdd(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                pointToggle(position, false);
+            }
+        });
+    }
+
+    public void coinAdd(int position, boolean api) {
+        // TODO
+
     }
 
 }

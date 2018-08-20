@@ -28,6 +28,9 @@ public class MatchPoint extends BaseCP implements Parcelable {
         this.matchWorkId = matchWorkId;
     }
 
+    public MatchPoint() {
+    }
+
     protected MatchPoint(Parcel in) {
         super(in);
         matchPeriodId = in.readLong();

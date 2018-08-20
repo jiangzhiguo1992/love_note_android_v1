@@ -19,11 +19,21 @@ public class MatchWork extends BaseCP implements Parcelable {
     private int coinCount;
     // 关联
     private boolean screen;
+    private boolean mine;
     private Couple couple;
     private boolean our;
     private boolean report;
     private boolean point;
     private boolean coin;
+
+    @Override
+    public boolean isMine() {
+        return mine;
+    }
+
+    public void setMine(boolean mine) {
+        this.mine = mine;
+    }
 
     public long getMatchPeriodId() {
         return matchPeriodId;

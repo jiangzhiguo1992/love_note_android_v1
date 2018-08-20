@@ -37,6 +37,9 @@ public class MatchReport extends BaseCP implements Parcelable {
         this.reason = reason;
     }
 
+    public MatchReport() {
+    }
+
     protected MatchReport(Parcel in) {
         super(in);
         matchPeriodId = in.readLong();

@@ -134,15 +134,16 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.llReport: // 举报
-                                // TODO
-                                break;
-                            case R.id.llCoin: // 金币
-                                // TODO
+                                wifeAdapter.reportAdd(position, true);
                                 break;
                             case R.id.llPoint: // 点赞
-                                // TODO
+                                wifeAdapter.pointToggle(position, true);
+                                break;
+                            case R.id.llCoin: // 金币
+                                wifeAdapter.coinAdd(position, true);
                                 break;
                         }
                     }
