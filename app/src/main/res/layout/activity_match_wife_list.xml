@@ -32,7 +32,7 @@
         app:layout_behavior="@string/behavior_linear_depend_app_bar">
 
         <LinearLayout
-            android:id="@+id/llPeriod"
+            android:id="@+id/llTop"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -47,20 +47,20 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="6dp"
-                android:src="@drawable/ic_period_grey"/>
+                android:src="@drawable/ic_go_top_grey"/>
 
             <TextView
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/old_period"/>
+                android:text="@string/top"/>
         </LinearLayout>
 
         <View style="@style/LineVertical"/>
 
         <LinearLayout
-            android:id="@+id/llSearch"
+            android:id="@+id/llOrder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -78,7 +78,7 @@
                 android:src="@drawable/ic_search_grey"/>
 
             <TextView
-                android:id="@+id/tvSearch"
+                android:id="@+id/tvOrder"
                 style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

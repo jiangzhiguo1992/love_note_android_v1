@@ -200,21 +200,21 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 if (wifePeriod == null || wifePeriod.getId() <= 0) {
                     MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
                 } else {
-                    MatchWifeListActivity.goActivity(mFragment, wifePeriod.getId());
+                    MatchWifeListActivity.goActivity(mFragment, wifePeriod);
                 }
                 break;
             case R.id.cvLetter: // 情书展
                 if (letterPeriod == null || letterPeriod.getId() <= 0) {
                     MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_LETTER_SHOW);
                 } else {
-                    MatchLetterListActivity.goActivity(mFragment, letterPeriod.getId());
+                    MatchLetterListActivity.goActivity(mFragment, letterPeriod);
                 }
                 break;
             case R.id.cvDiscuss: // 讨论会
                 if (discussPeriod == null || discussPeriod.getId() <= 0) {
                     MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_DISCUSS_MEET);
                 } else {
-                    MatchDiscussListActivity.goActivity(mFragment, discussPeriod.getId());
+                    MatchDiscussListActivity.goActivity(mFragment, discussPeriod);
                 }
                 break;
             case R.id.cvWish: // 许愿树

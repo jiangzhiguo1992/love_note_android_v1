@@ -40,7 +40,7 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
         if (item.getChange() >= 0) {
             change = "+" + CountHelper.getShowCount2Thousand(item.getChange());
         } else {
-            change = "-" + CountHelper.getShowCount2Thousand(item.getChange());
+            change = CountHelper.getShowCount2Thousand(item.getChange());
         }
         String count = CountHelper.getShowCount2Thousand(item.getCount());
         // view

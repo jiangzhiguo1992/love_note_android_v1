@@ -37,8 +37,10 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     TextView tvUpdateSummary;
     @BindView(R.id.llProtocol)
     LinearLayout llProtocol;
-    @BindView(R.id.tvQQ)
-    TextView tvQQ;
+    @BindView(R.id.tvQQCustomer)
+    TextView tvQQCustomer;
+    @BindView(R.id.tvQQGroup)
+    TextView tvQQGroup;
     @BindView(R.id.tvContact)
     TextView tvContact;
     @BindView(R.id.tvCompany)
@@ -78,12 +80,15 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
             tvUpdateSummary.setTextColor(ContextCompat.getColor(mActivity, R.color.font_grey));
         }
         tvUpdateSummary.setText(versionNewShow);
-        // 官方qq群
-        String officialQQ = commonConst.getOfficialQQ();
-        tvQQ.setText(StringUtils.isEmpty(officialQQ) ? getString(R.string.now_no) : officialQQ);
+        // 客服Q号
+        String qqCustomer = commonConst.getQQCustomer();
+        tvQQCustomer.setText(StringUtils.isEmpty(qqCustomer) ? getString(R.string.now_no) : qqCustomer.replace("\\n", "\n"));
+        // 官方Q群
+        String qqGroup = commonConst.getQQGroup();
+        tvQQGroup.setText(StringUtils.isEmpty(qqGroup) ? getString(R.string.now_no) : qqGroup.replace("\\n", "\n"));
         // 联系我们
         String contactEmail = commonConst.getContactEmail();
-        tvContact.setText(StringUtils.isEmpty(contactEmail) ? getString(R.string.now_no) : contactEmail);
+        tvContact.setText(StringUtils.isEmpty(contactEmail) ? getString(R.string.now_no) : contactEmail.replace("\\n", "\n"));
         // 公司名
         String companyName = commonConst.getCompanyName();
         tvCompany.setText(companyName);

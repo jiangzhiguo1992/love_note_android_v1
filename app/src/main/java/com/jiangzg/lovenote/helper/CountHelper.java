@@ -14,7 +14,7 @@ public class CountHelper {
     // getShowCount
     public static String getShowCount2Thousand(int count) {
         int unit = 10000; // 万
-        if (count < unit) {
+        if (Math.abs(count) < unit) {
             return String.valueOf(count);
         }
         return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand_point1), (double) count / (double) unit);

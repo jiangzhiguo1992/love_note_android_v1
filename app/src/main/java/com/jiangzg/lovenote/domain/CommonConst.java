@@ -7,15 +7,24 @@ package com.jiangzg.lovenote.domain;
 public class CommonConst {
 
     private String companyName;
-    private String officialQQ;
+    private String QQCustomer;
+    private String QQGroup;
     private String contactEmail;
 
-    public String getOfficialQQ() {
-        return officialQQ;
+    public String getQQCustomer() {
+        return QQCustomer;
     }
 
-    public void setOfficialQQ(String officialQQ) {
-        this.officialQQ = officialQQ;
+    public void setQQCustomer(String QQCustomer) {
+        this.QQCustomer = QQCustomer;
+    }
+
+    public String getQQGroup() {
+        return QQGroup;
+    }
+
+    public void setQQGroup(String QQGroup) {
+        this.QQGroup = QQGroup;
     }
 
     public String getContactEmail() {
