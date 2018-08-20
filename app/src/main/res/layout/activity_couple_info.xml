@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_dark_light"
+    android:background="@drawable/shape_gradient_primary_back"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.jiangzg.lovenote.activity.couple.CoupleInfoActivity">
@@ -193,7 +193,7 @@
 
     <TextView
         android:id="@+id/tvPairDays"
-        style="@style/FontWhiteHugeBold"
+        style="@style/FontPrimaryHugeBold"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

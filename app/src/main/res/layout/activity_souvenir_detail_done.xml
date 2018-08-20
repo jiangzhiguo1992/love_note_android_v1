@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,8 +13,7 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_gradient_primary_white">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,6 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shape_gradient_primary_back"
                 android:elevation="@dimen/elevation_small"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
@@ -100,7 +101,6 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:textColor="@color/white_trans_75"
                         tools:text="创建者: XXX"/>
 
                     <TextView
@@ -108,16 +108,20 @@
                         style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white_trans_75"
                         tools:text="创建于: XXX"/>
                 </LinearLayout>
             </LinearLayout>
 
-            <View
-                style="@style/LineHorizontal"
-                android:background="@color/white"/>
-
-            <include layout="@layout/view_tab_bar"/>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="?attr/colorPrimaryDark"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="?attr/colorPrimaryDark"
+                app:tabTextAppearance="@style/FontPrimaryNormal"
+                app:tabTextColor="?attr/colorPrimary"/>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/vpFragment"

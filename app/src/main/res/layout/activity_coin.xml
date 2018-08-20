@@ -12,8 +12,7 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_gradient_white_primary">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,6 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shape_gradient_primary_back"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -42,7 +42,7 @@
 
                     <TextView
                         android:id="@+id/tvCoinCount"
-                        style="@style/FontPrimaryBigBold"
+                        style="@style/FontWhiteBigBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"

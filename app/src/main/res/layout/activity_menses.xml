@@ -13,8 +13,7 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_gradient_primary_white">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,6 +29,7 @@
                     android:id="@+id/mcvMenses"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@drawable/shape_gradient_primary_back"
                     android:padding="10dp"
                     android:visibility="gone"
                     tools:visibility="visible"/>

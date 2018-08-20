@@ -18,10 +18,10 @@
         android:orientation="vertical">
 
         <View
-            style="@style/LineVertical"
+            android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/white"/>
+            android:background="?attr/colorPrimaryDark"/>
     </LinearLayout>
 
     <LinearLayout
@@ -35,24 +35,24 @@
         android:orientation="vertical">
 
         <View
-            style="@style/LineVertical"
+            android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/white"/>
+            android:background="?attr/colorPrimaryDark"/>
 
         <TextView
             android:id="@+id/tvCreateAt"
-            style="@style/FontWhiteSmall"
+            style="@style/FontPrimarySmallBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             tools:text="2017-12-03"/>
 
         <View
-            style="@style/LineVertical"
+            android:layout_width="1dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/white"/>
+            android:background="?attr/colorPrimaryDark"/>
     </LinearLayout>
 
     <RelativeLayout

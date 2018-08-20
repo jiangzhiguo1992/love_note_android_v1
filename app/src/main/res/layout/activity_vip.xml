@@ -12,8 +12,7 @@
     <com.jiangzg.lovenote.view.GSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/shape_gradient_white_primary">
+        android:layout_height="match_parent">
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -28,6 +27,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/shape_gradient_primary_back"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -40,7 +40,7 @@
 
                     <TextView
                         android:id="@+id/tvVipInfo"
-                        style="@style/FontPrimaryNormalBold"
+                        style="@style/FontWhiteNormalBold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -106,7 +106,7 @@
                             android:visibility="invisible"/>
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -114,7 +114,7 @@
                             android:text="@string/no_vip"/>
 
                         <TextView
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -131,7 +131,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -140,7 +140,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftWallSize"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -149,7 +149,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightWallSize"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -166,7 +166,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -175,7 +175,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftWallCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -184,7 +184,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightWallCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -201,7 +201,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -210,7 +210,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftTotal"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -219,7 +219,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightTotal"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -236,7 +236,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -245,7 +245,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftSouvenir"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -254,7 +254,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightSouvenir"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -271,7 +271,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -280,7 +280,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftVideoSize"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -289,7 +289,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightVideoSize"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -306,7 +306,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -315,7 +315,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftVideoCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -324,7 +324,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightVideoCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -341,7 +341,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -350,7 +350,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftAudioSize"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -359,7 +359,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightAudioSize"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -376,7 +376,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -385,7 +385,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftAudioCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -394,7 +394,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightAudioCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -411,7 +411,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -420,7 +420,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftPictureSize"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -429,7 +429,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightPictureSize"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -446,7 +446,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -455,7 +455,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftPictureCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -464,7 +464,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightPictureCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -481,7 +481,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -490,7 +490,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftDiaryImageSize"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -499,7 +499,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightDiaryImageSize"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -516,7 +516,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -525,7 +525,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftDiaryImageCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -534,7 +534,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightDiaryImageCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -551,7 +551,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -560,7 +560,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftWhisperImage"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -569,7 +569,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightWhisperImage"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -586,7 +586,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -595,7 +595,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftGiftImageCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -604,7 +604,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightGiftImageCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -621,7 +621,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -630,7 +630,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftFoodImageCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -639,7 +639,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightFoodImageCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -656,7 +656,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -665,7 +665,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitLeftPostImageCount"
-                            style="@style/FontWhiteNormal"
+                            style="@style/FontPrimaryNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
@@ -674,7 +674,7 @@
 
                         <TextView
                             android:id="@+id/tvLimitRightPostImageCount"
-                            style="@style/FontWhiteNormalBold"
+                            style="@style/FontPrimaryNormalBold"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
