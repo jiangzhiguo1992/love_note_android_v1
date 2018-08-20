@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,4 +7,170 @@
     android:layout_height="match_parent"
     tools:context="com.jiangzg.lovenote.activity.more.MatchLetterListActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <com.jiangzg.lovenote.view.GSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/layer_line_border_grey_in_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_behavior="@string/behavior_linear_depend_app_bar">
+
+        <LinearLayout
+            android:id="@+id/llTop"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_go_top_grey"/>
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/top"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llOrder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_search_grey"/>
+
+            <TextView
+                android:id="@+id/tvOrder"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="金币榜"/>
+        </LinearLayout>
+
+        <View style="@style/LineVertical"/>
+
+        <LinearLayout
+            android:id="@+id/llAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackground"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_add_circle_stroke_grey"/>
+
+            <TextView
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/publish"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlAdd"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:background="@drawable/layer_line_border_grey_in_white"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="200dp"
+        app:elevation="4dp"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        tools:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/rlAddTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivAddClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_cancel_grey"/>
+
+            <TextView
+                android:id="@+id/tvAddLimit"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                tools:text="0/200"/>
+
+            <TextView
+                android:id="@+id/tvAddCommit"
+                style="@style/FontPrimaryNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:text="@string/commit"
+                android:textColor="@color/selector_text_press_primary_dark"/>
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/etContent"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rlAddTop"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/shape_stroke_primary_r3"
+            android:gravity="start"
+            android:hint="@string/please_input_content"
+            android:inputType="textMultiLine"
+            android:padding="8dp"/>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

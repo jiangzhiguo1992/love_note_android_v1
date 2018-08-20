@@ -145,23 +145,21 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
-                        wifeAdapter.showDeleteDialog(position);
+                        ApiHelper.showMatchWorksDeleteDialog(mActivity, adapter, position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.llReport: // 举报
-                                wifeAdapter.reportAdd(position, true);
+                                ApiHelper.matchReportAdd(adapter, position, true);
                                 break;
                             case R.id.llPoint: // 点赞
-                                wifeAdapter.pointToggle(position, true);
+                                ApiHelper.matchPointToggle(adapter, position, true);
                                 break;
                             case R.id.llCoin: // 金币
-                                wifeAdapter.coinAdd(position);
+                                ApiHelper.matchCoinAdd(mActivity, adapter, position);
                                 break;
                         }
                     }
@@ -217,16 +215,12 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llTop: // 置顶
-                if (rv != null) rv.smoothScrollToPosition(0);
+                rv.smoothScrollToPosition(0);
                 break;
             case R.id.llOrder: // 搜索
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                if (Couple.isBreak(SPHelper.getCouple())) {
-                    CouplePairActivity.goActivity(mActivity);
-                    return;
-                }
                 showSelectImgPop();
                 break;
         }
@@ -330,6 +324,10 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     // 图片获取
     private void showSelectImgPop() {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(mActivity);
+            return;
+        }
         cameraFile = ResHelper.newImageCacheFile();
         PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
         PopUtils.show(window, root, Gravity.CENTER);
@@ -353,8 +351,8 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         });
     }
 
-    private void api(MatchWork work) {
-        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(work);
+    private void api(MatchWork body) {
+        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(body);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

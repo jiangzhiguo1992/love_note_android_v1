@@ -5,18 +5,25 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.text.InputType;
+import android.widget.EditText;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.HomeActivity;
+import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.broadcast.OssRefreshReceiver;
@@ -25,6 +32,9 @@ import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Entry;
 import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.domain.Lock;
+import com.jiangzg.lovenote.domain.MatchCoin;
+import com.jiangzg.lovenote.domain.MatchPoint;
+import com.jiangzg.lovenote.domain.MatchReport;
 import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.OssInfo;
 import com.jiangzg.lovenote.domain.Picture;
@@ -223,6 +233,139 @@ public class ApiHelper {
                 }
             }, totalWait - between);
         }
+    }
+
+    public static void showMatchWorksDeleteDialog(Activity activity, final BaseQuickAdapter adapter, final int position) {
+        MatchWork item = (MatchWork) adapter.getItem(position);
+        if (!item.isMine()) return;
+        MaterialDialog dialog = DialogHelper.getBuild(activity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_del_this_work)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        delMatchWorks(adapter, position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private static void delMatchWorks(final BaseQuickAdapter adapter, final int position) {
+        MatchWork item = (MatchWork) adapter.getItem(position);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchWorkDel(item.getId());
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                adapter.remove(position);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    public static void matchReportAdd(final BaseQuickAdapter adapter, final int position, boolean api) {
+        final MatchWork item = (MatchWork) adapter.getItem(position);
+        if (item.isReport()) return;
+        item.setReport(true);
+        adapter.notifyItemChanged(position + adapter.getHeaderLayoutCount());
+        if (!api) return;
+        MatchReport body = new MatchReport();
+        body.setMatchWorkId(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchReportAdd(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                matchReportAdd(adapter, position, false);
+            }
+        });
+    }
+
+    public static void matchPointToggle(final BaseQuickAdapter adapter, final int position, boolean api) {
+        final MatchWork item = (MatchWork) adapter.getItem(position);
+        boolean newPoint = !item.isPoint();
+        int newPointCount = newPoint ? item.getPointCount() + 1 : item.getPointCount() - 1;
+        if (newPointCount < 0) {
+            newPointCount = 0;
+        }
+        item.setPoint(newPoint);
+        item.setPointCount(newPointCount);
+        adapter.notifyItemChanged(position + adapter.getHeaderLayoutCount());
+        if (!api) return;
+        MatchPoint body = new MatchPoint();
+        body.setMatchWorkId(item.getId());
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchPointAdd(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                matchPointToggle(adapter, position, false);
+            }
+        });
+    }
+
+    public static void matchCoinAdd(Activity activity, final BaseQuickAdapter adapter, final int position) {
+        String hint = activity.getString(R.string.input_coin_count);
+        MaterialDialog dialogName = DialogHelper.getBuild(activity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input(hint, "", false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString());
+                    }
+                })
+                .inputRange(1, 10)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // api
+                        EditText editText = dialog.getInputEditText();
+                        if (editText != null) {
+                            String input = editText.getText().toString();
+                            matchCoinApi(adapter, position, input);
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialogName);
+    }
+
+    private static void matchCoinApi(final BaseQuickAdapter adapter, final int position, String input) {
+        final MatchWork item = (MatchWork) adapter.getItem(position);
+        if (!StringUtils.isNumber(input)) return;
+        final int coinCount = Integer.parseInt(input);
+        MatchCoin body = new MatchCoin();
+        body.setMatchWorkId(item.getId());
+        body.setCoinCount(coinCount);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchCoinAdd(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                item.setCoinCount(item.getCoinCount() + coinCount);
+                adapter.notifyItemChanged(position + adapter.getHeaderLayoutCount());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
     public static Sms getSmsLoginBody(String phone) {

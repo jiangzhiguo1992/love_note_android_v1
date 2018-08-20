@@ -18,6 +18,7 @@ import com.jiangzg.lovenote.domain.MatchPeriod;
 import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -80,23 +81,21 @@ public class MatchWifeListFragment extends BasePagerFragment<MatchWifeListFragme
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
-                        wifeAdapter.showDeleteDialog(position);
+                        ApiHelper.showMatchWorksDeleteDialog(mActivity, adapter, position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
                         switch (view.getId()) {
                             case R.id.llReport: // 举报
-                                wifeAdapter.reportAdd(position, true);
+                                ApiHelper.matchReportAdd(adapter, position, true);
                                 break;
                             case R.id.llPoint: // 点赞
-                                wifeAdapter.pointToggle(position, true);
+                                ApiHelper.matchPointToggle(adapter, position, true);
                                 break;
                             case R.id.llCoin: // 金币
-                                wifeAdapter.coinAdd(position);
+                                ApiHelper.matchCoinAdd(mActivity, adapter, position);
                                 break;
                         }
                     }
