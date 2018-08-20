@@ -29,8 +29,10 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.adapter.MatchWifeAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.MatchPeriod;
 import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Result;
@@ -43,6 +45,7 @@ import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -220,6 +223,10 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
+                if (Couple.isBreak(SPHelper.getCouple())) {
+                    CouplePairActivity.goActivity(mActivity);
+                    return;
+                }
                 showSelectImgPop();
                 break;
         }
