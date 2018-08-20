@@ -67,18 +67,18 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Post item) {
         helper.setVisible(R.id.tvCover, item.isScreen() || item.isDelete());
         if (item.isScreen()) {
-            helper.setVisible(R.id.tvCover, true);
             helper.setVisible(R.id.llInfo, false);
+            helper.setVisible(R.id.tvCover, true);
             helper.setText(R.id.tvCover, R.string.post_already_be_screen);
             return;
         } else if (item.isDelete()) {
-            helper.setVisible(R.id.tvCover, true);
             helper.setVisible(R.id.llInfo, false);
+            helper.setVisible(R.id.tvCover, true);
             helper.setText(R.id.tvCover, R.string.post_already_be_delete);
             return;
         }
-        helper.setVisible(R.id.tvCover, false);
         helper.setVisible(R.id.llInfo, true);
+        helper.setVisible(R.id.tvCover, false);
         // data
         boolean isOur = item.isOur();
         Couple couple = item.getCouple();

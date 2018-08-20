@@ -615,5 +615,8 @@
     <string name="new_board">新人榜</string>
     <string name="now_no_activity">暂无活动</string>
     <string name="the_holder_period" formatted="false">第%d期</string>
+    <string name="work_already_be_screen">作品已被屏蔽</string>
+    <string name="work_already_be_delete">作品已被删除</string>
+    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
 
 </resources>

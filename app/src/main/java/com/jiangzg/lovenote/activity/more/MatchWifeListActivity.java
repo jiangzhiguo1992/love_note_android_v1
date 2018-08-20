@@ -3,7 +3,7 @@ package com.jiangzg.lovenote.activity.more;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +18,6 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.note.DiaryEditActivity;
 import com.jiangzg.lovenote.adapter.MatchWifeAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.MatchPeriod;
@@ -81,7 +80,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         tvOrder.setText(ApiHelper.LIST_MATCH_ORDER_SHOW[orderIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initLayoutManager(new GridLayoutManager(mActivity, 2))
                 .initRefresh(srl, true)
                 .initAdapter(new MatchWifeAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
@@ -102,20 +101,31 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 大图
-                        // DiaryAdapter diaryAdapter = (DiaryAdapter) adapter;
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
+                        wifeAdapter.goWifeDetail(position);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 删除
+                        MatchWifeAdapter wifeAdapter = (MatchWifeAdapter) adapter;
+                        wifeAdapter.showDeleteDialog(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO 点赞 举报 金币
+                        switch (view.getId()) {
+                            case R.id.llReport: // 举报
+                                // TODO
+                                break;
+                            case R.id.llCoin: // 金币
+                                // TODO
+                                break;
+                            case R.id.llPoint: // 点赞
+                                // TODO
+                                break;
+                        }
                     }
                 });
     }
@@ -146,7 +156,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                DiaryEditActivity.goActivity(mActivity);
+                // TODO
                 break;
         }
     }
@@ -158,7 +168,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         }
         // TODO 本期介绍
         // TODO 往期在这里
-        MatchPeriodListActivity.goActivity(mActivity, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
+        //MatchPeriodListActivity.goActivity(mActivity, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
         // TODO 我们的
     }
 
