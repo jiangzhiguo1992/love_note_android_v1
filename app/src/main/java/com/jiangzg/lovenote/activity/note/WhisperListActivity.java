@@ -267,6 +267,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
+                .autoDismiss(true)
                 .content(getChannelShow())
                 .inputRange(1, limitContentLength)
                 .input(hint, "", false, new MaterialDialog.InputCallback() {

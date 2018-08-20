@@ -622,5 +622,6 @@
     <string name="work_already_be_screen">作品已被屏蔽</string>
     <string name="work_already_be_delete">作品已被删除</string>
     <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
+    <string name="input_coin_count">输入投币数量</string>
 
 </resources>

@@ -46,6 +46,9 @@ public class MatchCoin extends BaseCP implements Parcelable {
         this.coinCount = coinCount;
     }
 
+    public MatchCoin() {
+    }
+
     protected MatchCoin(Parcel in) {
         super(in);
         matchPeriodId = in.readLong();

@@ -4,6 +4,8 @@ import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -11,9 +13,13 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
+import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
+import com.jiangzg.lovenote.domain.MatchCoin;
 import com.jiangzg.lovenote.domain.MatchPoint;
 import com.jiangzg.lovenote.domain.MatchReport;
 import com.jiangzg.lovenote.domain.MatchWork;
@@ -187,9 +193,56 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         });
     }
 
-    public void coinAdd(int position, boolean api) {
-        // TODO
+    public void coinAdd(final int position) {
+        String hint = mActivity.getString(R.string.input_coin_count);
+        MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input(hint, "", false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString());
+                    }
+                })
+                .inputRange(1, 10)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // api
+                        EditText editText = dialog.getInputEditText();
+                        if (editText != null) {
+                            String input = editText.getText().toString();
+                            coinApi(position, input);
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialogName);
+    }
 
+    private void coinApi(final int position, String input) {
+        final MatchWork item = getItem(position);
+        if (!StringUtils.isNumber(input)) return;
+        final int coinCount = Integer.parseInt(input);
+        MatchCoin body = new MatchCoin();
+        body.setMatchWorkId(item.getId());
+        body.setCoinCount(coinCount);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchCoinAdd(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                item.setCoinCount(item.getCoinCount() + coinCount);
+                notifyItemChanged(position + getHeaderLayoutCount());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
 }

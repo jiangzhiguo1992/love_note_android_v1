@@ -143,7 +143,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                                 wifeAdapter.pointToggle(position, true);
                                 break;
                             case R.id.llCoin: // 金币
-                                wifeAdapter.coinAdd(position, true);
+                                wifeAdapter.coinAdd(position);
                                 break;
                         }
                     }
