@@ -12,7 +12,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.TopicMessage;
-import com.jiangzg.lovenote.fragment.topic.TopicMessageFragment;
+import com.jiangzg.lovenote.fragment.topic.MessageListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.util.ArrayList;
@@ -57,18 +57,18 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
         titleList.add(getString(R.string.comment_reply));
         titleList.add(getString(R.string.comment_report));
         titleList.add(getString(R.string.comment_point));
-        List<TopicMessageFragment> fragmentList = new ArrayList<>();
-        TopicMessageFragment all = TopicMessageFragment.newFragment(TopicMessage.KIND_ALL);
-        TopicMessageFragment official = TopicMessageFragment.newFragment(TopicMessage.KIND_OFFICIAL_TEXT);
-        TopicMessageFragment jabPost = TopicMessageFragment.newFragment(TopicMessage.KIND_JAB_IN_POST);
-        TopicMessageFragment jabComment = TopicMessageFragment.newFragment(TopicMessage.KIND_JAB_IN_COMMENT);
-        TopicMessageFragment postReport = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_REPORT);
-        TopicMessageFragment postPoint = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_POINT);
-        TopicMessageFragment postCollect = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_COLLECT);
-        TopicMessageFragment postComment = TopicMessageFragment.newFragment(TopicMessage.KIND_POST_BE_COMMENT);
-        TopicMessageFragment commentReply = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_REPLY);
-        TopicMessageFragment commentReport = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_REPORT);
-        TopicMessageFragment commentPoint = TopicMessageFragment.newFragment(TopicMessage.KIND_COMMENT_BE_POINT);
+        List<MessageListFragment> fragmentList = new ArrayList<>();
+        MessageListFragment all = MessageListFragment.newFragment(TopicMessage.KIND_ALL);
+        MessageListFragment official = MessageListFragment.newFragment(TopicMessage.KIND_OFFICIAL_TEXT);
+        MessageListFragment jabPost = MessageListFragment.newFragment(TopicMessage.KIND_JAB_IN_POST);
+        MessageListFragment jabComment = MessageListFragment.newFragment(TopicMessage.KIND_JAB_IN_COMMENT);
+        MessageListFragment postReport = MessageListFragment.newFragment(TopicMessage.KIND_POST_BE_REPORT);
+        MessageListFragment postPoint = MessageListFragment.newFragment(TopicMessage.KIND_POST_BE_POINT);
+        MessageListFragment postCollect = MessageListFragment.newFragment(TopicMessage.KIND_POST_BE_COLLECT);
+        MessageListFragment postComment = MessageListFragment.newFragment(TopicMessage.KIND_POST_BE_COMMENT);
+        MessageListFragment commentReply = MessageListFragment.newFragment(TopicMessage.KIND_COMMENT_BE_REPLY);
+        MessageListFragment commentReport = MessageListFragment.newFragment(TopicMessage.KIND_COMMENT_BE_REPORT);
+        MessageListFragment commentPoint = MessageListFragment.newFragment(TopicMessage.KIND_COMMENT_BE_POINT);
         fragmentList.add(all);
         fragmentList.add(official);
         fragmentList.add(jabPost);
@@ -81,7 +81,7 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
         fragmentList.add(commentReport);
         fragmentList.add(commentPoint);
         // adapter
-        FragmentPagerAdapter<TopicMessageFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
+        FragmentPagerAdapter<MessageListFragment> adapter = new FragmentPagerAdapter<>(getSupportFragmentManager());
         adapter.newData(titleList, fragmentList);
         // view
         vpFragment.setOffscreenPageLimit(fragmentList.size());

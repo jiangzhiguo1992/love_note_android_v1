@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class TopicMessageFragment extends BasePagerFragment<TopicMessageFragment> {
+public class MessageListFragment extends BasePagerFragment<MessageListFragment> {
 
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
@@ -37,16 +37,16 @@ public class TopicMessageFragment extends BasePagerFragment<TopicMessageFragment
     private Call<Result> call;
     private int page;
 
-    public static TopicMessageFragment newFragment(int kind) {
+    public static MessageListFragment newFragment(int kind) {
         Bundle bundle = new Bundle();
         bundle.putInt("kind", kind);
-        return BaseFragment.newInstance(TopicMessageFragment.class, bundle);
+        return BaseFragment.newInstance(MessageListFragment.class, bundle);
     }
 
     @Override
     protected int getView(Bundle data) {
         kind = data.getInt("kind");
-        return R.layout.fragment_topic_message;
+        return R.layout.fragment_message_list;
     }
 
     @Override

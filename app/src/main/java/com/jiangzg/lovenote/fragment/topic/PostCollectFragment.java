@@ -1,6 +1,5 @@
 package com.jiangzg.lovenote.fragment.topic;
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
