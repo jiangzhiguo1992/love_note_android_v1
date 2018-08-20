@@ -16,6 +16,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.SettingsActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.more.CoinActivity;
+import com.jiangzg.lovenote.activity.more.MatchDiscussActivity;
 import com.jiangzg.lovenote.activity.more.MatchDiscussListActivity;
 import com.jiangzg.lovenote.activity.more.MatchLetterActivity;
 import com.jiangzg.lovenote.activity.more.MatchLetterListActivity;
@@ -213,7 +214,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 break;
             case R.id.cvDiscuss: // 讨论会
                 if (discussPeriod == null || discussPeriod.getId() <= 0) {
-                    // TODO
+                    MatchDiscussActivity.goActivity(mFragment);
                 } else {
                     MatchDiscussListActivity.goActivity(mFragment, discussPeriod);
                 }

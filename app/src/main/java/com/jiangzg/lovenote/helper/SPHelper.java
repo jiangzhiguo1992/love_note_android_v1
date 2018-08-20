@@ -544,8 +544,8 @@ public class SPHelper {
         limit.setCoinWishPerHourCount(sp.getInt(FIELD_LIMIT_COIN_WISH_PER_HOUR_COUNT, 0));
         limit.setCoinPlanePerDayCount(sp.getInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, 0));
         limit.setMatchWorkScreenReportCount(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 10));
-        limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 0));
-        limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 0));
+        limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, 0));
+        limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, 0));
         return limit;
     }
 
