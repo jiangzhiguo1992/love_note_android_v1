@@ -137,6 +137,9 @@ public class MatchWork extends BaseCP implements Parcelable {
         this.coin = coin;
     }
 
+    public MatchWork() {
+    }
+
     protected MatchWork(Parcel in) {
         super(in);
         matchPeriodId = in.readLong();

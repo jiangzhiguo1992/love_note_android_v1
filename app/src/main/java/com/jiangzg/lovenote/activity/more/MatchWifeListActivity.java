@@ -2,13 +2,16 @@ package com.jiangzg.lovenote.activity.more;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -16,8 +19,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.view.DialogUtils;
+import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.MatchWifeAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -26,13 +33,17 @@ import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
+import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
+import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
+import java.io.File;
 import java.util.List;
 import java.util.Locale;
 
@@ -42,6 +53,8 @@ import retrofit2.Call;
 
 public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
+    @BindView(R.id.root)
+    CoordinatorLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -59,9 +72,11 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     private MatchPeriod period;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
+    private Call<Result> callGet;
+    private Call<Result> callAdd;
     private int page;
     private int orderIndex;
+    private File cameraFile;
 
     public static void goActivity(Fragment from, MatchPeriod period) {
         Intent intent = new Intent(from.getActivity(), MatchWifeListActivity.class);
@@ -146,8 +161,36 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(call);
+        RetrofitHelper.cancel(callGet);
+        RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
+        ResHelper.deleteFileInBackground(cameraFile);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) {
+            ResHelper.deleteFileInBackground(cameraFile);
+            return;
+        }
+        if (requestCode == ConsHelper.REQUEST_CAMERA) {
+            // 拍照
+            if (FileUtils.isFileEmpty(cameraFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
+                ResHelper.deleteFileInBackground(cameraFile);
+                return;
+            }
+            ossUpload(cameraFile);
+        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+            // 相册
+            File pictureFile = IntentResult.getPictureFile(data);
+            if (FileUtils.isFileEmpty(pictureFile)) {
+                ToastUtils.show(getString(R.string.file_no_exits));
+                return;
+            }
+            ossUpload(pictureFile);
+        }
     }
 
     @OnClick({R.id.llTop, R.id.llOrder, R.id.llAdd})
@@ -160,7 +203,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                // TODO
+                showSelectImgPop();
                 break;
         }
     }
@@ -209,8 +252,8 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         page = more ? page + 1 : 0;
         // api
         int orderType = ApiHelper.LIST_MATCH_ORDER_TYPE[orderIndex];
-        call = new RetrofitHelper().call(API.class).moreMatchWordPeriodListGet(period.getId(), orderType, page);
-        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+        callGet = new RetrofitHelper().call(API.class).moreMatchWordPeriodListGet(period.getId(), orderType, page);
+        RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
@@ -250,6 +293,45 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
+    }
+
+    // 图片获取
+    private void showSelectImgPop() {
+        cameraFile = ResHelper.newImageCacheFile();
+        PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
+        PopUtils.show(window, root, Gravity.CENTER);
+    }
+
+    // 上传
+    private void ossUpload(File file) {
+        if (period == null) return;
+        OssHelper.uploadMoreMatch(mActivity, file, new OssHelper.OssUploadCallBack() {
+            @Override
+            public void success(File source, String ossPath) {
+                MatchWork body = ApiHelper.getMatchWifeBody(period.getId(), ossPath);
+                api(body);
+                ResHelper.deleteFileInBackground(cameraFile);
+            }
+
+            @Override
+            public void failure(File source, String errMsg) {
+                ResHelper.deleteFileInBackground(cameraFile);
+            }
+        });
+    }
+
+    private void api(MatchWork work) {
+        callAdd = new RetrofitHelper().call(API.class).moreMatchWorkAdd(work);
+        MaterialDialog loading = getLoading(true);
+        RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
 }

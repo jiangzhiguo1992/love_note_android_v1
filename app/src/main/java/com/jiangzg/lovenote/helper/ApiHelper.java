@@ -25,6 +25,7 @@ import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Entry;
 import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.domain.Lock;
+import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.OssInfo;
 import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.Place;
@@ -392,6 +393,27 @@ public class ApiHelper {
         postComment.setKind(PostComment.KIND_JAB);
         postComment.setContentText("");
         return postComment;
+    }
+
+    public static MatchWork getMatchWifeBody(long mpid, String image) {
+        MatchWork work = new MatchWork();
+        work.setMatchPeriodId(mpid);
+        work.setContentImage(image);
+        return work;
+    }
+
+    public static MatchWork getMatchLetterBody(long mpid, String title) {
+        MatchWork work = new MatchWork();
+        work.setMatchPeriodId(mpid);
+        work.setTitle(title);
+        return work;
+    }
+
+    public static MatchWork getMatchDiscussBody(long mpid, String content) {
+        MatchWork work = new MatchWork();
+        work.setMatchPeriodId(mpid);
+        work.setContentText(content);
+        return work;
     }
 
 }

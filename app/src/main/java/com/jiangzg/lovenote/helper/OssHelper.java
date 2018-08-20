@@ -1135,11 +1135,18 @@ public class OssHelper {
     }
 
     // 帖子 (压缩)
-    public static void uploadPost(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+    public static void uploadTopicPost(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String pathTopicPost = ossInfo.getPathTopicPost();
         List<File> fileList = ListHelper.getFileListByPath(sourceList);
         compressJpegList(activity, pathTopicPost, fileList, callBack);
+    }
+
+    // 作品 (压缩)
+    public static void uploadMoreMatch(Activity activity, final File source, final OssUploadCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathMoreMatch = ossInfo.getPathMoreMatch();
+        compressJpeg(activity, pathMoreMatch, source, callBack);
     }
 
 }

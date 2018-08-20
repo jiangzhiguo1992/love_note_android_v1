@@ -32,6 +32,15 @@ public class OssInfo {
     private String pathNoteGift;
     private String pathNoteFood;
     private String pathTopicPost;
+    private String pathMoreMatch;
+
+    public String getPathMoreMatch() {
+        return pathMoreMatch;
+    }
+
+    public void setPathMoreMatch(String pathMoreMatch) {
+        this.pathMoreMatch = pathMoreMatch;
+    }
 
     public String getRegion() {
         return region;

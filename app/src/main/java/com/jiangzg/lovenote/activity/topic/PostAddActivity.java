@@ -368,7 +368,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
     private void ossUploadImages(List<String> fileData) {
         if (post == null) return;
-        OssHelper.uploadPost(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
+        OssHelper.uploadTopicPost(mActivity, fileData, new OssHelper.OssUploadsCallBack() {
             @Override
             public void success(List<File> sourceList, List<String> ossPathList) {
                 if (recyclerHelper == null) return;

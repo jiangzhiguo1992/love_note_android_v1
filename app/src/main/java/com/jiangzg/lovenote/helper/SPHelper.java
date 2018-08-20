@@ -73,6 +73,7 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_NOTE_FOOD = "path_note_food";
     private static final String FIELD_OSS_PATH_NOTE_GIFT = "path_note_gift";
     private static final String FIELD_OSS_PATH_TOPIC_POST = "path_topic_post";
+    private static final String FIELD_OSS_PATH_MORE_MATCH = "path_more_match";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -350,6 +351,7 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_NOTE_FOOD, ossInfo.getPathNoteFood());
         editor.putString(FIELD_OSS_PATH_NOTE_GIFT, ossInfo.getPathNoteGift());
         editor.putString(FIELD_OSS_PATH_TOPIC_POST, ossInfo.getPathTopicPost());
+        editor.putString(FIELD_OSS_PATH_MORE_MATCH, ossInfo.getPathMoreMatch());
         editor.apply();
     }
 
@@ -379,6 +381,7 @@ public class SPHelper {
         ossInfo.setPathNoteFood(sp.getString(FIELD_OSS_PATH_NOTE_FOOD, ""));
         ossInfo.setPathNoteGift(sp.getString(FIELD_OSS_PATH_NOTE_GIFT, ""));
         ossInfo.setPathTopicPost(sp.getString(FIELD_OSS_PATH_TOPIC_POST, ""));
+        ossInfo.setPathMoreMatch(sp.getString(FIELD_OSS_PATH_MORE_MATCH, ""));
         return ossInfo;
     }
 
