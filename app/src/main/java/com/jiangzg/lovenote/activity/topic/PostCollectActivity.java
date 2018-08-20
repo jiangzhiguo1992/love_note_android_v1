@@ -11,7 +11,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.fragment.PostCollectFragment;
+import com.jiangzg.lovenote.fragment.topic.PostCollectFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.util.ArrayList;

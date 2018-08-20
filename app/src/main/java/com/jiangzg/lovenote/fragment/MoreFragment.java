@@ -284,8 +284,12 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         }
         tvCoin.setText(coinShow);
         // sign
-        int continueDay = (sign == null) ? 0 : sign.getContinueDay();
-        String signShow = String.format(Locale.getDefault(), getString(R.string.continue_holder_day), continueDay);
+        String signShow;
+        if (sign == null) {
+            signShow = getString(R.string.no_sign);
+        } else {
+            signShow = getString(R.string.yes_sign);
+        }
         tvSign.setText(signShow);
     }
 

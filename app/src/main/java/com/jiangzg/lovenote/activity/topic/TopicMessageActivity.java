@@ -12,7 +12,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.TopicMessage;
-import com.jiangzg.lovenote.fragment.TopicMessageFragment;
+import com.jiangzg.lovenote.fragment.topic.TopicMessageFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.util.ArrayList;

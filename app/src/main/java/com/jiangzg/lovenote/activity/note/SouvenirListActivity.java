@@ -18,7 +18,7 @@ import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Help;
-import com.jiangzg.lovenote.fragment.SouvenirListFragment;
+import com.jiangzg.lovenote.fragment.note.SouvenirListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import butterknife.BindView;
@@ -66,6 +66,7 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
         adapter.addData(title, souvenirDoneFragment);
         adapter.addData(getString(R.string.wish_list), souvenirWishFragment);
         // view
+        vpFragment.setOffscreenPageLimit(1);
         vpFragment.setAdapter(adapter);
         tl.setupWithViewPager(vpFragment);
     }

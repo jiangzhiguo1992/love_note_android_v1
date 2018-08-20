@@ -576,6 +576,8 @@
     <string name="nav_discuss">讨论会</string>
     <string name="nav_wish">许愿树</string>
     <string name="nav_plane">纸飞机</string>
+    <string name="no_sign">未签到</string>
+    <string name="yes_sign">已签到</string>
     <string name="now_no_broadcast">暂无广播</string>
     <string name="now_no_activity">暂无活动</string>
     <string name="the_holder_period" formatted="false">第%d期</string>
@@ -610,7 +612,6 @@
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
     <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
-    <string name="continue_holder_day" formatted="false">连续%d天</string>
     <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励：%d金币</string>
     <string name="total_works_count_colon_holder" formatted="false">总作品数：%s</string>
     <string name="total_coin_count_colon_holder" formatted="false">总金币数：%s</string>

@@ -28,7 +28,7 @@ import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.domain.User;
-import com.jiangzg.lovenote.fragment.SouvenirForeignFragment;
+import com.jiangzg.lovenote.fragment.note.SouvenirForeignFragment;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;

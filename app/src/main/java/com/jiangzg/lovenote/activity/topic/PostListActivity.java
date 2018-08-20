@@ -22,7 +22,7 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.PostSubKindInfo;
 import com.jiangzg.lovenote.domain.RxEvent;
-import com.jiangzg.lovenote.fragment.PostListFragment;
+import com.jiangzg.lovenote.fragment.topic.PostListFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
