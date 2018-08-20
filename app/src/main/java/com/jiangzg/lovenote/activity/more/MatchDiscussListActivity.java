@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.activity.more;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,15 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
     public static void goActivity(Fragment from, MatchPeriod period) {
         Intent intent = new Intent(from.getActivity(), MatchDiscussListActivity.class);
         intent.putExtra("period", period);
+        // TODO
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, MatchPeriod period) {
+        Intent intent = new Intent(from, MatchDiscussListActivity.class);
+        intent.putExtra("period", period);
+        // TODO
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

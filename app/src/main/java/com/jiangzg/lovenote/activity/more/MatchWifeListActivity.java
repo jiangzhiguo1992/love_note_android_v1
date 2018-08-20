@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.activity.more;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -19,9 +20,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -40,10 +43,12 @@ import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -71,6 +76,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     LinearLayout llAdd;
 
     private MatchPeriod period;
+    private boolean showNew;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callGet;
     private Call<Result> callAdd;
@@ -81,6 +87,15 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     public static void goActivity(Fragment from, MatchPeriod period) {
         Intent intent = new Intent(from.getActivity(), MatchWifeListActivity.class);
         intent.putExtra("period", period);
+        intent.putExtra("showNew", true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, MatchPeriod period) {
+        Intent intent = new Intent(from, MatchWifeListActivity.class);
+        intent.putExtra("period", period);
+        intent.putExtra("showNew", false);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -154,6 +169,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         period = intent.getParcelableExtra("period");
+        showNew = intent.getBooleanExtra("showNew", false);
         // head
         initHead();
         // refresh
@@ -218,6 +234,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         View head = recyclerHelper.getViewHead();
         CardView root = head.findViewById(R.id.root);
         TextView tvTitle = head.findViewById(R.id.tvTitle);
+        TextView tvTime = head.findViewById(R.id.tvTime);
         TextView tvPeriod = head.findViewById(R.id.tvPeriod);
         TextView tvCoin = head.findViewById(R.id.tvCoin);
         TextView tvWorksCount = head.findViewById(R.id.tvWorksCount);
@@ -225,6 +242,9 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         TextView tvPointCount = head.findViewById(R.id.tvPointCount);
         // data
         String title = period.getTitle();
+        String start = DateUtils.getString(TimeHelper.getJavaTimeByGo(period.getStartAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String end = DateUtils.getString(TimeHelper.getJavaTimeByGo(period.getEndAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String time = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), start, end);
         String periodShow = String.format(Locale.getDefault(), getString(R.string.the_holder_period), this.period.getPeriod());
         String coinChange = String.format(Locale.getDefault(), getString(R.string.go_in_award_colon_holder_coin), period.getCoinChange());
         String workCount = String.format(Locale.getDefault(), getString(R.string.total_works_count_colon_holder), CountHelper.getShowCount2Thousand(period.getWorksCount()));
@@ -232,6 +252,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         String pointCount = String.format(Locale.getDefault(), getString(R.string.total_point_count_colon_holder), CountHelper.getShowCount2Thousand(period.getPointCount()));
         // set
         tvTitle.setText(title);
+        tvTime.setText(time);
         tvPeriod.setText(periodShow);
         tvCoin.setText(coinChange);
         tvWorksCount.setText(workCount);
@@ -272,11 +293,15 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     }
 
     private void showSearchDialog() {
+        String[] newSelectList = ApiHelper.LIST_MATCH_ORDER_SHOW;
+        if (!showNew) {
+            newSelectList = Arrays.copyOf(newSelectList, newSelectList.length - 1);
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_MATCH_ORDER_SHOW)
+                .items(newSelectList)
                 .itemsCallbackSingleChoice(orderIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
