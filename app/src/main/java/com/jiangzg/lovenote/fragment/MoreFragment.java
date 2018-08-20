@@ -17,6 +17,7 @@ import com.jiangzg.lovenote.activity.common.SettingsActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.more.CoinActivity;
 import com.jiangzg.lovenote.activity.more.MatchDiscussListActivity;
+import com.jiangzg.lovenote.activity.more.MatchLetterActivity;
 import com.jiangzg.lovenote.activity.more.MatchLetterListActivity;
 import com.jiangzg.lovenote.activity.more.MatchWifeActivity;
 import com.jiangzg.lovenote.activity.more.MatchWifeListActivity;
@@ -205,14 +206,14 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 break;
             case R.id.cvLetter: // 情书展
                 if (letterPeriod == null || letterPeriod.getId() <= 0) {
-                    //MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_LETTER_SHOW);
+                    MatchLetterActivity.goActivity(mFragment);
                 } else {
                     MatchLetterListActivity.goActivity(mFragment, letterPeriod);
                 }
                 break;
             case R.id.cvDiscuss: // 讨论会
                 if (discussPeriod == null || discussPeriod.getId() <= 0) {
-                    //MatchPeriodListActivity.goActivity(mFragment, MatchPeriod.MATCH_KIND_DISCUSS_MEET);
+                    // TODO
                 } else {
                     MatchDiscussListActivity.goActivity(mFragment, discussPeriod);
                 }

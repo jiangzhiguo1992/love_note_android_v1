@@ -180,10 +180,10 @@
         <activity android:name=".activity.more.CoinBuyActivity"/>
         <activity android:name=".activity.more.MatchWifeActivity"/>
         <activity android:name=".activity.more.MatchWifeListActivity"/>
+        <activity android:name=".activity.more.MatchLetterActivity"/>
         <activity android:name=".activity.more.MatchLetterListActivity"/>
+        <activity android:name=".activity.more.MatchDiscussActivity"/>
         <activity android:name=".activity.more.MatchDiscussListActivity"/>
-        <activity android:name=".activity.more.MatchLetterActivity">
-        </activity>
     </application>
 
 </manifest>
