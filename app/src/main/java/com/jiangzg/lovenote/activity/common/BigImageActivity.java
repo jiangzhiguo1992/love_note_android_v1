@@ -17,7 +17,6 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.BigImagePagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.ShareHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,12 +128,9 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.ivShare, R.id.ivDownload})
+    @OnClick({R.id.ivDownload})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ivShare: // 分享
-                share();
-                break;
             case R.id.ivDownload: // 下载
                 downLoad();
                 break;
@@ -231,13 +227,6 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
         } else {
             BarUtils.hideStatus(root);
         }
-    }
-
-    // 分享
-    private void share() {
-        int currentItem = vpImage.getCurrentItem();
-        String objectKey = dataList.get(currentItem);
-        ShareHelper.shareBigImg(objectKey);
     }
 
     // 图片下载

@@ -40,6 +40,7 @@ public class Help extends BaseObj implements Parcelable {
     public static final int INDEX_NOTE_PROMISE = 369;
     // topic
     public static final int INDEX_TOPIC_HOME = 400;
+    public static final int INDEX_TOPIC_POST = 410;
     // more
     public static final int INDEX_MORE_HOME = 500;
     public static final int INDEX_MORE_BROCAST = 510;

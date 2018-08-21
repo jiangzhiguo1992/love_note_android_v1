@@ -32,10 +32,12 @@ import com.jiangzg.base.system.InputUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.ImgSquareShowAdapter;
 import com.jiangzg.lovenote.adapter.PostCommentAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Couple;
+import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostCollect;
 import com.jiangzg.lovenote.domain.PostComment;
@@ -55,7 +57,6 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.helper.ShareHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -291,19 +292,16 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
-        if (post != null) {
-            if (post.isOfficial()) {
-                if (post.isMine()) { // 分享 + (删除 + 帮助)
-                    getMenuInflater().inflate(R.menu.share_del, menu);
-                } else { // 分享 + (帮助)
-                    getMenuInflater().inflate(R.menu.share, menu);
-                }
-            } else {
-                if (post.isMine()) { // 分享 + (举报 + 删除 + 帮助)
-                    getMenuInflater().inflate(R.menu.report_share_del, menu);
-                } else { // 分享 + (举报 + 帮助)
-                    getMenuInflater().inflate(R.menu.report_share, menu);
-                }
+        if (post == null) {
+            return super.onPrepareOptionsMenu(menu);
+        }
+        if (post.isOfficial()) {
+            getMenuInflater().inflate(R.menu.help, menu);
+        } else {
+            if (post.isMine()) { // 举报 + 删除 + 帮助
+                getMenuInflater().inflate(R.menu.report_del_help, menu);
+            } else { // 举报
+                getMenuInflater().inflate(R.menu.report_help, menu);
             }
         }
         return super.onPrepareOptionsMenu(menu);
@@ -321,14 +319,14 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuShare: // 分享
-                ShareHelper.shareTopicPost(post);
-                return true;
             case R.id.menuReport: // 举报
                 report();
                 return true;
             case R.id.menuDel: // 删除
                 showPostDelDialog();
+                return true;
+            case R.id.menuHelp:
+                HelpActivity.goActivity(mActivity, Help.INDEX_TOPIC_POST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

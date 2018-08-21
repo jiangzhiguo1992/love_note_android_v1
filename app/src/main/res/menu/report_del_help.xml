@@ -3,15 +3,21 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menuShare"
-        android:icon="@drawable/ic_share_white"
-        android:title="@string/search"
+        android:id="@+id/menuReport"
+        android:icon="@drawable/ic_report_white"
+        android:title="@string/report"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menuDel"
         android:icon="@drawable/ic_del_white"
         android:title="@string/delete"
-        app:showAsAction="never"/>
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menuHelp"
+        android:icon="@drawable/ic_help_circle_solid_white"
+        android:title="@string/help_document"
+        app:showAsAction="ifRoom"/>
 
 </menu>
