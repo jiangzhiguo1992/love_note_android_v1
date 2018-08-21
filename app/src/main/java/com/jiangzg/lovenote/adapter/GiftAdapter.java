@@ -57,10 +57,9 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
         helper.setText(R.id.tvHappenAt, happenShow);
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
-            int spanCount = imageList.size() > 3 ? 3 : imageList.size();
             new RecyclerHelper(rv)
-                    .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
-                    .initAdapter(new ImgSquareShowAdapter(mActivity, spanCount))
+                    .initLayoutManager(new GridLayoutManager(mActivity, 3))
+                    .initAdapter(new ImgSquareShowAdapter(mActivity, 3))
                     .setAdapter()
                     .dataNew(imageList, 0);
         } else {

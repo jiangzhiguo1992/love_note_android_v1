@@ -103,6 +103,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         recyclerHelper.dataNew(help.getSubList(), 0);
     }
 
+    // TODO 抽到res-strings里
     private void initHead(Help help) {
         if (recyclerHelper == null) return;
         // data
@@ -135,29 +136,26 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             default:
                 help = getHelpAll(Help.INDEX_ALL);
                 break;
-            case Help.INDEX_USER_SUGGEST:
-                help = getHelpSuggestHome(Help.INDEX_USER_SUGGEST);
-                break;
             case Help.INDEX_COUPLE_HOME:
-                help = getHelpCoupleHome(Help.INDEX_COUPLE_HOME);
+                help = getHelpCoupleHome(index);
                 break;
             case Help.INDEX_COUPLE_PAIR:
-                help = getHelpCouplePair(Help.INDEX_COUPLE_PAIR);
+                help = getHelpCouplePair(index);
                 break;
             case Help.INDEX_COUPLE_INFO:
-                help = getHelpCoupleInfo(Help.INDEX_COUPLE_INFO);
+                help = getHelpCoupleInfo(index);
                 break;
             case Help.INDEX_NOTE_HOME:
-                help = getHelpNoteHome(Help.INDEX_NOTE_HOME);
+                help = getHelpNoteHome(index);
                 break;
             case Help.INDEX_NOTE_LOCK:
-                help = getHelpNoteLock(Help.INDEX_NOTE_LOCK);
+                help = getHelpNoteLock(index);
                 break;
             case Help.INDEX_NOTE_SOUVENIR:
-                help = getHelpNoteSouvenir(Help.INDEX_NOTE_SOUVENIR);
+                help = getHelpNoteSouvenir(index);
                 break;
             case Help.INDEX_NOTE_WORD:
-                help = null;
+                help = getHelpNoteWork(index);
                 break;
             case Help.INDEX_NOTE_WHISPER:
                 help = null;
@@ -168,19 +166,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             case Help.INDEX_NOTE_AWARD:
                 help = null;
                 break;
-            case Help.INDEX_NOTE_DREAM:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_GIFT:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_FOOD:
-                help = null;
-                break;
             case Help.INDEX_NOTE_TRAVEL:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_ANGRY:
                 help = null;
                 break;
             case Help.INDEX_NOTE_PROMISE:
@@ -191,6 +177,12 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 break;
             case Help.INDEX_MORE_HOME:
                 help = null;
+                break;
+            case Help.INDEX_OTHER:
+                help = getHelpOther(index);
+                break;
+            case Help.INDEX_USER_SUGGEST:
+                help = getHelpSuggestHome(index);
                 break;
         }
         return help;
@@ -239,30 +231,11 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s4.setIndex(Help.INDEX_MORE_HOME);
         s4.setTitle(getString(R.string.nav_more));
         subList.add(s4);
+        Help s5 = new Help();
+        s5.setIndex(Help.INDEX_OTHER);
+        s5.setTitle(getString(R.string.other));
+        subList.add(s5);
         help.setSubList(subList);
-        return help;
-    }
-
-    private Help getHelpSuggestHome(int index) {
-        Help help = new Help();
-        help.setIndex(index);
-        help.setTitle(getString(R.string.suggest_feedback));
-        help.setDesc("《意见反馈》旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。" +
-                "\n(注：如果没有第一时间回复，那可能是管理员在偷懒。)");
-        // content
-        List<Help.HelpContent> contentList = new ArrayList<>();
-        Help.HelpContent c1 = new Help.HelpContent();
-        c1.setQuestion("类型和状态是什么？");
-        c1.setAnswer("类型：意见反馈的种类，在提交意见反馈时选择，这样分类的话，可以加快管理员的审核速度和方便用户浏览。" +
-                "\n状态：意见反馈的处理进度，一般为管理员回复并设置。");
-        contentList.add(c1);
-        Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion("我可以在这里发表什么内容？");
-        c2.setAnswer("如状态所述的几个类型的内容都可以。" +
-                "\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题，最好截图(app崩溃但没退出去的情况下)。" +
-                "\n再次注意：任何在本区域捣乱者，将会被给予警告处理，情节严重者，给予封号处理。");
-        contentList.add(c2);
-        help.setContentList(contentList);
         return help;
     }
 
@@ -270,7 +243,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.nav_couple));
-        help.setDesc("《" + getString(R.string.nav_couple) + "》模块用来展示情侣双方的各项信息，包括但不仅限于双方头像和昵称，双方所在地和天气状况。");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -339,7 +311,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.pair_info));
-        help.setDesc("用来展示和修改双方的信息，还可以打电话哦！");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -368,8 +339,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.nav_note));
-        help.setDesc("《" + getString(R.string.nav_note) + "》是app最核心的模块，生活记录模块。" +
-                "\n恋爱生活中的点点滴滴，都应该被记录下来，不管是多微不足道的事都值得被记录。");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -391,51 +360,30 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s2.setIndex(Help.INDEX_NOTE_SOUVENIR);
         s2.setTitle(getString(R.string.souvenir));
         subList.add(s2);
-
-        Help s9 = new Help();
-        s9.setIndex(Help.INDEX_NOTE_WORD);
-        s9.setTitle(getString(R.string.word));
-        subList.add(s9);
-        Help s10 = new Help();
-        s10.setIndex(Help.INDEX_NOTE_WHISPER);
-        s10.setTitle(getString(R.string.whisper));
-        subList.add(s10);
-        Help s11 = new Help();
-        s11.setIndex(Help.INDEX_NOTE_DIARY);
-        s11.setTitle(getString(R.string.diary));
-        subList.add(s11);
-        Help s12 = new Help();
-        s12.setIndex(Help.INDEX_NOTE_AWARD);
-        s12.setTitle(getString(R.string.award));
-        subList.add(s12);
-        Help s13 = new Help();
-        s13.setIndex(Help.INDEX_NOTE_DREAM);
-        s13.setTitle(getString(R.string.dream));
-        subList.add(s13);
-        Help s14 = new Help();
-        s14.setIndex(Help.INDEX_NOTE_DREAM);
-        s14.setTitle(getString(R.string.dream));
-        subList.add(s14);
-        Help s15 = new Help();
-        s15.setIndex(Help.INDEX_NOTE_GIFT);
-        s15.setTitle(getString(R.string.gift));
-        subList.add(s15);
-        Help s16 = new Help();
-        s16.setIndex(Help.INDEX_NOTE_FOOD);
-        s16.setTitle(getString(R.string.food));
-        subList.add(s16);
-        Help s17 = new Help();
-        s17.setIndex(Help.INDEX_NOTE_TRAVEL);
-        s17.setTitle(getString(R.string.travel));
-        subList.add(s17);
-        Help s18 = new Help();
-        s18.setIndex(Help.INDEX_NOTE_ANGRY);
-        s18.setTitle(getString(R.string.angry));
-        subList.add(s18);
-        Help s19 = new Help();
-        s19.setIndex(Help.INDEX_NOTE_PROMISE);
-        s19.setTitle(getString(R.string.promise));
-        subList.add(s19);
+        Help s3 = new Help();
+        s3.setIndex(Help.INDEX_NOTE_WORD);
+        s3.setTitle(getString(R.string.word));
+        subList.add(s3);
+        Help s4 = new Help();
+        s4.setIndex(Help.INDEX_NOTE_WHISPER);
+        s4.setTitle(getString(R.string.whisper));
+        subList.add(s4);
+        Help s5 = new Help();
+        s5.setIndex(Help.INDEX_NOTE_DIARY);
+        s5.setTitle(getString(R.string.diary));
+        subList.add(s5);
+        Help s6 = new Help();
+        s6.setIndex(Help.INDEX_NOTE_AWARD);
+        s6.setTitle(getString(R.string.award));
+        subList.add(s6);
+        Help s7 = new Help();
+        s7.setIndex(Help.INDEX_NOTE_TRAVEL);
+        s7.setTitle(getString(R.string.travel));
+        subList.add(s7);
+        Help s8 = new Help();
+        s8.setIndex(Help.INDEX_NOTE_PROMISE);
+        s8.setTitle(getString(R.string.promise));
+        subList.add(s8);
         help.setSubList(subList);
         return help;
     }
@@ -468,7 +416,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.souvenir));
-        help.setDesc("纪念日，最值得被记录的日子。");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -486,6 +433,50 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c3.setQuestion("纪念日的关联数据，每年能关联几个同类型数据？");
         c3.setAnswer(souvenirForeignYearCount + "个哦！");
         contentList.add(c3);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteWork(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.word));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("为什么我发布了留言，对方却不能收到？");
+        c1.setAnswer("这是留言板，不是聊天哦。不是实时发送的，需要下拉刷新才能看到哦。" +
+                "\n本app和其他市面上情侣app还有一点不一样，就是没有实时聊天功能，因为我们只专注记录与分享！" +
+                "\n而且某信的聊天功能已经做得非常完善了，我们就不献丑了呢！");
+        contentList.add(c1);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    // TODO UI界面 长按删除
+    private Help getHelpOther(int index) {
+        return null;
+    }
+
+    private Help getHelpSuggestHome(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.suggest_feedback));
+        help.setDesc("《意见反馈》旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。" +
+                "\n(注：如果没有第一时间回复，那可能是管理员在偷懒。)");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("类型和状态是什么？");
+        c1.setAnswer("类型：意见反馈的种类，在提交意见反馈时选择，这样分类的话，可以加快管理员的审核速度和方便用户浏览。" +
+                "\n状态：意见反馈的处理进度，一般为管理员回复并设置。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("我可以在这里发表什么内容？");
+        c2.setAnswer("如状态所述的几个类型的内容都可以。" +
+                "\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题，最好截图(app崩溃但没退出去的情况下)。" +
+                "\n再次注意：任何在本区域捣乱者，将会被给予警告处理，情节严重者，给予封号处理。");
+        contentList.add(c2);
         help.setContentList(contentList);
         return help;
     }

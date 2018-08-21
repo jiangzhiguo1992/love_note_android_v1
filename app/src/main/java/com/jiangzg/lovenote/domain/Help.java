@@ -12,34 +12,31 @@ import java.util.List;
 public class Help extends BaseObj implements Parcelable {
 
     public static final int INDEX_ALL = 0;
-    // user
-    public static final int INDEX_USER_SUGGEST = 120;
     // couple
-    public static final int INDEX_COUPLE_HOME = 200;
-    public static final int INDEX_COUPLE_PAIR = 210;
-    public static final int INDEX_COUPLE_INFO = 220;
+    public static final int INDEX_COUPLE_HOME = 100;
+    public static final int INDEX_COUPLE_PAIR = 110;
+    public static final int INDEX_COUPLE_INFO = 120;
     // note
-    public static final int INDEX_NOTE_HOME = 300;
-    public static final int INDEX_NOTE_LOCK = 310;
-    public static final int INDEX_NOTE_SOUVENIR = 320;
-    public static final int INDEX_NOTE_WORD = 330;
-    public static final int INDEX_NOTE_WHISPER = 331;
-    public static final int INDEX_NOTE_DIARY = 332;
-    public static final int INDEX_NOTE_AWARD = 333;
-    public static final int INDEX_NOTE_DREAM = 334;
-    public static final int INDEX_NOTE_GIFT = 335;
-    public static final int INDEX_NOTE_FOOD = 336;
-    public static final int INDEX_NOTE_TRAVEL = 337;
-    public static final int INDEX_NOTE_ANGRY = 338;
-    public static final int INDEX_NOTE_PROMISE = 339;
+    public static final int INDEX_NOTE_HOME = 200;
+    public static final int INDEX_NOTE_LOCK = 210;
+    public static final int INDEX_NOTE_SOUVENIR = 220;
+    public static final int INDEX_NOTE_WORD = 230;
+    public static final int INDEX_NOTE_WHISPER = 231;
+    public static final int INDEX_NOTE_DIARY = 232;
+    public static final int INDEX_NOTE_AWARD = 233;
+    public static final int INDEX_NOTE_TRAVEL = 234;
+    public static final int INDEX_NOTE_PROMISE = 235;
     // topic TODO
-    public static final int INDEX_TOPIC_HOME = 400;
-    public static final int INDEX_TOPIC_POST = 410;
+    public static final int INDEX_TOPIC_HOME = 300;
+    public static final int INDEX_TOPIC_POST = 310;
     // more TODO
-    public static final int INDEX_MORE_HOME = 500;
-    public static final int INDEX_MORE_VIP = 520;
-    public static final int INDEX_MORE_COIN = 530;
-    public static final int INDEX_MORE_SIGN = 540;
+    public static final int INDEX_MORE_HOME = 400;
+    public static final int INDEX_MORE_VIP = 420;
+    public static final int INDEX_MORE_COIN = 430;
+    public static final int INDEX_MORE_SIGN = 440;
+    // other
+    public static final int INDEX_OTHER = 500;
+    public static final int INDEX_USER_SUGGEST = 510;
 
     private int index;
     private String title;
