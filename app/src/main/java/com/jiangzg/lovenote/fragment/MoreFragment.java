@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.SettingsActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
@@ -220,10 +221,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 }
                 break;
             case R.id.cvWish: // 许愿树
-                // TODO
+                ToastUtils.show(getString(R.string.function_no_open_please_wait));
                 break;
             case R.id.cvPlane: // 纸飞机
-                // TODO
+                ToastUtils.show(getString(R.string.function_no_open_please_wait));
                 break;
         }
     }
