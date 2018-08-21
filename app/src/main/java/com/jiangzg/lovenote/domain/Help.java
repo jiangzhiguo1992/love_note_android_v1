@@ -22,10 +22,9 @@ public class Help extends BaseObj implements Parcelable {
     public static final int INDEX_NOTE_SOUVENIR = 220;
     public static final int INDEX_NOTE_WORD = 230;
     public static final int INDEX_NOTE_WHISPER = 231;
-    public static final int INDEX_NOTE_DIARY = 232;
-    public static final int INDEX_NOTE_AWARD = 233;
-    public static final int INDEX_NOTE_TRAVEL = 234;
-    public static final int INDEX_NOTE_PROMISE = 235;
+    public static final int INDEX_NOTE_AWARD = 232;
+    public static final int INDEX_NOTE_TRAVEL = 233;
+    public static final int INDEX_NOTE_PROMISE = 234;
     // topic TODO
     public static final int INDEX_TOPIC_HOME = 300;
     public static final int INDEX_TOPIC_POST = 310;

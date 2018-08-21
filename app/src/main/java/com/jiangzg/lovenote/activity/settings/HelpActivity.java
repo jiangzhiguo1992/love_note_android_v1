@@ -158,13 +158,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 help = getHelpNoteWork(index);
                 break;
             case Help.INDEX_NOTE_WHISPER:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_DIARY:
-                help = null;
+                help = getHelpNoteWhisper(index);
                 break;
             case Help.INDEX_NOTE_AWARD:
-                help = null;
+                help = getHelpNoteAward(index);
                 break;
             case Help.INDEX_NOTE_TRAVEL:
                 help = null;
@@ -368,10 +365,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s4.setIndex(Help.INDEX_NOTE_WHISPER);
         s4.setTitle(getString(R.string.whisper));
         subList.add(s4);
-        Help s5 = new Help();
-        s5.setIndex(Help.INDEX_NOTE_DIARY);
-        s5.setTitle(getString(R.string.diary));
-        subList.add(s5);
         Help s6 = new Help();
         s6.setIndex(Help.INDEX_NOTE_AWARD);
         s6.setTitle(getString(R.string.award));
@@ -416,6 +409,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.souvenir));
+        help.setDesc("纪念日，最值得被记录的日子。可以关联每年当日发生的事哦。" +
+                "\n每年的纪念日当天，记得过来看看，有彩蛋哟！");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -449,6 +444,59 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 "\n本app和其他市面上情侣app还有一点不一样，就是没有实时聊天功能，因为我们只专注记录与分享！" +
                 "\n而且某信的聊天功能已经做得非常完善了，我们就不献丑了呢！");
         contentList.add(c1);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteWhisper(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.whisper));
+        help.setDesc("这是一个可以说悄悄话的地方。" +
+                "\n是不是有些话憋在心里难受，说又没地方说？这里就是你发泄的天堂！" +
+                "\n当然了，除了发泄，还有点点情趣呢，发表一句TA想听到的话，然后让TA使劲找吧，hiahiahia~");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("这里的内容会被别人看到吗？");
+        c1.setAnswer("不会的，整个小本本模块里的内容都只有你和TA可见，包括这里。" +
+                "\n而且就算TA要看也要输对频道才行，是不是很有意思？");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("怎么删除？长按也不行！");
+        c2.setAnswer("我想告诉你的是，这里的东西一旦发布，是不能删除的！" +
+                "\n所以要谨慎啊，要是是怕被TA看到的话，就找个难写的频道发表内容。");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteAward(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.award));
+        help.setDesc("这是一个奖善罚恶的机制。" +
+                "\n两个人的日常中，难免有人做错事，有人做对事。做错了就要惩罚，做对了就要奖励。" +
+                "\n情侣们可以在这里定制一套自己的规则，按规则来奖励与惩罚，以分数来论英雄。");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("怎么使用这个功能啊？");
+        c1.setAnswer("1.首先无规矩不成方圆。首先双方可以添加一些规则，用来告诉双方哪些事会触发机制。" +
+                "\n2.一旦触发了规则里事，就可以添加奖励，每个奖励必须依赖某个规则，不可以乱加哦！" +
+                "\n3.奖励发表的多了，就能看出来谁分高，谁分低了。谁做的好，谁做的不好。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("举个栗子！");
+        c2.setAnswer("1.妹子讨厌男生抽烟，于是发布了一条规则：抽烟-10分。" +
+                "\n2.发现男生抽烟了，发布奖励，依赖抽烟的规则，男生总分数-10。" +
+                "\n3.分数总是负的不行啊，然后再发布一条规则：男生一天不打游戏的话，+10分。" +
+                "\n4.大概就是这样子，要有扣分规则，也要有加分规则，这样才平衡。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("为什么会有这个功能？");
+        c3.setAnswer("题外话，因为我们BOSS和他女友相恋的时候，就是这么做的，感觉很有意思，然后强推这个功能。233333~");
+        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }

@@ -31,6 +31,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add_cu_white"
+        android:visibility="gone"
         app:backgroundTint="?attr/colorAccent"
         app:borderWidth="0dp"
         app:elevation="@dimen/elevation_normal"
