@@ -60,7 +60,7 @@
 
                 <TextView
                     android:id="@+id/tvReportCount"
-                    style="@style/FontGreyNormal"
+                    style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -90,7 +90,7 @@
 
                 <TextView
                     android:id="@+id/tvCoinCount"
-                    style="@style/FontGreyNormal"
+                    style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -120,7 +120,7 @@
 
                 <TextView
                     android:id="@+id/tvPointCount"
-                    style="@style/FontGreyNormal"
+                    style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
