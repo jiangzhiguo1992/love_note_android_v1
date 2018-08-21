@@ -231,7 +231,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
         String vipInfo;
         if (vip != null) {
             String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(vip.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-            vipInfo = String.format(Locale.getDefault(), getString(R.string.on_space_holder_space_over__due), time);
+            vipInfo = String.format(Locale.getDefault(), getString(R.string.over_due_next_holder), time);
         } else {
             vipInfo = getString(R.string.no_handle);
         }

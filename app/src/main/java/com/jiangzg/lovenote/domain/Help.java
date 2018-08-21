@@ -22,28 +22,21 @@ public class Help extends BaseObj implements Parcelable {
     public static final int INDEX_NOTE_HOME = 300;
     public static final int INDEX_NOTE_LOCK = 310;
     public static final int INDEX_NOTE_SOUVENIR = 320;
-    public static final int INDEX_NOTE_SHY = 330;
-    public static final int INDEX_NOTE_MENSES = 331;
-    public static final int INDEX_NOTE_SLEEP = 332;
-    public static final int INDEX_NOTE_AUDIO = 340;
-    public static final int INDEX_NOTE_VIDEO = 341;
-    public static final int INDEX_NOTE_ALBUM = 342;
-    public static final int INDEX_NOTE_WORD = 360;
-    public static final int INDEX_NOTE_WHISPER = 361;
-    public static final int INDEX_NOTE_DIARY = 362;
-    public static final int INDEX_NOTE_AWARD = 363;
-    public static final int INDEX_NOTE_DREAM = 364;
-    public static final int INDEX_NOTE_GIFT = 365;
-    public static final int INDEX_NOTE_FOOD = 366;
-    public static final int INDEX_NOTE_TRAVEL = 367;
-    public static final int INDEX_NOTE_ANGRY = 368;
-    public static final int INDEX_NOTE_PROMISE = 369;
-    // topic
+    public static final int INDEX_NOTE_WORD = 330;
+    public static final int INDEX_NOTE_WHISPER = 331;
+    public static final int INDEX_NOTE_DIARY = 332;
+    public static final int INDEX_NOTE_AWARD = 333;
+    public static final int INDEX_NOTE_DREAM = 334;
+    public static final int INDEX_NOTE_GIFT = 335;
+    public static final int INDEX_NOTE_FOOD = 336;
+    public static final int INDEX_NOTE_TRAVEL = 337;
+    public static final int INDEX_NOTE_ANGRY = 338;
+    public static final int INDEX_NOTE_PROMISE = 339;
+    // topic TODO
     public static final int INDEX_TOPIC_HOME = 400;
     public static final int INDEX_TOPIC_POST = 410;
-    // more
+    // more TODO
     public static final int INDEX_MORE_HOME = 500;
-    public static final int INDEX_MORE_BROCAST = 510;
     public static final int INDEX_MORE_VIP = 520;
     public static final int INDEX_MORE_COIN = 530;
     public static final int INDEX_MORE_SIGN = 540;

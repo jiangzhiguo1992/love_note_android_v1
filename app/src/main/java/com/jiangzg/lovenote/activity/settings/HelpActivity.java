@@ -128,7 +128,6 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         }
     }
 
-    // TODO 数据本地化 + strings整理
     private Help getHelpByIndex(int index) {
         Help help;
         switch (index) {
@@ -152,28 +151,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 help = getHelpNoteHome(Help.INDEX_NOTE_HOME);
                 break;
             case Help.INDEX_NOTE_LOCK:
-                help = null;
+                help = getHelpNoteLock(Help.INDEX_NOTE_LOCK);
                 break;
             case Help.INDEX_NOTE_SOUVENIR:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_SHY:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_MENSES:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_SLEEP:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_AUDIO:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_VIDEO:
-                help = null;
-                break;
-            case Help.INDEX_NOTE_ALBUM:
-                help = null;
+                help = getHelpNoteSouvenir(Help.INDEX_NOTE_SOUVENIR);
                 break;
             case Help.INDEX_NOTE_WORD:
                 help = null;
@@ -231,13 +212,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setAnswer("没有情侣的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。" +
                 "\n比如说《" + getString(R.string.nav_couple) + "》和《" + getString(R.string.nav_note) + "》模块，只有在本app配对之后，才能正常使用，但是像《" + getString(R.string.nav_topic) + "》之类的分享模块，是可以正常浏览的。");
         contentList.add(c2);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion("这个app只有办会员才能玩吗？");
-        c3.setAnswer("并不是！！！" +
-                "\napp中的硬收费项只有会员，而且就算不办会员，app也能正常使用。" +
-                "\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，毕竟多敲几行代码就能搞定。" +
-                "\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。");
-        contentList.add(c3);
+        // TODO
+        //Help.HelpContent c3 = new Help.HelpContent();
+        //c3.setQuestion("这个app只有办会员才能玩吗？");
+        //c3.setAnswer("并不是！！！" +
+        //        "\napp中的硬收费项只有会员，而且就算不办会员，app也能正常使用。" +
+        //        "\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，毕竟多敲几行代码就能搞定。" +
+        //        "\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。");
+        //contentList.add(c3);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
@@ -275,15 +257,11 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 "\n状态：意见反馈的处理进度，一般为管理员回复并设置。");
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion("《关注》有什么用？");
-        c2.setAnswer("当您很想知道一个意见反馈的后续处理时，可以点击关注，这样在管理员回复的时候，就能收到推送消息了。");
-        contentList.add(c2);
-        Help.HelpContent c3 = new Help.HelpContent();
-        c3.setQuestion("我可以在这里发表什么内容？");
-        c3.setAnswer("如状态所述的几个类型的内容都可以。" +
+        c2.setQuestion("我可以在这里发表什么内容？");
+        c2.setAnswer("如状态所述的几个类型的内容都可以。" +
                 "\n注意：如果app发生闪退等bug，记得标明手机型号等信息，以方便我们快速处理您的问题，最好截图(app崩溃但没退出去的情况下)。" +
                 "\n再次注意：任何在本区域捣乱者，将会被给予警告处理，情节严重者，给予封号处理。");
-        contentList.add(c3);
+        contentList.add(c2);
         help.setContentList(contentList);
         return help;
     }
@@ -303,14 +281,13 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c2.setQuestion("怎么设置背景图？");
         c2.setAnswer("点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。");
         contentList.add(c2);
-        // TODO 墙纸是什么？
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion("为什么TA的位置和天气信息没有数据？");
         c3.setAnswer("原因有以下几点：" +
                 "\n1.对方没有登录过app。" +
                 "\n2.没有开启地理位置获取权限，导致不能上传位置给服务器，以及获取不到位置相关的天气信息。" +
                 "\n3.没有开启GPS，或者是GPS信号差，导致长时间获取不到位置信息。" +
-                "\n4.部分地区的位置和天气暂时无法获取，如国外。" +
+                "\n4.部分地区的位置和天气暂时无法获取，如撒哈拉沙漠。" +
                 "\n5.如果还是有问题，记得双方都下拉刷新试试能不能正常显示。如不能，请移步《意见反馈》中，反馈给我们。");
         contentList.add(c3);
         Help.HelpContent c4 = new Help.HelpContent();
@@ -371,13 +348,18 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 "\n试想一下，恋爱过程中，你的形象完全取决与你的TA，多么有意思的一件事啊。");
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion("《解散》是干嘛的？");
-        c2.setAnswer("点击解散之后会出现两种状况:" +
+        c2.setQuestion("为什么我不能修改生日呢？");
+        c2.setAnswer("小淘气，在你注册的时候已经告诉过你了，性别生日一旦设定，将不能修改！" +
+                "\n如果是手误导致设置错了，请移步《关于我们》，联系客服人员解决。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("《解散》是干嘛的？");
+        c3.setAnswer("点击解散之后会出现两种状况:" +
                 "\n1.配对持续时长小于" + breakNeedDay + "天时，直接解散。" +
                 "\n2.配对持续时长大于" + breakNeedDay + "天时，会有" + breakContinueHour + "小时的倒计时。倒计时内没有复合，视为单方面分手。倒计时内对方也点击解散，视为双方面分手。" +
                 "\n最后！注意！切记！如果是一些非原则性问题导致想不开的话，小编觉得还是多磨合一下的好。" +
                 "\n再一次最后，如果在感情上有什么疑问或者委屈，请移步《关于我们》，找到并联系我们，我们会尽最大的努力来帮助你。");
-        contentList.add(c2);
+        contentList.add(c3);
         help.setContentList(contentList);
         return help;
     }
@@ -409,30 +391,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s2.setIndex(Help.INDEX_NOTE_SOUVENIR);
         s2.setTitle(getString(R.string.souvenir));
         subList.add(s2);
-        Help s3 = new Help();
-        s3.setIndex(Help.INDEX_NOTE_SHY);
-        s3.setTitle(getString(R.string.shy));
-        subList.add(s3);
-        Help s4 = new Help();
-        s4.setIndex(Help.INDEX_NOTE_MENSES);
-        s4.setTitle(getString(R.string.menses));
-        subList.add(s4);
-        Help s5 = new Help();
-        s5.setIndex(Help.INDEX_NOTE_SLEEP);
-        s5.setTitle(getString(R.string.sleep));
-        subList.add(s5);
-        Help s6 = new Help();
-        s6.setIndex(Help.INDEX_NOTE_AUDIO);
-        s6.setTitle(getString(R.string.audio));
-        subList.add(s6);
-        Help s7 = new Help();
-        s7.setIndex(Help.INDEX_NOTE_VIDEO);
-        s7.setTitle(getString(R.string.video));
-        subList.add(s7);
-        Help s8 = new Help();
-        s8.setIndex(Help.INDEX_NOTE_ALBUM);
-        s8.setTitle(getString(R.string.album));
-        subList.add(s8);
+
         Help s9 = new Help();
         s9.setIndex(Help.INDEX_NOTE_WORD);
         s9.setTitle(getString(R.string.word));
@@ -478,6 +437,56 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s19.setTitle(getString(R.string.promise));
         subList.add(s19);
         help.setSubList(subList);
+        return help;
+    }
+
+    private Help getHelpNoteLock(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.pwd_lock));
+        help.setDesc("给你的小本本上个锁吧，这样就不怕别人瞎戳戳戳了。");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("为什么发送了验证码，我的手机缺收不到！");
+        c1.setAnswer("前方高能！因为验证码是发到你的另一半手机上了啊。" +
+                "\n为了避免手机丢失后，被不法分子通过验证码重置密码锁，我们决定验证码只能发到TA的手机上。" +
+                "\n什么？两个人手机都丢了？还是被同一个小偷拿到？OMG！赶紧用其他手机登陆下，把那个账号顶下来吧！");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("为什么我退出app再进来后，没有自动上锁？");
+        c2.setAnswer("值得注意的是，上锁和解锁都是用户去控制的，app不做任何操作，主要是为了避免频繁的解锁。" +
+                "\n其实一般在出去玩耍，或者是家里还熊孩子的时候上锁就可以了，你说呢？");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNoteSouvenir(int index) {
+        Limit limit = SPHelper.getLimit();
+        int souvenirForeignYearCount = limit.getSouvenirForeignYearCount();
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.souvenir));
+        help.setDesc("纪念日，最值得被记录的日子。");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("纪念日和愿望清单有什么区别？");
+        c1.setAnswer("当然有了，一个是已经实现的，一个是还没有实现的。" +
+                "\n两种数据的展现方式也不一样，纪念日可以关联每年当天所发生的事，愿望清单就不行了。" +
+                "\n还有一点，纪念日双方都可以看到，愿望清单只能看到自己发表的。毕竟总有一些不可告人的愿望！");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("为什么发表的时候，提示我时间不对？");
+        c2.setAnswer("记住，纪念日选择的时间必须小于现在，大于你的生日。如果想记录TA的生日，但TA的生日比你早的话，还是请TA来发表吧。" +
+                "\n愿望清单的话，时间必须大于现在，然后没有了。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("纪念日的关联数据，每年能关联几个同类型数据？");
+        c3.setAnswer(souvenirForeignYearCount + "个哦！");
+        contentList.add(c3);
+        help.setContentList(contentList);
         return help;
     }
 

@@ -19,11 +19,9 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.media.PlayerUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.AudioAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Audio;
-import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -157,7 +155,7 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.help, menu);
+        getMenuInflater().inflate(R.menu.add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -178,8 +176,8 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_AUDIO);
+            case R.id.menuAdd: // 添加
+                AudioEditActivity.goActivity(mActivity);
                 return true;
         }
         return super.onOptionsItemSelected(item);

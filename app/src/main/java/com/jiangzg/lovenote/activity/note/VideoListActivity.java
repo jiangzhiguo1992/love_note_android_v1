@@ -17,10 +17,8 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemChildLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.VideoAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Video;
 import com.jiangzg.lovenote.helper.API;
@@ -176,17 +174,15 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isFromSelect()) {
-            getMenuInflater().inflate(R.menu.help, menu);
-        }
+        getMenuInflater().inflate(R.menu.add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_VIDEO);
+            case R.id.menuAdd: // 添加
+                VideoEditActivity.goActivity(mActivity);
                 return true;
         }
         return super.onOptionsItemSelected(item);

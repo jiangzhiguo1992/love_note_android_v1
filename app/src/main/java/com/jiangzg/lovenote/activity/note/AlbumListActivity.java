@@ -18,11 +18,9 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.AlbumAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Album;
-import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -221,17 +219,15 @@ public class AlbumListActivity extends BaseActivity<AlbumListActivity> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!isFromSelectAlbum() && !isFromSelectPicture()) {
-            getMenuInflater().inflate(R.menu.help, menu);
-        }
+        getMenuInflater().inflate(R.menu.add, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_ALBUM);
+            case R.id.menuAdd: // 添加
+                AlbumEditActivity.goActivity(mActivity);
                 return true;
         }
         return super.onOptionsItemSelected(item);
