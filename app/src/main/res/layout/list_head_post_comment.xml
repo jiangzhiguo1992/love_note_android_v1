@@ -111,8 +111,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:ellipsize="end"
-        android:maxLines="3"
         android:visibility="gone"
         tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"
         tools:visibility="visible"/>
