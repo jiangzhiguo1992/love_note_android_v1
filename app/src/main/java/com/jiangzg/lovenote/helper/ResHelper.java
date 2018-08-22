@@ -197,10 +197,7 @@ public class ResHelper {
 
     // 图片-downLoad目录
     public static File createSdCardImageDir() {
-        String dirName = LanguageUtils.getStringToEnglish(MyApp.get(), R.string.app_name);
-        if (StringUtils.isEmpty(dirName)) {
-            dirName = AppInfo.get().getPackageName();
-        }
+        String dirName = "YuSheng";
         File dir = new File(AppInfo.get().getSdCardDir(), dirName);
         FileUtils.createOrExistsDir(dir);
         return dir;
