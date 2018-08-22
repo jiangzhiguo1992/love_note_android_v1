@@ -29,13 +29,13 @@ public class Help extends BaseObj implements Parcelable {
     // topic
     public static final int INDEX_TOPIC_HOME = 300;
     public static final int INDEX_TOPIC_POST = 310;
-    // more TODO
+    // more
     public static final int INDEX_MORE_HOME = 400;
-    public static final int INDEX_MORE_BILL = 410;
-    public static final int INDEX_MORE_VIP = 420;
-    public static final int INDEX_MORE_COIN = 430;
+    public static final int INDEX_MORE_VIP = 410;
+    public static final int INDEX_MORE_COIN = 420;
+    public static final int INDEX_MORE_BILL = 430;
     public static final int INDEX_MORE_SIGN = 440;
-    public static final int INDEX_MORE_MATCH = 440;
+    public static final int INDEX_MORE_MATCH = 450;
     // other TODO
     public static final int INDEX_OTHER = 500;
     public static final int INDEX_USER_SUGGEST = 510;

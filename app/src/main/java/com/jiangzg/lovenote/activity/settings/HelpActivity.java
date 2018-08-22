@@ -179,6 +179,21 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 help = getHelpTopicPost(index);
                 break;
             case Help.INDEX_MORE_HOME:
+                help = getHelpMoreHome(index);
+                break;
+            case Help.INDEX_MORE_VIP:
+                help = getHelpMoreVip(index);
+                break;
+            case Help.INDEX_MORE_COIN:
+                help = getHelpMoreCoin(index);
+                break;
+            case Help.INDEX_MORE_BILL:
+                help = getHelpMoreBill(index);
+                break;
+            case Help.INDEX_MORE_SIGN:
+                help = null;
+                break;
+            case Help.INDEX_MORE_MATCH:
                 help = null;
                 break;
             case Help.INDEX_OTHER:
@@ -203,18 +218,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         c1.setAnswer("一款专注于情侣的生活记录和恋爱分享app，没有商城！没有商城！没有游戏！没有游戏！");
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
-        c2.setQuestion("我没有情侣，可以玩这个app吗？");
-        c2.setAnswer("没有情侣的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。" +
+        c2.setQuestion("我没有配对，可以玩这个app吗？");
+        c2.setAnswer("没有配对的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。" +
                 "\n比如说《" + getString(R.string.nav_couple) + "》和《" + getString(R.string.nav_note) + "》模块，只有在本app配对之后，才能正常使用，但是像《" + getString(R.string.nav_topic) + "》和《" + getString(R.string.nav_more) + "》之类的分享模块，是可以正常浏览的。");
         contentList.add(c2);
-        // TODO
-        //Help.HelpContent c3 = new Help.HelpContent();
-        //c3.setQuestion("这个app只有办会员才能玩吗？");
-        //c3.setAnswer("并不是！！！" +
-        //        "\napp中的硬收费项只有会员，而且就算不办会员，app也能正常使用。" +
-        //        "\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，毕竟多敲几行代码就能搞定。" +
-        //        "\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。");
-        //contentList.add(c3);
         help.setContentList(contentList);
         // sub
         List<Help> subList = new ArrayList<>();
@@ -345,6 +352,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.nav_note));
+        help.setDesc("记录与分享，这个模块更专注于记录。" +
+                "\n生活的点点滴滴，大小事项，都可以在这里记录哦！还不赶快动起手来？");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -611,6 +620,110 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
+    private Help getHelpMoreHome(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.nav_more));
+        help.setDesc("这是一个类似于《更多》的模块，在关注和分享里塞不下的功能，会全放到这里哦，比如广播系统，消费系统，活动系统等等。");
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_MORE_VIP);
+        s1.setTitle(getString(R.string.vip));
+        subList.add(s1);
+        Help s2 = new Help();
+        s2.setIndex(Help.INDEX_MORE_COIN);
+        s2.setTitle(getString(R.string.coin));
+        subList.add(s2);
+        Help s3 = new Help();
+        s3.setIndex(Help.INDEX_MORE_SIGN);
+        s3.setTitle(getString(R.string.sign));
+        subList.add(s3);
+        Help s4 = new Help();
+        s4.setIndex(Help.INDEX_MORE_MATCH);
+        s4.setTitle(getString(R.string.nav_match));
+        subList.add(s4);
+        help.setSubList(subList);
+        return help;
+    }
+
+    private Help getHelpMoreVip(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.vip));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("这个app只有办会员才能玩吗？");
+        c1.setAnswer("并不是！！！" +
+                "\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，能免费的我们一定不会收费。" +
+                "\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("我办了会员了，但是空间还是不够，怎么办？");
+        c2.setAnswer("这个这个这个嘛。。。。。。" +
+                "\n很多空间我们是算好了的，一般的情侣一辈子也用不完，但不排除需求特别特别特别大的情侣们。" +
+                "\n如果真的有情侣们的存储空间不够用了，我们会在后期加大空间，请大家敬请期待！");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_MORE_BILL);
+        s1.setTitle(getString(R.string.pay));
+        subList.add(s1);
+        help.setSubList(subList);
+        return help;
+    }
+
+    private Help getHelpMoreCoin(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.coin));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("金币的来源都有哪些？");
+        c1.setAnswer("1.用户购买。" +
+                "\n2.每日签到，具体给予数量规则，请移步每日签到查看相关文档。" +
+                "\n3.参加活动，部分活动参与会给予金币奖励哦。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("金币有什么用？");
+        c2.setAnswer("目前的话，基本是在活动里使用，用于投币，和金币榜挂钩。" +
+                "\n其他的金币消费系统正在开发中，敬请期待。。。");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_MORE_BILL);
+        s1.setTitle(getString(R.string.pay));
+        subList.add(s1);
+        help.setSubList(subList);
+        return help;
+    }
+
+    private Help getHelpMoreBill(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.pay));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("支付失败了怎么办？");
+        c1.setAnswer("亲，看看有没有什么提示信息，可以移步《意见反馈》中反馈给我们，或者是移步《关于我们》中，联系客服人员帮您解决问题。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("支付成功了，但是买的东西没有给我？");
+        c2.setAnswer("在支付按钮的下方会有提示，点击相关提示，可更新购买商品状况。" +
+                "\n如果以上办法不能解决，请大人您一定要反馈给我们，任何方式都行(首推找客服人员)，我们会第一时间为您解决问题！" +
+                "\n任何因我们的失误，导致用户服务购买失败的，我们会第一时间补救，请一定要相信我们的服务态度。");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        return help;
+    }
+
     // TODO 操作习惯(长按删除)
     // TODO 设计风格(UI界面 md)
     // TODO 开发理念(图片少，apk小，android规范)
@@ -624,7 +737,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.suggest_feedback));
-        help.setDesc("《意见反馈》旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。" +
+        help.setDesc("旨在让大家来提出app的bug和意见等，我们会在第一时间收到您的消息，并和相关负责部门商讨问题的解决方案等，并会在产出结果的第一时间以官方回复形式通知用户。" +
                 "\n(注：如果没有第一时间回复，那可能是管理员在偷懒。)");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
