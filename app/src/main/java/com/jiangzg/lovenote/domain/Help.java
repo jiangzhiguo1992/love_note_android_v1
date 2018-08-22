@@ -36,7 +36,7 @@ public class Help extends BaseObj implements Parcelable {
     public static final int INDEX_MORE_BILL = 430;
     public static final int INDEX_MORE_SIGN = 440;
     public static final int INDEX_MORE_MATCH = 450;
-    // other TODO
+    // other
     public static final int INDEX_OTHER = 500;
     public static final int INDEX_USER_SUGGEST = 510;
 

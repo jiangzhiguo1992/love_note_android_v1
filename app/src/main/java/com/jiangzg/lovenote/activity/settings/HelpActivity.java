@@ -191,10 +191,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 help = getHelpMoreBill(index);
                 break;
             case Help.INDEX_MORE_SIGN:
-                help = null;
+                help = getHelpMoreSign(index);
                 break;
             case Help.INDEX_MORE_MATCH:
-                help = null;
+                help = getHelpMoreMatch(index);
                 break;
             case Help.INDEX_OTHER:
                 help = getHelpOther(index);
@@ -724,13 +724,115 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
-    // TODO 操作习惯(长按删除)
-    // TODO 设计风格(UI界面 md)
-    // TODO 开发理念(图片少，apk小，android规范)
-    // TODO 强迫症(界面排版，红点提醒(note没有，topic没有，more没有，set有)，更新升级)
-    // TODO 图片处理(不限大小的压缩)
+    private Help getHelpMoreSign(int index) {
+        Limit limit = SPHelper.getLimit();
+        int minCount = limit.getCoinSignMinCount();
+        int increaseCount = limit.getCoinSignIncreaseCount();
+        int maxCount = limit.getCoinSignMaxCount();
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.sign));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("签到有什么用？");
+        c1.setAnswer("目前只有给予金币这个用途，不排除后续会开发其他的功能，如签到排行榜等！");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("为什么我今天没签到，缺提示我签到了？");
+        c2.setAnswer("配对中只要有一个人签到就可以了呢。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("签到给予的金币规则是？");
+        c3.setAnswer("1.第一次签到或者是不连续签到，给予" + minCount + "个金币。" +
+                "\n2.连续签到的话，根据连续天数的累计，额外给予(连续天数-1)*" + increaseCount + "个金币" +
+                "\n3.签到给予的金币有封顶，最多每天获得" + maxCount + "个金币");
+        contentList.add(c3);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpMoreMatch(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.nav_match));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("参与会得金币吗？");
+        c1.setAnswer("是的呢？具体奖励额度请移步每一期活动的介绍查看。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("为什么有的活动没有开启？");
+        c2.setAnswer("活动的开启视运营情况和用户需求而定，不定期开启哦！");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("怎么查看往期的活动？");
+        c3.setAnswer("如果活动没有开启的话，会默认进入往期活动列表页。" +
+                "\n如果活动开启了，可以点击顶部本期介绍(也就是顶部那个渐变的视图)进入往期列表。");
+        contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion("怎么查看自己的发表？");
+        c4.setAnswer("如果是刚发表的，可以根据《新人榜》查看作品，毕竟是按发表时间倒叙排序的，找找看吧。" +
+                "\n如果新人榜里找不到，请点击顶部本期介绍进入往期列表页，里面有《我们的》相关作品。");
+        contentList.add(c4);
+        Help.HelpContent c5 = new Help.HelpContent();
+        c5.setQuestion("为什么往期的作品不能操作了？");
+        c5.setAnswer("往期的作品除了删除，不能进行任何操作哦，包括点赞，投币，发表等。" +
+                "\n另外，往期的作品是不能查看新人榜的！");
+        contentList.add(c5);
+        help.setContentList(contentList);
+        return help;
+    }
+
     private Help getHelpOther(int index) {
-        return null;
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.other));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("app的操作习惯是？");
+        c1.setAnswer("我们的口号是：没事下拉刷新，有事长按看看！");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("app的设计风格是？");
+        c2.setAnswer("完全参照流行的由Google提出的MaterialDesign的理念来设计的，主要实现方式为卡片式布局+沉浸式体验。" +
+                "\n注：产品的开发和设计均有我们的BOSS来负责，BOSS是个苦逼程序猿(大家没有听到)，做出来的产品也是好坏参半。" +
+                "\n优点是，能用代码解决的事情绝对不用美工，插画少，极简风格。" +
+                "\n缺点是，太极简了，这里小的还请大家多多适应。" +
+                "\n如果用户反响界面设计风格不好的话，我们会努力迭代新的界面，给大家一个亮瞎眼的app。");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("app的开发理念是？");
+        c3.setAnswer("上面说过了，BOSS是程序猿，而且特别遵守行业规范，每天都要教导我们不要瞎搞事！" +
+                "\n1.基本禁止后台活动，app基本不会在未获得用户允许的情况下开启后台活动，导致设备卡顿。" +
+                "\n2.不会频繁的与后台做数据交互，这个权力都控制在用户手里，比如位置的下拉刷新。" +
+                "\n3.尽量减小apk大小，压到10M以下！能不用框架就不用框架，能用矢量图就不要用位图。" +
+                "\n4.一定不要卡顿，尽量提升界面的响应速度(设备性能也有影响)，线程处理要做好。" +
+                "\n5.坚持原生开发！市面上虽然很多app都采用混合开发，但是我们不会！BOSS极力反对混合开发，虽然混合开发可以节约公司人力成本，缩短开发周期。但是！但是！导致的后续结果就是app性能差，我们宁愿多花点时间，多招点人来做好这个app，也不会选择让用户来承受卡卡西般的体验。");
+        contentList.add(c3);
+        Help.HelpContent c4 = new Help.HelpContent();
+        c4.setQuestion("上传的图片会压缩吗？");
+        c4.setAnswer("注意了，凡事有单张大小上限的是不会压缩的，没有上限的都会压缩。" +
+                "\n压缩的话，可以放心，我们的方式很温柔，尽量减少对图片清晰度的丢失。");
+        contentList.add(c4);
+        Help.HelpContent c5 = new Help.HelpContent();
+        c5.setQuestion("强迫症福音？");
+        c5.setAnswer("相信很多来这个app的用户，都是记录狂魔，多多少少带点强迫症。我们这里也为强迫症修改了很多设计。" +
+                "\n1.消息提醒：很多app采用小红点和通知来处理消息提醒。我们的小红点只在设置里有，事关公告和版本更新。所以发现小红点的时候，建议大家看一下，很重要哦。通知的话，我们没事不会给大人们推送的。" +
+                "\n2.版本更新：就算有新版本也只是出个小红点，绝不会在app开启的时候弹对话框来打扰用户。(新版本最好更新一下，体积不大，速度很快哦，xiu的一下~)" +
+                "\n3.界面排版：'往左点，再往左点，最后往右点，这下舒服了吧。'(对话来自BOSS和美工的日常交流)");
+        contentList.add(c5);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_USER_SUGGEST);
+        s1.setTitle(getString(R.string.suggest_feedback));
+        subList.add(s1);
+        help.setSubList(subList);
+        return help;
     }
 
     private Help getHelpSuggestHome(int index) {
