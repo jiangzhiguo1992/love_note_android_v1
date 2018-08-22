@@ -20,44 +20,27 @@
 #---------------------------------1.实体类---------------------------------
 
 # 所有的实体类
--keep class com.jiangzg.ita.domain.** { *; }
+-keep class com.jiangzg.lovenote.domain.** {*;}
 
 #---------------------------------2.第三方包-------------------------------
 
 # ---Gson
 -keepattributes Signature
-    # For using GSON @Expose annotation
 -keepattributes *Annotation*
-    # Gson specific classes
 -dontwarn sun.misc.**
-    #-keep class com.google.gson.stream.** { *; }
-    # Application classes that will be serialized/deserialized over Gson
--keep class com.google.gson.examples.android.model.** { *; }
-    # Prevent proguard from stripping interface information from TypeAdapterFactory,
-    # JsonSerializer, JsonDeserializer instances (so they can be used in @JsonAdapter)
+-keep class com.google.gson.examples.android.model.** {*;}
 -keep class * implements com.google.gson.TypeAdapterFactory
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
 # ---Fresco
-    # Keep our interfaces so they can be used by other ProGuard rules.
-    # See http://sourceforge.net/p/proguard/bugs/466/
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
 -keep,allowobfuscation @interface com.facebook.soloader.DoNotOptimize
-    # Do not strip any method/class that is annotated with @DoNotStrip
 -keep @com.facebook.common.internal.DoNotStrip class *
--keepclassmembers class * {
-    @com.facebook.common.internal.DoNotStrip *;
-}
-    # Do not strip any method/class that is annotated with @DoNotOptimize
+-keepclassmembers class * {@com.facebook.common.internal.DoNotStrip *;}
 -keep @com.facebook.soloader.DoNotOptimize class *
--keepclassmembers class * {
-    @com.facebook.soloader.DoNotOptimize *;
-}
-    # Keep native methods
--keepclassmembers class * {
-    native <methods>;
-}
+-keepclassmembers class * {@com.facebook.soloader.DoNotOptimize *;}
+-keepclassmembers class * {native <methods>;}
 -dontwarn okio.**
 -dontwarn com.squareup.okhttp.**
 -dontwarn okhttp3.**
@@ -66,64 +49,35 @@
 -dontwarn com.facebook.infer.**
 
 # ---Retrofit
-    # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
-    # Retain service method parameters.
--keepclassmembernames,allowobfuscation interface * {
-    @retrofit2.http.* <methods>;
-}
-    # Ignore annotation used for build tooling.
+-keepclassmembernames,allowobfuscation interface * {@retrofit2.http.* <methods>;}
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
-    # ---BaseRecyclerViewAdapterHelper
--keep class com.chad.library.adapter.** {
-*;
-}
+
+# ---BaseRecyclerViewAdapterHelper
+-keep class com.chad.library.adapter.** {*;}
 -keep public class * extends com.chad.library.adapter.base.BaseQuickAdapter
 -keep public class * extends com.chad.library.adapter.base.BaseViewHolder
--keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
-     <init>(...);
-}
-
-# ---高德地图AMAP
-    #定位
--keep class com.amap.api.location.**{*;}
--keep class com.amap.api.fence.**{*;}
--keep class com.autonavi.aps.amapapi.model.**{*;}
-    #搜索
--keep   class com.amap.api.services.**{*;}
-    #2D地图
--keep class com.amap.api.maps2d.**{*;}
--keep class com.amap.api.mapcore2d.**{*;}
+-keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {<init>(...);}
 
 # ---banner
--keep class com.youth.banner.** {
-    *;
- }
+-keep class com.youth.banner.** {*;}
 
-# ---aliPay
- -keep class com.alipay.android.app.IAlixPay{*;}
- -keep class com.alipay.android.app.IAlixPay$Stub{*;}
- -keep class com.alipay.android.app.IRemoteServiceCallback{*;}
- -keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
- -keep class com.alipay.sdk.app.PayTask{ public *;}
- -keep class com.alipay.sdk.app.AuthTask{ public *;}
- -keep class com.alipay.sdk.app.H5PayCallback {
-     <fields>;
-     <methods>;
- }
- -keep class com.alipay.android.phone.mrpc.core.** { *; }
- -keep class com.alipay.apmobilesecuritysdk.** { *; }
- -keep class com.alipay.mobile.framework.service.annotation.** { *; }
- -keep class com.alipay.mobilesecuritysdk.face.** { *; }
- -keep class com.alipay.tscenter.biz.rpc.** { *; }
- -keep class org.json.alipay.** { *; }
- -keep class com.alipay.tscenter.** { *; }
- -keep class com.ta.utdid2.** { *;}
- -keep class com.ut.device.** { *;}
+# ---高德地图AMAP(真任性！)
+-dontwarn com.amap.api.**
+-dontwarn com.autonavi.**
+-dontwarn com.a.a.**
+
+-keep class com.amap.api.** {*;}
+-keep class com.autonavi.** {*;}
+-keep class com.a.a.** {*;}
+
+# ---aliPay(真任性！)
+-dontwarn com.alipay.**
+-keep class com.alipay.** { *;}
+
 #---------------------------------3.与js互相调用的类------------------------
 
 #---------------------------------4.反射相关的类和方法-----------------------
-
 
 #---------------------------------------------------------------------------------------------------
 
@@ -174,7 +128,17 @@
 -keepclassmembers class * {
     void *(**On*Event);
 }
-
+#解决java.lang.InternalError
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
 #---------------------------------webview------------------------------------
 -keepclassmembers class fqcn.of.javascript.interface.for.Webview {
    public *;
