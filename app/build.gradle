@@ -11,7 +11,7 @@ android {
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
-        flavorDimensions "debug", "release" // 多渠道打包分支
+        flavorDimensions "release" // 多渠道打包分支
     }
     signingConfigs { // 签名信息
         jzg_01 {
@@ -47,7 +47,7 @@ android {
                     def fileName
                     if (variant.buildType.name.equals('release')) {
                         // 输出apk名称为 软件名_版本号_渠道_日期.apk
-                        def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.getTimeZone("CST"))
+                        def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
                         fileName = "mm_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
                     } else {
                         fileName = "mm_debug"
@@ -58,10 +58,10 @@ android {
         }
     }
     productFlavors { // 发布渠道
-        jzg {
-            dimension "debug"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jzg"]
-        }
+//        jzg {
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jzg"]
+//        }
         official { // 官方
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
