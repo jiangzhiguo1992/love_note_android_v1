@@ -116,7 +116,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
         vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //LogUtils.i(LOG_TAG, "onPageScrolled: " + position);
             }
 
             @Override

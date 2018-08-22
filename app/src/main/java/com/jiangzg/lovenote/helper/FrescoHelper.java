@@ -28,8 +28,6 @@ import com.jiangzg.base.common.StringUtils;
  */
 public class FrescoHelper {
 
-    private static final String LOG_TAG = "FrescoHelper";
-
     // 初始化
     public static void init(Application app, boolean debug) {
         // 网络图的缓存key
