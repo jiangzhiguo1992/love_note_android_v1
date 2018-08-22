@@ -163,11 +163,14 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
             case Help.INDEX_NOTE_AWARD:
                 help = getHelpNoteAward(index);
                 break;
+            case Help.INDEX_NOTE_DREAM:
+                help = getHelpNoteDream(index);
+                break;
             case Help.INDEX_NOTE_TRAVEL:
-                help = null;
+                help = getHelpNoteTravel(index);
                 break;
             case Help.INDEX_NOTE_PROMISE:
-                help = null;
+                help = getHelpNotePromise(index);
                 break;
             case Help.INDEX_TOPIC_HOME:
                 help = null;
@@ -370,13 +373,17 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         s6.setTitle(getString(R.string.award));
         subList.add(s6);
         Help s7 = new Help();
-        s7.setIndex(Help.INDEX_NOTE_TRAVEL);
-        s7.setTitle(getString(R.string.travel));
+        s7.setIndex(Help.INDEX_NOTE_DREAM);
+        s7.setTitle(getString(R.string.dream));
         subList.add(s7);
         Help s8 = new Help();
-        s8.setIndex(Help.INDEX_NOTE_PROMISE);
-        s8.setTitle(getString(R.string.promise));
+        s8.setIndex(Help.INDEX_NOTE_TRAVEL);
+        s8.setTitle(getString(R.string.travel));
         subList.add(s8);
+        Help s9 = new Help();
+        s9.setIndex(Help.INDEX_NOTE_PROMISE);
+        s9.setTitle(getString(R.string.promise));
+        subList.add(s9);
         help.setSubList(subList);
         return help;
     }
@@ -501,7 +508,48 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
-    // TODO UI界面 长按删除
+    private Help getHelpNoteDream(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.dream));
+        help.setDesc("不妨在梦醒的那一刻，快速记录下来。" +
+                "\n昨夜的梦，一定要记录下来哦！要不然会慢慢的消失掉，就像你的名字。" +
+                "\n待到年老时刻，回过头来看看，是不是别有一番风味呢？");
+        return help;
+    }
+
+    private Help getHelpNoteTravel(int index) {
+        Limit limit = SPHelper.getLimit();
+        int placeCount = limit.getTravelPlaceCount();
+        int albumCount = limit.getTravelAlbumCount();
+        int videoCount = limit.getTravelVideoCount();
+        int foodCount = limit.getTravelFoodCount();
+        int diaryCount = limit.getTravelDiaryCount();
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.travel));
+        help.setDesc("一次约会，一次旅游，一次散步，一次踏足，甚至是异地恋的一次相见。都可以在这里记录哦！");
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("每个游记可以添加多少关联数据呢？");
+        c1.setAnswer(placeCount + "个足迹，" + albumCount + "个相册，"
+                + videoCount + "个视频，" + foodCount + "个美食，" + diaryCount + "个日记。");
+        contentList.add(c1);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    private Help getHelpNotePromise(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.promise));
+        help.setDesc("TA有没有给你做出什么承诺，哪怕是很随意的一句？" +
+                "\n有的话就在这里记录下来吧！顺便还能记录违背承诺的情况。");
+        return help;
+    }
+
+    // TODO 操作习惯(长按删除) 设计风格(UI界面 md) 开发理念(图片少，apk小，android规范)
     private Help getHelpOther(int index) {
         return null;
     }
