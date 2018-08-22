@@ -131,7 +131,7 @@
     <string name="space_bracket_holder" formatted="false"> (%d)</string>
     <string name="my_follow">我的关注</string>
     <string name="my_push">我的发布</string>
-    <string name="my_collect">我的收藏</string>
+    <string name="our_collect">相关收藏</string>
     <string name="my_message">我的消息</string>
     <string name="please_input_search_content">请输入搜索内容</string>
     <string name="function_no_open_please_wait">功能未开放，敬请期待</string>

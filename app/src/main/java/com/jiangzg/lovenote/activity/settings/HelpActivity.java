@@ -173,7 +173,10 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
                 help = getHelpNotePromise(index);
                 break;
             case Help.INDEX_TOPIC_HOME:
-                help = null;
+                help = getHelpTopicHome(index);
+                break;
+            case Help.INDEX_TOPIC_POST:
+                help = getHelpTopicPost(index);
                 break;
             case Help.INDEX_MORE_HOME:
                 help = null;
@@ -202,7 +205,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion("我没有情侣，可以玩这个app吗？");
         c2.setAnswer("没有情侣的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。" +
-                "\n比如说《" + getString(R.string.nav_couple) + "》和《" + getString(R.string.nav_note) + "》模块，只有在本app配对之后，才能正常使用，但是像《" + getString(R.string.nav_topic) + "》之类的分享模块，是可以正常浏览的。");
+                "\n比如说《" + getString(R.string.nav_couple) + "》和《" + getString(R.string.nav_note) + "》模块，只有在本app配对之后，才能正常使用，但是像《" + getString(R.string.nav_topic) + "》和《" + getString(R.string.nav_more) + "》之类的分享模块，是可以正常浏览的。");
         contentList.add(c2);
         // TODO
         //Help.HelpContent c3 = new Help.HelpContent();
@@ -243,6 +246,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         Help help = new Help();
         help.setIndex(index);
         help.setTitle(getString(R.string.nav_couple));
+        help.setDesc("这是一个记录双方信息的模块，包括但不限于头像、昵称、地理位置、天气信息。");
         // content
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
@@ -251,7 +255,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion("怎么设置背景图？");
-        c2.setAnswer("点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。\n另外，只上传一张的话，是没有动画效果的。");
+        c2.setAnswer("点击右上角，即可进入相应界面进行设置，注意会员和非会员可上传的张数是不一样的哦。" +
+                "\n另外，只上传一张的话，是没有动画效果的。");
         contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion("为什么TA的位置和天气信息没有数据？");
@@ -294,7 +299,8 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         contentList.add(c1);
         Help.HelpContent c2 = new Help.HelpContent();
         c2.setQuestion("为什么提示我邀请过于频繁？");
-        c2.setAnswer("在被拒绝或者是配对解散后，有" + intervalSec + "秒的冷却时间，冷却时间内不能再邀请相同的人哦。\n所以，还请大人们不要调皮了呢！");
+        c2.setAnswer("在被拒绝或者是配对解散后，有" + intervalSec + "秒的冷却时间，冷却时间内不能再邀请相同的人哦。" +
+                "\n所以，还请大人们不要调皮了呢！");
         contentList.add(c2);
         Help.HelpContent c3 = new Help.HelpContent();
         c3.setQuestion("我和TA原来配对过，再配对会怎么样？");
@@ -549,7 +555,67 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
-    // TODO 操作习惯(长按删除) 设计风格(UI界面 md) 开发理念(图片少，apk小，android规范)
+    private Help getHelpTopicHome(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.nav_topic));
+        help.setDesc("记录与分享，这个模块更专注于分享。" +
+                "\n有什么想要分享给大家的、或者是探讨的话题，就来这里诉说吧，相信会有很多聆听者的。");
+        // content 匿名
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("为什么有的类别我这里有，我的另一半没有呢？");
+        c1.setAnswer("亲，我们这里部分模块是区分用户和地域的。" +
+                "\n有的模块只对男性开放，有的只对女性开放，有的只对同性恋开放，有的只对异性恋开放。" +
+                "\n有的模块只对区域内用户开发，类似于《附近的帖子》。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("这个匿名发帖靠谱吗？");
+        c2.setAnswer("考虑到部分内容可能不想让另一半看到，我们提供了匿名发布的模块，并且提供了相应的分类。" +
+                "\n放心，匿名的话，发帖人的信息将会被抹除，包括在匿名下的所有评论者的信息也会被抹除。" +
+                "\n因为不知道用户的信息，所以帖子和评论是不能删除的，而且在帖子更新的时候不会受到消息提醒。");
+        contentList.add(c2);
+        help.setContentList(contentList);
+        // sub
+        List<Help> subList = new ArrayList<>();
+        Help s1 = new Help();
+        s1.setIndex(Help.INDEX_TOPIC_POST);
+        s1.setTitle(getString(R.string.post));
+        subList.add(s1);
+        help.setSubList(subList);
+        return help;
+    }
+
+    private Help getHelpTopicPost(int index) {
+        Help help = new Help();
+        help.setIndex(index);
+        help.setTitle(getString(R.string.post));
+        // content
+        List<Help.HelpContent> contentList = new ArrayList<>();
+        Help.HelpContent c1 = new Help.HelpContent();
+        c1.setQuestion("怎么删除？");
+        c1.setAnswer("帖子：如果是自己的帖子，右上角会有删除的图标，点击删除。" +
+                "\n评论：如果是自己的评论，长按即可删除哦。");
+        contentList.add(c1);
+        Help.HelpContent c2 = new Help.HelpContent();
+        c2.setQuestion("点赞，收藏，戳TA，三者的区别是？");
+        c2.setAnswer("点赞和收藏的区别，前者没有相关记录，后者可以在用户的收藏模块中找到收藏内容。" +
+                "\n戳TA：如果觉得某个内容不错，想分享给TA，不妨戳TA一下，TA会在消息系统中收到消息，并可进入被戳的帖子或评论中来。");
+        contentList.add(c2);
+        Help.HelpContent c3 = new Help.HelpContent();
+        c3.setQuestion("发现了不适的内容怎么办？");
+        c3.setAnswer("举报！举报！举报！" +
+                "\n社区是大家的，运营也需要靠大家的一份力量。欢迎大家勇决举报不适的内容，我们也会努力维护一个舒适的环境。");
+        contentList.add(c3);
+        help.setContentList(contentList);
+        return help;
+    }
+
+    // TODO 操作习惯(长按删除)
+    // TODO 设计风格(UI界面 md)
+    // TODO 开发理念(图片少，apk小，android规范)
+    // TODO 强迫症(界面排版，红点提醒(note没有，topic没有，more没有，set有)，更新升级)
+    // TODO 图片处理(不限大小的压缩)
     private Help getHelpOther(int index) {
         return null;
     }

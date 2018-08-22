@@ -42,7 +42,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_collect), true);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.our_collect), true);
         // fragment
         List<String> titleList = new ArrayList<>();
         titleList.add(getString(R.string.me_de));

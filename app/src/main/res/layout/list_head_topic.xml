@@ -30,7 +30,7 @@
         android:layout_marginTop="15dp"
         android:layout_weight="1"
         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-        android:text="@string/my_collect"/>
+        android:text="@string/our_collect"/>
 
     <Button
         android:id="@+id/btnMyMessage"

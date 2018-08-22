@@ -26,7 +26,7 @@ public class Help extends BaseObj implements Parcelable {
     public static final int INDEX_NOTE_DREAM = 233;
     public static final int INDEX_NOTE_TRAVEL = 234;
     public static final int INDEX_NOTE_PROMISE = 235;
-    // topic TODO
+    // topic
     public static final int INDEX_TOPIC_HOME = 300;
     public static final int INDEX_TOPIC_POST = 310;
     // more TODO
@@ -36,7 +36,7 @@ public class Help extends BaseObj implements Parcelable {
     public static final int INDEX_MORE_COIN = 430;
     public static final int INDEX_MORE_SIGN = 440;
     public static final int INDEX_MORE_MATCH = 440;
-    // other
+    // other TODO
     public static final int INDEX_OTHER = 500;
     public static final int INDEX_USER_SUGGEST = 510;
 
