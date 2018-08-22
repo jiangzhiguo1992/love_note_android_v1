@@ -174,16 +174,17 @@ public class ViewHelper {
                         break;
                     case R.id.llPicture:
                         PopUtils.dismiss(window);
-                        ResHelper.deleteFileInBackground(cameraFile);
-                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
+                                ResHelper.deleteFileInBackground(cameraFile);
                                 Intent picture = IntentFactory.getPicture();
                                 ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
                             }
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
+                                //ResHelper.deleteFileInBackground(cameraFile); 这里的权限也肯定不会同意
                                 DialogHelper.showGoPermDialog(activity);
                             }
                         });
@@ -235,16 +236,17 @@ public class ViewHelper {
                         break;
                     case R.id.llPicture:
                         PopUtils.dismiss(window);
-                        ResHelper.deleteFileInBackground(cameraFile);
-                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.picture, new PermUtils.OnPermissionListener() {
+                        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
                             @Override
                             public void onPermissionGranted(int requestCode, String[] permissions) {
+                                ResHelper.deleteFileInBackground(cameraFile);
                                 Intent picture = IntentFactory.getPicture();
                                 ActivityTrans.startResult(activity, picture, ConsHelper.REQUEST_PICTURE);
                             }
 
                             @Override
                             public void onPermissionDenied(int requestCode, String[] permissions) {
+                                //ResHelper.deleteFileInBackground(cameraFile); 这里的权限也肯定不会同意
                                 DialogHelper.showGoPermDialog(activity);
                             }
                         });

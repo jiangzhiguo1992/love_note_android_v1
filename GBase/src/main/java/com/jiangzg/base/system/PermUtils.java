@@ -1,6 +1,7 @@
 package com.jiangzg.base.system;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -27,8 +28,8 @@ public class PermUtils {
     public static final String[] deviceInfo = new String[]{Manifest.permission.READ_PHONE_STATE};
     // 拍照
     public static final String[] camera = new String[]{Manifest.permission.CAMERA};
-    // 相册
-    public static final String[] picture = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    // 相册=appInfo
+    //public static final String[] picture = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     // 安装apk
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static final String[] installApk = new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES};
@@ -57,6 +58,7 @@ public class PermUtils {
         void onPermissionDenied(int requestCode, String[] permissions);
     }
 
+    @SuppressLint("NewApi")
     public static void requestPermissions(Activity activity, int requestCode, String[] permissions, OnPermissionListener listener) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || activity == null || permissions == null || permissions.length <= 0) {
             LogUtils.i(PermUtils.class, "requestPermissions", "requestPermissions: LOW_SDK || activity/permissions == null");
