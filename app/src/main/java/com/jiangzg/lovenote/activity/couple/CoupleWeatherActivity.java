@@ -16,6 +16,7 @@ import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.WeatherForecastAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.WeatherForecast;
 import com.jiangzg.lovenote.helper.API;
@@ -87,6 +88,10 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
     private Call<Result> call;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), CoupleWeatherActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

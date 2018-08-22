@@ -9,10 +9,13 @@ import android.support.v7.widget.Toolbar;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.TopicMessage;
 import com.jiangzg.lovenote.fragment.topic.MessageListFragment;
+import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.util.ArrayList;
@@ -30,6 +33,10 @@ public class TopicMessageActivity extends BaseActivity<TopicMessageActivity> {
     ViewPager vpFragment;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), TopicMessageActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

@@ -180,41 +180,24 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair,
             R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
     public void onViewClicked(View view) {
-        Couple couple = SPHelper.getCouple();
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
                 HelpActivity.goActivity(mFragment, Help.INDEX_COUPLE_HOME);
                 break;
             case R.id.ivWallPaper:  // 背景图
-                if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mFragment);
-                } else {
-                    CoupleWallPaperActivity.goActivity(mFragment);
-                }
+                CoupleWallPaperActivity.goActivity(mFragment);
                 break;
             case R.id.btnPair: // 配对
                 CouplePairActivity.goActivity(mFragment);
                 break;
             case R.id.llCoupleInfo: // cp信息
-                if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mFragment);
-                } else {
-                    CoupleInfoActivity.goActivity(mFragment);
-                }
+                CoupleInfoActivity.goActivity(mFragment);
                 break;
             case R.id.llPlace: // 地址信息
-                if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mFragment);
-                } else if (LocationHelper.checkLocationEnable(mActivity)) {
-                    CouplePlaceActivity.goActivity(mFragment);
-                }
+                CouplePlaceActivity.goActivity(mFragment);
                 break;
             case R.id.llWeather: // 天气信息
-                if (Couple.isBreak(couple)) {
-                    CouplePairActivity.goActivity(mFragment);
-                } else if (LocationHelper.checkLocationEnable(mActivity)) {
-                    CoupleWeatherActivity.goActivity(mFragment);
-                }
+                CoupleWeatherActivity.goActivity(mFragment);
                 break;
         }
     }

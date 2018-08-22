@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.CoinAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Coin;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.User;
@@ -65,6 +67,10 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     private int page;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), CoinActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

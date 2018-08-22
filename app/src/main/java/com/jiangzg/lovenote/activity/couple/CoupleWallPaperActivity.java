@@ -26,6 +26,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.adapter.WallPaperAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.WallPaper;
@@ -65,6 +66,10 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private File cameraFile;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), CoupleWallPaperActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

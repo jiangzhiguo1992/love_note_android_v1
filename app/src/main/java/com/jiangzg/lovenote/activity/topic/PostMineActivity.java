@@ -12,8 +12,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.adapter.PostAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -22,6 +24,7 @@ import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -48,6 +51,10 @@ public class PostMineActivity extends BaseActivity<PostMineActivity> {
     private Observable<Post> obListItemDelete;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), PostMineActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

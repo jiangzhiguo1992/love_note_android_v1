@@ -27,8 +27,10 @@ import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.MapSelectActivity;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.adapter.ImgSquareEditAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.PostSubKindInfo;
@@ -98,6 +100,10 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     private int limitContentLength;
 
     public static void goActivity(Activity from, PostKindInfo kindInfo, int subKind) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from, PostAddActivity.class);
         intent.putExtra("kindInfo", kindInfo);
         intent.putExtra("subKind", subKind);

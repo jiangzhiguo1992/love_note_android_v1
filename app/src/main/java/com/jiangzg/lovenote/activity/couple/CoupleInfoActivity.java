@@ -107,6 +107,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private File cropFile;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), CoupleInfoActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

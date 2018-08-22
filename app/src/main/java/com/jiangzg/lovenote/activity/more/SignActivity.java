@@ -17,8 +17,10 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sign;
@@ -75,6 +77,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
     private CalendarView.SelectedDecorator selectedDecorator;
 
     public static void goActivity(Fragment from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from.getActivity(), SignActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

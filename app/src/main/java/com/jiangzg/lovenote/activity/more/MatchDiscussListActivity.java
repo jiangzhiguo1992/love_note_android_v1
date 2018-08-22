@@ -229,6 +229,10 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
+                if (Couple.isBreak(SPHelper.getCouple())) {
+                    CouplePairActivity.goActivity(mActivity);
+                    return;
+                }
                 addShow(true);
                 break;
             case R.id.ivAddClose: // 评论关闭
