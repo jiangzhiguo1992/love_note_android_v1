@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Help extends BaseObj implements Parcelable {
 
-    public static final int INDEX_ALL = 0;
+    public static final int INDEX_HOME = 0;
     // couple
     public static final int INDEX_COUPLE_HOME = 100;
     public static final int INDEX_COUPLE_PAIR = 110;
