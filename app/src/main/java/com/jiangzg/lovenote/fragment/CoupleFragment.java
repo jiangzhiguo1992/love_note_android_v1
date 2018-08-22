@@ -177,12 +177,13 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         stopCoupleCountDownTask();
     }
 
-    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair, R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
+    @OnClick({R.id.ivHelp, R.id.ivWallPaper, R.id.btnPair,
+            R.id.llCoupleInfo, R.id.llPlace, R.id.llWeather})
     public void onViewClicked(View view) {
         Couple couple = SPHelper.getCouple();
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
-                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_HOME);
+                HelpActivity.goActivity(mFragment, Help.INDEX_COUPLE_HOME);
                 break;
             case R.id.ivWallPaper:  // 背景图
                 if (Couple.isBreak(couple)) {
