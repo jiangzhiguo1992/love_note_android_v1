@@ -658,7 +658,7 @@
     <string name="help_note_home_c2_q">为什么有的模块进不去？</string>
     <string name="help_note_home_c2_a">目前可能会有极个别小板块在未开会员的情况下是不允许进入的。不排除以后会消除这种限制。</string>
     <string name="help_note_lock_d">给你的小本本上个锁吧，这样就不怕别人瞎戳戳戳了。</string>
-    <string name="help_note_lock_c1_q">为什么发送了验证码，我的手机缺收不到！</string>
+    <string name="help_note_lock_c1_q">为什么发送了验证码，我的手机却收不到！</string>
     <string name="help_note_lock_c1_a">前方高能！因为验证码是发到你的另一半手机上了啊。\n为了避免手机丢失后，被不法分子通过验证码重置密码锁，我们决定验证码只能发到TA的手机上。\n什么？两个人手机都丢了？还是被同一个小偷拿到？OMG！赶紧用其他手机登陆下，把那个账号顶下来吧！</string>
     <string name="help_note_lock_c2_q">为什么我退出app再进来后，没有自动上锁？</string>
     <string name="help_note_lock_c2_a">值得注意的是，上锁和解锁都是用户去控制的，app不做任何操作，主要是为了避免频繁的解锁。\n其实一般在出去玩耍，或者是家里还熊孩子的时候上锁就可以了，你说呢？</string>
@@ -702,8 +702,10 @@
     <string name="help_more_home_d">这是一个类似于《更多》的模块，在关注和分享里塞不下的功能，会全放到这里哦，比如广播系统，消费系统，活动系统等等。</string>
     <string name="help_more_vip_c1_q">这个app只有办会员才能玩吗？</string>
     <string name="help_more_vip_c1_a">并不是！！！\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，能免费的我们一定不会收费。\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。</string>
-    <string name="help_more_vip_c2_q">我办了会员了，但是空间还是不够，怎么办？</string>
-    <string name="help_more_vip_c2_a">这个这个这个嘛。。。。。。\n很多空间我们是算好了的，一般的情侣一辈子也用不完，但不排除需求特别特别特别大的情侣们。\n如果真的有情侣们的存储空间不够用了，我们会在后期加大空间，请大家敬请期待！</string>
+    <string name="help_more_vip_c2_q">TA买了会员后，我还需要再买吗？</string>
+    <string name="help_more_vip_c2_a">不需要！一人购买，两人通用。</string>
+    <string name="help_more_vip_c3_q">我办了会员了，但是空间还是不够，怎么办？</string>
+    <string name="help_more_vip_c3_a">这个这个这个嘛。。。。。。\n很多空间我们是算好了的，一般的情侣一辈子也用不完，但不排除需求特别特别特别大的情侣们。\n如果真的有情侣们的存储空间不够用了，我们会在后期加大空间，请大家敬请期待！</string>
     <string name="help_more_coin_c1_q">金币的来源都有哪些？</string>
     <string name="help_more_coin_c1_a">1.用户购买。\n2.每日签到，具体给予数量规则，请移步每日签到查看相关文档。\n3.参加活动，部分活动参与会给予金币奖励哦。</string>
     <string name="help_more_coin_c2_q">金币有什么用？</string>
@@ -714,7 +716,7 @@
     <string name="help_more_bill_c2_a">在支付按钮的下方会有提示，点击相关提示，可更新购买商品状况。\n如果以上办法不能解决，请大人您一定要反馈给我们，任何方式都行(首推找客服人员)，我们会第一时间为您解决问题！\n任何因我们的失误，导致用户服务购买失败的，我们会第一时间补救，请一定要相信我们的服务态度。</string>
     <string name="help_more_sign_c1_q">签到有什么用？</string>
     <string name="help_more_sign_c1_a">目前只有给予金币这个用途，不排除后续会开发其他的功能，如签到排行榜等！</string>
-    <string name="help_more_sign_c2_q">为什么我今天没签到，缺提示我签到了？</string>
+    <string name="help_more_sign_c2_q">为什么我今天没签到，却提示我签到了？</string>
     <string name="help_more_sign_c2_a">配对中只要有一个人签到就可以了呢。</string>
     <string name="help_more_sign_c3_q">签到给予的金币规则是？</string>
     <string name="help_more_sign_c3_a" formatted="false">1.第一次签到或者是不连续签到，给予%d个金币。\n2.连续签到的话，根据连续天数的累计，额外给予(连续天数-1)*%d个金币。\n3.签到给予的金币有封顶，最多每天获得%d个金币。</string>
