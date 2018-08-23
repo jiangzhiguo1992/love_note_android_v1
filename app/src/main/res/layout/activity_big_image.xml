@@ -9,7 +9,7 @@
     android:fitsSystemWindows="false"
     tools:context="com.jiangzg.lovenote.activity.common.BigImageActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.jiangzg.lovenote.view.TryCacheViewPager
         android:id="@+id/vpImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

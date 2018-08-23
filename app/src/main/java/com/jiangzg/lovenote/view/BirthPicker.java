@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
@@ -71,7 +72,7 @@ public class BirthPicker extends NumberPicker {
                         break;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LogUtils.e(BirthPicker.class, "setCustomStyle", e);
             }
         }
         // 字体开始显示的颜色

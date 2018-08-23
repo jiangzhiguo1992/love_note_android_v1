@@ -55,7 +55,6 @@ public class AppUtils {
             return activityInfo.metaData;
         } catch (PackageManager.NameNotFoundException e) {
             LogUtils.e(AppUtils.class, "getAppActivityMetaData", e);
-            e.printStackTrace();
         }
         return null;
     }

@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jiangzg.base.common.LogUtils;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -154,7 +156,7 @@ public abstract class BaseFragment<T> extends Fragment {
             }
             setArguments.invoke(fragment, args); // 执行setArguments方法
         } catch (InvocationTargetException | NoSuchMethodException | java.lang.InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
+            LogUtils.e(BaseFragment.class, "newInstance", e);
         }
         return fragment;
     }

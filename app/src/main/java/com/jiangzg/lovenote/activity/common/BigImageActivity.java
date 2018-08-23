@@ -17,6 +17,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.BigImagePagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.OssHelper;
+import com.jiangzg.lovenote.view.TryCacheViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     @BindView(R.id.root)
     RelativeLayout root;
     @BindView(R.id.vpImage)
-    ViewPager vpImage;
+    TryCacheViewPager vpImage;
     @BindView(R.id.vTop)
     View vTop;
     @BindView(R.id.llBottom)
