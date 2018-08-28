@@ -18,6 +18,7 @@ import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Place;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -43,6 +44,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
     private int page;
 
     public static void goActivity(Fragment from) {
+        if (!LocationHelper.checkLocationEnable(from)) return;
         if (Couple.isBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;

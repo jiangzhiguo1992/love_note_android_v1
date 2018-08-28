@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.helper;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -21,6 +22,10 @@ import com.jiangzg.lovenote.base.MyApp;
 public class LocationHelper {
 
     private static final int CODE_SUCCESS = 0; // 以后可能会变
+
+    public static boolean checkLocationEnable(final Fragment fragment) {
+        return !(fragment == null || fragment.getActivity() == null) && checkLocationEnable(fragment.getActivity());
+    }
 
     // 检查并请求位置服务
     public static boolean checkLocationEnable(final Activity activity) {
