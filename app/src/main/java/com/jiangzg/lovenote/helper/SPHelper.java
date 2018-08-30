@@ -176,7 +176,7 @@ public class SPHelper {
     private static final String FIELD_USER_PHONE = "phone";
     private static final String FIELD_USER_SEX = "sex";
     private static final String FIELD_USER_BIRTHDAY = "birthday";
-    private static final String FIELD_USER_TOKEN = "userToken";
+    private static final String FIELD_USER_TOKEN = "user_token";
     // couple
     private static final String FIELD_CP_ID = "id";
     private static final String FIELD_CP_CREATE_AT = "create_at";
