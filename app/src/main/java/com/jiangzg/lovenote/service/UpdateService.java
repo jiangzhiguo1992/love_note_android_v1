@@ -52,7 +52,7 @@ public class UpdateService extends Service {
             loading = activity.getLoading(activity.getString(R.string.are_update_check), true);
         }
         int versionCode = AppInfo.get().getVersionCode();
-        Call<Result> call = new RetrofitHelper().call(API.class).setCheckUpdate(versionCode);
+        Call<Result> call = new RetrofitHelper().call(API.class).setVersionNewListGet(versionCode);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

@@ -113,8 +113,8 @@ public interface API {
     Call<Result> userLogin(@Query("type") int type, @Query("code") String code, @Body User user);
 
     // 版本
-    @GET("set/version")
-    Call<Result> setCheckUpdate(@Query("code") int code);
+    @GET("set/version?list=0")
+    Call<Result> setVersionNewListGet(@Query("code") int code);
 
     // 公告列表获取
     @GET("set/notice?list=1")
