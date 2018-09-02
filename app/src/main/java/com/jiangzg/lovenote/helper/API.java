@@ -117,7 +117,7 @@ public interface API {
     Call<Result> setVersionNewListGet(@Query("code") int code);
 
     // 公告列表获取
-    @GET("set/notice?list=1")
+    @GET("set/notice?list=1&all=0")
     Call<Result> setNoticeListGet(@Query("page") int page);
 
     // 公告阅读
