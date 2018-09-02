@@ -19,6 +19,7 @@ import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -57,7 +58,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         int originalSize = ossKeyList.size();
         ossKeyList.clear();
         if (data != null && data.size() > 0) {
-            //Collections.shuffle(data); // 轮播的时候随机，这里就不处理了
+            Collections.shuffle(data); // 轮播的时候也会随机，这里防止第一张不随机
             ossKeyList.addAll(data);
             notifyDataSetChanged();
             if (originalSize != ossKeyList.size()) {

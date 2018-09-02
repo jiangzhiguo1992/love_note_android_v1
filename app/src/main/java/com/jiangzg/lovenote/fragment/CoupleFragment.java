@@ -318,7 +318,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (vpWallPaper.getVisibility() != View.VISIBLE) return;
         //if (vfWallPaper.getVisibility() != View.VISIBLE) return;
         WallPaper wallPaper = SPHelper.getWallPaper();
-        List<String> imageList;
         // 清除view
         //vfWallPaper.removeAllViews();
         // 无图显示
@@ -331,12 +330,12 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             // 删除本地文件
             OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, new ArrayList<String>());
             return;
-        } else {
-            tvAddWallPaper.setVisibility(View.GONE);
-            // 本地文件刷新
-            imageList = wallPaper.getContentImageList();
-            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, imageList);
         }
+        // 有图显示
+        tvAddWallPaper.setVisibility(View.GONE);
+        // 本地文件刷新
+        List<String> imageList = wallPaper.getContentImageList();
+        OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, imageList);
         // vp适配器
         CoupleHomeWallPagerAdapter adapter = (CoupleHomeWallPagerAdapter) vpWallPaper.getAdapter();
         if (adapter == null) {
