@@ -7,43 +7,43 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
-import com.jiangzg.lovenote_admin.domain.Sms;
+import com.jiangzg.lovenote_admin.domain.User;
 
 /**
  * Created by JZG on 2018/3/13.
- * sms适配器
+ * user适配器
  */
-public class SmsAdapter extends BaseQuickAdapter<Sms, BaseViewHolder> {
+public class UserAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
 
     private BaseActivity mActivity;
 
-    public SmsAdapter(BaseActivity activity) {
-        super(R.layout.list_item_sms);
+    public UserAdapter(BaseActivity activity) {
+        super(R.layout.list_item_user);
         mActivity = activity;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Sms item) {
+    protected void convert(BaseViewHolder helper, User item) {
         // data
         String id = "id：" + item.getId();
         String create = "create：" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "update：" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String phone = item.getPhone();
-        String sendType = Sms.getTypeShow(item.getSendType());
-        String content = item.getContent();
+        String sexShow = User.getSexShow(item.getSex());
+        String birthday = DateUtils.getString(item.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvCreate, create);
         helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvPhone, phone);
-        helper.setText(R.id.tvType, sendType);
-        helper.setText(R.id.tvContent, content);
+        helper.setText(R.id.tvSex, sexShow);
+        helper.setText(R.id.tvBirthday, birthday);
     }
 
     // TODO
     public void goUser(final int position) {
-        Sms item = getItem(position);
-        ToastUtils.show("user 跳转 " + item.getPhone());
+        User item = getItem(position);
+        ToastUtils.show("user 跳转 " + item.getId());
     }
 
 }

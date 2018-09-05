@@ -35,7 +35,7 @@ public class User extends BaseObj implements Parcelable {
         } else if (sex == User.SEX_BOY) {
             return MyApp.get().getString(R.string.boy);
         }
-        return "";
+        return "人妖";
     }
 
     public int getSexResCircleSmall() {

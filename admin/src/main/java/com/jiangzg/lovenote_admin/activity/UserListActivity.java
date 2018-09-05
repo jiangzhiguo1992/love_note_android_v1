@@ -17,6 +17,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.adapter.UserAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
@@ -82,7 +83,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                //.initAdapter(new SmsAdapter(mActivity)) // TODO
+                .initAdapter(new UserAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -95,7 +96,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        // TODO
+                        UserAdapter userAdapter = (UserAdapter) adapter;
+                        userAdapter.goUser(position);
                     }
                 });
     }
