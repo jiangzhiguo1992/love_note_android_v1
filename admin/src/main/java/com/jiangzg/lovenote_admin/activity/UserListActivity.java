@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,10 +17,9 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.adapter.SmsAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Result;
-import com.jiangzg.lovenote_admin.domain.Sms;
+import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
@@ -35,14 +33,14 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-public class SmsActivity extends BaseActivity<SmsActivity> {
+public class UserListActivity extends BaseActivity<UserListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.etPhone)
-    EditText etPhone;
-    @BindView(R.id.btnType)
-    Button btnType;
+    @BindView(R.id.btnCreate)
+    Button btnCreate;
+    @BindView(R.id.btnSex)
+    Button btnSex;
     @BindView(R.id.btnStart)
     Button btnStart;
     @BindView(R.id.btnEnd)
@@ -56,11 +54,11 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private int searchIndex;
-    private long start, end;
+    private int sexIndex;
+    private long create, start, end;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), SmsActivity.class);
+        Intent intent = new Intent(from.getActivity(), UserListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -68,26 +66,23 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_sms;
+        return R.layout.activity_user_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "sms", true);
-        // phone
-        String phone = intent.getStringExtra("phone");
-        etPhone.setText(phone);
-        // search
-        searchIndex = 0;
-        btnType.setText(ApiHelper.LIST_SMS_SHOW[searchIndex]);
+        ViewHelper.initTopBar(mActivity, tb, "user_list", true);
+        // sex
+        sexIndex = 0;
+        btnSex.setText(ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
         // time
-        start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
-        end = DateUtils.getCurrentLong();
+        create = DateUtils.getCurrentLong() - ConstantUtils.DAY;
+        start = end = 0;
         refreshDateView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new SmsAdapter(mActivity))
+                //.initAdapter(new SmsAdapter(mActivity)) // TODO
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -100,8 +95,7 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        SmsAdapter smsAdapter = (SmsAdapter) adapter;
-                        smsAdapter.goUser(position);
+                        // TODO
                     }
                 });
     }
@@ -116,11 +110,14 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnType, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnSearch})
+    @OnClick({R.id.btnCreate, R.id.btnSex, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnType:
-                showTypeSelectDialog();
+            case R.id.btnCreate:
+                showCreatePicker();
+                break;
+            case R.id.btnSex:
+                showSexSelectDialog();
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -129,7 +126,7 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
                 showEndPicker();
                 break;
             case R.id.btnCount:
-                getCount();
+                getCountData();
                 break;
             case R.id.btnSearch:
                 getListData(false);
@@ -137,18 +134,18 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         }
     }
 
-    private void showTypeSelectDialog() {
+    private void showSexSelectDialog() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_SMS_SHOW)
-                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                .items(ApiHelper.LIST_USER_SEX_SHOW)
+                .itemsCallbackSingleChoice(sexIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        searchIndex = which;
-                        btnType.setText(ApiHelper.LIST_SMS_SHOW[searchIndex]);
+                        sexIndex = which;
+                        btnSex.setText(ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -157,8 +154,19 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
+    private void showCreatePicker() {
+        DialogHelper.showDatePicker(mActivity, create, new DialogHelper.OnPickListener() {
+            @Override
+            public void onPick(long time) {
+                create = time;
+                refreshDateView();
+            }
+        });
+    }
+
     private void showStartPicker() {
-        DialogHelper.showDatePicker(mActivity, start, new DialogHelper.OnPickListener() {
+        long time = (start == 0) ? DateUtils.getCurrentLong() : start;
+        DialogHelper.showDatePicker(mActivity, time, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 start = time;
@@ -168,7 +176,8 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
     }
 
     private void showEndPicker() {
-        DialogHelper.showDatePicker(mActivity, end, new DialogHelper.OnPickListener() {
+        long time = (end == 0) ? DateUtils.getCurrentLong() : end;
+        DialogHelper.showDatePicker(mActivity, time, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 end = time;
@@ -178,18 +187,20 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String createAt = DateUtils.getString(create, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String startAt = start == 0 ? "未知" : DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = end == 0 ? "未知" : DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnCreate.setText("c: " + createAt);
         btnStart.setText("s: " + startAt);
         btnEnd.setText("e: " + endAt);
     }
 
-    private void getCount() {
+    private void getCountData() {
+        long createAt = create / 1000;
         long startAt = start / 1000;
         long endAt = end / 1000;
-        String phone = etPhone.getText().toString();
-        int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).smsCountGet(startAt, endAt, phone, sendType);
+        int sex = ApiHelper.LIST_USER_SEX_TYPE[sexIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).userCountGet(createAt, sex, startAt, endAt);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -206,11 +217,11 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
+        long createAt = create / 1000;
         long startAt = start / 1000;
         long endAt = end / 1000;
-        String phone = etPhone.getText().toString();
-        int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).smsListGet(startAt, endAt, phone, sendType, page);
+        int sex = ApiHelper.LIST_USER_SEX_TYPE[sexIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).userListGet(createAt, sex, startAt, endAt, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);
@@ -220,8 +231,8 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
-                List<Sms> smsList = data.getSmsList();
-                recyclerHelper.dataOk(smsList, more);
+                List<User> userList = data.getUserList();
+                recyclerHelper.dataOk(userList, more);
             }
 
             @Override

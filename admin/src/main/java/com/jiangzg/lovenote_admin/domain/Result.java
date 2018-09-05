@@ -50,10 +50,19 @@ public class Result implements Serializable {
         private long total;
         private User user;
         private OssInfo ossInfo;
+        private List<User> userList;
+        private List<Sms> smsList;
         private List<Version> versionList;
         private List<Notice> noticeList;
         private List<Broadcast> broadcastList;
-        private List<Sms> smsList;
+
+        public List<User> getUserList() {
+            return userList;
+        }
+
+        public void setUserList(List<User> userList) {
+            this.userList = userList;
+        }
 
         public List<Sms> getSmsList() {
             return smsList;

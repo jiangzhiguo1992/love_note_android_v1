@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.helper;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.MyApp;
 import com.jiangzg.lovenote_admin.domain.Sms;
+import com.jiangzg.lovenote_admin.domain.User;
 
 /**
  * Created by JZG on 2018/3/27.
@@ -26,6 +27,17 @@ public class ApiHelper {
             MyApp.get().getString(R.string.forget_pwd),
             MyApp.get().getString(R.string.change_phone),
             MyApp.get().getString(R.string.pwd_lock),
+    };
+    // user sex
+    public static final int[] LIST_USER_SEX_TYPE = new int[]{
+            0,
+            User.SEX_GIRL,
+            User.SEX_BOY,
+    };
+    public static final String[] LIST_USER_SEX_SHOW = new String[]{
+            MyApp.get().getString(R.string.all),
+            MyApp.get().getString(R.string.girl),
+            MyApp.get().getString(R.string.boy),
     };
     // user登录类型
     public static final int LOG_PWD = 1;

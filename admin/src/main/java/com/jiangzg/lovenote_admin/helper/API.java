@@ -57,7 +57,7 @@ public interface API {
     Call<Result> userGetByPhone(@Query("phone") String phone);
 
     @GET("user?list=1")
-    Call<Result> userListGet(@Query("page") int page);
+    Call<Result> userListGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end, @Query("page") int page);
 
     @GET("user?count=1")
     Call<Result> userCountGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);

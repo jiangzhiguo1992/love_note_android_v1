@@ -10,7 +10,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.SmsActivity;
-import com.jiangzg.lovenote_admin.activity.UserActivity;
+import com.jiangzg.lovenote_admin.activity.UserListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
@@ -92,7 +92,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvUserNew: // 注册用户
-                UserActivity.goActivity(mFragment);
+                UserListActivity.goActivity(mFragment);
                 break;
             case R.id.cvUserActive: // 活跃用户
                 // TODO

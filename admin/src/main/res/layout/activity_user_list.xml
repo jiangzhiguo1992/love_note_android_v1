@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.lovenote_admin.activity.SmsActivity">
+    tools:context="com.jiangzg.lovenote_admin.activity.UserListActivity">
 
     <include layout="@layout/view_top_bar"/>
 
@@ -14,26 +14,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etPhone"
-            style="@style/FontGreyNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
-            android:hint="phone"
-            android:padding="10dp"
-            android:textColorHint="@color/font_hint"/>
-
         <Button
-            android:id="@+id/btnType"
+            android:id="@+id/btnCreate"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            tools:text="类型"/>
+            tools:text="创建"/>
+
+        <Button
+            android:id="@+id/btnSex"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            tools:text="性别"/>
     </LinearLayout>
 
     <LinearLayout
