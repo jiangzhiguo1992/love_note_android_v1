@@ -44,56 +44,55 @@ public interface API {
                             @Part("name") String value, @PartMap Map<String, RequestBody> params,
                             @Body Object body, @Body String bodyJson);
 
-    // 用户登录
     @GET("user/login")
     Call<Result> userLogin(@Query("phone") String phone, @Query("pwd") String pwd);
 
-    // oss
     @GET("oss?admin=1")
     Call<Result> ossGet();
 
-    // 版本
-    @POST("set/version")
-    Call<Result> versionAdd(@Body Version version);
+    @GET("user")
+    Call<Result> userGetById(@Query("uid") long uid);
 
-    // 版本
-    @DELETE("set/version")
-    Call<Result> versionDel(@Query("vid") long vid);
+    @GET("user")
+    Call<Result> userGetByPhone(@Query("phone") String phone);
 
-    // 版本
-    @GET("set/version?list=1&code=0")
-    Call<Result> versionListGet(@Query("page") int page);
+    @GET("user?list=1")
+    Call<Result> userListGet(@Query("page") int page);
 
-    // 公告
-    @POST("set/notice")
-    Call<Result> noticeAdd(@Body Notice notice);
+    @GET("user?count=1")
+    Call<Result> userCountGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
 
-    // 公告
-    @DELETE("set/notice")
-    Call<Result> noticeDel(@Query("nid") long nid);
-
-    // 公告列表获取
-    @GET("set/notice?list=0&all=1")
-    Call<Result> noticeListGet(@Query("page") int page);
-
-    // 广播
-    @POST("more/broadcast")
-    Call<Result> broadcastAdd(@Body Broadcast broadcast);
-
-    // 广播
-    @DELETE("more/broadcast")
-    Call<Result> broadcastDel(@Query("bid") long nid);
-
-    // 广播列表获取
-    @GET("more/broadcast?list=1")
-    Call<Result> broadcastListGet(@Query("page") int page);
-
-    // 短信列表
     @GET("sms?list=1&count=0")
     Call<Result> smsListGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type, @Query("page") int page);
 
-    // 短信数量
     @GET("sms?list=0&count=1")
     Call<Result> smsCountGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
+
+    @POST("set/version")
+    Call<Result> versionAdd(@Body Version version);
+
+    @DELETE("set/version")
+    Call<Result> versionDel(@Query("vid") long vid);
+
+    @GET("set/version?list=1&code=0")
+    Call<Result> versionListGet(@Query("page") int page);
+
+    @POST("set/notice")
+    Call<Result> noticeAdd(@Body Notice notice);
+
+    @DELETE("set/notice")
+    Call<Result> noticeDel(@Query("nid") long nid);
+
+    @GET("set/notice?list=0&all=1")
+    Call<Result> noticeListGet(@Query("page") int page);
+
+    @POST("more/broadcast")
+    Call<Result> broadcastAdd(@Body Broadcast broadcast);
+
+    @DELETE("more/broadcast")
+    Call<Result> broadcastDel(@Query("bid") long nid);
+
+    @GET("more/broadcast?list=1")
+    Call<Result> broadcastListGet(@Query("page") int page);
 
 }

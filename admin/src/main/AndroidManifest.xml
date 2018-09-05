@@ -22,6 +22,8 @@
         <activity android:name=".activity.BroadcastEditActivity"/>
         <activity android:name=".activity.SmsActivity">
         </activity>
+        <activity android:name=".activity.UserActivity">
+        </activity>
     </application>
 
 </manifest>

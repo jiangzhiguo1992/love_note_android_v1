@@ -10,6 +10,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.SmsActivity;
+import com.jiangzg.lovenote_admin.activity.UserActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
@@ -76,6 +77,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
 
     @Override
     protected void initData(Bundle state) {
+        getUserData();
         // TODO
         getSmsData();
     }
@@ -90,7 +92,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvUserNew: // 注册用户
-                // TODO
+                UserActivity.goActivity(mFragment);
                 break;
             case R.id.cvUserActive: // 活跃用户
                 // TODO
@@ -108,6 +110,36 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 // TODO
                 break;
         }
+    }
+
+    private void getUserData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startDay = (currentLong - ConstantUtils.DAY) / 1000;
+        long startWeek = (currentLong - ConstantUtils.DAY * 7) / 1000;
+        Call<Result> callDay = new RetrofitHelper().call(API.class).userCountGet(startDay, 0, 0, 0);
+        RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvUserDayNew.setText("天：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvUserDayNew.setText("天：fail");
+            }
+        });
+        Call<Result> callWeek = new RetrofitHelper().call(API.class).userCountGet(startWeek, 0, 0, 0);
+        RetrofitHelper.enqueue(callWeek, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvUserWeekNew.setText("周：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvUserWeekNew.setText("周：fail");
+            }
+        });
     }
 
     private void getSmsData() {
