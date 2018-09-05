@@ -3,14 +3,11 @@ package com.jiangzg.lovenote_admin.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.lovenote_admin.helper.ApiHelper;
-
 /**
  * Created by JZG on 2018/7/13.
  * Trends
  */
-public class Trends extends BaseCP implements Parcelable, MultiItemEntity {
+public class Trends extends BaseCP implements Parcelable {
 
     // 操作类型
     public static final int TRENDS_ACT_TYPE_INSERT = 1; // 添加
@@ -44,11 +41,6 @@ public class Trends extends BaseCP implements Parcelable, MultiItemEntity {
     private int actionType;
     private int contentType;
     private long contentId;
-
-    @Override
-    public int getItemType() {
-        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
-    }
 
     public int getActionType() {
         return actionType;

@@ -14,8 +14,24 @@ public class Sms extends BaseObj {
     public static final int TYPE_LOCK = 30;
 
     private String phone;
-    private int SendType;
-    private String Content;
+    private int sendType;
+    private String content;
+
+    public static String getTypeShow(int type) {
+        switch (type) {
+            case TYPE_REGISTER:
+                return "注册";
+            case TYPE_LOGIN:
+                return "登录";
+            case TYPE_FORGET:
+                return "忘记密码";
+            case TYPE_PHONE:
+                return "修改手机";
+            case TYPE_LOCK:
+                return "密码锁";
+        }
+        return String.valueOf(type);
+    }
 
     public String getPhone() {
         return phone;
@@ -26,19 +42,18 @@ public class Sms extends BaseObj {
     }
 
     public int getSendType() {
-        return SendType;
+        return sendType;
     }
 
     public void setSendType(int sendType) {
-        SendType = sendType;
+        this.sendType = sendType;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
-
 }

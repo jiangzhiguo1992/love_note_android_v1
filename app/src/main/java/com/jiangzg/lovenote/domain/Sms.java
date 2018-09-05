@@ -14,8 +14,8 @@ public class Sms extends BaseObj {
     public static final int TYPE_LOCK = 30;
 
     private String phone;
-    private int SendType;
-    private String Content;
+    private int sendType;
+    private String content;
 
     public String getPhone() {
         return phone;
@@ -26,19 +26,19 @@ public class Sms extends BaseObj {
     }
 
     public int getSendType() {
-        return SendType;
+        return sendType;
     }
 
     public void setSendType(int sendType) {
-        SendType = sendType;
+        this.sendType = sendType;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
     }
 
 }

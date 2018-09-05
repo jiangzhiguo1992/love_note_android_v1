@@ -20,6 +20,8 @@
         <activity android:name=".activity.VersionEditActivity"/>
         <activity android:name=".activity.NoticeEditActivity"/>
         <activity android:name=".activity.BroadcastEditActivity"/>
+        <activity android:name=".activity.SmsActivity">
+        </activity>
     </application>
 
 </manifest>

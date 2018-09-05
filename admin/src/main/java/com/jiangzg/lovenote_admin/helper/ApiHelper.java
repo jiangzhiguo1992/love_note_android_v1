@@ -2,6 +2,7 @@ package com.jiangzg.lovenote_admin.helper;
 
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.MyApp;
+import com.jiangzg.lovenote_admin.domain.Sms;
 
 /**
  * Created by JZG on 2018/3/27.
@@ -9,6 +10,23 @@ import com.jiangzg.lovenote_admin.base.MyApp;
  */
 public class ApiHelper {
 
+    // sms
+    public static final int[] LIST_SMS_TYPE = new int[]{
+            0,
+            Sms.TYPE_REGISTER,
+            Sms.TYPE_LOGIN,
+            Sms.TYPE_FORGET,
+            Sms.TYPE_PHONE,
+            Sms.TYPE_LOCK,
+    };
+    public static final String[] LIST_SMS_SHOW = new String[]{
+            MyApp.get().getString(R.string.all),
+            MyApp.get().getString(R.string.register),
+            MyApp.get().getString(R.string.login),
+            MyApp.get().getString(R.string.forget_pwd),
+            MyApp.get().getString(R.string.change_phone),
+            MyApp.get().getString(R.string.pwd_lock),
+    };
     // user登录类型
     public static final int LOG_PWD = 1;
     public static final int LOG_VER = 2;
@@ -31,20 +49,6 @@ public class ApiHelper {
     public static final String[] LIST_COMMENT_ORDER_SHOW = new String[]{
             MyApp.get().getString(R.string.point),
             MyApp.get().getString(R.string.time)
-    };
-    // note search类型
-    private static final int LIST_NOTE_CP = 0;
-    public static final int LIST_NOTE_MY = 1;
-    public static final int LIST_NOTE_TA = 2;
-    public static final int[] LIST_NOTE_TYPE = new int[]{
-            LIST_NOTE_CP,
-            LIST_NOTE_MY,
-            LIST_NOTE_TA
-    };
-    public static final String[] LIST_NOTE_SHOW = new String[]{
-            MyApp.get().getString(R.string.we_de),
-            MyApp.get().getString(R.string.me_de),
-            MyApp.get().getString(R.string.ta_de)
     };
     // topic search类型
     public static final int LIST_TOPIC_ALL = 0;

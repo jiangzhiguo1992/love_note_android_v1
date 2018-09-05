@@ -3,24 +3,16 @@ package com.jiangzg.lovenote_admin.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.lovenote_admin.helper.ApiHelper;
-
 /**
  * Created by JZG on 2018/8/7.
  * Vip
  */
-public class Vip extends BaseCP implements Parcelable, MultiItemEntity {
+public class Vip extends BaseCP implements Parcelable {
 
     private int fromType;
     private long billId;
     private int expireDays;
     private long expireAt;
-
-    @Override
-    public int getItemType() {
-        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
-    }
 
     public long getBillId() {
         return billId;

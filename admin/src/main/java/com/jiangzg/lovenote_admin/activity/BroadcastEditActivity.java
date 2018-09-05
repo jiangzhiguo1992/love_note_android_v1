@@ -125,8 +125,8 @@ public class BroadcastEditActivity extends BaseActivity<BroadcastEditActivity> {
         }
         String start = DateUtils.getString(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String end = DateUtils.getString(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        tvStart.setText("开始:" + start);
-        tvEnd.setText("结束:" + end);
+        tvStart.setText("s: " + start);
+        tvEnd.setText("e: " + end);
     }
 
     private void push() {

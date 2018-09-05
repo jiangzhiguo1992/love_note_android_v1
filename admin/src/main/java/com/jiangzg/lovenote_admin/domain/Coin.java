@@ -3,16 +3,14 @@ package com.jiangzg.lovenote_admin.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.lovenote_admin.base.MyApp;
-import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.base.MyApp;
 
 /**
  * Created by JZG on 2018/8/7.
  * Coin
  */
-public class Coin extends BaseCP implements Parcelable, MultiItemEntity {
+public class Coin extends BaseCP implements Parcelable {
 
     // add
     private static final int COIN_KIND_ADD_BY_PLAY_PAY = 100; // +商店充值
@@ -50,11 +48,6 @@ public class Coin extends BaseCP implements Parcelable, MultiItemEntity {
                 return MyApp.get().getString(R.string.nav_plane);
         }
         return MyApp.get().getString(R.string.unknown_kind);
-    }
-
-    @Override
-    public int getItemType() {
-        return isMine() ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
     }
 
     public int getKind() {

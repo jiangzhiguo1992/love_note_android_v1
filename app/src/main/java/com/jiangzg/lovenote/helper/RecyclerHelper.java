@@ -290,6 +290,7 @@ public class RecyclerHelper {
         if (more) {
             mAdapter.loadMoreFail();
         } else {
+            dataNew(new ArrayList(), 0);
             viewEmptyShow(errMsg);
         }
     }
