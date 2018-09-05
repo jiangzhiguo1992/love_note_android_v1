@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 通用颜色 -->
+    <color name="background_color">#F8F8F8</color>
+    <color name="foreground_color">#DDDDDD</color>
+    <color name="line_grey">@color/foreground_color</color>
+    <color name="icon_grey">#DDDDDD</color>
+    <color name="img_grey">#EEEEEE</color>
+
+    <!-- 字体颜色 -->
+    <color name="font_white">@color/white</color>
+    <color name="font_hint">#CBCBCB</color>
+    <color name="font_grey">#757575</color>
+    <color name="font_black">#212121</color>
+
+    <!-- 常用颜色 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_trans_90">#e6ffffff</color>
+    <color name="white_trans_75">#BEffffff</color>
+    <color name="black_trans_75">#BE000000</color>
+    <color name="white_trans_50">#7FFFFFFF</color>
+    <color name="black_trans_50">#7F000000</color>
+    <color name="white_trans_25">#3FFFFFFF</color>
+    <color name="black_trans_25">#3F000000</color>
+    <color name="trans_00">#00FFFFFF</color>
+
+    <!-- topic -->
+    <color name="topic_kind_1">#E07B8F</color>
+    <color name="topic_kind_2">#E3ABC0</color>
+    <color name="topic_kind_3">#A6D0F0</color>
+    <color name="topic_kind_4">#FA873D</color>
+    <color name="topic_kind_5">#57D4CC</color>
+    <color name="topic_kind_6">#8F6678</color>
+
+    <!-- red -->
+    <color name="theme_red_dark">#D32F2F</color>
+    <color name="theme_red_primary">#F44336</color>
+    <color name="theme_red_accent">#FD528D</color>
+    <color name="theme_red_light">#FFCDD2</color>
+
+    <!-- pink -->
+    <color name="theme_pink_dark">#FF6096</color>
+    <color name="theme_pink_primary">#FF80AB</color>
+    <color name="theme_pink_accent">#FFA2C1</color>
+    <color name="theme_pink_light">#FCD8E4</color>
+
+    <!-- purple -->
+    <color name="theme_purple_dark">#512DA8</color>
+    <color name="theme_purple_primary">#673AB7</color>
+    <color name="theme_purple_accent">#7C4DFF</color>
+    <color name="theme_purple_light">#D1C4E9</color>
+
+    <!-- indigo -->
+    <color name="theme_indigo_dark">#303F9F</color>
+    <color name="theme_indigo_primary">#3F51B5</color>
+    <color name="theme_indigo_accent">#536DFE</color>
+    <color name="theme_indigo_light">#C5CAE9</color>
+
+    <!-- blue -->
+    <color name="theme_blue_dark">#1976D2</color>
+    <color name="theme_blue_primary">#2196F3</color>
+    <color name="theme_blue_accent">#5b98fd</color>
+    <color name="theme_blue_light">#BBDEFB</color>
+
+    <!-- teal -->
+    <color name="theme_teal_dark">#00796B</color>
+    <color name="theme_teal_primary">#009688</color>
+    <color name="theme_teal_accent">#12a0b3</color>
+    <color name="theme_teal_light">#B2DFDB</color>
+
+    <!-- green -->
+    <color name="theme_green_dark">#689F38</color>
+    <color name="theme_green_primary">#8BC34A</color>
+    <color name="theme_green_accent">#adf15f</color>
+    <color name="theme_green_light">#DCEDC8</color>
+
+    <!-- lime -->
+    <color name="theme_lime_dark">#AFB42B</color>
+    <color name="theme_lime_primary">#CDDC39</color>
+    <color name="theme_lime_accent">#c7d448</color>
+    <color name="theme_lime_light">#F0F4C3</color>
+
+    <!-- yellow -->
+    <color name="theme_yellow_dark">#FBC02D</color>
+    <color name="theme_yellow_primary">#FFEB3B</color>
+    <color name="theme_yellow_accent">#fded62</color>
+    <color name="theme_yellow_light">#FFF9C4</color>
+
+    <!-- orange -->
+    <color name="theme_orange_dark">#F57C00</color>
+    <color name="theme_orange_primary">#FF9800</color>
+    <color name="theme_orange_accent">#ffb64a</color>
+    <color name="theme_orange_light">#FFE0B2</color>
+
+    <!-- brown -->
+    <color name="theme_brown_dark">#5D4037</color>
+    <color name="theme_brown_primary">#795548</color>
+    <color name="theme_brown_accent">#a77564</color>
+    <color name="theme_brown_light">#D7CCC8</color>
+
+    <!-- grey -->
+    <color name="theme_grey_dark">#616161</color>
+    <color name="theme_grey_primary">#9E9E9E</color>
+    <color name="theme_grey_accent">#b1b1b1</color>
+    <color name="theme_grey_light">#F5F5F5</color>
+
+</resources>

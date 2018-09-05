@@ -1,1 +1,1 @@
-include ':app', ':GBase'
+include ':app', ':GBase', ':admin'

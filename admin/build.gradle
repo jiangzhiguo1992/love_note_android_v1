@@ -1,0 +1,117 @@
+apply plugin: 'com.android.application'
+
+android {
+    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.jiangzg.admin"
+        minSdkVersion 21
+        targetSdkVersion 28
+        multiDexEnabled true
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+    signingConfigs { // 签名信息
+        jzg_01 {
+            // MD5 = 76:52:5C:1C:8E:17:3B:45:B0:BF:17:01:C9:AD:24:5C
+            // SHA1 = B5:1B:D6:6B:B5:C0:7A:8A:D3:EC:E1:6B:08:A0:F4:7C:C3:0C:27:DA
+            // SHA256 = 9C:65:BE:24:EC:6A:4D:9B:9A:5B:A0:32:0A:87:2E:67:3C:73:17:AA:E9:73:A4:FE:AD:2D:DF:56:48:A5:57:25
+            storeFile file('./key/jzg_01')
+            storePassword 'laojiang1'
+            keyAlias 'jzg_01'
+            keyPassword 'laojiang1'
+        }
+    }
+    buildTypes { // 打包选项
+        debug { // 测试
+            signingConfig signingConfigs.jzg_01 // 设置签名信息
+            minifyEnabled false // 混淆开关(测试最好关掉，否则会影响断点调试)
+            zipAlignEnabled true // 内存对齐
+            // 混淆规则文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release { // 正式
+            signingConfig signingConfigs.jzg_01 // 可以只用一个签名信息
+            minifyEnabled false
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets { // 源码设置
+        main {
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+            jniLibs.srcDirs = ['libs'] // 指定lib库目录
+        }
+        androidTest.setRoot('tests') // 指定测试所在的路径
+        debug.setRoot('build-types/debug') // 指定debug模式的路径
+        release.setRoot('build-types/release') // 指定release模式的路径
+    }
+    compileOptions { // 编码/JDK等
+        encoding "UTF-8"
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions { // 编译的lint检查
+        disable 'MissingTranslation' // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        abortOnError false // 移除lint检查的error
+    }
+    packagingOptions { // 解决jar包冲突
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INFTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+    dexOptions { // 构建配置(加快编译速度)
+        preDexLibraries true // 预先编译依赖库
+        maxProcessCount 8 // 最大线程数
+        javaMaxHeapSize "4g" // 最大堆大小
+    }
+    aaptOptions { // 过滤PNG图片检验
+        cruncherEnabled = false
+        useNewCruncher = false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':GBase')
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:palette-v7:27.1.1'
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'io.reactivex:rxjava:1.2.0'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.2.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.2.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.7.0'
+    // UI
+    implementation 'top.zibin:Luban:1.0.9'
+    implementation 'me.relex:photodraweeview:1.1.3'
+    implementation 'com.facebook.fresco:fresco:1.8.1'
+//    implementation 'com.facebook.fresco:animated-gif:0.13.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    // 三方
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0' // oss
+    implementation 'com.amap.api:location:3.8.0' // 地图定位
+    implementation 'com.amap.api:map2d:5.2.0' // 地图2D
+    implementation 'com.amap.api:search:6.1.0' // 地图搜索
+}

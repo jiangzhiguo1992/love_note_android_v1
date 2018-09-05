@@ -4,10 +4,10 @@ android {
     buildToolsVersion '27.0.3'
     compileSdkVersion 27 // 最高运行版本
     defaultConfig {
+        applicationId "com.jiangzg.lovenote" // 要和manifest一致
         targetSdkVersion 27 // 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        applicationId "com.jiangzg.lovenote" // 要和manifest一致
         versionCode 1
         versionName "1.0.0"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
@@ -58,10 +58,10 @@ android {
         }
     }
     productFlavors { // 发布渠道
-//        jzg {
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jzg"]
-//        }
+        jzg {
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jzg"]
+        }
         official { // 官方
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]

@@ -1,0 +1,629 @@
+<resources>
+    <string name="app_name">鱼笙后台</string>
+
+    <!-- base -->
+    <string name="day1">一</string>
+    <string name="day2">二</string>
+    <string name="day3">三</string>
+    <string name="day4">四</string>
+    <string name="day5">五</string>
+    <string name="day6">六</string>
+    <string name="day7">日</string>
+
+    <string name="second">秒</string>
+    <string name="minute">分钟</string>
+    <string name="minute_short">分</string>
+    <string name="hour">小时</string>
+    <string name="hour_short">时</string>
+    <string name="dayT">天</string>
+    <string name="dayR">日</string>
+    <string name="month">月</string>
+    <string name="year">年</string>
+
+    <string-array name="week_label">
+        <item>日</item>
+        <item>一</item>
+        <item>二</item>
+        <item>三</item>
+        <item>四</item>
+        <item>五</item>
+        <item>六</item>
+    </string-array>
+
+    <string-array name="month_label">
+        <item>1月</item>
+        <item>2月</item>
+        <item>3月</item>
+        <item>4月</item>
+        <item>5月</item>
+        <item>6月</item>
+        <item>7月</item>
+        <item>8月</item>
+        <item>9月</item>
+        <item>10月</item>
+        <item>11月</item>
+        <item>12月</item>
+    </string-array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="behavior_fab_depend_app_bar">com.jiangzg.lovenote.view.GBehaviorFABDependAppBar</string>
+    <string name="behavior_fab_depend_app_bar3">com.jiangzg.lovenote.view.GBehaviorFABDependAppBar3</string>
+    <string name="behavior_linear_depend_app_bar">com.jiangzg.lovenote.view.GBehaviorLinearDependAppBar</string>
+    <string name="behavior_linear_depend_app_bar3">com.jiangzg.lovenote.view.GBehaviorLinearDependAppBar3</string>
+
+    <!-- common -->
+    <string name="symbol_add">+</string>
+    <string name="symbol_sub">-</string>
+    <string name="me">我</string>
+    <string name="year_space">年 </string>
+    <string name="month_space">月 </string>
+    <string name="girl">女</string>
+    <string name="boy">男</string>
+    <string name="nil">无</string>
+    <string name="prompt">提示</string>
+    <string name="confirm">确定</string>
+    <string name="agree">同意</string>
+    <string name="cancel">取消</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="add">添加</string>
+    <string name="send">发送</string>
+    <string name="wait">等待</string>
+    <string name="no_read">未读</string>
+    <string name="search">搜索</string>
+    <string name="complete">完成</string>
+    <string name="now_no">暂无</string>
+    <string name="un_know">未知</string>
+    <string name="change">更换</string>
+    <string name="follow">关注</string>
+    <string name="modify">修改</string>
+    <string name="browse">浏览</string>
+    <string name="go_in">进入</string>
+    <string name="comment">评论</string>
+    <string name="official">官方</string>
+    <string name="well">精华</string>
+    <string name="hot">热门</string>
+    <string name="point">点赞</string>
+    <string name="collect">收藏</string>
+    <string name="screen">屏蔽</string>
+    <string name="normal">普通</string>
+    <string name="time">时间</string>
+    <string name="top">置顶</string>
+    <string name="all">全部</string>
+    <string name="commit">提交</string>
+    <string name="push">发布</string>
+    <string name="publish">发表</string>
+    <string name="take_picture">拍照</string>
+    <string name="show">显示</string>
+    <string name="other">其他</string>
+    <string name="wait_point">等待…</string>
+    <string name="please_wait">请等待…</string>
+    <string name="we_de">我们的</string>
+    <string name="me_de">我的</string>
+    <string name="ta_de">TA的</string>
+    <string name="brutal_refuse">残忍拒绝</string>
+    <string name="after_say">以后再说</string>
+    <string name="set_ok">设置好了</string>
+    <string name="i_know">我知道了</string>
+    <string name="go_to_setting">前往设置</string>
+    <string name="pleasure_accept">欣然接受</string>
+    <string name="go_back_top">回到顶部</string>
+    <string name="start_search">开始搜索</string>
+    <string name="are_task">正在任务</string>
+    <string name="cancel_task">取消任务</string>
+    <string name="i_choose_ok">我选好了</string>
+    <string name="i_think_again">我再想想</string>
+    <string name="confirm_no_wrong">确认无误</string>
+    <string name="push_success">发布成功</string>
+    <string name="go_now">现在前往</string>
+    <string name="go_to_know">前往了解</string>
+    <string name="are_deleting">正在删除</string>
+    <string name="are_refresh">正在刷新</string>
+    <string name="loading_sending">正在发送…</string>
+    <string name="press_again_exit">再按一次退出</string>
+    <string name="exit_app">您确定要退出？</string>
+    <string name="holder_sprit_holder" formatted="false">%d/%d</string>
+    <string name="holder_wave_holder" formatted="false">%s~%s</string>
+    <string name="holder_space_line_space_holder" formatted="false">%s - %s</string>
+    <string name="holder_space_space_holder" formatted="false">%s  %s</string>
+    <string name="space_bracket_holder" formatted="false"> (%d)</string>
+    <string name="my_follow">我的关注</string>
+    <string name="my_push">我的发布</string>
+    <string name="our_collect">相关收藏</string>
+    <string name="my_message">我的消息</string>
+    <string name="please_input_search_content">请输入搜索内容</string>
+    <string name="function_no_open_please_wait">功能未开放，敬请期待</string>
+
+    <!-- limit -->
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="please_input_comment_content">请输入评论内容</string>
+    <string name="please_input_title">请输入标题</string>
+    <string name="please_input_content">请输入内容</string>
+    <string name="select_search_type">选择搜索类型</string>
+    <string name="select_order_type">选择排序类型</string>
+    <string name="please_select_classify">请选择分类</string>
+    <string name="please_input_nickname">请输入昵称</string>
+    <string name="need_check_some_perm">需要勾选某些权限</string>
+    <string name="confirm_delete_this_image">确定要删除这张图片吗</string>
+    <string name="need_check_some_perm_can_install">需要勾选相应权限后才能安装</string>
+    <string name="please_input_content_no_over_holder_text" formatted="false">请输入内容，不得超过%d个字</string>
+    <string name="please_input_title_no_over_holder_text" formatted="false">请输入标题，不得超过%d个字</string>
+    <string name="please_input_pwd_no_over_holder_text" formatted="false">请输入密码，不得超过%d个字</string>
+    <string name="holder_paper" formatted="false">%d张</string>
+    <string name="holder_thousand_point1" formatted="false">%.1f万</string>
+    <string name="text_number_space_colon_holder" formatted="false">字数: %d</string>
+    <string name="read_space_colon_holder" formatted="false">阅读: %d</string>
+    <string name="comment_colon_holder" formatted="false">评论: %d</string>
+    <string name="create_at_colon_space_holder" formatted="false">创建于: %s</string>
+    <string name="update_at_colon_space_holder" formatted="false">更新于: %s</string>
+    <string name="creator_colon_space_holder" formatted="false">创建者: %s</string>
+    <string name="total_holder_paper" formatted="false">总共%d张</string>
+    <string name="forward_edit_colon_space_holder" formatted="false">上次编辑: %s</string>
+    <string name="master_there_nothing">主人，这里啥也没有啊！</string>
+    <string name="master_we_worry">主人，咱们…好像…出错了！</string>
+    <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
+    <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
+    <string name="online_can_entry">联网才可以进入哦</string>
+    <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
+
+    <!-- file -->
+    <string name="are_upload">正在上传</string>
+    <string name="are_download">正在下载</string>
+    <string name="cancel_upload">取消上传</string>
+    <string name="cancel_download">取消下载</string>
+    <string name="already_download_to_colon_holder" formatted="false">已下载至: %s</string>
+    <string name="loading">正在加载中</string>
+    <string name="are_loading">正在加载中…</string>
+    <string name="image_load_fail">图片加载失败</string>
+    <string name="audio_load_fail">音频加载失败</string>
+    <string name="video_load_fail">视频加载失败</string>
+    <string name="click_retry_load">点击重新加载</string>
+    <string name="image_is_compress">图片正在获取中…</string>
+    <string name="image_compress_fail">图片获取失败</string>
+    <string name="image_get_error">图片获取出错</string>
+    <string name="upload_fail_tell_we_this_bug">上传失败，可以把这个bug反馈给我们吗</string>
+    <string name="download_fail_tell_we_this_bug">下载失败，可以把这个bug反馈给我们吗</string>
+    <string name="file_resolve_fail_tell_we_this_bug">文件解析失败，可以把这个bug反馈给我们吗</string>
+    <string name="upload_fail_please_check_native_net">上传失败，请检查本地网络环境</string>
+    <string name="download_fail_please_check_native_net">下载失败，请检查本地网络环境</string>
+    <string name="upload_file_no_exists">上传文件不存在</string>
+    <string name="download_file_no_exists">下载文件不存在</string>
+    <string name="save_file_no_exists">保存文件不存在</string>
+    <string name="access_resource_path_no_exists">访问资源路径不存在</string>
+    <string name="not_found_upload_file">没有找到要上传的文件</string>
+    <string name="file_no_exits">文件不存在</string>
+    <string name="now_just_can_push_holder_img" formatted="false">现在只能上传%d张图片</string>
+    <string name="image_too_large_cant_over_holder" formatted="false">图片过大，不能超过%s</string>
+    <string name="audio_too_large_cant_over_holder" formatted="false">音频过大，不能超过%s</string>
+    <string name="video_too_large_cant_over_holder" formatted="false">视频过大，不能超过%s</string>
+    <string name="success_push_holder_paper_picture">成功上传%d张照片</string>
+    <string name="file_create_fail">文件创建失败</string>
+    <string name="are_upload_space_holder_holder" formatted="false">正在上传 %d/%d</string>
+    <string name="are_compress_space_holder_holder" formatted="false">正在获取 %d/%d</string>
+
+    <!-- network -->
+    <string name="no_network_title">网络不能访问</string>
+    <string name="server_error">服务器异常</string>
+    <string name="http_error_connect">网络连接错误</string>
+    <string name="http_error_time">网络连接超时</string>
+    <string name="http_error_time_maybe_setting_wrong">网络连接超时,是不是网络设置出错了吧</string>
+    <string name="http_error_request">网络请求异常</string>
+    <string name="err_un_know_server">服务器未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_un_know_client">客户端未知错误 (把这个bug提交给我们吧)</string>
+    <string name="err_data_null">空数据异常</string>
+    <string name="err_data_parse">数据解析异常</string>
+    <string name="http_response_error">网络响应异常</string>
+    <string name="http_response_error_403">Key错误</string>
+    <string name="http_response_error_404">资源未找到</string>
+    <string name="http_response_error_409">用户版本过低</string>
+    <string name="http_response_error_410">用户被禁用</string>
+    <string name="http_response_error_500">服务器异常</string>
+
+    <!-- Nav -->
+    <string name="nav_couple">我和TA</string>
+    <string name="nav_note">小本本</string>
+    <string name="nav_topic">恋爱吧</string>
+    <string name="nav_more">步行街</string>
+
+    <!-- settings -->
+    <string name="settings">设置</string>
+    <string name="base_settings">基本设置</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="confirm_del_cache">确认清除缓存？</string>
+    <string name="are_clear_cache_point">正在清除缓存…</string>
+    <string name="cache_clear_success">缓存清理成功</string>
+    <string name="contain_image_audio_video_total_colon_holder" formatted="false">包括图片、音频、视频缓存 (共:%s)</string>
+    <string name="notice_settings">通知设置</string>
+    <string name="system_notice">系统通知</string>
+    <string name="social_notice">社交通知</string>
+    <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
+    <string name="receive_from_social_notice">接受来自其他用户的社交通知</string>
+    <string name="account_settings">账号设置</string>
+    <string name="change_phone">更换手机</string>
+    <string name="modify_password">修改密码</string>
+    <string name="set_password">设置密码</string>
+    <string name="about_and_help">关于与帮助</string>
+    <string name="new_notice">最新公告</string>
+    <string name="help_document">帮助文档</string>
+    <string name="about_app">关于鱼笙</string>
+    <string name="must_comply">一定要遵守哦！</string>
+    <string name="customer_q_num">客服Q号</string>
+    <string name="official_q_group">官方Q群</string>
+    <string name="contact_us">联系我们</string>
+    <string name="exist_account">退出账号</string>
+    <string name="confirm_exist_account">确定要退出账号吗？</string>
+
+    <!-- theme -->
+    <string name="theme">主题</string>
+    <string name="girl_pink">少女粉</string>
+    <string name="menses_red">姨妈红</string>
+    <string name="gay_purple">基佬紫</string>
+    <string name="briefs_blue">胖次蓝</string>
+    <string name="sapling_green">草苗绿</string>
+    <string name="egg_yellow">咸蛋黄</string>
+    <string name="fruit_orange">鲜果橙</string>
+    <string name="coffee_brown">咖啡棕</string>
+
+    <!-- version -->
+    <string name="check_update">检查更新</string>
+    <string name="update_now">立即更新</string>
+    <string name="already_is_latest_version">已是最新版本</string>
+    <string name="have_new_version">有新版本啦！</string>
+    <string name="are_update_check">正在检查更新</string>
+    <string name="version_number_colon">版本号:</string>
+    <string name="new_version_colon_space_holder" formatted="false">新版本: %s</string>
+
+    <!-- suggest -->
+    <string name="suggest_feedback">意见反馈</string>
+    <string name="i_want_feedback">朕要反馈</string>
+    <string name="click_me_choose_type">点我选分类</string>
+    <string name="click_me_add_image">点我添加图片</string>
+    <string name="click_me_to_del_image">点我删除照片</string>
+    <string name="program_error">程序错误</string>
+    <string name="function_add">功能添加</string>
+    <string name="experience_optimize">体验优化</string>
+    <string name="just_debunk">纯粹吐槽</string>
+    <string name="no_reply">未回复</string>
+    <string name="already_reply">已回复</string>
+    <string name="no_accept">未采纳</string>
+    <string name="already_accept">已采纳</string>
+    <string name="handle_ing">处理中</string>
+    <string name="handle_over">处理完</string>
+    <string name="search_condition_line">————搜索条件————</string>
+    <string name="type_colon">类型:</string>
+    <string name="status_colon">状态:</string>
+    <string name="confirm_del_suggest">确定删除意见吗？</string>
+    <string name="holder_floor" formatted="false">%d楼</string>
+
+    <!-- user -->
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="input_hint_phone">请输入手机号</string>
+    <string name="input_hint_new_phone">请输入新手机号</string>
+    <string name="input_hint_verify">请输入验证码</string>
+    <string name="input_hint_pwd">请输入密码</string>
+    <string name="input_hint_old_pwd">请输入旧密码</string>
+    <string name="input_hint_new_pwd">请输入新密码</string>
+    <string name="input_hint_pwd_confirm">请再次输入密码</string>
+    <string name="input_hint_new_pwd_confirm">请再次新输入密码</string>
+    <string name="verify_login">验证码登录</string>
+    <string name="pwd_login">密码登录</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="loading_logging">正在登录…</string>
+    <string name="user_protocol">用户协议</string>
+    <string name="please_check_agree_protocol">请勾选下方的同意用户协议</string>
+    <string name="twice_pwd_no_equals">两次密码输入不一致</string>
+    <string name="user_info">用户信息</string>
+    <string name="please_select_sex">请选择性别</string>
+    <string name="please_select_birth">请选择生日</string>
+    <string name="once_push_never_modify">一旦提交，将不允许修改！</string>
+    <string name="sex_colon">性别:</string>
+    <string name="birthday_colon">生日:</string>
+    <string name="send_validate_code">发送验证码</string>
+    <string name="are_send_validate_code">正在发送验证码…</string>
+
+    <!-- couple -->
+    <string name="pair">配对</string>
+    <string name="dissolve">解散</string>
+    <string name="complex">复合</string>
+    <string name="i_want_pair_with_ta">我要和TA配对</string>
+    <string name="please_input_ta_phone">请输入TA的手机号</string>
+    <string name="ta_colon_space_holder" formatted="false">TA: %s</string>
+    <string name="quick_pair_deblock_more_posture">快来和TA配对，解锁更多姿势</string>
+    <string name="pair_info">配对信息</string>
+    <string name="now_null_nickname">暂无爱称</string>
+    <string name="pair_holder_day" formatted="false">配对第%d天</string>
+    <string name="u_confirm_break">你确定要解除关系吗？</string>
+    <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
+    <string name="modify_ta_name">修改TA的名称</string>
+    <string name="wall_paper">墙纸</string>
+    <string name="click_right_top_add_wall_paper">点击右上角添加墙纸</string>
+    <string name="distance_space_holder" formatted="false">相距 %s</string>
+    <string name="differ_space_holder" formatted="false">相差 %s</string>
+    <string name="now_no_address_info">暂无地址信息</string>
+    <string name="now_no_weather_info">暂无天气信息</string>
+
+    <!-- place -->
+    <string name="place">位置</string>
+    <string name="weather">天气</string>
+    <string name="map">地图</string>
+    <string name="location_error">定位失败</string>
+    <string name="place_info">位置信息</string>
+    <string name="my_location">我的位置</string>
+    <string name="lon_lat_colon">经纬度:</string>
+    <string name="distance_colon_space_holder" formatted="false">距离: %d米</string>
+    <string name="input_search_address">输入搜索地址</string>
+    <string name="please_select_address">请选择地址</string>
+    <string name="address_search">地址搜索</string>
+    <string name="location_search_fail">位置搜索失败</string>
+    <string name="search_location_no_exist">搜索位置不存在</string>
+    <string name="no_location_info_cant_go_map">没有地址信息，无法进入地图</string>
+    <string name="address_get_fail_reason_colon_holder" formatted="false">地理位置获取失败，原因:%s</string>
+
+    <!-- weather -->
+    <string name="holder_wave_holder_c">%s~%s℃</string>
+    <string name="sunny">晴天</string>
+    <string name="cloudy">多云</string>
+    <string name="over_cast">阴</string>
+    <string name="showers">阵雨</string>
+    <string name="snow_showers">阵雪</string>
+    <string name="fog">雾</string>
+    <string name="sandstorm">沙尘暴</string>
+    <string name="dust">浮尘</string>
+    <string name="haze">霾</string>
+    <string name="thunder_shower">雷阵雨</string>
+    <string name="hail">冰雹</string>
+    <string name="sleet">雨夹雪</string>
+    <string name="light_rain">小雨</string>
+    <string name="rain">中雨</string>
+    <string name="heavy_rain">大雨</string>
+    <string name="rain_storm">暴雨</string>
+    <string name="light_snow">小雪</string>
+    <string name="snow">中雪</string>
+    <string name="heavy_snow">大雪</string>
+    <string name="blizzard">暴雪</string>
+    <string name="freezing_rain">冻雨</string>
+
+    <!-- note -->
+    <string name="pwd_lock">密码锁</string>
+    <string name="trends">动态</string>
+    <string name="statistics">统计</string>
+    <string name="recycle_bin">回收箱</string>
+    <string name="souvenir">纪念日</string>
+    <string name="wish_list">愿望清单</string>
+    <string name="menses">姨妈</string>
+    <string name="shy">羞羞</string>
+    <string name="sleep">睡眠</string>
+    <string name="word">留言</string>
+    <string name="whisper">耳语</string>
+    <string name="diary">日记</string>
+    <string name="album">相册</string>
+    <string name="picture">照片</string>
+    <string name="audio">音频</string>
+    <string name="video">视频</string>
+    <string name="food">美食</string>
+    <string name="travel">游记</string>
+    <string name="track">足迹</string>
+    <string name="angry">生气</string>
+    <string name="promise">承诺</string>
+    <string name="gift">礼物</string>
+    <string name="dream">梦境</string>
+    <string name="award">奖励</string>
+    <string name="award_rule">奖励规则</string>
+    <string name="casual_note">随笔</string>
+    <string name="live">生活</string>
+    <string name="media">多媒体</string>
+    <string name="note">笔记</string>
+    <string name="eat_drink_play_happy">吃喝玩乐</string>
+    <string name="add_track">添加足迹</string>
+    <string name="add_gift">添加礼物</string>
+    <string name="add_travel">添加游记</string>
+    <string name="add_album">添加相册</string>
+    <string name="add_video">添加视频</string>
+    <string name="add_food">添加美食</string>
+    <string name="add_diary">添加日记</string>
+    <string name="please_select_diary">请选择日记</string>
+    <string name="please_select_album">请选择相册</string>
+    <string name="please_select_audio">请选择音频</string>
+    <string name="please_select_video">请选择视频</string>
+    <string name="please_select_food">请选择美食</string>
+    <string name="please_select_travel">请选择游记</string>
+    <string name="please_select_gift">请选择礼物</string>
+    <string name="please_select_promise">请选择承诺</string>
+    <string name="please_select_rule">请选择规则</string>
+    <string name="please_select_score">请选择分数</string>
+    <string name="please_input_dream_content">请输入梦的情节，记得多少写多少</string>
+    <string name="please_input_promise_content">请输入承诺的起因、经过和结果</string>
+    <string name="please_input_angry_content">请输入生气的原由</string>
+    <string name="please_input_rule_content">请输入规则的具体内容</string>
+    <string name="please_input_trigger_rule">请输入触犯规则的情景</string>
+    <string name="please_input_track_content">请输入足迹的介绍</string>
+    <string name="confirm_del_comment">确定要删除评论吗？</string>
+    <string name="confirm_delete_this_souvenir">确定删除这个纪念日？</string>
+    <string name="confirm_del_this_word">确定删除这个留言吗？</string>
+    <string name="confirm_delete_this_diary">确定删除这个日记？</string>
+    <string name="confirm_remove_this_diary">确定移除这个日记？</string>
+    <string name="confirm_delete_this_album">确定删除这个相册吗？</string>
+    <string name="confirm_remove_this_album">确定移除这个相册吗？</string>
+    <string name="confirm_delete_this_picture">确定删除这张照片？</string>
+    <string name="confirm_delete_this_audio">确定删除这个音频？</string>
+    <string name="confirm_delete_this_video">确定删除这个视频？</string>
+    <string name="confirm_remove_this_video">确定移除这个视频？</string>
+    <string name="confirm_delete_this_food">确定删除这个美食？</string>
+    <string name="confirm_remove_this_food">确定移除这个美食？</string>
+    <string name="confirm_delete_this_travel">确定删除这个游记？</string>
+    <string name="confirm_remove_this_travel">确定移除这个游记？</string>
+    <string name="confirm_delete_this_track">确定删除这个足迹？</string>
+    <string name="confirm_delete_this_gift">确定删除这个礼物？</string>
+    <string name="confirm_remove_this_gift">确定移除这个礼物？</string>
+    <string name="confirm_delete_this_promise">确定删除这个承诺？</string>
+    <string name="confirm_remove_this_promise">确定移除这个承诺？</string>
+    <string name="confirm_delete_this_promise_break">确定删除这个违反记录？</string>
+    <string name="confirm_delete_this_angry">确定删除这个生气？</string>
+    <string name="confirm_delete_this_dream">确定删除这个梦？</string>
+    <string name="confirm_delete_this_award">确定删除这个奖励？</string>
+    <string name="confirm_delete_this">确定删除这个？</string>
+    <string name="confirm_delete_this_rule">确定删除这个规则？</string>
+    <string name="can_operation_self_create_souvenir">只能操作自己创建的纪念日哦</string>
+    <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
+    <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
+    <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
+    <string name="can_operation_self_create_audio">只能操作自己创建的音频哦</string>
+    <string name="can_operation_self_create_video">只能操作自己创建的视频哦</string>
+    <string name="can_operation_self_create_food">只能操作自己创建的美食哦</string>
+    <string name="can_operation_self_create_travel">只能操作自己创建的游记哦</string>
+    <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
+    <string name="can_operation_self_create_promise">只能操作自己创建的承诺哦</string>
+    <string name="can_operation_self_create_promise_break">只能操作自己创建的违反记录哦</string>
+    <string name="can_operation_self_create_angry">只能操作自己创建的生气哦</string>
+    <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
+    <string name="can_operation_self_create_award">只能操作自己创建的奖励哦</string>
+    <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
+    <string name="save_draft">保存草稿</string>
+    <string name="draft_save_success">草稿保存成功</string>
+    <string name="open_lock">开锁</string>
+    <string name="close_lock">关锁</string>
+    <string name="per_day_is_souvenir">有你的每一天，都是纪念日</string>
+    <string name="holder_anniversary" formatted="false">%d周年</string>
+    <string name="already_gone_holder_day" formatted="false">已过 %d 天</string>
+    <string name="just_have_holder_day" formatted="false">还剩 %d 天</string>
+    <string name="menses_come">姨妈来了</string>
+    <string name="menses_gone">姨妈走了</string>
+    <string name="already_start_space_holder" formatted="false">已开始 %s</string>
+    <string name="already_delay_space_holder" formatted="false">已推迟 %s</string>
+    <string name="count_down_space_holder" formatted="false">倒计时 %s</string>
+    <string name="start_at_colon_space_holder" formatted="false">开始于: %s</string>
+    <string name="end_at_colon_space_holder" formatted="false">结束与: %s</string>
+    <string name="current_month_space_holder_space_second" formatted="false">本月 %d 次</string>
+    <string name="current_day_space_holder_space_second" formatted="false">今日 %d 次</string>
+    <string name="already_wake_space_holder" formatted="false">已醒来 %s</string>
+    <string name="already_sleep_space_holder" formatted="false">已睡眠 %s</string>
+    <string name="holder_colon_sleep" formatted="false">%s：入睡</string>
+    <string name="holder_colon_wake" formatted="false">%s：醒来</string>
+    <string name="good_night">晚安</string>
+    <string name="i_am_wake">我醒啦</string>
+    <string name="in_here_input_channel">在这里输入频道</string>
+    <string name="change_channel">切换频道</string>
+    <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>
+    <string name="save_channel_colon_space_holder" formatted="false">保存频道: %s</string>
+    <string name="add_image">添加图片</string>
+    <string name="add_text">添加文字</string>
+    <string name="now_just_upload_holder_picture" formatted="false">目前只能上传%d张照片哦</string>
+    <string name="please_input_album_name">请输入相册名称</string>
+    <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
+    <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
+    <string name="album_colon_space_holder" formatted="false">相册: %s</string>
+    <string name="picture_where">照片呢？</string>
+    <string name="on_space_holder_space_send_to" formatted="false">与 %s 送给</string>
+    <string name="time_colon_space_holder" formatted="false">时间: %s</string>
+    <string name="send_to_me">送给我的</string>
+    <string name="send_to_ta">送给TA的</string>
+    <string name="me_s_promise">我的承诺</string>
+    <string name="ta_s_promise">TA的承诺</string>
+    <string name="me_s_angry">我生气了</string>
+    <string name="ta_s_angry">TA生气了</string>
+    <string name="ci">次</string>
+    <string name="violate">违反</string>
+    <string name="promise_user_colon_space_holder" formatted="false">承诺者: %s</string>
+    <string name="promise_time_colon_space_holder" formatted="false">承诺时间: %s</string>
+    <string name="break_space_holder_space_time" formatted="false">违反 %d 次</string>
+    <string name="did_award_some_gift">有没有补偿什么礼物</string>
+    <string name="did_do_some_promise">有没有做出什么承诺</string>
+    <string name="me_s_award">我的奖励</string>
+    <string name="ta_s_award">TA的奖励</string>
+
+    <!-- topic -->
+    <string name="post">帖子</string>
+    <string name="post_colon_space_holder" formatted="false">帖子: %s</string>
+    <string name="comment_colon_space_holder" formatted="false">评论: %s</string>
+    <string name="point_colon_space_holder" formatted="false">点赞: %s</string>
+    <string name="collect_colon_space_holder" formatted="false">收藏: %s</string>
+    <string name="report">举报</string>
+    <string name="already_report">已举报</string>
+    <string name="jab_ta">戳TA</string>
+    <string name="floor_master">楼主</string>
+    <string name="confirm_del_collect">确定要删除收藏吗？</string>
+    <string name="can_delete_self_create_post">只能删除自己创建的帖子哦</string>
+    <string name="can_delete_self_create_comment">只能删除自己创建的评论哦</string>
+    <string name="confirm_delete_this_post">确定删除这个帖子？</string>
+    <string name="jab_a_little">戳了一下</string>
+    <string name="all_space_brackets_holder_brackets" formatted="false">全部 (%d)</string>
+    <string name="post_already_be_screen">帖子已被屏蔽</string>
+    <string name="post_already_be_delete">帖子已被删除</string>
+    <string name="receive_new_message">收到了一条新消息</string>
+    <string name="jab_in_post">戳帖子</string>
+    <string name="jab_in_comment">戳评论</string>
+    <string name="post_report">帖子举报</string>
+    <string name="post_point">帖子点赞</string>
+    <string name="post_collect">帖子收藏</string>
+    <string name="post_comment">帖子评论</string>
+    <string name="comment_reply">评论回复</string>
+    <string name="comment_report">评论举报</string>
+    <string name="comment_point">评论点赞</string>
+
+    <!-- more -->
+    <string name="broadcast">广播</string>
+    <string name="nav_pay">消费相关</string>
+    <string name="nav_match">比拼活动</string>
+    <string name="nav_future">许愿未来</string>
+    <string name="vip">会员</string>
+    <string name="coin">金币</string>
+    <string name="sign">签到</string>
+    <string name="nav_wife">夫妻相</string>
+    <string name="nav_letter">情书展</string>
+    <string name="nav_discuss">讨论会</string>
+    <string name="nav_wish">许愿树</string>
+    <string name="nav_plane">纸飞机</string>
+    <string name="no_sign">未签到</string>
+    <string name="yes_sign">已签到</string>
+    <string name="now_no_broadcast">暂无广播</string>
+    <string name="now_no_activity">暂无活动</string>
+    <string name="the_holder_period" formatted="false">第%d期</string>
+    <string name="start_time_colon_holder" formatted="false">开始时间：%s</string>
+    <string name="end_time_colon_holder" formatted="false">结束时间：%s</string>
+    <string name="we_chat">微信</string>
+    <string name="ali_pay">支付宝</string>
+    <string name="pay">支付</string>
+    <string name="unknown_kind">未知类型</string>
+    <string name="vip_buy">会员购买</string>
+    <string name="coin_buy">金币购买</string>
+    <string name="alipay_pay">支付宝支付</string>
+    <string name="wechat_pay">微信支付</string>
+    <string name="pay_vip_goods_format" formatted="false">%s\n%s RMB</string>
+    <string name="pay_coin_goods_format" formatted="false">%s\n%d\n%s RMB</string>
+    <string name="pay_error">支付异常</string>
+    <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
+    <string name="over_due_next_holder" formatted="false">过期时间\n%s</string>
+    <string name="history_info">历史信息</string>
+    <string name="go_to_buy">前往购买</string>
+    <string name="no_vip">非会员</string>
+    <string name="no_handle">未办理</string>
+    <string name="open">开启</string>
+    <string name="refuse">禁止</string>
+    <string name="open_image_upload">开启图片上传</string>
+    <string name="refuse_image_upload">禁止图片上传</string>
+    <string name="can_add_holder" formatted="false">可添加%d个</string>
+    <string name="single_paper_max_holder" formatted="false">单张最大%s</string>
+    <string name="can_upload_holder_paper" formatted="false">可上传%d张</string>
+    <string name="single_max_holder" formatted="false">单个最大%s</string>
+    <string name="can_upload_holder" formatted="false">可上传%d个</string>
+    <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
+    <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
+    <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
+    <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励：%d金币</string>
+    <string name="total_works_count_colon_holder" formatted="false">总作品数：%s</string>
+    <string name="total_coin_count_colon_holder" formatted="false">总金币数：%s</string>
+    <string name="total_point_count_colon_holder" formatted="false">总点赞数：%s</string>
+    <string name="old_period">往期</string>
+    <string name="coin_board">金币榜</string>
+    <string name="point_board">点赞榜</string>
+    <string name="new_board">新人榜</string>
+    <string name="work_already_be_screen">作品已被屏蔽</string>
+    <string name="work_already_be_delete">作品已被删除</string>
+    <string name="confirm_del_this_work">确定要删除这个作品吗？</string>
+    <string name="input_coin_count">输入投币数量</string>
+
+</resources>
