@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Result;
@@ -77,7 +78,10 @@ public class VersionEditActivity extends BaseActivity<VersionEditActivity> {
     private void push() {
         Version version = new Version();
         String code = etCode.getText().toString();
-        if (!StringUtils.isNumber(code)) return;
+        if (!StringUtils.isNumber(code)) {
+            ToastUtils.show("code错误");
+            return;
+        }
         version.setVersionName(etName.getText().toString());
         version.setVersionCode(Integer.parseInt(code));
         version.setUpdateUrl(etUrl.getText().toString());

@@ -39,18 +39,12 @@ public class ApiHelper {
             MyApp.get().getString(R.string.girl),
             MyApp.get().getString(R.string.boy),
     };
-    // user登录类型
-    public static final int LOG_PWD = 1;
-    public static final int LOG_VER = 2;
     // user修改类型
     public static final int MODIFY_FORGET = 1;
     public static final int MODIFY_PASSWORD = 2;
     public static final int MODIFY_PHONE = 3;
     public static final int MODIFY_INFO = 4;
-    // cp修改类型
-    public static final int COUPLE_UPDATE_GOOD = 1; // 更好
-    public static final int COUPLE_UPDATE_BAD = 2; // 更坏
-    public static final int COUPLE_UPDATE_INFO = 3;// 信息
+    public static final int MODIFY_STATUS = 5;
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
     private static final int LIST_COMMENT_ORDER_TIME = 1;

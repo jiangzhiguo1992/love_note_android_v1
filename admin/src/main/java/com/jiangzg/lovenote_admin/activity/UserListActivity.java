@@ -32,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import retrofit2.Call;
 
 public class UserListActivity extends BaseActivity<UserListActivity> {
@@ -134,6 +135,21 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
                 getListData(false);
                 break;
         }
+    }
+
+    @OnLongClick({R.id.btnStart, R.id.btnEnd,})
+    public boolean onLongClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnStart:
+                start = 0;
+                refreshDateView();
+                return true;
+            case R.id.btnEnd:
+                end = 0;
+                refreshDateView();
+                return true;
+        }
+        return false;
     }
 
     private void showSexSelectDialog() {

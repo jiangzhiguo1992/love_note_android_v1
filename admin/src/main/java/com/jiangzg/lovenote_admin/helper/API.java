@@ -51,10 +51,7 @@ public interface API {
     Call<Result> ossGet();
 
     @GET("user")
-    Call<Result> userGetById(@Query("uid") long uid);
-
-    @GET("user")
-    Call<Result> userGetByPhone(@Query("phone") String phone);
+    Call<Result> userGet(@Query("uid") long uid, @Query("phone") String phone);
 
     @GET("user?list=1")
     Call<Result> userListGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end, @Query("page") int page);

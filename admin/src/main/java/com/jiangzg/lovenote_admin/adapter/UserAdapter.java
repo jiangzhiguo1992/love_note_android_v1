@@ -4,8 +4,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.activity.UserActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.User;
 
@@ -30,7 +30,7 @@ public class UserAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
         String update = "update：" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String phone = item.getPhone();
         String sexShow = User.getSexShow(item.getSex());
-        String birthday = DateUtils.getString(item.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String birthday = DateUtils.getString(item.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D);
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvCreate, create);
@@ -40,10 +40,9 @@ public class UserAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
         helper.setText(R.id.tvBirthday, birthday);
     }
 
-    // TODO
     public void goUser(final int position) {
         User item = getItem(position);
-        ToastUtils.show("user 跳转 " + item.getId());
+        UserActivity.goActivity(mActivity, item.getId());
     }
 
 }
