@@ -6,12 +6,19 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.SmsActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
+import com.jiangzg.lovenote_admin.domain.Result;
+import com.jiangzg.lovenote_admin.helper.API;
+import com.jiangzg.lovenote_admin.helper.ApiHelper;
+import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import retrofit2.Call;
 
 public class UserFragment extends BaseFragment<UserFragment> {
 
@@ -70,6 +77,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     @Override
     protected void initData(Bundle state) {
         // TODO
+        getSmsData();
     }
 
     @Override
@@ -100,6 +108,37 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 // TODO
                 break;
         }
+    }
+
+    private void getSmsData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startDay = (currentLong - ConstantUtils.DAY) / 1000;
+        long startWeek = (currentLong - ConstantUtils.DAY * 7) / 1000;
+        long endAt = currentLong / 1000;
+        Call<Result> callDay = new RetrofitHelper().call(API.class).smsCountGet(startDay, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSmsDaySend.setText("天：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSmsDaySend.setText("天：fail");
+            }
+        });
+        Call<Result> callWeek = new RetrofitHelper().call(API.class).smsCountGet(startWeek, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        RetrofitHelper.enqueue(callWeek, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSmsWeekSend.setText("周：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSmsWeekSend.setText("周：fail");
+            }
+        });
     }
 
 }
