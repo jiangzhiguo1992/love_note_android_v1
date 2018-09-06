@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.helper;
 import com.jiangzg.lovenote_admin.domain.Broadcast;
 import com.jiangzg.lovenote_admin.domain.Notice;
 import com.jiangzg.lovenote_admin.domain.Result;
+import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.domain.Version;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
@@ -49,6 +51,9 @@ public interface API {
 
     @GET("oss?admin=1")
     Call<Result> ossGet();
+
+    @PUT("user")
+    Call<Result> userModify(@Query("type") int type, @Body User user);
 
     @GET("user")
     Call<Result> userGet(@Query("uid") long uid, @Query("phone") String phone);

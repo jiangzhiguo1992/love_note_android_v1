@@ -21,6 +21,8 @@ import com.jiangzg.lovenote_admin.domain.BaseObj;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.helper.API;
+import com.jiangzg.lovenote_admin.helper.ApiHelper;
+import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
 
@@ -128,19 +130,15 @@ public class UserActivity extends BaseActivity<UserActivity> {
 
     @OnLongClick({R.id.btnStatus, R.id.btnSex, R.id.btnBirthday,})
     public boolean onLongClick(View view) {
-        if (user == null) {
-            ToastUtils.show("user为空");
-            return false;
-        }
         switch (view.getId()) {
             case R.id.btnStatus:
-                // TODO
+                modifyUser(ApiHelper.MODIFY_ADMIN_UPDATE_STATUS, user);
                 return true;
             case R.id.btnSex:
-                // TODO
+                modifySex();
                 return true;
             case R.id.btnBirthday:
-                // TODO
+                showBirthDayPicker();
                 return true;
         }
         return false;
@@ -178,6 +176,56 @@ public class UserActivity extends BaseActivity<UserActivity> {
         tvUpdate.setText(DateUtils.getString(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         btnSex.setText(User.getSexShow(user.getSex()));
         btnBirthday.setText(DateUtils.getString(user.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D));
+    }
+
+    private void modifySex() {
+        if (user == null) {
+            ToastUtils.show("user为空");
+            return;
+        }
+        User modify = new User();
+        modify.setId(user.getId());
+        modify.setStatus(user.getStatus());
+        modify.setSex(user.getSex() == User.SEX_GIRL ? User.SEX_BOY : User.SEX_GIRL);
+        modify.setBirthday(user.getBirthday());
+        modifyUser(ApiHelper.MODIFY_ADMIN_UPDATE_INFO, modify);
+    }
+
+    private void showBirthDayPicker() {
+        if (user == null) {
+            ToastUtils.show("user为空");
+            return;
+        }
+        DialogHelper.showDatePicker(mActivity, user.getBirthday() * 1000, new DialogHelper.OnPickListener() {
+            @Override
+            public void onPick(long time) {
+                User modify = new User();
+                modify.setId(user.getId());
+                modify.setStatus(user.getStatus());
+                modify.setSex(user.getSex());
+                modify.setBirthday(time / 1000);
+                modifyUser(ApiHelper.MODIFY_ADMIN_UPDATE_INFO, modify);
+            }
+        });
+    }
+
+    private void modifyUser(int type, User modify) {
+        if (modify == null) {
+            ToastUtils.show("user为空");
+            return;
+        }
+        Call<Result> call = new RetrofitHelper().call(API.class).userModify(type, modify);
+        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                user = data.getUser();
+                refreshView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
 }
