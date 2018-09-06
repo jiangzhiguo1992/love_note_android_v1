@@ -670,7 +670,7 @@
     <string name="help_note_souvenir_c3_q">纪念日的关联数据，每年能关联几个同类型数据？</string>
     <string name="help_note_souvenir_c3_a" formatted="false">%d个哦！</string>
     <string name="help_note_work_c1_q">为什么我发布了留言，对方却不能收到？</string>
-    <string name="help_note_work_c1_a">这是留言板，不是聊天哦。不是实时发送的，需要下拉刷新才能看到哦。\n本app和其他市面上情侣app还有一点不一样，就是没有实时聊天功能，因为我们只专注记录与分享！\n而且某信的聊天功能已经做得非常完善了，我们就不献丑了呢！</string>
+    <string name="help_note_work_c1_a">这是留言板，不是聊天哦。不是实时发送的，需要下拉刷新才能看到哦。\n本app和其他市面上情侣app还有一点不一样，就是没有实时聊天功能，因为我们只专注记录与分享！</string>
     <string name="help_note_whisper_d">这是一个可以说悄悄话的地方。\n是不是有些话憋在心里难受，说又没地方说？这里就是你发泄的天堂！\n当然了，除了发泄，还有点点情趣呢，发表一句TA想听到的话，然后让TA使劲找吧，hiahiahia~</string>
     <string name="help_note_whisper_c1_q">这里的内容会被别人看到吗？</string>
     <string name="help_note_whisper_c1_a">不会的，整个小本本模块里的内容都只有你和TA可见，包括这里。\n而且就算TA要看也要输对频道才行，是不是很有意思？</string>
@@ -681,8 +681,6 @@
     <string name="help_note_award_c1_a">1.无规矩不成方圆。首先双方可以添加一些规则，用来告诉双方哪些事会触发机制。\n2.一旦触发了规则里事，就可以添加奖励，每个奖励必须依赖某个规则，不可以乱加哦！\n3.奖励发表的多了，就能看出来谁分高，谁分低了。谁做的好，谁做的不好。</string>
     <string name="help_note_award_c2_q">举个栗子！</string>
     <string name="help_note_award_c2_a">1.妹子讨厌男生抽烟，于是发布了一条规则：抽烟-10分。\n2.发现男生抽烟了，发布奖励，依赖抽烟的规则，男生总分数-10。\n3.分数总是负的不行啊，然后再发布一条规则：男生一天不打游戏的话，+10分。\n4.大概就是这样子，要有扣分规则，也要有加分规则，这样才平衡。</string>
-    <string name="help_note_award_c3_q">为什么会有这个功能？</string>
-    <string name="help_note_award_c3_a">题外话，因为我们BOSS和他女友相恋的时候，就是这么做的，感觉很有意思，然后强推这个功能。233333~</string>
     <string name="help_note_dream_d">不妨在梦醒的那一刻，快速记录下来。\n昨夜的梦，一定要记录下来哦！要不然会慢慢的消失掉，就像你的名字。\n待到年老时刻，回过头来看看，是不是别有一番风味呢？</string>
     <string name="help_note_travel_d">一次约会，一次旅游，一次散步，一次踏足，甚至是一次异地恋的相见。都可以在这里记录哦！</string>
     <string name="help_note_travel_c1_q">每个游记可以添加多少关联数据呢？</string>
@@ -698,14 +696,14 @@
     <string name="help_topic_post_c2_q">点赞，收藏，戳TA，三者的区别是？</string>
     <string name="help_topic_post_c2_a">点赞和收藏的区别，前者没有相关记录，后者可以在用户的收藏模块中找到收藏内容。\n戳TA：如果觉得某个内容不错，想分享给TA，不妨戳TA一下，TA会在消息系统中收到消息，并可进入被戳的帖子或评论中来。</string>
     <string name="help_topic_post_c3_q">发现了不适的内容怎么办？</string>
-    <string name="help_topic_post_c3_a">举报！举报！举报！\n社区是大家的，运营也需要靠大家的一份力量。欢迎大家踊跃举报不适的内容，我们也会努力维护一个舒适的环境。</string>
+    <string name="help_topic_post_c3_a">涉黄，举报！广告，举报！恶言，举报！\n社区是大家的，运营也需要靠大家的一份力量。欢迎大家踊跃举报不适的内容，我们也会努力维护一个舒适的环境。</string>
     <string name="help_more_home_d">这是一个类似于《更多》的模块，在关注和分享里塞不下的功能，会全放到这里哦，比如广播系统，消费系统，活动系统等等。</string>
     <string name="help_more_vip_c1_q">这个app只有办会员才能玩吗？</string>
-    <string name="help_more_vip_c1_a">并不是！！！\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，能免费的我们一定不会收费。\n而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。</string>
+    <string name="help_more_vip_c1_a">并不是！！！\n相信大家可以感觉到，很多情侣恋爱app中的收费项，在我们这里都是免费的，而我们的会员一般是和存储空间挂钩的，当用户空间超出了免费的份额之后，就有必要办会员了。</string>
     <string name="help_more_vip_c2_q">TA买了会员后，我还需要再买吗？</string>
     <string name="help_more_vip_c2_a">不需要！一人购买，两人通用。</string>
     <string name="help_more_vip_c3_q">我办了会员了，但是空间还是不够，怎么办？</string>
-    <string name="help_more_vip_c3_a">这个这个这个嘛。。。。。。\n很多空间我们是算好了的，一般的情侣一辈子也用不完，但不排除需求特别特别特别大的情侣们。\n如果真的有情侣们的存储空间不够用了，我们会在后期加大空间，请大家敬请期待！</string>
+    <string name="help_more_vip_c3_a">很多空间我们是算好了的，一般的情侣一辈子也用不完，但不排除需求特别特别特别大的情侣们。\n如果真的出现了用户的存储空间不够用的状况，我们会在后期作出相应策略，敬请期待！</string>
     <string name="help_more_coin_c1_q">金币的来源都有哪些？</string>
     <string name="help_more_coin_c1_a">1.用户购买。\n2.每日签到，具体给予数量规则，请移步每日签到查看相关文档。\n3.参加活动，部分活动参与会给予金币奖励哦。</string>
     <string name="help_more_coin_c2_q">金币有什么用？</string>
@@ -713,7 +711,7 @@
     <string name="help_more_bill_c1_q">支付失败了怎么办？</string>
     <string name="help_more_bill_c1_a">亲，看看有没有什么提示信息，可以移步《意见反馈》中反馈给我们，或者是移步《关于我们》中，联系客服人员帮您解决问题。</string>
     <string name="help_more_bill_c2_q">支付成功了，但是买的东西没有给我？</string>
-    <string name="help_more_bill_c2_a">在支付按钮的下方会有提示，点击相关提示，可更新购买商品状况。\n如果以上办法不能解决，请大人您一定要反馈给我们，任何方式都行(首推找客服人员)，我们会第一时间为您解决问题！\n任何因我们的失误，导致用户服务购买失败的，我们会第一时间补救，请一定要相信我们的服务态度。</string>
+    <string name="help_more_bill_c2_a">在支付按钮的下方会有文字提示，点击相关提示，可更新购买商品状况。\n如果以上办法不能解决，请大人您一定要反馈给我们，任何方式都行(首推找客服人员)，我们会第一时间为您解决问题！\n任何因我们的失误，导致用户服务购买失败的，我们会第一时间补救，请一定要相信我们的服务态度。</string>
     <string name="help_more_sign_c1_q">签到有什么用？</string>
     <string name="help_more_sign_c1_a">目前只有给予金币这个用途，不排除后续会开发其他的功能，如签到排行榜等！</string>
     <string name="help_more_sign_c2_q">为什么我今天没签到，却提示我签到了？</string>
@@ -734,9 +732,9 @@
     <string name="help_other_c1_q">app的操作习惯是？</string>
     <string name="help_other_c1_a">我们的口号是：没事下拉刷新，有事长按看看！</string>
     <string name="help_other_c2_q">app的设计风格是？</string>
-    <string name="help_other_c2_a">完全参照流行的由Google提出的MaterialDesign的理念来设计的，主要实现方式为卡片式布局+沉浸式体验。\n注：产品的开发和设计均有我们的BOSS来负责，BOSS是个苦逼程序猿(大家没有听到)，做出来的产品也是好坏参半。\n优点是，能用代码解决的事情绝对不用美工，插画少，极简风格。缺点是，想什么呢，我是不会说的！。\n我们会努力迭代新的界面，给大家一个亮瞎眼的app。</string>
+    <string name="help_other_c2_a">完全参照流行的由Google提出的MaterialDesign的理念来设计的，主要实现方式为卡片式布局+沉浸式体验。\n我们会不断的努力迭代新的界面，给大家一个舒适的体验。</string>
     <string name="help_other_c3_q">app的开发理念是？</string>
-    <string name="help_other_c3_a">上面说过了，BOSS是程序猿，而且特别遵守行业规范，每天都要教导我们不要瞎搞事！\n1.基本禁止后台活动，app基本不会在未获得用户允许的情况下开启后台活动，导致设备卡顿。\n2.不会频繁的与后台做数据交互，这个权力都控制在用户手里，比如位置的下拉刷新。\n3.尽量减小apk大小，压到10M以下！能不用框架就不用框架，能用矢量图就不要用位图。\n4.一定不要卡顿，尽量提升界面的响应速度(设备性能也有影响)，线程处理要做好。\n5.坚持原生开发！市面上虽然很多app都采用混合开发，但是我们不会！BOSS极力反对混合开发，虽然混合开发可以节约公司人力成本，缩短开发周期。但是！但是！导致的后续结果就是app性能差，我们宁愿多花点时间，多招点人来做好这个app，也不会选择让用户来承受卡卡西般的体验。</string>
+    <string name="help_other_c3_a">BOSS是程序猿，而且特别遵守行业规范！\n1.基本禁止后台活动，app基本不会在未获得用户允许的情况下开启后台活动，导致设备卡顿。\n2.不会频繁的与后台做数据交互，这个权力都控制在用户手里，比如位置的下拉刷新。\n3.尽量减小apk大小，压到10M以下！能不用框架就不用框架，能用矢量图就不要用位图。\n4.一定不要卡顿，尽量提升界面的响应速度(设备性能也有影响)，线程处理要做好。\n5.坚持原生开发！市面上虽然很多app都采用混合开发，但是我们不会！BOSS极力反对混合开发，虽然混合开发可以节约公司人力成本，缩短开发周期。但是！但是！导致的后续结果就是app性能差，我们宁愿多花点时间，多招点人来做好这个app，也不会选择让用户来承受卡卡西般的体验。</string>
     <string name="help_other_c4_q">上传的图片会压缩吗？</string>
     <string name="help_other_c4_a">注意了，凡是有单张大小上限的是不会压缩的，没有上限的都会压缩。\n压缩的话，可以放心，我们的方式很温柔，尽量减少对图片清晰度的丢失。</string>
     <string name="help_other_c5_q">强迫症福音？</string>

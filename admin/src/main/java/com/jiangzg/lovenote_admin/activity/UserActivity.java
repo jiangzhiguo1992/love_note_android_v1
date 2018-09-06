@@ -17,6 +17,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
+import com.jiangzg.lovenote_admin.domain.BaseObj;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.helper.API;
@@ -32,12 +33,14 @@ public class UserActivity extends BaseActivity<UserActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnSearch)
-    Button btnSearch;
     @BindView(R.id.etId)
     EditText etId;
     @BindView(R.id.etPhone)
     EditText etPhone;
+    @BindView(R.id.btnSearch)
+    Button btnSearch;
+    @BindView(R.id.btnStatus)
+    Button btnStatus;
     @BindView(R.id.tvCreate)
     TextView tvCreate;
     @BindView(R.id.tvUpdate)
@@ -123,13 +126,16 @@ public class UserActivity extends BaseActivity<UserActivity> {
         }
     }
 
-    @OnLongClick({R.id.btnSex, R.id.btnBirthday,})
+    @OnLongClick({R.id.btnStatus, R.id.btnSex, R.id.btnBirthday,})
     public boolean onLongClick(View view) {
         if (user == null) {
             ToastUtils.show("user为空");
             return false;
         }
         switch (view.getId()) {
+            case R.id.btnStatus:
+                // TODO
+                return true;
             case R.id.btnSex:
                 // TODO
                 return true;
@@ -167,6 +173,7 @@ public class UserActivity extends BaseActivity<UserActivity> {
         }
         etId.setText(String.valueOf(user.getId()));
         etPhone.setText(user.getPhone());
+        btnStatus.setText(user.getStatus() == BaseObj.STATUS_VISIBLE ? "正常ing" : "拉黑ing");
         tvCreate.setText(DateUtils.getString(user.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         tvUpdate.setText(DateUtils.getString(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         btnSex.setText(User.getSexShow(user.getSex()));

@@ -68,10 +68,10 @@ public class ApiHelper {
     public static final int LOG_PWD = 1;
     public static final int LOG_VER = 2;
     // user修改类型
-    public static final int MODIFY_FORGET = 1;
-    public static final int MODIFY_PASSWORD = 2;
-    public static final int MODIFY_PHONE = 3;
-    public static final int MODIFY_INFO = 4;
+    public static final int MODIFY_FORGET = 11;
+    public static final int MODIFY_PASSWORD = 12;
+    public static final int MODIFY_PHONE = 13;
+    public static final int MODIFY_INFO = 14;
     // cp修改类型
     public static final int COUPLE_UPDATE_GOOD = 1; // 更好
     public static final int COUPLE_UPDATE_BAD = 2; // 更坏

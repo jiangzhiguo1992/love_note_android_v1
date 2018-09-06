@@ -209,8 +209,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         String startAt = start == 0 ? "未知" : DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String endAt = end == 0 ? "未知" : DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         btnCreate.setText("c: " + createAt);
-        btnStart.setText("s: " + startAt);
-        btnEnd.setText("e: " + endAt);
+        btnStart.setText("bs: " + startAt);
+        btnEnd.setText("be: " + endAt);
     }
 
     private void getCountData() {

@@ -40,11 +40,8 @@ public class ApiHelper {
             MyApp.get().getString(R.string.boy),
     };
     // user修改类型
-    public static final int MODIFY_FORGET = 1;
-    public static final int MODIFY_PASSWORD = 2;
-    public static final int MODIFY_PHONE = 3;
-    public static final int MODIFY_INFO = 4;
-    public static final int MODIFY_STATUS = 5;
+    public static final int MODIFY_ADMIN_UPDATE_INFO = 21;
+    public static final int MODIFY_ADMIN_UPDATE_STATUS = 22;
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
     private static final int LIST_COMMENT_ORDER_TIME = 1;

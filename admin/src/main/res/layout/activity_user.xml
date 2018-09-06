@@ -33,25 +33,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
             android:hint="phone"
             android:inputType="phone"
             android:padding="10dp"
             android:textColorHint="@color/font_hint"/>
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSearch"
-        style="@style/FontWhiteNormal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/search"/>
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/search"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnStatus"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="正常ing"/>
 
         <TextView
             android:id="@+id/tvCreate"
