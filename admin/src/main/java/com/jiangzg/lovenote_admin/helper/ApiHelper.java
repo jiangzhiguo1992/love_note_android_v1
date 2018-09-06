@@ -42,6 +42,19 @@ public class ApiHelper {
     // user修改类型
     public static final int MODIFY_ADMIN_UPDATE_INFO = 21;
     public static final int MODIFY_ADMIN_UPDATE_STATUS = 22;
+    // entry
+    public static final String ENTRY_FILED_DEVICE_NAME = "deviceName";
+    public static final String ENTRY_FILED_MARKET = "market";
+    public static final String ENTRY_FILED_PLATFORM = "platform";
+    public static final String ENTRY_FILED_OS_VERSION = "osVersion";
+    public static final String ENTRY_FILED_APP_VERSION = "appVersion";
+    public static final String[] LIST_ENTRY_FILEDS_SHOW = new String[]{
+            ENTRY_FILED_DEVICE_NAME,
+            ENTRY_FILED_MARKET,
+            ENTRY_FILED_PLATFORM,
+            ENTRY_FILED_OS_VERSION,
+            ENTRY_FILED_APP_VERSION,
+    };
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
     private static final int LIST_COMMENT_ORDER_TIME = 1;

@@ -3,7 +3,7 @@ package com.jiangzg.lovenote_admin.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -51,18 +51,8 @@ public class UserActivity extends BaseActivity<UserActivity> {
     Button btnSex;
     @BindView(R.id.btnBirthday)
     Button btnBirthday;
-    @BindView(R.id.tvEntryDay)
-    TextView tvEntryDay;
-    @BindView(R.id.tvEntryWeek)
-    TextView tvEntryWeek;
-    @BindView(R.id.cvEntry)
-    CardView cvEntry;
-    @BindView(R.id.tvApiHour)
-    TextView tvApiHour;
-    @BindView(R.id.tvApiDay)
-    TextView tvApiDay;
-    @BindView(R.id.cvApi)
-    CardView cvApi;
+    @BindView(R.id.rv)
+    RecyclerView rv;
 
     private User user;
 
@@ -105,25 +95,11 @@ public class UserActivity extends BaseActivity<UserActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.btnSearch, R.id.cvEntry, R.id.cvApi})
+    @OnClick({R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
                 getUserData();
-                break;
-            case R.id.cvEntry:
-                if (user == null) {
-                    ToastUtils.show("user为空");
-                    return;
-                }
-                // TODO
-                break;
-            case R.id.cvApi:
-                if (user == null) {
-                    ToastUtils.show("user为空");
-                    return;
-                }
-                // TODO
                 break;
         }
     }
@@ -156,6 +132,7 @@ public class UserActivity extends BaseActivity<UserActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 user = data.getUser();
                 refreshView();
+                getApiData();
             }
 
             @Override
@@ -226,6 +203,10 @@ public class UserActivity extends BaseActivity<UserActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+    }
+
+    private void getApiData() {
+        // TODO rv
     }
 
 }

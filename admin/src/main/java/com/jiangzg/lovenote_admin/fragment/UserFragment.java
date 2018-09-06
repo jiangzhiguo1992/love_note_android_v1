@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.activity.EntryActivity;
 import com.jiangzg.lovenote_admin.activity.SmsActivity;
 import com.jiangzg.lovenote_admin.activity.UserListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
@@ -78,27 +79,28 @@ public class UserFragment extends BaseFragment<UserFragment> {
     @Override
     protected void initData(Bundle state) {
         getUserData();
-        // TODO
         getSmsData();
+        getEntryData();
+        // TODO
     }
 
     @Override
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.cvUserNew, R.id.cvUserActive,
-            R.id.cvSms, R.id.cvApi,
+    @OnClick({R.id.cvUserNew, R.id.cvSms,
+            R.id.cvUserActive, R.id.cvApi,
             R.id.cvSuggest, R.id.cvSuggestComment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvUserNew: // 注册用户
                 UserListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvUserActive: // 活跃用户
-                // TODO
-                break;
             case R.id.cvSms: // 短信发送
                 SmsActivity.goActivity(mFragment);
+                break;
+            case R.id.cvUserActive: // 活跃用户
+                EntryActivity.goActivity(mFragment);
                 break;
             case R.id.cvApi: // 用户行为
                 // TODO
@@ -169,6 +171,36 @@ public class UserFragment extends BaseFragment<UserFragment> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 tvSmsWeekSend.setText("周：fail");
+            }
+        });
+    }
+
+    private void getEntryData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startDay = (currentLong - ConstantUtils.DAY) / 1000;
+        long startWeek = (currentLong - ConstantUtils.DAY * 7) / 1000;
+        Call<Result> callDay = new RetrofitHelper().call(API.class).entryCountGet(startDay);
+        RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvUserDayActive.setText("天：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvUserDayActive.setText("天：fail");
+            }
+        });
+        Call<Result> callWeek = new RetrofitHelper().call(API.class).entryCountGet(startWeek);
+        RetrofitHelper.enqueue(callWeek, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvUserWeekActive.setText("周：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvUserWeekActive.setText("周：fail");
             }
         });
     }

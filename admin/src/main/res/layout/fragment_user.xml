@@ -62,56 +62,6 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cvUserActive"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="活跃用户(entry)"/>
-
-                    <TextView
-                        android:id="@+id/tvUserDayActive"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="天："/>
-
-                    <TextView
-                        android:id="@+id/tvUserWeekActive"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="周："/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
                 android:id="@+id/cvSms"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -147,6 +97,56 @@
 
                     <TextView
                         android:id="@+id/tvSmsWeekSend"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="周："/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvUserActive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="活跃用户(entry)"/>
+
+                    <TextView
+                        android:id="@+id/tvUserDayActive"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="天："/>
+
+                    <TextView
+                        android:id="@+id/tvUserWeekActive"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

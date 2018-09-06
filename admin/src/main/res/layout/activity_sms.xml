@@ -23,6 +23,7 @@
             android:layout_weight="1"
             android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
             android:hint="phone"
+            android:inputType="phone"
             android:padding="10dp"
             android:textColorHint="@color/font_hint"/>
 

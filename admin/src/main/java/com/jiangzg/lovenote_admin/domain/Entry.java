@@ -7,12 +7,21 @@ package com.jiangzg.lovenote_admin.domain;
 
 public class Entry extends BaseObj {
 
+    private long userId;
     private String deviceId;
     private String deviceName;
     private String market;
     private String platform;
     private String osVersion;
     private int appVersion;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public String getMarket() {
         return market;
