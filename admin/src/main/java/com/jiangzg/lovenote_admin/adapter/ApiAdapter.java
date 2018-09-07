@@ -8,7 +8,6 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.UserActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Api;
-import com.jiangzg.lovenote_admin.domain.Entry;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -26,9 +25,9 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Api item) {
         // data
-        String id = "id：" + item.getId();
-        String create = "create：" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "update：" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String id = "id:" + item.getId();
+        String create = "create:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "update:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String userId = String.valueOf(item.getUserId());
         String duration = String.valueOf(item.getDuration());
         String uri = item.getUri();
@@ -47,7 +46,9 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
 
     public void goUser(final int position) {
         Api item = getItem(position);
-        UserActivity.goActivity(mActivity, item.getUserId());
+        if (item.getUserId() > 0) {
+            UserActivity.goActivity(mActivity, item.getUserId());
+        }
     }
 
 }

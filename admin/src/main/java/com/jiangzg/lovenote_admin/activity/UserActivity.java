@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,15 +17,20 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.adapter.ApiAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
+import com.jiangzg.lovenote_admin.domain.Api;
 import com.jiangzg.lovenote_admin.domain.BaseObj;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
+import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,6 +61,8 @@ public class UserActivity extends BaseActivity<UserActivity> {
     RecyclerView rv;
 
     private User user;
+    private RecyclerHelper recyclerHelper;
+    private int page;
 
     public static void goActivity(Activity from, long uid) {
         Intent intent = new Intent(from, UserActivity.class);
@@ -84,15 +92,30 @@ public class UserActivity extends BaseActivity<UserActivity> {
         // phone
         String phone = intent.getStringExtra("phone");
         etPhone.setText(phone);
+        // recycler
+        recyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new ApiAdapter(mActivity))
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
+                .listenerMore(new RecyclerHelper.MoreListener() {
+                    @Override
+                    public void onMore(int currentCount) {
+                        getApiData(true);
+                    }
+                });
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        page = 0;
         getUserData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @OnClick({R.id.btnSearch})
@@ -132,7 +155,7 @@ public class UserActivity extends BaseActivity<UserActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 user = data.getUser();
                 refreshView();
-                getApiData();
+                getApiData(false);
             }
 
             @Override
@@ -205,8 +228,27 @@ public class UserActivity extends BaseActivity<UserActivity> {
         });
     }
 
-    private void getApiData() {
-        // TODO rv
+    private void getApiData(final boolean more) {
+        if (user == null) {
+            ToastUtils.show("user为空");
+            return;
+        }
+        Call<Result> call = new RetrofitHelper().call(API.class).apiUserListGet(user.getId(), page);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Api> apiList = data.getApiList();
+                recyclerHelper.dataOk(apiList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
+            }
+        });
     }
 
 }

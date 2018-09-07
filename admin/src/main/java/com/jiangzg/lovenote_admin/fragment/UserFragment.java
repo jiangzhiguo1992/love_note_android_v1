@@ -209,10 +209,10 @@ public class UserFragment extends BaseFragment<UserFragment> {
     }
 
     private void getApiData() {
-        long currentLong = DateUtils.getCurrentLong();
-        long startHour = (currentLong - ConstantUtils.HOUR) / 1000;
-        long startDay = (currentLong - ConstantUtils.DAY) / 1000;
-        Call<Result> callHour = new RetrofitHelper().call(API.class).entryTotalGet(startHour);
+        long end = DateUtils.getCurrentLong();
+        long startHour = (end - ConstantUtils.HOUR) / 1000;
+        long startDay = (end - ConstantUtils.DAY) / 1000;
+        Call<Result> callHour = new RetrofitHelper().call(API.class).apiTotalGet(startHour, end);
         RetrofitHelper.enqueue(callHour, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -224,7 +224,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvApiHour.setText("时：fail");
             }
         });
-        Call<Result> callDay = new RetrofitHelper().call(API.class).entryTotalGet(startDay);
+        Call<Result> callDay = new RetrofitHelper().call(API.class).apiTotalGet(startDay, end);
         RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

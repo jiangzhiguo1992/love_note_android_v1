@@ -25,9 +25,9 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Entry item) {
         // data
-        String id = "id：" + item.getId();
-        String create = "create：" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "update：" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String id = "id:" + item.getId();
+        String create = "create:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "update:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String userId = String.valueOf(item.getUserId());
         String platform = item.getPlatform();
         String market = item.getMarket();
