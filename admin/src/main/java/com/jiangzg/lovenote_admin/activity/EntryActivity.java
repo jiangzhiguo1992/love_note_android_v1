@@ -32,7 +32,6 @@ import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
 
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -272,8 +271,8 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                Map<String, Long> countList = data.getCountList();
-                showFiledResultDialog(countList);
+                List<Entry.FiledInfo> infoList = data.getInfoList();
+                showFiledResultDialog(infoList);
             }
 
             @Override
@@ -282,15 +281,16 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         });
     }
 
-    private void showFiledResultDialog(Map<String, Long> countList) {
+    private void showFiledResultDialog(List<Entry.FiledInfo> infoList) {
         StringBuilder builder = new StringBuilder();
-        if (countList == null || countList.size() <= 0) {
+        if (infoList == null || infoList.size() <= 0) {
             builder.append("没有信息");
         } else {
-            for (Map.Entry entry : countList.entrySet()) {
-                builder.append(entry.getKey())
+            for (Entry.FiledInfo info : infoList) {
+                if (info == null) continue;
+                builder.append(info.getName())
                         .append(" == (")
-                        .append(entry.getValue())
+                        .append(info.getCount())
                         .append(")")
                         .append("\n");
             }

@@ -2,7 +2,6 @@ package com.jiangzg.lovenote_admin.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by JZG on 2017/12/15.
@@ -57,14 +56,14 @@ public class Result implements Serializable {
         private List<Notice> noticeList;
         private List<Broadcast> broadcastList;
         private List<Entry> entryList;
-        private Map<String, Long> countList;
+        private List<Entry.FiledInfo> infoList;
 
-        public Map<String, Long> getCountList() {
-            return countList;
+        public List<Entry.FiledInfo> getInfoList() {
+            return infoList;
         }
 
-        public void setCountList(Map<String, Long> countList) {
-            this.countList = countList;
+        public void setInfoList(List<Entry.FiledInfo> infoList) {
+            this.infoList = infoList;
         }
 
         public List<Entry> getEntryList() {
