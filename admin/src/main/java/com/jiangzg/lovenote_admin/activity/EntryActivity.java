@@ -23,6 +23,7 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.EntryAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Entry;
+import com.jiangzg.lovenote_admin.domain.FiledInfo;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.ApiHelper;
@@ -148,7 +149,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
                 showFiledSelectDialog();
                 break;
             case R.id.btnFiledSearch:
-                getFiledCountData();
+                getFiledGroupData();
                 break;
         }
     }
@@ -170,7 +171,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
     }
 
     private void showListCreatePicker() {
-        DialogHelper.showDatePicker(mActivity, listCreate, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, listCreate, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 listCreate = time;
@@ -180,7 +181,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
     }
 
     private void showFiledCreatePicker() {
-        DialogHelper.showDatePicker(mActivity, filedCreate, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, filedCreate, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 filedCreate = time;
@@ -265,13 +266,13 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void getFiledCountData() {
+    private void getFiledGroupData() {
         String filed = btnFiled.getText().toString().trim();
         Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(filedCreate / 1000, filed);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                List<Entry.FiledInfo> infoList = data.getInfoList();
+                List<FiledInfo> infoList = data.getInfoList();
                 showFiledResultDialog(infoList);
             }
 
@@ -281,17 +282,16 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         });
     }
 
-    private void showFiledResultDialog(List<Entry.FiledInfo> infoList) {
+    private void showFiledResultDialog(List<FiledInfo> infoList) {
         StringBuilder builder = new StringBuilder();
         if (infoList == null || infoList.size() <= 0) {
             builder.append("没有信息");
         } else {
-            for (Entry.FiledInfo info : infoList) {
+            for (FiledInfo info : infoList) {
                 if (info == null) continue;
-                builder.append(info.getName())
-                        .append(" == (")
-                        .append(info.getCount())
-                        .append(")")
+                builder.append(info.getCount())
+                        .append(" == ")
+                        .append(info.getName())
                         .append("\n");
             }
         }

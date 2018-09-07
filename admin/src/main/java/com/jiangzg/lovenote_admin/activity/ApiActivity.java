@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote_admin.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -16,14 +16,13 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.adapter.SmsAdapter;
+import com.jiangzg.lovenote_admin.adapter.ApiAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
+import com.jiangzg.lovenote_admin.domain.Api;
+import com.jiangzg.lovenote_admin.domain.FiledInfo;
 import com.jiangzg.lovenote_admin.domain.Result;
-import com.jiangzg.lovenote_admin.domain.Sms;
 import com.jiangzg.lovenote_admin.helper.API;
-import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
@@ -35,59 +34,59 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-public class SmsActivity extends BaseActivity<SmsActivity> {
+public class ApiActivity extends BaseActivity<ApiActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.etPhone)
-    EditText etPhone;
-    @BindView(R.id.btnType)
-    Button btnType;
+    @BindView(R.id.btnCreate)
+    Button btnCreate;
+    @BindView(R.id.btnUri)
+    Button btnUri;
+    @BindView(R.id.btnSearch)
+    Button btnSearch;
     @BindView(R.id.btnStart)
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
     @BindView(R.id.btnCount)
     Button btnCount;
-    @BindView(R.id.btnSearch)
-    Button btnSearch;
     @BindView(R.id.rv)
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private int searchIndex;
-    private long start, end;
+    private long create, start, end;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), SmsActivity.class);
+        Intent intent = new Intent(from.getActivity(), ApiActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, long uid) {
+        Intent intent = new Intent(from, ApiActivity.class);
+        intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_sms;
+        return R.layout.activity_api;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "sms", true);
-        // phone
-        String phone = intent.getStringExtra("phone");
-        etPhone.setText(phone);
-        // search
-        searchIndex = 0;
-        btnType.setText(ApiHelper.LIST_SMS_SHOW[searchIndex]);
+        ViewHelper.initTopBar(mActivity, tb, "api", true);
         // time
-        start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
+        create = start = DateUtils.getCurrentLong() - ConstantUtils.HOUR;
         end = DateUtils.getCurrentLong();
         refreshDateView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new SmsAdapter(mActivity))
+                .initAdapter(new ApiAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -100,8 +99,8 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        SmsAdapter smsAdapter = (SmsAdapter) adapter;
-                        smsAdapter.goUser(position);
+                        ApiAdapter apiAdapter = (ApiAdapter) adapter;
+                        apiAdapter.goUser(position);
                     }
                 });
     }
@@ -116,11 +115,17 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnType, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnSearch})
+    @OnClick({R.id.btnCreate, R.id.btnUri, R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnCount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnType:
-                showTypeSelectDialog();
+            case R.id.btnCreate:
+                showCreatePicker();
+                break;
+            case R.id.btnUri:
+                getUriData();
+                break;
+            case R.id.btnSearch:
+                getListData(false);
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -129,32 +134,85 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
                 showEndPicker();
                 break;
             case R.id.btnCount:
-                getCount();
-                break;
-            case R.id.btnSearch:
-                getListData(false);
+                getTotalData();
                 break;
         }
     }
 
-    private void showTypeSelectDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_SMS_SHOW)
-                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        searchIndex = which;
-                        btnType.setText(ApiHelper.LIST_SMS_SHOW[searchIndex]);
-                        DialogUtils.dismiss(dialog);
-                        return true;
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
+    private void refreshDateView() {
+        String createAt = DateUtils.getString(create, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnCreate.setText("c: " + createAt);
+        btnStart.setText("s: " + startAt);
+        btnEnd.setText("e: " + endAt);
+    }
+
+    private void showCreatePicker() {
+        DialogHelper.showDateTimePicker(mActivity, create, new DialogHelper.OnPickListener() {
+            @Override
+            public void onPick(long time) {
+                create = time;
+                refreshDateView();
+            }
+        });
+    }
+
+    private void getUriData() {
+        Call<Result> call = new RetrofitHelper().call(API.class).apiUriGet(create / 1000);
+        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                List<FiledInfo> infoList = data.getInfoList();
+                showUriResultDialog(infoList);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    private void showUriResultDialog(List<FiledInfo> infoList) {
+        StringBuilder builder = new StringBuilder();
+        if (infoList == null || infoList.size() <= 0) {
+            builder.append("没有信息");
+        } else {
+            for (FiledInfo info : infoList) {
+                if (info == null) continue;
+                builder.append(info.getCount())
+                        .append(" == ")
+                        .append(info.getName())
+                        .append("\n");
+            }
+        }
+        String show = builder.toString();
+        DialogHelper.getBuild(mActivity).content(show).show();
+    }
+
+    private void getListData(final boolean more) {
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).apiListGet(create / 1000, page);
+        MaterialDialog loading = null;
+        if (!more) {
+            loading = getLoading(true);
+        }
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Api> apiList = data.getApiList();
+                recyclerHelper.dataOk(apiList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
+            }
+        });
     }
 
     private void showStartPicker() {
@@ -177,19 +235,8 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         });
     }
 
-    private void refreshDateView() {
-        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnStart.setText("s: " + startAt);
-        btnEnd.setText("e: " + endAt);
-    }
-
-    private void getCount() {
-        long startAt = start / 1000;
-        long endAt = end / 1000;
-        String phone = etPhone.getText().toString();
-        int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).smsTotalGet(startAt, endAt, phone, sendType);
+    private void getTotalData() {
+        Call<Result> call = new RetrofitHelper().call(API.class).apiTotalGet(start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -199,35 +246,6 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 btnCount.setText("数量(fail)");
-            }
-        });
-    }
-
-    private void getListData(final boolean more) {
-        page = more ? page + 1 : 0;
-        // api
-        long startAt = start / 1000;
-        long endAt = end / 1000;
-        String phone = etPhone.getText().toString();
-        int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).smsListGet(startAt, endAt, phone, sendType, page);
-        MaterialDialog loading = null;
-        if (!more) {
-            loading = getLoading(true);
-        }
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Sms> smsList = data.getSmsList();
-                recyclerHelper.dataOk(smsList, more);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
             }
         });
     }

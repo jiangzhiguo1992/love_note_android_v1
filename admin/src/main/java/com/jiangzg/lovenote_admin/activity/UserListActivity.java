@@ -129,7 +129,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
                 showEndPicker();
                 break;
             case R.id.btnCount:
-                getCountData();
+                getTotalData();
                 break;
             case R.id.btnSearch:
                 getListData(false);
@@ -173,7 +173,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     }
 
     private void showCreatePicker() {
-        DialogHelper.showDatePicker(mActivity, create, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, create, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 create = time;
@@ -213,7 +213,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         btnEnd.setText("be: " + endAt);
     }
 
-    private void getCountData() {
+    private void getTotalData() {
         long createAt = create / 1000;
         long startAt = start / 1000;
         long endAt = end / 1000;

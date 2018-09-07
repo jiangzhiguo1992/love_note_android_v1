@@ -64,6 +64,12 @@ public interface API {
     @GET("user?total=1")
     Call<Result> userTotalGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
 
+    @GET("sms?list=1&total=0")
+    Call<Result> smsListGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type, @Query("page") int page);
+
+    @GET("sms?list=0&total=1")
+    Call<Result> smsTotalGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
+
     @GET("entry?list=1&uid=0&total=0&group=0")
     Call<Result> entryListGet(@Query("create") long create, @Query("page") int page);
 
@@ -76,11 +82,17 @@ public interface API {
     @GET("entry?list=0&uid=0&total=0&group=1")
     Call<Result> entryGroupGet(@Query("create") long create, @Query("filed") String filed);
 
-    @GET("sms?list=1&total=0")
-    Call<Result> smsListGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type, @Query("page") int page);
+    @GET("api?list=1&uid=0&uri=0&total=0")
+    Call<Result> apiListGet(@Query("create") long create, @Query("page") int page);
 
-    @GET("sms?list=0&total=1")
-    Call<Result> smsTotalGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
+    @GET("api?list=0&uri=0&total=0")
+    Call<Result> apiUserListGet(@Query("uid") long uid, @Query("page") int page);
+
+    @GET("api?list=0&uid=0&uri=1&total=0")
+    Call<Result> apiUriGet(@Query("create") long create);
+
+    @GET("api?list=0&uid=0&uri=0&total=1")
+    Call<Result> apiTotalGet(@Query("start") long start, @Query("end") long end);
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);

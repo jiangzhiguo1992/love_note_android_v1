@@ -55,14 +55,23 @@ public class Result implements Serializable {
         private List<Version> versionList;
         private List<Notice> noticeList;
         private List<Broadcast> broadcastList;
+        private List<FiledInfo> infoList;
         private List<Entry> entryList;
-        private List<Entry.FiledInfo> infoList;
+        private List<Api> apiList;
 
-        public List<Entry.FiledInfo> getInfoList() {
+        public List<Api> getApiList() {
+            return apiList;
+        }
+
+        public void setApiList(List<Api> apiList) {
+            this.apiList = apiList;
+        }
+
+        public List<FiledInfo> getInfoList() {
             return infoList;
         }
 
-        public void setInfoList(List<Entry.FiledInfo> infoList) {
+        public void setInfoList(List<FiledInfo> infoList) {
             this.infoList = infoList;
         }
 

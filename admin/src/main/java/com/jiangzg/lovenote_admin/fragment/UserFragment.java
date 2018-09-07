@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.activity.ApiActivity;
 import com.jiangzg.lovenote_admin.activity.EntryActivity;
 import com.jiangzg.lovenote_admin.activity.SmsActivity;
 import com.jiangzg.lovenote_admin.activity.UserListActivity;
@@ -81,7 +82,9 @@ public class UserFragment extends BaseFragment<UserFragment> {
         getUserData();
         getSmsData();
         getEntryData();
-        // TODO
+        getApiData();
+        getSuggestData();
+        getSuggestCommentData();
     }
 
     @Override
@@ -103,7 +106,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 EntryActivity.goActivity(mFragment);
                 break;
             case R.id.cvApi: // 用户行为
-                // TODO
+                ApiActivity.goActivity(mFragment);
                 break;
             case R.id.cvSuggest: // 意见帖子
                 // TODO
@@ -203,6 +206,44 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvUserWeekActive.setText("周：fail");
             }
         });
+    }
+
+    private void getApiData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startHour = (currentLong - ConstantUtils.HOUR) / 1000;
+        long startDay = (currentLong - ConstantUtils.DAY) / 1000;
+        Call<Result> callHour = new RetrofitHelper().call(API.class).entryTotalGet(startHour);
+        RetrofitHelper.enqueue(callHour, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvApiHour.setText("时：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvApiHour.setText("时：fail");
+            }
+        });
+        Call<Result> callDay = new RetrofitHelper().call(API.class).entryTotalGet(startDay);
+        RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvApiDay.setText("天：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvApiDay.setText("天：fail");
+            }
+        });
+    }
+
+    private void getSuggestData() {
+        // TODO
+    }
+
+    private void getSuggestCommentData() {
+        // TODO
     }
 
 }

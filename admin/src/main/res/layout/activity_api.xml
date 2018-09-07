@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.jiangzg.lovenote_admin.activity.EntryActivity">
+    tools:context="com.jiangzg.lovenote_admin.activity.ApiActivity">
 
     <include layout="@layout/view_top_bar"/>
 
@@ -14,42 +14,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etUid"
-            style="@style/FontGreyNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
-            android:hint="uid"
-            android:inputType="number"
-            android:padding="10dp"
-            android:textColorHint="@color/font_hint"/>
-
         <Button
-            android:id="@+id/btnListCreate"
+            android:id="@+id/btnCreate"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             tools:text="创建"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCount"
+            android:id="@+id/btnUri"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="数量"/>
+            android:text="uri组"/>
 
         <Button
             android:id="@+id/btnSearch"
@@ -69,7 +50,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnFiledCreate"
+            android:id="@+id/btnStart"
             style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -78,22 +59,22 @@
             tools:text="创建"/>
 
         <Button
-            android:id="@+id/btnFiled"
+            android:id="@+id/btnEnd"
             style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="字段"/>
+            android:layout_weight="2"
+            tools:text="字段"/>
 
         <Button
-            android:id="@+id/btnFiledSearch"
+            android:id="@+id/btnCount"
             style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="搜索"/>
+            android:text="数量"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
