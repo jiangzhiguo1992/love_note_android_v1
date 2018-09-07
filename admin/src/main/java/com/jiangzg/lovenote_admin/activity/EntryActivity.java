@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class EntryActivity extends BaseActivity<EntryActivity> {
@@ -83,6 +85,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
         }
+        onInputChange();
         // time
         listCreate = filedCreate = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         refreshDateView();
@@ -121,6 +124,11 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
+    @OnTextChanged({R.id.etUid})
+    public void afterTextChanged(Editable s) {
+        onInputChange();
+    }
+
     @OnClick({R.id.btnListCreate, R.id.btnCount, R.id.btnSearch,
             R.id.btnFiledCreate, R.id.btnFiled, R.id.btnFiledSearch})
     public void onViewClicked(View view) {
@@ -144,6 +152,22 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
                 getFiledCountData();
                 break;
         }
+    }
+
+    private void onInputChange() {
+        String input = etUid.getText().toString().trim();
+        if (StringUtils.isEmpty(input)) {
+            btnCount.setEnabled(true);
+            return;
+        }
+        if (StringUtils.isNumber(input)) {
+            Long uid = Long.valueOf(input);
+            if (uid <= 0) {
+                btnCount.setEnabled(true);
+                return;
+            }
+        }
+        btnCount.setEnabled(false);
     }
 
     private void showListCreatePicker() {
