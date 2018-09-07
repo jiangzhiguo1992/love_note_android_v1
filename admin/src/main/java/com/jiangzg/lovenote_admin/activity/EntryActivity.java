@@ -232,7 +232,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
     }
 
     private void getAllCount() {
-        Call<Result> call = new RetrofitHelper().call(API.class).entryCountGet(listCreate / 1000);
+        Call<Result> call = new RetrofitHelper().call(API.class).entryTotalGet(listCreate / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -267,7 +267,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
 
     private void getFiledCountData() {
         String filed = btnFiled.getText().toString().trim();
-        Call<Result> call = new RetrofitHelper().call(API.class).entryCountGet(filedCreate / 1000, filed);
+        Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(filedCreate / 1000, filed);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

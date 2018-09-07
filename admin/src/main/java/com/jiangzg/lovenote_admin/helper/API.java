@@ -61,26 +61,26 @@ public interface API {
     @GET("user?list=1")
     Call<Result> userListGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end, @Query("page") int page);
 
-    @GET("user?count=1")
-    Call<Result> userCountGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
+    @GET("user?total=1")
+    Call<Result> userTotalGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
 
-    @GET("entry?list=1&uid=0&count=0&percent=0")
+    @GET("entry?list=1&uid=0&total=0&group=0")
     Call<Result> entryListGet(@Query("create") long create, @Query("page") int page);
 
-    @GET("entry?list=0&count=0&percent=0")
+    @GET("entry?list=0&total=0&group=0")
     Call<Result> entryUserListGet(@Query("uid") long uid, @Query("create") long create, @Query("page") int page);
 
-    @GET("entry?list=0&uid=0&count=1&percent=0")
-    Call<Result> entryCountGet(@Query("create") long create);
+    @GET("entry?list=0&uid=0&total=1&group=0")
+    Call<Result> entryTotalGet(@Query("create") long create);
 
-    @GET("entry?list=0&uid=0&count=0&percent=1")
-    Call<Result> entryCountGet(@Query("create") long create, @Query("filed") String filed);
+    @GET("entry?list=0&uid=0&total=0&group=1")
+    Call<Result> entryGroupGet(@Query("create") long create, @Query("filed") String filed);
 
-    @GET("sms?list=1&count=0")
+    @GET("sms?list=1&total=0")
     Call<Result> smsListGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type, @Query("page") int page);
 
-    @GET("sms?list=0&count=1")
-    Call<Result> smsCountGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
+    @GET("sms?list=0&total=1")
+    Call<Result> smsTotalGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);

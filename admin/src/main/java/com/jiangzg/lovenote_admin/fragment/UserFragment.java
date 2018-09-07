@@ -118,7 +118,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
         long currentLong = DateUtils.getCurrentLong();
         long startDay = (currentLong - ConstantUtils.DAY) / 1000;
         long startWeek = (currentLong - ConstantUtils.DAY * 7) / 1000;
-        Call<Result> callDay = new RetrofitHelper().call(API.class).userCountGet(startDay, 0, 0, 0);
+        Call<Result> callDay = new RetrofitHelper().call(API.class).userTotalGet(startDay, 0, 0, 0);
         RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -130,7 +130,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvUserDayNew.setText("天：fail");
             }
         });
-        Call<Result> callWeek = new RetrofitHelper().call(API.class).userCountGet(startWeek, 0, 0, 0);
+        Call<Result> callWeek = new RetrofitHelper().call(API.class).userTotalGet(startWeek, 0, 0, 0);
         RetrofitHelper.enqueue(callWeek, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -149,7 +149,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
         long startDay = (currentLong - ConstantUtils.DAY) / 1000;
         long startWeek = (currentLong - ConstantUtils.DAY * 7) / 1000;
         long endAt = currentLong / 1000;
-        Call<Result> callDay = new RetrofitHelper().call(API.class).smsCountGet(startDay, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        Call<Result> callDay = new RetrofitHelper().call(API.class).smsTotalGet(startDay, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
         RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -161,7 +161,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvSmsDaySend.setText("天：fail");
             }
         });
-        Call<Result> callWeek = new RetrofitHelper().call(API.class).smsCountGet(startWeek, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        Call<Result> callWeek = new RetrofitHelper().call(API.class).smsTotalGet(startWeek, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
         RetrofitHelper.enqueue(callWeek, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -179,7 +179,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
         long currentLong = DateUtils.getCurrentLong();
         long startDay = (currentLong - ConstantUtils.DAY) / 1000;
         long startWeek = (currentLong - ConstantUtils.DAY * 7) / 1000;
-        Call<Result> callDay = new RetrofitHelper().call(API.class).entryCountGet(startDay);
+        Call<Result> callDay = new RetrofitHelper().call(API.class).entryTotalGet(startDay);
         RetrofitHelper.enqueue(callDay, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -191,7 +191,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvUserDayActive.setText("天：fail");
             }
         });
-        Call<Result> callWeek = new RetrofitHelper().call(API.class).entryCountGet(startWeek);
+        Call<Result> callWeek = new RetrofitHelper().call(API.class).entryTotalGet(startWeek);
         RetrofitHelper.enqueue(callWeek, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

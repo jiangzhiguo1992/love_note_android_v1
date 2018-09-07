@@ -218,7 +218,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         long startAt = start / 1000;
         long endAt = end / 1000;
         int sex = ApiHelper.LIST_USER_SEX_TYPE[sexIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).userCountGet(createAt, sex, startAt, endAt);
+        Call<Result> call = new RetrofitHelper().call(API.class).userTotalGet(createAt, sex, startAt, endAt);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

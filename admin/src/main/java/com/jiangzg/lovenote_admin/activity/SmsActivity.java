@@ -189,7 +189,7 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         long endAt = end / 1000;
         String phone = etPhone.getText().toString();
         int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).smsCountGet(startAt, endAt, phone, sendType);
+        Call<Result> call = new RetrofitHelper().call(API.class).smsTotalGet(startAt, endAt, phone, sendType);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
