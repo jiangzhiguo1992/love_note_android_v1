@@ -134,6 +134,8 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setData(contentImgUrl);
         }
+
+        // TODO put -> status + official + top
     }
 
     private void getCommentData(final boolean more) {

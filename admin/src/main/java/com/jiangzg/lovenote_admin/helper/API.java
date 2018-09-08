@@ -4,6 +4,7 @@ import com.jiangzg.lovenote_admin.domain.Broadcast;
 import com.jiangzg.lovenote_admin.domain.Notice;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.Suggest;
+import com.jiangzg.lovenote_admin.domain.SuggestComment;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.domain.Version;
 
@@ -109,6 +110,9 @@ public interface API {
 
     @DELETE("set/suggest/comment?admin=1")
     Call<Result> setSuggestCommentDel(@Query("scid") long suggestCommentId);
+
+    @PUT("set/suggest/comment")
+    Call<Result> setSuggestCommentUpdate(@Body SuggestComment suggestComment);
 
     @GET("set/suggest/comment")
     Call<Result> setSuggestCommentListGet(@Query("sid") long suggestId, @Query("page") int page);
