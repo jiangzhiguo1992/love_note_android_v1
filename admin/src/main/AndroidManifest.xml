@@ -26,6 +26,7 @@
         <activity android:name=".activity.EntryActivity"/>
         <activity android:name=".activity.ApiActivity"/>
         <activity android:name=".activity.SuggestListActivity"/>
+        <activity android:name=".activity.SuggestActivity"/>
     </application>
 
 </manifest>

@@ -29,7 +29,6 @@ import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
 import com.jiangzg.lovenote_admin.view.FrescoView;
-import com.jiangzg.lovenote_admin.view.GWrapView;
 
 import java.util.List;
 import java.util.Locale;
@@ -46,8 +45,6 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
 
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> callDel;
-    private Call<Result> callCommentListGet;
     private int page;
 
     public static void goActivity(Activity from, Suggest suggest) {
@@ -101,8 +98,6 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        RetrofitHelper.cancel(callDel);
-        RetrofitHelper.cancel(callCommentListGet);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -123,30 +118,11 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
         View head = recyclerHelper.getViewHead();
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        GWrapView wvTag = head.findViewById(R.id.wvTag);
         TextView tvContent = head.findViewById(R.id.tvContent);
         // imageView
         FrescoView ivContent = head.findViewById(R.id.ivContent);
         ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
         ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-        // tagView
-        wvTag.removeAllChild();
-        if (top) {
-            View tagTop = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.top));
-            wvTag.addChild(tagTop);
-        }
-        if (official) {
-            View tagOfficial = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.official));
-            wvTag.addChild(tagOfficial);
-        }
-        View tagStatus = ViewHelper.getWrapTextView(mActivity, statusShow);
-        wvTag.addChild(tagStatus);
-        View tagKind = ViewHelper.getWrapTextView(mActivity, kindShow);
-        wvTag.addChild(tagKind);
-        if (mine) {
-            View tagMine = ViewHelper.getWrapTextView(mActivity, mActivity.getString(R.string.me_de));
-            wvTag.addChild(tagMine);
-        }
         // otherView
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
@@ -164,8 +140,8 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
         if (suggest == null) return;
         page = more ? page + 1 : 0;
         // api
-        callCommentListGet = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
-        RetrofitHelper.enqueue(callCommentListGet, null, new RetrofitHelper.CallBack() {
+        Call<Result> call = new RetrofitHelper().call(API.class).setSuggestCommentListGet(suggest.getId(), page);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;

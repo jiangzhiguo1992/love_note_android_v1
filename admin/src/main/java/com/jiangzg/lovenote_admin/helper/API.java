@@ -107,7 +107,7 @@ public interface API {
     @GET("set/suggest?total=1")
     Call<Result> setSuggestTotalGet(@Query("create") long create);
 
-    @DELETE("set/suggest/comment")
+    @DELETE("set/suggest/comment?admin=1")
     Call<Result> setSuggestCommentDel(@Query("scid") long suggestCommentId);
 
     @GET("set/suggest/comment")

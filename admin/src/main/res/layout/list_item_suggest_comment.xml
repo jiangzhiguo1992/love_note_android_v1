@@ -12,22 +12,46 @@
 
     <View style="@style/LineHorizontal"/>
 
-    <TextView
-        android:id="@+id/tvTop"
-        style="@style/FontGreySmall"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="5dp"
-        tools:text="%d楼 时间"/>
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tvTop"
+            style="@style/FontGreySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="%d楼 时间"/>
+
+        <TextView
+            android:id="@+id/tvId"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvUid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvContent"
         style="@style/FontBlackNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvTop"
+        android:layout_below="@id/llTop"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"

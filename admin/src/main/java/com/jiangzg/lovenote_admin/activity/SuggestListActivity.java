@@ -79,6 +79,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                         suggestAdapter.showDelDialog(position);
                     }
                 });
+        // TODO status + official + top + count
     }
 
     @Override

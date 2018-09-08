@@ -6,11 +6,20 @@ package com.jiangzg.lovenote_admin.domain;
  */
 public class SuggestComment extends BaseObj {
 
+    private long userId;
     private long suggestId;
     private String contentText;
     // tag标签
     private boolean official;
     private boolean mine;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public boolean isOfficial() {
         return official;

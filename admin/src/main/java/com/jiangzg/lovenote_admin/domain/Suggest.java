@@ -22,6 +22,7 @@ public class Suggest extends BaseObj implements Parcelable {
     public static final int KIND_OPTIMIZE = 30;
     public static final int KIND_DEBUNK = 40;
 
+    private long userId;
     private int kind;
     private String title;
     private String contentText;
@@ -34,6 +35,14 @@ public class Suggest extends BaseObj implements Parcelable {
     private boolean mine;
     private boolean follow;
     private boolean comment;
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public boolean isOfficial() {
         return official;
@@ -128,6 +137,7 @@ public class Suggest extends BaseObj implements Parcelable {
 
     protected Suggest(Parcel in) {
         super(in);
+        userId = in.readLong();
         title = in.readString();
         kind = in.readInt();
         contentText = in.readString();
@@ -144,6 +154,7 @@ public class Suggest extends BaseObj implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        dest.writeLong(userId);
         dest.writeString(title);
         dest.writeInt(kind);
         dest.writeString(contentText);
