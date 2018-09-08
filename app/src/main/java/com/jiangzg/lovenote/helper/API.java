@@ -113,11 +113,11 @@ public interface API {
     Call<Result> userLogin(@Query("type") int type, @Query("code") String code, @Body User user);
 
     // 版本
-    @GET("set/version?list=0")
+    @GET("set/version")
     Call<Result> setVersionNewListGet(@Query("code") int code);
 
     // 公告列表获取
-    @GET("set/notice?list=1&all=0")
+    @GET("set/notice?list=1")
     Call<Result> setNoticeListGet(@Query("page") int page);
 
     // 公告阅读
@@ -133,19 +133,19 @@ public interface API {
     Call<Result> setSuggestDel(@Query("sid") long suggestId);
 
     // 意见单个获取
-    @GET("set/suggest?list=0&mine=0&follow=0")
+    @GET("set/suggest")
     Call<Result> setSuggestGet(@Query("sid") long suggestId);
 
     // 意见列表获取
-    @GET("set/suggest?list=1&mine=0&follow=0&sid=0")
+    @GET("set/suggest?list=1")
     Call<Result> setSuggestListGet(@Query("status") int status, @Query("kind") int kind, @Query("page") int page);
 
     // 意见列表获取
-    @GET("set/suggest?list=0&mine=1&follow=0&sid=0")
+    @GET("set/suggest?mine=1")
     Call<Result> setSuggestListMineGet(@Query("page") int page);
 
     // 意见列表获取
-    @GET("set/suggest?list=0&mine=0&follow=1&sid=0")
+    @GET("set/suggest?follow=1")
     Call<Result> setSuggestListFollowGet(@Query("page") int page);
 
     // 意见评论发表
@@ -209,11 +209,11 @@ public interface API {
     Call<Result> noteLockAdd(@Body Lock lock);
 
     // lock修改密码
-    @PUT("note/lock?modify=1&toggle=0")
+    @PUT("note/lock?modify=1")
     Call<Result> noteLockUpdatePwd(@Query("code") String code, @Body Lock lock);
 
     // lock开关锁
-    @PUT("note/lock?toggle=1&modify=0")
+    @PUT("note/lock?toggle=1")
     Call<Result> noteLockToggle(@Body Lock lock);
 
     // lock获取
@@ -221,19 +221,19 @@ public interface API {
     Call<Result> noteLockGet();
 
     // trendsList获取
-    @GET("note/trends?trends=1&total=0")
+    @GET("note/trends?trends=1")
     Call<Result> noteTrendsListGet(@Query("create") long create, @Query("page") int page);
 
     // trendsTotal获取
-    @GET("note/trends?trends=0&total=1")
+    @GET("note/trends?total=1")
     Call<Result> noteTrendsTotalGet();
 
     // souvenirList获取
-    @GET("note/souvenir?sid=0&list=1")
+    @GET("note/souvenir?list=1")
     Call<Result> noteSouvenirListGet(@Query("done") boolean done, @Query("page") int page);
 
     // souvenir获取
-    @GET("note/souvenir?list=0")
+    @GET("note/souvenir")
     Call<Result> noteSouvenirGet(@Query("sid") long sid);
 
     // souvenir上传
@@ -245,7 +245,7 @@ public interface API {
     Call<Result> noteSouvenirDel(@Query("sid") long sid);
 
     // souvenir修改
-    @PUT("note/souvenir?year=0")
+    @PUT("note/souvenir")
     Call<Result> noteSouvenirUpdateBody(@Body Souvenir souvenir);
 
     // souvenir修改
@@ -253,11 +253,11 @@ public interface API {
     Call<Result> noteSouvenirUpdateForeign(@Query("year") int year, @Body Souvenir souvenir);
 
     // mensesList获取
-    @GET("note/menses?latest=0&date=1")
+    @GET("note/menses?date=1")
     Call<Result> noteMensesListGetByDate(@Query("mine") boolean mine, @Query("year") int year, @Query("month") int month);
 
     // menses获取
-    @GET("note/menses?latest=1&date=0")
+    @GET("note/menses?latest=1")
     Call<Result> noteMensesLatestGet();
 
     // menses上传
@@ -273,11 +273,11 @@ public interface API {
     Call<Result> noteShyAdd(@Body Shy shy);
 
     // sleepList获取
-    @GET("note/sleep?latest=0&date=1")
+    @GET("note/sleep?date=1")
     Call<Result> noteSleepListGetByDate(@Query("year") int year, @Query("month") int month);
 
     // sleep获取
-    @GET("note/sleep?latest=1&date=0")
+    @GET("note/sleep?latest=1")
     Call<Result> noteSleepLatestGet();
 
     // sleep上传
@@ -305,11 +305,11 @@ public interface API {
     Call<Result> noteWhisperAdd(@Body Whisper whisper);
 
     // diaryList获取
-    @GET("note/diary?did=0&list=1")
+    @GET("note/diary?list=1")
     Call<Result> noteDiaryListGet(@Query("who") int who, @Query("page") int page);
 
     // diary获取
-    @GET("note/diary?list=0")
+    @GET("note/diary")
     Call<Result> noteDiaryGet(@Query("did") long did);
 
     // diary上传
@@ -325,11 +325,11 @@ public interface API {
     Call<Result> noteDiaryUpdate(@Body Diary diary);
 
     // albumList获取
-    @GET("note/album?aid=0&list=1")
+    @GET("note/album?list=1")
     Call<Result> noteAlbumListGet(@Query("page") int page);
 
     // album获取
-    @GET("note/album?list=0")
+    @GET("note/album")
     Call<Result> noteAlbumGet(@Query("aid") long aid);
 
     // album上传
@@ -397,11 +397,11 @@ public interface API {
     Call<Result> noteFoodDel(@Query("fid") long fid);
 
     // travelList获取
-    @GET("note/travel?tid=0&list=1")
+    @GET("note/travel?list=1")
     Call<Result> noteTravelListGet(@Query("page") int page);
 
     // travel获取
-    @GET("note/travel?list=0")
+    @GET("note/travel")
     Call<Result> noteTravelGet(@Query("tid") long tid);
 
     // travel上传
@@ -433,11 +433,11 @@ public interface API {
     Call<Result> noteGiftUpdate(@Body Gift gift);
 
     // promise获取
-    @GET("note/promise?pid=0&list=1")
+    @GET("note/promise?list=1")
     Call<Result> notePromiseListGet(@Query("who") int who, @Query("page") int page);
 
     // promise获取
-    @GET("note/promise?list=0")
+    @GET("note/promise")
     Call<Result> notePromiseGet(@Query("pid") long pid);
 
     // promise上传
@@ -465,11 +465,11 @@ public interface API {
     Call<Result> notePromiseBreakDel(@Query("pbid") long pbid);
 
     // angryList获取
-    @GET("note/angry?aid=0&list=1")
+    @GET("note/angry?list=1")
     Call<Result> noteAngryListGet(@Query("who") int who, @Query("page") int page);
 
     // angry获取
-    @GET("note/angry?list=0")
+    @GET("note/angry")
     Call<Result> noteAngryGet(@Query("aid") long aid);
 
     // angry上传
@@ -485,11 +485,11 @@ public interface API {
     Call<Result> noteAngryUpdate(@Body Angry angry);
 
     // dreamList获取
-    @GET("note/dream?did=0&list=1")
+    @GET("note/dream?list=1")
     Call<Result> noteDreamListGet(@Query("who") int who, @Query("page") int page);
 
     // dream获取
-    @GET("note/dream?list=0")
+    @GET("note/dream")
     Call<Result> noteDreamGet(@Query("did") long did);
 
     // dream上传
@@ -505,11 +505,11 @@ public interface API {
     Call<Result> noteDreamUpdate(@Body Dream dream);
 
     // award获取
-    @GET("note/award?score=0&list=1")
+    @GET("note/award?list=1")
     Call<Result> noteAwardListGet(@Query("who") int who, @Query("page") int page);
 
     // award获取
-    @GET("note/award?list=0&score=1")
+    @GET("note/award?score=1")
     Call<Result> noteAwardScoreGet();
 
     // award上传
@@ -549,7 +549,7 @@ public interface API {
     Call<Result> topicPostDel(@Query("pid") long pid);
 
     //  postList获取
-    @GET("topic/post?list=1&collect=0&mine=0&pid=0")
+    @GET("topic/post?list=1")
     Call<Result> topicPostListGet(@Query("create") long create, @Query("kind") int kind,
                                   @Query("sub_kind") int subKind, @Query("search") String search,
                                   @Query("lon") double lon, @Query("lat") double lat,
@@ -557,15 +557,15 @@ public interface API {
                                   @Query("page") int page);
 
     // postCollectList获取
-    @GET("topic/post?list=0&collect=1&mine=0&pid=0")
+    @GET("topic/post?collect=1")
     Call<Result> topicPostCollectListGet(@Query("me") boolean me, @Query("page") int page);
 
     // postMineList获取
-    @GET("topic/post?list=0&collect=0&mine=1&pid=0")
+    @GET("topic/post?mine=1")
     Call<Result> topicPostMineListGet(@Query("page") int page);
 
     // post获取
-    @GET("topic/post?list=0&collect=0&mine=0")
+    @GET("topic/post")
     Call<Result> topicPostGet(@Query("pid") long pid);
 
     // postRead上传
@@ -593,19 +593,19 @@ public interface API {
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
 
     // postCommentList获取
-    @GET("topic/post/comment?list=1&sub_list=0&uid=0&pcid=0")
+    @GET("topic/post/comment?list=1")
     Call<Result> topicPostCommentListGet(@Query("pid") long pid, @Query("order") int order, @Query("page") int page);
 
     // postCommentSubList获取
-    @GET("topic/post/comment?list=0&sub_list=1&uid=0&pcid=0")
+    @GET("topic/post/comment?sub_list=1")
     Call<Result> topicPostCommentSubListGet(@Query("pid") long pid, @Query("tcid") long tcid, @Query("order") int order, @Query("page") int page);
 
     // postCommentList获取
-    @GET("topic/post/comment?list=0&sub_list=0&pcid=0")
+    @GET("topic/post/comment")
     Call<Result> topicPostCommentUserListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
 
     // postCommentList获取
-    @GET("topic/post/comment?list=0&sub_list=0&uid=0")
+    @GET("topic/post/comment")
     Call<Result> topicPostCommentGet(@Query("pcid") long pcid);
 
     // postCommentReport上传
@@ -629,19 +629,19 @@ public interface API {
     Call<Result> morePayAfterCheck();
 
     // vipHome获取
-    @GET("more/vip?home=1&list=0")
+    @GET("more/vip?home=1")
     Call<Result> moreVipHomeGet();
 
     // vipList获取
-    @GET("more/vip?home=0&list=1")
+    @GET("more/vip?list=1")
     Call<Result> moreVipListGet(@Query("page") int page);
 
     // coinHome获取
-    @GET("more/coin?home=1&list=0")
+    @GET("more/coin?home=1")
     Call<Result> moreCoinHomeGet();
 
     // coinList获取
-    @GET("more/coin?home=0&list=1")
+    @GET("more/coin?list=1")
     Call<Result> moreCoinListGet(@Query("page") int page);
 
     // sign上传
@@ -649,7 +649,7 @@ public interface API {
     Call<Result> moreSignAdd();
 
     // signList获取
-    @GET("more/sign?date=1&today=0")
+    @GET("more/sign?date=1")
     Call<Result> moreSignDateGet(@Query("year") int year, @Query("month") int month);
 
     // matchPeriodList获取
@@ -665,8 +665,8 @@ public interface API {
     Call<Result> moreMatchWorkDel(@Query("mwid") long mwid);
 
     // matchWorkList获取
-    @GET("more/match/work?our=0")
-    Call<Result> moreMatchWordPeriodListGet(@Query("mpid") long mpid, @Query("order") int order, @Query("page") int page);
+    @GET("more/match/work")
+    Call<Result> moreMatchWordListGet(@Query("mpid") long mpid, @Query("order") int order, @Query("page") int page);
 
     // matchWorkList获取
     @GET("more/match/work?our=1")

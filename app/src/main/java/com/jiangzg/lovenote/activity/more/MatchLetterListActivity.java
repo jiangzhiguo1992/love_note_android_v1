@@ -293,7 +293,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
         page = more ? page + 1 : 0;
         // api
         int orderType = ApiHelper.LIST_MATCH_ORDER_TYPE[orderIndex];
-        callGet = new RetrofitHelper().call(API.class).moreMatchWordPeriodListGet(period.getId(), orderType, page);
+        callGet = new RetrofitHelper().call(API.class).moreMatchWordListGet(period.getId(), orderType, page);
         RetrofitHelper.enqueue(callGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
