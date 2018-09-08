@@ -233,12 +233,12 @@ public class UserFragment extends BaseFragment<UserFragment> {
         RetrofitHelper.enqueue(callSuggest, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSuggestDayNew.setText("意见：" + data.getTotal());
+                tvSuggestDayNew.setText("帖子：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSuggestDayNew.setText("意见：fail");
+                tvSuggestDayNew.setText("帖子：fail");
             }
         });
         Call<Result> callSuggestComment = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startDay);

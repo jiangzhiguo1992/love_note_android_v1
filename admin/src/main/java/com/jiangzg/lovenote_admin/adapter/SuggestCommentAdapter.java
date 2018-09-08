@@ -71,7 +71,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
-                .content(R.string.confirm_del_comment)
+                .content(R.string.confirm_delete_this)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
