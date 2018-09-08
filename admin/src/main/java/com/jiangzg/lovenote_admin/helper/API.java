@@ -65,34 +65,34 @@ public interface API {
     @GET("user?total=1")
     Call<Result> userTotalGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
 
-    @GET("sms?list=1&total=0")
+    @GET("sms?list=1")
     Call<Result> smsListGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type, @Query("page") int page);
 
-    @GET("sms?list=0&total=1")
+    @GET("sms?total=1")
     Call<Result> smsTotalGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
 
-    @GET("entry?list=1&uid=0&total=0&group=0")
+    @GET("entry?list=1")
     Call<Result> entryListGet(@Query("create") long create, @Query("page") int page);
 
-    @GET("entry?list=0&total=0&group=0")
+    @GET("entry")
     Call<Result> entryUserListGet(@Query("uid") long uid, @Query("create") long create, @Query("page") int page);
 
-    @GET("entry?list=0&uid=0&total=1&group=0")
+    @GET("entry?total=1")
     Call<Result> entryTotalGet(@Query("create") long create);
 
-    @GET("entry?list=0&uid=0&total=0&group=1")
+    @GET("entry?group=1")
     Call<Result> entryGroupGet(@Query("create") long create, @Query("filed") String filed);
 
-    @GET("api?list=1&uid=0&uri=0&total=0")
+    @GET("api?list=1")
     Call<Result> apiListGet(@Query("create") long create, @Query("page") int page);
 
-    @GET("api?list=0&uri=0&total=0")
+    @GET("api")
     Call<Result> apiUserListGet(@Query("uid") long uid, @Query("page") int page);
 
-    @GET("api?list=0&uid=0&uri=1&total=0")
+    @GET("api?uri=1")
     Call<Result> apiUriGet(@Query("create") long create);
 
-    @GET("api?list=0&uid=0&uri=0&total=1")
+    @GET("api?total=1")
     Call<Result> apiTotalGet(@Query("start") long start, @Query("end") long end);
 
     @DELETE("set/suggest?admin=1")
@@ -101,19 +101,19 @@ public interface API {
     @PUT("set/suggest")
     Call<Result> setSuggestUpdate(@Body Suggest suggest);
 
-    @GET("set/suggest?list=1&mine=0&follow=0&total=0&sid=0")
-    Call<Result> setSuggestListGet(@Query("status") int status, @Query("kind") int kind, @Query("page") int page);
+    @GET("set/suggest?follow=1")
+    Call<Result> setSuggestFollowListGet(@Query("page") int page);
 
-    @GET("set/suggest?list=0&mine=0&follow=0&total=1&sid=0")
+    @GET("set/suggest?total=1")
     Call<Result> setSuggestTotalGet(@Query("create") long create);
 
     @DELETE("set/suggest/comment")
     Call<Result> setSuggestCommentDel(@Query("scid") long suggestCommentId);
 
-    @GET("set/suggest/comment?total=0")
+    @GET("set/suggest/comment")
     Call<Result> setSuggestCommentListGet(@Query("sid") long suggestId, @Query("page") int page);
 
-    @GET("set/suggest/comment?sid=0&total=1")
+    @GET("set/suggest/comment?total=1")
     Call<Result> setSuggestCommentTotalGet(@Query("create") long create);
 
     // TODO couple
@@ -124,7 +124,7 @@ public interface API {
     @DELETE("set/version")
     Call<Result> versionDel(@Query("vid") long vid);
 
-    @GET("set/version?list=1&code=0")
+    @GET("set/version?list=1")
     Call<Result> versionListGet(@Query("page") int page);
 
     @POST("set/notice")
@@ -133,7 +133,7 @@ public interface API {
     @DELETE("set/notice")
     Call<Result> noticeDel(@Query("nid") long nid);
 
-    @GET("set/notice?list=0&all=1")
+    @GET("set/notice?all=1")
     Call<Result> noticeListGet(@Query("page") int page);
 
     @POST("more/broadcast")
