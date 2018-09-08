@@ -91,7 +91,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         refreshDateView();
         // filed
         filedIndex = 0;
-        btnFiled.setText(ApiHelper.LIST_ENTRY_FILEDS_SHOW[filedIndex]);
+        btnFiled.setText(ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -252,12 +252,12 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_ENTRY_FILEDS_SHOW)
+                .items(ApiHelper.LIST_ENTRY_FILED_SHOW)
                 .itemsCallbackSingleChoice(filedIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         filedIndex = which;
-                        btnFiled.setText(ApiHelper.LIST_ENTRY_FILEDS_SHOW[filedIndex]);
+                        btnFiled.setText(ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex]);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }

@@ -58,6 +58,33 @@ public class Result implements Serializable {
         private List<FiledInfo> infoList;
         private List<Entry> entryList;
         private List<Api> apiList;
+        private Suggest suggest;
+        private List<Suggest> suggestList;
+        private List<SuggestComment> suggestCommentList;
+
+        public Suggest getSuggest() {
+            return suggest;
+        }
+
+        public void setSuggest(Suggest suggest) {
+            this.suggest = suggest;
+        }
+
+        public List<Suggest> getSuggestList() {
+            return suggestList;
+        }
+
+        public void setSuggestList(List<Suggest> suggestList) {
+            this.suggestList = suggestList;
+        }
+
+        public List<SuggestComment> getSuggestCommentList() {
+            return suggestCommentList;
+        }
+
+        public void setSuggestCommentList(List<SuggestComment> suggestCommentList) {
+            this.suggestCommentList = suggestCommentList;
+        }
 
         public List<Api> getApiList() {
             return apiList;

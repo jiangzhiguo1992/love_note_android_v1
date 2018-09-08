@@ -12,6 +12,7 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.ApiActivity;
 import com.jiangzg.lovenote_admin.activity.EntryActivity;
 import com.jiangzg.lovenote_admin.activity.SmsActivity;
+import com.jiangzg.lovenote_admin.activity.SuggestListActivity;
 import com.jiangzg.lovenote_admin.activity.UserListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Result;
@@ -51,16 +52,10 @@ public class UserFragment extends BaseFragment<UserFragment> {
     CardView cvApi;
     @BindView(R.id.tvSuggestDayNew)
     TextView tvSuggestDayNew;
-    @BindView(R.id.tvSuggestWeekNew)
-    TextView tvSuggestWeekNew;
-    @BindView(R.id.cvSuggest)
-    CardView cvSuggest;
     @BindView(R.id.tvSuggestCommentDayNew)
     TextView tvSuggestCommentDayNew;
-    @BindView(R.id.tvSuggestCommentWeekNew)
-    TextView tvSuggestCommentWeekNew;
-    @BindView(R.id.cvSuggestComment)
-    CardView cvSuggestComment;
+    @BindView(R.id.cvSuggest)
+    CardView cvSuggest;
 
     public static UserFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -84,16 +79,13 @@ public class UserFragment extends BaseFragment<UserFragment> {
         getEntryData();
         getApiData();
         getSuggestData();
-        getSuggestCommentData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.cvUserNew, R.id.cvSms,
-            R.id.cvUserActive, R.id.cvApi,
-            R.id.cvSuggest, R.id.cvSuggestComment})
+    @OnClick({R.id.cvUserNew, R.id.cvSms, R.id.cvUserActive, R.id.cvApi, R.id.cvSuggest})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvUserNew: // 注册用户
@@ -108,11 +100,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
             case R.id.cvApi: // 用户行为
                 ApiActivity.goActivity(mFragment);
                 break;
-            case R.id.cvSuggest: // 意见帖子
-                // TODO
-                break;
-            case R.id.cvSuggestComment: // 意见评论
-                // TODO
+            case R.id.cvSuggest: // 意见反馈
+                SuggestListActivity.goActivity(mFragment);
                 break;
         }
     }
@@ -239,11 +228,31 @@ public class UserFragment extends BaseFragment<UserFragment> {
     }
 
     private void getSuggestData() {
-        // TODO
-    }
+        long startDay = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
+        Call<Result> callSuggest = new RetrofitHelper().call(API.class).setSuggestTotalGet(startDay);
+        RetrofitHelper.enqueue(callSuggest, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSuggestDayNew.setText("意见：" + data.getTotal());
+            }
 
-    private void getSuggestCommentData() {
-        // TODO
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSuggestDayNew.setText("意见：fail");
+            }
+        });
+        Call<Result> callSuggestComment = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startDay);
+        RetrofitHelper.enqueue(callSuggestComment, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSuggestCommentDayNew.setText("评论：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSuggestCommentDayNew.setText("评论：fail");
+            }
+        });
     }
 
 }

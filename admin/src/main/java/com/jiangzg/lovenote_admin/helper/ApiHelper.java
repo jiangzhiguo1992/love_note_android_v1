@@ -48,7 +48,7 @@ public class ApiHelper {
     public static final String ENTRY_FILED_PLATFORM = "platform";
     public static final String ENTRY_FILED_OS_VERSION = "osVersion";
     public static final String ENTRY_FILED_APP_VERSION = "appVersion";
-    public static final String[] LIST_ENTRY_FILEDS_SHOW = new String[]{
+    public static final String[] LIST_ENTRY_FILED_SHOW = new String[]{
             ENTRY_FILED_DEVICE_NAME,
             ENTRY_FILED_MARKET,
             ENTRY_FILED_PLATFORM,

@@ -20,16 +20,12 @@
         <activity android:name=".activity.VersionEditActivity"/>
         <activity android:name=".activity.NoticeEditActivity"/>
         <activity android:name=".activity.BroadcastEditActivity"/>
-        <activity android:name=".activity.SmsActivity">
-        </activity>
-        <activity android:name=".activity.UserListActivity">
-        </activity>
-        <activity android:name=".activity.UserActivity">
-        </activity>
-        <activity android:name=".activity.EntryActivity">
-        </activity>
-        <activity android:name=".activity.ApiActivity">
-        </activity>
+        <activity android:name=".activity.SmsActivity"/>
+        <activity android:name=".activity.UserListActivity"/>
+        <activity android:name=".activity.UserActivity"/>
+        <activity android:name=".activity.EntryActivity"/>
+        <activity android:name=".activity.ApiActivity"/>
+        <activity android:name=".activity.SuggestListActivity"/>
     </application>
 
 </manifest>

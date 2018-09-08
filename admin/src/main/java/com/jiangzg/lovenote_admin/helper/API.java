@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.helper;
 import com.jiangzg.lovenote_admin.domain.Broadcast;
 import com.jiangzg.lovenote_admin.domain.Notice;
 import com.jiangzg.lovenote_admin.domain.Result;
+import com.jiangzg.lovenote_admin.domain.Suggest;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.domain.Version;
 
@@ -93,6 +94,29 @@ public interface API {
 
     @GET("api?list=0&uid=0&uri=0&total=1")
     Call<Result> apiTotalGet(@Query("start") long start, @Query("end") long end);
+
+    @DELETE("set/suggest?admin=1")
+    Call<Result> setSuggestDel(@Query("sid") long suggestId);
+
+    @PUT("set/suggest")
+    Call<Result> setSuggestUpdate(@Body Suggest suggest);
+
+    @GET("set/suggest?list=1&mine=0&follow=0&total=0&sid=0")
+    Call<Result> setSuggestListGet(@Query("status") int status, @Query("kind") int kind, @Query("page") int page);
+
+    @GET("set/suggest?list=0&mine=0&follow=0&total=1&sid=0")
+    Call<Result> setSuggestTotalGet(@Query("create") long create);
+
+    @DELETE("set/suggest/comment")
+    Call<Result> setSuggestCommentDel(@Query("scid") long suggestCommentId);
+
+    @GET("set/suggest/comment?total=0")
+    Call<Result> setSuggestCommentListGet(@Query("sid") long suggestId, @Query("page") int page);
+
+    @GET("set/suggest/comment?sid=0&total=1")
+    Call<Result> setSuggestCommentTotalGet(@Query("create") long create);
+
+    // TODO couple
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);
