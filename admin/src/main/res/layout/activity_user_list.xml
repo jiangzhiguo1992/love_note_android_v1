@@ -63,12 +63,21 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnBlack"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:text="黑名单"/>
+
+        <Button
             android:id="@+id/btnCount"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="3"
             android:text="数量"/>
 
         <Button
@@ -77,7 +86,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/search"/>
     </LinearLayout>
 

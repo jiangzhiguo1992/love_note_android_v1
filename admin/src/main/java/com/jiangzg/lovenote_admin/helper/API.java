@@ -63,6 +63,9 @@ public interface API {
     @GET("user?list=1")
     Call<Result> userListGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end, @Query("page") int page);
 
+    @GET("user?black=1")
+    Call<Result> userBlackGet(@Query("page") int page);
+
     @GET("user?total=1")
     Call<Result> userTotalGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
 

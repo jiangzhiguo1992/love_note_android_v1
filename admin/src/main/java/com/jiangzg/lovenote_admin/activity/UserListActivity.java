@@ -47,6 +47,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
+    @BindView(R.id.btnBlack)
+    Button btnBlack;
     @BindView(R.id.btnCount)
     Button btnCount;
     @BindView(R.id.btnSearch)
@@ -58,6 +60,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     private int page;
     private int sexIndex;
     private long create, start, end;
+    private boolean black;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), UserListActivity.class);
@@ -91,7 +94,11 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        getListData(true);
+                        if (black) {
+                            getBlackData(true);
+                        } else {
+                            getListData(true);
+                        }
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -113,7 +120,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnCreate, R.id.btnSex, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnSearch})
+    @OnClick({R.id.btnCreate, R.id.btnSex, R.id.btnStart, R.id.btnEnd,
+            R.id.btnBlack, R.id.btnCount, R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnCreate:
@@ -128,10 +136,15 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
+            case R.id.btnBlack:
+                black = true;
+                getBlackData(false);
+                break;
             case R.id.btnCount:
                 getTotalData();
                 break;
             case R.id.btnSearch:
+                black = false;
                 getListData(false);
                 break;
         }
@@ -228,6 +241,31 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 btnCount.setText("数量(fail)");
+            }
+        });
+    }
+
+    private void getBlackData(final boolean more) {
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).userBlackGet(page);
+        MaterialDialog loading = null;
+        if (!more) {
+            loading = getLoading(true);
+        }
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<User> userList = data.getUserList();
+                recyclerHelper.dataOk(userList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
             }
         });
     }

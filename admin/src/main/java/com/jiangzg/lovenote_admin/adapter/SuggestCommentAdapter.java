@@ -64,7 +64,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         } else {
             tvFloor.setTextColor(colorGrey);
         }
-        // TODO put -> official
+        // TODO put -> official(自己的)
     }
 
     // 删除评论

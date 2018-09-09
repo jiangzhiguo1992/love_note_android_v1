@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -131,10 +134,10 @@ public class UserActivity extends BaseActivity<UserActivity> {
     public boolean onLongClick(View view) {
         switch (view.getId()) {
             case R.id.btnStatus:
-                modifyUser(ApiHelper.MODIFY_ADMIN_UPDATE_STATUS, user);
+                showStatusDialog();
                 return true;
             case R.id.btnSex:
-                modifySex();
+                showSexDialog();
                 return true;
             case R.id.btnBirthday:
                 showBirthDayPicker();
@@ -176,6 +179,38 @@ public class UserActivity extends BaseActivity<UserActivity> {
         tvUpdate.setText(DateUtils.getString(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         btnSex.setText(User.getSexShow(user.getSex()));
         btnBirthday.setText(DateUtils.getString(user.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D));
+    }
+
+    private void showStatusDialog() {
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title("修改状态？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        modifyUser(ApiHelper.MODIFY_ADMIN_UPDATE_STATUS, user);
+                    }
+                })
+                .show();
+    }
+
+    private void showSexDialog() {
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title("修改性别？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        modifySex();
+                    }
+                })
+                .show();
     }
 
     private void modifySex() {

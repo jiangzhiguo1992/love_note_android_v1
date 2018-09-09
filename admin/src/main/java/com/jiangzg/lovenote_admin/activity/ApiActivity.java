@@ -187,7 +187,11 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
             }
         }
         String show = builder.toString();
-        DialogHelper.getBuild(mActivity).content(show).show();
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(show)
+                .show();
     }
 
     private void getListData(final boolean more) {
