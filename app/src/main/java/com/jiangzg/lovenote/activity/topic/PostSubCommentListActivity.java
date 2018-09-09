@@ -615,7 +615,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_delete_this_post)
                 .cancelable(true)
-                .canceledOnTouchOutside(false)
+                .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {

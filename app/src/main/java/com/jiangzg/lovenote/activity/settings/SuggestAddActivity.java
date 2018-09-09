@@ -195,7 +195,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvKind: // 选分类
-                showStatusDialog();
+                showKindDialog();
                 break;
             case R.id.tvImageToggle: // 操作照片
                 toggleImage();
@@ -261,19 +261,20 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         tvContentLimit.setText(limitShow);
     }
 
-    private void showStatusDialog() {
+    private void showKindDialog() {
         CharSequence[] items = new CharSequence[suggestKindList.size() - 1];
         for (int i = 1; i < suggestKindList.size(); i++) {
             SuggestInfo.SuggestKind kind = suggestKindList.get(i);
             // 第一个是全部，不要
             items[i - 1] = kind.getShow();
         }
+        int kindIndex = SuggestInfo.getKindIndex(kind);
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.please_select_classify)
                 .items(items)
-                .itemsCallbackSingleChoice(kind - 1, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(kindIndex - 1, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         // 第一个忽略

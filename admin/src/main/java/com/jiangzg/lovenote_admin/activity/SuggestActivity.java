@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.SuggestCommentAdapter;
@@ -25,6 +29,7 @@ import com.jiangzg.lovenote_admin.domain.Suggest;
 import com.jiangzg.lovenote_admin.domain.SuggestComment;
 import com.jiangzg.lovenote_admin.domain.SuggestInfo;
 import com.jiangzg.lovenote_admin.helper.API;
+import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
@@ -116,14 +121,19 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
         String contentText = suggest.getContentText();
         // view
         View head = recyclerHelper.getViewHead();
+        TextView btnStatus = head.findViewById(R.id.btnStatus);
+        TextView btnOfficial = head.findViewById(R.id.btnOfficial);
+        TextView btnTop = head.findViewById(R.id.btnTop);
         TextView tvTitle = head.findViewById(R.id.tvTitle);
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
         TextView tvContent = head.findViewById(R.id.tvContent);
-        // imageView
         FrescoView ivContent = head.findViewById(R.id.ivContent);
         ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
         ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-        // otherView
+        // set
+        btnStatus.setText(statusShow);
+        btnOfficial.setText(official ? "official-ing" : "official-no");
+        btnTop.setText(top ? "top-ing" : "top-no");
         tvTitle.setText(title);
         tvCreateAt.setText(createShow);
         tvContent.setText(contentText);
@@ -134,8 +144,24 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setData(contentImgUrl);
         }
-
-        // TODO put -> status + official + top
+        btnStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showStatusSelectDialog();
+            }
+        });
+        btnOfficial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suggest2Official();
+            }
+        });
+        btnTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                suggest2Top();
+            }
+        });
     }
 
     private void getCommentData(final boolean more) {
@@ -156,6 +182,99 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
             public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, message);
+            }
+        });
+    }
+
+    private void showStatusSelectDialog() {
+        if (suggest == null) return;
+        int statusIndex = SuggestInfo.getStatusIndex(suggest.getStatus());
+
+        final List<SuggestInfo.SuggestStatus> statusList = SuggestInfo.getInstance().getStatusList();
+        CharSequence[] items = new CharSequence[statusList.size() - 1];
+        for (int i = 1; i < statusList.size(); i++) {
+            SuggestInfo.SuggestStatus s = statusList.get(i);
+            // 第一个是全部，不要
+            items[i - 1] = s.getShow();
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.please_select_classify)
+                .items(items)
+                .itemsCallbackSingleChoice(statusIndex - 1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        // 第一个忽略
+                        SuggestInfo.SuggestStatus status = statusList.get(which + 1);
+                        suggest2Status(status.getStatus());
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void suggest2Status(int status) {
+        if (suggest == null) return;
+        suggest.setStatus(status);
+        updateSuggest(suggest);
+    }
+
+    private void suggest2Official() {
+        if (suggest == null) return;
+        final boolean official = !suggest.isOfficial();
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content("修改官方" + official + "？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (suggest == null) return;
+                        suggest.setOfficial(official);
+                        updateSuggest(suggest);
+                    }
+                })
+                .show();
+    }
+
+    private void suggest2Top() {
+        if (suggest == null) return;
+        final boolean top = !suggest.isTop();
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content("修改置顶" + top + "？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        if (suggest == null) return;
+                        suggest.setTop(top);
+                        updateSuggest(suggest);
+                    }
+                })
+                .show();
+    }
+
+    private void updateSuggest(Suggest body) {
+        if (body == null) return;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).setSuggestUpdate(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                suggest = data.getSuggest();
+                initHead();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
             }
         });
     }

@@ -64,6 +64,19 @@ public class SuggestInfo extends BaseObj {
         return "";
     }
 
+    public static int getKindIndex(int kind) {
+        SuggestInfo info = getInstance();
+        List<SuggestKind> kindList = info.getKindList();
+        // 不要全部
+        for (int i = 1; i < kindList.size(); i++) {
+            SuggestKind s = kindList.get(i);
+            if (s.getKind() == kind) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public List<SuggestStatus> getStatusList() {
         return statusList;
     }

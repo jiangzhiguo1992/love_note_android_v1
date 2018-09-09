@@ -142,7 +142,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .content(R.string.confirm_delete_this)
                 .cancelable(true)
-                .canceledOnTouchOutside(false)
+                .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {

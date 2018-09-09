@@ -65,6 +65,19 @@ public class SuggestInfo extends BaseObj {
         return "";
     }
 
+    public static int getStatusIndex(int status) {
+        SuggestInfo info = getInstance();
+        List<SuggestStatus> statusList = info.getStatusList();
+        // 不要全部
+        for (int i = 1; i < statusList.size(); i++) {
+            SuggestStatus s = statusList.get(i);
+            if (s.getStatus() == status) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public List<SuggestStatus> getStatusList() {
         return statusList;
     }
