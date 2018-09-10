@@ -54,8 +54,8 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         String top = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), floor, create);
         String contentText = item.getContentText();
         // view
-        helper.setText(R.id.tvId, "id：" + item.getId());
-        helper.setText(R.id.tvUid, "uid：" + item.getUserId());
+        helper.setText(R.id.tvId, "id:" + item.getId());
+        helper.setText(R.id.tvUid, "uid:" + item.getUserId());
         helper.setText(R.id.tvContent, contentText);
         TextView tvFloor = helper.getView(R.id.tvTop);
         tvFloor.setText(top);

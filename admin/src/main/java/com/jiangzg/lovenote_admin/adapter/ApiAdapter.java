@@ -26,8 +26,7 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Api item) {
         // data
         String id = "id:" + item.getId();
-        String create = "create:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "update:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String userId = String.valueOf(item.getUserId());
         String duration = String.valueOf(item.getDuration());
         String uri = item.getUri();
@@ -35,13 +34,12 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
         String params = item.getParams();
         // view
         helper.setText(R.id.tvId, id);
-        helper.setText(R.id.tvCreate, create);
-        helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvUid, "uid:" + userId);
         helper.setText(R.id.tvDuration, "d:" + duration);
-        helper.setText(R.id.tvUri, "u:" + uri);
-        helper.setText(R.id.tvMethod, "m:" + method);
-        helper.setText(R.id.tvParams, "p:" + params);
+        helper.setText(R.id.tvCreate, create);
+        helper.setText(R.id.tvUri, uri);
+        helper.setText(R.id.tvMethod, method);
+        helper.setText(R.id.tvParams, params);
     }
 
     public void goUser(final int position) {

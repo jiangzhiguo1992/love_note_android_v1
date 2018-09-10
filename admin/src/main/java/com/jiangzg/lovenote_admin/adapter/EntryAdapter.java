@@ -25,9 +25,8 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Entry item) {
         // data
-        String id = "id:" + item.getId();
-        String create = "create:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "update:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String id = String.valueOf(item.getId());
+        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String userId = String.valueOf(item.getUserId());
         String platform = item.getPlatform();
         String market = item.getMarket();
@@ -36,16 +35,15 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
         String osVersion = item.getOsVersion();
         String appVersion = String.valueOf(item.getAppVersion());
         // view
-        helper.setText(R.id.tvId, id);
-        helper.setText(R.id.tvCreate, create);
-        helper.setText(R.id.tvUpdate, update);
+        helper.setText(R.id.tvId, "id:" + id);
         helper.setText(R.id.tvUid, "uid:" + userId);
-        helper.setText(R.id.tvPlatform, "p:" + platform);
-        helper.setText(R.id.tvMarket, "m:" + market);
         helper.setText(R.id.tvDid, "did:" + deviceId);
-        helper.setText(R.id.tvDName, "dn:" + deviceName);
-        helper.setText(R.id.tvOsVersion, "ov:" + osVersion);
-        helper.setText(R.id.tvAppVersion, "av:" + appVersion);
+        helper.setText(R.id.tvCreate, create);
+        helper.setText(R.id.tvPlatform, platform);
+        helper.setText(R.id.tvDName, deviceName);
+        helper.setText(R.id.tvOsVersion, osVersion);
+        helper.setText(R.id.tvMarket, market);
+        helper.setText(R.id.tvAppVersion, appVersion);
     }
 
     public void goUser(final int position) {

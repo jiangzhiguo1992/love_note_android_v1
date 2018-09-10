@@ -94,8 +94,8 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         final boolean follow = item.isFollow();
         boolean comment = item.isComment();
         // view
-        helper.setText(R.id.tvId, "id：" + item.getId());
-        helper.setText(R.id.tvUid, "uid：" + item.getUserId());
+        helper.setText(R.id.tvId, "id:" + item.getId());
+        helper.setText(R.id.tvUid, "uid:" + item.getUserId());
         GWrapView wvTag = helper.getView(R.id.wvTag);
         wvTag.removeAllChild();
         if (top) {
