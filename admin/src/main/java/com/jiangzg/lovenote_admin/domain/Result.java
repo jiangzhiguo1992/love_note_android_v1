@@ -60,7 +60,16 @@ public class Result implements Serializable {
         private List<Api> apiList;
         private Suggest suggest;
         private List<Suggest> suggestList;
+        private SuggestComment suggestComment;
         private List<SuggestComment> suggestCommentList;
+
+        public SuggestComment getSuggestComment() {
+            return suggestComment;
+        }
+
+        public void setSuggestComment(SuggestComment suggestComment) {
+            this.suggestComment = suggestComment;
+        }
 
         public Suggest getSuggest() {
             return suggest;

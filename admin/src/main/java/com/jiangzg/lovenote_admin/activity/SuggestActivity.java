@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -83,11 +85,29 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
                         getCommentData(true);
                     }
                 })
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
+                        commentAdapter.goUserDetail(position);
+                    }
+                })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
                         commentAdapter.showDeleteDialog(position);
+                    }
+                })
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.tvTop:
+                                commentAdapter.updateOfficial(position);
+                                break;
+                        }
                     }
                 });
         // head
