@@ -38,8 +38,6 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnCreate)
-    Button btnCreate;
     @BindView(R.id.btnUri)
     Button btnUri;
     @BindView(R.id.btnSearch)
@@ -55,7 +53,7 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private long create, start, end;
+    private long start, end;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), ApiActivity.class);
@@ -80,7 +78,7 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "api", true);
         // time
-        create = start = DateUtils.getCurrentLong() - ConstantUtils.HOUR;
+        start = DateUtils.getCurrentLong() - ConstantUtils.HOUR;
         end = DateUtils.getCurrentLong();
         refreshDateView();
         // recycler
@@ -115,12 +113,9 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnCreate, R.id.btnUri, R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnCount})
+    @OnClick({R.id.btnStart, R.id.btnEnd, R.id.btnUri, R.id.btnSearch, R.id.btnCount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnCreate:
-                showCreatePicker();
-                break;
             case R.id.btnUri:
                 getUriData();
                 break;
@@ -140,26 +135,59 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
     }
 
     private void refreshDateView() {
-        String createAt = DateUtils.getString(create, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnCreate.setText("c: " + createAt);
         btnStart.setText("s: " + startAt);
         btnEnd.setText("e: " + endAt);
     }
 
-    private void showCreatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, create, new DialogHelper.OnPickListener() {
+    private void showStartPicker() {
+        DialogHelper.showDateTimePicker(mActivity, start, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
-                create = time;
+                start = time;
                 refreshDateView();
             }
         });
     }
 
+    private void showEndPicker() {
+        DialogHelper.showDateTimePicker(mActivity, end, new DialogHelper.OnPickListener() {
+            @Override
+            public void onPick(long time) {
+                end = time;
+                refreshDateView();
+            }
+        });
+    }
+
+    private void getListData(final boolean more) {
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).apiListGet(start / 1000, end / 1000, page);
+        MaterialDialog loading = null;
+        if (!more) {
+            loading = getLoading(true);
+        }
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Api> apiList = data.getApiList();
+                recyclerHelper.dataOk(apiList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
+            }
+        });
+    }
+
     private void getUriData() {
-        Call<Result> call = new RetrofitHelper().call(API.class).apiUriGet(create / 1000);
+        Call<Result> call = new RetrofitHelper().call(API.class).apiUriGet(start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -192,51 +220,6 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
                 .canceledOnTouchOutside(true)
                 .content(show)
                 .show();
-    }
-
-    private void getListData(final boolean more) {
-        page = more ? page + 1 : 0;
-        // api
-        Call<Result> call = new RetrofitHelper().call(API.class).apiListGet(create / 1000, page);
-        MaterialDialog loading = null;
-        if (!more) {
-            loading = getLoading(true);
-        }
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Api> apiList = data.getApiList();
-                recyclerHelper.dataOk(apiList, more);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
-            }
-        });
-    }
-
-    private void showStartPicker() {
-        DialogHelper.showDateTimePicker(mActivity, start, new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                start = time;
-                refreshDateView();
-            }
-        });
-    }
-
-    private void showEndPicker() {
-        DialogHelper.showDateTimePicker(mActivity, end, new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                end = time;
-                refreshDateView();
-            }
-        });
     }
 
     private void getTotalData() {

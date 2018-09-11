@@ -88,13 +88,13 @@ public interface API {
     Call<Result> entryGroupGet(@Query("start") long start, @Query("end") long end, @Query("filed") String filed);
 
     @GET("api?list=1")
-    Call<Result> apiListGet(@Query("create") long create, @Query("page") int page);
+    Call<Result> apiListGet(@Query("start") long start, @Query("end") long end, @Query("page") int page);
 
     @GET("api")
     Call<Result> apiUserListGet(@Query("uid") long uid, @Query("page") int page);
 
     @GET("api?uri=1")
-    Call<Result> apiUriGet(@Query("create") long create);
+    Call<Result> apiUriGet(@Query("start") long start, @Query("end") long end);
 
     @GET("api?total=1")
     Call<Result> apiTotalGet(@Query("start") long start, @Query("end") long end);
