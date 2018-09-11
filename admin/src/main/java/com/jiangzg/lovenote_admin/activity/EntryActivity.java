@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,7 +35,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class EntryActivity extends BaseActivity<EntryActivity> {
@@ -45,25 +43,23 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
     Toolbar tb;
     @BindView(R.id.etUid)
     EditText etUid;
-    @BindView(R.id.btnListCreate)
-    Button btnListCreate;
     @BindView(R.id.btnCount)
     Button btnCount;
     @BindView(R.id.btnSearch)
     Button btnSearch;
-    @BindView(R.id.btnFiledCreate)
-    Button btnFiledCreate;
+    @BindView(R.id.btnStart)
+    Button btnStart;
+    @BindView(R.id.btnEnd)
+    Button btnEnd;
     @BindView(R.id.btnFiled)
     Button btnFiled;
-    @BindView(R.id.btnFiledSearch)
-    Button btnFiledSearch;
     @BindView(R.id.rv)
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
     private int page;
     private int filedIndex;
-    private long listCreate, filedCreate;
+    private long start, end;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), EntryActivity.class);
@@ -85,9 +81,9 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
         }
-        onInputChange();
         // time
-        listCreate = filedCreate = DateUtils.getCurrentLong() - ConstantUtils.DAY;
+        end = DateUtils.getCurrentLong();
+        start = end - ConstantUtils.DAY;
         refreshDateView();
         // filed
         filedIndex = 0;
@@ -124,77 +120,52 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnTextChanged({R.id.etUid})
-    public void afterTextChanged(Editable s) {
-        onInputChange();
-    }
-
-    @OnClick({R.id.btnListCreate, R.id.btnCount, R.id.btnSearch,
-            R.id.btnFiledCreate, R.id.btnFiled, R.id.btnFiledSearch})
+    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnFiled})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnListCreate:
-                showListCreatePicker();
-                break;
             case R.id.btnCount:
                 getAllCount();
                 break;
             case R.id.btnSearch:
                 getListData(false);
                 break;
-            case R.id.btnFiledCreate:
-                showFiledCreatePicker();
+            case R.id.btnStart:
+                showStartPicker();
+                break;
+            case R.id.btnEnd:
+                showEndPicker();
                 break;
             case R.id.btnFiled:
                 showFiledSelectDialog();
                 break;
-            case R.id.btnFiledSearch:
-                getFiledGroupData();
-                break;
         }
     }
 
-    private void onInputChange() {
-        String input = etUid.getText().toString().trim();
-        if (StringUtils.isEmpty(input)) {
-            btnCount.setEnabled(true);
-            return;
-        }
-        if (StringUtils.isNumber(input)) {
-            Long uid = Long.valueOf(input);
-            if (uid <= 0) {
-                btnCount.setEnabled(true);
-                return;
-            }
-        }
-        btnCount.setEnabled(false);
-    }
-
-    private void showListCreatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, listCreate, new DialogHelper.OnPickListener() {
+    private void showStartPicker() {
+        DialogHelper.showDateTimePicker(mActivity, start, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
-                listCreate = time;
+                start = time;
                 refreshDateView();
             }
         });
     }
 
-    private void showFiledCreatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, filedCreate, new DialogHelper.OnPickListener() {
+    private void showEndPicker() {
+        DialogHelper.showDateTimePicker(mActivity, end, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
-                filedCreate = time;
+                end = time;
                 refreshDateView();
             }
         });
     }
 
     private void refreshDateView() {
-        String listCreateAt = DateUtils.getString(listCreate, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String filedCreateAt = DateUtils.getString(filedCreate, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnListCreate.setText("c: " + listCreateAt);
-        btnFiledCreate.setText("c: " + filedCreateAt);
+        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnStart.setText("s: " + startAt);
+        btnEnd.setText("e: " + endAt);
     }
 
     private void getListData(final boolean more) {
@@ -207,9 +178,9 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         }
         Call<Result> call;
         if (uid > 0) {
-            call = new RetrofitHelper().call(API.class).entryUserListGet(uid, listCreate / 1000, page);
+            call = new RetrofitHelper().call(API.class).entryUserListGet(uid, page);
         } else {
-            call = new RetrofitHelper().call(API.class).entryListGet(listCreate / 1000, page);
+            call = new RetrofitHelper().call(API.class).entryListGet(page);
         }
         MaterialDialog loading = null;
         if (!more) {
@@ -233,7 +204,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
     }
 
     private void getAllCount() {
-        Call<Result> call = new RetrofitHelper().call(API.class).entryTotalGet(listCreate / 1000);
+        Call<Result> call = new RetrofitHelper().call(API.class).entryTotalGet(start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -259,6 +230,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
                         filedIndex = which;
                         btnFiled.setText(ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex]);
                         DialogUtils.dismiss(dialog);
+                        getFiledGroupData();
                         return true;
                     }
                 })
@@ -268,7 +240,7 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
 
     private void getFiledGroupData() {
         String filed = btnFiled.getText().toString().trim();
-        Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(filedCreate / 1000, filed);
+        Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(start / 1000, end / 1000, filed);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

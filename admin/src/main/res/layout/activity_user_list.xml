@@ -16,7 +16,7 @@
 
         <Button
             android:id="@+id/btnSex"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -25,7 +25,7 @@
 
         <Button
             android:id="@+id/btnStart"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
 
         <Button
             android:id="@+id/btnEnd"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:text="黑名单"/>
+            android:text="列表(黑名单)"/>
 
         <Button
             android:id="@+id/btnSearch"
@@ -63,8 +63,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:text="@string/search"/>
+            android:text="列表(最新)"/>
     </LinearLayout>
+
+    <View
+        style="@style/LineHorizontal"
+        android:layout_height="1dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

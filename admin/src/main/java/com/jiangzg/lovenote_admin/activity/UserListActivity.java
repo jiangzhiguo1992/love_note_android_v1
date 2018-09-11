@@ -79,7 +79,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         ViewHelper.initTopBar(mActivity, tb, "user_list", true);
         // sex
         sexIndex = 0;
-        btnSex.setText(ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
+        btnSex.setText("性别:" + ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
         // time
         create = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         start = end = 0;
@@ -176,7 +176,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
                         sexIndex = which;
-                        btnSex.setText(ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
+                        btnSex.setText("性别:" + ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }

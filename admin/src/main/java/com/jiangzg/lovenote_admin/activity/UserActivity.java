@@ -177,8 +177,8 @@ public class UserActivity extends BaseActivity<UserActivity> {
         btnStatus.setText(user.getStatus() == BaseObj.STATUS_VISIBLE ? "正常ing" : "拉黑ing");
         tvCreate.setText(DateUtils.getString(user.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         tvUpdate.setText(DateUtils.getString(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
-        btnSex.setText(User.getSexShow(user.getSex()));
-        btnBirthday.setText(DateUtils.getString(user.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D));
+        btnSex.setText("性别:" + User.getSexShow(user.getSex()));
+        btnBirthday.setText("生日:" + DateUtils.getString(user.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D));
     }
 
     private void showStatusDialog() {

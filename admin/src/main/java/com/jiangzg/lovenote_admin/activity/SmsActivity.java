@@ -79,7 +79,7 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
         etPhone.setText(phone);
         // search
         searchIndex = 0;
-        btnType.setText(ApiHelper.LIST_SMS_SHOW[searchIndex]);
+        btnType.setText("类型:" + ApiHelper.LIST_SMS_SHOW[searchIndex]);
         // time
         start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         end = DateUtils.getCurrentLong();
@@ -148,7 +148,7 @@ public class SmsActivity extends BaseActivity<SmsActivity> {
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
                         searchIndex = which;
-                        btnType.setText(ApiHelper.LIST_SMS_SHOW[searchIndex]);
+                        btnType.setText("类型:" + ApiHelper.LIST_SMS_SHOW[searchIndex]);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
