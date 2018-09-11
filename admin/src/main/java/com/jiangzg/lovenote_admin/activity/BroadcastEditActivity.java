@@ -75,7 +75,7 @@ public class BroadcastEditActivity extends BaseActivity<BroadcastEditActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "broadcast", true);
+        ViewHelper.initTopBar(mActivity, tb, "broadcast_edit", true);
         rbTypeText.setChecked(true);
         etCover.setText(SPHelper.getOssInfo().getPathBroadcast());
         refreshDateView();

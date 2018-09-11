@@ -54,7 +54,7 @@ public class VersionEditActivity extends BaseActivity<VersionEditActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "version", true);
+        ViewHelper.initTopBar(mActivity, tb, "version_edit", true);
         etUrl.setText(SPHelper.getOssInfo().getPathVersion());
     }
 

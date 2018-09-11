@@ -40,7 +40,7 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import retrofit2.Call;
 
-public class UserActivity extends BaseActivity<UserActivity> {
+public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -68,14 +68,14 @@ public class UserActivity extends BaseActivity<UserActivity> {
     private int page;
 
     public static void goActivity(Activity from, long uid) {
-        Intent intent = new Intent(from, UserActivity.class);
+        Intent intent = new Intent(from, UserDetailActivity.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Activity from, String phone) {
-        Intent intent = new Intent(from, UserActivity.class);
+        Intent intent = new Intent(from, UserDetailActivity.class);
         intent.putExtra("phone", phone);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -83,12 +83,12 @@ public class UserActivity extends BaseActivity<UserActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_user;
+        return R.layout.activity_user_detail;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "user", true);
+        ViewHelper.initTopBar(mActivity, tb, "user_detail", true);
         // id
         long uid = intent.getLongExtra("uid", 0);
         etId.setText(String.valueOf(uid));

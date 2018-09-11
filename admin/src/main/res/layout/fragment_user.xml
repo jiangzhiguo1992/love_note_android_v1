@@ -18,7 +18,7 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cvUserNew"
+                android:id="@+id/cvUser"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -44,19 +44,27 @@
                         android:text="注册用户(user)"/>
 
                     <TextView
-                        android:id="@+id/tvUserDayNew"
+                        android:id="@+id/tvUser1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="天："/>
 
                     <TextView
-                        android:id="@+id/tvUserWeekNew"
+                        android:id="@+id/tvUser2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="周："/>
+
+                    <TextView
+                        android:id="@+id/tvUser3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="周："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -88,19 +96,27 @@
                         android:text="短信发送(sms)"/>
 
                     <TextView
-                        android:id="@+id/tvSmsDaySend"
+                        android:id="@+id/tvSms1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="天："/>
 
                     <TextView
-                        android:id="@+id/tvSmsWeekSend"
+                        android:id="@+id/tvSms2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="周："/>
+
+                    <TextView
+                        android:id="@+id/tvSms3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="周："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -112,7 +128,7 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cvUserActive"
+                android:id="@+id/cvEntry"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -138,19 +154,27 @@
                         android:text="活跃用户(entry)"/>
 
                     <TextView
-                        android:id="@+id/tvUserDayActive"
+                        android:id="@+id/tvEntry1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="天："/>
 
                     <TextView
-                        android:id="@+id/tvUserWeekActive"
+                        android:id="@+id/tvEntry2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="周："/>
+
+                    <TextView
+                        android:id="@+id/tvEntry3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="周："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -182,19 +206,27 @@
                         android:text="用户行为(api)"/>
 
                     <TextView
-                        android:id="@+id/tvApiHour"
+                        android:id="@+id/tvApi1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="时："/>
 
                     <TextView
-                        android:id="@+id/tvApiDay"
+                        android:id="@+id/tvApi2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="天："/>
+
+                    <TextView
+                        android:id="@+id/tvApi3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="天："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -232,19 +264,19 @@
                         android:text="意见反馈(suggest)"/>
 
                     <TextView
-                        android:id="@+id/tvSuggestDayNew"
+                        android:id="@+id/tvSuggest1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="帖子："/>
 
                     <TextView
-                        android:id="@+id/tvSuggestCommentDayNew"
+                        android:id="@+id/tvSuggest2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>

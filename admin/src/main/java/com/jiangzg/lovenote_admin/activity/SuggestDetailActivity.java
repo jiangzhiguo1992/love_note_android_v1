@@ -43,7 +43,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class SuggestActivity extends BaseActivity<SuggestActivity> {
+public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -55,7 +55,7 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
     private int page;
 
     public static void goActivity(Activity from, Suggest suggest) {
-        Intent intent = new Intent(from, SuggestActivity.class);
+        Intent intent = new Intent(from, SuggestDetailActivity.class);
         intent.putExtra("suggest", suggest);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -63,14 +63,14 @@ public class SuggestActivity extends BaseActivity<SuggestActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_suggest;
+        return R.layout.activity_suggest_detail;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // init
-        suggest = intent.getParcelableExtra("suggest");
+        suggest = intent.getParcelableExtra("suggest_detail");
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))

@@ -34,7 +34,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-public class ApiActivity extends BaseActivity<ApiActivity> {
+public class ApiListActivity extends BaseActivity<ApiListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -56,14 +56,14 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
     private long start, end;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), ApiActivity.class);
+        Intent intent = new Intent(from.getActivity(), ApiListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Activity from, long uid) {
-        Intent intent = new Intent(from, ApiActivity.class);
+        Intent intent = new Intent(from, ApiListActivity.class);
         intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -71,12 +71,12 @@ public class ApiActivity extends BaseActivity<ApiActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_api;
+        return R.layout.activity_api_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "api", true);
+        ViewHelper.initTopBar(mActivity, tb, "api_list", true);
         // time
         start = DateUtils.getCurrentLong() - ConstantUtils.HOUR;
         end = DateUtils.getCurrentLong();

@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.activity.UserActivity;
+import com.jiangzg.lovenote_admin.activity.UserDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Entry;
 
@@ -48,7 +48,7 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
 
     public void goUser(final int position) {
         Entry item = getItem(position);
-        UserActivity.goActivity(mActivity, item.getUserId());
+        UserDetailActivity.goActivity(mActivity, item.getUserId());
     }
 
 }

@@ -14,16 +14,14 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.adapter.EntryAdapter;
+import com.jiangzg.lovenote_admin.adapter.SmsAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
-import com.jiangzg.lovenote_admin.domain.Entry;
-import com.jiangzg.lovenote_admin.domain.FiledInfo;
 import com.jiangzg.lovenote_admin.domain.Result;
+import com.jiangzg.lovenote_admin.domain.Sms;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
@@ -37,32 +35,32 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-public class EntryActivity extends BaseActivity<EntryActivity> {
+public class SmsListActivity extends BaseActivity<SmsListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.etUid)
-    EditText etUid;
-    @BindView(R.id.btnCount)
-    Button btnCount;
-    @BindView(R.id.btnSearch)
-    Button btnSearch;
+    @BindView(R.id.etPhone)
+    EditText etPhone;
+    @BindView(R.id.btnType)
+    Button btnType;
     @BindView(R.id.btnStart)
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnFiled)
-    Button btnFiled;
+    @BindView(R.id.btnCount)
+    Button btnCount;
+    @BindView(R.id.btnSearch)
+    Button btnSearch;
     @BindView(R.id.rv)
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private int filedIndex;
+    private int searchIndex;
     private long start, end;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), EntryActivity.class);
+        Intent intent = new Intent(from.getActivity(), SmsListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -70,28 +68,26 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_entry;
+        return R.layout.activity_sms_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "entry", true);
-        // uid
-        long uid = intent.getLongExtra("uid", 0);
-        if (uid > 0) {
-            etUid.setText(String.valueOf(uid));
-        }
+        ViewHelper.initTopBar(mActivity, tb, "sms_list", true);
+        // phone
+        String phone = intent.getStringExtra("phone");
+        etPhone.setText(phone);
+        // search
+        searchIndex = 0;
+        btnType.setText("类型:" + ApiHelper.LIST_SMS_SHOW[searchIndex]);
         // time
+        start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         end = DateUtils.getCurrentLong();
-        start = end - ConstantUtils.DAY;
         refreshDateView();
-        // filed
-        filedIndex = 0;
-        btnFiled.setText(ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex]);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new EntryAdapter(mActivity))
+                .initAdapter(new SmsAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -104,8 +100,8 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        EntryAdapter entryAdapter = (EntryAdapter) adapter;
-                        entryAdapter.goUser(position);
+                        SmsAdapter smsAdapter = (SmsAdapter) adapter;
+                        smsAdapter.goUser(position);
                     }
                 });
     }
@@ -120,14 +116,11 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnFiled})
+    @OnClick({R.id.btnType, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnCount:
-                getAllCount();
-                break;
-            case R.id.btnSearch:
-                getListData(false);
+            case R.id.btnType:
+                showTypeSelectDialog();
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -135,10 +128,33 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnFiled:
-                showFiledSelectDialog();
+            case R.id.btnCount:
+                getCount();
+                break;
+            case R.id.btnSearch:
+                getListData(false);
                 break;
         }
+    }
+
+    private void showTypeSelectDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_search_type)
+                .items(ApiHelper.LIST_SMS_SHOW)
+                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
+                        searchIndex = which;
+                        btnType.setText("类型:" + ApiHelper.LIST_SMS_SHOW[searchIndex]);
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void showStartPicker() {
@@ -168,43 +184,12 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         btnEnd.setText("e: " + endAt);
     }
 
-    private void getListData(final boolean more) {
-        page = more ? page + 1 : 0;
-        // api
-        long uid = 0;
-        String trim = etUid.getText().toString().trim();
-        if (StringUtils.isNumber(trim)) {
-            uid = Long.valueOf(trim);
-        }
-        Call<Result> call;
-        if (uid > 0) {
-            call = new RetrofitHelper().call(API.class).entryUserListGet(uid, page);
-        } else {
-            call = new RetrofitHelper().call(API.class).entryListGet(page);
-        }
-        MaterialDialog loading = null;
-        if (!more) {
-            loading = getLoading(true);
-        }
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Entry> entryList = data.getEntryList();
-                recyclerHelper.dataOk(entryList, more);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
-            }
-        });
-    }
-
-    private void getAllCount() {
-        Call<Result> call = new RetrofitHelper().call(API.class).entryTotalGet(start / 1000, end / 1000);
+    private void getCount() {
+        long startAt = start / 1000;
+        long endAt = end / 1000;
+        String phone = etPhone.getText().toString();
+        int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).smsTotalGet(startAt, endAt, phone, sendType);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -218,56 +203,33 @@ public class EntryActivity extends BaseActivity<EntryActivity> {
         });
     }
 
-    private void showFiledSelectDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_ENTRY_FILED_SHOW)
-                .itemsCallbackSingleChoice(filedIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        filedIndex = which;
-                        btnFiled.setText(ApiHelper.LIST_ENTRY_FILED_SHOW[filedIndex]);
-                        DialogUtils.dismiss(dialog);
-                        getFiledGroupData();
-                        return true;
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void getFiledGroupData() {
-        String filed = btnFiled.getText().toString().trim();
-        Call<Result> call = new RetrofitHelper().call(API.class).entryGroupGet(start / 1000, end / 1000, filed);
-        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+    private void getListData(final boolean more) {
+        page = more ? page + 1 : 0;
+        // api
+        long startAt = start / 1000;
+        long endAt = end / 1000;
+        String phone = etPhone.getText().toString();
+        int sendType = ApiHelper.LIST_SMS_TYPE[searchIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).smsListGet(startAt, endAt, phone, sendType, page);
+        MaterialDialog loading = null;
+        if (!more) {
+            loading = getLoading(true);
+        }
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                List<FiledInfo> infoList = data.getInfoList();
-                showFiledResultDialog(infoList);
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Sms> smsList = data.getSmsList();
+                recyclerHelper.dataOk(smsList, more);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
             }
         });
     }
 
-    private void showFiledResultDialog(List<FiledInfo> infoList) {
-        StringBuilder builder = new StringBuilder();
-        if (infoList == null || infoList.size() <= 0) {
-            builder.append("没有信息");
-        } else {
-            for (FiledInfo info : infoList) {
-                if (info == null) continue;
-                builder.append(info.getCount())
-                        .append(" == ")
-                        .append(info.getName())
-                        .append("\n");
-            }
-        }
-        String show = builder.toString();
-        DialogHelper.getBuild(mActivity).content(show).show();
-    }
 }

@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.activity.UserActivity;
+import com.jiangzg.lovenote_admin.activity.UserDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Sms;
 
@@ -40,7 +40,7 @@ public class SmsAdapter extends BaseQuickAdapter<Sms, BaseViewHolder> {
 
     public void goUser(final int position) {
         Sms item = getItem(position);
-        UserActivity.goActivity(mActivity, item.getPhone());
+        UserDetailActivity.goActivity(mActivity, item.getPhone());
     }
 
 }

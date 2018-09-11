@@ -57,7 +57,7 @@ public class NoticeEditActivity extends BaseActivity<NoticeEditActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "notice", true);
+        ViewHelper.initTopBar(mActivity, tb, "notice_edit", true);
         rbTypeText.setChecked(true);
     }
 

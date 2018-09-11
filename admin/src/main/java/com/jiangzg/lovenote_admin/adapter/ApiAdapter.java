@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.activity.UserActivity;
+import com.jiangzg.lovenote_admin.activity.UserDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Api;
 
@@ -45,7 +45,7 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
     public void goUser(final int position) {
         Api item = getItem(position);
         if (item.getUserId() > 0) {
-            UserActivity.goActivity(mActivity, item.getUserId());
+            UserDetailActivity.goActivity(mActivity, item.getUserId());
         }
     }
 

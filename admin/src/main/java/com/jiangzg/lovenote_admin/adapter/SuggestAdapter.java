@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.activity.SuggestActivity;
+import com.jiangzg.lovenote_admin.activity.SuggestDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.Suggest;
@@ -135,7 +135,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     public void goSuggestDetail(int position) {
         Suggest item = getItem(position);
-        SuggestActivity.goActivity(mActivity, item);
+        SuggestDetailActivity.goActivity(mActivity, item);
     }
 
     public void showDelDialog(final int position) {
