@@ -15,15 +15,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCreate"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            tools:text="创建"/>
-
-        <Button
             android:id="@+id/btnSex"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
@@ -31,12 +22,6 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             tools:text="性别"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnStart"
@@ -44,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             tools:text="开始于"/>
 
         <Button
@@ -53,7 +38,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
+            android:layout_weight="2"
             tools:text="结束于"/>
     </LinearLayout>
 
@@ -72,15 +57,6 @@
             android:text="黑名单"/>
 
         <Button
-            android:id="@+id/btnCount"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="3"
-            android:text="数量"/>
-
-        <Button
             android:id="@+id/btnSearch"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
@@ -88,6 +64,30 @@
             android:layout_gravity="center"
             android:layout_weight="2"
             android:text="@string/search"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCreate"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            tools:text="创建"/>
+
+        <Button
+            android:id="@+id/btnCount"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="数量"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

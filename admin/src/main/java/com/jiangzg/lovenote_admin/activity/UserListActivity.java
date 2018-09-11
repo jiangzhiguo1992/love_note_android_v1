@@ -273,11 +273,10 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        long createAt = create / 1000;
         long startAt = start / 1000;
         long endAt = end / 1000;
         int sex = ApiHelper.LIST_USER_SEX_TYPE[sexIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).userListGet(createAt, sex, startAt, endAt, page);
+        Call<Result> call = new RetrofitHelper().call(API.class).userListGet(sex, startAt, endAt, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);
