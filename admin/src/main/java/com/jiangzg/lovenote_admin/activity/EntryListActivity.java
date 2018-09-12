@@ -113,6 +113,7 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
+        getListData(false);
     }
 
     @Override

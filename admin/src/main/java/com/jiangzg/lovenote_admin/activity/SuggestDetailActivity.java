@@ -68,9 +68,9 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
+        ViewHelper.initTopBar(mActivity, tb, "suggest_detail", true);
         // init
-        suggest = intent.getParcelableExtra("suggest_detail");
+        suggest = intent.getParcelableExtra("suggest");
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))

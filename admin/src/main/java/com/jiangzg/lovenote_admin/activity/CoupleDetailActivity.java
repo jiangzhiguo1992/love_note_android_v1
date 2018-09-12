@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,21 +11,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.adapter.CoupleStateAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Couple;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
+import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
 import com.jiangzg.lovenote_admin.view.FrescoView;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -70,6 +78,8 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
 
     private Couple couple;
     private User creator, inviter;
+    private RecyclerHelper recyclerHelper;
+    private int page;
 
     public static void goActivity(Activity from, long cid) {
         Intent intent = new Intent(from, CoupleDetailActivity.class);
@@ -94,17 +104,37 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
         }
-        // TODO rv
+        // recycler
+        recyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new CoupleStateAdapter(mActivity))
+                .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreGreyView())
+                .setAdapter()
+                .listenerMore(new RecyclerHelper.MoreListener() {
+                    @Override
+                    public void onMore(int currentCount) {
+                        getListData(true);
+                    }
+                })
+                .listenerClick(new OnItemClickListener() {
+                    @Override
+                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        CoupleStateAdapter coupleStateAdapter = (CoupleStateAdapter) adapter;
+                        coupleStateAdapter.goUser(position);
+                    }
+                });
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-
+        page = 0;
+        getCoupleData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
-
+        RecyclerHelper.release(recyclerHelper);
     }
 
     @OnClick({R.id.btnSearch})
@@ -133,6 +163,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                 couple = data.getCouple();
                 refreshCoupleView();
                 getUserData();
+                getListData(false);
             }
 
             @Override
@@ -167,6 +198,32 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    private void getListData(final boolean more) {
+        if (couple == null) return;
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).coupleStateListGet(couple.getId(), page);
+        MaterialDialog loading = null;
+        if (!more) {
+            loading = getLoading(true);
+        }
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Couple.State> coupleStateList = data.getCoupleStateList();
+                recyclerHelper.dataOk(coupleStateList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
             }
         });
     }

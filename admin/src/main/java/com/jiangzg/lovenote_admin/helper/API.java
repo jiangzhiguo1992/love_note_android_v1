@@ -124,7 +124,7 @@ public interface API {
     Call<Result> coupleListGet(@Query("uid") long uid, @Query("page") int page);
 
     @GET("couple?list=1&state=1")
-    Call<Result> coupleStateListGet(@Query("page") int page);
+    Call<Result> coupleStateListGet(@Query("cid") long cid, @Query("page") int page);
 
     @GET("couple?total=1&state=0")
     Call<Result> coupleTotalGet(@Query("start") long start, @Query("end") long end);

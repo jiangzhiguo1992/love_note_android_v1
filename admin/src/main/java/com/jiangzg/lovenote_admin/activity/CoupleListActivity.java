@@ -105,6 +105,7 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
+        getListData(false);
     }
 
     @Override

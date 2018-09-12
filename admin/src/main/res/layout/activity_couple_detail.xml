@@ -162,7 +162,7 @@
 
         <TextView
             android:id="@+id/tvSex1"
-            style="@style/FontGreyNormal"
+            style="@style/FontBlackNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -171,7 +171,7 @@
 
         <TextView
             android:id="@+id/tvSex2"
-            style="@style/FontGreyNormal"
+            style="@style/FontBlackNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

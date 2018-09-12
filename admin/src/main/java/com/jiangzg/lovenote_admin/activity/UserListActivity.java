@@ -113,6 +113,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
+        getListData(false);
     }
 
     @Override

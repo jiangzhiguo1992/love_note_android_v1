@@ -3,9 +3,9 @@ package com.jiangzg.lovenote_admin.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.lovenote_admin.base.MyApp;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.base.MyApp;
 
 /**
  * Created by JZG on 2017/12/18.
@@ -60,6 +60,24 @@ public class Couple extends BaseObj implements Parcelable {
         } else {
             return couple.getInviteeAvatar();
         }
+    }
+
+    public static String getStateShow(int state) {
+        switch (state) {
+            case STATUS_INVITE:
+                return "正在邀请";
+            case STATUS_INVITE_CANCEL:
+                return "邀请者撤回";
+            case STATUS_INVITE_REJECT:
+                return "被邀请者拒绝";
+            case STATUS_BREAK:
+                return "正在分手";
+            case STATUS_BREAK_ACCEPT:
+                return "被分手者同意";
+            case STATUS_TOGETHER:
+                return "在一起";
+        }
+        return "未知";
     }
 
     public static class State extends BaseCP implements Parcelable {
