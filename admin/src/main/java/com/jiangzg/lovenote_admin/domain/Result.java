@@ -48,6 +48,7 @@ public class Result implements Serializable {
 
         private String show;
         private long total;
+        private List<FiledInfo> infoList;
         private User user;
         private OssInfo ossInfo;
         private List<User> userList;
@@ -55,13 +56,39 @@ public class Result implements Serializable {
         private List<Version> versionList;
         private List<Notice> noticeList;
         private List<Broadcast> broadcastList;
-        private List<FiledInfo> infoList;
         private List<Entry> entryList;
         private List<Api> apiList;
         private Suggest suggest;
         private List<Suggest> suggestList;
         private SuggestComment suggestComment;
         private List<SuggestComment> suggestCommentList;
+        private Couple couple;
+        private List<Couple> coupleList;
+        private List<Couple.State> coupleStateList;
+
+        public Couple getCouple() {
+            return couple;
+        }
+
+        public void setCouple(Couple couple) {
+            this.couple = couple;
+        }
+
+        public List<Couple> getCoupleList() {
+            return coupleList;
+        }
+
+        public void setCoupleList(List<Couple> coupleList) {
+            this.coupleList = coupleList;
+        }
+
+        public List<Couple.State> getCoupleStateList() {
+            return coupleStateList;
+        }
+
+        public void setCoupleStateList(List<Couple.State> coupleStateList) {
+            this.coupleStateList = coupleStateList;
+        }
 
         public SuggestComment getSuggestComment() {
             return suggestComment;

@@ -176,12 +176,7 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
         if (StringUtils.isNumber(trim)) {
             uid = Long.valueOf(trim);
         }
-        Call<Result> call;
-        if (uid > 0) {
-            call = new RetrofitHelper().call(API.class).entryUserListGet(uid, page);
-        } else {
-            call = new RetrofitHelper().call(API.class).entryListGet(page);
-        }
+        Call<Result> call = new RetrofitHelper().call(API.class).entryListGet(uid, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);

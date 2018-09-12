@@ -76,10 +76,7 @@ public interface API {
     Call<Result> smsTotalGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type);
 
     @GET("entry?list=1")
-    Call<Result> entryListGet(@Query("page") int page);
-
-    @GET("entry")
-    Call<Result> entryUserListGet(@Query("uid") long uid, @Query("page") int page);
+    Call<Result> entryListGet(@Query("uid") long uid, @Query("page") int page);
 
     @GET("entry?total=1")
     Call<Result> entryTotalGet(@Query("start") long start, @Query("end") long end);
