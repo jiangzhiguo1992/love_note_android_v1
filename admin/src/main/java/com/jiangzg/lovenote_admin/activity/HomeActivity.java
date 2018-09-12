@@ -92,10 +92,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
                 return true;
             }
         });
-        // first
-        nv.setCheckedItem(R.id.menuUser);
-        UserFragment userFragment = UserFragment.newFragment();
-        FragmentTrans.replace(mActivity.mFragmentManager, userFragment, R.id.rlContent);
     }
 
     @Override

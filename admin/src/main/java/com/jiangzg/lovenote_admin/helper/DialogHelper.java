@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote_admin.helper;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -13,8 +14,10 @@ import com.afollestad.materialdialogs.Theme;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.domain.FiledInfo;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by JZG on 2018/3/30.
@@ -112,6 +115,28 @@ public class DialogHelper {
             }
         }, hour, minute, true);
         picker.show();
+    }
+
+    public static void showFiledInfoDialog(Activity activity, List<FiledInfo> infoList) {
+        StringBuilder builder = new StringBuilder();
+        if (infoList == null || infoList.size() <= 0) {
+            builder.append("没有信息");
+        } else {
+            for (FiledInfo info : infoList) {
+                if (info == null) continue;
+                builder.append(info.getCount())
+                        .append(" == ")
+                        .append(info.getName())
+                        .append("\n");
+            }
+        }
+        String show = builder.toString();
+        MaterialDialog dialog = DialogHelper.getBuild(activity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(show)
+                .build();
+        showWithAnim(dialog);
     }
 
 }

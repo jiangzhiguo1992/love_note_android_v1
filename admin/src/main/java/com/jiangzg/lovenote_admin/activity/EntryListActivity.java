@@ -240,7 +240,7 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 List<FiledInfo> infoList = data.getInfoList();
-                showFiledResultDialog(infoList);
+                DialogHelper.showFiledInfoDialog(mActivity, infoList);
             }
 
             @Override
@@ -249,20 +249,4 @@ public class EntryListActivity extends BaseActivity<EntryListActivity> {
         });
     }
 
-    private void showFiledResultDialog(List<FiledInfo> infoList) {
-        StringBuilder builder = new StringBuilder();
-        if (infoList == null || infoList.size() <= 0) {
-            builder.append("没有信息");
-        } else {
-            for (FiledInfo info : infoList) {
-                if (info == null) continue;
-                builder.append(info.getCount())
-                        .append(" == ")
-                        .append(info.getName())
-                        .append("\n");
-            }
-        }
-        String show = builder.toString();
-        DialogHelper.getBuild(mActivity).content(show).show();
-    }
 }

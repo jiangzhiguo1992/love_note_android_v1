@@ -27,6 +27,10 @@
         <activity android:name=".activity.ApiListActivity"/>
         <activity android:name=".activity.SuggestFollowActivity"/>
         <activity android:name=".activity.SuggestDetailActivity"/>
+        <activity android:name=".activity.CoupleListActivity">
+        </activity>
+        <activity android:name=".activity.CoupleDetailActivity">
+        </activity>
     </application>
 
 </manifest>

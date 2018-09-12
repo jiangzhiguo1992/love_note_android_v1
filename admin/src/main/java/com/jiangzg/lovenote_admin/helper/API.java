@@ -120,7 +120,17 @@ public interface API {
     @GET("set/suggest/comment?total=1")
     Call<Result> setSuggestCommentTotalGet(@Query("create") long create);
 
-    // TODO couple
+    @GET("couple?list=1&state=0")
+    Call<Result> coupleListGet(@Query("uid") long uid, @Query("page") int page);
+
+    @GET("couple?list=1&state=1")
+    Call<Result> coupleStateListGet(@Query("page") int page);
+
+    @GET("couple?total=1&state=0")
+    Call<Result> coupleTotalGet(@Query("start") long start, @Query("end") long end);
+
+    @GET("couple?total=1&state=1")
+    Call<Result> coupleStateTotalGet(@Query("start") long start, @Query("end") long end);
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);

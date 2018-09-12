@@ -44,19 +44,27 @@
                         android:text="配对(couple)"/>
 
                     <TextView
-                        android:id="@+id/tvCoupleDay"
+                        android:id="@+id/tvCouple1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="天：/"/>
 
                     <TextView
-                        android:id="@+id/tvCoupleWeek"
+                        android:id="@+id/tvCouple2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="周：/"/>
+
+                    <TextView
+                        android:id="@+id/tvCouple3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="周：/"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -88,19 +96,27 @@
                         android:text="账单(bill)"/>
 
                     <TextView
-                        android:id="@+id/tvBillDayNew"
+                        android:id="@+id/tvBill1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="天："/>
 
                     <TextView
-                        android:id="@+id/tvBillWeekNew"
+                        android:id="@+id/tvBill2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="周："/>
+
+                    <TextView
+                        android:id="@+id/tvBill3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="周："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -112,7 +128,7 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cvVip"
+                android:id="@+id/cvNote"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -135,75 +151,33 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="会员(vip)"/>
+                        android:text="记录(note)"/>
 
                     <TextView
-                        android:id="@+id/tvVipDayNew"
+                        android:id="@+id/tvNote1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="天："/>
+                        android:padding="3dp"
+                        android:text="帖子："/>
 
                     <TextView
-                        android:id="@+id/tvVipWeekNew"
+                        android:id="@+id/tvNote2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="周："/>
+                        android:padding="3dp"
+                        android:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvNote3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvCoin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="金币(coin)"/>
-
-                    <TextView
-                        android:id="@+id/tvCoinDayActive"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="天："/>
-
-                    <TextView
-                        android:id="@+id/tvCoinWeekActive"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="周："/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvPost"
@@ -232,22 +206,36 @@
                         android:text="话题(post)"/>
 
                     <TextView
-                        android:id="@+id/tvPostDayNew"
+                        android:id="@+id/tvPost1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="帖子："/>
 
                     <TextView
-                        android:id="@+id/tvPostWeekNew"
+                        android:id="@+id/tvPost2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvPost3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvMatch"
@@ -276,21 +264,42 @@
                         android:text="比拼(match)"/>
 
                     <TextView
-                        android:id="@+id/tvMatchDayNew"
+                        android:id="@+id/tvMatch1"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
                         android:text="作品："/>
 
                     <TextView
-                        android:id="@+id/tvMatchWeekNew"
+                        android:id="@+id/tvMatch2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:text="金币："/>
+
+                    <TextView
+                        android:id="@+id/tvMatch3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
                         android:text="金币："/>
                 </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </LinearLayout>

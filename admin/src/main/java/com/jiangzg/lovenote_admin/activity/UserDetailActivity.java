@@ -175,8 +175,8 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
         etId.setText(String.valueOf(user.getId()));
         etPhone.setText(user.getPhone());
         btnStatus.setText(user.getStatus() == BaseObj.STATUS_VISIBLE ? "正常ing" : "拉黑ing");
-        tvCreate.setText(DateUtils.getString(user.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
-        tvUpdate.setText(DateUtils.getString(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
+        tvCreate.setText("c:" + DateUtils.getString(user.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
+        tvUpdate.setText("u:" + DateUtils.getString(user.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         btnSex.setText("性别:" + User.getSexShow(user.getSex()));
         btnBirthday.setText("生日:" + DateUtils.getString(user.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D));
     }
