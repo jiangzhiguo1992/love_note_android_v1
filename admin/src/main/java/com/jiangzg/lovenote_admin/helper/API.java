@@ -132,6 +132,9 @@ public interface API {
     @GET("couple?total=1&state=1")
     Call<Result> coupleStateTotalGet(@Query("start") long start, @Query("end") long end);
 
+    @GET("couple?all=1")
+    Call<Result> coupleGet(@Query("uid") long uid, @Query("cid") long cid);
+
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);
 
