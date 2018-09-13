@@ -27,10 +27,11 @@
         <activity android:name=".activity.ApiListActivity"/>
         <activity android:name=".activity.SuggestFollowActivity"/>
         <activity android:name=".activity.SuggestDetailActivity"/>
-        <activity android:name=".activity.CoupleListActivity">
-        </activity>
-        <activity android:name=".activity.CoupleDetailActivity">
-        </activity>
+        <activity android:name=".activity.CoupleListActivity"/>
+        <activity android:name=".activity.CoupleDetailActivity"/>
+        <activity android:name=".activity.BillListActivity"/>
+        <activity android:name=".activity.VipListActivity"/>
+        <activity android:name=".activity.CoinListActivity"/>
     </application>
 
 </manifest>

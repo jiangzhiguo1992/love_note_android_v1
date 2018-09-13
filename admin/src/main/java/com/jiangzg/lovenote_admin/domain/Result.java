@@ -65,6 +65,24 @@ public class Result implements Serializable {
         private Couple couple;
         private List<Couple> coupleList;
         private List<Couple.State> coupleStateList;
+        private List<Bill> billList;
+        private double amount;
+
+        public List<Bill> getBillList() {
+            return billList;
+        }
+
+        public void setBillList(List<Bill> billList) {
+            this.billList = billList;
+        }
+
+        public double getAmount() {
+            return amount;
+        }
+
+        public void setAmount(double amount) {
+            this.amount = amount;
+        }
 
         public Couple getCouple() {
             return couple;

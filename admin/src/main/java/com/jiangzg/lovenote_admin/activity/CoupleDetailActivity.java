@@ -48,6 +48,12 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     EditText etUid;
     @BindView(R.id.btnSearch)
     Button btnSearch;
+    @BindView(R.id.btnBill)
+    Button btnBill;
+    @BindView(R.id.btnVip)
+    Button btnVip;
+    @BindView(R.id.btnCoin)
+    Button btnCoin;
 
     @BindView(R.id.tvCreate)
     TextView tvCreate;
@@ -137,11 +143,23 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch})
+    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
                 getCoupleData();
+                break;
+            case R.id.btnBill:
+                if (couple == null) return;
+                BillListActivity.goActivity(mActivity, couple.getId());
+                break;
+            case R.id.btnVip:
+                if (couple == null) return;
+                VipListActivity.goActivity(mActivity, couple.getId());
+                break;
+            case R.id.btnCoin:
+                if (couple == null) return;
+                CoinListActivity.goActivity(mActivity, couple.getId());
                 break;
         }
     }

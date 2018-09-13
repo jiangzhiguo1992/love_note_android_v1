@@ -9,7 +9,10 @@ import android.widget.TextView;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.activity.BillListActivity;
+import com.jiangzg.lovenote_admin.activity.CoinListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
+import com.jiangzg.lovenote_admin.activity.VipListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
@@ -38,6 +41,24 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     TextView tvBill2;
     @BindView(R.id.tvBill3)
     TextView tvBill3;
+
+    @BindView(R.id.cvVip)
+    CardView cvVip;
+    @BindView(R.id.tvVip1)
+    TextView tvVip1;
+    @BindView(R.id.tvVip2)
+    TextView tvVip2;
+    @BindView(R.id.tvVip3)
+    TextView tvVip3;
+
+    @BindView(R.id.cvCoin)
+    CardView cvCoin;
+    @BindView(R.id.tvCoin1)
+    TextView tvCoin1;
+    @BindView(R.id.tvCoin2)
+    TextView tvCoin2;
+    @BindView(R.id.tvCoin3)
+    TextView tvCoin3;
 
     @BindView(R.id.cvNote)
     CardView cvNote;
@@ -95,14 +116,20 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.cvCouple, R.id.cvBill, R.id.cvNote, R.id.cvPost, R.id.cvMatch})
+    @OnClick({R.id.cvCouple, R.id.cvBill, R.id.cvVip, R.id.cvCoin, R.id.cvNote, R.id.cvPost, R.id.cvMatch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvCouple: // 配对
                 CoupleListActivity.goActivity(mFragment);
                 break;
             case R.id.cvBill: // 账单
-                // TODO
+                BillListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvVip: // 会员
+                VipListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvCoin: // 金币
+                CoinListActivity.goActivity(mFragment);
                 break;
             case R.id.cvNote: // 记录
                 // TODO
