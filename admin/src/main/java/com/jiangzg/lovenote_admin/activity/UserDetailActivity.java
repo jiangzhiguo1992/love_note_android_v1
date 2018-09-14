@@ -50,6 +50,13 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
     EditText etPhone;
     @BindView(R.id.btnSearch)
     Button btnSearch;
+    @BindView(R.id.btnBill)
+    Button btnBill;
+    @BindView(R.id.btnVip)
+    Button btnVip;
+    @BindView(R.id.btnCoin)
+    Button btnCoin;
+
     @BindView(R.id.btnStatus)
     Button btnStatus;
     @BindView(R.id.tvCreate)
@@ -121,16 +128,28 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch})
+    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btnBill:
+                if (user == null) return;
+                BillListActivity.goActivity(mActivity, user.getId(), 0);
+                break;
+            case R.id.btnVip:
+                if (user == null) return;
+                VipListActivity.goActivity(mActivity, user.getId(), 0);
+                break;
+            case R.id.btnCoin:
+                if (user == null) return;
+                CoinListActivity.goActivity(mActivity, user.getId(), 0);
+                break;
             case R.id.btnSearch:
                 getUserData();
                 break;
         }
     }
 
-    @OnLongClick({R.id.btnStatus, R.id.btnSex, R.id.btnBirthday,})
+    @OnLongClick({R.id.btnStatus, R.id.btnSex, R.id.btnBirthday})
     public boolean onLongClick(View view) {
         switch (view.getId()) {
             case R.id.btnStatus:

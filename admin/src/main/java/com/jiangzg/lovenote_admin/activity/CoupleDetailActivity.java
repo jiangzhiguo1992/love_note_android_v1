@@ -151,15 +151,15 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                 break;
             case R.id.btnBill:
                 if (couple == null) return;
-                BillListActivity.goActivity(mActivity, couple.getId());
+                BillListActivity.goActivity(mActivity, 0, couple.getId());
                 break;
             case R.id.btnVip:
                 if (couple == null) return;
-                VipListActivity.goActivity(mActivity, couple.getId());
+                VipListActivity.goActivity(mActivity, 0, couple.getId());
                 break;
             case R.id.btnCoin:
                 if (couple == null) return;
-                CoinListActivity.goActivity(mActivity, couple.getId());
+                CoinListActivity.goActivity(mActivity, 0, couple.getId());
                 break;
         }
     }

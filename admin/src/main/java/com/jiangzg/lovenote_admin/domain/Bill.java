@@ -8,6 +8,18 @@ import android.os.Parcelable;
  */
 public class Bill extends BaseCP implements Parcelable {
 
+    public static final String BILL_PLATFORM_OS_ANDROID = "android";
+    public static final String BILL_PLATFORM_OS_IOS = "ios";
+    public static final int BILL_PLATFORM_PAY_ALI = 100;
+    public static final int BILL_PLATFORM_PAY_WX = 200;
+    public static final int BILL_PAY_TYPE_APP = 1; // app
+    public static final int BILL_GOODS_VIP_1 = 1101;
+    public static final int BILL_GOODS_VIP_2 = 1201;
+    public static final int BILL_GOODS_VIP_3 = 1301;
+    public static final int BILL_GOODS_COIN_1 = 2101;
+    public static final int BILL_GOODS_COIN_2 = 2201;
+    public static final int BILL_GOODS_COIN_3 = 2301;
+
     private String platformOs;
     private int platformPay;
     private int payType;
@@ -16,6 +28,39 @@ public class Bill extends BaseCP implements Parcelable {
     private boolean tradePay;
     private int goodsType;
     private boolean goodsOut;
+
+    public static String getPlatformPayShow(int type) {
+        if (type == BILL_PLATFORM_PAY_ALI) {
+            return "支付宝";
+        } else if (type == BILL_PLATFORM_PAY_WX) {
+            return "微信";
+        }
+        return "未知";
+    }
+
+    public static String getPayTypeShow(int type) {
+        if (type == BILL_PAY_TYPE_APP) {
+            return "app";
+        }
+        return "未知";
+    }
+
+    public static String getGoodsTypeShow(int type) {
+        if (type == BILL_GOODS_VIP_1) {
+            return "会员1";
+        } else if (type == BILL_GOODS_VIP_2) {
+            return "会员2";
+        } else if (type == BILL_GOODS_VIP_3) {
+            return "会员3";
+        } else if (type == BILL_GOODS_COIN_1) {
+            return "金币1";
+        } else if (type == BILL_GOODS_COIN_2) {
+            return "金币2";
+        } else if (type == BILL_GOODS_COIN_3) {
+            return "金币3";
+        }
+        return "未知";
+    }
 
     public String getPlatformOs() {
         return platformOs;

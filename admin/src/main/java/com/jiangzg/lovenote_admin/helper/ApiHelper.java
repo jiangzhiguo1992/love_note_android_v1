@@ -2,6 +2,7 @@ package com.jiangzg.lovenote_admin.helper;
 
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.MyApp;
+import com.jiangzg.lovenote_admin.domain.Bill;
 import com.jiangzg.lovenote_admin.domain.Sms;
 import com.jiangzg.lovenote_admin.domain.User;
 
@@ -56,14 +57,22 @@ public class ApiHelper {
             ENTRY_FILED_APP_VERSION,
     };
     // bill
-    public static final int BILL_PAY_PLATFORM_ALI = 100;
-    public static final int BILL_PAY_PLATFORM_WX = 200;
-    public static final int BILL_GOODS_VIP_1 = 1101;
-    public static final int BILL_GOODS_VIP_2 = 1201;
-    public static final int BILL_GOODS_VIP_3 = 1301;
-    public static final int BILL_GOODS_COIN_1 = 2101;
-    public static final int BILL_GOODS_COIN_2 = 2201;
-    public static final int BILL_GOODS_COIN_3 = 2301;
+    public static final String[] BILL_PLATFORM_OS_SHOW = new String[]{
+            Bill.BILL_PLATFORM_OS_ANDROID,
+            Bill.BILL_PLATFORM_OS_IOS,
+    };
+    public static final int[] LIST_PLATFORM_PAY_TYPE = new int[]{
+            Bill.BILL_PLATFORM_PAY_ALI,
+            Bill.BILL_PLATFORM_PAY_WX,
+    };
+    public static final int[] LIST_GOODS_TYPE = new int[]{
+            Bill.BILL_GOODS_VIP_1,
+            Bill.BILL_GOODS_VIP_2,
+            Bill.BILL_GOODS_VIP_3,
+            Bill.BILL_GOODS_COIN_1,
+            Bill.BILL_GOODS_COIN_2,
+            Bill.BILL_GOODS_COIN_3,
+    };
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
     private static final int LIST_COMMENT_ORDER_TIME = 1;

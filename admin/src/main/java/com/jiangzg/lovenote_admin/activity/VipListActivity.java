@@ -18,8 +18,9 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, long cid) {
+    public static void goActivity(Activity from, long uid, long cid) {
         Intent intent = new Intent(from, VipListActivity.class);
+        intent.putExtra("uid", uid);
         intent.putExtra("cid", cid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
