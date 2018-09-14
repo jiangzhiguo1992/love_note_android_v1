@@ -115,15 +115,6 @@ public class ApiHelper {
             MyApp.get().getString(R.string.official),
             MyApp.get().getString(R.string.well)
     };
-    // bill
-    public static final int BILL_PAY_PLATFORM_ALI = 100;
-    public static final int BILL_PAY_PLATFORM_WX = 200;
-    public static final int BILL_GOODS_VIP_1 = 1101;
-    public static final int BILL_GOODS_VIP_2 = 1201;
-    public static final int BILL_GOODS_VIP_3 = 1301;
-    public static final int BILL_GOODS_COIN_1 = 2101;
-    public static final int BILL_GOODS_COIN_2 = 2201;
-    public static final int BILL_GOODS_COIN_3 = 2301;
     // match search类型
     private static final int LIST_MATCH_ORDER_COIN = 0;
     private static final int LIST_MATCH_ORDER_POINT = 1;

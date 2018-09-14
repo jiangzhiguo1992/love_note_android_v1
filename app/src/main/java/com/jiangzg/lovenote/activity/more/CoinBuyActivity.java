@@ -19,13 +19,13 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.AliPayResult;
+import com.jiangzg.lovenote.domain.Bill;
 import com.jiangzg.lovenote.domain.Coin;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.API;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -109,10 +109,10 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btnAliPay: // 支付宝支付
-                payBefore(ApiHelper.BILL_PAY_PLATFORM_ALI);
+                payBefore(Bill.BILL_PAY_PLATFORM_ALI);
                 break;
             case R.id.btnWeChatPay: // 微信支付
-                payBefore(ApiHelper.BILL_PAY_PLATFORM_WX);
+                payBefore(Bill.BILL_PAY_PLATFORM_WX);
                 break;
             case R.id.tvBillCheck:// 检查
                 checkPayResult();
@@ -146,11 +146,11 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
     public void payBefore(final int payPlatform) {
         final int goods;
         if (rbGoods1.isChecked()) {
-            goods = ApiHelper.BILL_GOODS_COIN_1;
+            goods = Bill.BILL_GOODS_COIN_1;
         } else if (rbGoods2.isChecked()) {
-            goods = ApiHelper.BILL_GOODS_COIN_2;
+            goods = Bill.BILL_GOODS_COIN_2;
         } else if (rbGoods3.isChecked()) {
-            goods = ApiHelper.BILL_GOODS_COIN_3;
+            goods = Bill.BILL_GOODS_COIN_3;
         } else {
             return;
         }
@@ -159,10 +159,10 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
         RetrofitHelper.enqueue(callBefore, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                if (payPlatform == ApiHelper.BILL_PAY_PLATFORM_ALI) {
+                if (payPlatform == Bill.BILL_PAY_PLATFORM_ALI) {
                     String orderInfo = data.getAliOrderInfo();
                     startAliPay(orderInfo);
-                } else if (payPlatform == ApiHelper.BILL_PAY_PLATFORM_WX) {
+                } else if (payPlatform == Bill.BILL_PAY_PLATFORM_WX) {
                     startWeChatPay();
                 }
             }
