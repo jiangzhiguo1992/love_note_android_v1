@@ -19,18 +19,21 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.BillAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Bill;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
+import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,8 +76,9 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private int page;
     private long start, end;
+    private int page, platformOsIndex, platformPayIndex, goodsTypeIndex;
+    private boolean tradePay, goodsOut;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), BillListActivity.class);
@@ -107,8 +111,20 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
         }
+        // time
         start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         end = DateUtils.getCurrentLong();
+        refreshDateView();
+        // total
+        platformOsIndex = platformPayIndex = goodsTypeIndex = 0;
+        btnPlatformOs.setText(ApiHelper.BILL_PLATFORM_OS_SHOW[platformOsIndex]);
+        btnPlatformPay.setText(ApiHelper.BILL_PLATFORM_PAY_SHOW[platformPayIndex]);
+        btnGoodsType.setText(ApiHelper.BILL_GOODS_TYPE_SHOW[goodsTypeIndex]);
+        // amount
+        tradePay = true;
+        btnTradePay.setText("已付款");
+        goodsOut = true;
+        btnGoodsOut.setText("已发货");
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -165,22 +181,22 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
                 showPlatformOsDialog();
                 break;
             case R.id.btnPlatformPay:
-                // TODO
+                showPlatformPayDialog();
                 break;
             case R.id.btnGoodsType:
-                // TODO
+                showGoodsTypeDialog();
                 break;
             case R.id.btnAmount:
-                // TODO
+                getAmountData();
                 break;
             case R.id.btnTradePay:
-                // TODO
+                toggleTradePay();
                 break;
             case R.id.btnGoodsOut:
-                // TODO
+                toggleGoodsOut();
                 break;
             case R.id.btnTotal:
-                // TODO
+                getTotalData();
                 break;
         }
     }
@@ -206,24 +222,63 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     }
 
     private void showPlatformOsDialog() {
-        // TODO
-        //MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-        //        .cancelable(true)
-        //        .canceledOnTouchOutside(true)
-        //        .title(R.string.select_search_type)
-        //        .items(ApiHelper.LIST_USER_SEX_SHOW)
-        //        .itemsCallbackSingleChoice(sexIndex, new MaterialDialog.ListCallbackSingleChoice() {
-        //            @Override
-        //            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-        //                if (recyclerHelper == null) return true;
-        //                sexIndex = which;
-        //                btnSex.setText("性别:" + ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
-        //                DialogUtils.dismiss(dialog);
-        //                return true;
-        //            }
-        //        })
-        //        .build();
-        //DialogHelper.showWithAnim(dialog);
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_search_type)
+                .items(ApiHelper.BILL_PLATFORM_OS_SHOW)
+                .itemsCallbackSingleChoice(platformOsIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
+                        platformOsIndex = which;
+                        btnPlatformOs.setText(ApiHelper.BILL_PLATFORM_OS_SHOW[platformOsIndex]);
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void showPlatformPayDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_search_type)
+                .items(ApiHelper.BILL_PLATFORM_PAY_SHOW)
+                .itemsCallbackSingleChoice(platformPayIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
+                        platformPayIndex = which;
+                        btnPlatformPay.setText(ApiHelper.BILL_PLATFORM_PAY_SHOW[platformPayIndex]);
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void showGoodsTypeDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_search_type)
+                .items(ApiHelper.BILL_GOODS_TYPE_SHOW)
+                .itemsCallbackSingleChoice(goodsTypeIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
+                        goodsTypeIndex = which;
+                        btnGoodsType.setText(ApiHelper.BILL_GOODS_TYPE_SHOW[goodsTypeIndex]);
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
     private void refreshDateView() {
@@ -264,6 +319,55 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, message);
+            }
+        });
+    }
+
+    private void getAmountData() {
+        String platformOs = platformOsIndex <= 0 ? "" : ApiHelper.BILL_PLATFORM_OS_SHOW[platformOsIndex];
+        int platformPay = ApiHelper.BILL_PLATFORM_PAY_TYPE[platformPayIndex];
+        int payType = Bill.BILL_PAY_TYPE_APP;
+        int goodsType = ApiHelper.BILL_GOODS_TYPE_TYPE[goodsTypeIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).moreBillAmountGet(start / 1000, end / 1000, platformOs, platformPay, payType, goodsType);
+        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                String amount = String.format(Locale.getDefault(), "%.1f", data.getAmount());
+                btnAmount.setText("金额(" + amount + ")");
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                btnAmount.setText("金额(fail)");
+            }
+        });
+    }
+
+    private void toggleTradePay() {
+        tradePay = !tradePay;
+        btnTradePay.setText(tradePay ? "已付款" : "未付款");
+    }
+
+    private void toggleGoodsOut() {
+        goodsOut = !goodsOut;
+        btnGoodsOut.setText(goodsOut ? "已发货" : "未发货");
+    }
+
+    private void getTotalData() {
+        String platformOs = platformOsIndex <= 0 ? "" : ApiHelper.BILL_PLATFORM_OS_SHOW[platformOsIndex];
+        int platformPay = ApiHelper.BILL_PLATFORM_PAY_TYPE[platformPayIndex];
+        int payType = Bill.BILL_PAY_TYPE_APP;
+        int goodsType = ApiHelper.BILL_GOODS_TYPE_TYPE[goodsTypeIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).moreBillTotalGet(start / 1000, end / 1000, platformOs, platformPay, payType, goodsType, tradePay, goodsOut);
+        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                btnTotal.setText("数量(" + data.getTotal() + ")");
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                btnTotal.setText("数量(fail)");
             }
         });
     }

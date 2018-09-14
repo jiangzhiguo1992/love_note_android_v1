@@ -29,18 +29,18 @@ public class Bill extends BaseCP implements Parcelable {
     private int goodsType;
     private boolean goodsOut;
 
+    public static String getPayTypeShow(int type) {
+        if (type == BILL_PAY_TYPE_APP) {
+            return "app";
+        }
+        return "未知";
+    }
+
     public static String getPlatformPayShow(int type) {
         if (type == BILL_PLATFORM_PAY_ALI) {
             return "支付宝";
         } else if (type == BILL_PLATFORM_PAY_WX) {
             return "微信";
-        }
-        return "未知";
-    }
-
-    public static String getPayTypeShow(int type) {
-        if (type == BILL_PAY_TYPE_APP) {
-            return "app";
         }
         return "未知";
     }

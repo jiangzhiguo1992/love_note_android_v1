@@ -190,7 +190,7 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
 
     // 微信
     private void startWeChatPay() {
-        // TODO
+        // TODO 微信
     }
 
     private void checkPayResult() {

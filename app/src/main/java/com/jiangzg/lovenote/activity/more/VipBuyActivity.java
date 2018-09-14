@@ -190,7 +190,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
 
     // 微信
     private void startWeChatPay() {
-        // TODO
+        // TODO 微信
     }
 
     private void checkPayResult() {

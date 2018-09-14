@@ -18,6 +18,8 @@ import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 
+import java.util.Locale;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -100,13 +102,12 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-
     }
 
     @Override
     protected void initData(Bundle state) {
         getCoupleData();
-        // TODO bill
+        getBillData();
         // TODO note
         // TODO post
         // TODO match
@@ -183,6 +184,53 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 tvCouple3.setText("7d：fail");
+            }
+        });
+    }
+
+    private void getBillData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
+        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
+        long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
+        long endAt = currentLong / 1000;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).moreBillAmountGet(startH1, endAt, "", 0, 0, 0);
+        RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                String amount = String.format(Locale.getDefault(), "%.1f", data.getAmount());
+                tvBill1.setText("1h：" + amount);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvBill1.setText("1h：fail");
+            }
+        });
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).moreBillAmountGet(startD1, endAt, "", 0, 0, 0);
+        RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                String amount = String.format(Locale.getDefault(), "%.1f", data.getAmount());
+                tvBill2.setText("1d：" + amount);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvBill2.setText("1d：fail");
+            }
+        });
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).moreBillAmountGet(startD7, endAt, "", 0, 0, 0);
+        RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                String amount = String.format(Locale.getDefault(), "%.1f", data.getAmount());
+                tvBill3.setText("7d：" + amount);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvBill3.setText("7d：fail");
             }
         });
     }

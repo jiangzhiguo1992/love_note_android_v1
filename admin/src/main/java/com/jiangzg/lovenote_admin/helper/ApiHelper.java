@@ -58,20 +58,37 @@ public class ApiHelper {
     };
     // bill
     public static final String[] BILL_PLATFORM_OS_SHOW = new String[]{
+            "操作系统",
             Bill.BILL_PLATFORM_OS_ANDROID,
             Bill.BILL_PLATFORM_OS_IOS,
     };
-    public static final int[] LIST_PLATFORM_PAY_TYPE = new int[]{
+    public static final int[] BILL_PLATFORM_PAY_TYPE = new int[]{
+            0,
             Bill.BILL_PLATFORM_PAY_ALI,
             Bill.BILL_PLATFORM_PAY_WX,
     };
-    public static final int[] LIST_GOODS_TYPE = new int[]{
+    public static final String[] BILL_PLATFORM_PAY_SHOW = new String[]{
+            "支付平台",
+            Bill.getPlatformPayShow(Bill.BILL_PLATFORM_PAY_ALI),
+            Bill.getPlatformPayShow(Bill.BILL_PLATFORM_PAY_WX),
+    };
+    public static final int[] BILL_GOODS_TYPE_TYPE = new int[]{
+            0,
             Bill.BILL_GOODS_VIP_1,
             Bill.BILL_GOODS_VIP_2,
             Bill.BILL_GOODS_VIP_3,
             Bill.BILL_GOODS_COIN_1,
             Bill.BILL_GOODS_COIN_2,
             Bill.BILL_GOODS_COIN_3,
+    };
+    public static final String[] BILL_GOODS_TYPE_SHOW = new String[]{
+            "商品类型",
+            Bill.getGoodsTypeShow(Bill.BILL_GOODS_VIP_1),
+            Bill.getGoodsTypeShow(Bill.BILL_GOODS_VIP_2),
+            Bill.getGoodsTypeShow(Bill.BILL_GOODS_VIP_3),
+            Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_1),
+            Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_2),
+            Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_3),
     };
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;
