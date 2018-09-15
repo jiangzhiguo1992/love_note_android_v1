@@ -3,28 +3,34 @@ package com.jiangzg.lovenote_admin.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.CoupleStateAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
+import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.Couple;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
+import com.jiangzg.lovenote_admin.domain.Vip;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
@@ -54,6 +60,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     Button btnVip;
     @BindView(R.id.btnCoin)
     Button btnCoin;
+    @BindView(R.id.btnVipAdd)
+    Button btnVipAdd;
+    @BindView(R.id.btnCoinAdd)
+    Button btnCoinAdd;
 
     @BindView(R.id.tvCreate)
     TextView tvCreate;
@@ -143,7 +153,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin})
+    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnVipAdd, R.id.btnCoinAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -160,6 +170,12 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
             case R.id.btnCoin:
                 if (couple == null) return;
                 CoinListActivity.goActivity(mActivity, 0, couple.getId());
+                break;
+            case R.id.btnVipAdd:
+                showVipAddDialog();
+                break;
+            case R.id.btnCoinAdd:
+                showCoinAddDialog();
                 break;
         }
     }
@@ -298,6 +314,88 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         tvPhone1.setText(phone1);
         tvSex2.setText(sex2 + " " + birth2);
         tvPhone2.setText(phone2);
+    }
+
+    private void showVipAddDialog() {
+        MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input("会员天数", "", false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        LogUtils.i(CoupleDetailActivity.class, "onInput", input.toString());
+                    }
+                })
+                .inputRange(1, 3650)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // api
+                        EditText editText = dialog.getInputEditText();
+                        if (editText != null) {
+                            String input = editText.getText().toString();
+                            vipAdd(input);
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialogName);
+    }
+
+    private void vipAdd(String input) {
+        if (!StringUtils.isNumber(input)) return;
+        int days = Integer.parseInt(input);
+        Vip vip = new Vip();
+        vip.setUserId(couple.getCreatorId());
+        vip.setCoupleId(couple.getId());
+        vip.setExpireDays(days);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreVipAdd(vip);
+        RetrofitHelper.enqueue(call, getLoading(true), null);
+    }
+
+    private void showCoinAddDialog() {
+        MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .autoDismiss(true)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input("金币数量", "", false, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        LogUtils.i(CoupleDetailActivity.class, "onInput", input.toString());
+                    }
+                })
+                .inputRange(1, 100000)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        // api
+                        EditText editText = dialog.getInputEditText();
+                        if (editText != null) {
+                            String input = editText.getText().toString();
+                            coinAdd(input);
+                        }
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialogName);
+    }
+
+    private void coinAdd(String input) {
+        if (!StringUtils.isNumber(input)) return;
+        int count = Integer.parseInt(input);
+        Coin coin = new Coin();
+        coin.setUserId(couple.getCreatorId());
+        coin.setCoupleId(couple.getId());
+        coin.setChange(count);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreCoinAdd(coin);
+        RetrofitHelper.enqueue(call, getLoading(true), null);
     }
 
 }
