@@ -100,7 +100,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
             etBid.setText(String.valueOf(bid));
         }
         typeIndex = 0;
-        btnType.setText(ApiHelper.BILL_VIP_FROM_SHOW[typeIndex]);
+        btnType.setText(ApiHelper.VIP_FROM_SHOW[typeIndex]);
         // time
         start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         end = DateUtils.getCurrentLong();
@@ -164,13 +164,13 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.BILL_VIP_FROM_SHOW)
+                .items(ApiHelper.VIP_FROM_SHOW)
                 .itemsCallbackSingleChoice(typeIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
                         typeIndex = which;
-                        btnType.setText(ApiHelper.BILL_VIP_FROM_SHOW[typeIndex]);
+                        btnType.setText(ApiHelper.VIP_FROM_SHOW[typeIndex]);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -222,7 +222,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
         if (StringUtils.isNumber(sBid)) {
             bid = Long.parseLong(sBid);
         }
-        int fromType = ApiHelper.BILL_VIP_FROM_TYPE[typeIndex];
+        int fromType = ApiHelper.VIP_FROM_TYPE[typeIndex];
         Call<Result> call = new RetrofitHelper().call(API.class).moreVipListGet(uid, cid, bid, fromType, page);
         MaterialDialog loading = null;
         if (!more) {

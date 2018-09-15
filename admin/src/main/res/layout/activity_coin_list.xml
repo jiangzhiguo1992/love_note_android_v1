@@ -1,10 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.jiangzg.lovenote_admin.activity.CoinListActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/view_top_bar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etUid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="uid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <EditText
+            android:id="@+id/etCid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="cid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <EditText
+            android:id="@+id/etBid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="bid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <Button
+            android:id="@+id/btnKind"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="类型"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="列表(最新)"/>
+    </LinearLayout>
+
+    <View
+        style="@style/LineHorizontal"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnStart"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            tools:text="类型"/>
+
+        <Button
+            android:id="@+id/btnEnd"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            tools:text="列表(最新)"/>
+
+        <Button
+            android:id="@+id/btnTotal"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="数量(time+kind)"/>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -14,6 +14,7 @@ import com.jiangzg.lovenote_admin.activity.CoinListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
 import com.jiangzg.lovenote_admin.activity.VipListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
+import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
@@ -109,7 +110,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         getCoupleData();
         getBillData();
         getVipData();
-        // TODO coin
+        getCoinData();
         // TODO note
         // TODO post
         // TODO match
@@ -277,6 +278,50 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 tvVip3.setText("7d：fail");
+            }
+        });
+    }
+
+    private void getCoinData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
+        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
+        long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
+        long endAt = currentLong / 1000;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).moreCoinTotalGet(startH1, endAt, Coin.COIN_KIND_ADD_BY_PLAY_PAY);
+        RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvCoin1.setText("1h：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvCoin1.setText("1h：fail");
+            }
+        });
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).moreCoinTotalGet(startD1, endAt, Coin.COIN_KIND_ADD_BY_PLAY_PAY);
+        RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvCoin2.setText("1d：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvCoin2.setText("1d：fail");
+            }
+        });
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).moreCoinTotalGet(startD7, endAt, Coin.COIN_KIND_ADD_BY_PLAY_PAY);
+        RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvCoin3.setText("7d：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvCoin3.setText("7d：fail");
             }
         });
     }

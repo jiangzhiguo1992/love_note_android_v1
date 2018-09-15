@@ -5,15 +5,15 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.activity.UserDetailActivity;
+import com.jiangzg.lovenote_admin.activity.CoupleDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
-import com.jiangzg.lovenote_admin.domain.Api;
+import com.jiangzg.lovenote_admin.domain.Coin;
 
 /**
  * Created by JZG on 2018/3/13.
  * coin适配器
  */
-public class CoinAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
+public class CoinAdapter extends BaseQuickAdapter<Coin, BaseViewHolder> {
 
     private BaseActivity mActivity;
 
@@ -23,30 +23,30 @@ public class CoinAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Api item) {
+    protected void convert(BaseViewHolder helper, Coin item) {
         // data
         String id = "id:" + item.getId();
+        String uid = "uid:" + item.getUserId();
+        String cid = "cid:" + item.getCoupleId();
+        String bid = "bid:" + item.getBillId();
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String userId = String.valueOf(item.getUserId());
-        String duration = String.valueOf(item.getDuration());
-        String uri = item.getUri();
-        String method = item.getMethod();
-        String params = item.getParams();
+        String kind = Coin.getKindShow(item.getKind());
+        String change = item.getChange() > 0 ? "+" + item.getChange() : String.valueOf(item.getChange());
+        String count = String.valueOf(item.getCount());
         // view
         helper.setText(R.id.tvId, id);
-        helper.setText(R.id.tvUid, "uid:" + userId);
-        helper.setText(R.id.tvDuration, "d:" + duration);
+        helper.setText(R.id.tvUid, uid);
+        helper.setText(R.id.tvCid, cid);
+        helper.setText(R.id.tvBid, bid);
         helper.setText(R.id.tvCreate, create);
-        helper.setText(R.id.tvUri, uri);
-        helper.setText(R.id.tvMethod, method);
-        helper.setText(R.id.tvParams, params);
+        helper.setText(R.id.tvKind, kind);
+        helper.setText(R.id.tvChange, change);
+        helper.setText(R.id.tvCount, count);
     }
 
-    public void goUser(final int position) {
-        Api item = getItem(position);
-        if (item.getUserId() > 0) {
-            UserDetailActivity.goActivity(mActivity, item.getUserId());
-        }
+    public void goCouple(final int position) {
+        Coin item = getItem(position);
+        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId());
     }
 
 }

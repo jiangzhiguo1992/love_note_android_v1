@@ -93,18 +93,18 @@ public class ApiHelper {
             Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_3),
     };
     // vip
-    public static final int[] BILL_VIP_FROM_TYPE = new int[]{
+    public static final int[] VIP_FROM_TYPE = new int[]{
             0,
             Vip.VIP_FROM_TYPE_SYS_SEND,
             Vip.VIP_FROM_TYPE_USER_BUY,
     };
-    public static final String[] BILL_VIP_FROM_SHOW = new String[]{
+    public static final String[] VIP_FROM_SHOW = new String[]{
             "全部",
             Vip.getFromTypeShow(Vip.VIP_FROM_TYPE_SYS_SEND),
             Vip.getFromTypeShow(Vip.VIP_FROM_TYPE_USER_BUY),
     };
     // coin
-    public static final int[] BILL_COIN_KIND_TYPE = new int[]{
+    public static final int[] COIN_KIND_TYPE = new int[]{
             0,
             Coin.COIN_KIND_ADD_BY_SYS,
             Coin.COIN_KIND_ADD_BY_PLAY_PAY,
@@ -114,7 +114,7 @@ public class ApiHelper {
             Coin.COIN_KIND_SUB_BY_WISH_UP,
             Coin.COIN_KIND_SUB_BY_PLANE_UP,
     };
-    public static final String[] BILL_COIN_KIND_SHOW = new String[]{
+    public static final String[] COIN_KIND_SHOW = new String[]{
             "全部",
             Coin.getKindShow(Coin.COIN_KIND_ADD_BY_SYS),
             Coin.getKindShow(Coin.COIN_KIND_ADD_BY_PLAY_PAY),
