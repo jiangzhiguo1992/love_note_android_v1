@@ -103,13 +103,13 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "bill_list", true);
-        long cid = intent.getLongExtra("cid", 0);
         long uid = intent.getLongExtra("uid", 0);
-        if (cid > 0) {
-            etCid.setText(String.valueOf(cid));
-        }
+        long cid = intent.getLongExtra("cid", 0);
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
+        }
+        if (cid > 0) {
+            etCid.setText(String.valueOf(cid));
         }
         // time
         start = DateUtils.getCurrentLong() - ConstantUtils.DAY;

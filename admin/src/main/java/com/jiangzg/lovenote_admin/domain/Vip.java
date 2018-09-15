@@ -9,10 +9,24 @@ import android.os.Parcelable;
  */
 public class Vip extends BaseCP implements Parcelable {
 
+    // vip-fromType
+    public static final int VIP_FROM_TYPE_SYS_SEND = 10;  // 系统赠送
+    public static final int VIP_FROM_TYPE_USER_BUY = 100; // 用户购买
+
     private int fromType;
     private long billId;
     private int expireDays;
     private long expireAt;
+
+    public static String getFromTypeShow(int type) {
+        switch (type) {
+            case VIP_FROM_TYPE_SYS_SEND:
+                return "系统赠送";
+            case VIP_FROM_TYPE_USER_BUY:
+                return "用户购买";
+        }
+        return "未知";
+    }
 
     public long getBillId() {
         return billId;

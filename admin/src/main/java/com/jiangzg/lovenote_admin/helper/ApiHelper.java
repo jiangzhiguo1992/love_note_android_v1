@@ -3,8 +3,10 @@ package com.jiangzg.lovenote_admin.helper;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.MyApp;
 import com.jiangzg.lovenote_admin.domain.Bill;
+import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.Sms;
 import com.jiangzg.lovenote_admin.domain.User;
+import com.jiangzg.lovenote_admin.domain.Vip;
 
 /**
  * Created by JZG on 2018/3/27.
@@ -89,6 +91,38 @@ public class ApiHelper {
             Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_1),
             Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_2),
             Bill.getGoodsTypeShow(Bill.BILL_GOODS_COIN_3),
+    };
+    // vip
+    public static final int[] BILL_VIP_FROM_TYPE = new int[]{
+            0,
+            Vip.VIP_FROM_TYPE_SYS_SEND,
+            Vip.VIP_FROM_TYPE_USER_BUY,
+    };
+    public static final String[] BILL_VIP_FROM_SHOW = new String[]{
+            "全部",
+            Vip.getFromTypeShow(Vip.VIP_FROM_TYPE_SYS_SEND),
+            Vip.getFromTypeShow(Vip.VIP_FROM_TYPE_USER_BUY),
+    };
+    // coin
+    public static final int[] BILL_COIN_KIND_TYPE = new int[]{
+            0,
+            Coin.COIN_KIND_ADD_BY_SYS,
+            Coin.COIN_KIND_ADD_BY_PLAY_PAY,
+            Coin.COIN_KIND_ADD_BY_SIGN_DAY,
+            Coin.COIN_KIND_ADD_BY_MATCH_POST,
+            Coin.COIN_KIND_SUB_BY_MATCH_UP,
+            Coin.COIN_KIND_SUB_BY_WISH_UP,
+            Coin.COIN_KIND_SUB_BY_PLANE_UP,
+    };
+    public static final String[] BILL_COIN_KIND_SHOW = new String[]{
+            "全部",
+            Coin.getKindShow(Coin.COIN_KIND_ADD_BY_SYS),
+            Coin.getKindShow(Coin.COIN_KIND_ADD_BY_PLAY_PAY),
+            Coin.getKindShow(Coin.COIN_KIND_ADD_BY_SIGN_DAY),
+            Coin.getKindShow(Coin.COIN_KIND_ADD_BY_MATCH_POST),
+            Coin.getKindShow(Coin.COIN_KIND_SUB_BY_MATCH_UP),
+            Coin.getKindShow(Coin.COIN_KIND_SUB_BY_WISH_UP),
+            Coin.getKindShow(Coin.COIN_KIND_SUB_BY_PLANE_UP),
     };
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;

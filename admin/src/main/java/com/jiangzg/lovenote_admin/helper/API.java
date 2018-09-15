@@ -1,12 +1,14 @@
 package com.jiangzg.lovenote_admin.helper;
 
 import com.jiangzg.lovenote_admin.domain.Broadcast;
+import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.Notice;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.Suggest;
 import com.jiangzg.lovenote_admin.domain.SuggestComment;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.domain.Version;
+import com.jiangzg.lovenote_admin.domain.Vip;
 
 import java.util.List;
 import java.util.Map;
@@ -146,6 +148,24 @@ public interface API {
 
     @GET("more/bill?total=1")
     Call<Result> moreBillTotalGet(@Query("start") long start, @Query("end") long end, @Query("platform_os") String platformOs, @Query("platform_pay") int platformPay, @Query("pay_type") int payType, @Query("goods_type") int goodsType, @Query("trade_pay") boolean tradePay, @Query("goods_out") boolean goodsOut);
+
+    @POST("more/vip")
+    Call<Result> moreVipAdd(@Body Vip vip);
+
+    @GET("more/vip?total=1")
+    Call<Result> moreVipTotalGet(@Query("start") long start, @Query("end") long end);
+
+    @GET("more/vip?list=1&admin=1")
+    Call<Result> moreVipListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("bid") long bid, @Query("from_type") int fromType, @Query("page") int page);
+
+    @POST("more/coin")
+    Call<Result> moreCoinAdd(@Body Coin coin);
+
+    @GET("more/coin?total=1")
+    Call<Result> moreCoinTotalGet(@Query("start") long start, @Query("end") long end, @Query("kind") int kind);
+
+    @GET("more/coin?list=1&admin=1")
+    Call<Result> moreCoinListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("bid") long bid, @Query("kind") int kind, @Query("page") int page);
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);

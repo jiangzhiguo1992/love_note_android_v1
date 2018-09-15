@@ -617,6 +617,7 @@
     <string name="total_works_count_colon_holder" formatted="false">总作品数：%s</string>
     <string name="total_coin_count_colon_holder" formatted="false">总金币数：%s</string>
     <string name="total_point_count_colon_holder" formatted="false">总点赞数：%s</string>
+    <string name="sys_change">系统变更</string>
     <string name="old_period">往期</string>
     <string name="coin_board">金币榜</string>
     <string name="point_board">点赞榜</string>

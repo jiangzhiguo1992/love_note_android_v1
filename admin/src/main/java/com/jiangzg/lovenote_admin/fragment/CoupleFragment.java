@@ -108,6 +108,8 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     protected void initData(Bundle state) {
         getCoupleData();
         getBillData();
+        getVipData();
+        // TODO coin
         // TODO note
         // TODO post
         // TODO match
@@ -231,6 +233,50 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 tvBill3.setText("7d：fail");
+            }
+        });
+    }
+
+    private void getVipData() {
+        long currentLong = DateUtils.getCurrentLong();
+        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
+        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
+        long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
+        long endAt = currentLong / 1000;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).moreVipTotalGet(startH1, endAt);
+        RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvVip1.setText("1h：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvVip1.setText("1h：fail");
+            }
+        });
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).moreVipTotalGet(startD1, endAt);
+        RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvVip2.setText("1d：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvVip2.setText("1d：fail");
+            }
+        });
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).moreVipTotalGet(startD7, endAt);
+        RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvVip3.setText("7d：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvVip3.setText("7d：fail");
             }
         });
     }

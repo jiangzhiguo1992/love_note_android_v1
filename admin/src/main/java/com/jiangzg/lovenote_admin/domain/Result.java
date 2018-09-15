@@ -67,6 +67,24 @@ public class Result implements Serializable {
         private List<Couple.State> coupleStateList;
         private List<Bill> billList;
         private double amount;
+        private List<Vip> vipList;
+        private List<Coin> coinList;
+
+        public List<Vip> getVipList() {
+            return vipList;
+        }
+
+        public void setVipList(List<Vip> vipList) {
+            this.vipList = vipList;
+        }
+
+        public List<Coin> getCoinList() {
+            return coinList;
+        }
+
+        public void setCoinList(List<Coin> coinList) {
+            this.coinList = coinList;
+        }
 
         public List<Bill> getBillList() {
             return billList;
