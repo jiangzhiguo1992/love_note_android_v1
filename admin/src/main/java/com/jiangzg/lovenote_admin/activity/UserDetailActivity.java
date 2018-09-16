@@ -50,12 +50,13 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
     EditText etPhone;
     @BindView(R.id.btnSearch)
     Button btnSearch;
-    @BindView(R.id.btnBill)
-    Button btnBill;
-    @BindView(R.id.btnVip)
-    Button btnVip;
-    @BindView(R.id.btnCoin)
-    Button btnCoin;
+
+    @BindView(R.id.btnSms)
+    Button btnSms;
+    @BindView(R.id.btnEntry)
+    Button btnEntry;
+    @BindView(R.id.btnPlace)
+    Button btnPlace;
     @BindView(R.id.btnCouple)
     Button btnCouple;
 
@@ -130,27 +131,27 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnCouple})
+    @OnClick({R.id.btnSearch, R.id.btnSms, R.id.btnEntry, R.id.btnPlace, R.id.btnCouple})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnBill:
-                if (user == null) return;
-                BillListActivity.goActivity(mActivity, user.getId(), 0);
+            case R.id.btnSearch:
+                getUserData();
                 break;
-            case R.id.btnVip:
+            case R.id.btnSms:
                 if (user == null) return;
-                VipListActivity.goActivity(mActivity, user.getId(), 0);
+                SmsListActivity.goActivity(mActivity, user.getPhone());
                 break;
-            case R.id.btnCoin:
+            case R.id.btnPlace:
                 if (user == null) return;
-                CoinListActivity.goActivity(mActivity, user.getId(), 0);
+                PlaceListActivity.goActivity(mActivity, user.getId());
+                break;
+            case R.id.btnEntry:
+                if (user == null) return;
+                EntryListActivity.goActivity(mActivity, user.getId());
                 break;
             case R.id.btnCouple:
                 if (user == null) return;
                 CoupleDetailActivity.goActivity(mActivity, 0, user.getId());
-                break;
-            case R.id.btnSearch:
-                getUserData();
                 break;
         }
     }

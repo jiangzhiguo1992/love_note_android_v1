@@ -32,10 +32,10 @@ public class CoupleAdapter extends BaseQuickAdapter<Couple, BaseViewHolder> {
         String id = "id:" + item.getId();
         String create = "c:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String creatorId = "cid:" + item.getCreatorId();
+        String creatorId = "c:" + item.getCreatorId();
         String creatorAvatar = item.getCreatorAvatar();
         String creatorName = item.getCreatorName();
-        String inviteeId = "iid:" + item.getInviteeId();
+        String inviteeId = "i:" + item.getInviteeId();
         String inviteeAvatar = item.getInviteeAvatar();
         String inviteeName = item.getInviteeName();
         // view

@@ -32,6 +32,7 @@
         <activity android:name=".activity.BillListActivity"/>
         <activity android:name=".activity.VipListActivity"/>
         <activity android:name=".activity.CoinListActivity"/>
+        <activity android:name=".activity.PlaceListActivity"/>
+        <activity android:name=".activity.SignListActivity"/>
     </application>
-
 </manifest>

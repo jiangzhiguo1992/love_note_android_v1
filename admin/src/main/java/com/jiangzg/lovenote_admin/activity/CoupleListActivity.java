@@ -76,7 +76,9 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
         ViewHelper.initTopBar(mActivity, tb, "couple_list", true);
         // phone
         long uid = intent.getLongExtra("uid", 0);
-        etUid.setText(String.valueOf(uid));
+        if (uid > 0) {
+            etUid.setText(String.valueOf(uid));
+        }
         // time
         start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         end = DateUtils.getCurrentLong();

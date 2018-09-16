@@ -58,6 +58,8 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     Button btnBill;
     @BindView(R.id.btnVip)
     Button btnVip;
+    @BindView(R.id.btnSign)
+    Button btnSign;
     @BindView(R.id.btnCoin)
     Button btnCoin;
     @BindView(R.id.btnVipAdd)
@@ -154,8 +156,8 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnUid1, R.id.btnUid2,
-            R.id.btnVipAdd, R.id.btnCoinAdd, R.id.btnBill, R.id.btnVip, R.id.btnCoin})
+    @OnClick({R.id.btnSearch, R.id.btnUid1, R.id.btnUid2, R.id.btnVipAdd, R.id.btnCoinAdd,
+            R.id.btnBill, R.id.btnVip, R.id.btnSign, R.id.btnCoin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -182,6 +184,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
             case R.id.btnVip:
                 if (couple == null) return;
                 VipListActivity.goActivity(mActivity, 0, couple.getId());
+                break;
+            case R.id.btnSign:
+                if (couple == null) return;
+                SignListActivity.goActivity(mActivity, couple.getId());
                 break;
             case R.id.btnCoin:
                 if (couple == null) return;
@@ -288,10 +294,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         String id = String.valueOf(couple.getId());
         String create = "c:" + DateUtils.getString(couple.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "u:" + DateUtils.getString(couple.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String creatorId = "cid:" + couple.getCreatorId();
+        String creatorId = "c:" + couple.getCreatorId();
         String creatorAvatar = couple.getCreatorAvatar();
         String creatorName = couple.getCreatorName();
-        String inviteeId = "iid:" + couple.getInviteeId();
+        String inviteeId = "i:" + couple.getInviteeId();
         String inviteeAvatar = couple.getInviteeAvatar();
         String inviteeName = couple.getInviteeName();
         // view

@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote_admin.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,6 +63,13 @@ public class SmsListActivity extends BaseActivity<SmsListActivity> {
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), SmsListActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, String phone) {
+        Intent intent = new Intent(from, SmsListActivity.class);
+        intent.putExtra("phone", phone);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

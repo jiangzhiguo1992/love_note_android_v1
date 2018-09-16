@@ -232,7 +232,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="账单"/>
+            android:text="bill"/>
 
         <Button
             android:id="@+id/btnVip"
@@ -241,7 +241,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="@string/vip"/>
+            android:text="vip"/>
+
+        <Button
+            android:id="@+id/btnSign"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="sign"/>
 
         <Button
             android:id="@+id/btnCoin"
@@ -250,7 +259,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="@string/coin"/>
+            android:text="coin"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

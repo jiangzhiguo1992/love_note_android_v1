@@ -53,31 +53,31 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnBill"
+            android:id="@+id/btnSms"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="账单"/>
+            android:text="sms"/>
 
         <Button
-            android:id="@+id/btnVip"
+            android:id="@+id/btnEntry"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="@string/vip"/>
+            android:text="entry"/>
 
         <Button
-            android:id="@+id/btnCoin"
+            android:id="@+id/btnPlace"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="@string/coin"/>
+            android:text="place"/>
 
         <Button
             android:id="@+id/btnCouple"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="配对"/>
+            android:text="couple"/>
     </LinearLayout>
 
     <LinearLayout

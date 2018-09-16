@@ -12,6 +12,8 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.BillListActivity;
 import com.jiangzg.lovenote_admin.activity.CoinListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
+import com.jiangzg.lovenote_admin.activity.PlaceListActivity;
+import com.jiangzg.lovenote_admin.activity.SignListActivity;
 import com.jiangzg.lovenote_admin.activity.VipListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Coin;
@@ -131,9 +133,9 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         getVipData();
         getSignData();
         getCoinData();
-        // TODO note
-        // TODO post
-        // TODO match
+        getNoteData();
+        getPostData();
+        getMatchData();
     }
 
     @Override
@@ -148,7 +150,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 CoupleListActivity.goActivity(mFragment);
                 break;
             case R.id.cvPlace: // 位置
-                // TODO
+                PlaceListActivity.goActivity(mFragment);
                 break;
             case R.id.cvBill: // 账单
                 BillListActivity.goActivity(mFragment);
@@ -157,7 +159,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 VipListActivity.goActivity(mFragment);
                 break;
             case R.id.cvSign: // 签到
-                // TODO
+                SignListActivity.goActivity(mFragment);
                 break;
             case R.id.cvCoin: // 金币
                 CoinListActivity.goActivity(mFragment);
@@ -359,6 +361,18 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 tvCoin3.setText("7d：fail");
             }
         });
+    }
+
+    private void getNoteData() {
+        // TODO
+    }
+
+    private void getPostData() {
+        // TODO
+    }
+
+    private void getMatchData() {
+        // TODO
     }
 
 }
