@@ -60,8 +60,9 @@
             style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="start"
             tools:text="创建"/>
 
         <TextView
@@ -69,8 +70,9 @@
             style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="end"
             tools:text="创建"/>
 
     </LinearLayout>
@@ -89,14 +91,13 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvUid1"
-                style="@style/FontBlackNormal"
+                android:id="@+id/tvName1"
+                style="@style/FontGreyNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:gravity="center"
-                tools:text="11.1.1"/>
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="11"/>
 
             <com.jiangzg.lovenote_admin.view.FrescoView
                 android:id="@+id/ivAvatar1"
@@ -108,13 +109,14 @@
                 tools:background="@mipmap/ic_boy_circle"/>
 
             <TextView
-                android:id="@+id/tvName1"
-                style="@style/FontGreyNormal"
+                android:id="@+id/tvUid1"
+                style="@style/FontBlackNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:singleLine="true"
-                tools:text="11"/>
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:gravity="center"
+                tools:text="11.1.1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -161,8 +163,18 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tvPhone1"
+            style="@style/FontGreyNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center"
+            tools:text="18600765432"/>
+
+        <TextView
             android:id="@+id/tvSex1"
-            style="@style/FontBlackNormal"
+            style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -171,22 +183,6 @@
 
         <TextView
             android:id="@+id/tvSex2"
-            style="@style/FontBlackNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            tools:text="18600765432"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tvPhone1"
             style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -197,16 +193,18 @@
         <TextView
             android:id="@+id/tvPhone2"
             style="@style/FontGreyNormal"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:gravity="center"
             tools:text="18600765432"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
 
         <Button
             android:id="@+id/btnVipAdd"

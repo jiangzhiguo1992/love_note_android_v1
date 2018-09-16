@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="列表(最新)"/>
+            android:text="列表(create)"/>
     </LinearLayout>
 
     <View
@@ -71,7 +71,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnStateGroup"
+            android:id="@+id/btnGroup"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="数量(couple)"/>
+            android:text="数量(create)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

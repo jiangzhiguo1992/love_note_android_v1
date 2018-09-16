@@ -278,10 +278,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         String id = String.valueOf(couple.getId());
         String create = "c:" + DateUtils.getString(couple.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "u:" + DateUtils.getString(couple.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String creatorId = "create:" + couple.getCreatorId();
+        String creatorId = "cid:" + couple.getCreatorId();
         String creatorAvatar = couple.getCreatorAvatar();
         String creatorName = couple.getCreatorName();
-        String inviteeId = "invitee:" + couple.getInviteeId();
+        String inviteeId = "iid:" + couple.getInviteeId();
         String inviteeAvatar = couple.getInviteeAvatar();
         String inviteeName = couple.getInviteeName();
         // view

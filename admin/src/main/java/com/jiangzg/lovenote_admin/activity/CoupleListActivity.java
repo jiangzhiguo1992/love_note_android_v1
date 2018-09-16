@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote_admin.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -47,8 +48,8 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnStateGroup)
-    Button btnStateGroup;
+    @BindView(R.id.btnGroup)
+    Button btnGroup;
     @BindView(R.id.btnTotal)
     Button btnTotal;
     @BindView(R.id.rv)
@@ -113,7 +114,7 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnStateGroup, R.id.btnTotal})
+    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnGroup, R.id.btnTotal})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -125,7 +126,7 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnStateGroup:
+            case R.id.btnGroup:
                 getStateGroup();
                 break;
             case R.id.btnTotal:
@@ -155,10 +156,10 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnStart.setText("s: " + startAt);
-        btnEnd.setText("e: " + endAt);
+        String startAt = "s: " + DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e: " + DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnStart.setText(startAt);
+        btnEnd.setText(endAt);
     }
 
     private void getListData(final boolean more) {
@@ -215,13 +216,37 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 List<FiledInfo> infoList = data.getInfoList();
-                DialogHelper.showFiledInfoDialog(mActivity, infoList);
+                showFiledInfoDialog(mActivity, infoList);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+    }
+
+    private void showFiledInfoDialog(Activity activity, List<FiledInfo> infoList) {
+        StringBuilder builder = new StringBuilder();
+        if (infoList == null || infoList.size() <= 0) {
+            builder.append("没有信息");
+        } else {
+            for (FiledInfo info : infoList) {
+                if (info == null) continue;
+                if (!StringUtils.isNumber(info.getName())) continue;
+                int state = Integer.parseInt(info.getName());
+                builder.append(info.getCount())
+                        .append(" == ")
+                        .append(Couple.getStateShow(state))
+                        .append("\n");
+            }
+        }
+        String show = builder.toString();
+        MaterialDialog dialog = DialogHelper.getBuild(activity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(show)
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
 }
