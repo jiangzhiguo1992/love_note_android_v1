@@ -56,7 +56,7 @@ public class CoupleAdapter extends BaseQuickAdapter<Couple, BaseViewHolder> {
 
     public void goCouple(final int position) {
         Couple item = getItem(position);
-        CoupleDetailActivity.goActivity(mActivity, item.getId());
+        CoupleDetailActivity.goActivity(mActivity, item.getId(), 0);
     }
 
 }

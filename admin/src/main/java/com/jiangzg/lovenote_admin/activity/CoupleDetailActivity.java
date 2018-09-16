@@ -69,14 +69,14 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     TextView tvCreate;
     @BindView(R.id.tvUpdate)
     TextView tvUpdate;
-    @BindView(R.id.tvUid1)
-    TextView tvUid1;
+    @BindView(R.id.btnUid1)
+    Button btnUid1;
     @BindView(R.id.ivAvatar1)
     FrescoView ivAvatar1;
     @BindView(R.id.tvName1)
     TextView tvName1;
-    @BindView(R.id.tvUid2)
-    TextView tvUid2;
+    @BindView(R.id.btnUid2)
+    Button btnUid2;
     @BindView(R.id.ivAvatar2)
     FrescoView ivAvatar2;
     @BindView(R.id.tvName2)
@@ -97,9 +97,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     private RecyclerHelper recyclerHelper;
     private int page;
 
-    public static void goActivity(Activity from, long cid) {
+    public static void goActivity(Activity from, long cid, long uid) {
         Intent intent = new Intent(from, CoupleDetailActivity.class);
         intent.putExtra("cid", cid);
+        intent.putExtra("uid", uid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -153,11 +154,26 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnVipAdd, R.id.btnCoinAdd})
+    @OnClick({R.id.btnSearch, R.id.btnUid1, R.id.btnUid2,
+            R.id.btnVipAdd, R.id.btnCoinAdd, R.id.btnBill, R.id.btnVip, R.id.btnCoin})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
                 getCoupleData();
+                break;
+            case R.id.btnUid1:
+                if (couple == null) return;
+                UserDetailActivity.goActivity(mActivity, couple.getCreatorId());
+                break;
+            case R.id.btnUid2:
+                if (couple == null) return;
+                UserDetailActivity.goActivity(mActivity, couple.getInviteeId());
+                break;
+            case R.id.btnVipAdd:
+                showVipAddDialog();
+                break;
+            case R.id.btnCoinAdd:
+                showCoinAddDialog();
                 break;
             case R.id.btnBill:
                 if (couple == null) return;
@@ -170,12 +186,6 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
             case R.id.btnCoin:
                 if (couple == null) return;
                 CoinListActivity.goActivity(mActivity, 0, couple.getId());
-                break;
-            case R.id.btnVipAdd:
-                showVipAddDialog();
-                break;
-            case R.id.btnCoinAdd:
-                showCoinAddDialog();
                 break;
         }
     }
@@ -288,11 +298,11 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         etId.setText(id);
         tvCreate.setText(create);
         tvUpdate.setText(update);
-        tvUid1.setText(creatorId);
+        btnUid1.setText(creatorId);
         ivAvatar1.setWidthAndHeight(width, height);
         ivAvatar1.setData(creatorAvatar);
         tvName1.setText(creatorName);
-        tvUid2.setText(inviteeId);
+        btnUid2.setText(inviteeId);
         ivAvatar2.setWidthAndHeight(width, height);
         ivAvatar2.setData(inviteeAvatar);
         tvName2.setText(inviteeName);
@@ -310,7 +320,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         String birth2 = DateUtils.getString(inviter.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D);
         String phone2 = inviter.getPhone();
         // view
-        tvSex1.setText(sex1 + " " + birth1);
+        tvSex1.setText(birth1 + " " + sex1);
         tvPhone1.setText(phone1);
         tvSex2.setText(sex2 + " " + birth2);
         tvPhone2.setText(phone2);

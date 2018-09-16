@@ -140,6 +140,12 @@ public interface API {
     @GET("couple?all=1")
     Call<Result> coupleGet(@Query("uid") long uid, @Query("cid") long cid);
 
+    @GET("couple/place?list=1&admin=1")
+    Call<Result> couplePlaceListGet(@Query("uid") long uid, @Query("page") int page);
+
+    @GET("couple/place?group=1")
+    Call<Result> couplePlaceGroupGet(@Query("start") long start, @Query("end") long end, @Query("filed") String filed);
+
     @POST("more/bill?check=1")
     Call<Result> moreBillCheck(@Query("bid") long bid);
 

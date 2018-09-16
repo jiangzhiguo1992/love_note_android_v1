@@ -46,7 +46,7 @@ public class VipAdapter extends BaseQuickAdapter<Vip, BaseViewHolder> {
 
     public void goCouple(final int position) {
         Vip item = getItem(position);
-        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId());
+        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId(), 0);
     }
 
 }

@@ -108,13 +108,11 @@
                 app:actualImageScaleType="centerCrop"
                 tools:background="@mipmap/ic_boy_circle"/>
 
-            <TextView
-                android:id="@+id/tvUid1"
-                style="@style/FontBlackNormal"
+            <Button
+                android:id="@+id/btnUid1"
+                style="@style/FontWhiteNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:gravity="center"
                 tools:text="11.1.1"/>
         </LinearLayout>
@@ -126,13 +124,11 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvUid2"
-                style="@style/FontBlackNormal"
+            <Button
+                android:id="@+id/btnUid2"
+                style="@style/FontWhiteNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
                 android:gravity="center"
                 tools:text="11.1.1"/>
 

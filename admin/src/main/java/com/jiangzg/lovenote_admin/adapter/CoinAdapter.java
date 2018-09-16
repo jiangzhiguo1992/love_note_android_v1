@@ -46,7 +46,7 @@ public class CoinAdapter extends BaseQuickAdapter<Coin, BaseViewHolder> {
 
     public void goCouple(final int position) {
         Coin item = getItem(position);
-        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId());
+        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId(), 0);
     }
 
 }

@@ -36,6 +36,15 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     @BindView(R.id.tvCouple3)
     TextView tvCouple3;
 
+    @BindView(R.id.cvPlace)
+    CardView cvPlace;
+    @BindView(R.id.tvPlace1)
+    TextView tvPlace1;
+    @BindView(R.id.tvPlace2)
+    TextView tvPlace2;
+    @BindView(R.id.tvPlace3)
+    TextView tvPlace3;
+
     @BindView(R.id.cvBill)
     CardView cvBill;
     @BindView(R.id.tvBill1)
@@ -53,6 +62,15 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     TextView tvVip2;
     @BindView(R.id.tvVip3)
     TextView tvVip3;
+
+    @BindView(R.id.cvSign)
+    CardView cvSign;
+    @BindView(R.id.tvSign1)
+    TextView tvSign1;
+    @BindView(R.id.tvSign2)
+    TextView tvSign2;
+    @BindView(R.id.tvSign3)
+    TextView tvSign3;
 
     @BindView(R.id.cvCoin)
     CardView cvCoin;
@@ -108,8 +126,10 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     @Override
     protected void initData(Bundle state) {
         getCoupleData();
+        getPlaceData();
         getBillData();
         getVipData();
+        getSignData();
         getCoinData();
         // TODO note
         // TODO post
@@ -120,17 +140,24 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.cvCouple, R.id.cvBill, R.id.cvVip, R.id.cvCoin, R.id.cvNote, R.id.cvPost, R.id.cvMatch})
+    @OnClick({R.id.cvCouple, R.id.cvPlace, R.id.cvBill, R.id.cvVip,
+            R.id.cvSign, R.id.cvCoin, R.id.cvNote, R.id.cvPost, R.id.cvMatch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvCouple: // 配对
                 CoupleListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvPlace: // 位置
+                // TODO
                 break;
             case R.id.cvBill: // 账单
                 BillListActivity.goActivity(mFragment);
                 break;
             case R.id.cvVip: // 会员
                 VipListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvSign: // 签到
+                // TODO
                 break;
             case R.id.cvCoin: // 金币
                 CoinListActivity.goActivity(mFragment);
@@ -189,6 +216,10 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 tvCouple3.setText("7d：fail");
             }
         });
+    }
+
+    private void getPlaceData() {
+        // TODO
     }
 
     private void getBillData() {
@@ -280,6 +311,10 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 tvVip3.setText("7d：fail");
             }
         });
+    }
+
+    private void getSignData() {
+        // TODO
     }
 
     private void getCoinData() {

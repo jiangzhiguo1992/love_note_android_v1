@@ -49,7 +49,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="天：/"/>
+                        tools:text="天：/"/>
 
                     <TextView
                         android:id="@+id/tvCouple2"
@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="周：/"/>
+                        tools:text="周：/"/>
 
                     <TextView
                         android:id="@+id/tvCouple3"
@@ -65,9 +65,67 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="周：/"/>
+                        tools:text="周：/"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvPlace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="位置(place)"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="1"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="2"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="3"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvBill"
@@ -101,7 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="天："/>
+                        tools:text="天："/>
 
                     <TextView
                         android:id="@+id/tvBill2"
@@ -109,7 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="周："/>
+                        tools:text="周："/>
 
                     <TextView
                         android:id="@+id/tvBill3"
@@ -117,15 +175,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="周："/>
+                        tools:text="周："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvVip"
@@ -159,7 +211,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="帖子："/>
+                        tools:text="帖子："/>
 
                     <TextView
                         android:id="@+id/tvVip2"
@@ -167,7 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
 
                     <TextView
                         android:id="@+id/tvVip3"
@@ -175,7 +227,65 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvSign"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="签到(sign)"/>
+
+                    <TextView
+                        android:id="@+id/tvSign1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="帖子："/>
+
+                    <TextView
+                        android:id="@+id/tvSign2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvSign3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -211,7 +321,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="帖子："/>
+                        tools:text="帖子："/>
 
                     <TextView
                         android:id="@+id/tvCoin2"
@@ -219,7 +329,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
 
                     <TextView
                         android:id="@+id/tvCoin3"
@@ -227,7 +337,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -269,7 +379,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="帖子："/>
+                        tools:text="帖子："/>
 
                     <TextView
                         android:id="@+id/tvNote2"
@@ -277,7 +387,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
 
                     <TextView
                         android:id="@+id/tvNote3"
@@ -285,7 +395,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -321,7 +431,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="帖子："/>
+                        tools:text="帖子："/>
 
                     <TextView
                         android:id="@+id/tvPost2"
@@ -329,7 +439,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
 
                     <TextView
                         android:id="@+id/tvPost3"
@@ -337,7 +447,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="评论："/>
+                        tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -379,7 +489,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="作品："/>
+                        tools:text="作品："/>
 
                     <TextView
                         android:id="@+id/tvMatch2"
@@ -387,7 +497,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="金币："/>
+                        tools:text="金币："/>
 
                     <TextView
                         android:id="@+id/tvMatch3"
@@ -395,7 +505,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        android:text="金币："/>
+                        tools:text="金币："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

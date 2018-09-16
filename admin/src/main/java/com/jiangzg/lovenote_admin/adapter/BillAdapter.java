@@ -63,7 +63,7 @@ public class BillAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
 
     public void goCouple(final int position) {
         Bill item = getItem(position);
-        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId());
+        CoupleDetailActivity.goActivity(mActivity, item.getCoupleId(), 0);
     }
 
     public void checkBill(final int position) {

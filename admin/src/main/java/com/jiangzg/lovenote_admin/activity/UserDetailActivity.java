@@ -56,6 +56,8 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
     Button btnVip;
     @BindView(R.id.btnCoin)
     Button btnCoin;
+    @BindView(R.id.btnCouple)
+    Button btnCouple;
 
     @BindView(R.id.btnStatus)
     Button btnStatus;
@@ -128,7 +130,7 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin})
+    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnCouple})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBill:
@@ -142,6 +144,10 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
             case R.id.btnCoin:
                 if (user == null) return;
                 CoinListActivity.goActivity(mActivity, user.getId(), 0);
+                break;
+            case R.id.btnCouple:
+                if (user == null) return;
+                CoupleDetailActivity.goActivity(mActivity, 0, user.getId());
                 break;
             case R.id.btnSearch:
                 getUserData();

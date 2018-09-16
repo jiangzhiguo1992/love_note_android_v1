@@ -66,10 +66,19 @@ public class Result implements Serializable {
         private Couple couple;
         private List<Couple> coupleList;
         private List<Couple.State> coupleStateList;
+        private List<Place> placeList;
         private List<Bill> billList;
         private double amount;
         private List<Vip> vipList;
         private List<Coin> coinList;
+
+        public List<Place> getPlaceList() {
+            return placeList;
+        }
+
+        public void setPlaceList(List<Place> placeList) {
+            this.placeList = placeList;
+        }
 
         public double getBirth() {
             return birth;
