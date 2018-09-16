@@ -146,7 +146,7 @@
 
             <TextView
                 android:id="@+id/tvPayAmount"
-                style="@style/FontGreyNormal"
+                style="@style/FontBlackNormalBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

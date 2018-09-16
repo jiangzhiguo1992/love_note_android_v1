@@ -140,7 +140,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
 
     private void showStartPicker() {
         long time = (start == 0) ? DateUtils.getCurrentLong() : start;
-        DialogHelper.showDatePicker(mActivity, time, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, time, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 start = time;
@@ -151,7 +151,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
 
     private void showEndPicker() {
         long time = (end == 0) ? DateUtils.getCurrentLong() : end;
-        DialogHelper.showDatePicker(mActivity, time, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, time, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 end = time;

@@ -180,7 +180,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     }
 
     private void showStartPicker() {
-        DialogHelper.showDatePicker(mActivity, start, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, start, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 start = time;
@@ -190,7 +190,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     }
 
     private void showEndPicker() {
-        DialogHelper.showDatePicker(mActivity, end, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, end, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 end = time;

@@ -143,14 +143,17 @@ public interface API {
     @POST("more/bill?check=1")
     Call<Result> moreBillCheck(@Query("bid") long bid);
 
-    @GET("more/bill?list=1")
+    @GET("more/bill?list=1&sync=0")
     Call<Result> moreBillListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("trade_no") String tradeNo, @Query("page") int page);
+
+    @GET("more/bill?list=1&sync=1")
+    Call<Result> moreBillSyncListGet(@Query("page") int page);
 
     @GET("more/bill?amount=1")
     Call<Result> moreBillAmountGet(@Query("start") long start, @Query("end") long end, @Query("platform_os") String platformOs, @Query("platform_pay") int platformPay, @Query("pay_type") int payType, @Query("goods_type") int goodsType);
 
     @GET("more/bill?total=1")
-    Call<Result> moreBillTotalGet(@Query("start") long start, @Query("end") long end, @Query("platform_os") String platformOs, @Query("platform_pay") int platformPay, @Query("pay_type") int payType, @Query("goods_type") int goodsType, @Query("trade_pay") boolean tradePay, @Query("goods_out") boolean goodsOut);
+    Call<Result> moreBillTotalGet(@Query("start") long start, @Query("end") long end, @Query("platform_os") String platformOs, @Query("platform_pay") int platformPay, @Query("pay_type") int payType, @Query("goods_type") int goodsType);
 
     @POST("more/vip")
     Call<Result> moreVipAdd(@Body Vip vip);

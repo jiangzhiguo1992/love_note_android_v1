@@ -49,6 +49,8 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     EditText etCid;
     @BindView(R.id.etTradeNo)
     EditText etTradeNo;
+    @BindView(R.id.btnSearchSync)
+    Button btnSearchSync;
     @BindView(R.id.btnSearch)
     Button btnSearch;
 
@@ -62,15 +64,10 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     Button btnPlatformPay;
     @BindView(R.id.btnGoodsType)
     Button btnGoodsType;
-    @BindView(R.id.btnAmount)
-    Button btnAmount;
-
-    @BindView(R.id.btnTradePay)
-    Button btnTradePay;
-    @BindView(R.id.btnGoodsOut)
-    Button btnGoodsOut;
     @BindView(R.id.btnTotal)
     Button btnTotal;
+    @BindView(R.id.btnAmount)
+    Button btnAmount;
 
     @BindView(R.id.rv)
     RecyclerView rv;
@@ -78,7 +75,7 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     private RecyclerHelper recyclerHelper;
     private long start, end;
     private int page, platformOsIndex, platformPayIndex, goodsTypeIndex;
-    private boolean tradePay, goodsOut;
+    private boolean sync;
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), BillListActivity.class);
@@ -120,11 +117,6 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
         btnPlatformOs.setText(ApiHelper.BILL_PLATFORM_OS_SHOW[platformOsIndex]);
         btnPlatformPay.setText(ApiHelper.BILL_PLATFORM_PAY_SHOW[platformPayIndex]);
         btnGoodsType.setText(ApiHelper.BILL_GOODS_TYPE_SHOW[goodsTypeIndex]);
-        // amount
-        tradePay = true;
-        btnTradePay.setText("已付款");
-        goodsOut = true;
-        btnGoodsOut.setText("已发货");
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -135,7 +127,11 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        getListData(true);
+                        if (sync) {
+                            getSyncListData(true);
+                        } else {
+                            getAllListData(true);
+                        }
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -157,7 +153,8 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
-        getListData(false);
+        sync = false;
+        getAllListData(false);
     }
 
     @Override
@@ -165,11 +162,18 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnPlatformOs, R.id.btnPlatformPay, R.id.btnGoodsType, R.id.btnAmount, R.id.btnTradePay, R.id.btnGoodsOut, R.id.btnTotal})
+    @OnClick({R.id.btnSearchSync, R.id.btnSearch, R.id.btnStart, R.id.btnEnd,
+            R.id.btnPlatformOs, R.id.btnPlatformPay, R.id.btnGoodsType,
+            R.id.btnTotal, R.id.btnAmount})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.btnSearchSync:
+                sync = true;
+                getSyncListData(false);
+                break;
             case R.id.btnSearch:
-                getListData(false);
+                sync = false;
+                getAllListData(false);
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -189,12 +193,6 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
             case R.id.btnAmount:
                 getAmountData();
                 break;
-            case R.id.btnTradePay:
-                toggleTradePay();
-                break;
-            case R.id.btnGoodsOut:
-                toggleGoodsOut();
-                break;
             case R.id.btnTotal:
                 getTotalData();
                 break;
@@ -202,7 +200,7 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     }
 
     private void showStartPicker() {
-        DialogHelper.showDatePicker(mActivity, start, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, start, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 start = time;
@@ -212,7 +210,7 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     }
 
     private void showEndPicker() {
-        DialogHelper.showDatePicker(mActivity, end, new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, end, new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 end = time;
@@ -282,13 +280,38 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnStart.setText("s: " + startAt);
-        btnEnd.setText("e: " + endAt);
+        String startAt = "s: " + DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e: " + DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnStart.setText(startAt);
+        btnEnd.setText(endAt);
     }
 
-    private void getListData(final boolean more) {
+    private void getSyncListData(final boolean more) {
+        page = more ? page + 1 : 0;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).moreBillSyncListGet(page);
+        MaterialDialog loading = null;
+        if (!more) {
+            loading = getLoading(true);
+        }
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Bill> billList = data.getBillList();
+                recyclerHelper.dataOk(billList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
+            }
+        });
+    }
+
+    private void getAllListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
         long uid = 0, cid = 0;
@@ -343,22 +366,12 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
         });
     }
 
-    private void toggleTradePay() {
-        tradePay = !tradePay;
-        btnTradePay.setText(tradePay ? "已付款" : "未付款");
-    }
-
-    private void toggleGoodsOut() {
-        goodsOut = !goodsOut;
-        btnGoodsOut.setText(goodsOut ? "已发货" : "未发货");
-    }
-
     private void getTotalData() {
         String platformOs = platformOsIndex <= 0 ? "" : ApiHelper.BILL_PLATFORM_OS_SHOW[platformOsIndex];
         int platformPay = ApiHelper.BILL_PLATFORM_PAY_TYPE[platformPayIndex];
         int payType = Bill.BILL_PAY_TYPE_APP;
         int goodsType = ApiHelper.BILL_GOODS_TYPE_TYPE[goodsTypeIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).moreBillTotalGet(start / 1000, end / 1000, platformOs, platformPay, payType, goodsType, tradePay, goodsOut);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreBillTotalGet(start / 1000, end / 1000, platformOs, platformPay, payType, goodsType);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

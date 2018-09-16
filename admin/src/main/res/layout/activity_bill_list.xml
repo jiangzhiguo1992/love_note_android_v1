@@ -11,7 +11,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/etUid"
@@ -45,20 +46,36 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
             android:hint="trade_no"
             android:inputType="text"
             android:padding="10dp"
             android:textColorHint="@color/font_hint"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSearchSync"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="未同步列表(create)"/>
 
         <Button
             android:id="@+id/btnSearch"
             style="@style/FontWhiteNormal"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="列表(最新)"/>
+            android:layout_weight="1"
+            android:text="搜索列表(create)"/>
     </LinearLayout>
 
     <View
@@ -94,7 +111,7 @@
 
         <Button
             android:id="@+id/btnPlatformOs"
-            style="@style/FontWhiteSmall"
+            style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -103,7 +120,7 @@
 
         <Button
             android:id="@+id/btnPlatformPay"
-            style="@style/FontWhiteSmall"
+            style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -112,20 +129,13 @@
 
         <Button
             android:id="@+id/btnGoodsType"
-            style="@style/FontWhiteSmall"
+            style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             tools:text="正常ing"/>
 
-        <Button
-            android:id="@+id/btnAmount"
-            style="@style/FontWhiteSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="金额(bill)"/>
     </LinearLayout>
 
     <LinearLayout
@@ -133,28 +143,20 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnTradePay"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="性别"/>
-
-        <Button
-            android:id="@+id/btnGoodsOut"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="生日"/>
-
-        <Button
             android:id="@+id/btnTotal"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="数量(bill)"/>
+            android:text="数量(create)"/>
+
+        <Button
+            android:id="@+id/btnAmount"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="金额(create)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
