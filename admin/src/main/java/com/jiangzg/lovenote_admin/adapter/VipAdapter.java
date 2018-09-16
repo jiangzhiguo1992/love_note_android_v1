@@ -31,7 +31,7 @@ public class VipAdapter extends BaseQuickAdapter<Vip, BaseViewHolder> {
         String bid = "bid:" + item.getBillId();
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String fromType = Vip.getFromTypeShow(item.getFromType());
-        String expireDays = item.getExpireDays() + " 天";
+        String expireDays = "天数:" + item.getExpireDays();
         String expireAt = "到期:" + DateUtils.getString(item.getExpireAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         // view
         helper.setText(R.id.tvId, id);

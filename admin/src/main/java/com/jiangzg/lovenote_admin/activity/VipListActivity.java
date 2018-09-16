@@ -22,6 +22,7 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.VipAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
+import com.jiangzg.lovenote_admin.domain.FiledInfo;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.Vip;
 import com.jiangzg.lovenote_admin.helper.API;
@@ -55,8 +56,8 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnTotal)
-    Button btnTotal;
+    @BindView(R.id.btnGroup)
+    Button btnGroup;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -138,7 +139,7 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnType, R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnTotal})
+    @OnClick({R.id.btnType, R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnGroup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnType:
@@ -153,8 +154,8 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnTotal:
-                getTotalData();
+            case R.id.btnGroup:
+                getGroupData();
                 break;
         }
     }
@@ -200,10 +201,10 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnStart.setText("s: " + startAt);
-        btnEnd.setText("e: " + endAt);
+        String startAt = "s: " + DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e: " + DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnStart.setText(startAt);
+        btnEnd.setText(endAt);
     }
 
     private void getListData(final boolean more) {
@@ -245,17 +246,17 @@ public class VipListActivity extends BaseActivity<VipListActivity> {
         });
     }
 
-    private void getTotalData() {
-        Call<Result> call = new RetrofitHelper().call(API.class).moreVipTotalGet(start / 1000, end / 1000);
+    private void getGroupData() {
+        Call<Result> call = new RetrofitHelper().call(API.class).moreVipExpireDaysListGet(start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                btnTotal.setText("数量(" + data.getTotal() + ")");
+                List<FiledInfo> infoList = data.getInfoList();
+                DialogHelper.showFiledInfoDialog(mActivity, infoList);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                btnTotal.setText("数量(fail)");
             }
         });
     }

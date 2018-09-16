@@ -60,21 +60,20 @@
             <TextView
                 android:id="@+id/tvCreate"
                 style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:gravity="center"
+                android:layout_weight="1"
+                android:gravity="end"
                 tools:text="11.1.1"/>
 
             <TextView
                 android:id="@+id/tvUpdate"
                 style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:gravity="center"
+                android:layout_weight="1"
+                android:gravity="end"
                 tools:text="11.1.1"/>
         </LinearLayout>
 

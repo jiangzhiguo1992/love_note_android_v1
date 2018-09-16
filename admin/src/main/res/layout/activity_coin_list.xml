@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="列表(最新)"/>
+            android:text="列表(create)"/>
     </LinearLayout>
 
     <View
@@ -96,12 +96,12 @@
             tools:text="列表(最新)"/>
 
         <Button
-            android:id="@+id/btnTotal"
+            android:id="@+id/btnGroup"
             style="@style/FontWhiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="数量(time+kind)"/>
+            android:text="分组(change)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

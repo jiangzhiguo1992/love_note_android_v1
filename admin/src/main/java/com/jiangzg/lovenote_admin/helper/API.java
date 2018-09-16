@@ -158,6 +158,9 @@ public interface API {
     @POST("more/vip")
     Call<Result> moreVipAdd(@Body Vip vip);
 
+    @GET("more/vip?expire_days=1")
+    Call<Result> moreVipExpireDaysListGet(@Query("start") long start, @Query("end") long end);
+
     @GET("more/vip?total=1")
     Call<Result> moreVipTotalGet(@Query("start") long start, @Query("end") long end);
 
@@ -166,6 +169,9 @@ public interface API {
 
     @POST("more/coin")
     Call<Result> moreCoinAdd(@Body Coin coin);
+
+    @GET("more/coin?change=1")
+    Call<Result> moreCoinChangeListGet(@Query("start") long start, @Query("end") long end);
 
     @GET("more/coin?total=1")
     Call<Result> moreCoinTotalGet(@Query("start") long start, @Query("end") long end, @Query("kind") int kind);
