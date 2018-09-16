@@ -272,7 +272,23 @@
                         android:text="帖子："/>
 
                     <TextView
+                        android:id="@+id/tvComment1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="评论："/>
+
+                    <TextView
                         android:id="@+id/tvSuggest2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        android:text="帖子："/>
+
+                    <TextView
+                        android:id="@+id/tvComment2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
