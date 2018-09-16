@@ -47,8 +47,8 @@ public class SmsListActivity extends BaseActivity<SmsListActivity> {
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnCount)
-    Button btnCount;
+    @BindView(R.id.btnTotal)
+    Button btnTotal;
     @BindView(R.id.btnSearch)
     Button btnSearch;
     @BindView(R.id.rv)
@@ -117,7 +117,7 @@ public class SmsListActivity extends BaseActivity<SmsListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnType, R.id.btnStart, R.id.btnEnd, R.id.btnCount, R.id.btnSearch})
+    @OnClick({R.id.btnType, R.id.btnStart, R.id.btnEnd, R.id.btnTotal, R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnType:
@@ -129,7 +129,7 @@ public class SmsListActivity extends BaseActivity<SmsListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnCount:
+            case R.id.btnTotal:
                 getCount();
                 break;
             case R.id.btnSearch:
@@ -179,10 +179,10 @@ public class SmsListActivity extends BaseActivity<SmsListActivity> {
     }
 
     private void refreshDateView() {
-        String startAt = DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnStart.setText("s: " + startAt);
-        btnEnd.setText("e: " + endAt);
+        String startAt = "s: " + DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e: " + DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnStart.setText(startAt);
+        btnEnd.setText(endAt);
     }
 
     private void getCount() {
@@ -194,12 +194,12 @@ public class SmsListActivity extends BaseActivity<SmsListActivity> {
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                btnCount.setText("数量(" + data.getTotal() + ")");
+                btnTotal.setText("数量(" + data.getTotal() + ")");
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                btnCount.setText("数量(fail)");
+                btnTotal.setText("数量(fail)");
             }
         });
     }

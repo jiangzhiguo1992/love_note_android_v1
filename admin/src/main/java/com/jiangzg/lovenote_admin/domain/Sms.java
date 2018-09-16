@@ -26,7 +26,7 @@ public class Sms extends BaseObj {
             case TYPE_FORGET:
                 return "忘记密码";
             case TYPE_PHONE:
-                return "修改手机";
+                return "更换手机";
             case TYPE_LOCK:
                 return "密码锁";
         }

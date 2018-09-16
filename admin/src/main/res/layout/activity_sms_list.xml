@@ -67,13 +67,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCount"
+            android:id="@+id/btnTotal"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="数量"/>
+            android:text="数量(create)"/>
 
         <Button
             android:id="@+id/btnSearch"
@@ -82,7 +82,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="列表(时间段)"/>
+            android:text="列表(create)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

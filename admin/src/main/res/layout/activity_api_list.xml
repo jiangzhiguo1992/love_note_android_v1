@@ -48,7 +48,7 @@
             android:text="分组(uri)"/>
 
         <Button
-            android:id="@+id/btnCount"
+            android:id="@+id/btnTotal"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

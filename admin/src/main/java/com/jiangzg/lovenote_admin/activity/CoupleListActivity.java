@@ -49,8 +49,8 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
     Button btnEnd;
     @BindView(R.id.btnStateGroup)
     Button btnStateGroup;
-    @BindView(R.id.btnCount)
-    Button btnCount;
+    @BindView(R.id.btnTotal)
+    Button btnTotal;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -113,7 +113,7 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnStateGroup, R.id.btnCount})
+    @OnClick({R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnStateGroup, R.id.btnTotal})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -128,7 +128,7 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
             case R.id.btnStateGroup:
                 getStateGroup();
                 break;
-            case R.id.btnCount:
+            case R.id.btnTotal:
                 getCount();
                 break;
         }
@@ -197,12 +197,12 @@ public class CoupleListActivity extends BaseActivity<CoupleListActivity> {
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                btnCount.setText("数量(" + data.getTotal() + ")");
+                btnTotal.setText("数量(" + data.getTotal() + ")");
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                btnCount.setText("数量(fail)");
+                btnTotal.setText("数量(fail)");
             }
         });
     }

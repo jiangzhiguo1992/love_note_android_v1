@@ -38,16 +38,16 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnUri)
-    Button btnUri;
     @BindView(R.id.btnSearch)
     Button btnSearch;
     @BindView(R.id.btnStart)
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnCount)
-    Button btnCount;
+    @BindView(R.id.btnUri)
+    Button btnUri;
+    @BindView(R.id.btnTotal)
+    Button btnTotal;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -114,7 +114,7 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnStart, R.id.btnEnd, R.id.btnUri, R.id.btnSearch, R.id.btnCount})
+    @OnClick({R.id.btnStart, R.id.btnEnd, R.id.btnUri, R.id.btnSearch, R.id.btnTotal})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnUri:
@@ -129,7 +129,7 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnCount:
+            case R.id.btnTotal:
                 getTotalData();
                 break;
         }
@@ -207,12 +207,12 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                btnCount.setText("数量(" + data.getTotal() + ")");
+                btnTotal.setText("数量(" + data.getTotal() + ")");
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                btnCount.setText("数量(fail)");
+                btnTotal.setText("数量(fail)");
             }
         });
     }
