@@ -31,7 +31,6 @@
             android:layout_gravity="center"
             android:layout_weight="2"
             tools:text="字段"/>
-
     </LinearLayout>
 
     <LinearLayout
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="分组(时间段)"/>
+            android:text="分组(uri)"/>
 
         <Button
             android:id="@+id/btnCount"
@@ -55,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="数量"/>
+            android:text="数量(create)"/>
 
         <Button
             android:id="@+id/btnSearch"
@@ -64,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="列表(时间段)"/>
+            android:text="列表(duration)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -52,6 +52,7 @@ public class Result implements Serializable {
         private User user;
         private OssInfo ossInfo;
         private List<User> userList;
+        private double birth;
         private List<Sms> smsList;
         private List<Version> versionList;
         private List<Notice> noticeList;
@@ -69,6 +70,14 @@ public class Result implements Serializable {
         private double amount;
         private List<Vip> vipList;
         private List<Coin> coinList;
+
+        public double getBirth() {
+            return birth;
+        }
+
+        public void setBirth(double birth) {
+            this.birth = birth;
+        }
 
         public List<Vip> getVipList() {
             return vipList;

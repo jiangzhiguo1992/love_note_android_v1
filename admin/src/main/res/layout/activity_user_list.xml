@@ -15,46 +15,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnSex"
-            style="@style/FontWhiteSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            tools:text="性别"/>
-
-        <Button
-            android:id="@+id/btnStart"
-            style="@style/FontWhiteSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            tools:text="开始于"/>
-
-        <Button
-            android:id="@+id/btnEnd"
-            style="@style/FontWhiteSmall"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="2"
-            tools:text="结束于"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
             android:id="@+id/btnBlack"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:text="列表(黑名单)"/>
+            android:text="黑名单(update)"/>
 
         <Button
             android:id="@+id/btnSearch"
@@ -63,12 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="2"
-            android:text="列表(最新)"/>
+            android:text="列表(create)"/>
     </LinearLayout>
 
     <View
         style="@style/LineHorizontal"
-        android:layout_height="1dp"/>
+        android:layout_height="2dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,22 +43,47 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnCreate"
+            android:id="@+id/btnStart"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            tools:text="创建"/>
+            tools:text="开始于"/>
 
         <Button
-            android:id="@+id/btnCount"
+            android:id="@+id/btnEnd"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="数量"/>
+            tools:text="结束于"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnBirth"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="均龄(create)"/>
+
+        <Button
+            android:id="@+id/btnTotal"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="数量(create)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

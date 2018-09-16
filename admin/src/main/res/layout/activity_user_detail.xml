@@ -84,22 +84,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/btnStatus"
-            style="@style/FontWhiteNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            tools:text="正常ing"/>
-
         <TextView
             android:id="@+id/tvCreate"
             style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:gravity="center"
+            android:padding="5dp"
             tools:text="create"/>
 
         <TextView
@@ -107,9 +99,9 @@
             style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:gravity="center"
+            android:padding="5dp"
             tools:text="create"/>
     </LinearLayout>
 
@@ -118,11 +110,19 @@
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/btnStatus"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="正常ing"/>
+
+        <Button
             android:id="@+id/btnSex"
             style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             tools:text="性别"/>
 
         <Button

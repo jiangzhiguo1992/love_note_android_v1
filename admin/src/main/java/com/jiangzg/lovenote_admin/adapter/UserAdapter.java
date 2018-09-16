@@ -26,16 +26,18 @@ public class UserAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, User item) {
         // data
         String id = "id:" + item.getId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String phone = item.getPhone();
+        String create = "c:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String sexShow = User.getSexShow(item.getSex());
         String birthday = DateUtils.getString(item.getBirthday() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D);
+        String phone = item.getPhone();
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvCreate, create);
-        helper.setText(R.id.tvPhone, phone);
+        helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvSex, sexShow);
         helper.setText(R.id.tvBirthday, birthday);
+        helper.setText(R.id.tvPhone, phone);
     }
 
     public void goUser(final int position) {

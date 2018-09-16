@@ -27,15 +27,15 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
         // data
         String id = "id:" + item.getId();
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String userId = String.valueOf(item.getUserId());
+        String userId = "uid:" + String.valueOf(item.getUserId());
         String duration = String.valueOf(item.getDuration());
         String uri = item.getUri();
         String method = item.getMethod();
         String params = item.getParams();
         // view
         helper.setText(R.id.tvId, id);
-        helper.setText(R.id.tvUid, "uid:" + userId);
-        helper.setText(R.id.tvDuration, "d:" + duration);
+        helper.setText(R.id.tvUid, userId);
+        helper.setText(R.id.tvDuration, duration);
         helper.setText(R.id.tvCreate, create);
         helper.setText(R.id.tvUri, uri);
         helper.setText(R.id.tvMethod, method);

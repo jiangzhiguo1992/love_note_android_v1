@@ -15,14 +15,12 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.UserAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.helper.API;
-import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
@@ -32,34 +30,30 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import retrofit2.Call;
 
 public class UserListActivity extends BaseActivity<UserListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnCreate)
-    Button btnCreate;
-    @BindView(R.id.btnSex)
-    Button btnSex;
+    @BindView(R.id.btnBlack)
+    Button btnBlack;
+    @BindView(R.id.btnSearch)
+    Button btnSearch;
     @BindView(R.id.btnStart)
     Button btnStart;
     @BindView(R.id.btnEnd)
     Button btnEnd;
-    @BindView(R.id.btnBlack)
-    Button btnBlack;
-    @BindView(R.id.btnCount)
-    Button btnCount;
-    @BindView(R.id.btnSearch)
-    Button btnSearch;
+    @BindView(R.id.btnBirth)
+    Button btnBirth;
+    @BindView(R.id.btnTotal)
+    Button btnTotal;
     @BindView(R.id.rv)
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private int sexIndex;
-    private long create, start, end;
+    private long start, end;
     private boolean black;
 
     public static void goActivity(Fragment from) {
@@ -77,12 +71,9 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "user_list", true);
-        // sex
-        sexIndex = 0;
-        btnSex.setText("性别:" + ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
         // time
-        create = DateUtils.getCurrentLong() - ConstantUtils.DAY;
-        start = end = 0;
+        start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
+        end = DateUtils.getCurrentLong();
         refreshDateView();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -121,15 +112,16 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnCreate, R.id.btnSex, R.id.btnStart, R.id.btnEnd,
-            R.id.btnBlack, R.id.btnCount, R.id.btnSearch})
+    @OnClick({R.id.btnBlack, R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnBirth, R.id.btnTotal})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnCreate:
-                showCreatePicker();
+            case R.id.btnBlack:
+                black = true;
+                getBlackData(false);
                 break;
-            case R.id.btnSex:
-                showSexSelectDialog();
+            case R.id.btnSearch:
+                black = false;
+                getListData(false);
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -137,63 +129,13 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
             case R.id.btnEnd:
                 showEndPicker();
                 break;
-            case R.id.btnBlack:
-                black = true;
-                getBlackData(false);
+            case R.id.btnBirth:
+                getBirthData();
                 break;
-            case R.id.btnCount:
+            case R.id.btnTotal:
                 getTotalData();
                 break;
-            case R.id.btnSearch:
-                black = false;
-                getListData(false);
-                break;
         }
-    }
-
-    @OnLongClick({R.id.btnStart, R.id.btnEnd,})
-    public boolean onLongClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnStart:
-                start = 0;
-                refreshDateView();
-                return true;
-            case R.id.btnEnd:
-                end = 0;
-                refreshDateView();
-                return true;
-        }
-        return false;
-    }
-
-    private void showSexSelectDialog() {
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .title(R.string.select_search_type)
-                .items(ApiHelper.LIST_USER_SEX_SHOW)
-                .itemsCallbackSingleChoice(sexIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        sexIndex = which;
-                        btnSex.setText("性别:" + ApiHelper.LIST_USER_SEX_SHOW[sexIndex]);
-                        DialogUtils.dismiss(dialog);
-                        return true;
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void showCreatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, create, new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                create = time;
-                refreshDateView();
-            }
-        });
     }
 
     private void showStartPicker() {
@@ -219,31 +161,10 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     }
 
     private void refreshDateView() {
-        String createAt = DateUtils.getString(create, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String startAt = start == 0 ? "未知" : DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String endAt = end == 0 ? "未知" : DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        btnCreate.setText("c: " + createAt);
-        btnStart.setText("bs: " + startAt);
-        btnEnd.setText("be: " + endAt);
-    }
-
-    private void getTotalData() {
-        long createAt = create / 1000;
-        long startAt = start / 1000;
-        long endAt = end / 1000;
-        int sex = ApiHelper.LIST_USER_SEX_TYPE[sexIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).userTotalGet(createAt, sex, startAt, endAt);
-        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                btnCount.setText("数量(" + data.getTotal() + ")");
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                btnCount.setText("数量(fail)");
-            }
-        });
+        String startAt = "s:" + DateUtils.getString(start, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String endAt = "e:" + DateUtils.getString(end, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        btnStart.setText(startAt);
+        btnEnd.setText(endAt);
     }
 
     private void getBlackData(final boolean more) {
@@ -274,10 +195,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        long startAt = start / 1000;
-        long endAt = end / 1000;
-        int sex = ApiHelper.LIST_USER_SEX_TYPE[sexIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).userListGet(sex, startAt, endAt, page);
+        Call<Result> call = new RetrofitHelper().call(API.class).userListGet(page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);
@@ -295,6 +213,47 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
             public void onFailure(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.dataFail(more, message);
+            }
+        });
+    }
+
+    private void getTotalData() {
+        long startAt = start / 1000;
+        long endAt = end / 1000;
+        Call<Result> call = new RetrofitHelper().call(API.class).userTotalGet(startAt, endAt);
+        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                btnTotal.setText("数量(" + data.getTotal() + ")");
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                btnTotal.setText("数量(fail)");
+            }
+        });
+    }
+
+    private void getBirthData() {
+        long startAt = start / 1000;
+        long endAt = end / 1000;
+        Call<Result> call = new RetrofitHelper().call(API.class).userBirthGet(startAt, endAt);
+        RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                long birth = DateUtils.getCurrentLong() - (long) data.getBirth() * 1000;
+                long year = birth / ConstantUtils.YEAR;
+                long day = (birth % ConstantUtils.YEAR) / ConstantUtils.DAY;
+                if (data.getBirth() == 0) {
+                    year = 0;
+                    day = 0;
+                }
+                btnBirth.setText("均龄(" + year + "岁" + day + "天)");
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                btnBirth.setText("均龄(fail)");
             }
         });
     }

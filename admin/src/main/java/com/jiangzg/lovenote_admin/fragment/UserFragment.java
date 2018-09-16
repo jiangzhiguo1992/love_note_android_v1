@@ -123,7 +123,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
         long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
         long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
         long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
-        Call<Result> callH1 = new RetrofitHelper().call(API.class).userTotalGet(startH1, 0, 0, 0);
+        long endAt = currentLong / 1000;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).userTotalGet(startH1, endAt);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -135,7 +136,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvUser1.setText("1h：fail");
             }
         });
-        Call<Result> callD1 = new RetrofitHelper().call(API.class).userTotalGet(startD1, 0, 0, 0);
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).userTotalGet(startD1, endAt);
         RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -147,7 +148,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvUser2.setText("1d：fail");
             }
         });
-        Call<Result> callD7 = new RetrofitHelper().call(API.class).userTotalGet(startD7, 0, 0, 0);
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).userTotalGet(startD7, endAt);
         RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

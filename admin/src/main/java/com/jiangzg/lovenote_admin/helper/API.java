@@ -63,13 +63,16 @@ public interface API {
     Call<Result> userGet(@Query("uid") long uid, @Query("phone") String phone);
 
     @GET("user?list=1")
-    Call<Result> userListGet(@Query("sex") int sex, @Query("start") long start, @Query("end") long end, @Query("page") int page);
+    Call<Result> userListGet(@Query("page") int page);
 
     @GET("user?black=1")
     Call<Result> userBlackGet(@Query("page") int page);
 
     @GET("user?total=1")
-    Call<Result> userTotalGet(@Query("create") long create, @Query("sex") int sex, @Query("start") long start, @Query("end") long end);
+    Call<Result> userTotalGet(@Query("start") long start, @Query("end") long end);
+
+    @GET("user?birth=1")
+    Call<Result> userBirthGet(@Query("start") long start, @Query("end") long end);
 
     @GET("sms?list=1")
     Call<Result> smsListGet(@Query("start") long start, @Query("end") long end, @Query("phone") String phone, @Query("type") int type, @Query("page") int page);
