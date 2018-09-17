@@ -70,7 +70,16 @@ public class Result implements Serializable {
         private List<Bill> billList;
         private double amount;
         private List<Vip> vipList;
+        private List<Sign> signList;
         private List<Coin> coinList;
+
+        public List<Sign> getSignList() {
+            return signList;
+        }
+
+        public void setSignList(List<Sign> signList) {
+            this.signList = signList;
+        }
 
         public List<Place> getPlaceList() {
             return placeList;

@@ -22,6 +22,7 @@ import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -348,7 +349,55 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getSignData() {
-        // TODO
+        long currentLong = DateUtils.getCurrentLong();
+        Calendar c0 = DateUtils.getCalendar(currentLong);
+        Calendar c1 = DateUtils.getCalendar(currentLong - ConstantUtils.DAY);
+        Calendar c2 = DateUtils.getCalendar(currentLong - ConstantUtils.DAY * 2);
+        int year0 = c0.get(Calendar.YEAR);
+        int year1 = c1.get(Calendar.YEAR);
+        int year2 = c2.get(Calendar.YEAR);
+        int month0 = c0.get(Calendar.MONTH) + 1;
+        int month1 = c1.get(Calendar.MONTH) + 1;
+        int month2 = c2.get(Calendar.MONTH) + 1;
+        int day0 = c0.get(Calendar.DAY_OF_MONTH);
+        int day1 = c1.get(Calendar.DAY_OF_MONTH);
+        int day2 = c2.get(Calendar.DAY_OF_MONTH);
+        Call<Result> call0 = new RetrofitHelper().call(API.class).moreSignTotalGet(year0, month0, day0);
+        RetrofitHelper.enqueue(call0, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSign1.setText("今：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSign1.setText("今：fail");
+            }
+        });
+        Call<Result> call1 = new RetrofitHelper().call(API.class).moreSignTotalGet(year1, month1, day1);
+        RetrofitHelper.enqueue(call1, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSign2.setText("昨：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSign2.setText("昨：fail");
+            }
+        });
+        Call<Result> call2 = new RetrofitHelper().call(API.class).moreSignTotalGet(year2, month2, day2);
+        RetrofitHelper.enqueue(call2, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSign3.setText("前：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSign3.setText("前：fail");
+            }
+        });
     }
 
     private void getCoinData() {

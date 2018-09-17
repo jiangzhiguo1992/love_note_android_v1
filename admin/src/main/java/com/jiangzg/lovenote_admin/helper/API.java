@@ -173,6 +173,12 @@ public interface API {
     @GET("more/vip?list=1&admin=1")
     Call<Result> moreVipListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("bid") long bid, @Query("from_type") int fromType, @Query("page") int page);
 
+    @GET("more/sign?list=1")
+    Call<Result> moreSignListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("page") int page);
+
+    @GET("more/sign?total=1")
+    Call<Result> moreSignTotalGet(@Query("year") int year, @Query("month") int month, @Query("day") int day);
+
     @POST("more/coin")
     Call<Result> moreCoinAdd(@Body Coin coin);
 
