@@ -85,6 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="center"
                 android:minLines="1"
                 android:singleLine="true"
@@ -97,6 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:ellipsize="end"
                 android:minLines="1"
                 android:singleLine="true"
                 tools:text="城区"/>

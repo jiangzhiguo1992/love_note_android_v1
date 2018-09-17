@@ -35,8 +35,8 @@ public class BillAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
         String id = "id:" + item.getId();
         String uid = "uid:" + item.getUserId();
         String cid = "cid:" + item.getCoupleId();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String create = "c:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String platformOs = item.getPlatformOs();
         String platformPay = Bill.getPlatformPayShow(item.getPlatformPay());
         String payType = Bill.getPayTypeShow(item.getPayType());
@@ -49,8 +49,8 @@ public class BillAdapter extends BaseQuickAdapter<Bill, BaseViewHolder> {
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvUid, uid);
         helper.setText(R.id.tvCid, cid);
-        helper.setText(R.id.tvCreate, "c:" + create);
-        helper.setText(R.id.tvUpdate, "u:" + update);
+        helper.setText(R.id.tvCreate, create);
+        helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvPlatformOs, platformOs);
         helper.setText(R.id.tvPlatformPay, platformPay);
         helper.setText(R.id.tvPayType, payType);

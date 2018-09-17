@@ -58,6 +58,17 @@ public class ApiHelper {
             ENTRY_FILED_OS_VERSION,
             ENTRY_FILED_APP_VERSION,
     };
+    // entry
+    public static final String PLACE_FILED_COUNTRY = "country";
+    public static final String PLACE_FILED_PROVINCE = "province";
+    public static final String PLACE_FILED_CITY = "city";
+    public static final String PLACE_FILED_DISTRICT = "district";
+    public static final String[] LIST_PLACE_FILED_SHOW = new String[]{
+            PLACE_FILED_COUNTRY,
+            PLACE_FILED_PROVINCE,
+            PLACE_FILED_CITY,
+            PLACE_FILED_DISTRICT,
+    };
     // bill
     public static final String[] BILL_PLATFORM_OS_SHOW = new String[]{
             "操作系统",

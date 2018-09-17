@@ -151,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
-                        android:text="活跃用户(entry)"/>
+                        android:text="用户登录(entry)"/>
 
                     <TextView
                         android:id="@+id/tvEntry1"
