@@ -165,7 +165,7 @@ public class ApiListActivity extends BaseActivity<ApiListActivity> {
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).apiListGet(start / 1000, end / 1000, page);
+        Call<Result> call = new RetrofitHelper().call(API.class).apiListGet(start / 1000, end / 1000, 0, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);
