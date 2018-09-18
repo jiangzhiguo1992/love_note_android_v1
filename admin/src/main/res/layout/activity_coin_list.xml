@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/btnStart"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -88,7 +88,7 @@
 
         <Button
             android:id="@+id/btnEnd"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

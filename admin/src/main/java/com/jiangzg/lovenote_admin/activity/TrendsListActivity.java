@@ -271,13 +271,36 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 List<FiledInfo> infoList = data.getInfoList();
-                DialogHelper.showFiledInfoDialog(mActivity, infoList);
+                showFiledInfoDialog(mActivity, infoList);
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+    }
+
+    private void showFiledInfoDialog(Activity activity, List<FiledInfo> infoList) {
+        StringBuilder builder = new StringBuilder();
+        if (infoList == null || infoList.size() <= 0) {
+            builder.append("没有信息");
+        } else {
+            for (FiledInfo info : infoList) {
+                if (info == null) continue;
+                int conType = Integer.parseInt(info.getName());
+                builder.append(info.getCount())
+                        .append(" == ")
+                        .append(Trends.getContentShow(conType))
+                        .append("\n");
+            }
+        }
+        String show = builder.toString();
+        MaterialDialog dialog = DialogHelper.getBuild(activity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(show)
+                .build();
+        DialogHelper.showWithAnim(dialog);
     }
 
 }

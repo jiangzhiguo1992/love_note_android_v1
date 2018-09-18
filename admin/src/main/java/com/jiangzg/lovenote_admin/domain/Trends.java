@@ -106,7 +106,7 @@ public class Trends extends BaseCP implements Parcelable {
             case Trends.TRENDS_CON_TYPE_ANGRY: // 生气
                 return MyApp.get().getString(R.string.angry);
         }
-        return null;
+        return MyApp.get().getString(R.string.un_know);
     }
 
     public int getActionType() {

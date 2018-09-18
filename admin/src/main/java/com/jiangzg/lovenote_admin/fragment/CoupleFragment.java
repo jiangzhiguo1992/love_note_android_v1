@@ -20,6 +20,7 @@ import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.FiledInfo;
 import com.jiangzg.lovenote_admin.domain.Result;
+import com.jiangzg.lovenote_admin.domain.Trends;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 
@@ -226,8 +227,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
 
     private void getPlaceData() {
         long currentLong = DateUtils.getCurrentLong();
-        long start = (currentLong - ConstantUtils.YEAR) / 1000;
-        //long start = (currentLong - ConstantUtils.DAY) / 1000;
+        long start = (currentLong - ConstantUtils.DAY) / 1000;
         long end = currentLong / 1000;
         Call<Result> call = new RetrofitHelper().call(API.class).couplePlaceGroupGet(start, end, "city");
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
@@ -237,8 +237,8 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 if (infoList == null || infoList.size() <= 0) return;
                 for (int i = 0; i < infoList.size(); i++) {
                     FiledInfo filedInfo = infoList.get(i);
-                    long count = filedInfo.getCount();
                     String name = filedInfo.getName();
+                    long count = filedInfo.getCount();
                     String show = name + "：" + count;
                     if (i == 0) {
                         tvPlace1.setText(show);
@@ -446,7 +446,36 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     private void getNoteData() {
-        // TODO
+        long currentLong = DateUtils.getCurrentLong();
+        long start = (currentLong - ConstantUtils.DAY) / 1000;
+        long end = currentLong / 1000;
+        Call<Result> call = new RetrofitHelper().call(API.class).noteTrendsConListGet(start, end);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                List<FiledInfo> infoList = data.getInfoList();
+                if (infoList == null || infoList.size() <= 0) return;
+                for (int i = 0; i < infoList.size(); i++) {
+                    FiledInfo filedInfo = infoList.get(i);
+                    String name = Trends.getContentShow(Integer.parseInt(filedInfo.getName()));
+                    long count = filedInfo.getCount();
+                    String show = name + "：" + count;
+                    if (i == 0) {
+                        tvNote1.setText(show);
+                    } else if (i == 1) {
+                        tvNote2.setText(show);
+                    } else if (i == 2) {
+                        tvNote3.setText(show);
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
     private void getPostData() {

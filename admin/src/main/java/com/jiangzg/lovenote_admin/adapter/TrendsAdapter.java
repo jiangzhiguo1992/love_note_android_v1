@@ -31,7 +31,7 @@ public class TrendsAdapter extends BaseQuickAdapter<Trends, BaseViewHolder> {
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String actType = Trends.getActShow(item.getActionType(), item.getContentId());
         String conType = Trends.getContentShow(item.getContentType());
-        String conId = "conId:" + item.getContentId();
+        String conId = String.valueOf(item.getContentId());
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvUid, uid);
