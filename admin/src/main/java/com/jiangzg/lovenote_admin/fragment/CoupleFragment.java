@@ -14,6 +14,7 @@ import com.jiangzg.lovenote_admin.activity.CoinListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
 import com.jiangzg.lovenote_admin.activity.PlaceListActivity;
 import com.jiangzg.lovenote_admin.activity.SignListActivity;
+import com.jiangzg.lovenote_admin.activity.TrendsListActivity;
 import com.jiangzg.lovenote_admin.activity.VipListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Coin;
@@ -168,7 +169,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 CoinListActivity.goActivity(mFragment);
                 break;
             case R.id.cvNote: // 记录
-                // TODO
+                TrendsListActivity.goActivity(mFragment);
                 break;
             case R.id.cvPost: // 话题
                 // TODO

@@ -49,11 +49,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
 
     private BaseActivity mActivity;
     private final Couple couple;
-    private final String add;
-    private final String delete;
-    private final String modify;
-    private final String goIn;
-    private final String browse;
     private final Drawable dSouvenir;
     private final Drawable dMenses;
     private final Drawable dShy;
@@ -78,12 +73,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_trends_left);
         mActivity = activity;
         couple = SPHelper.getCouple();
-        // actType
-        add = mActivity.getString(R.string.add);
-        delete = mActivity.getString(R.string.delete);
-        modify = mActivity.getString(R.string.modify);
-        goIn = mActivity.getString(R.string.go_in);
-        browse = mActivity.getString(R.string.browse);
         // conDrawable
         dSouvenir = ViewHelper.getDrawable(mActivity, R.drawable.ic_souvenir_pink_dark);
         ViewHelper.getDrawable(mActivity, R.drawable.ic_trends_blue_dark);
@@ -115,30 +104,11 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         TextView tvContent = helper.getView(R.id.tvContent);
-        tvContent.setText(getContent(item));
+        tvContent.setText(Trends.getActShow(item.getActionType(), item.getContentId()));
         Drawable dContent = getContentDrawable(item);
         tvContent.setCompoundDrawables(null, null, dContent, null);
         // listener
         helper.addOnClickListener(R.id.cvContent);
-    }
-
-    private String getContent(Trends item) {
-        if (item == null) return "";
-        switch (item.getActionType()) {
-            case Trends.TRENDS_ACT_TYPE_INSERT: // 添加
-                return add;
-            case Trends.TRENDS_ACT_TYPE_DELETE: // 删除
-                return delete;
-            case Trends.TRENDS_ACT_TYPE_UPDATE: // 修改
-                return modify;
-            case Trends.TRENDS_ACT_TYPE_QUERY: // 进入/浏览
-                if (item.getContentId() <= Trends.TRENDS_CON_ID_LIST) {
-                    return goIn;
-                } else {
-                    return browse;
-                }
-        }
-        return "";
     }
 
     private Drawable getContentDrawable(Trends item) {

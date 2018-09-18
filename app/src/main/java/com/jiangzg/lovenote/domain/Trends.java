@@ -4,6 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.ApiHelper;
 
 /**
@@ -44,6 +46,24 @@ public class Trends extends BaseCP implements Parcelable, MultiItemEntity {
     private int actionType;
     private int contentType;
     private long contentId;
+
+    public static String getActShow(int act, long conId) {
+        switch (act) {
+            case Trends.TRENDS_ACT_TYPE_INSERT: // 添加
+                return MyApp.get().getString(R.string.add);
+            case Trends.TRENDS_ACT_TYPE_DELETE: // 删除
+                return MyApp.get().getString(R.string.delete);
+            case Trends.TRENDS_ACT_TYPE_UPDATE: // 修改
+                return MyApp.get().getString(R.string.modify);
+            case Trends.TRENDS_ACT_TYPE_QUERY: // 进入/浏览
+                if (conId <= Trends.TRENDS_CON_ID_LIST) {
+                    return MyApp.get().getString(R.string.go_in);
+                } else {
+                    return MyApp.get().getString(R.string.browse);
+                }
+        }
+        return MyApp.get().getString(R.string.un_know);
+    }
 
     @Override
     public int getItemType() {

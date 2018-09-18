@@ -54,18 +54,20 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     EditText etUid;
     @BindView(R.id.btnSearch)
     Button btnSearch;
-    @BindView(R.id.btnBill)
-    Button btnBill;
-    @BindView(R.id.btnVip)
-    Button btnVip;
-    @BindView(R.id.btnSign)
-    Button btnSign;
-    @BindView(R.id.btnCoin)
-    Button btnCoin;
     @BindView(R.id.btnVipAdd)
     Button btnVipAdd;
     @BindView(R.id.btnCoinAdd)
     Button btnCoinAdd;
+    @BindView(R.id.btnBill)
+    Button btnBill;
+    @BindView(R.id.btnVip)
+    Button btnVip;
+    @BindView(R.id.btnCoin)
+    Button btnCoin;
+    @BindView(R.id.btnSign)
+    Button btnSign;
+    @BindView(R.id.btnNote)
+    Button btnNote;
 
     @BindView(R.id.tvCreate)
     TextView tvCreate;
@@ -157,7 +159,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     }
 
     @OnClick({R.id.btnSearch, R.id.btnUid1, R.id.btnUid2, R.id.btnVipAdd, R.id.btnCoinAdd,
-            R.id.btnBill, R.id.btnVip, R.id.btnSign, R.id.btnCoin})
+            R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnSign, R.id.btnNote})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -185,13 +187,17 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                 if (couple == null) return;
                 VipListActivity.goActivity(mActivity, 0, couple.getId());
                 break;
+            case R.id.btnCoin:
+                if (couple == null) return;
+                CoinListActivity.goActivity(mActivity, 0, couple.getId());
+                break;
             case R.id.btnSign:
                 if (couple == null) return;
                 SignListActivity.goActivity(mActivity, couple.getId());
                 break;
-            case R.id.btnCoin:
+            case R.id.btnNote:
                 if (couple == null) return;
-                CoinListActivity.goActivity(mActivity, 0, couple.getId());
+                TrendsListActivity.goActivity(mActivity, 0, couple.getId());
                 break;
         }
     }

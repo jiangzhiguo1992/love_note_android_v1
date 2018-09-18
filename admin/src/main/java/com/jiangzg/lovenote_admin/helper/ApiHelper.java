@@ -5,6 +5,7 @@ import com.jiangzg.lovenote_admin.base.MyApp;
 import com.jiangzg.lovenote_admin.domain.Bill;
 import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.Sms;
+import com.jiangzg.lovenote_admin.domain.Trends;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.domain.Vip;
 
@@ -24,12 +25,12 @@ public class ApiHelper {
             Sms.TYPE_LOCK,
     };
     public static final String[] LIST_SMS_SHOW = new String[]{
-            MyApp.get().getString(R.string.all),
-            MyApp.get().getString(R.string.register),
-            MyApp.get().getString(R.string.login),
-            MyApp.get().getString(R.string.forget_pwd),
-            MyApp.get().getString(R.string.change_phone),
-            MyApp.get().getString(R.string.pwd_lock),
+            "全部",
+            Sms.getTypeShow(Sms.TYPE_REGISTER),
+            Sms.getTypeShow(Sms.TYPE_LOGIN),
+            Sms.getTypeShow(Sms.TYPE_FORGET),
+            Sms.getTypeShow(Sms.TYPE_PHONE),
+            Sms.getTypeShow(Sms.TYPE_LOCK),
     };
     // user sex
     public static final int[] LIST_USER_SEX_TYPE = new int[]{
@@ -38,9 +39,9 @@ public class ApiHelper {
             User.SEX_BOY,
     };
     public static final String[] LIST_USER_SEX_SHOW = new String[]{
-            MyApp.get().getString(R.string.all),
-            MyApp.get().getString(R.string.girl),
-            MyApp.get().getString(R.string.boy),
+            "全部",
+            User.getSexShow(User.SEX_GIRL),
+            User.getSexShow(User.SEX_BOY),
     };
     // user修改类型
     public static final int MODIFY_ADMIN_UPDATE_INFO = 21;
@@ -134,6 +135,67 @@ public class ApiHelper {
             Coin.getKindShow(Coin.COIN_KIND_SUB_BY_MATCH_UP),
             Coin.getKindShow(Coin.COIN_KIND_SUB_BY_WISH_UP),
             Coin.getKindShow(Coin.COIN_KIND_SUB_BY_PLANE_UP),
+    };
+    // trends
+    public static final int[] TRENDS_ACT_TYPE = new int[]{
+            0,
+            Trends.TRENDS_ACT_TYPE_INSERT,
+            Trends.TRENDS_ACT_TYPE_DELETE,
+            Trends.TRENDS_ACT_TYPE_UPDATE,
+            Trends.TRENDS_ACT_TYPE_QUERY,
+    };
+    public static final String[] TRENDS_ACT_SHOW = new String[]{
+            "全部",
+            Trends.getActShow(Trends.TRENDS_ACT_TYPE_INSERT, 0),
+            Trends.getActShow(Trends.TRENDS_ACT_TYPE_DELETE, 0),
+            Trends.getActShow(Trends.TRENDS_ACT_TYPE_UPDATE, 0),
+            Trends.getActShow(Trends.TRENDS_ACT_TYPE_QUERY, 0),
+    };
+    public static final int[] TRENDS_CON_TYPE = new int[]{
+            0,
+            Trends.TRENDS_CON_TYPE_SOUVENIR,
+            Trends.TRENDS_CON_TYPE_WISH,
+            Trends.TRENDS_CON_TYPE_SHY,
+            Trends.TRENDS_CON_TYPE_MENSES,
+            Trends.TRENDS_CON_TYPE_SLEEP,
+            Trends.TRENDS_CON_TYPE_AUDIO,
+            Trends.TRENDS_CON_TYPE_VIDEO,
+            Trends.TRENDS_CON_TYPE_ALBUM,
+            Trends.TRENDS_CON_TYPE_PICTURE,
+            Trends.TRENDS_CON_TYPE_WORD,
+            Trends.TRENDS_CON_TYPE_WHISPER,
+            Trends.TRENDS_CON_TYPE_DIARY,
+            Trends.TRENDS_CON_TYPE_AWARD,
+            Trends.TRENDS_CON_TYPE_AWARD_RULE,
+            Trends.TRENDS_CON_TYPE_DREAM,
+            Trends.TRENDS_CON_TYPE_FOOD,
+            Trends.TRENDS_CON_TYPE_TRAVEL,
+            Trends.TRENDS_CON_TYPE_GIFT,
+            Trends.TRENDS_CON_TYPE_PROMISE,
+            Trends.TRENDS_CON_TYPE_ANGRY,
+    };
+    public static final String[] TRENDS_CON_SHOW = new String[]{
+            "全部",
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_SOUVENIR),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_WISH),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_SHY),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_MENSES),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_SLEEP),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_AUDIO),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_VIDEO),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_ALBUM),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_PICTURE),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_WORD),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_WHISPER),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_DIARY),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_AWARD),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_AWARD_RULE),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_DREAM),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_FOOD),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_TRAVEL),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_GIFT),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_PROMISE),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_ANGRY),
     };
     // comment order类型
     private static final int LIST_COMMENT_ORDER_POINT = 0;

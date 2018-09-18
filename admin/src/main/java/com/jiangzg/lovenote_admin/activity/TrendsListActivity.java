@@ -20,11 +20,11 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.adapter.CoinAdapter;
+import com.jiangzg.lovenote_admin.adapter.TrendsAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
-import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.FiledInfo;
 import com.jiangzg.lovenote_admin.domain.Result;
+import com.jiangzg.lovenote_admin.domain.Trends;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
@@ -38,7 +38,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-public class CoinListActivity extends BaseActivity<CoinListActivity> {
+public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -46,10 +46,10 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
     EditText etUid;
     @BindView(R.id.etCid)
     EditText etCid;
-    @BindView(R.id.etBid)
-    EditText etBid;
-    @BindView(R.id.btnKind)
-    Button btnKind;
+    @BindView(R.id.btnAct)
+    Button btnAct;
+    @BindView(R.id.btnCon)
+    Button btnCon;
     @BindView(R.id.btnSearch)
     Button btnSearch;
     @BindView(R.id.btnStart)
@@ -63,17 +63,17 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
 
     private RecyclerHelper recyclerHelper;
     private long start, end;
-    private int page, kindIndex;
+    private int page, actIndex, conIndex;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), CoinListActivity.class);
+        Intent intent = new Intent(from.getActivity(), TrendsListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     public static void goActivity(Activity from, long uid, long cid) {
-        Intent intent = new Intent(from, CoinListActivity.class);
+        Intent intent = new Intent(from, TrendsListActivity.class);
         intent.putExtra("uid", uid);
         intent.putExtra("cid", cid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -82,26 +82,24 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_coin_list;
+        return R.layout.activity_trends_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "coin_list", true);
+        ViewHelper.initTopBar(mActivity, tb, "trends_list", true);
         long uid = intent.getLongExtra("uid", 0);
         long cid = intent.getLongExtra("cid", 0);
-        long bid = intent.getLongExtra("bid", 0);
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
         }
         if (cid > 0) {
             etCid.setText(String.valueOf(cid));
         }
-        if (bid > 0) {
-            etBid.setText(String.valueOf(bid));
-        }
-        kindIndex = 0;
-        btnKind.setText(ApiHelper.COIN_KIND_SHOW[kindIndex]);
+        actIndex = 0;
+        btnAct.setText(ApiHelper.TRENDS_ACT_SHOW[actIndex]);
+        conIndex = 0;
+        btnCon.setText(ApiHelper.TRENDS_CON_SHOW[conIndex]);
         // time
         start = DateUtils.getCurrentLong() - ConstantUtils.DAY;
         end = DateUtils.getCurrentLong();
@@ -109,7 +107,7 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new CoinAdapter(mActivity))
+                .initAdapter(new TrendsAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -122,8 +120,8 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        CoinAdapter coinAdapter = (CoinAdapter) adapter;
-                        coinAdapter.goCouple(position);
+                        TrendsAdapter trendsAdapter = (TrendsAdapter) adapter;
+                        trendsAdapter.goCouple(position);
                     }
                 });
     }
@@ -139,11 +137,15 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnKind, R.id.btnSearch, R.id.btnStart, R.id.btnEnd, R.id.btnGroup})
+    @OnClick({R.id.btnAct, R.id.btnCon, R.id.btnSearch,
+            R.id.btnStart, R.id.btnEnd, R.id.btnGroup})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnKind:
-                showKindSelectDialog();
+            case R.id.btnAct:
+                showActSelectDialog();
+                break;
+            case R.id.btnCon:
+                showConSelectDialog();
                 break;
             case R.id.btnSearch:
                 getListData(false);
@@ -160,18 +162,38 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
         }
     }
 
-    private void showKindSelectDialog() {
+    private void showActSelectDialog() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
-                .items(ApiHelper.COIN_KIND_SHOW)
-                .itemsCallbackSingleChoice(kindIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                .items(ApiHelper.TRENDS_ACT_SHOW)
+                .itemsCallbackSingleChoice(actIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        kindIndex = which;
-                        btnKind.setText(ApiHelper.COIN_KIND_SHOW[kindIndex]);
+                        actIndex = which;
+                        btnAct.setText(ApiHelper.TRENDS_ACT_SHOW[actIndex]);
+                        DialogUtils.dismiss(dialog);
+                        return true;
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void showConSelectDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .title(R.string.select_search_type)
+                .items(ApiHelper.TRENDS_CON_SHOW)
+                .itemsCallbackSingleChoice(conIndex, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        if (recyclerHelper == null) return true;
+                        conIndex = which;
+                        btnCon.setText(ApiHelper.TRENDS_CON_SHOW[conIndex]);
                         DialogUtils.dismiss(dialog);
                         return true;
                     }
@@ -210,7 +232,7 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        long uid = 0, cid = 0, bid = 0;
+        long uid = 0, cid = 0;
         String sUid = etUid.getText().toString().trim();
         if (StringUtils.isNumber(sUid)) {
             uid = Long.parseLong(sUid);
@@ -219,12 +241,9 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
         if (StringUtils.isNumber(sCid)) {
             cid = Long.parseLong(sCid);
         }
-        String sBid = etBid.getText().toString().trim();
-        if (StringUtils.isNumber(sBid)) {
-            bid = Long.parseLong(sBid);
-        }
-        int kind = ApiHelper.COIN_KIND_TYPE[kindIndex];
-        Call<Result> call = new RetrofitHelper().call(API.class).moreCoinListGet(uid, cid, bid, kind, page);
+        int actType = ApiHelper.TRENDS_ACT_TYPE[actIndex];
+        int conType = ApiHelper.TRENDS_CON_TYPE[conIndex];
+        Call<Result> call = new RetrofitHelper().call(API.class).noteTrendsListGet(uid, cid, actType, conType, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);
@@ -234,8 +253,8 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
-                List<Coin> coinList = data.getCoinList();
-                recyclerHelper.dataOk(coinList, more);
+                List<Trends> trendsList = data.getTrendsList();
+                recyclerHelper.dataOk(trendsList, more);
             }
 
             @Override
@@ -247,7 +266,7 @@ public class CoinListActivity extends BaseActivity<CoinListActivity> {
     }
 
     private void getGroupData() {
-        Call<Result> call = new RetrofitHelper().call(API.class).moreCoinChangeListGet(start / 1000, end / 1000);
+        Call<Result> call = new RetrofitHelper().call(API.class).noteTrendsConListGet(start / 1000, end / 1000);
         RetrofitHelper.enqueue(call, getLoading(true), new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
