@@ -72,6 +72,15 @@ public class Result implements Serializable {
         private List<Vip> vipList;
         private List<Sign> signList;
         private List<Coin> coinList;
+        private List<Trends> trendsList;
+
+        public List<Trends> getTrendsList() {
+            return trendsList;
+        }
+
+        public void setTrendsList(List<Trends> trendsList) {
+            this.trendsList = trendsList;
+        }
 
         public List<Sign> getSignList() {
             return signList;

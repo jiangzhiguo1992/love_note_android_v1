@@ -188,6 +188,12 @@ public interface API {
     @GET("more/coin?list=1&admin=1")
     Call<Result> moreCoinListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("bid") long bid, @Query("kind") int kind, @Query("page") int page);
 
+    @GET("note/trends?list=1&admin=1")
+    Call<Result> noteTrendsListGet(@Query("uid") long uid, @Query("cid") long cid, @Query("act_type") int actType, @Query("con_type") int conType, @Query("page") int page);
+
+    @GET("note/trends?group=1")
+    Call<Result> noteTrendsListGet(@Query("start") long start, @Query("end") long end);
+
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);
 

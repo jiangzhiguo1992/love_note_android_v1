@@ -24,17 +24,17 @@ public class Trends extends BaseCP implements Parcelable {
     public static final int TRENDS_CON_TYPE_VIDEO = 310; // 视频
     public static final int TRENDS_CON_TYPE_ALBUM = 320; // 相册
     public static final int TRENDS_CON_TYPE_PICTURE = 330; // 照片
-    public static final int TRENDS_CON_TYPE_WORD = 400; // 留言
-    public static final int TRENDS_CON_TYPE_WHISPER = 410; // 耳语
-    public static final int TRENDS_CON_TYPE_DIARY = 420; // 日记
-    public static final int TRENDS_CON_TYPE_AWARD = 430;// 奖励
-    public static final int TRENDS_CON_TYPE_AWARD_RULE = 440;// 奖励规则
-    public static final int TRENDS_CON_TYPE_DREAM = 450;// 梦境
-    public static final int TRENDS_CON_TYPE_FOOD = 460; // 美食
-    public static final int TRENDS_CON_TYPE_TRAVEL = 470; // 游记
-    public static final int TRENDS_CON_TYPE_GIFT = 480; // 礼物
-    public static final int TRENDS_CON_TYPE_PROMISE = 490; // 承诺
-    public static final int TRENDS_CON_TYPE_ANGRY = 500;// 生气
+    public static final int TRENDS_CON_TYPE_WORD = 500; // 留言
+    public static final int TRENDS_CON_TYPE_WHISPER = 510; // 耳语
+    public static final int TRENDS_CON_TYPE_DIARY = 520; // 日记
+    public static final int TRENDS_CON_TYPE_AWARD = 530;// 奖励
+    public static final int TRENDS_CON_TYPE_AWARD_RULE = 540;// 奖励规则
+    public static final int TRENDS_CON_TYPE_DREAM = 550;// 梦境
+    public static final int TRENDS_CON_TYPE_FOOD = 560; // 美食
+    public static final int TRENDS_CON_TYPE_TRAVEL = 570; // 游记
+    public static final int TRENDS_CON_TYPE_GIFT = 580; // 礼物
+    public static final int TRENDS_CON_TYPE_PROMISE = 590; // 承诺
+    public static final int TRENDS_CON_TYPE_ANGRY = 600;// 生气
     // 内容Id
     public static final int TRENDS_CON_ID_LIST = 0; // 列表信息
 

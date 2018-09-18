@@ -221,7 +221,7 @@ public interface API {
     Call<Result> noteLockGet();
 
     // trendsList获取
-    @GET("note/trends?trends=1")
+    @GET("note/trends?list=1")
     Call<Result> noteTrendsListGet(@Query("create") long create, @Query("page") int page);
 
     // trendsTotal获取
