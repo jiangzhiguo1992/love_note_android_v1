@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote_admin.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -19,7 +18,6 @@ import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.SPHelper;
-import com.jiangzg.lovenote_admin.helper.ViewHelper;
 
 import java.util.Locale;
 
@@ -32,24 +30,16 @@ import retrofit2.Call;
 public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, BaseViewHolder> {
 
     private BaseActivity mActivity;
-    private final int colorGrey;
-    private final int colorDark;
-    private final int colorPrimary;
 
     public SuggestCommentAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest_comment);
         mActivity = activity;
-        colorGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
-        colorDark = ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity));
-        colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
     }
 
     @Override
     protected void convert(BaseViewHolder helper, SuggestComment item) {
         // data
-        boolean official = item.isOfficial();
-        boolean mine = item.isMine();
-        String floor = official ? mActivity.getString(R.string.official) : "";
+        String floor = item.isOfficial() ? mActivity.getString(R.string.official) : "";
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String top = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), floor, create);
         String contentText = item.getContentText();
@@ -59,13 +49,6 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         helper.setText(R.id.tvContent, contentText);
         TextView tvFloor = helper.getView(R.id.tvTop);
         tvFloor.setText(top);
-        if (official) {
-            tvFloor.setTextColor(colorDark);
-        } else if (mine) {
-            tvFloor.setTextColor(colorPrimary);
-        } else {
-            tvFloor.setTextColor(colorGrey);
-        }
         helper.addOnClickListener(R.id.tvTop);
     }
 

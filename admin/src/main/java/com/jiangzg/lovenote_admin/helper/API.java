@@ -203,9 +203,6 @@ public interface API {
     @GET("topic/post?collect=1&me=1")
     Call<Result> topicPostCollectListGet(@Query("page") int page);
 
-    @GET("topic/post")
-    Call<Result> topicPostGet(@Query("pid") long pid);
-
     @DELETE("topic/post/comment")
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
 
@@ -220,9 +217,6 @@ public interface API {
 
     @GET("topic/post/comment?report=1")
     Call<Result> topicPostCommentReportListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
-
-    @GET("topic/post/comment")
-    Call<Result> topicPostCommentGet(@Query("pcid") long pcid);
 
     // TODO match
 

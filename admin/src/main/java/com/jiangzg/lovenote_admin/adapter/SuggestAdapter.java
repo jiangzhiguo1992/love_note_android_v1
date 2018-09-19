@@ -1,10 +1,7 @@
 package com.jiangzg.lovenote_admin.adapter;
 
-import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -39,8 +36,6 @@ import retrofit2.Call;
 public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private BaseActivity mActivity;
-    private final ColorStateList colorPrimaryStateList;
-    private final ColorStateList colorGreyStateList;
     private final String formatCreateAt;
     private final String formatUpdateAt;
     private final String formatFollow;
@@ -62,12 +57,6 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         formatMine = mActivity.getString(R.string.me_de);
         width = ScreenUtils.getScreenWidth(activity);
         height = ConvertUtils.dp2px(200);
-        // color
-        int rId = ViewHelper.getColorPrimary(activity);
-        int colorPrimary = ContextCompat.getColor(activity, rId);
-        int colorGrey = ContextCompat.getColor(activity, R.color.icon_grey);
-        colorPrimaryStateList = ColorStateList.valueOf(colorPrimary);
-        colorGreyStateList = ColorStateList.valueOf(colorGrey);
     }
 
     @Override
@@ -98,8 +87,6 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         } else {
             commentShow = String.valueOf(commentCount);
         }
-        final boolean follow = item.isFollow();
-        boolean comment = item.isComment();
         String contentImage = item.getContentImage();
         // view
         FrescoView ivImage = helper.getView(R.id.ivImage);
@@ -136,17 +123,6 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         helper.setText(R.id.tvUpdateAt, updatedShow);
         helper.setText(R.id.tvFollow, followShow);
         helper.setText(R.id.tvComment, commentShow);
-        if (follow) {
-            helper.setImageResource(R.id.ivFollow, R.drawable.ic_visibility_on_primary);
-        } else {
-            helper.setImageResource(R.id.ivFollow, R.drawable.ic_visibility_off_grey);
-        }
-        ImageView ivComment = helper.getView(R.id.ivComment);
-        if (comment) {
-            ivComment.setImageTintList(colorPrimaryStateList);
-        } else {
-            ivComment.setImageTintList(colorGreyStateList);
-        }
     }
 
     public void goSuggestDetail(int position) {
