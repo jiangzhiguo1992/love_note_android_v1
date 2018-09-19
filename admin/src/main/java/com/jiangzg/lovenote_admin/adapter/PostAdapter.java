@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote_admin.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -10,13 +9,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Post;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
-
-import java.util.List;
 
 import retrofit2.Call;
 
@@ -26,17 +24,15 @@ import retrofit2.Call;
  */
 public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
+    private BaseActivity mActivity;
 
-
-    public PostAdapter(FragmentActivity activity) {
+    public PostAdapter(BaseActivity activity) {
         super(R.layout.list_item_post);
         mActivity = activity;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Post item) {
-        helper.setVisible(R.id.tvCover, item.isScreen() || item.isDelete());
         // data
         String id = "id:" + item.getId();
         String uid = "uid:" + item.getUserId();
@@ -47,7 +43,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String update = "更新于:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String title = item.getTitle();
         String contentText = item.getContentText();
-        List<String> imageList = item.getContentImageList();
         String longitude = "lon:" + item.getLongitude();
         String latitude = "lat:" + item.getLatitude();
         String address = item.getAddress();
@@ -72,28 +67,12 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setText(R.id.tvPoint, pointCount);
         helper.setText(R.id.tvCollect, collectCount);
         helper.setText(R.id.tvComment, commentCount);
-        // TODO image
-        //RecyclerView rvImage = helper.getView(R.id.rvImage);
-        //if (imageList == null || imageList.size() <= 0) {
-        //    rvImage.setVisibility(View.GONE);
-        //} else {
-        //    rvImage.setVisibility(View.VISIBLE);
-        //    ImgSquareShowAdapter adapter = new ImgSquareShowAdapter(mActivity, 3);
-        //    new RecyclerHelper(rvImage)
-        //            .initLayoutManager(new GridLayoutManager(mActivity, 3))
-        //            .initAdapter(adapter)
-        //            .setAdapter()
-        //            .dataNew(imageList, 0);
-        //    adapter.setVisibleLimit(3);
-        //}
-        // listener 不要了，点击区域有bug
-        //if (!item.isScreen() && !item.isDelete()) helper.addOnClickListener(R.id.rvImage);
     }
 
     public void goPostDetail(int position) {
         Post item = getItem(position);
         // TODO
-        //PostDetailActivity.goActivity(mActivity, item);
+        //PostCommentListActivity.goActivity(mActivity, item);
     }
 
     public void showDeleteDialog(final int position) {
@@ -115,8 +94,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     private void delCollect(final int position) {
         Post item = getItem(position);
+        MaterialDialog loading = mActivity.getLoading(true);
         Call<Result> callCollect = new RetrofitHelper().call(API.class).topicPostDel(item.getId());
-        RetrofitHelper.enqueue(callCollect, null, new RetrofitHelper.CallBack() {
+        RetrofitHelper.enqueue(callCollect, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);

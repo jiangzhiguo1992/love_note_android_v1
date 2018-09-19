@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote_admin.adapter;
 
 import android.support.annotation.NonNull;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -39,16 +38,18 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
     @Override
     protected void convert(BaseViewHolder helper, SuggestComment item) {
         // data
+        String id = "id:" + item.getId();
+        String uid = "uid:" + item.getUserId();
         String floor = item.isOfficial() ? mActivity.getString(R.string.official) : "";
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String top = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), floor, create);
         String contentText = item.getContentText();
         // view
-        helper.setText(R.id.tvId, "id:" + item.getId());
-        helper.setText(R.id.tvUid, "uid:" + item.getUserId());
+        helper.setText(R.id.tvId, id);
+        helper.setText(R.id.tvUid, uid);
+        helper.setText(R.id.tvTop, top);
         helper.setText(R.id.tvContent, contentText);
-        TextView tvFloor = helper.getView(R.id.tvTop);
-        tvFloor.setText(top);
+        // listener
         helper.addOnClickListener(R.id.tvTop);
     }
 

@@ -61,7 +61,7 @@
 
             <TextView
                 android:id="@+id/tvKind"
-                style="@style/FontGreySmall"
+                style="@style/FontGreySmallBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -70,7 +70,7 @@
 
             <TextView
                 android:id="@+id/tvSubKind"
-                style="@style/FontGreySmall"
+                style="@style/FontGreySmallBold"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -130,16 +130,6 @@
             android:ellipsize="end"
             android:maxLines="3"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="3dp"
-            android:visibility="gone"
-            tools:visibility="visible"/>
 
         <LinearLayout
             android:layout_width="match_parent"

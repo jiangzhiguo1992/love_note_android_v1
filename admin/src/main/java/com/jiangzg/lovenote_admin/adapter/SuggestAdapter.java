@@ -1,17 +1,13 @@
 package com.jiangzg.lovenote_admin.adapter;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.SuggestDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -21,11 +17,6 @@ import com.jiangzg.lovenote_admin.domain.SuggestInfo;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
-import com.jiangzg.lovenote_admin.helper.ViewHelper;
-import com.jiangzg.lovenote_admin.view.FrescoView;
-import com.jiangzg.lovenote_admin.view.GWrapView;
-
-import java.util.Locale;
 
 import retrofit2.Call;
 
@@ -36,91 +27,36 @@ import retrofit2.Call;
 public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
     private BaseActivity mActivity;
-    private final String formatCreateAt;
-    private final String formatUpdateAt;
-    private final String formatFollow;
-    private final String formatComment;
-    private final String formatTop;
-    private final String formatOfficial;
-    private final String formatMine;
-    private final int width, height;
 
     public SuggestAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest);
         mActivity = activity;
-        formatCreateAt = mActivity.getString(R.string.create_at_colon_space_holder);
-        formatUpdateAt = mActivity.getString(R.string.update_at_colon_space_holder);
-        formatFollow = mActivity.getString(R.string.follow);
-        formatComment = mActivity.getString(R.string.comment);
-        formatTop = mActivity.getString(R.string.top);
-        formatOfficial = mActivity.getString(R.string.official);
-        formatMine = mActivity.getString(R.string.me_de);
-        width = ScreenUtils.getScreenWidth(activity);
-        height = ConvertUtils.dp2px(200);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Suggest item) {
         // data
-        boolean top = item.isTop();
-        boolean official = item.isOfficial();
-        boolean mine = item.isMine();
-        String statusShow = SuggestInfo.getStatusShow(item.getStatus());
-        String kindShow = SuggestInfo.getKindShow(item.getKind());
+        String id = "id:" + item.getId();
+        String uid = "uid:" + item.getUserId();
+        String kind = "kind:" + SuggestInfo.getKindShow(item.getKind());
+        String status = "status:" + SuggestInfo.getStatusShow(item.getStatus());
         String title = item.getTitle();
         String contentText = item.getContentText();
-        String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String createShow = String.format(Locale.getDefault(), formatCreateAt, create);
-        String update = DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String updatedShow = String.format(Locale.getDefault(), formatUpdateAt, update);
+        String create = "创建于:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = "更新于:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         final long followCount = item.getFollowCount();
-        String followShow;
-        if (followCount <= 0) {
-            followShow = formatFollow;
-        } else {
-            followShow = String.valueOf(followCount);
-        }
+        String followShow = String.valueOf(followCount);
         long commentCount = item.getCommentCount();
-        String commentShow;
-        if (commentCount <= 0) {
-            commentShow = formatComment;
-        } else {
-            commentShow = String.valueOf(commentCount);
-        }
-        String contentImage = item.getContentImage();
+        String commentShow = String.valueOf(commentCount);
         // view
-        FrescoView ivImage = helper.getView(R.id.ivImage);
-        if (StringUtils.isEmpty(contentImage)) {
-            ivImage.setVisibility(View.GONE);
-        } else {
-            ivImage.setVisibility(View.VISIBLE);
-            ivImage.setWidthAndHeight(width, height);
-            ivImage.setData(contentImage);
-        }
-        helper.setText(R.id.tvId, "id:" + item.getId());
-        helper.setText(R.id.tvUid, "uid:" + item.getUserId());
-        GWrapView wvTag = helper.getView(R.id.wvTag);
-        wvTag.removeAllChild();
-        if (top) {
-            View tagTop = ViewHelper.getWrapTextView(mActivity, formatTop);
-            wvTag.addChild(tagTop);
-        }
-        if (official) {
-            View tagOfficial = ViewHelper.getWrapTextView(mActivity, formatOfficial);
-            wvTag.addChild(tagOfficial);
-        }
-        View tagStatus = ViewHelper.getWrapTextView(mActivity, statusShow);
-        wvTag.addChild(tagStatus);
-        View tagKind = ViewHelper.getWrapTextView(mActivity, kindShow);
-        wvTag.addChild(tagKind);
-        if (mine) {
-            View tagMine = ViewHelper.getWrapTextView(mActivity, formatMine);
-            wvTag.addChild(tagMine);
-        }
+        helper.setText(R.id.tvId, id);
+        helper.setText(R.id.tvUid, uid);
+        helper.setText(R.id.tvKind, kind);
+        helper.setText(R.id.tvStatus, status);
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);
-        helper.setText(R.id.tvCreateAt, createShow);
-        helper.setText(R.id.tvUpdateAt, updatedShow);
+        helper.setText(R.id.tvCreateAt, create);
+        helper.setText(R.id.tvUpdateAt, update);
         helper.setText(R.id.tvFollow, followShow);
         helper.setText(R.id.tvComment, commentShow);
     }

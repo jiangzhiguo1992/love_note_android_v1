@@ -37,6 +37,8 @@
         <activity android:name=".activity.TrendsListActivity"/>
         <activity android:name=".activity.PostListActivity">
         </activity>
+        <activity android:name=".activity.PostCommentListActivity">
+        </activity>
     </application>
 
 </manifest>

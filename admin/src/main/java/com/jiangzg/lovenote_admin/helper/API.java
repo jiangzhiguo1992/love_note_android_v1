@@ -198,7 +198,7 @@ public interface API {
     Call<Result> topicPostDel(@Query("pid") long pid);
 
     @GET("topic/post?report=1")
-    Call<Result> topicPostReportListGet(@Query("start") long start, @Query("end") long end, @Query("page") int page);
+    Call<Result> topicPostReportListGet(@Query("page") int page);
 
     @GET("topic/post?collect=1&me=1")
     Call<Result> topicPostCollectListGet(@Query("page") int page);
