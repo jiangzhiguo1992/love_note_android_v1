@@ -8,8 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.Button;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -17,12 +16,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.adapter.SuggestCommentAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -35,18 +30,23 @@ import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
-import com.jiangzg.lovenote_admin.view.FrescoView;
 
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import retrofit2.Call;
 
 public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
+    @BindView(R.id.btnStatus)
+    Button btnStatus;
+    @BindView(R.id.btnOfficial)
+    Button btnOfficial;
+    @BindView(R.id.btnTop)
+    Button btnTop;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -71,11 +71,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         ViewHelper.initTopBar(mActivity, tb, "suggest_detail", true);
         // init
         suggest = intent.getParcelableExtra("suggest");
+        // head
+        initHead();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new SuggestCommentAdapter(mActivity))
-                .viewHeader(mActivity, R.layout.list_head_suggest_comment)
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -110,8 +111,6 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                         }
                     }
                 });
-        // head
-        initHead();
     }
 
     @Override
@@ -126,62 +125,31 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
+    @OnClick({R.id.btnStatus, R.id.btnOfficial, R.id.btnTop})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnStatus:
+                showStatusSelectDialog();
+                break;
+            case R.id.btnOfficial:
+                suggest2Official();
+                break;
+            case R.id.btnTop:
+                suggest2Top();
+                break;
+        }
+    }
+
     private void initHead() {
         // data
-        if (suggest == null || recyclerHelper == null) return;
+        if (suggest == null) return;
         boolean top = suggest.isTop();
         boolean official = suggest.isOfficial();
-        boolean mine = suggest.isMine();
         String statusShow = SuggestInfo.getStatusShow(suggest.getStatus());
-        String kindShow = SuggestInfo.getKindShow(suggest.getKind());
-        String title = suggest.getTitle();
-        String create = DateUtils.getString(suggest.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);
-        final String contentImgUrl = suggest.getContentImage();
-        String contentText = suggest.getContentText();
-        // view
-        View head = recyclerHelper.getViewHead();
-        TextView btnStatus = head.findViewById(R.id.btnStatus);
-        TextView btnOfficial = head.findViewById(R.id.btnOfficial);
-        TextView btnTop = head.findViewById(R.id.btnTop);
-        TextView tvTitle = head.findViewById(R.id.tvTitle);
-        TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
-        TextView tvContent = head.findViewById(R.id.tvContent);
-        FrescoView ivContent = head.findViewById(R.id.ivContent);
-        ViewGroup.LayoutParams layoutParams = ivContent.getLayoutParams();
-        ivContent.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
         // set
         btnStatus.setText(statusShow);
         btnOfficial.setText(official ? "official-ing" : "official-no");
         btnTop.setText(top ? "top-ing" : "top-no");
-        tvTitle.setText(title);
-        tvCreateAt.setText(createShow);
-        tvContent.setText(contentText);
-        if (StringUtils.isEmpty(contentImgUrl)) {
-            ivContent.setVisibility(View.GONE);
-            ivContent.setClickListener(null);
-        } else {
-            ivContent.setVisibility(View.VISIBLE);
-            ivContent.setData(contentImgUrl);
-        }
-        btnStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showStatusSelectDialog();
-            }
-        });
-        btnOfficial.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suggest2Official();
-            }
-        });
-        btnTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                suggest2Top();
-            }
-        });
     }
 
     private void getCommentData(final boolean more) {

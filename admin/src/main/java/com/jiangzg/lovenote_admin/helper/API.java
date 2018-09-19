@@ -194,6 +194,38 @@ public interface API {
     @GET("note/trends?group=1")
     Call<Result> noteTrendsConListGet(@Query("start") long start, @Query("end") long end);
 
+    @DELETE("topic/post")
+    Call<Result> topicPostDel(@Query("pid") long pid);
+
+    @GET("topic/post?report=1")
+    Call<Result> topicPostReportListGet(@Query("start") long start, @Query("end") long end, @Query("page") int page);
+
+    @GET("topic/post?collect=1&me=1")
+    Call<Result> topicPostCollectListGet(@Query("page") int page);
+
+    @GET("topic/post")
+    Call<Result> topicPostGet(@Query("pid") long pid);
+
+    @DELETE("topic/post/comment")
+    Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
+
+    @GET("topic/post/comment?list=1")
+    Call<Result> topicPostCommentListGet(@Query("pid") long pid, @Query("order") int order, @Query("page") int page);
+
+    @GET("topic/post/comment?sub_list=1")
+    Call<Result> topicPostCommentSubListGet(@Query("pid") long pid, @Query("tcid") long tcid, @Query("order") int order, @Query("page") int page);
+
+    @GET("topic/post/comment")
+    Call<Result> topicPostCommentUserListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
+
+    @GET("topic/post/comment?report=1")
+    Call<Result> topicPostCommentReportListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
+
+    @GET("topic/post/comment")
+    Call<Result> topicPostCommentGet(@Query("pcid") long pcid);
+
+    // TODO match
+
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);
 

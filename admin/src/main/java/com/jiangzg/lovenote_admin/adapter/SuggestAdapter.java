@@ -11,7 +11,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.ConvertUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.SuggestDetailActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
@@ -22,6 +25,7 @@ import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
+import com.jiangzg.lovenote_admin.view.FrescoView;
 import com.jiangzg.lovenote_admin.view.GWrapView;
 
 import java.util.Locale;
@@ -44,6 +48,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
     private final String formatTop;
     private final String formatOfficial;
     private final String formatMine;
+    private final int width, height;
 
     public SuggestAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest);
@@ -55,6 +60,8 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         formatTop = mActivity.getString(R.string.top);
         formatOfficial = mActivity.getString(R.string.official);
         formatMine = mActivity.getString(R.string.me_de);
+        width = ScreenUtils.getScreenWidth(activity);
+        height = ConvertUtils.dp2px(200);
         // color
         int rId = ViewHelper.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);
@@ -93,7 +100,16 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         }
         final boolean follow = item.isFollow();
         boolean comment = item.isComment();
+        String contentImage = item.getContentImage();
         // view
+        FrescoView ivImage = helper.getView(R.id.ivImage);
+        if (StringUtils.isEmpty(contentImage)) {
+            ivImage.setVisibility(View.GONE);
+        } else {
+            ivImage.setVisibility(View.VISIBLE);
+            ivImage.setWidthAndHeight(width, height);
+            ivImage.setData(contentImage);
+        }
         helper.setText(R.id.tvId, "id:" + item.getId());
         helper.setText(R.id.tvUid, "uid:" + item.getUserId());
         GWrapView wvTag = helper.getView(R.id.wvTag);

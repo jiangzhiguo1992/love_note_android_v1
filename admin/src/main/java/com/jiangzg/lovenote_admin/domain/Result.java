@@ -73,6 +73,51 @@ public class Result implements Serializable {
         private List<Sign> signList;
         private List<Coin> coinList;
         private List<Trends> trendsList;
+        private List<PostKindInfo> postKindInfoList;
+        private Post post;
+        private List<Post> postList;
+        private PostComment postComment;
+        private List<PostComment> postCommentList;
+
+        public List<PostKindInfo> getPostKindInfoList() {
+            return postKindInfoList;
+        }
+
+        public void setPostKindInfoList(List<PostKindInfo> postKindInfoList) {
+            this.postKindInfoList = postKindInfoList;
+        }
+
+        public Post getPost() {
+            return post;
+        }
+
+        public void setPost(Post post) {
+            this.post = post;
+        }
+
+        public List<Post> getPostList() {
+            return postList;
+        }
+
+        public void setPostList(List<Post> postList) {
+            this.postList = postList;
+        }
+
+        public PostComment getPostComment() {
+            return postComment;
+        }
+
+        public void setPostComment(PostComment postComment) {
+            this.postComment = postComment;
+        }
+
+        public List<PostComment> getPostCommentList() {
+            return postCommentList;
+        }
+
+        public void setPostCommentList(List<PostComment> postCommentList) {
+            this.postCommentList = postCommentList;
+        }
 
         public List<Trends> getTrendsList() {
             return trendsList;

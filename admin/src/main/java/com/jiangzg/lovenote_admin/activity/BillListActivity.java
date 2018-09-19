@@ -127,11 +127,7 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        if (sync) {
-                            getSyncListData(true);
-                        } else {
-                            getAllListData(true);
-                        }
+                        getListData(true);
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -154,7 +150,7 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         sync = false;
-        getAllListData(false);
+        getListData(false);
     }
 
     @Override
@@ -169,11 +165,11 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
         switch (view.getId()) {
             case R.id.btnSearchSync:
                 sync = true;
-                getSyncListData(false);
+                getListData(false);
                 break;
             case R.id.btnSearch:
                 sync = false;
-                getAllListData(false);
+                getListData(false);
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -286,45 +282,25 @@ public class BillListActivity extends BaseActivity<BillListActivity> {
         btnEnd.setText(endAt);
     }
 
-    private void getSyncListData(final boolean more) {
+    private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).moreBillSyncListGet(page);
-        MaterialDialog loading = null;
-        if (!more) {
-            loading = getLoading(true);
-        }
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<Bill> billList = data.getBillList();
-                recyclerHelper.dataOk(billList, more);
+        Call<Result> call;
+        if (sync) {
+            call = new RetrofitHelper().call(API.class).moreBillSyncListGet(page);
+        } else {
+            long uid = 0, cid = 0;
+            String sUid = etUid.getText().toString().trim();
+            if (StringUtils.isNumber(sUid)) {
+                uid = Long.parseLong(sUid);
             }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
+            String sCid = etCid.getText().toString().trim();
+            if (StringUtils.isNumber(sCid)) {
+                cid = Long.parseLong(sCid);
             }
-        });
-    }
-
-    private void getAllListData(final boolean more) {
-        page = more ? page + 1 : 0;
-        // api
-        long uid = 0, cid = 0;
-        String sUid = etUid.getText().toString().trim();
-        if (StringUtils.isNumber(sUid)) {
-            uid = Long.parseLong(sUid);
+            String tradeNo = etTradeNo.getText().toString().trim();
+            call = new RetrofitHelper().call(API.class).moreBillListGet(uid, cid, tradeNo, page);
         }
-        String sCid = etCid.getText().toString().trim();
-        if (StringUtils.isNumber(sCid)) {
-            cid = Long.parseLong(sCid);
-        }
-        String tradeNo = etTradeNo.getText().toString().trim();
-        Call<Result> call = new RetrofitHelper().call(API.class).moreBillListGet(uid, cid, tradeNo, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);

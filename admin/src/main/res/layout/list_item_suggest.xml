@@ -31,6 +31,12 @@
             android:gravity="center"
             android:orientation="horizontal">
 
+            <com.jiangzg.lovenote_admin.view.GWrapView
+                android:id="@+id/wvTag"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/tvId"
                 style="@style/FontGreyNormal"
@@ -50,13 +56,6 @@
                 android:layout_marginStart="5dp"
                 android:gravity="center"
                 tools:text="uid"/>
-
-            <com.jiangzg.lovenote_admin.view.GWrapView
-                android:id="@+id/wvTag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"/>
         </LinearLayout>
 
         <TextView
@@ -80,11 +79,17 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:layout_marginTop="2dp"
-            android:ellipsize="end"
-            android:maxLines="3"
             android:paddingEnd="10dp"
             android:paddingStart="10dp"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
+
+        <com.jiangzg.lovenote_admin.view.FrescoView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="3dp"
+            app:actualImageScaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"

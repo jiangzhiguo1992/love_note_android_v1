@@ -27,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 
-public class SuggestFollowActivity extends BaseActivity<SuggestFollowActivity> {
+public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -38,7 +38,7 @@ public class SuggestFollowActivity extends BaseActivity<SuggestFollowActivity> {
     private int page;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), SuggestFollowActivity.class);
+        Intent intent = new Intent(from.getActivity(), SuggestListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -46,12 +46,12 @@ public class SuggestFollowActivity extends BaseActivity<SuggestFollowActivity> {
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_suggest_follow;
+        return R.layout.activity_suggest_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "suggest_follow", true);
+        ViewHelper.initTopBar(mActivity, tb, "suggest_list", true);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))

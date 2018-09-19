@@ -85,11 +85,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
                 .listenerMore(new RecyclerHelper.MoreListener() {
                     @Override
                     public void onMore(int currentCount) {
-                        if (black) {
-                            getBlackData(true);
-                        } else {
-                            getListData(true);
-                        }
+                        getListData(true);
                     }
                 })
                 .listenerClick(new OnItemClickListener() {
@@ -104,7 +100,8 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
-        getListData(false);
+        black = false;
+        getListData(true);
     }
 
     @Override
@@ -117,11 +114,11 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         switch (view.getId()) {
             case R.id.btnBlack:
                 black = true;
-                getBlackData(false);
+                getListData(true);
                 break;
             case R.id.btnSearch:
                 black = false;
-                getListData(false);
+                getListData(true);
                 break;
             case R.id.btnStart:
                 showStartPicker();
@@ -167,35 +164,15 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         btnEnd.setText(endAt);
     }
 
-    private void getBlackData(final boolean more) {
-        page = more ? page + 1 : 0;
-        // api
-        Call<Result> call = new RetrofitHelper().call(API.class).userBlackGet(page);
-        MaterialDialog loading = null;
-        if (!more) {
-            loading = getLoading(true);
-        }
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.viewEmptyShow(data.getShow());
-                List<User> userList = data.getUserList();
-                recyclerHelper.dataOk(userList, more);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataFail(more, message);
-            }
-        });
-    }
-
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call = new RetrofitHelper().call(API.class).userListGet(page);
+        Call<Result> call;
+        if (black) {
+            call = new RetrofitHelper().call(API.class).userBlackGet(page);
+        } else {
+            call = new RetrofitHelper().call(API.class).userListGet(page);
+        }
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);

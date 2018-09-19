@@ -25,7 +25,7 @@
         <activity android:name=".activity.UserDetailActivity"/>
         <activity android:name=".activity.EntryListActivity"/>
         <activity android:name=".activity.ApiListActivity"/>
-        <activity android:name=".activity.SuggestFollowActivity"/>
+        <activity android:name=".activity.SuggestListActivity"/>
         <activity android:name=".activity.SuggestDetailActivity"/>
         <activity android:name=".activity.CoupleListActivity"/>
         <activity android:name=".activity.CoupleDetailActivity"/>
@@ -35,6 +35,8 @@
         <activity android:name=".activity.PlaceListActivity"/>
         <activity android:name=".activity.SignListActivity"/>
         <activity android:name=".activity.TrendsListActivity"/>
+        <activity android:name=".activity.PostListActivity">
+        </activity>
     </application>
 
 </manifest>

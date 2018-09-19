@@ -12,7 +12,7 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.ApiListActivity;
 import com.jiangzg.lovenote_admin.activity.EntryListActivity;
 import com.jiangzg.lovenote_admin.activity.SmsListActivity;
-import com.jiangzg.lovenote_admin.activity.SuggestFollowActivity;
+import com.jiangzg.lovenote_admin.activity.SuggestListActivity;
 import com.jiangzg.lovenote_admin.activity.UserListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Result;
@@ -117,7 +117,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 ApiListActivity.goActivity(mFragment);
                 break;
             case R.id.cvSuggest: // 意见反馈
-                SuggestFollowActivity.goActivity(mFragment);
+                SuggestListActivity.goActivity(mFragment);
                 break;
         }
     }
