@@ -272,14 +272,6 @@
                         tools:text="帖子："/>
 
                     <TextView
-                        android:id="@+id/tvComment1"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="评论："/>
-
-                    <TextView
                         android:id="@+id/tvSuggest2"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
@@ -288,16 +280,17 @@
                         tools:text="帖子："/>
 
                     <TextView
-                        android:id="@+id/tvComment2"
+                        android:id="@+id/tvSuggest3"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="3dp"
-                        tools:text="评论："/>
+                        tools:text="帖子："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                android:id="@+id/cvSuggestComment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
@@ -308,6 +301,44 @@
                 app:cardCornerRadius="@dimen/radius_normal"
                 app:cardElevation="@dimen/elevation_normal"
                 app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="意见反馈(comment)"/>
+
+                    <TextView
+                        android:id="@+id/tvSuggestComment1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvSuggestComment2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvSuggestComment3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="3dp"
+                        tools:text="评论："/>
+                </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </LinearLayout>

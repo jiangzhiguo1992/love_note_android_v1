@@ -114,9 +114,6 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:singleLine="true"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
         <TextView
@@ -127,8 +124,6 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="3dp"
-            android:ellipsize="end"
-            android:maxLines="3"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
         <LinearLayout

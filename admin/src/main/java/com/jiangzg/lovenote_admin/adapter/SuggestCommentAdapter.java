@@ -16,7 +16,6 @@ import com.jiangzg.lovenote_admin.domain.SuggestComment;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
-import com.jiangzg.lovenote_admin.helper.SPHelper;
 
 import java.util.Locale;
 
@@ -79,41 +78,6 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
-    }
-
-    public void updateOfficial(final int position) {
-        SuggestComment item = getItem(position);
-        if (item.getUserId() != SPHelper.getUser().getId()) return;
-        DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .content("修改 官方 ？")
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        toggleOfficial(position);
-                    }
-                })
-                .show();
-    }
-
-    private void toggleOfficial(final int position) {
-        SuggestComment item = getItem(position);
-        item.setOfficial(!item.isOfficial());
-        Call<Result> call = new RetrofitHelper().call(API.class).setSuggestCommentUpdate(item);
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                notifyItemChanged(position + getHeaderLayoutCount() + getFooterLayoutCount());
             }
 
             @Override

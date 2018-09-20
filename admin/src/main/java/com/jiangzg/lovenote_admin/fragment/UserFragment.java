@@ -12,6 +12,7 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.ApiListActivity;
 import com.jiangzg.lovenote_admin.activity.EntryListActivity;
 import com.jiangzg.lovenote_admin.activity.SmsListActivity;
+import com.jiangzg.lovenote_admin.activity.SuggestCommentListActivity;
 import com.jiangzg.lovenote_admin.activity.SuggestListActivity;
 import com.jiangzg.lovenote_admin.activity.UserListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
@@ -68,10 +69,17 @@ public class UserFragment extends BaseFragment<UserFragment> {
     TextView tvSuggest1;
     @BindView(R.id.tvSuggest2)
     TextView tvSuggest2;
-    @BindView(R.id.tvComment1)
-    TextView tvComment1;
-    @BindView(R.id.tvComment2)
-    TextView tvComment2;
+    @BindView(R.id.tvSuggest3)
+    TextView tvSuggest3;
+
+    @BindView(R.id.cvSuggestComment)
+    CardView cvSuggestComment;
+    @BindView(R.id.tvSuggestComment1)
+    TextView tvSuggestComment1;
+    @BindView(R.id.tvSuggestComment2)
+    TextView tvSuggestComment2;
+    @BindView(R.id.tvSuggestComment3)
+    TextView tvSuggestComment3;
 
     public static UserFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -95,13 +103,16 @@ public class UserFragment extends BaseFragment<UserFragment> {
         getEntryData();
         getApiData();
         getSuggestData();
+        getSuggestCommentData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.cvUser, R.id.cvSms, R.id.cvEntry, R.id.cvApi, R.id.cvSuggest})
+    @OnClick({R.id.cvUser, R.id.cvSms,
+            R.id.cvEntry, R.id.cvApi,
+            R.id.cvSuggest, R.id.cvSuggestComment})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvUser: // 注册用户
@@ -116,8 +127,11 @@ public class UserFragment extends BaseFragment<UserFragment> {
             case R.id.cvApi: // 用户行为
                 ApiListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvSuggest: // 意见反馈
+            case R.id.cvSuggest: // 意见反馈(帖子)
                 SuggestListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvSuggestComment: // 意见反馈(评论)
+                SuggestCommentListActivity.goActivity(mFragment);
                 break;
         }
     }
@@ -301,52 +315,83 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getSuggestData() {
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
         long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 7) / 1000;
         Call<Result> callSuggestH1 = new RetrofitHelper().call(API.class).setSuggestTotalGet(startH1);
         RetrofitHelper.enqueue(callSuggestH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSuggest1.setText("帖子(1h)：" + data.getTotal());
+                tvSuggest1.setText("1h：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSuggest1.setText("帖子(1h)：fail");
+                tvSuggest1.setText("1h：fail");
             }
         });
         Call<Result> callSuggestD1 = new RetrofitHelper().call(API.class).setSuggestTotalGet(startD1);
         RetrofitHelper.enqueue(callSuggestD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSuggest2.setText("帖子(1d)：" + data.getTotal());
+                tvSuggest2.setText("1d：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSuggest2.setText("帖子(1d)：fail");
+                tvSuggest2.setText("1d：fail");
             }
         });
+        Call<Result> callSuggestD7 = new RetrofitHelper().call(API.class).setSuggestTotalGet(startD7);
+        RetrofitHelper.enqueue(callSuggestD7, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSuggest3.setText("7d：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSuggest3.setText("7d：fail");
+            }
+        });
+    }
+
+    private void getSuggestCommentData() {
+        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 7) / 1000;
         Call<Result> callCommentH1 = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startH1);
         RetrofitHelper.enqueue(callCommentH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvComment1.setText("评论(1h)：" + data.getTotal());
+                tvSuggestComment1.setText("1h：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvComment1.setText("评论(1h)：fail");
+                tvSuggestComment1.setText("1h：fail");
             }
         });
         Call<Result> callCommentD1 = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startD1);
         RetrofitHelper.enqueue(callCommentD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvComment2.setText("评论(1d)：" + data.getTotal());
+                tvSuggestComment2.setText("1d：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvComment2.setText("评论(1d)：fail");
+                tvSuggestComment2.setText("1d：fail");
+            }
+        });
+        Call<Result> callCommentD7 = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startD7);
+        RetrofitHelper.enqueue(callCommentD7, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSuggestComment3.setText("7d：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSuggestComment3.setText("7d：fail");
             }
         });
     }

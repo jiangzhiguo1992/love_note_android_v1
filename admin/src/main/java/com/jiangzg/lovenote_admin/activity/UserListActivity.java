@@ -101,7 +101,7 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         black = false;
-        getListData(true);
+        getListData(false);
     }
 
     @Override
@@ -114,11 +114,11 @@ public class UserListActivity extends BaseActivity<UserListActivity> {
         switch (view.getId()) {
             case R.id.btnBlack:
                 black = true;
-                getListData(true);
+                getListData(false);
                 break;
             case R.id.btnSearch:
                 black = false;
-                getListData(true);
+                getListData(false);
                 break;
             case R.id.btnStart:
                 showStartPicker();

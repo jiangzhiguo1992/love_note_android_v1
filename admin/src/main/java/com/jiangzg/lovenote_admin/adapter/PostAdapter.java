@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.activity.PostCommentListActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Post;
 import com.jiangzg.lovenote_admin.domain.Result;
@@ -71,8 +72,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
     public void goPostDetail(int position) {
         Post item = getItem(position);
-        // TODO
-        //PostCommentListActivity.goActivity(mActivity, item);
+        PostCommentListActivity.goActivity(mActivity, item);
     }
 
     public void showDeleteDialog(final int position) {

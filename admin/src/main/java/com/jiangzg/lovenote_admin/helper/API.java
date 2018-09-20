@@ -3,9 +3,9 @@ package com.jiangzg.lovenote_admin.helper;
 import com.jiangzg.lovenote_admin.domain.Broadcast;
 import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.Notice;
+import com.jiangzg.lovenote_admin.domain.Post;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.Suggest;
-import com.jiangzg.lovenote_admin.domain.SuggestComment;
 import com.jiangzg.lovenote_admin.domain.User;
 import com.jiangzg.lovenote_admin.domain.Version;
 import com.jiangzg.lovenote_admin.domain.Vip;
@@ -98,7 +98,7 @@ public interface API {
     @GET("api?total=1")
     Call<Result> apiTotalGet(@Query("start") long start, @Query("end") long end);
 
-    @DELETE("set/suggest?admin=1")
+    @DELETE("set/suggest")
     Call<Result> setSuggestDel(@Query("sid") long suggestId);
 
     @PUT("set/suggest")
@@ -107,17 +107,20 @@ public interface API {
     @GET("set/suggest?follow=1")
     Call<Result> setSuggestFollowListGet(@Query("page") int page);
 
+    @GET("set/suggest?list=1")
+    Call<Result> setSuggestListGet(@Query("page") int page);
+
+    @GET("set/suggest")
+    Call<Result> setSuggestUserListGet(@Query("uid") long uid, @Query("page") int page);
+
     @GET("set/suggest?total=1")
     Call<Result> setSuggestTotalGet(@Query("create") long create);
 
-    @DELETE("set/suggest/comment?admin=1")
-    Call<Result> setSuggestCommentDel(@Query("scid") long suggestCommentId);
+    @DELETE("set/suggest/comment")
+    Call<Result> setSuggestCommentDel(@Query("scid") long scid);
 
-    @PUT("set/suggest/comment")
-    Call<Result> setSuggestCommentUpdate(@Body SuggestComment suggestComment);
-
-    @GET("set/suggest/comment")
-    Call<Result> setSuggestCommentListGet(@Query("sid") long suggestId, @Query("page") int page);
+    @GET("set/suggest/comment?admin=1")
+    Call<Result> setSuggestCommentListGet(@Query("uid") long uid, @Query("sid") long sid, @Query("page") int page);
 
     @GET("set/suggest/comment?total=1")
     Call<Result> setSuggestCommentTotalGet(@Query("create") long create);
@@ -196,6 +199,9 @@ public interface API {
 
     @DELETE("topic/post")
     Call<Result> topicPostDel(@Query("pid") long pid);
+
+    @PUT("topic/post")
+    Call<Result> topicPostUpdate(@Body Post post);
 
     @GET("topic/post?report=1")
     Call<Result> topicPostReportListGet(@Query("page") int page);

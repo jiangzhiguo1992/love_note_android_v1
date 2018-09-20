@@ -13,16 +13,15 @@ import android.widget.EditText;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.adapter.SuggestAdapter;
+import com.jiangzg.lovenote_admin.adapter.SuggestCommentAdapter;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Result;
-import com.jiangzg.lovenote_admin.domain.Suggest;
+import com.jiangzg.lovenote_admin.domain.SuggestComment;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
@@ -34,53 +33,57 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 
-public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
+public class SuggestCommentListActivity extends BaseActivity<SuggestCommentListActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.btnFollow)
-    Button btnFollow;
     @BindView(R.id.etUid)
     EditText etUid;
-    @BindView(R.id.btnUpdate)
-    Button btnUpdate;
+    @BindView(R.id.etSid)
+    EditText etSid;
+    @BindView(R.id.btnSearch)
+    Button btnSearch;
     @BindView(R.id.rv)
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
     private int page;
-    private boolean follow;
 
     public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), SuggestListActivity.class);
-        // intent.putExtra();
+        Intent intent = new Intent(from.getActivity(), SuggestCommentListActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, long uid) {
-        Intent intent = new Intent(from, SuggestListActivity.class);
+    public static void goActivity(Activity from, long uid, long sid) {
+        Intent intent = new Intent(from, SuggestCommentListActivity.class);
         intent.putExtra("uid", uid);
+        intent.putExtra("sid", sid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
 
     @Override
     protected int getView(Intent intent) {
-        return R.layout.activity_suggest_list;
+        return R.layout.activity_suggest_comment_list;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, "suggest_list", true);
+        ViewHelper.initTopBar(mActivity, tb, "suggest_comment_list", true);
+        // init
         long uid = intent.getLongExtra("uid", 0);
+        long sid = intent.getLongExtra("sid", 0);
         if (uid > 0) {
             etUid.setText(String.valueOf(uid));
+        }
+        if (sid > 0) {
+            etSid.setText(String.valueOf(sid));
         }
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new SuggestAdapter(mActivity))
+                .initAdapter(new SuggestCommentAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
@@ -93,32 +96,15 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        SuggestAdapter suggestAdapter = (SuggestAdapter) adapter;
-                        suggestAdapter.goSuggestCommentList(position);
+                        SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
+                        commentAdapter.goUserDetail(position);
                     }
                 })
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                        SuggestAdapter suggestAdapter = (SuggestAdapter) adapter;
-                        suggestAdapter.showDelDialog(position);
-                    }
-                })
-                .listenerClick(new OnItemChildClickListener() {
-                    @Override
-                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                        SuggestAdapter suggestAdapter = (SuggestAdapter) adapter;
-                        switch (view.getId()) {
-                            case R.id.btnStatus:
-                                suggestAdapter.showStatusSelectDialog(position);
-                                break;
-                            case R.id.btnOfficial:
-                                suggestAdapter.toggleOfficial(position);
-                                break;
-                            case R.id.btnTop:
-                                suggestAdapter.toggleTop(position);
-                                break;
-                        }
+                        SuggestCommentAdapter commentAdapter = (SuggestCommentAdapter) adapter;
+                        commentAdapter.showDeleteDialog(position);
                     }
                 });
     }
@@ -126,7 +112,6 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
-        follow = false;
         getListData(false);
     }
 
@@ -135,15 +120,10 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnFollow, R.id.btnUpdate})
+    @OnClick({R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnFollow:
-                follow = true;
-                getListData(false);
-                break;
-            case R.id.btnUpdate:
-                follow = false;
+            case R.id.btnSearch:
                 getListData(false);
                 break;
         }
@@ -152,21 +132,16 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     private void getListData(final boolean more) {
         page = more ? page + 1 : 0;
         // api
-        Call<Result> call;
-        if (follow) {
-            call = new RetrofitHelper().call(API.class).setSuggestFollowListGet(page);
-        } else {
-            long uid = 0;
-            String sUid = etUid.getText().toString().trim();
-            if (StringUtils.isNumber(sUid)) {
-                uid = Long.parseLong(sUid);
-            }
-            if (uid > 0) {
-                call = new RetrofitHelper().call(API.class).setSuggestUserListGet(uid, page);
-            } else {
-                call = new RetrofitHelper().call(API.class).setSuggestListGet(page);
-            }
+        long uid = 0, sid = 0;
+        String sUid = etUid.getText().toString().trim();
+        if (StringUtils.isNumber(sUid)) {
+            uid = Long.parseLong(sUid);
         }
+        String sSid = etSid.getText().toString().trim();
+        if (StringUtils.isNumber(sSid)) {
+            sid = Long.parseLong(sSid);
+        }
+        Call<Result> call = new RetrofitHelper().call(API.class).setSuggestCommentListGet(uid, sid, page);
         MaterialDialog loading = null;
         if (!more) {
             loading = getLoading(true);
@@ -176,8 +151,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 recyclerHelper.viewEmptyShow(data.getShow());
-                List<Suggest> suggestList = data.getSuggestList();
-                recyclerHelper.dataOk(suggestList, more);
+                List<SuggestComment> suggestCommentList = data.getSuggestCommentList();
+                recyclerHelper.dataOk(suggestCommentList, more);
             }
 
             @Override

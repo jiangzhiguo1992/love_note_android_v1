@@ -26,7 +26,7 @@
         <activity android:name=".activity.EntryListActivity"/>
         <activity android:name=".activity.ApiListActivity"/>
         <activity android:name=".activity.SuggestListActivity"/>
-        <activity android:name=".activity.SuggestDetailActivity"/>
+        <activity android:name=".activity.SuggestCommentListActivity"/>
         <activity android:name=".activity.CoupleListActivity"/>
         <activity android:name=".activity.CoupleDetailActivity"/>
         <activity android:name=".activity.BillListActivity"/>

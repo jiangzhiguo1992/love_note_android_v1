@@ -73,19 +73,10 @@ public class Result implements Serializable {
         private List<Sign> signList;
         private List<Coin> coinList;
         private List<Trends> trendsList;
-        private List<PostKindInfo> postKindInfoList;
         private Post post;
         private List<Post> postList;
         private PostComment postComment;
         private List<PostComment> postCommentList;
-
-        public List<PostKindInfo> getPostKindInfoList() {
-            return postKindInfoList;
-        }
-
-        public void setPostKindInfoList(List<PostKindInfo> postKindInfoList) {
-            this.postKindInfoList = postKindInfoList;
-        }
 
         public Post getPost() {
             return post;

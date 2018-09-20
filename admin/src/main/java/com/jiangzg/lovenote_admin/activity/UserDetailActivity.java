@@ -57,6 +57,10 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
     Button btnEntry;
     @BindView(R.id.btnPlace)
     Button btnPlace;
+    @BindView(R.id.btnSuggest)
+    Button btnSuggest;
+    @BindView(R.id.btnSuggestComment)
+    Button btnSuggestComment;
     @BindView(R.id.btnCouple)
     Button btnCouple;
 
@@ -131,7 +135,8 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnSms, R.id.btnEntry, R.id.btnPlace, R.id.btnCouple})
+    @OnClick({R.id.btnSearch, R.id.btnSms, R.id.btnEntry, R.id.btnPlace,
+            R.id.btnSuggest, R.id.btnSuggestComment, R.id.btnCouple})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -148,6 +153,14 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
             case R.id.btnEntry:
                 if (user == null) return;
                 EntryListActivity.goActivity(mActivity, user.getId());
+                break;
+            case R.id.btnSuggest:
+                if (user == null) return;
+                SuggestListActivity.goActivity(mActivity, user.getId());
+                break;
+            case R.id.btnSuggestComment:
+                if (user == null) return;
+                SuggestCommentListActivity.goActivity(mActivity, user.getId(), 0);
                 break;
             case R.id.btnCouple:
                 if (user == null) return;
