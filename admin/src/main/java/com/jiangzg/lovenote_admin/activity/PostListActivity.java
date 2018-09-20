@@ -115,7 +115,15 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         PostAdapter postAdapter = (PostAdapter) adapter;
                         switch (view.getId()) {
-                            // TODO
+                            case R.id.btnOfficial:
+                                postAdapter.toggleOfficial(position);
+                                break;
+                            case R.id.btnTop:
+                                postAdapter.toggleTop(position);
+                                break;
+                            case R.id.btnWell:
+                                postAdapter.toggleWell(position);
+                                break;
                         }
                     }
                 });

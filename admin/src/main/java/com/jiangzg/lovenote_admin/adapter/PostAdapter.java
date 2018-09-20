@@ -51,7 +51,13 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String pointCount = String.valueOf(item.getPointCount());
         String collectCount = String.valueOf(item.getCollectCount());
         String commentCount = String.valueOf(item.getCommentCount());
+        String official = item.isOfficial() ? "官方中" : "无官方";
+        String top = item.isTop() ? "置顶中" : "无置顶";
+        String well = item.isWell() ? "精华中" : "无精华";
         // view
+        helper.setText(R.id.btnOfficial, official);
+        helper.setText(R.id.btnTop, top);
+        helper.setText(R.id.btnWell, well);
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvUid, uid);
         helper.setText(R.id.tvCid, cid);
@@ -100,6 +106,80 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    public void toggleOfficial(final int position) {
+        final Post item = getItem(position);
+        final boolean official = !item.isOfficial();
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content("修改为官方-" + official + "？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        item.setOfficial(official);
+                        updatePost(position, item);
+                    }
+                })
+                .show();
+    }
+
+    public void toggleTop(final int position) {
+        final Post item = getItem(position);
+        final boolean top = !item.isTop();
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content("修改为置顶-" + top + "？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        item.setTop(top);
+                        updatePost(position, item);
+                    }
+                })
+                .show();
+    }
+
+    public void toggleWell(final int position) {
+        final Post item = getItem(position);
+        final boolean well = !item.isWell();
+        DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content("修改为精华-" + well + "？")
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        item.setWell(well);
+                        updatePost(position, item);
+                    }
+                })
+                .show();
+    }
+
+    private void updatePost(final int position, Post body) {
+        if (body == null) return;
+        // api
+        Call<Result> call = new RetrofitHelper().call(API.class).topicPostUpdate(body);
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                Post post = data.getPost();
+                setData(position, post);
             }
 
             @Override
