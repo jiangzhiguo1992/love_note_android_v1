@@ -74,6 +74,10 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setText(R.id.tvPoint, pointCount);
         helper.setText(R.id.tvCollect, collectCount);
         helper.setText(R.id.tvComment, commentCount);
+        // listener
+        helper.addOnClickListener(R.id.btnOfficial);
+        helper.addOnClickListener(R.id.btnTop);
+        helper.addOnClickListener(R.id.btnWell);
     }
 
     public void goPostCommentList(int position) {
