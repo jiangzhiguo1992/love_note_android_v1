@@ -74,13 +74,61 @@
             android:layout_weight="1"
             android:gravity="end"
             tools:text="创建"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnBill"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="bill"/>
+
+        <Button
+            android:id="@+id/btnVip"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="vip"/>
+
+        <Button
+            android:id="@+id/btnSign"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="sign"/>
+
+        <Button
+            android:id="@+id/btnCoin"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="coin"/>
+
+        <Button
+            android:id="@+id/btnNote"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="note"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -108,13 +156,6 @@
                 app:actualImageScaleType="centerCrop"
                 tools:background="@mipmap/ic_boy_circle"/>
 
-            <Button
-                android:id="@+id/btnUid1"
-                style="@style/FontWhiteNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                tools:text="11.1.1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -123,14 +164,6 @@
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnUid2"
-                style="@style/FontWhiteNormal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                tools:text="11.1.1"/>
 
             <com.jiangzg.lovenote_admin.view.FrescoView
                 android:id="@+id/ivAvatar2"
@@ -155,7 +188,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
@@ -199,11 +231,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp">
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnVipAdd"
+            android:id="@+id/btnUid1"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="11.1.1"/>
+
+        <Button
+            android:id="@+id/btnUid2"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="11.1.1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnVipAdd1"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -212,7 +266,25 @@
             android:text="赠送会员"/>
 
         <Button
-            android:id="@+id/btnCoinAdd"
+            android:id="@+id/btnCoinAdd1"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="赠送金币"/>
+
+        <Button
+            android:id="@+id/btnVipAdd2"
+            style="@style/FontWhiteNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="赠送会员"/>
+
+        <Button
+            android:id="@+id/btnCoinAdd2"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -226,54 +298,40 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/btnBill"
+            android:id="@+id/btnPost1"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="bill"/>
+            android:text="post"/>
 
         <Button
-            android:id="@+id/btnVip"
-            style="@style/FontWhiteNormal"
+            android:id="@+id/btnPostComment1"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="vip"/>
+            android:text="postComment"/>
 
         <Button
-            android:id="@+id/btnCoin"
+            android:id="@+id/btnPost2"
             style="@style/FontWhiteNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="coin"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:text="post"/>
 
         <Button
-            android:id="@+id/btnSign"
-            style="@style/FontWhiteNormal"
+            android:id="@+id/btnPostComment2"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="sign"/>
-
-        <Button
-            android:id="@+id/btnNote"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="note"/>
+            android:text="postComment"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

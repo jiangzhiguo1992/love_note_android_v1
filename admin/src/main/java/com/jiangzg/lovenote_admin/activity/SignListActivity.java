@@ -65,8 +65,9 @@ public class SignListActivity extends BaseActivity<SignListActivity> {
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, long cid) {
+    public static void goActivity(Activity from, long uid, long cid) {
         Intent intent = new Intent(from, SignListActivity.class);
+        intent.putExtra("uid", uid);
         intent.putExtra("cid", cid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

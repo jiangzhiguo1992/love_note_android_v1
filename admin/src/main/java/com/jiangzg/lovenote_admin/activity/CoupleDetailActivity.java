@@ -41,6 +41,7 @@ import com.jiangzg.lovenote_admin.view.FrescoView;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -54,33 +55,46 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     EditText etUid;
     @BindView(R.id.btnSearch)
     Button btnSearch;
-    @BindView(R.id.btnVipAdd)
-    Button btnVipAdd;
-    @BindView(R.id.btnCoinAdd)
-    Button btnCoinAdd;
     @BindView(R.id.btnBill)
     Button btnBill;
     @BindView(R.id.btnVip)
     Button btnVip;
-    @BindView(R.id.btnCoin)
-    Button btnCoin;
     @BindView(R.id.btnSign)
     Button btnSign;
+    @BindView(R.id.btnCoin)
+    Button btnCoin;
     @BindView(R.id.btnNote)
     Button btnNote;
+
+    @BindView(R.id.btnUid1)
+    Button btnUid1;
+    @BindView(R.id.btnUid2)
+    Button btnUid2;
+    @BindView(R.id.btnVipAdd1)
+    Button btnVipAdd1;
+    @BindView(R.id.btnCoinAdd1)
+    Button btnCoinAdd1;
+    @BindView(R.id.btnVipAdd2)
+    Button btnVipAdd2;
+    @BindView(R.id.btnCoinAdd2)
+    Button btnCoinAdd2;
+    @BindView(R.id.btnPost1)
+    Button btnPost1;
+    @BindView(R.id.btnPostComment1)
+    Button btnPostComment1;
+    @BindView(R.id.btnPost2)
+    Button btnPost2;
+    @BindView(R.id.btnPostComment2)
+    Button btnPostComment2;
 
     @BindView(R.id.tvCreate)
     TextView tvCreate;
     @BindView(R.id.tvUpdate)
     TextView tvUpdate;
-    @BindView(R.id.btnUid1)
-    Button btnUid1;
     @BindView(R.id.ivAvatar1)
     FrescoView ivAvatar1;
     @BindView(R.id.tvName1)
     TextView tvName1;
-    @BindView(R.id.btnUid2)
-    Button btnUid2;
     @BindView(R.id.ivAvatar2)
     FrescoView ivAvatar2;
     @BindView(R.id.tvName2)
@@ -158,26 +172,13 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnSearch, R.id.btnUid1, R.id.btnUid2, R.id.btnVipAdd, R.id.btnCoinAdd,
-            R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnSign, R.id.btnNote})
+    @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnSign, R.id.btnNote,
+            R.id.btnUid1, R.id.btnUid2, R.id.btnVipAdd1, R.id.btnCoinAdd1, R.id.btnVipAdd2, R.id.btnCoinAdd2,
+            R.id.btnPost1, R.id.btnPost2, R.id.btnPostComment1, R.id.btnPostComment2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
                 getCoupleData();
-                break;
-            case R.id.btnUid1:
-                if (couple == null) return;
-                UserDetailActivity.goActivity(mActivity, couple.getCreatorId());
-                break;
-            case R.id.btnUid2:
-                if (couple == null) return;
-                UserDetailActivity.goActivity(mActivity, couple.getInviteeId());
-                break;
-            case R.id.btnVipAdd:
-                showVipAddDialog();
-                break;
-            case R.id.btnCoinAdd:
-                showCoinAddDialog();
                 break;
             case R.id.btnBill:
                 if (couple == null) return;
@@ -193,11 +194,47 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                 break;
             case R.id.btnSign:
                 if (couple == null) return;
-                SignListActivity.goActivity(mActivity, couple.getId());
+                SignListActivity.goActivity(mActivity, 0, couple.getId());
                 break;
             case R.id.btnNote:
                 if (couple == null) return;
                 TrendsListActivity.goActivity(mActivity, 0, couple.getId());
+                break;
+            case R.id.btnUid1:
+                if (couple == null) return;
+                UserDetailActivity.goActivity(mActivity, couple.getCreatorId());
+                break;
+            case R.id.btnUid2:
+                if (couple == null) return;
+                UserDetailActivity.goActivity(mActivity, couple.getInviteeId());
+                break;
+            case R.id.btnVipAdd1:
+                if (couple == null) return;
+                showVipAddDialog(couple.getCreatorId());
+                break;
+            case R.id.btnCoinAdd1:
+                if (couple == null) return;
+                showCoinAddDialog(couple.getCreatorId());
+                break;
+            case R.id.btnVipAdd2:
+                if (couple == null) return;
+                showVipAddDialog(couple.getInviteeId());
+                break;
+            case R.id.btnCoinAdd2:
+                if (couple == null) return;
+                showCoinAddDialog(couple.getInviteeId());
+                break;
+            case R.id.btnPost1:
+                PostListActivity.goActivity(mActivity, couple.getCreatorId());
+                break;
+            case R.id.btnPostComment1:
+                PostCommentListActivity.goActivity(mActivity, couple.getCreatorId(), 0);
+                break;
+            case R.id.btnPost2:
+                PostListActivity.goActivity(mActivity, couple.getInviteeId());
+                break;
+            case R.id.btnPostComment2:
+                PostCommentListActivity.goActivity(mActivity, couple.getInviteeId(), 0);
                 break;
         }
     }
@@ -300,10 +337,10 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         String id = String.valueOf(couple.getId());
         String create = "c:" + DateUtils.getString(couple.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "u:" + DateUtils.getString(couple.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String creatorId = "c:" + couple.getCreatorId();
+        String creatorId = "c用户:" + couple.getCreatorId();
         String creatorAvatar = couple.getCreatorAvatar();
         String creatorName = couple.getCreatorName();
-        String inviteeId = "i:" + couple.getInviteeId();
+        String inviteeId = "i用户:" + couple.getInviteeId();
         String inviteeAvatar = couple.getInviteeAvatar();
         String inviteeName = couple.getInviteeName();
         // view
@@ -338,7 +375,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         tvPhone2.setText(phone2);
     }
 
-    private void showVipAddDialog() {
+    private void showVipAddDialog(final long uid) {
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -360,7 +397,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                         EditText editText = dialog.getInputEditText();
                         if (editText != null) {
                             String input = editText.getText().toString();
-                            vipAdd(input);
+                            vipAdd(uid, input);
                         }
                     }
                 })
@@ -368,18 +405,18 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         DialogHelper.showWithAnim(dialogName);
     }
 
-    private void vipAdd(String input) {
+    private void vipAdd(long uid, String input) {
         if (!StringUtils.isNumber(input)) return;
         int days = Integer.parseInt(input);
         Vip vip = new Vip();
-        vip.setUserId(couple.getCreatorId());
+        vip.setUserId(uid);
         vip.setCoupleId(couple.getId());
         vip.setExpireDays(days);
         Call<Result> call = new RetrofitHelper().call(API.class).moreVipAdd(vip);
         RetrofitHelper.enqueue(call, getLoading(true), null);
     }
 
-    private void showCoinAddDialog() {
+    private void showCoinAddDialog(final long uid) {
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -401,7 +438,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                         EditText editText = dialog.getInputEditText();
                         if (editText != null) {
                             String input = editText.getText().toString();
-                            coinAdd(input);
+                            coinAdd(uid, input);
                         }
                     }
                 })
@@ -409,15 +446,21 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         DialogHelper.showWithAnim(dialogName);
     }
 
-    private void coinAdd(String input) {
+    private void coinAdd(long uid, String input) {
         if (!StringUtils.isNumber(input)) return;
         int count = Integer.parseInt(input);
         Coin coin = new Coin();
-        coin.setUserId(couple.getCreatorId());
+        coin.setUserId(uid);
         coin.setCoupleId(couple.getId());
         coin.setChange(count);
         Call<Result> call = new RetrofitHelper().call(API.class).moreCoinAdd(coin);
         RetrofitHelper.enqueue(call, getLoading(true), null);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

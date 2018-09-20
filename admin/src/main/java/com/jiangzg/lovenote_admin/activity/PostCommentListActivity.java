@@ -55,8 +55,9 @@ public class PostCommentListActivity extends BaseActivity<PostCommentListActivit
         ActivityTrans.start(from, intent);
     }
 
-    public static void goActivity(Activity from, long pid) {
+    public static void goActivity(Activity from, long uid, long pid) {
         Intent intent = new Intent(from, PostCommentListActivity.class);
+        intent.putExtra("uid", uid);
         intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

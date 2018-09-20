@@ -3,21 +3,14 @@ package com.jiangzg.lovenote_admin.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-
 /**
  * Created by JZG on 2018/7/23.
  * PostComment
  */
-public class PostComment extends BaseCP implements Parcelable, MultiItemEntity {
+public class PostComment extends BaseCP implements Parcelable {
 
     public static final int KIND_TEXT = 0;
     public static final int KIND_JAB = 1;
-
-    @Override
-    public int getItemType() {
-        return kind;
-    }
 
     private long postId;
     private long toCommentId;
