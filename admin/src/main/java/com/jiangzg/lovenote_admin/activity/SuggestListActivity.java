@@ -42,8 +42,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
     Button btnFollow;
     @BindView(R.id.etUid)
     EditText etUid;
-    @BindView(R.id.btnUpdate)
-    Button btnUpdate;
+    @BindView(R.id.btnSearch)
+    Button btnSearch;
     @BindView(R.id.rv)
     RecyclerView rv;
 
@@ -135,14 +135,14 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick({R.id.btnFollow, R.id.btnUpdate})
+    @OnClick({R.id.btnFollow, R.id.btnSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnFollow:
                 follow = true;
                 getListData(false);
                 break;
-            case R.id.btnUpdate:
+            case R.id.btnSearch:
                 follow = false;
                 getListData(false);
                 break;

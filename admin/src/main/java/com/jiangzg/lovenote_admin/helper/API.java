@@ -203,11 +203,14 @@ public interface API {
     @PUT("topic/post")
     Call<Result> topicPostUpdate(@Body Post post);
 
+    @GET("topic/post?collect=1&me=1")
+    Call<Result> topicPostCollectListGet(@Query("page") int page);
+
     @GET("topic/post?report=1")
     Call<Result> topicPostReportListGet(@Query("page") int page);
 
-    @GET("topic/post?collect=1&me=1")
-    Call<Result> topicPostCollectListGet(@Query("page") int page);
+    @GET("topic/post")
+    Call<Result> topicPostUserListGet(@Query("uid") long uid, @Query("page") int page);
 
     @DELETE("topic/post/comment")
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);

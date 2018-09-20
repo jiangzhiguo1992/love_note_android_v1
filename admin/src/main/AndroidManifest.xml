@@ -35,10 +35,8 @@
         <activity android:name=".activity.PlaceListActivity"/>
         <activity android:name=".activity.SignListActivity"/>
         <activity android:name=".activity.TrendsListActivity"/>
-        <activity android:name=".activity.PostListActivity">
-        </activity>
-        <activity android:name=".activity.PostCommentListActivity">
-        </activity>
+        <activity android:name=".activity.PostListActivity"/>
+        <activity android:name=".activity.PostCommentListActivity"/>
     </application>
 
 </manifest>

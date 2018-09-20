@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -20,15 +21,12 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
 import com.jiangzg.lovenote_admin.domain.Post;
-import com.jiangzg.lovenote_admin.domain.PostComment;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
 import com.jiangzg.lovenote_admin.helper.RecyclerHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import com.jiangzg.lovenote_admin.helper.ViewHelper;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,9 +49,15 @@ public class PostCommentListActivity extends BaseActivity<PostCommentListActivit
     private RecyclerHelper recyclerHelper;
     private int page;
 
-    public static void goActivity(Activity from, Post post) {
-        Intent intent = new Intent(from, BaseActivity.class);
-        intent.putExtra("post", post);
+    public static void goActivity(Fragment from) {
+        Intent intent = new Intent(from.getActivity(), PostCommentListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, long pid) {
+        Intent intent = new Intent(from, PostCommentListActivity.class);
+        intent.putExtra("pid", pid);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }

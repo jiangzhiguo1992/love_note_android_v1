@@ -70,9 +70,9 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setText(R.id.tvComment, commentCount);
     }
 
-    public void goPostDetail(int position) {
+    public void goPostCommentList(int position) {
         Post item = getItem(position);
-        PostCommentListActivity.goActivity(mActivity, item);
+        PostCommentListActivity.goActivity(mActivity, item.getId());
     }
 
     public void showDeleteDialog(final int position) {

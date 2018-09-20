@@ -15,22 +15,41 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnReport"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:text="举报列表(update)"/>
-
-        <Button
             android:id="@+id/btnCollect"
             style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:text="收藏列表"/>
+
+        <Button
+            android:id="@+id/btnReport"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="举报列表"/>
+
+        <EditText
+            android:id="@+id/etUid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="收藏列表(update)"/>
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="uid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <Button
+            android:id="@+id/btnSearch"
+            style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="所有列表(user)"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

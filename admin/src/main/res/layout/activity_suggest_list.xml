@@ -35,7 +35,7 @@
             android:textColorHint="@color/font_hint"/>
 
         <Button
-            android:id="@+id/btnUpdate"
+            android:id="@+id/btnSearch"
             style="@style/FontWhiteNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
