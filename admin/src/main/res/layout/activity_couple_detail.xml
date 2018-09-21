@@ -299,7 +299,7 @@
 
         <Button
             android:id="@+id/btnPost1"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -313,11 +313,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="postComment"/>
+            android:text="p_com"/>
+
+        <Button
+            android:id="@+id/btnMatchWork1"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="work"/>
 
         <Button
             android:id="@+id/btnPost2"
-            style="@style/FontWhiteNormal"
+            style="@style/FontWhiteSmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -331,7 +340,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="postComment"/>
+            android:text="p_com"/>
+
+        <Button
+            android:id="@+id/btnMatchWork2"
+            style="@style/FontWhiteSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="work"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

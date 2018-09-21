@@ -9,8 +9,9 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.activity.MatchWorkListActivity;
 import com.jiangzg.lovenote_admin.base.BaseActivity;
-import com.jiangzg.lovenote_admin.domain.Broadcast;
+import com.jiangzg.lovenote_admin.domain.MatchPeriod;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.DialogHelper;
@@ -19,42 +20,55 @@ import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 import retrofit2.Call;
 
 /**
- * Created by JZG on 2018/3/13.
- * broadcast适配器
+ * Created by JZG on 2018/3/15.
+ * MatchPeriod适配器
  */
-public class BroadcastAdapter extends BaseQuickAdapter<Broadcast, BaseViewHolder> {
+public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHolder> {
 
     private BaseActivity mActivity;
 
-    public BroadcastAdapter(BaseActivity activity) {
-        super(R.layout.list_item_broadcast);
+    public MatchPeriodAdapter(BaseActivity activity) {
+        super(R.layout.list_item_match_period);
         mActivity = activity;
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, Broadcast item) {
+    protected void convert(BaseViewHolder helper, MatchPeriod item) {
         // data
         String id = "id:" + item.getId();
         String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String isEnd = "进行:" + (DateUtils.getCurrentLong() >= item.getStartAt() * 1000 && DateUtils.getCurrentLong() <= item.getEndAt() * 1000);
         String start = "开始:" + DateUtils.getString(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = "结束:" + (item.getEndAt() == 0 ? "永久" : DateUtils.getString(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
-        String type = "(" + Broadcast.getTypeShow(item.getContentType()) + ")";
-        String isEnd = "end:" + item.isEnd();
+        String end = "结束:" + DateUtils.getString(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String period = "期数:" + item.getPeriod();
+        String kind = MatchPeriod.getKindShow(item.getKind());
+        String coinChange = "奖励金币:" + item.getCoinChange();
         String title = item.getTitle();
-        String cover = "cover:" + item.getCover();
-        String content = item.getContentText().replace("\\n", "\n");
+        String worksCount = String.valueOf(item.getWorksCount());
+        String reportCount = String.valueOf(item.getReportCount());
+        String pointCount = String.valueOf(item.getPointCount());
+        String coinCount = String.valueOf(item.getCoinCount());
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvCreate, create);
         helper.setText(R.id.tvUpdate, update);
+        helper.setText(R.id.tvIsEnd, isEnd);
         helper.setText(R.id.tvStart, start);
         helper.setText(R.id.tvEnd, end);
-        helper.setText(R.id.tvType, type);
-        helper.setText(R.id.tvIsEnd, isEnd);
+        helper.setText(R.id.tvPeriod, period);
+        helper.setText(R.id.tvKind, kind);
+        helper.setText(R.id.tvCoinChange, coinChange);
         helper.setText(R.id.tvTitle, title);
-        helper.setText(R.id.tvCover, cover);
-        helper.setText(R.id.tvContent, content);
+        helper.setText(R.id.tvWorksCount, reportCount);
+        helper.setText(R.id.tvReportCount, worksCount);
+        helper.setText(R.id.tvPointCount, pointCount);
+        helper.setText(R.id.tvCoinCount, coinCount);
+    }
+
+    public void goMatchWorkList(int position) {
+        MatchPeriod item = getItem(position);
+        MatchWorkListActivity.goActivity(mActivity, 0, item.getId());
     }
 
     public void showDeleteDialog(final int position) {
@@ -67,16 +81,16 @@ public class BroadcastAdapter extends BaseQuickAdapter<Broadcast, BaseViewHolder
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(position);
+                        delCommentApi(position);
                     }
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void deleteApi(final int position) {
-        final Broadcast item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).broadcastDel(item.getId());
+    private void delCommentApi(final int position) {
+        final MatchPeriod item = getItem(position);
+        Call<Result> call = new RetrofitHelper().call(API.class).moreMatchPeriodDel(item.getId());
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override

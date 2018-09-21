@@ -197,14 +197,12 @@ public class ApiHelper {
             Trends.getContentShow(Trends.TRENDS_CON_TYPE_ANGRY),
     };
     // matchPeriod search类型
-    public static final int[] LIST_MATCH_ORDER_TYPE = new int[]{
-            0,
+    public static final int[] LIST_MATCH_KIND_TYPE = new int[]{
             MatchPeriod.MATCH_KIND_WIFE_PICTURE,
             MatchPeriod.MATCH_KIND_LETTER_SHOW,
             MatchPeriod.MATCH_KIND_DISCUSS_MEET,
     };
-    public static final String[] LIST_MATCH_ORDER_SHOW = new String[]{
-            "全部",
+    public static final String[] LIST_MATCH_KIND_SHOW = new String[]{
             MatchPeriod.getKindShow(MatchPeriod.MATCH_KIND_WIFE_PICTURE),
             MatchPeriod.getKindShow(MatchPeriod.MATCH_KIND_LETTER_SHOW),
             MatchPeriod.getKindShow(MatchPeriod.MATCH_KIND_DISCUSS_MEET),

@@ -119,6 +119,9 @@ public class MatchPeriod extends BaseObj implements Parcelable {
         this.coinCount = coinCount;
     }
 
+    public MatchPeriod() {
+    }
+
     protected MatchPeriod(Parcel in) {
         super(in);
         startAt = in.readLong();

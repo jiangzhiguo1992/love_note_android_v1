@@ -81,10 +81,14 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
     Button btnPost1;
     @BindView(R.id.btnPostComment1)
     Button btnPostComment1;
+    @BindView(R.id.btnMatchWork1)
+    Button btnMatchWork1;
     @BindView(R.id.btnPost2)
     Button btnPost2;
     @BindView(R.id.btnPostComment2)
     Button btnPostComment2;
+    @BindView(R.id.btnMatchWork2)
+    Button btnMatchWork2;
 
     @BindView(R.id.tvCreate)
     TextView tvCreate;
@@ -173,7 +177,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
 
     @OnClick({R.id.btnSearch, R.id.btnBill, R.id.btnVip, R.id.btnCoin, R.id.btnSign, R.id.btnNote,
             R.id.btnUid1, R.id.btnUid2, R.id.btnVipAdd1, R.id.btnCoinAdd1, R.id.btnVipAdd2, R.id.btnCoinAdd2,
-            R.id.btnPost1, R.id.btnPost2, R.id.btnPostComment1, R.id.btnPostComment2})
+            R.id.btnPost1, R.id.btnPost2, R.id.btnPostComment1, R.id.btnPostComment2, R.id.btnMatchWork1, R.id.btnMatchWork2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnSearch:
@@ -224,16 +228,28 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                 showCoinAddDialog(couple.getInviteeId());
                 break;
             case R.id.btnPost1:
+                if (couple == null) return;
                 PostListActivity.goActivity(mActivity, couple.getCreatorId());
                 break;
             case R.id.btnPostComment1:
+                if (couple == null) return;
                 PostCommentListActivity.goActivity(mActivity, couple.getCreatorId(), 0, 0);
                 break;
+            case R.id.btnMatchWork1:
+                if (couple == null) return;
+                MatchWorkListActivity.goActivity(mActivity, couple.getCreatorId(), 0);
+                break;
             case R.id.btnPost2:
+                if (couple == null) return;
                 PostListActivity.goActivity(mActivity, couple.getInviteeId());
                 break;
             case R.id.btnPostComment2:
+                if (couple == null) return;
                 PostCommentListActivity.goActivity(mActivity, couple.getInviteeId(), 0, 0);
+                break;
+            case R.id.btnMatchWork2:
+                if (couple == null) return;
+                MatchWorkListActivity.goActivity(mActivity, couple.getInviteeId(), 0);
                 break;
         }
     }
@@ -386,7 +402,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                         LogUtils.i(CoupleDetailActivity.class, "onInput", input.toString());
                     }
                 })
-                .inputRange(1, 3650)
+                .inputRange(1, 5)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
@@ -427,7 +443,7 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                         LogUtils.i(CoupleDetailActivity.class, "onInput", input.toString());
                     }
                 })
-                .inputRange(1, 100000)
+                .inputRange(1, 5)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
                 .onPositive(new MaterialDialog.SingleButtonCallback() {

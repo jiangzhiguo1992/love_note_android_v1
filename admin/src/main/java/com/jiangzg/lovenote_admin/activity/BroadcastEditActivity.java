@@ -123,10 +123,10 @@ public class BroadcastEditActivity extends BaseActivity<BroadcastEditActivity> {
         if (endAt <= 0) {
             endAt = DateUtils.getCurrentLong();
         }
-        String start = DateUtils.getString(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String end = DateUtils.getString(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        tvStart.setText("s: " + start);
-        tvEnd.setText("e: " + end);
+        String start = "s: " + DateUtils.getString(startAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String end = "e: " + DateUtils.getString(endAt, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        tvStart.setText(start);
+        tvEnd.setText(end);
     }
 
     private void push() {
