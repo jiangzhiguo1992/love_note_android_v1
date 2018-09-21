@@ -13,7 +13,6 @@ import com.jiangzg.lovenote_admin.activity.BillListActivity;
 import com.jiangzg.lovenote_admin.activity.CoinListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
 import com.jiangzg.lovenote_admin.activity.MatchPeriodListActivity;
-import com.jiangzg.lovenote_admin.activity.MatchWorkListActivity;
 import com.jiangzg.lovenote_admin.activity.PlaceListActivity;
 import com.jiangzg.lovenote_admin.activity.PostCommentListActivity;
 import com.jiangzg.lovenote_admin.activity.PostListActivity;
@@ -23,6 +22,7 @@ import com.jiangzg.lovenote_admin.activity.VipListActivity;
 import com.jiangzg.lovenote_admin.base.BaseFragment;
 import com.jiangzg.lovenote_admin.domain.Coin;
 import com.jiangzg.lovenote_admin.domain.FiledInfo;
+import com.jiangzg.lovenote_admin.domain.MatchPeriod;
 import com.jiangzg.lovenote_admin.domain.Result;
 import com.jiangzg.lovenote_admin.domain.Trends;
 import com.jiangzg.lovenote_admin.helper.API;
@@ -128,15 +128,6 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     @BindView(R.id.tvMatchPeriod3)
     TextView tvMatchPeriod3;
 
-    @BindView(R.id.cvMatchWork)
-    CardView cvMatchWork;
-    @BindView(R.id.tvMatchWork1)
-    TextView tvMatchWork1;
-    @BindView(R.id.tvMatchWork2)
-    TextView tvMatchWork2;
-    @BindView(R.id.tvMatchWork3)
-    TextView tvMatchWork3;
-
     public static CoupleFragment newFragment() {
         Bundle bundle = new Bundle();
         // bundle.putData();
@@ -163,7 +154,6 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         getNoteData();
         getPostData();
         getPostCommentData();
-        getMatchPeriodData();
         getMatchWorkData();
     }
 
@@ -172,7 +162,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     @OnClick({R.id.cvCouple, R.id.cvPlace, R.id.cvBill, R.id.cvVip, R.id.cvSign, R.id.cvCoin,
-            R.id.cvNote, R.id.cvPost, R.id.cvPostComment, R.id.cvMatchPeriod, R.id.cvMatchWork})
+            R.id.cvNote, R.id.cvPost, R.id.cvPostComment, R.id.cvMatchPeriod})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvCouple: // 配对
@@ -202,11 +192,8 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
             case R.id.cvPostComment: // 话题评论
                 PostCommentListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvMatchPeriod: // 比拼期数
+            case R.id.cvMatchPeriod: // 比拼
                 MatchPeriodListActivity.goActivity(mFragment);
-                break;
-            case R.id.cvMatchWork: // 比拼作品
-                MatchWorkListActivity.goActivity(mFragment);
                 break;
         }
     }
@@ -592,12 +579,44 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         });
     }
 
-    private void getMatchPeriodData() {
-        // TODO
-    }
-
     private void getMatchWorkData() {
-        // TODO
+        long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
+        Call<Result> callWife = new RetrofitHelper().call(API.class).moreMatchWorkTotalGet(startD1, MatchPeriod.MATCH_KIND_WIFE_PICTURE);
+        RetrofitHelper.enqueue(callWife, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvMatchPeriod1.setText("夫妻相(1d)：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvMatchPeriod1.setText("夫妻相(1d)：fail");
+            }
+        });
+        Call<Result> callLetter = new RetrofitHelper().call(API.class).moreMatchWorkTotalGet(startD1, MatchPeriod.MATCH_KIND_LETTER_SHOW);
+        RetrofitHelper.enqueue(callLetter, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvMatchPeriod2.setText("情书展(1d)：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvMatchPeriod2.setText("情书展(1d)：fail");
+            }
+        });
+        Call<Result> callDiscuss = new RetrofitHelper().call(API.class).moreMatchWorkTotalGet(startD1, MatchPeriod.MATCH_KIND_DISCUSS_MEET);
+        RetrofitHelper.enqueue(callDiscuss, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvMatchPeriod3.setText("讨论会(1d)：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvMatchPeriod3.setText("讨论会(1d)：fail");
+            }
+        });
     }
 
 }

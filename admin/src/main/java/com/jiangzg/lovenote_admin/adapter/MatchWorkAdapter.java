@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote_admin.adapter;
 
 import android.support.annotation.NonNull;
-import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -9,7 +8,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote_admin.R;
@@ -72,7 +70,7 @@ public class MatchWorkAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         helper.setText(R.id.tvCoin, coinCount);
         helper.setText(R.id.tvPoint, pointCount);
         // iv
-        if (StringUtils.isEmpty(contentImage)) {
+        if (item.getKind() != MatchPeriod.MATCH_KIND_WIFE_PICTURE) {
             helper.setVisible(R.id.tvTitle, true);
             helper.setVisible(R.id.tvContent, true);
             helper.setVisible(R.id.ivWorks, false);

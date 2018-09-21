@@ -246,6 +246,9 @@ public interface API {
     @GET("more/match/work?admin=1")
     Call<Result> moreMatchWorkListGet(@Query("uid") long uid, @Query("mpid") long mpid, @Query("page") int page);
 
+    @GET("more/match/work?total=1")
+    Call<Result> moreMatchWorkTotalGet(@Query("create") long create, @Query("kind") int kind);
+
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);
 

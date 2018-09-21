@@ -52,13 +52,6 @@ public class MatchWorkListActivity extends BaseActivity<MatchWorkListActivity> {
     private int page;
     private boolean report;
 
-    public static void goActivity(Fragment from) {
-        Intent intent = new Intent(from.getActivity(), MatchWorkListActivity.class);
-        // intent.putExtra();
-        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        ActivityTrans.start(from, intent);
-    }
-
     public static void goActivity(Activity from, long uid, long mpid) {
         Intent intent = new Intent(from, MatchWorkListActivity.class);
         intent.putExtra("uid", uid);
