@@ -209,8 +209,8 @@ public interface API {
     @GET("topic/post?report=1")
     Call<Result> topicPostReportListGet(@Query("page") int page);
 
-    @GET("topic/post")
-    Call<Result> topicPostUserListGet(@Query("uid") long uid, @Query("page") int page);
+    @GET("topic/post?admin=1")
+    Call<Result> topicPostListGet(@Query("uid") long uid, @Query("page") int page);
 
     @DELETE("topic/post/comment")
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);

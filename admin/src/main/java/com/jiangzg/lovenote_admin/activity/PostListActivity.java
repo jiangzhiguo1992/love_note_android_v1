@@ -174,8 +174,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
             if (StringUtils.isNumber(sUid)) {
                 uid = Long.parseLong(sUid);
             }
-            if (uid <= 0) return;
-            call = new RetrofitHelper().call(API.class).topicPostUserListGet(uid, page);
+            call = new RetrofitHelper().call(API.class).topicPostListGet(uid, page);
         }
         MaterialDialog loading = null;
         if (!more) {
