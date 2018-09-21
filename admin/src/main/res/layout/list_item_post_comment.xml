@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingEnd="10dp"
+    android:paddingStart="10dp">
+
+    <View style="@style/LineHorizontal"/>
+
+    <LinearLayout
+        android:id="@+id/llTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tvOfficial"
+            style="@style/FontPrimarySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="%d楼 时间"/>
+
+        <TextView
+            android:id="@+id/tvId"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvUid"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvCid"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvPid"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvTcid"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tvFloor"
+            style="@style/FontGreySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="%d楼 时间"/>
+
+        <TextView
+            android:id="@+id/tvCreate"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvUpdate"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            tools:text="id"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvContent"
+        style="@style/FontBlackNormal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/llReport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivReport"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_report_grey"/>
+
+            <TextView
+                android:id="@+id/tvReport"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="11万"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llComment"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivComment"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_comment_grey"/>
+
+            <TextView
+                android:id="@+id/tvComment"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="11万"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llPoint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/ivPoint"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="6dp"
+                android:src="@drawable/ic_point_up_grey"/>
+
+            <TextView
+                android:id="@+id/tvPoint"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:maxLines="1"
+                android:singleLine="true"
+                tools:text="11万"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

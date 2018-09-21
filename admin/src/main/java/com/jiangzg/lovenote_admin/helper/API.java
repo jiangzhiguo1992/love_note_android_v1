@@ -215,17 +215,11 @@ public interface API {
     @DELETE("topic/post/comment")
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
 
-    @GET("topic/post/comment?list=1")
-    Call<Result> topicPostCommentListGet(@Query("pid") long pid, @Query("order") int order, @Query("page") int page);
-
-    @GET("topic/post/comment?sub_list=1")
-    Call<Result> topicPostCommentSubListGet(@Query("pid") long pid, @Query("tcid") long tcid, @Query("order") int order, @Query("page") int page);
-
-    @GET("topic/post/comment")
-    Call<Result> topicPostCommentUserListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
-
     @GET("topic/post/comment?report=1")
-    Call<Result> topicPostCommentReportListGet(@Query("pid") long pid, @Query("uid") long uid, @Query("order") int order, @Query("page") int page);
+    Call<Result> topicPostCommentReportListGet(@Query("page") int page);
+
+    @GET("topic/post/comment?admin=1")
+    Call<Result> topicPostCommentListGet(@Query("uid") long uid, @Query("pid") long pid, @Query("tcid") long tcid, @Query("page") int page);
 
     // TODO match
 

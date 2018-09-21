@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
     android:paddingBottom="10dp"
     android:paddingEnd="10dp"
     android:paddingStart="10dp">
@@ -16,20 +17,18 @@
         android:id="@+id/llTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginTop="5dp">
 
         <TextView
-            android:id="@+id/tvTop"
-            style="@style/FontGreySmall"
+            android:id="@+id/tvOfficial"
+            style="@style/FontPrimarySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="%d楼 时间"/>
 
         <TextView
             android:id="@+id/tvId"
-            style="@style/FontGreyNormal"
+            style="@style/FontGreySmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,12 +37,28 @@
 
         <TextView
             android:id="@+id/tvUid"
-            style="@style/FontGreyNormal"
+            style="@style/FontGreySmall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvSid"
+            style="@style/FontGreySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            tools:text="id"/>
+
+        <TextView
+            android:id="@+id/tvCreate"
+            style="@style/FontGreySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="%d楼 时间"/>
     </LinearLayout>
 
     <TextView
@@ -51,9 +66,6 @@
         style="@style/FontBlackNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/llTop"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对"/>
-</RelativeLayout>
+</LinearLayout>

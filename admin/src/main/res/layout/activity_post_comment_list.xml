@@ -11,31 +11,63 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnTop"
+            android:id="@+id/btnReport"
             style="@style/FontWhiteNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="举报列表"/>
+
+        <EditText
+            android:id="@+id/etUid"
+            style="@style/FontGreyNormal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            tools:text="已处理"/>
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="uid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <EditText
+            android:id="@+id/etPid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="pid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
+
+        <EditText
+            android:id="@+id/etTcid"
+            style="@style/FontGreyNormal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
+            android:hint="tcid"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColorHint="@color/font_hint"/>
 
         <Button
-            android:id="@+id/btnOfficial"
+            android:id="@+id/btnSearch"
             style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="已处理"/>
-
-        <Button
-            android:id="@+id/btnWell"
-            style="@style/FontWhiteNormal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="已处理"/>
+            android:layout_gravity="center"
+            android:text="搜索"/>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

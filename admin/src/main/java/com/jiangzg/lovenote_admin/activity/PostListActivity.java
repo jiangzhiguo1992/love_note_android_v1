@@ -163,7 +163,6 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
         page = more ? page + 1 : 0;
         // api
         Call<Result> call;
-
         if (searchType == SEARCH_COLLECT) {
             call = new RetrofitHelper().call(API.class).topicPostCollectListGet(page);
         } else if (searchType == SEARCH_REPORT) {

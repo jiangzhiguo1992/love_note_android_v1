@@ -228,13 +228,13 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
                 PostListActivity.goActivity(mActivity, couple.getCreatorId());
                 break;
             case R.id.btnPostComment1:
-                PostCommentListActivity.goActivity(mActivity, couple.getCreatorId(), 0);
+                PostCommentListActivity.goActivity(mActivity, couple.getCreatorId(), 0, 0);
                 break;
             case R.id.btnPost2:
                 PostListActivity.goActivity(mActivity, couple.getInviteeId());
                 break;
             case R.id.btnPostComment2:
-                PostCommentListActivity.goActivity(mActivity, couple.getInviteeId(), 0);
+                PostCommentListActivity.goActivity(mActivity, couple.getInviteeId(), 0, 0);
                 break;
         }
     }
