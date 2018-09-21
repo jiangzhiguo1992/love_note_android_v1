@@ -41,7 +41,6 @@ import com.jiangzg.lovenote_admin.view.FrescoView;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 
@@ -457,10 +456,4 @@ public class CoupleDetailActivity extends BaseActivity<CoupleDetailActivity> {
         RetrofitHelper.enqueue(call, getLoading(true), null);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
