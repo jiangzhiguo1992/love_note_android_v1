@@ -212,6 +212,9 @@ public interface API {
     @GET("topic/post?admin=1")
     Call<Result> topicPostListGet(@Query("uid") long uid, @Query("page") int page);
 
+    @GET("topic/post?total=1")
+    Call<Result> setPostTotalGet(@Query("create") long create);
+
     @DELETE("topic/post/comment")
     Call<Result> topicPostCommentDel(@Query("pcid") long pcid);
 
@@ -220,6 +223,9 @@ public interface API {
 
     @GET("topic/post/comment?admin=1")
     Call<Result> topicPostCommentListGet(@Query("uid") long uid, @Query("pid") long pid, @Query("tcid") long tcid, @Query("page") int page);
+
+    @GET("topic/post/comment?total=1")
+    Call<Result> setPostCommentTotalGet(@Query("create") long create);
 
     // TODO match
 
