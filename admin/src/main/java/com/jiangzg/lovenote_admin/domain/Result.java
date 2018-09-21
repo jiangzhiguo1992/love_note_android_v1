@@ -77,6 +77,24 @@ public class Result implements Serializable {
         private List<Post> postList;
         private PostComment postComment;
         private List<PostComment> postCommentList;
+        private List<MatchPeriod> matchPeriodList;
+        private List<MatchWork> matchWorkList;
+
+        public List<MatchPeriod> getMatchPeriodList() {
+            return matchPeriodList;
+        }
+
+        public void setMatchPeriodList(List<MatchPeriod> matchPeriodList) {
+            this.matchPeriodList = matchPeriodList;
+        }
+
+        public List<MatchWork> getMatchWorkList() {
+            return matchWorkList;
+        }
+
+        public void setMatchWorkList(List<MatchWork> matchWorkList) {
+            this.matchWorkList = matchWorkList;
+        }
 
         public Post getPost() {
             return post;

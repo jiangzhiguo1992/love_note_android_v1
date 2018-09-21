@@ -1,9 +1,8 @@
 package com.jiangzg.lovenote_admin.helper;
 
-import com.jiangzg.lovenote_admin.R;
-import com.jiangzg.lovenote_admin.base.MyApp;
 import com.jiangzg.lovenote_admin.domain.Bill;
 import com.jiangzg.lovenote_admin.domain.Coin;
+import com.jiangzg.lovenote_admin.domain.MatchPeriod;
 import com.jiangzg.lovenote_admin.domain.Sms;
 import com.jiangzg.lovenote_admin.domain.Trends;
 import com.jiangzg.lovenote_admin.domain.User;
@@ -197,44 +196,18 @@ public class ApiHelper {
             Trends.getContentShow(Trends.TRENDS_CON_TYPE_PROMISE),
             Trends.getContentShow(Trends.TRENDS_CON_TYPE_ANGRY),
     };
-    // comment order类型
-    private static final int LIST_COMMENT_ORDER_POINT = 0;
-    private static final int LIST_COMMENT_ORDER_TIME = 1;
-    public static final int[] LIST_COMMENT_ORDER_TYPE = new int[]{
-            LIST_COMMENT_ORDER_POINT,
-            LIST_COMMENT_ORDER_TIME
-    };
-    public static final String[] LIST_COMMENT_ORDER_SHOW = new String[]{
-            MyApp.get().getString(R.string.point),
-            MyApp.get().getString(R.string.time)
-    };
-    // topic search类型
-    public static final int LIST_TOPIC_ALL = 0;
-    public static final int LIST_TOPIC_OFFICIAL = 1;
-    public static final int LIST_TOPIC_WELL = 2;
-    public static final int[] LIST_TOPIC_TYPE = new int[]{
-            LIST_TOPIC_ALL,
-            LIST_TOPIC_OFFICIAL,
-            LIST_TOPIC_WELL
-    };
-    public static final String[] LIST_TOPIC_SHOW = new String[]{
-            MyApp.get().getString(R.string.all),
-            MyApp.get().getString(R.string.official),
-            MyApp.get().getString(R.string.well)
-    };
-    // match search类型
-    private static final int LIST_MATCH_ORDER_COIN = 0;
-    private static final int LIST_MATCH_ORDER_POINT = 1;
-    private static final int LIST_MATCH_ORDER_NEW = 2;
+    // matchPeriod search类型
     public static final int[] LIST_MATCH_ORDER_TYPE = new int[]{
-            LIST_MATCH_ORDER_COIN,
-            LIST_MATCH_ORDER_POINT,
-            LIST_MATCH_ORDER_NEW
+            0,
+            MatchPeriod.MATCH_KIND_WIFE_PICTURE,
+            MatchPeriod.MATCH_KIND_LETTER_SHOW,
+            MatchPeriod.MATCH_KIND_DISCUSS_MEET,
     };
     public static final String[] LIST_MATCH_ORDER_SHOW = new String[]{
-            MyApp.get().getString(R.string.coin_board),
-            MyApp.get().getString(R.string.point_board),
-            MyApp.get().getString(R.string.new_board)
+            "全部",
+            MatchPeriod.getKindShow(MatchPeriod.MATCH_KIND_WIFE_PICTURE),
+            MatchPeriod.getKindShow(MatchPeriod.MATCH_KIND_LETTER_SHOW),
+            MatchPeriod.getKindShow(MatchPeriod.MATCH_KIND_DISCUSS_MEET),
     };
 
 }

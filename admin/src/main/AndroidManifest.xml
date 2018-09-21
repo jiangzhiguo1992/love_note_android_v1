@@ -37,6 +37,9 @@
         <activity android:name=".activity.TrendsListActivity"/>
         <activity android:name=".activity.PostListActivity"/>
         <activity android:name=".activity.PostCommentListActivity"/>
+        <activity android:name=".activity.MatchPeriodListActivity"/>
+        <activity android:name=".activity.MatchPeriodAddActivity"/>
+        <activity android:name=".activity.MatchWorkListActivity"/>
     </application>
 
 </manifest>

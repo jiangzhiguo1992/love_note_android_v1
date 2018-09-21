@@ -2,6 +2,7 @@ package com.jiangzg.lovenote_admin.helper;
 
 import com.jiangzg.lovenote_admin.domain.Broadcast;
 import com.jiangzg.lovenote_admin.domain.Coin;
+import com.jiangzg.lovenote_admin.domain.MatchPeriod;
 import com.jiangzg.lovenote_admin.domain.Notice;
 import com.jiangzg.lovenote_admin.domain.Post;
 import com.jiangzg.lovenote_admin.domain.Result;
@@ -227,7 +228,23 @@ public interface API {
     @GET("topic/post/comment?total=1")
     Call<Result> setPostCommentTotalGet(@Query("create") long create);
 
-    // TODO match
+    @POST("more/match/period")
+    Call<Result> moreMatchPeriodAdd(@Body MatchPeriod matchPeriod);
+
+    @DELETE("more/match/period")
+    Call<Result> moreMatchPeriodDel(@Query("mpid") long mpid);
+
+    @GET("more/match/period?list=1")
+    Call<Result> moreMatchPeriodListGet(@Query("kind") int kind, @Query("page") int page);
+
+    @DELETE("more/match/work")
+    Call<Result> moreMatchWorkDel(@Query("mwid") long mwid);
+
+    @GET("more/match/work?report=1")
+    Call<Result> topicMatchWorkReportListGet(@Query("page") int page);
+
+    @GET("more/match/work?admin=1")
+    Call<Result> topicMatchWorkListGet(@Query("uid") long uid, @Query("mpid") long mpid, @Query("page") int page);
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);

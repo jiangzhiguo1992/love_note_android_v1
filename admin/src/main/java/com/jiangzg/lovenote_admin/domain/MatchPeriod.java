@@ -3,6 +3,9 @@ package com.jiangzg.lovenote_admin.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.jiangzg.lovenote_admin.R;
+import com.jiangzg.lovenote_admin.base.MyApp;
+
 /**
  * Created by JZG on 2018/8/19.
  * MatchPeriod
@@ -23,6 +26,18 @@ public class MatchPeriod extends BaseObj implements Parcelable {
     private int reportCount;
     private int pointCount;
     private int coinCount;
+
+    public static String getKindShow(int kind) {
+        switch (kind) {
+            case MATCH_KIND_WIFE_PICTURE:
+                return MyApp.get().getString(R.string.nav_wife);
+            case MATCH_KIND_LETTER_SHOW:
+                return MyApp.get().getString(R.string.nav_letter);
+            case MATCH_KIND_DISCUSS_MEET:
+                return MyApp.get().getString(R.string.nav_discuss);
+        }
+        return String.valueOf(kind);
+    }
 
     public long getStartAt() {
         return startAt;

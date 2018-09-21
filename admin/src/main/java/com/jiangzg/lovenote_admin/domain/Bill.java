@@ -33,7 +33,7 @@ public class Bill extends BaseCP implements Parcelable {
         if (type == BILL_PAY_TYPE_APP) {
             return "app";
         }
-        return "未知";
+        return String.valueOf(type);
     }
 
     public static String getPlatformPayShow(int type) {
@@ -42,7 +42,7 @@ public class Bill extends BaseCP implements Parcelable {
         } else if (type == BILL_PLATFORM_PAY_WX) {
             return "微信";
         }
-        return "未知";
+        return String.valueOf(type);
     }
 
     public static String getGoodsTypeShow(int type) {
@@ -59,7 +59,7 @@ public class Bill extends BaseCP implements Parcelable {
         } else if (type == BILL_GOODS_COIN_3) {
             return "金币3";
         }
-        return "未知";
+        return String.valueOf(type);
     }
 
     public String getPlatformOs() {

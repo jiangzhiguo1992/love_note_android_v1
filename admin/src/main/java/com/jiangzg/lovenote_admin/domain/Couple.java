@@ -77,7 +77,7 @@ public class Couple extends BaseObj implements Parcelable {
             case STATUS_TOGETHER:
                 return "在一起";
         }
-        return "未知";
+        return String.valueOf(state);
     }
 
     public static class State extends BaseCP implements Parcelable {

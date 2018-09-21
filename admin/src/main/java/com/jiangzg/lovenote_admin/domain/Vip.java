@@ -25,7 +25,7 @@ public class Vip extends BaseCP implements Parcelable {
             case VIP_FROM_TYPE_USER_BUY:
                 return "用户购买";
         }
-        return "未知";
+        return String.valueOf(type);
     }
 
     public long getBillId() {

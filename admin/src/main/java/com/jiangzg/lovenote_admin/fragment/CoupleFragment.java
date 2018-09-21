@@ -12,6 +12,8 @@ import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.BillListActivity;
 import com.jiangzg.lovenote_admin.activity.CoinListActivity;
 import com.jiangzg.lovenote_admin.activity.CoupleListActivity;
+import com.jiangzg.lovenote_admin.activity.MatchPeriodListActivity;
+import com.jiangzg.lovenote_admin.activity.MatchWorkListActivity;
 import com.jiangzg.lovenote_admin.activity.PlaceListActivity;
 import com.jiangzg.lovenote_admin.activity.PostCommentListActivity;
 import com.jiangzg.lovenote_admin.activity.PostListActivity;
@@ -99,15 +101,6 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     @BindView(R.id.tvNote3)
     TextView tvNote3;
 
-    @BindView(R.id.cvMatch)
-    CardView cvMatch;
-    @BindView(R.id.tvMatch1)
-    TextView tvMatch1;
-    @BindView(R.id.tvMatch2)
-    TextView tvMatch2;
-    @BindView(R.id.tvMatch3)
-    TextView tvMatch3;
-
     @BindView(R.id.cvPost)
     CardView cvPost;
     @BindView(R.id.tvPost1)
@@ -125,6 +118,24 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     TextView tvPostComment2;
     @BindView(R.id.tvPostComment3)
     TextView tvPostComment3;
+
+    @BindView(R.id.cvMatchPeriod)
+    CardView cvMatchPeriod;
+    @BindView(R.id.tvMatchPeriod1)
+    TextView tvMatchPeriod1;
+    @BindView(R.id.tvMatchPeriod2)
+    TextView tvMatchPeriod2;
+    @BindView(R.id.tvMatchPeriod3)
+    TextView tvMatchPeriod3;
+
+    @BindView(R.id.cvMatchWork)
+    CardView cvMatchWork;
+    @BindView(R.id.tvMatchWork1)
+    TextView tvMatchWork1;
+    @BindView(R.id.tvMatchWork2)
+    TextView tvMatchWork2;
+    @BindView(R.id.tvMatchWork3)
+    TextView tvMatchWork3;
 
     public static CoupleFragment newFragment() {
         Bundle bundle = new Bundle();
@@ -150,9 +161,10 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         getSignData();
         getCoinData();
         getNoteData();
-        getMatchData();
         getPostData();
         getPostCommentData();
+        getMatchPeriodData();
+        getMatchWorkData();
     }
 
     @Override
@@ -160,7 +172,7 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
     }
 
     @OnClick({R.id.cvCouple, R.id.cvPlace, R.id.cvBill, R.id.cvVip, R.id.cvSign, R.id.cvCoin,
-            R.id.cvNote, R.id.cvMatch, R.id.cvPost, R.id.cvPostComment})
+            R.id.cvNote, R.id.cvPost, R.id.cvPostComment, R.id.cvMatchPeriod, R.id.cvMatchWork})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvCouple: // 配对
@@ -184,14 +196,17 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
             case R.id.cvNote: // 记录
                 TrendsListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvMatch: // 比拼
-                // TODO
-                break;
             case R.id.cvPost: // 话题帖子
                 PostListActivity.goActivity(mFragment);
                 break;
             case R.id.cvPostComment: // 话题评论
                 PostCommentListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvMatchPeriod: // 比拼期数
+                MatchPeriodListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvMatchWork: // 比拼作品
+                MatchWorkListActivity.goActivity(mFragment);
                 break;
         }
     }
@@ -493,10 +508,6 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
         });
     }
 
-    private void getMatchData() {
-        // TODO
-    }
-
     private void getPostData() {
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
         long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
@@ -579,6 +590,14 @@ public class CoupleFragment extends BaseFragment<CoupleFragment> {
                 tvPostComment3.setText("7d：fail");
             }
         });
+    }
+
+    private void getMatchPeriodData() {
+        // TODO
+    }
+
+    private void getMatchWorkData() {
+        // TODO
     }
 
 }
