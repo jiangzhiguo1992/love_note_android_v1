@@ -241,10 +241,10 @@ public interface API {
     Call<Result> moreMatchWorkDel(@Query("mwid") long mwid);
 
     @GET("more/match/work?report=1")
-    Call<Result> topicMatchWorkReportListGet(@Query("page") int page);
+    Call<Result> moreMatchWorkReportListGet(@Query("page") int page);
 
     @GET("more/match/work?admin=1")
-    Call<Result> topicMatchWorkListGet(@Query("uid") long uid, @Query("mpid") long mpid, @Query("page") int page);
+    Call<Result> moreMatchWorkListGet(@Query("uid") long uid, @Query("mpid") long mpid, @Query("page") int page);
 
     @POST("set/version")
     Call<Result> versionAdd(@Body Version version);
