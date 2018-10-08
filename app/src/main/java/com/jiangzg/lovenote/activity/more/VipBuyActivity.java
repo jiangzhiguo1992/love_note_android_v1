@@ -160,7 +160,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (payPlatform == Bill.BILL_PAY_PLATFORM_ALI) {
-                    String orderInfo = data.getAliOrderInfo();
+                    String orderInfo = data.getOrderInfoAli();
                     startAliPay(orderInfo);
                 } else if (payPlatform == Bill.BILL_PAY_PLATFORM_WX) {
                     startWeChatPay();

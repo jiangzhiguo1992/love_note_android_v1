@@ -160,7 +160,7 @@ public class Result implements Serializable {
         private PostCommentPoint postCommentPoint;
         // more
         private List<Broadcast> broadcastList;
-        private String aliOrderInfo;
+        private String orderInfoAli;
         private VipLimit vipYesLimit;
         private VipLimit vipNoLimit;
         private Vip vip;
@@ -251,12 +251,12 @@ public class Result implements Serializable {
             this.matchCoin = matchCoin;
         }
 
-        public String getAliOrderInfo() {
-            return aliOrderInfo;
+        public String getOrderInfoAli() {
+            return orderInfoAli;
         }
 
-        public void setAliOrderInfo(String aliOrderInfo) {
-            this.aliOrderInfo = aliOrderInfo;
+        public void setOrderInfoAli(String orderInfoAli) {
+            this.orderInfoAli = orderInfoAli;
         }
 
         public VipLimit getVipYesLimit() {

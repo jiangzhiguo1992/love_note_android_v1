@@ -25,7 +25,6 @@ import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
-import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -170,7 +169,7 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
         // coin
         String coinCount;
         if (coin != null) {
-            coinCount = CountHelper.getShowCount2Thousand(coin.getCount());
+            coinCount = String.valueOf(coin.getCount());
         } else {
             coinCount = String.valueOf(0);
         }

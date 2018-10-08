@@ -233,22 +233,24 @@ public class RetrofitHelper {
                 LoginActivity.goActivity(top);
                 break;
             case 403: // 禁止访问,key错误
-            case 410: // 用户被禁用,应该退出应用
-            case 503: // 服务器维护
+            case 404: // url不存在
+            case 405: // method错误
+            case 406: // 用户被禁用,应该退出应用
                 if (ActivityStack.isActivityFinish(top)) return;
-                MaterialDialog dialog503 = DialogHelper.getBuild(top)
-                        .cancelable(false)
+                MaterialDialog dialogMsg = DialogHelper.getBuild(top)
+                        .cancelable(true)
                         .canceledOnTouchOutside(false)
                         .content(message)
-                        .positiveText(R.string.i_know)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
+                        .positiveText(R.string.i_want_feedback)
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                AppUtils.appExit();
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                                SuggestAddActivity.goActivity(top);
                             }
                         })
+                        .negativeText(R.string.i_know)
                         .build();
-                DialogHelper.showWithAnim(dialog503);
+                DialogHelper.showWithAnim(dialogMsg);
                 break;
             case 408: // 请求超时
                 if (ActivityStack.isActivityFinish(top)) return;
@@ -292,7 +294,23 @@ public class RetrofitHelper {
                         .build();
                 DialogHelper.showWithAnim(dialog500);
                 break;
-            default: // 404,405...其他错误
+            case 503: // 服务器维护
+                if (ActivityStack.isActivityFinish(top)) return;
+                MaterialDialog dialog503 = DialogHelper.getBuild(top)
+                        .cancelable(false)
+                        .canceledOnTouchOutside(false)
+                        .content(message + "\n" + SPHelper.getCommonConst().getOfficialGroup())
+                        .positiveText(R.string.i_know)
+                        .dismissListener(new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialog) {
+                                AppUtils.appExit();
+                            }
+                        })
+                        .build();
+                DialogHelper.showWithAnim(dialog503);
+                break;
+            default: // 其他错误
                 if (ActivityStack.isActivityFinish(top)) return;
                 MaterialDialog dialogDef = DialogHelper.getBuild(top)
                         .cancelable(true)
