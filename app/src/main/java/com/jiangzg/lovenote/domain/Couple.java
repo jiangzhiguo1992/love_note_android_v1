@@ -17,12 +17,12 @@ import com.jiangzg.lovenote.helper.SPHelper;
 
 public class Couple extends BaseObj implements Parcelable {
 
-    public static final int STATUS_INVITE = 0; // 正在邀请(SelfVisible)
-    public static final int STATUS_INVITE_CANCEL = 110; // 邀请者撤回(NoVisible)
-    public static final int STATUS_INVITE_REJECT = 120; // 被邀请者拒绝(NoVisible)
-    public static final int STATUS_BREAK = 210; // 正在分手(Visible)/已分手(NoVisible)
-    public static final int STATUS_BREAK_ACCEPT = 220; // 被分手者同意(NoVisible)
-    public static final int STATUS_TOGETHER = 520; // 在一起(Visible)
+    private static final int STATUS_INVITE = 0; // 正在邀请(SelfVisible)
+    private static final int STATUS_INVITE_CANCEL = 110; // 邀请者撤回(NoVisible)
+    private static final int STATUS_INVITE_REJECT = 120; // 被邀请者拒绝(NoVisible)
+    private static final int STATUS_BREAK = 210; // 正在分手(Visible)/已分手(NoVisible)
+    private static final int STATUS_BREAK_ACCEPT = 220; // 被分手者同意(NoVisible)
+    private static final int STATUS_TOGETHER = 520; // 在一起(Visible)
 
     private long creatorId; // 创建者id
     private long inviteeId; // 受邀者id

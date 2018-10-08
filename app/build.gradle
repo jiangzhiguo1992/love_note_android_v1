@@ -67,10 +67,6 @@ android {
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
         }
         //---------------------手机市场----------------------
-        sanxing { // 三星应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sanxing"]
-        }
         xiaomi { // 小米应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
@@ -95,16 +91,32 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
+        chuizi { // 锤子应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "chuizi"]
+        }
         nubiya { // 努比亚应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nubiya"]
+        }
+        yijia { // 一加应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yijia"]
+        }
+        leshi { // 乐视应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "leshi"]
+        }
+        sanxing { // 三星应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sanxing"]
         }
         nuojiya { // 诺基亚应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nuojiya"]
         }
         //---------------------附属市场----------------------
-        yingyongbao { // 应用宝
+        yingyongbao { // 腾讯应用宝
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyongbao"]
         }
@@ -120,22 +132,59 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "taobao"]
         }
+        wostore { // 沃商店
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "wostore"]
+        }
         sougou { // 搜狗应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
         }
+
         //---------------------专职市场----------------------
+        ali { // 阿里应用分发平台
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
+        }
         wandoujia { // 豌豆荚
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "wandoujia"]
         }
-        kuan { // 酷市场
+        anzhi { // 安智
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "anzhi"]
+        }
+        yingyonghui { // 掌上应用汇
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
+        }
+        mumayi { // 木蚂蚁
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "mumayi"]
+        }
+        nineone { // 91手机助手
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nineone"]
+        }
+        pp { // pp手机助手
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "pp"]
+        }
+        liqu { // 历趣
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liqu"]
+        }
+        kuan { // 酷安
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
         }
-        yingyonghui { // 应用汇
+        kupai { // 酷派
             dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kupai"]
+        }
+        jifeng { // 机锋
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jifeng"]
         }
     }
     sourceSets { // 源码设置

@@ -8,6 +8,7 @@ public class Bill {
 
     public static final int BILL_PAY_PLATFORM_ALI = 100;
     public static final int BILL_PAY_PLATFORM_WX = 200;
+
     public static final int BILL_GOODS_VIP_1 = 1101;
     public static final int BILL_GOODS_VIP_2 = 1201;
     public static final int BILL_GOODS_VIP_3 = 1301;

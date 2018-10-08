@@ -250,8 +250,8 @@
     <string name="help_document">帮助文档</string>
     <string name="about_app">关于鱼笙</string>
     <string name="must_comply">一定要遵守哦！</string>
-    <string name="customer_q_num">客服Q号</string>
-    <string name="official_q_group">官方Q群</string>
+    <string name="customer_qq">客服QQ</string>
+    <string name="official_group">官方部落</string>
     <string name="contact_us">联系我们</string>
     <string name="exist_account">退出账号</string>
     <string name="confirm_exist_account">确定要退出账号吗？</string>

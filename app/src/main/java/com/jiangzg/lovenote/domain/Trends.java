@@ -28,7 +28,6 @@ public class Trends extends BaseCP implements Parcelable, MultiItemEntity {
     public static final int TRENDS_CON_TYPE_AUDIO = 300; // 音频
     public static final int TRENDS_CON_TYPE_VIDEO = 310; // 视频
     public static final int TRENDS_CON_TYPE_ALBUM = 320; // 相册
-    public static final int TRENDS_CON_TYPE_PICTURE = 330; // 照片
     public static final int TRENDS_CON_TYPE_WORD = 500; // 留言
     public static final int TRENDS_CON_TYPE_WHISPER = 510; // 耳语
     public static final int TRENDS_CON_TYPE_DIARY = 520; // 日记

@@ -46,8 +46,8 @@ public class SPHelper {
     private static final String FIELD_COMMON_NOTICE_NO_READ_COUNT = "notice_no_read_count";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
-    private static final String FIELD_COMMON_CONST_QQ_CUSTOMER = "qq_customer";
-    private static final String FIELD_COMMON_CONST_QQ_GROUP = "qq_group";
+    private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
+    private static final String FIELD_COMMON_CONST_OFFICIAL_GROUP = "official_group";
     private static final String FIELD_COMMON_CONST_CONTACT_EMAIL = "contact_email";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
@@ -302,8 +302,8 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
         editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
-        editor.putString(FIELD_COMMON_CONST_QQ_CUSTOMER, commonConst.getQQCustomer());
-        editor.putString(FIELD_COMMON_CONST_QQ_GROUP, commonConst.getQQGroup());
+        editor.putString(FIELD_COMMON_CONST_CUSTOMER_QQ, commonConst.getCustomerQQ());
+        editor.putString(FIELD_COMMON_CONST_OFFICIAL_GROUP, commonConst.getOfficialGroup());
         editor.putString(FIELD_COMMON_CONST_CONTACT_EMAIL, commonConst.getContactEmail());
         editor.apply();
     }
@@ -312,8 +312,8 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_CONST);
         CommonConst commonConst = new CommonConst();
         commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
-        commonConst.setQQCustomer(sp.getString(FIELD_COMMON_CONST_QQ_CUSTOMER, ""));
-        commonConst.setQQGroup(sp.getString(FIELD_COMMON_CONST_QQ_GROUP, ""));
+        commonConst.setCustomerQQ(sp.getString(FIELD_COMMON_CONST_CUSTOMER_QQ, ""));
+        commonConst.setOfficialGroup(sp.getString(FIELD_COMMON_CONST_OFFICIAL_GROUP, ""));
         commonConst.setContactEmail(sp.getString(FIELD_COMMON_CONST_CONTACT_EMAIL, ""));
         return commonConst;
     }

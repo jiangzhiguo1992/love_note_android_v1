@@ -128,7 +128,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
             case Trends.TRENDS_CON_TYPE_VIDEO: // 视频
                 return dVideo;
             case Trends.TRENDS_CON_TYPE_ALBUM: // 相册
-            case Trends.TRENDS_CON_TYPE_PICTURE: // 照片
                 return dPhoto;
             case Trends.TRENDS_CON_TYPE_WORD: // 留言
                 return dWord;
@@ -197,7 +196,6 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 VideoListActivity.goActivity(mActivity);
                 break;
             case Trends.TRENDS_CON_TYPE_ALBUM: // 相册
-            case Trends.TRENDS_CON_TYPE_PICTURE: // 照片
                 if (contentId <= Trends.TRENDS_CON_ID_LIST) {
                     AlbumListActivity.goActivity(mActivity);
                 } else {
