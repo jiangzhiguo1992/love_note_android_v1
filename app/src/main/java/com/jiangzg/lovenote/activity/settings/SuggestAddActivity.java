@@ -248,7 +248,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     private void onContentInput(String s) {
         if (limitContentLength <= 0) {
-            limitContentLength = SPHelper.getLimit().getSuggestContentTextLength();
+            limitContentLength = SPHelper.getLimit().getSuggestContentLength();
         }
         int length = s.length();
         if (length > limitContentLength) {

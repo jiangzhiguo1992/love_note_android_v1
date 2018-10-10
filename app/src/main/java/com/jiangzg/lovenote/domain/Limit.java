@@ -14,7 +14,7 @@ public class Limit {
     private int smsMaxCount;
     // settings
     private int suggestTitleLength;
-    private int suggestContentTextLength;
+    private int suggestContentLength;
     private int suggestCommentContentLength;
     // couple
     private long coupleInviteIntervalSec;
@@ -80,7 +80,7 @@ public class Limit {
     private int coinSignMinCount;
     private int coinSignMaxCount;
     private int coinSignIncreaseCount;
-    private int coinWishPerHourCount;
+    private int coinWishPerDayCount;
     private int coinPlanePerDayCount;
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
@@ -278,12 +278,12 @@ public class Limit {
         this.coinSignIncreaseCount = coinSignIncreaseCount;
     }
 
-    public int getCoinWishPerHourCount() {
-        return coinWishPerHourCount;
+    public int getCoinWishPerDayCount() {
+        return coinWishPerDayCount;
     }
 
-    public void setCoinWishPerHourCount(int coinWishPerHourCount) {
-        this.coinWishPerHourCount = coinWishPerHourCount;
+    public void setCoinWishPerDayCount(int coinWishPerDayCount) {
+        this.coinWishPerDayCount = coinWishPerDayCount;
     }
 
     public int getCoinPlanePerDayCount() {
@@ -542,12 +542,12 @@ public class Limit {
         this.suggestTitleLength = suggestTitleLength;
     }
 
-    public int getSuggestContentTextLength() {
-        return suggestContentTextLength;
+    public int getSuggestContentLength() {
+        return suggestContentLength;
     }
 
-    public void setSuggestContentTextLength(int suggestContentTextLength) {
-        this.suggestContentTextLength = suggestContentTextLength;
+    public void setSuggestContentLength(int suggestContentLength) {
+        this.suggestContentLength = suggestContentLength;
     }
 
     public int getSuggestCommentContentLength() {
