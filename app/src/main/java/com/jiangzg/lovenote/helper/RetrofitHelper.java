@@ -20,7 +20,6 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
-import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.activity.settings.SuggestAddActivity;
 import com.jiangzg.lovenote.activity.user.LoginActivity;
 import com.jiangzg.lovenote.activity.user.UserInfoActivity;
@@ -361,22 +360,6 @@ public class RetrofitHelper {
             ToastUtils.show(message);
             if (ActivityStack.isActivityFinish(top)) return;
             CouplePairActivity.goActivity(top);
-        } else if (code == Result.RESULT_CODE_NO_VIP) { // vip
-            if (ActivityStack.isActivityFinish(top)) return;
-            MaterialDialog dialog = DialogHelper.getBuild(top)
-                    .cancelable(true)
-                    .canceledOnTouchOutside(false)
-                    .content(message)
-                    .positiveText(R.string.go_to_know)
-                    .negativeText(R.string.i_know)
-                    .onPositive(new MaterialDialog.SingleButtonCallback() {
-                        @Override
-                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            VipActivity.goActivity(top);
-                        }
-                    })
-                    .build();
-            DialogHelper.showWithAnim(dialog);
         }
     }
 

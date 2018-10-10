@@ -69,98 +69,66 @@ public class VipActivity extends BaseActivity<VipActivity> {
     TextView tvLimitLeftWallSize;
     @BindView(R.id.tvLimitRightWallSize)
     TextView tvLimitRightWallSize;
-    //@BindView(R.id.llLimitWallSize)
-    //LinearLayout llLimitWallSize;
     @BindView(R.id.tvLimitLeftWallCount)
     TextView tvLimitLeftWallCount;
     @BindView(R.id.tvLimitRightWallCount)
     TextView tvLimitRightWallCount;
-    //@BindView(R.id.llLimitWallCount)
-    //LinearLayout llLimitWallCount;
     @BindView(R.id.tvLimitLeftTotal)
     TextView tvLimitLeftTotal;
     @BindView(R.id.tvLimitRightTotal)
     TextView tvLimitRightTotal;
-    //@BindView(R.id.llLimitTotal)
-    //LinearLayout llLimitTotal;
     @BindView(R.id.tvLimitLeftSouvenir)
     TextView tvLimitLeftSouvenir;
     @BindView(R.id.tvLimitRightSouvenir)
     TextView tvLimitRightSouvenir;
-    //@BindView(R.id.llLimitSouvenir)
-    //LinearLayout llLimitSouvenir;
     @BindView(R.id.tvLimitLeftVideoSize)
     TextView tvLimitLeftVideoSize;
     @BindView(R.id.tvLimitRightVideoSize)
     TextView tvLimitRightVideoSize;
-    //@BindView(R.id.llLimitVideoSize)
-    //LinearLayout llLimitVideoSize;
     @BindView(R.id.tvLimitLeftVideoCount)
     TextView tvLimitLeftVideoCount;
     @BindView(R.id.tvLimitRightVideoCount)
     TextView tvLimitRightVideoCount;
-    //@BindView(R.id.llLimitVideoCount)
-    //LinearLayout llLimitVideoCount;
     @BindView(R.id.tvLimitLeftAudioSize)
     TextView tvLimitLeftAudioSize;
     @BindView(R.id.tvLimitRightAudioSize)
     TextView tvLimitRightAudioSize;
-    //@BindView(R.id.llLimitAudioSize)
-    //LinearLayout llLimitAudioSize;
     @BindView(R.id.tvLimitLeftAudioCount)
     TextView tvLimitLeftAudioCount;
     @BindView(R.id.tvLimitRightAudioCount)
     TextView tvLimitRightAudioCount;
-    //@BindView(R.id.llLimitAudioCount)
-    //LinearLayout llLimitAudioCount;
     @BindView(R.id.tvLimitLeftPictureSize)
     TextView tvLimitLeftPictureSize;
     @BindView(R.id.tvLimitRightPictureSize)
     TextView tvLimitRightPictureSize;
-    //@BindView(R.id.llLimitPictureSize)
-    //LinearLayout llLimitPictureSize;
     @BindView(R.id.tvLimitLeftPictureCount)
     TextView tvLimitLeftPictureCount;
     @BindView(R.id.tvLimitRightPictureCount)
     TextView tvLimitRightPictureCount;
-    //@BindView(R.id.llLimitPictureCount)
-    //LinearLayout llLimitPictureCount;
     @BindView(R.id.tvLimitLeftDiaryImageSize)
     TextView tvLimitLeftDiaryImageSize;
     @BindView(R.id.tvLimitRightDiaryImageSize)
     TextView tvLimitRightDiaryImageSize;
-    //@BindView(R.id.llLimitDiaryImageSize)
-    //LinearLayout llLimitDiaryImageSize;
     @BindView(R.id.tvLimitLeftDiaryImageCount)
     TextView tvLimitLeftDiaryImageCount;
     @BindView(R.id.tvLimitRightDiaryImageCount)
     TextView tvLimitRightDiaryImageCount;
-    //@BindView(R.id.llLimitDiaryImageCount)
-    //LinearLayout llLimitDiaryImageCount;
     @BindView(R.id.tvLimitLeftWhisperImage)
     TextView tvLimitLeftWhisperImage;
     @BindView(R.id.tvLimitRightWhisperImage)
     TextView tvLimitRightWhisperImage;
-    //@BindView(R.id.llLimitWhisperImage)
-    //LinearLayout llLimitWhisperImage;
     @BindView(R.id.tvLimitLeftGiftImageCount)
     TextView tvLimitLeftGiftImageCount;
     @BindView(R.id.tvLimitRightGiftImageCount)
     TextView tvLimitRightGiftImageCount;
-    //@BindView(R.id.llLimitGiftImageCount)
-    //LinearLayout llLimitGiftImageCount;
     @BindView(R.id.tvLimitLeftFoodImageCount)
     TextView tvLimitLeftFoodImageCount;
     @BindView(R.id.tvLimitRightFoodImageCount)
     TextView tvLimitRightFoodImageCount;
-    //@BindView(R.id.llLimitFoodImageCount)
-    //LinearLayout llLimitFoodImageCount;
     @BindView(R.id.tvLimitLeftPostImageCount)
     TextView tvLimitLeftPostImageCount;
     @BindView(R.id.tvLimitRightPostImageCount)
     TextView tvLimitRightPostImageCount;
-    //@BindView(R.id.llLimitPostImageCount)
-    //LinearLayout llLimitPostImageCount;
 
     private Vip vip;
     private VipLimit vipYesLimit, vipNoLimit;
@@ -179,6 +147,10 @@ public class VipActivity extends BaseActivity<VipActivity> {
     }
 
     public static void goActivity(Activity from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
         Intent intent = new Intent(from, VipActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);

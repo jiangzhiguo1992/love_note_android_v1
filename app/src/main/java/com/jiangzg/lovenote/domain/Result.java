@@ -15,7 +15,6 @@ public class Result implements Serializable {
     public static final int RESULT_CODE_DIALOG = 11;
     public static final int RESULT_CODE_NO_USER_INFO = 20;
     public static final int RESULT_CODE_NO_CP = 30;
-    public static final int RESULT_CODE_NO_VIP = 40;
 
     private int code;
     private String message;
