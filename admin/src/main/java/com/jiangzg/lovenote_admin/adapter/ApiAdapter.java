@@ -3,6 +3,7 @@ package com.jiangzg.lovenote_admin.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote_admin.R;
 import com.jiangzg.lovenote_admin.activity.UserDetailActivity;
@@ -29,9 +30,10 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String userId = "uid:" + String.valueOf(item.getUserId());
         String duration = String.valueOf(item.getDuration());
-        String uri = item.getUri();
-        String method = item.getMethod();
-        String params = item.getParams();
+        String uri = item.getMethod() + item.getUri();
+        String method = item.getPlatform() + ":" + item.getLanguage();
+        boolean pEmpty = StringUtils.isEmpty(item.getParams());
+        boolean bEmpty = StringUtils.isEmpty(item.getBody());
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvUid, userId);
@@ -39,7 +41,20 @@ public class ApiAdapter extends BaseQuickAdapter<Api, BaseViewHolder> {
         helper.setText(R.id.tvCreate, create);
         helper.setText(R.id.tvUri, uri);
         helper.setText(R.id.tvMethod, method);
-        helper.setText(R.id.tvParams, params);
+        if (pEmpty && bEmpty) {
+            helper.setVisible(R.id.tvParams, false);
+        } else {
+            helper.setVisible(R.id.tvParams, true);
+            String params;
+            if (bEmpty) {
+                params = item.getParams();
+            } else if (pEmpty) {
+                params = item.getBody();
+            } else {
+                params = item.getParams() + "\n" + item.getBody();
+            }
+            helper.setText(R.id.tvParams, params);
+        }
     }
 
     public void goUser(final int position) {

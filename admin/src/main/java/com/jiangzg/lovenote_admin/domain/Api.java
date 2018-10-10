@@ -7,12 +7,30 @@ package com.jiangzg.lovenote_admin.domain;
 public class Api extends BaseObj {
 
     private long userId;
-    private double duration;
+    private String platform;
+    private String language;
     private String uri;
     private String method;
     private String params;
     private String body;
     private String result;
+    private double duration;
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 
     public long getUserId() {
         return userId;
