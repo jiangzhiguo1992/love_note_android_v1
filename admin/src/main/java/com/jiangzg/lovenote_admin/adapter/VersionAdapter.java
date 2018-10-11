@@ -37,6 +37,7 @@ public class VersionAdapter extends BaseQuickAdapter<Version, BaseViewHolder> {
         String id = "id:" + item.getId();
         String create = "c:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String update = "u:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String platform = item.getPlatform();
         String versionName = "name:" + item.getVersionName();
         String versionCode = "code:" + String.valueOf(item.getVersionCode());
         String updateUrl = "url:" + item.getUpdateUrl();
@@ -45,6 +46,7 @@ public class VersionAdapter extends BaseQuickAdapter<Version, BaseViewHolder> {
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvCreate, create);
         helper.setText(R.id.tvUpdate, update);
+        helper.setText(R.id.tvPlatform, platform);
         helper.setText(R.id.tvVersionName, versionName);
         helper.setText(R.id.tvVersionCode, versionCode);
         helper.setText(R.id.tvVersionUrl, updateUrl);

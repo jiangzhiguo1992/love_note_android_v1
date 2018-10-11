@@ -9,10 +9,19 @@ import android.os.Parcelable;
  */
 public class Version extends BaseObj implements Parcelable {
 
+    private String platform;
     private int versionCode;
     private String versionName;
     private String updateLog;
     private String updateUrl;
+
+    public String getPlatform() {
+        return platform;
+    }
+
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
 
     public int getVersionCode() {
         return versionCode;

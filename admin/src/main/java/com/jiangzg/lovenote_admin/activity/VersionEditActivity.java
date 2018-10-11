@@ -33,6 +33,8 @@ public class VersionEditActivity extends BaseActivity<VersionEditActivity> {
     EditText etName;
     @BindView(R.id.etCode)
     EditText etCode;
+    @BindView(R.id.etPlatform)
+    EditText etPlatform;
     @BindView(R.id.etUrl)
     EditText etUrl;
     @BindView(R.id.etLog)
@@ -55,7 +57,8 @@ public class VersionEditActivity extends BaseActivity<VersionEditActivity> {
     @Override
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, "version_edit", true);
-        etUrl.setText(SPHelper.getOssInfo().getPathVersion());
+        etPlatform.setText("android");
+        etUrl.setText(SPHelper.getOssInfo().getPathVersion() + "android/");
     }
 
     @Override
@@ -82,6 +85,7 @@ public class VersionEditActivity extends BaseActivity<VersionEditActivity> {
             ToastUtils.show("code错误");
             return;
         }
+        version.setPlatform(etPlatform.getText().toString());
         version.setVersionName(etName.getText().toString());
         version.setVersionCode(Integer.parseInt(code));
         version.setUpdateUrl(etUrl.getText().toString());
