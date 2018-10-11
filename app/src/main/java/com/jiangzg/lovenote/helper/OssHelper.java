@@ -950,10 +950,11 @@ public class OssHelper {
             String pathLog = ossInfo.getPathLog();
             // 开始遍历上传
             for (final File file : fileList) {
+                String prefix = String.valueOf(Long.MAX_VALUE - DateUtils.getCurrentLong());
                 String name = FileUtils.getFileNameNoExtension(file);
                 String userId = String.valueOf(SPHelper.getMe().getId());
                 String extension = FileUtils.getFileExtension(file);
-                String fileName = name + "_" + userId + extension;
+                String fileName = prefix + "_" + name + "_" + userId + extension;
                 String ossFilePath = pathLog + fileName;
                 uploadFile(null, false, file, ossFilePath, new OssUploadCallBack() {
                     @Override

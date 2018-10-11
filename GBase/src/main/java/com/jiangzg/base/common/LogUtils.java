@@ -24,10 +24,12 @@ public class LogUtils {
 
     private static String logTagPrefix = "<>"; // 用来控制打印前缀
     private static boolean open; // 控制非异常级别的打印
+    private static boolean writeFile; // 控制非异常级别的打印
 
-    public static void initApp(boolean debug) {
+    public static void initApp(boolean debug, boolean writeLog) {
         logTagPrefix = "<" + AppInfo.get().getName() + ">";
         open = debug;
+        writeFile = writeLog;
         // 全局异常捕获机制
         Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
             @Override
@@ -126,7 +128,7 @@ public class LogUtils {
     public static void w(Class cls, String method, String print) {
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         String write = "\n" + tag + ": " + print;
-        writeLogFile("warn", write);
+        if (writeFile) writeLogFile("warn", write);
         if (!open) return;
         Log.w(tag, print);
     }
@@ -137,7 +139,7 @@ public class LogUtils {
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         String print = Log.getStackTraceString(t);
         String write = "\n" + tag + ": " + print;
-        writeLogFile("err", write);
+        if (writeFile) writeLogFile("err", write);
         if (!open) return;
         Log.e(tag, print);
     }
@@ -150,13 +152,13 @@ public class LogUtils {
     }
 
     // 日志写入
-    private static void writeLogFile(String prefix, final String content) {
+    private static void writeLogFile(String suffix, final String content) {
         if (TextUtils.isEmpty(content)) return;
-        String dateTime = DateUtils.getCurrentString(ConstantUtils.FORMAT_LINE_Y_M_D);
-        String logFileName = prefix + "_" + dateTime + ".txt";
+        String dateTime = DateUtils.getCurrentString(ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String logFileName = dateTime + "_" + suffix + ".txt";
         final File logFile = new File(getLogDir(), logFileName);
-        if (logFile.length() >= ConstantUtils.MB) {
-            // 超过1M就不要再写了
+        if (logFile.length() >= ConstantUtils.KB * 100) {
+            // 超过100KB就不要再写了
             return;
         }
         // 开线程

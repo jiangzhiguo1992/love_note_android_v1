@@ -1,10 +1,10 @@
 package com.jiangzg.lovenote_admin.base;
 
-import com.jiangzg.lovenote_admin.helper.FrescoHelper;
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
+import com.jiangzg.lovenote_admin.helper.FrescoHelper;
 
 import butterknife.ButterKnife;
 
@@ -20,7 +20,7 @@ public class MyApp extends AppBase {
     public void onCreate() {
         super.onCreate();
         // 自己的
-        LogUtils.initApp(DEBUG);
+        LogUtils.initApp(DEBUG, false);
         AppListener.initApp(this);
         ActivityStack.initApp();
         // 三方的

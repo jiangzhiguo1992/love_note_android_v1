@@ -16,14 +16,14 @@ import butterknife.ButterKnife;
  */
 public class MyApp extends AppBase {
 
-    public static boolean DEBUG = true; // 测试模式(上线为false)
+    public static boolean DEBUG = true; // TODO 测试模式(上线为false)
 
     @Override
     public void onCreate() {
         super.onCreate();
         // 自己的
         setTheme(ThemeHelper.getTheme());
-        LogUtils.initApp(DEBUG);
+        LogUtils.initApp(DEBUG, true);
         AppListener.initApp(this);
         ActivityStack.initApp();
         ResHelper.initApp();
