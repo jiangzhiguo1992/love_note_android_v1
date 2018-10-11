@@ -20,11 +20,11 @@ import com.jiangzg.lovenote.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.adapter.TopicHomeKindAdapter;
 import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
+import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.PostKindInfo;
 import com.jiangzg.lovenote.domain.PostSubKindInfo;
 import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -122,9 +122,8 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     }
 
     private void refreshMenu() {
-        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
-        Version version = SPHelper.getVersion();
-        boolean redPoint = (noticeNoReadCount > 0) || (version != null);
+        CommonCount commonCount = SPHelper.getCommonCount();
+        boolean redPoint = (commonCount.getNoticeNewCount() > 0) || (commonCount.getVersionNewCount() > 0);
         tb.getMenu().clear();
         tb.inflateMenu(redPoint ? R.menu.help_settings_point : R.menu.help_settings);
     }

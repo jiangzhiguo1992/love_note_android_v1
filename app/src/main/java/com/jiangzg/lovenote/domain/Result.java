@@ -47,16 +47,13 @@ public class Result implements Serializable {
     public static class Data {
 
         private String show;
-        private String showMe;
-        private String showTa;
         private long total;
-        private User user;
         private CommonConst commonConst;
+        private CommonCount commonCount;
         private Limit limit;
         private VipLimit vipLimit;
         private OssInfo ossInfo;
-        private int noticeNoReadCount;
-        private Help help;
+        private User user;
         private Notice notice;
         private List<Notice> noticeList;
         private List<Version> versionList;
@@ -65,51 +62,53 @@ public class Result implements Serializable {
         private List<SuggestComment> suggestCommentList;
         // couple
         private Couple couple;
-        private User userMe;
-        private User userTa;
-        private PairCard pairCard;
-        private int togetherDay;
+        private User userMe; // TODO
+        private User userTa; // TODO
+        private PairCard pairCard; // TODO
+        private int togetherDay; // TODO
         private WallPaper wallPaper;
-        private Place placeMe;
-        private Place placeTa;
+        private Place placeMe; // TODO
+        private Place placeTa; // TODO
         private List<Place> placeList;
-        private WeatherToday weatherTodayMe;
-        private WeatherToday weatherTodayTa;
-        private List<WeatherForecast> weatherForecastListMe;
-        private List<WeatherForecast> weatherForecastListTa;
+        private String showMe; // TODO
+        private String showTa; // TODO
+        private WeatherToday weatherTodayMe; // TODO
+        private WeatherToday weatherTodayTa; // TODO
+        private List<WeatherForecast> weatherForecastListMe; // TODO
+        private List<WeatherForecast> weatherForecastListTa; // TODO
         // note
         private Lock lock;
-        private boolean canLock;
-        private boolean isLock;
+        private boolean canLock; // TODO
+        private boolean isLock; // TODO
         private List<Trends> trendsList;
-        private long totalSouvenir;
-        private long totalWord;
-        private long totalDiary;
-        private long totalAlbum;
-        private long totalPicture;
-        private long totalAudio;
-        private long totalVideo;
-        private long totalFood;
-        private long totalTravel;
-        private long totalGift;
-        private long totalPromise;
-        private long totalAngry;
-        private long totalDream;
-        private long totalAward;
+        private long totalSouvenir; // TODO
+        private long totalWord; // TODO
+        private long totalDiary; // TODO
+        private long totalAlbum; // TODO
+        private long totalPicture; // TODO
+        private long totalAudio; // TODO
+        private long totalVideo; // TODO
+        private long totalFood; // TODO
+        private long totalTravel; // TODO
+        private long totalGift; // TODO
+        private long totalPromise; // TODO
+        private long totalAngry; // TODO
+        private long totalDream; // TODO
+        private long totalAward; // TODO
         private Souvenir souvenirLatest;
         private Souvenir souvenir;
         private List<Souvenir> souvenirList;
         private Menses menses;
-        private boolean canMe;
-        private boolean canTa;
-        private Menses mensesMe;
-        private Menses mensesTa;
+        private boolean canMe; // TODO
+        private boolean canTa; // TODO
+        private Menses mensesMe; // TODO
+        private Menses mensesTa; // TODO
         private List<Menses> mensesList;
         private Shy shy;
         private List<Shy> shyList;
         private Sleep sleep;
-        private Sleep sleepMe;
-        private Sleep sleepTa;
+        private Sleep sleepMe; // TODO
+        private Sleep sleepTa; // TODO
         private List<Sleep> sleepList;
         private Word word;
         private List<Word> wordList;
@@ -139,8 +138,8 @@ public class Result implements Serializable {
         private List<Angry> angryList;
         private Dream dream;
         private List<Dream> dreamList;
-        private AwardScore awardScoreMe;
-        private AwardScore awardScoreTa;
+        private AwardScore awardScoreMe; // TODO
+        private AwardScore awardScoreTa; // TODO
         private Award award;
         private List<Award> awardList;
         private AwardRule awardRule;
@@ -159,9 +158,9 @@ public class Result implements Serializable {
         private PostCommentPoint postCommentPoint;
         // more
         private List<Broadcast> broadcastList;
-        private String orderInfoAli;
-        private VipLimit vipYesLimit;
-        private VipLimit vipNoLimit;
+        private String orderInfoAli; // TODO
+        private VipLimit vipYesLimit; // TODO
+        private VipLimit vipNoLimit; // TODO
         private Vip vip;
         private List<Vip> vipList;
         private Coin coin;
@@ -177,6 +176,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public CommonCount getCommonCount() {
+            return commonCount;
+        }
+
+        public void setCommonCount(CommonCount commonCount) {
+            this.commonCount = commonCount;
+        }
 
         public MatchPeriod getWifePeriod() {
             return wifePeriod;
@@ -954,14 +961,6 @@ public class Result implements Serializable {
             this.notice = notice;
         }
 
-        public int getNoticeNoReadCount() {
-            return noticeNoReadCount;
-        }
-
-        public void setNoticeNoReadCount(int noticeNoReadCount) {
-            this.noticeNoReadCount = noticeNoReadCount;
-        }
-
         public CommonConst getCommonConst() {
             return commonConst;
         }
@@ -1144,14 +1143,6 @@ public class Result implements Serializable {
 
         public void setShow(String show) {
             this.show = show;
-        }
-
-        public Help getHelp() {
-            return help;
-        }
-
-        public void setHelp(Help help) {
-            this.help = help;
         }
 
         public OssInfo getOssInfo() {

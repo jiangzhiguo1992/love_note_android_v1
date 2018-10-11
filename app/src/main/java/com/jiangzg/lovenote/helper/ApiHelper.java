@@ -28,6 +28,7 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.broadcast.OssRefreshReceiver;
 import com.jiangzg.lovenote.domain.CommonConst;
+import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Entry;
 import com.jiangzg.lovenote.domain.Limit;
@@ -206,9 +207,9 @@ public class ApiHelper {
         } else {
             SPHelper.setVersion(versionList.get(0));
         }
-        // noticeNoReadCount
-        int noticeNoReadCount = data.getNoticeNoReadCount();
-        SPHelper.setNoticeNoReadCount(noticeNoReadCount);
+        // commonCount
+        CommonCount commonCount = data.getCommonCount();
+        SPHelper.setCommonCount(commonCount);
         // delay
         long endTime = DateUtils.getCurrentLong();
         long between = endTime - startTime;

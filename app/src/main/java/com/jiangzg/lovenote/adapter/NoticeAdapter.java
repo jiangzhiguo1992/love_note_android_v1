@@ -8,6 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.activity.common.WebActivity;
 import com.jiangzg.lovenote.activity.settings.NoticeDetailActivity;
+import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Notice;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -47,8 +48,9 @@ public class NoticeAdapter extends BaseQuickAdapter<Notice, BaseViewHolder> {
         Notice item = getItem(position);
         // read
         if (!item.isRead()) {
-            int noticeNoReadCount = SPHelper.getNoticeNoReadCount();
-            SPHelper.setNoticeNoReadCount(--noticeNoReadCount);
+            CommonCount commonCount = SPHelper.getCommonCount();
+            commonCount.setNoticeNewCount(commonCount.getNoticeNewCount() - 1);
+            SPHelper.setCommonCount(commonCount);
             noticeRead(item.getId());
         }
         item.setRead(true);

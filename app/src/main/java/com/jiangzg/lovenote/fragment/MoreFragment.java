@@ -29,6 +29,7 @@ import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.domain.Broadcast;
 import com.jiangzg.lovenote.domain.Coin;
+import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.MatchPeriod;
 import com.jiangzg.lovenote.domain.Result;
@@ -151,9 +152,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
-        Version version = SPHelper.getVersion();
-        boolean redPoint = (noticeNoReadCount > 0) || (version != null);
+        CommonCount commonCount = SPHelper.getCommonCount();
+        boolean redPoint = (commonCount.getNoticeNewCount() > 0) || (commonCount.getVersionNewCount() > 0);
         inflater.inflate(redPoint ? R.menu.help_settings_point : R.menu.help_settings, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }

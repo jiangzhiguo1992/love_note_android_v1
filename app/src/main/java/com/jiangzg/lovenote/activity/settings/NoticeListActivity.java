@@ -14,6 +14,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.NoticeAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Notice;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
@@ -105,8 +106,10 @@ public class NoticeListActivity extends BaseActivity<NoticeListActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
-                int noticeNoReadCount = data.getNoticeNoReadCount();
-                SPHelper.setNoticeNoReadCount(noticeNoReadCount);
+                CommonCount newCC = data.getCommonCount();
+                CommonCount oldCC = SPHelper.getCommonCount();
+                oldCC.setNoticeNewCount(newCC == null ? 0 : newCC.getNoticeNewCount());
+                SPHelper.setCommonCount(oldCC);
                 recyclerHelper.viewEmptyShow(data.getShow());
                 List<Notice> noticeList = data.getNoticeList();
                 recyclerHelper.dataOk(noticeList, more);

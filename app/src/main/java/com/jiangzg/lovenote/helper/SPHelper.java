@@ -8,6 +8,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.domain.CommonConst;
+import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Dream;
@@ -31,6 +32,7 @@ public class SPHelper {
     private static final String SHARE_LIMIT = "share_limit";
     private static final String SHARE_VIP_LIMIT = "share_vip_limit";
     private static final String SHARE_COMMON_CONST = "share_common_const";
+    private static final String SHARE_COMMON_COUNT = "share_common_count";
     private static final String SHARE_VERSION = "share_version";
     private static final String SHARE_ME = "share_me";
     private static final String SHARE_TA = "share_ta";
@@ -43,12 +45,14 @@ public class SPHelper {
     private static final String FIELD_COMMON_THEME = "theme";
     private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
     private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
-    private static final String FIELD_COMMON_NOTICE_NO_READ_COUNT = "notice_no_read_count";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
     private static final String FIELD_COMMON_CONST_OFFICIAL_GROUP = "official_group";
     private static final String FIELD_COMMON_CONST_CONTACT_EMAIL = "contact_email";
+    // commonCount
+    private static final String FIELD_COMMON_COUNT_NOTICE_NEW_COUNT = "notice_new_count";
+    private static final String FIELD_COMMON_COUNT_VERSION_NEW_COUNT = "version_new_count";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
     private static final String FIELD_OSS_KEY_ID = "access_key_id";
@@ -281,15 +285,23 @@ public class SPHelper {
         return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
     }
 
-    public static void setNoticeNoReadCount(int count) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, count);
+    public static void setCommonCount(CommonCount commonCount) {
+        if (commonCount == null) {
+            LogUtils.i(SPHelper.class, "setCommonCount", "commonCount == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT).edit();
+        editor.putInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, commonCount.getNoticeNewCount());
+        editor.putInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, commonCount.getVersionNewCount());
         editor.apply();
     }
 
-    public static int getNoticeNoReadCount() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getInt(FIELD_COMMON_NOTICE_NO_READ_COUNT, 0);
+    public static CommonCount getCommonCount() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT);
+        CommonCount commonCount = new CommonCount();
+        commonCount.setNoticeNewCount(sp.getInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, 0));
+        commonCount.setVersionNewCount(sp.getInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, 0));
+        return commonCount;
     }
 
     /**

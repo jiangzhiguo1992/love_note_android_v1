@@ -30,7 +30,6 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.User;
-import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
@@ -112,8 +111,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
         // 关于软件
-        Version version = SPHelper.getVersion();
-        ivAbout.setVisibility(version != null ? View.VISIBLE : View.GONE);
+        ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -124,8 +122,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     protected void onStart() {
         super.onStart();
         // 最新公告
-        long noticeNoReadCount = SPHelper.getNoticeNoReadCount();
-        ivNotice.setVisibility(noticeNoReadCount > 0 ? View.VISIBLE : View.GONE);
+        ivNotice.setVisibility(SPHelper.getCommonCount().getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
