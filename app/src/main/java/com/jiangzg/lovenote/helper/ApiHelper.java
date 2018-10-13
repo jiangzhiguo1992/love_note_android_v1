@@ -388,13 +388,10 @@ public class ApiHelper {
         return sms;
     }
 
-    public static Sms getSmsLockBody() {
+    public static Sms getSmsLockBody(String taPhone) {
         Sms sms = new Sms();
         sms.setSendType(Sms.TYPE_LOCK);
-        User ta = SPHelper.getTa();
-        if (ta != null) {
-            sms.setPhone(ta.getPhone());
-        }
+        sms.setPhone(taPhone);
         return sms;
     }
 

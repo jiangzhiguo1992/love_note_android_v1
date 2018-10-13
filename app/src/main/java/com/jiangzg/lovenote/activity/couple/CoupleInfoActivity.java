@@ -140,10 +140,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        User ta = SPHelper.getTa();
-        if (ta == null || ta.getId() <= 0 || StringUtils.isEmpty(ta.getPhone())) {
-            getTaData();
-        }
+        // ta 对方可能更改手机，需要每次同步
+        getTaData();
     }
 
     @Override

@@ -56,8 +56,6 @@ public class Result implements Serializable {
         private VipLimit vipNoLimit;
         private OssInfo ossInfo;
         private User user;
-        private User userMe; // TODO -> user
-        private User userTa; // TODO -> 和user拆成两个api
         private Notice notice;
         private List<Notice> noticeList;
         private List<Version> versionList;
@@ -967,22 +965,6 @@ public class Result implements Serializable {
 
         public void setCommonConst(CommonConst commonConst) {
             this.commonConst = commonConst;
-        }
-
-        public User getUserMe() {
-            return userMe;
-        }
-
-        public void setUserMe(User userMe) {
-            this.userMe = userMe;
-        }
-
-        public User getUserTa() {
-            return userTa;
-        }
-
-        public void setUserTa(User userTa) {
-            this.userTa = userTa;
         }
 
         public String getShowMe() {

@@ -331,6 +331,7 @@
     <string name="complex">复合</string>
     <string name="i_want_pair_with_ta">我要和TA配对</string>
     <string name="please_input_ta_phone">请输入TA的手机号</string>
+    <string name="un_know_ta_phone">获取不到TA的手机号</string>
     <string name="ta_colon_space_holder" formatted="false">TA: %s</string>
     <string name="quick_pair_deblock_more_posture">快来和TA配对，解锁更多姿势</string>
     <string name="pair_info">配对信息</string>

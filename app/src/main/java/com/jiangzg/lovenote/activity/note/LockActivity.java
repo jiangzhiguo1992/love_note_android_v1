@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
@@ -31,6 +32,7 @@ import com.jiangzg.lovenote.domain.Lock;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Sms;
+import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -86,6 +88,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
     private Call<Result> callToggle;
     private Call<Result> callAddPwd;
     private Call<Result> callModifyPwd;
+    private Call<Result> callTa;
     private Call<Result> callSms;
     private boolean open;
     private int countDownGo = -1;
@@ -126,6 +129,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
         RetrofitHelper.cancel(callToggle);
         RetrofitHelper.cancel(callAddPwd);
         RetrofitHelper.cancel(callModifyPwd);
+        RetrofitHelper.cancel(callTa);
         RetrofitHelper.cancel(callSms);
         stopCountDownTask();
     }
@@ -169,7 +173,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 push();
                 break;
             case R.id.btnSendCode: // 验证码
-                sendCode();
+                getTaData();
                 break;
         }
     }
@@ -364,10 +368,31 @@ public class LockActivity extends BaseActivity<LockActivity> {
         });
     }
 
+    private void getTaData() {
+        callTa = new RetrofitHelper().call(API.class).userGetTa();
+        RetrofitHelper.enqueue(callTa, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                User ta = data.getUser();
+                SPHelper.setTa(ta);
+                sendCode();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
     private void sendCode() {
         btnSendCode.setEnabled(false);
         // 发送验证码
-        Sms body = ApiHelper.getSmsLockBody();
+        User ta = SPHelper.getTa();
+        if (ta == null || StringUtils.isEmpty(ta.getPhone())) {
+            ToastUtils.show(getString(R.string.un_know_ta_phone));
+            return;
+        }
+        Sms body = ApiHelper.getSmsLockBody(ta.getPhone());
         callSms = new RetrofitHelper().call(API.class).smsSend(body);
         MaterialDialog loading = getLoading(getString(R.string.are_send_validate_code), true);
         RetrofitHelper.enqueue(callSms, loading, new RetrofitHelper.CallBack() {
