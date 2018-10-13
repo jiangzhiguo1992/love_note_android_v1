@@ -76,8 +76,7 @@ public class Result implements Serializable {
         private WeatherForecastInfo weatherForecastTa;
         // note
         private Lock lock;
-        private boolean canLock; // TODO
-        private boolean isLock; // TODO
+        private NoteLockInfo noteLockInfo;
         private List<Trends> trendsList;
         private NoteTotal noteTotal;
         private Souvenir souvenirLatest;
@@ -424,20 +423,12 @@ public class Result implements Serializable {
             this.postKindInfoList = postKindInfoList;
         }
 
-        public boolean isCanLock() {
-            return canLock;
+        public NoteLockInfo getNoteLockInfo() {
+            return noteLockInfo;
         }
 
-        public void setCanLock(boolean canLock) {
-            this.canLock = canLock;
-        }
-
-        public boolean isLock() {
-            return isLock;
-        }
-
-        public void setLock(boolean lock) {
-            isLock = lock;
+        public void setNoteLockInfo(NoteLockInfo noteLockInfo) {
+            this.noteLockInfo = noteLockInfo;
         }
 
         public Lock getLock() {

@@ -42,6 +42,7 @@ import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Lock;
+import com.jiangzg.lovenote.domain.NoteLockInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.helper.API;
@@ -64,8 +65,6 @@ import rx.Observable;
 import rx.functions.Action1;
 
 public class NoteFragment extends BasePagerFragment<NoteFragment> {
-
-    private static boolean lockBack = false;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -129,8 +128,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @BindView(R.id.cvRecycle)
     CardView cvRecycle;
 
-    private boolean canLock;
-    private boolean isLock;
+    private NoteLockInfo noteLockInfo; // 默认没锁 + 没解开
     private Souvenir souvenirLatest;
     private Call<Result> call;
     private Observable<Lock> obLockRefresh;
@@ -167,15 +165,15 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     }
 
     protected void loadData() {
-        canLock = false; // 默认没锁
-        isLock = false; // 默认没解开
         // event
         obLockRefresh = RxBus.register(ConsHelper.EVENT_LOCK_REFRESH, new Action1<Lock>() {
             @Override
             public void call(Lock lock) {
-                lockBack = true;
-                canLock = (lock != null);
-                isLock = (lock != null && lock.isLock());
+                if (noteLockInfo == null) {
+                    noteLockInfo = new NoteLockInfo();
+                }
+                noteLockInfo.setCanLock(lock != null);
+                noteLockInfo.setLock(lock != null && lock.isLock());
                 refreshData();
             }
         });
@@ -215,10 +213,10 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             CouplePairActivity.goActivity(mFragment);
             return;
         }
-        if (!lockBack) {
+        if (noteLockInfo == null) {
             // 锁信息没有返回
             return;
-        } else if (canLock && isLock) {
+        } else if (noteLockInfo.isCanLock() && noteLockInfo.isLock()) {
             // 上锁且没有解开
             LockActivity.goActivity(mFragment);
             return;
@@ -304,9 +302,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                lockBack = true;
-                canLock = data.isCanLock();
-                isLock = data.isLock();
+                noteLockInfo = data.getNoteLockInfo();
                 souvenirLatest = data.getSouvenirLatest();
                 refreshNoteView();
             }
@@ -320,7 +316,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     private void refreshNoteView() {
         stopSouvenirCountDownTask();// 先停止倒计时
-        if (!lockBack || (canLock && isLock)) {
+        if (noteLockInfo == null || (noteLockInfo.isCanLock() && noteLockInfo.isLock())) {
             // 锁信息没有返回，或者是上锁且没有解开
             tvSouvenirEmpty.setVisibility(View.VISIBLE);
             rlSouvenir.setVisibility(View.GONE);
