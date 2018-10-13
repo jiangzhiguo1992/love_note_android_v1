@@ -24,6 +24,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.MensesAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Menses;
+import com.jiangzg.lovenote.domain.MensesInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
@@ -73,8 +74,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     RadioButton rbTa;
 
     private boolean isMine;
-    private boolean canMe;
-    private boolean canTa;
+    private MensesInfo mensesInfo;
     private Menses mensesMe;
     private Menses mensesTa;
     private List<Menses> mensesList;
@@ -111,7 +111,9 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         srl.setEnabled(false);
         // data
         isMine = (SPHelper.getMe().getSex() == User.SEX_GIRL);
-        canMe = false;
+        mensesInfo = new MensesInfo();
+        mensesInfo.setCanMe(false);
+        mensesInfo.setCanTa(false);
         // calendar
         initCalendarView();
         // checkView
@@ -237,14 +239,14 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     private void refreshLatestView() {
         // tip
         if (isMine) {
-            if (!canMe || mensesMe == null || mensesMe.getId() <= 0) {
+            if (!mensesInfo.isCanMe() || mensesMe == null || mensesMe.getId() <= 0) {
                 tvTip.setVisibility(View.INVISIBLE);
             } else {
                 tvTip.setVisibility(View.VISIBLE);
                 tvTip.setText(getTipShow(mensesMe));
             }
         } else {
-            if (!canTa || mensesTa == null || mensesTa.getId() <= 0) {
+            if (!mensesInfo.isCanTa() || mensesTa == null || mensesTa.getId() <= 0) {
                 tvTip.setVisibility(View.INVISIBLE);
             } else {
                 tvTip.setVisibility(View.VISIBLE);
@@ -252,7 +254,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             }
         }
         // push
-        if (!canMe) {
+        if (!mensesInfo.isCanMe()) {
             cvPush.setVisibility(View.GONE);
         } else {
             if (mensesMe == null) {
@@ -307,8 +309,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                canMe = data.isCanMe();
-                canTa = data.isCanTa();
+                mensesInfo = data.getMensesInfo();
                 mensesMe = data.getMensesMe();
                 mensesTa = data.getMensesTa();
                 // view

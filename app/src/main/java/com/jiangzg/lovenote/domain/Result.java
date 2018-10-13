@@ -82,8 +82,7 @@ public class Result implements Serializable {
         private Souvenir souvenir;
         private List<Souvenir> souvenirList;
         private Menses menses;
-        private boolean canMe; // TODO
-        private boolean canTa; // TODO
+        private MensesInfo mensesInfo;
         private Menses mensesMe;
         private Menses mensesTa;
         private List<Menses> mensesList;
@@ -157,6 +156,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public MensesInfo getMensesInfo() {
+            return mensesInfo;
+        }
+
+        public void setMensesInfo(MensesInfo mensesInfo) {
+            this.mensesInfo = mensesInfo;
+        }
 
         public WeatherForecastInfo getWeatherForecastMe() {
             return weatherForecastMe;
@@ -476,22 +483,6 @@ public class Result implements Serializable {
 
         public void setMenses(Menses menses) {
             this.menses = menses;
-        }
-
-        public boolean isCanMe() {
-            return canMe;
-        }
-
-        public void setCanMe(boolean canMe) {
-            this.canMe = canMe;
-        }
-
-        public boolean isCanTa() {
-            return canTa;
-        }
-
-        public void setCanTa(boolean canTa) {
-            this.canTa = canTa;
         }
 
         public Menses getMensesMe() {
