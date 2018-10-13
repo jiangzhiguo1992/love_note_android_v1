@@ -7,14 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -22,13 +20,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
-import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
@@ -60,8 +57,6 @@ import retrofit2.Call;
 
 public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
-    @BindView(R.id.root)
-    LinearLayout root;
     @BindView(R.id.abl)
     AppBarLayout abl;
     @BindView(R.id.tb)
@@ -103,7 +98,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private Call<Result> callTaGet;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
-    private File cameraFile;
     private File cropFile;
 
     public static void goActivity(Fragment from) {
@@ -149,6 +143,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         RetrofitHelper.cancel(callTaGet);
         RetrofitHelper.cancel(callUpdateInfo);
         RetrofitHelper.cancel(callUpdateStatus);
+        // 创建成功的cropFile都要删除
+        ResHelper.deleteFileInBackground(cropFile);
     }
 
     @Override
@@ -174,30 +170,22 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile);
             ResHelper.deleteFileInBackground(cropFile);
             return;
         }
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                return;
-            }
-            goCropActivity(cameraFile);
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
-            goCropActivity(pictureFile);
+            cropFile = ResHelper.newImageCacheFile();
+            Intent intent = IntentFactory.getImageCrop(ResHelper.PROVIDER_AUTH, pictureFile, cropFile, 1, 1);
+            ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
         } else if (requestCode == ConsHelper.REQUEST_CROP) {
             // 裁剪
             ossUploadAvatar();
-            ResHelper.deleteFileInBackground(cameraFile);
         }
     }
 
@@ -205,7 +193,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuBreak: // 解散
-                showBreakDialog(SPHelper.getCouple());
+                showBreakDialog();
                 return true;
             case R.id.menuComplex: // 复合
                 coupleStatus(ApiHelper.COUPLE_UPDATE_GOOD);
@@ -285,15 +273,18 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void showAvatarSelect() {
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root, Gravity.CENTER);
-    }
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
 
-    private void goCropActivity(File source) {
-        cropFile = ResHelper.newImageCacheFile();
-        Intent intent = IntentFactory.getImageCrop(ResHelper.PROVIDER_AUTH, source, cropFile, 1, 1);
-        ActivityTrans.startResult(mActivity, intent, ConsHelper.REQUEST_CROP);
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     // 修改名称对话框
@@ -378,7 +369,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-    private void showBreakDialog(final Couple couple) {
+    private void showBreakDialog() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

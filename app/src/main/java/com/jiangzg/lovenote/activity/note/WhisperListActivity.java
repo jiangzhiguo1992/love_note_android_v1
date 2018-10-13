@@ -9,14 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -24,9 +22,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.system.InputUtils;
-import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
@@ -44,7 +43,6 @@ import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
@@ -61,8 +59,6 @@ import retrofit2.Call;
 
 public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
 
-    @BindView(R.id.root)
-    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.tvCurrentChannel)
@@ -84,7 +80,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     private int limitChannelLength;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
-    private File cameraFile;
     private int page;
     private Call<Result> callGet;
 
@@ -146,7 +141,6 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
@@ -158,19 +152,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile);
-            return;
-        }
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                return;
-            }
-            ossUpload(cameraFile);
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -204,7 +187,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 recyclerHelper.dataRefresh();
                 break;
             case R.id.llAddImage: // 添加图片
-                showSelectImgPop();
+                goPicture();
                 break;
             case R.id.llAddText: // 添加文字
                 showEditDialog();
@@ -293,14 +276,23 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     // 图片获取
-    private void showSelectImgPop() {
+    private void goPicture() {
         if (!SPHelper.getVipLimit().isWhisperImageEnable()) {
             VipActivity.goActivity(mActivity);
             return;
         }
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, getChannelShow(), cameraFile);
-        PopUtils.show(window, root, Gravity.CENTER);
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     // 上传
@@ -310,12 +302,10 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             public void success(File source, String ossPath) {
                 Whisper body = ApiHelper.getWhisperBody(channel, true, ossPath);
                 api(body);
-                ResHelper.deleteFileInBackground(cameraFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cameraFile);
             }
         });
     }

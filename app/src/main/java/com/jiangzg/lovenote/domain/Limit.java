@@ -34,7 +34,7 @@ public class Limit {
     private int audioTitleLength;
     private int videoTitleLength;
     private int albumTitleLength;
-    private int pictureCount;
+    private int picturePushCount;
     private int wordContentLength;
     private int whisperContentLength;
     private int whisperChannelLength;
@@ -486,12 +486,12 @@ public class Limit {
         this.noteResExpireSec = noteResExpireSec;
     }
 
-    public int getPictureCount() {
-        return pictureCount;
+    public int getPicturePushCount() {
+        return picturePushCount;
     }
 
-    public void setPictureCount(int pictureCount) {
-        this.pictureCount = pictureCount;
+    public void setPicturePushCount(int picturePushCount) {
+        this.picturePushCount = picturePushCount;
     }
 
     public int getWhisperChannelLength() {

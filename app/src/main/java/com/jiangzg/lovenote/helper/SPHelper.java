@@ -105,7 +105,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_WORD_CONTENT_LENGTH = "word_content_length";
     private static final String FIELD_LIMIT_DIARY_CONTENT_LENGTH = "diary_content_length";
     private static final String FIELD_LIMIT_ALBUM_TITLE_LENGTH = "album_title_length";
-    private static final String FIELD_LIMIT_PICTURE_COUNT = "picture_count";
+    private static final String FIELD_LIMIT_PICTURE_PUSH_COUNT = "picture_push_count";
     private static final String FIELD_LIMIT_AUDIO_TITLE_LENGTH = "audio_title_length";
     private static final String FIELD_LIMIT_VIDEO_TITLE_LENGTH = "video_title_length";
     private static final String FIELD_LIMIT_FOOD_TITLE_LENGTH = "food_title_length";
@@ -432,7 +432,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_WORD_CONTENT_LENGTH, limit.getWordContentLength());
         editor.putInt(FIELD_LIMIT_DIARY_CONTENT_LENGTH, limit.getDiaryContentLength());
         editor.putInt(FIELD_LIMIT_ALBUM_TITLE_LENGTH, limit.getAlbumTitleLength());
-        editor.putInt(FIELD_LIMIT_PICTURE_COUNT, limit.getPictureCount());
+        editor.putInt(FIELD_LIMIT_PICTURE_PUSH_COUNT, limit.getPicturePushCount());
         editor.putInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, limit.getAudioTitleLength());
         editor.putInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, limit.getVideoTitleLength());
         editor.putInt(FIELD_LIMIT_FOOD_TITLE_LENGTH, limit.getFoodTitleLength());
@@ -511,7 +511,7 @@ public class SPHelper {
         limit.setWordContentLength(sp.getInt(FIELD_LIMIT_WORD_CONTENT_LENGTH, 100));
         limit.setDiaryContentLength(sp.getInt(FIELD_LIMIT_DIARY_CONTENT_LENGTH, 2000));
         limit.setAlbumTitleLength(sp.getInt(FIELD_LIMIT_ALBUM_TITLE_LENGTH, 10));
-        limit.setPictureCount(sp.getInt(FIELD_LIMIT_PICTURE_COUNT, 1));
+        limit.setPicturePushCount(sp.getInt(FIELD_LIMIT_PICTURE_PUSH_COUNT, 1));
         limit.setAudioTitleLength(sp.getInt(FIELD_LIMIT_AUDIO_TITLE_LENGTH, 20));
         limit.setVideoTitleLength(sp.getInt(FIELD_LIMIT_VIDEO_TITLE_LENGTH, 20));
         limit.setFoodTitleLength(sp.getInt(FIELD_LIMIT_FOOD_TITLE_LENGTH, 20));

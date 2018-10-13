@@ -3,18 +3,15 @@ package com.jiangzg.lovenote.activity.more;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -25,10 +22,11 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
@@ -47,7 +45,6 @@ import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -65,8 +62,6 @@ import retrofit2.Call;
 
 public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
-    @BindView(R.id.root)
-    CoordinatorLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -89,7 +84,6 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     private Call<Result> callAdd;
     private int page;
     private int orderIndex;
-    private File cameraFile;
 
     public static void goActivity(Fragment from, MatchPeriod period) {
         Intent intent = new Intent(from.getActivity(), MatchWifeListActivity.class);
@@ -186,7 +180,6 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callAdd);
         RecyclerHelper.release(recyclerHelper);
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
@@ -198,19 +191,8 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile);
-            return;
-        }
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                return;
-            }
-            ossUpload(cameraFile);
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -241,7 +223,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                showSelectImgPop();
+                goPicture();
                 break;
         }
     }
@@ -343,14 +325,23 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     }
 
     // 图片获取
-    private void showSelectImgPop() {
+    private void goPicture() {
         if (Couple.isBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(mActivity);
             return;
         }
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow window = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-        PopUtils.show(window, root, Gravity.CENTER);
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     // 上传
@@ -361,12 +352,10 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             public void success(File source, String ossPath) {
                 MatchWork body = ApiHelper.getMatchWifeBody(period.getId(), ossPath);
                 api(body);
-                ResHelper.deleteFileInBackground(cameraFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cameraFile);
             }
         });
     }

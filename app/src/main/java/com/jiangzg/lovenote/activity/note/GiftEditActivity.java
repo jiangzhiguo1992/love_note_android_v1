@@ -8,14 +8,11 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,9 +22,10 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.ImgSquareEditAdapter;
@@ -42,7 +40,6 @@ import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -60,8 +57,6 @@ import retrofit2.Call;
 
 public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
-    @BindView(R.id.root)
-    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.etTitle)
@@ -86,8 +81,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private Call<Result> callUpdate;
     private Call<Result> callAdd;
     private Call<Result> callDel;
-    private File cameraFile;
-    private List<File> cameraFileList;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftEditActivity.class);
@@ -166,8 +159,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         RetrofitHelper.cancel(callUpdate);
         RetrofitHelper.cancel(callDel);
         RecyclerHelper.release(recyclerHelper);
-        // 创建成功的cameraFile都要删除
-        ResHelper.deleteFileListInBackground(cameraFileList);
     }
 
     @Override
@@ -183,33 +174,17 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK || gift == null) {
-            ResHelper.deleteFileInBackground(cameraFile);
-            return;
-        }
-        if (recyclerHelper == null) return;
-        ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
-        if (adapter == null) return;
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                return;
-            }
-            adapter.addFileData(cameraFile.getAbsolutePath());
-            if (cameraFileList == null) {
-                cameraFileList = new ArrayList<>();
-            }
-            cameraFileList.add(FileUtils.getFileByPath(cameraFile.getAbsolutePath())); // 创建成功的cameraFile都要记录
-            cameraFile = null; // 解除引用，防止误删
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (pictureFile == null || FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
+            if (recyclerHelper == null) return;
+            ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
+            if (adapter == null) return;
             adapter.addFileData(pictureFile.getAbsolutePath());
         }
     }
@@ -277,7 +252,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
             @Override
             public void onAdd() {
-                showImgSelect();
+                goPicture();
             }
         });
         if (gift.getContentImageList() != null && gift.getContentImageList().size() > 0) {
@@ -308,10 +283,19 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         tvHappenAt.setText(happen);
     }
 
-    private void showImgSelect() {
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root, Gravity.CENTER);
+    private void goPicture() {
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     private void checkPush() {

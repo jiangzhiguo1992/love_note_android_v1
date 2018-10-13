@@ -6,14 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,8 +18,9 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -35,7 +33,6 @@ import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -54,8 +51,6 @@ import retrofit2.Call;
 
 public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
-    @BindView(R.id.root)
-    RelativeLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.ivAdd)
@@ -69,7 +64,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
 
     private Album album;
     private int limitTitleLength;
-    private File cameraFile;
     private File pictureFile;
     private Call<Result> callAdd;
     private Call<Result> callUpdate;
@@ -121,9 +115,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             @Override
             public void onSuccessClick(FrescoView iv) {
                 if (album == null) return;
-                if (!FileUtils.isFileEmpty(cameraFile)) {
-                    BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
-                } else if (!FileUtils.isFileEmpty(pictureFile)) {
+                if (!FileUtils.isFileEmpty(pictureFile)) {
                     BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
                 } else if (!StringUtils.isEmpty(album.getCover())) {
                     BigImageActivity.goActivityByOss(mActivity, album.getCover(), iv);
@@ -141,27 +133,13 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callUpdate);
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile);
-            return;
-        }
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                setCoverVisible(false);
-            } else {
-                setCoverVisible(true);
-                ivAlbum.setDataFile(cameraFile);
-            }
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -184,7 +162,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAdd: // 封面图片
-                showImgSelect();
+                goPicture();
                 break;
             case R.id.btnCommit: // 提交
                 checkCover();
@@ -242,10 +220,19 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         btnCommit.setEnabled(length > 0);
     }
 
-    private void showImgSelect() {
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root, Gravity.CENTER);
+    private void goPicture() {
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     private void showDeleteDialog() {
@@ -258,7 +245,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        ResHelper.deleteFileInBackground(cameraFile);
                         setCoverVisible(false);
                     }
                 })
@@ -269,7 +255,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     private void setCoverVisible(boolean show) {
         if (album == null) return;
         if (!show) {
-            cameraFile = null;
             pictureFile = null;
             album.setCover("");
         }
@@ -278,9 +263,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void checkCover() {
-        if (!FileUtils.isFileEmpty(cameraFile)) {
-            pushImage(cameraFile);
-        } else if (!FileUtils.isFileEmpty(pictureFile)) {
+        if (!FileUtils.isFileEmpty(pictureFile)) {
             pushImage(pictureFile);
         } else {
             commit();

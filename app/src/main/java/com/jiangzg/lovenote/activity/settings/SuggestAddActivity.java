@@ -6,22 +6,20 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.DialogUtils;
-import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -36,7 +34,6 @@ import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -54,8 +51,6 @@ import retrofit2.Call;
 
 public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
-    @BindView(R.id.root)
-    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.tvKind)
@@ -76,7 +71,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     Button btnPush;
 
     private int kind = 0;
-    private File cameraFile;
     private File pictureFile;
     private List<SuggestInfo.SuggestKind> suggestKindList;
     private int limitTitleLength;
@@ -135,9 +129,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         ivImage.setSuccessClickListener(new FrescoNativeView.onSuccessClickListener() {
             @Override
             public void onClick(FrescoNativeView iv) {
-                if (!FileUtils.isFileEmpty(cameraFile)) {
-                    BigImageActivity.goActivityByFile(mActivity, cameraFile.getAbsolutePath(), iv);
-                } else if (!FileUtils.isFileEmpty(pictureFile)) {
+                if (!FileUtils.isFileEmpty(pictureFile)) {
                     BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
                 }
             }
@@ -153,29 +145,13 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(call);
-        ResHelper.deleteFileInBackground(cameraFile);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile);
-            return;
-        }
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                ivImage.setVisibility(View.GONE);
-                tvImageToggle.setText(R.string.click_me_add_image);
-            } else {
-                ivImage.setVisibility(View.VISIBLE);
-                ivImage.setDataFile(cameraFile);
-                tvImageToggle.setText(R.string.click_me_to_del_image);
-            }
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -207,19 +183,27 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void toggleImage() {
-        if (FileUtils.isFileEmpty(cameraFile) && FileUtils.isFileEmpty(pictureFile)) {
-            cameraFile = null;
+        if (FileUtils.isFileEmpty(pictureFile)) {
             pictureFile = null;
-            showImgSelect();
+            goPicture();
         } else {
             cancelImage();
         }
     }
 
-    private void showImgSelect() {
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root, Gravity.CENTER);
+    private void goPicture() {
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     // 取消图片
@@ -227,7 +211,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         tvImageToggle.setText(R.string.click_me_add_image);
         ivImage.setVisibility(View.GONE);
         // 释放图片资源
-        ResHelper.deleteFileInBackground(cameraFile);
         pictureFile = null;
     }
 
@@ -306,9 +289,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             ToastUtils.show(getString(R.string.please_input_content));
             return;
         }
-        if (!FileUtils.isFileEmpty(cameraFile)) {
-            pushImage(cameraFile);
-        } else if (!FileUtils.isFileEmpty(pictureFile)) {
+        if (!FileUtils.isFileEmpty(pictureFile)) {
             pushImage(pictureFile);
         } else {
             pushSuggest("");

@@ -7,20 +7,18 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.view.PopUtils;
+import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
@@ -33,9 +31,9 @@ import com.jiangzg.lovenote.domain.WallPaper;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -51,8 +49,6 @@ import retrofit2.Call;
 
 public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivity> {
 
-    @BindView(R.id.root)
-    LinearLayout root;
     @BindView(R.id.tb)
     Toolbar tb;
     @BindView(R.id.srl)
@@ -63,7 +59,6 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private RecyclerHelper recyclerHelper;
     private Call<Result> callUpdate;
     private Call<Result> callGet;
-    private File cameraFile;
 
     public static void goActivity(Fragment from) {
         if (Couple.isBreak(SPHelper.getCouple())) {
@@ -127,19 +122,8 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != RESULT_OK) {
-            ResHelper.deleteFileInBackground(cameraFile);
-            return;
-        }
-        if (requestCode == ConsHelper.REQUEST_CAMERA) {
-            // 拍照
-            if (FileUtils.isFileEmpty(cameraFile)) {
-                ToastUtils.show(getString(R.string.file_no_exits));
-                ResHelper.deleteFileInBackground(cameraFile);
-                return;
-            }
-            ossUploadWall(cameraFile);
-        } else if (requestCode == ConsHelper.REQUEST_PICTURE) {
+        if (resultCode != RESULT_OK) return;
+        if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
             File pictureFile = IntentResult.getPictureFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
@@ -190,9 +174,18 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     }
 
     public void showImgSelect() {
-        cameraFile = ResHelper.newImageCacheFile();
-        PopupWindow popupWindow = ViewHelper.createPictureCameraPop(mActivity, cameraFile);
-        PopUtils.show(popupWindow, root, Gravity.CENTER);
+        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                Intent picture = IntentFactory.getPicture();
+                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(mActivity);
+            }
+        });
     }
 
     // oss上传头像
@@ -201,12 +194,10 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             @Override
             public void success(File source, String ossPath) {
                 apiPushData(ossPath);
-                ResHelper.deleteFileInBackground(cameraFile);
             }
 
             @Override
             public void failure(File source, String errMsg) {
-                ResHelper.deleteFileInBackground(cameraFile);
             }
         });
     }
@@ -214,8 +205,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
     private void apiPushData(String ossPath) {
         if (recyclerHelper == null) return;
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
-        List<String> objects = new ArrayList<>();
-        objects.addAll(adapter.getData());
+        List<String> objects = new ArrayList<>(adapter.getData());
         objects.add(ossPath);
         WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
         callUpdate = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
