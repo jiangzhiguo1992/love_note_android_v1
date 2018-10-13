@@ -76,7 +76,6 @@ public class Result implements Serializable {
         private WeatherForecastInfo weatherForecastTa;
         // note
         private Lock lock;
-        private NoteLockInfo noteLockInfo;
         private List<Trends> trendsList;
         private NoteTotal noteTotal;
         private Souvenir souvenirLatest;
@@ -421,14 +420,6 @@ public class Result implements Serializable {
 
         public void setPostKindInfoList(List<PostKindInfo> postKindInfoList) {
             this.postKindInfoList = postKindInfoList;
-        }
-
-        public NoteLockInfo getNoteLockInfo() {
-            return noteLockInfo;
-        }
-
-        public void setNoteLockInfo(NoteLockInfo noteLockInfo) {
-            this.noteLockInfo = noteLockInfo;
         }
 
         public Lock getLock() {
