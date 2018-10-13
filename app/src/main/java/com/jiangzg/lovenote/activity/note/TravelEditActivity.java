@@ -459,8 +459,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void refreshPlaceView() {
         if (travel == null || recyclerPlace == null) return;
-        List<TravelPlace> placeList = new ArrayList<>();
-        placeList.addAll(travel.getTravelPlaceList() == null ? new ArrayList<TravelPlace>() : travel.getTravelPlaceList()); // 不能用引用
+        List<TravelPlace> travelPlaces = travel.getTravelPlaceList() == null ? new ArrayList<TravelPlace>() : travel.getTravelPlaceList();
+        // 不能直接引用，得转移
+        List<TravelPlace> placeList = new ArrayList<>(travelPlaces);
         recyclerPlace.dataNew(placeList, 0);
     }
 

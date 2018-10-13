@@ -88,8 +88,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     private void delImgApi(final int position) {
         List<String> data = getData();
         if (data.size() <= position) return;
-        List<String> objects = new ArrayList<>();
-        objects.addAll(data);
+        List<String> objects = new ArrayList<>(data);
         objects.remove(position);
         WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
         Call<Result> call = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);

@@ -61,8 +61,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
             @Override
             public void onSuccessClick(FrescoView iv) {
                 List<String> data = ImgSquareShowAdapter.this.getData();
-                ArrayList<String> pathList = new ArrayList<>();
-                pathList.addAll(data);
+                ArrayList<String> pathList = new ArrayList<>(data);
                 BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
             }
         });
