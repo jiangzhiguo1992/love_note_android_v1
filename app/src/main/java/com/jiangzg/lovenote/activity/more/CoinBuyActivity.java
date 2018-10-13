@@ -23,6 +23,7 @@ import com.jiangzg.lovenote.domain.Bill;
 import com.jiangzg.lovenote.domain.Coin;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Limit;
+import com.jiangzg.lovenote.domain.OrderBefore;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.API;
@@ -143,7 +144,7 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
         btnWeChatPay.setEnabled(true);
     }
 
-    public void payBefore(final int payPlatform) {
+    public void payBefore(int payPlatform) {
         final int goods;
         if (rbGoods1.isChecked()) {
             goods = Bill.BILL_GOODS_COIN_1;
@@ -159,10 +160,13 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
         RetrofitHelper.enqueue(callBefore, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                if (payPlatform == Bill.BILL_PAY_PLATFORM_ALI) {
-                    String orderInfo = data.getOrderInfoAli();
-                    startAliPay(orderInfo);
-                } else if (payPlatform == Bill.BILL_PAY_PLATFORM_WX) {
+                OrderBefore orderBefore = data.getOrderBefore();
+                if (orderBefore == null) return;
+                int platform = orderBefore.getPlatform();
+                if (platform == Bill.BILL_PAY_PLATFORM_ALI) {
+                    String aliOrder = orderBefore.getAliOrder();
+                    startAliPay(aliOrder);
+                } else if (platform == Bill.BILL_PAY_PLATFORM_WX) {
                     startWeChatPay();
                 }
             }
