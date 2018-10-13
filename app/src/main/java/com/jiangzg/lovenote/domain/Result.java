@@ -64,18 +64,16 @@ public class Result implements Serializable {
         private List<SuggestComment> suggestCommentList;
         // couple
         private Couple couple;
-        private PairCard pairCard; // TODO
-        private int togetherDay; // TODO
+        private PairCard pairCard;
+        private int togetherDay;
         private WallPaper wallPaper;
-        private Place placeMe; // TODO
-        private Place placeTa; // TODO
+        private Place placeMe;
+        private Place placeTa;
         private List<Place> placeList;
-        private WeatherToday weatherTodayMe; // TODO
-        private WeatherToday weatherTodayTa; // TODO
-        private List<WeatherForecast> weatherForecastListMe; // TODO
-        private List<WeatherForecast> weatherForecastListTa; // TODO
-        private String showMe; // TODO
-        private String showTa; // TODO
+        private WeatherToday weatherTodayMe;
+        private WeatherToday weatherTodayTa;
+        private WeatherForecastInfo weatherForecastMe;
+        private WeatherForecastInfo weatherForecastTa;
         // note
         private Lock lock;
         private boolean canLock; // TODO
@@ -101,14 +99,14 @@ public class Result implements Serializable {
         private Menses menses;
         private boolean canMe; // TODO
         private boolean canTa; // TODO
-        private Menses mensesMe; // TODO
-        private Menses mensesTa; // TODO
+        private Menses mensesMe;
+        private Menses mensesTa;
         private List<Menses> mensesList;
         private Shy shy;
         private List<Shy> shyList;
         private Sleep sleep;
-        private Sleep sleepMe; // TODO
-        private Sleep sleepTa; // TODO
+        private Sleep sleepMe;
+        private Sleep sleepTa;
         private List<Sleep> sleepList;
         private Word word;
         private List<Word> wordList;
@@ -138,8 +136,8 @@ public class Result implements Serializable {
         private List<Angry> angryList;
         private Dream dream;
         private List<Dream> dreamList;
-        private AwardScore awardScoreMe; // TODO
-        private AwardScore awardScoreTa; // TODO
+        private AwardScore awardScoreMe;
+        private AwardScore awardScoreTa;
         private Award award;
         private List<Award> awardList;
         private AwardRule awardRule;
@@ -174,6 +172,22 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public WeatherForecastInfo getWeatherForecastMe() {
+            return weatherForecastMe;
+        }
+
+        public void setWeatherForecastMe(WeatherForecastInfo weatherForecastMe) {
+            this.weatherForecastMe = weatherForecastMe;
+        }
+
+        public WeatherForecastInfo getWeatherForecastTa() {
+            return weatherForecastTa;
+        }
+
+        public void setWeatherForecastTa(WeatherForecastInfo weatherForecastTa) {
+            this.weatherForecastTa = weatherForecastTa;
+        }
 
         public CommonCount getCommonCount() {
             return commonCount;
@@ -895,22 +909,6 @@ public class Result implements Serializable {
             this.weatherTodayTa = weatherTodayTa;
         }
 
-        public List<WeatherForecast> getWeatherForecastListMe() {
-            return weatherForecastListMe;
-        }
-
-        public void setWeatherForecastListMe(List<WeatherForecast> weatherForecastListMe) {
-            this.weatherForecastListMe = weatherForecastListMe;
-        }
-
-        public List<WeatherForecast> getWeatherForecastListTa() {
-            return weatherForecastListTa;
-        }
-
-        public void setWeatherForecastListTa(List<WeatherForecast> weatherForecastListTa) {
-            this.weatherForecastListTa = weatherForecastListTa;
-        }
-
         public int getTogetherDay() {
             return togetherDay;
         }
@@ -965,22 +963,6 @@ public class Result implements Serializable {
 
         public void setCommonConst(CommonConst commonConst) {
             this.commonConst = commonConst;
-        }
-
-        public String getShowMe() {
-            return showMe;
-        }
-
-        public void setShowMe(String showMe) {
-            this.showMe = showMe;
-        }
-
-        public String getShowTa() {
-            return showTa;
-        }
-
-        public void setShowTa(String showTa) {
-            this.showTa = showTa;
         }
 
         public Album getAlbum() {

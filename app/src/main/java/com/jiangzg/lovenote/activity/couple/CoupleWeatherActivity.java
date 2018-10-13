@@ -19,6 +19,7 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.WeatherForecast;
+import com.jiangzg.lovenote.domain.WeatherForecastInfo;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
@@ -149,12 +150,20 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
                 if (srl == null || recyclerHelper == null) return;
                 srl.setRefreshing(false);
                 // right
-                String myShow = data.getShowMe();
-                List<WeatherForecast> myWeatherForecastList = data.getWeatherForecastListMe();
+                WeatherForecastInfo weatherForecastMe = data.getWeatherForecastMe();
+                if (weatherForecastMe == null) {
+                    weatherForecastMe = new WeatherForecastInfo();
+                }
+                String myShow = weatherForecastMe.getShow();
+                List<WeatherForecast> myWeatherForecastList = weatherForecastMe.getWeatherForecastList();
                 setTopViewRight(myShow, myWeatherForecastList);
                 // left
-                String taShow = data.getShowTa();
-                List<WeatherForecast> taWeatherForecastList = data.getWeatherForecastListTa();
+                WeatherForecastInfo dataWeatherForecastTa = data.getWeatherForecastTa();
+                if (dataWeatherForecastTa == null) {
+                    dataWeatherForecastTa = new WeatherForecastInfo();
+                }
+                String taShow = dataWeatherForecastTa.getShow();
+                List<WeatherForecast> taWeatherForecastList = dataWeatherForecastTa.getWeatherForecastList();
                 setTopViewLeft(taShow, taWeatherForecastList);
                 // recycler
                 WeatherForecastAdapter adapter = recyclerHelper.getAdapter();
