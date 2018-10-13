@@ -52,8 +52,12 @@ public class Result implements Serializable {
         private CommonCount commonCount;
         private Limit limit;
         private VipLimit vipLimit;
+        private VipLimit vipYesLimit;
+        private VipLimit vipNoLimit;
         private OssInfo ossInfo;
         private User user;
+        private User userMe; // TODO -> user
+        private User userTa; // TODO -> 和user拆成两个api
         private Notice notice;
         private List<Notice> noticeList;
         private List<Version> versionList;
@@ -62,20 +66,18 @@ public class Result implements Serializable {
         private List<SuggestComment> suggestCommentList;
         // couple
         private Couple couple;
-        private User userMe; // TODO
-        private User userTa; // TODO
         private PairCard pairCard; // TODO
         private int togetherDay; // TODO
         private WallPaper wallPaper;
         private Place placeMe; // TODO
         private Place placeTa; // TODO
         private List<Place> placeList;
-        private String showMe; // TODO
-        private String showTa; // TODO
         private WeatherToday weatherTodayMe; // TODO
         private WeatherToday weatherTodayTa; // TODO
         private List<WeatherForecast> weatherForecastListMe; // TODO
         private List<WeatherForecast> weatherForecastListTa; // TODO
+        private String showMe; // TODO
+        private String showTa; // TODO
         // note
         private Lock lock;
         private boolean canLock; // TODO
@@ -159,8 +161,6 @@ public class Result implements Serializable {
         // more
         private List<Broadcast> broadcastList;
         private String orderInfoAli; // TODO
-        private VipLimit vipYesLimit; // TODO
-        private VipLimit vipNoLimit; // TODO
         private Vip vip;
         private List<Vip> vipList;
         private Coin coin;
