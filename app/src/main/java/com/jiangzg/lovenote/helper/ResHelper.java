@@ -12,9 +12,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.BroadcastUtils;
-import com.jiangzg.base.system.LanguageUtils;
 import com.jiangzg.base.system.PermUtils;
-import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
 
 import java.io.File;
@@ -152,7 +150,7 @@ public class ResHelper {
      */
     // 图片-oss目录
     public static String getOssResDirPath() {
-        String dir; // 7.0以下不能分享文件给外部应用
+        String dir; // 7.0以下不能分享文件给外部应用(主要是音视频播放)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             dir = AppInfo.get().getInFilesDir();
         } else {
@@ -210,7 +208,7 @@ public class ResHelper {
             return null;
         }
         String[] split = objectKey.split("/");
-        if (split.length < 0) {
+        if (split.length < 1) {
             LogUtils.w(ResHelper.class, "newSdCardImageFile", "split == null");
             return null;
         }

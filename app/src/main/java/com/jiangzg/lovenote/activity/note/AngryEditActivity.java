@@ -139,7 +139,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
 
     private void showDatePicker() {
         if (angry == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 angry.setHappenAt(TimeHelper.getGoTimeByJava(time));

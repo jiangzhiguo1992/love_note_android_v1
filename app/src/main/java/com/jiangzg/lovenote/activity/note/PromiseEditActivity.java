@@ -178,7 +178,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
     private void showDatePicker() {
         if (promise == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(promise.getHappenAt()), new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(promise.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 promise.setHappenAt(TimeHelper.getGoTimeByJava(time));

@@ -218,7 +218,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void showDatePicker() {
         if (diary == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(diary.getHappenAt()), new DialogHelper.OnPickListener() {
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(diary.getHappenAt()), new DialogHelper.OnPickListener() {
             @Override
             public void onPick(long time) {
                 diary.setHappenAt(TimeHelper.getGoTimeByJava(time));

@@ -58,7 +58,7 @@ public class OssHelper {
         OssInfo ossInfo = SPHelper.getOssInfo();
         String expireTime = DateUtils.getString(TimeHelper.getJavaTimeByGo(ossInfo.getStsExpireTime()), ConstantUtils.FORMAT_LINE_M_D_H_M);
         LogUtils.i(OssHelper.class, "refreshOssClient", "sts将在 " + expireTime + " 过期");
-        String bucket = ossInfo.getBucket();
+        //String bucket = ossInfo.getBucket();
         String accessKeyId = ossInfo.getAccessKeyId();
         String accessKeySecret = ossInfo.getAccessKeySecret();
         String securityToken = ossInfo.getSecurityToken();
@@ -856,6 +856,37 @@ public class OssHelper {
     /**
      * *****************************************具体对接*****************************************
      */
+    // 上传本地Log日志，然后再删除这些日志
+    public static void uploadLog() {
+        File logDir = LogUtils.getLogDir();
+        List<File> fileList = FileUtils.listFilesAndDirInDir(logDir, true);
+        // 不存在不上传
+        if (fileList != null && fileList.size() > 0) {
+            OssInfo ossInfo = SPHelper.getOssInfo();
+            String pathLog = ossInfo.getPathLog();
+            // 开始遍历上传
+            for (final File file : fileList) {
+                String prefix = String.valueOf(Long.MAX_VALUE - DateUtils.getCurrentLong());
+                String name = FileUtils.getFileNameNoExtension(file);
+                String userId = String.valueOf(SPHelper.getMe().getId());
+                String extension = FileUtils.getFileExtension(file);
+                String fileName = prefix + "_" + name + "_" + userId + extension;
+                String ossFilePath = pathLog + fileName;
+                uploadFile(null, false, file, ossFilePath, new OssUploadCallBack() {
+                    @Override
+                    public void success(File source, String ossPath) {
+                        // 记得删除
+                        FileUtils.deleteFile(file);
+                    }
+
+                    @Override
+                    public void failure(File source, String errMsg) {
+                    }
+                });
+            }
+        }
+    }
+
     // apk
     public static void downloadApk(Activity activity, String objectKey, File target, OssDownloadCallBack callBack) {
         MaterialDialog progress = null;
@@ -938,37 +969,6 @@ public class OssHelper {
                 DialogHelper.showGoPermDialog(activity);
             }
         });
-    }
-
-    // 上传本地Log日志，然后再删除这些日志
-    public static void uploadLog() {
-        File logDir = LogUtils.getLogDir();
-        List<File> fileList = FileUtils.listFilesAndDirInDir(logDir, true);
-        // 不存在不上传
-        if (fileList != null && fileList.size() > 0) {
-            OssInfo ossInfo = SPHelper.getOssInfo();
-            String pathLog = ossInfo.getPathLog();
-            // 开始遍历上传
-            for (final File file : fileList) {
-                String prefix = String.valueOf(Long.MAX_VALUE - DateUtils.getCurrentLong());
-                String name = FileUtils.getFileNameNoExtension(file);
-                String userId = String.valueOf(SPHelper.getMe().getId());
-                String extension = FileUtils.getFileExtension(file);
-                String fileName = prefix + "_" + name + "_" + userId + extension;
-                String ossFilePath = pathLog + fileName;
-                uploadFile(null, false, file, ossFilePath, new OssUploadCallBack() {
-                    @Override
-                    public void success(File source, String ossPath) {
-                        // 记得删除
-                        FileUtils.deleteFile(file);
-                    }
-
-                    @Override
-                    public void failure(File source, String errMsg) {
-                    }
-                });
-            }
-        }
     }
 
     // 意见 (压缩)

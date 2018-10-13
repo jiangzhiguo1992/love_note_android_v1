@@ -12,7 +12,7 @@ import java.util.Locale;
 public class CountHelper {
 
     // getShowCount
-    public static String getShowCount2Thousand(int count) {
+    public static String getShowCount2Thousand(long count) {
         int unit = 10000; // 万
         if (Math.abs(count) < unit) {
             return String.valueOf(count);
