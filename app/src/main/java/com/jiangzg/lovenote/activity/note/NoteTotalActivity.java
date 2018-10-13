@@ -14,6 +14,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.NoteTotal;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -131,19 +132,21 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
             return;
         }
         llTotal.setVisibility(View.VISIBLE);
-        tvSouvenir.setText(String.valueOf(data.getTotalSouvenir()));
-        tvWord.setText(String.valueOf(data.getTotalWord()));
-        tvDiary.setText(String.valueOf(data.getTotalDiary()));
-        tvPicture.setText(String.valueOf(data.getTotalPicture()));
-        tvAudio.setText(String.valueOf(data.getTotalAudio()));
-        tvVideo.setText(String.valueOf(data.getTotalVideo()));
-        tvFood.setText(String.valueOf(data.getTotalFood()));
-        tvTravel.setText(String.valueOf(data.getTotalTravel()));
-        tvGift.setText(String.valueOf(data.getTotalGift()));
-        tvPromise.setText(String.valueOf(data.getTotalPromise()));
-        tvAngry.setText(String.valueOf(data.getTotalAngry()));
-        tvDream.setText(String.valueOf(data.getTotalDream()));
-        tvAward.setText(String.valueOf(data.getTotalAward()));
+        NoteTotal noteTotal = data.getNoteTotal();
+        if (noteTotal == null) return;
+        tvSouvenir.setText(String.valueOf(noteTotal.getTotalSouvenir()));
+        tvWord.setText(String.valueOf(noteTotal.getTotalWord()));
+        tvDiary.setText(String.valueOf(noteTotal.getTotalDiary()));
+        tvPicture.setText(String.valueOf(noteTotal.getTotalPicture()));
+        tvAudio.setText(String.valueOf(noteTotal.getTotalAudio()));
+        tvVideo.setText(String.valueOf(noteTotal.getTotalVideo()));
+        tvFood.setText(String.valueOf(noteTotal.getTotalFood()));
+        tvTravel.setText(String.valueOf(noteTotal.getTotalTravel()));
+        tvGift.setText(String.valueOf(noteTotal.getTotalGift()));
+        tvPromise.setText(String.valueOf(noteTotal.getTotalPromise()));
+        tvAngry.setText(String.valueOf(noteTotal.getTotalAngry()));
+        tvDream.setText(String.valueOf(noteTotal.getTotalDream()));
+        tvAward.setText(String.valueOf(noteTotal.getTotalAward()));
     }
 
 }
