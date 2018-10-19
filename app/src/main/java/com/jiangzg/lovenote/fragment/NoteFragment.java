@@ -298,6 +298,10 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 lock = data.getLock();
+                if (lock == null) {
+                    lock = new Lock();
+                    lock.setLock(false);
+                }
                 souvenirLatest = data.getSouvenirLatest();
                 refreshNoteView();
             }

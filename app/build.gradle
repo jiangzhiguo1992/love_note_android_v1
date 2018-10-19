@@ -87,6 +87,7 @@ android {
     }
     lintOptions { // 编译的lint检查
         disable 'MissingTranslation' // 防止在发布的时候出现因MissingTranslation导致Build Failed!
+        checkReleaseBuilds false // 检查release资源
         abortOnError false // 移除lint检查的error
     }
     packagingOptions { // 解决jar包冲突

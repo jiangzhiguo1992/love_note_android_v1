@@ -51,6 +51,7 @@ public class PushHelper {
         if (!isRegister) return;
         PushInfo info = SPHelper.getPushInfo();
         if (info == null || StringUtils.isEmpty(info.getChannelId())) return;
+        LogUtils.i(PushHelper.class, "initThirdPush", "推送注册(辅助通道)");
         // 注册方法会自动判断是否支持小米系统推送，如不支持会跳过注册。
         MiPushRegister.register(MyApp.get(), info.getMiAppId(), info.getMiAppKey());
         // 注册方法会自动判断是否支持华为系统推送，如不支持会跳过注册。

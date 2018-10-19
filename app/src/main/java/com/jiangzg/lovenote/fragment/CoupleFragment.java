@@ -212,6 +212,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
+                SPHelper.setMe(data.getUser());
                 SPHelper.setTogetherDay(data.getTogetherDay());
                 SPHelper.setWallPaper(data.getWallPaper());
                 myPlace = data.getPlaceMe();
