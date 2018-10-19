@@ -31,7 +31,7 @@ public class MyApp extends AppBase {
         // 三方的
         ButterKnife.setDebug(DEBUG);
         FrescoHelper.init(this, DEBUG);
-        PushHelper.init(this);
+        PushHelper.initApp(this);
     }
 
     public static MyApp get() {
