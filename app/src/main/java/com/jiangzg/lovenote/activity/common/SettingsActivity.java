@@ -28,10 +28,12 @@ import com.jiangzg.lovenote.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.activity.user.PhoneActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.domain.PushInfo;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.PushHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -105,11 +107,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 缓存大小
         cacheShow();
         // 系统通知
-        boolean noticeSystem = SPHelper.getSettingsNoticeSystem();
-        switchSystem.setChecked(noticeSystem);
+        PushInfo pushInfo = SPHelper.getPushInfo();
+        switchSystem.setChecked(pushInfo.isEnableSystem());
         // 社交通知
-        boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
-        switchSocial.setChecked(noticeSocial);
+        switchSocial.setChecked(pushInfo.isEnableSocial());
         // 关于软件
         ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
@@ -206,11 +207,11 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial})
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.switchSystem: // TODO 系统通知
-                SPHelper.setSettingsNoticeSystem(isChecked);
+            case R.id.switchSystem: // 系统通知
+                changePushSystem(isChecked);
                 break;
-            case R.id.switchSocial: // TODO 社交通知
-                SPHelper.setSettingsNoticeSocial(isChecked);
+            case R.id.switchSocial: // 社交通知
+                changePushSocial(isChecked);
                 break;
         }
     }
@@ -221,6 +222,31 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         tvCacheSummary.setText(cachesSizeShow);
     }
 
+    private void changePushSystem(boolean isChecked) {
+        PushInfo pushInfo = SPHelper.getPushInfo();
+        PushInfo info = new PushInfo();
+        info.setEnableSystem(isChecked);
+        info.setEnableSocial(pushInfo.isEnableSocial());
+        info.setEnableSecret(pushInfo.isEnableSecret());
+        changePush(info);
+    }
+
+    private void changePushSocial(boolean isChecked) {
+        PushInfo pushInfo = SPHelper.getPushInfo();
+        PushInfo info = new PushInfo();
+        info.setEnableSystem(pushInfo.isEnableSystem());
+        info.setEnableSocial(isChecked);
+        info.setEnableSecret(pushInfo.isEnableSecret());
+        changePush(info);
+    }
+
+    private void changePush(PushInfo info) {
+        if (info == null) return;
+        // TODO 先api 提交info
+        // TODO 再重新 SPHelper.setPushInfo(info);
+    }
+
+    // TODO 注销push
     private void existDialogShow() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
@@ -233,12 +259,14 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         SPHelper.clearOssInfo();
+                        SPHelper.clearPushInfo();
                         SPHelper.clearVipLimit();
                         SPHelper.clearMe();
                         SPHelper.clearTa();
                         SPHelper.clearCouple();
                         SPHelper.clearWallPaper();
                         SPHelper.clearDraft();
+                        PushHelper.unRegister();
                         RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);
                         LoginActivity.goActivity(mActivity);

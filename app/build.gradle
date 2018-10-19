@@ -147,6 +147,7 @@ dependencies { // 及时更新
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0' // OSS
     implementation 'com.aliyun.ams:alicloud-android-push:3.1.2' // AliPush
+    implementation 'com.aliyun.ams:alicloud-android-third-push:3.0.5@aar' // AliThirdPush
     implementation 'com.amap.api:location:3.8.0' // 地图定位
     implementation 'com.amap.api:map2d:5.2.0' // 地图2D
     implementation 'com.amap.api:search:6.1.0' // 地图搜索

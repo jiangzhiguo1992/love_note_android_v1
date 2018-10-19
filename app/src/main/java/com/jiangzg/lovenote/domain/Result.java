@@ -55,6 +55,7 @@ public class Result implements Serializable {
         private VipLimit vipYesLimit;
         private VipLimit vipNoLimit;
         private OssInfo ossInfo;
+        private PushInfo pushInfo;
         private User user;
         private Notice notice;
         private List<Notice> noticeList;
@@ -156,6 +157,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public PushInfo getPushInfo() {
+            return pushInfo;
+        }
+
+        public void setPushInfo(PushInfo pushInfo) {
+            this.pushInfo = pushInfo;
+        }
 
         public MensesInfo getMensesInfo() {
             return mensesInfo;

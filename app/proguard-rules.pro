@@ -100,6 +100,12 @@
 -dontwarn anetwork.**
 -dontwarn com.ut.**
 -dontwarn com.ta.**
+# ---小米通道
+-keep class com.xiaomi.** {*;}
+-dontwarn com.xiaomi.**
+# ---华为通道
+-keep class com.huawei.** {*;}
+-dontwarn com.huawei.**
 
 #---------------------------------3.与js互相调用的类------------------------
 

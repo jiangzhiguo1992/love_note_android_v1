@@ -15,8 +15,8 @@ public class NotificationUtils {
 
     // setNotificationChannel
     public static void setNotificationChannel(NotificationManager manager,
-                                               String channelId, String channelName, int channelLevel,
-                                               String channelDesc, boolean light, boolean vibrate) {
+                                              String channelId, String channelName, int channelLevel,
+                                              String channelDesc, boolean light, boolean vibrate) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
         if (manager == null) {
             LogUtils.w(NotificationUtils.class, "setNotificationChannel", "manager == null");

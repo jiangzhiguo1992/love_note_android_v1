@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.activity.HomeActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.receiver.OssRefreshReceiver;
 import com.jiangzg.lovenote.domain.CommonConst;
 import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Couple;
@@ -42,6 +41,7 @@ import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.Place;
 import com.jiangzg.lovenote.domain.PostComment;
 import com.jiangzg.lovenote.domain.PromiseBreak;
+import com.jiangzg.lovenote.domain.PushInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sms;
 import com.jiangzg.lovenote.domain.Suggest;
@@ -52,6 +52,7 @@ import com.jiangzg.lovenote.domain.VipLimit;
 import com.jiangzg.lovenote.domain.WallPaper;
 import com.jiangzg.lovenote.domain.Whisper;
 import com.jiangzg.lovenote.domain.Word;
+import com.jiangzg.lovenote.receiver.OssRefreshReceiver;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -195,6 +196,11 @@ public class ApiHelper {
         SPHelper.setOssInfo(ossInfo);
         OssHelper.refreshOssClient();
         OssRefreshReceiver.startAlarm();
+        // pushInfo
+        PushInfo pushInfo = data.getPushInfo();
+        SPHelper.setPushInfo(pushInfo);
+        PushHelper.initThirdPush();
+        PushHelper.initNotification();
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {

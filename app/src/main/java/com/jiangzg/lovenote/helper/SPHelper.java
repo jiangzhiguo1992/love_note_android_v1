@@ -15,6 +15,7 @@ import com.jiangzg.lovenote.domain.Dream;
 import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.domain.OssInfo;
 import com.jiangzg.lovenote.domain.Post;
+import com.jiangzg.lovenote.domain.PushInfo;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.domain.VipLimit;
@@ -29,6 +30,7 @@ public class SPHelper {
     // 存储集合
     private static final String SHARE_COMMON = "share_common";
     private static final String SHARE_OSS_INFO = "share_oss_info";
+    private static final String SHARE_PUSH_INFO = "share_push_info";
     private static final String SHARE_LIMIT = "share_limit";
     private static final String SHARE_VIP_LIMIT = "share_vip_limit";
     private static final String SHARE_COMMON_CONST = "share_common_const";
@@ -43,8 +45,6 @@ public class SPHelper {
 
     // common
     private static final String FIELD_COMMON_THEME = "theme";
-    private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
-    private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
@@ -78,6 +78,19 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_NOTE_GIFT = "path_note_gift";
     private static final String FIELD_OSS_PATH_TOPIC_POST = "path_topic_post";
     private static final String FIELD_OSS_PATH_MORE_MATCH = "path_more_match";
+    // pushInfo
+    private static final String FIELD_PUSH_CHANNEL_ID = "channel_id";
+    private static final String FIELD_PUSH_CHANNEL_NAME = "channel_name";
+    private static final String FIELD_PUSH_CHANNEL_DESC = "channel_desc";
+    private static final String FIELD_PUSH_CHANNEL_LEVEL = "channel_level";
+    private static final String FIELD_PUSH_NOTICE_LIGHT = "notice_light";
+    private static final String FIELD_PUSH_NOTICE_SOUND = "notice_sound";
+    private static final String FIELD_PUSH_NOTICE_VIBRATE = "notice_vibrate";
+    private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
+    private static final String FIELD_PUSH_MI_APP_KEY = "mi_app_key";
+    private static final String FIELD_PUSH_ENABLE_SYSTEM = "enable_system";
+    private static final String FIELD_PUSH_ENABLE_SOCIAL = "enable_social";
+    private static final String FIELD_PUSH_ENABLE_SECRET = "enable_secret";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -221,6 +234,10 @@ public class SPHelper {
         SPUtils.clear(SHARE_OSS_INFO);
     }
 
+    public static void clearPushInfo() {
+        SPUtils.clear(SHARE_PUSH_INFO);
+    }
+
     public static void clearVipLimit() {
         SPUtils.clear(SHARE_VIP_LIMIT);
     }
@@ -261,28 +278,6 @@ public class SPHelper {
     public static int getTheme() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
         return sp.getInt(FIELD_COMMON_THEME, ThemeHelper.THEME_PINK);
-    }
-
-    public static void setSettingsNoticeSystem(boolean system) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, system);
-        editor.apply();
-    }
-
-    public static boolean getSettingsNoticeSystem() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getBoolean(FIELD_COMMON_NOTICE_SYSTEM, true);
-    }
-
-    public static void setSettingsNoticeSocial(boolean ta) {
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, ta);
-        editor.apply();
-    }
-
-    public static boolean getSettingsNoticeSocial() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
-        return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
     }
 
     public static void setCommonCount(CommonCount commonCount) {
@@ -395,6 +390,49 @@ public class SPHelper {
         ossInfo.setPathTopicPost(sp.getString(FIELD_OSS_PATH_TOPIC_POST, ""));
         ossInfo.setPathMoreMatch(sp.getString(FIELD_OSS_PATH_MORE_MATCH, ""));
         return ossInfo;
+    }
+
+    /**
+     * ***********************************PushInfo***********************************
+     */
+    public static void setPushInfo(PushInfo pushInfo) {
+        clearPushInfo();
+        if (pushInfo == null) {
+            LogUtils.i(SPHelper.class, "setPushInfo", "pushInfo == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_PUSH_INFO).edit();
+        editor.putString(FIELD_PUSH_CHANNEL_ID, pushInfo.getChannelId());
+        editor.putString(FIELD_PUSH_CHANNEL_NAME, pushInfo.getChannelName());
+        editor.putString(FIELD_PUSH_CHANNEL_DESC, pushInfo.getChannelDesc());
+        editor.putInt(FIELD_PUSH_CHANNEL_LEVEL, pushInfo.getChannelLevel());
+        editor.putBoolean(FIELD_PUSH_NOTICE_LIGHT, pushInfo.isNoticeLight());
+        editor.putBoolean(FIELD_PUSH_NOTICE_SOUND, pushInfo.isNoticeSound());
+        editor.putBoolean(FIELD_PUSH_NOTICE_VIBRATE, pushInfo.isNoticeVibrate());
+        editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
+        editor.putString(FIELD_PUSH_MI_APP_KEY, pushInfo.getMiAppKey());
+        editor.putBoolean(FIELD_PUSH_ENABLE_SYSTEM, pushInfo.isEnableSystem());
+        editor.putBoolean(FIELD_PUSH_ENABLE_SOCIAL, pushInfo.isEnableSocial());
+        editor.putBoolean(FIELD_PUSH_ENABLE_SECRET, pushInfo.isEnableSecret());
+        editor.apply();
+    }
+
+    public static PushInfo getPushInfo() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_PUSH_INFO);
+        PushInfo pushInfo = new PushInfo();
+        pushInfo.setChannelId(sp.getString(FIELD_PUSH_CHANNEL_ID, ""));
+        pushInfo.setChannelName(sp.getString(FIELD_PUSH_CHANNEL_NAME, ""));
+        pushInfo.setChannelDesc(sp.getString(FIELD_PUSH_CHANNEL_DESC, ""));
+        pushInfo.setChannelLevel(sp.getInt(FIELD_PUSH_CHANNEL_LEVEL, 4));
+        pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
+        pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));
+        pushInfo.setNoticeVibrate(sp.getBoolean(FIELD_PUSH_NOTICE_VIBRATE, true));
+        pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));
+        pushInfo.setMiAppKey(sp.getString(FIELD_PUSH_MI_APP_KEY, ""));
+        pushInfo.setEnableSystem(sp.getBoolean(FIELD_PUSH_ENABLE_SYSTEM, true));
+        pushInfo.setEnableSocial(sp.getBoolean(FIELD_PUSH_ENABLE_SOCIAL, true));
+        pushInfo.setEnableSecret(sp.getBoolean(FIELD_PUSH_ENABLE_SECRET, true));
+        return pushInfo;
     }
 
     /**
