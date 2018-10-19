@@ -16,6 +16,7 @@ allprojects {
         google() // 一定定要把 google() 放到 jcenter()上面
         jcenter()
         maven { url "https://jitpack.io" } // BaseRecyclerViewAdapterHelper
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' } // AliPush
     }
 }
 

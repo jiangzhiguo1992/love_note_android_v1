@@ -15,11 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeGrey">
 
-        <!-- 全屏适配 -->
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.4"/>
-
         <!-- uri转file 7.0兼容 -->
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -33,6 +28,29 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 
+        <!-- 全屏适配 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4"/>
+
+        <!-- data-下载渠道 -->
+        <meta-data
+            android:name="market_channel"
+            android:value="${MARKET_CHANNEL_VALUE}"/>
+
+        <!-- apk更新 -->
+        <service
+            android:name=".service.UpdateService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <!-- oss -->
+        <receiver
+            android:name=".receiver.OssRefreshReceiver"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+
         <!-- 高德地图 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
@@ -43,21 +61,26 @@
             android:enabled="true"
             android:exported="true"/>
 
-        <!-- data-下载渠道 -->
+        <!-- 阿里推送 -->
         <meta-data
-            android:name="market_channel"
-            android:value="${MARKET_CHANNEL_VALUE}"/>
+            android:name="com.alibaba.app.appkey"
+            android:value="25035174"/>
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="b09b64fba35f476158b486c493efe5e1"/>
 
-        <!-- service-apk更新 -->
-        <service
-            android:name=".service.UpdateService"
-            android:enabled="true"
-            android:exported="true"/>
-        <!-- receiver-oss -->
         <receiver
-            android:name=".broadcast.OssRefreshReceiver"
-            android:enabled="true"
-            android:exported="true">
+            android:name=".receiver.AliPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE"/>
+            </intent-filter>
         </receiver>
 
         <!-- activity -->

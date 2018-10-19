@@ -26,7 +26,7 @@ import com.jiangzg.lovenote.activity.HomeActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.broadcast.OssRefreshReceiver;
+import com.jiangzg.lovenote.receiver.OssRefreshReceiver;
 import com.jiangzg.lovenote.domain.CommonConst;
 import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Couple;

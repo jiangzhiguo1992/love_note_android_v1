@@ -1,6 +1,6 @@
 package com.jiangzg.lovenote.helper;
 
-import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
@@ -29,7 +29,7 @@ import com.jiangzg.base.common.StringUtils;
 public class FrescoHelper {
 
     // 初始化
-    public static void init(Application app, boolean debug) {
+    public static void init(Context ctx, boolean debug) {
         // 网络图的缓存key
         CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
             @Override
@@ -41,11 +41,11 @@ public class FrescoHelper {
             }
         };
         // 设置缓存目录
-        DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(app)
+        DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
                 .setBaseDirectoryPath(ResHelper.createFrescoCacheDir())
                 .build();
         // 初始化配置
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(app)
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(ctx)
                 .setCacheKeyFactory(keyFactory)
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
@@ -53,7 +53,7 @@ public class FrescoHelper {
                 .setBitmapsConfig(Bitmap.Config.ARGB_8888) // 小图RGB_565 大图ARGB8888
                 .build();
         // 开始初始化
-        Fresco.initialize(app, config);
+        Fresco.initialize(ctx, config);
         if (debug) {
             FLog.setMinimumLoggingLevel(FLog.VERBOSE);
         }

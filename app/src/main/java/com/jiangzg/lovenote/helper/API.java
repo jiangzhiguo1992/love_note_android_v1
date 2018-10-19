@@ -71,7 +71,7 @@ import retrofit2.http.Url;
  */
 public interface API {
 
-    String HOST = "192.168.18.6:30011";
+    String HOST = "192.168.18.7:30011";
     //String HOST = "lovenote.api.jiangzhiguo.com";
     String BASE_URL = "http://" + HOST + "/v1/"; // BaseURL最好以/结尾
 

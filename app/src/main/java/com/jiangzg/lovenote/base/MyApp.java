@@ -5,6 +5,7 @@ import com.jiangzg.base.application.AppListener;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.lovenote.helper.FrescoHelper;
+import com.jiangzg.lovenote.helper.PushHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.ThemeHelper;
 
@@ -30,7 +31,7 @@ public class MyApp extends AppBase {
         // 三方的
         ButterKnife.setDebug(DEBUG);
         FrescoHelper.init(this, DEBUG);
-        //AnalyUtils.initApp();
+        PushHelper.init(this);
     }
 
     public static MyApp get() {
