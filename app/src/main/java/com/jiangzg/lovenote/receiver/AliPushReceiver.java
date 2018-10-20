@@ -14,17 +14,19 @@ import java.util.Map;
  */
 public class AliPushReceiver extends MessageReceiver {
 
-    @Override
-    public void onNotification(Context context, String title, String summary, Map<String, String> extraMap) {
-        LogUtils.i(AliPushReceiver.class, "onNotification", "title: " + title + ", summary: " + summary + ", extraMap: " + extraMap);
-        // TODO 处理推送通知
-    }
-
+    // 收到消息，不会弹窗
     @Override
     public void onMessage(Context context, CPushMessage cPushMessage) {
         LogUtils.i(AliPushReceiver.class, "onMessage", "messageId: " + cPushMessage.getMessageId() + ", title: " + cPushMessage.getTitle() + ", content:" + cPushMessage.getContent());
     }
 
+    // 收到通知，会弹窗
+    @Override
+    public void onNotification(Context context, String title, String summary, Map<String, String> extraMap) {
+        LogUtils.i(AliPushReceiver.class, "onNotification", "title: " + title + ", summary: " + summary + ", extraMap: " + extraMap);
+    }
+
+    // 打开通知
     @Override
     public void onNotificationOpened(Context context, String title, String summary, String extraMap) {
         LogUtils.i(AliPushReceiver.class, "onNotificationOpened", "title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);

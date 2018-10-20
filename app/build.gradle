@@ -52,9 +52,9 @@ android {
                     if (variant.buildType.name.equals('release')) {
                         // 输出apk名称为 软件名_版本号_渠道_日期.apk
                         def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
-                        fileName = "mm_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
+                        fileName = "ys_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
                     } else {
-                        fileName = "mm_debug"
+                        fileName = "ys_debug"
                     }
                     outputFileName = fileName + ".apk"
                 }
@@ -69,6 +69,96 @@ android {
         official { // 官方
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
+        }
+        //---------------------手机市场----------------------
+        yidong { // 移动应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yidong"]
+        }
+        liantong { // 联通应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liantong"]
+        }
+        dianxin { // 电信应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "dianxin"]
+        }
+        google { // 谷歌应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
+        }
+        samsung { // 三星应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
+        }
+        lenovo { // 联通应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
+        }
+        huawei { // 华为应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
+        }
+        xiaomi { // 小米应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
+        }
+        oppo { // oppo应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
+        }
+        vivo { // vivo应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
+        }
+        meizu { // 魅族应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
+        }
+        //---------------------附属市场----------------------
+        ali { // 阿里应用分发平台
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
+        }
+        baidu { // 百度应用分发平台
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
+        }
+        tencent { // 腾讯应用宝
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "tencent"]
+        }
+        qh360 { // 360手机助手
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
+        }
+        sougou { // 搜狗应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
+        }
+        kuan { // 酷安
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
+        }
+        yingyonghui { // 应用汇
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
+        }
+        anzhi { // 安智
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "anzhi"]
+        }
+        mumayi { // 木蚂蚁
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "mumayi"]
+        }
+        nduo { // N多
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nduo"]
+        }
+        liqu { // 历趣
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liqu"]
         }
     }
     sourceSets { // 源码设置
