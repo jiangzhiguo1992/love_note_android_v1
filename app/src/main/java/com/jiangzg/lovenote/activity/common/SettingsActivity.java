@@ -122,8 +122,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         boolean disturb = SPHelper.getSettingsNoticeDisturb();
         switchDisturb.setChecked(disturb);
         PushInfo pushInfo = SPHelper.getPushInfo();
-        int startHour = pushInfo.getDisturbStartHour();
-        int endHour = pushInfo.getDisturbEndHour();
+        int startHour = pushInfo.getNoStartHour();
+        int endHour = pushInfo.getNoEndHour();
         String disturbShow = String.format(Locale.getDefault(), getString(R.string.holder_clock_space_line_space_holder_clock), startHour, endHour);
         tvDisturbSummary.setText(disturbShow);
         // 关于软件
@@ -234,11 +234,11 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.switchSocial: // 社交通知
                 SPHelper.setSettingsNoticeSocial(isChecked);
-                PushHelper.checkTagBind();
+                PushHelper.checkAccountBind();
                 break;
             case R.id.switchDisturb: // 免打扰
                 SPHelper.setSettingsNoticeDisturb(isChecked);
-                PushHelper.checkTagBind();
+                PushHelper.checkDisturb();
                 break;
         }
     }
@@ -261,7 +261,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         SPHelper.clearOssInfo();
-                        SPHelper.clearPushInfo();
                         SPHelper.clearVipLimit();
                         SPHelper.clearMe();
                         SPHelper.clearTa();

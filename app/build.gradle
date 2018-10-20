@@ -91,7 +91,7 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
         }
-        lenovo { // 联通应用市场
+        lenovo { // 联想应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
         }

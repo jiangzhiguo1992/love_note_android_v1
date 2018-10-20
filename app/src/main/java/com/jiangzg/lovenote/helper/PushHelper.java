@@ -42,9 +42,11 @@ public class PushHelper {
                 // 开启推送通道
                 initNotification();
                 // 绑定账号
-                bindAccount();
+                checkAccountBind();
                 // 绑定tag
                 checkTagBind();
+                // 免打扰
+                checkDisturb();
             }
 
             @Override
@@ -95,13 +97,23 @@ public class PushHelper {
                 info.getChannelLevel(), info.getChannelDesc(), info.isNoticeLight(), info.isNoticeVibrate());
     }
 
+    // 账号
+    public static void checkAccountBind() {
+        boolean social = SPHelper.getSettingsNoticeSocial();
+        if (social) {
+            PushHelper.bindAccount();
+        } else {
+            PushHelper.unBindAccount();
+        }
+    }
+
     private static void bindAccount() {
         CloudPushService service = PushServiceFactory.getCloudPushService();
         if (service == null) return;
         User me = SPHelper.getMe();
-        String phone = me.getPhone();
-        if (StringUtils.isEmpty(phone)) return;
-        service.bindAccount(phone, new CommonCallback() {
+        long uid = me.getId();
+        if (uid <= 0) return;
+        service.bindAccount(String.valueOf(uid), new CommonCallback() {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-成功\n" + s);
@@ -117,9 +129,6 @@ public class PushHelper {
     public static void unBindAccount() {
         CloudPushService service = PushServiceFactory.getCloudPushService();
         if (service == null) return;
-        User me = SPHelper.getMe();
-        long id = me.getId();
-        if (id <= 0) return;
         service.unbindAccount(new CommonCallback() {
             @Override
             public void onSuccess(String s) {
@@ -135,25 +144,13 @@ public class PushHelper {
         service.clearNotifications();
     }
 
+    // 标签
     public static void checkTagBind() {
         boolean system = SPHelper.getSettingsNoticeSystem();
-        boolean social = SPHelper.getSettingsNoticeSocial();
-        boolean disturb = SPHelper.getSettingsNoticeDisturb();
         if (system) {
-            bindTag("system");
+            PushHelper.bindTag("system");
         } else {
-            unBindTag("system");
-        }
-        if (social) {
-            bindTag("social");
-        } else {
-            unBindTag("social");
-        }
-        // 注意顺序
-        if (disturb) {
-            startDisturb();
-        } else {
-            stopDisturb();
+            PushHelper.unBindTag("system");
         }
     }
 
@@ -190,13 +187,23 @@ public class PushHelper {
         });
     }
 
+    // 免打扰
+    public static void checkDisturb() {
+        boolean disturb = SPHelper.getSettingsNoticeDisturb();
+        if (disturb) {
+            PushHelper.startDisturb();
+        } else {
+            PushHelper.stopDisturb();
+        }
+    }
+
     private static void startDisturb() {
         CloudPushService service = PushServiceFactory.getCloudPushService();
         if (service == null) return;
         PushInfo pushInfo = SPHelper.getPushInfo();
         if (pushInfo == null) return;
-        int startHour = pushInfo.getDisturbStartHour();
-        int endHour = pushInfo.getDisturbEndHour();
+        int startHour = pushInfo.getNoStartHour();
+        int endHour = pushInfo.getNoEndHour();
         service.setDoNotDisturb(startHour, 0, endHour, 0, new CommonCallback() {
             @Override
             public void onSuccess(String s) {

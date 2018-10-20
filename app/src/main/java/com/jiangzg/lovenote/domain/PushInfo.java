@@ -6,6 +6,10 @@ package com.jiangzg.lovenote.domain;
  */
 public class PushInfo {
 
+    private String aliAppKey;
+    private String aliAppSecret;
+    private String miAppId;
+    private String miAppKey;
     private String channelId;
     private String channelName;
     private String channelDesc;
@@ -13,27 +17,23 @@ public class PushInfo {
     private boolean noticeLight;
     private boolean noticeSound;
     private boolean noticeVibrate;
-    private int disturbStartHour;
-    private int disturbEndHour;
-    private String aliAppKey;
-    private String aliAppSecret;
-    private String miAppId;
-    private String miAppKey;
+    private int noStartHour;
+    private int noEndHour;
 
-    public int getDisturbStartHour() {
-        return disturbStartHour;
+    public int getNoStartHour() {
+        return noStartHour;
     }
 
-    public void setDisturbStartHour(int disturbStartHour) {
-        this.disturbStartHour = disturbStartHour;
+    public void setNoStartHour(int noStartHour) {
+        this.noStartHour = noStartHour;
     }
 
-    public int getDisturbEndHour() {
-        return disturbEndHour;
+    public int getNoEndHour() {
+        return noEndHour;
     }
 
-    public void setDisturbEndHour(int disturbEndHour) {
-        this.disturbEndHour = disturbEndHour;
+    public void setNoEndHour(int noEndHour) {
+        this.noEndHour = noEndHour;
     }
 
     public String getAliAppKey() {

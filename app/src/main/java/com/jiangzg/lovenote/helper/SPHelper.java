@@ -82,6 +82,10 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_TOPIC_POST = "path_topic_post";
     private static final String FIELD_OSS_PATH_MORE_MATCH = "path_more_match";
     // pushInfo
+    private static final String FIELD_PUSH_ALI_APP_KEY = "ali_app_key";
+    private static final String FIELD_PUSH_ALI_APP_SECRET = "ali_app_secret";
+    private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
+    private static final String FIELD_PUSH_MI_APP_KEY = "mi_app_key";
     private static final String FIELD_PUSH_CHANNEL_ID = "channel_id";
     private static final String FIELD_PUSH_CHANNEL_NAME = "channel_name";
     private static final String FIELD_PUSH_CHANNEL_DESC = "channel_desc";
@@ -89,12 +93,8 @@ public class SPHelper {
     private static final String FIELD_PUSH_NOTICE_LIGHT = "notice_light";
     private static final String FIELD_PUSH_NOTICE_SOUND = "notice_sound";
     private static final String FIELD_PUSH_NOTICE_VIBRATE = "notice_vibrate";
-    private static final String FIELD_PUSH_DISTURB_START_HOUR = "disturb_start_hour";
-    private static final String FIELD_PUSH_DISTURB_END_HOUR = "disturb_end_hour";
-    private static final String FIELD_PUSH_ALI_APP_KEY = "ali_app_key";
-    private static final String FIELD_PUSH_ALI_APP_SECRET = "ali_app_secret";
-    private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
-    private static final String FIELD_PUSH_MI_APP_KEY = "mi_app_key";
+    private static final String FIELD_PUSH_NO_START_HOUR = "no_start_hour";
+    private static final String FIELD_PUSH_NO_END_HOUR = "no_end_hour";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -236,10 +236,6 @@ public class SPHelper {
      */
     public static void clearOssInfo() {
         SPUtils.clear(SHARE_OSS_INFO);
-    }
-
-    public static void clearPushInfo() {
-        SPUtils.clear(SHARE_PUSH_INFO);
     }
 
     public static void clearVipLimit() {
@@ -433,12 +429,15 @@ public class SPHelper {
      * ***********************************PushInfo***********************************
      */
     public static void setPushInfo(PushInfo pushInfo) {
-        clearPushInfo();
         if (pushInfo == null) {
             LogUtils.i(SPHelper.class, "setPushInfo", "pushInfo == null");
             return;
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_PUSH_INFO).edit();
+        editor.putString(FIELD_PUSH_ALI_APP_KEY, pushInfo.getAliAppKey());
+        editor.putString(FIELD_PUSH_ALI_APP_SECRET, pushInfo.getAliAppSecret());
+        editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
+        editor.putString(FIELD_PUSH_MI_APP_KEY, pushInfo.getMiAppKey());
         editor.putString(FIELD_PUSH_CHANNEL_ID, pushInfo.getChannelId());
         editor.putString(FIELD_PUSH_CHANNEL_NAME, pushInfo.getChannelName());
         editor.putString(FIELD_PUSH_CHANNEL_DESC, pushInfo.getChannelDesc());
@@ -446,18 +445,18 @@ public class SPHelper {
         editor.putBoolean(FIELD_PUSH_NOTICE_LIGHT, pushInfo.isNoticeLight());
         editor.putBoolean(FIELD_PUSH_NOTICE_SOUND, pushInfo.isNoticeSound());
         editor.putBoolean(FIELD_PUSH_NOTICE_VIBRATE, pushInfo.isNoticeVibrate());
-        editor.putInt(FIELD_PUSH_DISTURB_START_HOUR, pushInfo.getDisturbStartHour());
-        editor.putInt(FIELD_PUSH_DISTURB_END_HOUR, pushInfo.getDisturbEndHour());
-        editor.putString(FIELD_PUSH_ALI_APP_KEY, pushInfo.getAliAppKey());
-        editor.putString(FIELD_PUSH_ALI_APP_SECRET, pushInfo.getAliAppSecret());
-        editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
-        editor.putString(FIELD_PUSH_MI_APP_KEY, pushInfo.getMiAppKey());
+        editor.putInt(FIELD_PUSH_NO_START_HOUR, pushInfo.getNoStartHour());
+        editor.putInt(FIELD_PUSH_NO_END_HOUR, pushInfo.getNoEndHour());
         editor.apply();
     }
 
     public static PushInfo getPushInfo() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_PUSH_INFO);
         PushInfo pushInfo = new PushInfo();
+        pushInfo.setAliAppKey(sp.getString(FIELD_PUSH_ALI_APP_KEY, ""));
+        pushInfo.setAliAppSecret(sp.getString(FIELD_PUSH_ALI_APP_SECRET, ""));
+        pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));
+        pushInfo.setMiAppKey(sp.getString(FIELD_PUSH_MI_APP_KEY, ""));
         pushInfo.setChannelId(sp.getString(FIELD_PUSH_CHANNEL_ID, ""));
         pushInfo.setChannelName(sp.getString(FIELD_PUSH_CHANNEL_NAME, ""));
         pushInfo.setChannelDesc(sp.getString(FIELD_PUSH_CHANNEL_DESC, ""));
@@ -465,12 +464,8 @@ public class SPHelper {
         pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
         pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));
         pushInfo.setNoticeVibrate(sp.getBoolean(FIELD_PUSH_NOTICE_VIBRATE, true));
-        pushInfo.setDisturbStartHour(sp.getInt(FIELD_PUSH_DISTURB_START_HOUR, 21));
-        pushInfo.setDisturbEndHour(sp.getInt(FIELD_PUSH_DISTURB_END_HOUR, 9));
-        pushInfo.setAliAppKey(sp.getString(FIELD_PUSH_ALI_APP_KEY, ""));
-        pushInfo.setAliAppSecret(sp.getString(FIELD_PUSH_ALI_APP_SECRET, ""));
-        pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));
-        pushInfo.setMiAppKey(sp.getString(FIELD_PUSH_MI_APP_KEY, ""));
+        pushInfo.setNoStartHour(sp.getInt(FIELD_PUSH_NO_START_HOUR, 21));
+        pushInfo.setNoEndHour(sp.getInt(FIELD_PUSH_NO_END_HOUR, 9));
         return pushInfo;
     }
 
