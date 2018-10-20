@@ -199,8 +199,6 @@ public class ApiHelper {
         // pushInfo
         PushInfo pushInfo = data.getPushInfo();
         SPHelper.setPushInfo(pushInfo);
-        PushHelper.initThirdPush();
-        PushHelper.initNotification();
         // version
         final ArrayList<Version> versionList = (ArrayList<Version>) data.getVersionList();
         if (versionList == null || versionList.size() <= 0) {

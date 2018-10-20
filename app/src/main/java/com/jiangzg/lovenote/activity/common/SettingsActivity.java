@@ -28,7 +28,6 @@ import com.jiangzg.lovenote.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.activity.user.PhoneActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.domain.PushInfo;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -107,10 +106,11 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 缓存大小
         cacheShow();
         // 系统通知
-        PushInfo pushInfo = SPHelper.getPushInfo();
-        switchSystem.setChecked(pushInfo.isEnableSystem());
+        boolean noticeSystem = SPHelper.getSettingsNoticeSystem();
+        switchSystem.setChecked(noticeSystem);
         // 社交通知
-        switchSocial.setChecked(pushInfo.isEnableSocial());
+        boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
+        switchSocial.setChecked(noticeSocial);
         // 关于软件
         ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
@@ -223,30 +223,15 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void changePushSystem(boolean isChecked) {
-        PushInfo pushInfo = SPHelper.getPushInfo();
-        PushInfo info = new PushInfo();
-        info.setEnableSystem(isChecked);
-        info.setEnableSocial(pushInfo.isEnableSocial());
-        info.setEnableSecret(pushInfo.isEnableSecret());
-        changePush(info);
+        SPHelper.setSettingsNoticeSystem(isChecked);
+        // TODO  设置TAG
     }
 
     private void changePushSocial(boolean isChecked) {
-        PushInfo pushInfo = SPHelper.getPushInfo();
-        PushInfo info = new PushInfo();
-        info.setEnableSystem(pushInfo.isEnableSystem());
-        info.setEnableSocial(isChecked);
-        info.setEnableSecret(pushInfo.isEnableSecret());
-        changePush(info);
+        SPHelper.setSettingsNoticeSocial(isChecked);
+        // TODO  设置TAG
     }
 
-    private void changePush(PushInfo info) {
-        if (info == null) return;
-        // TODO 先api 提交info
-        // TODO 再重新 SPHelper.setPushInfo(info);
-    }
-
-    // TODO 注销push
     private void existDialogShow() {
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
@@ -266,7 +251,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                         SPHelper.clearCouple();
                         SPHelper.clearWallPaper();
                         SPHelper.clearDraft();
-                        PushHelper.unRegister();
+                        PushHelper.unBindAccount();
                         RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);
                         LoginActivity.goActivity(mActivity);

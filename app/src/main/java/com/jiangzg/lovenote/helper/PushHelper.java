@@ -15,6 +15,7 @@ import com.jiangzg.base.system.NotificationUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.PushInfo;
+import com.jiangzg.lovenote.domain.User;
 
 /**
  * Created by JZG on 2018/10/19.
@@ -22,33 +23,37 @@ import com.jiangzg.lovenote.domain.PushInfo;
  */
 public class PushHelper {
 
-    private static boolean isRegister = false;
-
-    public static void initApp(Context ctx) {
+    public static void initApp(Context ctx, boolean debug) {
+        PushInfo pushInfo = SPHelper.getPushInfo();
+        if (pushInfo == null || StringUtils.isEmpty(pushInfo.getAliAppKey()) || StringUtils.isEmpty(pushInfo.getAliAppSecret())) {
+            LogUtils.d(PushHelper.class, "initApp", "推送注册-首次。");
+            return;
+        }
         PushServiceFactory.init(ctx);
-        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        pushService.register(ctx, new CommonCallback() {
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        pushService.setLogLevel(debug ? CloudPushService.LOG_DEBUG : CloudPushService.LOG_OFF);
+        pushService.register(ctx, pushInfo.getAliAppKey(), pushInfo.getAliAppSecret(), new CommonCallback() {
             @Override
             public void onSuccess(String response) {
-                //String deviceId = pushService.getDeviceId();
-                LogUtils.i(PushHelper.class, "init", "推送注册-成功。\n" + response);
-                isRegister = true;
+                LogUtils.i(PushHelper.class, "initApp", "推送注册-成功。\n" + response);
                 // 别忘了辅助通道
                 initThirdPush();
+                // 开启推送通道
+                initNotification();
+                // 绑定账号
+                bindAccount();
             }
 
-            // 失败会自动进行重新注册，直到onSuccess为止
             @Override
             public void onFailed(String errorCode, String errorMessage) {
-                LogUtils.w(PushHelper.class, "init", "推送注册-失败。\nerrorCode:" + errorCode + "\nerrorMessage:" + errorMessage);
-                isRegister = false;
+                // 失败会自动进行重新注册，直到onSuccess为止
+                LogUtils.w(PushHelper.class, "initApp", "推送注册-失败。\nerrorCode:" + errorCode + "\nerrorMessage:" + errorMessage);
             }
         });
     }
 
     // 辅助通道注册务必在Application中执行且放在推送SDK初始化代码之后，否则可能导致辅助通道注册失败
-    public static void initThirdPush() {
-        if (!isRegister) return;
+    private static void initThirdPush() {
         PushInfo info = SPHelper.getPushInfo();
         if (info == null || StringUtils.isEmpty(info.getChannelId())) return;
         LogUtils.i(PushHelper.class, "initThirdPush", "推送注册(辅助通道)");
@@ -58,7 +63,7 @@ public class PushHelper {
         HuaWeiRegister.register(MyApp.get());
     }
 
-    public static void initNotification() {
+    private static void initNotification() {
         PushInfo info = SPHelper.getPushInfo();
         if (info == null) {
             info = new PushInfo();
@@ -77,9 +82,40 @@ public class PushHelper {
                 info.getChannelLevel(), info.getChannelDesc(), info.isNoticeLight(), info.isNoticeVibrate());
     }
 
-    // TODO
-    public static void unRegister() {
+    private static void bindAccount() {
+        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        User me = SPHelper.getMe();
+        long id = me.getId();
+        if (id <= 0) return;
+        pushService.bindAccount(String.valueOf(id), new CommonCallback() {
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-成功\n" + s);
+            }
 
+            @Override
+            public void onFailed(String s, String s1) {
+                LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-失败\n" + s + "\n" + s1);
+            }
+        });
+    }
+
+    public static void unBindAccount() {
+        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        User me = SPHelper.getMe();
+        long id = me.getId();
+        if (id <= 0) return;
+        pushService.unbindAccount(new CommonCallback() {
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-成功\n" + s);
+            }
+
+            @Override
+            public void onFailed(String s, String s1) {
+                LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-失败\n" + s + "\n" + s1);
+            }
+        });
     }
 
 }

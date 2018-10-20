@@ -13,34 +13,25 @@ public class PushInfo {
     private boolean noticeLight;
     private boolean noticeSound;
     private boolean noticeVibrate;
-    private String miAppId; // 小米id
-    private String miAppKey; // 小米key
-    private boolean enableSystem;
-    private boolean enableSocial;
-    private boolean enableSecret;
+    private String aliAppKey;
+    private String aliAppSecret;
+    private String miAppId;
+    private String miAppKey;
 
-    public boolean isEnableSystem() {
-        return enableSystem;
+    public String getAliAppKey() {
+        return aliAppKey;
     }
 
-    public void setEnableSystem(boolean enableSystem) {
-        this.enableSystem = enableSystem;
+    public void setAliAppKey(String aliAppKey) {
+        this.aliAppKey = aliAppKey;
     }
 
-    public boolean isEnableSocial() {
-        return enableSocial;
+    public String getAliAppSecret() {
+        return aliAppSecret;
     }
 
-    public void setEnableSocial(boolean enableSocial) {
-        this.enableSocial = enableSocial;
-    }
-
-    public boolean isEnableSecret() {
-        return enableSecret;
-    }
-
-    public void setEnableSecret(boolean enableSecret) {
-        this.enableSecret = enableSecret;
+    public void setAliAppSecret(String aliAppSecret) {
+        this.aliAppSecret = aliAppSecret;
     }
 
     public boolean isNoticeSound() {

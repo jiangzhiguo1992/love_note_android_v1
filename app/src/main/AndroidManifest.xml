@@ -62,13 +62,6 @@
             android:exported="true"/>
 
         <!-- 阿里推送 -->
-        <meta-data
-            android:name="com.alibaba.app.appkey"
-            android:value="25035174"/>
-        <meta-data
-            android:name="com.alibaba.app.appsecret"
-            android:value="b09b64fba35f476158b486c493efe5e1"/>
-
         <receiver
             android:name=".receiver.AliPushReceiver"
             android:exported="false">
@@ -83,15 +76,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- activity -->
-        <activity android:name=".activity.WelcomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        <!-- aliPay -->
+        <!-- 阿里支付 -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
@@ -105,6 +90,15 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <!-- activity -->
+        <activity android:name=".activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
         <!-- common -->
         <activity android:name=".activity.HomeActivity"/>

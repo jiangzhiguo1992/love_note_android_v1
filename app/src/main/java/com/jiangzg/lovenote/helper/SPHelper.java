@@ -45,6 +45,8 @@ public class SPHelper {
 
     // common
     private static final String FIELD_COMMON_THEME = "theme";
+    private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
+    private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
@@ -86,11 +88,10 @@ public class SPHelper {
     private static final String FIELD_PUSH_NOTICE_LIGHT = "notice_light";
     private static final String FIELD_PUSH_NOTICE_SOUND = "notice_sound";
     private static final String FIELD_PUSH_NOTICE_VIBRATE = "notice_vibrate";
+    private static final String FIELD_PUSH_ALI_APP_KEY = "ali_app_key";
+    private static final String FIELD_PUSH_ALI_APP_SECRET = "ali_app_secret";
     private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
     private static final String FIELD_PUSH_MI_APP_KEY = "mi_app_key";
-    private static final String FIELD_PUSH_ENABLE_SYSTEM = "enable_system";
-    private static final String FIELD_PUSH_ENABLE_SOCIAL = "enable_social";
-    private static final String FIELD_PUSH_ENABLE_SECRET = "enable_secret";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
     private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
@@ -280,6 +281,28 @@ public class SPHelper {
         return sp.getInt(FIELD_COMMON_THEME, ThemeHelper.THEME_PINK);
     }
 
+    public static void setSettingsNoticeSystem(boolean system) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, system);
+        editor.apply();
+    }
+
+    public static boolean getSettingsNoticeSystem() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_SYSTEM, true);
+    }
+
+    public static void setSettingsNoticeSocial(boolean ta) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, ta);
+        editor.apply();
+    }
+
+    public static boolean getSettingsNoticeSocial() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
+    }
+
     public static void setCommonCount(CommonCount commonCount) {
         if (commonCount == null) {
             LogUtils.i(SPHelper.class, "setCommonCount", "commonCount == null");
@@ -409,11 +432,10 @@ public class SPHelper {
         editor.putBoolean(FIELD_PUSH_NOTICE_LIGHT, pushInfo.isNoticeLight());
         editor.putBoolean(FIELD_PUSH_NOTICE_SOUND, pushInfo.isNoticeSound());
         editor.putBoolean(FIELD_PUSH_NOTICE_VIBRATE, pushInfo.isNoticeVibrate());
+        editor.putString(FIELD_PUSH_ALI_APP_KEY, pushInfo.getAliAppKey());
+        editor.putString(FIELD_PUSH_ALI_APP_SECRET, pushInfo.getAliAppSecret());
         editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
         editor.putString(FIELD_PUSH_MI_APP_KEY, pushInfo.getMiAppKey());
-        editor.putBoolean(FIELD_PUSH_ENABLE_SYSTEM, pushInfo.isEnableSystem());
-        editor.putBoolean(FIELD_PUSH_ENABLE_SOCIAL, pushInfo.isEnableSocial());
-        editor.putBoolean(FIELD_PUSH_ENABLE_SECRET, pushInfo.isEnableSecret());
         editor.apply();
     }
 
@@ -427,11 +449,10 @@ public class SPHelper {
         pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
         pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));
         pushInfo.setNoticeVibrate(sp.getBoolean(FIELD_PUSH_NOTICE_VIBRATE, true));
+        pushInfo.setAliAppKey(sp.getString(FIELD_PUSH_ALI_APP_KEY, ""));
+        pushInfo.setAliAppSecret(sp.getString(FIELD_PUSH_ALI_APP_SECRET, ""));
         pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));
         pushInfo.setMiAppKey(sp.getString(FIELD_PUSH_MI_APP_KEY, ""));
-        pushInfo.setEnableSystem(sp.getBoolean(FIELD_PUSH_ENABLE_SYSTEM, true));
-        pushInfo.setEnableSocial(sp.getBoolean(FIELD_PUSH_ENABLE_SOCIAL, true));
-        pushInfo.setEnableSecret(sp.getBoolean(FIELD_PUSH_ENABLE_SECRET, true));
         return pushInfo;
     }
 
