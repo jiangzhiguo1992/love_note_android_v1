@@ -131,6 +131,8 @@ public class PushHelper {
                 LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-失败\n" + s + "\n" + s1);
             }
         });
+        // 清除SDK创建的所有通知
+        service.clearNotifications();
     }
 
     public static void checkTagBind() {
@@ -149,11 +151,9 @@ public class PushHelper {
         }
         // 注意顺序
         if (disturb) {
-            unBindTag("disturb");
-            stopDisturb();
-        } else {
-            bindTag("disturb");
             startDisturb();
+        } else {
+            stopDisturb();
         }
     }
 
@@ -191,28 +191,29 @@ public class PushHelper {
     }
 
     private static void startDisturb() {
-        // TODO
         CloudPushService service = PushServiceFactory.getCloudPushService();
         if (service == null) return;
-        int startHour = 22;
-        int startMin = 0;
-        int endHour = 9;
-        int endMin = 0;
-        service.setDoNotDisturb(startHour, startMin, endHour, endMin, new CommonCallback() {
+        PushInfo pushInfo = SPHelper.getPushInfo();
+        if (pushInfo == null) return;
+        int startHour = pushInfo.getDisturbStartHour();
+        int endHour = pushInfo.getDisturbEndHour();
+        service.setDoNotDisturb(startHour, 0, endHour, 0, new CommonCallback() {
             @Override
             public void onSuccess(String s) {
-
+                LogUtils.i(PushHelper.class, "startDisturb", "免打扰-成功\n" + s);
             }
 
             @Override
             public void onFailed(String s, String s1) {
-
+                LogUtils.i(PushHelper.class, "startDisturb", "免打扰-失败\n" + s + "\n" + s1);
             }
         });
     }
 
     private static void stopDisturb() {
-        // TODO
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
+        service.closeDoNotDisturbMode();
     }
 
 }
