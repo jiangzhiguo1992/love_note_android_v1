@@ -31,6 +31,7 @@ public class PushHelper {
         }
         PushServiceFactory.init(ctx);
         CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        if (pushService == null) return;
         pushService.setLogLevel(debug ? CloudPushService.LOG_DEBUG : CloudPushService.LOG_OFF);
         pushService.register(ctx, pushInfo.getAliAppKey(), pushInfo.getAliAppSecret(), new CommonCallback() {
             @Override
@@ -42,6 +43,8 @@ public class PushHelper {
                 initNotification();
                 // 绑定账号
                 bindAccount();
+                // 绑定tag
+                checkTagBind();
             }
 
             @Override
@@ -64,6 +67,16 @@ public class PushHelper {
     }
 
     private static void initNotification() {
+        //CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        //pushService.turnOnPushChannel(new CommonCallback() {
+        //    @Override
+        //    public void onSuccess(String s) {
+        //    }
+        //
+        //    @Override
+        //    public void onFailed(String s, String s1) {
+        //    }
+        //});
         PushInfo info = SPHelper.getPushInfo();
         if (info == null) {
             info = new PushInfo();
@@ -83,11 +96,12 @@ public class PushHelper {
     }
 
     private static void bindAccount() {
-        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        if (pushService == null) return;
         User me = SPHelper.getMe();
-        long id = me.getId();
-        if (id <= 0) return;
-        pushService.bindAccount(String.valueOf(id), new CommonCallback() {
+        String phone = me.getPhone();
+        if (StringUtils.isEmpty(phone)) return;
+        pushService.bindAccount(phone, new CommonCallback() {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-成功\n" + s);
@@ -101,7 +115,8 @@ public class PushHelper {
     }
 
     public static void unBindAccount() {
-        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        if (pushService == null) return;
         User me = SPHelper.getMe();
         long id = me.getId();
         if (id <= 0) return;
@@ -114,6 +129,54 @@ public class PushHelper {
             @Override
             public void onFailed(String s, String s1) {
                 LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-失败\n" + s + "\n" + s1);
+            }
+        });
+    }
+
+    public static void checkTagBind() {
+        boolean system = SPHelper.getSettingsNoticeSystem();
+        boolean social = SPHelper.getSettingsNoticeSocial();
+        if (system) {
+            bindTag("system");
+        } else {
+            unBindTag("system");
+        }
+        if (social) {
+            bindTag("social");
+        } else {
+            unBindTag("social");
+        }
+    }
+
+    private static void bindTag(String tag) {
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        if (pushService == null) return;
+        // 绑定设备吧，tag要和本地数据保持一致
+        pushService.bindTag(CloudPushService.DEVICE_TARGET, new String[]{tag}, "", new CommonCallback() {
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.i(PushHelper.class, "bindTag", "TAG绑定-成功\n" + s);
+            }
+
+            @Override
+            public void onFailed(String s, String s1) {
+                LogUtils.i(PushHelper.class, "bindTag", "TAG绑定-失败\n" + s + "\n" + s1);
+            }
+        });
+    }
+
+    private static void unBindTag(String tag) {
+        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        if (pushService == null) return;
+        pushService.unbindTag(CloudPushService.DEVICE_TARGET, new String[]{tag}, "", new CommonCallback() {
+            @Override
+            public void onSuccess(String s) {
+                LogUtils.i(PushHelper.class, "unBindTag", "TAG取消绑定-成功\n" + s);
+            }
+
+            @Override
+            public void onFailed(String s, String s1) {
+                LogUtils.i(PushHelper.class, "unBindTag", "TAG取消绑定-失败\n" + s + "\n" + s1);
             }
         });
     }

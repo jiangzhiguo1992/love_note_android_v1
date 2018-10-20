@@ -208,10 +208,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.switchSystem: // 系统通知
-                changePushSystem(isChecked);
+                SPHelper.setSettingsNoticeSystem(isChecked);
+                PushHelper.checkTagBind();
                 break;
             case R.id.switchSocial: // 社交通知
-                changePushSocial(isChecked);
+                SPHelper.setSettingsNoticeSocial(isChecked);
+                PushHelper.checkTagBind();
                 break;
         }
     }
@@ -220,16 +222,6 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         String cachesSize = ResHelper.getCachesSizeFmt();
         String cachesSizeShow = String.format(Locale.getDefault(), getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
         tvCacheSummary.setText(cachesSizeShow);
-    }
-
-    private void changePushSystem(boolean isChecked) {
-        SPHelper.setSettingsNoticeSystem(isChecked);
-        // TODO  设置TAG
-    }
-
-    private void changePushSocial(boolean isChecked) {
-        SPHelper.setSettingsNoticeSocial(isChecked);
-        // TODO  设置TAG
     }
 
     private void existDialogShow() {
