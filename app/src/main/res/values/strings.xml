@@ -240,8 +240,10 @@
     <string name="notice_settings">通知设置</string>
     <string name="system_notice">系统通知</string>
     <string name="social_notice">社交通知</string>
+    <string name="night_no_disturb">夜间免打扰</string>
     <string name="receive_system_send_import_notice">接受系统发送的重要通知</string>
     <string name="receive_from_social_notice">接受来自其他用户的社交通知</string>
+    <string name="holder_clock_space_line_space_holder_clock" formatted="false">%d:00 - %d:00</string>
     <string name="account_settings">账号设置</string>
     <string name="change_phone">更换手机</string>
     <string name="modify_password">修改密码</string>

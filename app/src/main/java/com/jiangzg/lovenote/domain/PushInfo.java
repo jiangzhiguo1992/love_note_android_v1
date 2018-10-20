@@ -13,10 +13,28 @@ public class PushInfo {
     private boolean noticeLight;
     private boolean noticeSound;
     private boolean noticeVibrate;
+    private int disturbStartHour;
+    private int disturbEndHour;
     private String aliAppKey;
     private String aliAppSecret;
     private String miAppId;
     private String miAppKey;
+
+    public int getDisturbStartHour() {
+        return disturbStartHour;
+    }
+
+    public void setDisturbStartHour(int disturbStartHour) {
+        this.disturbStartHour = disturbStartHour;
+    }
+
+    public int getDisturbEndHour() {
+        return disturbEndHour;
+    }
+
+    public void setDisturbEndHour(int disturbEndHour) {
+        this.disturbEndHour = disturbEndHour;
+    }
 
     public String getAliAppKey() {
         return aliAppKey;

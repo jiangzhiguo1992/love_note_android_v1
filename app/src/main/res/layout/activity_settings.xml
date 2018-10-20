@@ -151,6 +151,44 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"/>
 
+            <RelativeLayout
+                android:id="@+id/rlDisturb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvDisturbTitle"
+                    style="@style/FontBlackNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/switchDisturb"
+                    android:text="@string/night_no_disturb"/>
+
+                <TextView
+                    android:id="@+id/tvDisturbSummary"
+                    style="@style/FontGreySmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvDisturbTitle"
+                    android:layout_toStartOf="@+id/switchDisturb"
+                    tools:text="@string/receive_from_social_notice"/>
+
+                <Switch
+                    android:id="@+id/switchDisturb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:focusableInTouchMode="false"/>
+            </RelativeLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"/>
+
             <TextView
                 style="@style/FontPrimaryNormalBold"
                 android:layout_width="match_parent"

@@ -47,6 +47,7 @@ public class SPHelper {
     private static final String FIELD_COMMON_THEME = "theme";
     private static final String FIELD_COMMON_NOTICE_SYSTEM = "notice_system";
     private static final String FIELD_COMMON_NOTICE_SOCIAL = "notice_social";
+    private static final String FIELD_COMMON_NOTICE_DISTURB = "notice_disturb";
     // commonConst
     private static final String FIELD_COMMON_CONST_COMPANY_NAME = "company_name";
     private static final String FIELD_COMMON_CONST_CUSTOMER_QQ = "customer_qq";
@@ -88,6 +89,8 @@ public class SPHelper {
     private static final String FIELD_PUSH_NOTICE_LIGHT = "notice_light";
     private static final String FIELD_PUSH_NOTICE_SOUND = "notice_sound";
     private static final String FIELD_PUSH_NOTICE_VIBRATE = "notice_vibrate";
+    private static final String FIELD_PUSH_DISTURB_START_HOUR = "disturb_start_hour";
+    private static final String FIELD_PUSH_DISTURB_END_HOUR = "disturb_end_hour";
     private static final String FIELD_PUSH_ALI_APP_KEY = "ali_app_key";
     private static final String FIELD_PUSH_ALI_APP_SECRET = "ali_app_secret";
     private static final String FIELD_PUSH_MI_APP_ID = "mi_app_id";
@@ -281,9 +284,9 @@ public class SPHelper {
         return sp.getInt(FIELD_COMMON_THEME, ThemeHelper.THEME_PINK);
     }
 
-    public static void setSettingsNoticeSystem(boolean system) {
+    public static void setSettingsNoticeSystem(boolean open) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, system);
+        editor.putBoolean(FIELD_COMMON_NOTICE_SYSTEM, open);
         editor.apply();
     }
 
@@ -292,15 +295,26 @@ public class SPHelper {
         return sp.getBoolean(FIELD_COMMON_NOTICE_SYSTEM, true);
     }
 
-    public static void setSettingsNoticeSocial(boolean ta) {
+    public static void setSettingsNoticeSocial(boolean open) {
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
-        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, ta);
+        editor.putBoolean(FIELD_COMMON_NOTICE_SOCIAL, open);
         editor.apply();
     }
 
     public static boolean getSettingsNoticeSocial() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
         return sp.getBoolean(FIELD_COMMON_NOTICE_SOCIAL, true);
+    }
+
+    public static void setSettingsNoticeDisturb(boolean open) {
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON).edit();
+        editor.putBoolean(FIELD_COMMON_NOTICE_DISTURB, open);
+        editor.apply();
+    }
+
+    public static boolean getSettingsNoticeDisturb() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON);
+        return sp.getBoolean(FIELD_COMMON_NOTICE_DISTURB, true);
     }
 
     public static void setCommonCount(CommonCount commonCount) {
@@ -432,6 +446,8 @@ public class SPHelper {
         editor.putBoolean(FIELD_PUSH_NOTICE_LIGHT, pushInfo.isNoticeLight());
         editor.putBoolean(FIELD_PUSH_NOTICE_SOUND, pushInfo.isNoticeSound());
         editor.putBoolean(FIELD_PUSH_NOTICE_VIBRATE, pushInfo.isNoticeVibrate());
+        editor.putInt(FIELD_PUSH_DISTURB_START_HOUR, pushInfo.getDisturbStartHour());
+        editor.putInt(FIELD_PUSH_DISTURB_END_HOUR, pushInfo.getDisturbEndHour());
         editor.putString(FIELD_PUSH_ALI_APP_KEY, pushInfo.getAliAppKey());
         editor.putString(FIELD_PUSH_ALI_APP_SECRET, pushInfo.getAliAppSecret());
         editor.putString(FIELD_PUSH_MI_APP_ID, pushInfo.getMiAppId());
@@ -449,6 +465,8 @@ public class SPHelper {
         pushInfo.setNoticeLight(sp.getBoolean(FIELD_PUSH_NOTICE_LIGHT, true));
         pushInfo.setNoticeSound(sp.getBoolean(FIELD_PUSH_NOTICE_SOUND, true));
         pushInfo.setNoticeVibrate(sp.getBoolean(FIELD_PUSH_NOTICE_VIBRATE, true));
+        pushInfo.setDisturbStartHour(sp.getInt(FIELD_PUSH_DISTURB_START_HOUR, 21));
+        pushInfo.setDisturbEndHour(sp.getInt(FIELD_PUSH_DISTURB_END_HOUR, 9));
         pushInfo.setAliAppKey(sp.getString(FIELD_PUSH_ALI_APP_KEY, ""));
         pushInfo.setAliAppSecret(sp.getString(FIELD_PUSH_ALI_APP_SECRET, ""));
         pushInfo.setMiAppId(sp.getString(FIELD_PUSH_MI_APP_ID, ""));

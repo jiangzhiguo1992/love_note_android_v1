@@ -30,10 +30,10 @@ public class PushHelper {
             return;
         }
         PushServiceFactory.init(ctx);
-        CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        if (pushService == null) return;
-        pushService.setLogLevel(debug ? CloudPushService.LOG_DEBUG : CloudPushService.LOG_OFF);
-        pushService.register(ctx, pushInfo.getAliAppKey(), pushInfo.getAliAppSecret(), new CommonCallback() {
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
+        service.setLogLevel(debug ? CloudPushService.LOG_DEBUG : CloudPushService.LOG_OFF);
+        service.register(ctx, pushInfo.getAliAppKey(), pushInfo.getAliAppSecret(), new CommonCallback() {
             @Override
             public void onSuccess(String response) {
                 LogUtils.i(PushHelper.class, "initApp", "推送注册-成功。\n" + response);
@@ -96,12 +96,12 @@ public class PushHelper {
     }
 
     private static void bindAccount() {
-        CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        if (pushService == null) return;
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
         User me = SPHelper.getMe();
         String phone = me.getPhone();
         if (StringUtils.isEmpty(phone)) return;
-        pushService.bindAccount(phone, new CommonCallback() {
+        service.bindAccount(phone, new CommonCallback() {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "bindAccount", "推送绑定-成功\n" + s);
@@ -115,12 +115,12 @@ public class PushHelper {
     }
 
     public static void unBindAccount() {
-        CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        if (pushService == null) return;
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
         User me = SPHelper.getMe();
         long id = me.getId();
         if (id <= 0) return;
-        pushService.unbindAccount(new CommonCallback() {
+        service.unbindAccount(new CommonCallback() {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "unBindAccount", "推送取消绑定-成功\n" + s);
@@ -136,6 +136,7 @@ public class PushHelper {
     public static void checkTagBind() {
         boolean system = SPHelper.getSettingsNoticeSystem();
         boolean social = SPHelper.getSettingsNoticeSocial();
+        boolean disturb = SPHelper.getSettingsNoticeDisturb();
         if (system) {
             bindTag("system");
         } else {
@@ -146,13 +147,21 @@ public class PushHelper {
         } else {
             unBindTag("social");
         }
+        // 注意顺序
+        if (disturb) {
+            unBindTag("disturb");
+            stopDisturb();
+        } else {
+            bindTag("disturb");
+            startDisturb();
+        }
     }
 
     private static void bindTag(String tag) {
-        CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        if (pushService == null) return;
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
         // 绑定设备吧，tag要和本地数据保持一致
-        pushService.bindTag(CloudPushService.DEVICE_TARGET, new String[]{tag}, "", new CommonCallback() {
+        service.bindTag(CloudPushService.DEVICE_TARGET, new String[]{tag}, "", new CommonCallback() {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "bindTag", "TAG绑定-成功\n" + s);
@@ -166,9 +175,9 @@ public class PushHelper {
     }
 
     private static void unBindTag(String tag) {
-        CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        if (pushService == null) return;
-        pushService.unbindTag(CloudPushService.DEVICE_TARGET, new String[]{tag}, "", new CommonCallback() {
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
+        service.unbindTag(CloudPushService.DEVICE_TARGET, new String[]{tag}, "", new CommonCallback() {
             @Override
             public void onSuccess(String s) {
                 LogUtils.i(PushHelper.class, "unBindTag", "TAG取消绑定-成功\n" + s);
@@ -179,6 +188,31 @@ public class PushHelper {
                 LogUtils.i(PushHelper.class, "unBindTag", "TAG取消绑定-失败\n" + s + "\n" + s1);
             }
         });
+    }
+
+    private static void startDisturb() {
+        // TODO
+        CloudPushService service = PushServiceFactory.getCloudPushService();
+        if (service == null) return;
+        int startHour = 22;
+        int startMin = 0;
+        int endHour = 9;
+        int endMin = 0;
+        service.setDoNotDisturb(startHour, startMin, endHour, endMin, new CommonCallback() {
+            @Override
+            public void onSuccess(String s) {
+
+            }
+
+            @Override
+            public void onFailed(String s, String s1) {
+
+            }
+        });
+    }
+
+    private static void stopDisturb() {
+        // TODO
     }
 
 }

@@ -28,6 +28,7 @@ import com.jiangzg.lovenote.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.activity.user.PhoneActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.domain.PushInfo;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -63,6 +64,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     RelativeLayout rlSocial;
     @BindView(R.id.switchSocial)
     Switch switchSocial;
+    @BindView(R.id.rlDisturb)
+    RelativeLayout rlDisturb;
+    @BindView(R.id.tvDisturbSummary)
+    TextView tvDisturbSummary;
+    @BindView(R.id.switchDisturb)
+    Switch switchDisturb;
 
     @BindView(R.id.tvPhone)
     TextView tvPhone;
@@ -111,6 +118,14 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         // 社交通知
         boolean noticeSocial = SPHelper.getSettingsNoticeSocial();
         switchSocial.setChecked(noticeSocial);
+        // 免打扰
+        boolean disturb = SPHelper.getSettingsNoticeDisturb();
+        switchDisturb.setChecked(disturb);
+        PushInfo pushInfo = SPHelper.getPushInfo();
+        int startHour = pushInfo.getDisturbStartHour();
+        int endHour = pushInfo.getDisturbEndHour();
+        String disturbShow = String.format(Locale.getDefault(), getString(R.string.holder_clock_space_line_space_holder_clock), startHour, endHour);
+        tvDisturbSummary.setText(disturbShow);
         // 关于软件
         ivAbout.setVisibility(SPHelper.getCommonCount().getVersionNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
@@ -126,8 +141,11 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         ivNotice.setVisibility(SPHelper.getCommonCount().getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
-    @OnClick({R.id.tvTheme, R.id.rlCache, R.id.rlSystem, R.id.rlSocial, R.id.tvPhone, R.id.tvPassword,
-            R.id.tvHelp, R.id.rlNotice, R.id.tvSuggest, R.id.rlAbout, R.id.tvExist})
+    @OnClick({R.id.tvTheme, R.id.rlCache,
+            R.id.rlSystem, R.id.rlSocial, R.id.rlDisturb,
+            R.id.tvPhone, R.id.tvPassword,
+            R.id.tvHelp, R.id.rlNotice, R.id.tvSuggest, R.id.rlAbout,
+            R.id.tvExist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvTheme: // 主题
@@ -141,6 +159,9 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.rlSocial: // 社交通知
                 switchSocial.setChecked(!switchSocial.isChecked());
+                break;
+            case R.id.rlDisturb: // 夜间免打扰
+                switchDisturb.setChecked(!switchDisturb.isChecked());
                 break;
             case R.id.tvPhone: // 电话
                 PhoneActivity.goActivity(mActivity);
@@ -204,7 +225,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         });
     }
 
-    @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial})
+    @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial, R.id.switchDisturb})
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.switchSystem: // 系统通知
@@ -213,6 +234,10 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.switchSocial: // 社交通知
                 SPHelper.setSettingsNoticeSocial(isChecked);
+                PushHelper.checkTagBind();
+                break;
+            case R.id.switchDisturb: // 免打扰
+                SPHelper.setSettingsNoticeDisturb(isChecked);
                 PushHelper.checkTagBind();
                 break;
         }
