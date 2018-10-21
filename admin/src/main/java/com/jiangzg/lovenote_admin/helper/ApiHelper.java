@@ -48,12 +48,14 @@ public class ApiHelper {
     // entry
     public static final String ENTRY_FILED_DEVICE_NAME = "deviceName";
     public static final String ENTRY_FILED_MARKET = "market";
+    public static final String ENTRY_FILED_LANGUAGE = "language";
     public static final String ENTRY_FILED_PLATFORM = "platform";
     public static final String ENTRY_FILED_OS_VERSION = "osVersion";
     public static final String ENTRY_FILED_APP_VERSION = "appVersion";
     public static final String[] LIST_ENTRY_FILED_SHOW = new String[]{
             ENTRY_FILED_DEVICE_NAME,
             ENTRY_FILED_MARKET,
+            ENTRY_FILED_LANGUAGE,
             ENTRY_FILED_PLATFORM,
             ENTRY_FILED_OS_VERSION,
             ENTRY_FILED_APP_VERSION,
