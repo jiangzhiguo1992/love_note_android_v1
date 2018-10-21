@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.activity.topic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -111,6 +112,15 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     }
 
     public static void goActivity(Activity from, long pcid) {
+        if (pcid == 0) return;
+        Intent intent = new Intent(from, PostSubCommentListActivity.class);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("pcid", pcid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from, long pcid) {
         if (pcid == 0) return;
         Intent intent = new Intent(from, PostSubCommentListActivity.class);
         intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);

@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.activity.topic;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -56,6 +57,17 @@ public class PostMineActivity extends BaseActivity<PostMineActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), PostMineActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, PostMineActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

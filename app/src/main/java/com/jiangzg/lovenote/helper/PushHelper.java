@@ -82,15 +82,15 @@ public class PushHelper {
         PushInfo info = SPHelper.getPushInfo();
         if (info == null) {
             info = new PushInfo();
-            info.setChannelId("1");
+            info.setChannelId("520");
             info.setChannelName(MyApp.get().getString(R.string.notification));
             info.setChannelDesc("");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 info.setChannelLevel(NotificationManager.IMPORTANCE_HIGH);
             }
             info.setNoticeLight(true);
-            info.setNoticeSound(true);
-            info.setNoticeVibrate(true);
+            info.setNoticeSound(false);
+            info.setNoticeVibrate(false);
         }
         NotificationManager manager = MyApp.getNotificationManager();
         NotificationUtils.setNotificationChannel(manager, info.getChannelId(), info.getChannelName(),

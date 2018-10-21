@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.activity.topic;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -37,6 +38,17 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), PostCollectActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, PostCollectActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

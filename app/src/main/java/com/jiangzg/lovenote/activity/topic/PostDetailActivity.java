@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.activity.topic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -143,6 +144,15 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
     }
 
     public static void goActivity(Activity from, long pid) {
+        if (pid == 0) return;
+        Intent intent = new Intent(from, PostDetailActivity.class);
+        intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);
+        intent.putExtra("pid", pid);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from, long pid) {
         if (pid == 0) return;
         Intent intent = new Intent(from, PostDetailActivity.class);
         intent.putExtra("from", ConsHelper.ACT_DETAIL_FROM_ID);

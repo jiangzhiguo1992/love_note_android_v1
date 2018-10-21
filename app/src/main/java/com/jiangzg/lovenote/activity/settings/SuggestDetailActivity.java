@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.activity.settings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -97,6 +98,16 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private int page, limitCommentContentLength;
 
     public static void goActivity(Activity from, Suggest suggest) {
+        Intent intent = new Intent(from, SuggestDetailActivity.class);
+        intent.putExtra("suggest", suggest);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from, long sid) {
+        if (sid <= 0) return;
+        Suggest suggest = new Suggest();
+        suggest.setId(sid);
         Intent intent = new Intent(from, SuggestDetailActivity.class);
         intent.putExtra("suggest", suggest);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
