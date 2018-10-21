@@ -19,6 +19,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.DeviceInfo;
+import com.jiangzg.base.system.LanguageUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
@@ -152,6 +153,8 @@ public class ApiHelper {
             String marketChannel = appMetaData.getString("market_channel");
             entry.setMarket(marketChannel);
         }
+        // 语言
+        entry.setLanguage(LanguageUtils.getLocale().getLanguage());
         // 手机平台
         entry.setPlatform(DeviceInfo.get().getPlatform());
         // 手机版本
