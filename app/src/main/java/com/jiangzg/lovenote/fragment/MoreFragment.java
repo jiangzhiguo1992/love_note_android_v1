@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.MatchPeriod;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sign;
-import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.domain.Vip;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.CountHelper;

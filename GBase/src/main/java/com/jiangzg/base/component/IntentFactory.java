@@ -60,12 +60,14 @@ public class IntentFactory {
      */
     @SuppressLint("MissingPermission")
     public static Intent getPicture() {
+        // 1.相册列表
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        // 2.文件夹列表
         //Intent intent = new Intent();
         //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         //intent.addCategory(Intent.CATEGORY_OPENABLE);
         //intent.setType("image/*");
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         return intent;
     }
 
@@ -74,12 +76,17 @@ public class IntentFactory {
      */
     @SuppressLint("MissingPermission")
     public static Intent getAudio() {
+        // 1.音频列表
+        //Intent intent = new Intent(Intent.ACTION_PICK);
+        //intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+        // 2.文件夹列表(健全)
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("audio/*");
+        // 3.文件夹列表
         //Intent intent = new Intent();
         //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         //intent.addCategory(Intent.CATEGORY_OPENABLE);
         //intent.setType("audio/*");
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
         return intent;
     }
 
