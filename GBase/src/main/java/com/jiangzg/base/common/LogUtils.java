@@ -154,7 +154,7 @@ public class LogUtils {
     // 日志写入
     private static void writeLogFile(String suffix, final String content) {
         if (TextUtils.isEmpty(content)) return;
-        String dateTime = DateUtils.getCurrentString(ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String dateTime = DateUtils.getCurrentString(ConstantUtils.FORMAT_LINE_M_D); // 必须是天，不能是时分
         String logFileName = dateTime + "_" + suffix + ".txt";
         final File logFile = new File(getLogDir(), logFileName);
         if (logFile.length() >= ConstantUtils.KB * 100) {

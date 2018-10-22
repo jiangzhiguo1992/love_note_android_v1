@@ -63,7 +63,10 @@ public class IntentFactory {
         // 1.相册列表
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        // 2.文件夹列表
+        // 2.文件夹列表(健全)
+        //Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        //intent.setType("image/*");
+        // 3.文件夹列表
         //Intent intent = new Intent();
         //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         //intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -79,7 +82,7 @@ public class IntentFactory {
         // 1.音频列表
         //Intent intent = new Intent(Intent.ACTION_PICK);
         //intent.setData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-        // 2.文件夹列表(健全)
+        // 2.文件夹列表(全面)
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("audio/*");
         // 3.文件夹列表
@@ -95,12 +98,17 @@ public class IntentFactory {
      */
     @SuppressLint("MissingPermission")
     public static Intent getVideo() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("video/*");
+        // 1.视频列表
         //Intent intent = new Intent(Intent.ACTION_PICK);
         //intent.setData(MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
+        // 2.文件夹列表(全面)
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("video/*");
+        // 3.文件夹列表
+        //Intent intent = new Intent();
+        //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        //intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //intent.setType("video/*");
         return intent;
     }
 
@@ -195,8 +203,6 @@ public class IntentFactory {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // 赋予临时权限
-        } else {
-
         }
         intent.setDataAndType(uri, AppBase.getInstance().getContentResolver().getType(uri));
         //intent.putExtra(Intent.EXTRA_STREAM, uri);

@@ -13,6 +13,7 @@ import android.util.ArrayMap;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -239,14 +240,18 @@ public class ProviderUtils {
         return list;
     }
 
-    public static Map<String, String> getProviderColumn(Uri uri, String[] projection) {
+    private static Map<String, String> getProviderColumn(Uri uri, String[] projection) {
         Map<String, String> map = new HashMap<>();
         Cursor cursor = AppBase.getInstance().getContentResolver()
                 .query(uri, projection, null, null, null);
         if (null == cursor) return map;
         if (cursor.moveToNext()) {
             for (int i = 0; i < projection.length; i++) {
+                String[] columnNames = cursor.getColumnNames();
+                if (columnNames == null || columnNames.length <= 0) break;
+                if (i >= columnNames.length) break;
                 String key = projection[i];
+                if (StringUtils.isEmpty(cursor.getColumnName(i))) continue;
                 String value = cursor.getString(i);
                 LogUtils.d(ProviderUtils.class, "getProviderColumn", "key = " + key + " | value = " + value);
                 map.put(key, value);
