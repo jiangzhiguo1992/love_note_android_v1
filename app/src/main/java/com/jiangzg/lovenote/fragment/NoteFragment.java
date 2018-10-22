@@ -211,6 +211,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         }
         if (lock == null) {
             // 锁信息没有返回
+            refreshData(); // 防止没配对前就来过这里，配对后这里不刷新
             return;
         } else if (lock.isLock()) {
             // 上锁且没有解开

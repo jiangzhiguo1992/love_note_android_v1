@@ -37,6 +37,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
     private ViewPager mPager;
     private final int screenWidth;
     private final int screenHeight;
+    private int mChildCount;
 
     public CoupleHomeWallPagerAdapter(Context context, ViewPager pager) {
         mContext = context;
@@ -44,9 +45,11 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         mPager = pager;
         screenWidth = ScreenUtils.getScreenWidth(context);
         screenHeight = ScreenUtils.getScreenHeight(context);
+        mChildCount = 0;
     }
 
     public void newData(String data) {
+        mChildCount = getCount();
         ossKeyList.clear();
         ossKeyList.add(data);
         notifyDataSetChanged();
@@ -55,6 +58,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
     }
 
     public void newData(List<String> data) {
+        mChildCount = getCount();
         int originalSize = ossKeyList.size();
         ossKeyList.clear();
         if (data != null && data.size() > 0) {
@@ -71,6 +75,16 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
             mPager.setOffscreenPageLimit(1);
             stopAutoNext();
         }
+    }
+
+    //重写getItemPosition方法,解决notifyDataSetChanged单个item不刷新
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        if (mChildCount > 0) {
+            mChildCount--;
+            return POSITION_NONE;//返回POSITION_NONE
+        }
+        return super.getItemPosition(object);
     }
 
     @Override
