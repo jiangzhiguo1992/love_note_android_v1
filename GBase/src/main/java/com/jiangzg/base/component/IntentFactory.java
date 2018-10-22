@@ -60,12 +60,12 @@ public class IntentFactory {
      */
     @SuppressLint("MissingPermission")
     public static Intent getPicture() {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/*");
-        //Intent intent = new Intent(Intent.ACTION_PICK);
-        //intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        //Intent intent = new Intent();
+        //intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+        //intent.addCategory(Intent.CATEGORY_OPENABLE);
+        //intent.setType("image/*");
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         return intent;
     }
 
