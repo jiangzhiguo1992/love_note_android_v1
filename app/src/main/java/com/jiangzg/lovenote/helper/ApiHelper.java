@@ -14,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
+import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.EncryptUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
@@ -232,6 +233,33 @@ public class ApiHelper {
                 }
             }, totalWait - between);
         }
+    }
+
+    // 更新oss信息
+    public static void ossInfoUpdate() {
+        Call<Result> call = new RetrofitHelper().call(API.class).ossGet();
+        RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                LogUtils.i(ApiHelper.class, "ossInfoUpdate", "oss更新成功");
+                OssInfo ossInfo = data.getOssInfo();
+                // 刷新ossInfo
+                SPHelper.setOssInfo(ossInfo);
+                // 刷新ossClient
+                OssHelper.refreshOssClient();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                MyApp.get().getHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LogUtils.w(ApiHelper.class, "ossInfoUpdate", "oss更新失败");
+                        ossInfoUpdate(); // 重复更新
+                    }
+                }, ConstantUtils.MIN);
+            }
+        });
     }
 
     public static void showMatchWorksDeleteDialog(Activity activity, final BaseQuickAdapter adapter, final int position) {

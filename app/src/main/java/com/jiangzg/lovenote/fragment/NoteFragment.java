@@ -45,6 +45,7 @@ import com.jiangzg.lovenote.domain.Lock;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -291,6 +292,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
+        // oss 这里配对状态变化 oss也会变化
+        ApiHelper.ossInfoUpdate();
+        // api
         long near = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         call = new RetrofitHelper().call(API.class).noteHomeGet(near);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {

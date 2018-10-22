@@ -98,6 +98,8 @@ public class OssHelper {
             return url;
         } catch (ClientException e) {
             LogUtils.e(OssHelper.class, "getUrl", e);
+            // 刷新oss
+            ApiHelper.ossInfoUpdate();
         }
         return "";
     }
@@ -358,6 +360,8 @@ public class OssHelper {
                 // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.w(OssHelper.class, "uploadFile", "onFailure: objectKey == " + uploadKey);
+                // 刷新oss
+                ApiHelper.ossInfoUpdate();
                 // 本地异常如网络异常等
                 if (clientException != null) {
                     if (toast) {
@@ -656,6 +660,8 @@ public class OssHelper {
                 // 打印
                 final String uploadKey = request.getObjectKey();
                 LogUtils.w(OssHelper.class, "uploadJpegList", "onFailure: currentIndex = " + currentIndex + " -- getObjectKey = " + uploadKey);
+                // 刷新oss
+                ApiHelper.ossInfoUpdate();
                 // 本地异常如网络异常等
                 if (clientException != null) {
                     ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
@@ -810,6 +816,8 @@ public class OssHelper {
                 // 打印
                 final String downloadKey = request.getObjectKey();
                 LogUtils.w(OssHelper.class, "downloadObject", "onFailure: getObjectKey == " + downloadKey);
+                // 刷新oss
+                ApiHelper.ossInfoUpdate();
                 // 本地异常如网络异常等
                 if (clientException != null) {
                     if (toast) {
