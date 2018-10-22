@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
@@ -93,7 +94,14 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvAddress, address);
         FrescoView ivPicture = helper.getView(R.id.ivPicture);
-        ivPicture.setWidthAndHeight(imageWidth / 3, imageHeight / 3); // 注意了啊，太高了会崩
+        // 按版本来采样吧，低版本不能太大
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ivPicture.setWidthAndHeight(imageWidth / 2, imageHeight / 2);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            ivPicture.setWidthAndHeight(imageWidth / 3, imageHeight / 3);
+        } else {
+            ivPicture.setWidthAndHeight(imageWidth / 4, imageHeight / 4);
+        }
         // 主色值设置
         ivPicture.setBitmapListener(new FrescoView.BitmapListener() {
             @Override
