@@ -321,6 +321,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
                 vip = data.getVip();
+                VipLimit vipLimit = data.getVipLimit();
+                SPHelper.setVipLimit(vipLimit);
                 vipYesLimit = data.getVipYesLimit();
                 vipNoLimit = data.getVipNoLimit();
                 refreshView();
