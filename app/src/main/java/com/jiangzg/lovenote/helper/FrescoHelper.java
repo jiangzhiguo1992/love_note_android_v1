@@ -7,9 +7,11 @@ import android.net.Uri;
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.cache.disk.FileCache;
 import com.facebook.common.logging.FLog;
+import com.facebook.common.memory.NoOpMemoryTrimmableRegistry;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.view.DraweeView;
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
 import com.facebook.imagepipeline.cache.CacheKeyFactory;
 import com.facebook.imagepipeline.cache.DefaultCacheKeyFactory;
 import com.facebook.imagepipeline.common.ResizeOptions;
@@ -22,6 +24,8 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 
+import okhttp3.OkHttpClient;
+
 /**
  * Created by JZG on 2018/4/28.
  * FrescoHelper
@@ -29,7 +33,7 @@ import com.jiangzg.base.common.StringUtils;
 public class FrescoHelper {
 
     // 初始化
-    public static void init(Context ctx, boolean debug) {
+    public static void initApp(Context ctx, boolean debug) {
         // 网络图的缓存key
         CacheKeyFactory keyFactory = new DefaultCacheKeyFactory() {
             @Override
@@ -44,13 +48,16 @@ public class FrescoHelper {
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(ctx)
                 .setBaseDirectoryPath(ResHelper.createFrescoCacheDir())
                 .build();
-        // 初始化配置
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(ctx)
+        // 初始化配置，使用okHttp的，会有准确的加载进度
+        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory.newBuilder(ctx, new OkHttpClient())
                 .setCacheKeyFactory(keyFactory)
-                .setMainDiskCacheConfig(diskCacheConfig)
                 .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig()) // 渐进式实现
-                .setDownsampleEnabled(true) // 向下采样
-                .setBitmapsConfig(Bitmap.Config.ARGB_8888) // 小图RGB_565 大图ARGB8888
+                .setBitmapsConfig(Bitmap.Config.RGB_565) // 小图RGB_565 大图ARGB8888
+                //.setBitmapMemoryCacheParamsSupplier() // 配置缓存策略
+                .setMainDiskCacheConfig(diskCacheConfig)
+                .setMemoryTrimmableRegistry(NoOpMemoryTrimmableRegistry.getInstance()) // 注册内存调用器，在需要回收内存的时候进行回收
+                .setResizeAndRotateEnabledForNetwork(true) // 对网络图片进行resize处理，减少内存消耗
+                .setDownsampleEnabled(true) // 向下采样，必须和ImageRequest的ResizeOptions一起使用
                 .build();
         // 开始初始化
         Fresco.initialize(ctx, config);

@@ -30,7 +30,7 @@ public class MyApp extends AppBase {
         ResHelper.initApp();
         // 三方的
         ButterKnife.setDebug(DEBUG);
-        FrescoHelper.init(this, DEBUG);
+        FrescoHelper.initApp(this, DEBUG);
         PushHelper.initApp(this, DEBUG);
     }
 
