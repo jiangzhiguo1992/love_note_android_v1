@@ -13,11 +13,14 @@ public class Push extends BaseObj implements Parcelable {
     public static final int TYPE_SUGGEST = 50;// 打开suggest
     public static final int TYPE_COUPLE = 100;// 打开couple
     public static final int TYPE_NOTE = 200; // 打开note
-    public static final int TYPE_NOTE_LOCK = 201;// 打开密码锁
-    public static final int TYPE_NOTE_SOUVENIR = 210; // 打开纪念日
+    public static final int TYPE_NOTE_LOCK = 210;// 打开密码锁
+    public static final int TYPE_NOTE_TRENDS = 211;// 打开动态
+    public static final int TYPE_NOTE_TOTAL = 212;// 打开统计
+    public static final int TYPE_NOTE_RECYCLE = 213;// 打开回收箱
     public static final int TYPE_NOTE_SHY = 220; // 打开羞羞
     public static final int TYPE_NOTE_MENSES = 221;// 打开姨妈
     public static final int TYPE_NOTE_SLEEP = 222;// 打开睡眠
+    public static final int TYPE_NOTE_SOUVENIR = 230; // 打开纪念日
     public static final int TYPE_TOPIC = 300;// 打开topic
     public static final int TYPE_TOPIC_MINE = 310;// 打开我的
     public static final int TYPE_TOPIC_COLLECT = 320;// 打开收藏

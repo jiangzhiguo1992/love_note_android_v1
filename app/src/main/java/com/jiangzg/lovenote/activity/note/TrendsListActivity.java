@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.activity.note;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,6 +46,13 @@ public class TrendsListActivity extends BaseActivity<TrendsListActivity> {
 
     public static void goActivity(Fragment from) {
         Intent intent = new Intent(from.getActivity(), TrendsListActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        Intent intent = new Intent(from, TrendsListActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.activity.note;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -101,6 +102,18 @@ public class LockActivity extends BaseActivity<LockActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), LockActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            // 无效配对
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, LockActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

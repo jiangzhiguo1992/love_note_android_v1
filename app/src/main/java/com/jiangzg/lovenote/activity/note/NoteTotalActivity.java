@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.activity.note;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -70,6 +71,17 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
             return;
         }
         Intent intent = new Intent(from.getActivity(), NoteTotalActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
+        if (!SPHelper.getVipLimit().isNoteTotalEnable()) {
+            VipActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, NoteTotalActivity.class);
         // intent.putExtra();
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);

@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.activity.more;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -147,6 +148,17 @@ public class VipActivity extends BaseActivity<VipActivity> {
     }
 
     public static void goActivity(Activity from) {
+        if (Couple.isBreak(SPHelper.getCouple())) {
+            CouplePairActivity.goActivity(from);
+            return;
+        }
+        Intent intent = new Intent(from, VipActivity.class);
+        // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Context from) {
         if (Couple.isBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;

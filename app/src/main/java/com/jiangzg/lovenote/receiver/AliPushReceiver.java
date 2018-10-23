@@ -6,7 +6,10 @@ import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
+import com.jiangzg.lovenote.activity.note.LockActivity;
 import com.jiangzg.lovenote.activity.note.MensesActivity;
+import com.jiangzg.lovenote.activity.note.NoteTotalActivity;
+import com.jiangzg.lovenote.activity.note.TrendsListActivity;
 import com.jiangzg.lovenote.activity.settings.SuggestDetailActivity;
 import com.jiangzg.lovenote.activity.topic.PostCollectActivity;
 import com.jiangzg.lovenote.activity.topic.PostDetailActivity;
@@ -51,6 +54,15 @@ public class AliPushReceiver extends MessageReceiver {
         switch (contentType) {
             case Push.TYPE_SUGGEST: // 意见反馈
                 SuggestDetailActivity.goActivity(context, contentId);
+                break;
+            case Push.TYPE_NOTE_LOCK:
+                LockActivity.goActivity(context);
+                break;
+            case Push.TYPE_NOTE_TRENDS:
+                TrendsListActivity.goActivity(context);
+                break;
+            case Push.TYPE_NOTE_TOTAL:
+                NoteTotalActivity.goActivity(context);
                 break;
             case Push.TYPE_NOTE_MENSES: // 姨妈
                 MensesActivity.goActivity(context);
