@@ -293,8 +293,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // oss 这里配对状态变化 oss也会变化
-        ApiHelper.ossInfoUpdate();
         // api
         long near = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
         call = new RetrofitHelper().call(API.class).noteHomeGet(near);

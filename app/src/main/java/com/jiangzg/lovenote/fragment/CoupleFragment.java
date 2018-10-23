@@ -162,6 +162,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             @Override
             public void call(Couple couple) {
                 refreshView();
+                // oss 这里配对状态变化 oss也会变化
+                ApiHelper.ossInfoUpdate();
             }
         });
         // refresh
@@ -172,7 +174,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callHomeGet);
         RetrofitHelper.cancel(callPlaceGet);
-        RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obWallPaperRefresh);
+        RxBus.unregister(ConsHelper.EVENT_WALL_PAPER_REFRESH, obWallPaperRefresh);
         RxBus.unregister(ConsHelper.EVENT_COUPLE_REFRESH, obCoupleRefresh);
         stopCoupleCountDownTask();
     }
@@ -207,6 +209,9 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
+        // oss 这里配对状态变化 oss也会变化
+        ApiHelper.ossInfoUpdate();
+        // api
         callHomeGet = new RetrofitHelper().call(API.class).coupleHomeGet();
         RetrofitHelper.enqueue(callHomeGet, null, new RetrofitHelper.CallBack() {
             @Override
