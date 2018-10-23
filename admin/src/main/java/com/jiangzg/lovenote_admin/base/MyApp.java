@@ -26,7 +26,6 @@ public class MyApp extends AppBase {
         // 三方的
         ButterKnife.setDebug(DEBUG);
         FrescoHelper.init(this, DEBUG);
-        //AnalyUtils.initApp();
     }
 
     public static MyApp get() {
