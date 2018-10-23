@@ -35,19 +35,19 @@ public class BroadcastAdapter extends BaseQuickAdapter<Broadcast, BaseViewHolder
     protected void convert(BaseViewHolder helper, Broadcast item) {
         // data
         String id = "id:" + item.getId();
-        String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        //String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        //String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String start = "开始:" + DateUtils.getString(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String end = "结束:" + (item.getEndAt() == 0 ? "永久" : DateUtils.getString(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M));
         String type = "(" + Broadcast.getTypeShow(item.getContentType()) + ")";
-        String isEnd = "end:" + item.isEnd();
+        String isEnd = "(" + item.isEnd() + ")";
         String title = item.getTitle();
         String cover = "cover:" + item.getCover();
         String content = item.getContentText().replace("\\n", "\n");
         // view
         helper.setText(R.id.tvId, id);
-        helper.setText(R.id.tvCreate, create);
-        helper.setText(R.id.tvUpdate, update);
+        //helper.setText(R.id.tvCreate, create);
+        //helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvStart, start);
         helper.setText(R.id.tvEnd, end);
         helper.setText(R.id.tvType, type);

@@ -54,6 +54,7 @@
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:visibility="gone"
                 tools:text="11"/>
         </LinearLayout>
 
@@ -67,42 +68,44 @@
             <TextView
                 android:id="@+id/tvPlatform"
                 style="@style/FontGreyNormal"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 tools:text="11.1.1"/>
 
             <TextView
                 android:id="@+id/tvVersionName"
                 style="@style/FontBlackNormalBold"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_weight="1"
                 android:gravity="center"
                 tools:text="11.1.1"/>
 
             <TextView
                 android:id="@+id/tvVersionCode"
                 style="@style/FontBlackNormalBold"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
-                android:gravity="center"
-                tools:text="11"/>
-
-            <TextView
-                android:id="@+id/tvVersionUrl"
-                style="@style/FontGreyNormal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 tools:text="11"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvVersionUrl"
+            style="@style/FontGreyNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="11"/>
 
         <TextView
             android:id="@+id/tvVersionLog"
