@@ -321,7 +321,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             ivContent.setClickListener(null);
         } else {
             ivContent.setVisibility(View.VISIBLE);
-            ivContent.setData(contentImgUrl);
+            ivContent.setDataOss(contentImgUrl);
             ivContent.setClickListener(new FrescoView.ClickListener() {
                 @Override
                 public void onSuccessClick(FrescoView iv) {

@@ -165,7 +165,8 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
             }
         });
-        ivPicture.setData(content);
+        // 为避免还没下载完就加载，导致加载不全，先用oss吧
+        ivPicture.setDataOss(content);
         // listener
         helper.addOnClickListener(R.id.tvAddress);
         helper.addOnClickListener(R.id.tvModifyVertical);

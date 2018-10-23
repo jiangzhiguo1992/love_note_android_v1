@@ -258,7 +258,7 @@ public class FrescoView extends SimpleDraweeView {
     }
 
     // http:// https:// 需要现场获取oss的url
-    private void setDataOss(String objPath) {
+    public void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
         Uri parse;
         if (StringUtils.isEmpty(url)) {

@@ -83,7 +83,7 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         // image
         FrescoView ivWork = helper.getView(R.id.ivWork);
         ivWork.setWidthAndHeight(width, height);
-        ivWork.setData(contentImage);
+        ivWork.setDataOss(contentImage);
         // count
         helper.setText(R.id.tvReportCount, reportCount);
         helper.setText(R.id.tvPointCount, pointCount);
