@@ -128,14 +128,14 @@
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="@dimen/elevation_normal"
                         app:cardMaxElevation="@dimen/elevation_big">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarLeft"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             tools:background="@mipmap/ic_girl_circle"/>
                     </android.support.v7.widget.CardView>
 
@@ -145,19 +145,20 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_toEndOf="@+id/cvAvatarLeft"
                         android:background="?attr/selectableItemBackground"
                         android:foreground="?attr/selectableItemBackground"
                         app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="15dp"
+                        app:cardCornerRadius="10dp"
                         app:cardElevation="@dimen/elevation_normal"
                         app:cardMaxElevation="@dimen/elevation_big">
 
                         <com.jiangzg.lovenote.view.FrescoAvatarView
                             android:id="@+id/ivAvatarRight"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             tools:background="@mipmap/ic_boy_circle"/>
                     </android.support.v7.widget.CardView>
 
@@ -172,20 +173,19 @@
 
                 <LinearLayout
                     android:id="@+id/llCoupleName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:orientation="vertical"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:visibility="gone"
                     tools:visibility="visible">
 
                     <TextView
                         android:id="@+id/tvNameLeft"
                         style="@style/FontGreySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginBottom="1dp"
-                        android:layout_marginTop="2dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="2dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minLines="1"
@@ -195,10 +195,9 @@
                     <TextView
                         android:id="@+id/tvNameRight"
                         style="@style/FontGreySmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="1dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="2dp"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:minLines="1"
