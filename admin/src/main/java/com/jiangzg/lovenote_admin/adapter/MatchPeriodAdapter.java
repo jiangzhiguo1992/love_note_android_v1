@@ -36,9 +36,9 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
     protected void convert(BaseViewHolder helper, MatchPeriod item) {
         // data
         String id = "id:" + item.getId();
-        String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
-        String isEnd = "进行:" + (DateUtils.getCurrentLong() >= item.getStartAt() * 1000 && DateUtils.getCurrentLong() <= item.getEndAt() * 1000);
+        //String create = "创建:" + DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        //String update = "更新:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String isEnd = "(" + (DateUtils.getCurrentLong() >= item.getStartAt() * 1000 && DateUtils.getCurrentLong() <= item.getEndAt() * 1000) + ")";
         String start = "开始:" + DateUtils.getString(item.getStartAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String end = "结束:" + DateUtils.getString(item.getEndAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String period = "期数:" + item.getPeriod();
@@ -51,8 +51,8 @@ public class MatchPeriodAdapter extends BaseQuickAdapter<MatchPeriod, BaseViewHo
         String coinCount = String.valueOf(item.getCoinCount());
         // view
         helper.setText(R.id.tvId, id);
-        helper.setText(R.id.tvCreate, create);
-        helper.setText(R.id.tvUpdate, update);
+        //helper.setText(R.id.tvCreate, create);
+        //helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvIsEnd, isEnd);
         helper.setText(R.id.tvStart, start);
         helper.setText(R.id.tvEnd, end);
