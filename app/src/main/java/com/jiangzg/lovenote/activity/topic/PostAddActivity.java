@@ -19,12 +19,10 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.common.MapSelectActivity;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.adapter.ImgSquareEditAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -40,7 +38,6 @@ import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
-import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
@@ -53,8 +50,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
-import rx.Observable;
-import rx.functions.Action1;
 
 public class PostAddActivity extends BaseActivity<PostAddActivity> {
 
@@ -76,10 +71,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     TextView tvContentLimit;
     @BindView(R.id.rvImage)
     RecyclerView rvImage;
-    @BindView(R.id.cvAddress)
-    CardView cvAddress;
-    @BindView(R.id.tvAddress)
-    TextView tvAddress;
     @BindView(R.id.btnDraft)
     Button btnDraft;
     @BindView(R.id.btnPublish)
@@ -89,7 +80,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
     private Post post;
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
-    private Observable<LocationInfo> obSelectMap;
     private int limitContentLength;
 
     public static void goActivity(Activity from, PostKindInfo kindInfo, int subKind) {
@@ -148,30 +138,15 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                         .setAdapter();
             }
         }
-        // location
-        refreshLocationView();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null || post == null) return;
-                post.setLatitude(info.getLatitude());
-                post.setLongitude(info.getLongitude());
-                post.setAddress(info.getAddress());
-                post.setCityId(info.getCityId());
-                refreshLocationView();
-            }
-        });
     }
 
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
-        RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
     }
 
@@ -198,15 +173,11 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvSubKind, R.id.cvAddress, R.id.btnDraft, R.id.btnPublish})
+    @OnClick({R.id.cvSubKind, R.id.btnDraft, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvSubKind: // 分类
                 showSelectSubKindDialog();
-                break;
-            case R.id.cvAddress: // 地址
-                if (post == null) return;
-                MapSelectActivity.goActivity(mActivity, post.getAddress(), post.getLongitude(), post.getLatitude());
                 break;
             case R.id.btnDraft: // 草稿
                 saveDraft();
@@ -276,12 +247,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         DialogHelper.showWithAnim(dialog);
     }
 
-    private void refreshLocationView() {
-        if (post == null) return;
-        String location = StringUtils.isEmpty(post.getAddress()) ? getString(R.string.now_no) : post.getAddress();
-        tvAddress.setText(location);
-    }
-
     private void goPicture() {
         PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
@@ -334,12 +299,6 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         } else if (StringUtils.isEmpty(post.getContentText())) {
             ToastUtils.show(etContent.getHint().toString());
             return;
-        } else if (post.getLongitude() == 0 && post.getLatitude() == 0) {
-            PostSubKindInfo subKindInfo = ListHelper.getPostSubKindInfo(kindInfo, post.getSubKind());
-            if (subKindInfo != null && subKindInfo.isLonLat()) {
-                ToastUtils.show(getString(R.string.please_select_address));
-                return;
-            }
         }
         post.setTitle(title);
         List<String> fileData = null;

@@ -139,7 +139,6 @@ public class SPHelper {
     private static final String FIELD_LIMIT_AWARD_RULE_SCORE_MAX = "award_rule_score_max";
     private static final String FIELD_LIMIT_POST_TITLE_LENGTH = "post_title_length";
     private static final String FIELD_LIMIT_POST_CONTENT_LENGTH = "post_content_length";
-    private static final String FIELD_LIMIT_POST_LON_LAT_DIFF_MAX = "post_lon_lat_diff_max";
     private static final String FIELD_LIMIT_POST_SCREEN_REPORT_COUNT = "post_screen_report_count";
     private static final String FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH = "post_comment_content_length";
     private static final String FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT = "post_comment_screen_report_count";
@@ -521,7 +520,6 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, limit.getAwardRuleScoreMax());
         editor.putInt(FIELD_LIMIT_POST_TITLE_LENGTH, limit.getPostTitleLength());
         editor.putInt(FIELD_LIMIT_POST_CONTENT_LENGTH, limit.getPostContentLength());
-        editor.putFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, (float) limit.getPostLonLatDiffMax());
         editor.putInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, limit.getPostScreenReportCount());
         editor.putInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, limit.getPostCommentContentLength());
         editor.putInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, limit.getPostCommentScreenReportCount());
@@ -600,7 +598,6 @@ public class SPHelper {
         limit.setAwardRuleScoreMax(sp.getInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, 100));
         limit.setPostTitleLength(sp.getInt(FIELD_LIMIT_POST_TITLE_LENGTH, 20));
         limit.setPostContentLength(sp.getInt(FIELD_LIMIT_POST_CONTENT_LENGTH, 100));
-        limit.setPostLonLatDiffMax(sp.getFloat(FIELD_LIMIT_POST_LON_LAT_DIFF_MAX, 0.1F));
         limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 10));
         limit.setPostCommentContentLength(sp.getInt(FIELD_LIMIT_POST_COMMENT_CONTENT_LENGTH, 100));
         limit.setPostCommentScreenReportCount(sp.getInt(FIELD_LIMIT_POST_COMMENT_SCREEN_REPORT_COUNT, 20));
@@ -929,10 +926,6 @@ public class SPHelper {
         editor.putInt(FIELD_DRAFT_POST_SUB_KIND, post.getSubKind());
         editor.putString(FIELD_DRAFT_POST_TITLE, post.getTitle());
         editor.putString(FIELD_DRAFT_POST_CONTENT_TEXT, post.getContentText());
-        editor.putFloat(FIELD_DRAFT_POST_LONGITUDE, (float) post.getLongitude());
-        editor.putFloat(FIELD_DRAFT_POST_LATITUDE, (float) post.getLatitude());
-        editor.putString(FIELD_DRAFT_POST_ADDRESS, post.getAddress());
-        editor.putString(FIELD_DRAFT_POST_CITY_ID, post.getCityId());
         editor.apply();
     }
 
@@ -943,10 +936,6 @@ public class SPHelper {
         post.setSubKind(sp.getInt(FIELD_DRAFT_POST_SUB_KIND, 0));
         post.setTitle(sp.getString(FIELD_DRAFT_POST_TITLE, ""));
         post.setContentText(sp.getString(FIELD_DRAFT_POST_CONTENT_TEXT, ""));
-        post.setLongitude(sp.getFloat(FIELD_DRAFT_POST_LONGITUDE, 0));
-        post.setLatitude(sp.getFloat(FIELD_DRAFT_POST_LATITUDE, 0));
-        post.setAddress(sp.getString(FIELD_DRAFT_POST_ADDRESS, ""));
-        post.setCityId(sp.getString(FIELD_DRAFT_POST_CITY_ID, ""));
         if (post.getKind() == 0) {
             return null;
         }

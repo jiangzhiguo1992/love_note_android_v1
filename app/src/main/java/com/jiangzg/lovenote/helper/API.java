@@ -553,7 +553,6 @@ public interface API {
     @GET("topic/post?list=1")
     Call<Result> topicPostListGet(@Query("create") long create, @Query("kind") int kind,
                                   @Query("sub_kind") int subKind, @Query("search") String search,
-                                  @Query("lon") double lon, @Query("lat") double lat,
                                   @Query("official") boolean official, @Query("well") boolean well,
                                   @Query("page") int page);
 

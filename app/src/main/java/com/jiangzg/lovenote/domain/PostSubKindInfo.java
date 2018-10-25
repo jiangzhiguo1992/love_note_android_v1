@@ -13,7 +13,6 @@ public class PostSubKindInfo implements Parcelable {
     private boolean enable;
     private String name;
     private boolean push;
-    private boolean lonLat;
     private boolean anonymous;
 
     public boolean isAnonymous() {
@@ -22,14 +21,6 @@ public class PostSubKindInfo implements Parcelable {
 
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
-    }
-
-    public boolean isLonLat() {
-        return lonLat;
-    }
-
-    public void setLonLat(boolean lonLat) {
-        this.lonLat = lonLat;
     }
 
     public boolean isPush() {
@@ -71,7 +62,6 @@ public class PostSubKindInfo implements Parcelable {
         kind = in.readInt();
         enable = in.readByte() != 0;
         push = in.readByte() != 0;
-        lonLat = in.readByte() != 0;
         anonymous = in.readByte() != 0;
         name = in.readString();
     }
@@ -81,7 +71,6 @@ public class PostSubKindInfo implements Parcelable {
         dest.writeInt(kind);
         dest.writeByte((byte) (enable ? 1 : 0));
         dest.writeByte((byte) (push ? 1 : 0));
-        dest.writeByte((byte) (lonLat ? 1 : 0));
         dest.writeByte((byte) (anonymous ? 1 : 0));
         dest.writeString(name);
     }

@@ -54,7 +54,6 @@ public class Limit {
     // topic
     private int postTitleLength;
     private int postContentLength;
-    private double postLonLatDiffMax;
     private int postScreenReportCount;
     private int postCommentContentLength;
     private int postCommentScreenReportCount;
@@ -332,14 +331,6 @@ public class Limit {
 
     public void setPostContentLength(int postContentLength) {
         this.postContentLength = postContentLength;
-    }
-
-    public double getPostLonLatDiffMax() {
-        return postLonLatDiffMax;
-    }
-
-    public void setPostLonLatDiffMax(double postLonLatDiffMax) {
-        this.postLonLatDiffMax = postLonLatDiffMax;
     }
 
     public int getPostScreenReportCount() {

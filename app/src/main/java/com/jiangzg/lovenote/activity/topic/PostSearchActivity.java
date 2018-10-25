@@ -14,8 +14,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -27,9 +25,7 @@ import com.jiangzg.lovenote.domain.PostSubKindInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
-import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
-import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -64,7 +60,6 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     private Call<Result> call;
     private int page;
     private long create;
-    private double lon, lat;
     private Observable<Post> obListItemRefresh;
     private Observable<Post> obListItemDelete;
 
@@ -154,46 +149,12 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     }
 
     private void getData(final boolean more) {
-        final String title = etSearch.getText().toString().trim();
+        String title = etSearch.getText().toString().trim();
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etSearch.getHint().toString());
             if (srl.isRefreshing()) srl.setRefreshing(false);
             return;
         }
-        if (subKindInfo != null && subKindInfo.isLonLat()) {
-            PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_LOCATION, PermUtils.location, new PermUtils.OnPermissionListener() {
-                @Override
-                public void onPermissionGranted(int requestCode, String[] permissions) {
-                    LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
-                        @Override
-                        public void onSuccess(LocationInfo info) {
-                            lon = info.getLongitude();
-                            lat = info.getLatitude();
-                            getDataWithLonLat(more, title);
-                        }
-
-                        @Override
-                        public void onFailed(String errMsg) {
-                            if (srl.isRefreshing()) srl.setRefreshing(false);
-                            ToastUtils.show(getString(R.string.location_error));
-                        }
-                    });
-                }
-
-                @Override
-                public void onPermissionDenied(int requestCode, String[] permissions) {
-                    if (srl.isRefreshing()) srl.setRefreshing(false);
-                    DialogHelper.showGoPermDialog(mActivity);
-                }
-            });
-        } else {
-            lon = 0;
-            lat = 0;
-            getDataWithLonLat(more, title);
-        }
-    }
-
-    private void getDataWithLonLat(final boolean more, String title) {
         page = more ? page + 1 : 0;
         if (!more || create <= 0) {
             create = TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong());
@@ -206,7 +167,7 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
                 subKindId = subKindInfo.getKind();
             }
         }
-        call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindId, subKindId, title, lon, lat, false, false, page);
+        call = new RetrofitHelper().call(API.class).topicPostListGet(create, kindId, subKindId, title, false, false, page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

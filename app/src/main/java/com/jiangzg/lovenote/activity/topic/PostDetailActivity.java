@@ -420,7 +420,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         String title = post.getTitle();
         String contentText = post.getContentText();
         List<String> imageList = post.getContentImageList();
-        String address = post.getAddress();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(post.getCreateAt());
         String createShow = String.format(Locale.getDefault(), mActivity.getString(R.string.create_at_colon_space_holder), create);
         String update = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(post.getUpdateAt());
@@ -500,14 +499,6 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                     .initAdapter(new ImgSquareShowAdapter(mActivity, 1))
                     .setAdapter()
                     .dataNew(imageList, 0);
-        }
-        // address
-        TextView tvAddress = head.findViewById(R.id.tvAddress);
-        if (StringUtils.isEmpty(address)) {
-            tvAddress.setVisibility(View.GONE);
-        } else {
-            tvAddress.setVisibility(View.VISIBLE);
-            tvAddress.setText(address);
         }
         // time
         TextView tvCreateAt = head.findViewById(R.id.tvCreateAt);
