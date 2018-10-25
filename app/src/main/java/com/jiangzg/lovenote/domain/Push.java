@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by JZG on 2018/10/21.
  * Push
  */
-public class Push extends BaseObj implements Parcelable {
+public class Push implements Parcelable {
 
     public static final int TYPE_APP = 0; // 打开app
     public static final int TYPE_SUGGEST = 50;// 打开suggest
@@ -29,12 +29,21 @@ public class Push extends BaseObj implements Parcelable {
     public static final int TYPE_TOPIC_COMMENT = 350;// 打开postComment
     public static final int TYPE_MORE = 400;// 打开more
 
+    private long createAt;
     private long userId;
     private String platform;
     private String title;
     private String contentText;
     private int contentType;
     private long contentId;
+
+    public long getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(long createAt) {
+        this.createAt = createAt;
+    }
 
     public long getUserId() {
         return userId;
@@ -85,7 +94,7 @@ public class Push extends BaseObj implements Parcelable {
     }
 
     protected Push(Parcel in) {
-        super(in);
+        createAt = in.readLong();
         userId = in.readLong();
         platform = in.readString();
         title = in.readString();
@@ -96,7 +105,7 @@ public class Push extends BaseObj implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        super.writeToParcel(dest, flags);
+        dest.writeLong(createAt);
         dest.writeLong(userId);
         dest.writeString(platform);
         dest.writeString(title);

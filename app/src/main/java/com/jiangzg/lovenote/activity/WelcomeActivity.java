@@ -146,7 +146,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         }
     }
 
-
     private Runnable checkUser = new Runnable() {
         @Override
         public void run() {

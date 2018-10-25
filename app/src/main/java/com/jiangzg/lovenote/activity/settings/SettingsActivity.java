@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.activity.common;
+package com.jiangzg.lovenote.activity.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,11 +18,6 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.settings.AboutActivity;
-import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.activity.settings.NoticeListActivity;
-import com.jiangzg.lovenote.activity.settings.SuggestHomeActivity;
-import com.jiangzg.lovenote.activity.settings.ThemeActivity;
 import com.jiangzg.lovenote.activity.user.LoginActivity;
 import com.jiangzg.lovenote.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.activity.user.PhoneActivity;

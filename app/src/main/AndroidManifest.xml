@@ -115,7 +115,7 @@
         <activity android:name=".activity.user.PasswordActivity"/>
         <activity android:name=".activity.user.UserInfoActivity"/>
         <!-- settings -->
-        <activity android:name=".activity.common.SettingsActivity"/>
+        <activity android:name=".activity.settings.SettingsActivity"/>
         <activity android:name=".activity.settings.ThemeActivity"/>
         <activity android:name=".activity.settings.HelpActivity"/>
         <activity android:name=".activity.settings.NoticeListActivity"/>

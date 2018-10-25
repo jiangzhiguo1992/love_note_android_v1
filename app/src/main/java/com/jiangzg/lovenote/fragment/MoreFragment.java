@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.common.SettingsActivity;
+import com.jiangzg.lovenote.activity.settings.SettingsActivity;
 import com.jiangzg.lovenote.activity.more.CoinActivity;
 import com.jiangzg.lovenote.activity.more.MatchDiscussActivity;
 import com.jiangzg.lovenote.activity.more.MatchDiscussListActivity;

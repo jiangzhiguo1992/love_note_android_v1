@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.common.SettingsActivity;
+import com.jiangzg.lovenote.activity.settings.SettingsActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.activity.topic.PostCollectActivity;
 import com.jiangzg.lovenote.activity.topic.PostMineActivity;
