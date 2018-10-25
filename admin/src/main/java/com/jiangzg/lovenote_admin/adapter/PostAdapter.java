@@ -44,9 +44,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         String update = "更新于:" + DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String title = item.getTitle();
         String contentText = item.getContentText();
-        String longitude = "lon:" + item.getLongitude();
-        String latitude = "lat:" + item.getLatitude();
-        String address = item.getAddress();
         String reportCount = String.valueOf(item.getReportCount());
         String pointCount = String.valueOf(item.getPointCount());
         String collectCount = String.valueOf(item.getCollectCount());
@@ -67,9 +64,6 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
         helper.setText(R.id.tvUpdate, update);
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvContent, contentText);
-        helper.setText(R.id.tvLon, longitude);
-        helper.setText(R.id.tvLat, latitude);
-        helper.setText(R.id.tvAddress, address);
         helper.setText(R.id.tvReport, reportCount);
         helper.setText(R.id.tvPoint, pointCount);
         helper.setText(R.id.tvCollect, collectCount);

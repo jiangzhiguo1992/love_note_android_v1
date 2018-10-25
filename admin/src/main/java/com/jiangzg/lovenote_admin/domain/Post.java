@@ -15,10 +15,6 @@ public class Post extends BaseCP implements Parcelable {
     private int subKind;
     private String title;
     private String contentText;
-    private double longitude;
-    private double latitude;
-    private String address;
-    private String cityId;
     private boolean top;
     private boolean official;
     private boolean well;
@@ -86,38 +82,6 @@ public class Post extends BaseCP implements Parcelable {
 
     public void setContentText(String contentText) {
         this.contentText = contentText;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
     }
 
     public boolean isTop() {
@@ -267,10 +231,6 @@ public class Post extends BaseCP implements Parcelable {
         subKind = in.readInt();
         title = in.readString();
         contentText = in.readString();
-        longitude = in.readDouble();
-        latitude = in.readDouble();
-        address = in.readString();
-        cityId = in.readString();
         top = in.readByte() != 0;
         official = in.readByte() != 0;
         well = in.readByte() != 0;
@@ -299,10 +259,6 @@ public class Post extends BaseCP implements Parcelable {
         dest.writeInt(subKind);
         dest.writeString(title);
         dest.writeString(contentText);
-        dest.writeDouble(longitude);
-        dest.writeDouble(latitude);
-        dest.writeString(address);
-        dest.writeString(cityId);
         dest.writeByte((byte) (top ? 1 : 0));
         dest.writeByte((byte) (official ? 1 : 0));
         dest.writeByte((byte) (well ? 1 : 0));
