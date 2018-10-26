@@ -220,10 +220,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 SPHelper.setMe(data.getUser());
                 SPHelper.setTogetherDay(data.getTogetherDay());
                 SPHelper.setWallPaper(data.getWallPaper());
-                myPlace = data.getPlaceMe();
-                taPlace = data.getPlaceTa();
-                myWeatherToday = data.getWeatherTodayMe();
-                taWeatherToday = data.getWeatherTodayTa();
                 refreshView();
                 // 刷新地址+天气
                 refreshPlaceWeatherDate();
