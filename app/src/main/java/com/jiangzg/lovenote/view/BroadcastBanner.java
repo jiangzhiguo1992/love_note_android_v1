@@ -109,7 +109,7 @@ public class BroadcastBanner extends Banner {
             String url = (String) path;
             FrescoView view = (FrescoView) imageView;
             view.setWidthAndHeight(ScreenUtils.getScreenWidth(context), ConvertUtils.dp2px(160));
-            view.setDataOss(url);
+            view.setData(url);
         }
 
         //提供createImageView 方法，如果不用可以不重写这个方法，主要是方便自定义ImageView的创建

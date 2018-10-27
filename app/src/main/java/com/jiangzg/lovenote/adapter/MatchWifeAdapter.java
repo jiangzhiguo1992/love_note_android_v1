@@ -1,37 +1,20 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.content.res.ColorStateList;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.text.InputType;
-import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.common.LogUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
-import com.jiangzg.lovenote.domain.MatchCoin;
-import com.jiangzg.lovenote.domain.MatchPoint;
-import com.jiangzg.lovenote.domain.MatchReport;
 import com.jiangzg.lovenote.domain.MatchWork;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.CountHelper;
-import com.jiangzg.lovenote.helper.DialogHelper;
-import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.FrescoView;
-
-import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -83,7 +66,7 @@ public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder
         // image
         FrescoView ivWork = helper.getView(R.id.ivWork);
         ivWork.setWidthAndHeight(width, height);
-        ivWork.setDataOss(contentImage);
+        ivWork.setData(contentImage);
         // count
         helper.setText(R.id.tvReportCount, reportCount);
         helper.setText(R.id.tvPointCount, pointCount);

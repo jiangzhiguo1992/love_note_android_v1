@@ -20,7 +20,7 @@ public class MyApp extends AppBase {
     public void onCreate() {
         super.onCreate();
         // 自己的
-        LogUtils.initApp(DEBUG, false);
+        LogUtils.initApp(DEBUG, false, false);
         AppListener.initApp(this);
         ActivityStack.initApp();
         // 三方的

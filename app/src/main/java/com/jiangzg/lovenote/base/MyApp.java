@@ -25,7 +25,7 @@ public class MyApp extends AppBase {
         super.onCreate();
         // 自己的
         setTheme(ThemeHelper.getTheme());
-        LogUtils.initApp(DEBUG, true);
+        LogUtils.initApp(DEBUG, DEBUG, true);
         AppListener.initApp(this);
         ActivityStack.initApp();
         ResHelper.initApp();

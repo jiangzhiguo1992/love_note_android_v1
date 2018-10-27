@@ -24,12 +24,13 @@ public class LogUtils {
 
     private static String logTagPrefix = "<>"; // 用来控制打印前缀
     private static boolean open; // 控制非异常级别的打印
-    private static boolean writeFile; // 控制非异常级别的打印
+    private static boolean warnFile, errFile; // 控制非异常级别的打印
 
-    public static void initApp(boolean debug, boolean writeLog) {
+    public static void initApp(boolean debug, boolean warnWrite, boolean errWrite) {
         logTagPrefix = "<" + AppInfo.get().getName() + ">";
         open = debug;
-        writeFile = writeLog;
+        warnFile = warnWrite;
+        errFile = errWrite;
         // 全局异常捕获机制
         Thread.UncaughtExceptionHandler handler = new Thread.UncaughtExceptionHandler() {
             @Override
@@ -128,7 +129,7 @@ public class LogUtils {
     public static void w(Class cls, String method, String print) {
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         String write = "\n" + tag + ": " + print;
-        if (writeFile) writeLogFile("warn", write);
+        if (warnFile) writeLogFile("warn", write);
         if (!open) return;
         Log.w(tag, print);
     }
@@ -139,7 +140,7 @@ public class LogUtils {
         String tag = logTagPrefix + "-" + getLogTag(cls) + "-(" + method + ") ";
         String print = Log.getStackTraceString(t);
         String write = "\n" + tag + ": " + print;
-        if (writeFile) writeLogFile("err", write);
+        if (errFile) writeLogFile("err", write);
         if (!open) return;
         Log.e(tag, print);
     }
