@@ -209,7 +209,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // oss 这里配对状态变化 oss也会变化
+        // oss 最好是刷新一次，防止状态变化 oss不同步
         ApiHelper.ossInfoUpdate();
         // api
         callHomeGet = new RetrofitHelper().call(API.class).coupleHomeGet();

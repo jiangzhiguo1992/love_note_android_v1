@@ -78,11 +78,14 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
     }
 
     // 重写getItemPosition方法,解决notifyDataSetChanged单个item不刷新
+    // 但是只有在item只有一个的时候重写，其他时候动画会混乱
     @Override
     public int getItemPosition(@NonNull Object object) {
-        if (mChildCount > 0) {
-            mChildCount--;
-            return POSITION_NONE; // 返回POSITION_NONE
+        if (ossKeyList != null && ossKeyList.size() == 1) {
+            if (mChildCount > 0) {
+                mChildCount--;
+                return POSITION_NONE; // 返回POSITION_NONE
+            }
         }
         return super.getItemPosition(object);
     }
@@ -179,6 +182,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
 
     // 停止其他页面动画
     private void stopOtherAnimation() {
+        if (mPager == null) return;
         //int currentItem = mPager.getCurrentItem();
         int childCount = mPager.getChildCount();
         for (int i = 0; i < childCount; i++) {

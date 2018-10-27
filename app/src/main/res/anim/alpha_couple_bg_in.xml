@@ -13,9 +13,9 @@
     <scale
         android:duration="10000"
         android:fromXScale="100%"
-        android:toXScale="150%"
+        android:toXScale="130%"
         android:fromYScale="100%"
-        android:toYScale="150%"
+        android:toYScale="130%"
         android:pivotX="50%"
         android:pivotY="50%"/>
 </set>
