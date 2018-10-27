@@ -25,10 +25,10 @@
                 android:id="@+id/cvHappenAt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="?attr/colorPrimaryDark"
@@ -50,10 +50,10 @@
                 android:id="@+id/rgHappenUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_stroke_primary_r3"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -68,8 +68,8 @@
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/me_s_promise"
                     android:textColor="@color/selector_text_check_primary_white"
                     tools:checked="true"/>
@@ -84,8 +84,8 @@
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/ta_s_promise"
                     android:textColor="@color/selector_text_check_primary_white"/>
             </RadioGroup>
@@ -115,8 +115,8 @@
                     style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@id/etContent"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="3dp"
                     tools:text="0/2000"/>
             </RelativeLayout>

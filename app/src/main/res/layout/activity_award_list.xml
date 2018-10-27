@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:paddingBottom="10dp"
                 android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:shadowColor="@color/black_trans_50"
                 android:shadowRadius="10"
                 tools:text="+10"/>
@@ -41,8 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:paddingBottom="10dp"
                 android:paddingTop="5dp"
+                android:paddingBottom="10dp"
                 android:shadowColor="@color/black_trans_50"
                 android:shadowRadius="10"
                 tools:text="+10"/>
@@ -78,8 +78,8 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="20dp"
@@ -107,8 +107,8 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <TextView
                 style="@style/FontGreyNormal"
@@ -129,8 +129,8 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:layout_width="20dp"

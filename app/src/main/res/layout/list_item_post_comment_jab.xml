@@ -9,8 +9,8 @@
     android:background="@color/white"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="vertical"
-    android:paddingEnd="10dp"
-    android:paddingStart="10dp">
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp">
 
     <View style="@style/LineHorizontal"/>
 
@@ -60,8 +60,8 @@
             android:id="@+id/cvAvatarLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:visibility="gone"
@@ -82,10 +82,10 @@
             style="@style/FontGreyBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/jab_a_little"
             android:textStyle="italic"/>
 
@@ -93,8 +93,8 @@
             android:id="@+id/cvAvatarRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:visibility="gone"

@@ -35,9 +35,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -51,8 +51,8 @@
                             style="@style/FontBlackNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawablePadding="15dp"
                             android:drawableStart="@drawable/ic_phone_grey"
+                            android:drawablePadding="15dp"
                             android:hint="@string/please_input_ta_phone"
                             android:inputType="phone"
                             android:maxLines="1"
@@ -75,10 +75,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="20dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
                     android:enabled="false"
                     android:text="@string/i_want_pair_with_ta"/>
             </LinearLayout>
@@ -87,9 +87,9 @@
                 android:id="@+id/cardResult"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
                 android:visibility="gone"
                 app:cardBackgroundColor="?attr/colorPrimaryDark"
                 app:cardCornerRadius="@dimen/radius_normal"
@@ -108,9 +108,9 @@
                         style="@style/FontWhiteNormalBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="20dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         tools:text="@string/ta_colon_space_holder"/>
 
@@ -119,9 +119,9 @@
                         style="@style/FontWhiteBigBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         tools:text="title"/>
 
@@ -130,9 +130,9 @@
                         style="@style/FontWhiteNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
                         android:gravity="center"
                         tools:text="message"/>
 
@@ -145,10 +145,10 @@
                             style="@style/FontWhiteNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginEnd="5dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="15dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="15dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             tools:text="不超过六个字"/>
@@ -158,14 +158,14 @@
                             style="@style/FontWhiteNormal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="15dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="15dp"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:paddingEnd="20dp"
                             android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
                             tools:text="不超过六个字"/>
                     </LinearLayout>
                 </LinearLayout>

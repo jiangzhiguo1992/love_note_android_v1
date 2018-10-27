@@ -26,10 +26,10 @@
                 android:id="@+id/cvHappenAt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="?attr/colorPrimaryDark"
@@ -51,9 +51,9 @@
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
                 android:visibility="gone"
                 tools:visibility="visible"/>
 
@@ -61,8 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <EditText
                     android:id="@+id/etContent"
@@ -83,8 +83,8 @@
                     style="@style/FontGreySmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_below="@id/etContent"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="3dp"
                     tools:text="0/2000"/>
             </RelativeLayout>

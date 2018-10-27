@@ -33,10 +33,10 @@
                     style="@style/FontWhiteHugeBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
                     android:gravity="center"
                     tools:text="在一起在一起在一起"/>
 
@@ -45,13 +45,13 @@
                     style="@style/FontWhiteNormal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:paddingBottom="5dp"
                     android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
                     android:textColor="@color/white_trans_75"
                     android:visibility="gone"
                     tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班"
@@ -60,9 +60,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 

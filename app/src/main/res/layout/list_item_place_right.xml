@@ -6,10 +6,10 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="6dp"
-    android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="2dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="6dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
@@ -50,8 +50,8 @@
 
         <View
             style="@style/LineHorizontal"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"/>
 
         <TextView
             android:id="@+id/tvAddress"
@@ -97,8 +97,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:minLines="1"
                 android:singleLine="true"
                 tools:text="城区"/>

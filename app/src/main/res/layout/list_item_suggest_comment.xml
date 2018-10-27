@@ -6,9 +6,9 @@
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
-    android:paddingBottom="10dp"
+    android:paddingStart="10dp"
     android:paddingEnd="10dp"
-    android:paddingStart="10dp">
+    android:paddingBottom="10dp">
 
     <View style="@style/LineHorizontal"/>
 
@@ -28,8 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTop"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对"/>
 </RelativeLayout>

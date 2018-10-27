@@ -47,8 +47,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <LinearLayout
                 android:id="@+id/rlRed"
@@ -78,8 +78,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <LinearLayout
                 android:id="@+id/rlPurple"
@@ -109,8 +109,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <!--<LinearLayout-->
             <!--android:id="@+id/rlIndigo"-->
@@ -171,8 +171,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <!--<LinearLayout-->
             <!--android:id="@+id/rlTeal"-->
@@ -233,8 +233,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <!--<LinearLayout-->
             <!--android:id="@+id/rlLime"-->
@@ -295,8 +295,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <LinearLayout
                 android:id="@+id/rlOrange"
@@ -326,8 +326,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <LinearLayout
                 android:id="@+id/rlBrown"
@@ -357,8 +357,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

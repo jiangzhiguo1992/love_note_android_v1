@@ -70,10 +70,10 @@
                     android:id="@+id/llPlace"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -87,8 +87,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/track"/>
 
                     <View
@@ -107,10 +107,10 @@
                     android:id="@+id/llAlbum"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -124,8 +124,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/album"/>
 
                     <View
@@ -144,10 +144,10 @@
                     android:id="@+id/llVideo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -161,8 +161,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/video"/>
 
                     <View
@@ -181,10 +181,10 @@
                     android:id="@+id/llFood"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -198,8 +198,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/food"/>
 
                     <View
@@ -218,10 +218,10 @@
                     android:id="@+id/llDiary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:visibility="gone"
@@ -235,8 +235,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/diary"/>
 
                     <View

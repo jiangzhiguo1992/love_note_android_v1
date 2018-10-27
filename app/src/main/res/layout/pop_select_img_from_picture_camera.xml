@@ -12,14 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/llCamera"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:background="@drawable/shape_solid_white_r5_top"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp">
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -38,23 +38,23 @@
     <View
         style="@style/LineHorizontal"
         android:layout_above="@id/llCamera"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
 
     <LinearLayout
         android:id="@+id/llCamera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/llCancel"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/shape_solid_white_r5_bot"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp">
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -75,15 +75,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/shape_solid_white_r5"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingBottom="14dp"
-        android:paddingTop="14dp">
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
 
         <ImageView
             android:layout_width="18dp"

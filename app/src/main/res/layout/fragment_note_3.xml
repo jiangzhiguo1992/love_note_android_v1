@@ -79,8 +79,8 @@
                                         style="@style/FontGreyNormalBold"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:layout_alignBottom="@+id/tvSouvenirYear"
                                         android:layout_alignTop="@+id/tvSouvenirYear"
+                                        android:layout_alignBottom="@+id/tvSouvenirYear"
                                         android:layout_marginStart="10dp"
                                         android:layout_toEndOf="@+id/tvSouvenirYear"
                                         android:ellipsize="end"
@@ -116,10 +116,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="5dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -131,8 +131,8 @@
                             style="@style/FontGreySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="@string/live"
                             android:textColor="@color/font_hint"/>
 
@@ -152,10 +152,10 @@
                             android:id="@+id/cvShy"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -168,11 +168,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_shy_yellow"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/shy"/>
                         </android.support.v7.widget.CardView>
 
@@ -180,10 +180,10 @@
                             android:id="@+id/cvMenses"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -196,11 +196,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_menses_red_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/menses"/>
                         </android.support.v7.widget.CardView>
 
@@ -208,10 +208,10 @@
                             android:id="@+id/cvSleep"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -224,11 +224,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_sleep_teal_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/sleep"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
@@ -236,10 +236,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -251,8 +251,8 @@
                             style="@style/FontGreySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="@string/note"
                             android:textColor="@color/font_hint"/>
 
@@ -273,10 +273,10 @@
                             android:id="@+id/cvWord"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -289,11 +289,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_word_indigo_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/word"/>
                         </android.support.v7.widget.CardView>
 
@@ -301,10 +301,10 @@
                             android:id="@+id/cvWhisper"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -317,11 +317,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_whisper_orange"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/whisper"/>
                         </android.support.v7.widget.CardView>
 
@@ -330,10 +330,10 @@
                             android:id="@+id/cvDiary"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -346,11 +346,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_diary_pink_accent"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/diary"/>
                         </android.support.v7.widget.CardView>
 
@@ -358,10 +358,10 @@
                             android:id="@+id/cvAward"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -374,11 +374,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_award_indigo_accent"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/award"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
@@ -393,10 +393,10 @@
                             android:id="@+id/cvDream"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -409,11 +409,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_dream_brown"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/dream"/>
                         </android.support.v7.widget.CardView>
 
@@ -421,10 +421,10 @@
                             android:id="@+id/cvGift"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -437,11 +437,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_gift_lime"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/gift"/>
                         </android.support.v7.widget.CardView>
 
@@ -449,10 +449,10 @@
                             android:id="@+id/cvFood"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -465,11 +465,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_food_yellow_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/food"/>
                         </android.support.v7.widget.CardView>
 
@@ -477,10 +477,10 @@
                             android:id="@+id/cvTravel"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -493,11 +493,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_travel_red"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/travel"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
@@ -512,10 +512,10 @@
                             android:id="@+id/cvAngry"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -528,11 +528,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_angry_purple_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/angry"/>
                         </android.support.v7.widget.CardView>
 
@@ -540,10 +540,10 @@
                             android:id="@+id/cvPromise"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="22dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="22dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -556,11 +556,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_promise_blue"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/promise"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
@@ -568,10 +568,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -583,8 +583,8 @@
                             style="@style/FontGreySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="@string/media"
                             android:textColor="@color/font_hint"/>
 
@@ -604,10 +604,10 @@
                             android:id="@+id/cvAudio"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -620,11 +620,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_audio_teal_accent"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/audio"/>
                         </android.support.v7.widget.CardView>
 
@@ -632,10 +632,10 @@
                             android:id="@+id/cvVideo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -648,11 +648,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_video_purple_accent"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/video"/>
                         </android.support.v7.widget.CardView>
 
@@ -660,10 +660,10 @@
                             android:id="@+id/cvAlbum"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="5dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -676,11 +676,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_photo_green"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/album"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>
@@ -688,10 +688,10 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="5dp"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
 
@@ -703,8 +703,8 @@
                             style="@style/FontGreySmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="10dp"
                             android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
                             android:text="@string/other"
                             android:textColor="@color/font_hint"/>
 
@@ -724,10 +724,10 @@
                             android:id="@+id/cvTotal"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -740,11 +740,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_total_lime_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/statistics"/>
                         </android.support.v7.widget.CardView>
 
@@ -752,10 +752,10 @@
                             android:id="@+id/cvTrends"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginEnd="3dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -768,11 +768,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_trends_blue_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/trends"/>
                         </android.support.v7.widget.CardView>
 
@@ -780,10 +780,10 @@
                             android:id="@+id/cvRecycle"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginEnd="16dp"
                             android:layout_marginStart="3dp"
                             android:layout_marginTop="5dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="10dp"
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
@@ -796,11 +796,11 @@
                                 style="@style/FontGreyNormal"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:drawablePadding="5dp"
                                 android:drawableTop="@drawable/ic_recycle_bin_grey_dark"
+                                android:drawablePadding="5dp"
                                 android:gravity="center"
-                                android:paddingBottom="10dp"
                                 android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
                                 android:text="@string/recycle_bin"/>
                         </android.support.v7.widget.CardView>
                     </LinearLayout>

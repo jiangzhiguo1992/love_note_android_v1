@@ -30,9 +30,9 @@
                 android:id="@+id/ivAvatarLeft"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
                 tools:background="@mipmap/ic_boy_circle"/>
 
             <TextView
@@ -44,8 +44,8 @@
                 android:background="@drawable/shape_stroke_white_r100"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingBottom="7dp"
                 android:paddingTop="7dp"
+                android:paddingBottom="7dp"
                 tools:text="名字最多六字"/>
 
             <LinearLayout
@@ -57,8 +57,8 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="7dp"
-                android:paddingTop="7dp">
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -83,8 +83,8 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="7dp"
-                android:paddingTop="7dp">
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp">
 
                 <ImageView
                     android:id="@+id/ivSexLeft"
@@ -116,9 +116,9 @@
                 android:id="@+id/ivAvatarRight"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
                 tools:background="@mipmap/ic_girl_circle"/>
 
             <TextView
@@ -130,8 +130,8 @@
                 android:background="@drawable/shape_stroke_white_r100"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
-                android:paddingBottom="7dp"
                 android:paddingTop="7dp"
+                android:paddingBottom="7dp"
                 tools:text="名字最多六字"/>
 
             <LinearLayout
@@ -143,8 +143,8 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="7dp"
-                android:paddingTop="7dp">
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -169,8 +169,8 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="7dp"
-                android:paddingTop="7dp">
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp">
 
                 <ImageView
                     android:id="@+id/ivSexRight"

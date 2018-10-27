@@ -16,10 +16,10 @@
             android:id="@+id/cvMy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
@@ -41,10 +41,10 @@
             android:id="@+id/cvFollow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
@@ -66,10 +66,10 @@
             android:id="@+id/cvAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
@@ -108,8 +108,8 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
             android:text="@string/type_colon"/>
 
         <HorizontalScrollView
@@ -136,8 +136,8 @@
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
             android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
             android:text="@string/status_colon"/>
 
         <HorizontalScrollView
@@ -159,8 +159,8 @@
         style="@style/FontWhiteNormal"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
         android:text="@string/start_search"/>
 </LinearLayout>

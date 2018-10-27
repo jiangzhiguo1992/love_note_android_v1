@@ -5,19 +5,19 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingEnd="10dp"
     android:paddingStart="10dp"
-    android:paddingTop="5dp">
+    android:paddingTop="5dp"
+    android:paddingEnd="10dp"
+    android:paddingBottom="5dp">
 
     <TextView
         android:id="@+id/tvTitle"
         style="@style/FontWhiteNormal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@id/llContent"
-        android:layout_alignStart="@+id/llContent"
         android:layout_below="@+id/llContent"
+        android:layout_alignStart="@+id/llContent"
+        android:layout_alignEnd="@id/llContent"
         android:layout_marginTop="5dp"
         android:gravity="center"
         tools:text="录音介绍录音介绍录音介绍录音介绍录音介绍录音介绍录音介绍"
@@ -69,8 +69,8 @@
                 style="@style/FontGreySmall"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center|bottom"
                 tools:text="2017-12-3 06:30"/>
         </LinearLayout>

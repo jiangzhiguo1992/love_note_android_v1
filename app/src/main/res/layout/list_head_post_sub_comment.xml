@@ -16,9 +16,9 @@
         android:id="@+id/llTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -72,17 +72,17 @@
         style="@style/FontBlackNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         tools:text="我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对我觉得14楼说的对我觉得"/>
 
     <LinearLayout
         android:id="@+id/llOperate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone"
@@ -158,8 +158,8 @@
             android:id="@+id/cvAvatarJabLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:visibility="gone"
@@ -180,10 +180,10 @@
             style="@style/FontGreyBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/jab_a_little"
             android:textStyle="italic"/>
 
@@ -191,8 +191,8 @@
             android:id="@+id/cvAvatarJabRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:visibility="gone"

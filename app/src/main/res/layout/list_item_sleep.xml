@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:paddingBottom="2dp"
     android:paddingTop="2dp"
+    android:paddingBottom="2dp"
     tools:background="@color/black_trans_25"
     tools:text="撒飒飒撒飒飒撒飒飒撒飒飒撒飒飒"/>

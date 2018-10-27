@@ -38,10 +38,10 @@
                 style="@style/FontGreyNormal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_solid_white_r3"
                 android:gravity="center"
@@ -56,10 +56,10 @@
                 style="@style/FontWhiteNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="33dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                 android:text="@string/change_channel"/>
         </LinearLayout>
@@ -93,8 +93,8 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="20dp"
@@ -121,8 +121,8 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="8dp">
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
             <ImageView
                 android:layout_width="20dp"

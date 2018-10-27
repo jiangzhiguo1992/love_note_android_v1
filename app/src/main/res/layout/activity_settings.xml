@@ -37,8 +37,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <RelativeLayout
                 android:id="@+id/rlCache"
@@ -65,8 +65,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 style="@style/FontPrimaryNormalBold"
@@ -110,8 +110,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <RelativeLayout
                 android:id="@+id/rlSocial"
@@ -148,8 +148,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <RelativeLayout
                 android:id="@+id/rlDisturb"
@@ -186,8 +186,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 style="@style/FontPrimaryNormalBold"
@@ -207,8 +207,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:id="@+id/tvPassword"
@@ -221,8 +221,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 style="@style/FontPrimaryNormalBold"
@@ -256,8 +256,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:id="@+id/tvHelp"
@@ -270,8 +270,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:id="@+id/tvSuggest"
@@ -284,8 +284,8 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <RelativeLayout
                 android:id="@+id/rlAbout"
@@ -312,16 +312,16 @@
 
             <View
                 style="@style/LineHorizontal"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"/>
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <TextView
                 android:id="@+id/tvExist"
                 style="@style/FontBlackNormal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:padding="5dp"

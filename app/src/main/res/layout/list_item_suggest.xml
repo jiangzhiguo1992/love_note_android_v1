@@ -6,10 +6,10 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="6dp"
-    android:layout_marginEnd="10dp"
     android:layout_marginStart="10dp"
     android:layout_marginTop="2dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="6dp"
     android:background="?attr/selectableItemBackground"
     android:foreground="?attr/selectableItemBackground"
     app:cardBackgroundColor="@color/white"
@@ -27,9 +27,9 @@
             android:id="@+id/wvTag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingEnd="10dp"
             android:paddingStart="10dp"
-            android:paddingTop="10dp"/>
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"/>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -38,10 +38,10 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingBottom="2dp"
-            android:paddingEnd="10dp"
             android:paddingStart="10dp"
             android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="2dp"
             android:singleLine="true"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
@@ -50,21 +50,21 @@
             style="@style/FontGreyNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="3dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:paddingEnd="10dp"
             android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             tools:text="建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建建议内容建议内容建议内容建议内容建议内容建议内容建"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingBottom="5dp"
+            android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:paddingStart="10dp">
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/tvCreateAt"
@@ -102,8 +102,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp">
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
 
                 <ImageView
                     android:id="@+id/ivFollow"
@@ -129,8 +129,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp">
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
 
                 <ImageView
                     android:id="@+id/ivComment"

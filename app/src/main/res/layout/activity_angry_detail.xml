@@ -29,8 +29,8 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="@dimen/elevation_normal"
@@ -57,19 +57,19 @@
                     style="@style/FontBlackBig"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     tools:text="内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内"/>
 
                 <!-- gift -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -82,8 +82,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/gift"/>
 
                     <View
@@ -111,8 +111,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingBottom="10dp"
                         android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/did_award_some_gift"/>
                 </android.support.v7.widget.CardView>
 
@@ -127,10 +127,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -143,8 +143,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
                         android:text="@string/promise"/>
 
                     <View
@@ -172,8 +172,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:paddingBottom="10dp"
                         android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/did_do_some_promise"/>
                 </android.support.v7.widget.CardView>
 

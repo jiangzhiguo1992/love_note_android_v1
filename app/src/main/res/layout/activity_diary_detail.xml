@@ -24,8 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp">
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -47,8 +47,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentBottom="true"
                         android:paddingBottom="10dp"
                         tools:text="字数: 1000"/>
 
@@ -57,8 +57,8 @@
                         style="@style/FontGreySmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
                         android:paddingBottom="10dp"
                         tools:text="阅读:36"/>
 
@@ -67,8 +67,8 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tvHappenAt"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="25dp"
                         app:cardElevation="@dimen/elevation_normal"

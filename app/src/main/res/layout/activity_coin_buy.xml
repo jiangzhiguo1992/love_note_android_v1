@@ -23,10 +23,10 @@
                 android:id="@+id/rgGoods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/shape_stroke_primary"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
@@ -41,8 +41,8 @@
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:textColor="@color/selector_text_check_primary_white"
                     tools:checked="true"
                     tools:text="一月\n30RMB"/>
@@ -62,8 +62,8 @@
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:textColor="@color/selector_text_check_primary_white"
                     tools:checked="true"
                     tools:text="一年\n300RMB"/>
@@ -83,8 +83,8 @@
                     android:button="@null"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:paddingBottom="10dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:textColor="@color/selector_text_check_primary_white"
                     tools:text="永久\n999RMB"/>
             </RadioGroup>
@@ -94,9 +94,9 @@
                 style="@style/FontWhiteBig"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                 android:text="@string/alipay_pay"/>
 
@@ -105,9 +105,9 @@
                 style="@style/FontWhiteBig"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                 android:text="@string/wechat_pay"/>
 
@@ -116,9 +116,9 @@
                 style="@style/FontPrimarySmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/pay_success_but_nothing"/>

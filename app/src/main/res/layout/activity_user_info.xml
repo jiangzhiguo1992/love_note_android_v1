@@ -38,8 +38,8 @@
                     android:id="@+id/rlGirl"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_marginEnd="15dp"
                     android:layout_marginStart="25dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -64,8 +64,8 @@
                     android:id="@+id/rlBoy"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_marginEnd="25dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginEnd="25dp"
                     android:layout_weight="1"
                     android:gravity="center">
 
@@ -105,8 +105,8 @@
                     android:id="@+id/npYear"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="30dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     app:custom_divider_color="?attr/colorPrimary"
                     app:custom_text_color="?attr/colorPrimary"/>
@@ -115,8 +115,8 @@
                     android:id="@+id/npMonth"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     app:custom_divider_color="?attr/colorPrimary"
                     app:custom_text_color="?attr/colorPrimary"/>
@@ -125,8 +125,8 @@
                     android:id="@+id/npDay"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="30dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginEnd="30dp"
                     android:layout_weight="1"
                     app:custom_divider_color="?attr/colorPrimary"
                     app:custom_text_color="?attr/colorPrimary"/>
@@ -137,8 +137,8 @@
                 style="@style/FontWhiteNormal"
                 android:layout_width="200dp"
                 android:layout_height="40dp"
-                android:layout_marginBottom="40dp"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
                 android:text="@string/set_ok"/>
         </LinearLayout>

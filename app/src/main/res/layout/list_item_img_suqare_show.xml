@@ -37,10 +37,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/black_trans_50"
-            android:paddingBottom="3dp"
-            android:paddingEnd="5dp"
             android:paddingStart="5dp"
             android:paddingTop="3dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="3dp"
             tools:text="总共9张"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>
