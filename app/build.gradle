@@ -49,7 +49,7 @@ android {
                 def outputFile = output.outputFile
                 if (outputFile != null && outputFile.name.endsWith('.apk')) {
                     def fileName
-                    if (variant.buildType.name.equals('release')) {
+                    if (variant.buildType.name == 'release') {
                         // 输出apk名称为 软件名_版本号_渠道_日期.apk
                         def date = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.default)
                         fileName = "ys_${android.defaultConfig.versionCode}_${variant.productFlavors[0].name}_${date}"
@@ -219,7 +219,7 @@ dependencies { // 及时更新
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     implementation 'io.reactivex:rxjava:1.2.0'
     implementation 'io.reactivex:rxandroid:1.2.1'
-    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'
