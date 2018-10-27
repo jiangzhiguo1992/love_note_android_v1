@@ -1,5 +1,6 @@
 package com.jiangzg.lovenote.adapter;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 
@@ -9,7 +10,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ViewHelper;
 
 import java.util.Locale;
@@ -20,7 +20,7 @@ import java.util.Locale;
  */
 public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> {
 
-    private BaseActivity mActivity;
+    //private BaseActivity mActivity;
     private int selectIndex = -1;
     private final int colorPrimary;
     private final int colorFontBlack;
@@ -28,14 +28,14 @@ public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
     private final int colorFontGrey;
     private final String formatDistance;
 
-    public MapSelectAdapter(BaseActivity activity) {
+    public MapSelectAdapter(Activity activity) {
         super(R.layout.list_item_map_select);
-        mActivity = activity;
-        colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
-        colorFontBlack = ContextCompat.getColor(mActivity, R.color.font_black);
-        colorFontWhite = ContextCompat.getColor(mActivity, R.color.font_white);
-        colorFontGrey = ContextCompat.getColor(mActivity, R.color.font_grey);
-        formatDistance = mActivity.getString(R.string.distance_colon_space_holder);
+        //mActivity = activity;
+        colorPrimary = ContextCompat.getColor(activity, ViewHelper.getColorPrimary(activity));
+        colorFontBlack = ContextCompat.getColor(activity, R.color.font_black);
+        colorFontWhite = ContextCompat.getColor(activity, R.color.font_white);
+        colorFontGrey = ContextCompat.getColor(activity, R.color.font_grey);
+        formatDistance = activity.getString(R.string.distance_colon_space_holder);
     }
 
     @Override

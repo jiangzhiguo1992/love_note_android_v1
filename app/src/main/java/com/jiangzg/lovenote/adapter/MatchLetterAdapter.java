@@ -7,8 +7,6 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConvertUtils;
-import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.helper.CountHelper;
@@ -20,12 +18,12 @@ import com.jiangzg.lovenote.helper.ViewHelper;
  */
 public class MatchLetterAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
+    //private FragmentActivity mActivity;
     private final ColorStateList colorPrimaryStateList, colorGreyStateList;
 
     public MatchLetterAdapter(FragmentActivity activity) {
         super(R.layout.list_item_match_letter);
-        mActivity = activity;
+        //mActivity = activity;
         // color
         int rId = ViewHelper.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);

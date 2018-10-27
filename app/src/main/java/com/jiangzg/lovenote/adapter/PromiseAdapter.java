@@ -17,7 +17,7 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 /**
  * Created by JZG on 2018/3/13.
- * 梦境适配器
+ * 承诺适配器
  */
 public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
 

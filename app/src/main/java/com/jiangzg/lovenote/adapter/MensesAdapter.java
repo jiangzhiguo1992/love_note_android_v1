@@ -13,7 +13,7 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/12.
- * 睡眠信息适配器
+ * 姨妈适配器
  */
 public class MensesAdapter extends BaseQuickAdapter<Menses, BaseViewHolder> {
 

@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 
 /**
  * Created by JZG on 2018/3/18.
- * 跟随appBar一起消失
+ * 随上划动作消失
  */
 public class GBehaviorLinearDependAppBar3 extends CoordinatorLayout.Behavior<LinearLayout> {
 

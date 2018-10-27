@@ -20,7 +20,6 @@ import java.lang.reflect.Field;
  * Created by JZG on 2018/3/3.
  * 数字选择器
  */
-
 public class BirthPicker extends NumberPicker {
 
     private int mTextColor;

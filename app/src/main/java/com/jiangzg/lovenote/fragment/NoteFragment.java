@@ -45,7 +45,6 @@ import com.jiangzg.lovenote.domain.Lock;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.helper.API;
-import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;

@@ -18,7 +18,7 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
- * 地址适配器
+ * 会员适配器
  */
 public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
 

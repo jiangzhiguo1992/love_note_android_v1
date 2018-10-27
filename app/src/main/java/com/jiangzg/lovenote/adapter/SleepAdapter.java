@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/12.
- * 睡眠信息适配器
+ * 睡眠适配器
  */
 public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
 

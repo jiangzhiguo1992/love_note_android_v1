@@ -34,7 +34,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
- * 礼物适配器
+ * 美食适配器
  */
 public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 

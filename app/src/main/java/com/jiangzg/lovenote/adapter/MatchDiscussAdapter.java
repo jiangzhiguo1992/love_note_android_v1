@@ -18,12 +18,12 @@ import com.jiangzg.lovenote.helper.ViewHelper;
  */
 public class MatchDiscussAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
+    //private FragmentActivity mActivity;
     private final ColorStateList colorPrimaryStateList, colorGreyStateList;
 
     public MatchDiscussAdapter(FragmentActivity activity) {
         super(R.layout.list_item_match_discuss);
-        mActivity = activity;
+        //mActivity = activity;
         // color
         int rId = ViewHelper.getColorPrimary(activity);
         int colorPrimary = ContextCompat.getColor(activity, rId);

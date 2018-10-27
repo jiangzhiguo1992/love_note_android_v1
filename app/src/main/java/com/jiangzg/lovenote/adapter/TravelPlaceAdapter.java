@@ -11,7 +11,7 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 
 /**
  * Created by JZG on 2018/3/13.
- * 梦境适配器
+ * 游记地址适配器
  */
 public class TravelPlaceAdapter extends BaseQuickAdapter<TravelPlace, BaseViewHolder> {
 

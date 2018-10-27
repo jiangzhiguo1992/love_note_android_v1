@@ -41,7 +41,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
- * 耳语
+ * 视频适配器
  */
 public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolder> {
 

@@ -13,7 +13,7 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 /**
  * Created by JZG on 2018/3/12.
- * 睡眠信息适配器
+ * 羞羞适配器
  */
 public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
 

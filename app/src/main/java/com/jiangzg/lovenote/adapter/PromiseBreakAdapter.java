@@ -24,7 +24,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
- * 梦境适配器
+ * 承诺违反适配器
  */
 public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseViewHolder> {
 

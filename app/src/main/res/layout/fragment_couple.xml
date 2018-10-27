@@ -46,8 +46,8 @@
                     android:id="@+id/ivWallPaper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
                     android:alpha="0.7"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
@@ -69,8 +69,8 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/selector_press_solid_dark_accent"
                     android:foreground="?attr/selectableItemBackground"
-                    android:paddingEnd="10dp"
                     android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/quick_pair_deblock_more_posture"
                     android:visibility="gone"/>
 
@@ -115,8 +115,8 @@
                     android:layout_height="70dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp">
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarLeft"
@@ -129,9 +129,9 @@
                         style="@style/FontWhiteNormal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="2dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="2dp"
                         android:layout_weight="1"
                         android:gravity="start"
                         android:maxLines="1"
@@ -145,9 +145,9 @@
                         style="@style/FontWhiteNormal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="5dp"
                         android:layout_weight="1"
                         android:gravity="end"
                         android:maxLines="1"
@@ -167,10 +167,10 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/radius_big"
                     app:cardElevation="@dimen/elevation_big"
@@ -188,10 +188,10 @@
                             android:foreground="?attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingBottom="10dp"
-                            android:paddingEnd="5dp"
                             android:paddingStart="5dp"
-                            android:paddingTop="10dp">
+                            android:paddingTop="10dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="10dp">
 
                             <com.jiangzg.lovenote.view.GMarqueeText
                                 android:id="@+id/tvPlaceLeft"
@@ -199,7 +199,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
                                 android:gravity="center"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:scrollHorizontally="true"
+                                android:singleLine="true"
                                 tools:text="@string/now_no_address_info"/>
 
                             <TextView
@@ -207,8 +213,8 @@
                                 style="@style/FontBlackSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="5dp"
                                 android:layout_marginStart="5dp"
+                                android:layout_marginEnd="5dp"
                                 tools:text="@string/distance_space_holder"/>
 
                             <com.jiangzg.lovenote.view.GMarqueeText
@@ -217,7 +223,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
                                 android:gravity="center"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:scrollHorizontally="true"
+                                android:singleLine="true"
                                 tools:text="@string/now_no_address_info"/>
                         </LinearLayout>
 
@@ -232,10 +244,10 @@
                             android:foreground="?attr/selectableItemBackground"
                             android:gravity="center_vertical"
                             android:orientation="horizontal"
-                            android:paddingBottom="10dp"
-                            android:paddingEnd="5dp"
                             android:paddingStart="5dp"
-                            android:paddingTop="10dp">
+                            android:paddingTop="10dp"
+                            android:paddingEnd="5dp"
+                            android:paddingBottom="10dp">
 
                             <RelativeLayout
                                 android:layout_width="0dp"
@@ -249,7 +261,13 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawablePadding="5dp"
+                                    android:ellipsize="marquee"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
                                     android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
                                     tools:drawableStart="@mipmap/w1"
                                     tools:text="@string/now_no_weather_info"/>
                             </RelativeLayout>
@@ -259,8 +277,8 @@
                                 style="@style/FontBlackSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="5dp"
                                 android:layout_marginStart="5dp"
+                                android:layout_marginEnd="5dp"
                                 tools:text="@string/differ_space_holder"/>
 
                             <RelativeLayout
@@ -275,7 +293,13 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:drawablePadding="5dp"
+                                    android:ellipsize="marquee"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
                                     android:gravity="center"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
                                     tools:drawableStart="@mipmap/w45"
                                     tools:text="@string/now_no_weather_info"/>
                             </RelativeLayout>

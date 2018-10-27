@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -31,7 +30,6 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
     private BaseActivity mActivity;
 
     public WordAdapter(BaseActivity activity) {
-        //super(R.layout.list_item_word);
         super(null);
         addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_word_right);
         addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_word_left);

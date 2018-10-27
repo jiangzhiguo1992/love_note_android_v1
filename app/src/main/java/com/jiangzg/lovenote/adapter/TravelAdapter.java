@@ -24,7 +24,7 @@ import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
- * 礼物适配器
+ * 游记适配器
  */
 public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
 

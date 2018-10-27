@@ -38,7 +38,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
- * Topic适配器
+ * 帖子适配器
  */
 public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 

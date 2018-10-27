@@ -34,7 +34,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
- * 耳语
+ * 音频适配器
  */
 public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolder> {
 

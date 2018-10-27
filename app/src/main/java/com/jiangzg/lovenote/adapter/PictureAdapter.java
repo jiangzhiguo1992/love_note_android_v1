@@ -48,7 +48,7 @@ import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
- * 图片列表适配器
+ * 照片列表适配器
  */
 public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 

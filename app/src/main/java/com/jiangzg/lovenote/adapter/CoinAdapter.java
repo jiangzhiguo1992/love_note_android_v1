@@ -14,18 +14,18 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 /**
  * Created by JZG on 2018/3/13.
- * 地址适配器
+ * 金币适配器
  */
 public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
+    //private FragmentActivity mActivity;
     private final Couple couple;
 
     public CoinAdapter(FragmentActivity activity) {
         super(null);
         addItemType(ApiHelper.LIST_NOTE_MY, R.layout.list_item_coin_right);
         addItemType(ApiHelper.LIST_NOTE_TA, R.layout.list_item_coin_left);
-        mActivity = activity;
+        //mActivity = activity;
         couple = SPHelper.getCouple();
     }
 
