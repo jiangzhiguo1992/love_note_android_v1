@@ -217,7 +217,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             recyclerHelper = new RecyclerHelper(rv)
                     .initLayoutManager(new LinearLayoutManager(mActivity))
                     .initAdapter(new MensesAdapter())
-                    .viewEmpty(mActivity, R.layout.list_empty_primary, true, true)
                     .setAdapter();
         }
         if (mensesList == null || mensesList.size() <= 0) {
