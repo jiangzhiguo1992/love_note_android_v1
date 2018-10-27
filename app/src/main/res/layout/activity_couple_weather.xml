@@ -234,6 +234,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/llToady"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            tools:listitem="@layout/list_item_weather_forecast"/>
     </RelativeLayout>
 </com.jiangzg.lovenote.view.GSwipeRefreshLayout>

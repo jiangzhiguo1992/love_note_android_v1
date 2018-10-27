@@ -53,7 +53,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:visibility="invisible"
-                        tools:background="@color/black_trans_25"
+                        tools:listitem="@layout/list_item_sleep"
                         tools:visibility="visible"/>
 
                     <android.support.v7.widget.RecyclerView
@@ -64,7 +64,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:visibility="invisible"
-                        tools:background="@color/black_trans_25"
+                        tools:listitem="@layout/list_item_sleep"
                         tools:visibility="visible"/>
                 </LinearLayout>
             </RelativeLayout>

@@ -27,7 +27,7 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
     private int visibleLimit, totalCount;
 
     public ImgSquareShowAdapter(FragmentActivity activity, int spanCount) {
-        super(R.layout.list_item_img_suqare_show);
+        super(R.layout.list_item_img_square_show);
         mActivity = activity;
         float screenWidth = ScreenUtils.getScreenRealWidth(activity);
         int dp10 = ConvertUtils.dp2px(10);
