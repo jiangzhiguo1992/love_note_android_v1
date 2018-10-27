@@ -77,12 +77,12 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         }
     }
 
-    //重写getItemPosition方法,解决notifyDataSetChanged单个item不刷新
+    // 重写getItemPosition方法,解决notifyDataSetChanged单个item不刷新
     @Override
     public int getItemPosition(@NonNull Object object) {
         if (mChildCount > 0) {
             mChildCount--;
-            return POSITION_NONE;//返回POSITION_NONE
+            return POSITION_NONE; // 返回POSITION_NONE
         }
         return super.getItemPosition(object);
     }
@@ -125,13 +125,14 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         if (ossKeyList == null || ossKeyList.size() <= 1) return;
         // 停止其他pager的动画
         stopOtherAnimation();
-        // 第一个页面别忘了加动画
-        mPager.getChildAt(0).startAnimation(getAnimation());
         // 必须停止，要不会有多个timer任务一起执行
         stopAutoNext();
         if (timer == null) {
             timer = new Timer();
         }
+        // 第一个页面别忘了加动画
+        View firstChild = mPager.getChildAt(0);
+        if (firstChild != null) firstChild.startAnimation(getAnimation());
         // 开始轮播
         timer.schedule(new TimerTask() {
             @Override
@@ -148,7 +149,7 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
                         int shouldIndex = nextInt;
                         if (nextInt == mPager.getCurrentItem()) {
                             if (nextInt >= ossKeyList.size() - 1) {
-                                shouldIndex = nextInt - 1;
+                                shouldIndex = 0;
                             } else {
                                 shouldIndex = nextInt + 1;
                             }

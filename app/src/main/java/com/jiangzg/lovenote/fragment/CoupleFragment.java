@@ -337,7 +337,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             vpWallPaper.setAdapter(adapter);
         }
         // 单图显示
-        if (imageList.size() == 1) {
+        if (imageList.size() <= 1) {
             String ossKey = imageList.get(0);
             adapter.newData(ossKey);
             return;
