@@ -76,7 +76,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             int height = ScreenUtils.getScreenRealHeight(mActivity);
             ivBg.setWidthAndHeight(width, height);
             ivBg.setDataFile(wallPaper);
-            startAnim();
+            //startAnim(); // 先不要动画了，避免加载卡顿
         }
         // ...非网络性init操作
         checkUser();
