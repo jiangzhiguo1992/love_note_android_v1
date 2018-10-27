@@ -7,4 +7,5 @@
         android:endColor="@color/trans_00"
         android:startColor="?attr/colorPrimary"
         android:type="linear"/>
+
 </shape>
