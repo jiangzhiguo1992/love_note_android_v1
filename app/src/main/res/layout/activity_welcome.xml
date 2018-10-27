@@ -5,18 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_gradient_primary_back"
     tools:context="com.jiangzg.lovenote.activity.WelcomeActivity">
 
-
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/ic_app_name"
-        android:tint="@color/white"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/welcome1"/>
 
     <com.jiangzg.lovenote.view.FrescoNativeView
         android:id="@+id/ivBg"
