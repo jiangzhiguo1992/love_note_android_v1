@@ -40,6 +40,7 @@ import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
@@ -240,12 +241,22 @@ public class FrescoView extends SimpleDraweeView {
         if (StringUtils.isEmpty(ossKey)) return;
         if (OssResHelper.isKeyFileExists(ossKey)) {
             File file = OssResHelper.newKeyFile(ossKey);
-            if (!FileUtils.isFileEmpty(file)) {
-                this.setDataFile(file);
+            if (file != null && !FileUtils.isFileEmpty(file)) {
+                long lastModified = file.lastModified();
+                long maxOldTime = DateUtils.getCurrentLong() - OssResHelper.FILE_DOWNLOAD_WAIT;
+                if (lastModified > 0 && lastModified <= maxOldTime) {
+                    // 有文件 已下载完
+                    this.setDataFile(file);
+                } else {
+                    // 有文件 可能没下载完
+                    this.setDataOss(ossKey);
+                }
             } else {
+                // 下载过，但是空文件
                 this.setDataOss(ossKey);
             }
         } else {
+            // 文件没下载过
             this.setDataOss(ossKey);
         }
     }
@@ -258,7 +269,7 @@ public class FrescoView extends SimpleDraweeView {
     }
 
     // http:// https:// 需要现场获取oss的url
-    public void setDataOss(String objPath) {
+    private void setDataOss(String objPath) {
         String url = OssHelper.getUrl(objPath);
         Uri parse;
         if (StringUtils.isEmpty(url)) {

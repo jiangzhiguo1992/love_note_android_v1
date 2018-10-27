@@ -18,6 +18,8 @@ import java.util.ListIterator;
  */
 public class OssResHelper {
 
+    public static final long FILE_DOWNLOAD_WAIT = ConstantUtils.MIN * 10;
+
     public static final int TYPE_COUPLE_AVATAR = 100;
     public static final int TYPE_COUPLE_WALL = 110;
     public static final int TYPE_NOTE_AUDIO = 200;
@@ -276,13 +278,15 @@ public class OssResHelper {
                         // 更新文件修改时间(不要在删旧的循环里更新，会重复)
                         File file = OssResHelper.newKeyFile(ossKey);
                         if (file == null) continue;
-                        boolean success = file.setLastModified(DateUtils.getCurrentLong());
-                        if (success) {
-                            long lastModified = file.lastModified();
-                            String lastModifyTime = DateUtils.getString(lastModified, ConstantUtils.FORMAT_CHINA_Y_M_D_H_M);
-                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == " + lastModifyTime);
+                        // 注意了，这里的修改不能修改成当前时间，FrescoView中会用到
+                        long modifyTime = DateUtils.getCurrentLong() - OssResHelper.FILE_DOWNLOAD_WAIT;
+                        long lastModified = file.lastModified();
+                        if (lastModified < modifyTime) {
+                            // 只能修改存放一天以上的文件，防止没下载完就开始欺骗fresco下载完了
+                            boolean success = file.setLastModified(modifyTime);
+                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "文件(" + file.getName() + ")开始更新 " + success);
                         } else {
-                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "目录(" + dir.getName() + "): 更新文件(" + file.getName() + "): 过期时间 == 失败");
+                            LogUtils.i(OssResHelper.class, "refreshOssResWithDelExpire", "文件(" + file.getName() + ")还没到可更新时间");
                         }
                         // 是不是在过期里有
                         if (expireFileList.size() > 0) {

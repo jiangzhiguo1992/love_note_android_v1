@@ -744,7 +744,9 @@ public class OssHelper {
             }
             return null;
         }
+        // 删除旧文件，并设置创建时间
         FileUtils.createFileByDeleteOldFile(target);
+        boolean lastModified = target.setLastModified(DateUtils.getCurrentLong());
         // dialog
         MyApp.get().getHandler().post(new Runnable() {
             @Override
