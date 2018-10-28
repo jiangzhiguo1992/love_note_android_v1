@@ -1,6 +1,7 @@
 package com.jiangzg.base.component;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
@@ -31,16 +32,28 @@ public class ActivityTrans {
         if (from instanceof Activity) {
             Activity activity = (Activity) from;
             if (sharedElements == null || sharedElements.length < 1) {
-                activity.startActivity(intent);
+                try {
+                    activity.startActivity(intent);
+                } catch (Exception e) {
+                    LogUtils.e(ActivityTrans.class, "start", e);
+                    if (e instanceof ActivityNotFoundException) return;
+                    startByContext(from, intent);
+                }
             } else {
                 try {
                     startWithElement(activity, intent, sharedElements);
                 } catch (Exception e) {
                     LogUtils.e(ActivityTrans.class, "start", e);
+                    if (e instanceof ActivityNotFoundException) return;
+                    activity.startActivity(intent);
                 }
             }
         } else {
-            startByContext(from, intent);
+            try {
+                startByContext(from, intent);
+            } catch (Exception e) {
+                LogUtils.e(ActivityTrans.class, "start", e);
+            }
         }
     }
 
@@ -53,18 +66,19 @@ public class ActivityTrans {
             LogUtils.w(ActivityTrans.class, "start", "Fragment == null || Intent == null");
             return;
         }
-        if (sharedElements == null || sharedElements.length < 1) {
-            from.startActivity(intent);
-        } else {
+        if (from.getActivity() == null || sharedElements == null || sharedElements.length < 1) {
             try {
-                FragmentActivity activity = from.getActivity();
-                if (activity != null) {
-                    startWithElement(activity, intent, sharedElements);
-                } else {
-                    from.startActivity(intent);
-                }
+                from.startActivity(intent);
             } catch (Exception e) {
                 LogUtils.e(ActivityTrans.class, "start", e);
+            }
+        } else {
+            try {
+                startWithElement(from.getActivity(), intent, sharedElements);
+            } catch (Exception e) {
+                LogUtils.e(ActivityTrans.class, "start", e);
+                if (e instanceof ActivityNotFoundException) return;
+                from.startActivity(intent);
             }
         }
     }
@@ -79,12 +93,17 @@ public class ActivityTrans {
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
-            from.startActivityForResult(intent, requestCode);
+            try {
+                from.startActivityForResult(intent, requestCode);
+            } catch (Exception e) {
+                LogUtils.e(ActivityTrans.class, "startResult", e);
+            }
         } else {
             try {
                 startWithElement(from, intent, requestCode, sharedElements);
             } catch (Exception e) {
                 LogUtils.e(ActivityTrans.class, "startResult", e);
+                if (e instanceof ActivityNotFoundException) return;
                 from.startActivityForResult(intent, requestCode);
             }
         }
@@ -99,18 +118,18 @@ public class ActivityTrans {
             LogUtils.w(ActivityTrans.class, "startResult", "Fragment == null || Intent == null");
             return;
         }
-        if (sharedElements == null || sharedElements.length < 1) {
-            from.startActivityForResult(intent, requestCode);
-        } else {
+        if (from.getActivity() == null || sharedElements == null || sharedElements.length < 1) {
             try {
-                FragmentActivity activity = from.getActivity();
-                if (activity != null) {
-                    startWithElement(activity, intent, requestCode, sharedElements);
-                } else {
-                    from.startActivity(intent);
-                }
+                from.startActivityForResult(intent, requestCode);
             } catch (Exception e) {
                 LogUtils.e(ActivityTrans.class, "startResult", e);
+            }
+        } else {
+            try {
+                startWithElement(from.getActivity(), intent, requestCode, sharedElements);
+            } catch (Exception e) {
+                LogUtils.e(ActivityTrans.class, "startResult", e);
+                if (e instanceof ActivityNotFoundException) return;
                 from.startActivityForResult(intent, requestCode);
             }
         }
@@ -131,12 +150,17 @@ public class ActivityTrans {
             return;
         }
         if (sharedElements == null || sharedElements.length < 1) {
-            activity.startActivityFromFragment(from, intent, requestCode);
+            try {
+                activity.startActivityFromFragment(from, intent, requestCode);
+            } catch (Exception e) {
+                LogUtils.e(ActivityTrans.class, "startResult2Fragment", e);
+            }
         } else {
             try {
                 startWithElement(activity, intent, requestCode, sharedElements);
             } catch (Exception e) {
                 LogUtils.e(ActivityTrans.class, "startResult2Fragment", e);
+                if (e instanceof ActivityNotFoundException) return;
                 activity.startActivityFromFragment(from, intent, requestCode);
             }
         }
