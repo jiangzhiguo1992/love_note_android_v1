@@ -72,18 +72,6 @@ android {
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
         }
         //---------------------手机市场----------------------
-        yidong { // 移动应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yidong"]
-        }
-        liantong { // 联通应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liantong"]
-        }
-        dianxin { // 电信应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "dianxin"]
-        }
         google { // 谷歌应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
@@ -117,13 +105,25 @@ android {
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
         //---------------------附属市场----------------------
-        ali { // 阿里应用分发平台
+        yidong { // 移动应用市场
             dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yidong"]
+        }
+        liantong { // 联通应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liantong"]
+        }
+        dianxin { // 电信应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "dianxin"]
         }
         baidu { // 百度应用分发平台
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
+        }
+        ali { // 阿里应用分发平台
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
         }
         tencent { // 腾讯应用宝
             dimension "release"
@@ -144,22 +144,6 @@ android {
         yingyonghui { // 应用汇
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
-        }
-        anzhi { // 安智
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "anzhi"]
-        }
-        mumayi { // 木蚂蚁
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "mumayi"]
-        }
-        nduo { // N多
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nduo"]
-        }
-        liqu { // 历趣
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liqu"]
         }
     }
     sourceSets { // 源码设置
