@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.component.IntentResult;
@@ -28,6 +29,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Couple;
@@ -53,6 +55,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnLongClick;
 import retrofit2.Call;
 
 public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
@@ -205,11 +208,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
+    @OnClick({R.id.ivAvatarLeft, R.id.ivAvatarRight, R.id.tvNameLeft, R.id.llPhoneLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ivAvatarLeft: // 修改ta的头像
-                showAvatarSelect();
+            case R.id.ivAvatarLeft: // 左头像
+                goBigImage(true);
+                break;
+            case R.id.ivAvatarRight: // 右头像
+                goBigImage(false);
                 break;
             case R.id.tvNameLeft: // 修改ta的昵称
                 showNameInput();
@@ -218,6 +224,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 showDial();
                 break;
         }
+    }
+
+    @OnLongClick({R.id.ivAvatarLeft})
+    public boolean onLongClick(View view) {
+        switch (view.getId()) {
+            case R.id.ivAvatarLeft: // 修改ta的头像
+                showAvatarSelect();
+                break;
+        }
+        return false;
     }
 
     private void getTaData() {
@@ -270,6 +286,17 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
         tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.pair_holder_day), togetherDay));
+    }
+
+    private void goBigImage(boolean left) {
+        User me = SPHelper.getMe();
+        String myAvatar = me.getMyAvatarInCp();
+        String taAvatar = me.getTaAvatarInCp();
+        String ossPath = left ? taAvatar : myAvatar;
+        if (StringUtils.isEmpty(ossPath)) return;
+        FrescoAvatarView iv = left ? ivAvatarLeft : ivAvatarRight;
+        if (iv == null) return;
+        BigImageActivity.goActivityByOss(mActivity, ossPath, iv);
     }
 
     private void showAvatarSelect() {
