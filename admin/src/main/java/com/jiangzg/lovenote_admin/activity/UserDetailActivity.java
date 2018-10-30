@@ -307,6 +307,7 @@ public class UserDetailActivity extends BaseActivity<UserDetailActivity> {
             ToastUtils.show("user为空");
             return;
         }
+        page = more ? page + 1 : 0;
         Call<Result> call = new RetrofitHelper().call(API.class).apiListGet(0, 0, user.getId(), page);
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
             @Override
