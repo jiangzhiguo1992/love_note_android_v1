@@ -70,6 +70,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     ImageView ivHelp;
     @BindView(R.id.ivWallPaper)
     ImageView ivWallPaper;
+    @BindView(R.id.ivBg)
+    ImageView ivBg;
     @BindView(R.id.vpWallPaper)
     WallPaperPager vpWallPaper;
 
@@ -270,16 +272,18 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 视图刷新 所有cp的更新都要放到sp里，集中存放
     private void refreshView() {
+        ivBg.setVisibility(View.GONE);
         vpWallPaper.setVisibility(View.GONE);
         btnPair.setVisibility(View.GONE);
         tvAddWallPaper.setVisibility(View.GONE);
         tvCoupleCountDown.setVisibility(View.GONE);
         llBottom.setVisibility(View.GONE);
-
+        // 开始判断
         User user = SPHelper.getMe();
         Couple couple = user.getCouple();
         if (Couple.isBreak(couple)) {
             // 已经分手，或者没有开始过
+            ivBg.setVisibility(View.VISIBLE);
             btnPair.setVisibility(View.VISIBLE);
         } else {
             // 已经配对
