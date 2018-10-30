@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -195,6 +196,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     // 微信
     private void startWeChatPay() {
         // TODO 微信
+        ToastUtils.show(getString(R.string.function_no_open_please_wait));
     }
 
     private void checkPayResult() {
