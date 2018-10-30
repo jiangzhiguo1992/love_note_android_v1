@@ -72,8 +72,7 @@ import retrofit2.http.Url;
 public interface API {
 
     //String HOST = "192.168.18.7:30011";
-    String HOST = "lovenote.api.jiangzhiguo.com";
-    //String HOST = "api.fishlife520.com";
+    String HOST = "api.fishlife520.com";
     String BASE_URL = "http://" + HOST + "/v1/"; // BaseURL最好以/结尾
 
     @Streaming // 下载大文件(请求需要放在子线程中)
