@@ -84,14 +84,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
         }
-        huawei { // 华为应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
-        }
-        xiaomi { // 小米应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
-        }
         oppo { // oppo应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
@@ -100,23 +92,19 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
         }
+        huawei { // 华为应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
+        }
+        xiaomi { // 小米应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
+        }
         meizu { // 魅族应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
         //---------------------附属市场----------------------
-        yidong { // 移动应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yidong"]
-        }
-        liantong { // 联通应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "liantong"]
-        }
-        dianxin { // 电信应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "dianxin"]
-        }
         baidu { // 百度应用分发平台
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
@@ -140,10 +128,6 @@ android {
         kuan { // 酷安
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
-        }
-        yingyonghui { // 应用汇
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
         }
     }
     sourceSets { // 源码设置
