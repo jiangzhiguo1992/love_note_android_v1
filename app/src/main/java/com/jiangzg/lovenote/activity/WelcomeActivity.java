@@ -6,10 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.jiangzg.base.application.AppUtils;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
@@ -43,8 +47,10 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @BindView(R.id.ivBg)
     FrescoNativeView ivBg;
-    //@BindView(R.id.tvOnline)
-    //TextView tvOnline;
+    @BindView(R.id.tvOnline)
+    TextView tvOnline;
+    @BindView(R.id.ivShouFa)
+    ImageView ivShouFa;
 
     private Call<Result> call;
     private boolean exits;
@@ -63,6 +69,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         //RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
         //layoutParams.bottomMargin += height;
         //tvOnline.setLayoutParams(layoutParams);
+        // 首发，不要时注释掉
+        initShouFa();
     }
 
     @Override
@@ -153,5 +161,52 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             WelcomeActivity.this.checkUser();
         }
     };
+
+    private void initShouFa() {
+        Bundle appMetaData = AppUtils.getAppMetaData(MyApp.get());
+        if (appMetaData != null) {
+            String channel = appMetaData.getString("market_channel");
+            if (StringUtils.isEmpty(channel)) return;
+            switch (channel) {
+                case "google": // 谷歌
+                    break;
+                case "samsung": // 三星
+                    break;
+                case "lenovo": // 联想
+                    //ivShouFa.setVisibility(View.VISIBLE);
+                    // TODO
+                    break;
+                case "oppo": // oppo
+                    break;
+                case "vivo": // vivo
+                    break;
+                case "huawei": // 华为
+                    break;
+                case "xiaomi": // 小米
+                    //ivShouFa.setVisibility(View.VISIBLE);
+                    // TODO
+                    break;
+                case "meizu": // 魅族
+                    //ivShouFa.setVisibility(View.VISIBLE);
+                    // TODO
+                    break;
+                case "qh360": // 360
+                    ivShouFa.setVisibility(View.VISIBLE);
+                    ivShouFa.setImageResource(R.mipmap.shoufa_360);
+                    // TODO
+                    break;
+                case "tencent": // 应用宝
+                    break;
+                case "baidu": // 百度
+                    break;
+                case "ali": // 阿里
+                    //ivShouFa.setVisibility(View.VISIBLE);
+                    // TODO
+                    break;
+                case "kuan": // 酷安
+                    break;
+            }
+        }
+    }
 
 }

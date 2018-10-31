@@ -21,13 +21,25 @@
         app:actualImageScaleType="centerCrop"
         tools:visibility="visible"/>
 
-    <!--<TextView-->
-    <!--android:id="@+id/tvOnline"-->
-    <!--style="@style/FontPrimarySmallBold"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:text="@string/online_can_entry"/>-->
+    <TextView
+        android:id="@+id/tvOnline"
+        style="@style/FontPrimarySmallBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="@string/online_can_entry"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/ivShouFa"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/shoufa_360"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 </RelativeLayout>
