@@ -173,8 +173,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 case "samsung": // 三星
                     break;
                 case "lenovo": // 联想
-                    //ivShouFa.setVisibility(View.VISIBLE);
-                    // TODO
                     break;
                 case "oppo": // oppo
                     break;
@@ -183,25 +181,18 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 case "huawei": // 华为
                     break;
                 case "xiaomi": // 小米
-                    //ivShouFa.setVisibility(View.VISIBLE);
-                    // TODO
                     break;
                 case "meizu": // 魅族
-                    //ivShouFa.setVisibility(View.VISIBLE);
-                    // TODO
                     break;
                 case "qh360": // 360
                     ivShouFa.setVisibility(View.VISIBLE);
                     ivShouFa.setImageResource(R.mipmap.shoufa_360);
-                    // TODO
                     break;
                 case "tencent": // 应用宝
                     break;
                 case "baidu": // 百度
                     break;
                 case "ali": // 阿里
-                    //ivShouFa.setVisibility(View.VISIBLE);
-                    // TODO
                     break;
                 case "kuan": // 酷安
                     break;
