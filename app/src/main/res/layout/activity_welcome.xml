@@ -39,7 +39,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:scaleType="fitCenter"
-        android:src="@mipmap/shoufa_360"
         android:visibility="gone"
+        tools:src="@mipmap/shoufa_360"
         tools:visibility="visible"/>
 </RelativeLayout>
