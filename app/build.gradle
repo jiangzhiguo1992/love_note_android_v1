@@ -202,6 +202,7 @@ dependencies { // 及时更新
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
     implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
     // 三方
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6' // WXPay
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0' // OSS
     implementation 'com.aliyun.ams:alicloud-android-push:3.1.2' // AliPush
