@@ -105,10 +105,6 @@ android {
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
         //---------------------附属市场----------------------
-        qh360 { // 360手机助手
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
-        }
         tencent { // 腾讯应用宝
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "tencent"]
@@ -120,6 +116,14 @@ android {
         ali { // 阿里应用分发平台
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
+        }
+        qh360 { // 360手机助手
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
+        }
+        sougou { // 搜狗手机助手
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
         }
         kuan { // 酷安
             dimension "release"
