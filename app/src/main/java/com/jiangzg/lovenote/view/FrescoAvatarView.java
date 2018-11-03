@@ -36,6 +36,7 @@ import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.FrescoHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
@@ -142,6 +143,8 @@ public class FrescoAvatarView extends SimpleDraweeView {
             public void onFailure(String id, Throwable throwable) {
                 super.onFailure(id, throwable);
                 LogUtils.e(FrescoAvatarView.class, "onFailure", throwable);
+                // 重新刷新oss
+                ApiHelper.ossInfoUpdate();
             }
         });
         AbstractDraweeController controller = builder.build();
