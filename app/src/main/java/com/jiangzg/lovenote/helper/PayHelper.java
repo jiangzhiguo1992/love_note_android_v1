@@ -4,13 +4,22 @@ import android.app.Activity;
 
 import com.alipay.sdk.app.PayTask;
 import com.jiangzg.base.common.LogUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.domain.AliPayResult;
+import com.jiangzg.lovenote.domain.PayAliResult;
+import com.jiangzg.lovenote.domain.PayWxResult;
+import com.jiangzg.lovenote.domain.WXOrder;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.Map;
+
+import rx.Observable;
+import rx.functions.Action1;
 
 /**
  * Created by JZG on 2018/8/17.
@@ -18,8 +27,14 @@ import java.util.Map;
  */
 public class PayHelper {
 
+    private static Observable<PayWxResult> registerPayWX;
+
     public interface AliCallBack {
-        void onSuccess(AliPayResult result);
+        void onSuccess(PayAliResult result);
+    }
+
+    public interface WXCallBack {
+        void onSuccess(PayWxResult result);
     }
 
     public static void payByAli(final Activity activity, final String orderInfo, final AliCallBack callBack) {
@@ -37,12 +52,15 @@ public class PayHelper {
     }
 
     private static void payByAliNoPermission(final Activity activity, final String orderInfo, final AliCallBack callBack) {
+        if (StringUtils.isEmpty(orderInfo)) return;
         // 必须异步调用
         MyApp.get().getThread().execute(new Runnable() {
             @Override
             public void run() {
+                // 开始调起支付宝app
                 PayTask aliPay = new PayTask(activity);
                 Map<String, String> result = aliPay.payV2(orderInfo, true);
+                // 支付宝app返回
                 if (result == null || result.isEmpty()) {
                     LogUtils.w(PayHelper.class, "payByAli", "result == null");
                     ToastUtils.show(activity.getString(R.string.pay_error));
@@ -50,7 +68,7 @@ public class PayHelper {
                 }
                 LogUtils.d(PayHelper.class, "payByAli", "result = " + result.toString());
                 // aliPayResultResponse
-                AliPayResult.Response aliPayResultResponse = new AliPayResult.Response();
+                PayAliResult.Response aliPayResultResponse = new PayAliResult.Response();
                 aliPayResultResponse.setCode(result.get("code")); // 结果码
                 aliPayResultResponse.setMsg(result.get("msg")); // 处理结果的描述，信息来自于code返回结果的描述 success
                 aliPayResultResponse.setApp_id(result.get("app_id")); // 支付宝分配给开发者的应用Id。
@@ -61,23 +79,62 @@ public class PayHelper {
                 aliPayResultResponse.setCharset(result.get("charset")); // 编码格式 utf-8
                 aliPayResultResponse.setTimestamp(result.get("timestamp")); // 时间 2016-10-11 17:43:36
                 // aliPayResultResult
-                AliPayResult.Result aliPayResultResult = new AliPayResult.Result();
+                PayAliResult.Result aliPayResultResult = new PayAliResult.Result();
                 aliPayResultResult.setSign(result.get("sign"));
                 aliPayResultResult.setSign_type(result.get("sign_type"));
                 aliPayResultResult.setAlipay_trade_app_pay_response(aliPayResultResponse);
-                // aliPayResult
-                final AliPayResult aliPayResult = new AliPayResult();
-                aliPayResult.setMemo(result.get("memo")); // 描述信息
-                aliPayResult.setResultStatus(result.get("resultStatus")); // 结果码
-                aliPayResult.setResult(aliPayResultResult); // 处理结果
+                // payAliResult
+                final PayAliResult payAliResult = new PayAliResult();
+                payAliResult.setMemo(result.get("memo")); // 描述信息
+                payAliResult.setResultStatus(result.get("resultStatus")); // 结果码
+                payAliResult.setResult(aliPayResultResult); // 处理结果
                 if (callBack != null) {
                     MyApp.get().getHandler().post(new Runnable() {
                         @Override
                         public void run() {
-                            callBack.onSuccess(aliPayResult);
+                            callBack.onSuccess(payAliResult);
                         }
                     });
                 }
+            }
+        });
+    }
+
+    public static void payByWX(final Activity activity, final WXOrder order, final WXCallBack callBack) {
+        if (order == null) return;
+        // 商户APP工程中引入微信JAR包，调用API前，需要先向微信注册您的APPID
+        final IWXAPI api = WXAPIFactory.createWXAPI(activity, null);
+        // 将该app注册到微信
+        api.registerApp(order.getAppId());
+        // 先解除事件
+        if (registerPayWX != null) {
+            RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
+        }
+        // 再添加事件
+        registerPayWX = RxBus.register(ConsHelper.EVENT_PAY_WX_RESULT, new Action1<PayWxResult>() {
+            @Override
+            public void call(PayWxResult result) {
+                if (callBack != null) callBack.onSuccess(result);
+                if (registerPayWX != null) {
+                    // 别忘了解除事件
+                    RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
+                    registerPayWX = null;
+                }
+            }
+        });
+        // 开始调起微信app
+        MyApp.get().getThread().execute(new Runnable() {
+            @Override
+            public void run() {
+                PayReq request = new PayReq();
+                request.appId = order.getAppId();
+                request.partnerId = order.getPartnerId();
+                request.prepayId = order.getPrepayId();
+                request.packageValue = order.getPackageValue();
+                request.nonceStr = order.getNonceStr();
+                request.timeStamp = order.getTimeStamp();
+                request.sign = order.getSign();
+                api.sendReq(request);
             }
         });
     }
