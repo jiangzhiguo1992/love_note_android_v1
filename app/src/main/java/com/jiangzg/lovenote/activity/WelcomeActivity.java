@@ -198,6 +198,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                     break;
                 case "kuan": // 酷安
                     break;
+                case "yingyonghui": // 应用汇
+                    break;
             }
         }
     }
