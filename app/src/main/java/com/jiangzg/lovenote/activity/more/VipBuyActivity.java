@@ -15,18 +15,19 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.AliPayResult;
 import com.jiangzg.lovenote.domain.Bill;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.domain.OrderBefore;
+import com.jiangzg.lovenote.domain.PayAliResult;
+import com.jiangzg.lovenote.domain.PayWxResult;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Vip;
+import com.jiangzg.lovenote.domain.WXOrder;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
@@ -168,7 +169,8 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
                     String aliOrder = orderBefore.getAliOrder();
                     startAliPay(aliOrder);
                 } else if (platform == Bill.BILL_PAY_PLATFORM_WX) {
-                    startWeChatPay();
+                    WXOrder wxOrder = orderBefore.getWxOrder();
+                    startWeChatPay(wxOrder);
                 }
             }
 
@@ -182,11 +184,12 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     private void startAliPay(final String orderInfo) {
         PayHelper.payByAli(mActivity, orderInfo, new PayHelper.AliCallBack() {
             @Override
-            public void onSuccess(AliPayResult result) {
+            public void onSuccess(PayAliResult result) {
+                if (result == null) return;
                 //String memo = result.getMemo();
                 String resultStatus = result.getResultStatus();
-                //AliPayResult.Result result1 = result.getResult();
-                if (resultStatus.equals(String.valueOf(AliPayResult.RESULT_STATUS_OK))) {
+                //PayAliResult.Result result1 = result.getResult();
+                if (resultStatus.equals(String.valueOf(PayAliResult.RESULT_STATUS_OK))) {
                     checkPayResult();
                 }
             }
@@ -194,9 +197,16 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     }
 
     // 微信
-    private void startWeChatPay() {
-        // TODO 微信
-        ToastUtils.show(getString(R.string.function_no_open_please_wait));
+    private void startWeChatPay(WXOrder wxOrder) {
+        PayHelper.payByWX(mActivity, wxOrder, new PayHelper.WXCallBack() {
+            @Override
+            public void onSuccess(PayWxResult result) {
+                if (result == null) return;
+                if (result.getErrCode() == PayWxResult.CODE_OK) {
+                    checkPayResult();
+                }
+            }
+        });
     }
 
     private void checkPayResult() {
