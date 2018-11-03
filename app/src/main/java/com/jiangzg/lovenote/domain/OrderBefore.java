@@ -8,6 +8,7 @@ public class OrderBefore {
 
     private int platform;
     private String aliOrder;
+    private WXOrder wxOrder;
 
     public int getPlatform() {
         return platform;
@@ -23,5 +24,13 @@ public class OrderBefore {
 
     public void setAliOrder(String aliOrder) {
         this.aliOrder = aliOrder;
+    }
+
+    public WXOrder getWxOrder() {
+        return wxOrder;
+    }
+
+    public void setWxOrder(WXOrder wxOrder) {
+        this.wxOrder = wxOrder;
     }
 }

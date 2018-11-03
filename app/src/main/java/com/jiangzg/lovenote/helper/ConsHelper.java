@@ -40,6 +40,7 @@ public class ConsHelper {
     public static final int EVENT_GIFT_SELECT = 108;
     public static final int EVENT_FOOD_SELECT = 109;
     public static final int EVENT_PROMISE_SELECT = 110;
+    public static final int EVENT_PAY_WX_RESULT = 310;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 1000; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 1001;
     public static final int EVENT_SUGGEST_LIST_ITEM_REFRESH = 1002;
