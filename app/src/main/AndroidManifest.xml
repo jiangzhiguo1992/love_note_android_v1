@@ -94,6 +94,16 @@
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
+        <!-- 微信支付 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
+
         <!-- activity -->
         <activity android:name=".activity.WelcomeActivity">
             <intent-filter>
