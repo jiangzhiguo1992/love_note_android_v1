@@ -1,36 +1,27 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.MapShowActivity;
+import com.jiangzg.lovenote.activity.note.FoodEditActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Food;
-import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
-import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
-import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 
 import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -92,44 +83,9 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         RxBus.post(event);
     }
 
-    public void showDeleteDialog(final int position) {
+    public void goEditActivity(int position) {
         Food item = getItem(position);
-        if (!item.isMine()) {
-            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_food));
-            return;
-        }
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .content(R.string.confirm_delete_this_food)
-                .positiveText(R.string.confirm_no_wrong)
-                .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(position);
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
-    }
-
-    private void deleteApi(int position) {
-        final Food item = getItem(position);
-        Call<Result> call = new RetrofitHelper().call(API.class).noteFoodDel(item.getId());
-        MaterialDialog loading = mActivity.getLoading(true);
-        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                // event
-                RxEvent<Food> event = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, item);
-                RxBus.post(event);
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-            }
-        });
+        FoodEditActivity.goActivity(mActivity, item);
     }
 
     public void goMapShow(int position) {

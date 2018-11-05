@@ -52,10 +52,11 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Observable<List<Food>> obListRefresh;
-    private Observable<Food> obListItemDelete;
     private Call<Result> call;
     private int page;
+    private Observable<List<Food>> obListRefresh;
+    private Observable<Food> obListItemRefresh;
+    private Observable<Food> obListItemDelete;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, FoodListActivity.class);
@@ -126,7 +127,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                         FoodAdapter foodAdapter = (FoodAdapter) adapter;
-                        foodAdapter.showDeleteDialog(position);
+                        foodAdapter.goEditActivity(position);
                     }
                 })
                 .listenerClick(new OnItemChildClickListener() {
@@ -160,6 +161,13 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                 ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), food);
             }
         });
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, new Action1<Food>() {
+            @Override
+            public void call(Food food) {
+                if (recyclerHelper == null) return;
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), food);
+            }
+        });
         // refresh
         recyclerHelper.dataRefresh();
     }
@@ -169,6 +177,7 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_FOOD_LIST_REFRESH, obListRefresh);
         RxBus.unregister(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, obListItemDelete);
+        RxBus.unregister(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, obListItemRefresh);
         RecyclerHelper.release(recyclerHelper);
     }
 

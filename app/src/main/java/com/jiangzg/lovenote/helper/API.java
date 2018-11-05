@@ -396,6 +396,10 @@ public interface API {
     @DELETE("note/food")
     Call<Result> noteFoodDel(@Query("fid") long fid);
 
+    // food修改
+    @PUT("note/food")
+    Call<Result> noteFoodUpdate(@Body Food food);
+
     // travelList获取
     @GET("note/travel?list=1")
     Call<Result> noteTravelListGet(@Query("page") int page);

@@ -3,16 +3,20 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -79,12 +83,29 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     private Food food;
     private RecyclerHelper recyclerHelper;
     private Observable<LocationInfo> obSelectMap;
+    private Call<Result> callUpdate;
     private Call<Result> callAdd;
+    private Call<Result> callDel;
     private int limitContentLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, FoodEditActivity.class);
         // intent.putExtra();
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        ActivityTrans.start(from, intent);
+    }
+
+    public static void goActivity(Activity from, Food food) {
+        if (food == null) {
+            goActivity(from);
+            return;
+        } else if (!food.isMine()) {
+            ToastUtils.show(from.getString(R.string.can_operation_self_create_food));
+            return;
+        }
+        Intent intent = new Intent(from, FoodEditActivity.class);
+        intent.putExtra("from", ConsHelper.ACT_EDIT_FROM_UPDATE);
+        intent.putExtra("food", food);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -98,8 +119,15 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.food), true);
         // init
-        food = new Food();
-        food.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+        if (isFromUpdate()) {
+            food = intent.getParcelableExtra("food");
+        }
+        if (food == null) {
+            food = new Food();
+        }
+        if (food.getHappenAt() == 0) {
+            food.setHappenAt(TimeHelper.getGoTimeByJava(DateUtils.getCurrentLong()));
+        }
         // etTitle
         String format = getString(R.string.please_input_title_no_over_holder_text);
         String hint = String.format(Locale.getDefault(), format, SPHelper.getLimit().getFoodTitleLength());
@@ -111,7 +139,20 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         refreshLocationView();
         // recycler
         int limitImagesCount = SPHelper.getVipLimit().getFoodImageCount();
-        setRecyclerShow(limitImagesCount > 0, limitImagesCount);
+        if (isFromUpdate()) {
+            // 编辑
+            if (food.getContentImageList() == null || food.getContentImageList().size() <= 0) {
+                // 旧数据没有图片
+                setRecyclerShow(limitImagesCount > 0, limitImagesCount);
+            } else {
+                // 旧数据有图片
+                int imgCount = Math.max(limitImagesCount, food.getContentImageList().size());
+                setRecyclerShow(imgCount > 0, imgCount);
+            }
+        } else {
+            // 添加
+            setRecyclerShow(limitImagesCount > 0, limitImagesCount);
+        }
         // content
         etContent.setText(food.getContentText());
     }
@@ -135,8 +176,20 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
+        RetrofitHelper.cancel(callUpdate);
+        RetrofitHelper.cancel(callDel);
         RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
         RecyclerHelper.release(recyclerHelper);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (isFromUpdate()) {
+            getMenuInflater().inflate(R.menu.del, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.help, menu);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -155,6 +208,16 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             if (adapter == null) return;
             adapter.addFileData(pictureFile.getAbsolutePath());
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuDel: // 删除
+                showDeleteDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnTextChanged({R.id.etContent})
@@ -178,7 +241,12 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         }
     }
 
+    private boolean isFromUpdate() {
+        return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
+    }
+
     private void setRecyclerShow(boolean show, int childCount) {
+        if (food == null) return;
         if (!show) {
             rv.setVisibility(View.GONE);
             return;
@@ -192,6 +260,9 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 goPicture();
             }
         });
+        if (food.getContentImageList() != null && food.getContentImageList().size() > 0) {
+            imgAdapter.setOssData(food.getContentImageList());
+        }
         if (recyclerHelper == null) {
             recyclerHelper = new RecyclerHelper(rv)
                     .initLayoutManager(new GridLayoutManager(mActivity, spanCount))
@@ -277,7 +348,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         if (fileData != null && fileData.size() > 0) {
             ossUploadImages(fileData);
         } else {
-            addApi(ossPaths);
+            api(ossPaths);
         }
     }
 
@@ -291,7 +362,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
                 ossData.addAll(ossPathList == null ? new ArrayList<String>() : ossPathList);
-                addApi(ossData);
+                api(ossData);
             }
 
             @Override
@@ -300,9 +371,40 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         });
     }
 
-    private void addApi(List<String> ossPathList) {
+    private void api(List<String> ossPathList) {
         if (food == null) return;
         food.setContentImageList(ossPathList);
+        if (isFromUpdate()) {
+            updateApi();
+        } else {
+            addApi();
+        }
+    }
+
+    private void updateApi() {
+        if (food == null) return;
+        MaterialDialog loading = getLoading(false);
+        callUpdate = new RetrofitHelper().call(API.class).noteFoodUpdate(food);
+        RetrofitHelper.enqueue(callUpdate, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                Food food = data.getFood();
+                RxEvent<Food> eventList = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food);
+                RxBus.post(eventList);
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                // 上传失败不要删除，还可以继续上传
+            }
+        });
+    }
+
+    private void addApi() {
+        if (food == null) return;
         MaterialDialog loading = getLoading(false);
         callAdd = new RetrofitHelper().call(API.class).noteFoodAdd(food);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
@@ -310,6 +412,43 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 RxEvent<ArrayList<Food>> event = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<Food>());
+                RxBus.post(event);
+                // finish
+                mActivity.finish();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    public void showDeleteDialog() {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_delete_this_food)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi();
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi() {
+        if (food == null) return;
+        MaterialDialog loading = getLoading(true);
+        callDel = new RetrofitHelper().call(API.class).noteFoodDel(food.getId());
+        RetrofitHelper.enqueue(callDel, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Food> event = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

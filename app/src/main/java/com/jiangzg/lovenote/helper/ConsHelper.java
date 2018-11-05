@@ -81,6 +81,7 @@ public class ConsHelper {
     public static final int EVENT_GIFT_LIST_ITEM_REFRESH = 4112;
     public static final int EVENT_FOOD_LIST_REFRESH = 4120; // 美食
     public static final int EVENT_FOOD_LIST_ITEM_DELETE = 4121;
+    public static final int EVENT_FOOD_LIST_ITEM_REFRESH = 4122;
     public static final int EVENT_TRAVEL_LIST_REFRESH = 4130; // 游记
     public static final int EVENT_TRAVEL_LIST_ITEM_DELETE = 4131;
     public static final int EVENT_TRAVEL_LIST_ITEM_REFRESH = 4132;

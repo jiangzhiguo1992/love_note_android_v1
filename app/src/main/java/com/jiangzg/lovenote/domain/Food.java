@@ -96,6 +96,7 @@ public class Food extends BaseCP implements Parcelable {
         address = in.readString();
         cityId = in.readString();
         contentImageList = in.createStringArrayList();
+        contentText = in.readString();
     }
 
     @Override
@@ -108,6 +109,7 @@ public class Food extends BaseCP implements Parcelable {
         dest.writeString(address);
         dest.writeString(cityId);
         dest.writeStringList(contentImageList);
+        dest.writeString(contentText);
     }
 
     @Override
