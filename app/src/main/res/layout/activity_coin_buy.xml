@@ -109,7 +109,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                android:text="@string/wechat_pay"/>
+                android:text="@string/wechat_pay"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tvBillCheck"
