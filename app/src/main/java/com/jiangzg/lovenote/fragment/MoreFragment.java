@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jiangzg.base.time.DateUtils;
@@ -32,6 +33,7 @@ import com.jiangzg.lovenote.domain.Coin;
 import com.jiangzg.lovenote.domain.CommonCount;
 import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.domain.MatchPeriod;
+import com.jiangzg.lovenote.domain.ModelShow;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sign;
 import com.jiangzg.lovenote.domain.Vip;
@@ -75,6 +77,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.tvSign)
     TextView tvSign;
 
+    @BindView(R.id.lineMatch)
+    LinearLayout lineMatch;
+    @BindView(R.id.llMatch)
+    LinearLayout llMatch;
     @BindView(R.id.cvWife)
     CardView cvWife;
     @BindView(R.id.tvWife)
@@ -118,6 +124,15 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_more), false);
         fitToolBar(tb);
+        // show
+        ModelShow modelShow = SPHelper.getModelShow();
+        boolean moreVip = modelShow.isMoreVip();
+        boolean moreCoin = modelShow.isMoreCoin();
+        boolean moreMatch = modelShow.isMoreMatch();
+        cvVip.setVisibility(moreVip ? View.VISIBLE : View.GONE);
+        cvCoin.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
+        lineMatch.setVisibility(moreMatch ? View.VISIBLE : View.GONE);
+        llMatch.setVisibility(moreMatch ? View.VISIBLE : View.GONE);
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
