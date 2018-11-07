@@ -17,12 +17,16 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.BasePagerFragment;
+import com.jiangzg.lovenote.domain.ModelShow;
 import com.jiangzg.lovenote.fragment.CoupleFragment;
 import com.jiangzg.lovenote.fragment.MoreFragment;
 import com.jiangzg.lovenote.fragment.NoteFragment;
 import com.jiangzg.lovenote.fragment.TopicFragment;
+import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.view.HomePaper;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import butterknife.BindView;
@@ -34,7 +38,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
-    private int[] menuIdArray = new int[]{R.id.menuCouple, R.id.menuNote, R.id.menuTopic, R.id.menuMore};
+    private int[] menuIdArray;
     private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
     private NoteFragment noteFragment;
@@ -57,6 +61,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        menuIdArray = getMenuIdArray();
         initFragment();
         // viewPager
         initViewPagerAdapter();
@@ -103,12 +108,30 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     private void initViewPagerAdapter() {
         if (pagerAdapter == null) {
+            ModelShow modelShow = SPHelper.getModelShow();
+            boolean couple = modelShow.isCouple();
+            boolean note = modelShow.isNote();
+            boolean topic = modelShow.isTopic();
+            boolean more = modelShow.isMore();
             FragmentManager manager = mActivity.getSupportFragmentManager();
             pagerAdapter = new FragmentPagerAdapter<>(manager);
-            pagerAdapter.addData(0, null, coupleFragment);
-            pagerAdapter.addData(1, null, noteFragment);
-            pagerAdapter.addData(2, null, topicFragment);
-            pagerAdapter.addData(3, null, moreFragment);
+            int index = -1;
+            if (couple) {
+                ++index;
+                pagerAdapter.addData(index, null, coupleFragment);
+            }
+            if (note) {
+                ++index;
+                pagerAdapter.addData(index, null, noteFragment);
+            }
+            if (topic) {
+                ++index;
+                pagerAdapter.addData(index, null, topicFragment);
+            }
+            if (more) {
+                ++index;
+                pagerAdapter.addData(index, null, moreFragment);
+            }
         }
     }
 
@@ -159,6 +182,38 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
             }
         }
         vpContent.setCurrentItem(selectItemIndex, true);
+    }
+
+    private int[] getMenuIdArray() {
+        ModelShow modelShow = SPHelper.getModelShow();
+        boolean couple = modelShow.isCouple();
+        boolean note = modelShow.isNote();
+        boolean topic = modelShow.isTopic();
+        boolean more = modelShow.isMore();
+        // 开始计算
+        int length = 0;
+        List<Integer> menuList = new ArrayList<>();
+        if (couple) {
+            ++length;
+            menuList.add(R.id.menuCouple);
+        }
+        if (note) {
+            ++length;
+            menuList.add(R.id.menuNote);
+        }
+        if (topic) {
+            ++length;
+            menuList.add(R.id.menuTopic);
+        }
+        if (more) {
+            ++length;
+            menuList.add(R.id.menuMore);
+        }
+        int[] menuIdArray = new int[length];
+        for (int i = 0; i < length; i++) {
+            menuIdArray[i] = menuList.get(i);
+        }
+        return menuIdArray;
     }
 
 }

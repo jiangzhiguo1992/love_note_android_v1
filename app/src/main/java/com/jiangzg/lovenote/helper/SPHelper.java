@@ -13,6 +13,7 @@ import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Dream;
 import com.jiangzg.lovenote.domain.Limit;
+import com.jiangzg.lovenote.domain.ModelShow;
 import com.jiangzg.lovenote.domain.OssInfo;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PushInfo;
@@ -31,6 +32,7 @@ public class SPHelper {
     private static final String SHARE_COMMON = "share_common";
     private static final String SHARE_OSS_INFO = "share_oss_info";
     private static final String SHARE_PUSH_INFO = "share_push_info";
+    private static final String SHARE_MODEL_SHOW = "model_show";
     private static final String SHARE_LIMIT = "share_limit";
     private static final String SHARE_VIP_LIMIT = "share_vip_limit";
     private static final String SHARE_COMMON_CONST = "share_common_const";
@@ -56,6 +58,15 @@ public class SPHelper {
     // commonCount
     private static final String FIELD_COMMON_COUNT_NOTICE_NEW_COUNT = "notice_new_count";
     private static final String FIELD_COMMON_COUNT_VERSION_NEW_COUNT = "version_new_count";
+    // modelShow
+    private static final String FIELD_MODEL_SHOW_COUPLE = "couple";
+    private static final String FIELD_MODEL_SHOW_NOTE = "note";
+    private static final String FIELD_MODEL_SHOW_NOTE_SHY = "note_shy";
+    private static final String FIELD_MODEL_SHOW_TOPIC = "topic";
+    private static final String FIELD_MODEL_SHOW_MORE = "more";
+    private static final String FIELD_MODEL_SHOW_MORE_VIP = "more_vip";
+    private static final String FIELD_MODEL_SHOW_MORE_COIN = "more_coin";
+    private static final String FIELD_MODEL_SHOW_MORE_MATCH = "more_match";
     // ossInfo
     private static final String FIELD_OSS_SECURITY_TOKEN = "security_token";
     private static final String FIELD_OSS_KEY_ID = "access_key_id";
@@ -355,6 +366,40 @@ public class SPHelper {
         commonConst.setOfficialGroup(sp.getString(FIELD_COMMON_CONST_OFFICIAL_GROUP, ""));
         commonConst.setContactEmail(sp.getString(FIELD_COMMON_CONST_CONTACT_EMAIL, ""));
         return commonConst;
+    }
+
+    /**
+     * ***********************************ModelShow***********************************
+     */
+    public static void setModelShow(ModelShow modelShow) {
+        if (modelShow == null) {
+            LogUtils.i(SPHelper.class, "setModelShow", "modelShow == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW).edit();
+        editor.putBoolean(FIELD_MODEL_SHOW_COUPLE, modelShow.isCouple());
+        editor.putBoolean(FIELD_MODEL_SHOW_NOTE, modelShow.isNote());
+        editor.putBoolean(FIELD_MODEL_SHOW_NOTE_SHY, modelShow.isNoteShy());
+        editor.putBoolean(FIELD_MODEL_SHOW_TOPIC, modelShow.isTopic());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE, modelShow.isMore());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_VIP, modelShow.isMoreVip());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_COIN, modelShow.isMoreCoin());
+        editor.putBoolean(FIELD_MODEL_SHOW_MORE_MATCH, modelShow.isMoreMatch());
+        editor.apply();
+    }
+
+    public static ModelShow getModelShow() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_MODEL_SHOW);
+        ModelShow modelShow = new ModelShow();
+        modelShow.setCouple(sp.getBoolean(FIELD_MODEL_SHOW_COUPLE, true));
+        modelShow.setNote(sp.getBoolean(FIELD_MODEL_SHOW_NOTE, true));
+        modelShow.setNoteShy(sp.getBoolean(FIELD_MODEL_SHOW_NOTE_SHY, true));
+        modelShow.setTopic(sp.getBoolean(FIELD_MODEL_SHOW_TOPIC, false));
+        modelShow.setMore(sp.getBoolean(FIELD_MODEL_SHOW_MORE, true));
+        modelShow.setMoreVip(sp.getBoolean(FIELD_MODEL_SHOW_MORE_VIP, true));
+        modelShow.setMoreCoin(sp.getBoolean(FIELD_MODEL_SHOW_MORE_COIN, true));
+        modelShow.setMoreMatch(sp.getBoolean(FIELD_MODEL_SHOW_MORE_MATCH, true));
+        return modelShow;
     }
 
     /**

@@ -38,6 +38,7 @@ import com.jiangzg.lovenote.domain.MatchCoin;
 import com.jiangzg.lovenote.domain.MatchPoint;
 import com.jiangzg.lovenote.domain.MatchReport;
 import com.jiangzg.lovenote.domain.MatchWork;
+import com.jiangzg.lovenote.domain.ModelShow;
 import com.jiangzg.lovenote.domain.OssInfo;
 import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.Place;
@@ -189,6 +190,9 @@ public class ApiHelper {
         // commonConst
         CommonConst commonConst = data.getCommonConst();
         SPHelper.setCommonConst(commonConst);
+        // modelShow
+        ModelShow modelShow = data.getModelShow();
+        SPHelper.setModelShow(modelShow);
         // limit
         Limit limit = data.getLimit();
         SPHelper.setLimit(limit);

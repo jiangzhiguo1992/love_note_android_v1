@@ -50,6 +50,7 @@ public class Result implements Serializable {
         private long total;
         private CommonConst commonConst;
         private CommonCount commonCount;
+        private ModelShow modelShow;
         private Limit limit;
         private VipLimit vipLimit;
         private VipLimit vipYesLimit;
@@ -157,6 +158,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public ModelShow getModelShow() {
+            return modelShow;
+        }
+
+        public void setModelShow(ModelShow modelShow) {
+            this.modelShow = modelShow;
+        }
 
         public PushInfo getPushInfo() {
             return pushInfo;
