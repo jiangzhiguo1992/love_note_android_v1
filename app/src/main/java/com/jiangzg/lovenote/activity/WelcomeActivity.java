@@ -70,7 +70,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         //layoutParams.bottomMargin += height;
         //tvOnline.setLayoutParams(layoutParams);
         // 首发，不要时注释掉
-        initShouFa();
+        //initShouFa();
     }
 
     @Override
