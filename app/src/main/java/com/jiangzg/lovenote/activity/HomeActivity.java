@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.jiangzg.base.common.LogUtils;
@@ -38,6 +39,7 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     @BindView(R.id.bnvBottom)
     BottomNavigationView bnvBottom;
 
+    private ModelShow modelShow;
     private int[] menuIdArray;
     private FragmentPagerAdapter<BasePagerFragment> pagerAdapter;
     private CoupleFragment coupleFragment;
@@ -56,12 +58,28 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     protected int getView(Intent intent) {
         // we界面采用沉浸式，其余界面自己填充statusBar
         BarUtils.setStatusBarTrans(mActivity, true);
+        modelShow = SPHelper.getModelShow();
         return R.layout.activity_home;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // menu
         menuIdArray = getMenuIdArray();
+        Menu menu = bnvBottom.getMenu();
+        if (!modelShow.isCouple()) {
+            menu.removeItem(R.id.menuCouple);
+        }
+        if (!modelShow.isNote()) {
+            menu.removeItem(R.id.menuNote);
+        }
+        if (!modelShow.isTopic()) {
+            menu.removeItem(R.id.menuTopic);
+        }
+        if (!modelShow.isMore()) {
+            menu.removeItem(R.id.menuMore);
+        }
+        // fragment
         initFragment();
         // viewPager
         initViewPagerAdapter();
@@ -108,7 +126,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
 
     private void initViewPagerAdapter() {
         if (pagerAdapter == null) {
-            ModelShow modelShow = SPHelper.getModelShow();
             boolean couple = modelShow.isCouple();
             boolean note = modelShow.isNote();
             boolean topic = modelShow.isTopic();
@@ -185,7 +202,6 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private int[] getMenuIdArray() {
-        ModelShow modelShow = SPHelper.getModelShow();
         boolean couple = modelShow.isCouple();
         boolean note = modelShow.isNote();
         boolean topic = modelShow.isTopic();
