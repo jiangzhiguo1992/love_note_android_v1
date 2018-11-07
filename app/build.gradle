@@ -129,10 +129,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
         }
-        yingyonghui { // 应用汇
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "yingyonghui"]
-        }
     }
     sourceSets { // 源码设置
         main {
