@@ -27,8 +27,8 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
         // data
         String id = "id:" + item.getId();
         String userId = "uid:" + item.getUserId();
-        String deviceId = "did:" + item.getDeviceId();
         String create = DateUtils.getString(item.getCreateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
+        String update = DateUtils.getString(item.getUpdateAt() * 1000, ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String platform = item.getPlatform();
         String market = item.getMarket();
         String deviceName = item.getDeviceName();
@@ -37,8 +37,8 @@ public class EntryAdapter extends BaseQuickAdapter<Entry, BaseViewHolder> {
         // view
         helper.setText(R.id.tvId, id);
         helper.setText(R.id.tvUid, userId);
-        helper.setText(R.id.tvDid, deviceId);
-        helper.setText(R.id.tvCreate, create);
+        helper.setText(R.id.tvDid, create);
+        helper.setText(R.id.tvCreate, update);
         helper.setText(R.id.tvPlatform, platform);
         helper.setText(R.id.tvDName, deviceName);
         helper.setText(R.id.tvOsVersion, osVersion);
