@@ -121,10 +121,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
         }
-        sougou { // 搜狗手机助手
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
-        }
         kuan { // 酷安
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]

@@ -194,8 +194,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                     ivShouFa.setVisibility(View.VISIBLE);
                     ivShouFa.setImageResource(R.mipmap.shoufa_360);
                     break;
-                case "sougou": // 搜狗
-                    break;
                 case "kuan": // 酷安
                     break;
             }
