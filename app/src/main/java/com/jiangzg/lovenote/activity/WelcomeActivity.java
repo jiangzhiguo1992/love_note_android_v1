@@ -168,21 +168,23 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             String channel = appMetaData.getString("market_channel");
             if (StringUtils.isEmpty(channel)) return;
             switch (channel) {
-                case "google": // 谷歌
-                    break;
+                //case "google": // 谷歌
+                //    break;
                 case "samsung": // 三星
                     break;
                 case "lenovo": // 联想
                     break;
                 case "oppo": // oppo
                     break;
-                case "vivo": // vivo
-                    break;
+                //case "vivo": // vivo
+                //    break;
                 case "huawei": // 华为
                     break;
                 case "xiaomi": // 小米
                     break;
                 case "meizu": // 魅族
+                    break;
+                case "smartisan": // 锤子
                     break;
                 case "tencent": // 应用宝
                     break;
