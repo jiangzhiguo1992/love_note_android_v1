@@ -64,6 +64,8 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.bb)
     BroadcastBanner bb;
 
+    @BindView(R.id.linePay)
+    LinearLayout linePay;
     @BindView(R.id.cvVip)
     CardView cvVip;
     @BindView(R.id.tvVip)
@@ -94,6 +96,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     @BindView(R.id.tvDiscuss)
     TextView tvDiscuss;
 
+    @BindView(R.id.lineFeature)
+    LinearLayout lineFeature;
+    @BindView(R.id.llFeature)
+    LinearLayout llFeature;
     @BindView(R.id.cvWish)
     CardView cvWish;
     @BindView(R.id.tvWish)
@@ -129,10 +135,15 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         boolean moreVip = modelShow.isMoreVip();
         boolean moreCoin = modelShow.isMoreCoin();
         boolean moreMatch = modelShow.isMoreMatch();
+        boolean moreFeature = modelShow.isMoreFeature();
+        linePay.setVisibility((moreVip || moreCoin) ? View.VISIBLE : View.GONE);
         cvVip.setVisibility(moreVip ? View.VISIBLE : View.GONE);
         cvCoin.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
+        cvSign.setVisibility(moreCoin ? View.VISIBLE : View.GONE);
         lineMatch.setVisibility(moreMatch ? View.VISIBLE : View.GONE);
         llMatch.setVisibility(moreMatch ? View.VISIBLE : View.GONE);
+        lineFeature.setVisibility(moreFeature ? View.VISIBLE : View.GONE);
+        llFeature.setVisibility(moreFeature ? View.VISIBLE : View.GONE);
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

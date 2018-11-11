@@ -6,13 +6,39 @@ package com.jiangzg.lovenote.domain;
 public class ModelShow {
 
     private boolean couple;
+    private boolean couplePlace;
+    private boolean coupleWeather;
     private boolean note;
-    private boolean noteShy;
     private boolean topic;
     private boolean more;
     private boolean moreVip;
     private boolean moreCoin;
     private boolean moreMatch;
+    private boolean moreFeature;
+
+    public boolean isCouplePlace() {
+        return couplePlace;
+    }
+
+    public void setCouplePlace(boolean couplePlace) {
+        this.couplePlace = couplePlace;
+    }
+
+    public boolean isCoupleWeather() {
+        return coupleWeather;
+    }
+
+    public void setCoupleWeather(boolean coupleWeather) {
+        this.coupleWeather = coupleWeather;
+    }
+
+    public boolean isMoreFeature() {
+        return moreFeature;
+    }
+
+    public void setMoreFeature(boolean moreFeature) {
+        this.moreFeature = moreFeature;
+    }
 
     public boolean isCouple() {
         return couple;
@@ -28,14 +54,6 @@ public class ModelShow {
 
     public void setNote(boolean note) {
         this.note = note;
-    }
-
-    public boolean isNoteShy() {
-        return noteShy;
-    }
-
-    public void setNoteShy(boolean noteShy) {
-        this.noteShy = noteShy;
     }
 
     public boolean isTopic() {

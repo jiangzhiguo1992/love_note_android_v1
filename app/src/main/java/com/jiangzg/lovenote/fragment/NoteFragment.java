@@ -152,9 +152,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         souvenirCountDownFormat = getString(R.string.count_down_space_holder);
         // menu
         tb.inflateMenu(R.menu.help_lock);
-        // show
-        boolean noteShy = SPHelper.getModelShow().isNoteShy();
-        cvShy.setVisibility(noteShy ? View.VISIBLE : View.GONE);
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

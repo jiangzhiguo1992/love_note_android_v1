@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
+import com.jiangzg.lovenote.domain.ModelShow;
 import com.jiangzg.lovenote.domain.Place;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
@@ -95,6 +97,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     @BindView(R.id.tvNameRight)
     TextView tvNameRight;
 
+    @BindView(R.id.cvPlaceWeather)
+    CardView cvPlaceWeather;
     @BindView(R.id.llPlace)
     LinearLayout llPlace;
     @BindView(R.id.tvPlaceLeft)
@@ -103,7 +107,6 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     TextView tvDistance;
     @BindView(R.id.tvPlaceRight)
     GMarqueeText tvPlaceRight;
-
     @BindView(R.id.llWeather)
     LinearLayout llWeather;
     @BindView(R.id.tvWeatherLeft)
@@ -143,6 +146,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         RelativeLayout.LayoutParams paramsSettings = (RelativeLayout.LayoutParams) ivWallPaper.getLayoutParams();
         paramsSettings.setMargins(paramsSettings.leftMargin, paramsSettings.topMargin + statusBarHeight, paramsSettings.rightMargin, paramsSettings.bottomMargin);
         ivWallPaper.setLayoutParams(paramsSettings);
+        // show
+        ModelShow modelShow = SPHelper.getModelShow();
+        cvPlaceWeather.setVisibility(modelShow.isCouplePlace() ? View.VISIBLE : View.GONE);
+        llWeather.setVerticalGravity(modelShow.isCoupleWeather() ? View.VISIBLE : View.GONE);
         // listener
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
