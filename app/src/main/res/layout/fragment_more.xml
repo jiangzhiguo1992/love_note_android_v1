@@ -461,7 +461,8 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <View
                         style="@style/LineHorizontal"
@@ -485,6 +486,7 @@
                     android:id="@+id/llFeature"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:weightSum="3">
 
                     <android.support.v7.widget.CardView

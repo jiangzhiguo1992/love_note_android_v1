@@ -119,6 +119,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     CardView cvAngry;
     @BindView(R.id.cvPromise)
     CardView cvPromise;
+    @BindView(R.id.cvMovie)
+    CardView cvMovie;
 
     @BindView(R.id.cvTotal)
     CardView cvTotal;
@@ -199,8 +201,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     @OnClick({R.id.cvSouvenir,
             R.id.cvMenses, R.id.cvShy, R.id.cvSleep,
             R.id.cvAudio, R.id.cvVideo, R.id.cvAlbum,
-            R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAward, R.id.cvDream,
-            R.id.cvGift, R.id.cvFood, R.id.cvTravel, R.id.cvAngry, R.id.cvPromise,
+            R.id.cvWord, R.id.cvWhisper, R.id.cvDiary, R.id.cvAward,
+            R.id.cvDream, R.id.cvMovie, R.id.cvFood, R.id.cvTravel,
+            R.id.cvAngry, R.id.cvGift, R.id.cvPromise,
             R.id.cvTrends, R.id.cvTotal, R.id.cvRecycle})
     public void onViewClicked(View view) {
         if (Couple.isBreak(SPHelper.getCouple())) {
@@ -254,7 +257,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvDream: // 梦里
                 DreamListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvGift: // 礼物
+            case R.id.cvMovie: // 礼物
                 GiftListActivity.goActivity(mFragment);
                 break;
             case R.id.cvFood: // 美食
@@ -265,6 +268,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 break;
             case R.id.cvAngry: // 生气
                 AngryListActivity.goActivity(mFragment);
+                break;
+            case R.id.cvGift: // 电影
+                // TODO
                 break;
             case R.id.cvPromise: // 承诺
                 PromiseListActivity.goActivity(mFragment);
