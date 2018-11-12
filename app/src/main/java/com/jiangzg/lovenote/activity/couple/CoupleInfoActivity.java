@@ -208,14 +208,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.ivAvatarRight, R.id.tvNameLeft, R.id.llPhoneLeft})
+    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAvatarLeft: // 左头像
-                goBigImage(true);
-                break;
-            case R.id.ivAvatarRight: // 右头像
-                goBigImage(false);
+                showAvatarSelect();
                 break;
             case R.id.tvNameLeft: // 修改ta的昵称
                 showNameInput();
@@ -226,11 +223,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
     }
 
-    @OnLongClick({R.id.ivAvatarLeft})
+    @OnLongClick({R.id.ivAvatarLeft, R.id.ivAvatarRight})
     public boolean onLongClick(View view) {
         switch (view.getId()) {
-            case R.id.ivAvatarLeft: // 修改ta的头像
-                showAvatarSelect();
+            case R.id.ivAvatarLeft: // 左头像
+                goBigImage(true);
+                break;
+            case R.id.ivAvatarRight: // 右头像
+                goBigImage(false);
                 break;
         }
         return false;
