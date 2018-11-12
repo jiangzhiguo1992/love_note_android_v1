@@ -508,6 +508,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         int albumCount = limit.getTravelAlbumCount();
         int videoCount = limit.getTravelVideoCount();
         int foodCount = limit.getTravelFoodCount();
+        int movieCount = limit.getTravelMovieCount();
         int diaryCount = limit.getTravelDiaryCount();
         Help help = new Help();
         help.setIndex(index);
@@ -517,7 +518,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         List<Help.HelpContent> contentList = new ArrayList<>();
         Help.HelpContent c1 = new Help.HelpContent();
         c1.setQuestion(getString(R.string.help_note_travel_c1_q));
-        c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_travel_c1_a), placeCount, albumCount, videoCount, foodCount, diaryCount));
+        c1.setAnswer(String.format(Locale.getDefault(), getString(R.string.help_note_travel_c1_a), placeCount, albumCount, videoCount, foodCount, movieCount, diaryCount));
         contentList.add(c1);
         help.setContentList(contentList);
         return help;

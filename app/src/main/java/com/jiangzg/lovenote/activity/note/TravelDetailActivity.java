@@ -24,6 +24,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.AlbumAdapter;
 import com.jiangzg.lovenote.adapter.DiaryAdapter;
 import com.jiangzg.lovenote.adapter.FoodAdapter;
+import com.jiangzg.lovenote.adapter.MovieAdapter;
 import com.jiangzg.lovenote.adapter.TravelPlaceAdapter;
 import com.jiangzg.lovenote.adapter.VideoAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -31,6 +32,7 @@ import com.jiangzg.lovenote.domain.Album;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
+import com.jiangzg.lovenote.domain.Movie;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Travel;
@@ -85,6 +87,10 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     LinearLayout llFood;
     @BindView(R.id.rvFood)
     RecyclerView rvFood;
+    @BindView(R.id.llMovie)
+    LinearLayout llMovie;
+    @BindView(R.id.rvMovie)
+    RecyclerView rvMovie;
     @BindView(R.id.llDiary)
     LinearLayout llDiary;
     @BindView(R.id.rvDiary)
@@ -95,6 +101,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
+    private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
     private Call<Result> callGet;
     private Call<Result> callDel;
@@ -161,6 +168,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerMovie);
         RecyclerHelper.release(recyclerDiary);
     }
 
@@ -339,6 +347,38 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         } else {
             llFood.setVisibility(View.GONE);
             rvFood.setVisibility(View.GONE);
+        }
+        // movie
+        ArrayList<Movie> movieList = ListHelper.getMovieListByTravel(travel.getTravelMovieList(), false);
+        if (movieList != null && movieList.size() > 0) {
+            llMovie.setVisibility(View.VISIBLE);
+            rvMovie.setVisibility(View.VISIBLE);
+            if (recyclerMovie == null) {
+                recyclerMovie = new RecyclerHelper(rvMovie)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new MovieAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemChildClickListener() {
+                            @Override
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                MovieAdapter movieAdapter = (MovieAdapter) adapter;
+                                switch (view.getId()) {
+                                    case R.id.tvAddress:
+                                        movieAdapter.goMapShow(position);
+                                        break;
+                                }
+                            }
+                        });
+            }
+            recyclerMovie.dataNew(movieList, 0);
+        } else {
+            llMovie.setVisibility(View.GONE);
+            rvMovie.setVisibility(View.GONE);
         }
         // diary
         ArrayList<Diary> diaryList = ListHelper.getDiaryListByTravel(travel.getTravelDiaryList(), false);

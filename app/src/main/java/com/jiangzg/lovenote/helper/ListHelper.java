@@ -21,12 +21,14 @@ import com.jiangzg.lovenote.domain.SouvenirAlbum;
 import com.jiangzg.lovenote.domain.SouvenirDiary;
 import com.jiangzg.lovenote.domain.SouvenirFood;
 import com.jiangzg.lovenote.domain.SouvenirGift;
+import com.jiangzg.lovenote.domain.SouvenirMovie;
 import com.jiangzg.lovenote.domain.SouvenirTravel;
 import com.jiangzg.lovenote.domain.SouvenirVideo;
 import com.jiangzg.lovenote.domain.Travel;
 import com.jiangzg.lovenote.domain.TravelAlbum;
 import com.jiangzg.lovenote.domain.TravelDiary;
 import com.jiangzg.lovenote.domain.TravelFood;
+import com.jiangzg.lovenote.domain.TravelMovie;
 import com.jiangzg.lovenote.domain.TravelPlace;
 import com.jiangzg.lovenote.domain.TravelVideo;
 import com.jiangzg.lovenote.domain.Video;
@@ -469,6 +471,71 @@ public class ListHelper {
                     newFood.setFoodId(food.getId());
                     // 不存在，加进去
                     returnList.add(newFood);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
+    }
+
+    // 在adapter中显示的movie
+    public static ArrayList<Movie> getMovieListByTravel(List<TravelMovie> travelMovieList, boolean checkStatus) {
+        ArrayList<Movie> movieList = new ArrayList<>();
+        if (travelMovieList == null || travelMovieList.size() <= 0) return movieList;
+        for (TravelMovie travelMovie : travelMovieList) {
+            if (travelMovie == null || travelMovie.getMovie() == null || travelMovie.getMovie().getId() <= 0) {
+                // 所有的movie都是已经已存在的，必须有id
+                continue;
+            }
+            if (checkStatus && travelMovie.isDelete()) continue;
+            movieList.add(travelMovie.getMovie());
+        }
+        return movieList;
+    }
+
+    // 获取travel中要上传的movieList
+    public static ArrayList<TravelMovie> getTravelMovieListByOld(List<TravelMovie> travelMovieList, List<Movie> movieList) {
+        ArrayList<TravelMovie> returnList = new ArrayList<>();
+        if (travelMovieList == null) {
+            travelMovieList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (travelMovieList.size() > 0) {
+            for (TravelMovie travelMovie : travelMovieList) {
+                if (travelMovie == null || travelMovie.getMovie() == null || travelMovie.getMovie().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(movieList, travelMovie.getMovie());
+                // 已存在数据需要给id
+                TravelMovie newMovie = new TravelMovie();
+                newMovie.setId(travelMovie.getId());
+                newMovie.setMovieId(travelMovie.getMovieId());
+                if (index < 0 || index >= movieList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newMovie.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newMovie.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newMovie);
+            }
+        }
+        // 检查添加的数据
+        if (movieList != null && movieList.size() > 0) {
+            // 先转换成数据集合
+            List<Movie> movies = getMovieListByTravel(travelMovieList, false);
+            for (Movie movie : movieList) {
+                if (movie == null || movie.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
+                int index = findIndexByIdInList(movies, movie);
+                if (index < 0 || index >= movies.size()) {
+                    // 新数据不给id
+                    TravelMovie newMovie = new TravelMovie();
+                    newMovie.setStatus(BaseObj.STATUS_VISIBLE);
+                    newMovie.setMovieId(movie.getId());
+                    // 不存在，加进去
+                    returnList.add(newMovie);
                 }
                 // 存在就不要更新了，会覆盖id
             }
@@ -932,6 +999,85 @@ public class ListHelper {
                     newFood.setFoodId(food.getId());
                     // 不存在，加进去
                     returnList.add(newFood);
+                }
+                // 存在就不要更新了，会覆盖id
+            }
+        }
+        return returnList;
+    }
+
+    // 在adapter中显示的movie
+    public static ArrayList<Movie> getMovieListBySouvenir(List<SouvenirMovie> souvenirMovieList, boolean checkStatus) {
+        ArrayList<Movie> movieList = new ArrayList<>();
+        if (souvenirMovieList == null || souvenirMovieList.size() <= 0) return movieList;
+        for (SouvenirMovie souvenirMovie : souvenirMovieList) {
+            if (souvenirMovie == null || souvenirMovie.getMovie() == null || souvenirMovie.getMovie().getId() <= 0) {
+                // 所有的movie都是已经已存在的，必须有id
+                continue;
+            }
+            if (checkStatus && souvenirMovie.isDelete()) continue;
+            movieList.add(souvenirMovie.getMovie());
+        }
+        return movieList;
+    }
+
+    // 获取souvenir中的year的movieList
+    public static ArrayList<SouvenirMovie> getSouvenirMovieListByYear(List<SouvenirMovie> souvenirMovieList, int year) {
+        ArrayList<SouvenirMovie> returnList = new ArrayList<>();
+        if (souvenirMovieList == null || souvenirMovieList.size() <= 0) {
+            return returnList;
+        }
+        for (SouvenirMovie souvenirMovie : souvenirMovieList) {
+            if (year == souvenirMovie.getYear()) {
+                returnList.add(souvenirMovie);
+            }
+        }
+        return returnList;
+    }
+
+    // 获取souvenir中要上传的movieList
+    public static ArrayList<SouvenirMovie> getSouvenirMovieListByOld(List<SouvenirMovie> souvenirMovieList, List<Movie> movieList) {
+        ArrayList<SouvenirMovie> returnList = new ArrayList<>();
+        if (souvenirMovieList == null) {
+            souvenirMovieList = new ArrayList<>();
+        }
+        // 检查原来的数据
+        if (souvenirMovieList.size() > 0) {
+            for (SouvenirMovie souvenirMovie : souvenirMovieList) {
+                if (souvenirMovie == null || souvenirMovie.getMovie() == null || souvenirMovie.getMovie().getId() <= 0) {
+                    continue;
+                }
+                // 对比新旧数据，清理旧数据
+                int index = findIndexByIdInList(movieList, souvenirMovie.getMovie());
+                // 已存在数据需要给id
+                SouvenirMovie newMovie = new SouvenirMovie();
+                newMovie.setId(souvenirMovie.getId());
+                newMovie.setMovieId(souvenirMovie.getMovieId());
+                if (index < 0 || index >= movieList.size()) {
+                    // 新数据里不存在，说明想要删掉
+                    newMovie.setStatus(BaseObj.STATUS_DELETE);
+                } else {
+                    // 新数据里有，说明想要保留
+                    newMovie.setStatus(BaseObj.STATUS_VISIBLE);
+                }
+                returnList.add(newMovie);
+            }
+        }
+        // 检查添加的数据
+        if (movieList != null && movieList.size() > 0) {
+            // 先转换成数据集合
+            List<Movie> movies = getMovieListBySouvenir(souvenirMovieList, false);
+            for (Movie movie : movieList) {
+                if (movie == null || movie.getId() <= 0) continue;
+                // 对比新旧数据，添加新数据
+                int index = findIndexByIdInList(movies, movie);
+                if (index < 0 || index >= movies.size()) {
+                    // 新数据不给id
+                    SouvenirMovie newMovie = new SouvenirMovie();
+                    newMovie.setStatus(BaseObj.STATUS_VISIBLE);
+                    newMovie.setMovieId(movie.getId());
+                    // 不存在，加进去
+                    returnList.add(newMovie);
                 }
                 // 存在就不要更新了，会覆盖id
             }

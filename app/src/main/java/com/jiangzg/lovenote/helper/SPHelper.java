@@ -129,6 +129,7 @@ public class SPHelper {
     private static final String FIELD_LIMIT_TRAVEL_PLACE_COUNT = "travel_place_count";
     private static final String FIELD_LIMIT_TRAVEL_VIDEO_COUNT = "travel_video_count";
     private static final String FIELD_LIMIT_TRAVEL_FOOD_COUNT = "travel_food_count";
+    private static final String FIELD_LIMIT_TRAVEL_MOVIE_COUNT = "travel_movie_count";
     private static final String FIELD_LIMIT_TRAVEL_ALBUM_COUNT = "travel_album_count";
     private static final String FIELD_LIMIT_TRAVEL_DIARY_COUNT = "travel_diary_count";
     private static final String FIELD_LIMIT_WHISPER_CONTENT_LENGTH = "whisper_content_length";
@@ -549,6 +550,7 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_TRAVEL_PLACE_COUNT, limit.getTravelPlaceCount());
         editor.putInt(FIELD_LIMIT_TRAVEL_VIDEO_COUNT, limit.getTravelVideoCount());
         editor.putInt(FIELD_LIMIT_TRAVEL_FOOD_COUNT, limit.getTravelFoodCount());
+        editor.putInt(FIELD_LIMIT_TRAVEL_MOVIE_COUNT, limit.getTravelMovieCount());
         editor.putInt(FIELD_LIMIT_TRAVEL_ALBUM_COUNT, limit.getTravelAlbumCount());
         editor.putInt(FIELD_LIMIT_TRAVEL_DIARY_COUNT, limit.getTravelDiaryCount());
         editor.putInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, limit.getWhisperContentLength());
@@ -629,6 +631,7 @@ public class SPHelper {
         limit.setTravelPlaceCount(sp.getInt(FIELD_LIMIT_TRAVEL_PLACE_COUNT, 1));
         limit.setTravelVideoCount(sp.getInt(FIELD_LIMIT_TRAVEL_VIDEO_COUNT, 1));
         limit.setTravelFoodCount(sp.getInt(FIELD_LIMIT_TRAVEL_FOOD_COUNT, 1));
+        limit.setTravelMovieCount(sp.getInt(FIELD_LIMIT_TRAVEL_MOVIE_COUNT, 1));
         limit.setTravelAlbumCount(sp.getInt(FIELD_LIMIT_TRAVEL_ALBUM_COUNT, 1));
         limit.setTravelDiaryCount(sp.getInt(FIELD_LIMIT_TRAVEL_DIARY_COUNT, 1));
         limit.setWhisperContentLength(sp.getInt(FIELD_LIMIT_WHISPER_CONTENT_LENGTH, 100));

@@ -29,18 +29,21 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.AlbumAdapter;
 import com.jiangzg.lovenote.adapter.DiaryAdapter;
 import com.jiangzg.lovenote.adapter.FoodAdapter;
+import com.jiangzg.lovenote.adapter.MovieAdapter;
 import com.jiangzg.lovenote.adapter.TravelPlaceAdapter;
 import com.jiangzg.lovenote.adapter.VideoAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Album;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
+import com.jiangzg.lovenote.domain.Movie;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Travel;
 import com.jiangzg.lovenote.domain.TravelAlbum;
 import com.jiangzg.lovenote.domain.TravelDiary;
 import com.jiangzg.lovenote.domain.TravelFood;
+import com.jiangzg.lovenote.domain.TravelMovie;
 import com.jiangzg.lovenote.domain.TravelPlace;
 import com.jiangzg.lovenote.domain.TravelVideo;
 import com.jiangzg.lovenote.domain.Video;
@@ -91,6 +94,10 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     RecyclerView rvFood;
     @BindView(R.id.cvFoodAdd)
     CardView cvFoodAdd;
+    @BindView(R.id.rvMovie)
+    RecyclerView rvMovie;
+    @BindView(R.id.cvMovieAdd)
+    CardView cvMovieAdd;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
     @BindView(R.id.cvDiaryAdd)
@@ -103,11 +110,13 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
+    private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
     private Observable<TravelPlace> obAddPlace;
     private Observable<Album> obSelectAlbum;
     private Observable<Video> obSelectVideo;
     private Observable<Food> obSelectFood;
+    private Observable<Movie> obSelectMovie;
     private Observable<Diary> obSelectDiary;
     private Call<Result> callAdd;
     private Call<Result> callUpdate;
@@ -270,6 +279,34 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                     }
                 });
         refreshFoodView();
+        // movie
+        recyclerMovie = new RecyclerHelper(rvMovie)
+                .initLayoutManager(new LinearLayoutManager(mActivity) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                })
+                .initAdapter(new MovieAdapter(mActivity))
+                .setAdapter()
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        MovieAdapter movieAdapter = (MovieAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.tvAddress:
+                                movieAdapter.goMapShow(position);
+                                break;
+                        }
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_movie);
+                    }
+                });
+        refreshMovieView();
         // diary
         recyclerDiary = new RecyclerHelper(rvDiary)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
@@ -341,6 +378,16 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 refreshAddView();
             }
         });
+        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, new Action1<Movie>() {
+            @Override
+            public void call(Movie movie) {
+                if (recyclerMovie == null) return;
+                List<Movie> movieList = new ArrayList<>();
+                movieList.add(movie);
+                recyclerMovie.dataAdd(movieList);
+                refreshAddView();
+            }
+        });
         obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
@@ -361,16 +408,18 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
         RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
+        RxBus.unregister(ConsHelper.EVENT_MOVIE_SELECT, obSelectMovie);
         RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
         RecyclerHelper.release(recyclerPlace);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerMovie);
         RecyclerHelper.release(recyclerDiary);
     }
 
-    @OnClick({R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd, R.id.cvFoodAdd, R.id.cvDiaryAdd,
-            R.id.cvHappenAt, R.id.btnPublish})
+    @OnClick({R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd, R.id.cvFoodAdd,
+            R.id.cvMovieAdd, R.id.cvDiaryAdd, R.id.cvHappenAt, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvPlaceAdd: // 足迹
@@ -384,6 +433,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 break;
             case R.id.cvFoodAdd: // 美食
                 FoodListActivity.goActivityBySelect(mActivity);
+                break;
+            case R.id.cvMovieAdd: // 电影
+                MovieListActivity.goActivityBySelect(mActivity);
                 break;
             case R.id.cvDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
@@ -407,6 +459,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             cvAlbumAdd.setVisibility(View.VISIBLE);
             cvVideoAdd.setVisibility(View.VISIBLE);
             cvFoodAdd.setVisibility(View.VISIBLE);
+            cvMovieAdd.setVisibility(View.VISIBLE);
             cvDiaryAdd.setVisibility(View.VISIBLE);
             return;
         }
@@ -446,6 +499,15 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         } else {
             cvFoodAdd.setVisibility(View.GONE);
         }
+        // movie
+        int movieCount = SPHelper.getLimit().getTravelMovieCount();
+        if (recyclerMovie == null || recyclerMovie.getAdapter() == null) {
+            cvMovieAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerMovie.getAdapter().getData().size() < movieCount) {
+            cvMovieAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvMovieAdd.setVisibility(View.GONE);
+        }
         // diary
         int diaryCount = SPHelper.getLimit().getTravelDiaryCount();
         if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
@@ -481,6 +543,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         if (travel == null || recyclerFood == null) return;
         ArrayList<Food> foodList = ListHelper.getFoodListByTravel(travel.getTravelFoodList(), true);
         recyclerFood.dataNew(foodList, 0);
+    }
+
+    private void refreshMovieView() {
+        if (travel == null || recyclerMovie == null) return;
+        ArrayList<Movie> movieList = ListHelper.getMovieListByTravel(travel.getTravelMovieList(), true);
+        recyclerMovie.dataNew(movieList, 0);
     }
 
     private void refreshDiaryView() {
@@ -563,6 +631,12 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             FoodAdapter adapter = recyclerFood.getAdapter();
             List<TravelFood> foodList = ListHelper.getTravelFoodListByOld(travel.getTravelFoodList(), adapter.getData());
             body.setTravelFoodList(foodList);
+        }
+        // bodyMovie
+        if (recyclerMovie != null && recyclerMovie.getAdapter() != null) {
+            MovieAdapter adapter = recyclerMovie.getAdapter();
+            List<TravelMovie> movieList = ListHelper.getTravelMovieListByOld(travel.getTravelMovieList(), adapter.getData());
+            body.setTravelMovieList(movieList);
         }
         // bodyDiary
         if (recyclerDiary != null && recyclerDiary.getAdapter() != null) {

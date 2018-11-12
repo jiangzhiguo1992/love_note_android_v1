@@ -18,7 +18,16 @@ public class Travel extends BaseCP implements Parcelable {
     private List<TravelAlbum> travelAlbumList;
     private List<TravelVideo> travelVideoList;
     private List<TravelFood> travelFoodList;
+    private List<TravelMovie> travelMovieList;
     private List<TravelDiary> travelDiaryList;
+
+    public List<TravelMovie> getTravelMovieList() {
+        return travelMovieList;
+    }
+
+    public void setTravelMovieList(List<TravelMovie> travelMovieList) {
+        this.travelMovieList = travelMovieList;
+    }
 
     public long getHappenAt() {
         return happenAt;
@@ -87,6 +96,7 @@ public class Travel extends BaseCP implements Parcelable {
         travelAlbumList = in.createTypedArrayList(TravelAlbum.CREATOR);
         travelVideoList = in.createTypedArrayList(TravelVideo.CREATOR);
         travelFoodList = in.createTypedArrayList(TravelFood.CREATOR);
+        travelMovieList = in.createTypedArrayList(TravelMovie.CREATOR);
         travelDiaryList = in.createTypedArrayList(TravelDiary.CREATOR);
     }
 
@@ -99,6 +109,7 @@ public class Travel extends BaseCP implements Parcelable {
         dest.writeTypedList(travelAlbumList);
         dest.writeTypedList(travelVideoList);
         dest.writeTypedList(travelFoodList);
+        dest.writeTypedList(travelMovieList);
         dest.writeTypedList(travelDiaryList);
     }
 

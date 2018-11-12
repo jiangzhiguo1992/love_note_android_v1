@@ -24,7 +24,16 @@ public class Souvenir extends BaseCP implements Parcelable {
     private List<SouvenirAlbum> souvenirAlbumList;
     private List<SouvenirVideo> souvenirVideoList;
     private List<SouvenirFood> souvenirFoodList;
+    private List<SouvenirMovie> souvenirMovieList;
     private List<SouvenirDiary> souvenirDiaryList;
+
+    public List<SouvenirMovie> getSouvenirMovieList() {
+        return souvenirMovieList;
+    }
+
+    public void setSouvenirMovieList(List<SouvenirMovie> souvenirMovieList) {
+        this.souvenirMovieList = souvenirMovieList;
+    }
 
     public List<SouvenirGift> getSouvenirGiftList() {
         return souvenirGiftList;
@@ -147,6 +156,7 @@ public class Souvenir extends BaseCP implements Parcelable {
         souvenirAlbumList = in.createTypedArrayList(SouvenirAlbum.CREATOR);
         souvenirVideoList = in.createTypedArrayList(SouvenirVideo.CREATOR);
         souvenirFoodList = in.createTypedArrayList(SouvenirFood.CREATOR);
+        souvenirMovieList = in.createTypedArrayList(SouvenirMovie.CREATOR);
         souvenirDiaryList = in.createTypedArrayList(SouvenirDiary.CREATOR);
     }
 
@@ -165,6 +175,7 @@ public class Souvenir extends BaseCP implements Parcelable {
         dest.writeTypedList(souvenirAlbumList);
         dest.writeTypedList(souvenirVideoList);
         dest.writeTypedList(souvenirFoodList);
+        dest.writeTypedList(souvenirMovieList);
         dest.writeTypedList(souvenirDiaryList);
     }
 

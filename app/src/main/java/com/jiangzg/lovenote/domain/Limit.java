@@ -29,6 +29,7 @@ public class Limit {
     private int travelPlaceCount;
     private int travelVideoCount;
     private int travelFoodCount;
+    private int travelMovieCount;
     private int travelAlbumCount;
     private int travelDiaryCount;
     private int audioTitleLength;
@@ -277,6 +278,14 @@ public class Limit {
 
     public void setCoinSignMinCount(int coinSignMinCount) {
         this.coinSignMinCount = coinSignMinCount;
+    }
+
+    public int getTravelMovieCount() {
+        return travelMovieCount;
+    }
+
+    public void setTravelMovieCount(int travelMovieCount) {
+        this.travelMovieCount = travelMovieCount;
     }
 
     public int getCoinSignMaxCount() {

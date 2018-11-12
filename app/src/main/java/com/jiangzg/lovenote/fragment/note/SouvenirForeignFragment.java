@@ -17,6 +17,7 @@ import com.jiangzg.lovenote.adapter.AlbumAdapter;
 import com.jiangzg.lovenote.adapter.DiaryAdapter;
 import com.jiangzg.lovenote.adapter.FoodAdapter;
 import com.jiangzg.lovenote.adapter.GiftAdapter;
+import com.jiangzg.lovenote.adapter.MovieAdapter;
 import com.jiangzg.lovenote.adapter.TravelAdapter;
 import com.jiangzg.lovenote.adapter.VideoAdapter;
 import com.jiangzg.lovenote.base.BaseFragment;
@@ -25,6 +26,7 @@ import com.jiangzg.lovenote.domain.Album;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
 import com.jiangzg.lovenote.domain.Gift;
+import com.jiangzg.lovenote.domain.Movie;
 import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.domain.Travel;
 import com.jiangzg.lovenote.domain.Video;
@@ -59,6 +61,10 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
     TextView tvFood;
     @BindView(R.id.rvFood)
     RecyclerView rvFood;
+    @BindView(R.id.tvMovie)
+    TextView tvMovie;
+    @BindView(R.id.rvMovie)
+    RecyclerView rvMovie;
     @BindView(R.id.tvDiary)
     TextView tvDiary;
     @BindView(R.id.rvDiary)
@@ -73,6 +79,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
+    private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
 
     public static SouvenirForeignFragment newFragment(int year, Souvenir souvenir) {
@@ -112,6 +119,7 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerMovie);
         RecyclerHelper.release(recyclerDiary);
     }
 
@@ -270,6 +278,38 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
         } else {
             tvFood.setVisibility(View.GONE);
             rvFood.setVisibility(View.GONE);
+        }
+        // movie
+        ArrayList<Movie> movieList = ListHelper.getMovieListBySouvenir(souvenir.getSouvenirMovieList(), false);
+        if (movieList != null && movieList.size() > 0) {
+            tvMovie.setVisibility(View.VISIBLE);
+            rvMovie.setVisibility(View.VISIBLE);
+            if (recyclerMovie == null) {
+                recyclerMovie = new RecyclerHelper(rvMovie)
+                        .initLayoutManager(new LinearLayoutManager(mActivity) {
+                            @Override
+                            public boolean canScrollVertically() {
+                                return false;
+                            }
+                        })
+                        .initAdapter(new MovieAdapter(mActivity))
+                        .setAdapter()
+                        .listenerClick(new OnItemChildClickListener() {
+                            @Override
+                            public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                                MovieAdapter movieAdapter = (MovieAdapter) adapter;
+                                switch (view.getId()) {
+                                    case R.id.tvAddress:
+                                        movieAdapter.goMapShow(position);
+                                        break;
+                                }
+                            }
+                        });
+            }
+            recyclerMovie.dataNew(movieList, 0);
+        } else {
+            tvMovie.setVisibility(View.GONE);
+            rvMovie.setVisibility(View.GONE);
         }
         // diary
         ArrayList<Diary> diaryList = ListHelper.getDiaryListBySouvenir(souvenir.getSouvenirDiaryList(), false);

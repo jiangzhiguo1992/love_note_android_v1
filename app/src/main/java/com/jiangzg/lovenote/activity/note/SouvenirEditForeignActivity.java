@@ -26,6 +26,7 @@ import com.jiangzg.lovenote.adapter.AlbumAdapter;
 import com.jiangzg.lovenote.adapter.DiaryAdapter;
 import com.jiangzg.lovenote.adapter.FoodAdapter;
 import com.jiangzg.lovenote.adapter.GiftAdapter;
+import com.jiangzg.lovenote.adapter.MovieAdapter;
 import com.jiangzg.lovenote.adapter.TravelAdapter;
 import com.jiangzg.lovenote.adapter.VideoAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -33,6 +34,7 @@ import com.jiangzg.lovenote.domain.Album;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
 import com.jiangzg.lovenote.domain.Gift;
+import com.jiangzg.lovenote.domain.Movie;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Souvenir;
@@ -40,6 +42,7 @@ import com.jiangzg.lovenote.domain.SouvenirAlbum;
 import com.jiangzg.lovenote.domain.SouvenirDiary;
 import com.jiangzg.lovenote.domain.SouvenirFood;
 import com.jiangzg.lovenote.domain.SouvenirGift;
+import com.jiangzg.lovenote.domain.SouvenirMovie;
 import com.jiangzg.lovenote.domain.SouvenirTravel;
 import com.jiangzg.lovenote.domain.SouvenirVideo;
 import com.jiangzg.lovenote.domain.Travel;
@@ -87,6 +90,10 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     RecyclerView rvFood;
     @BindView(R.id.cvFoodAdd)
     CardView cvFoodAdd;
+    @BindView(R.id.rvMovie)
+    RecyclerView rvMovie;
+    @BindView(R.id.cvMovieAdd)
+    CardView cvMovieAdd;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
     @BindView(R.id.cvDiaryAdd)
@@ -101,12 +108,14 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     private RecyclerHelper recyclerAlbum;
     private RecyclerHelper recyclerVideo;
     private RecyclerHelper recyclerFood;
+    private RecyclerHelper recyclerMovie;
     private RecyclerHelper recyclerDiary;
     private Observable<Gift> obSelectGift;
     private Observable<Travel> obSelectTravel;
     private Observable<Album> obSelectAlbum;
     private Observable<Video> obSelectVideo;
     private Observable<Food> obSelectFood;
+    private Observable<Movie> obSelectMovie;
     private Observable<Diary> obSelectDiary;
     private Call<Result> call;
 
@@ -264,6 +273,34 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                     }
                 });
         refreshFoodView();
+        // movie
+        recyclerMovie = new RecyclerHelper(rvMovie)
+                .initLayoutManager(new LinearLayoutManager(mActivity) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                })
+                .initAdapter(new MovieAdapter(mActivity))
+                .setAdapter()
+                .listenerClick(new OnItemChildClickListener() {
+                    @Override
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                        MovieAdapter movieAdapter = (MovieAdapter) adapter;
+                        switch (view.getId()) {
+                            case R.id.tvAddress:
+                                movieAdapter.goMapShow(position);
+                                break;
+                        }
+                    }
+                })
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        showDeleteDialogNoApi(adapter, position, R.string.confirm_remove_this_movie);
+                    }
+                });
+        refreshMovieView();
         // diary
         recyclerDiary = new RecyclerHelper(rvDiary)
                 .initLayoutManager(new LinearLayoutManager(mActivity) {
@@ -345,6 +382,16 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 refreshAddView();
             }
         });
+        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, new Action1<Movie>() {
+            @Override
+            public void call(Movie movie) {
+                if (recyclerMovie == null) return;
+                List<Movie> movieList = new ArrayList<>();
+                movieList.add(movie);
+                recyclerMovie.dataAdd(movieList);
+                refreshAddView();
+            }
+        });
         obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, new Action1<Diary>() {
             @Override
             public void call(Diary diary) {
@@ -365,18 +412,19 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         RxBus.unregister(ConsHelper.EVENT_ALBUM_SELECT, obSelectAlbum);
         RxBus.unregister(ConsHelper.EVENT_VIDEO_SELECT, obSelectVideo);
         RxBus.unregister(ConsHelper.EVENT_FOOD_SELECT, obSelectFood);
+        RxBus.unregister(ConsHelper.EVENT_MOVIE_SELECT, obSelectMovie);
         RxBus.unregister(ConsHelper.EVENT_DIARY_SELECT, obSelectDiary);
         RecyclerHelper.release(recyclerGift);
         RecyclerHelper.release(recyclerTravel);
         RecyclerHelper.release(recyclerAlbum);
         RecyclerHelper.release(recyclerVideo);
         RecyclerHelper.release(recyclerFood);
+        RecyclerHelper.release(recyclerMovie);
         RecyclerHelper.release(recyclerDiary);
     }
 
-    @OnClick({R.id.cvGiftAdd, R.id.cvTravelAdd, R.id.cvAlbumAdd,
-            R.id.cvVideoAdd, R.id.cvFoodAdd, R.id.cvDiaryAdd,
-            R.id.btnPublish})
+    @OnClick({R.id.cvGiftAdd, R.id.cvTravelAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd,
+            R.id.cvFoodAdd, R.id.cvMovieAdd, R.id.cvDiaryAdd, R.id.btnPublish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvGiftAdd: // 礼物
@@ -393,6 +441,9 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 break;
             case R.id.cvFoodAdd: // 美食
                 FoodListActivity.goActivityBySelect(mActivity);
+                break;
+            case R.id.cvMovieAdd: // 电影
+                MovieListActivity.goActivityBySelect(mActivity);
                 break;
             case R.id.cvDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
@@ -428,6 +479,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             cvAlbumAdd.setVisibility(View.VISIBLE);
             cvVideoAdd.setVisibility(View.VISIBLE);
             cvFoodAdd.setVisibility(View.VISIBLE);
+            cvMovieAdd.setVisibility(View.VISIBLE);
             cvDiaryAdd.setVisibility(View.VISIBLE);
             return;
         }
@@ -472,6 +524,14 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         } else {
             cvFoodAdd.setVisibility(View.GONE);
         }
+        // movie
+        if (recyclerMovie == null || recyclerMovie.getAdapter() == null) {
+            cvMovieAdd.setVisibility(View.VISIBLE);
+        } else if (recyclerMovie.getAdapter().getData().size() < limitCount) {
+            cvMovieAdd.setVisibility(View.VISIBLE);
+        } else {
+            cvMovieAdd.setVisibility(View.GONE);
+        }
         // diary
         if (recyclerDiary == null || recyclerDiary.getAdapter() == null) {
             cvDiaryAdd.setVisibility(View.VISIBLE);
@@ -510,6 +570,12 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         if (souvenir == null || recyclerFood == null) return;
         ArrayList<Food> foodList = ListHelper.getFoodListBySouvenir(souvenir.getSouvenirFoodList(), true);
         recyclerFood.dataNew(foodList, 0);
+    }
+
+    private void refreshMovieView() {
+        if (souvenir == null || recyclerMovie == null) return;
+        ArrayList<Movie> movieList = ListHelper.getMovieListBySouvenir(souvenir.getSouvenirMovieList(), true);
+        recyclerMovie.dataNew(movieList, 0);
     }
 
     private void refreshDiaryView() {
@@ -552,6 +618,12 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             FoodAdapter adapter = recyclerFood.getAdapter();
             List<SouvenirFood> foodList = ListHelper.getSouvenirFoodListByOld(souvenir.getSouvenirFoodList(), adapter.getData());
             body.setSouvenirFoodList(foodList);
+        }
+        // bodyMovie
+        if (recyclerMovie != null && recyclerMovie.getAdapter() != null) {
+            MovieAdapter adapter = recyclerMovie.getAdapter();
+            List<SouvenirMovie> movieList = ListHelper.getSouvenirMovieListByOld(souvenir.getSouvenirMovieList(), adapter.getData());
+            body.setSouvenirMovieList(movieList);
         }
         // bodyDiary
         if (recyclerDiary != null && recyclerDiary.getAdapter() != null) {
