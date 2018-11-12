@@ -113,13 +113,13 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "tencent"]
         }
-        baidu { // 百度应用分发平台
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
-        }
         ali { // 阿里应用分发平台
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
+        }
+        baidu { // 百度应用分发平台
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
         }
         qh360 { // 360手机助手
             dimension "release"
