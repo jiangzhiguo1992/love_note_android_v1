@@ -20,6 +20,15 @@ public class NoteTotal {
     private long totalAngry;
     private long totalDream;
     private long totalAward;
+    private long totalMovie;
+
+    public long getTotalMovie() {
+        return totalMovie;
+    }
+
+    public void setTotalMovie(long totalMovie) {
+        this.totalMovie = totalMovie;
+    }
 
     public long getTotalSouvenir() {
         return totalSouvenir;

@@ -126,6 +126,10 @@ public class VipActivity extends BaseActivity<VipActivity> {
     TextView tvLimitLeftFoodImageCount;
     @BindView(R.id.tvLimitRightFoodImageCount)
     TextView tvLimitRightFoodImageCount;
+    @BindView(R.id.tvLimitLeftMovieImageCount)
+    TextView tvLimitLeftMovieImageCount;
+    @BindView(R.id.tvLimitRightMovieImageCount)
+    TextView tvLimitRightMovieImageCount;
     @BindView(R.id.tvLimitLeftPostImageCount)
     TextView tvLimitLeftPostImageCount;
     @BindView(R.id.tvLimitRightPostImageCount)
@@ -264,6 +268,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
             String whisperImage = vipNoLimit.isWhisperImageEnable() ? getString(R.string.open_image_upload) : getString(R.string.refuse_image_upload);
             String giftImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipNoLimit.getGiftImageCount());
             String foodImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipNoLimit.getFoodImageCount());
+            String movieImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipNoLimit.getMovieImageCount());
             String postImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipNoLimit.getTopicPostImageCount());
             // view
             llLimit.setVisibility(View.VISIBLE);
@@ -282,6 +287,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
             tvLimitLeftWhisperImage.setText(whisperImage);
             tvLimitLeftGiftImageCount.setText(giftImageCount);
             tvLimitLeftFoodImageCount.setText(foodImageCount);
+            tvLimitLeftMovieImageCount.setText(movieImageCount);
             tvLimitLeftPostImageCount.setText(postImageCount);
         }
         if (vipYesLimit != null) {
@@ -301,6 +307,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
             String whisperImage = vipYesLimit.isWhisperImageEnable() ? getString(R.string.open_image_upload) : getString(R.string.refuse_image_upload);
             String giftImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipYesLimit.getGiftImageCount());
             String foodImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipYesLimit.getFoodImageCount());
+            String movieImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipYesLimit.getMovieImageCount());
             String postImageCount = String.format(Locale.getDefault(), getString(R.string.every_can_upload_holder_paper), vipYesLimit.getTopicPostImageCount());
             // view
             llLimit.setVisibility(View.VISIBLE);
@@ -319,6 +326,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
             tvLimitRightWhisperImage.setText(whisperImage);
             tvLimitRightGiftImageCount.setText(giftImageCount);
             tvLimitRightFoodImageCount.setText(foodImageCount);
+            tvLimitRightMovieImageCount.setText(movieImageCount);
             tvLimitRightPostImageCount.setText(postImageCount);
         }
     }

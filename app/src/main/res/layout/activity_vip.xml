@@ -648,6 +648,41 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/llLimitMovieImageCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/FontPrimaryNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/movie"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitLeftMovieImageCount"
+                            style="@style/FontPrimaryNormal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限10个"/>
+
+                        <TextView
+                            android:id="@+id/tvLimitRightMovieImageCount"
+                            style="@style/FontPrimaryNormalBold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            tools:text="上限365个"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/llLimitPostImageCount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

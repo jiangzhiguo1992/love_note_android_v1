@@ -19,6 +19,7 @@ import com.jiangzg.lovenote.activity.note.DreamListActivity;
 import com.jiangzg.lovenote.activity.note.FoodListActivity;
 import com.jiangzg.lovenote.activity.note.GiftListActivity;
 import com.jiangzg.lovenote.activity.note.MensesActivity;
+import com.jiangzg.lovenote.activity.note.MovieListActivity;
 import com.jiangzg.lovenote.activity.note.PictureListActivity;
 import com.jiangzg.lovenote.activity.note.PromiseDetailActivity;
 import com.jiangzg.lovenote.activity.note.PromiseListActivity;
@@ -66,6 +67,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
     private final Drawable dAngry;
     private final Drawable dDream;
     private final Drawable dAward;
+    private final Drawable dMovie;
 
     public TrendsAdapter(BaseActivity activity) {
         super(null);
@@ -92,6 +94,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         dAngry = ViewHelper.getDrawable(mActivity, R.drawable.ic_angry_purple_dark);
         dDream = ViewHelper.getDrawable(mActivity, R.drawable.ic_dream_brown);
         dAward = ViewHelper.getDrawable(mActivity, R.drawable.ic_award_indigo_accent);
+        dMovie = ViewHelper.getDrawable(mActivity, R.drawable.ic_movie_green_accent);
     }
 
     @Override
@@ -150,6 +153,8 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 return dPromise;
             case Trends.TRENDS_CON_TYPE_ANGRY: // 生气
                 return dAngry;
+            case Trends.TRENDS_CON_TYPE_MOVIE: // 电影
+                return dMovie;
         }
         return null;
     }
@@ -254,6 +259,9 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
                 } else {
                     AngryDetailActivity.goActivity(mActivity, contentId);
                 }
+                break;
+            case Trends.TRENDS_CON_TYPE_MOVIE: // 电影
+                MovieListActivity.goActivity(mActivity);
                 break;
         }
     }

@@ -62,6 +62,8 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
     TextView tvDream;
     @BindView(R.id.tvAward)
     TextView tvAward;
+    @BindView(R.id.tvMovie)
+    TextView tvMovie;
 
     private Call<Result> call;
 
@@ -159,6 +161,7 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
         tvAngry.setText(String.valueOf(noteTotal.getTotalAngry()));
         tvDream.setText(String.valueOf(noteTotal.getTotalDream()));
         tvAward.setText(String.valueOf(noteTotal.getTotalAward()));
+        tvMovie.setText(String.valueOf(noteTotal.getTotalMovie()));
     }
 
 }

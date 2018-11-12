@@ -258,8 +258,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvDream: // 梦里
                 DreamListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvMovie: // 礼物
-                GiftListActivity.goActivity(mFragment);
+            case R.id.cvMovie: // 电影
+                MovieListActivity.goActivity(mFragment);
                 break;
             case R.id.cvFood: // 美食
                 FoodListActivity.goActivity(mFragment);
@@ -270,8 +270,8 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             case R.id.cvAngry: // 生气
                 AngryListActivity.goActivity(mFragment);
                 break;
-            case R.id.cvGift: // 电影
-                MovieListActivity.goActivity(mFragment);
+            case R.id.cvGift: // 礼物
+                GiftListActivity.goActivity(mFragment);
                 break;
             case R.id.cvPromise: // 承诺
                 PromiseListActivity.goActivity(mFragment);
