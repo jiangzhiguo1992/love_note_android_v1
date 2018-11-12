@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.PagerLayoutAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -29,6 +31,8 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
     RelativeLayout root;
     @BindView(R.id.vp)
     ViewPager vp;
+    @BindView(R.id.llBottom)
+    LinearLayout llBottom;
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.btnRegister)
@@ -52,11 +56,18 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
 
     @Override
     protected int getView(Intent intent) {
+        BarUtils.setStatusBarTrans(mActivity, true);
+        BarUtils.setNavigationBarTrans(mActivity, true);
         return R.layout.activity_splash;
     }
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // 底部提示的高度
+        int height = BarUtils.getNavigationBarHeight(mActivity);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) llBottom.getLayoutParams();
+        layoutParams.bottomMargin += height;
+        llBottom.setLayoutParams(layoutParams);
         // color
         int c1 = Color.rgb(224, 123, 143);
         int c2 = Color.rgb(87, 212, 204);
