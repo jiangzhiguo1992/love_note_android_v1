@@ -3,16 +3,21 @@ package com.jiangzg.lovenote.activity.user;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.adapter.PagerLayoutAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import butterknife.BindView;
@@ -20,12 +25,16 @@ import butterknife.OnClick;
 
 public class SplashActivity extends BaseActivity<SplashActivity> {
 
+    @BindView(R.id.root)
+    RelativeLayout root;
     @BindView(R.id.vp)
     ViewPager vp;
     @BindView(R.id.btnLogin)
     Button btnLogin;
     @BindView(R.id.btnRegister)
     Button btnRegister;
+
+    private int currentItem;
 
     public static void goActivity(Activity from) {
         // 顶部已经是SplashActivity时，不再跳转
@@ -48,7 +57,51 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
+        // color
+        int c1 = Color.rgb(224, 123, 143);
+        int c2 = Color.rgb(87, 212, 204);
+        int c3 = Color.rgb(250, 135, 61);
+        int c4 = Color.rgb(143, 102, 120);
+        int c5 = Color.rgb(227, 171, 192);
+        int c6 = Color.rgb(166, 208, 240);
+        final int[] colorList = new int[]{c1, c2, c3, c4, c5, c6};
+        // bg
+        currentItem = 0;
+        root.setBackgroundColor(colorList[currentItem]);
+        btnLogin.setTextColor(colorList[currentItem]);
+        btnRegister.setTextColor(colorList[currentItem]);
+        // pager
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                int cLeft = colorList[(position < 0 || position >= (colorList.length - 1)) ? currentItem : position];
+                int cRight = colorList[((position + 1) < 0 || (position + 1) >= (colorList.length - 1)) ? currentItem : position + 1];
+                int color = getCurrentColor(positionOffset, cLeft, cRight);
+                if (color == 0) return;
+                root.setBackgroundColor(color);
+                btnLogin.setTextColor(color);
+                btnRegister.setTextColor(color);
+            }
 
+            @Override
+            public void onPageSelected(int position) {
+                currentItem = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+        // adapter
+        PagerLayoutAdapter adapter = new PagerLayoutAdapter(mActivity);
+        vp.setAdapter(adapter);
+        // data
+        List<Integer> dataList = new ArrayList<>();
+        dataList.add(R.layout.pager_item_splash_1);
+        dataList.add(R.layout.pager_item_splash_2);
+        dataList.add(R.layout.pager_item_splash_3);
+        dataList.add(R.layout.pager_item_splash_4);
+        adapter.setDataList(dataList);
     }
 
     @Override
@@ -84,4 +137,29 @@ public class SplashActivity extends BaseActivity<SplashActivity> {
                 break;
         }
     }
+
+    private int getCurrentColor(float fraction, int startColor, int endColor) {
+        int redStart = Color.red(startColor);
+        int blueStart = Color.blue(startColor);
+        int greenStart = Color.green(startColor);
+        int alphaStart = Color.alpha(startColor);
+
+        int redEnd = Color.red(endColor);
+        int blueEnd = Color.blue(endColor);
+        int greenEnd = Color.green(endColor);
+        int alphaEnd = Color.alpha(endColor);
+
+        int redDifference = redEnd - redStart;
+        int blueDifference = blueEnd - blueStart;
+        int greenDifference = greenEnd - greenStart;
+        int alphaDifference = alphaEnd - alphaStart;
+
+        int redCurrent = (int) (redStart + fraction * redDifference);
+        int blueCurrent = (int) (blueStart + fraction * blueDifference);
+        int greenCurrent = (int) (greenStart + fraction * greenDifference);
+        int alphaCurrent = (int) (alphaStart + fraction * alphaDifference);
+
+        return Color.argb(alphaCurrent, redCurrent, greenCurrent, blueCurrent);
+    }
+
 }

@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.user.SplashActivity">
@@ -19,25 +20,25 @@
 
         <Button
             android:id="@+id/btnLogin"
-            style="@style/FontWhiteBigBold"
+            style="@style/FontBlackBigBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="15dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_press_solid_dark_accent"
+            android:background="@drawable/shape_solid_white_r3"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/login"/>
 
         <Button
             android:id="@+id/btnRegister"
-            style="@style/FontWhiteBigBold"
+            style="@style/FontBlackBigBold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="30dp"
             android:layout_weight="1"
-            android:background="@drawable/selector_press_solid_accent_dark"
+            android:background="@drawable/shape_solid_white_r3"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/register"/>
     </LinearLayout>
