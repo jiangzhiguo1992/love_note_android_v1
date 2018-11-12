@@ -253,6 +253,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             s.setSouvenirAlbumList(ListHelper.getSouvenirAlbumListByYear(souvenir.getSouvenirAlbumList(), i));
             s.setSouvenirVideoList(ListHelper.getSouvenirVideoListByYear(souvenir.getSouvenirVideoList(), i));
             s.setSouvenirFoodList(ListHelper.getSouvenirFoodListByYear(souvenir.getSouvenirFoodList(), i));
+            s.setSouvenirMovieList(ListHelper.getSouvenirMovieListByYear(souvenir.getSouvenirMovieList(), i));
             s.setSouvenirDiaryList(ListHelper.getSouvenirDiaryListByYear(souvenir.getSouvenirDiaryList(), i));
             // title
             String title;
