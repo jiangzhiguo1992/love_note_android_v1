@@ -18,7 +18,7 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.user.LoginActivity;
+import com.jiangzg.lovenote.activity.user.SplashActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.Entry;
@@ -133,7 +133,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    LoginActivity.goActivity(mActivity);
+                    SplashActivity.goActivity(mActivity);
                 }
             }, TransPageMillis);
         } else {
@@ -168,16 +168,16 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             String channel = appMetaData.getString("market_channel");
             if (StringUtils.isEmpty(channel)) return;
             switch (channel) {
-                //case "google": // 谷歌
-                //    break;
+                case "google": // 谷歌
+                    break;
                 case "samsung": // 三星
                     break;
                 case "lenovo": // 联想
                     break;
                 case "oppo": // oppo
                     break;
-                //case "vivo": // vivo
-                //    break;
+                case "vivo": // vivo
+                    break;
                 case "huawei": // 华为
                     break;
                 case "xiaomi": // 小米
@@ -188,9 +188,9 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                     break;
                 case "tencent": // 应用宝
                     break;
-                case "baidu": // 百度
-                    break;
                 case "ali": // 阿里
+                    break;
+                case "baidu": // 百度
                     break;
                 case "qh360": // 360
                     ivShouFa.setVisibility(View.VISIBLE);

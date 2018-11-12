@@ -21,7 +21,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.activity.settings.SuggestAddActivity;
-import com.jiangzg.lovenote.activity.user.LoginActivity;
+import com.jiangzg.lovenote.activity.user.SplashActivity;
 import com.jiangzg.lovenote.activity.user.UserInfoActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.Result;
@@ -229,7 +229,7 @@ public class RetrofitHelper {
                 break;
             case 401: // 用户验证失败
                 if (ActivityStack.isActivityFinish(top)) return;
-                LoginActivity.goActivity(top);
+                SplashActivity.goActivity(top);
                 break;
             case 403: // 禁止访问,key错误
             case 404: // url不存在

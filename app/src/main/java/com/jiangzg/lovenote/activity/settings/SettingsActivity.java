@@ -18,9 +18,9 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.activity.user.LoginActivity;
 import com.jiangzg.lovenote.activity.user.PasswordActivity;
 import com.jiangzg.lovenote.activity.user.PhoneActivity;
+import com.jiangzg.lovenote.activity.user.SplashActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.PushInfo;
@@ -265,7 +265,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                         PushHelper.unBindAccount();
                         RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);
-                        LoginActivity.goActivity(mActivity);
+                        SplashActivity.goActivity(mActivity);
                     }
                 })
                 .build();

@@ -120,6 +120,7 @@
         <activity android:name=".activity.common.MapSelectActivity"/>
         <activity android:name=".activity.common.MapSearchActivity"/>
         <!-- user -->
+        <activity android:name=".activity.user.SplashActivity"/>
         <activity android:name=".activity.user.LoginActivity"/>
         <activity android:name=".activity.user.RegisterActivity"/>
         <activity android:name=".activity.user.ForgetActivity"/>

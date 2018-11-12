@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.activity.user;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -86,14 +85,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
     private Runnable countDownTask;
 
     public static void goActivity(Activity from) {
-        // 顶部已经是LoginActivity时，不再跳转
-        Activity top = ActivityStack.getTop();
-        if (top != null) {
-            ComponentName name = top.getComponentName();
-            if (name.getClassName().equals(LoginActivity.class.getSimpleName())) {
-                return;
-            }
-        }
         Intent intent = new Intent(from, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
@@ -128,18 +119,6 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         stopCountDownTask();
         RetrofitHelper.cancel(callSms);
         RetrofitHelper.cancel(callLogin);
-    }
-
-    // 关闭其他activity
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Stack<Activity> stack = ActivityStack.getStack();
-        for (Activity activity : stack) {
-            if (activity != mActivity) {
-                activity.finish();
-            }
-        }
     }
 
     @Override
