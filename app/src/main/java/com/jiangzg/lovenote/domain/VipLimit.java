@@ -23,8 +23,17 @@ public class VipLimit {
     private boolean whisperImageEnable;
     private int giftImageCount;
     private int foodImageCount;
+    private int movieImageCount;
     // topic
     private int topicPostImageCount;
+
+    public int getMovieImageCount() {
+        return movieImageCount;
+    }
+
+    public void setMovieImageCount(int movieImageCount) {
+        this.movieImageCount = movieImageCount;
+    }
 
     public long getWallPaperSize() {
         return wallPaperSize;

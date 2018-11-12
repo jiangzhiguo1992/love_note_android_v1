@@ -190,6 +190,8 @@
         <activity android:name=".activity.note.PromiseListActivity"/>
         <activity android:name=".activity.note.PromiseEditActivity"/>
         <activity android:name=".activity.note.PromiseDetailActivity"/>
+        <activity android:name=".activity.note.MovieEditActivity"/>
+        <activity android:name=".activity.note.MovieListActivity"/>
         <!-- topic -->
         <activity android:name=".activity.topic.TopicMessageActivity"/>
         <activity android:name=".activity.topic.PostMineActivity"/>

@@ -12,6 +12,7 @@ import com.jiangzg.lovenote.domain.BaseObj;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
 import com.jiangzg.lovenote.domain.Gift;
+import com.jiangzg.lovenote.domain.Movie;
 import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.Post;
 import com.jiangzg.lovenote.domain.PostKindInfo;
@@ -194,6 +195,19 @@ public class ListHelper {
                 continue;
             }
             ossKeyList.addAll(food.getContentImageList());
+        }
+        return ossKeyList;
+    }
+
+    // 集合类型转换(Movie -> ossKey)
+    public static ArrayList<String> getOssKeyListByMovie(List<Movie> movieList) {
+        ArrayList<String> ossKeyList = new ArrayList<>();
+        if (movieList == null || movieList.size() <= 0) return ossKeyList;
+        for (Movie movie : movieList) {
+            if (movie == null || movie.getContentImageList() == null || movie.getContentImageList().size() <= 0) {
+                continue;
+            }
+            ossKeyList.addAll(movie.getContentImageList());
         }
         return ossKeyList;
     }

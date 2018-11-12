@@ -293,7 +293,7 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
         if (StringUtils.isEmpty(title)) {
             ToastUtils.show(etTitle.getHint().toString());
             return;
-        } else if (title.length() > SPHelper.getLimit().getFoodTitleLength()) {
+        } else if (title.length() > SPHelper.getLimit().getPostTitleLength()) {
             ToastUtils.show(etTitle.getHint().toString());
             return;
         } else if (StringUtils.isEmpty(post.getContentText())) {

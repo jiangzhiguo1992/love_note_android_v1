@@ -17,6 +17,7 @@ import com.jiangzg.lovenote.domain.MatchPoint;
 import com.jiangzg.lovenote.domain.MatchReport;
 import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.domain.Menses;
+import com.jiangzg.lovenote.domain.Movie;
 import com.jiangzg.lovenote.domain.Picture;
 import com.jiangzg.lovenote.domain.PictureList;
 import com.jiangzg.lovenote.domain.Place;
@@ -535,6 +536,22 @@ public interface API {
     // awardRule删除
     @DELETE("note/award/rule")
     Call<Result> noteAwardRuleDel(@Query("arid") long arid);
+
+    // movieList获取
+    @GET("note/movie?list=1")
+    Call<Result> noteMovieListGet(@Query("page") int page);
+
+    // movie上传
+    @POST("note/movie")
+    Call<Result> noteMovieAdd(@Body Movie movie);
+
+    // movie删除
+    @DELETE("note/movie")
+    Call<Result> noteMovieDel(@Query("mid") long mid);
+
+    // movie修改
+    @PUT("note/movie")
+    Call<Result> noteMovieUpdate(@Body Movie movie);
 
     // topicHome获取
     @GET("topic/home")

@@ -40,6 +40,7 @@ public class ConsHelper {
     public static final int EVENT_GIFT_SELECT = 108;
     public static final int EVENT_FOOD_SELECT = 109;
     public static final int EVENT_PROMISE_SELECT = 110;
+    public static final int EVENT_MOVIE_SELECT = 111;
     public static final int EVENT_PAY_WX_RESULT = 310;
     public static final int EVENT_SUGGEST_LIST_REFRESH = 1000; // 建议
     public static final int EVENT_SUGGEST_LIST_ITEM_DELETE = 1001;
@@ -94,6 +95,9 @@ public class ConsHelper {
     public static final int EVENT_PROMISE_LIST_ITEM_DELETE = 4151;
     public static final int EVENT_PROMISE_LIST_ITEM_REFRESH = 4152;
     public static final int EVENT_PROMISE_DETAIL_REFRESH = 4153;
+    public static final int EVENT_MOVIE_LIST_REFRESH = 4160; // 电影
+    public static final int EVENT_MOVIE_LIST_ITEM_DELETE = 4161;
+    public static final int EVENT_MOVIE_LIST_ITEM_REFRESH = 4162;
     public static final int EVENT_POST_GO_TOP = 5100;
     public static final int EVENT_POST_SEARCH_ALL = 5101;
     public static final int EVENT_POST_SEARCH_OFFICIAL = 5102;

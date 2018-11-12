@@ -92,6 +92,7 @@ public class SPHelper {
     private static final String FIELD_OSS_PATH_NOTE_VIDEO_THUMB = "path_note_video_thumb";
     private static final String FIELD_OSS_PATH_NOTE_FOOD = "path_note_food";
     private static final String FIELD_OSS_PATH_NOTE_GIFT = "path_note_gift";
+    private static final String FIELD_OSS_PATH_NOTE_MOVIE = "path_note_movie";
     private static final String FIELD_OSS_PATH_TOPIC_POST = "path_topic_post";
     private static final String FIELD_OSS_PATH_MORE_MATCH = "path_more_match";
     // pushInfo
@@ -150,6 +151,8 @@ public class SPHelper {
     private static final String FIELD_LIMIT_AWARD_CONTENT_LENGTH = "award_content_length";
     private static final String FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH = "award_rule_title_length";
     private static final String FIELD_LIMIT_AWARD_RULE_SCORE_MAX = "award_rule_score_max";
+    private static final String FIELD_LIMIT_MOVIE_TITLE_LENGTH = "movie_title_length";
+    private static final String FIELD_LIMIT_MOVIE_CONTENT_LENGTH = "movie_content_length";
     private static final String FIELD_LIMIT_POST_TITLE_LENGTH = "post_title_length";
     private static final String FIELD_LIMIT_POST_CONTENT_LENGTH = "post_content_length";
     private static final String FIELD_LIMIT_POST_SCREEN_REPORT_COUNT = "post_screen_report_count";
@@ -187,6 +190,7 @@ public class SPHelper {
     private static final String FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE = "note_total_enable";
     private static final String FIELD_VIP_LIMIT_SOUVENIR_COUNT = "souvenir_count";
     private static final String FIELD_VIP_LIMIT_WHISPER_IMG_ENABLE = "whisper_image_enable";
+    private static final String FIELD_VIP_LIMIT_MOVIE_IMG_COUNT = "movie_image_count";
     private static final String FIELD_VIP_LIMIT_FOOD_IMG_COUNT = "food_image_count";
     private static final String FIELD_VIP_LIMIT_GIFT_IMG_COUNT = "gift_image_count";
     private static final String FIELD_VIP_LIMIT_DIARY_IMG_SIZE = "diary_image_size";
@@ -238,10 +242,6 @@ public class SPHelper {
     private static final String FIELD_DRAFT_POST_SUB_KIND = "post_sub_kind";
     private static final String FIELD_DRAFT_POST_TITLE = "post_title";
     private static final String FIELD_DRAFT_POST_CONTENT_TEXT = "post_content_text";
-    private static final String FIELD_DRAFT_POST_LONGITUDE = "post_longitude";
-    private static final String FIELD_DRAFT_POST_LATITUDE = "post_latitude";
-    private static final String FIELD_DRAFT_POST_ADDRESS = "post_address";
-    private static final String FIELD_DRAFT_POST_CITY_ID = "post_city_id";
 
     /**
      * ***********************************清除***********************************
@@ -440,6 +440,7 @@ public class SPHelper {
         editor.putString(FIELD_OSS_PATH_NOTE_VIDEO_THUMB, ossInfo.getPathNoteVideoThumb());
         editor.putString(FIELD_OSS_PATH_NOTE_FOOD, ossInfo.getPathNoteFood());
         editor.putString(FIELD_OSS_PATH_NOTE_GIFT, ossInfo.getPathNoteGift());
+        editor.putString(FIELD_OSS_PATH_NOTE_MOVIE, ossInfo.getPathNoteMovie());
         editor.putString(FIELD_OSS_PATH_TOPIC_POST, ossInfo.getPathTopicPost());
         editor.putString(FIELD_OSS_PATH_MORE_MATCH, ossInfo.getPathMoreMatch());
         editor.apply();
@@ -470,6 +471,7 @@ public class SPHelper {
         ossInfo.setPathNoteVideoThumb(sp.getString(FIELD_OSS_PATH_NOTE_VIDEO_THUMB, ""));
         ossInfo.setPathNoteFood(sp.getString(FIELD_OSS_PATH_NOTE_FOOD, ""));
         ossInfo.setPathNoteGift(sp.getString(FIELD_OSS_PATH_NOTE_GIFT, ""));
+        ossInfo.setPathNoteMovie(sp.getString(FIELD_OSS_PATH_NOTE_MOVIE, ""));
         ossInfo.setPathTopicPost(sp.getString(FIELD_OSS_PATH_TOPIC_POST, ""));
         ossInfo.setPathMoreMatch(sp.getString(FIELD_OSS_PATH_MORE_MATCH, ""));
         return ossInfo;
@@ -569,6 +571,8 @@ public class SPHelper {
         editor.putInt(FIELD_LIMIT_AWARD_CONTENT_LENGTH, limit.getAwardContentLength());
         editor.putInt(FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH, limit.getAwardRuleTitleLength());
         editor.putInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, limit.getAwardRuleScoreMax());
+        editor.putInt(FIELD_LIMIT_MOVIE_TITLE_LENGTH, limit.getMovieTitleLength());
+        editor.putInt(FIELD_LIMIT_MOVIE_CONTENT_LENGTH, limit.getMovieContentLength());
         editor.putInt(FIELD_LIMIT_POST_TITLE_LENGTH, limit.getPostTitleLength());
         editor.putInt(FIELD_LIMIT_POST_CONTENT_LENGTH, limit.getPostContentLength());
         editor.putInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, limit.getPostScreenReportCount());
@@ -647,6 +651,8 @@ public class SPHelper {
         limit.setAwardContentLength(sp.getInt(FIELD_LIMIT_AWARD_CONTENT_LENGTH, 100));
         limit.setAwardRuleTitleLength(sp.getInt(FIELD_LIMIT_AWARD_RULE_TITLE_LENGTH, 30));
         limit.setAwardRuleScoreMax(sp.getInt(FIELD_LIMIT_AWARD_RULE_SCORE_MAX, 100));
+        limit.setMovieTitleLength(sp.getInt(FIELD_LIMIT_MOVIE_TITLE_LENGTH, 20));
+        limit.setMovieContentLength(sp.getInt(FIELD_LIMIT_MOVIE_CONTENT_LENGTH, 200));
         limit.setPostTitleLength(sp.getInt(FIELD_LIMIT_POST_TITLE_LENGTH, 20));
         limit.setPostContentLength(sp.getInt(FIELD_LIMIT_POST_CONTENT_LENGTH, 100));
         limit.setPostScreenReportCount(sp.getInt(FIELD_LIMIT_POST_SCREEN_REPORT_COUNT, 10));
@@ -696,6 +702,7 @@ public class SPHelper {
         editor.putBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, vipLimit.isNoteTotalEnable());
         editor.putInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, vipLimit.getSouvenirCount());
         editor.putBoolean(FIELD_VIP_LIMIT_WHISPER_IMG_ENABLE, vipLimit.isWhisperImageEnable());
+        editor.putInt(FIELD_VIP_LIMIT_MOVIE_IMG_COUNT, vipLimit.getMovieImageCount());
         editor.putInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, vipLimit.getFoodImageCount());
         editor.putInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, vipLimit.getGiftImageCount());
         editor.putInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, vipLimit.getDiaryImageCount());
@@ -718,6 +725,7 @@ public class SPHelper {
         vipLimit.setNoteTotalEnable(sp.getBoolean(FIELD_VIP_LIMIT_TRENDS_TOTAL_ENABLE, false));
         vipLimit.setSouvenirCount(sp.getInt(FIELD_VIP_LIMIT_SOUVENIR_COUNT, 1));
         vipLimit.setWhisperImageEnable(sp.getBoolean(FIELD_VIP_LIMIT_WHISPER_IMG_ENABLE, false));
+        vipLimit.setMovieImageCount(sp.getInt(FIELD_VIP_LIMIT_MOVIE_IMG_COUNT, 0));
         vipLimit.setFoodImageCount(sp.getInt(FIELD_VIP_LIMIT_FOOD_IMG_COUNT, 0));
         vipLimit.setGiftImageCount(sp.getInt(FIELD_VIP_LIMIT_GIFT_IMG_COUNT, 0));
         vipLimit.setDiaryImageCount(sp.getInt(FIELD_VIP_LIMIT_DIARY_IMG_COUNT, 0));

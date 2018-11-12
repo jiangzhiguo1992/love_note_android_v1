@@ -1145,6 +1145,14 @@ public class OssHelper {
         compressJpegList(activity, pathNoteGift, fileList, callBack);
     }
 
+    // 电影 (压缩 + 持久化)
+    public static void uploadMovie(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
+        OssInfo ossInfo = SPHelper.getOssInfo();
+        String pathNoteMovie = ossInfo.getPathNoteMovie();
+        List<File> fileList = ListHelper.getFileListByPath(sourceList);
+        compressJpegList(activity, pathNoteMovie, fileList, callBack);
+    }
+
     // 帖子 (压缩)
     public static void uploadTopicPost(Activity activity, final List<String> sourceList, final OssUploadsCallBack callBack) {
         OssInfo ossInfo = SPHelper.getOssInfo();

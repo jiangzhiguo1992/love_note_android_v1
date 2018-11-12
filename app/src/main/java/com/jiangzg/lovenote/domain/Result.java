@@ -128,6 +128,8 @@ public class Result implements Serializable {
         private List<Award> awardList;
         private AwardRule awardRule;
         private List<AwardRule> awardRuleList;
+        private Movie movie;
+        private List<Movie> movieList;
         // topic
         private List<PostKindInfo> postKindInfoList;
         private List<TopicMessage> topicMessageList;
@@ -158,6 +160,22 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public Movie getMovie() {
+            return movie;
+        }
+
+        public void setMovie(Movie movie) {
+            this.movie = movie;
+        }
+
+        public List<Movie> getMovieList() {
+            return movieList;
+        }
+
+        public void setMovieList(List<Movie> movieList) {
+            this.movieList = movieList;
+        }
 
         public ModelShow getModelShow() {
             return modelShow;

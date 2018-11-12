@@ -25,6 +25,7 @@ import com.jiangzg.lovenote.activity.note.FoodListActivity;
 import com.jiangzg.lovenote.activity.note.GiftListActivity;
 import com.jiangzg.lovenote.activity.note.LockActivity;
 import com.jiangzg.lovenote.activity.note.MensesActivity;
+import com.jiangzg.lovenote.activity.note.MovieListActivity;
 import com.jiangzg.lovenote.activity.note.NoteTotalActivity;
 import com.jiangzg.lovenote.activity.note.PromiseListActivity;
 import com.jiangzg.lovenote.activity.note.ShyActivity;
@@ -270,7 +271,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 AngryListActivity.goActivity(mFragment);
                 break;
             case R.id.cvGift: // 电影
-                // TODO
+                MovieListActivity.goActivity(mFragment);
                 break;
             case R.id.cvPromise: // 承诺
                 PromiseListActivity.goActivity(mFragment);

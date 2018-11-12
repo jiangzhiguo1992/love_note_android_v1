@@ -429,12 +429,14 @@
     <string name="add_album">添加相册</string>
     <string name="add_video">添加视频</string>
     <string name="add_food">添加美食</string>
+    <string name="add_movie">添加电影</string>
     <string name="add_diary">添加日记</string>
     <string name="please_select_diary">请选择日记</string>
     <string name="please_select_album">请选择相册</string>
     <string name="please_select_audio">请选择音频</string>
     <string name="please_select_video">请选择视频</string>
     <string name="please_select_food">请选择美食</string>
+    <string name="please_select_movie">请选择电影</string>
     <string name="please_select_travel">请选择游记</string>
     <string name="please_select_gift">请选择礼物</string>
     <string name="please_select_promise">请选择承诺</string>
@@ -459,6 +461,8 @@
     <string name="confirm_remove_this_video">确定移除这个视频？</string>
     <string name="confirm_delete_this_food">确定删除这个美食？</string>
     <string name="confirm_remove_this_food">确定移除这个美食？</string>
+    <string name="confirm_delete_this_movie">确定删除这个电影？</string>
+    <string name="confirm_remove_this_movie">确定移除这个电影？</string>
     <string name="confirm_delete_this_travel">确定删除这个游记？</string>
     <string name="confirm_remove_this_travel">确定移除这个游记？</string>
     <string name="confirm_delete_this_track">确定删除这个足迹？</string>
@@ -478,6 +482,7 @@
     <string name="can_operation_self_create_audio">只能操作自己创建的音频哦</string>
     <string name="can_operation_self_create_video">只能操作自己创建的视频哦</string>
     <string name="can_operation_self_create_food">只能操作自己创建的美食哦</string>
+    <string name="can_operation_self_create_movie">只能操作自己创建的电影哦</string>
     <string name="can_operation_self_create_travel">只能操作自己创建的游记哦</string>
     <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
     <string name="can_operation_self_create_promise">只能操作自己创建的承诺哦</string>

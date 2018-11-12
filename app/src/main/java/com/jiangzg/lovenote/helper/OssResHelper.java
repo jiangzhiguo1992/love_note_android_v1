@@ -31,6 +31,7 @@ public class OssResHelper {
     public static final int TYPE_NOTE_DIARY = 260;
     public static final int TYPE_NOTE_GIFT = 270;
     public static final int TYPE_NOTE_FOOD = 280;
+    public static final int TYPE_NOTE_MOVIE = 290;
 
     // 获取ossKey的文件
     public static File newKeyFile(String objectKey) {
@@ -91,10 +92,13 @@ public class OssResHelper {
                 dirPath = SPHelper.getOssInfo().getPathNoteVideo();
                 break;
             case TYPE_NOTE_FOOD: // 美食
-                dirPath = SPHelper.getOssInfo().getPathNoteGift();
+                dirPath = SPHelper.getOssInfo().getPathNoteFood();
                 break;
             case TYPE_NOTE_GIFT: // 礼物
                 dirPath = SPHelper.getOssInfo().getPathNoteGift();
+                break;
+            case TYPE_NOTE_MOVIE: // 电影
+                dirPath = SPHelper.getOssInfo().getPathNoteMovie();
                 break;
         }
         if (StringUtils.isEmpty(dirPath)) {

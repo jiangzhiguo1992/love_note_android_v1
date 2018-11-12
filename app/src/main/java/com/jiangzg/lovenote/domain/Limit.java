@@ -51,6 +51,8 @@ public class Limit {
     private int angryContentLength;
     private int promiseContentLength;
     private int promiseBreakContentLength;
+    private int movieTitleLength;
+    private int movieContentLength;
     // topic
     private int postTitleLength;
     private int postContentLength;
@@ -84,6 +86,22 @@ public class Limit {
     private int matchWorkScreenReportCount;
     private int matchWorkTitleLength;
     private int matchWorkContentLength;
+
+    public int getMovieTitleLength() {
+        return movieTitleLength;
+    }
+
+    public void setMovieTitleLength(int movieTitleLength) {
+        this.movieTitleLength = movieTitleLength;
+    }
+
+    public int getMovieContentLength() {
+        return movieContentLength;
+    }
+
+    public void setMovieContentLength(int movieContentLength) {
+        this.movieContentLength = movieContentLength;
+    }
 
     public int getMatchWorkScreenReportCount() {
         return matchWorkScreenReportCount;

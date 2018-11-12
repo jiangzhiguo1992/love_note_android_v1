@@ -31,8 +31,17 @@ public class OssInfo {
     private String pathNoteDiary;
     private String pathNoteGift;
     private String pathNoteFood;
+    private String pathNoteMovie;
     private String pathTopicPost;
     private String pathMoreMatch;
+
+    public String getPathNoteMovie() {
+        return pathNoteMovie;
+    }
+
+    public void setPathNoteMovie(String pathNoteMovie) {
+        this.pathNoteMovie = pathNoteMovie;
+    }
 
     public String getPathMoreMatch() {
         return pathMoreMatch;
