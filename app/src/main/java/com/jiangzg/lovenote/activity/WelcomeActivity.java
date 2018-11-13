@@ -94,7 +94,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     protected void onFinish(Bundle state) {
         exits = true;
         RetrofitHelper.cancel(call);
-        MyApp.get().getHandler().removeCallbacks(checkUser);
     }
 
     @Override
@@ -153,14 +152,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             });
         }
     }
-
-    private Runnable checkUser = new Runnable() {
-        @Override
-        public void run() {
-            if (exits) return;
-            WelcomeActivity.this.checkUser();
-        }
-    };
 
     private void initShouFa() {
         Bundle appMetaData = AppUtils.getAppMetaData(MyApp.get());
