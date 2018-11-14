@@ -53,7 +53,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     ImageView ivShouFa;
 
     private Call<Result> call;
-    private boolean exits;
 
     @Override
     protected int getView(Intent intent) {
@@ -75,7 +74,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle savedInstanceState) {
-        exits = false;
         // wallPaper
         File wallPaper = getWallPaperRandom();
         if (!FileUtils.isFileEmpty(wallPaper)) {
@@ -92,7 +90,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     @Override
     protected void onFinish(Bundle state) {
-        exits = true;
         RetrofitHelper.cancel(call);
     }
 
