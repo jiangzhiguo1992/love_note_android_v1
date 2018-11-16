@@ -125,7 +125,7 @@
                     android:layout_marginTop="3dp"
                     android:background="@drawable/selector_enable_press_stroke_light_primary_dark_r3"
                     android:gravity="start"
-                    android:hint="@string/please_input_content"
+                    android:hint="@string/please_input_remark"
                     android:inputType="textMultiLine"
                     android:minLines="10"
                     android:padding="8dp"

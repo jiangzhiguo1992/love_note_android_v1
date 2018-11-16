@@ -165,8 +165,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isFromUpdate()) {
             getMenuInflater().inflate(R.menu.del, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.help, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
