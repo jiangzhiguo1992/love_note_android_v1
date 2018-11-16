@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,8 +50,6 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
     EditText etTitle;
     @BindView(R.id.tvTitleLimit)
     TextView tvTitleLimit;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private AwardRule awardRule;
     private Call<Result> callAdd;
@@ -88,12 +88,28 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
         RetrofitHelper.cancel(callAdd);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                addApi();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnTextChanged({R.id.etTitle})
     public void afterTextChanged(Editable s) {
         onTitleInput(s.toString());
     }
 
-    @OnClick({R.id.btnScoreAdd, R.id.btnScoreSub, R.id.btnPublish})
+    @OnClick({R.id.btnScoreAdd, R.id.btnScoreSub})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnScoreAdd: // +
@@ -101,9 +117,6 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
                 break;
             case R.id.btnScoreSub: // -
                 changeScore(false);
-                break;
-            case R.id.btnPublish: // 发表
-                addApi();
                 break;
         }
     }

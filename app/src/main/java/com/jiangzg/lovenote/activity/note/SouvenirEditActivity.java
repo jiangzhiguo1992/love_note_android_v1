@@ -5,8 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -63,8 +64,6 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     RadioButton rbDone;
     @BindView(R.id.rbWish)
     RadioButton rbWish;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private Souvenir souvenir;
     private Observable<LocationInfo> obSelectMap;
@@ -150,7 +149,23 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
         RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.btnPublish})
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.cvHappenAt, R.id.cvAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
@@ -159,9 +174,6 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             case R.id.cvAddress: // 地址
                 if (souvenir == null) return;
                 MapSelectActivity.goActivity(mActivity, souvenir.getAddress(), souvenir.getLongitude(), souvenir.getLatitude());
-                break;
-            case R.id.btnPublish: // 发表
-                checkPush();
                 break;
         }
     }

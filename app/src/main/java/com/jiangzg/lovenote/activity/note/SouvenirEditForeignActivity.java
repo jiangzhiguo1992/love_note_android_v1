@@ -9,8 +9,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -98,8 +99,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     RecyclerView rvDiary;
     @BindView(R.id.cvDiaryAdd)
     CardView cvDiaryAdd;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private int year;
     private Souvenir souvenir;
@@ -423,8 +422,24 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
         RecyclerHelper.release(recyclerDiary);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick({R.id.cvGiftAdd, R.id.cvTravelAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd,
-            R.id.cvFoodAdd, R.id.cvMovieAdd, R.id.cvDiaryAdd, R.id.btnPublish})
+            R.id.cvFoodAdd, R.id.cvMovieAdd, R.id.cvDiaryAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvGiftAdd: // 礼物
@@ -447,9 +462,6 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 break;
             case R.id.cvDiaryAdd: // 日记
                 DiaryListActivity.goActivityBySelect(mActivity);
-                break;
-            case R.id.btnPublish: // 发表
-                checkPush();
                 break;
         }
     }

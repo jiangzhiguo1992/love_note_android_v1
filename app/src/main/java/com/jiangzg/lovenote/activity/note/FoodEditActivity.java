@@ -12,7 +12,6 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -77,8 +76,6 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private Food food;
     private RecyclerHelper recyclerHelper;
@@ -185,7 +182,9 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isFromUpdate()) {
-            getMenuInflater().inflate(R.menu.del, menu);
+            getMenuInflater().inflate(R.menu.del_commit, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.commit, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -211,6 +210,9 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();
                 break;
@@ -223,7 +225,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.btnPublish})
+    @OnClick({R.id.cvHappenAt, R.id.cvAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
@@ -232,9 +234,6 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             case R.id.cvAddress: // 地址
                 if (food == null) return;
                 MapSelectActivity.goActivity(mActivity, food.getAddress(), food.getLongitude(), food.getLatitude());
-                break;
-            case R.id.btnPublish: // 发表
-                checkPush();
                 break;
         }
     }

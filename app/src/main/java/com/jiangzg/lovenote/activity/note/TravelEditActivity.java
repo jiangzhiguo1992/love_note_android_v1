@@ -9,8 +9,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -102,8 +103,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     RecyclerView rvDiary;
     @BindView(R.id.cvDiaryAdd)
     CardView cvDiaryAdd;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private Travel travel;
     private RecyclerHelper recyclerPlace;
@@ -418,8 +417,24 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
         RecyclerHelper.release(recyclerDiary);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick({R.id.cvPlaceAdd, R.id.cvAlbumAdd, R.id.cvVideoAdd, R.id.cvFoodAdd,
-            R.id.cvMovieAdd, R.id.cvDiaryAdd, R.id.cvHappenAt, R.id.btnPublish})
+            R.id.cvMovieAdd, R.id.cvDiaryAdd, R.id.cvHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvPlaceAdd: // 足迹
@@ -442,9 +457,6 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 break;
             case R.id.cvHappenAt: // 日期
                 showDatePicker();
-                break;
-            case R.id.btnPublish: // 发表
-                checkPush();
                 break;
         }
     }

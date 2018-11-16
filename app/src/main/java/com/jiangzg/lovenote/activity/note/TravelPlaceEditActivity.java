@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -52,8 +53,6 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
-    @BindView(R.id.btnCommit)
-    Button btnCommit;
 
     private TravelPlace place;
     private Observable<LocationInfo> obSelectMap;
@@ -106,12 +105,28 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
         RxBus.unregister(ConsHelper.EVENT_MAP_SELECT, obSelectMap);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                commit();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnTextChanged({R.id.etContent})
     public void afterTextChanged(Editable s) {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.btnCommit})
+    @OnClick({R.id.cvHappenAt, R.id.cvAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
@@ -120,9 +135,6 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
             case R.id.cvAddress: // 地址
                 if (place == null) return;
                 MapSelectActivity.goActivity(mActivity, place.getAddress(), place.getLongitude(), place.getLatitude());
-                break;
-            case R.id.btnCommit: // 提交
-                commit();
                 break;
         }
     }

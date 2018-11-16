@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,8 +80,6 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     TextView tvSelect;
     @BindView(R.id.ivPlay)
     ImageView ivPlay;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private Video video;
     private Call<Result> callAdd;
@@ -144,6 +143,12 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK || video == null) return;
@@ -167,7 +172,17 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
         }
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.cvVideo, R.id.btnPublish})
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.cvHappenAt, R.id.cvAddress, R.id.cvVideo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
@@ -179,9 +194,6 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
                 break;
             case R.id.cvVideo: // 视频
                 selectVideo();
-                break;
-            case R.id.btnPublish: // 发表
-                checkPush();
                 break;
         }
     }

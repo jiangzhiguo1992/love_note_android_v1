@@ -421,12 +421,4 @@
             </android.support.v7.widget.CardView>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <Button
-        android:id="@+id/btnPublish"
-        style="@style/FontWhiteBig"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_press_solid_dark_accent"
-        android:text="@string/publish"/>
 </LinearLayout>

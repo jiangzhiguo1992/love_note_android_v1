@@ -59,14 +59,4 @@
         tools:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"
         tools:visibility="visible"/>
-
-    <Button
-        android:id="@+id/btnCommit"
-        style="@style/FontWhiteNormal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/selector_press_solid_dark_accent"
-        android:enabled="false"
-        android:text="@string/commit"/>
 </RelativeLayout>

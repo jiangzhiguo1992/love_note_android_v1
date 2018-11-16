@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -66,8 +67,6 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     EditText etContent;
     @BindView(R.id.tvContentLimit)
     TextView tvContentLimit;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private Award award;
     private AwardRule rule;
@@ -123,12 +122,28 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
         RxBus.unregister(ConsHelper.EVENT_AWARD_RULE_SELECT, obSelectAwardRule);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                push();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnTextChanged({R.id.etContent})
     public void afterTextChanged(Editable s) {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.cvRule, R.id.cvHappenAt, R.id.btnPublish})
+    @OnClick({R.id.cvRule, R.id.cvHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvRule: // 规则
@@ -136,9 +151,6 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
                 break;
             case R.id.cvHappenAt: // 日期
                 showDatePicker();
-                break;
-            case R.id.btnPublish: // 发表
-                push();
                 break;
         }
     }

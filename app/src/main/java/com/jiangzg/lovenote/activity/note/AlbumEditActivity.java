@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -59,8 +60,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     FrescoView ivAlbum;
     @BindView(R.id.etTitle)
     EditText etTitle;
-    @BindView(R.id.btnCommit)
-    Button btnCommit;
 
     private Album album;
     private int limitTitleLength;
@@ -136,6 +135,12 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
@@ -153,19 +158,26 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkCover();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnTextChanged({R.id.etTitle})
     public void afterTextChanged(Editable s) {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.ivAdd, R.id.btnCommit})
+    @OnClick({R.id.ivAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAdd: // 封面图片
                 goPicture();
-                break;
-            case R.id.btnCommit: // 提交
-                checkCover();
                 break;
         }
     }
@@ -196,8 +208,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         String format = String.format(Locale.getDefault(), string, limitTitleLength);
         etTitle.setHint(format);
         etTitle.setText(title);
-        // btn
-        btnCommit.setEnabled(!StringUtils.isEmpty(title));
         // cover
         if (StringUtils.isEmpty(cover)) {
             setCoverVisible(false);
@@ -217,7 +227,6 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             etTitle.setText(charSequence);
             etTitle.setSelection(charSequence.length());
         }
-        btnCommit.setEnabled(length > 0);
     }
 
     private void goPicture() {
@@ -263,6 +272,11 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void checkCover() {
+        // btn
+        if (StringUtils.isEmpty(etTitle.getText().toString().trim())) {
+            ToastUtils.show(etTitle.getHint().toString());
+            return;
+        }
         if (!FileUtils.isFileEmpty(pictureFile)) {
             pushImage(pictureFile);
         } else {

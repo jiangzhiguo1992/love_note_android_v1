@@ -116,12 +116,4 @@
                 tools:visibility="visible"/>
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnCommit"
-        style="@style/FontWhiteNormal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_press_solid_dark_accent"
-        android:text="@string/commit"/>
 </LinearLayout>

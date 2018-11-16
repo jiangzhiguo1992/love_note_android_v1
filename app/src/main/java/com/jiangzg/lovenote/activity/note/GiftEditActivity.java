@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -73,8 +72,6 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     RadioButton rbReceiveTa;
     @BindView(R.id.rv)
     RecyclerView rv;
-    @BindView(R.id.btnPublish)
-    Button btnPublish;
 
     private Gift gift;
     private RecyclerHelper recyclerHelper;
@@ -164,7 +161,9 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (isFromUpdate()) {
-            getMenuInflater().inflate(R.menu.del, menu);
+            getMenuInflater().inflate(R.menu.del_commit, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.commit, menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
@@ -190,6 +189,9 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
             case R.id.menuDel: // 删除
                 showDeleteDialog();
                 break;
@@ -197,14 +199,11 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvHappenAt, R.id.btnPublish})
+    @OnClick({R.id.cvHappenAt})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvHappenAt: // 日期
                 showDatePicker();
-                break;
-            case R.id.btnPublish: // 发表
-                checkPush();
                 break;
         }
     }

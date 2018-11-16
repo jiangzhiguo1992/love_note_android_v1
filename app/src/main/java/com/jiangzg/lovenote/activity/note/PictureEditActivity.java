@@ -7,8 +7,9 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -71,8 +72,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     CardView cvAddress;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
-    @BindView(R.id.btnCommit)
-    Button btnCommit;
 
     private Album album;
     private Picture picture;
@@ -208,6 +207,12 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
@@ -225,7 +230,17 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
         }
     }
 
-    @OnClick({R.id.cvAlbum, R.id.cvHappenAt, R.id.cvAddress, R.id.btnCommit})
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkCommit();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.cvAlbum, R.id.cvHappenAt, R.id.cvAddress})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.cvAlbum: // 相册选取
@@ -237,9 +252,6 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             case R.id.cvAddress: // 位置
                 if (picture == null) return;
                 MapSelectActivity.goActivity(mActivity, picture.getAddress(), picture.getLongitude(), picture.getLatitude());
-                break;
-            case R.id.btnCommit: // 提交
-                checkCommit();
                 break;
         }
     }
