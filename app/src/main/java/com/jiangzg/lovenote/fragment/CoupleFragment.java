@@ -42,6 +42,7 @@ import com.jiangzg.lovenote.domain.WeatherToday;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -370,18 +371,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         if (myPlace != null && taPlace != null) {
             distance = LocationHelper.distance(myPlace.getLongitude(), myPlace.getLatitude(), taPlace.getLongitude(), taPlace.getLatitude());
         }
-        String distanceShow;
-        if (distance >= 1000 * 100) {
-            float km = distance / 1000;
-            distanceShow = String.format(Locale.getDefault(), "%.0fkm", km);
-        } else if (distance >= 1000) {
-            float km = distance / 1000;
-            distanceShow = String.format(Locale.getDefault(), "%.1fkm", km);
-        } else if (distance > 0) {
-            distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
-        } else {
-            distanceShow = "-m";
-        }
+        String distanceShow = CountHelper.getShowDistance(distance);
         String format = String.format(Locale.getDefault(), getString(R.string.distance_space_holder), distanceShow);
         // view
         tvPlaceRight.setText(myAddress);

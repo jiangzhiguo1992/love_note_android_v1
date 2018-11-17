@@ -3,15 +3,11 @@ package com.jiangzg.lovenote.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.helper.SPHelper;
-
 /**
  * Created by JZG on 2018/4/17.
  * Place
  */
-public class Place extends BaseObj implements Parcelable, MultiItemEntity {
+public class Place extends BaseObj implements Parcelable {
 
     private long userId;
     private double longitude;
@@ -23,12 +19,6 @@ public class Place extends BaseObj implements Parcelable, MultiItemEntity {
     private String district;
     private String street;
     private String cityId;
-
-    @Override
-    public int getItemType() {
-        boolean isMine = getUserId() == SPHelper.getMe().getId();
-        return isMine ? ApiHelper.LIST_NOTE_MY : ApiHelper.LIST_NOTE_TA;
-    }
 
     public long getUserId() {
         return userId;

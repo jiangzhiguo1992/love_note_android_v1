@@ -20,4 +20,19 @@ public class CountHelper {
         return String.format(Locale.getDefault(), MyApp.get().getString(R.string.holder_thousand_point1), (double) count / (double) unit);
     }
 
+    // getShowDistance
+    public static String getShowDistance(float distance) {
+        String distanceShow = "-m";
+        if (distance >= 1000 * 100) {
+            float km = distance / 1000;
+            distanceShow = String.format(Locale.getDefault(), "%.0fkm", km);
+        } else if (distance >= 1000) {
+            float km = distance / 1000;
+            distanceShow = String.format(Locale.getDefault(), "%.1fkm", km);
+        } else if (distance > 0) {
+            distanceShow = String.format(Locale.getDefault(), "%.0fm", distance);
+        }
+        return distanceShow;
+    }
+
 }

@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.PlaceAdapter;
@@ -82,11 +82,15 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
                         getData(true);
                     }
                 })
-                .listenerClick(new OnItemClickListener() {
+                .listenerClick(new OnItemChildClickListener() {
                     @Override
-                    public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                         PlaceAdapter placeAdapter = (PlaceAdapter) adapter;
-                        placeAdapter.goDiaryDetail(position);
+                        switch (view.getId()) {
+                            case R.id.cvPlace:
+                                placeAdapter.goPlaceDetail(position);
+                                break;
+                        }
                     }
                 });
     }
