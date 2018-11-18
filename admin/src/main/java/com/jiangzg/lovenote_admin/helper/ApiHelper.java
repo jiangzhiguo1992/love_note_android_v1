@@ -174,6 +174,7 @@ public class ApiHelper {
             Trends.TRENDS_CON_TYPE_GIFT,
             Trends.TRENDS_CON_TYPE_PROMISE,
             Trends.TRENDS_CON_TYPE_ANGRY,
+            Trends.TRENDS_CON_TYPE_MOVIE,
     };
     public static final String[] TRENDS_CON_SHOW = new String[]{
             "全部",
@@ -197,6 +198,7 @@ public class ApiHelper {
             Trends.getContentShow(Trends.TRENDS_CON_TYPE_GIFT),
             Trends.getContentShow(Trends.TRENDS_CON_TYPE_PROMISE),
             Trends.getContentShow(Trends.TRENDS_CON_TYPE_ANGRY),
+            Trends.getContentShow(Trends.TRENDS_CON_TYPE_MOVIE),
     };
     // matchPeriod search类型
     public static final int[] LIST_MATCH_KIND_TYPE = new int[]{
