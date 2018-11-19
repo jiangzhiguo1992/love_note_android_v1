@@ -8,8 +8,8 @@ android {
         targetSdkVersion 27 // 最高效果版本
         minSdkVersion 21 // 最低运行版本
         multiDexEnabled true // 允许分包
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
         vectorDrawables.useSupportLibrary = true // 用于支持vectorDrawables
         flavorDimensions "release" // 多渠道打包分支
         ndk {
@@ -72,14 +72,18 @@ android {
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
         }
         //---------------------手机市场----------------------
+        google { // 谷歌应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
+        }
         oppo { // oppo应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
         }
-//        vivo { // vivo应用市场
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
-//        }
+        vivo { // vivo应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
+        }
         huawei { // 华为应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
@@ -104,10 +108,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smartisan"]
         }
-//        google { // 谷歌应用市场
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
-//        }
         //---------------------附属市场----------------------
         tencent { // 腾讯应用宝
             dimension "release"
