@@ -121,12 +121,15 @@ public class PayHelper {
                     RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
                     registerPayWX = null;
                 }
-                if (result == null || result.getErrCode() != PayWxResult.CODE_OK) {
+                if (result == null || result.getErrCode() == PayWxResult.CODE_ERR) {
+                    // 异常
                     LogUtils.w(PayHelper.class, "payByWX", String.valueOf(result == null ? "???" : result.getErrCode()));
                     ToastUtils.show(activity.getString(R.string.pay_error));
-                    return;
+                } else if (result.getErrCode() == PayWxResult.CODE_OK) {
+                    // 正常
+                    if (callBack != null) callBack.onSuccess(result);
                 }
-                if (callBack != null) callBack.onSuccess(result);
+                // 取消 不处理
             }
         });
         // 开始调起微信app
