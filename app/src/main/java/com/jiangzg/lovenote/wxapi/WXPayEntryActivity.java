@@ -1,17 +1,41 @@
 package com.jiangzg.lovenote.wxapi;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
+import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.domain.PayWxResult;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
+
+    private IWXAPI api;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_wx_pay_entry);
+        // 还得注册一遍
+        api = WXAPIFactory.createWXAPI(this, PayHelper.WX_APP_ID);
+        api.handleIntent(getIntent(), this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
 
     @Override
     public void onReq(BaseReq baseReq) {
@@ -30,8 +54,4 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         }
     }
 
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
-    }
 }

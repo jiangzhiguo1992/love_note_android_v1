@@ -28,6 +28,7 @@ import rx.functions.Action1;
 public class PayHelper {
 
     private static Observable<PayWxResult> registerPayWX;
+    public static String WX_APP_ID = "wx956330a3fd0ef37e";
 
     public interface AliCallBack {
         void onSuccess(PayAliResult result);
@@ -102,10 +103,11 @@ public class PayHelper {
 
     public static void payByWX(final Activity activity, final WXOrder order, final WXCallBack callBack) {
         if (order == null) return;
+        WX_APP_ID = order.getAppId();
         // 商户APP工程中引入微信JAR包，调用API前，需要先向微信注册您的APPID
         final IWXAPI api = WXAPIFactory.createWXAPI(activity, null);
         // 将该app注册到微信
-        api.registerApp(order.getAppId());
+        api.registerApp(WX_APP_ID);
         // 先解除事件
         if (registerPayWX != null) {
             RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
@@ -114,12 +116,17 @@ public class PayHelper {
         registerPayWX = RxBus.register(ConsHelper.EVENT_PAY_WX_RESULT, new Action1<PayWxResult>() {
             @Override
             public void call(PayWxResult result) {
-                if (callBack != null) callBack.onSuccess(result);
                 if (registerPayWX != null) {
                     // 别忘了解除事件
                     RxBus.unregister(ConsHelper.EVENT_PAY_WX_RESULT, registerPayWX);
                     registerPayWX = null;
                 }
+                if (result == null || result.getErrCode() != PayWxResult.CODE_OK) {
+                    LogUtils.w(PayHelper.class, "payByWX", String.valueOf(result == null ? "???" : result.getErrCode()));
+                    ToastUtils.show(activity.getString(R.string.pay_error));
+                    return;
+                }
+                if (callBack != null) callBack.onSuccess(result);
             }
         });
         // 开始调起微信app
