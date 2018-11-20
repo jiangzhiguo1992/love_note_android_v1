@@ -63,10 +63,6 @@ android {
         }
     }
     productFlavors { // 发布渠道
-        jzg { // 调试
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jzg"]
-        }
         official { // 官方
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
@@ -80,10 +76,10 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
         }
-        vivo { // vivo应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
-        }
+//        vivo { // vivo应用市场
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
+//        }
         huawei { // 华为应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "huawei"]
