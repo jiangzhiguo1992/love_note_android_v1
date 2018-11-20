@@ -4,170 +4,262 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context="com.jiangzg.lovenote.activity.settings.AboutActivity">
 
     <include layout="@layout/view_top_bar"/>
 
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:src="@mipmap/ic_launcher"/>
-
-    <TextView
-        android:id="@+id/tvAppInfo"
-        style="@style/FontGreyNormal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="30dp"
-        tools:text="软件 v1.0.1"/>
-
-    <View style="@style/LineHorizontal"/>
-
-    <LinearLayout
-        android:id="@+id/llUpdate"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            style="@style/FontBlackNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/check_update"/>
-
-        <TextView
-            android:id="@+id/tvUpdateSummary"
-            style="@style/FontPrimaryNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            tools:text="新版本:1.0.2"/>
-    </LinearLayout>
-
-    <View style="@style/LineHorizontal"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            style="@style/FontBlackNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/customer_qq"/>
-
-        <TextView
-            android:id="@+id/tvCustomerQQ"
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            tools:text="104u374104u374"/>
-    </LinearLayout>
-
-    <View style="@style/LineHorizontal"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            style="@style/FontBlackNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/official_group"/>
-
-        <TextView
-            android:id="@+id/tvOfficialGroup"
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            tools:text="104u374104u374\nsasasasasa\n32323232"/>
-    </LinearLayout>
-
-    <View style="@style/LineHorizontal"/>
-
-    <LinearLayout
-        android:id="@+id/llProtocol"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            style="@style/FontBlackNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_protocol"/>
-
-        <TextView
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:text="@string/must_comply"/>
-    </LinearLayout>
-
-    <View style="@style/LineHorizontal"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <TextView
-            style="@style/FontBlackNormal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/contact_us"/>
-
-        <TextView
-            android:id="@+id/tvContact"
-            style="@style/FontGreyNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            tools:text="643u4385945@qq.com"/>
-    </LinearLayout>
-
-    <View style="@style/LineHorizontal"/>
-
-    <TextView
-        android:id="@+id/tvCompany"
-        style="@style/FontGreySmall"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:gravity="bottom"
-        tools:text="武汉裹茗科技服务有限公司"/>
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/ic_launcher"/>
+
+            <TextView
+                android:id="@+id/tvAppInfo"
+                style="@style/FontGreyNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                tools:text="软件 v1.0.1"/>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:id="@+id/llUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check_update"/>
+
+                <TextView
+                    android:id="@+id/tvUpdateSummary"
+                    style="@style/FontPrimaryNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    tools:text="新版本:1.0.2"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:id="@+id/llMarket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/give_good_comment"/>
+
+                <TextView
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:text="@string/good_comment_in_my_heart"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/customer_qq"/>
+
+                <TextView
+                    android:id="@+id/tvCustomerQQ"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="104u374104u374"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/official_group"/>
+
+                <TextView
+                    android:id="@+id/tvOfficialGroup"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="104u374104u374\nsasasasasa\n32323232"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:id="@+id/llWeiBo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/official_weibo"/>
+
+                <TextView
+                    android:id="@+id/tvWeiBo"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="鱼笙App"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:id="@+id/llOfficialWeb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/official_web"/>
+
+                <TextView
+                    android:id="@+id/tvOfficialWeb"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="www.fishlife520.com"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:id="@+id/llProtocol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_protocol"/>
+
+                <TextView
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@string/must_comply"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contact_us"/>
+
+                <TextView
+                    android:id="@+id/tvContact"
+                    style="@style/FontGreyNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    tools:text="643u4385945@qq.com"/>
+            </LinearLayout>
+
+            <View style="@style/LineHorizontal"/>
+
+            <TextView
+                android:id="@+id/tvCompany"
+                style="@style/FontGreySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:gravity="bottom"
+                tools:text="武汉裹茗科技服务有限公司"/>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

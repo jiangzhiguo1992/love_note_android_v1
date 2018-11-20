@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
@@ -35,6 +36,7 @@ public class WebActivity extends BaseActivity<WebActivity> {
     WebView wv;
 
     public static void goActivity(Activity from, String title, String url) {
+        if (StringUtils.isEmpty(url)) return;
         Intent intent = new Intent(from, WebActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("url", url);
@@ -60,6 +62,13 @@ public class WebActivity extends BaseActivity<WebActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         String url = intent.getStringExtra("url");
+        if (StringUtils.isEmpty(url)) {
+            mActivity.finish();
+            return;
+        }
+        if (!url.startsWith("http")) {
+            url = "http://" + url;
+        }
         wv.loadUrl(url);
     }
 

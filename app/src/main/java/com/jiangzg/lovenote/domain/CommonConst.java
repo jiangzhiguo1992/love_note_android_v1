@@ -9,7 +9,25 @@ public class CommonConst {
     private String companyName;
     private String customerQQ;
     private String officialGroup;
+    private String officialWeibo;
+    private String officialWeb;
     private String contactEmail;
+
+    public String getOfficialWeibo() {
+        return officialWeibo;
+    }
+
+    public void setOfficialWeibo(String officialWeibo) {
+        this.officialWeibo = officialWeibo;
+    }
+
+    public String getOfficialWeb() {
+        return officialWeb;
+    }
+
+    public void setOfficialWeb(String officialWeb) {
+        this.officialWeb = officialWeb;
+    }
 
     public String getCustomerQQ() {
         return customerQQ;

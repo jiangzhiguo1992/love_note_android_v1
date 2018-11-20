@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.activity.common.WebActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.CommonConst;
 import com.jiangzg.lovenote.domain.Version;
@@ -35,12 +37,22 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     LinearLayout llUpdate;
     @BindView(R.id.tvUpdateSummary)
     TextView tvUpdateSummary;
+    @BindView(R.id.llMarket)
+    LinearLayout llMarket;
     @BindView(R.id.llProtocol)
     LinearLayout llProtocol;
     @BindView(R.id.tvCustomerQQ)
     TextView tvCustomerQQ;
     @BindView(R.id.tvOfficialGroup)
     TextView tvOfficialGroup;
+    @BindView(R.id.llWeiBo)
+    LinearLayout llWeiBo;
+    @BindView(R.id.tvWeiBo)
+    TextView tvWeiBo;
+    @BindView(R.id.llOfficialWeb)
+    LinearLayout llOfficialWeb;
+    @BindView(R.id.tvOfficialWeb)
+    TextView tvOfficialWeb;
     @BindView(R.id.tvContact)
     TextView tvContact;
     @BindView(R.id.tvCompany)
@@ -86,6 +98,12 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
         // 官方Q群
         String officialGroup = commonConst.getOfficialGroup();
         tvOfficialGroup.setText(StringUtils.isEmpty(officialGroup) ? getString(R.string.now_no) : officialGroup.replace("\\n", "\n"));
+        // 官方微博
+        String officialWeibo = commonConst.getOfficialWeibo();
+        tvWeiBo.setText(officialWeibo);
+        // 官方网站
+        String officialWeb = commonConst.getOfficialWeb();
+        tvOfficialWeb.setText(officialWeb);
         // 联系我们
         String contactEmail = commonConst.getContactEmail();
         tvContact.setText(StringUtils.isEmpty(contactEmail) ? getString(R.string.now_no) : contactEmail.replace("\\n", "\n"));
@@ -98,11 +116,24 @@ public class AboutActivity extends BaseActivity<AboutActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.llUpdate, R.id.llProtocol})
+    @OnClick({R.id.llUpdate, R.id.llMarket, R.id.llWeiBo, R.id.llOfficialWeb, R.id.llProtocol})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llUpdate: // 软件更新
                 UpdateService.checkUpdate(mActivity);
+                break;
+            case R.id.llMarket: // 给个好评
+                Intent market = IntentFactory.getMarket();
+                ActivityTrans.start(mActivity, market);
+                break;
+            case R.id.llWeiBo: // 官网微博
+                String officialWeibo = SPHelper.getCommonConst().getOfficialWeibo();
+                Intent weiboUser = IntentFactory.getWeiboUser(officialWeibo);
+                ActivityTrans.start(mActivity, weiboUser);
+                break;
+            case R.id.llOfficialWeb: // 官网网站
+                String officialWeb = SPHelper.getCommonConst().getOfficialWeb();
+                WebActivity.goActivity(mActivity, mActivity.getString(R.string.official_web), officialWeb);
                 break;
             case R.id.llProtocol: // 用户协议
                 UserProtocolActivity.goActivity(mActivity);

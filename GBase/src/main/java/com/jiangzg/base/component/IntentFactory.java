@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.jiangzg.base.application.AppBase;
+import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -334,12 +335,24 @@ public class IntentFactory {
     /**
      * 跳转应用市场的意图
      */
-    public static Intent getMarket(String marketPkg) {
-        String str = "market://details?id=" + AppBase.getInstance().getPackageName();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
-        if (!StringUtils.isEmpty(marketPkg)) {
-            intent.setPackage(marketPkg);
-        }
+    public static Intent getMarket() {
+        String str = "market://details?id=" + AppInfo.get().getPackageName();
+        //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
+        //if (!StringUtils.isEmpty(marketPkg)) {
+        //    intent.setPackage(marketPkg);
+        //}
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(str));
+    }
+
+    /**
+     * 跳转微博用户页面
+     */
+    public static Intent getWeiboUser(String nickName) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+//        intent.setData(Uri.parse("sinaweibo://userinfo?nick="+URLEncoder.encode(nickName)));
+        intent.setData(Uri.parse("sinaweibo://userinfo?nick=" + nickName));
         return intent;
     }
 

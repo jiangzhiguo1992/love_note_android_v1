@@ -253,8 +253,12 @@
     <string name="help_document">帮助文档</string>
     <string name="about_app">关于鱼笙</string>
     <string name="must_comply">一定要遵守哦！</string>
+    <string name="give_good_comment">给个好评</string>
+    <string name="good_comment_in_my_heart">您的好评，我们会铭记于心</string>
     <string name="customer_qq">客服QQ</string>
     <string name="official_group">官方部落</string>
+    <string name="official_weibo">官方微博</string>
+    <string name="official_web">官方网站</string>
     <string name="contact_us">联系我们</string>
     <string name="exist_account">退出账号</string>
     <string name="confirm_exist_account">确定要退出账号吗？</string>
