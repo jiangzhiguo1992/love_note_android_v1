@@ -105,17 +105,13 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
         }
-        ali { // 阿里
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
-        }
         baidu { // 百度
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
         }
-        sougou { // 搜狗
+        ali { // 阿里
             dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
         }
     }
     sourceSets { // 源码设置
