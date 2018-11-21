@@ -72,6 +72,10 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
         }
+        samsung { // 三星应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
+        }
         oppo { // oppo应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
@@ -92,17 +96,13 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
-        samsung { // 三星应用市场
+        smartisan { // 锤子应用市场
             dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smartisan"]
         }
         lenovo { // 联想应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
-        }
-        smartisan { // 锤子应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smartisan"]
         }
         //---------------------附属市场----------------------
         tencent { // 腾讯应用宝
