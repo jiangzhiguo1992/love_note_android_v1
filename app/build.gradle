@@ -96,14 +96,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
-        smartisan { // 锤子应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smartisan"]
-        }
-        lenovo { // 联想应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
-        }
         //---------------------附属市场----------------------
         tencent { // 腾讯应用宝
             dimension "release"
@@ -120,6 +112,15 @@ android {
         qh360 { // 360手机助手
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
+        }
+        //---------------------冷门手机市场----------------------
+        smartisan { // 锤子应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smartisan"]
+        }
+        lenovo { // 联想应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
         }
     }
     sourceSets { // 源码设置
