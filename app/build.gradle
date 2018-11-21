@@ -72,10 +72,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
         }
-        samsung { // 三星应用市场
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
-        }
         oppo { // oppo应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
@@ -91,6 +87,10 @@ android {
         xiaomi { // 小米应用市场
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
+        }
+        samsung { // 三星应用市场
+            dimension "release"
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
         }
         meizu { // 魅族应用市场
             dimension "release"
