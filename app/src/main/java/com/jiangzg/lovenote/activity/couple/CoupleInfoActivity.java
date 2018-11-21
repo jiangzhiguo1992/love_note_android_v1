@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
+import com.jiangzg.lovenote.adapter.CoupleStateAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Help;
@@ -42,6 +45,7 @@ import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
+import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -51,6 +55,7 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.io.File;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -97,11 +102,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     @BindView(R.id.tvPairDays)
     TextView tvPairDays;
+    @BindView(R.id.rv)
+    RecyclerView rv;
 
+    private RecyclerHelper recyclerHelper;
     private Call<Result> callTaGet;
+    private Call<Result> callStateListGet;
     private Call<Result> callUpdateInfo;
     private Call<Result> callUpdateStatus;
     private File cropFile;
+    private int page;
 
     public static void goActivity(Fragment from) {
         if (Couple.isBreak(SPHelper.getCouple())) {
@@ -131,21 +141,39 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         layoutParams.topMargin += statusBarHeight;
         abl.setLayoutParams(layoutParams);
         abl.setTargetElevation(0);
+        // recycler
+        recyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new CoupleStateAdapter(mActivity))
+                .viewEmpty(mActivity, R.layout.list_empty_primary, true, true)
+                .viewLoadMore(new RecyclerHelper.MoreTransView())
+                .setAdapter()
+                .listenerMore(new RecyclerHelper.MoreListener() {
+                    @Override
+                    public void onMore(int currentCount) {
+                        getCoupleStateList(true);
+                    }
+                });
         // view
         setViewData();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        page = 0;
         // ta 对方可能更改手机，需要每次同步
         getTaData();
+        // coupleState
+        getCoupleStateList(false);
     }
 
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callTaGet);
+        RetrofitHelper.cancel(callStateListGet);
         RetrofitHelper.cancel(callUpdateInfo);
         RetrofitHelper.cancel(callUpdateStatus);
+        RecyclerHelper.release(recyclerHelper);
         // 创建成功的cropFile都要删除
         ResHelper.deleteFileInBackground(cropFile);
     }
@@ -250,6 +278,28 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    private void getCoupleStateList(final boolean more) {
+        long id = SPHelper.getCouple().getId();
+        page = more ? page + 1 : 0;
+        // api
+        callStateListGet = new RetrofitHelper().call(API.class).coupleStateListGet(id, page);
+        RetrofitHelper.enqueue(callStateListGet, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.viewEmptyShow(data.getShow());
+                List<Couple.State> coupleStateList = data.getCoupleStateList();
+                recyclerHelper.dataOk(coupleStateList, more);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                if (recyclerHelper == null) return;
+                recyclerHelper.dataFail(more, message);
             }
         });
     }

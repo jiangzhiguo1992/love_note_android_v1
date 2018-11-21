@@ -195,7 +195,16 @@
         android:id="@+id/tvPairDays"
         style="@style/FontPrimaryHugeBold"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
-        tools:text="@string/pair_holder_day"/>
+        android:textSize="30sp"
+        tools:text="第365天"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:listitem="@layout/list_item_couple_state"/>
 </LinearLayout>

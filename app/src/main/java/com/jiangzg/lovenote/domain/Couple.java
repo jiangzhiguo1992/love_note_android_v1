@@ -114,6 +114,24 @@ public class Couple extends BaseObj implements Parcelable {
         }
     }
 
+    public static String getCoupleStateShow(int state) {
+        switch (state) {
+            case STATUS_INVITE_CANCEL:
+                return MyApp.get().getString(R.string.couple_state_110_show);
+            case STATUS_INVITE_REJECT:
+                return MyApp.get().getString(R.string.couple_state_120_show);
+            case STATUS_BREAK:
+                return MyApp.get().getString(R.string.couple_state_210_show);
+            case STATUS_BREAK_ACCEPT:
+                return MyApp.get().getString(R.string.couple_state_220_show);
+            case STATUS_TOGETHER:
+                return MyApp.get().getString(R.string.couple_state_520_show);
+            case STATUS_INVITE:
+            default:
+                return MyApp.get().getString(R.string.couple_state_0_show);
+        }
+    }
+
     public static class State extends BaseCP implements Parcelable {
 
         private int state;

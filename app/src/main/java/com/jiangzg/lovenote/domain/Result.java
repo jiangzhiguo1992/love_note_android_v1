@@ -66,6 +66,7 @@ public class Result implements Serializable {
         private List<SuggestComment> suggestCommentList;
         // couple
         private Couple couple;
+        private List<Couple.State> coupleStateList;
         private PairCard pairCard;
         private int togetherDay;
         private WallPaper wallPaper;
@@ -160,6 +161,14 @@ public class Result implements Serializable {
         private MatchReport matchReport;
         private MatchPoint matchPoint;
         private MatchCoin matchCoin;
+
+        public List<Couple.State> getCoupleStateList() {
+            return coupleStateList;
+        }
+
+        public void setCoupleStateList(List<Couple.State> coupleStateList) {
+            this.coupleStateList = coupleStateList;
+        }
 
         public Movie getMovie() {
             return movie;

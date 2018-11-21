@@ -177,6 +177,9 @@ public interface API {
     @GET("couple")
     Call<Result> coupleGet(@Query("self") boolean self, @Query("uid") long uid);
 
+    @GET("couple?list=1&state=1")
+    Call<Result> coupleStateListGet(@Query("cid") long cid, @Query("page") int page);
+
     // cp首页
     @GET("couple/home")
     Call<Result> coupleHomeGet();

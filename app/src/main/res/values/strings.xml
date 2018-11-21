@@ -343,7 +343,7 @@
     <string name="quick_pair_deblock_more_posture">快来和TA配对，解锁更多姿势</string>
     <string name="pair_info">配对信息</string>
     <string name="now_null_nickname">暂无爱称</string>
-    <string name="pair_holder_day" formatted="false">配对第%d天</string>
+    <string name="pair_holder_day" formatted="false">第%d天</string>
     <string name="u_confirm_break">你确定要解除关系吗？</string>
     <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>
     <string name="modify_ta_name">修改TA的名称</string>
@@ -353,6 +353,12 @@
     <string name="differ_space_holder" formatted="false">相差 %s</string>
     <string name="now_no_address_info">暂无地址信息</string>
     <string name="now_no_weather_info">暂无天气信息</string>
+    <string name="couple_state_0_show">发出邀请</string>
+    <string name="couple_state_110_show">撤回邀请</string>
+    <string name="couple_state_120_show">拒绝邀请</string>
+    <string name="couple_state_210_show">提出分手</string>
+    <string name="couple_state_220_show">同意分手</string>
+    <string name="couple_state_520_show">成功配对</string>
 
     <!-- place -->
     <string name="place">位置</string>

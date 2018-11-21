@@ -436,4 +436,28 @@ public class RecyclerHelper {
 
     }
 
+    public static class MoreTransView extends LoadMoreView {
+
+        @Override
+        public int getLayoutId() {
+            return R.layout.list_more_trans;
+        }
+
+        @Override
+        protected int getLoadingViewId() {
+            return R.id.llLoading;
+        }
+
+        @Override
+        protected int getLoadEndViewId() {
+            return R.id.llLoadEnd;
+        }
+
+        @Override
+        protected int getLoadFailViewId() {
+            return R.id.llLoadFail;
+        }
+
+    }
+
 }
