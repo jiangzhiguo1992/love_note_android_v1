@@ -105,30 +105,17 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
         }
-        baidu { // 百度
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
-        }
         ali { // 阿里
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "ali"]
         }
-        //---------------------第三梯队----------------------
-//        jinli { // 金立
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jinli"]
-//        }
-//        nubiya { // 努比亚
-//            dimension "release"
-//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nubiya"]
-//        }
-        smartisan { // 锤子
+        baidu { // 百度
             dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smartisan"]
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
         }
-        lenovo { // 联想
+        sougou { // 搜狗
             dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
+            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
         }
     }
     sourceSets { // 源码设置
