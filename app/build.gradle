@@ -121,10 +121,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
         }
-        kuan { // 酷安
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
-        }
     }
     sourceSets { // 源码设置
         main {
