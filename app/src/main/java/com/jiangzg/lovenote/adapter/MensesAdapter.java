@@ -24,7 +24,7 @@ public class MensesAdapter extends BaseQuickAdapter<Menses, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Menses item) {
-        String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_LINE_M_D_H_M);
+        String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_LINE_M_D);
         String timeShow;
         if (item.isStart()) {
             timeShow = String.format(Locale.getDefault(), MyApp.get().getString(R.string.start_at_colon_space_holder), time);

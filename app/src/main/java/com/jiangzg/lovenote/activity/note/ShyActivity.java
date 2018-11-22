@@ -189,7 +189,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void refreshMonthSchemeView() {
-        if (recyclerHelper == null || cvShy == null) return;
+        if (cvShy == null) return;
         String monthFormat = getString(R.string.current_month_space_holder_space_second);
         // data
         int monthCount = 0;
@@ -213,6 +213,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 schemeMap.put(calendar.toString(), calendar);
             }
         }
+        // calendar
         cvShy.clearSchemeDate();
         cvShy.setSchemeDate(schemeMap);
         // view
@@ -220,9 +221,8 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void refreshDayView() {
-        if (recyclerHelper == null || cvShy == null) return;
+        if (recyclerHelper == null) return;
         // data
-        String dayFormat = getString(R.string.current_day_space_holder_space_second);
         List<Shy> dayList = new ArrayList<>();
         if (shyList != null && shyList.size() > 0) {
             for (Shy shy : shyList) {
@@ -234,6 +234,20 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         }
         // view
         recyclerHelper.dataNew(dayList, 0);
+    }
+
+    private void yearShow() {
+        if (cvShy == null) return;
+        if (!cvShy.isYearSelectLayoutVisible()) {
+            cvShy.showYearSelectLayout(selectYear);
+        } else {
+            cvShy.closeYearSelectLayout();
+        }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshMonthData();
     }
 
     private void refreshMonthData() {
@@ -260,20 +274,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 srl.setRefreshing(false);
             }
         });
-    }
-
-    private void yearShow() {
-        if (cvShy == null) return;
-        if (!cvShy.isYearSelectLayoutVisible()) {
-            cvShy.showYearSelectLayout(selectYear);
-        } else {
-            cvShy.closeYearSelectLayout();
-        }
-    }
-
-    private void dateBack() {
-        refreshDateToCurrent();
-        refreshMonthData();
     }
 
     private void refreshTopDateShow() {

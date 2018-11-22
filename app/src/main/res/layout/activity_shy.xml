@@ -63,6 +63,7 @@
                 app:month_view_show_mode="mode_all"
                 app:other_month_lunar_text_color="@color/white_trans_50"
                 app:other_month_text_color="@color/white_trans_75"
+                app:select_mode="single_mode"
                 app:selected_lunar_text_color="@color/white_trans_75"
                 app:selected_text_color="@color/white"
                 app:selected_theme_color="?attr/colorPrimary"

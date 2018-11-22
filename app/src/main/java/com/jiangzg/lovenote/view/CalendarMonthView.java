@@ -51,6 +51,14 @@ public class CalendarMonthView extends MonthView {
         return c;
     }
 
+    public static com.haibin.calendarview.Calendar getCalendarView(int year, int month, int day) {
+        com.haibin.calendarview.Calendar c = new com.haibin.calendarview.Calendar();
+        c.setYear(year);
+        c.setMonth(month);
+        c.setDay(day);
+        return c;
+    }
+
     /**
      * 绘制选中的日子
      *

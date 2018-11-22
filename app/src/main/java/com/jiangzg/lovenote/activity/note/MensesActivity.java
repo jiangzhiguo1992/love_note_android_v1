@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.haibin.calendarview.CalendarView;
+import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -34,16 +36,14 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.view.CalendarView;
+import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -55,24 +55,28 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.mcvMenses)
-    MaterialCalendarView mcvMenses;
+    @BindView(R.id.tvDateShow)
+    TextView tvDateShow;
+    @BindView(R.id.tvBackCur)
+    TextView tvBackCur;
+    @BindView(R.id.cvMenses)
+    CalendarView cvMenses;
     @BindView(R.id.tvShow)
     TextView tvShow;
     @BindView(R.id.tvTip)
     TextView tvTip;
-    @BindView(R.id.rv)
-    RecyclerView rv;
-    @BindView(R.id.cvPush)
-    CardView cvPush;
-    @BindView(R.id.tvPush)
-    TextView tvPush;
     @BindView(R.id.rgUser)
     RadioGroup rgUser;
     @BindView(R.id.rbMe)
     RadioButton rbMe;
     @BindView(R.id.rbTa)
     RadioButton rbTa;
+    @BindView(R.id.cvPush)
+    CardView cvPush;
+    @BindView(R.id.tvPush)
+    TextView tvPush;
+    @BindView(R.id.rv)
+    RecyclerView rv;
 
     private boolean isMine;
     private MensesInfo mensesInfo;
@@ -83,9 +87,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
-    private int clickYear, clickMonth, clickDay;
-    private CalendarView.ClickDecorator clickDecorator;
-    private CalendarView.MensesDecorator mensesDecorator;
+    private int selectYear, selectMonth;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, MensesActivity.class);
@@ -122,18 +124,57 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         mensesInfo = new MensesInfo();
         mensesInfo.setCanMe(false);
         mensesInfo.setCanTa(false);
-        // calendar
-        initCalendarView();
-        // checkView
+        // check
         initCheckView();
-        // latestView
-        refreshLatestView();
+        // calendar样式替换
+        cvMenses.setWeekView(WeekView.class);
+        cvMenses.setMonthView(CalendarMonthView.class);
+        cvMenses.update();
+        // calendar年份监听
+        cvMenses.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
+            @Override
+            public void onYearChange(int year) {
+                if (selectYear == year) return;
+                selectYear = year;
+                selectMonth = -1;
+                refreshTopDateShow();
+            }
+        });
+        // calendar选择监听
+        cvMenses.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
+            @Override
+            public void onCalendarOutOfRange(com.haibin.calendarview.Calendar calendar) {
+            }
+
+            @Override
+            public void onCalendarSelect(com.haibin.calendarview.Calendar calendar, boolean isClick) {
+                if (selectYear == calendar.getYear() && selectMonth == calendar.getMonth()) {
+                    return;
+                }
+                selectYear = calendar.getYear();
+                selectMonth = calendar.getMonth();
+                refreshTopDateShow();
+                refreshMonthData();
+                refreshBottomView();
+            }
+        });
+        // recycler
+        recyclerHelper = new RecyclerHelper(rv)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new MensesAdapter())
+                .setAdapter();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // 设置当前日期
+        refreshDateToCurrent();
+        // 显示当前数据
+        refreshMonthView("");
+        refreshBottomView();
+        // 开始获取数据
         getLatestData();
-        getMensesMonthData();
+        refreshMonthData();
     }
 
     @Override
@@ -144,87 +185,93 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick(R.id.cvPush)
+    @Override
+    public void onBackPressed() {
+        if (cvMenses != null && cvMenses.isYearSelectLayoutVisible()) {
+            cvMenses.closeYearSelectLayout();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvPush})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tvDateShow: // 日期显示
+                yearShow();
+                break;
+            case R.id.tvBackCur: // 回到当前
+                dateBack();
+                break;
             case R.id.cvPush: // 发布
                 mensesPush();
                 break;
         }
     }
 
-    private void initCalendarView() {
+    private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCalendar();
-        clickYear = calendar.get(Calendar.YEAR);
-        clickMonth = calendar.get(Calendar.MONTH) + 1;
-        clickDay = -1;
-        CalendarView.initMonthView(mActivity, mcvMenses, calendar);
-        // 设置滑动选择改变月份事件
-        mcvMenses.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                mcvMenses.clearSelection();
-                // data
-                clickYear = date.getYear();
-                clickMonth = date.getMonth() + 1;
-                getMensesMonthData();
-            }
-        });
-        // 设置点击选择日期改变事件
-        mcvMenses.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                mcvMenses.clearSelection();
-                // data
-                Calendar calendar = date.getCalendar();
-                clickYear = calendar.get(Calendar.YEAR);
-                clickMonth = calendar.get(Calendar.MONTH) + 1;
-                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
-                // calendar
-                if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
-                    mcvMenses.addDecorator(clickDecorator);
-                } else {
-                    clickDecorator.setClick(calendar);
-                    mcvMenses.invalidateDecorators();
-                }
-            }
-        });
-        // view
-        refreshMonthView("");
+        selectYear = calendar.get(Calendar.YEAR);
+        selectMonth = calendar.get(Calendar.MONTH) + 1;
+        cvMenses.scrollToCurrent(true);
+        // 顶部显示
+        refreshTopDateShow();
     }
 
     private void refreshMonthView(String show) {
-        // calendar
+        // show
         if (!StringUtils.isEmpty(show)) {
-            mcvMenses.setVisibility(View.GONE);
+            cvMenses.setVisibility(View.GONE);
             tvShow.setVisibility(View.VISIBLE);
             tvShow.setText(show);
             return;
         }
-        mcvMenses.setVisibility(View.VISIBLE);
+        cvMenses.setVisibility(View.VISIBLE);
         tvShow.setVisibility(View.GONE);
+        // data
+        Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
+        if (mensesList != null && mensesList.size() > 0) {
+            for (Menses menses : mensesList) {
+                if (menses == null) continue;
+                com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(menses.getYear(), menses.getMonthOfYear(), menses.getDayOfMonth());
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setScheme(menses.isStart() ? "来" : "走");
+                schemeMap.put(calendar.toString(), calendar);
+            }
+        }
         // calendar
-        if (mensesDecorator == null) {
-            mensesDecorator = new CalendarView.MensesDecorator(mActivity, mensesList);
-            mcvMenses.addDecorator(mensesDecorator);
-        } else {
-            mensesDecorator.setMensesList(mensesList);
-            mcvMenses.invalidateDecorators();
-        }
+        cvMenses.clearSchemeDate();
+        cvMenses.setSchemeDate(schemeMap);
         // recycler
-        if (recyclerHelper == null) {
-            recyclerHelper = new RecyclerHelper(rv)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new MensesAdapter())
-                    .setAdapter();
-        }
-        if (mensesList == null || mensesList.size() <= 0) {
-            rv.setVisibility(View.INVISIBLE);
+        recyclerHelper.dataNew(mensesList, 0);
+    }
+
+    private void yearShow() {
+        if (cvMenses == null) return;
+        if (!cvMenses.isYearSelectLayoutVisible()) {
+            cvMenses.showYearSelectLayout(selectYear);
         } else {
-            rv.setVisibility(View.VISIBLE);
-            recyclerHelper.dataNew(mensesList, 0);
+            cvMenses.closeYearSelectLayout();
         }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshMonthData();
+    }
+
+    private void refreshTopDateShow() {
+        String show = "";
+        if (selectYear > 0) {
+            String year = String.valueOf(selectYear);
+            String month = String.valueOf(selectMonth);
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+            } else {
+                show = year;
+            }
+        }
+        tvDateShow.setText(show);
     }
 
     private void initCheckView() {
@@ -237,13 +284,13 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 isMine = (R.id.rbMe == checkedId);
-                refreshLatestView();
-                getMensesMonthData();
+                refreshBottomView();
+                refreshMonthData();
             }
         });
     }
 
-    private void refreshLatestView() {
+    private void refreshBottomView() {
         // tip
         if (isMine) {
             if (!mensesInfo.isCanMe() || mensesMe == null || mensesMe.getId() <= 0) {
@@ -320,7 +367,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 mensesMe = data.getMensesMe();
                 mensesTa = data.getMensesTa();
                 // view
-                refreshLatestView();
+                refreshBottomView();
             }
 
             @Override
@@ -330,15 +377,16 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         });
     }
 
-    private void getMensesMonthData() {
+    private void refreshMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
-        // clear (data + view)
-        clickDay = -1;
-        mensesList = null;
+        // clear
+        if (mensesList != null) {
+            mensesList.clear();
+        }
         // call
-        callListGet = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, clickYear, clickMonth);
+        callListGet = new RetrofitHelper().call(API.class).noteMensesListGetByDate(isMine, selectYear, selectMonth);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -363,10 +411,10 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 mensesMe = data.getMenses();
-                // view
-                refreshLatestView();
                 // data
-                getMensesMonthData();
+                refreshMonthData();
+                // view
+                refreshBottomView();
             }
 
             @Override
