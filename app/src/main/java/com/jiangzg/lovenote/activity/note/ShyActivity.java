@@ -3,16 +3,19 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.haibin.calendarview.CalendarView;
+import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
@@ -26,17 +29,15 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.view.CalendarView;
+import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,12 +49,14 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.mcvShy)
-    MaterialCalendarView mcvShy;
+    @BindView(R.id.tvDateShow)
+    TextView tvDateShow;
+    @BindView(R.id.tvBackCur)
+    TextView tvBackCur;
+    @BindView(R.id.cvShy)
+    CalendarView cvShy;
     @BindView(R.id.tvMonth)
     TextView tvMonth;
-    @BindView(R.id.tvDay)
-    TextView tvDay;
     @BindView(R.id.cvPush)
     CardView cvPush;
     @BindView(R.id.rv)
@@ -63,9 +66,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
     private Call<Result> callListGet;
-    private int clickYear, clickMonth, clickDay;
-    private CalendarView.ClickDecorator clickDecorator;
-    private CalendarView.SelectedDecorator selectedDecorator;
+    private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ShyActivity.class);
@@ -90,8 +91,44 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.shy), true);
         srl.setEnabled(false);
-        // calendar
-        initCalendarView();
+        // calendar样式替换
+        cvShy.setWeekView(WeekView.class);
+        cvShy.setMonthView(CalendarMonthView.class);
+        cvShy.update();
+        // calendar年份监听
+        cvShy.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
+            @Override
+            public void onYearChange(int year) {
+                if (selectYear == year) return;
+                selectYear = year;
+                selectMonth = -1;
+                selectDay = -1;
+                refreshTopDateShow();
+            }
+        });
+        // calendar选择监听
+        cvShy.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
+            @Override
+            public void onCalendarOutOfRange(com.haibin.calendarview.Calendar calendar) {
+            }
+
+            @Override
+            public void onCalendarSelect(com.haibin.calendarview.Calendar calendar, boolean isClick) {
+                if (selectYear == calendar.getYear() && selectMonth == calendar.getMonth()) {
+                    // 只是选择的同月day
+                    selectDay = calendar.getDay();
+                    refreshTopDateShow();
+                    refreshDayView();
+                    return;
+                }
+                selectYear = calendar.getYear();
+                selectMonth = calendar.getMonth();
+                selectDay = calendar.getDay();
+                refreshTopDateShow();
+                refreshMonthData();
+                refreshDayView();
+            }
+        });
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -101,7 +138,13 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        getShyMonthData();
+        // 设置当前日期
+        refreshDateToCurrent();
+        // 显示当前数据
+        refreshMonthSchemeView();
+        refreshDayView();
+        // 开始获取数据
+        refreshMonthData();
     }
 
     @Override
@@ -111,101 +154,140 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RecyclerHelper.release(recyclerHelper);
     }
 
-    @OnClick(R.id.cvPush)
+    @Override
+    public void onBackPressed() {
+        if (cvShy != null && cvShy.isYearSelectLayoutVisible()) {
+            cvShy.closeYearSelectLayout();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvPush})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tvDateShow: // 日期显示
+                yearShow();
+                break;
+            case R.id.tvBackCur: // 回到当前
+                dateBack();
+                break;
             case R.id.cvPush: // 睡眠
                 showDatePicker();
                 break;
         }
     }
 
-    private void initCalendarView() {
+    private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCalendar();
-        clickYear = calendar.get(Calendar.YEAR);
-        clickMonth = calendar.get(Calendar.MONTH) + 1;
-        clickDay = -1;
-        CalendarView.initMonthView(mActivity, mcvShy, calendar);
-        // 设置滑动选择改变月份事件
-        mcvShy.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                mcvShy.clearSelection();
-                // data
-                clickYear = date.getYear();
-                clickMonth = date.getMonth() + 1;
-                getShyMonthData();
-            }
-        });
-        // 设置点击选择日期改变事件
-        mcvShy.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                mcvShy.clearSelection();
-                // data
-                Calendar calendar = date.getCalendar();
-                clickYear = calendar.get(Calendar.YEAR);
-                clickMonth = calendar.get(Calendar.MONTH) + 1;
-                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
-                // calendar
-                if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
-                    mcvShy.addDecorator(clickDecorator);
-                } else {
-                    clickDecorator.setClick(calendar);
-                    mcvShy.invalidateDecorators();
-                }
-                // view
-                refreshDayView();
-            }
-        });
-        // view
-        refreshMonthView();
-        refreshDayView();
+        selectYear = calendar.get(Calendar.YEAR);
+        selectMonth = calendar.get(Calendar.MONTH) + 1;
+        selectDay = calendar.get(Calendar.DAY_OF_MONTH);
+        cvShy.scrollToCurrent(true);
+        // 顶部显示
+        refreshTopDateShow();
     }
 
-    private void refreshMonthView() {
-        if (recyclerHelper == null || mcvShy == null) return;
+    private void refreshMonthSchemeView() {
+        if (recyclerHelper == null || cvShy == null) return;
         String monthFormat = getString(R.string.current_month_space_holder_space_second);
         // data
         int monthCount = 0;
-        List<Calendar> selectedList = new ArrayList<>();
+        SparseIntArray countArray = new SparseIntArray();
+        Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (shyList != null && shyList.size() > 0) {
             monthCount = shyList.size();
             for (Shy shy : shyList) {
                 if (shy == null) continue;
-                Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(shy.getHappenAt()));
-                selectedList.add(calendar);
+                com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(shy.getHappenAt());
+                int day = calendar.getDay();
+                int count = countArray.get(day);
+                if (count <= 0) {
+                    count = 1;
+                    countArray.put(day, count);
+                } else {
+                    countArray.put(day, ++count);
+                }
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setScheme(String.valueOf(count));
+                schemeMap.put(calendar.toString(), calendar);
             }
         }
-        // calendar
-        if (selectedDecorator == null) {
-            selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectedList);
-            mcvShy.addDecorator(selectedDecorator);
-        } else {
-            selectedDecorator.setSelectedList(selectedList);
-            mcvShy.invalidateDecorators();
-        }
+        cvShy.clearSchemeDate();
+        cvShy.setSchemeDate(schemeMap);
         // view
         tvMonth.setText(String.format(Locale.getDefault(), monthFormat, monthCount));
     }
 
     private void refreshDayView() {
-        if (recyclerHelper == null || mcvShy == null) return;
+        if (recyclerHelper == null || cvShy == null) return;
         // data
         String dayFormat = getString(R.string.current_day_space_holder_space_second);
         List<Shy> dayList = new ArrayList<>();
         if (shyList != null && shyList.size() > 0) {
             for (Shy shy : shyList) {
                 if (shy == null) continue;
-                if (clickDay == shy.getDayOfMonth()) {
+                if (selectDay == shy.getDayOfMonth()) {
                     dayList.add(shy);
                 }
             }
         }
         // view
         recyclerHelper.dataNew(dayList, 0);
-        tvDay.setText(String.format(Locale.getDefault(), dayFormat, dayList.size()));
+    }
+
+    private void refreshMonthData() {
+        if (!srl.isRefreshing()) {
+            srl.setRefreshing(true);
+        }
+        // clear (data + view)
+        shyList = null;
+        refreshDayView();
+        // call
+        callListGet = new RetrofitHelper().call(API.class).noteShyListGetByDate(selectYear, selectMonth);
+        RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+                shyList = data.getShyList();
+                // view
+                refreshMonthSchemeView();
+                refreshDayView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                srl.setRefreshing(false);
+            }
+        });
+    }
+
+    private void yearShow() {
+        if (cvShy == null) return;
+        if (!cvShy.isYearSelectLayoutVisible()) {
+            cvShy.showYearSelectLayout(selectYear);
+        } else {
+            cvShy.closeYearSelectLayout();
+        }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshMonthData();
+    }
+
+    private void refreshTopDateShow() {
+        String show = "";
+        if (selectYear > 0) {
+            String year = String.valueOf(selectYear);
+            String month = String.valueOf(selectMonth);
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+            } else {
+                show = year;
+            }
+        }
+        tvDateShow.setText(show);
     }
 
     private void showDatePicker() {
@@ -213,33 +295,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
             @Override
             public void onPick(long time) {
                 shyPush(TimeHelper.getGoTimeByJava(time));
-            }
-        });
-    }
-
-    private void getShyMonthData() {
-        if (!srl.isRefreshing()) {
-            srl.setRefreshing(true);
-        }
-        // clear (data + view)
-        clickDay = -1;
-        shyList = null;
-        refreshDayView();
-        // call
-        callListGet = new RetrofitHelper().call(API.class).noteShyListGetByDate(clickYear, clickMonth);
-        RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
-            @Override
-            public void onResponse(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
-                shyList = data.getShyList();
-                // view
-                refreshMonthView();
-                refreshDayView();
-            }
-
-            @Override
-            public void onFailure(int code, String message, Result.Data data) {
-                srl.setRefreshing(false);
             }
         });
     }
@@ -252,7 +307,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                getShyMonthData();
+                refreshMonthData();
             }
 
             @Override

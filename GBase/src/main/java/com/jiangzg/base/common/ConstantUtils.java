@@ -18,6 +18,7 @@ public class ConstantUtils {
     public static final String FORMAT_LINE_Y_M_D = "yyyy-MM-dd";
     public static final String FORMAT_POINT_Y_M_D = "yyyy.MM.dd";
     public static final String FORMAT_CHINA_Y_M_D = "yyyy年MM月dd日";
+    public static final String FORMAT_LINE_Y_M = "yyyy-MM";
     public static final String FORMAT_POINT_M_D = "yyyy.MM";
     public static final String FORMAT_CHINA_M_D = "MM月dd日";
     public static final String FORMAT_LINE_M_D = "MM-dd";
@@ -78,7 +79,7 @@ public class ConstantUtils {
     /**
      * ******************************正则 ****************************
      */
-     /* 正则：数字 */
+    /* 正则：数字 */
     public static final String REGEX_NUMBER = "[0-9]*";
     /* 正则：邮政编码 */
     public static final String REGEX_POST_CODE = "[1-9]\\d{5}";

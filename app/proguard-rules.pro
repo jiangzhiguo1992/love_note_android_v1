@@ -62,11 +62,15 @@
 # ---banner
 -keep class com.youth.banner.** {*;}
 
+# ---calendarView
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context);
+}
+
 # ---高德地图AMAP(真任性！)
 -dontwarn com.amap.api.**
 -dontwarn com.autonavi.**
 -dontwarn com.a.a.**
-
 -keep class com.amap.api.** {*;}
 -keep class com.autonavi.** {*;}
 -keep class com.a.a.** {*;}

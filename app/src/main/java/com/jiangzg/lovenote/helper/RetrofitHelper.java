@@ -171,12 +171,12 @@ public class RetrofitHelper {
         // 开始请求
         call.enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<Result> call, Response<Result> response) {
+            public void onResponse(@NonNull Call<Result> call, @NonNull Response<Result> response) {
                 onResponseCall(loading, response, callBack);
             }
 
             @Override
-            public void onFailure(Call call, Throwable t) {
+            public void onFailure(@NonNull Call call, @NonNull Throwable t) {
                 onFailureCall(loading, t, callBack);
             }
         });
@@ -201,7 +201,11 @@ public class RetrofitHelper {
             body = response.body();
         } else {
             try {
-                errorStr = response.errorBody().string();
+                if (response.errorBody() == null) {
+                    errorStr = MyApp.get().getString(R.string.http_response_error);
+                } else {
+                    errorStr = response.errorBody().string();
+                }
             } catch (IOException e) {
                 LogUtils.e(RetrofitHelper.class, "onResponseCall", e);
             }
@@ -217,6 +221,9 @@ public class RetrofitHelper {
                 body.setMessage(MyApp.get().getString(R.string.err_data_parse));
                 LogUtils.w(RetrofitHelper.class, "onResponseCall", errorStr);
             }
+        }
+        if (body == null) {
+            body = new Result();
         }
         int code = body.getCode();
         String message = body.getMessage();
@@ -385,8 +392,9 @@ public class RetrofitHelper {
     /* 获取head */
     private Interceptor getHead(final HashMap<String, String> headParams) {
         return new Interceptor() {
+            @NonNull
             @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
+            public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
                 Request.Builder builder = chain.request().newBuilder();
                 for (String key : headParams.keySet()) {
                     builder.addHeader(key, headParams.get(key));
@@ -402,7 +410,7 @@ public class RetrofitHelper {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
                 new HttpLoggingInterceptor.Logger() {
                     @Override
-                    public void log(String message) {
+                    public void log(@NonNull String message) {
                         String log = message.trim();
                         if (StringUtils.isEmpty(log)) return;
                         LogUtils.d(RetrofitHelper.class, "getLogInterceptor", log);
