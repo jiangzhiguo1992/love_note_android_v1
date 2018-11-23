@@ -19,9 +19,9 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -31,34 +31,29 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
     private BaseActivity mActivity;
     private final Couple couple;
-    private final String formatCreator;
-    private final String formatTime;
 
     public FoodAdapter(BaseActivity activity) {
         super(R.layout.list_item_food);
         mActivity = activity;
         couple = SPHelper.getCouple();
-        formatCreator = mActivity.getString(R.string.creator_colon_space_holder);
-        formatTime = mActivity.getString(R.string.time_colon_space_holder);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Food item) {
+        String avatar = Couple.getAvatar(couple, item.getUserId());
         String title = item.getTitle();
         String address = item.getAddress();
-        String name = Couple.getName(couple, item.getUserId());
-        String creator = String.format(Locale.getDefault(), formatCreator, name);
         String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), formatTime, happen);
         List<String> imageList = item.getContentImageList();
         String contentText = item.getContentText();
         // view
-        RecyclerView rv = helper.getView(R.id.rv);
+        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
+        ivAvatar.setData(avatar);
         helper.setText(R.id.tvTitle, title);
         helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
-        helper.setText(R.id.tvHappenAt, happenShow);
-        helper.setText(R.id.tvCreator, creator);
+        helper.setText(R.id.tvHappenAt, happen);
+        RecyclerView rv = helper.getView(R.id.rv);
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             new RecyclerHelper(rv)
