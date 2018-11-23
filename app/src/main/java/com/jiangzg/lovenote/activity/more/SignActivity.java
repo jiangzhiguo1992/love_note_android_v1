@@ -2,8 +2,8 @@ package com.jiangzg.lovenote.activity.more;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.haibin.calendarview.CalendarView;
+import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -30,18 +32,15 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.view.CalendarView;
+import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,8 +52,12 @@ public class SignActivity extends BaseActivity<SignActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.mcvSign)
-    MaterialCalendarView mcvSign;
+    @BindView(R.id.tvDateShow)
+    TextView tvDateShow;
+    @BindView(R.id.tvBackCur)
+    TextView tvBackCur;
+    @BindView(R.id.cvSign)
+    CalendarView cvSign;
     @BindView(R.id.tvState)
     TextView tvState;
     @BindView(R.id.cvState)
@@ -72,9 +75,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
     private List<Sign> signList;
     private Call<Result> callAdd;
     private Call<Result> callListGet;
-    private int clickYear, clickMonth, clickDay;
-    private CalendarView.ClickDecorator clickDecorator;
-    private CalendarView.SelectedDecorator selectedDecorator;
+    private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Fragment from) {
         if (Couple.isBreak(SPHelper.getCouple())) {
@@ -96,25 +97,75 @@ public class SignActivity extends BaseActivity<SignActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.sign), true);
         srl.setEnabled(false);
+        // calendar样式替换
+        cvSign.setWeekView(WeekView.class);
+        cvSign.setMonthView(CalendarMonthView.class);
+        cvSign.update();
+        // calendar监听
+        cvSign.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
+            @Override
+            public void onYearChange(int year) {
+                if (selectYear == year) return;
+                selectYear = year;
+                selectMonth = -1;
+                selectDay = -1;
+                refreshTopDateShow();
+            }
+        });
+        cvSign.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
+            @Override
+            public void onCalendarOutOfRange(com.haibin.calendarview.Calendar calendar) {
+            }
+
+            @Override
+            public void onCalendarSelect(com.haibin.calendarview.Calendar calendar, boolean isClick) {
+                if (selectYear == calendar.getYear() && selectMonth == calendar.getMonth()) {
+                    // 只是选择的同月day
+                    selectDay = calendar.getDay();
+                    refreshTopDateShow();
+                    refreshDayView();
+                    return;
+                }
+                selectYear = calendar.getYear();
+                selectMonth = calendar.getMonth();
+                selectDay = calendar.getDay();
+                refreshTopDateShow();
+                refreshMonthData();
+                refreshDayView();
+            }
+        });
         // avatar
         User me = SPHelper.getMe();
         String myAvatar = me.getMyAvatarInCp();
         String taAvatarInCp = me.getTaAvatarInCp();
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatarInCp);
-        // calendar
-        initCalendarView();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        getSignMonthData();
+        // 设置当前日期
+        refreshDateToCurrent();
+        // 显示当前数据
+        refreshMonthView();
+        refreshDayView();
+        // 开始获取数据
+        refreshMonthData();
     }
 
     @Override
     protected void onFinish(Bundle state) {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callListGet);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (cvSign != null && cvSign.isYearSelectLayoutVisible()) {
+            cvSign.closeYearSelectLayout();
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
@@ -133,131 +184,131 @@ public class SignActivity extends BaseActivity<SignActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick(R.id.cvState)
+    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvState})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tvDateShow: // 日期显示
+                yearShow();
+                break;
+            case R.id.tvBackCur: // 回到当前
+                dateBack();
+                break;
             case R.id.cvState: // 发布
                 signPush();
                 break;
         }
     }
 
-    private void initCalendarView() {
+    private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCalendar();
-        clickYear = calendar.get(Calendar.YEAR);
-        clickMonth = calendar.get(Calendar.MONTH) + 1;
-        clickDay = -1;
-        CalendarView.initMonthView(mActivity, mcvSign, calendar);
-        // 设置滑动选择改变月份事件
-        mcvSign.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                mcvSign.clearSelection();
-                // data
-                clickYear = date.getYear();
-                clickMonth = date.getMonth() + 1;
-                getSignMonthData();
-            }
-        });
-        // 设置点击选择日期改变事件
-        mcvSign.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                mcvSign.clearSelection();
-                // data
-                Calendar calendar = date.getCalendar();
-                clickYear = calendar.get(Calendar.YEAR);
-                clickMonth = calendar.get(Calendar.MONTH) + 1;
-                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
-                // calendar
-                if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
-                    mcvSign.addDecorator(clickDecorator);
-                } else {
-                    clickDecorator.setClick(calendar);
-                    mcvSign.invalidateDecorators();
-                }
-                // view
-                refreshDayView();
-            }
-        });
-        // view
-        refreshMonthView();
-        refreshDayView();
+        selectYear = calendar.get(Calendar.YEAR);
+        selectMonth = calendar.get(Calendar.MONTH) + 1;
+        selectDay = calendar.get(Calendar.DAY_OF_MONTH);
+        cvSign.scrollToCurrent(true);
+        // 顶部显示
+        refreshTopDateShow();
     }
 
     private void refreshMonthView() {
-        if (mcvSign == null) return;
+        if (cvSign == null) return;
         // data
-        Calendar cal = DateUtils.getCurrentCalendar();
-        List<Calendar> selectList = new ArrayList<>();
         int rightCount = 0, leftCount = 0;
+        Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (signList != null && signList.size() > 0) {
-            for (Sign s : signList) {
-                if (s == null) continue;
-                Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(s.getCreateAt()));
-                selectList.add(calendar);
-                if (s.isMine()) {
+            for (Sign sign : signList) {
+                if (sign == null) continue;
+                // count
+                if (sign.isMine()) {
                     ++rightCount;
                 } else {
                     ++leftCount;
                 }
-                if (today == null && s.getYear() == cal.get(Calendar.YEAR)
-                        && s.getMonthOfYear() == (cal.get(Calendar.MONTH) + 1)
-                        && s.getDayOfMonth() == cal.get(Calendar.DAY_OF_MONTH)) {
-                    today = s;
+                // today
+                Calendar c = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(sign.getCreateAt()));
+                if (today == null && sign.getYear() == c.get(Calendar.YEAR)
+                        && sign.getMonthOfYear() == (c.get(Calendar.MONTH) + 1)
+                        && sign.getDayOfMonth() == c.get(Calendar.DAY_OF_MONTH)) {
+                    today = sign;
                 }
+                // scheme
+                com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(sign.getYear(), sign.getMonthOfYear(), sign.getDayOfMonth());
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setScheme(String.valueOf(hour));
+                schemeMap.put(calendar.toString(), calendar);
             }
         }
         // calendar
-        if (selectedDecorator == null) {
-            selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectList);
-            mcvSign.addDecorator(selectedDecorator);
-        } else {
-            selectedDecorator.setSelectedList(selectList);
-            mcvSign.invalidateDecorators();
-        }
+        cvSign.clearSchemeDate();
+        cvSign.setSchemeDate(schemeMap);
         // view
         tvCountLeft.setText(String.format(Locale.getDefault(), getString(R.string.to_month_sign_holder_count), leftCount));
         tvCountRight.setText(String.format(Locale.getDefault(), getString(R.string.to_month_sign_holder_count), rightCount));
     }
 
     private void refreshDayView() {
-        if (mcvSign == null) return;
+        if (cvSign == null) return;
         // data
         String signShow = null;
         if (signList != null && signList.size() > 0) {
             for (Sign s : signList) {
                 if (s == null) continue;
-                if (s.getYear() == clickYear && s.getMonthOfYear() == clickMonth && s.getDayOfMonth() == clickDay) {
+                if (s.getYear() == selectYear && s.getMonthOfYear() == selectMonth && s.getDayOfMonth() == selectDay) {
                     signShow = DateUtils.getString(TimeHelper.getJavaTimeByGo(s.getCreateAt()), ConstantUtils.FORMAT_H_M);
                 }
             }
         }
         if (StringUtils.isEmpty(signShow)) {
             Calendar cal = DateUtils.getCurrentCalendar();
-            if (today == null || (cal.get(Calendar.YEAR) == clickYear
-                    && cal.get(Calendar.MONTH) + 1 == clickMonth
-                    && cal.get(Calendar.DAY_OF_MONTH) == clickDay)) {
+            if (today == null || (cal.get(Calendar.YEAR) == selectYear
+                    && cal.get(Calendar.MONTH) + 1 == selectMonth
+                    && cal.get(Calendar.DAY_OF_MONTH) == selectDay)) {
                 signShow = getString(R.string.sign);
             } else {
-                signShow = getString(R.string.nil);
+                signShow = getString(R.string.now_no);
             }
         }
         // view
         tvState.setText(signShow);
     }
 
-    private void getSignMonthData() {
+    private void yearShow() {
+        if (cvSign == null) return;
+        if (!cvSign.isYearSelectLayoutVisible()) {
+            cvSign.showYearSelectLayout(selectYear);
+        } else {
+            cvSign.closeYearSelectLayout();
+        }
+    }
+
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshMonthData();
+    }
+
+    private void refreshTopDateShow() {
+        String show = "";
+        if (selectYear > 0) {
+            String year = String.valueOf(selectYear);
+            String month = String.valueOf(selectMonth);
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+            } else {
+                show = year;
+            }
+        }
+        tvDateShow.setText(show);
+    }
+
+    private void refreshMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         // clear (data + view)
-        clickDay = -1;
         signList = null;
         refreshDayView();
         // call
-        callListGet = new RetrofitHelper().call(API.class).moreSignDateGet(clickYear, clickMonth);
+        callListGet = new RetrofitHelper().call(API.class).moreSignDateGet(selectYear, selectMonth);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -286,7 +337,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                 // view
                 refreshDayView();
                 // data
-                getSignMonthData();
+                refreshMonthData();
             }
 
             @Override

@@ -27,7 +27,7 @@
 
                 <TextView
                     android:id="@+id/tvDateShow"
-                    style="@style/FontWhiteNormalBold"
+                    style="@style/FontWhiteBigBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -84,16 +84,21 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/cvPush"
-                    android:layout_alignBottom="@id/cvPush"
-                    android:layout_toStartOf="@id/cvPush"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -102,6 +107,7 @@
                         style="@style/FontPrimaryBigBold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:gravity="center"
                         tools:text="本月共3次"/>
 
@@ -109,32 +115,36 @@
                         android:id="@+id/rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         tools:listitem="@layout/list_item_shy"/>
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvPush"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="50dp"
-                    android:layout_marginBottom="30dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardCornerRadius="40dp"
-                    app:cardElevation="@dimen/elevation_big"
-                    app:cardMaxElevation="@dimen/elevation_huge">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
 
-                    <TextView
-                        style="@style/FontWhiteHuge"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="@string/add"/>
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvPush"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardBackgroundColor="?attr/colorPrimary"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="@dimen/elevation_big"
+                        app:cardMaxElevation="@dimen/elevation_huge">
+
+                        <TextView
+                            style="@style/FontWhiteHuge"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/add"/>
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>

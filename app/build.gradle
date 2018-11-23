@@ -185,13 +185,13 @@ dependencies { // 及时更新
     implementation 'com.facebook.fresco:webpsupport:1.8.1'
     implementation 'com.facebook.fresco:animated-gif:1.8.1'
     implementation 'com.facebook.fresco:imagepipeline-okhttp3:1.8.1'
+    implementation 'com.haibin:calendarview:3.4.8'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
-    implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
     // 三方
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6' // WXPay
     implementation files('libs/alipaySdk-20180601.jar') // AliPay
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6' // WXPay
     implementation 'com.aliyun.dpa:oss-android-sdk:2.5.0' // OSS
     implementation 'com.aliyun.ams:alicloud-android-push:3.1.4' // AliPush
     implementation 'com.aliyun.ams:alicloud-android-third-push:3.0.5@aar' // AliThirdPush

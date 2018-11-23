@@ -27,7 +27,7 @@
 
                 <TextView
                     android:id="@+id/tvDateShow"
-                    style="@style/FontWhiteNormalBold"
+                    style="@style/FontWhiteBigBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -128,8 +128,7 @@
                     android:layout_alignBottom="@id/cvPush"
                     android:layout_toStartOf="@+id/cvPush"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    tools:background="@color/black_trans_25">
+                    android:orientation="vertical">
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarLeft"
@@ -175,8 +174,7 @@
                     android:layout_alignBottom="@id/cvPush"
                     android:layout_toEndOf="@+id/cvPush"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    tools:background="@color/black_trans_25">
+                    android:orientation="vertical">
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarRight"
