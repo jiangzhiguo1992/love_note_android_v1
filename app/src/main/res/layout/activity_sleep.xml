@@ -22,72 +22,119 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary">
+
+                <TextView
+                    android:id="@+id/tvDateShow"
+                    style="@style/FontWhiteNormalBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    tools:text="2018年 11月22号"/>
+
+                <TextView
+                    android:id="@+id/tvBackCur"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/back_current"/>
+            </RelativeLayout>
+
+            <com.haibin.calendarview.CalendarView
+                android:id="@+id/cvSleep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_gradient_primary_back"
+                app:current_day_lunar_text_color="?attr/colorPrimary"
+                app:current_day_text_color="?attr/colorPrimary"
+                app:current_month_lunar_text_color="@color/white_trans_75"
+                app:current_month_text_color="@color/white"
+                app:day_text_size="@dimen/font_big"
+                app:lunar_text_size="9sp"
+                app:month_view_show_mode="mode_all"
+                app:other_month_lunar_text_color="?attr/colorAccent"
+                app:other_month_text_color="@color/white_trans_75"
+                app:scheme_lunar_text_color="@color/white_trans_75"
+                app:scheme_text_color="?attr/colorPrimaryDark"
+                app:select_mode="default_mode"
+                app:selected_lunar_text_color="@color/white_trans_75"
+                app:selected_text_color="@color/white"
+                app:selected_theme_color="?attr/colorPrimary"
+                app:week_background="@color/trans_00"
+                app:week_start_with="sun"
+                app:week_text_color="@color/white"
+                app:week_text_size="@dimen/font_small"
+                app:week_view_scrollable="true"
+                app:year_view_background="@color/white"
+                app:year_view_day_text_color="?attr/colorAccent"
+                app:year_view_day_text_size="9sp"
+                app:year_view_month_text_color="?attr/colorPrimary"
+                app:year_view_month_text_size="@dimen/font_normal"
+                app:year_view_scheme_color="?attr/colorPrimaryDark"
+                app:year_view_scrollable="true"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_weight="1">
 
-                <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-                    android:id="@+id/mcvSleep"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvLeft"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/llRv"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/shape_gradient_primary_back"
-                    android:padding="10dp"/>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toStartOf="@+id/viewCenter"
+                    tools:listitem="@layout/list_item_sleep"/>
 
-                <LinearLayout
-                    android:id="@+id/llRv"
+                <View
+                    android:id="@+id/viewCenter"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvRight"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rvLeft"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:visibility="invisible"
-                        tools:listitem="@layout/list_item_sleep"
-                        tools:visibility="visible"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rvRight"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:visibility="invisible"
-                        tools:listitem="@layout/list_item_sleep"
-                        tools:visibility="visible"/>
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/viewCenter"
+                    tools:listitem="@layout/list_item_sleep"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
                 android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignTop="@id/cvPush"
+                    android:layout_alignBottom="@id/cvPush"
                     android:layout_toStartOf="@+id/cvPush"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="5dp"
                     tools:background="@color/black_trans_25">
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarLeft"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginBottom="10dp"
                         tools:background="@mipmap/ic_boy_circle"/>
 
@@ -101,14 +148,14 @@
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cvPush"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerInParent="true"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
                     app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardCornerRadius="50dp"
+                    app:cardCornerRadius="40dp"
                     app:cardElevation="@dimen/elevation_big"
                     app:cardMaxElevation="@dimen/elevation_huge">
 
@@ -124,16 +171,17 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignTop="@id/cvPush"
+                    android:layout_alignBottom="@id/cvPush"
                     android:layout_toEndOf="@+id/cvPush"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="5dp"
                     tools:background="@color/black_trans_25">
 
                     <com.jiangzg.lovenote.view.FrescoAvatarView
                         android:id="@+id/ivAvatarRight"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginBottom="10dp"
                         tools:background="@mipmap/ic_girl_circle"/>
 

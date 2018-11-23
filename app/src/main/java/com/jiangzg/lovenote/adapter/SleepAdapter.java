@@ -4,6 +4,8 @@ import android.app.Activity;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.common.ConstantUtils;
+import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.domain.Sleep;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -25,9 +27,10 @@ public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Sleep item) {
-        String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String time = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getCreateAt()), ConstantUtils.FORMAT_H_M);
         String format = item.isSleep() ? mActivity.getString(R.string.holder_colon_sleep) : mActivity.getString(R.string.holder_colon_wake);
         String show = String.format(Locale.getDefault(), format, time);
+        // view
         helper.setText(R.id.tvTime, show);
     }
 

@@ -160,7 +160,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new MensesAdapter())
+                .initAdapter(new MensesAdapter(mActivity))
                 .setAdapter();
     }
 

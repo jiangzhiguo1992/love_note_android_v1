@@ -3,16 +3,19 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.haibin.calendarview.CalendarView;
+import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
@@ -28,18 +31,16 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.view.CalendarView;
+import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
-import com.prolificinteractive.materialcalendarview.OnMonthChangedListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,8 +52,12 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     Toolbar tb;
     @BindView(R.id.srl)
     GSwipeRefreshLayout srl;
-    @BindView(R.id.mcvSleep)
-    MaterialCalendarView mcvSleep;
+    @BindView(R.id.tvDateShow)
+    TextView tvDateShow;
+    @BindView(R.id.tvBackCur)
+    TextView tvBackCur;
+    @BindView(R.id.cvSleep)
+    CalendarView cvSleep;
     @BindView(R.id.rvLeft)
     RecyclerView rvLeft;
     @BindView(R.id.rvRight)
@@ -78,9 +83,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
-    private int clickYear, clickMonth, clickDay;
-    private CalendarView.ClickDecorator clickDecorator;
-    private CalendarView.SelectedDecorator selectedDecorator;
+    private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SleepActivity.class);
@@ -105,22 +108,71 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.sleep), true);
         srl.setEnabled(false);
+        // calendar样式替换
+        cvSleep.setWeekView(WeekView.class);
+        cvSleep.setMonthView(CalendarMonthView.class);
+        cvSleep.update();
+        // calendar监听
+        cvSleep.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
+            @Override
+            public void onYearChange(int year) {
+                if (selectYear == year) return;
+                selectYear = year;
+                selectMonth = -1;
+                selectDay = -1;
+                refreshTopDateShow();
+            }
+        });
+        cvSleep.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
+            @Override
+            public void onCalendarOutOfRange(com.haibin.calendarview.Calendar calendar) {
+            }
+
+            @Override
+            public void onCalendarSelect(com.haibin.calendarview.Calendar calendar, boolean isClick) {
+                if (selectYear == calendar.getYear() && selectMonth == calendar.getMonth()) {
+                    // 只是选择的同月day
+                    selectDay = calendar.getDay();
+                    refreshTopDateShow();
+                    refreshDayView();
+                    return;
+                }
+                selectYear = calendar.getYear();
+                selectMonth = calendar.getMonth();
+                selectDay = calendar.getDay();
+                refreshTopDateShow();
+                refreshMonthData();
+                refreshDayView();
+            }
+        });
+        // recycler
+        recyclerRight = new RecyclerHelper(rvRight)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new SleepAdapter(mActivity))
+                .setAdapter();
+        recyclerLeft = new RecyclerHelper(rvLeft)
+                .initLayoutManager(new LinearLayoutManager(mActivity))
+                .initAdapter(new SleepAdapter(mActivity))
+                .setAdapter();
         // avatar
         User me = SPHelper.getMe();
         String myAvatar = me.getMyAvatarInCp();
         String taAvatarInCp = me.getTaAvatarInCp();
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatarInCp);
-        // calendar
-        initCalendarView();
-        // latest
-        refreshSleepLatestView();
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // 设置当前日期
+        refreshDateToCurrent();
+        // 显示当前数据
+        refreshMonthView();
+        refreshDayView();
+        refreshLatestView();
+        // 开始获取数据
         getLatestData();
-        getSleepMonthData();
+        refreshMonthData();
     }
 
     @Override
@@ -132,103 +184,74 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         RecyclerHelper.release(recyclerRight);
     }
 
-    @OnClick(R.id.cvPush)
+    @Override
+    public void onBackPressed() {
+        if (cvSleep != null && cvSleep.isYearSelectLayoutVisible()) {
+            cvSleep.closeYearSelectLayout();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @OnClick({R.id.tvDateShow, R.id.tvBackCur, R.id.cvPush})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tvDateShow: // 日期显示
+                yearShow();
+                break;
+            case R.id.tvBackCur: // 回到当前
+                dateBack();
+                break;
             case R.id.cvPush: // 发布
                 sleepPush();
                 break;
         }
     }
 
-    private void initCalendarView() {
+    private void refreshDateToCurrent() {
         Calendar calendar = DateUtils.getCurrentCalendar();
-        clickYear = calendar.get(Calendar.YEAR);
-        clickMonth = calendar.get(Calendar.MONTH) + 1;
-        clickDay = -1;
-        CalendarView.initMonthView(mActivity, mcvSleep, calendar);
-        // 设置滑动选择改变月份事件
-        mcvSleep.setOnMonthChangedListener(new OnMonthChangedListener() {
-            @Override
-            public void onMonthChanged(MaterialCalendarView widget, CalendarDay date) {
-                mcvSleep.clearSelection();
-                // data
-                clickYear = date.getYear();
-                clickMonth = date.getMonth() + 1;
-                getSleepMonthData();
-            }
-        });
-        // 设置点击选择日期改变事件
-        mcvSleep.setOnDateChangedListener(new OnDateSelectedListener() {
-            @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                mcvSleep.clearSelection();
-                // data
-                Calendar calendar = date.getCalendar();
-                clickYear = calendar.get(Calendar.YEAR);
-                clickMonth = calendar.get(Calendar.MONTH) + 1;
-                clickDay = calendar.get(Calendar.DAY_OF_MONTH);
-                // calendar
-                if (clickDecorator == null) {
-                    clickDecorator = new CalendarView.ClickDecorator(mActivity, calendar);
-                    mcvSleep.addDecorator(clickDecorator);
-                } else {
-                    clickDecorator.setClick(calendar);
-                    mcvSleep.invalidateDecorators();
-                }
-                // view
-                refreshDayView();
-            }
-        });
-        // view
-        refreshMonthView();
-        refreshDayView();
+        selectYear = calendar.get(Calendar.YEAR);
+        selectMonth = calendar.get(Calendar.MONTH) + 1;
+        selectDay = calendar.get(Calendar.DAY_OF_MONTH);
+        cvSleep.scrollToCurrent(true);
+        // 顶部显示
+        refreshTopDateShow();
     }
 
     private void refreshMonthView() {
-        if (mcvSleep == null) return;
+        if (cvSleep == null) return;
         // data
-        List<Calendar> selectList = new ArrayList<>();
+        SparseIntArray countArray = new SparseIntArray();
+        Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (sleepList != null && sleepList.size() > 0) {
-            for (Sleep s : sleepList) {
-                if (s == null) continue;
-                Calendar calendar = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(s.getCreateAt()));
-                selectList.add(calendar);
+            for (Sleep sleep : sleepList) {
+                if (sleep == null) continue;
+                com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(sleep.getYear(), sleep.getMonthOfYear(), sleep.getDayOfMonth());
+                int day = calendar.getDay();
+                int count = countArray.get(day);
+                if (count <= 0) {
+                    count = 1;
+                    countArray.put(day, count);
+                } else {
+                    countArray.put(day, ++count);
+                }
+                calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
+                calendar.setScheme(String.valueOf(count));
+                schemeMap.put(calendar.toString(), calendar);
             }
         }
         // calendar
-        if (selectedDecorator == null) {
-            selectedDecorator = new CalendarView.SelectedDecorator(mActivity, selectList);
-            mcvSleep.addDecorator(selectedDecorator);
-        } else {
-            selectedDecorator.setSelectedList(selectList);
-            mcvSleep.invalidateDecorators();
-        }
+        cvSleep.clearSchemeDate();
+        cvSleep.setSchemeDate(schemeMap);
     }
 
     private void refreshDayView() {
-        rvRight.setVisibility(View.INVISIBLE);
-        rvLeft.setVisibility(View.INVISIBLE);
-        // recycler
-        if (recyclerRight == null) {
-            recyclerRight = new RecyclerHelper(rvRight)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new SleepAdapter(mActivity))
-                    .setAdapter();
-        }
-        if (recyclerLeft == null) {
-            recyclerLeft = new RecyclerHelper(rvLeft)
-                    .initLayoutManager(new LinearLayoutManager(mActivity))
-                    .initAdapter(new SleepAdapter(mActivity))
-                    .setAdapter();
-        }
-        // view
         List<Sleep> selectLeftList = new ArrayList<>();
         List<Sleep> selectRightList = new ArrayList<>();
         if (sleepList != null && sleepList.size() > 0) {
             for (Sleep s : sleepList) {
                 if (s == null) continue;
-                if (s.getDayOfMonth() == clickDay) {
+                if (s.getDayOfMonth() == selectDay) {
                     if (s.isMine()) { // 我的
                         selectRightList.add(s);
                     } else { // TA的
@@ -237,17 +260,39 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 }
             }
         }
-        if (selectRightList.size() > 0) {
-            rvRight.setVisibility(View.VISIBLE);
-            recyclerRight.dataNew(selectRightList, 0);
-        }
-        if (selectLeftList.size() > 0) {
-            rvLeft.setVisibility(View.VISIBLE);
-            recyclerLeft.dataNew(selectLeftList, 0);
+        recyclerRight.dataNew(selectRightList, 0);
+        recyclerLeft.dataNew(selectLeftList, 0);
+    }
+
+    private void yearShow() {
+        if (cvSleep == null) return;
+        if (!cvSleep.isYearSelectLayoutVisible()) {
+            cvSleep.showYearSelectLayout(selectYear);
+        } else {
+            cvSleep.closeYearSelectLayout();
         }
     }
 
-    private void refreshSleepLatestView() {
+    private void dateBack() {
+        refreshDateToCurrent();
+        refreshMonthData();
+    }
+
+    private void refreshTopDateShow() {
+        String show = "";
+        if (selectYear > 0) {
+            String year = String.valueOf(selectYear);
+            String month = String.valueOf(selectMonth);
+            if (selectMonth >= 0) {
+                show = String.format(Locale.getDefault(), getString(R.string.holder_space_line_space_holder), year, month);
+            } else {
+                show = year;
+            }
+        }
+        tvDateShow.setText(show);
+    }
+
+    private void refreshLatestView() {
         String sleepBtnShow = getString(R.string.good_night);
         String sleepShowMe = getString(R.string.now_no);
         if (sleepMe != null && sleepMe.getId() > 0) {
@@ -289,7 +334,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 sleepMe = data.getSleepMe();
                 sleepTa = data.getSleepTa();
                 // view
-                refreshSleepLatestView();
+                refreshLatestView();
             }
 
             @Override
@@ -299,16 +344,15 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         });
     }
 
-    private void getSleepMonthData() {
+    private void refreshMonthData() {
         if (!srl.isRefreshing()) {
             srl.setRefreshing(true);
         }
         // clear (data + view)
-        clickDay = -1;
         sleepList = null;
         refreshDayView();
         // call
-        callListGet = new RetrofitHelper().call(API.class).noteSleepListGetByDate(clickYear, clickMonth);
+        callListGet = new RetrofitHelper().call(API.class).noteSleepListGetByDate(selectYear, selectMonth);
         RetrofitHelper.enqueue(callListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
@@ -336,9 +380,9 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 sleepMe = data.getSleep();
                 // view
-                refreshSleepLatestView();
+                refreshLatestView();
                 // data
-                getSleepMonthData();
+                refreshMonthData();
             }
 
             @Override

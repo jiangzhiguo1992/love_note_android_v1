@@ -131,7 +131,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new ShyAdapter())
+                .initAdapter(new ShyAdapter(mActivity))
                 .setAdapter();
     }
 

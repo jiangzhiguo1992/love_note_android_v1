@@ -1,5 +1,7 @@
 package com.jiangzg.lovenote.adapter;
 
+import android.app.Activity;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
@@ -17,16 +19,17 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
  */
 public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
 
+    private Activity mActivity;
     private final Couple couple;
 
-    public ShyAdapter() {
+    public ShyAdapter(Activity activity) {
         super(R.layout.list_item_shy);
+        mActivity = activity;
         couple = SPHelper.getCouple();
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Shy item) {
-        // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
         String happenAt = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getHappenAt()), ConstantUtils.FORMAT_H_M);
         // view
