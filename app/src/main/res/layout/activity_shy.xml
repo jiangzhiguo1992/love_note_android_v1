@@ -54,16 +54,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_gradient_primary_back"
-                app:current_day_lunar_text_color="?attr/colorPrimaryDark"
-                app:current_day_text_color="?attr/colorPrimaryDark"
+                app:current_day_lunar_text_color="?attr/colorPrimary"
+                app:current_day_text_color="?attr/colorPrimary"
                 app:current_month_lunar_text_color="@color/white_trans_75"
                 app:current_month_text_color="@color/white"
                 app:day_text_size="@dimen/font_big"
                 app:lunar_text_size="9sp"
                 app:month_view_show_mode="mode_all"
-                app:other_month_lunar_text_color="@color/white_trans_50"
+                app:other_month_lunar_text_color="?attr/colorAccent"
                 app:other_month_text_color="@color/white_trans_75"
-                app:select_mode="single_mode"
+                app:scheme_lunar_text_color="@color/white_trans_75"
+                app:scheme_text_color="?attr/colorPrimaryDark"
+                app:select_mode="default_mode"
                 app:selected_lunar_text_color="@color/white_trans_75"
                 app:selected_text_color="@color/white"
                 app:selected_theme_color="?attr/colorPrimary"
@@ -80,17 +82,18 @@
                 app:year_view_scheme_color="?attr/colorPrimaryDark"
                 app:year_view_scrollable="true"/>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="10dp"
-                android:gravity="center_vertical"
+                android:gravity="bottom"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/cvPush"
+                    android:layout_alignBottom="@id/cvPush"
+                    android:layout_toStartOf="@id/cvPush"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -110,34 +113,28 @@
                         tools:listitem="@layout/list_item_shy"/>
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvPush"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardBackgroundColor="?attr/colorPrimary"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="@dimen/elevation_big"
+                    app:cardMaxElevation="@dimen/elevation_huge">
 
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/cvPush"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
-                        android:background="?attr/selectableItemBackground"
-                        android:foreground="?attr/selectableItemBackground"
-                        app:cardBackgroundColor="?attr/colorPrimary"
-                        app:cardCornerRadius="40dp"
-                        app:cardElevation="@dimen/elevation_big"
-                        app:cardMaxElevation="@dimen/elevation_huge">
-
-                        <TextView
-                            style="@style/FontWhiteHuge"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="@string/add"/>
-                    </android.support.v7.widget.CardView>
-                </RelativeLayout>
-            </LinearLayout>
+                    <TextView
+                        style="@style/FontWhiteHuge"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/add"/>
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
         </LinearLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
 </LinearLayout>

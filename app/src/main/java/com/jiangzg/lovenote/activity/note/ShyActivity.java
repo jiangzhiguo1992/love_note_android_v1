@@ -95,7 +95,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         cvShy.setWeekView(WeekView.class);
         cvShy.setMonthView(CalendarMonthView.class);
         cvShy.update();
-        // calendar年份监听
+        // calendar监听
         cvShy.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
             @Override
             public void onYearChange(int year) {
@@ -106,7 +106,6 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
                 refreshTopDateShow();
             }
         });
-        // calendar选择监听
         cvShy.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
             public void onCalendarOutOfRange(com.haibin.calendarview.Calendar calendar) {

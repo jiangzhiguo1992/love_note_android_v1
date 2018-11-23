@@ -130,7 +130,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         cvMenses.setWeekView(WeekView.class);
         cvMenses.setMonthView(CalendarMonthView.class);
         cvMenses.update();
-        // calendar年份监听
+        // calendar监听
         cvMenses.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
             @Override
             public void onYearChange(int year) {
@@ -140,7 +140,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 refreshTopDateShow();
             }
         });
-        // calendar选择监听
         cvMenses.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
             public void onCalendarOutOfRange(com.haibin.calendarview.Calendar calendar) {
@@ -231,11 +230,13 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         // data
         Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (mensesList != null && mensesList.size() > 0) {
+            String come = getString(R.string.come);
+            String gone = getString(R.string.gone);
             for (Menses menses : mensesList) {
                 if (menses == null) continue;
                 com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(menses.getYear(), menses.getMonthOfYear(), menses.getDayOfMonth());
                 calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
-                calendar.setScheme(menses.isStart() ? "来" : "走");
+                calendar.setScheme(menses.isStart() ? come : gone);
                 schemeMap.put(calendar.toString(), calendar);
             }
         }
