@@ -25,11 +25,10 @@ public class TravelPlaceAdapter extends BaseQuickAdapter<TravelPlace, BaseViewHo
     @Override
     protected void convert(BaseViewHolder helper, TravelPlace item) {
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
-        String address = item.getAddress();
+        String address = StringUtils.isEmpty(item.getAddress()) ? mActivity.getString(R.string.now_no_address_info) : item.getAddress();
         String content = item.getContentText();
         // view
         helper.setText(R.id.tvHappenAt, happen);
-        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
         helper.setText(R.id.tvAddress, address);
         helper.setText(R.id.tvContent, content);
     }
