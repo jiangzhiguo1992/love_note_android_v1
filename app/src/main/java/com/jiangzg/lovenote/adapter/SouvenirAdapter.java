@@ -30,8 +30,8 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
         super(R.layout.list_item_souvenir);
         mFragment = fragment;
         this.done = done;
-        formatGone = mFragment.getString(R.string.already_gone_holder_day);
-        formatHave = mFragment.getString(R.string.just_have_holder_day);
+        formatGone = mFragment.getString(R.string.add_holder);
+        formatHave = mFragment.getString(R.string.sub_holder);
     }
 
     @Override

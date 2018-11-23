@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginBottom="4dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/trans_00"
+    app:cardCornerRadius="@dimen/radius_normal"
+    app:cardElevation="@dimen/elevation_small"
+    app:cardMaxElevation="@dimen/elevation_normal">
 
-    <TextView
-        android:id="@+id/tvTime"
-        style="@style/FontWhiteNormal"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:gravity="center"
-        tools:text="2018-5-4"
-        tools:textColor="@color/theme_pink_primary"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="6dp"
+        tools:background="@color/theme_pink_dark">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/root"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:background="?attr/selectableItemBackground"
-        android:foreground="?attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/trans_00"
-        app:cardCornerRadius="@dimen/radius_normal"
-        app:cardElevation="@dimen/elevation_small"
-        app:cardMaxElevation="@dimen/elevation_normal">
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/FontWhiteNormal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            tools:text="2018-5-4"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            tools:background="@color/theme_pink_dark">
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/rlWeatherLeft"
@@ -81,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvConditionLeft"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     tools:text="19~19℃"/>
 
                 <TextView
@@ -159,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvConditionRight"
-                    android:textSize="30sp"
+                    android:textSize="25sp"
                     tools:text="19~19℃"/>
 
                 <TextView
@@ -171,5 +169,5 @@
                     tools:text="3级 东南风"/>
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-</LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

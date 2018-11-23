@@ -519,6 +519,8 @@
     <string name="holder_anniversary" formatted="false">%d周年</string>
     <string name="already_gone_holder_day" formatted="false">已过 %d 天</string>
     <string name="just_have_holder_day" formatted="false">还剩 %d 天</string>
+    <string name="add_holder" formatted="false">+%d</string>
+    <string name="sub_holder" formatted="false">-%d</string>
     <string name="come">来</string>
     <string name="gone">走</string>
     <string name="back_current">回到当前</string>
