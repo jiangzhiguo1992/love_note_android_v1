@@ -52,9 +52,9 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
     TextView tvContent;
 
     private Dream dream;
+    private Observable<Dream> obDetailRefresh;
     private Call<Result> callGet;
     private Call<Result> callDel;
-    private Observable<Dream> obDetailRefresh;
 
     public static void goActivity(Activity from, Dream dream) {
         Intent intent = new Intent(from, DreamDetailActivity.class);

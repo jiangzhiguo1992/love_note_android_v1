@@ -1,16 +1,29 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.app.Activity;
+import android.support.annotation.NonNull;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.domain.Result;
+import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Sleep;
+import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 
 import java.util.Locale;
+
+import retrofit2.Call;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -18,9 +31,9 @@ import java.util.Locale;
  */
 public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
 
-    private Activity mActivity;
+    private BaseActivity mActivity;
 
-    public SleepAdapter(Activity activity) {
+    public SleepAdapter(BaseActivity activity) {
         super(R.layout.list_item_sleep);
         mActivity = activity;
     }
@@ -32,6 +45,46 @@ public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
         String show = String.format(Locale.getDefault(), format, time);
         // view
         helper.setText(R.id.tvTime, show);
+    }
+
+    public void showDeleteDialog(final int position) {
+        Sleep item = getItem(position);
+        if (!item.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_sleep));
+            return;
+        }
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_del_this_sleep)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi(position);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi(int position) {
+        final Sleep item = getItem(position);
+        Call<Result> call = new RetrofitHelper().call(API.class).noteSleepDel(item.getId());
+        MaterialDialog loading = mActivity.getLoading(true);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                // event
+                RxEvent<Sleep> event = new RxEvent<>(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, item);
+                RxBus.post(event);
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
     }
 
 }

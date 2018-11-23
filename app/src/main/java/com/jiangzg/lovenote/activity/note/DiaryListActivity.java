@@ -57,12 +57,12 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
-    private int searchIndex;
     private Observable<List<Diary>> obListRefresh;
     private Observable<Diary> obListItemRefresh;
     private Observable<Diary> obListItemDelete;
+    private Call<Result> call;
+    private int page;
+    private int searchIndex;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DiaryListActivity.class);

@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.component.ActivityTrans;
@@ -26,8 +28,11 @@ import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Sleep;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.ConsHelper;
+import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
@@ -45,6 +50,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class SleepActivity extends BaseActivity<SleepActivity> {
 
@@ -77,9 +84,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     private Sleep sleepMe;
     private Sleep sleepTa;
+    private List<Sleep> sleepList;
     private RecyclerHelper recyclerLeft;
     private RecyclerHelper recyclerRight;
-    private List<Sleep> sleepList;
+    private Observable<Sleep> obListItemDelete;
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
@@ -149,11 +157,25 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         recyclerRight = new RecyclerHelper(rvRight)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new SleepAdapter(mActivity))
-                .setAdapter();
+                .setAdapter()
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        SleepAdapter sleepAdapter = (SleepAdapter) adapter;
+                        sleepAdapter.showDeleteDialog(position);
+                    }
+                });
         recyclerLeft = new RecyclerHelper(rvLeft)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new SleepAdapter(mActivity))
-                .setAdapter();
+                .setAdapter()
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        SleepAdapter sleepAdapter = (SleepAdapter) adapter;
+                        sleepAdapter.showDeleteDialog(position);
+                    }
+                });
         // avatar
         User me = SPHelper.getMe();
         String myAvatar = me.getMyAvatarInCp();
@@ -164,6 +186,20 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // event
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, new Action1<Sleep>() {
+            @Override
+            public void call(Sleep sleep) {
+                if (recyclerLeft != null) {
+                    ListHelper.removeObjInAdapter(recyclerLeft.getAdapter(), sleep);
+                }
+                if (recyclerRight != null) {
+                    ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
+                }
+                getLatestData();
+                refreshMonthData();
+            }
+        });
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
@@ -182,6 +218,7 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerLeft);
         RecyclerHelper.release(recyclerRight);
+        RxBus.unregister(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override

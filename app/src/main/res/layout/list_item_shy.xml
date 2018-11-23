@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="2dp"
     android:layout_marginBottom="2dp"
+    android:background="?attr/selectableItemBackground"
+    android:foreground="?attr/selectableItemBackground"
     android:gravity="center"
     android:orientation="horizontal">
 

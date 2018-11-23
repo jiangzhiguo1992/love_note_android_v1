@@ -132,10 +132,10 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     private Lock lock; // 默认没锁 + 没解开
     private Souvenir souvenirLatest;
-    private Call<Result> call;
     private Observable<Lock> obLockRefresh;
     private Runnable souvenirCountDownTask;
     private String souvenirCountDownFormat;
+    private Call<Result> call;
 
     public static NoteFragment newFragment() {
         Bundle bundle = new Bundle();

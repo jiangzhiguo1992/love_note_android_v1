@@ -6,6 +6,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
@@ -50,7 +51,10 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
 
     public void showDeleteDialog(final int position) {
         Word item = getItem(position);
-        if (!item.isMine()) return;
+        if (!item.isMine()) {
+            ToastUtils.show(mActivity.getString(R.string.can_operation_self_create_word));
+            return;
+        }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)

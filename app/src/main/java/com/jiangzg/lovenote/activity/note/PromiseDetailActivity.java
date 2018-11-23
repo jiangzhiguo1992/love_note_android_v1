@@ -88,11 +88,11 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     private Promise promise;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorBreak;
+    private Observable<Promise> obDetailRefresh;
     private Call<Result> callGet;
     private Call<Result> callDel;
     private Call<Result> callBreakAdd;
     private Call<Result> callBreakListGet;
-    private Observable<Promise> obDetailRefresh;
     private int page;
     private int limitBreakContentLength;
     private long breakHappen;

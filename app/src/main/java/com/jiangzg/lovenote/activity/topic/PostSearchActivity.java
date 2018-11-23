@@ -57,11 +57,11 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     private PostKindInfo kindInfo;
     private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
+    private Observable<Post> obListItemRefresh;
+    private Observable<Post> obListItemDelete;
     private Call<Result> call;
     private int page;
     private long create;
-    private Observable<Post> obListItemRefresh;
-    private Observable<Post> obListItemDelete;
 
     public static void goActivity(Activity from, PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
         Intent intent = new Intent(from, PostSearchActivity.class);

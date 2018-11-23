@@ -60,12 +60,12 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
-    private int searchIndex;
     private Observable<List<Dream>> obListRefresh;
     private Observable<Dream> obListItemRefresh;
     private Observable<Dream> obListItemDelete;
+    private Call<Result> call;
+    private int page;
+    private int searchIndex;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, DreamListActivity.class);

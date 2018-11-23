@@ -137,8 +137,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
 
     private Vip vip;
     private VipLimit vipYesLimit, vipNoLimit;
-    private Call<Result> callGet;
     private Observable<Vip> obRefresh;
+    private Call<Result> callGet;
 
     public static void goActivity(Fragment from) {
         if (Couple.isBreak(SPHelper.getCouple())) {

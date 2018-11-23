@@ -117,15 +117,15 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     @BindView(R.id.tvWeatherRight)
     GMarqueeText tvWeatherRight;
 
-    private Call<Result> callHomeGet;
-    private Call<Result> callPlaceGet;
-    private Runnable coupleCountDownTask;
-    private Observable<WallPaper> obWallPaperRefresh;
-    private Observable<Couple> obCoupleRefresh;
     private Place myPlace;
     private Place taPlace;
     private WeatherToday myWeatherToday;
     private WeatherToday taWeatherToday;
+    private Observable<WallPaper> obWallPaperRefresh;
+    private Observable<Couple> obCoupleRefresh;
+    private Runnable coupleCountDownTask;
+    private Call<Result> callHomeGet;
+    private Call<Result> callPlaceGet;
 
     public static CoupleFragment newFragment() {
         Bundle bundle = new Bundle();

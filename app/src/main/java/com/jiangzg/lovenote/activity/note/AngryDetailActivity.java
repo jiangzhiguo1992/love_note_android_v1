@@ -76,12 +76,12 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     private Angry angry;
     private RecyclerHelper recyclerPromise;
     private RecyclerHelper recyclerGift;
-    private Call<Result> callGet;
-    private Call<Result> callDel;
     private Observable<Gift> obGiftSelect;
     private Observable<Promise> obPromiseSelect;
     private Observable<Promise> obPromiseListDelete;
     private Observable<Promise> obPromiseListRefresh;
+    private Call<Result> callGet;
+    private Call<Result> callDel;
 
     public static void goActivity(Activity from, Angry angry) {
         Intent intent = new Intent(from, AngryDetailActivity.class);

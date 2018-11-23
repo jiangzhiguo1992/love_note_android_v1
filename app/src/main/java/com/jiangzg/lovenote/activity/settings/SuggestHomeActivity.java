@@ -63,10 +63,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int dp14;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
     private Observable<List<Suggest>> obListRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
+    private Call<Result> call;
     private int page;
     private int searchStatus;
     private int searchKind;

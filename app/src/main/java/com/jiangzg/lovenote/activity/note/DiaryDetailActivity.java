@@ -63,10 +63,10 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     TextView tvContent;
 
     private Diary diary;
+    private RecyclerHelper recyclerHelper;
+    private Observable<Diary> obDetailRefresh;
     private Call<Result> callGet;
     private Call<Result> callDel;
-    private Observable<Diary> obDetailRefresh;
-    private RecyclerHelper recyclerHelper;
 
     public static void goActivity(Activity from, Diary diary) {
         Intent intent = new Intent(from, DiaryDetailActivity.class);

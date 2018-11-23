@@ -56,12 +56,12 @@ public class AngryListActivity extends BaseActivity<AngryListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
-    private int searchIndex;
     private Observable<List<Angry>> obListRefresh;
     private Observable<Angry> obListItemRefresh;
     private Observable<Angry> obListItemDelete;
+    private Call<Result> call;
+    private int page;
+    private int searchIndex;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AngryListActivity.class);

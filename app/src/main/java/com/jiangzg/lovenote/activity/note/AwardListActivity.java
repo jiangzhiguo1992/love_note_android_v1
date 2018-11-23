@@ -67,12 +67,12 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
+    private Observable<List<Award>> obListRefresh;
+    private Observable<Award> obListItemDelete;
     private Call<Result> callList;
     private Call<Result> callScore;
     private int page;
     private int searchIndex;
-    private Observable<List<Award>> obListRefresh;
-    private Observable<Award> obListItemDelete;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, AwardListActivity.class);

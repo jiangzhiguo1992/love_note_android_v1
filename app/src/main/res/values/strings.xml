@@ -413,7 +413,7 @@
     <string name="wish_list">愿望清单</string>
     <string name="menses">姨妈</string>
     <string name="shy">羞羞</string>
-    <string name="sleep">晚安</string>
+    <string name="sleep">睡眠</string>
     <string name="word">留言</string>
     <string name="whisper">耳语</string>
     <string name="diary">日记</string>
@@ -464,6 +464,9 @@
     <string name="please_input_remark">请输入评价吧</string>
     <string name="confirm_del_comment">确定要删除评论吗？</string>
     <string name="confirm_delete_this_souvenir">确定删除这个纪念日？</string>
+    <string name="confirm_del_this_shy">确定删除这个羞羞吗？</string>
+    <string name="confirm_del_the_day_menses">确定删除这天的姨妈吗？</string>
+    <string name="confirm_del_this_sleep">确定删除这个睡眠吗？</string>
     <string name="confirm_del_this_word">确定删除这个留言吗？</string>
     <string name="confirm_delete_this_diary">确定删除这个日记？</string>
     <string name="confirm_remove_this_diary">确定移除这个日记？</string>
@@ -490,21 +493,24 @@
     <string name="confirm_delete_this_award">确定删除这个奖励？</string>
     <string name="confirm_delete_this_rule">确定删除这个规则？</string>
     <string name="can_operation_self_create_souvenir">只能操作自己创建的纪念日哦</string>
-    <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
-    <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
-    <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
+    <string name="can_operation_self_create_shy">只能操作自己创建的羞羞哦</string>
+    <string name="can_operation_self_create_sleep">只能操作自己创建的睡眠哦</string>
     <string name="can_operation_self_create_audio">只能操作自己创建的音频哦</string>
     <string name="can_operation_self_create_video">只能操作自己创建的视频哦</string>
-    <string name="can_operation_self_create_food">只能操作自己创建的美食哦</string>
+    <string name="can_operation_self_create_album">只能操作自己创建的相册哦</string>
+    <string name="can_operation_self_create_picture">只能操作自己创建的照片哦</string>
+    <string name="can_operation_self_create_word">只能操作自己创建的留言哦</string>
+    <string name="can_operation_self_create_diary">只能操作自己创建的日记哦</string>
+    <string name="can_operation_self_create_award">只能操作自己创建的奖励哦</string>
+    <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
+    <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
     <string name="can_operation_self_create_movie">只能操作自己创建的电影哦</string>
+    <string name="can_operation_self_create_food">只能操作自己创建的美食哦</string>
     <string name="can_operation_self_create_travel">只能操作自己创建的游记哦</string>
+    <string name="can_operation_self_create_angry">只能操作自己创建的生气哦</string>
     <string name="can_operation_self_create_gift">只能操作自己创建的礼物哦</string>
     <string name="can_operation_self_create_promise">只能操作自己创建的承诺哦</string>
     <string name="can_operation_self_create_promise_break">只能操作自己创建的违反记录哦</string>
-    <string name="can_operation_self_create_angry">只能操作自己创建的生气哦</string>
-    <string name="can_operation_self_create_dream">只能操作自己创建的梦哦</string>
-    <string name="can_operation_self_create_award">只能操作自己创建的奖励哦</string>
-    <string name="can_operation_self_create_rule">只能操作自己创建的规则哦</string>
     <string name="save_draft">保存草稿</string>
     <string name="draft_save_success">草稿保存成功</string>
     <string name="open_lock">开锁</string>
@@ -530,7 +536,7 @@
     <string name="holder_colon_sleep" formatted="false">%s：入睡</string>
     <string name="holder_colon_wake" formatted="false">%s：醒来</string>
     <string name="good_night">晚安</string>
-    <string name="i_am_wake">我醒啦</string>
+    <string name="i_am_wake">醒啦</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>

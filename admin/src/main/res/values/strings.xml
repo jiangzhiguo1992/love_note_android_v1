@@ -505,7 +505,7 @@
     <string name="holder_colon_sleep" formatted="false">%s：入睡</string>
     <string name="holder_colon_wake" formatted="false">%s：醒来</string>
     <string name="good_night">晚安</string>
-    <string name="i_am_wake">我醒啦</string>
+    <string name="i_am_wake">醒啦</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
     <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>

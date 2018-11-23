@@ -39,10 +39,10 @@ public class PostCollectFragment extends BasePagerFragment<PostCollectFragment> 
 
     private boolean me;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
     private Observable<Post> obListItemRefresh;
     private Observable<Post> obListItemDelete;
+    private Call<Result> call;
+    private int page;
 
     public static PostCollectFragment newFragment(boolean me) {
         Bundle bundle = new Bundle();

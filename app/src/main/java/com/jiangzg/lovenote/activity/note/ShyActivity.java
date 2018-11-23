@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
 import com.jiangzg.base.component.ActivityTrans;
@@ -24,9 +26,12 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.Shy;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.CalendarMonthView;
@@ -42,6 +47,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
+import rx.Observable;
+import rx.functions.Action1;
 
 public class ShyActivity extends BaseActivity<ShyActivity> {
 
@@ -64,6 +71,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
 
     private List<Shy> shyList;
     private RecyclerHelper recyclerHelper;
+    private Observable<Shy> obListItemDelete;
     private Call<Result> callAdd;
     private Call<Result> callListGet;
     private int selectYear, selectMonth, selectDay;
@@ -132,11 +140,27 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
                 .initAdapter(new ShyAdapter(mActivity))
-                .setAdapter();
+                .setAdapter()
+                .listenerClick(new OnItemLongClickListener() {
+                    @Override
+                    public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                        ShyAdapter shyAdapter = (ShyAdapter) adapter;
+                        shyAdapter.showDeleteDialog(position);
+                    }
+                });
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
+        // event
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, new Action1<Shy>() {
+            @Override
+            public void call(Shy shy) {
+                if (recyclerHelper == null) return;
+                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
+                refreshMonthData();
+            }
+        });
         // 设置当前日期
         refreshDateToCurrent();
         // 显示当前数据
@@ -151,6 +175,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callListGet);
         RecyclerHelper.release(recyclerHelper);
+        RxBus.unregister(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, obListItemDelete);
     }
 
     @Override

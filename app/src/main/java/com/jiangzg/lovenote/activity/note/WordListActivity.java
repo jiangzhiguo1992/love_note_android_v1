@@ -62,9 +62,9 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     Button btnSend;
 
     private RecyclerHelper recyclerHelper;
+    private Observable<Word> obListItemDelete;
     private Call<Result> callGet;
     private Call<Result> callAdd;
-    private Observable<Word> obListItemDelete;
     private int limitContentLength;
     private int page;
 

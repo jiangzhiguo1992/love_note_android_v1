@@ -76,9 +76,9 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
     ViewPager vpFragment;
 
     private Souvenir souvenir;
+    private Observable<Souvenir> obDetailRefresh;
     private Call<Result> callGet;
     private Call<Result> callDel;
-    private Observable<Souvenir> obDetailRefresh;
 
     public static void goActivity(Fragment from, Souvenir souvenir) {
         Intent intent = new Intent(from.getActivity(), SouvenirDetailDoneActivity.class);

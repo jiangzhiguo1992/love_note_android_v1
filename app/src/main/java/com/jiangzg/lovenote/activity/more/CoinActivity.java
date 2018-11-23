@@ -60,9 +60,9 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
 
     private Coin coin;
     private RecyclerHelper recyclerHelper;
+    private Observable<Coin> obRefresh;
     private Call<Result> callGet;
     private Call<Result> callList;
-    private Observable<Coin> obRefresh;
     private int page;
 
     public static void goActivity(Fragment from) {

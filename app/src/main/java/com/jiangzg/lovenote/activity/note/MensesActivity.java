@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -13,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
@@ -28,6 +30,7 @@ import com.jiangzg.lovenote.domain.MensesInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
+import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -148,6 +151,20 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 refreshTopDateShow();
                 refreshMonthData();
                 refreshBottomView();
+            }
+        });
+        cvMenses.setOnCalendarLongClickListener(new CalendarView.OnCalendarLongClickListener() {
+            @Override
+            public void onCalendarLongClickOutOfRange(com.haibin.calendarview.Calendar calendar) {
+            }
+
+            @Override
+            public void onCalendarLongClick(com.haibin.calendarview.Calendar calendar) {
+                if (mensesInfo == null || !mensesInfo.isCanMe()) return;
+                int year = calendar.getYear();
+                int month = calendar.getMonth();
+                int day = calendar.getDay();
+                showDeleteDialog(year, month, day);
             }
         });
     }
@@ -401,6 +418,39 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 refreshMonthData();
                 // view
                 refreshBottomView();
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+            }
+        });
+    }
+
+    public void showDeleteDialog(final int year, final int month, final int day) {
+        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
+                .cancelable(true)
+                .canceledOnTouchOutside(true)
+                .content(R.string.confirm_del_the_day_menses)
+                .positiveText(R.string.confirm_no_wrong)
+                .negativeText(R.string.i_think_again)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        deleteApi(year, month, day);
+                    }
+                })
+                .build();
+        DialogHelper.showWithAnim(dialog);
+    }
+
+    private void deleteApi(int year, int month, int day) {
+        Call<Result> call = new RetrofitHelper().call(API.class).noteMensesDel(year, month, day);
+        MaterialDialog loading = mActivity.getLoading(true);
+        RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                getLatestData();
+                refreshMonthData();
             }
 
             @Override

@@ -44,10 +44,6 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private PostKindInfo kindInfo;
     private PostSubKindInfo subKindInfo;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private long create;
-    private boolean official, well;
-    private int page;
     private Observable<Boolean> obGoTop;
     private Observable<Boolean> obSearchNormal;
     private Observable<Boolean> obSearchOfficial;
@@ -55,6 +51,10 @@ public class PostListFragment extends BasePagerFragment<PostListFragment> {
     private Observable<Integer> obListRefresh;
     private Observable<Post> obListItemRefresh;
     private Observable<Post> obListItemDelete;
+    private Call<Result> call;
+    private long create;
+    private boolean official, well;
+    private int page;
 
     public static PostListFragment newFragment(PostKindInfo kindInfo, PostSubKindInfo subKindInfo) {
         Bundle bundle = new Bundle();

@@ -46,10 +46,10 @@ public class PostMineActivity extends BaseActivity<PostMineActivity> {
     RecyclerView rv;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
     private Observable<Post> obListItemRefresh;
     private Observable<Post> obListItemDelete;
+    private Call<Result> call;
+    private int page;
 
     public static void goActivity(Fragment from) {
         if (Couple.isBreak(SPHelper.getCouple())) {

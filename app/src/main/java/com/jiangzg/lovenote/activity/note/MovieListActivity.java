@@ -52,11 +52,11 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     FloatingActionButton fabAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
     private Observable<List<Movie>> obListRefresh;
     private Observable<Movie> obListItemRefresh;
     private Observable<Movie> obListItemDelete;
+    private Call<Result> call;
+    private int page;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, MovieListActivity.class);

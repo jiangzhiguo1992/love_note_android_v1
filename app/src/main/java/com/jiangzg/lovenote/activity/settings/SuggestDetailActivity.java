@@ -89,12 +89,12 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     private Suggest suggest;
     private RecyclerHelper recyclerHelper;
     private BottomSheetBehavior behaviorComment;
+    private Observable<Suggest> obDetailRefresh;
     private Call<Result> callGet;
     private Call<Result> callDel;
     private Call<Result> callCommentAdd;
     private Call<Result> callCommentListGet;
     private Call<Result> callFollow;
-    private Observable<Suggest> obDetailRefresh;
     private int page, limitCommentContentLength;
 
     public static void goActivity(Activity from, Suggest suggest) {

@@ -47,10 +47,10 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
     private int entry;
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
     private Observable<List<Suggest>> obListRefresh;
     private Observable<Suggest> obListItemDelete;
     private Observable<Suggest> obListItemRefresh;
+    private Call<Result> call;
     private int page;
 
     public static void goActivity(Activity from, int entry) {

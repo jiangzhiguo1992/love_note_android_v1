@@ -82,8 +82,8 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     ImageView ivPlay;
 
     private Video video;
-    private Call<Result> callAdd;
     private Observable<LocationInfo> obSelectMap;
+    private Call<Result> callAdd;
     private File thumbFile;
     private File videoFile;
 

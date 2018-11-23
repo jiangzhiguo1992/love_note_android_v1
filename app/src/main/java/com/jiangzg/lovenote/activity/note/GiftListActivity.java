@@ -58,12 +58,12 @@ public class GiftListActivity extends BaseActivity<GiftListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
-    private int searchIndex;
     private Observable<List<Gift>> obListRefresh;
     private Observable<Gift> obListItemRefresh;
     private Observable<Gift> obListItemDelete;
+    private Call<Result> call;
+    private int page;
+    private int searchIndex;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, GiftListActivity.class);

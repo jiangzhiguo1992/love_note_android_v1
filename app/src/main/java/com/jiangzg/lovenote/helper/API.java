@@ -268,6 +268,10 @@ public interface API {
     @POST("note/menses")
     Call<Result> noteMensesAdd(@Body Menses menses);
 
+    // menses删除
+    @DELETE("note/menses")
+    Call<Result> noteMensesDel(@Query("year") int year, @Query("month") int month, @Query("day") int day);
+
     // shyList获取
     @GET("note/shy?date=1")
     Call<Result> noteShyListGetByDate(@Query("year") int year, @Query("month") int month);
@@ -275,6 +279,10 @@ public interface API {
     // shy上传
     @POST("note/shy")
     Call<Result> noteShyAdd(@Body Shy shy);
+
+    // shy删除
+    @DELETE("note/shy")
+    Call<Result> noteShyDel(@Query("sid") long sid);
 
     // sleepList获取
     @GET("note/sleep?date=1")
@@ -287,6 +295,10 @@ public interface API {
     // sleep上传
     @POST("note/sleep")
     Call<Result> noteSleepAdd(@Body Sleep sleep);
+
+    // sleep删除
+    @DELETE("note/sleep")
+    Call<Result> noteSleepDel(@Query("sid") long sid);
 
     // word获取
     @GET("note/word?list=1")

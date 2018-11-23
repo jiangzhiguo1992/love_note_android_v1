@@ -60,12 +60,12 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     LinearLayout llAdd;
 
     private RecyclerHelper recyclerHelper;
-    private Call<Result> call;
-    private int page;
-    private int searchIndex;
     private Observable<List<Promise>> obListRefresh;
     private Observable<Promise> obListItemRefresh;
     private Observable<Promise> obListItemDelete;
+    private Call<Result> call;
+    private int page;
+    private int searchIndex;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, PromiseListActivity.class);
