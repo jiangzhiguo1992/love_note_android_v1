@@ -672,7 +672,7 @@
     <!-- help -->
     <string name="help_home_d">《帮助文档》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧</string>
     <string name="help_home_c1_q">这是一个什么样的app？</string>
-    <string name="help_home_c1_a">一款专注于情侣的生活记录和恋爱分享app，没有商城！没有商城！没有游戏！没有游戏！</string>
+    <string name="help_home_c1_a">鱼笙是一款专为情侣们打造的记录与分享的app，旨在帮助情侣们可以更好的记录和分享生活中的点点滴滴。作为一款情侣软件，我们更专业，所有能找到的记录内容，我们这里都有。作为一款情侣软件，我们更时尚，简约的界面设计，流畅的用户体验，让你用起来爱不释手。</string>
     <string name="help_home_c2_q">我没有配对，可以玩这个app吗？</string>
     <string name="help_home_c2_a" formatted="false">没有配对的话，大半功能会受到限制，毕竟这款app是量身为情侣们打造的。\n比如说《%s》和《%s》模块，只有在本app配对之后，才能正常使用，但是像《%s》和《%s》之类的分享模块，是可以正常浏览的。</string>
     <string name="help_couple_home_d">这是一个记录双方信息的模块，包括但不限于头像、昵称、地理位置、天气信息。</string>

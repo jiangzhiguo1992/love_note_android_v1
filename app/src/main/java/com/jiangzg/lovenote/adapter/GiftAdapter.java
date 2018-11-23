@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by JZG on 2018/3/13.
@@ -30,31 +29,25 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
 
     private FragmentActivity mActivity;
     private final Couple couple;
-    private final String formatSend;
 
     public GiftAdapter(FragmentActivity activity) {
         super(R.layout.list_item_gift);
         mActivity = activity;
         couple = SPHelper.getCouple();
-        formatSend = mActivity.getString(R.string.on_space_holder_space_send_to);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, Gift item) {
-        String avatarLeft = Couple.getAvatar(couple, Couple.getTaId(couple, item.getReceiveId()));
         String avatarRight = Couple.getAvatar(couple, item.getReceiveId());
         String title = item.getTitle();
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), formatSend, happen);
         List<String> imageList = item.getContentImageList();
         // view
-        FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
-        FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+        FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         RecyclerView rv = helper.getView(R.id.rv);
-        ivAvatarLeft.setData(avatarLeft);
-        ivAvatarRight.setData(avatarRight);
+        ivAvatar.setData(avatarRight);
         helper.setText(R.id.tvTitle, title);
-        helper.setText(R.id.tvHappenAt, happenShow);
+        helper.setText(R.id.tvHappenAt, happen);
         if (imageList != null && imageList.size() > 0) {
             rv.setVisibility(View.VISIBLE);
             new RecyclerHelper(rv)
