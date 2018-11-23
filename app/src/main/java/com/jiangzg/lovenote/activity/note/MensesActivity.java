@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioButton;
@@ -24,14 +22,12 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.time.TimeUnit;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.adapter.MensesAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Menses;
 import com.jiangzg.lovenote.domain.MensesInfo;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.API;
-import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
@@ -75,15 +71,12 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
     CardView cvPush;
     @BindView(R.id.tvPush)
     TextView tvPush;
-    @BindView(R.id.rv)
-    RecyclerView rv;
 
     private boolean isMine;
     private MensesInfo mensesInfo;
     private Menses mensesMe;
     private Menses mensesTa;
     private List<Menses> mensesList;
-    private RecyclerHelper recyclerHelper;
     private Call<Result> callAdd;
     private Call<Result> callGet;
     private Call<Result> callListGet;
@@ -157,11 +150,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 refreshBottomView();
             }
         });
-        // recycler
-        recyclerHelper = new RecyclerHelper(rv)
-                .initLayoutManager(new LinearLayoutManager(mActivity))
-                .initAdapter(new MensesAdapter(mActivity))
-                .setAdapter();
     }
 
     @Override
@@ -181,7 +169,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         RetrofitHelper.cancel(callAdd);
         RetrofitHelper.cancel(callGet);
         RetrofitHelper.cancel(callListGet);
-        RecyclerHelper.release(recyclerHelper);
     }
 
     @Override
@@ -243,8 +230,6 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         // calendar
         cvMenses.clearSchemeDate();
         cvMenses.setSchemeDate(schemeMap);
-        // recycler
-        recyclerHelper.dataNew(mensesList, 0);
     }
 
     private void yearShow() {

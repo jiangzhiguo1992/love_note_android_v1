@@ -87,7 +87,16 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tvMonth"
+                    style="@style/FontPrimaryHugeBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    tools:text="本月共3次"/>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,28 +104,18 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvMonth"
-                        style="@style/FontPrimaryBigBold"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        tools:text="本月共3次"/>
+                    android:layout_weight="1">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
                         tools:listitem="@layout/list_item_shy"/>
-                </LinearLayout>
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"

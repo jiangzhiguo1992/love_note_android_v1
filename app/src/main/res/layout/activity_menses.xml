@@ -154,35 +154,35 @@
                         android:textColor="@color/selector_text_check_primary_white"/>
                 </RadioGroup>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvPush"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="10dp"
-                    android:background="?attr/selectableItemBackground"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:visibility="gone"
-                    app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardCornerRadius="40dp"
-                    app:cardElevation="@dimen/elevation_big"
-                    app:cardMaxElevation="@dimen/elevation_huge"
-                    tools:visibility="visible">
-
-                    <TextView
-                        android:id="@+id/tvPush"
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        tools:text="姨妈来了"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv"
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:listitem="@layout/list_item_menses"/>
+                    android:gravity="center">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvPush"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_margin="10dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="?attr/colorPrimary"
+                        app:cardCornerRadius="40dp"
+                        app:cardElevation="@dimen/elevation_big"
+                        app:cardMaxElevation="@dimen/elevation_huge"
+                        tools:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/tvPush"
+                            style="@style/FontWhiteNormal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            tools:text="姨妈来了"/>
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </com.jiangzg.lovenote.view.GSwipeRefreshLayout>
