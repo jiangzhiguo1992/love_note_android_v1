@@ -97,7 +97,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
 
     @Override
     protected void initView(Intent intent, Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), false);
+        ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), true);
         ViewHelper.setLineBottom(tvProtocol);
         // loginType
         rgLoginType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

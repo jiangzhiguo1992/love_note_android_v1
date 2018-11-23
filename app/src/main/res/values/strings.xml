@@ -665,9 +665,9 @@
     <string name="splash_sub_title_3">分享恋爱是是非非</string>
     <string name="splash_sub_title_4">各种形式的秀恩爱</string>
     <string name="splash_content_1">不仅可以查看双方位置，更有历史位置信息！\n\n不仅可以查看双方天气，还能看天气预报哦！\n\n更有App启动图设置，让《鱼笙》成为你的私人订制！</string>
-    <string name="splash_content_2">丰富的记录功能，满足你们所有的要求。\n\n上到生活状态，下到多媒体，中到纪念日、约会、游记、留言、日记、礼物、电影、美食、生气、承诺、梦境，我们这统统都有！\n\n更有其他新颖功能，帮助大家记录爱、发现爱！</string>
+    <string name="splash_content_2">丰富的记录功能，满足你们所有的要求！\n\n上到生活状态，下到多媒体，中到纪念日、约会、游记、留言、日记、礼物、电影、美食、生气、承诺、梦境，我们这统统都有！\n\n更有其他新颖功能，帮助大家记录爱、发现爱！</string>
     <string name="splash_content_3">不管是搞笑的、悲伤的，什么事都可以在这里诉说！\n\n丰富的类别划分，满足你任何方面的吐槽！\n\n保密的区域隔离，让你随时随地说个不停！</string>
-    <string name="splash_content_4">独乐乐不如众乐乐，来这里和大家一起秀恩爱吧\n\n各种形式的比拼活动，让你在这里秀个不停！\n\n多种许愿活动，让所有人见证你的真心！</string>
+    <string name="splash_content_4">独乐乐不如众乐乐，来这里和大家一起秀恩爱吧！\n\n各种形式的比拼活动，让你在这里秀个不停！\n\n多种许愿活动，让所有人见证你的真心！</string>
 
     <!-- help -->
     <string name="help_home_d">《帮助文档》旨在让大家快速理解这个app，如有不明白的地方，就来这里找找答案吧</string>
