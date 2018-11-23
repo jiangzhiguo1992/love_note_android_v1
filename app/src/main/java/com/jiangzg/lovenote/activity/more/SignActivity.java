@@ -58,6 +58,8 @@ public class SignActivity extends BaseActivity<SignActivity> {
     TextView tvBackCur;
     @BindView(R.id.cvSign)
     CalendarView cvSign;
+    @BindView(R.id.tvContinue)
+    TextView tvContinue;
     @BindView(R.id.tvState)
     TextView tvState;
     @BindView(R.id.cvState)
@@ -212,13 +214,19 @@ public class SignActivity extends BaseActivity<SignActivity> {
     private void refreshMonthView() {
         if (cvSign == null) return;
         // data
+        User ta = SPHelper.getTa();
+        String meShow = mActivity.getString(R.string.me);
+        String heShow = mActivity.getString(R.string.he);
+        String sheShow = mActivity.getString(R.string.she);
+        String taShow = mActivity.getString(R.string.ta);
         int rightCount = 0, leftCount = 0;
         Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (signList != null && signList.size() > 0) {
             for (Sign sign : signList) {
                 if (sign == null) continue;
+                boolean mine = sign.isMine();
                 // count
-                if (sign.isMine()) {
+                if (mine) {
                     ++rightCount;
                 } else {
                     ++leftCount;
@@ -229,12 +237,13 @@ public class SignActivity extends BaseActivity<SignActivity> {
                         && sign.getMonthOfYear() == (c.get(Calendar.MONTH) + 1)
                         && sign.getDayOfMonth() == c.get(Calendar.DAY_OF_MONTH)) {
                     today = sign;
+                    tvContinue.setText(String.format(Locale.getDefault(), getString(R.string.continue_sign_holder_day), today.getContinueDay()));
                 }
                 // scheme
                 com.haibin.calendarview.Calendar calendar = CalendarMonthView.getCalendarView(sign.getYear(), sign.getMonthOfYear(), sign.getDayOfMonth());
-                int hour = c.get(Calendar.HOUR_OF_DAY);
+                String scheme = mine ? meShow : (ta == null ? taShow : (ta.getSex() == User.SEX_BOY ? heShow : sheShow));
                 calendar.setSchemeColor(ContextCompat.getColor(mActivity, ViewHelper.getColorDark(mActivity)));
-                calendar.setScheme(String.valueOf(hour));
+                calendar.setScheme(String.valueOf(scheme));
                 schemeMap.put(calendar.toString(), calendar);
             }
         }
@@ -334,6 +343,9 @@ public class SignActivity extends BaseActivity<SignActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 today = data.getSign();
+                if (today != null) {
+                    tvContinue.setText(String.format(Locale.getDefault(), getString(R.string.continue_sign_holder_day), today.getContinueDay()));
+                }
                 // view
                 refreshDayView();
                 // data

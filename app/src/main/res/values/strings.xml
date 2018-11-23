@@ -57,6 +57,9 @@
     <string name="symbol_add">+</string>
     <string name="symbol_sub">-</string>
     <string name="me">我</string>
+    <string name="he">他</string>
+    <string name="ta">ta</string>
+    <string name="she">她</string>
     <string name="year_space">年 </string>
     <string name="month_space">月 </string>
     <string name="girl">女</string>
@@ -634,6 +637,7 @@
     <string name="single_max_holder" formatted="false">单个最大%s</string>
     <string name="can_upload_holder" formatted="false">可上传%d个</string>
     <string name="every_can_upload_holder_paper" formatted="false">每个可上传%d张</string>
+    <string name="continue_sign_holder_day" formatted="false">连续签到%d天</string>
     <string name="get_space_holder_space_day_vip_on_space_holder_space_expire" formatted="false">获得了 %d 天的会员，于 %s 到期</string>
     <string name="to_month_sign_holder_count" formatted="false">本月签到%d次</string>
     <string name="go_in_award_colon_holder_coin" formatted="false">参与奖励：%d金币</string>
