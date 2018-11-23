@@ -158,11 +158,11 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             switch (channel) {
                 case "google": // 谷歌
                     break;
-                case "huawei": // 华为
-                    break;
                 case "oppo": // oppo
                     break;
                 case "vivo": // vivo
+                    break;
+                case "huawei": // 华为
                     break;
                 case "xiaomi": // 小米
                     break;

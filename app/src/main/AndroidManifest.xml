@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemeGrey"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <!-- uri转file 7.0兼容 -->
         <provider
@@ -44,14 +44,15 @@
         <service
             android:name=".service.UpdateService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            tools:ignore="ExportedService"/>
 
         <!-- oss -->
         <receiver
             android:name=".receiver.OssRefreshReceiver"
             android:enabled="true"
-            android:exported="true">
-        </receiver>
+            android:exported="true"
+            tools:ignore="ExportedReceiver"/>
 
         <!-- 高德地图 -->
         <meta-data
@@ -61,7 +62,8 @@
         <service
             android:name="com.amap.api.location.APSService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            tools:ignore="ExportedService"/>
 
         <!-- 阿里推送 -->
         <receiver
