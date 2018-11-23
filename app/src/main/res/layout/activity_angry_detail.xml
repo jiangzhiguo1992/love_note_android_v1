@@ -92,29 +92,20 @@
                         android:layout_weight="1"/>
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvGiftAdd"
+                <TextView
+                    android:id="@+id/tvGiftAdd"
+                    style="@style/FontGreySmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/did_award_some_gift"
                     android:visibility="gone"
-                    app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big"
-                    tools:visibility="visible">
-
-                    <TextView
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/did_award_some_gift"/>
-                </android.support.v7.widget.CardView>
+                    tools:visibility="visible"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvGift"
@@ -153,29 +144,20 @@
                         android:layout_weight="1"/>
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cvPromiseAdd"
+                <TextView
+                    android:id="@+id/tvPromiseAdd"
+                    style="@style/FontGreySmall"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:background="?attr/selectableItemBackground"
                     android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/did_do_some_promise"
                     android:visibility="gone"
-                    app:cardBackgroundColor="?attr/colorPrimary"
-                    app:cardCornerRadius="@dimen/radius_normal"
-                    app:cardElevation="@dimen/elevation_normal"
-                    app:cardMaxElevation="@dimen/elevation_big"
-                    tools:visibility="visible">
-
-                    <TextView
-                        style="@style/FontWhiteNormal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/did_do_some_promise"/>
-                </android.support.v7.widget.CardView>
+                    tools:visibility="visible"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvPromise"

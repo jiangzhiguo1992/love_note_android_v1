@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -64,12 +63,12 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     TextView tvHappenAt;
     @BindView(R.id.tvContent)
     TextView tvContent;
-    @BindView(R.id.cvGiftAdd)
-    CardView cvGiftAdd;
+    @BindView(R.id.tvGiftAdd)
+    TextView tvGiftAdd;
     @BindView(R.id.rvGift)
     RecyclerView rvGift;
-    @BindView(R.id.cvPromiseAdd)
-    CardView cvPromiseAdd;
+    @BindView(R.id.tvPromiseAdd)
+    TextView tvPromiseAdd;
     @BindView(R.id.rvPromise)
     RecyclerView rvPromise;
 
@@ -145,7 +144,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
                 if (recyclerPromise.getAdapter().getData().size() <= 0) {
                     // 删除承诺
-                    cvPromiseAdd.setVisibility(View.VISIBLE);
+                    tvPromiseAdd.setVisibility(View.VISIBLE);
                     rvPromise.setVisibility(View.GONE);
                 }
             }
@@ -186,13 +185,13 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.cvGiftAdd, R.id.cvPromiseAdd})
+    @OnClick({R.id.tvGiftAdd, R.id.tvPromiseAdd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.cvGiftAdd: // 添加礼物
+            case R.id.tvGiftAdd: // 添加礼物
                 GiftListActivity.goActivityBySelect(mActivity);
                 break;
-            case R.id.cvPromiseAdd: // 添加承诺
+            case R.id.tvPromiseAdd: // 添加承诺
                 PromiseListActivity.goActivityBySelect(mActivity);
                 break;
         }
@@ -234,11 +233,11 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         Gift gift = angry.getGift();
         if (gift == null || gift.getId() <= 0) {
             // 没有礼物
-            cvGiftAdd.setVisibility(View.VISIBLE);
+            tvGiftAdd.setVisibility(View.VISIBLE);
             rvGift.setVisibility(View.GONE);
         } else {
             // 有礼物
-            cvGiftAdd.setVisibility(View.GONE);
+            tvGiftAdd.setVisibility(View.GONE);
             rvGift.setVisibility(View.VISIBLE);
             // recycler
             List<Gift> giftList = new ArrayList<>();
@@ -261,11 +260,11 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
         Promise promise = angry.getPromise();
         if (promise == null || promise.getId() <= 0) {
             // 没有承诺
-            cvPromiseAdd.setVisibility(View.VISIBLE);
+            tvPromiseAdd.setVisibility(View.VISIBLE);
             rvPromise.setVisibility(View.GONE);
         } else {
             // 有承诺
-            cvPromiseAdd.setVisibility(View.GONE);
+            tvPromiseAdd.setVisibility(View.GONE);
             rvPromise.setVisibility(View.VISIBLE);
             // recycler
             List<Promise> promiseList = new ArrayList<>();
