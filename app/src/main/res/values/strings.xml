@@ -171,6 +171,7 @@
     <string name="master_this_is_my_bottom">主人，这已经是我的底线了！</string>
     <string name="master_no_hurry_quick_ok">主人莫急，马上就好…</string>
     <string name="online_can_entry">联网才可以进入哦</string>
+    <string name="please_input_search_address_remeber_get_province">请输入搜索地址，记得带上省份！</string>
     <string name="app_start_err_detail_please_ask_official_contact_method_qq">app启动发生异常状况，详情请咨询官方客服。联系方式 QQ:727918130</string>
 
     <!-- file -->
