@@ -34,6 +34,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="10dp"
                     android:gravity="center"
+                    android:textSize="30sp"
                     tools:text="在一起在一起在一起"/>
 
                 <TextView
@@ -58,7 +59,7 @@
 
                     <TextView
                         android:id="@+id/tvHappenAt"
-                        style="@style/FontBlackNormal"
+                        style="@style/FontBlackNormalBold"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -69,7 +70,7 @@
 
                     <TextView
                         android:id="@+id/tvDayCount"
-                        style="@style/FontBlackNormal"
+                        style="@style/FontBlackNormalBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tools:text="13650天"/>

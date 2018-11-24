@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -69,8 +68,8 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
     TextView tvDiary;
     @BindView(R.id.rvDiary)
     RecyclerView rvDiary;
-    @BindView(R.id.btnEdit)
-    Button btnEdit;
+    @BindView(R.id.tvEdit)
+    TextView tvEdit;
 
     private int year;
     private Souvenir souvenir;
@@ -100,9 +99,9 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
     protected void initView(@Nullable Bundle state) {
         // btn
         if (souvenir == null || !souvenir.isMine()) {
-            btnEdit.setVisibility(View.GONE);
+            tvEdit.setVisibility(View.GONE);
         } else {
-            btnEdit.setVisibility(View.VISIBLE);
+            tvEdit.setVisibility(View.VISIBLE);
         }
         // recycler
         refreshView();
@@ -123,10 +122,10 @@ public class SouvenirForeignFragment extends BasePagerFragment<SouvenirForeignFr
         RecyclerHelper.release(recyclerDiary);
     }
 
-    @OnClick({R.id.btnEdit})
+    @OnClick({R.id.tvEdit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnEdit:
+            case R.id.tvEdit: // 点我编辑
                 if (souvenir == null) return;
                 SouvenirEditForeignActivity.goActivity(mFragment, year, souvenir);
                 break;
