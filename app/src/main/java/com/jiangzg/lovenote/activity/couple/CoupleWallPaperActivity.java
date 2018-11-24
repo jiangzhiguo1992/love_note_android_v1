@@ -14,11 +14,7 @@ import android.view.View;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
@@ -31,7 +27,7 @@ import com.jiangzg.lovenote.domain.WallPaper;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
-import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -125,12 +121,12 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = IntentResult.getPictureFile(data);
-            if (FileUtils.isFileEmpty(pictureFile)) {
+            List<String> pathList = MediaPickHelper.getResultFilePathList(data);
+            if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
-            ossUploadWall(pictureFile);
+            ossUploadWall(pathList);
         }
     }
 
@@ -170,43 +166,28 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
             VipActivity.goActivity(mActivity);
             return;
         }
-        showImgSelect();
-    }
-
-    public void showImgSelect() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentFactory.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
+        MediaPickHelper.selectImage(mActivity, count - data.size());
     }
 
     // oss上传头像
-    private void ossUploadWall(File file) {
-        OssHelper.uploadWall(mActivity, file, new OssHelper.OssUploadCallBack() {
+    private void ossUploadWall(List<String> pathList) {
+        OssHelper.uploadWall(mActivity, pathList, new OssHelper.OssUploadsCallBack() {
             @Override
-            public void success(File source, String ossPath) {
-                apiPushData(ossPath);
+            public void success(List<File> sourceList, List<String> ossPathList) {
+                apiPushData(ossPathList);
             }
 
             @Override
-            public void failure(File source, String errMsg) {
+            public void failure(List<File> sourceList, String errMsg) {
             }
         });
     }
 
-    private void apiPushData(String ossPath) {
-        if (recyclerHelper == null) return;
+    private void apiPushData(List<String> ossPathList) {
+        if (recyclerHelper == null || recyclerHelper.getAdapter() == null) return;
         WallPaperAdapter adapter = recyclerHelper.getAdapter();
         List<String> objects = new ArrayList<>(adapter.getData());
-        objects.add(ossPath);
+        objects.addAll(ossPathList);
         WallPaper body = ApiHelper.getWallPaperUpdateBody(objects);
         callUpdate = new RetrofitHelper().call(API.class).coupleWallPaperUpdate(body);
         MaterialDialog loading = getLoading(getString(R.string.are_upload), true);

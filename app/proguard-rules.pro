@@ -33,6 +33,11 @@
 -keep class * implements com.google.gson.JsonSerializer
 -keep class * implements com.google.gson.JsonDeserializer
 
+# ---Retrofit
+-keepattributes Signature
+-keepclassmembernames,allowobfuscation interface * {@retrofit2.http.* <methods>;}
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
 # ---Fresco
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
 -keep,allowobfuscation @interface com.facebook.soloader.DoNotOptimize
@@ -57,10 +62,8 @@
 }
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
-# ---Retrofit
--keepattributes Signature
--keepclassmembernames,allowobfuscation interface * {@retrofit2.http.* <methods>;}
--dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+# ---Matisse
+-dontwarn com.squareup.picasso.**
 
 # ---BaseRecyclerViewAdapterHelper
 -keep class com.chad.library.adapter.** {*;}

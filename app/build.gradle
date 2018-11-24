@@ -189,6 +189,7 @@ dependencies { // 及时更新
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.haibin:calendarview:3.4.8'
     implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.zhihu.android:matisse:0.5.2-beta4'
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.14'
     // 三方

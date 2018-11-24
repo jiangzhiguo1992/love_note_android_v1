@@ -82,9 +82,21 @@ public class ListHelper {
         ArrayList<File> fileList = new ArrayList<>();
         if (pathList == null || pathList.size() <= 0) return fileList;
         for (String path : pathList) {
+            if (StringUtils.isEmpty(path)) continue;
             fileList.add(new File(path));
         }
         return fileList;
+    }
+
+    // 集合类型转换(file -> path)
+    public static ArrayList<String> getPathListByFile(List<File> fileList) {
+        ArrayList<String> pathList = new ArrayList<>();
+        if (fileList == null || fileList.size() <= 0) return pathList;
+        for (File file : fileList) {
+            if (file == null || StringUtils.isEmpty(file.getAbsolutePath())) continue;
+            pathList.add(file.getAbsolutePath());
+        }
+        return pathList;
     }
 
     // 集合类型转换(string -> uri)
