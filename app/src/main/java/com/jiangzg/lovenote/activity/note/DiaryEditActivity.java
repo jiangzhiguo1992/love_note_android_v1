@@ -14,11 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -30,6 +26,7 @@ import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -154,15 +151,15 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = IntentResult.getPictureFile(data);
-            if (pictureFile == null || FileUtils.isFileEmpty(pictureFile)) {
+            List<String> pathList = MediaPickHelper.getResultFilePathList(data);
+            if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             if (recyclerHelper == null) return;
             ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
             if (adapter == null) return;
-            adapter.addFileData(pictureFile.getAbsolutePath());
+            adapter.addFileDataList(pathList);
         }
     }
 
@@ -190,7 +187,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         return getIntent().getIntExtra("from", ConsHelper.ACT_EDIT_FROM_ADD) == ConsHelper.ACT_EDIT_FROM_UPDATE;
     }
 
-    private void setRecyclerShow(boolean show, int childCount) {
+    private void setRecyclerShow(boolean show, final int childCount) {
         if (diary == null) return;
         if (!show) {
             rv.setVisibility(View.GONE);
@@ -202,7 +199,8 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
             @Override
             public void onAdd() {
-                goPicture();
+                int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
+                MediaPickHelper.selectImage(mActivity, maxCount);
             }
         });
         if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
@@ -231,21 +229,6 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         if (diary == null) return;
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvHappenAt.setText(happen);
-    }
-
-    private void goPicture() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentFactory.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
     }
 
     private void onContentInput(String input) {

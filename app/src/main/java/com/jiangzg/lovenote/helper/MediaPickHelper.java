@@ -35,6 +35,38 @@ import java.util.List;
  */
 public class MediaPickHelper {
 
+    public static void selectImage(Activity activity, int maxCount) {
+        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
+            @Override
+            public void onPermissionGranted(int requestCode, String[] permissions) {
+                MediaPickHelper.selectImageWithOutPermission(activity, maxCount);
+            }
+
+            @Override
+            public void onPermissionDenied(int requestCode, String[] permissions) {
+                DialogHelper.showGoPermDialog(activity);
+            }
+        });
+    }
+
+    private static void selectImageWithOutPermission(Activity activity, int maxCount) {
+        if (activity == null) return;
+        Matisse.from(activity)
+                .choose(MimeType.ofImage(), false) // 文件类型
+                .showSingleMediaType(true) // 只显示选择类型
+                .spanCount(3) // 行列数(默认3)
+                .theme(R.style.Matisse_Dracula) // 样式(自带暗黑)
+                .countable(maxCount > 1) // 是否显示数字
+                .maxSelectable(maxCount) // 最大选择数
+                //.capture(true) //使用拍照功能
+                //.captureStrategy(new CaptureStrategy(true, FILE_PATH)) //是否拍照功能，并设置拍照后图片的保存路径
+                //.gridExpectedSize(activity.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) // 文件方向(默认值)
+                .thumbnailScale(0.75f) // 缩略图(0.75倍)
+                .imageEngine(new GlideEngine()) // 构造器(glide)
+                .forResult(ConsHelper.REQUEST_PICTURE); // 请求码
+    }
+
     public static File getResultFile(Intent data) {
         if (data == null) {
             LogUtils.w(MediaPickHelper.class, "getResultFile", "data == null");
@@ -94,38 +126,6 @@ public class MediaPickHelper {
         List<File> fileList = getResultFileList(data);
         if (fileList == null || fileList.size() <= 0) return new ArrayList<>();
         return ListHelper.getPathListByFile(fileList);
-    }
-
-    public static void selectImage(Activity activity, int maxCount) {
-        PermUtils.requestPermissions(activity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                MediaPickHelper.selectImageWithOutPermission(activity, maxCount);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(activity);
-            }
-        });
-    }
-
-    private static void selectImageWithOutPermission(Activity activity, int maxCount) {
-        if (activity == null) return;
-        Matisse.from(activity)
-                .choose(MimeType.ofImage(), false) // 文件类型
-                .showSingleMediaType(true) // 只显示选择类型
-                .spanCount(3) // 行列数(默认3)
-                .theme(R.style.Matisse_Dracula) // 样式(自带暗黑)
-                .countable(maxCount > 1) // 是否显示数字
-                .maxSelectable(maxCount) // 最大选择数
-                //.capture(true) //使用拍照功能
-                //.captureStrategy(new CaptureStrategy(true, FILE_PATH)) //是否拍照功能，并设置拍照后图片的保存路径
-                //.gridExpectedSize(activity.getResources().getDimensionPixelSize(R.dimen.grid_expected_size))
-                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) // 文件方向(默认值)
-                .thumbnailScale(0.75f) // 缩略图(0.75倍)
-                .imageEngine(new GlideEngine()) // 构造器(glide)
-                .forResult(ConsHelper.REQUEST_PICTURE); // 请求码
     }
 
     // glide构造器

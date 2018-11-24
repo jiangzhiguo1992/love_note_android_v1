@@ -163,6 +163,16 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         checkFoot();
     }
 
+    public void addFileDataList(List<String> filePathList) {
+        if (filePathList == null || filePathList.size() <= 0) return;
+        if (addShow) {
+            addShow = false;
+            this.remove(getData().size() - 1);
+        }
+        this.addData(filePathList);
+        checkFoot();
+    }
+
     private void removeData(int position) {
         List<String> data = this.getData();
         int size = data.size();

@@ -25,8 +25,6 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -44,6 +42,7 @@ import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
@@ -206,7 +205,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         }
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = IntentResult.getPictureFile(data);
+            File pictureFile = MediaPickHelper.getResultFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
@@ -240,7 +239,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivAvatarLeft: // 左头像
-                showAvatarSelect();
+                MediaPickHelper.selectImage(mActivity, 1);
                 break;
             case R.id.tvNameLeft: // 修改ta的昵称
                 showNameInput();
@@ -347,21 +346,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         FrescoAvatarView iv = left ? ivAvatarLeft : ivAvatarRight;
         if (iv == null) return;
         BigImageActivity.goActivityByOss(mActivity, ossPath, iv);
-    }
-
-    private void showAvatarSelect() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentFactory.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
     }
 
     // 修改名称对话框
