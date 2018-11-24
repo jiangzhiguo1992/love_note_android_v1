@@ -368,7 +368,7 @@ public class OssHelper {
                         ToastUtils.show(MyApp.get().getString(R.string.upload_fail_please_check_native_net));
                     }
                     LogUtils.e(OssHelper.class, "uploadFile", clientException);
-                    refreshOssClient();
+                    ApiHelper.ossInfoUpdate();
                 }
                 // 服务异常
                 if (serviceException != null) {
@@ -377,6 +377,7 @@ public class OssHelper {
                     }
                     LogUtils.e(OssHelper.class, "uploadFile", serviceException);
                     LogUtils.w(OssHelper.class, "uploadFile", "serviceException = " + serviceException.toString());
+                    ApiHelper.ossInfoUpdate();
                 }
                 // 回调
                 if (callBack != null) {

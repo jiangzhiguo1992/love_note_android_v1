@@ -359,6 +359,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     }
 
     private void refreshPlaceView() {
+        if (mActivity == null) return;
         String addressDef = getString(R.string.now_no_address_info);
         // myAddress
         String myAddress = (myPlace == null) ? "" : myPlace.getAddress();
@@ -374,12 +375,19 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         String distanceShow = CountHelper.getShowDistance(distance);
         String format = String.format(Locale.getDefault(), getString(R.string.distance_space_holder), distanceShow);
         // view
-        tvPlaceRight.setText(myAddress);
-        tvPlaceLeft.setText(taAddress);
-        tvDistance.setText(format);
+        if (tvPlaceRight != null) {
+            tvPlaceRight.setText(myAddress);
+        }
+        if (tvPlaceLeft != null) {
+            tvPlaceLeft.setText(taAddress);
+        }
+        if (tvDistance != null) {
+            tvDistance.setText(format);
+        }
     }
 
     private void refreshWeatherView() {
+        if (mActivity == null) return;
         int colorIcon = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
         String weatherDef = getString(R.string.now_no_weather_info);
         // myWeather
@@ -425,11 +433,17 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             diff = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), abs);
         }
         // view
-        tvWeatherRight.setText(myWeatherShow);
-        tvWeatherRight.setCompoundDrawables(myIcon, null, null, null);
-        tvWeatherLeft.setText(taWeatherShow);
-        tvWeatherLeft.setCompoundDrawables(taIcon, null, null, null);
-        tvWeatherDiffer.setText(diff);
+        if (tvWeatherRight != null) {
+            tvWeatherRight.setText(myWeatherShow);
+            tvWeatherRight.setCompoundDrawables(myIcon, null, null, null);
+        }
+        if (tvWeatherLeft != null) {
+            tvWeatherLeft.setText(taWeatherShow);
+            tvWeatherLeft.setCompoundDrawables(taIcon, null, null, null);
+        }
+        if (tvWeatherDiffer != null) {
+            tvWeatherDiffer.setText(diff);
+        }
     }
 
     // 分手倒计时
