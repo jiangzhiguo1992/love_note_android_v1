@@ -222,6 +222,10 @@ public class SignActivity extends BaseActivity<SignActivity> {
         int rightCount = 0, leftCount = 0;
         Map<String, com.haibin.calendarview.Calendar> schemeMap = new HashMap<>();
         if (signList != null && signList.size() > 0) {
+            Calendar c = DateUtils.getCurrentCalendar();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH) + 1;
+            int day = c.get(Calendar.DAY_OF_MONTH);
             for (Sign sign : signList) {
                 if (sign == null) continue;
                 boolean mine = sign.isMine();
@@ -232,10 +236,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
                     ++leftCount;
                 }
                 // today
-                Calendar c = DateUtils.getCalendar(TimeHelper.getJavaTimeByGo(sign.getCreateAt()));
-                if (today == null && sign.getYear() == c.get(Calendar.YEAR)
-                        && sign.getMonthOfYear() == (c.get(Calendar.MONTH) + 1)
-                        && sign.getDayOfMonth() == c.get(Calendar.DAY_OF_MONTH)) {
+                if (today == null && sign.getYear() == year && sign.getMonthOfYear() == month && sign.getDayOfMonth() == day) {
                     today = sign;
                     tvContinue.setText(String.format(Locale.getDefault(), getString(R.string.continue_sign_holder_day), today.getContinueDay()));
                 }
