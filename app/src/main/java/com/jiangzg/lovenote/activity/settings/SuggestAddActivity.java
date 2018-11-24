@@ -16,9 +16,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -33,6 +30,7 @@ import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
@@ -153,7 +151,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            pictureFile = IntentResult.getPictureFile(data);
+            pictureFile = MediaPickHelper.getResultFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 pictureFile = null;
@@ -185,25 +183,10 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     private void toggleImage() {
         if (FileUtils.isFileEmpty(pictureFile)) {
             pictureFile = null;
-            goPicture();
+            MediaPickHelper.selectImage(mActivity, 1);
         } else {
             cancelImage();
         }
-    }
-
-    private void goPicture() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentFactory.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
     }
 
     // 取消图片
