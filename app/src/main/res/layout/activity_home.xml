@@ -20,8 +20,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/layer_line_border_grey_in_white"
-        app:itemIconTint="@color/selector_text_select_icon_gray_primary"
-        app:itemTextColor="@color/selector_text_select_icon_gray_primary"
-        app:labelVisibilityMode="auto"
         app:menu="@menu/home_bottom_nav"/>
 </LinearLayout>

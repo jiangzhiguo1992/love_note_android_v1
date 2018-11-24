@@ -233,7 +233,6 @@ public class FrescoView extends SimpleDraweeView {
     }
 
     public void setData(String ossKey) {
-        if (StringUtils.isEmpty(ossKey)) return;
         this.setDataOss(ossKey);
     }
 
