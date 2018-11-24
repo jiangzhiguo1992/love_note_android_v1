@@ -150,9 +150,9 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_note), false);
+        ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_note), false);
         fitToolBar(tb);
-        souvenirCountDownFormat = getString(R.string.count_down_space_holder);
+        souvenirCountDownFormat = mActivity.getString(R.string.count_down_space_holder);
         // menu
         tb.inflateMenu(R.menu.help_lock);
         // srl
@@ -283,7 +283,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 TrendsListActivity.goActivity(mFragment);
                 break;
             case R.id.cvRecycle: // 回收箱
-                ToastUtils.show(getString(R.string.function_no_open_please_wait));
+                ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
         }
     }
@@ -352,7 +352,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             calHappen.set(Calendar.YEAR, yearHappen);
         }
         int yearBetween = yearHappen - yearOriginal;
-        String yearShow = String.format(Locale.getDefault(), getString(R.string.holder_anniversary), yearBetween);
+        String yearShow = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_anniversary), yearBetween);
         // view
         tvSouvenirYear.setText(yearShow);
         tvSouvenirTitle.setText(title);
@@ -423,7 +423,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         if (secShow.length() <= 1) {
             secShow = "0" + secShow;
         }
-        String timeShow = " " + dayShow + getString(R.string.dayT) + " " + hourShow + ":" + minShow + ":" + secShow;
+        String timeShow = " " + dayShow + mActivity.getString(R.string.dayT) + " " + hourShow + ":" + minShow + ":" + secShow;
         return String.format(Locale.getDefault(), souvenirCountDownFormat, timeShow);
     }
 

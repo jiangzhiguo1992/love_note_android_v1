@@ -273,7 +273,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             @Override
             public void onFailed(String errMsg) {
                 LogUtils.w(CoupleFragment.class, "startLocation", errMsg);
-                ToastUtils.show(String.format(Locale.getDefault(), getString(R.string.address_get_fail_reason_colon_holder), errMsg));
+                ToastUtils.show(String.format(Locale.getDefault(), mActivity.getString(R.string.address_get_fail_reason_colon_holder), errMsg));
             }
         });
     }
@@ -360,7 +360,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     private void refreshPlaceView() {
         if (mActivity == null) return;
-        String addressDef = getString(R.string.now_no_address_info);
+        String addressDef = mActivity.getString(R.string.now_no_address_info);
         // myAddress
         String myAddress = (myPlace == null) ? "" : myPlace.getAddress();
         myAddress = StringUtils.isEmpty(myAddress) ? addressDef : myAddress;
@@ -373,7 +373,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             distance = LocationHelper.distance(myPlace.getLongitude(), myPlace.getLatitude(), taPlace.getLongitude(), taPlace.getLatitude());
         }
         String distanceShow = CountHelper.getShowDistance(distance);
-        String format = String.format(Locale.getDefault(), getString(R.string.distance_space_holder), distanceShow);
+        String format = String.format(Locale.getDefault(), mActivity.getString(R.string.distance_space_holder), distanceShow);
         // view
         if (tvPlaceRight != null) {
             tvPlaceRight.setText(myAddress);
@@ -389,7 +389,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     private void refreshWeatherView() {
         if (mActivity == null) return;
         int colorIcon = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
-        String weatherDef = getString(R.string.now_no_weather_info);
+        String weatherDef = mActivity.getString(R.string.now_no_weather_info);
         // myWeather
         int myTemp = 520;
         String myWeatherShow = "";
@@ -427,10 +427,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         // diff
         String diff;
         if (myTemp == 520 || taTemp == 520) {
-            diff = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), "-℃");
+            diff = String.format(Locale.getDefault(), mActivity.getString(R.string.differ_space_holder), "-℃");
         } else {
             String abs = Math.abs((myTemp - taTemp)) + "℃";
-            diff = String.format(Locale.getDefault(), getString(R.string.differ_space_holder), abs);
+            diff = String.format(Locale.getDefault(), mActivity.getString(R.string.differ_space_holder), abs);
         }
         // view
         if (tvWeatherRight != null) {

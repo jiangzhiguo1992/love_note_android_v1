@@ -128,7 +128,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_more), false);
+        ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_more), false);
         fitToolBar(tb);
         // show
         ModelShow modelShow = SPHelper.getModelShow();
@@ -232,10 +232,10 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
                 }
                 break;
             case R.id.cvWish: // 许愿树
-                ToastUtils.show(getString(R.string.function_no_open_please_wait));
+                ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
             case R.id.cvPlane: // 纸飞机
-                ToastUtils.show(getString(R.string.function_no_open_please_wait));
+                ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
         }
     }
@@ -300,9 +300,9 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         // sign
         String signShow;
         if (sign == null) {
-            signShow = getString(R.string.no_sign);
+            signShow = mActivity.getString(R.string.no_sign);
         } else {
-            signShow = getString(R.string.yes_sign);
+            signShow = mActivity.getString(R.string.yes_sign);
         }
         tvSign.setText(signShow);
     }
@@ -311,19 +311,19 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         if (wifePeriod == null || wifePeriod.getId() <= 0) {
             tvWife.setText(R.string.now_no_activity);
         } else {
-            String show = String.format(Locale.getDefault(), getString(R.string.the_holder_period), wifePeriod.getPeriod());
+            String show = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), wifePeriod.getPeriod());
             tvWife.setText(show);
         }
         if (letterPeriod == null || letterPeriod.getId() <= 0) {
             tvLetter.setText(R.string.now_no_activity);
         } else {
-            String show = String.format(Locale.getDefault(), getString(R.string.the_holder_period), letterPeriod.getPeriod());
+            String show = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), letterPeriod.getPeriod());
             tvLetter.setText(show);
         }
         if (discussPeriod == null || discussPeriod.getId() <= 0) {
             tvDiscuss.setText(R.string.now_no_activity);
         } else {
-            String show = String.format(Locale.getDefault(), getString(R.string.the_holder_period), discussPeriod.getPeriod());
+            String show = String.format(Locale.getDefault(), mActivity.getString(R.string.the_holder_period), discussPeriod.getPeriod());
             tvDiscuss.setText(show);
         }
     }

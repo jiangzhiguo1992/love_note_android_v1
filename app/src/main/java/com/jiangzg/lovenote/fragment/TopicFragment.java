@@ -65,7 +65,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
 
     @Override
     protected void initView(@Nullable Bundle state) {
-        ViewHelper.initTopBar(mActivity, tb, getString(R.string.nav_topic), false);
+        ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_topic), false);
         fitToolBar(tb);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
