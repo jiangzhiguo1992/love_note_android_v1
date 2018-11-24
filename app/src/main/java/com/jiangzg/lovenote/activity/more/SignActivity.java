@@ -336,7 +336,6 @@ public class SignActivity extends BaseActivity<SignActivity> {
     }
 
     private void signPush() {
-        if (today != null) return;
         callAdd = new RetrofitHelper().call(API.class).moreSignAdd();
         MaterialDialog loading = mActivity.getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {

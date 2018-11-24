@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.note.SouvenirDetailDoneActivity;
@@ -49,13 +48,10 @@ public class SouvenirAdapter extends BaseQuickAdapter<Souvenir, BaseViewHolder> 
             format = formatHave;
         }
         String days = String.format(Locale.getDefault(), format, dayCount);
-        String address = item.getAddress();
         // view
         helper.setText(R.id.tvTitle, title);
         helper.setText(R.id.tvHappenAt, happen);
         helper.setText(R.id.tvDayCount, days);
-        helper.setVisible(R.id.tvAddress, !StringUtils.isEmpty(address));
-        helper.setText(R.id.tvAddress, address);
     }
 
     public void goSouvenirDetail(int position) {
