@@ -34,9 +34,12 @@
 -keep class * implements com.google.gson.JsonDeserializer
 
 # ---Retrofit
--keepattributes Signature
--keepclassmembernames,allowobfuscation interface * {@retrofit2.http.* <methods>;}
+-keepattributes Signature, InnerClasses, EnclosingMethod
+-keepclassmembers,allowshrinking,allowobfuscation interface * {@retrofit2.http.* <methods>;}
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+-dontwarn javax.annotation.**
+-dontwarn kotlin.Unit
+-dontwarn retrofit2.-KotlinExtensions
 
 # ---Fresco
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
@@ -60,7 +63,6 @@
   **[] $VALUES;
   public *;
 }
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 
 # ---Matisse
 -dontwarn com.squareup.picasso.**

@@ -1,17 +1,11 @@
 package com.jiangzg.lovenote.helper;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.request.RequestOptions;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.LogUtils;
@@ -22,7 +16,7 @@ import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.lovenote.R;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.ImageEngine;
+import com.zhihu.matisse.engine.impl.GlideEngine;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -126,66 +120,6 @@ public class MediaPickHelper {
         List<File> fileList = getResultFileList(data);
         if (fileList == null || fileList.size() <= 0) return new ArrayList<>();
         return ListHelper.getPathListByFile(fileList);
-    }
-
-    // glide构造器
-    public static class GlideEngine implements ImageEngine {
-
-        @Override
-        public void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .placeholder(placeholder)//这里可自己添加占位图
-                    .override(resize, resize);
-            Glide.with(context)
-                    .asBitmap()  // some .jpeg files are actually gif
-                    .load(uri)
-                    .apply(options)
-                    .into(imageView);
-        }
-
-        @Override
-        public void loadGifThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .placeholder(placeholder)//这里可自己添加占位图
-                    .override(resize, resize);
-            Glide.with(context)
-                    .asGif()  // some .jpeg files are actually gif
-                    .load(uri)
-                    .apply(options)
-                    .into(imageView);
-        }
-
-
-        @Override
-        public void loadImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri) {
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .override(resizeX, resizeY)
-                    .priority(Priority.HIGH);
-            Glide.with(context)
-                    .load(uri)
-                    .apply(options)
-                    .into(imageView);
-        }
-
-        @Override
-        public void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri) {
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .override(resizeX, resizeY);
-            Glide.with(context)
-                    .asGif()  // some .jpeg files are actually gif
-                    .load(uri)
-                    .apply(options)
-                    .into(imageView);
-        }
-
-        @Override
-        public boolean supportAnimatedGif() {
-            return true;
-        }
     }
 
 }
