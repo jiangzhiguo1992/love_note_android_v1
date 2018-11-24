@@ -17,13 +17,9 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
 import com.jiangzg.base.system.LocationInfo;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -36,6 +32,7 @@ import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -195,15 +192,15 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = IntentResult.getPictureFile(data);
-            if (pictureFile == null || FileUtils.isFileEmpty(pictureFile)) {
+            List<String> pathList = MediaPickHelper.getResultFilePathList(data);
+            if (pathList == null || pathList.size() <= 0) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
             }
             if (recyclerHelper == null) return;
             ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
             if (adapter == null) return;
-            adapter.addFileData(pictureFile.getAbsolutePath());
+            adapter.addFileDataList(pathList);
         }
     }
 
@@ -254,7 +251,8 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
             @Override
             public void onAdd() {
-                goPicture();
+                int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
+                MediaPickHelper.selectImage(mActivity, maxCount);
             }
         });
         if (food.getContentImageList() != null && food.getContentImageList().size() > 0) {
@@ -289,21 +287,6 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         if (food == null) return;
         String location = StringUtils.isEmpty(food.getAddress()) ? getString(R.string.now_no) : food.getAddress();
         tvAddress.setText(location);
-    }
-
-    private void goPicture() {
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentFactory.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
     }
 
     private void onContentInput(String input) {
