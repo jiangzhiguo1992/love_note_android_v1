@@ -181,8 +181,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE.length
-                                || which >= ApiHelper.LIST_TOPIC_SHOW.length) {
+                        if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE.length) {
                             return true;
                         }
                         searchIndex = which;

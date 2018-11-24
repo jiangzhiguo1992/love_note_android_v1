@@ -22,9 +22,6 @@ import com.chad.library.adapter.base.listener.OnItemLongClickListener;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.component.ActivityTrans;
-import com.jiangzg.base.component.IntentFactory;
-import com.jiangzg.base.component.IntentResult;
-import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
@@ -43,6 +40,7 @@ import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
+import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
@@ -194,7 +192,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
         if (resultCode != RESULT_OK) return;
         if (requestCode == ConsHelper.REQUEST_PICTURE) {
             // 相册
-            File pictureFile = IntentResult.getPictureFile(data);
+            File pictureFile = MediaPickHelper.getResultFile(data);
             if (FileUtils.isFileEmpty(pictureFile)) {
                 ToastUtils.show(getString(R.string.file_no_exits));
                 return;
@@ -309,8 +307,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length
-                                || which >= ApiHelper.LIST_MATCH_ORDER_SHOW.length) {
+                        if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length) {
                             return true;
                         }
                         orderIndex = which;
@@ -330,18 +327,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
             CouplePairActivity.goActivity(mActivity);
             return;
         }
-        PermUtils.requestPermissions(mActivity, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
-            @Override
-            public void onPermissionGranted(int requestCode, String[] permissions) {
-                Intent picture = IntentFactory.getPicture();
-                ActivityTrans.startResult(mActivity, picture, ConsHelper.REQUEST_PICTURE);
-            }
-
-            @Override
-            public void onPermissionDenied(int requestCode, String[] permissions) {
-                DialogHelper.showGoPermDialog(mActivity);
-            }
-        });
+        MediaPickHelper.selectImage(mActivity, 1);
     }
 
     // 上传

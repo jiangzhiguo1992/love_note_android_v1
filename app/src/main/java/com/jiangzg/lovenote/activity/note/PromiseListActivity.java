@@ -244,8 +244,7 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length
-                                || which >= ApiHelper.LIST_NOTE_SHOW.length) {
+                        if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
                             return true;
                         }
                         searchIndex = which;

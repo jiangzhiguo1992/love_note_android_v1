@@ -325,8 +325,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length
-                                || which >= ApiHelper.LIST_MATCH_ORDER_SHOW.length) {
+                        if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length) {
                             return true;
                         }
                         orderIndex = which;
