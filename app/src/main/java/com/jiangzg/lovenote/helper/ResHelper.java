@@ -65,6 +65,7 @@ public class ResHelper {
         for (String path : cacheFiles) {
             List<File> files = FileUtils.listFilesAndDirInDir(path, true);
             for (File cache : files) {
+                if (cache == null) continue;
                 size += cache.length();
             }
         }
@@ -208,7 +209,7 @@ public class ResHelper {
             return null;
         }
         String[] split = objectKey.split("/");
-        if (split.length < 1) {
+        if (split.length <= 0) {
             LogUtils.w(ResHelper.class, "newSdCardImageFile", "split == null");
             return null;
         }
