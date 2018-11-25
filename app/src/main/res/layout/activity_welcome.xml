@@ -34,12 +34,13 @@
 
     <ImageView
         android:id="@+id/ivShouFa"
-        android:layout_width="80dp"
-        android:layout_height="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:scaleType="fitCenter"
+        android:layout_marginBottom="5dp"
+        android:scaleType="center"
         android:visibility="gone"
-        tools:src="@mipmap/shoufa_360"
+        tools:src="@mipmap/shoufa_ali"
         tools:visibility="visible"/>
 </RelativeLayout>

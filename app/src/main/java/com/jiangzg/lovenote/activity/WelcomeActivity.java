@@ -156,29 +156,37 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
             String channel = appMetaData.getString("market_channel");
             if (StringUtils.isEmpty(channel)) return;
             switch (channel) {
-                case "google": // 谷歌
+                case "google": // 谷歌(不用！)
                     break;
                 case "oppo": // oppo
                     break;
                 case "vivo": // vivo
                     break;
                 case "huawei": // 华为
+                    ivShouFa.setVisibility(View.VISIBLE);
+                    ivShouFa.setImageResource(R.mipmap.shoufa_huawei);
                     break;
                 case "xiaomi": // 小米
+                    ivShouFa.setVisibility(View.VISIBLE);
+                    ivShouFa.setImageResource(R.mipmap.shoufa_xiaomi);
                     break;
                 case "tencent": // 应用宝
                     break;
-                case "samsung": // 三星
+                case "samsung": // 三星(不用！)
                     break;
                 case "meizu": // 魅族
+                    ivShouFa.setVisibility(View.VISIBLE);
+                    ivShouFa.setImageResource(R.mipmap.shoufa_meizu);
                     break;
                 case "qh360": // 360
-                    //ivShouFa.setVisibility(View.VISIBLE);
-                    //ivShouFa.setImageResource(R.mipmap.shoufa_360);
+                    ivShouFa.setVisibility(View.VISIBLE);
+                    ivShouFa.setImageResource(R.mipmap.shoufa_360);
                     break;
                 case "baidu": // 百度
                     break;
                 case "ali": // 阿里
+                    ivShouFa.setVisibility(View.VISIBLE);
+                    ivShouFa.setImageResource(R.mipmap.shoufa_ali);
                     break;
             }
         }
