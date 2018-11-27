@@ -129,12 +129,4 @@
                 tools:visibility="visible"/>
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/btnPush"
-        style="@style/FontWhiteBig"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/selector_press_solid_dark_accent"
-        android:text="@string/push"/>
 </LinearLayout>

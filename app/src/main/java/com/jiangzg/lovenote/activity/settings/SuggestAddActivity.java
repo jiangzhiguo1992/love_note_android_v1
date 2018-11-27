@@ -6,9 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -65,8 +66,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     TextView tvImageToggle;
     @BindView(R.id.ivImage)
     FrescoNativeView ivImage;
-    @BindView(R.id.btnPush)
-    Button btnPush;
 
     private int kind = 0;
     private File pictureFile;
@@ -146,6 +145,12 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.commit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) return;
@@ -165,7 +170,17 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         }
     }
 
-    @OnClick({R.id.tvKind, R.id.tvImageToggle, R.id.btnPush})
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuCommit: // 提交
+                checkPush();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.tvKind, R.id.tvImageToggle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvKind: // 选分类
@@ -173,9 +188,6 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 break;
             case R.id.tvImageToggle: // 操作照片
                 toggleImage();
-                break;
-            case R.id.btnPush: // 发布
-                checkPush();
                 break;
         }
     }
