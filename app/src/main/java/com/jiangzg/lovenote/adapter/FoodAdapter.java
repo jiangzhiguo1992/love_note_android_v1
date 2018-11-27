@@ -43,7 +43,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
         String avatar = Couple.getAvatar(couple, item.getUserId());
         String title = item.getTitle();
         String address = item.getAddress();
-        String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
+        String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         List<String> imageList = item.getContentImageList();
         String contentText = item.getContentText();
         // view

@@ -80,7 +80,7 @@
             android:layout_below="@+id/tvTitle"
             android:layout_alignParentStart="true"
             android:drawableStart="@drawable/ic_user_circle_15_grey"
-            android:drawablePadding="5dp"
+            android:drawablePadding="2dp"
             tools:text="创建者"/>
 
         <TextView
@@ -91,7 +91,7 @@
             android:layout_below="@+id/tvTitle"
             android:layout_alignParentEnd="true"
             android:drawableEnd="@drawable/ic_time_circle_15_grey"
-            android:drawablePadding="5dp"
+            android:drawablePadding="2dp"
             tools:text="2017年 12月21号"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

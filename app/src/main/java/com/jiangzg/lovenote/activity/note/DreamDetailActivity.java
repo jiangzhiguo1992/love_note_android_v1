@@ -163,8 +163,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         tvHappenAt.setText(happenAt);
         // author
         String authorName = user.getNameInCp(dream.getUserId());
-        String authorShow = String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), authorName);
-        tvCreator.setText(authorShow);
+        tvCreator.setText(authorName);
         // textCount
         String content = dream.getContentText();
         if (content == null) content = "";
