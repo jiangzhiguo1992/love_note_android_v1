@@ -31,6 +31,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.view.FrescoNativeView;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -68,8 +69,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         //RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tvOnline.getLayoutParams();
         //layoutParams.bottomMargin += height;
         //tvOnline.setLayoutParams(layoutParams);
-        // 首发，不要时注释掉
-        //initShouFa();
+        // 首发
+        initShouFa();
     }
 
     @Override
@@ -151,6 +152,16 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
     }
 
     private void initShouFa() {
+        ivShouFa.setVisibility(View.GONE);
+        Calendar now = DateUtils.getCurrentCalendar();
+        Calendar end = DateUtils.getCurrentCalendar();
+        end.set(Calendar.YEAR, MyApp.SHOUFA_END_YEAR);
+        end.set(Calendar.MONTH, MyApp.SHOUFA_END_MONTH - 1);
+        end.set(Calendar.DAY_OF_MONTH, MyApp.SHOUFA_END_DAY);
+        if (now.getTimeInMillis() > end.getTimeInMillis()) {
+            // 首发结束
+            return;
+        }
         Bundle appMetaData = AppUtils.getAppMetaData(MyApp.get());
         if (appMetaData != null) {
             String channel = appMetaData.getString("market_channel");
