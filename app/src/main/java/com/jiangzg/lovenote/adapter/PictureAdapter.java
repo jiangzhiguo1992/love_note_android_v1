@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -110,23 +110,19 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                     @Override
                     public void onGenerated(@NonNull Palette palette) {
                         int rgb = 0;
-                        if (palette != null) {
-                            Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                            if (vibrantSwatch != null) {
-                                rgb = vibrantSwatch.getRgb();
-                            } else {
-                                Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                                if (mutedSwatch != null) {
-                                    rgb = mutedSwatch.getRgb();
-                                }
+                        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                        if (vibrantSwatch != null) {
+                            rgb = vibrantSwatch.getRgb();
+                        } else {
+                            Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+                            if (mutedSwatch != null) {
+                                rgb = mutedSwatch.getRgb();
                             }
                         }
                         if (rgb != 0) {
-                            helper.setBackgroundColor(R.id.tvHappenAt, rgb);
-                            helper.setBackgroundColor(R.id.tvAddress, rgb);
+                            helper.setBackgroundColor(R.id.llBottom, rgb);
                         } else {
-                            helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
-                            helper.setBackgroundColor(R.id.tvAddress, colorPrimary);
+                            helper.setBackgroundColor(R.id.llBottom, colorPrimary);
                         }
                     }
                 });
@@ -134,8 +130,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
 
             @Override
             public void onBitmapFail(FrescoView iv) {
-                helper.setBackgroundColor(R.id.tvHappenAt, colorPrimary);
-                helper.setBackgroundColor(R.id.tvAddress, colorPrimary);
+                helper.setBackgroundColor(R.id.llBottom, colorPrimary);
             }
         });
         // 为瀑布流定制不一样的宽高(这里起始高度一定不能wrap，否则会一开始就都加在)
@@ -145,7 +140,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 float width = imageInfo.getWidth();
                 float height = imageInfo.getHeight();
                 int finalHeight = (int) (height / width * imageWidth);
-                FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) iv.getLayoutParams();
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) iv.getLayoutParams();
                 layoutParams.height = finalHeight;
                 iv.setLayoutParams(layoutParams);
             }

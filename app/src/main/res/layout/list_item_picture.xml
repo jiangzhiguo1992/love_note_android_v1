@@ -12,167 +12,182 @@
     app:cardMaxElevation="@dimen/elevation_big">
 
     <RelativeLayout
-        android:id="@+id/rlBg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:background="?attr/colorPrimary">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/flTop"
+        <!-- 初始值200dp，最小值50dp -->
+        <com.jiangzg.lovenote.view.FrescoView
+            android:id="@+id/ivPicture"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.jiangzg.lovenote.view.FrescoView
-                android:id="@+id/ivPicture"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                android:maxHeight="500dp"
-                android:minHeight="50dp"
-                app:actualImageScaleType="centerCrop"
-                tools:background="@mipmap/ic_launcher"/>
-
-            <LinearLayout
-                android:id="@+id/llOperateVertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    android:id="@+id/tvModifyVertical"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="#c88bc34a"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/modify"/>
-
-                <TextView
-                    android:id="@+id/tvDeleteVertical"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="#c8f44336"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/delete"/>
-
-                <TextView
-                    android:id="@+id/tvCancelVertical"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="#c89e9e9e"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/cancel"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llOperateHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:visibility="gone"
-                tools:visibility="visible">
-
-                <TextView
-                    android:id="@+id/tvModifyHorizontal"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#c88bc34a"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/modify"/>
-
-                <TextView
-                    android:id="@+id/tvDeleteHorizontal"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#c8f44336"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/delete"/>
-
-                <TextView
-                    android:id="@+id/tvCancelHorizontal"
-                    style="@style/FontWhiteNormalBold"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="#c89e9e9e"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="@string/cancel"/>
-            </LinearLayout>
-        </FrameLayout>
-
-        <TextView
-            android:id="@+id/tvHappenAt"
-            style="@style/FontWhiteNormal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/flTop"
-            android:drawableStart="@drawable/ic_time_circle_15_white"
-            android:drawablePadding="5dp"
-            android:gravity="center_vertical|start"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingTop="4dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="4dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            tools:text="2018-5-6"
-            tools:visibility="visible"/>
-
-        <TextView
-            android:id="@+id/tvAddress"
-            style="@style/FontWhiteSmall"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvHappenAt"
-            android:drawableStart="@drawable/ic_location_15_white"
-            android:drawablePadding="5dp"
+            android:layout_height="200dp"
+            android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
-            android:gravity="center_vertical|start"
-            android:maxLines="1"
-            android:paddingStart="10dp"
-            android:paddingTop="2dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="6dp"
-            android:singleLine="true"
-            android:visibility="gone"
-            tools:text="阳光大道阳光大道阳光大道阳光大道阳光大道"
-            tools:visibility="visible"/>
+            android:maxHeight="500dp"
+            android:minHeight="50dp"
+            app:actualImageScaleType="centerCrop"
+            tools:background="@mipmap/ic_launcher"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignTop="@id/ivPicture"
+            android:layout_alignBottom="@id/ivPicture"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/flTop"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/llOperateVertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tvModifyVertical"
+                        style="@style/FontWhiteNormalBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#c88bc34a"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/modify"/>
+
+                    <TextView
+                        android:id="@+id/tvDeleteVertical"
+                        style="@style/FontWhiteNormalBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#c8f44336"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/delete"/>
+
+                    <TextView
+                        android:id="@+id/tvCancelVertical"
+                        style="@style/FontWhiteNormalBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#c89e9e9e"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/cancel"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llOperateHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tvModifyHorizontal"
+                        style="@style/FontWhiteNormalBold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#c88bc34a"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/modify"/>
+
+                    <TextView
+                        android:id="@+id/tvDeleteHorizontal"
+                        style="@style/FontWhiteNormalBold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#c8f44336"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/delete"/>
+
+                    <TextView
+                        android:id="@+id/tvCancelHorizontal"
+                        style="@style/FontWhiteNormalBold"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#c89e9e9e"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="@string/cancel"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/llBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:background="?attr/colorPrimary">
+
+                <TextView
+                    android:id="@+id/tvHappenAt"
+                    style="@style/FontWhiteNormal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_time_circle_15_white"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical|start"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    tools:text="2018-5-6"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    style="@style/FontWhiteSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:drawableStart="@drawable/ic_location_15_white"
+                    android:drawablePadding="5dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical|start"
+                    android:maxLines="1"
+                    android:paddingStart="10dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="6dp"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    tools:text="阳光大道阳光大道阳光大道阳光大道阳光大道"
+                    tools:visibility="visible"/>
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
