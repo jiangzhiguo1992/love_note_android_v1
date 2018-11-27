@@ -68,10 +68,10 @@ android {
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "official"]
         }
         //---------------------第一梯队----------------------
-        google { // 谷歌
-            dimension "release"
-            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
-        }
+//        google { // 谷歌
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "google"]
+//        }
         oppo { // oppo
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "oppo"]
