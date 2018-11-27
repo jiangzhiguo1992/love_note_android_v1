@@ -7,96 +7,32 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/llLeft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.jiangzg.lovenote.view.FrescoAvatarView
+        android:id="@+id/ivAvatarLeft"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
         android:visibility="invisible"
-        tools:visibility="visible">
+        tools:background="@mipmap/ic_sex_boy_circle"
+        tools:visibility="visible"/>
 
-        <com.jiangzg.lovenote.view.FrescoAvatarView
-            android:id="@+id/ivAvatarLeft"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginBottom="5dp"
-            tools:background="@mipmap/ic_sex_boy_circle"/>
-
-        <TextView
-            android:id="@+id/tvDateLeft"
-            style="@style/FontWhiteSmallBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
-            tools:text="20-20"
-            tools:textColor="@color/black"
-            tools:visibility="visible"/>
-
-        <TextView
-            android:id="@+id/tvClockLeft"
-            style="@style/FontWhiteSmallBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
-            tools:text="20-20"
-            tools:textColor="@color/black"
-            tools:visibility="visible"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.jiangzg.lovenote.view.FrescoAvatarView
+        android:id="@+id/ivAvatarRight"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:orientation="vertical"
         android:visibility="invisible"
-        tools:visibility="visible">
-
-        <com.jiangzg.lovenote.view.FrescoAvatarView
-            android:id="@+id/ivAvatarRight"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginBottom="5dp"
-            tools:background="@mipmap/ic_sex_boy_circle"/>
-
-        <TextView
-            android:id="@+id/tvDateRight"
-            style="@style/FontWhiteSmallBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
-            tools:text="20-20"
-            tools:textColor="@color/black"
-            tools:visibility="visible"/>
-
-        <TextView
-            android:id="@+id/tvClockRight"
-            style="@style/FontWhiteSmallBold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:visibility="gone"
-            tools:text="20-20"
-            tools:textColor="@color/black"
-            tools:visibility="visible"/>
-    </LinearLayout>
+        tools:background="@mipmap/ic_sex_boy_circle"
+        tools:visibility="visible"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@+id/llRight"
-        android:layout_toEndOf="@id/llLeft"
+        android:layout_toStartOf="@+id/ivAvatarRight"
+        android:layout_toEndOf="@id/ivAvatarLeft"
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
@@ -180,22 +116,63 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="5dp"
-                android:background="?attr/colorControlNormal"/>
+                android:background="?attr/colorControlNormal"
+                tools:background="@color/black"/>
 
-            <TextView
-                android:id="@+id/tvDistance"
-                style="@style/FontWhiteSmallBold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_stroke_light_r3"
-                android:padding="3dp"
-                tools:text="相距100米"
-                tools:textColor="@color/black"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvTimeLeft"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_toStartOf="@+id/tvDistance"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    tools:text="1992-07-12 11:33"
+                    tools:textColor="@color/black"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/shape_stroke_light_r3"
+                    android:maxLines="1"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:singleLine="true"
+                    tools:text="相距100米"
+                    tools:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tvTimeRight"
+                    style="@style/FontWhiteSmallBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="10dp"
+                    android:layout_toEndOf="@+id/tvDistance"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:visibility="gone"
+                    tools:text="1992-07-12 11:33"
+                    tools:textColor="@color/black"
+                    tools:visibility="visible"/>
+            </RelativeLayout>
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="5dp"
-                android:background="?attr/colorControlNormal"/>
+                android:background="?attr/colorControlNormal"
+                tools:background="@color/black"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

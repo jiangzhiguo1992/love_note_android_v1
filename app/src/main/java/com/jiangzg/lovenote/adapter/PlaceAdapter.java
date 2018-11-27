@@ -2,14 +2,10 @@ package com.jiangzg.lovenote.adapter;
 
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
-import com.jiangzg.base.time.CalUtils;
-import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.MapShowActivity;
 import com.jiangzg.lovenote.domain.Couple;
@@ -48,41 +44,30 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
         // data
         boolean isMine = item.getUserId() == SPHelper.getMe().getId();
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        long createAt = TimeHelper.getJavaTimeByGo(item.getCreateAt());
-        boolean sameDay = CalUtils.isSameDay(DateUtils.getCalendar(createAt), DateUtils.getCurrentCalendar());
-        String date = DateUtils.getString(createAt, ConstantUtils.FORMAT_LINE_M_D);
-        String clock = DateUtils.getString(createAt, ConstantUtils.FORMAT_H_M);
+        String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();
         String province = StringUtils.isEmail(item.getProvince()) ? formatNo : item.getProvince();
         String city = StringUtils.isEmail(item.getCity()) ? formatNo : item.getCity();
         String district = StringUtils.isEmail(item.getDistrict()) ? formatNo : item.getDistrict();
         // view
-        LinearLayout llLeft = helper.getView(R.id.llLeft);
-        LinearLayout llRight = helper.getView(R.id.llRight);
+        FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
+        FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
         if (isMine) {
-            helper.setVisible(R.id.tvDateLeft, false);
-            helper.setVisible(R.id.tvClockLeft, false);
-            llLeft.setVisibility(View.INVISIBLE);
-            llRight.setVisibility(View.VISIBLE);
-            helper.setVisible(R.id.tvDateRight, !sameDay);
-            helper.setVisible(R.id.tvClockRight, true);
+            ivAvatarLeft.setVisibility(View.INVISIBLE);
+            ivAvatarRight.setVisibility(View.VISIBLE);
+            helper.setVisible(R.id.tvTimeLeft, false);
+            helper.setVisible(R.id.tvTimeRight, true);
             // set
-            FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);
             ivAvatarRight.setData(avatar);
-            helper.setText(R.id.tvDateRight, date);
-            helper.setText(R.id.tvClockRight, clock);
+            helper.setText(R.id.tvTimeRight, time);
         } else {
-            helper.setVisible(R.id.tvDateRight, false);
-            helper.setVisible(R.id.tvClockRight, false);
-            llRight.setVisibility(View.INVISIBLE);
-            llLeft.setVisibility(View.VISIBLE);
-            helper.setVisible(R.id.tvDateLeft, !sameDay);
-            helper.setVisible(R.id.tvClockLeft, true);
-            FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
+            ivAvatarLeft.setVisibility(View.VISIBLE);
+            ivAvatarRight.setVisibility(View.INVISIBLE);
+            helper.setVisible(R.id.tvTimeLeft, true);
+            helper.setVisible(R.id.tvTimeRight, false);
             // set
             ivAvatarLeft.setData(avatar);
-            helper.setText(R.id.tvDateLeft, date);
-            helper.setText(R.id.tvClockLeft, clock);
+            helper.setText(R.id.tvTimeLeft, time);
         }
         helper.setText(R.id.tvAddress, address);
         helper.setText(R.id.tvProvince, province);
