@@ -75,6 +75,20 @@
                 android:padding="16dp"
                 android:text="@string/notice_settings"/>
 
+            <TextView
+                android:id="@+id/tvNoticeStatus"
+                style="@style/FontBlackNormal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:padding="16dp"
+                tools:text="@string/notice_no_open"/>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
             <RelativeLayout
                 android:id="@+id/rlSystem"
                 android:layout_width="match_parent"

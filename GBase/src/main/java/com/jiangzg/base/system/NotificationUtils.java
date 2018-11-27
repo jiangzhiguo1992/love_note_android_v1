@@ -4,7 +4,9 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.app.NotificationManagerCompat;
 
+import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.common.LogUtils;
 
 /**
@@ -39,4 +41,38 @@ public class NotificationUtils {
         //最后在notificationManager中创建该通知渠道
         manager.createNotificationChannel(mChannel);
     }
+
+    // 获取通知是否打开
+    public static boolean isNotificationEnabled() {
+        return NotificationManagerCompat.from(AppBase.getInstance()).areNotificationsEnabled();
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        //        //    //8.0手机以上
+        //        //    if (AppBase.getNotificationManager().getImportance() == NotificationManager.IMPORTANCE_NONE) {
+        //        //        return false;
+        //        //    }
+        //        //}
+        //String CHECK_OP_NO_THROW = "checkOpNoThrow";
+        //String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
+        //
+        //AppOpsManager mAppOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+        //ApplicationInfo appInfo = context.getApplicationInfo();
+        //String pkg = context.getApplicationContext().getPackageName();
+        //int uid = appInfo.uid;
+        //
+        //Class appOpsClass = null;
+        //try {
+        //    appOpsClass = Class.forName(AppOpsManager.class.getName());
+        //    Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE,
+        //            String.class);
+        //    Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);
+        //
+        //    int value = (Integer) opPostNotificationValue.get(Integer.class);
+        //    return ((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED);
+        //
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
+        //return false;
+    }
+
 }

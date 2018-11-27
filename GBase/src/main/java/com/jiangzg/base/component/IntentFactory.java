@@ -270,6 +270,23 @@ public class IntentFactory {
     }
 
     /**
+     * 获取通知设置意图
+     */
+    public static Intent getNotificationSettings() {
+        Intent intent = new Intent();
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, AppInfo.get().getPackageName());
+        } else {
+            //intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+            intent.putExtra("app_package", AppInfo.get().getPackageName());
+            intent.putExtra("app_uid", AppBase.getInstance().getApplicationInfo().uid);
+        }
+        return intent;
+    }
+
+    /**
      * 获取分享意图
      */
     public static Intent getShare(String content, File image) {

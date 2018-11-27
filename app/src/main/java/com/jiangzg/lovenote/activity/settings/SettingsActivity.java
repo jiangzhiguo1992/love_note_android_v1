@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
+import com.jiangzg.base.component.IntentFactory;
+import com.jiangzg.base.system.NotificationUtils;
 import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
@@ -51,6 +53,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @BindView(R.id.rlCache)
     RelativeLayout rlCache;
 
+    @BindView(R.id.tvNoticeStatus)
+    TextView tvNoticeStatus;
     @BindView(R.id.rlSystem)
     RelativeLayout rlSystem;
     @BindView(R.id.switchSystem)
@@ -132,12 +136,14 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     @Override
     protected void onStart() {
         super.onStart();
+        // 推送
+        refreshNotificationStatus();
         // 最新公告
         ivNotice.setVisibility(SPHelper.getCommonCount().getNoticeNewCount() > 0 ? View.VISIBLE : View.GONE);
     }
 
     @OnClick({R.id.tvTheme, R.id.rlCache,
-            R.id.rlSystem, R.id.rlSocial, R.id.rlDisturb,
+            R.id.tvNoticeStatus, R.id.rlSystem, R.id.rlSocial, R.id.rlDisturb,
             R.id.tvPhone, R.id.tvPassword,
             R.id.tvHelp, R.id.rlNotice, R.id.tvSuggest, R.id.rlAbout,
             R.id.tvExist})
@@ -148,6 +154,9 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.rlCache:// 缓存
                 showCacheDialog();
+                break;
+            case R.id.tvNoticeStatus: // 推送开关
+                goNoticeSettings();
                 break;
             case R.id.rlSystem: // 系统通知
                 switchSystem.setChecked(!switchSystem.isChecked());
@@ -178,6 +187,24 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 break;
             case R.id.tvExist: // 退出账号
                 existDialogShow();
+                break;
+        }
+    }
+
+    @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial, R.id.switchDisturb})
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.switchSystem: // 系统通知
+                SPHelper.setSettingsNoticeSystem(isChecked);
+                PushHelper.checkTagBind();
+                break;
+            case R.id.switchSocial: // 社交通知
+                SPHelper.setSettingsNoticeSocial(isChecked);
+                PushHelper.checkAccountBind();
+                break;
+            case R.id.switchDisturb: // 免打扰
+                SPHelper.setSettingsNoticeDisturb(isChecked);
+                PushHelper.checkDisturb();
                 break;
         }
     }
@@ -220,28 +247,22 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
         });
     }
 
-    @OnCheckedChanged({R.id.switchSystem, R.id.switchSocial, R.id.switchDisturb})
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.switchSystem: // 系统通知
-                SPHelper.setSettingsNoticeSystem(isChecked);
-                PushHelper.checkTagBind();
-                break;
-            case R.id.switchSocial: // 社交通知
-                SPHelper.setSettingsNoticeSocial(isChecked);
-                PushHelper.checkAccountBind();
-                break;
-            case R.id.switchDisturb: // 免打扰
-                SPHelper.setSettingsNoticeDisturb(isChecked);
-                PushHelper.checkDisturb();
-                break;
-        }
-    }
-
     private void cacheShow() {
         String cachesSize = ResHelper.getCachesSizeFmt();
         String cachesSizeShow = String.format(Locale.getDefault(), getString(R.string.contain_image_audio_video_total_colon_holder), cachesSize);
         tvCacheSummary.setText(cachesSizeShow);
+    }
+
+    private void refreshNotificationStatus() {
+        boolean enabled = NotificationUtils.isNotificationEnabled();
+        tvNoticeStatus.setText(enabled ? R.string.notice_yes_open : R.string.notice_no_open);
+    }
+
+    private void goNoticeSettings() {
+        boolean enabled = NotificationUtils.isNotificationEnabled();
+        if (enabled) return;
+        Intent notice = IntentFactory.getNotificationSettings();
+        ActivityTrans.start(mActivity, notice);
     }
 
     private void existDialogShow() {

@@ -248,6 +248,9 @@
     <string name="cache_clear_success">缓存清理成功</string>
     <string name="contain_image_audio_video_total_colon_holder" formatted="false">包括图片、音频、视频缓存 (共:%s)</string>
     <string name="notice_settings">通知设置</string>
+    <string name="system_settings">系统设置</string>
+    <string name="notice_yes_open">推送已打开</string>
+    <string name="notice_no_open">推送未打开</string>
     <string name="system_notice">系统通知</string>
     <string name="social_notice">社交通知</string>
     <string name="night_no_disturb">夜间免打扰</string>
