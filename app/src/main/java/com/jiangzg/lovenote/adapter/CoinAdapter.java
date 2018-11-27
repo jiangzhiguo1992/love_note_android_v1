@@ -33,7 +33,7 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
     protected void convert(BaseViewHolder helper, Coin item) {
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        String time = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String kindShow = Coin.getKindShow(item.getKind());
         String change;
         if (item.getChange() >= 0) {

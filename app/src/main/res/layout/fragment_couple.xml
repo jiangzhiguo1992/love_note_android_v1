@@ -80,7 +80,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="30dp"
-                    android:background="@drawable/shape_solid_primary_r100"
+                    android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                     android:foreground="?attr/selectableItemBackground"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
@@ -293,9 +293,9 @@
                                 style="@style/FontBlackSmall"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginEnd="5dp"
+                                android:gravity="center"
                                 tools:text="@string/differ_space_holder"/>
 
                             <RelativeLayout

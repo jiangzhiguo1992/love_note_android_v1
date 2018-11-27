@@ -11,7 +11,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,34 +92,32 @@
 
             <Button
                 android:id="@+id/btnAliPay"
-                style="@style/FontWhiteBig"
+                style="@style/FontWhiteBigBold"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
+                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
                 android:text="@string/alipay_pay"/>
 
             <Button
                 android:id="@+id/btnWeChatPay"
-                style="@style/FontWhiteBig"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r3"
-                android:text="@string/wechat_pay"/>
-
-            <TextView
-                android:id="@+id/tvBillCheck"
-                style="@style/FontPrimarySmall"
+                style="@style/FontWhiteBigBold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
+                android:background="@drawable/selector_enable_press_solid_light_primary_dark_r100"
+                android:text="@string/wechat_pay"/>
+
+            <TextView
+                android:id="@+id/tvBillCheck"
+                style="@style/FontPrimarySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="@string/pay_success_but_nothing"/>

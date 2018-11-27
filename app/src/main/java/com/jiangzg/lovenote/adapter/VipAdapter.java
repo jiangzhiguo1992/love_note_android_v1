@@ -37,7 +37,7 @@ public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Vip item) {
         // data
         String avatar = Couple.getAvatar(couple, item.getUserId());
-        String time = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
+        String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         int expireDays = item.getExpireDays();
         String expireAt = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);
         String content = String.format(Locale.getDefault(), mActivity.getString(R.string.get_space_holder_space_day_vip_on_space_holder_space_expire), expireDays, expireAt);
