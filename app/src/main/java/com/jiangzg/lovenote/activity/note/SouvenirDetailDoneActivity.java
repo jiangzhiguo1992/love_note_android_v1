@@ -27,7 +27,6 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.Souvenir;
-import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.fragment.note.SouvenirForeignFragment;
 import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
@@ -35,7 +34,6 @@ import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -66,10 +64,6 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
     TextView tvDayCount;
     @BindView(R.id.tvAddress)
     TextView tvAddress;
-    @BindView(R.id.tvCreator)
-    TextView tvCreator;
-    @BindView(R.id.tvCreateAt)
-    TextView tvCreateAt;
     @BindView(R.id.tl)
     TabLayout tl;
     @BindView(R.id.vpFragment)
@@ -216,14 +210,6 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             tvAddress.setVisibility(View.VISIBLE);
             tvAddress.setText(souvenir.getAddress());
         }
-        // creator
-        User user = SPHelper.getMe();
-        String name = user.getNameInCp(souvenir.getUserId());
-        tvCreator.setText(String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), name));
-        // createAt
-        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(souvenir.getCreateAt());
-        String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), createAt);
-        tvCreateAt.setText(createShow);
         // foreign
         List<SouvenirForeignFragment> fragmentList = new ArrayList<>();
         List<String> titleList = new ArrayList<>();
