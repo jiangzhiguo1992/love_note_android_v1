@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -168,7 +167,7 @@ public class UpdateService extends Service {
                                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                                     @Override
                                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+                                        Intent intent = IntentFactory.getInstallSettings(AppInfo.get().getPackageName());
                                         ActivityTrans.start(MyApp.get(), intent);
                                     }
                                 })

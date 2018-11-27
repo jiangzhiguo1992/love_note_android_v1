@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
@@ -257,6 +258,15 @@ public class IntentFactory {
             intent.setDataAndType(Uri.fromFile(file), type);
         }
         return intent;
+    }
+
+    /**
+     * 获取安装App的设置的意图
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static Intent getInstallSettings(String packageName) {
+        Uri packageURI = Uri.parse("package:" + packageName);
+        return new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
     }
 
     /**
