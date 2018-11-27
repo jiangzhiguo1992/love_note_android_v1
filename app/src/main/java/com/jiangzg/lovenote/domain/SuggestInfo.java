@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.domain;
 
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.base.MyApp;
 
 import java.util.ArrayList;

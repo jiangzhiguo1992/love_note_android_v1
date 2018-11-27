@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.domain;
+package com.jiangzg.lovenote.base;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,5 +1,7 @@
 package com.jiangzg.lovenote.domain;
 
+import com.jiangzg.lovenote.base.BaseObj;
+
 /**
  * Created by JZG on 2018/3/14.
  * 意见关注

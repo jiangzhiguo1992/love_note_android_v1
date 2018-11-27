@@ -7,6 +7,8 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
+import com.jiangzg.lovenote.base.BaseCP;
+import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.SPHelper;
 

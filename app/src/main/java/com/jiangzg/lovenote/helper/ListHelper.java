@@ -8,7 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.domain.Album;
 import com.jiangzg.lovenote.domain.Audio;
-import com.jiangzg.lovenote.domain.BaseObj;
+import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.domain.Diary;
 import com.jiangzg.lovenote.domain.Food;
 import com.jiangzg.lovenote.domain.Gift;

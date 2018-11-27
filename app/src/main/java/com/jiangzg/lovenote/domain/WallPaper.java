@@ -1,5 +1,7 @@
 package com.jiangzg.lovenote.domain;
 
+import com.jiangzg.lovenote.base.BaseObj;
+
 import java.util.List;
 
 /**

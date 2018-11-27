@@ -3,6 +3,8 @@ package com.jiangzg.lovenote.domain;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.jiangzg.lovenote.base.BaseCP;
+
 /**
  * Created by JZG on 2018/7/2.
  * TravelPlace

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.jiangzg.lovenote.base.BaseCP;
 
 /**
  * Created by JZG on 2018/7/23.
