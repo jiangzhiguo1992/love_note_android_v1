@@ -196,10 +196,10 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
         String format;
         if (DateUtils.getCurrentLong() > happenAt) {
             dayCount = (DateUtils.getCurrentLong() - happenAt) / ConstantUtils.DAY;
-            format = getString(R.string.already_gone_holder_day);
+            format = getString(R.string.add_holder);
         } else {
             dayCount = (happenAt - DateUtils.getCurrentLong()) / ConstantUtils.DAY;
-            format = getString(R.string.just_have_holder_day);
+            format = getString(R.string.sub_holder);
         }
         String days = String.format(Locale.getDefault(), format, dayCount);
         tvDayCount.setText(days);

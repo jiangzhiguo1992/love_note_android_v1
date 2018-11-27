@@ -59,22 +59,23 @@
                     tools:text="北京市 房山区 西坪小学 5号楼 二年级 3班"
                     tools:visibility="visible"/>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="20dp">
 
                     <TextView
                         android:id="@+id/tvHappenAt"
                         style="@style/FontWhiteNormalBold"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_centerVertical="true"
+                        android:drawableStart="@drawable/ic_time_circle_15_white"
+                        android:drawablePadding="5dp"
                         android:ellipsize="end"
+                        android:gravity="center"
                         android:maxLines="1"
                         android:singleLine="true"
                         tools:text="2017年12月31日 51:53"/>
@@ -84,8 +85,13 @@
                         style="@style/FontWhiteNormalBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:drawableEnd="@drawable/ic_calendar_15_white"
+                        android:drawablePadding="5dp"
+                        android:gravity="center"
                         tools:text="13650天"/>
-                </LinearLayout>
+                </RelativeLayout>
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/tl"

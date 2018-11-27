@@ -47,11 +47,14 @@
         <TextView
             android:id="@+id/tvHappenAt"
             style="@style/FontGreySmall"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvDayCount"
             android:layout_toEndOf="@+id/tvDayCount"
+            android:drawableStart="@drawable/ic_time_circle_15_grey"
+            android:drawablePadding="5dp"
             android:ellipsize="end"
+            android:gravity="center"
             android:maxLines="1"
             android:singleLine="true"
             tools:text="2017年12月31日 51:53"/>
