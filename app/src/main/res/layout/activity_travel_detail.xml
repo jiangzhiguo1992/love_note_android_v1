@@ -51,7 +51,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawableStart="@drawable/ic_time_circle_15_font_grey"
+                            android:drawableStart="@drawable/ic_time_circle_15_grey"
                             android:drawablePadding="5dp"
                             android:gravity="start|center_vertical"
                             tools:text="时间: 2018年 12月 21号"/>
@@ -62,7 +62,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:drawableEnd="@drawable/ic_user_circle_15_font_grey"
+                            android:drawableEnd="@drawable/ic_user_circle_15_grey"
                             android:drawablePadding="5dp"
                             android:gravity="end|center_vertical"
                             tools:text="创建者: XXXXXXX"/>
@@ -92,7 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_location_15_font_grey"
+                        android:drawableStart="@drawable/ic_location_15_grey"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:text="@string/track"/>
@@ -132,7 +132,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_photo_15_font_grey"
+                        android:drawableStart="@drawable/ic_photo_15_grey"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:text="@string/album"/>
@@ -172,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_video_15_font_grey"
+                        android:drawableStart="@drawable/ic_video_15_grey"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:text="@string/video"/>
@@ -212,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_food_15_font_grey"
+                        android:drawableStart="@drawable/ic_food_15_grey"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:text="@string/food"/>
@@ -252,7 +252,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_movie_15_font_grey"
+                        android:drawableStart="@drawable/ic_movie_15_grey"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:text="@string/movie"/>
@@ -292,7 +292,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="10dp"
-                        android:drawableStart="@drawable/ic_diary_15_font_grey"
+                        android:drawableStart="@drawable/ic_diary_15_grey"
                         android:drawablePadding="5dp"
                         android:gravity="center"
                         android:text="@string/diary"/>

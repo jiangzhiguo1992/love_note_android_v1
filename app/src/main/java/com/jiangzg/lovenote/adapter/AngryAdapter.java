@@ -30,12 +30,14 @@ public class AngryAdapter extends BaseQuickAdapter<Angry, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Angry item) {
         String avatar = Couple.getAvatar(couple, item.getHappenId());
-        String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
+        String creator = Couple.getName(couple, item.getUserId());
+        String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         helper.setText(R.id.tvHappenAt, happen);
+        helper.setText(R.id.tvCreator, creator);
         helper.setText(R.id.tvContent, content);
     }
 

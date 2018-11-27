@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_gift_15_font_grey"
+                    android:drawableStart="@drawable/ic_gift_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/gift"/>
 
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_travel_15_font_grey"
+                    android:drawableStart="@drawable/ic_travel_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/travel"/>
 
@@ -160,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_photo_15_font_grey"
+                    android:drawableStart="@drawable/ic_photo_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/album"/>
 
@@ -219,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_video_15_font_grey"
+                    android:drawableStart="@drawable/ic_video_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/video"/>
 
@@ -278,7 +278,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_food_15_font_grey"
+                    android:drawableStart="@drawable/ic_food_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/food"/>
 
@@ -337,7 +337,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_movie_15_font_grey"
+                    android:drawableStart="@drawable/ic_movie_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/movie"/>
 
@@ -396,7 +396,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:drawableStart="@drawable/ic_diary_15_font_grey"
+                    android:drawableStart="@drawable/ic_diary_15_grey"
                     android:drawablePadding="5dp"
                     android:text="@string/diary"/>
 

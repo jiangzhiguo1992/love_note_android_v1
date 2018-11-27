@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/tvDayCount"
             android:layout_toEndOf="@+id/tvDayCount"
-            android:drawableStart="@drawable/ic_time_circle_15_font_grey"
+            android:drawableStart="@drawable/ic_time_circle_15_grey"
             android:drawablePadding="2dp"
             android:ellipsize="end"
             android:gravity="center"
