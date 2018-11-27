@@ -25,10 +25,13 @@
 
         <TextView
             android:id="@+id/tvHappenAt"
-            style="@style/FontBlackBigBold"
+            style="@style/FontBlackNormalBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:drawableStart="@drawable/ic_time_circle_15_grey"
+            android:drawablePadding="2dp"
+            android:gravity="center_vertical"
             tools:text="12-31 16:22"/>
 
         <TextView

@@ -262,9 +262,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         // data
         if (promise == null || recyclerHelper == null) return;
         User me = SPHelper.getMe();
-        String happenName = String.format(Locale.getDefault(), getString(R.string.promise_user_colon_space_holder), me.getNameInCp(promise.getHappenId()));
+        String name = me.getNameInCp(promise.getHappenId());
         String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(promise.getHappenAt());
-        String happenTime = String.format(Locale.getDefault(), getString(R.string.promise_time_colon_space_holder), happenAt);
         String content = promise.getContentText();
         String breakCount = String.format(Locale.getDefault(), getString(R.string.break_space_holder_space_time), promise.getBreakCount());
         // view
@@ -274,8 +273,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         TextView tvContent = head.findViewById(R.id.tvContent);
         TextView tvBreakCount = head.findViewById(R.id.tvBreakCount);
         // set
-        tvPromiseUser.setText(happenName);
-        tvPromiseHappen.setText(happenTime);
+        tvPromiseUser.setText(name);
+        tvPromiseHappen.setText(happenAt);
         tvContent.setText(content);
         tvBreakCount.setText(breakCount);
     }
