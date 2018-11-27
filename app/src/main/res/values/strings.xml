@@ -549,8 +549,8 @@
     <string name="i_am_wake">醒啦</string>
     <string name="in_here_input_channel">在这里输入频道</string>
     <string name="change_channel">切换频道</string>
-    <string name="current_channel_colon_space_holder" formatted="false">当前频道: %s</string>
-    <string name="save_channel_colon_space_holder" formatted="false">保存频道: %s</string>
+    <string name="current_channel_colon_space_holder" formatted="false">当前频道《%s》</string>
+    <string name="save_channel_colon_space_holder" formatted="false">保存频道《%s》</string>
     <string name="add_image">添加图片</string>
     <string name="add_text">添加文字</string>
     <string name="please_input_album_name">请输入相册名称</string>

@@ -10,6 +10,7 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.domain.Award;
+import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.domain.Result;
 import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.domain.User;
@@ -32,11 +33,13 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
 
     private BaseActivity mActivity;
     private final User me;
+    private final Couple couple;
 
     public AwardAdapter(BaseActivity activity) {
         super(R.layout.list_item_award);
         mActivity = activity;
         me = SPHelper.getMe();
+        couple = SPHelper.getCouple();
     }
 
     @Override
@@ -44,8 +47,9 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
         // data
         boolean isMine = (item.getHappenId() == me.getId());
         String avatar = me.getAvatarInCp(item.getHappenId());
-        String happen = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String content = item.getContentText();
+        String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
+        String creator = Couple.getName(couple, item.getUserId());
         String scoreShow = String.valueOf(item.getScoreChange());
         if (item.getScoreChange() > 0) {
             scoreShow = "+" + scoreShow;
@@ -57,6 +61,7 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
         helper.setVisible(R.id.cvScoreTa, !isMine);
         helper.setText(isMine ? R.id.tvScoreMe : R.id.tvScoreTa, scoreShow);
         helper.setText(R.id.tvHappenAt, happen);
+        helper.setText(R.id.tvCreator, creator);
         helper.setText(R.id.tvContent, content);
     }
 

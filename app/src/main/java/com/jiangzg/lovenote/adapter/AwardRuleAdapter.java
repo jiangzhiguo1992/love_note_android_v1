@@ -21,8 +21,6 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 
-import java.util.Locale;
-
 import retrofit2.Call;
 
 /**
@@ -33,15 +31,11 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
 
     private BaseActivity mActivity;
     private final Couple couple;
-    private final String formatCreator;
-    private final String formatCreateAt;
 
     public AwardRuleAdapter(BaseActivity activity) {
         super(R.layout.list_item_award_rule);
         mActivity = activity;
         couple = SPHelper.getCouple();
-        formatCreator = mActivity.getString(R.string.creator_colon_space_holder);
-        formatCreateAt = mActivity.getString(R.string.create_at_colon_space_holder);
     }
 
     @Override
@@ -53,15 +47,13 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
         String useCount = String.valueOf(item.getUseCount());
         String title = item.getTitle();
         String creator = Couple.getName(couple, item.getUserId());
-        String creatorShow = String.format(Locale.getDefault(), formatCreator, creator);
-        String createAt = TimeHelper.getTimeShowLocal_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String createShow = String.format(Locale.getDefault(), formatCreateAt, createAt);
+        String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         // view
         helper.setText(R.id.tvScore, score);
         helper.setText(R.id.tvUseCount, useCount);
         helper.setText(R.id.tvTitle, title);
-        helper.setText(R.id.tvCreator, creatorShow);
-        helper.setText(R.id.tvCreateAt, createShow);
+        helper.setText(R.id.tvCreator, creator);
+        helper.setText(R.id.tvCreateAt, createAt);
     }
 
     public void showDeleteDialog(final int position) {

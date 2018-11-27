@@ -9,8 +9,8 @@
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatarLeft"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:visibility="invisible"
@@ -19,8 +19,8 @@
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
         android:id="@+id/ivAvatarRight"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"

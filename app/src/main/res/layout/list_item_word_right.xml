@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:id="@+id/llTimeLeft"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/rlContent"
         android:layout_alignBottom="@+id/rlContent"
@@ -26,7 +26,7 @@
 
     <LinearLayout
         android:id="@+id/llTimeRight"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/rlContent"
         android:layout_alignBottom="@+id/rlContent"
@@ -43,7 +43,7 @@
         <TextView
             android:id="@+id/tvCreateAt"
             style="@style/FontPrimarySmallBold"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             tools:text="2017-12-03"/>
@@ -66,8 +66,11 @@
             android:id="@+id/cvContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginBottom="10dp"
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
