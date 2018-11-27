@@ -52,7 +52,6 @@ import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -218,12 +217,10 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         Couple couple = SPHelper.getCouple();
         String title = travel.getTitle();
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
-        String happenShow = String.format(Locale.getDefault(), mActivity.getString(R.string.time_colon_space_holder), happen);
-        String name = Couple.getName(couple, travel.getUserId());
-        String creator = String.format(Locale.getDefault(), mActivity.getString(R.string.creator_colon_space_holder), name);
+        String creator = Couple.getName(couple, travel.getUserId());
         // headView
         tvTitle.setText(title);
-        tvHappenAt.setText(happenShow);
+        tvHappenAt.setText(happen);
         tvCreator.setText(creator);
         // place
         List<TravelPlace> placeList = travel.getTravelPlaceList();

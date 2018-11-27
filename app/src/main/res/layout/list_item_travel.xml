@@ -66,6 +66,8 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="5dp"
                 android:layout_toEndOf="@+id/cvAvatar"
+                android:drawableStart="@drawable/ic_time_circle_15_font_grey"
+                android:drawablePadding="2dp"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:singleLine="true"

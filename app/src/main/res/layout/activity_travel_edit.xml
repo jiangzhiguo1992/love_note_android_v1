@@ -84,6 +84,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_location_15_font_grey"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/track"/>
 
                 <View
@@ -141,6 +144,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_photo_15_font_grey"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/album"/>
 
                 <View
@@ -198,6 +204,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_video_15_font_grey"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/video"/>
 
                 <View
@@ -255,6 +264,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_food_15_font_grey"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/food"/>
 
                 <View
@@ -312,6 +324,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_movie_15_font_grey"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/movie"/>
 
                 <View
@@ -369,6 +384,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:drawableStart="@drawable/ic_diary_15_font_grey"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
                     android:text="@string/diary"/>
 
                 <View
