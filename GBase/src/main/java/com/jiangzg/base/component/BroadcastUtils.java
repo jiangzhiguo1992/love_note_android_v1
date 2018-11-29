@@ -11,7 +11,6 @@ import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.common.LogUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 /**
  * Created by JZG on 2018/4/26.

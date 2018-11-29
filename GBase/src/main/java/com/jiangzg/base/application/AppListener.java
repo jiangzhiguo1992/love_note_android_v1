@@ -106,7 +106,7 @@ public class AppListener {
 
             @Override
             public void onActivityStarted(Activity activity) {
-                LogUtils.i(AppListener.class, "onActivityStarted",activity.getClass().getSimpleName());
+                LogUtils.i(AppListener.class, "onActivityStarted", activity.getClass().getSimpleName());
                 for (Map.Entry<String, ActivityListener> entry : activityListener.entrySet()) {
                     entry.getValue().onActivityStarted(activity);
                 }

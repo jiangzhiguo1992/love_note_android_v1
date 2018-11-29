@@ -5,8 +5,6 @@ import android.media.MediaMetadataRetriever;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 
-import java.util.HashMap;
-
 /**
  * Created by JZG on 2018/7/7.
  * VideoUtils
