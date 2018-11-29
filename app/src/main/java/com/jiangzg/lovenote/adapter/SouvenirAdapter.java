@@ -9,8 +9,8 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.note.SouvenirDetailDoneActivity;
 import com.jiangzg.lovenote.activity.note.SouvenirDetailWishActivity;
-import com.jiangzg.lovenote.domain.Souvenir;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.model.entity.Souvenir;
 
 import java.util.Locale;
 

@@ -8,9 +8,9 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.MatchWork;
 
 /**
  * Created by JZG on 2018/3/13.

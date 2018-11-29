@@ -13,10 +13,10 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.couple.CouplePairActivity;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.fragment.topic.PostCollectFragment;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.Couple;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -16,11 +16,11 @@ import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.BasePagerFragment;
-import com.jiangzg.lovenote.domain.Help;
-import com.jiangzg.lovenote.domain.MatchPeriod;
 import com.jiangzg.lovenote.fragment.more.MatchPeriodListFragment;
 import com.jiangzg.lovenote.fragment.more.MatchWifeListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.Help;
+import com.jiangzg.lovenote.model.entity.MatchPeriod;
 
 import butterknife.BindView;
 

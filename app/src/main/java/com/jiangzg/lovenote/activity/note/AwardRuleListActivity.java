@@ -18,15 +18,15 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.AwardRuleAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.AwardRule;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.AwardRule;
+import com.jiangzg.lovenote.model.entity.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

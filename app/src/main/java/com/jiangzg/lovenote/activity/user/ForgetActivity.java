@@ -17,14 +17,14 @@ import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.Sms;
-import com.jiangzg.lovenote.domain.User;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.entity.Sms;
+import com.jiangzg.lovenote.model.entity.User;
 
 import butterknife.BindView;
 import butterknife.OnClick;

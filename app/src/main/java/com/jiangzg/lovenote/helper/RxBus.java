@@ -1,6 +1,6 @@
 package com.jiangzg.lovenote.helper;
 
-import com.jiangzg.lovenote.domain.RxEvent;
+import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -25,9 +25,6 @@ import com.jiangzg.lovenote.activity.user.PhoneActivity;
 import com.jiangzg.lovenote.activity.user.SplashActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.domain.PushInfo;
-import com.jiangzg.lovenote.domain.RxEvent;
-import com.jiangzg.lovenote.domain.User;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.PushHelper;
@@ -35,6 +32,9 @@ import com.jiangzg.lovenote.helper.ResHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.PushInfo;
+import com.jiangzg.lovenote.model.entity.RxEvent;
+import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.Locale;
 

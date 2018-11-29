@@ -19,15 +19,15 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.User;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.BirthPicker;
 
 import java.util.Calendar;

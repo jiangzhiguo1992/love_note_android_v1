@@ -34,12 +34,12 @@ import com.jiangzg.lovenote.activity.note.VideoListActivity;
 import com.jiangzg.lovenote.activity.note.WhisperListActivity;
 import com.jiangzg.lovenote.activity.note.WordListActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Couple;
-import com.jiangzg.lovenote.domain.Trends;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.Trends;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 /**

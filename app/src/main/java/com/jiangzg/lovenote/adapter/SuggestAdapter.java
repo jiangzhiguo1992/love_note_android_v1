@@ -10,11 +10,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.SuggestDetailActivity;
-import com.jiangzg.lovenote.domain.Suggest;
-import com.jiangzg.lovenote.domain.SuggestInfo;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.Suggest;
+import com.jiangzg.lovenote.model.entity.SuggestInfo;
 import com.jiangzg.lovenote.view.GWrapView;
 
 import java.util.Locale;

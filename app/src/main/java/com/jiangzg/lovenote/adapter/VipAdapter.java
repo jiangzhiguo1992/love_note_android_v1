@@ -7,11 +7,11 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.Couple;
-import com.jiangzg.lovenote.domain.Vip;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;

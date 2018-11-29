@@ -14,8 +14,8 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.NotificationUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.domain.PushInfo;
-import com.jiangzg.lovenote.domain.User;
+import com.jiangzg.lovenote.model.entity.PushInfo;
+import com.jiangzg.lovenote.model.entity.User;
 
 /**
  * Created by JZG on 2018/10/19.

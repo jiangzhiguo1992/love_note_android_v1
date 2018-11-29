@@ -5,11 +5,11 @@ import android.support.v4.app.FragmentActivity;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.Coin;
-import com.jiangzg.lovenote.domain.Couple;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.model.entity.Coin;
+import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 /**

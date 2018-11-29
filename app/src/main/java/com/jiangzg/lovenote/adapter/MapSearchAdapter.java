@@ -8,9 +8,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.model.entity.RxEvent;
 
 /**
  * Created by JZG on 2018/3/12.

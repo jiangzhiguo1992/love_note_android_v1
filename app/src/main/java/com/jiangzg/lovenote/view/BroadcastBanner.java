@@ -12,7 +12,7 @@ import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
 import com.jiangzg.lovenote.activity.common.WebActivity;
 import com.jiangzg.lovenote.activity.more.BroadcastActivity;
-import com.jiangzg.lovenote.domain.Broadcast;
+import com.jiangzg.lovenote.model.entity.Broadcast;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;

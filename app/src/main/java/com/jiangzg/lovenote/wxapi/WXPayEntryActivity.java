@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.PayWxResult;
-import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.PayHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.model.entity.PayWxResult;
+import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;

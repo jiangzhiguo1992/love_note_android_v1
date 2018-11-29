@@ -16,13 +16,13 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.TrendsAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.Trends;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.entity.Trends;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

@@ -11,9 +11,9 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
-import com.jiangzg.lovenote.domain.MatchWork;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.view.FrescoView;
 
 /**

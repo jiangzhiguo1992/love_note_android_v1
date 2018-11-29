@@ -11,15 +11,15 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.RxEvent;
-import com.jiangzg.lovenote.domain.Sleep;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.entity.RxEvent;
+import com.jiangzg.lovenote.model.entity.Sleep;
 
 import java.util.Locale;
 

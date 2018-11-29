@@ -19,15 +19,15 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.PostKindInfo;
-import com.jiangzg.lovenote.domain.PostSubKindInfo;
-import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.fragment.topic.PostListFragment;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.PostKindInfo;
+import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
+import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.util.ArrayList;
 import java.util.List;

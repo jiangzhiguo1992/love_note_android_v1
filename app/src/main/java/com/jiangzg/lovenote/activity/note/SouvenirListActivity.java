@@ -17,9 +17,9 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Help;
 import com.jiangzg.lovenote.fragment.note.SouvenirListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.Help;
 
 import butterknife.BindView;
 import butterknife.OnClick;

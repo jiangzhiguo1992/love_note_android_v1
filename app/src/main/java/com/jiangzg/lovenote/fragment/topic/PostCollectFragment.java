@@ -13,14 +13,14 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.PostAdapter;
 import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
-import com.jiangzg.lovenote.domain.Post;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.helper.API;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.Post;
+import com.jiangzg.lovenote.model.entity.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

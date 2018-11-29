@@ -3,7 +3,7 @@ package com.jiangzg.lovenote.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.Help;
+import com.jiangzg.lovenote.model.entity.Help;
 
 /**
  * Created by JZG on 2018/3/12.

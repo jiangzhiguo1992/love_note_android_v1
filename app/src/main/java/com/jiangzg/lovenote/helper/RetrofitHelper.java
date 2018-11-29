@@ -24,8 +24,9 @@ import com.jiangzg.lovenote.activity.settings.SuggestAddActivity;
 import com.jiangzg.lovenote.activity.user.SplashActivity;
 import com.jiangzg.lovenote.activity.user.UserInfoActivity;
 import com.jiangzg.lovenote.base.MyApp;
-import com.jiangzg.lovenote.domain.Result;
-import com.jiangzg.lovenote.domain.Version;
+import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.entity.Version;
 import com.jiangzg.lovenote.service.UpdateService;
 
 import java.io.IOException;

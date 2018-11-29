@@ -6,13 +6,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.note.DiaryDetailActivity;
-import com.jiangzg.lovenote.domain.Couple;
-import com.jiangzg.lovenote.domain.Diary;
-import com.jiangzg.lovenote.domain.RxEvent;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.Diary;
+import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;

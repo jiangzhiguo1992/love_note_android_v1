@@ -9,9 +9,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.topic.PostListActivity;
-import com.jiangzg.lovenote.domain.PostKindInfo;
-import com.jiangzg.lovenote.domain.TopicInfo;
 import com.jiangzg.lovenote.helper.CountHelper;
+import com.jiangzg.lovenote.model.entity.PostKindInfo;
+import com.jiangzg.lovenote.model.entity.TopicInfo;
 
 import java.util.ArrayList;
 import java.util.List;

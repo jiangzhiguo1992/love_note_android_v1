@@ -19,11 +19,11 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.HelpContentAdapter;
 import com.jiangzg.lovenote.adapter.HelpSubAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.Help;
-import com.jiangzg.lovenote.domain.Limit;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.Help;
+import com.jiangzg.lovenote.model.entity.Limit;
 
 import java.util.ArrayList;
 import java.util.List;

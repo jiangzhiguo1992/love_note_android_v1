@@ -18,12 +18,12 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.base.BasePagerFragment;
-import com.jiangzg.lovenote.domain.ModelShow;
 import com.jiangzg.lovenote.fragment.CoupleFragment;
 import com.jiangzg.lovenote.fragment.MoreFragment;
 import com.jiangzg.lovenote.fragment.NoteFragment;
 import com.jiangzg.lovenote.fragment.TopicFragment;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.view.HomePaper;
 
 import java.util.ArrayList;

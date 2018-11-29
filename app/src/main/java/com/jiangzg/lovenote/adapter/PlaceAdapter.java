@@ -8,12 +8,12 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.MapShowActivity;
-import com.jiangzg.lovenote.domain.Couple;
-import com.jiangzg.lovenote.domain.Place;
 import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;

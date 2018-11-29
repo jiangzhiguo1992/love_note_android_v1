@@ -7,20 +7,20 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
 import com.jiangzg.base.time.DateUtils;
-import com.jiangzg.lovenote.domain.CommonConst;
-import com.jiangzg.lovenote.domain.CommonCount;
-import com.jiangzg.lovenote.domain.Couple;
-import com.jiangzg.lovenote.domain.Diary;
-import com.jiangzg.lovenote.domain.Dream;
-import com.jiangzg.lovenote.domain.Limit;
-import com.jiangzg.lovenote.domain.ModelShow;
-import com.jiangzg.lovenote.domain.OssInfo;
-import com.jiangzg.lovenote.domain.Post;
-import com.jiangzg.lovenote.domain.PushInfo;
-import com.jiangzg.lovenote.domain.User;
-import com.jiangzg.lovenote.domain.Version;
-import com.jiangzg.lovenote.domain.VipLimit;
-import com.jiangzg.lovenote.domain.WallPaper;
+import com.jiangzg.lovenote.model.entity.CommonConst;
+import com.jiangzg.lovenote.model.entity.CommonCount;
+import com.jiangzg.lovenote.model.entity.Couple;
+import com.jiangzg.lovenote.model.entity.Diary;
+import com.jiangzg.lovenote.model.entity.Dream;
+import com.jiangzg.lovenote.model.entity.Limit;
+import com.jiangzg.lovenote.model.entity.ModelShow;
+import com.jiangzg.lovenote.model.entity.OssInfo;
+import com.jiangzg.lovenote.model.entity.Post;
+import com.jiangzg.lovenote.model.entity.PushInfo;
+import com.jiangzg.lovenote.model.entity.User;
+import com.jiangzg.lovenote.model.entity.Version;
+import com.jiangzg.lovenote.model.entity.VipLimit;
+import com.jiangzg.lovenote.model.entity.WallPaper;
 
 /**
  * Created by Fan on 2017/3/2.

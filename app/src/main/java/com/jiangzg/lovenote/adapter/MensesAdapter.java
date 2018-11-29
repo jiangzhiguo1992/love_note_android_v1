@@ -5,7 +5,7 @@ import android.app.Activity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.domain.Menses;
+import com.jiangzg.lovenote.model.entity.Menses;
 
 import java.util.Locale;
 

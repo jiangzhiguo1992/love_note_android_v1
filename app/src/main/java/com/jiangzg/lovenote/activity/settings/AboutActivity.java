@@ -16,10 +16,10 @@ import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.WebActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.domain.CommonConst;
-import com.jiangzg.lovenote.domain.Version;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
+import com.jiangzg.lovenote.model.entity.CommonConst;
+import com.jiangzg.lovenote.model.entity.Version;
 import com.jiangzg.lovenote.service.UpdateService;
 
 import java.util.Locale;
