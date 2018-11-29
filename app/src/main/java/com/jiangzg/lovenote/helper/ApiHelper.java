@@ -27,7 +27,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.HomeActivity;
 import com.jiangzg.lovenote.activity.couple.CoupleInfoActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.CommonConst;
 import com.jiangzg.lovenote.model.entity.CommonCount;

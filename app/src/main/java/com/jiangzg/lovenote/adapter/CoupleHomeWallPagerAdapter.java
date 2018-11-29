@@ -15,7 +15,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.util.ArrayList;

@@ -30,7 +30,7 @@ import com.jiangzg.base.view.DialogUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.OssInfo;
 
 import java.io.File;

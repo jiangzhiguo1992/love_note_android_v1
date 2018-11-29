@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.loadmore.LoadMoreView;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.util.ArrayList;
 import java.util.List;

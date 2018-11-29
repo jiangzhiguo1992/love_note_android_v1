@@ -9,8 +9,8 @@ import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseCP;
 import com.jiangzg.lovenote.base.BaseObj;
-import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.main.MyApp;
 
 /**
  * Created by JZG on 2017/12/18.

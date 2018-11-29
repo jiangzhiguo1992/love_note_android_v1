@@ -2,7 +2,7 @@ package com.jiangzg.lovenote.helper;
 
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 /**
  * Created by JZG on 2018/3/25.

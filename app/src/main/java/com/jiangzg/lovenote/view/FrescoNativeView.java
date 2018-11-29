@@ -23,9 +23,9 @@ import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.view.ScreenUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.FrescoHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
 

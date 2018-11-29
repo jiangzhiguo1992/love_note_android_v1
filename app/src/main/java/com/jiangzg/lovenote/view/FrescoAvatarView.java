@@ -35,12 +35,12 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ScreenUtils;
-import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.FrescoHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.ResHelper;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
 

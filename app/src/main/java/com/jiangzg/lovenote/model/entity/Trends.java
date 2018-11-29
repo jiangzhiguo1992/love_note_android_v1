@@ -6,8 +6,8 @@ import android.os.Parcelable;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseCP;
-import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.ApiHelper;
+import com.jiangzg.lovenote.main.MyApp;
 
 /**
  * Created by JZG on 2018/7/13.

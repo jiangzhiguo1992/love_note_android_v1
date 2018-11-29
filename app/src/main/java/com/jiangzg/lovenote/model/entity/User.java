@@ -6,8 +6,8 @@ import android.os.Parcelable;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseObj;
-import com.jiangzg.lovenote.base.MyApp;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.main.MyApp;
 
 /**
  * Created by JiangZhiGuo on 2016/9/30.

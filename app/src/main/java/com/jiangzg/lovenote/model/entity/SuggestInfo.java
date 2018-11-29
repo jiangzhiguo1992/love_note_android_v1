@@ -2,7 +2,7 @@ package com.jiangzg.lovenote.model.entity;
 
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseObj;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.util.ArrayList;
 import java.util.List;

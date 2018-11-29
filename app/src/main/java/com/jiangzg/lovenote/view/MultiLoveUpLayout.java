@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.util.Random;
 import java.util.Timer;

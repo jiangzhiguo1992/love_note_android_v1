@@ -32,7 +32,7 @@ import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.util.ArrayList;
 

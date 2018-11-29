@@ -1,7 +1,7 @@
 package com.jiangzg.lovenote.helper;
 
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.util.Locale;
 

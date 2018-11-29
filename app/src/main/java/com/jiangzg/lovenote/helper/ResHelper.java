@@ -13,7 +13,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.BroadcastUtils;
 import com.jiangzg.base.system.PermUtils;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.jiangzg.lovenote.base;
+package com.jiangzg.lovenote.main;
 
 import com.jiangzg.base.application.AppBase;
 import com.jiangzg.base.application.AppListener;

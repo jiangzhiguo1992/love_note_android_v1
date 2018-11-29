@@ -8,7 +8,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.PermUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.PayAliResult;
 import com.jiangzg.lovenote.model.entity.PayWxResult;
 import com.jiangzg.lovenote.model.entity.WXOrder;

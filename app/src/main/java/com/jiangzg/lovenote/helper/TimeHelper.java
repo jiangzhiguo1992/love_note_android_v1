@@ -4,7 +4,7 @@ import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.time.CalUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.lovenote.R;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 import java.util.Calendar;
 import java.util.Date;

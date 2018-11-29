@@ -13,7 +13,7 @@ import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.base.system.PermUtils;
-import com.jiangzg.lovenote.base.MyApp;
+import com.jiangzg.lovenote.main.MyApp;
 
 /**
  * Created by JZG on 2018/4/18.
