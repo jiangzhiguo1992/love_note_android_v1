@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/master_no_hurry_quick_ok"
-            android:textColor="@color/trans_00"/>
+            android:textColor="@color/alpha_00"/>
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/master_this_is_my_bottom"
-            android:textColor="@color/trans_00"/>
+            android:textColor="@color/alpha_00"/>
     </LinearLayout>
 
     <LinearLayout
@@ -60,6 +60,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/master_we_worry"
-            android:textColor="@color/trans_00"/>
+            android:textColor="@color/alpha_00"/>
     </LinearLayout>
 </LinearLayout>

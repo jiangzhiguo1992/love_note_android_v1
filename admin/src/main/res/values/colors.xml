@@ -5,26 +5,27 @@
     <color name="background_color">#F8F8F8</color>
     <color name="foreground_color">#DDDDDD</color>
     <color name="line_grey">@color/foreground_color</color>
-    <color name="icon_grey">#DDDDDD</color>
+    <color name="icon_grey">@color/foreground_color</color>
     <color name="img_grey">#EEEEEE</color>
+
+    <!-- 常用颜色 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white_alpha_90">#e6ffffff</color>
+    <color name="black_alpha_90">#e6000000</color>
+    <color name="white_alpha_75">#BEffffff</color>
+    <color name="black_alpha_75">#BE000000</color>
+    <color name="white_alpha_50">#7FFFFFFF</color>
+    <color name="black_alpha_50">#7F000000</color>
+    <color name="white_alpha_25">#3FFFFFFF</color>
+    <color name="black_alpha_25">#3F000000</color>
+    <color name="alpha_00">#00FFFFFF</color>
 
     <!-- 字体颜色 -->
     <color name="font_white">@color/white</color>
     <color name="font_hint">#CBCBCB</color>
     <color name="font_grey">#757575</color>
     <color name="font_black">#212121</color>
-
-    <!-- 常用颜色 -->
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="white_trans_90">#e6ffffff</color>
-    <color name="white_trans_75">#BEffffff</color>
-    <color name="black_trans_75">#BE000000</color>
-    <color name="white_trans_50">#7FFFFFFF</color>
-    <color name="black_trans_50">#7F000000</color>
-    <color name="white_trans_25">#3FFFFFFF</color>
-    <color name="black_trans_25">#3F000000</color>
-    <color name="trans_00">#00FFFFFF</color>
 
     <!-- topic -->
     <color name="topic_kind_1">#E07B8F</color>

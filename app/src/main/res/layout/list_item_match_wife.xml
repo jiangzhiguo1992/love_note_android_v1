@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:background="@color/black_trans_50"
+            android:background="@color/black_alpha_50"
             android:baselineAligned="false"
             android:orientation="horizontal">
 
@@ -131,7 +131,7 @@
         style="@style/FontBlackBig"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@color/white_trans_90"
+        android:background="@color/white_alpha_90"
         android:gravity="center"
         android:visibility="gone"
         tools:text="作品已被删除"

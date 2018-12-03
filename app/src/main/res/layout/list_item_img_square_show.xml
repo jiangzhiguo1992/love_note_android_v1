@@ -36,7 +36,7 @@
             style="@style/FontWhiteSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/black_trans_50"
+            android:background="@color/black_alpha_50"
             android:paddingStart="5dp"
             android:paddingTop="3dp"
             android:paddingEnd="5dp"

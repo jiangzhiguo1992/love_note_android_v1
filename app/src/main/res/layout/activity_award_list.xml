@@ -30,7 +30,7 @@
                 android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
-                android:shadowColor="@color/black_trans_50"
+                android:shadowColor="@color/black_alpha_50"
                 android:shadowRadius="10"
                 tools:text="+10"/>
 
@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:paddingTop="5dp"
                 android:paddingBottom="10dp"
-                android:shadowColor="@color/black_trans_50"
+                android:shadowColor="@color/black_alpha_50"
                 android:shadowRadius="10"
                 tools:text="+10"/>
         </LinearLayout>

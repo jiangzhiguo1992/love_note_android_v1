@@ -6,7 +6,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/black_trans_50">
+    tools:background="@color/black_alpha_50">
 
     <LinearLayout
         android:id="@+id/llTimeLeft"

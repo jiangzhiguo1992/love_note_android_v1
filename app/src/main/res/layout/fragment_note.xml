@@ -160,7 +160,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -188,7 +188,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -216,7 +216,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -281,7 +281,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -309,7 +309,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -338,7 +338,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -366,7 +366,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -401,7 +401,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -429,7 +429,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -457,7 +457,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -485,7 +485,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -520,7 +520,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -548,7 +548,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -576,7 +576,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -640,7 +640,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -668,7 +668,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -696,7 +696,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -760,7 +760,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -788,7 +788,7 @@
                             android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
@@ -817,7 +817,7 @@
                             android:background="?attr/selectableItemBackground"
                             android:foreground="?attr/selectableItemBackground"
                             android:visibility="gone"
-                            app:cardBackgroundColor="@color/trans_00"
+                            app:cardBackgroundColor="@color/alpha_00"
                             app:cardCornerRadius="@dimen/radius_normal"
                             app:cardElevation="0dp"
                             app:cardMaxElevation="@dimen/elevation_normal">
