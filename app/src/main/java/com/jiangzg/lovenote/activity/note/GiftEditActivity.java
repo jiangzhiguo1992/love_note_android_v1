@@ -37,9 +37,9 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Gift;
-import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.io.File;

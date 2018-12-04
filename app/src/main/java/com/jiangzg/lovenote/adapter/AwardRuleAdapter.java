@@ -17,9 +17,9 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.AwardRule;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.api.Result;
 
 import retrofit2.Call;
 

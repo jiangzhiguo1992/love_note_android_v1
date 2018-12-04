@@ -25,13 +25,13 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Bill;
 import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.Limit;
 import com.jiangzg.lovenote.model.entity.OrderBefore;
 import com.jiangzg.lovenote.model.entity.PayAliResult;
 import com.jiangzg.lovenote.model.entity.PayWxResult;
-import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.WXOrder;
 
 import java.util.Locale;

@@ -24,11 +24,11 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
-import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GWrapView;
 

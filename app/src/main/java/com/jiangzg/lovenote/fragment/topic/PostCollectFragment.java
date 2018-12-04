@@ -19,8 +19,8 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

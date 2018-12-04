@@ -20,11 +20,11 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.PostComment;
 import com.jiangzg.lovenote.model.entity.PostCommentPoint;
 import com.jiangzg.lovenote.model.entity.PostCommentReport;
-import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;

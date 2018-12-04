@@ -37,8 +37,8 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.Food;
 
 import java.io.File;
 import java.util.ArrayList;

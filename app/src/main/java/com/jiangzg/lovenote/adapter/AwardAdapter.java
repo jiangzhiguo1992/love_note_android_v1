@@ -17,9 +17,9 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
