@@ -114,6 +114,35 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
         }
+        //---------------------第四梯队----------------------
+//        kuan { // 酷安
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
+//        }
+//        nubia { // 努比亚
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "nubia"]
+//        }
+//        smaritsan { // 锤子
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "smaritsan"]
+//        }
+//        jinli { // 金立
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "jinli"]
+//        }
+//        kupai { // 酷派
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kupai"]
+//        }
+//        lenovo { // 联想
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "lenovo"]
+//        }
+//        sougou { // 搜狗
+//            dimension "release"
+//            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "sougou"]
+//        }
     }
     sourceSets { // 源码设置
         main {
