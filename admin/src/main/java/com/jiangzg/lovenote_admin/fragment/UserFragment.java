@@ -21,6 +21,8 @@ import com.jiangzg.lovenote_admin.helper.API;
 import com.jiangzg.lovenote_admin.helper.ApiHelper;
 import com.jiangzg.lovenote_admin.helper.RetrofitHelper;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
@@ -35,6 +37,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
     TextView tvUser2;
     @BindView(R.id.tvUser3)
     TextView tvUser3;
+    @BindView(R.id.tvUser4)
+    TextView tvUser4;
 
     @BindView(R.id.cvEntry)
     CardView cvEntry;
@@ -44,6 +48,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
     TextView tvEntry2;
     @BindView(R.id.tvEntry3)
     TextView tvEntry3;
+    @BindView(R.id.tvEntry4)
+    TextView tvEntry4;
 
     @BindView(R.id.cvSms)
     CardView cvSms;
@@ -53,6 +59,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
     TextView tvSms2;
     @BindView(R.id.tvSms3)
     TextView tvSms3;
+    @BindView(R.id.tvSms4)
+    TextView tvSms4;
 
     @BindView(R.id.cvApi)
     CardView cvApi;
@@ -62,6 +70,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
     TextView tvApi2;
     @BindView(R.id.tvApi3)
     TextView tvApi3;
+    @BindView(R.id.tvApi4)
+    TextView tvApi4;
 
     @BindView(R.id.cvSuggest)
     CardView cvSuggest;
@@ -137,177 +147,241 @@ public class UserFragment extends BaseFragment<UserFragment> {
     }
 
     private void getUserData() {
-        long currentLong = DateUtils.getCurrentLong();
-        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
-        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
-        long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
-        long endAt = currentLong / 1000;
-        Call<Result> callH1 = new RetrofitHelper().call(API.class).userTotalGet(startH1, endAt);
+        long current = DateUtils.getCurrentLong() / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long d1Start = calendar.getTimeInMillis() / 1000;
+        long d2Start = d1Start - 60 * 60 * 24;
+        long d3Start = d2Start - 60 * 60 * 24;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).userTotalGet(startH1, current);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvUser1.setText("1h：" + data.getTotal());
+                tvUser1.setText("时：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvUser1.setText("1h：fail");
+                tvUser1.setText("时：fail");
             }
         });
-        Call<Result> callD1 = new RetrofitHelper().call(API.class).userTotalGet(startD1, endAt);
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).userTotalGet(d1Start, current);
         RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvUser2.setText("1d：" + data.getTotal());
+                tvUser2.setText("今：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvUser2.setText("1d：fail");
+                tvUser2.setText("今：fail");
             }
         });
-        Call<Result> callD7 = new RetrofitHelper().call(API.class).userTotalGet(startD7, endAt);
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).userTotalGet(d2Start, d1Start);
         RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvUser3.setText("7d：" + data.getTotal());
+                tvUser3.setText("昨：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvUser3.setText("7d：fail");
+                tvUser3.setText("昨：fail");
+            }
+        });
+        Call<Result> callD8 = new RetrofitHelper().call(API.class).userTotalGet(d3Start, d2Start);
+        RetrofitHelper.enqueue(callD8, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvUser4.setText("前：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvUser4.setText("前：fail");
             }
         });
     }
 
     private void getSmsData() {
-        long currentLong = DateUtils.getCurrentLong();
-        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
-        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
-        long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
-        long endAt = currentLong / 1000;
-        Call<Result> callH1 = new RetrofitHelper().call(API.class).smsTotalGet(startH1, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        long current = DateUtils.getCurrentLong() / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long d1Start = calendar.getTimeInMillis() / 1000;
+        long d2Start = d1Start - 60 * 60 * 24;
+        long d3Start = d2Start - 60 * 60 * 24;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).smsTotalGet(startH1, current, "", ApiHelper.LIST_SMS_TYPE[0]);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSms1.setText("1h：" + data.getTotal());
+                tvSms1.setText("时：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSms1.setText("1h：fail");
+                tvSms1.setText("时：fail");
             }
         });
-        Call<Result> callD1 = new RetrofitHelper().call(API.class).smsTotalGet(startD1, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).smsTotalGet(d1Start, current, "", ApiHelper.LIST_SMS_TYPE[0]);
         RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSms2.setText("1d：" + data.getTotal());
+                tvSms2.setText("今：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSms2.setText("1d：fail");
+                tvSms2.setText("今：fail");
             }
         });
-        Call<Result> callD7 = new RetrofitHelper().call(API.class).smsTotalGet(startD7, endAt, "", ApiHelper.LIST_SMS_TYPE[0]);
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).smsTotalGet(d2Start, d1Start, "", ApiHelper.LIST_SMS_TYPE[0]);
         RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSms3.setText("7d：" + data.getTotal());
+                tvSms3.setText("昨：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSms3.setText("7d：fail");
+                tvSms3.setText("昨：fail");
+            }
+        });
+        Call<Result> callD8 = new RetrofitHelper().call(API.class).smsTotalGet(d3Start, d2Start, "", ApiHelper.LIST_SMS_TYPE[0]);
+        RetrofitHelper.enqueue(callD8, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvSms4.setText("前：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvSms4.setText("前：fail");
             }
         });
     }
 
     private void getEntryData() {
-        long currentLong = DateUtils.getCurrentLong();
-        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
-        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
-        long startD7 = (currentLong - ConstantUtils.DAY * 7) / 1000;
-        long endAt = currentLong / 1000;
-        Call<Result> callH1 = new RetrofitHelper().call(API.class).entryTotalGet(startH1, endAt);
+        long current = DateUtils.getCurrentLong() / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long d1Start = calendar.getTimeInMillis() / 1000;
+        long d2Start = d1Start - 60 * 60 * 24;
+        long d3Start = d2Start - 60 * 60 * 24;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).entryTotalGet(startH1, current);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvEntry1.setText("1h：" + data.getTotal());
+                tvEntry1.setText("时：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvEntry1.setText("1h：fail");
+                tvEntry1.setText("时：fail");
             }
         });
-        Call<Result> callD1 = new RetrofitHelper().call(API.class).entryTotalGet(startD1, endAt);
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).entryTotalGet(d1Start, current);
         RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvEntry2.setText("1d：" + data.getTotal());
+                tvEntry2.setText("今：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvEntry2.setText("1d：fail");
+                tvEntry2.setText("今：fail");
             }
         });
-        Call<Result> callD7 = new RetrofitHelper().call(API.class).entryTotalGet(startD7, endAt);
+        Call<Result> callD7 = new RetrofitHelper().call(API.class).entryTotalGet(d2Start, d1Start);
         RetrofitHelper.enqueue(callD7, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvEntry3.setText("7d：" + data.getTotal());
+                tvEntry3.setText("昨：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvEntry3.setText("7d：fail");
+                tvEntry3.setText("昨：fail");
+            }
+        });
+        Call<Result> callD8 = new RetrofitHelper().call(API.class).entryTotalGet(d3Start, d2Start);
+        RetrofitHelper.enqueue(callD8, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvEntry4.setText("前：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvEntry4.setText("前：fail");
             }
         });
     }
 
     private void getApiData() {
-        long currentLong = DateUtils.getCurrentLong();
-        long startH1 = (currentLong - ConstantUtils.HOUR) / 1000;
-        long startH5 = (currentLong - ConstantUtils.HOUR * 5) / 1000;
-        long startD1 = (currentLong - ConstantUtils.DAY) / 1000;
-        long endAt = currentLong / 1000;
-        Call<Result> callH1 = new RetrofitHelper().call(API.class).apiTotalGet(startH1, endAt);
+        long current = DateUtils.getCurrentLong() / 1000;
+        long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
+        Calendar calendar = DateUtils.getCurrentCalendar();
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        long d1Start = calendar.getTimeInMillis() / 1000;
+        long d2Start = d1Start - 60 * 60 * 24;
+        long d3Start = d2Start - 60 * 60 * 24;
+        Call<Result> callH1 = new RetrofitHelper().call(API.class).apiTotalGet(startH1, current);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvApi1.setText("1h：" + data.getTotal());
+                tvApi1.setText("时：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvApi1.setText("1h：fail");
+                tvApi1.setText("时：fail");
             }
         });
-        Call<Result> callH5 = new RetrofitHelper().call(API.class).apiTotalGet(startH5, endAt);
+        Call<Result> callH5 = new RetrofitHelper().call(API.class).apiTotalGet(d1Start, current);
         RetrofitHelper.enqueue(callH5, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvApi2.setText("5h：" + data.getTotal());
+                tvApi2.setText("今：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvApi2.setText("5h：fail");
+                tvApi2.setText("今：fail");
             }
         });
-        Call<Result> callD1 = new RetrofitHelper().call(API.class).apiTotalGet(startD1, endAt);
+        Call<Result> callD1 = new RetrofitHelper().call(API.class).apiTotalGet(d2Start, d1Start);
         RetrofitHelper.enqueue(callD1, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvApi3.setText("1d：" + data.getTotal());
+                tvApi3.setText("昨：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvApi3.setText("1d：fail");
+                tvApi3.setText("昨：fail");
+            }
+        });
+        Call<Result> callD2 = new RetrofitHelper().call(API.class).apiTotalGet(d3Start, d2Start);
+        RetrofitHelper.enqueue(callD2, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvApi4.setText("前：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvApi4.setText("前：fail");
             }
         });
     }
@@ -315,7 +389,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getSuggestData() {
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
         long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
-        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 7) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 3) / 1000;
         Call<Result> callSuggestH1 = new RetrofitHelper().call(API.class).setSuggestTotalGet(startH1);
         RetrofitHelper.enqueue(callSuggestH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -344,12 +418,12 @@ public class UserFragment extends BaseFragment<UserFragment> {
         RetrofitHelper.enqueue(callSuggestD7, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSuggest3.setText("7d：" + data.getTotal());
+                tvSuggest3.setText("3d：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSuggest3.setText("7d：fail");
+                tvSuggest3.setText("3d：fail");
             }
         });
     }
@@ -357,7 +431,7 @@ public class UserFragment extends BaseFragment<UserFragment> {
     private void getSuggestCommentData() {
         long startH1 = (DateUtils.getCurrentLong() - ConstantUtils.HOUR) / 1000;
         long startD1 = (DateUtils.getCurrentLong() - ConstantUtils.DAY) / 1000;
-        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 7) / 1000;
+        long startD7 = (DateUtils.getCurrentLong() - ConstantUtils.DAY * 3) / 1000;
         Call<Result> callCommentH1 = new RetrofitHelper().call(API.class).setSuggestCommentTotalGet(startH1);
         RetrofitHelper.enqueue(callCommentH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -386,12 +460,12 @@ public class UserFragment extends BaseFragment<UserFragment> {
         RetrofitHelper.enqueue(callCommentD7, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                tvSuggestComment3.setText("7d：" + data.getTotal());
+                tvSuggestComment3.setText("3d：" + data.getTotal());
             }
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                tvSuggestComment3.setText("7d：fail");
+                tvSuggestComment3.setText("3d：fail");
             }
         });
     }

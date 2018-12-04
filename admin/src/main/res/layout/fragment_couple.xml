@@ -48,7 +48,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="天：/"/>
 
                     <TextView
@@ -56,7 +56,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="周：/"/>
 
                     <TextView
@@ -64,178 +64,18 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
+                        tools:text="周：/"/>
+
+                    <TextView
+                        android:id="@+id/tvCouple4"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
                         tools:text="周：/"/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvPlace"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="位置(place)"/>
-
-                    <TextView
-                        android:id="@+id/tvPlace1"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="1"/>
-
-                    <TextView
-                        android:id="@+id/tvPlace2"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="2"/>
-
-                    <TextView
-                        android:id="@+id/tvPlace3"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="3"/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvBill"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="账单(bill)"/>
-
-                    <TextView
-                        android:id="@+id/tvBill1"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="天："/>
-
-                    <TextView
-                        android:id="@+id/tvBill2"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="周："/>
-
-                    <TextView
-                        android:id="@+id/tvBill3"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="周："/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvVip"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="会员(vip)"/>
-
-                    <TextView
-                        android:id="@+id/tvVip1"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="帖子："/>
-
-                    <TextView
-                        android:id="@+id/tvVip2"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="评论："/>
-
-                    <TextView
-                        android:id="@+id/tvVip3"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="评论："/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <android.support.v7.widget.CardView
                 android:id="@+id/cvSign"
@@ -268,7 +108,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="帖子："/>
 
                     <TextView
@@ -276,7 +116,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
 
                     <TextView
@@ -284,59 +124,15 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="评论："/>
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvCoin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackground"
-                android:foreground="?attr/selectableItemBackground"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/radius_normal"
-                app:cardElevation="@dimen/elevation_normal"
-                app:cardMaxElevation="@dimen/elevation_big">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:text="金币(coin)"/>
-
-                    <TextView
-                        android:id="@+id/tvCoin1"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        tools:text="帖子："/>
-
-                    <TextView
-                        android:id="@+id/tvCoin2"
-                        style="@style/FontGreyNormal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
 
                     <TextView
-                        android:id="@+id/tvCoin3"
+                        android:id="@+id/tvSign4"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -378,7 +174,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="帖子："/>
 
                     <TextView
@@ -386,7 +182,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
 
                     <TextView
@@ -394,8 +190,260 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvNote4"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="评论："/>
+
+                    <TextView
+                        android:id="@+id/tvNote5"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="评论："/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvPlace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="位置(place)"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="1"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="2"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="3"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace4"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="3"/>
+
+                    <TextView
+                        android:id="@+id/tvPlace5"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="3"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvVip"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="会员(vip)"/>
+
+                    <TextView
+                        android:id="@+id/tvVip1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="今："/>
+
+                    <TextView
+                        android:id="@+id/tvVip2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="昨："/>
+
+                    <TextView
+                        android:id="@+id/tvVip3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="前："/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvCoin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="金币(coin)"/>
+
+                    <TextView
+                        android:id="@+id/tvCoin1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="今："/>
+
+                    <TextView
+                        android:id="@+id/tvCoin2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="昨："/>
+
+                    <TextView
+                        android:id="@+id/tvCoin3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="前："/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvBill"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="?attr/selectableItemBackground"
+                android:foreground="?attr/selectableItemBackground"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/radius_normal"
+                app:cardElevation="@dimen/elevation_normal"
+                app:cardMaxElevation="@dimen/elevation_big">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:text="账单(bill)"/>
+
+                    <TextView
+                        android:id="@+id/tvBill1"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="今："/>
+
+                    <TextView
+                        android:id="@+id/tvBill2"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="昨："/>
+
+                    <TextView
+                        android:id="@+id/tvBill3"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="前："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -430,7 +478,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="帖子："/>
 
                     <TextView
@@ -438,7 +486,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
 
                     <TextView
@@ -446,7 +494,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -488,7 +536,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="帖子："/>
 
                     <TextView
@@ -496,7 +544,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
 
                     <TextView
@@ -504,7 +552,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -540,7 +588,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="帖子："/>
 
                     <TextView
@@ -548,7 +596,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
 
                     <TextView
@@ -556,7 +604,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="3dp"
+                        android:padding="2dp"
                         tools:text="评论："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
