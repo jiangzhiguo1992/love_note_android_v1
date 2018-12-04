@@ -27,6 +27,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
@@ -180,10 +181,10 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
                 if (award == null) return;
                 switch (checkedId) {
                     case R.id.rbHappenMe: // 我的
-                        award.setHappenId(user.getId());
+                        award.setHappenId(UserHelper.getMyId(user));
                         break;
                     case R.id.rbHappenTa: // Ta的
-                        award.setHappenId(user.getTaId());
+                        award.setHappenId(UserHelper.getTaId(user));
                         break;
                 }
             }

@@ -34,6 +34,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Diary;
@@ -218,10 +219,10 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
                 if (gift == null) return;
                 switch (checkedId) {
                     case R.id.rbReceiveMe: // 送给我
-                        gift.setReceiveId(user.getId());
+                        gift.setReceiveId(UserHelper.getMyId(user));
                         break;
                     case R.id.rbReceiveTa: // 送给ta
-                        gift.setReceiveId(user.getTaId());
+                        gift.setReceiveId(UserHelper.getTaId(user));
                         break;
                 }
             }

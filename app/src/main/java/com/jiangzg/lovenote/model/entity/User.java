@@ -24,12 +24,6 @@ public class User extends BaseObj implements Parcelable {
     // 实体
     private Couple couple;
 
-    // ta的id
-    public long getTaId() {
-        Couple couple = getCouple();
-        return UserHelper.getTaId(couple, this.getId());
-    }
-
     // 名称
     public String getMyNameInCp() {
         return getNameInCp(this.getId());

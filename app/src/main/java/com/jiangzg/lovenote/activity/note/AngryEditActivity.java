@@ -27,6 +27,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Angry;
@@ -138,10 +139,10 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
                 if (angry == null) return;
                 switch (checkedId) {
                     case R.id.rbHappenMe: // 我的
-                        angry.setHappenId(user.getId());
+                        angry.setHappenId(UserHelper.getMyId(user));
                         break;
                     case R.id.rbHappenTa: // Ta的
-                        angry.setHappenId(user.getTaId());
+                        angry.setHappenId(UserHelper.getTaId(user));
                         break;
                 }
             }
