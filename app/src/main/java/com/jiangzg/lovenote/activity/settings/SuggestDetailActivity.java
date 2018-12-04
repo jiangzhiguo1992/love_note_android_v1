@@ -47,7 +47,6 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestComment;
 import com.jiangzg.lovenote.model.entity.SuggestFollow;
-import com.jiangzg.lovenote.model.entity.SuggestInfo;
 import com.jiangzg.lovenote.view.FrescoView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;
@@ -276,8 +275,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         boolean official = suggest.isOfficial();
         boolean mine = suggest.isMine();
-        String statusShow = SuggestInfo.getStatusShow(suggest.getStatus());
-        String kindShow = SuggestInfo.getKindShow(suggest.getKind());
+        String statusShow = SuggestHomeActivity.getStatusShow(suggest.getStatus());
+        String kindShow = SuggestHomeActivity.getKindShow(suggest.getKind());
         String title = suggest.getTitle();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);

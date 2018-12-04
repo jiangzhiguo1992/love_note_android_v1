@@ -150,7 +150,7 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         } else if (entry == ENTRY_FOLLOW) {
             call = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
         } else {
-            SuggestInfo suggestInfo = SuggestInfo.getInstance();
+            SuggestInfo suggestInfo = SuggestHomeActivity.getInstance();
             int status = suggestInfo.getStatusList().get(0).getStatus();
             int kind = suggestInfo.getKindList().get(0).getKind();
             call = new RetrofitHelper().call(API.class).setSuggestListGet(status, kind, page);

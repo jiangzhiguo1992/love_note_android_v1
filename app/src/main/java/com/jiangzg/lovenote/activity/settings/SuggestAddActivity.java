@@ -134,7 +134,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        SuggestInfo suggestInfo = SuggestInfo.getInstance();
+        SuggestInfo suggestInfo = SuggestHomeActivity.getInstance();
         suggestKindList = suggestInfo.getKindList();
     }
 
@@ -245,7 +245,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             // 第一个是全部，不要
             items[i - 1] = kind.getShow();
         }
-        int kindIndex = SuggestInfo.getKindIndex(kind);
+        int kindIndex = getKindIndex(kind);
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
                 .cancelable(true)
                 .canceledOnTouchOutside(true)
@@ -322,6 +322,19 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
             public void onFailure(int code, String message, Result.Data data) {
             }
         });
+    }
+
+    private int getKindIndex(int kind) {
+        SuggestInfo info = SuggestHomeActivity.getInstance();
+        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
+        // 不要全部
+        for (int i = 1; i < kindList.size(); i++) {
+            SuggestInfo.SuggestKind s = kindList.get(i);
+            if (s.getKind() == kind) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 }
