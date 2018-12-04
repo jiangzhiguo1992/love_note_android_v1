@@ -37,6 +37,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Promise;
@@ -262,7 +263,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
         // data
         if (promise == null || recyclerHelper == null) return;
         User me = SPHelper.getMe();
-        String name = me.getNameInCp(promise.getHappenId());
+        String name = UserHelper.getName(me, promise.getHappenId());
         String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(promise.getHappenAt());
         String content = promise.getContentText();
         String breakCount = String.format(Locale.getDefault(), getString(R.string.break_space_holder_space_time), promise.getBreakCount());

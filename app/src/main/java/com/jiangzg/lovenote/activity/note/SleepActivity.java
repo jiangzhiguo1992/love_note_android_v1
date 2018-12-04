@@ -31,6 +31,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
@@ -178,10 +179,10 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
                 });
         // avatar
         User me = SPHelper.getMe();
-        String myAvatar = me.getMyAvatarInCp();
-        String taAvatarInCp = me.getTaAvatarInCp();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarRight.setData(myAvatar);
-        ivAvatarLeft.setData(taAvatarInCp);
+        ivAvatarLeft.setData(taAvatar);
     }
 
     @Override

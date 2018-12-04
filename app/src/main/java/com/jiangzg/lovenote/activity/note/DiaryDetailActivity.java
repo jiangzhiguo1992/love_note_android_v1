@@ -26,6 +26,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Diary;
@@ -175,7 +176,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
         String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(diary.getHappenAt());
         tvHappenAt.setText(happenAt);
         // avatar
-        String avatar = user.getAvatarInCp(diary.getUserId());
+        String avatar = UserHelper.getAvatar(user, diary.getUserId());
         ivAvatar.setData(avatar);
         // textCount
         String content = diary.getContentText();

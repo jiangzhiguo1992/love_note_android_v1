@@ -27,6 +27,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
@@ -204,8 +205,8 @@ public class SouvenirDetailWishActivity extends BaseActivity<SouvenirDetailDoneA
             tvAddress.setText(souvenir.getAddress());
         }
         // creator
-        User user = SPHelper.getMe();
-        String name = user.getNameInCp(souvenir.getUserId());
+        User me = SPHelper.getMe();
+        String name = UserHelper.getName(me, souvenir.getUserId());
         tvCreator.setText(String.format(Locale.getDefault(), getString(R.string.creator_colon_space_holder), name));
         // createAt
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(souvenir.getCreateAt());

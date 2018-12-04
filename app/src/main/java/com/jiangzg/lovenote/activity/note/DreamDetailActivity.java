@@ -21,6 +21,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Dream;
@@ -162,7 +163,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
         String happenAt = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(dream.getHappenAt());
         tvHappenAt.setText(happenAt);
         // author
-        String authorName = user.getNameInCp(dream.getUserId());
+        String authorName = UserHelper.getName(user, dream.getUserId());
         tvCreator.setText(authorName);
         // textCount
         String content = dream.getContentText();

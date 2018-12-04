@@ -308,10 +308,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         // data
         User me = SPHelper.getMe();
         User ta = SPHelper.getTa();
-        String myName = me.getMyNameInCp();
-        String taName = me.getTaNameInCp();
-        String myAvatar = me.getMyAvatarInCp();
-        String taAvatar = me.getTaAvatarInCp();
+        String myName = UserHelper.getMyName(me);
+        String taName = UserHelper.getTaName(me);
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
         String mePhone = me.getPhone();
         String taPhone = ta == null ? "" : ta.getPhone();
         int meSexRes = UserHelper.getSexResCircleSmall(me);
@@ -340,8 +340,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     private void goBigImage(boolean left) {
         User me = SPHelper.getMe();
-        String myAvatar = me.getMyAvatarInCp();
-        String taAvatar = me.getTaAvatarInCp();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
         String ossPath = left ? taAvatar : myAvatar;
         if (StringUtils.isEmpty(ossPath)) return;
         FrescoAvatarView iv = left ? ivAvatarLeft : ivAvatarRight;
@@ -351,7 +351,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
     // 修改名称对话框
     private void showNameInput() {
-        String show = SPHelper.getMe().getTaNameInCp().trim();
+        String show = UserHelper.getTaName(SPHelper.getMe()).trim();
         String hint = getString(R.string.please_input_nickname);
         int coupleNameLength = SPHelper.getLimit().getCoupleNameLength();
         MaterialDialog dialogName = DialogHelper.getBuild(mActivity)

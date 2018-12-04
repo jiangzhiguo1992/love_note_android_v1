@@ -4,7 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.jiangzg.lovenote.base.BaseObj;
-import com.jiangzg.lovenote.helper.UserHelper;
 
 /**
  * Created by JiangZhiGuo on 2016/9/30.
@@ -23,34 +22,6 @@ public class User extends BaseObj implements Parcelable {
     private String userToken;
     // 实体
     private Couple couple;
-
-    // 名称
-    public String getMyNameInCp() {
-        return getNameInCp(this.getId());
-    }
-
-    public String getTaNameInCp() {
-        return getNameInCp(getTaId());
-    }
-
-    public String getNameInCp(long uid) {
-        Couple couple = getCouple();
-        return UserHelper.getName(couple, uid);
-    }
-
-    // 头像
-    public String getMyAvatarInCp() {
-        return getAvatarInCp(this.getId());
-    }
-
-    public String getTaAvatarInCp() {
-        return getAvatarInCp(getTaId());
-    }
-
-    public String getAvatarInCp(long uid) {
-        Couple couple = getCouple();
-        return UserHelper.getAvatar(couple, uid);
-    }
 
     public String getPhone() {
         return phone;

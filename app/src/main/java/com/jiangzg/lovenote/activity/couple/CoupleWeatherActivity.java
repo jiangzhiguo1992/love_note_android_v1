@@ -189,7 +189,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         tvShowRight.setVisibility(View.GONE);
         llTopRight.setVisibility(View.VISIBLE);
         // data
-        String myAvatar = SPHelper.getMe().getMyAvatarInCp();
+        String myAvatar = UserHelper.getMyAvatar(SPHelper.getMe());
         WeatherForecast forecast = myWeatherForecastList.get(0);
         String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());
@@ -223,7 +223,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
         tvShowLeft.setVisibility(View.GONE);
         llTopLeft.setVisibility(View.VISIBLE);
         // data
-        String taAvatar = SPHelper.getMe().getTaAvatarInCp();
+        String taAvatar = UserHelper.getTaAvatar(SPHelper.getMe());
         WeatherForecast forecast = taWeatherForecastList.get(0);
         String time = TimeHelper.getTimeShowLocal_MD_YMD_ByGo(forecast.getTimeAt());
         String condition = String.format(Locale.getDefault(), getString(R.string.holder_wave_holder), forecast.getConditionDay(), forecast.getConditionNight());

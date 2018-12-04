@@ -236,8 +236,8 @@ public class VipActivity extends BaseActivity<VipActivity> {
     private void refreshView() {
         // avatar
         User me = SPHelper.getMe();
-        String myAvatar = me.getMyAvatarInCp();
-        String taAvatar = me.getTaAvatarInCp();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatar);
         // vip

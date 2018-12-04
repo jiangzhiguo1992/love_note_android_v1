@@ -47,7 +47,7 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Award item) {
         // data
         boolean isMine = (item.getHappenId() == me.getId());
-        String avatar = me.getAvatarInCp(item.getHappenId());
+        String avatar = UserHelper.getAvatar(me, item.getHappenId());
         String content = item.getContentText();
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
         String creator = UserHelper.getName(couple, item.getUserId());

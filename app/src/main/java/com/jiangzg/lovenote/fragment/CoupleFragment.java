@@ -313,10 +313,10 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             imageList.add(couple.getInviteeAvatar());
             OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_AVATAR, imageList);
             // 头像 + 名称
-            String myName = user.getMyNameInCp();
-            String taName = user.getTaNameInCp();
-            String myAvatar = user.getMyAvatarInCp();
-            String taAvatar = user.getTaAvatarInCp();
+            String myName = UserHelper.getMyName(user);
+            String taName = UserHelper.getTaName(user);
+            String myAvatar = UserHelper.getMyAvatar(user);
+            String taAvatar = UserHelper.getTaAvatar(user);
             ivAvatarLeft.setData(taAvatar);
             ivAvatarRight.setData(myAvatar);
             tvNameLeft.setText(taName);

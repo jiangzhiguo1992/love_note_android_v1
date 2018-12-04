@@ -162,8 +162,8 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
     private void refreshView() {
         // avatar
         User me = SPHelper.getMe();
-        String myAvatar = me.getMyAvatarInCp();
-        String taAvatar = me.getTaAvatarInCp();
+        String myAvatar = UserHelper.getMyAvatar(me);
+        String taAvatar = UserHelper.getTaAvatar(me);
         ivAvatarRight.setData(myAvatar);
         ivAvatarLeft.setData(taAvatar);
         // coin

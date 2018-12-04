@@ -23,7 +23,12 @@ public class UserHelper {
     }
 
     // ID
-    public long getTaId(User user) {
+    public static long getMyId(User user) {
+        if (isEmpty(user)) return 0;
+        return user.getId();
+    }
+
+    public static long getTaId(User user) {
         if (isEmpty(user)) return 0;
         Couple couple = user.getCouple();
         return UserHelper.getTaId(couple, user.getId());
@@ -54,17 +59,17 @@ public class UserHelper {
     }
 
     // 昵称
-    public String getMyName(User user) {
+    public static String getMyName(User user) {
         if (isEmpty(user)) return "";
         return getName(user, user.getId());
     }
 
-    public String getTaName(User user) {
+    public static String getTaName(User user) {
         if (isEmpty(user)) return "";
         return getName(user, getTaId(user));
     }
 
-    public String getName(User user, long uid) {
+    public static String getName(User user, long uid) {
         if (isEmpty(user)) return "";
         return UserHelper.getName(user.getCouple(), uid);
     }
@@ -81,17 +86,17 @@ public class UserHelper {
     }
 
     // 头像
-    public String getMyAvatar(User user) {
+    public static String getMyAvatar(User user) {
         if (isEmpty(user)) return "";
         return getAvatar(user, user.getId());
     }
 
-    public String getTaAvatar(User user) {
+    public static String getTaAvatar(User user) {
         if (isEmpty(user)) return "";
         return getAvatar(user, getTaId(user));
     }
 
-    public String getAvatar(User user, long uid) {
+    public static String getAvatar(User user, long uid) {
         if (isEmpty(user)) return "";
         return UserHelper.getAvatar(user.getCouple(), uid);
     }
