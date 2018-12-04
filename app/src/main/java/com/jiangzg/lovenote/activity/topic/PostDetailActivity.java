@@ -50,7 +50,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
 import com.jiangzg.lovenote.model.entity.PostComment;
@@ -335,7 +334,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 showPostDelDialog();
                 return true;
             case R.id.menuHelp:
-                HelpActivity.goActivity(mActivity, Help.INDEX_TOPIC_POST);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_TOPIC_POST);
                 return true;
         }
         return super.onOptionsItemSelected(item);

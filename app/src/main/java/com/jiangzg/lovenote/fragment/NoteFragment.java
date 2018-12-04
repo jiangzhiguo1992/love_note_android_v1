@@ -48,7 +48,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Souvenir;
@@ -190,7 +189,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mFragment, Help.INDEX_NOTE_HOME);
+                HelpActivity.goActivity(mFragment, HelpActivity.INDEX_NOTE_HOME);
                 return true;
             case R.id.menuLock: // 密码锁
                 LockActivity.goActivity(mFragment);

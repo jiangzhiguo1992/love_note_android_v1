@@ -19,7 +19,6 @@ import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.fragment.note.SouvenirListFragment;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.model.entity.Help;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -89,7 +88,7 @@ public class SouvenirListActivity extends BaseActivity<SouvenirListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_SOUVENIR);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_SOUVENIR);
                 return true;
         }
         return super.onOptionsItemSelected(item);

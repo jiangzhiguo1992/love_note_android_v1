@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Word;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -161,7 +160,7 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_WORD);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_WORD);
                 return true;
         }
         return super.onOptionsItemSelected(item);

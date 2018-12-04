@@ -37,7 +37,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Broadcast;
 import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.CommonCount;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.api.Result;
@@ -187,7 +186,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mFragment, Help.INDEX_MORE_HOME);
+                HelpActivity.goActivity(mFragment, HelpActivity.INDEX_MORE_HOME);
                 return true;
             case R.id.menuSettings: // 设置
                 SettingsActivity.goActivity(mFragment);

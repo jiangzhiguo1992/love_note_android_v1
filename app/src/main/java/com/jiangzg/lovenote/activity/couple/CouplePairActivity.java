@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.PairCard;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
@@ -152,7 +151,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_PAIR);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_COUPLE_PAIR);
                 return true;
         }
         return super.onOptionsItemSelected(item);

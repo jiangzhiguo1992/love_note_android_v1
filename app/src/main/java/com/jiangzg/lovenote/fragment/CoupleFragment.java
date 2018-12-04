@@ -43,7 +43,6 @@ import com.jiangzg.lovenote.helper.WeatherHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.api.Result;
@@ -194,7 +193,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHelp: // 帮助文档
-                HelpActivity.goActivity(mFragment, Help.INDEX_COUPLE_HOME);
+                HelpActivity.goActivity(mFragment, HelpActivity.INDEX_COUPLE_HOME);
                 break;
             case R.id.ivWallPaper:  // 背景图
                 CoupleWallPaperActivity.goActivity(mFragment);

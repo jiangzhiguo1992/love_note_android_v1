@@ -3,6 +3,8 @@ package com.jiangzg.lovenote.activity.settings;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +21,10 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.HelpContentAdapter;
 import com.jiangzg.lovenote.adapter.HelpSubAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
+import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Limit;
 
 import java.util.ArrayList;
@@ -32,6 +34,35 @@ import java.util.Locale;
 import butterknife.BindView;
 
 public class HelpActivity extends BaseActivity<HelpActivity> {
+
+    public static final int INDEX_HOME = 0;
+    // couple
+    public static final int INDEX_COUPLE_HOME = 100;
+    public static final int INDEX_COUPLE_PAIR = 110;
+    public static final int INDEX_COUPLE_INFO = 120;
+    // note
+    public static final int INDEX_NOTE_HOME = 200;
+    public static final int INDEX_NOTE_LOCK = 210;
+    public static final int INDEX_NOTE_SOUVENIR = 220;
+    public static final int INDEX_NOTE_WORD = 230;
+    public static final int INDEX_NOTE_WHISPER = 231;
+    public static final int INDEX_NOTE_AWARD = 232;
+    public static final int INDEX_NOTE_DREAM = 233;
+    public static final int INDEX_NOTE_TRAVEL = 234;
+    public static final int INDEX_NOTE_PROMISE = 235;
+    // topic
+    public static final int INDEX_TOPIC_HOME = 300;
+    public static final int INDEX_TOPIC_POST = 310;
+    // more
+    public static final int INDEX_MORE_HOME = 400;
+    public static final int INDEX_MORE_VIP = 410;
+    public static final int INDEX_MORE_COIN = 420;
+    public static final int INDEX_MORE_BILL = 430;
+    public static final int INDEX_MORE_SIGN = 440;
+    public static final int INDEX_MORE_MATCH = 450;
+    // other
+    public static final int INDEX_OTHER = 500;
+    public static final int INDEX_USER_SUGGEST = 510;
 
     @BindView(R.id.tb)
     Toolbar tb;
@@ -43,7 +74,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, HelpActivity.class);
-        intent.putExtra("index", Help.INDEX_HOME);
+        intent.putExtra("index", INDEX_HOME);
         //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         ActivityTrans.start(from, intent);
     }
@@ -86,7 +117,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
 
     @Override
     protected void initData(Intent intent, Bundle state) {
-        int index = intent.getIntExtra("index", Help.INDEX_HOME);
+        int index = intent.getIntExtra("index", INDEX_HOME);
         Help help = getHelpByIndex(index);
         refreshView(help);
     }
@@ -142,83 +173,83 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
     private Help getHelpByIndex(int index) {
         Help help;
         switch (index) {
-            case Help.INDEX_HOME:
+            case INDEX_HOME:
             default:
-                help = getHelpHome(Help.INDEX_HOME);
+                help = getHelpHome();
                 break;
-            case Help.INDEX_COUPLE_HOME:
+            case INDEX_COUPLE_HOME:
                 help = getHelpCoupleHome(index);
                 break;
-            case Help.INDEX_COUPLE_PAIR:
+            case INDEX_COUPLE_PAIR:
                 help = getHelpCouplePair(index);
                 break;
-            case Help.INDEX_COUPLE_INFO:
+            case INDEX_COUPLE_INFO:
                 help = getHelpCoupleInfo(index);
                 break;
-            case Help.INDEX_NOTE_HOME:
+            case INDEX_NOTE_HOME:
                 help = getHelpNoteHome(index);
                 break;
-            case Help.INDEX_NOTE_LOCK:
+            case INDEX_NOTE_LOCK:
                 help = getHelpNoteLock(index);
                 break;
-            case Help.INDEX_NOTE_SOUVENIR:
+            case INDEX_NOTE_SOUVENIR:
                 help = getHelpNoteSouvenir(index);
                 break;
-            case Help.INDEX_NOTE_WORD:
+            case INDEX_NOTE_WORD:
                 help = getHelpNoteWork(index);
                 break;
-            case Help.INDEX_NOTE_WHISPER:
+            case INDEX_NOTE_WHISPER:
                 help = getHelpNoteWhisper(index);
                 break;
-            case Help.INDEX_NOTE_AWARD:
+            case INDEX_NOTE_AWARD:
                 help = getHelpNoteAward(index);
                 break;
-            case Help.INDEX_NOTE_DREAM:
+            case INDEX_NOTE_DREAM:
                 help = getHelpNoteDream(index);
                 break;
-            case Help.INDEX_NOTE_TRAVEL:
+            case INDEX_NOTE_TRAVEL:
                 help = getHelpNoteTravel(index);
                 break;
-            case Help.INDEX_NOTE_PROMISE:
+            case INDEX_NOTE_PROMISE:
                 help = getHelpNotePromise(index);
                 break;
-            case Help.INDEX_TOPIC_HOME:
+            case INDEX_TOPIC_HOME:
                 help = getHelpTopicHome(index);
                 break;
-            case Help.INDEX_TOPIC_POST:
+            case INDEX_TOPIC_POST:
                 help = getHelpTopicPost(index);
                 break;
-            case Help.INDEX_MORE_HOME:
+            case INDEX_MORE_HOME:
                 help = getHelpMoreHome(index);
                 break;
-            case Help.INDEX_MORE_VIP:
+            case INDEX_MORE_VIP:
                 help = getHelpMoreVip(index);
                 break;
-            case Help.INDEX_MORE_COIN:
+            case INDEX_MORE_COIN:
                 help = getHelpMoreCoin(index);
                 break;
-            case Help.INDEX_MORE_BILL:
+            case INDEX_MORE_BILL:
                 help = getHelpMoreBill(index);
                 break;
-            case Help.INDEX_MORE_SIGN:
+            case INDEX_MORE_SIGN:
                 help = getHelpMoreSign(index);
                 break;
-            case Help.INDEX_MORE_MATCH:
+            case INDEX_MORE_MATCH:
                 help = getHelpMoreMatch(index);
                 break;
-            case Help.INDEX_OTHER:
+            case INDEX_OTHER:
                 help = getHelpOther(index);
                 break;
-            case Help.INDEX_USER_SUGGEST:
+            case INDEX_USER_SUGGEST:
                 help = getHelpSuggestHome(index);
                 break;
         }
         return help;
     }
 
-    private Help getHelpHome(int index) {
+    private Help getHelpHome() {
         Help help = new Help();
-        help.setIndex(index);
+        help.setIndex(INDEX_HOME);
         help.setTitle(getString(R.string.help_document));
         help.setDesc(getString(R.string.help_home_d));
         // content
@@ -235,23 +266,23 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_COUPLE_HOME);
+        s1.setIndex(INDEX_COUPLE_HOME);
         s1.setTitle(getString(R.string.nav_couple));
         subList.add(s1);
         Help s2 = new Help();
-        s2.setIndex(Help.INDEX_NOTE_HOME);
+        s2.setIndex(INDEX_NOTE_HOME);
         s2.setTitle(getString(R.string.nav_note));
         subList.add(s2);
         Help s3 = new Help();
-        s3.setIndex(Help.INDEX_TOPIC_HOME);
+        s3.setIndex(INDEX_TOPIC_HOME);
         s3.setTitle(getString(R.string.nav_topic));
         subList.add(s3);
         Help s4 = new Help();
-        s4.setIndex(Help.INDEX_MORE_HOME);
+        s4.setIndex(INDEX_MORE_HOME);
         s4.setTitle(getString(R.string.nav_more));
         subList.add(s4);
         Help s5 = new Help();
-        s5.setIndex(Help.INDEX_OTHER);
+        s5.setIndex(INDEX_OTHER);
         s5.setTitle(getString(R.string.other));
         subList.add(s5);
         help.setSubList(subList);
@@ -285,11 +316,11 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_COUPLE_PAIR);
+        s1.setIndex(INDEX_COUPLE_PAIR);
         s1.setTitle(getString(R.string.pair));
         subList.add(s1);
         Help s2 = new Help();
-        s2.setIndex(Help.INDEX_COUPLE_INFO);
+        s2.setIndex(INDEX_COUPLE_INFO);
         s2.setTitle(getString(R.string.pair_info));
         subList.add(s2);
         help.setSubList(subList);
@@ -363,35 +394,35 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_NOTE_LOCK);
+        s1.setIndex(INDEX_NOTE_LOCK);
         s1.setTitle(getString(R.string.pwd_lock));
         subList.add(s1);
         Help s2 = new Help();
-        s2.setIndex(Help.INDEX_NOTE_SOUVENIR);
+        s2.setIndex(INDEX_NOTE_SOUVENIR);
         s2.setTitle(getString(R.string.souvenir));
         subList.add(s2);
         Help s3 = new Help();
-        s3.setIndex(Help.INDEX_NOTE_WORD);
+        s3.setIndex(INDEX_NOTE_WORD);
         s3.setTitle(getString(R.string.word));
         subList.add(s3);
         Help s4 = new Help();
-        s4.setIndex(Help.INDEX_NOTE_WHISPER);
+        s4.setIndex(INDEX_NOTE_WHISPER);
         s4.setTitle(getString(R.string.whisper));
         subList.add(s4);
         Help s6 = new Help();
-        s6.setIndex(Help.INDEX_NOTE_AWARD);
+        s6.setIndex(INDEX_NOTE_AWARD);
         s6.setTitle(getString(R.string.award));
         subList.add(s6);
         Help s7 = new Help();
-        s7.setIndex(Help.INDEX_NOTE_DREAM);
+        s7.setIndex(INDEX_NOTE_DREAM);
         s7.setTitle(getString(R.string.dream));
         subList.add(s7);
         Help s8 = new Help();
-        s8.setIndex(Help.INDEX_NOTE_TRAVEL);
+        s8.setIndex(INDEX_NOTE_TRAVEL);
         s8.setTitle(getString(R.string.travel));
         subList.add(s8);
         Help s9 = new Help();
-        s9.setIndex(Help.INDEX_NOTE_PROMISE);
+        s9.setIndex(INDEX_NOTE_PROMISE);
         s9.setTitle(getString(R.string.promise));
         subList.add(s9);
         help.setSubList(subList);
@@ -551,7 +582,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_TOPIC_POST);
+        s1.setIndex(INDEX_TOPIC_POST);
         s1.setTitle(getString(R.string.post));
         subList.add(s1);
         help.setSubList(subList);
@@ -588,19 +619,19 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_MORE_VIP);
+        s1.setIndex(INDEX_MORE_VIP);
         s1.setTitle(getString(R.string.vip));
         subList.add(s1);
         Help s2 = new Help();
-        s2.setIndex(Help.INDEX_MORE_COIN);
+        s2.setIndex(INDEX_MORE_COIN);
         s2.setTitle(getString(R.string.coin));
         subList.add(s2);
         Help s3 = new Help();
-        s3.setIndex(Help.INDEX_MORE_SIGN);
+        s3.setIndex(INDEX_MORE_SIGN);
         s3.setTitle(getString(R.string.sign));
         subList.add(s3);
         Help s4 = new Help();
-        s4.setIndex(Help.INDEX_MORE_MATCH);
+        s4.setIndex(INDEX_MORE_MATCH);
         s4.setTitle(getString(R.string.nav_match));
         subList.add(s4);
         help.setSubList(subList);
@@ -629,7 +660,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_MORE_BILL);
+        s1.setIndex(INDEX_MORE_BILL);
         s1.setTitle(getString(R.string.pay));
         subList.add(s1);
         help.setSubList(subList);
@@ -654,7 +685,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_MORE_BILL);
+        s1.setIndex(INDEX_MORE_BILL);
         s1.setTitle(getString(R.string.pay));
         subList.add(s1);
         help.setSubList(subList);
@@ -766,7 +797,7 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         // sub
         List<Help> subList = new ArrayList<>();
         Help s1 = new Help();
-        s1.setIndex(Help.INDEX_USER_SUGGEST);
+        s1.setIndex(INDEX_USER_SUGGEST);
         s1.setTitle(getString(R.string.suggest_feedback));
         subList.add(s1);
         help.setSubList(subList);
@@ -792,4 +823,115 @@ public class HelpActivity extends BaseActivity<HelpActivity> {
         return help;
     }
 
+    public static class Help extends BaseObj implements Parcelable {
+
+        private int index;
+        private String title;
+        private String desc;
+        private List<HelpContent> contentList;
+        private List<Help> subList;
+
+        public int getIndex() {
+            return index;
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setDesc(String desc) {
+            this.desc = desc;
+        }
+
+        public List<HelpContent> getContentList() {
+            return contentList;
+        }
+
+        public void setContentList(List<HelpContent> contentList) {
+            this.contentList = contentList;
+        }
+
+        public List<Help> getSubList() {
+            return subList;
+        }
+
+        public void setSubList(List<Help> subList) {
+            this.subList = subList;
+        }
+
+        public static class HelpContent {
+
+            private String question;
+            private String answer;
+
+            public String getQuestion() {
+                return question;
+            }
+
+            public void setQuestion(String question) {
+                this.question = question;
+            }
+
+            public String getAnswer() {
+                return answer;
+            }
+
+            public void setAnswer(String answer) {
+                this.answer = answer;
+            }
+
+            public HelpContent() {
+            }
+        }
+
+        public Help() {
+        }
+
+        protected Help(Parcel in) {
+            super(in);
+            index = in.readInt();
+            title = in.readString();
+            desc = in.readString();
+            subList = in.createTypedArrayList(Help.CREATOR);
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(index);
+            dest.writeString(title);
+            dest.writeString(desc);
+            dest.writeTypedList(subList);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<Help> CREATOR = new Creator<Help>() {
+            @Override
+            public Help createFromParcel(Parcel in) {
+                return new Help(in);
+            }
+
+            @Override
+            public Help[] newArray(int size) {
+                return new Help[size];
+            }
+        };
+
+    }
 }

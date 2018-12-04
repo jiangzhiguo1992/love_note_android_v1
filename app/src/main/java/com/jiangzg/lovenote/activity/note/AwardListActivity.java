@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.AwardScore;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -170,7 +169,7 @@ public class AwardListActivity extends BaseActivity<AwardListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_AWARD);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_AWARD);
                 return true;
         }
         return super.onOptionsItemSelected(item);

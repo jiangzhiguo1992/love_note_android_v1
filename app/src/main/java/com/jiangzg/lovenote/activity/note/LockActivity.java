@@ -35,7 +35,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Sms;
@@ -156,7 +155,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_LOCK);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_LOCK);
                 return true;
         }
         return super.onOptionsItemSelected(item);

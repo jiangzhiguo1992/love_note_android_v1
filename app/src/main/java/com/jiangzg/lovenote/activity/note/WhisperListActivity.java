@@ -41,7 +41,6 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Whisper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -166,7 +165,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_NOTE_WHISPER);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_NOTE_WHISPER);
                 return true;
         }
         return super.onOptionsItemSelected(item);

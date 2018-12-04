@@ -28,7 +28,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Sign;
 import com.jiangzg.lovenote.model.entity.User;
@@ -180,7 +179,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MORE_SIGN);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_MORE_SIGN);
                 return true;
         }
         return super.onOptionsItemSelected(item);

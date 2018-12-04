@@ -29,7 +29,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.model.entity.Vip;
@@ -215,7 +214,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MORE_VIP);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_MORE_VIP);
                 return true;
         }
         return super.onOptionsItemSelected(item);

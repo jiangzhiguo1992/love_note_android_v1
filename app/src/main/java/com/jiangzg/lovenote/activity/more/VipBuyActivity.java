@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Bill;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Limit;
 import com.jiangzg.lovenote.model.entity.OrderBefore;
 import com.jiangzg.lovenote.model.entity.PayAliResult;
@@ -101,7 +100,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MORE_BILL);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_MORE_BILL);
                 return true;
         }
         return super.onOptionsItemSelected(item);

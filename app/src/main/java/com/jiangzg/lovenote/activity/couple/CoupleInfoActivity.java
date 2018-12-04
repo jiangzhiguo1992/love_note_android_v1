@@ -48,7 +48,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -229,7 +228,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 coupleStatus(ApiHelper.COUPLE_UPDATE_GOOD);
                 return true;
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_COUPLE_INFO);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_COUPLE_INFO);
                 return true;
         }
         return super.onOptionsItemSelected(item);

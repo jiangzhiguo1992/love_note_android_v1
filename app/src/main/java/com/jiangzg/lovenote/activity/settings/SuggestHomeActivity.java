@@ -38,7 +38,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -176,7 +175,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_USER_SUGGEST);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_USER_SUGGEST);
                 return true;
             case R.id.menuTop: // 返回顶部
                 rv.smoothScrollToPosition(0);

@@ -43,7 +43,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.api.Result;
@@ -205,7 +204,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
-                HelpActivity.goActivity(mActivity, Help.INDEX_MORE_MATCH);
+                HelpActivity.goActivity(mActivity, HelpActivity.INDEX_MORE_MATCH);
                 return true;
         }
         return super.onOptionsItemSelected(item);
