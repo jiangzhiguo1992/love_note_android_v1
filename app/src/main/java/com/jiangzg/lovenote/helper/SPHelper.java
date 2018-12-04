@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.helper;
 
 import android.content.SharedPreferences;
 
-import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.system.SPUtils;
@@ -113,10 +112,7 @@ public class SPHelper {
     private static final String FIELD_PUSH_NO_END_HOUR = "no_end_hour";
     // limit
     private static final String FIELD_LIMIT_SMS_CODE_LENGTH = "sms_code_length";
-    private static final String FIELD_LIMIT_SMS_EFFECT_SEC = "sms_effect_sec";
     private static final String FIELD_LIMIT_SMS_BETWEEN = "sms_between";
-    private static final String FIELD_LIMIT_SMS_MAX_TIME = "sms_max_time";
-    private static final String FIELD_LIMIT_SMS_MAX_COUNT = "sms_max_count";
     private static final String FIELD_LIMIT_SUGGEST_TITLE_LENGTH = "suggest_title_length";
     private static final String FIELD_LIMIT_SUGGEST_CONTENT_LENGTH = "suggest_content_length";
     private static final String FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH = "suggest_comment_content_length";
@@ -544,10 +540,7 @@ public class SPHelper {
         }
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_LIMIT).edit();
         editor.putInt(FIELD_LIMIT_SMS_CODE_LENGTH, limit.getSmsCodeLength());
-        editor.putInt(FIELD_LIMIT_SMS_EFFECT_SEC, limit.getSmsEffectSec());
         editor.putInt(FIELD_LIMIT_SMS_BETWEEN, limit.getSmsBetweenSec());
-        editor.putInt(FIELD_LIMIT_SMS_MAX_TIME, limit.getSmsMaxSec());
-        editor.putInt(FIELD_LIMIT_SMS_MAX_COUNT, limit.getSmsMaxCount());
         editor.putInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, limit.getSuggestTitleLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_CONTENT_LENGTH, limit.getSuggestContentLength());
         editor.putInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, limit.getSuggestCommentContentLength());
@@ -625,10 +618,7 @@ public class SPHelper {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_LIMIT);
         Limit limit = new Limit();
         limit.setSmsCodeLength(sp.getInt(FIELD_LIMIT_SMS_CODE_LENGTH, 6));
-        limit.setSmsEffectSec(sp.getInt(FIELD_LIMIT_SMS_EFFECT_SEC, 60 * 5));
         limit.setSmsBetweenSec(sp.getInt(FIELD_LIMIT_SMS_BETWEEN, 60 * 2));
-        limit.setSmsMaxSec(sp.getInt(FIELD_LIMIT_SMS_MAX_TIME, 60 * 60));
-        limit.setSmsMaxCount(sp.getInt(FIELD_LIMIT_SMS_MAX_COUNT, 5));
         limit.setSuggestTitleLength(sp.getInt(FIELD_LIMIT_SUGGEST_TITLE_LENGTH, 20));
         limit.setSuggestContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_CONTENT_LENGTH, 200));
         limit.setSuggestCommentContentLength(sp.getInt(FIELD_LIMIT_SUGGEST_COMMENT_CONTENT_LENGTH, 200));
@@ -636,7 +626,7 @@ public class SPHelper {
         limit.setCoupleBreakNeedSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_NEED_SEC, 60 * 60 * 24 * 20));
         limit.setCoupleBreakSec(sp.getLong(FIELD_LIMIT_COUPLE_BREAK_SEC, 60 * 60 * 24));
         limit.setCoupleNameLength(sp.getInt(FIELD_LIMIT_COUPLE_NAME_LENGTH, 6));
-        limit.setNoteResExpireSec(sp.getLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, ConstantUtils.MONTH * 3));
+        limit.setNoteResExpireSec(sp.getLong(FIELD_LIMIT_NOTE_OSS_EXPIRE_SECONDS, 60 * 60 * 24 * 30 * 3));
         limit.setNoteLockLength(sp.getInt(FIELD_LIMIT_NOTE_LOCK_LENGTH, 6));
         limit.setSouvenirTitleLength(sp.getInt(FIELD_LIMIT_SOUVENIR_TITLE_LENGTH, 20));
         limit.setSouvenirForeignYearCount(sp.getInt(FIELD_LIMIT_SOUVENIR_FOREIGN_YEAR_COUNT, 1));
@@ -697,8 +687,8 @@ public class SPHelper {
         limit.setCoinWishPerDayCount(sp.getInt(FIELD_LIMIT_COIN_WISH_PER_DAY_COUNT, 0));
         limit.setCoinPlanePerDayCount(sp.getInt(FIELD_LIMIT_COIN_PLANE_PER_DAY_COUNT, 0));
         limit.setMatchWorkScreenReportCount(sp.getInt(FIELD_LIMIT_MATCH_WORK_SCREEN_REPORT_COUNT, 10));
-        limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, 0));
-        limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, 0));
+        limit.setMatchWorkTitleLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_TITLE_LENGTH, 100));
+        limit.setMatchWorkContentLength(sp.getInt(FIELD_LIMIT_MATCH_WORK_CONTENT_LENGTH, 200));
         return limit;
     }
 

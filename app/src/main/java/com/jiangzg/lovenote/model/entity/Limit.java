@@ -8,10 +8,7 @@ public class Limit {
 
     // common
     private int smsCodeLength;
-    private int smsEffectSec;
     private int smsBetweenSec;
-    private int smsMaxSec;
-    private int smsMaxCount;
     // settings
     private int suggestTitleLength;
     private int suggestContentLength;
@@ -520,36 +517,12 @@ public class Limit {
         this.whisperChannelLength = whisperChannelLength;
     }
 
-    public int getSmsEffectSec() {
-        return smsEffectSec;
-    }
-
-    public void setSmsEffectSec(int smsEffectSec) {
-        this.smsEffectSec = smsEffectSec;
-    }
-
     public int getSmsBetweenSec() {
         return smsBetweenSec;
     }
 
     public void setSmsBetweenSec(int smsBetweenSec) {
         this.smsBetweenSec = smsBetweenSec;
-    }
-
-    public int getSmsMaxSec() {
-        return smsMaxSec;
-    }
-
-    public void setSmsMaxSec(int smsMaxSec) {
-        this.smsMaxSec = smsMaxSec;
-    }
-
-    public int getSmsMaxCount() {
-        return smsMaxCount;
-    }
-
-    public void setSmsMaxCount(int smsMaxCount) {
-        this.smsMaxCount = smsMaxCount;
     }
 
     public int getSuggestTitleLength() {
