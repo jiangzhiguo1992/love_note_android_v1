@@ -31,7 +31,7 @@ import com.jiangzg.lovenote.model.entity.Limit;
 import com.jiangzg.lovenote.model.entity.OrderBefore;
 import com.jiangzg.lovenote.model.entity.PayAliResult;
 import com.jiangzg.lovenote.model.entity.PayWxResult;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.model.entity.WXOrder;
 

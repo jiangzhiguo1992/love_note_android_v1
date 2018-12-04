@@ -46,7 +46,7 @@ import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.PostComment;
 import com.jiangzg.lovenote.model.entity.PromiseBreak;
 import com.jiangzg.lovenote.model.entity.PushInfo;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Sms;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestComment;

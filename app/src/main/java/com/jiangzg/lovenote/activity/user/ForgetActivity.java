@@ -22,7 +22,7 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Sms;
 import com.jiangzg.lovenote.model.entity.User;
 

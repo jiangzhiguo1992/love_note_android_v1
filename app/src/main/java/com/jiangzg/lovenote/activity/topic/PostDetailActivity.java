@@ -58,7 +58,7 @@ import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostPoint;
 import com.jiangzg.lovenote.model.entity.PostReport;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;

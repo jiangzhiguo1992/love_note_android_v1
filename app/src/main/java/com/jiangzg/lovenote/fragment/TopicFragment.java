@@ -29,7 +29,7 @@ import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;

@@ -33,7 +33,7 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Dream;
 import com.jiangzg.lovenote.model.entity.Help;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

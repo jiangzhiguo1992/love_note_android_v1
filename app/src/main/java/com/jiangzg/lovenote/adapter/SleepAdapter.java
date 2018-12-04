@@ -17,7 +17,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Sleep;
 
 import java.util.Locale;

@@ -48,7 +48,7 @@ import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.Movie;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Travel;
 import com.jiangzg.lovenote.model.entity.TravelAlbum;
 import com.jiangzg.lovenote.model.entity.TravelDiary;

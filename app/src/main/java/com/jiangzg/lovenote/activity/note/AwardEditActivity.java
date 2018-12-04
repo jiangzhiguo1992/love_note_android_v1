@@ -32,7 +32,7 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.AwardRule;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.ArrayList;

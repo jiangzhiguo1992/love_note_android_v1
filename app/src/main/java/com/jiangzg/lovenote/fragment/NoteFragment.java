@@ -50,7 +50,7 @@ import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Lock;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.MultiLoveUpLayout;

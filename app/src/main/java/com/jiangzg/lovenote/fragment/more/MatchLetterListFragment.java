@@ -19,7 +19,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.MatchWork;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

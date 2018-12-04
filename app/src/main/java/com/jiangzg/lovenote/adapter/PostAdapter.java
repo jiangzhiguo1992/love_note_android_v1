@@ -28,7 +28,7 @@ import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GWrapView;
 

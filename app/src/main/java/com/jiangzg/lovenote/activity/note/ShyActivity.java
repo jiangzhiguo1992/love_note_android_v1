@@ -32,7 +32,7 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Shy;
 import com.jiangzg.lovenote.view.CalendarMonthView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;

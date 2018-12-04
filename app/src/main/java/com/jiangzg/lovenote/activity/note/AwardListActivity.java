@@ -34,7 +34,7 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.AwardScore;
 import com.jiangzg.lovenote.model.entity.Help;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;

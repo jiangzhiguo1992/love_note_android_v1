@@ -24,7 +24,7 @@ import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.PostComment;
 import com.jiangzg.lovenote.model.entity.PostCommentPoint;
 import com.jiangzg.lovenote.model.entity.PostCommentReport;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;

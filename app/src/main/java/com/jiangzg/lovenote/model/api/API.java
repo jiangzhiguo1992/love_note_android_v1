@@ -30,7 +30,6 @@ import com.jiangzg.lovenote.model.entity.PostPoint;
 import com.jiangzg.lovenote.model.entity.PostReport;
 import com.jiangzg.lovenote.model.entity.Promise;
 import com.jiangzg.lovenote.model.entity.PromiseBreak;
-import com.jiangzg.lovenote.model.entity.Result;
 import com.jiangzg.lovenote.model.entity.Shy;
 import com.jiangzg.lovenote.model.entity.Sleep;
 import com.jiangzg.lovenote.model.entity.Sms;

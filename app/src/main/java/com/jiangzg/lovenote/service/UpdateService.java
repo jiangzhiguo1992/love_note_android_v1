@@ -32,7 +32,7 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Version;
 
 import java.io.File;

@@ -36,7 +36,7 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 
 import java.io.File;
 import java.util.ArrayList;

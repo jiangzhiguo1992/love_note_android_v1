@@ -40,7 +40,7 @@ import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.ModelShow;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Sign;
 import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.view.BroadcastBanner;

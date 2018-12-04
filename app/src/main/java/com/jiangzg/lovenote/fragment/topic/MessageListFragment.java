@@ -16,7 +16,7 @@ import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Result;
+import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.TopicMessage;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
