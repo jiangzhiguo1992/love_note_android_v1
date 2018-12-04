@@ -17,7 +17,7 @@ import com.jiangzg.lovenote.activity.topic.PostMineActivity;
 import com.jiangzg.lovenote.activity.topic.PostSubCommentListActivity;
 import com.jiangzg.lovenote.activity.topic.TopicMessageActivity;
 import com.jiangzg.lovenote.helper.GsonHelper;
-import com.jiangzg.lovenote.model.entity.Push;
+import com.jiangzg.lovenote.helper.PushHelper;
 
 import java.util.Map;
 
@@ -45,41 +45,41 @@ public class AliPushReceiver extends MessageReceiver {
         LogUtils.d(AliPushReceiver.class, "onNotificationOpened", "title: " + title + ", summary: " + summary + ", extraMap:" + extraMap);
         if (StringUtils.isEmpty(extraMap)) return;
         if (!extraMap.startsWith("{") || !extraMap.endsWith("}")) return;
-        Push push = GsonHelper.get().fromJson(extraMap, Push.class);
+        PushHelper.Push push = GsonHelper.get().fromJson(extraMap, PushHelper.Push.class);
         if (push == null) return;
         int contentType = push.getContentType();
         long contentId = push.getContentId();
-        if (contentType == Push.TYPE_APP || contentType <= 0) return;
+        if (contentType == PushHelper.Push.TYPE_APP || contentType <= 0) return;
         // 以上都是打开app
         switch (contentType) {
-            case Push.TYPE_SUGGEST: // 意见反馈
+            case PushHelper.Push.TYPE_SUGGEST: // 意见反馈
                 SuggestDetailActivity.goActivity(context, contentId);
                 break;
-            case Push.TYPE_NOTE_LOCK:
+            case PushHelper.Push.TYPE_NOTE_LOCK:
                 LockActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_TRENDS:
+            case PushHelper.Push.TYPE_NOTE_TRENDS:
                 TrendsListActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_TOTAL:
+            case PushHelper.Push.TYPE_NOTE_TOTAL:
                 NoteTotalActivity.goActivity(context);
                 break;
-            case Push.TYPE_NOTE_MENSES: // 姨妈
+            case PushHelper.Push.TYPE_NOTE_MENSES: // 姨妈
                 MensesActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_MINE: // 话题我的
+            case PushHelper.Push.TYPE_TOPIC_MINE: // 话题我的
                 PostMineActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_COLLECT: // 话题收藏
+            case PushHelper.Push.TYPE_TOPIC_COLLECT: // 话题收藏
                 PostCollectActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_MESSAGE: // 话题消息
+            case PushHelper.Push.TYPE_TOPIC_MESSAGE: // 话题消息
                 TopicMessageActivity.goActivity(context);
                 break;
-            case Push.TYPE_TOPIC_POST: // 帖子
+            case PushHelper.Push.TYPE_TOPIC_POST: // 帖子
                 PostDetailActivity.goActivity(context, contentId);
                 break;
-            case Push.TYPE_TOPIC_COMMENT: // 评论
+            case PushHelper.Push.TYPE_TOPIC_COMMENT: // 评论
                 PostSubCommentListActivity.goActivity(context, contentId);
                 break;
         }
