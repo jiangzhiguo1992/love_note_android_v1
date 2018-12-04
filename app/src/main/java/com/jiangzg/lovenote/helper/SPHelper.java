@@ -246,6 +246,12 @@ public class SPHelper {
     private static final String FIELD_DRAFT_POST_TITLE = "post_title";
     private static final String FIELD_DRAFT_POST_CONTENT_TEXT = "post_content_text";
 
+    // 是否登录
+    public static boolean noLogin() {
+        String userToken = getMe().getUserToken();
+        return StringUtils.isEmpty(userToken);
+    }
+
     /**
      * ***********************************清除***********************************
      */

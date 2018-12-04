@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.helper.SPHelper;
@@ -26,12 +25,6 @@ public class User extends BaseObj implements Parcelable {
     private String userToken;
     // 实体
     private Couple couple;
-
-    // 是否登录
-    public static boolean noLogin() {
-        String userToken = SPHelper.getMe().getUserToken();
-        return StringUtils.isEmpty(userToken);
-    }
 
     // 信息是否完善
     public static boolean canUserInfo() {

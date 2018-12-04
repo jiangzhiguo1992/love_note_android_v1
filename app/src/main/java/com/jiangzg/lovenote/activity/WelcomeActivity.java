@@ -23,11 +23,11 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
+import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Entry;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoNativeView;
 
 import java.io.File;
@@ -125,7 +125,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 检查用户
     private void checkUser() {
-        if (User.noLogin()) {
+        if (SPHelper.noLogin()) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override
