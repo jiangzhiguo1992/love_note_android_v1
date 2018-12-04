@@ -13,14 +13,13 @@ import com.jiangzg.lovenote.helper.ApiHelper;
  */
 public class Coin extends BaseCP implements Parcelable, MultiItemEntity {
 
-    // add
-    public static final int COIN_KIND_ADD_BY_SYS = 10; // +系统变更
-    public static final int COIN_KIND_ADD_BY_PLAY_PAY = 100; // +商店充值
-    public static final int COIN_KIND_ADD_BY_SIGN_DAY = 200; // +每日签到
-    public static final int COIN_KIND_ADD_BY_MATCH_POST = 300; // +参加比拼
-    public static final int COIN_KIND_SUB_BY_MATCH_UP = -300; // -比拼投币
-    public static final int COIN_KIND_SUB_BY_WISH_UP = -410; // -许愿投币
-    public static final int COIN_KIND_SUB_BY_PLANE_UP = -420; // -飞机投币
+    public static final int KIND_ADD_BY_SYS = 10; // +系统变更
+    public static final int KIND_ADD_BY_PLAY_PAY = 100; // +商店充值
+    public static final int KIND_ADD_BY_SIGN_DAY = 200; // +每日签到
+    public static final int KIND_ADD_BY_MATCH_POST = 300; // +参加比拼
+    public static final int KIND_SUB_BY_MATCH_UP = -300; // -比拼投币
+    public static final int KIND_SUB_BY_WISH_UP = -410; // -许愿投币
+    public static final int KIND_SUB_BY_PLANE_UP = -420; // -飞机投币
 
     private int kind;
     private long billId;

@@ -111,10 +111,10 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.btnAliPay: // 支付宝支付
-                payBefore(Bill.BILL_PAY_PLATFORM_ALI);
+                payBefore(Bill.PAY_PLATFORM_ALI);
                 break;
             case R.id.btnWeChatPay: // 微信支付
-                payBefore(Bill.BILL_PAY_PLATFORM_WX);
+                payBefore(Bill.PAY_PLATFORM_WX);
                 break;
             case R.id.tvBillCheck:// 检查
                 checkPayResult();
@@ -148,11 +148,11 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
     public void payBefore(int payPlatform) {
         final int goods;
         if (rbGoods1.isChecked()) {
-            goods = Bill.BILL_GOODS_COIN_1;
+            goods = Bill.GOODS_COIN_1;
         } else if (rbGoods2.isChecked()) {
-            goods = Bill.BILL_GOODS_COIN_2;
+            goods = Bill.GOODS_COIN_2;
         } else if (rbGoods3.isChecked()) {
-            goods = Bill.BILL_GOODS_COIN_3;
+            goods = Bill.GOODS_COIN_3;
         } else {
             return;
         }
@@ -164,10 +164,10 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
                 OrderBefore orderBefore = data.getOrderBefore();
                 if (orderBefore == null) return;
                 int platform = orderBefore.getPlatform();
-                if (platform == Bill.BILL_PAY_PLATFORM_ALI) {
+                if (platform == Bill.PAY_PLATFORM_ALI) {
                     String aliOrder = orderBefore.getAliOrder();
                     startAliPay(aliOrder);
-                } else if (platform == Bill.BILL_PAY_PLATFORM_WX) {
+                } else if (platform == Bill.PAY_PLATFORM_WX) {
                     WXOrder wxOrder = orderBefore.getWxOrder();
                     startWeChatPay(wxOrder);
                 }

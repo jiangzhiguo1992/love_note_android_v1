@@ -12,19 +12,19 @@ public class ShowHelper {
 
     public static String getKindShow(int form) {
         switch (form) {
-            case Coin.COIN_KIND_ADD_BY_SYS:
+            case Coin.KIND_ADD_BY_SYS:
                 return MyApp.get().getString(R.string.sys_change);
-            case Coin.COIN_KIND_ADD_BY_PLAY_PAY:
+            case Coin.KIND_ADD_BY_PLAY_PAY:
                 return MyApp.get().getString(R.string.pay);
-            case Coin.COIN_KIND_ADD_BY_SIGN_DAY:
+            case Coin.KIND_ADD_BY_SIGN_DAY:
                 return MyApp.get().getString(R.string.sign);
-            case Coin.COIN_KIND_ADD_BY_MATCH_POST:
+            case Coin.KIND_ADD_BY_MATCH_POST:
                 return MyApp.get().getString(R.string.nav_match);
-            case Coin.COIN_KIND_SUB_BY_MATCH_UP:
+            case Coin.KIND_SUB_BY_MATCH_UP:
                 return MyApp.get().getString(R.string.nav_match);
-            case Coin.COIN_KIND_SUB_BY_WISH_UP:
+            case Coin.KIND_SUB_BY_WISH_UP:
                 return MyApp.get().getString(R.string.nav_wish);
-            case Coin.COIN_KIND_SUB_BY_PLANE_UP:
+            case Coin.KIND_SUB_BY_PLANE_UP:
                 return MyApp.get().getString(R.string.nav_plane);
         }
         return MyApp.get().getString(R.string.unknown_kind);
