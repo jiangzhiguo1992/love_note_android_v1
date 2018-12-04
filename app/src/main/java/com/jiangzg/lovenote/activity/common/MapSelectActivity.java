@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.helper.MapHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -238,7 +237,7 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
                     ToastUtils.show(getString(R.string.please_select_address));
                     return true;
                 }
-                RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, locationSelect);
+                RxBus.Event<LocationInfo> event = new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, locationSelect);
                 RxBus.post(event);
                 //mActivity.finish();
                 return true;

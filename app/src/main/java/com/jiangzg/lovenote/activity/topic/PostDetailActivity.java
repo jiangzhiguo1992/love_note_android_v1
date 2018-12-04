@@ -59,7 +59,6 @@ import com.jiangzg.lovenote.model.entity.PostPoint;
 import com.jiangzg.lovenote.model.entity.PostReport;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;
@@ -392,7 +391,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // comment
                 if (comment) recyclerHelper.dataRefresh();
                 // event
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
 
@@ -721,7 +720,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
 
@@ -750,7 +749,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
 
@@ -776,7 +775,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
 
@@ -833,7 +832,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 // refresh
                 recyclerHelper.dataRefresh();
                 // event
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
 
@@ -872,7 +871,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post);
                 RxBus.post(event);
                 mActivity.finish();
             }
@@ -894,7 +893,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 post.setReport(true);
-                RxEvent<Post> event = new RxEvent<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
+                RxBus.Event<Post> event = new RxBus.Event<>(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post);
                 RxBus.post(event);
             }
 

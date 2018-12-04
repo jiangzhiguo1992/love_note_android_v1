@@ -19,7 +19,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Movie;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class MovieAdapter extends BaseQuickAdapter<Movie, BaseViewHolder> {
     public void selectMovie(int position) {
         mActivity.finish(); // 必须先关闭
         Movie item = getItem(position);
-        RxEvent<Movie> event = new RxEvent<>(ConsHelper.EVENT_MOVIE_SELECT, item);
+        RxBus.Event<Movie> event = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_SELECT, item);
         RxBus.post(event);
     }
 

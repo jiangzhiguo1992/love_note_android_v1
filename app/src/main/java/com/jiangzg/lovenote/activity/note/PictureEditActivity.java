@@ -38,7 +38,6 @@ import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.model.entity.PictureList;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -365,11 +364,11 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 String toast = String.format(Locale.getDefault(), mActivity.getString(R.string.success_push_holder_paper_picture), total);
                 ToastUtils.show(toast);
                 // event
-                RxEvent<ArrayList<Album>> eventListAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.Event<ArrayList<Album>> eventListAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
                 RxBus.post(eventListAlbum);
-                RxEvent<Album> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
+                RxBus.Event<Album> eventAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
                 RxBus.post(eventAlbum);
-                RxEvent<ArrayList<Picture>> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
+                RxBus.Event<ArrayList<Picture>> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
                 RxBus.post(eventPicture);
                 // finish
                 mActivity.finish();
@@ -389,16 +388,16 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Album>> eventListAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.Event<ArrayList<Album>> eventListAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
                 RxBus.post(eventListAlbum);
-                RxEvent<Album> eventAlbum = new RxEvent<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
+                RxBus.Event<Album> eventAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
                 RxBus.post(eventAlbum);
                 Picture picture = data.getPicture();
                 if (isChangeAlbum) {
-                    RxEvent<ArrayList<Picture>> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
+                    RxBus.Event<ArrayList<Picture>> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
                     RxBus.post(eventPicture);
                 } else {
-                    RxEvent<Picture> eventPicture = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture);
+                    RxBus.Event<Picture> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture);
                     RxBus.post(eventPicture);
                 }
                 // finish

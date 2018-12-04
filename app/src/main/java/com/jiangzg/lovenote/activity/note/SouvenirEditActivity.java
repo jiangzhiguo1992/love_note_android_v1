@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 
 import java.util.ArrayList;
@@ -256,9 +255,9 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Souvenir souvenir = data.getSouvenir();
-                RxEvent<Souvenir> eventRefresh = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
+                RxBus.Event<Souvenir> eventRefresh = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
                 RxBus.post(eventRefresh);
-                RxEvent<Souvenir> eventListRefresh = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir);
+                RxBus.Event<Souvenir> eventListRefresh = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir);
                 RxBus.post(eventListRefresh);
                 // finish
                 mActivity.finish();
@@ -278,7 +277,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Souvenir>> event = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
+                RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

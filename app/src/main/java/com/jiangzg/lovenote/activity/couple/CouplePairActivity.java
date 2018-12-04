@@ -37,7 +37,6 @@ import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.PairCard;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -363,7 +362,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
                     // 有配对成功的，退出本界面
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);
-                    RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
+                    RxBus.Event<Couple> event = new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                     RxBus.post(event);
                     mActivity.finish();
                 } else {

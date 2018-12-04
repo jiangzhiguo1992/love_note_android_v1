@@ -46,7 +46,6 @@ import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.Gift;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 import com.jiangzg.lovenote.model.entity.SouvenirAlbum;
 import com.jiangzg.lovenote.model.entity.SouvenirDiary;
@@ -655,7 +654,7 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Souvenir souvenir = data.getSouvenir();
-                RxEvent<Souvenir> eventSingle = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
+                RxBus.Event<Souvenir> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_DETAIL_REFRESH, souvenir);
                 RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();

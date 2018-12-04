@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.io.File;
@@ -190,7 +189,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Audio> event = new RxEvent<>(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, item);
+                RxBus.Event<Audio> event = new RxBus.Event<>(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 

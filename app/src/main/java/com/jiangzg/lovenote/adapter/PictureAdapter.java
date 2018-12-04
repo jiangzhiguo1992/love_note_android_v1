@@ -38,7 +38,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Picture;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.util.ArrayList;
@@ -174,7 +173,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     public void selectPicture(int position) {
         mActivity.finish(); // 必须先关闭
         Picture item = getItem(position);
-        RxEvent<Picture> event = new RxEvent<>(ConsHelper.EVENT_PICTURE_SELECT, item);
+        RxBus.Event<Picture> event = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_SELECT, item);
         RxBus.post(event);
     }
 
@@ -327,7 +326,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Picture> event = new RxEvent<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, item);
+                RxBus.Event<Picture> event = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 

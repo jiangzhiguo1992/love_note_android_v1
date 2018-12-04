@@ -19,7 +19,6 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -115,7 +114,7 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                     ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
                 } else {
                     // 改变done则刷新list,两个fragment都要刷
-                    RxEvent<ArrayList<Souvenir>> event = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
+                    RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
                     RxBus.post(event);
                 }
             }

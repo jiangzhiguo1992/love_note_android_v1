@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote.helper;
 
-import com.jiangzg.lovenote.model.entity.RxEvent;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,9 +41,9 @@ public class RxBus {
     }
 
     /* 发送频道消息(已注册的频道里的观察者才会收到) */
-    public static <T> void post(RxEvent<T> rxEvent) {
-        int id = rxEvent.getChannel();
-        T data = rxEvent.getData();
+    public static <T> void post(Event<T> event) {
+        int id = event.getChannel();
+        T data = event.getData();
         if (id != 0 && data != null) {
             next(id, data);
         }
@@ -117,4 +116,51 @@ public class RxBus {
         }
     }
 
+    /**
+     * Created by JiangZhiGuo on 2016-11-25.
+     * describe 用来RxBus传输的实体类
+     */
+    public static class Event<T> implements Serializable {
+
+        private int channel; // 订阅的频道
+        private T data; // 传输的数据
+
+        public Event(int channel, T data) {
+            this.channel = channel;
+            this.data = data;
+        }
+
+        public int getChannel() {
+            return channel;
+        }
+
+        public void setChannel(int channel) {
+            this.channel = channel;
+        }
+
+        public T getData() {
+            return data;
+        }
+
+        public void setData(T data) {
+            this.data = data;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Event<?> event = (Event<?>) o;
+
+            return channel == event.channel && (data != null ? data.equals(event.data) : event.data == null);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = channel;
+            result = 31 * result + (data != null ? data.hashCode() : 0);
+            return result;
+        }
+    }
 }

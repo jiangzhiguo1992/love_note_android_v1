@@ -13,7 +13,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Promise;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 /**
@@ -53,7 +52,7 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
     public void selectPromise(int position) {
         mActivity.finish(); // 必须先关闭
         Promise item = getItem(position);
-        RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_SELECT, item);
+        RxBus.Event<Promise> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_SELECT, item);
         RxBus.post(event);
     }
 

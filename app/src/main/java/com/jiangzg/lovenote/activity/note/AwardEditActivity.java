@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.AwardRule;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.ArrayList;
@@ -242,7 +241,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Award>> event = new RxEvent<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<Award>());
+                RxBus.Event<ArrayList<Award>> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<Award>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

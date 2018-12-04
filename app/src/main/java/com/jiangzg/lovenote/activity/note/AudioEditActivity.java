@@ -37,7 +37,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -248,7 +247,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Audio>> event = new RxEvent<>(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new ArrayList<Audio>());
+                RxBus.Event<ArrayList<Audio>> event = new RxBus.Event<>(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new ArrayList<Audio>());
                 RxBus.post(event);
                 mActivity.finish();
             }

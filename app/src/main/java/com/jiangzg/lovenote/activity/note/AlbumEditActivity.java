@@ -35,7 +35,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.io.File;
@@ -300,7 +299,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Album>> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.Event<ArrayList<Album>> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
                 RxBus.post(event);
                 mActivity.finish();
             }
@@ -320,7 +319,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Album album = data.getAlbum();
-                RxEvent<Album> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, album);
+                RxBus.Event<Album> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_ITEM_REFRESH, album);
                 RxBus.post(event);
                 mActivity.finish();
             }

@@ -29,7 +29,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoView;
 
 import java.util.Locale;
@@ -89,7 +88,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     public void selectAlbum(int position) {
         mActivity.finish(); // 必须先关闭
         Album item = getItem(position);
-        RxEvent<Album> event = new RxEvent<>(ConsHelper.EVENT_ALBUM_SELECT, item);
+        RxBus.Event<Album> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_SELECT, item);
         RxBus.post(event);
     }
 

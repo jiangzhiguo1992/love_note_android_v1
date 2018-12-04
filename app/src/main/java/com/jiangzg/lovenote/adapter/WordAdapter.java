@@ -17,7 +17,6 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Word;
 
 import retrofit2.Call;
@@ -79,7 +78,7 @@ public class WordAdapter extends BaseMultiItemQuickAdapter<Word, BaseViewHolder>
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Word> event = new RxEvent<>(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, item);
+                RxBus.Event<Word> event = new RxBus.Event<>(ConsHelper.EVENT_WORD_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 

@@ -17,7 +17,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Gift;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.List;
@@ -71,7 +70,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
     public void selectGift(int position) {
         mActivity.finish(); // 必须先关闭
         Gift item = getItem(position);
-        RxEvent<Gift> event = new RxEvent<>(ConsHelper.EVENT_GIFT_SELECT, item);
+        RxBus.Event<Gift> event = new RxBus.Event<>(ConsHelper.EVENT_GIFT_SELECT, item);
         RxBus.post(event);
     }
 

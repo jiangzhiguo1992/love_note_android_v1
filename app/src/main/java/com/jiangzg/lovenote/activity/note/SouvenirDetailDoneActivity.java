@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Souvenir;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -294,7 +293,7 @@ public class SouvenirDetailDoneActivity extends BaseActivity<SouvenirDetailDoneA
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Souvenir> event = new RxEvent<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir);
+                RxBus.Event<Souvenir> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

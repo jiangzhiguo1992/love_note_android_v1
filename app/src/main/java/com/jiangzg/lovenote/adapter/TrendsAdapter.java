@@ -36,6 +36,7 @@ import com.jiangzg.lovenote.activity.note.WordListActivity;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.ShowHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
@@ -108,7 +109,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
         ivAvatar.setData(avatar);
         TextView tvContent = helper.getView(R.id.tvContent);
-        tvContent.setText(Trends.getActShow(item.getActionType(), item.getContentId()));
+        tvContent.setText(ShowHelper.getActShow(item.getActionType(), item.getContentId()));
         Drawable dContent = getContentDrawable(item);
         tvContent.setCompoundDrawables(null, null, dContent, null);
         // listener

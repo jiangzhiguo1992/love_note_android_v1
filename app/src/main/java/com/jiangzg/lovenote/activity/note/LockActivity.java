@@ -38,7 +38,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Sms;
 import com.jiangzg.lovenote.model.entity.User;
 
@@ -203,7 +202,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
+                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
                 RxBus.post(event);
             }
 
@@ -271,7 +270,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
+                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
                 RxBus.post(event);
                 // finish
                 if (lock != null && !lock.isLock()) {
@@ -344,7 +343,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
+                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
                 RxBus.post(event);
             }
 
@@ -370,7 +369,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
                 lock = data.getLock();
                 refreshView();
                 // event
-                RxEvent<Lock> event = new RxEvent<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
+                RxBus.Event<Lock> event = new RxBus.Event<>(ConsHelper.EVENT_LOCK_REFRESH, lock);
                 RxBus.post(event);
             }
 

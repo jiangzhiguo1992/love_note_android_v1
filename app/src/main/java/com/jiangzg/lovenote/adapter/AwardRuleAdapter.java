@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.AwardRule;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import retrofit2.Call;
 
@@ -87,7 +86,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<AwardRule> event = new RxEvent<>(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, item);
+                RxBus.Event<AwardRule> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 
@@ -100,7 +99,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
     public void selectAwardRule(int position) {
         mActivity.finish(); // 必须先关闭
         AwardRule item = getItem(position);
-        RxEvent<AwardRule> event = new RxEvent<>(ConsHelper.EVENT_AWARD_RULE_SELECT, item);
+        RxBus.Event<AwardRule> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_SELECT, item);
         RxBus.post(event);
     }
 

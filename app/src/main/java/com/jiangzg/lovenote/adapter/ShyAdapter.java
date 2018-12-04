@@ -21,7 +21,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Shy;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
@@ -82,7 +81,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Shy> event = new RxEvent<>(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, item);
+                RxBus.Event<Shy> event = new RxBus.Event<>(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 

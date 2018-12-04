@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.model.entity.OrderBefore;
 import com.jiangzg.lovenote.model.entity.PayAliResult;
 import com.jiangzg.lovenote.model.entity.PayWxResult;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.model.entity.WXOrder;
 
@@ -215,7 +214,7 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
         RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxEvent<Vip> event = new RxEvent<>(ConsHelper.EVENT_VIP_INFO_REFRESH, new Vip());
+                RxBus.Event<Vip> event = new RxBus.Event<>(ConsHelper.EVENT_VIP_INFO_REFRESH, new Vip());
                 RxBus.post(event);
             }
 

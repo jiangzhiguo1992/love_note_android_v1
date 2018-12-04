@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.AwardRule;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -178,7 +177,7 @@ public class AwardRuleEditActivity extends BaseActivity<AwardRuleEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<AwardRule>> event = new RxEvent<>(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, new ArrayList<AwardRule>());
+                RxBus.Event<ArrayList<AwardRule>> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, new ArrayList<AwardRule>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

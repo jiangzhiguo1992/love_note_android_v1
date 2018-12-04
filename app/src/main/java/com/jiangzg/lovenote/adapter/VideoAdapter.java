@@ -31,7 +31,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Video;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.FrescoView;
@@ -159,7 +158,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Video> event = new RxEvent<>(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, item);
+                RxBus.Event<Video> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 
@@ -172,7 +171,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
     public void selectGift(int position) {
         mActivity.finish(); // 必须先关闭
         Video item = getItem(position);
-        RxEvent<Video> event = new RxEvent<>(ConsHelper.EVENT_VIDEO_SELECT, item);
+        RxBus.Event<Video> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_SELECT, item);
         RxBus.post(event);
     }
 }

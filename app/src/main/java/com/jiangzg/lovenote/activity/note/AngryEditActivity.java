@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Angry;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.ArrayList;
@@ -197,7 +196,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Angry>> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_REFRESH, new ArrayList<Angry>());
+                RxBus.Event<ArrayList<Angry>> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_REFRESH, new ArrayList<Angry>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

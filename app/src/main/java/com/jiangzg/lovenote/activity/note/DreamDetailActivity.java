@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Dream;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -203,7 +202,7 @@ public class DreamDetailActivity extends BaseActivity<DreamDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Dream> event = new RxEvent<>(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream);
+                RxBus.Event<Dream> event = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

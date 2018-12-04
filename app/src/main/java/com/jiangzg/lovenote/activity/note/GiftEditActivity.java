@@ -40,7 +40,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Gift;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.io.File;
@@ -342,7 +341,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Gift gift = data.getGift();
-                RxEvent<Gift> eventList = new RxEvent<>(ConsHelper.EVENT_GIFT_LIST_ITEM_REFRESH, gift);
+                RxBus.Event<Gift> eventList = new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_ITEM_REFRESH, gift);
                 RxBus.post(eventList);
                 // finish
                 mActivity.finish();
@@ -363,7 +362,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_GIFT_LIST_REFRESH, new ArrayList<Diary>());
+                RxBus.Event<ArrayList<Diary>> event = new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_REFRESH, new ArrayList<Diary>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
@@ -400,7 +399,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Gift> event = new RxEvent<>(ConsHelper.EVENT_GIFT_LIST_ITEM_DELETE, gift);
+                RxBus.Event<Gift> event = new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_ITEM_DELETE, gift);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

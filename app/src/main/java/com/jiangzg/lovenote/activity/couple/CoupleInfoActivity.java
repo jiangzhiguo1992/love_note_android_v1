@@ -50,7 +50,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
@@ -410,7 +409,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, couple);
+                RxBus.Event<Couple> event = new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, couple);
                 RxBus.post(event);
                 setViewData();
             }
@@ -460,7 +459,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 Couple couple = data.getCouple();
                 SPHelper.setCouple(couple);
-                RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, couple);
+                RxBus.Event<Couple> event = new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, couple);
                 RxBus.post(event);
                 mActivity.finish();
             }

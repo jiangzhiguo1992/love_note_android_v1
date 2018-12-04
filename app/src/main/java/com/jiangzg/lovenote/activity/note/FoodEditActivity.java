@@ -39,7 +39,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -370,7 +369,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Food food = data.getFood();
-                RxEvent<Food> eventList = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food);
+                RxBus.Event<Food> eventList = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food);
                 RxBus.post(eventList);
                 // finish
                 mActivity.finish();
@@ -391,7 +390,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Food>> event = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<Food>());
+                RxBus.Event<ArrayList<Food>> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<Food>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
@@ -428,7 +427,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Food> event = new RxEvent<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food);
+                RxBus.Event<Food> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

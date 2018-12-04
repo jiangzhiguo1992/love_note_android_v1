@@ -49,7 +49,6 @@ import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Travel;
 import com.jiangzg.lovenote.model.entity.TravelAlbum;
 import com.jiangzg.lovenote.model.entity.TravelDiary;
@@ -672,9 +671,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Travel travel = data.getTravel();
-                RxEvent<Travel> eventList = new RxEvent<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel);
+                RxBus.Event<Travel> eventList = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_REFRESH, travel);
                 RxBus.post(eventList);
-                RxEvent<Travel> eventSingle = new RxEvent<>(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel);
+                RxBus.Event<Travel> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel);
                 RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();
@@ -694,7 +693,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Travel>> event = new RxEvent<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<Travel>());
+                RxBus.Event<ArrayList<Travel>> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<Travel>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

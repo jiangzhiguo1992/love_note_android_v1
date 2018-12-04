@@ -18,7 +18,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestComment;
 
@@ -99,7 +98,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Suggest());
+                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Suggest());
                 RxBus.post(event);
             }
 

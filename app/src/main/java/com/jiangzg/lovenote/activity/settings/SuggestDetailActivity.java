@@ -44,7 +44,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestComment;
 import com.jiangzg.lovenote.model.entity.SuggestFollow;
@@ -260,7 +259,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 // data
                 if (recyclerHelper != null) recyclerHelper.dataRefresh();
                 // event
-                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
+                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
                 RxBus.post(event);
             }
 
@@ -426,7 +425,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
+                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest);
                 RxBus.post(event);
             }
 
@@ -486,7 +485,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Suggest> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest);
+                RxBus.Event<Suggest> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest);
                 RxBus.post(event);
                 mActivity.finish();
             }

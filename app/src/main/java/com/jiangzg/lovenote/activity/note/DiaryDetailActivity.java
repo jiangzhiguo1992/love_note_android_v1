@@ -31,7 +31,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -235,7 +234,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Diary> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary);
+                RxBus.Event<Diary> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

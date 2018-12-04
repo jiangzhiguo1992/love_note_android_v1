@@ -47,7 +47,6 @@ import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.ModelShow;
 import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.model.entity.WallPaper;
 import com.jiangzg.lovenote.model.entity.WeatherToday;
@@ -456,7 +455,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                     Couple couple = SPHelper.getCouple();
                     long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
                     if (breakCountDown <= 0) {
-                        RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
+                        RxBus.Event<Couple> event = new RxBus.Event<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                         RxBus.post(event);
                         stopCoupleCountDownTask();
                     } else {

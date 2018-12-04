@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.PushInfo;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.Locale;
@@ -284,7 +283,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                         SPHelper.clearWallPaper();
                         SPHelper.clearDraft();
                         PushHelper.unBindAccount();
-                        RxEvent<User> event = new RxEvent<>(ConsHelper.EVENT_USER_REFRESH, null);
+                        RxBus.Event<User> event = new RxBus.Event<>(ConsHelper.EVENT_USER_REFRESH, null);
                         RxBus.post(event);
                         SplashActivity.goActivity(mActivity);
                     }

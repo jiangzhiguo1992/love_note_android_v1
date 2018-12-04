@@ -16,7 +16,6 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Travel;
 import com.jiangzg.lovenote.model.entity.TravelPlace;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -78,7 +77,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
     public void selectTravel(int position) {
         mActivity.finish(); // 必须先关闭
         Travel item = getItem(position);
-        RxEvent<Travel> event = new RxEvent<>(ConsHelper.EVENT_TRAVEL_SELECT, item);
+        RxBus.Event<Travel> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_SELECT, item);
         RxBus.post(event);
     }
 

@@ -43,7 +43,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Video;
 import com.jiangzg.lovenote.view.FrescoView;
 
@@ -343,7 +342,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Video>> event = new RxEvent<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<Video>());
+                RxBus.Event<ArrayList<Video>> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<Video>());
                 RxBus.post(event);
                 mActivity.finish();
             }

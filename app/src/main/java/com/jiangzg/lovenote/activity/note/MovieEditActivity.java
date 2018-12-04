@@ -39,7 +39,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -370,7 +369,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Movie movie = data.getMovie();
-                RxEvent<Movie> eventList = new RxEvent<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, movie);
+                RxBus.Event<Movie> eventList = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, movie);
                 RxBus.post(eventList);
                 // finish
                 mActivity.finish();
@@ -391,7 +390,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Movie>> event = new RxEvent<>(ConsHelper.EVENT_MOVIE_LIST_REFRESH, new ArrayList<Movie>());
+                RxBus.Event<ArrayList<Movie>> event = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_REFRESH, new ArrayList<Movie>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
@@ -428,7 +427,7 @@ public class MovieEditActivity extends BaseActivity<MovieEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Movie> event = new RxEvent<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, movie);
+                RxBus.Event<Movie> event = new RxBus.Event<>(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, movie);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

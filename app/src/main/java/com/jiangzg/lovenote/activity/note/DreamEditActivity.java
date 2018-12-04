@@ -28,7 +28,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Dream;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -204,9 +203,9 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Dream dream = data.getDream();
-                RxEvent<Dream> eventList = new RxEvent<>(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, dream);
+                RxBus.Event<Dream> eventList = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, dream);
                 RxBus.post(eventList);
-                RxEvent<Dream> eventSingle = new RxEvent<>(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, dream);
+                RxBus.Event<Dream> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_DREAM_DETAIL_REFRESH, dream);
                 RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();
@@ -226,7 +225,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Dream>> event = new RxEvent<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<Dream>());
+                RxBus.Event<ArrayList<Dream>> event = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<Dream>());
                 RxBus.post(event);
                 // sp
                 SPHelper.setDraftDream(null);

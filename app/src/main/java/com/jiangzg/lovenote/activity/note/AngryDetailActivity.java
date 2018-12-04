@@ -38,7 +38,6 @@ import com.jiangzg.lovenote.model.entity.Angry;
 import com.jiangzg.lovenote.model.entity.Gift;
 import com.jiangzg.lovenote.model.entity.Promise;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -322,7 +321,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, angry);
+                RxBus.Event<Angry> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_DELETE, angry);
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
@@ -382,7 +381,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 // view
                 refreshView();
                 // event
-                RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
+                RxBus.Event<Angry> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
                 RxBus.post(event);
             }
 
@@ -404,7 +403,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 // view
                 refreshView();
                 // event
-                RxEvent<Angry> event = new RxEvent<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
+                RxBus.Event<Angry> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_ITEM_REFRESH, angry);
                 RxBus.post(event);
             }
 

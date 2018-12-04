@@ -13,7 +13,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Diary;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;
@@ -63,7 +62,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
     public void selectDiary(int position) {
         mActivity.finish(); // 必须先关闭
         Diary item = getItem(position);
-        RxEvent<Diary> event = new RxEvent<>(ConsHelper.EVENT_DIARY_SELECT, item);
+        RxBus.Event<Diary> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_SELECT, item);
         RxBus.post(event);
     }
 

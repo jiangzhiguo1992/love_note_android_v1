@@ -34,7 +34,6 @@ import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Suggest;
 import com.jiangzg.lovenote.model.entity.SuggestInfo;
 import com.jiangzg.lovenote.view.FrescoNativeView;
@@ -314,7 +313,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxEvent<ArrayList<Suggest>> event = new RxEvent<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
+                RxBus.Event<ArrayList<Suggest>> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
                 RxBus.post(event);
                 mActivity.finish();
             }

@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.model.entity.OrderBefore;
 import com.jiangzg.lovenote.model.entity.PayAliResult;
 import com.jiangzg.lovenote.model.entity.PayWxResult;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.WXOrder;
 
 import java.util.Locale;
@@ -215,7 +214,7 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
         RetrofitHelper.enqueue(callAfter, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxEvent<Coin> event = new RxEvent<>(ConsHelper.EVENT_COIN_INFO_REFRESH, new Coin());
+                RxBus.Event<Coin> event = new RxBus.Event<>(ConsHelper.EVENT_COIN_INFO_REFRESH, new Coin());
                 RxBus.post(event);
             }
 

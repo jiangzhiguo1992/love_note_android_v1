@@ -25,7 +25,6 @@ import com.jiangzg.lovenote.model.entity.PostComment;
 import com.jiangzg.lovenote.model.entity.PostCommentPoint;
 import com.jiangzg.lovenote.model.entity.PostCommentReport;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;
@@ -162,10 +161,10 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxEvent<Long> eventPostDetail = new RxEvent<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
+                RxBus.Event<Long> eventPostDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_DETAIL_REFRESH, item.getPostId());
                 RxBus.post(eventPostDetail);
                 if (subComment) {
-                    RxEvent<Long> eventPostCommentDetail = new RxEvent<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId());
+                    RxBus.Event<Long> eventPostCommentDetail = new RxBus.Event<>(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, item.getToCommentId());
                     RxBus.post(eventPostCommentDetail);
                 }
             }

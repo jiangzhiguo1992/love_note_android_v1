@@ -26,7 +26,6 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.TravelPlace;
 
 import java.util.Locale;
@@ -187,7 +186,7 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
             return;
         }
         // event
-        RxEvent<TravelPlace> event = new RxEvent<>(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, place);
+        RxBus.Event<TravelPlace> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, place);
         RxBus.post(event);
         mActivity.finish();
     }

@@ -10,7 +10,6 @@ import com.jiangzg.base.system.LocationInfo;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 /**
  * Created by JZG on 2018/3/12.
@@ -51,7 +50,7 @@ public class MapSearchAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> 
         select.setAddress(item.getTitle());
         select.setCityId(item.getCityCode());
         // 传输数据
-        RxEvent<LocationInfo> event = new RxEvent<>(ConsHelper.EVENT_MAP_SELECT, select);
+        RxBus.Event<LocationInfo> event = new RxBus.Event<>(ConsHelper.EVENT_MAP_SELECT, select);
         RxBus.post(event);
         mActivity.finish();
     }

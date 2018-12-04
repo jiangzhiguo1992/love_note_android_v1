@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Promise;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 
 import java.util.ArrayList;
@@ -246,9 +245,9 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Promise promise = data.getPromise();
-                RxEvent<Promise> eventList = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
+                RxBus.Event<Promise> eventList = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
                 RxBus.post(eventList);
-                RxEvent<Promise> eventSingle = new RxEvent<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise);
+                RxBus.Event<Promise> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise);
                 RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();
@@ -268,7 +267,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Promise>> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<Promise>());
+                RxBus.Event<ArrayList<Promise>> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<Promise>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

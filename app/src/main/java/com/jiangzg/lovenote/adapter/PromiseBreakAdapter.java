@@ -18,7 +18,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Promise;
 import com.jiangzg.lovenote.model.entity.PromiseBreak;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import retrofit2.Call;
 
@@ -75,12 +74,12 @@ public class PromiseBreakAdapter extends BaseQuickAdapter<PromiseBreak, BaseView
             public void onResponse(int code, String message, Result.Data data) {
                 remove(position);
                 // event
-                RxEvent<Promise> eventDetail = new RxEvent<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Promise());
+                RxBus.Event<Promise> eventDetail = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Promise());
                 RxBus.post(eventDetail);
                 if (promise != null) {
                     int breakCount = promise.getBreakCount() - 1;
                     promise.setBreakCount(breakCount < 0 ? 0 : breakCount);
-                    RxEvent<Promise> eventListItem = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
+                    RxBus.Event<Promise> eventListItem = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
                     RxBus.post(eventListItem);
                 }
             }

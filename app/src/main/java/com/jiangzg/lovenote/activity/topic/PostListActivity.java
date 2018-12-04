@@ -27,7 +27,6 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -153,7 +152,7 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llTop: // 置顶
-                RxEvent<Boolean> event = new RxEvent<>(ConsHelper.EVENT_POST_GO_TOP, true);
+                RxBus.Event<Boolean> event = new RxBus.Event<>(ConsHelper.EVENT_POST_GO_TOP, true);
                 RxBus.post(event);
                 break;
             case R.id.llSearch: // 搜索
@@ -186,16 +185,16 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                         }
                         searchIndex = which;
                         tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchIndex]);
-                        RxEvent<Boolean> event;
+                        RxBus.Event<Boolean> event;
                         switch (ApiHelper.LIST_TOPIC_TYPE[searchIndex]) {
                             case ApiHelper.LIST_TOPIC_OFFICIAL: // 官方
-                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
+                                event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
                                 break;
                             case ApiHelper.LIST_TOPIC_WELL: // 精华
-                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
+                                event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
                                 break;
                             default: // 普通
-                                event = new RxEvent<>(ConsHelper.EVENT_POST_SEARCH_ALL, true);
+                                event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_ALL, true);
                                 break;
                         }
                         RxBus.post(event);

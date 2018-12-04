@@ -19,7 +19,6 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Food;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
     public void selectFood(int position) {
         mActivity.finish(); // 必须先关闭
         Food item = getItem(position);
-        RxEvent<Food> event = new RxEvent<>(ConsHelper.EVENT_FOOD_SELECT, item);
+        RxBus.Event<Food> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_SELECT, item);
         RxBus.post(event);
     }
 

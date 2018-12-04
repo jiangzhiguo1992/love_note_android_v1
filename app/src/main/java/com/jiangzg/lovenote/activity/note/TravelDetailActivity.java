@@ -45,7 +45,6 @@ import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Travel;
 import com.jiangzg.lovenote.model.entity.TravelPlace;
 import com.jiangzg.lovenote.model.entity.Video;
@@ -437,7 +436,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // ListItemDelete
-                RxEvent<Travel> event = new RxEvent<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, travel);
+                RxBus.Event<Travel> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_ITEM_DELETE, travel);
                 RxBus.post(event);
                 mActivity.finish();
             }

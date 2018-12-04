@@ -4,10 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
-import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseCP;
 import com.jiangzg.lovenote.helper.ApiHelper;
-import com.jiangzg.lovenote.main.MyApp;
 
 /**
  * Created by JZG on 2018/8/7.
@@ -16,38 +14,18 @@ import com.jiangzg.lovenote.main.MyApp;
 public class Coin extends BaseCP implements Parcelable, MultiItemEntity {
 
     // add
-    private static final int COIN_KIND_ADD_BY_SYS = 10; // +系统变更
-    private static final int COIN_KIND_ADD_BY_PLAY_PAY = 100; // +商店充值
-    private static final int COIN_KIND_ADD_BY_SIGN_DAY = 200; // +每日签到
-    private static final int COIN_KIND_ADD_BY_MATCH_POST = 300; // +参加比拼
-    private static final int COIN_KIND_SUB_BY_MATCH_UP = -300; // -比拼投币
-    private static final int COIN_KIND_SUB_BY_WISH_UP = -410; // -许愿投币
-    private static final int COIN_KIND_SUB_BY_PLANE_UP = -420; // -飞机投币
+    public static final int COIN_KIND_ADD_BY_SYS = 10; // +系统变更
+    public static final int COIN_KIND_ADD_BY_PLAY_PAY = 100; // +商店充值
+    public static final int COIN_KIND_ADD_BY_SIGN_DAY = 200; // +每日签到
+    public static final int COIN_KIND_ADD_BY_MATCH_POST = 300; // +参加比拼
+    public static final int COIN_KIND_SUB_BY_MATCH_UP = -300; // -比拼投币
+    public static final int COIN_KIND_SUB_BY_WISH_UP = -410; // -许愿投币
+    public static final int COIN_KIND_SUB_BY_PLANE_UP = -420; // -飞机投币
 
     private int kind;
     private long billId;
     private int change;
     private int count;
-
-    public static String getKindShow(int form) {
-        switch (form) {
-            case COIN_KIND_ADD_BY_SYS:
-                return MyApp.get().getString(R.string.sys_change);
-            case COIN_KIND_ADD_BY_PLAY_PAY:
-                return MyApp.get().getString(R.string.pay);
-            case COIN_KIND_ADD_BY_SIGN_DAY:
-                return MyApp.get().getString(R.string.sign);
-            case COIN_KIND_ADD_BY_MATCH_POST:
-                return MyApp.get().getString(R.string.nav_match);
-            case COIN_KIND_SUB_BY_MATCH_UP:
-                return MyApp.get().getString(R.string.nav_match);
-            case COIN_KIND_SUB_BY_WISH_UP:
-                return MyApp.get().getString(R.string.nav_wish);
-            case COIN_KIND_SUB_BY_PLANE_UP:
-                return MyApp.get().getString(R.string.nav_plane);
-        }
-        return MyApp.get().getString(R.string.unknown_kind);
-    }
 
     @Override
     public int getItemType() {

@@ -43,7 +43,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Promise;
 import com.jiangzg.lovenote.model.entity.PromiseBreak;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -355,7 +354,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise);
+                RxBus.Event<Promise> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise);
                 RxBus.post(event);
                 mActivity.finish();
             }
@@ -404,7 +403,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 promise.setBreakCount(promise.getBreakCount() + 1);
                 initHead();
                 // event
-                RxEvent<Promise> event = new RxEvent<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
+                RxBus.Event<Promise> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise);
                 RxBus.post(event);
             }
 

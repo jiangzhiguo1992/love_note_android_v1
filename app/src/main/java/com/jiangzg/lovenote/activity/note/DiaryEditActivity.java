@@ -33,7 +33,6 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -308,9 +307,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 // event
                 Diary diary = data.getDiary();
-                RxEvent<Diary> eventList = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary);
+                RxBus.Event<Diary> eventList = new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary);
                 RxBus.post(eventList);
-                RxEvent<Diary> eventSingle = new RxEvent<>(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary);
+                RxBus.Event<Diary> eventSingle = new RxBus.Event<>(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary);
                 RxBus.post(eventSingle);
                 // finish
                 mActivity.finish();
@@ -331,7 +330,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<ArrayList<Diary>> event = new RxEvent<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
+                RxBus.Event<ArrayList<Diary>> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
                 RxBus.post(event);
                 // sp
                 SPHelper.setDraftDiary(null);

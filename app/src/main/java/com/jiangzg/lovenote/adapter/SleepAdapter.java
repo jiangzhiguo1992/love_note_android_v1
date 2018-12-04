@@ -18,7 +18,6 @@ import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Sleep;
 
 import java.util.Locale;
@@ -77,7 +76,7 @@ public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Sleep> event = new RxEvent<>(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, item);
+                RxBus.Event<Sleep> event = new RxBus.Event<>(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 

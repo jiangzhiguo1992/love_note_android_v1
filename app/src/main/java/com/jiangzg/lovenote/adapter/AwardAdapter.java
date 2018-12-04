@@ -20,7 +20,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
@@ -96,7 +95,7 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxEvent<Award> event = new RxEvent<>(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, item);
+                RxBus.Event<Award> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_ITEM_DELETE, item);
                 RxBus.post(event);
             }
 

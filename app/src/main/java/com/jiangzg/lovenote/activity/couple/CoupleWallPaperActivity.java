@@ -32,7 +32,6 @@ import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Result;
-import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.WallPaper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
@@ -197,7 +196,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 SPHelper.setWallPaper(data.getWallPaper());
                 viewRefresh(data);
                 // event
-                RxEvent<WallPaper> event = new RxEvent<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
+                RxBus.Event<WallPaper> event = new RxBus.Event<>(ConsHelper.EVENT_WALL_PAPER_REFRESH, data.getWallPaper());
                 RxBus.post(event);
             }
 
