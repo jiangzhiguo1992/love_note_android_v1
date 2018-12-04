@@ -31,10 +31,10 @@ import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.entity.Result;
@@ -96,7 +96,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
     private Runnable countDownTask;
 
     public static void goActivity(Fragment from) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
             CouplePairActivity.goActivity(from);
             return;
@@ -108,7 +108,7 @@ public class LockActivity extends BaseActivity<LockActivity> {
     }
 
     public static void goActivity(Context from) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
             CouplePairActivity.goActivity(from);
             return;

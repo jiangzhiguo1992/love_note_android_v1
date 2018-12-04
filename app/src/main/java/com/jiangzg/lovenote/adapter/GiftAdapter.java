@@ -14,6 +14,7 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Gift;
 import com.jiangzg.lovenote.model.entity.RxEvent;
@@ -27,8 +28,8 @@ import java.util.List;
  */
 public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
+    private FragmentActivity mActivity;
 
     public GiftAdapter(FragmentActivity activity) {
         super(R.layout.list_item_gift);
@@ -38,7 +39,7 @@ public class GiftAdapter extends BaseQuickAdapter<Gift, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Gift item) {
-        String avatar = Couple.getAvatar(couple, item.getReceiveId());
+        String avatar = UserHelper.getAvatar(couple, item.getReceiveId());
         String title = item.getTitle();
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
         List<String> imageList = item.getContentImageList();

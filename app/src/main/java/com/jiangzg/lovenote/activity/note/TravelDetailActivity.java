@@ -36,6 +36,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Album;
@@ -217,7 +218,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
         Couple couple = SPHelper.getCouple();
         String title = travel.getTitle();
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(travel.getHappenAt());
-        String creator = Couple.getName(couple, travel.getUserId());
+        String creator = UserHelper.getName(couple, travel.getUserId());
         // headView
         tvTitle.setText(title);
         tvHappenAt.setText(happen);

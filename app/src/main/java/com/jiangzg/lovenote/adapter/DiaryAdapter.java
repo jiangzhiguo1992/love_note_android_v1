@@ -10,6 +10,7 @@ import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Diary;
 import com.jiangzg.lovenote.model.entity.RxEvent;
@@ -23,10 +24,10 @@ import java.util.Locale;
  */
 public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
     private final String textFormat;
     private final String readFormat;
+    private FragmentActivity mActivity;
 
     public DiaryAdapter(FragmentActivity activity) {
         super(R.layout.list_item_diary);
@@ -38,7 +39,7 @@ public class DiaryAdapter extends BaseQuickAdapter<Diary, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Diary item) {
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         String textCount = String.format(Locale.getDefault(), textFormat, content == null ? 0 : content.length());

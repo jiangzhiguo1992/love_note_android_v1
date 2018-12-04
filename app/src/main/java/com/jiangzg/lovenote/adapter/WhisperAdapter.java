@@ -11,6 +11,7 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Whisper;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -22,8 +23,8 @@ import com.jiangzg.lovenote.view.FrescoView;
  */
 public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
+    private BaseActivity mActivity;
 
     public WhisperAdapter(BaseActivity activity) {
         super(null);
@@ -36,7 +37,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
     @Override
     protected void convert(BaseViewHolder helper, Whisper item) {
         // data
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         boolean isImage = item.isImage();
         final String content = item.getContent();

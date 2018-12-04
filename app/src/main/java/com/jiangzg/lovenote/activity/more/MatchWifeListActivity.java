@@ -40,9 +40,9 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.MatchWork;
@@ -323,7 +323,7 @@ public class MatchWifeListActivity extends BaseActivity<MatchWifeListActivity> {
 
     // 图片获取
     private void goPicture() {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(mActivity);
             return;
         }

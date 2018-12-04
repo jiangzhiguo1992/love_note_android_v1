@@ -18,9 +18,9 @@ import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.Result;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -45,7 +45,7 @@ public class CouplePlaceActivity extends BaseActivity<CouplePlaceActivity> {
 
     public static void goActivity(Fragment from) {
         if (!LocationHelper.checkLocationEnable(from)) return;
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }

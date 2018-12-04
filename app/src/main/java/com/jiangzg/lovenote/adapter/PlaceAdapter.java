@@ -12,6 +12,7 @@ import com.jiangzg.lovenote.helper.CountHelper;
 import com.jiangzg.lovenote.helper.LocationHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -24,11 +25,11 @@ import java.util.Locale;
  */
 public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
     private final String formatNo;
     private final String formatAddress;
     private final String formatDistance;
+    private FragmentActivity mActivity;
 
     public PlaceAdapter(FragmentActivity activity) {
         super(R.layout.list_item_place);
@@ -43,7 +44,7 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Place item) {
         // data
         boolean isMine = item.getUserId() == SPHelper.getMe().getId();
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();
         String province = StringUtils.isEmail(item.getProvince()) ? formatNo : item.getProvince();

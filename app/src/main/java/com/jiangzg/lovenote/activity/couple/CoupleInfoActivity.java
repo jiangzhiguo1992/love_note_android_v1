@@ -44,6 +44,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -113,7 +114,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private int page;
 
     public static void goActivity(Fragment from) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }
@@ -188,7 +189,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         menu.clear();
         User me = SPHelper.getMe();
         Couple couple = me.getCouple();
-        if (Couple.isBreaking(couple) && couple.getState().getUserId() == me.getId()) {
+        if (UserHelper.isCoupleBreaking(couple) && couple.getState().getUserId() == me.getId()) {
             getMenuInflater().inflate(R.menu.complex_help, menu);
         } else {
             getMenuInflater().inflate(R.menu.break_help, menu);
@@ -313,8 +314,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taAvatar = me.getTaAvatarInCp();
         String mePhone = me.getPhone();
         String taPhone = ta == null ? "" : ta.getPhone();
-        int meSexRes = me.getSexResCircleSmall();
-        int taSexRes = ta == null ? 0 : ta.getSexResCircleSmall();
+        int meSexRes = UserHelper.getSexResCircleSmall(me);
+        int taSexRes = UserHelper.getSexResCircleSmall(ta);
         long meBirth = TimeHelper.getJavaTimeByGo(me.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         String taBirthShow = "";
@@ -330,8 +331,8 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvNameRight.setText(myName);
         tvPhoneLeft.setText(taPhone);
         tvPhoneRight.setText(mePhone);
-        ivSexLeft.setImageResource(taSexRes);
-        ivSexRight.setImageResource(meSexRes);
+        if (taSexRes > 0) ivSexLeft.setImageResource(taSexRes);
+        if (meSexRes > 0) ivSexRight.setImageResource(meSexRes);
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
         tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.pair_holder_day), togetherDay));

@@ -27,6 +27,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
@@ -45,7 +46,6 @@ import retrofit2.Call;
  */
 public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
     private final int dp200;
     private final int dp150;
@@ -55,6 +55,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
     private final String hour;
     private final String minute;
     private final String second;
+    private BaseActivity mActivity;
 
     public VideoAdapter(BaseActivity activity) {
         super(null);
@@ -75,7 +76,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, Video item) {
         // data
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String thumb = item.getContentThumb();
         String title = item.getTitle();
         TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeHelper.getJavaTimeByGo(item.getDuration()));

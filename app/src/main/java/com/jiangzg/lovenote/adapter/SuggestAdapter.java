@@ -25,7 +25,6 @@ import java.util.Locale;
  */
 public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final ColorStateList colorPrimaryStateList;
     private final ColorStateList colorGreyStateList;
     private final String formatCreateAt;
@@ -35,6 +34,7 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
     private final String formatTop;
     private final String formatOfficial;
     private final String formatMine;
+    private FragmentActivity mActivity;
 
     public SuggestAdapter(FragmentActivity activity) {
         super(R.layout.list_item_suggest);

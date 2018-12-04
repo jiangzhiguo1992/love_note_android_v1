@@ -38,11 +38,11 @@ import retrofit2.Call;
  */
 public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, BaseViewHolder> {
 
-    private BaseActivity mActivity;
-    private boolean subComment;
     private final String formatFloor;
     private final int colorPrimary, colorFontGrey;
     private final ColorStateList colorStatePrimary, colorStateIconGrey;
+    private BaseActivity mActivity;
+    private boolean subComment;
 
     public PostCommentAdapter(BaseActivity activity, boolean subComment) {
         super(null);

@@ -54,10 +54,6 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         this.canDel = canDel;
     }
 
-    public interface OnAddClickListener {
-        void onAdd();
-    }
-
     public void setOnAddClick(OnAddClickListener addClickListener) {
         this.addClickListener = addClickListener;
     }
@@ -139,20 +135,6 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         DialogHelper.showWithAnim(dialog);
     }
 
-    public void setOssData(List<String> ossPaths) {
-        if (ossPaths == null || ossPaths.size() <= 0) return;
-        ossSize = ossPaths.size();
-        if (limit > ossPaths.size()) {
-            // 还可以再添加
-            addShow = true;
-            ossPaths.add("");
-        } else {
-            // 不能添加了
-            addShow = false;
-        }
-        this.setNewData(ossPaths);
-    }
-
     public void addFileData(String filePath) {
         if (!FileUtils.isFileExists(filePath)) return;
         if (addShow) {
@@ -218,6 +200,20 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         return data.subList(0, ossSize);
     }
 
+    public void setOssData(List<String> ossPaths) {
+        if (ossPaths == null || ossPaths.size() <= 0) return;
+        ossSize = ossPaths.size();
+        if (limit > ossPaths.size()) {
+            // 还可以再添加
+            addShow = true;
+            ossPaths.add("");
+        } else {
+            // 不能添加了
+            addShow = false;
+        }
+        this.setNewData(ossPaths);
+    }
+
     // 获取file数据
     public List<String> getFileData() {
         List<String> data = this.getData();
@@ -227,6 +223,10 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         }
         if (size <= 0 || ossSize >= size) return new ArrayList<>();
         return data.subList(ossSize, size);
+    }
+
+    public interface OnAddClickListener {
+        void onAdd();
     }
 
 }

@@ -17,6 +17,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
@@ -32,8 +33,8 @@ import retrofit2.Call;
  */
 public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
+    private BaseActivity mActivity;
 
     public ShyAdapter(BaseActivity activity) {
         super(R.layout.list_item_shy);
@@ -43,7 +44,7 @@ public class ShyAdapter extends BaseQuickAdapter<Shy, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Shy item) {
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String happenAt = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getHappenAt()), ConstantUtils.FORMAT_H_M);
         // view
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);

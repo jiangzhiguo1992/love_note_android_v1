@@ -10,6 +10,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -22,8 +23,8 @@ import java.util.Locale;
  */
 public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
+    private FragmentActivity mActivity;
 
     public VipAdapter(FragmentActivity activity) {
         super(null);
@@ -36,7 +37,7 @@ public class VipAdapter extends BaseMultiItemQuickAdapter<Vip, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Vip item) {
         // data
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         int expireDays = item.getExpireDays();
         String expireAt = DateUtils.getString(TimeHelper.getJavaTimeByGo(item.getExpireAt()), ConstantUtils.FORMAT_LINE_Y_M_D_H_M);

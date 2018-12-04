@@ -8,6 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.note.AngryDetailActivity;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Angry;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -18,8 +19,8 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
  */
 public class AngryAdapter extends BaseQuickAdapter<Angry, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
+    private FragmentActivity mActivity;
 
     public AngryAdapter(FragmentActivity activity) {
         super(R.layout.list_item_angry);
@@ -29,8 +30,8 @@ public class AngryAdapter extends BaseQuickAdapter<Angry, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Angry item) {
-        String avatar = Couple.getAvatar(couple, item.getHappenId());
-        String creator = Couple.getName(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getHappenId());
+        String creator = UserHelper.getName(couple, item.getUserId());
         String happen = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         // view

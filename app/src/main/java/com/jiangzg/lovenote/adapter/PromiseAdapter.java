@@ -10,6 +10,7 @@ import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Promise;
 import com.jiangzg.lovenote.model.entity.RxEvent;
@@ -21,8 +22,8 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
  */
 public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
+    private FragmentActivity mActivity;
 
     public PromiseAdapter(FragmentActivity activity) {
         super(R.layout.list_item_promise);
@@ -32,7 +33,7 @@ public class PromiseAdapter extends BaseQuickAdapter<Promise, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Promise item) {
-        String avatar = Couple.getAvatar(couple, item.getHappenId());
+        String avatar = UserHelper.getAvatar(couple, item.getHappenId());
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
         String breakCount = String.valueOf(item.getBreakCount());
         String content = item.getContentText();

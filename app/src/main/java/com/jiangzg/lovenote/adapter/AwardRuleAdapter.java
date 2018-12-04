@@ -15,6 +15,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.AwardRule;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -29,8 +30,8 @@ import retrofit2.Call;
  */
 public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
+    private BaseActivity mActivity;
 
     public AwardRuleAdapter(BaseActivity activity) {
         super(R.layout.list_item_award_rule);
@@ -46,7 +47,7 @@ public class AwardRuleAdapter extends BaseQuickAdapter<AwardRule, BaseViewHolder
         }
         String useCount = String.valueOf(item.getUseCount());
         String title = item.getTitle();
-        String creator = Couple.getName(couple, item.getUserId());
+        String creator = UserHelper.getName(couple, item.getUserId());
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         // view
         helper.setText(R.id.tvScore, score);

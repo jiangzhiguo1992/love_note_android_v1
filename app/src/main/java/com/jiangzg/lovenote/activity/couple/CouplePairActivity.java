@@ -30,6 +30,7 @@ import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -247,7 +248,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
 
     // 刷新view
     private void refreshSelfCoupleView(Result.Data data) {
-        if (data == null || Couple.isEmpty(data.getCouple())) {
+        if (data == null || UserHelper.isEmpty(data.getCouple())) {
             // 没有等待处理的
             coupleId = 0;
             llInput.setVisibility(View.VISIBLE);
@@ -358,7 +359,7 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 srl.setRefreshing(false);
-                if (data != null && !Couple.isBreak(data.getCouple())) {
+                if (data != null && !UserHelper.isCoupleBreak(data.getCouple())) {
                     // 有配对成功的，退出本界面
                     Couple couple = data.getCouple();
                     SPHelper.setCouple(couple);

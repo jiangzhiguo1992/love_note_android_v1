@@ -22,9 +22,9 @@ import com.jiangzg.lovenote.view.FrescoView;
  */
 public class MatchWifeAdapter extends BaseQuickAdapter<MatchWork, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final int width, height;
     private final ColorStateList colorPrimaryStateList, colorWhiteStateList;
+    private FragmentActivity mActivity;
 
     public MatchWifeAdapter(FragmentActivity activity) {
         super(R.layout.list_item_match_wife);

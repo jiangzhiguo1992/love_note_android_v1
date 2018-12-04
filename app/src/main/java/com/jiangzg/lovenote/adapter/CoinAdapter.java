@@ -8,6 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Coin;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -32,7 +33,7 @@ public class CoinAdapter extends BaseMultiItemQuickAdapter<Coin, BaseViewHolder>
     @Override
     protected void convert(BaseViewHolder helper, Coin item) {
         // data
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String kindShow = Coin.getKindShow(item.getKind());
         String change;

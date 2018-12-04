@@ -8,6 +8,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.note.DreamDetailActivity;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Dream;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
@@ -20,9 +21,9 @@ import java.util.Locale;
  */
 public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
     private final Couple couple;
     private final String formatNumber;
+    private FragmentActivity mActivity;
 
     public DreamAdapter(FragmentActivity activity) {
         super(R.layout.list_item_dream);
@@ -33,7 +34,7 @@ public class DreamAdapter extends BaseQuickAdapter<Dream, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Dream item) {
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
         String content = item.getContentText();
         if (content == null) content = "";

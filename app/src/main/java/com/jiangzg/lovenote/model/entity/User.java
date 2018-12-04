@@ -3,10 +3,8 @@ package com.jiangzg.lovenote.model.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.base.BaseObj;
-import com.jiangzg.lovenote.helper.SPHelper;
-import com.jiangzg.lovenote.main.MyApp;
+import com.jiangzg.lovenote.helper.UserHelper;
 
 /**
  * Created by JiangZhiGuo on 2016/9/30.
@@ -26,47 +24,10 @@ public class User extends BaseObj implements Parcelable {
     // 实体
     private Couple couple;
 
-    // 信息是否完善
-    public static boolean canUserInfo() {
-        User user = SPHelper.getMe();
-        int sex = user.getSex();
-        long birthday = user.getBirthday();
-        boolean noSex = sex != User.SEX_BOY && sex != User.SEX_GIRL;
-        boolean noBirth = birthday == 0;
-        return noSex || noBirth;
-    }
-
-    // 性别
-    public String getSexShow() {
-        return getSexShow(this.getSex());
-    }
-
-    public static String getSexShow(int sex) {
-        if (sex == User.SEX_GIRL) {
-            return MyApp.get().getString(R.string.girl);
-        } else if (sex == User.SEX_BOY) {
-            return MyApp.get().getString(R.string.boy);
-        }
-        return "";
-    }
-
-    public int getSexResCircleSmall() {
-        return getSexResCircleSmall(this.getSex());
-    }
-
-    public static int getSexResCircleSmall(int sex) {
-        if (sex == User.SEX_BOY) {
-            return R.mipmap.ic_sex_boy_circle;
-        } else if (sex == User.SEX_GIRL) {
-            return R.mipmap.ic_sex_girl_circle;
-        }
-        return 0;
-    }
-
     // ta的id
     public long getTaId() {
         Couple couple = getCouple();
-        return Couple.getTaId(couple, this.getId());
+        return UserHelper.getTaId(couple, this.getId());
     }
 
     // 名称
@@ -80,7 +41,7 @@ public class User extends BaseObj implements Parcelable {
 
     public String getNameInCp(long uid) {
         Couple couple = getCouple();
-        return Couple.getName(couple, uid);
+        return UserHelper.getName(couple, uid);
     }
 
     // 头像
@@ -94,7 +55,7 @@ public class User extends BaseObj implements Parcelable {
 
     public String getAvatarInCp(long uid) {
         Couple couple = getCouple();
-        return Couple.getAvatar(couple, uid);
+        return UserHelper.getAvatar(couple, uid);
     }
 
     public String getPhone() {

@@ -23,9 +23,9 @@ import java.util.Locale;
  */
 public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseViewHolder> {
 
+    private final List<Integer> colorList;
     private Fragment mFragment;
     private Activity mActivity;
-    private final List<Integer> colorList;
 
     public TopicHomeKindAdapter(Activity activity, Fragment fragment) {
         super(R.layout.list_item_topic_home_kind);

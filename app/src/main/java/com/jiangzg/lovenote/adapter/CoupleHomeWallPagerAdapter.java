@@ -31,12 +31,12 @@ import java.util.TimerTask;
  */
 public class CoupleHomeWallPagerAdapter extends PagerAdapter {
 
+    private final int screenWidth;
+    private final int screenHeight;
     private Context mContext;
     private List<String> ossKeyList;
     private Timer timer;
     private ViewPager mPager;
-    private final int screenWidth;
-    private final int screenHeight;
     private int mChildCount;
 
     public CoupleHomeWallPagerAdapter(Context context, ViewPager pager) {

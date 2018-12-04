@@ -15,6 +15,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Award;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -31,9 +32,9 @@ import retrofit2.Call;
  */
 public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final User me;
     private final Couple couple;
+    private BaseActivity mActivity;
 
     public AwardAdapter(BaseActivity activity) {
         super(R.layout.list_item_award);
@@ -49,7 +50,7 @@ public class AwardAdapter extends BaseQuickAdapter<Award, BaseViewHolder> {
         String avatar = me.getAvatarInCp(item.getHappenId());
         String content = item.getContentText();
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());
-        String creator = Couple.getName(couple, item.getUserId());
+        String creator = UserHelper.getName(couple, item.getUserId());
         String scoreShow = String.valueOf(item.getScoreChange());
         if (item.getScoreChange() > 0) {
             scoreShow = "+" + scoreShow;

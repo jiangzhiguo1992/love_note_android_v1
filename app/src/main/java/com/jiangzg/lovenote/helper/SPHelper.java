@@ -858,7 +858,7 @@ public class SPHelper {
      */
     public static void setCouple(Couple couple) {
         clearCouple();
-        if (Couple.isEmpty(couple)) {
+        if (UserHelper.isEmpty(couple)) {
             LogUtils.i(SPHelper.class, "setCouple", "couple == null");
             return;
         }

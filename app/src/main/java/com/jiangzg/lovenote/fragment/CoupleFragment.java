@@ -37,6 +37,7 @@ import com.jiangzg.lovenote.helper.OssResHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.helper.WeatherHelper;
 import com.jiangzg.lovenote.main.MyApp;
@@ -244,7 +245,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
     // 获取自己的位置并上传
     private void refreshPlaceWeatherDate() {
-        if (Couple.isBreak(SPHelper.getCouple())) return; // 还是要检查的，防止后台返回错误
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) return; // 还是要检查的，防止后台返回错误
         if (!LocationHelper.checkLocationEnable(mActivity)) return;
         LocationHelper.startLocation(mActivity, true, new LocationHelper.LocationCallBack() {
             @Override
@@ -289,14 +290,14 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         // 开始判断
         User user = SPHelper.getMe();
         Couple couple = user.getCouple();
-        if (Couple.isBreak(couple)) {
+        if (UserHelper.isCoupleBreak(couple)) {
             // 已经分手，或者没有开始过
             ivBg.setVisibility(View.VISIBLE);
             btnPair.setVisibility(View.VISIBLE);
         } else {
             // 已经配对
             llBottom.setVisibility(View.VISIBLE);
-            if (Couple.isBreaking(couple)) {
+            if (UserHelper.isCoupleBreaking(couple)) {
                 // 正在分手
                 tvCoupleCountDown.setVisibility(View.VISIBLE);
                 MyApp.get().getHandler().post(getCoupleCountDownTask());
@@ -453,13 +454,13 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
                 @Override
                 public void run() {
                     Couple couple = SPHelper.getCouple();
-                    long breakCountDown = Couple.getBreakCountDown(couple);
+                    long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
                     if (breakCountDown <= 0) {
                         RxEvent<Couple> event = new RxEvent<>(ConsHelper.EVENT_COUPLE_REFRESH, new Couple());
                         RxBus.post(event);
                         stopCoupleCountDownTask();
                     } else {
-                        String breakCountDownShow = Couple.getBreakCountDownShow(couple);
+                        String breakCountDownShow = getBreakCountDownShow(couple);
                         tvCoupleCountDown.setText(breakCountDownShow);
                         MyApp.get().getHandler().postDelayed(this, ConstantUtils.SEC);
                     }
@@ -474,6 +475,17 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             MyApp.get().getHandler().removeCallbacks(coupleCountDownTask);
             coupleCountDownTask = null;
         }
+    }
+
+    private String getBreakCountDownShow(Couple couple) {
+        long breakCountDown = UserHelper.getCoupleBreakCountDown(couple);
+        long hour = breakCountDown / (ConstantUtils.HOUR / ConstantUtils.SEC);
+        String hourF = hour >= 10 ? "" : "0";
+        long min = (breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC)) / (ConstantUtils.MIN / ConstantUtils.SEC);
+        String minF = min >= 10 ? ":" : ":0";
+        long sec = breakCountDown - hour * (ConstantUtils.HOUR / ConstantUtils.SEC) - min * (ConstantUtils.MIN / ConstantUtils.SEC);
+        String secF = sec >= 10 ? ":" : ":0";
+        return hourF + hour + minF + min + secF + sec;
     }
 
 }

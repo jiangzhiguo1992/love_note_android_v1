@@ -42,10 +42,10 @@ import retrofit2.Call;
  */
 public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
 
-    private FragmentActivity mActivity;
-    private boolean kindShow, subKindShow;
     private final ColorStateList colorPrimaryStateList, colorGreyStateList;
     private final int colorPrimary, colorFontGrey, colorFontBlack;
+    private FragmentActivity mActivity;
+    private boolean kindShow, subKindShow;
 
 
     public PostAdapter(FragmentActivity activity, boolean kindShow, boolean subKindShow) {

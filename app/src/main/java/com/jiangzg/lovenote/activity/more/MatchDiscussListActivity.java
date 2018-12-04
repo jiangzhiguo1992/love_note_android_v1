@@ -42,9 +42,9 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.MatchPeriod;
 import com.jiangzg.lovenote.model.entity.MatchWork;
@@ -229,7 +229,7 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
                 showSearchDialog();
                 break;
             case R.id.llAdd: // 添加
-                if (Couple.isBreak(SPHelper.getCouple())) {
+                if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
                     CouplePairActivity.goActivity(mActivity);
                     return;
                 }
@@ -364,7 +364,7 @@ public class MatchDiscussListActivity extends BaseActivity<MatchDiscussListActiv
     }
 
     private void push() {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(mActivity);
             return;
         }

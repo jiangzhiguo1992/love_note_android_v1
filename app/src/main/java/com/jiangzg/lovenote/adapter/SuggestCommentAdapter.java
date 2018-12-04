@@ -32,10 +32,10 @@ import retrofit2.Call;
  */
 public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final int colorGrey;
     private final int colorDark;
     private final int colorPrimary;
+    private BaseActivity mActivity;
 
     public SuggestCommentAdapter(BaseActivity activity) {
         super(R.layout.list_item_suggest_comment);

@@ -56,9 +56,9 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
     private static final int MODEL_DETAIL = 1;
 
     private final BaseActivity mActivity;
-    private int mModel;
     private final int imageWidth, imageHeight;
     private final int colorPrimary;
+    private int mModel;
     private int operationPosition;
 
     public PictureAdapter(BaseActivity activity) {

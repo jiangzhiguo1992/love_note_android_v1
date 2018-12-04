@@ -14,6 +14,7 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.RxEvent;
 import com.jiangzg.lovenote.model.entity.Travel;
@@ -28,8 +29,8 @@ import java.util.List;
  */
 public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
+    private BaseActivity mActivity;
 
     public TravelAdapter(BaseActivity activity) {
         super(R.layout.list_item_travel);
@@ -39,7 +40,7 @@ public class TravelAdapter extends BaseQuickAdapter<Travel, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Travel item) {
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String title = item.getTitle();
         String happen = TimeHelper.getTimeShowLocal_HM_MD_YMD_ByGo(item.getHappenAt());
         List<TravelPlace> placeList = item.getTravelPlaceList();

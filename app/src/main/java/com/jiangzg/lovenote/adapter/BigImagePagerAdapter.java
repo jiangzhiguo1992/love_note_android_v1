@@ -26,10 +26,6 @@ public class BigImagePagerAdapter extends PagerAdapter {
     private int mType;
     private onTapListener tapListener;
 
-    public interface onTapListener {
-        void onTab(View view, float x, float y);
-    }
-
     public BigImagePagerAdapter(Activity context, int type, onTapListener tapListener) {
         mActivity = context;
         mData = new ArrayList<>();
@@ -45,16 +41,16 @@ public class BigImagePagerAdapter extends PagerAdapter {
         notifyDataSetChanged();
     }
 
+    public List<String> getData() {
+        return mData;
+    }
+
     public void setData(String data) {
         mData.clear();
         if (data != null) {
             mData.add(data);
         }
         notifyDataSetChanged();
-    }
-
-    public List<String> getData() {
-        return mData;
     }
 
     @Override
@@ -101,6 +97,10 @@ public class BigImagePagerAdapter extends PagerAdapter {
         // addView
         container.addView(ivBig);
         return ivBig;
+    }
+
+    public interface onTapListener {
+        void onTab(View view, float x, float y);
     }
 
 }

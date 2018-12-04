@@ -15,8 +15,8 @@ import com.jiangzg.lovenote.adapter.FragmentPagerAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.fragment.topic.PostCollectFragment;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.model.entity.Couple;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
     ViewPager vpFragment;
 
     public static void goActivity(Fragment from) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }
@@ -44,7 +44,7 @@ public class PostCollectActivity extends BaseActivity<PostCollectActivity> {
     }
 
     public static void goActivity(Context from) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }

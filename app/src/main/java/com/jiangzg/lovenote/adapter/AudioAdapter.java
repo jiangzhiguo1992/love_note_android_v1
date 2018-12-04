@@ -21,6 +21,7 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.entity.Audio;
 import com.jiangzg.lovenote.model.entity.Couple;
@@ -38,15 +39,15 @@ import retrofit2.Call;
  */
 public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
-    private int playingIndex;
     private final String year;
     private final String month;
     private final String dayT;
     private final String hour;
     private final String minute;
     private final String second;
+    private BaseActivity mActivity;
+    private int playingIndex;
     private MediaPlayer mMediaPlayer;
 
     public AudioAdapter(BaseActivity activity, MediaPlayer mediaPlayer) {
@@ -68,7 +69,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, Audio item) {
         // data
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         int playIcon = (playingIndex == helper.getLayoutPosition()) ? R.drawable.ic_pause_circle_primary : R.drawable.ic_play_circle_primary;
         TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeHelper.getJavaTimeByGo(item.getDuration()));
         String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);

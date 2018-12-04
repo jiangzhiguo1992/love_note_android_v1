@@ -45,8 +45,8 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
     private final BaseActivity mActivity;
     private final int imageWidth;
     private final int imageHeight;
-    private int operationPosition;
     private final String formatTime;
+    private int operationPosition;
 
     public AlbumAdapter(BaseActivity activity) {
         super(R.layout.list_item_album);

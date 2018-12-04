@@ -16,6 +16,7 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Food;
 import com.jiangzg.lovenote.model.entity.RxEvent;
@@ -29,8 +30,8 @@ import java.util.List;
  */
 public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
+    private BaseActivity mActivity;
 
     public FoodAdapter(BaseActivity activity) {
         super(R.layout.list_item_food);
@@ -40,7 +41,7 @@ public class FoodAdapter extends BaseQuickAdapter<Food, BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, Food item) {
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String title = item.getTitle();
         String address = item.getAddress();
         String happen = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getHappenAt());

@@ -44,10 +44,10 @@ import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Lock;
 import com.jiangzg.lovenote.model.entity.Result;
@@ -207,7 +207,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
             R.id.cvAngry, R.id.cvGift, R.id.cvPromise,
             R.id.cvTrends, R.id.cvTotal, R.id.cvRecycle})
     public void onViewClicked(View view) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
             CouplePairActivity.goActivity(mFragment);
             return;
@@ -289,7 +289,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
     }
 
     private void refreshData() {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             // 无效配对
             srl.setRefreshing(false);
             tvSouvenirEmpty.setVisibility(View.VISIBLE);

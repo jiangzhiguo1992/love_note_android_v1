@@ -21,9 +21,9 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.WeatherHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Result;
 import com.jiangzg.lovenote.model.entity.WeatherForecast;
 import com.jiangzg.lovenote.model.entity.WeatherForecastInfo;
@@ -91,7 +91,7 @@ public class CoupleWeatherActivity extends BaseActivity<CoupleWeatherActivity> {
 
     public static void goActivity(Fragment from) {
         if (!LocationHelper.checkLocationEnable(from)) return;
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }

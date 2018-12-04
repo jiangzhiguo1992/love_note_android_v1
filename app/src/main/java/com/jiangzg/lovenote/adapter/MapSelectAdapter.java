@@ -20,13 +20,13 @@ import java.util.Locale;
  */
 public class MapSelectAdapter extends BaseQuickAdapter<PoiItem, BaseViewHolder> {
 
-    //private BaseActivity mActivity;
-    private int selectIndex = -1;
     private final int colorPrimary;
     private final int colorFontBlack;
     private final int colorFontWhite;
     private final int colorFontGrey;
     private final String formatDistance;
+    //private BaseActivity mActivity;
+    private int selectIndex = -1;
 
     public MapSelectAdapter(Activity activity) {
         super(R.layout.list_item_map_select);

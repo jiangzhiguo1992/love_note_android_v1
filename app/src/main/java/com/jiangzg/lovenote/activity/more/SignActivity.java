@@ -25,9 +25,9 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
-import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Help;
 import com.jiangzg.lovenote.model.entity.Result;
 import com.jiangzg.lovenote.model.entity.Sign;
@@ -80,7 +80,7 @@ public class SignActivity extends BaseActivity<SignActivity> {
     private int selectYear, selectMonth, selectDay;
 
     public static void goActivity(Fragment from) {
-        if (Couple.isBreak(SPHelper.getCouple())) {
+        if (UserHelper.isCoupleBreak(SPHelper.getCouple())) {
             CouplePairActivity.goActivity(from);
             return;
         }

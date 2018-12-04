@@ -37,6 +37,7 @@ import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
+import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Trends;
@@ -48,7 +49,6 @@ import com.jiangzg.lovenote.view.FrescoAvatarView;
  */
 public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHolder> {
 
-    private BaseActivity mActivity;
     private final Couple couple;
     private final Drawable dSouvenir;
     private final Drawable dMenses;
@@ -68,6 +68,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
     private final Drawable dDream;
     private final Drawable dAward;
     private final Drawable dMovie;
+    private BaseActivity mActivity;
 
     public TrendsAdapter(BaseActivity activity) {
         super(null);
@@ -101,7 +102,7 @@ public class TrendsAdapter extends BaseMultiItemQuickAdapter<Trends, BaseViewHol
     protected void convert(BaseViewHolder helper, Trends item) {
         // data
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
-        String avatar = Couple.getAvatar(couple, item.getUserId());
+        String avatar = UserHelper.getAvatar(couple, item.getUserId());
         // view
         helper.setText(R.id.tvCreateAt, createAt);
         FrescoAvatarView ivAvatar = helper.getView(R.id.ivAvatar);
