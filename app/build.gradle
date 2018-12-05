@@ -84,11 +84,11 @@ android {
 //            dimension "release"
 //            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "vivo"]
 //        }
-        //---------------------第二梯队----------------------
         xiaomi { // 小米
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "xiaomi"]
         }
+        //---------------------第二梯队----------------------
         samsung { // 三星
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "samsung"]
@@ -97,7 +97,6 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "meizu"]
         }
-        //---------------------第三梯队----------------------
         qh360 { // 360
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "qh360"]
@@ -114,7 +113,7 @@ android {
             dimension "release"
             manifestPlaceholders = [MARKET_CHANNEL_VALUE: "baidu"]
         }
-        //---------------------第四梯队----------------------
+        //---------------------第三梯队----------------------
 //        kuan { // 酷安
 //            dimension "release"
 //            manifestPlaceholders = [MARKET_CHANNEL_VALUE: "kuan"]
