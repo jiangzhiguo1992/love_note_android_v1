@@ -40,6 +40,7 @@ import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
@@ -275,8 +276,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         boolean top = suggest.isTop();
         boolean official = suggest.isOfficial();
         boolean mine = suggest.isMine();
-        String statusShow = SuggestHomeActivity.getStatusShow(suggest.getStatus());
-        String kindShow = SuggestHomeActivity.getKindShow(suggest.getKind());
+        String statusShow = SuggestHelper.getStatusShow(suggest.getStatus());
+        String kindShow = SuggestHelper.getKindShow(suggest.getKind());
         String title = suggest.getTitle();
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(suggest.getCreateAt());
         String createShow = String.format(Locale.getDefault(), getString(R.string.create_at_colon_space_holder), create);

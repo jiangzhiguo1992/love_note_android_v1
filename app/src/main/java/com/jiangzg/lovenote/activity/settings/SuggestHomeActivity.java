@@ -28,21 +28,18 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.adapter.SuggestAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
-import com.jiangzg.lovenote.base.BaseObj;
 import com.jiangzg.lovenote.helper.ConsHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
-import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.model.entity.SuggestInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,7 +69,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     private int page;
     private int searchStatus;
     private int searchKind;
-    private SuggestInfo suggestInfo;
+    private SuggestHelper suggestHelper;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, SuggestHomeActivity.class);
@@ -90,10 +87,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.suggest_feedback), true);
         // init
-        suggestInfo = getInstance();
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
+        suggestHelper = SuggestHelper.getInstance();
+        List<SuggestHelper.SuggestStatus> suggestStatusList = suggestHelper.getStatusList();
         searchStatus = suggestStatusList.get(0).getStatus();
-        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
+        List<SuggestHelper.SuggestKind> suggestKindList = suggestHelper.getKindList();
         searchKind = suggestKindList.get(0).getKind();
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
@@ -227,15 +224,15 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         dp4 = ConvertUtils.dp2px(4);
         dp5 = ConvertUtils.dp2px(5);
         dp14 = ConvertUtils.dp2px(14);
-        List<SuggestInfo.SuggestKind> suggestKindList = suggestInfo.getKindList();
-        List<SuggestInfo.SuggestStatus> suggestStatusList = suggestInfo.getStatusList();
+        List<SuggestHelper.SuggestKind> suggestKindList = suggestHelper.getKindList();
+        List<SuggestHelper.SuggestStatus> suggestStatusList = suggestHelper.getStatusList();
         for (int i = 0; i < suggestKindList.size(); i++) {
-            SuggestInfo.SuggestKind kind = suggestKindList.get(i);
+            SuggestHelper.SuggestKind kind = suggestKindList.get(i);
             RadioButton rb = getKindRadioButton(kind);
             rgKind.addView(rb, i);
         }
         for (int i = 0; i < suggestStatusList.size(); i++) {
-            SuggestInfo.SuggestStatus status = suggestStatusList.get(i);
+            SuggestHelper.SuggestStatus status = suggestStatusList.get(i);
             RadioButton rb = getStatusRadioButton(status);
             rgStatus.addView(rb, i);
         }
@@ -245,7 +242,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         child2.setChecked(true);
     }
 
-    private RadioButton getKindRadioButton(final SuggestInfo.SuggestKind kind) {
+    private RadioButton getKindRadioButton(final SuggestHelper.SuggestKind kind) {
         RadioButton button = new RadioButton(mActivity);
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.bottomMargin = dp5;
@@ -277,7 +274,7 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         return button;
     }
 
-    private RadioButton getStatusRadioButton(final SuggestInfo.SuggestStatus status) {
+    private RadioButton getStatusRadioButton(final SuggestHelper.SuggestStatus status) {
         RadioButton button = new RadioButton(mActivity);
         RadioGroup.LayoutParams layoutParams = new RadioGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.bottomMargin = dp5;
@@ -328,55 +325,6 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 recyclerHelper.dataFail(more, message);
             }
         });
-    }
-
-    public static SuggestInfo getInstance() {
-        SuggestInfo info = new SuggestInfo();
-        // status
-        List<SuggestInfo.SuggestStatus> statusList = new ArrayList<>();
-        statusList.add(new SuggestInfo.SuggestStatus(BaseObj.STATUS_VISIBLE, MyApp.get().getString(R.string.all)));
-        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_NO, MyApp.get().getString(R.string.no_reply)));
-        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_REPLY_YES, MyApp.get().getString(R.string.already_reply)));
-        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_ACCEPT_NO, MyApp.get().getString(R.string.no_accept)));
-        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_ACCEPT_YES, MyApp.get().getString(R.string.already_accept)));
-        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_HANDLE_ING, MyApp.get().getString(R.string.handle_ing)));
-        statusList.add(new SuggestInfo.SuggestStatus(Suggest.STATUS_HANDLE_OVER, MyApp.get().getString(R.string.handle_over)));
-        info.setStatusList(statusList);
-        // kind
-        List<SuggestInfo.SuggestKind> kindList = new ArrayList<>();
-        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_ALL, MyApp.get().getString(R.string.all)));
-        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_ERROR, MyApp.get().getString(R.string.program_error)));
-        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_FUNCTION, MyApp.get().getString(R.string.function_add)));
-        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_OPTIMIZE, MyApp.get().getString(R.string.experience_optimize)));
-        kindList.add(new SuggestInfo.SuggestKind(Suggest.KIND_DEBUNK, MyApp.get().getString(R.string.just_debunk)));
-        info.setKindList(kindList);
-        return info;
-    }
-
-    public static String getStatusShow(int status) {
-        SuggestInfo info = getInstance();
-        List<SuggestInfo.SuggestStatus> statusList = info.getStatusList();
-        // 不要全部
-        for (int i = 1; i < statusList.size(); i++) {
-            SuggestInfo.SuggestStatus s = statusList.get(i);
-            if (s.getStatus() == status) {
-                return s.getShow();
-            }
-        }
-        return "";
-    }
-
-    public static String getKindShow(int kind) {
-        SuggestInfo info = getInstance();
-        List<SuggestInfo.SuggestKind> kindList = info.getKindList();
-        // 不要全部
-        for (int i = 1; i < kindList.size(); i++) {
-            SuggestInfo.SuggestKind s = kindList.get(i);
-            if (s.getKind() == kind) {
-                return s.getShow();
-            }
-        }
-        return "";
     }
 
 }

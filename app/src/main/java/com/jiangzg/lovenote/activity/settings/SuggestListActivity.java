@@ -23,7 +23,7 @@ import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.model.entity.SuggestInfo;
+import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -150,9 +150,9 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
         } else if (entry == ENTRY_FOLLOW) {
             call = new RetrofitHelper().call(API.class).setSuggestListFollowGet(page);
         } else {
-            SuggestInfo suggestInfo = SuggestHomeActivity.getInstance();
-            int status = suggestInfo.getStatusList().get(0).getStatus();
-            int kind = suggestInfo.getKindList().get(0).getKind();
+            SuggestHelper suggestHelper = SuggestHelper.getInstance();
+            int status = suggestHelper.getStatusList().get(0).getStatus();
+            int kind = suggestHelper.getKindList().get(0).getKind();
             call = new RetrofitHelper().call(API.class).setSuggestListGet(status, kind, page);
         }
         RetrofitHelper.enqueue(call, null, new RetrofitHelper.CallBack() {
