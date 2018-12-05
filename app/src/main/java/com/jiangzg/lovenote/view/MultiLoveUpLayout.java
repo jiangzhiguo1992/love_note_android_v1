@@ -193,6 +193,7 @@ public class MultiLoveUpLayout extends RelativeLayout {
         MyApp.get().getHandler().post(new Runnable() {
             @Override
             public void run() {
+                if (mDrawables == null) return;
                 final ImageView love = new ImageView(getContext());
                 love.setImageDrawable(mDrawables[mRandom.nextInt(mDrawables.length - 1)]);
                 addView(love, mLoveLayoutParams);
@@ -223,7 +224,9 @@ public class MultiLoveUpLayout extends RelativeLayout {
         // allSet
         AnimatorSet allSet = new AnimatorSet();
         allSet.playSequentially(enterSet, bezierAnimator);
-        allSet.setInterpolator(mInterpolators[mRandom.nextInt(mInterpolators.length - 1)]);
+        if (mInterpolators != null) {
+            allSet.setInterpolator(mInterpolators[mRandom.nextInt(mInterpolators.length - 1)]);
+        }
         allSet.setTarget(love);
         return allSet;
     }

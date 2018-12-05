@@ -383,6 +383,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     }
 
     private void onCommentInput(String input) {
+        if (input == null) return;
         if (limitCommentContentLength <= 0) {
             limitCommentContentLength = SPHelper.getLimit().getSuggestCommentContentLength();
         }

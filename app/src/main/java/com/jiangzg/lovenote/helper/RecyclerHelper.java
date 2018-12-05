@@ -264,8 +264,12 @@ public class RecyclerHelper {
         mRefresh.post(new Runnable() {
             @Override
             public void run() {
-                mRefresh.setRefreshing(true); // 执行等待动画
-                mRefreshListener.onRefresh();
+                if (mRefresh != null) {
+                    mRefresh.setRefreshing(true); // 执行等待动画
+                }
+                if (mRefreshListener != null) {
+                    mRefreshListener.onRefresh();
+                }
             }
         });
     }

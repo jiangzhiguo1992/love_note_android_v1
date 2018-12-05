@@ -206,7 +206,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
     }
 
     private void onContentInput(String input) {
-        if (promise == null) return;
+        if (promise == null || input == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getPromiseContentLength();
         }

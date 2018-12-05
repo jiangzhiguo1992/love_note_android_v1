@@ -167,7 +167,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
     }
 
     private void onContentInput(String input) {
-        if (angry == null) return;
+        if (angry == null || input == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getAngryContentLength();
         }

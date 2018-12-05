@@ -209,6 +209,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void onTitleInput(String s) {
+        if (s == null) return;
         if (limitTitleLength <= 0) {
             limitTitleLength = SPHelper.getLimit().getSuggestTitleLength();
         }
@@ -224,6 +225,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
     }
 
     private void onContentInput(String s) {
+        if (s == null) return;
         if (limitContentLength <= 0) {
             limitContentLength = SPHelper.getLimit().getSuggestContentLength();
         }

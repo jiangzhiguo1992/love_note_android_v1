@@ -215,6 +215,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
     }
 
     private void onContentInput(String input) {
+        if (input == null) return;
         if (limitTitleLength <= 0) {
             limitTitleLength = SPHelper.getLimit().getAlbumTitleLength();
         }
