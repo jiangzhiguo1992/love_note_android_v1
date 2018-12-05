@@ -29,8 +29,6 @@ import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Bill;
 import com.jiangzg.lovenote.model.entity.Limit;
 import com.jiangzg.lovenote.model.entity.OrderBefore;
-import com.jiangzg.lovenote.model.entity.PayAliResult;
-import com.jiangzg.lovenote.model.entity.PayWxResult;
 import com.jiangzg.lovenote.model.entity.Vip;
 import com.jiangzg.lovenote.model.entity.WXOrder;
 
@@ -182,12 +180,12 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     private void startAliPay(final String orderInfo) {
         PayHelper.payByAli(mActivity, orderInfo, new PayHelper.AliCallBack() {
             @Override
-            public void onSuccess(PayAliResult result) {
+            public void onSuccess(PayHelper.PayAliResult result) {
                 if (result == null) return;
                 //String memo = result.getMemo();
                 String resultStatus = result.getResultStatus();
                 //PayAliResult.Result result1 = result.getResult();
-                if (resultStatus.equals(String.valueOf(PayAliResult.RESULT_STATUS_OK))) {
+                if (resultStatus.equals(String.valueOf(PayHelper.PayAliResult.RESULT_STATUS_OK))) {
                     checkPayResult();
                 }
             }
@@ -198,9 +196,9 @@ public class VipBuyActivity extends BaseActivity<VipBuyActivity> {
     private void startWeChatPay(WXOrder wxOrder) {
         PayHelper.payByWX(mActivity, wxOrder, new PayHelper.WXCallBack() {
             @Override
-            public void onSuccess(PayWxResult result) {
+            public void onSuccess(PayHelper.PayWxResult result) {
                 if (result == null) return;
-                if (result.getErrCode() == PayWxResult.CODE_OK) {
+                if (result.getErrCode() == PayHelper.PayWxResult.CODE_OK) {
                     checkPayResult();
                 }
             }
