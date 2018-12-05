@@ -19,7 +19,6 @@ import com.jiangzg.lovenote.model.entity.MatchWork;
 import com.jiangzg.lovenote.model.entity.Menses;
 import com.jiangzg.lovenote.model.entity.Movie;
 import com.jiangzg.lovenote.model.entity.Picture;
-import com.jiangzg.lovenote.model.entity.PictureList;
 import com.jiangzg.lovenote.model.entity.Place;
 import com.jiangzg.lovenote.model.entity.Post;
 import com.jiangzg.lovenote.model.entity.PostCollect;
@@ -365,7 +364,7 @@ public interface API {
 
     // picture上传
     @POST("note/picture")
-    Call<Result> notePictureListAdd(@Body PictureList pictureList);
+    Call<Result> notePictureListAdd(@Body Album album);
 
     // picture删除
     @DELETE("note/picture")

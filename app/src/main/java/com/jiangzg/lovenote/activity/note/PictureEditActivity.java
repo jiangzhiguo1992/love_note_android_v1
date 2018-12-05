@@ -37,7 +37,6 @@ import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Album;
 import com.jiangzg.lovenote.model.entity.Picture;
-import com.jiangzg.lovenote.model.entity.PictureList;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -352,9 +351,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             Picture body = ApiHelper.getPictureBody(picture.getAlbumId(), picture.getHappenAt(), ossPath, picture.getLongitude(), picture.getLatitude(), picture.getAddress(), picture.getCityId());
             pictureList.add(body);
         }
-        PictureList pictureListBody = new PictureList();
-        pictureListBody.setPictureList(pictureList);
-        callAdd = new RetrofitHelper().call(API.class).notePictureListAdd(pictureListBody);
+        Album body = new Album();
+        body.setPictureList(pictureList);
+        callAdd = new RetrofitHelper().call(API.class).notePictureListAdd(body);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
             @Override

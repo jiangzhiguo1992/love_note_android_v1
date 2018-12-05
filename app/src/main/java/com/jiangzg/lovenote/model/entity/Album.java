@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.jiangzg.lovenote.base.BaseCP;
 
+import java.util.List;
+
 /**
  * Created by JZG on 2018/5/2.
  * Album
@@ -16,6 +18,7 @@ public class Album extends BaseCP implements Parcelable {
     private long startAt;
     private long endAt;
     private int pictureCount;
+    private List<Picture> pictureList;
 
     public int getPictureCount() {
         return pictureCount;
@@ -57,6 +60,14 @@ public class Album extends BaseCP implements Parcelable {
         this.cover = cover;
     }
 
+    public List<Picture> getPictureList() {
+        return pictureList;
+    }
+
+    public void setPictureList(List<Picture> pictureList) {
+        this.pictureList = pictureList;
+    }
+
     public Album() {
     }
 
@@ -64,9 +75,10 @@ public class Album extends BaseCP implements Parcelable {
         super(in);
         title = in.readString();
         cover = in.readString();
-        pictureCount = in.readInt();
         startAt = in.readLong();
         endAt = in.readLong();
+        pictureCount = in.readInt();
+        pictureList = in.createTypedArrayList(Picture.CREATOR);
     }
 
     @Override
@@ -74,9 +86,10 @@ public class Album extends BaseCP implements Parcelable {
         super.writeToParcel(dest, flags);
         dest.writeString(title);
         dest.writeString(cover);
-        dest.writeInt(pictureCount);
         dest.writeLong(startAt);
         dest.writeLong(endAt);
+        dest.writeInt(pictureCount);
+        dest.writeTypedList(pictureList);
     }
 
     @Override
