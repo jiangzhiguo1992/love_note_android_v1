@@ -181,10 +181,12 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             }
         });
         long happenId = promise.getHappenId();
-        if (happenId == 0 || happenId == user.getId()) {
-            rbHappenMe.setChecked(true);
-        } else {
-            rbHappenTa.setChecked(true);
+        if (user != null) {
+            if (happenId == 0 || happenId == user.getId()) {
+                rbHappenMe.setChecked(true);
+            } else {
+                rbHappenTa.setChecked(true);
+            }
         }
     }
 

@@ -58,6 +58,7 @@ import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostPoint;
 import com.jiangzg.lovenote.model.entity.PostReport;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
+import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 import com.jiangzg.lovenote.view.GWrapView;
@@ -535,9 +536,10 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
             }
         }
         int selectIndex = 0;
+        final User me = SPHelper.getMe();
         if (searchUserId == post.getUserId()) {
             selectIndex = 1;
-        } else if (!post.isMine() && searchUserId == SPHelper.getMe().getId()) {
+        } else if (!post.isMine() && me != null && searchUserId == me.getId()) {
             selectIndex = 2;
         }
         MaterialDialog dialog = DialogHelper.getBuild(mActivity)
@@ -554,7 +556,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                                 searchUserId = post.getUserId();
                                 break;
                             case 2: // 我的
-                                searchUserId = SPHelper.getMe().getId();
+                                searchUserId = me == null ? 0 : me.getId();
                                 break;
                             default: // 全部
                                 searchUserId = 0;
@@ -596,11 +598,12 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
 
     private void initCommentUserView() {
         if (recyclerHelper == null) return;
+        User me = SPHelper.getMe();
         View head = recyclerHelper.getViewHead();
         TextView tvCommentUser = head.findViewById(R.id.tvCommentUser);
         if (searchUserId == post.getUserId()) {
             tvCommentUser.setText(R.string.floor_master);
-        } else if (searchUserId == SPHelper.getMe().getId()) {
+        } else if (me != null && searchUserId == me.getId()) {
             tvCommentUser.setText(R.string.me_de);
         } else {
             String commentAll;

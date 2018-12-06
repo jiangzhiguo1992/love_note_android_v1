@@ -113,8 +113,8 @@ public class PushHelper {
         CloudPushService service = PushServiceFactory.getCloudPushService();
         if (service == null) return;
         User me = SPHelper.getMe();
+        if (me == null || me.getId() == 0) return;
         long uid = me.getId();
-        if (uid <= 0) return;
         service.bindAccount(String.valueOf(uid), new CommonCallback() {
             @Override
             public void onSuccess(String s) {

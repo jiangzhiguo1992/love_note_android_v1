@@ -15,6 +15,7 @@ import com.jiangzg.lovenote.helper.TimeHelper;
 import com.jiangzg.lovenote.helper.UserHelper;
 import com.jiangzg.lovenote.model.entity.Couple;
 import com.jiangzg.lovenote.model.entity.Place;
+import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.view.FrescoAvatarView;
 
 import java.util.Locale;
@@ -43,7 +44,8 @@ public class PlaceAdapter extends BaseQuickAdapter<Place, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Place item) {
         // data
-        boolean isMine = item.getUserId() == SPHelper.getMe().getId();
+        User me = SPHelper.getMe();
+        boolean isMine = me != null && item.getUserId() == me.getId();
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
         String time = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String address = StringUtils.isEmpty(item.getAddress()) ? formatAddress : item.getAddress();

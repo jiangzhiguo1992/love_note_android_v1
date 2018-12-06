@@ -26,6 +26,7 @@ import com.jiangzg.lovenote.activity.user.UserInfoActivity;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
+import com.jiangzg.lovenote.model.entity.User;
 import com.jiangzg.lovenote.model.entity.Version;
 import com.jiangzg.lovenote.service.UpdateService;
 
@@ -65,8 +66,9 @@ public class RetrofitHelper {
 
     public static HashMap<String, String> getHead() {
         HashMap<String, String> options = new HashMap<>();
+        User me = SPHelper.getMe();
         options.put("Accept", "application/json");
-        options.put("access_token", SPHelper.getMe().getUserToken());
+        options.put("access_token", me == null ? "" : me.getUserToken());
         options.put("app_key", "59fj48dj327fdl19fdi28cas5d20jd83");
         options.put("platform", "android");
         options.put("sign", AppInfo.get().getSHA1());

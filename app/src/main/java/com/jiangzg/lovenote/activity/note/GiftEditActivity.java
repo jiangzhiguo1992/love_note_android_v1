@@ -211,7 +211,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void initReceiveCheck() {
         if (gift == null) return;
-        final User user = SPHelper.getMe();
+        User user = SPHelper.getMe();
         rgReceive.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -227,10 +227,12 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             }
         });
         long receiveId = gift.getReceiveId();
-        if (receiveId == 0 || receiveId == user.getId()) {
-            rbReceiveMe.setChecked(true);
-        } else {
-            rbReceiveTa.setChecked(true);
+        if (user != null) {
+            if (receiveId == 0 || receiveId == user.getId()) {
+                rbReceiveMe.setChecked(true);
+            } else {
+                rbReceiveTa.setChecked(true);
+            }
         }
     }
 

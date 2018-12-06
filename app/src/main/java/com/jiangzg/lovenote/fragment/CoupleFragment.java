@@ -287,7 +287,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         llBottom.setVisibility(View.GONE);
         // 开始判断
         User user = SPHelper.getMe();
-        Couple couple = user.getCouple();
+        Couple couple = user == null ? null : user.getCouple();
         if (UserHelper.isCoupleBreak(couple)) {
             // 已经分手，或者没有开始过
             ivBg.setVisibility(View.VISIBLE);
@@ -307,8 +307,8 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             }
             // 头像文件刷新
             List<String> imageList = new ArrayList<>();
-            imageList.add(couple.getCreatorAvatar());
-            imageList.add(couple.getInviteeAvatar());
+            if (couple != null) imageList.add(couple.getCreatorAvatar());
+            if (couple != null) imageList.add(couple.getInviteeAvatar());
             OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_AVATAR, imageList);
             // 头像 + 名称
             String myName = UserHelper.getMyName(user);

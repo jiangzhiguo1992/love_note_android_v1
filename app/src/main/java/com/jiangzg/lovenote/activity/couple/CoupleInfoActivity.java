@@ -186,11 +186,13 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
         User me = SPHelper.getMe();
-        Couple couple = me.getCouple();
-        if (UserHelper.isCoupleBreaking(couple) && couple.getState().getUserId() == me.getId()) {
-            getMenuInflater().inflate(R.menu.complex_help, menu);
-        } else {
-            getMenuInflater().inflate(R.menu.break_help, menu);
+        Couple couple = me == null ? null : me.getCouple();
+        if (couple != null) {
+            if (UserHelper.isCoupleBreaking(couple) && couple.getState().getUserId() == me.getId()) {
+                getMenuInflater().inflate(R.menu.complex_help, menu);
+            } else {
+                getMenuInflater().inflate(R.menu.break_help, menu);
+            }
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -310,17 +312,14 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taName = UserHelper.getTaName(me);
         String myAvatar = UserHelper.getMyAvatar(me);
         String taAvatar = UserHelper.getTaAvatar(me);
-        String mePhone = me.getPhone();
+        String mePhone = me == null ? "" : me.getPhone();
         String taPhone = ta == null ? "" : ta.getPhone();
         int meSexRes = UserHelper.getSexResCircleSmall(me);
         int taSexRes = UserHelper.getSexResCircleSmall(ta);
-        long meBirth = TimeHelper.getJavaTimeByGo(me.getBirthday());
+        long meBirth = TimeHelper.getJavaTimeByGo(me == null ? 0 : me.getBirthday());
+        long taBirth = TimeHelper.getJavaTimeByGo(ta == null ? 0 : ta.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
-        String taBirthShow = "";
-        if (ta != null && ta.getBirthday() != 0) {
-            long taBirth = TimeHelper.getJavaTimeByGo(ta.getBirthday());
-            taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
-        }
+        String taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         int togetherDay = SPHelper.getTogetherDay();
         // view
         ivAvatarLeft.setData(taAvatar);
@@ -401,6 +400,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     private void apiCoupleInfo(String avatar, String name) {
         MaterialDialog loading = getLoading(true);
         Couple body = ApiHelper.getCoupleUpdateInfo(avatar, name);
+        if (body == null) return;
         // api
         callUpdateInfo = new RetrofitHelper().call(API.class).coupleUpdate(ApiHelper.COUPLE_UPDATE_INFO, body);
         RetrofitHelper.enqueue(callUpdateInfo, loading, new RetrofitHelper.CallBack() {

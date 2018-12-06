@@ -116,7 +116,8 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.menses), true);
         srl.setEnabled(false);
         // data
-        isMine = (SPHelper.getMe().getSex() == User.SEX_GIRL);
+        User me = SPHelper.getMe();
+        isMine = (me != null && me.getSex() == User.SEX_GIRL);
         mensesInfo = new MensesInfo();
         mensesInfo.setCanMe(false);
         mensesInfo.setCanTa(false);

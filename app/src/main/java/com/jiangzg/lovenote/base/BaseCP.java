@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.model.entity.User;
 
 /**
  * Created by JZG on 2017/12/18.
@@ -15,7 +16,9 @@ public class BaseCP extends BaseObj implements Parcelable {
     private long coupleId;
 
     public boolean isMine() {
-        return getUserId() == SPHelper.getMe().getId();
+        User me = SPHelper.getMe();
+        if (me == null) return false;
+        return getUserId() == me.getId();
     }
 
     public boolean isMine(long mid) {

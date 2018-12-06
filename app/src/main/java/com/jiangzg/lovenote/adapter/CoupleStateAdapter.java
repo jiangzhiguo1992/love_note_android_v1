@@ -39,7 +39,7 @@ public class CoupleStateAdapter extends BaseQuickAdapter<Couple.State, BaseViewH
         String createAt = TimeHelper.getTimeShowLine_HM_MDHM_YMDHM_ByGo(item.getCreateAt());
         String state = getCoupleStateShow(item.getState());
         String content = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), createAt, state);
-        boolean isMine = item.getUserId() == me.getId();
+        boolean isMine = me != null && item.getUserId() == me.getId();
         // view
         FrescoAvatarView ivAvatarLeft = helper.getView(R.id.ivAvatarLeft);
         FrescoAvatarView ivAvatarRight = helper.getView(R.id.ivAvatarRight);

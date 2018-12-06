@@ -351,7 +351,9 @@ public class CouplePairActivity extends BaseActivity<CouplePairActivity> {
             srl.setRefreshing(true);
         }
         // api获取和ta的以往cp
-        long uid = SPHelper.getMe().getId();
+        User me = SPHelper.getMe();
+        if (me == null) return;
+        long uid = me.getId();
         callGetVisible = new RetrofitHelper().call(API.class).coupleGet(false, uid);
         RetrofitHelper.enqueue(callGetVisible, null, new RetrofitHelper.CallBack() {
             @Override

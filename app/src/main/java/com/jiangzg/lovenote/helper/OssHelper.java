@@ -32,6 +32,7 @@ import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.more.VipActivity;
 import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.entity.OssInfo;
+import com.jiangzg.lovenote.model.entity.User;
 
 import java.io.File;
 import java.io.InputStream;
@@ -879,7 +880,8 @@ public class OssHelper {
             for (final File file : fileList) {
                 String prefix = String.valueOf(Long.MAX_VALUE - DateUtils.getCurrentLong());
                 String name = FileUtils.getFileNameNoExtension(file);
-                String userId = String.valueOf(SPHelper.getMe().getId());
+                User me = SPHelper.getMe();
+                String userId = me == null ? "" : String.valueOf(me.getId());
                 String extension = FileUtils.getFileExtension(file);
                 String fileName = prefix + "_" + name + "_" + userId + extension;
                 String ossFilePath = pathLog + fileName;

@@ -125,7 +125,7 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 检查用户
     private void checkUser() {
-        if (SPHelper.noLogin()) {
+        if (SPHelper.getMe() == null) {
             // 没有登录
             MyApp.get().getHandler().postDelayed(new Runnable() {
                 @Override

@@ -242,12 +242,6 @@ public class SPHelper {
     private static final String FIELD_DRAFT_POST_TITLE = "post_title";
     private static final String FIELD_DRAFT_POST_CONTENT_TEXT = "post_content_text";
 
-    // 是否登录
-    public static boolean noLogin() {
-        String userToken = getMe().getUserToken();
-        return StringUtils.isEmpty(userToken);
-    }
-
     /**
      * ***********************************清除***********************************
      */
@@ -807,9 +801,14 @@ public class SPHelper {
         user.setSex(sp.getInt(FIELD_USER_SEX, 0));
         user.setBirthday(sp.getLong(FIELD_USER_BIRTHDAY, 0));
         user.setUserToken(sp.getString(FIELD_USER_TOKEN, ""));
+        if (user.getId() == 0 || StringUtils.isEmpty(user.getPhone()) || StringUtils.isEmpty(user.getUserToken())) {
+            return null;
+        }
         // 取cp
         Couple couple = getCouple();
-        user.setCouple(couple);
+        if (couple != null) {
+            user.setCouple(couple);
+        }
         return user;
     }
 
@@ -873,6 +872,9 @@ public class SPHelper {
         editor.apply();
     }
 
+    public SPHelper() {
+    }
+
     public static Couple getCouple() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
         Couple couple = new Couple();
@@ -885,13 +887,18 @@ public class SPHelper {
         couple.setInviteeId(sp.getLong(FIELD_CP_INVITEE_ID, 0));
         couple.setInviteeName(sp.getString(FIELD_CP_INVITEE_NAME, ""));
         couple.setInviteeAvatar(sp.getString(FIELD_CP_INVITEE_AVATAR, ""));
+        if (couple.getId() == 0 || couple.getCreatorId() == 0 || couple.getInviteeId() == 0) {
+            return null;
+        }
         Couple.State state = new Couple.State();
         state.setId(sp.getLong(FIELD_CP_STATE_ID, 0));
         state.setCreateAt(sp.getLong(FIELD_CP_STATE_CREATE_AT, 0));
         state.setUpdateAt(sp.getLong(FIELD_CP_STATE_UPDATE_AT, 0));
         state.setUserId(sp.getLong(FIELD_CP_STATE_USER_ID, 0));
         state.setState(sp.getInt(FIELD_CP_STATE_STATE, 0));
-        couple.setState(state);
+        if (state.getId() != 0) {
+            couple.setState(state);
+        }
         return couple;
     }
 
