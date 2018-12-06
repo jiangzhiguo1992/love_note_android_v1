@@ -283,10 +283,11 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     }
 
     private void getCoupleStateList(final boolean more) {
-        long id = SPHelper.getCouple().getId();
+        Couple couple = SPHelper.getCouple();
+        if (couple == null) return;
         page = more ? page + 1 : 0;
         // api
-        callStateListGet = new RetrofitHelper().call(API.class).coupleStateListGet(id, page);
+        callStateListGet = new RetrofitHelper().call(API.class).coupleStateListGet(couple.getId(), page);
         RetrofitHelper.enqueue(callStateListGet, null, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {

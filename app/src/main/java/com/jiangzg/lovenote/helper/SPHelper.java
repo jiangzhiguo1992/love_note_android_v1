@@ -872,9 +872,6 @@ public class SPHelper {
         editor.apply();
     }
 
-    public SPHelper() {
-    }
-
     public static Couple getCouple() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE);
         Couple couple = new Couple();
