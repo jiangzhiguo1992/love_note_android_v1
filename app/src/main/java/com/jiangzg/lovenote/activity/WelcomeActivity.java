@@ -1,11 +1,8 @@
 package com.jiangzg.lovenote.activity;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -113,26 +110,21 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
         return fileList.get(nextInt);
     }
 
-    private void startAnim() {
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.2F, 1f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.2F, 1f);
-        AnimatorSet set = new AnimatorSet();
-        set.setDuration(10000);
-        set.playTogether(scaleX, scaleY);
-        set.setInterpolator(new AccelerateDecelerateInterpolator());
-        set.start();
-    }
+    //private void startAnim() {
+    //    ObjectAnimator scaleX = ObjectAnimator.ofFloat(ivBg, "scaleX", 1f, 1.2F, 1f);
+    //    ObjectAnimator scaleY = ObjectAnimator.ofFloat(ivBg, "scaleY", 1f, 1.2F, 1f);
+    //    AnimatorSet set = new AnimatorSet();
+    //    set.setDuration(10000);
+    //    set.playTogether(scaleX, scaleY);
+    //    set.setInterpolator(new AccelerateDecelerateInterpolator());
+    //    set.start();
+    //}
 
     // 检查用户
     private void checkUser() {
         if (SPHelper.getMe() == null) {
             // 没有登录
-            MyApp.get().getHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    SplashActivity.goActivity(mActivity);
-                }
-            }, TransPageMillis);
+            MyApp.get().getHandler().postDelayed(() -> SplashActivity.goActivity(mActivity), TransPageMillis);
         } else {
             // 有token
             final long startTime = DateUtils.getCurrentLong();

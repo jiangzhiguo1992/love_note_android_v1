@@ -788,7 +788,7 @@ public class SPHelper {
     public static void setMe(User user) {
         clearMe();
         clearCouple();
-        if (user == null) {
+        if (UserHelper.isEmpty(user)) {
             LogUtils.i(SPHelper.class, "setMe", "user == null");
             return;
         }
