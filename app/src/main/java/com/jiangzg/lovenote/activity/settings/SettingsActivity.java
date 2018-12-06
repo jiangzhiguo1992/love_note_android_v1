@@ -245,8 +245,8 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     }
 
     private void goNoticeSettings() {
-        boolean enabled = NotificationUtils.isNotificationEnabled();
-        if (enabled) return;
+        //boolean enabled = NotificationUtils.isNotificationEnabled();
+        //if (enabled) return;
         Intent notice = IntentFactory.getNotificationSettings();
         ActivityTrans.start(mActivity, notice);
     }
