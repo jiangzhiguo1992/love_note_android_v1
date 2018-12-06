@@ -40,17 +40,6 @@ public class UserFragment extends BaseFragment<UserFragment> {
     @BindView(R.id.tvUser4)
     TextView tvUser4;
 
-    @BindView(R.id.cvEntry)
-    CardView cvEntry;
-    @BindView(R.id.tvEntry1)
-    TextView tvEntry1;
-    @BindView(R.id.tvEntry2)
-    TextView tvEntry2;
-    @BindView(R.id.tvEntry3)
-    TextView tvEntry3;
-    @BindView(R.id.tvEntry4)
-    TextView tvEntry4;
-
     @BindView(R.id.cvSms)
     CardView cvSms;
     @BindView(R.id.tvSms1)
@@ -62,6 +51,21 @@ public class UserFragment extends BaseFragment<UserFragment> {
     @BindView(R.id.tvSms4)
     TextView tvSms4;
 
+    @BindView(R.id.cvEntry)
+    CardView cvEntry;
+    @BindView(R.id.tvEntry1)
+    TextView tvEntry1;
+    @BindView(R.id.tvEntry2)
+    TextView tvEntry2;
+    @BindView(R.id.tvEntry3)
+    TextView tvEntry3;
+    @BindView(R.id.tvEntry4)
+    TextView tvEntry4;
+    @BindView(R.id.tvEntry5)
+    TextView tvEntry5;
+    @BindView(R.id.tvEntry6)
+    TextView tvEntry6;
+
     @BindView(R.id.cvApi)
     CardView cvApi;
     @BindView(R.id.tvApi1)
@@ -72,6 +76,10 @@ public class UserFragment extends BaseFragment<UserFragment> {
     TextView tvApi3;
     @BindView(R.id.tvApi4)
     TextView tvApi4;
+    @BindView(R.id.tvApi5)
+    TextView tvApi5;
+    @BindView(R.id.tvApi6)
+    TextView tvApi6;
 
     @BindView(R.id.cvSuggest)
     CardView cvSuggest;
@@ -276,6 +284,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
         long d1Start = calendar.getTimeInMillis() / 1000;
         long d2Start = d1Start - 60 * 60 * 24;
         long d3Start = d2Start - 60 * 60 * 24;
+        long d4Start = d3Start - 60 * 60 * 24;
+        long d5Start = d4Start - 60 * 60 * 24;
         Call<Result> callH1 = new RetrofitHelper().call(API.class).entryTotalGet(startH1, current);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -324,6 +334,30 @@ public class UserFragment extends BaseFragment<UserFragment> {
                 tvEntry4.setText("前：fail");
             }
         });
+        Call<Result> callD9 = new RetrofitHelper().call(API.class).entryTotalGet(d4Start, d3Start);
+        RetrofitHelper.enqueue(callD9, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvEntry5.setText("大：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvEntry5.setText("大：fail");
+            }
+        });
+        Call<Result> callD10 = new RetrofitHelper().call(API.class).entryTotalGet(d5Start, d4Start);
+        RetrofitHelper.enqueue(callD10, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvEntry6.setText("巨：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvEntry6.setText("巨：fail");
+            }
+        });
     }
 
     private void getApiData() {
@@ -336,6 +370,8 @@ public class UserFragment extends BaseFragment<UserFragment> {
         long d1Start = calendar.getTimeInMillis() / 1000;
         long d2Start = d1Start - 60 * 60 * 24;
         long d3Start = d2Start - 60 * 60 * 24;
+        long d4Start = d3Start - 60 * 60 * 24;
+        long d5Start = d4Start - 60 * 60 * 24;
         Call<Result> callH1 = new RetrofitHelper().call(API.class).apiTotalGet(startH1, current);
         RetrofitHelper.enqueue(callH1, null, new RetrofitHelper.CallBack() {
             @Override
@@ -382,6 +418,30 @@ public class UserFragment extends BaseFragment<UserFragment> {
             @Override
             public void onFailure(int code, String message, Result.Data data) {
                 tvApi4.setText("前：fail");
+            }
+        });
+        Call<Result> callD9 = new RetrofitHelper().call(API.class).apiTotalGet(d4Start, d3Start);
+        RetrofitHelper.enqueue(callD9, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvApi5.setText("大：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvApi5.setText("大：fail");
+            }
+        });
+        Call<Result> callD10 = new RetrofitHelper().call(API.class).apiTotalGet(d5Start, d4Start);
+        RetrofitHelper.enqueue(callD10, null, new RetrofitHelper.CallBack() {
+            @Override
+            public void onResponse(int code, String message, Result.Data data) {
+                tvApi6.setText("巨：" + data.getTotal());
+            }
+
+            @Override
+            public void onFailure(int code, String message, Result.Data data) {
+                tvApi6.setText("巨：fail");
             }
         });
     }

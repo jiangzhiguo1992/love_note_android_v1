@@ -200,6 +200,22 @@
                         android:layout_height="wrap_content"
                         android:padding="2dp"
                         tools:text="周："/>
+
+                    <TextView
+                        android:id="@+id/tvEntry5"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="周："/>
+
+                    <TextView
+                        android:id="@+id/tvEntry6"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="周："/>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -255,6 +271,22 @@
 
                     <TextView
                         android:id="@+id/tvApi4"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="天："/>
+
+                    <TextView
+                        android:id="@+id/tvApi5"
+                        style="@style/FontGreyNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        tools:text="天："/>
+
+                    <TextView
+                        android:id="@+id/tvApi6"
                         style="@style/FontGreyNormal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
