@@ -245,6 +245,17 @@ public class SPHelper {
     /**
      * ***********************************清除***********************************
      */
+    public static void clearAll() {
+        clearOssInfo();
+        clearVipLimit();
+        clearVersion();
+        clearMe();
+        clearTa();
+        clearCouple();
+        clearWallPaper();
+        clearDraft();
+    }
+
     public static void clearOssInfo() {
         SPUtils.clear(SHARE_OSS_INFO);
     }
@@ -806,9 +817,7 @@ public class SPHelper {
         }
         // 取cp
         Couple couple = getCouple();
-        if (couple != null) {
-            user.setCouple(couple);
-        }
+        user.setCouple(couple);
         return user;
     }
 

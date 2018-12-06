@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.activity.settings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
@@ -215,12 +213,7 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .content(R.string.confirm_del_cache)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        clearCache();
-                    }
-                })
+                .onPositive((dialog1, which) -> clearCache())
                 .build();
         DialogHelper.showWithAnim(dialog);
         DialogUtils.show(dialog);
@@ -230,19 +223,13 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
     private void clearCache() {
         final MaterialDialog loading = mActivity.getLoading(getString(R.string.are_clear_cache_point), false);
         DialogUtils.show(loading);
-        MyApp.get().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                ResHelper.clearCaches();
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        DialogUtils.dismiss(loading);
-                        cacheShow();
-                        ToastUtils.show(getString(R.string.cache_clear_success));
-                    }
-                });
-            }
+        MyApp.get().getThread().execute(() -> {
+            ResHelper.clearCaches();
+            MyApp.get().getHandler().post(() -> {
+                DialogUtils.dismiss(loading);
+                cacheShow();
+                ToastUtils.show(getString(R.string.cache_clear_success));
+            });
         });
     }
 
@@ -272,21 +259,12 @@ public class SettingsActivity extends BaseActivity<SettingsActivity> {
                 .content(R.string.confirm_exist_account)
                 .positiveText(R.string.confirm)
                 .negativeText(R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        SPHelper.clearOssInfo();
-                        SPHelper.clearVipLimit();
-                        SPHelper.clearMe();
-                        SPHelper.clearTa();
-                        SPHelper.clearCouple();
-                        SPHelper.clearWallPaper();
-                        SPHelper.clearDraft();
-                        PushHelper.unBindAccount();
-                        RxBus.Event<User> event = new RxBus.Event<>(ConsHelper.EVENT_USER_REFRESH, null);
-                        RxBus.post(event);
-                        SplashActivity.goActivity(mActivity);
-                    }
+                .onPositive((dialog1, which) -> {
+                    SPHelper.clearAll();
+                    PushHelper.unBindAccount();
+                    RxBus.Event<User> event = new RxBus.Event<>(ConsHelper.EVENT_USER_REFRESH, null);
+                    RxBus.post(event);
+                    SplashActivity.goActivity(mActivity);
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
