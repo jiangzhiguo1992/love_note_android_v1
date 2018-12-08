@@ -229,7 +229,7 @@ public class SPHelper {
     private static final String FIELD_CP_STATE_USER_ID = "state_user_id";
     private static final String FIELD_CP_STATE_STATE = "state_state";
     // togetherDay
-    private static final String FIELD_COUPLE_TOGETHER_DAY = "day";
+    private static final String FIELD_COUPLE_TOGETHER_DAY = "couple_together_day";
     // wallPaper
     private static final String FIELD_WALL_PAPER_JSON = "json";
     // draft
@@ -252,6 +252,7 @@ public class SPHelper {
         clearMe();
         clearTa();
         clearCouple();
+        clearCoupleDay();
         clearWallPaper();
         clearDraft();
     }
@@ -278,6 +279,10 @@ public class SPHelper {
 
     public static void clearCouple() {
         SPUtils.clear(SHARE_COUPLE);
+    }
+
+    public static void clearCoupleDay() {
+        SPUtils.clear(SHARE_COUPLE_TOGETHER);
     }
 
     public static void clearWallPaper() {
