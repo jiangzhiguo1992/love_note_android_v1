@@ -3,6 +3,8 @@ package com.jiangzg.base.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StyleRes;
 import android.view.LayoutInflater;
@@ -24,7 +26,14 @@ public class DialogUtils {
             return;
         }
         if (!dialog.isShowing()) {
-            dialog.show();
+            Context context = ((ContextWrapper) dialog.getContext()).getBaseContext();
+            if (context instanceof Activity) {
+                if (!((Activity) context).isFinishing() && !((Activity) context).isDestroyed()) {
+                    dialog.show();
+                }
+            } else {
+                dialog.show();
+            }
         }
     }
 
@@ -47,7 +56,14 @@ public class DialogUtils {
             return;
         }
         if (dialog.isShowing()) {
-            dialog.dismiss();
+            Context context = ((ContextWrapper) dialog.getContext()).getBaseContext();
+            if (context instanceof Activity) {
+                if (!((Activity) context).isFinishing() && !((Activity) context).isDestroyed()) {
+                    dialog.dismiss();
+                }
+            } else {
+                dialog.dismiss();
+            }
         }
     }
 
