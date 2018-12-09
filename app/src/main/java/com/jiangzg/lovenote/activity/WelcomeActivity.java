@@ -25,9 +25,11 @@ import com.jiangzg.lovenote.main.MyApp;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Entry;
+import com.jiangzg.lovenote.model.entity.WallPaper;
 import com.jiangzg.lovenote.view.FrescoNativeView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -99,9 +101,19 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
     // 获取随机的wp
     public File getWallPaperRandom() {
-        File wallPaperDir = OssResHelper.getResDir(OssResHelper.TYPE_COUPLE_WALL);
-        List<File> fileList = FileUtils.listFilesAndDirInDir(wallPaperDir, true);
-        if (fileList == null || fileList.size() <= 0) {
+        WallPaper wallPaper = SPHelper.getWallPaper();
+        if (wallPaper == null) return null;
+        List<String> imageList = wallPaper.getContentImageList();
+        if (imageList == null || imageList.size() <= 0) return null;
+        List<File> fileList = new ArrayList<>();
+        for (String path : imageList) {
+            if (StringUtils.isEmpty(path)) continue;
+            boolean exists = OssResHelper.isKeyFileExists(path);
+            if (!exists) continue;
+            File file = OssResHelper.newKeyFile(path);
+            fileList.add(file);
+        }
+        if (fileList.size() <= 0) {
             LogUtils.i(WelcomeActivity.class, "getWallPaperRandom", "没有WallPaper文件");
             return null;
         }

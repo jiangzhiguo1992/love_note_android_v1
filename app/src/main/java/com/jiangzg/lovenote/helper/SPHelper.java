@@ -340,55 +340,6 @@ public class SPHelper {
         return sp.getBoolean(FIELD_COMMON_NOTICE_DISTURB, true);
     }
 
-    public static void setCommonCount(CommonCount commonCount) {
-        if (commonCount == null) {
-            LogUtils.i(SPHelper.class, "setCommonCount", "commonCount == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT).edit();
-        editor.putInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, commonCount.getNoticeNewCount());
-        editor.putInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, commonCount.getVersionNewCount());
-        editor.apply();
-    }
-
-    public static CommonCount getCommonCount() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT);
-        CommonCount commonCount = new CommonCount();
-        commonCount.setNoticeNewCount(sp.getInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, 0));
-        commonCount.setVersionNewCount(sp.getInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, 0));
-        return commonCount;
-    }
-
-    /**
-     * ***********************************CommonConst***********************************
-     */
-    public static void setCommonConst(CommonConst commonConst) {
-        if (commonConst == null) {
-            LogUtils.i(SPHelper.class, "setCommonConst", "commonConst == null");
-            return;
-        }
-        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
-        editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
-        editor.putString(FIELD_COMMON_CONST_CUSTOMER_QQ, commonConst.getCustomerQQ());
-        editor.putString(FIELD_COMMON_CONST_OFFICIAL_GROUP, commonConst.getOfficialGroup());
-        editor.putString(FIELD_COMMON_CONST_OFFICIAL_WEIBO, commonConst.getOfficialWeibo());
-        editor.putString(FIELD_COMMON_CONST_OFFICIAL_WEB, commonConst.getOfficialWeb());
-        editor.putString(FIELD_COMMON_CONST_CONTACT_EMAIL, commonConst.getContactEmail());
-        editor.apply();
-    }
-
-    public static CommonConst getCommonConst() {
-        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_CONST);
-        CommonConst commonConst = new CommonConst();
-        commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
-        commonConst.setCustomerQQ(sp.getString(FIELD_COMMON_CONST_CUSTOMER_QQ, ""));
-        commonConst.setOfficialGroup(sp.getString(FIELD_COMMON_CONST_OFFICIAL_GROUP, ""));
-        commonConst.setOfficialWeibo(sp.getString(FIELD_COMMON_CONST_OFFICIAL_WEIBO, ""));
-        commonConst.setOfficialWeb(sp.getString(FIELD_COMMON_CONST_OFFICIAL_WEB, ""));
-        commonConst.setContactEmail(sp.getString(FIELD_COMMON_CONST_CONTACT_EMAIL, ""));
-        return commonConst;
-    }
-
     /**
      * ***********************************ModelShow***********************************
      */
@@ -425,6 +376,58 @@ public class SPHelper {
         modelShow.setMoreMatch(sp.getBoolean(FIELD_MODEL_SHOW_MORE_MATCH, true));
         modelShow.setMoreFeature(sp.getBoolean(FIELD_MODEL_SHOW_MORE_FEATURE, true));
         return modelShow;
+    }
+
+    /**
+     * ***********************************CommonConst***********************************
+     */
+    public static void setCommonConst(CommonConst commonConst) {
+        if (commonConst == null) {
+            LogUtils.i(SPHelper.class, "setCommonConst", "commonConst == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_CONST).edit();
+        editor.putString(FIELD_COMMON_CONST_COMPANY_NAME, commonConst.getCompanyName());
+        editor.putString(FIELD_COMMON_CONST_CUSTOMER_QQ, commonConst.getCustomerQQ());
+        editor.putString(FIELD_COMMON_CONST_OFFICIAL_GROUP, commonConst.getOfficialGroup());
+        editor.putString(FIELD_COMMON_CONST_OFFICIAL_WEIBO, commonConst.getOfficialWeibo());
+        editor.putString(FIELD_COMMON_CONST_OFFICIAL_WEB, commonConst.getOfficialWeb());
+        editor.putString(FIELD_COMMON_CONST_CONTACT_EMAIL, commonConst.getContactEmail());
+        editor.apply();
+    }
+
+    public static CommonConst getCommonConst() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_CONST);
+        CommonConst commonConst = new CommonConst();
+        commonConst.setCompanyName(sp.getString(FIELD_COMMON_CONST_COMPANY_NAME, ""));
+        commonConst.setCustomerQQ(sp.getString(FIELD_COMMON_CONST_CUSTOMER_QQ, ""));
+        commonConst.setOfficialGroup(sp.getString(FIELD_COMMON_CONST_OFFICIAL_GROUP, ""));
+        commonConst.setOfficialWeibo(sp.getString(FIELD_COMMON_CONST_OFFICIAL_WEIBO, ""));
+        commonConst.setOfficialWeb(sp.getString(FIELD_COMMON_CONST_OFFICIAL_WEB, ""));
+        commonConst.setContactEmail(sp.getString(FIELD_COMMON_CONST_CONTACT_EMAIL, ""));
+        return commonConst;
+    }
+
+    /**
+     * ***********************************CommonCount***********************************
+     */
+    public static void setCommonCount(CommonCount commonCount) {
+        if (commonCount == null) {
+            LogUtils.i(SPHelper.class, "setCommonCount", "commonCount == null");
+            return;
+        }
+        SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT).edit();
+        editor.putInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, commonCount.getNoticeNewCount());
+        editor.putInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, commonCount.getVersionNewCount());
+        editor.apply();
+    }
+
+    public static CommonCount getCommonCount() {
+        SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COMMON_COUNT);
+        CommonCount commonCount = new CommonCount();
+        commonCount.setNoticeNewCount(sp.getInt(FIELD_COMMON_COUNT_NOTICE_NEW_COUNT, 0));
+        commonCount.setVersionNewCount(sp.getInt(FIELD_COMMON_COUNT_VERSION_NEW_COUNT, 0));
+        return commonCount;
     }
 
     /**
@@ -914,6 +917,7 @@ public class SPHelper {
     }
 
     public static void setTogetherDay(int days) {
+        clearCoupleDay();
         LogUtils.d(SPHelper.class, "setTogetherDay", String.valueOf(days));
         SharedPreferences.Editor editor = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER).edit();
         editor.putInt(FIELD_COUPLE_TOGETHER_DAY, days);
@@ -923,10 +927,7 @@ public class SPHelper {
     public static int getTogetherDay() {
         SharedPreferences sp = SPUtils.getSharedPreferences(SHARE_COUPLE_TOGETHER);
         int togetherDay = sp.getInt(FIELD_COUPLE_TOGETHER_DAY, 1);
-        if (togetherDay <= 0) {
-            togetherDay = 1;
-        }
-        return togetherDay;
+        return togetherDay <= 0 ? 1 : togetherDay;
     }
 
     /**
