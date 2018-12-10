@@ -20,37 +20,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/rlPink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
-
-                <ImageView
-                    android:id="@+id/ivPink"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
-                    android:tint="@color/theme_pink_primary"/>
-
-                <TextView
-                    style="@style/FontBlackNormal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/girl_pink"
-                    android:textColor="@color/theme_pink_primary"/>
-            </LinearLayout>
-
-            <View
-                style="@style/LineHorizontal"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"/>
-
-            <LinearLayout
                 android:id="@+id/rlRed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -74,6 +43,37 @@
                     android:gravity="center_vertical"
                     android:text="@string/menses_red"
                     android:textColor="@color/theme_red_primary"/>
+            </LinearLayout>
+
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/rlPink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivPink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_circle_primary"
+                    android:tint="@color/theme_pink_primary"/>
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/girl_pink"
+                    android:textColor="@color/theme_pink_primary"/>
             </LinearLayout>
 
             <View
@@ -112,36 +112,36 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
 
-            <!--<LinearLayout-->
-            <!--android:id="@+id/rlIndigo"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="?attr/selectableItemBackground"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:padding="16dp">-->
+            <LinearLayout
+                android:id="@+id/rlIndigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-            <!--<ImageView-->
-            <!--android:id="@+id/ivIndigo"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawaic_check_circle_primaryrcle"-->
-            <!--android:tint="@color/theme_indigo_primary"/>-->
+                <ImageView
+                    android:id="@+id/ivIndigo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_circle_primary"
+                    android:tint="@color/theme_indigo_primary"/>
 
-            <!--<TextView-->
-            <!--style="@style/FontBlackNormal"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="墨水蓝"-->
-            <!--android:textColor="@color/theme_indigo_primary"/>-->
-            <!--</LinearLayout>-->
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/indigo_blue"
+                    android:textColor="@color/theme_indigo_primary"/>
+            </LinearLayout>
 
-            <!--<View-->
-            <!--style="@style/LineHorizontal"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:layout_marginStart="16dp"/>-->
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <LinearLayout
                 android:id="@+id/rlBlue"
@@ -174,36 +174,36 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
 
-            <!--<LinearLayout-->
-            <!--android:id="@+id/rlTeal"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="?attr/selectableItemBackground"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:padding="16dp">-->
+            <LinearLayout
+                android:id="@+id/rlTeal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-            <!--<ImageView-->
-            <!--android:id="@+id/ivTeal"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawaic_check_circle_primaryrcle"-->
-            <!--android:tint="@color/theme_teal_primary"/>-->
+                <ImageView
+                    android:id="@+id/ivTeal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_circle_primary"
+                    android:tint="@color/theme_teal_primary"/>
 
-            <!--<TextView-->
-            <!--style="@style/FontBlackNormal"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="茶叶绿"-->
-            <!--android:textColor="@color/theme_teal_primary"/>-->
-            <!--</LinearLayout>-->
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/teal_green"
+                    android:textColor="@color/theme_teal_primary"/>
+            </LinearLayout>
 
-            <!--<View-->
-            <!--style="@style/LineHorizontal"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:layout_marginStart="16dp"/>-->
+            <View
+                style="@style/LineHorizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
             <LinearLayout
                 android:id="@+id/rlGreen"
@@ -235,37 +235,6 @@
                 style="@style/LineHorizontal"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
-
-            <!--<LinearLayout-->
-            <!--android:id="@+id/rlLime"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="?attr/selectableItemBackground"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:padding="16dp">-->
-
-            <!--<ImageView-->
-            <!--android:id="@+id/ivLime"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:src="@drawaic_check_circle_primaryrcle"-->
-            <!--android:tint="@color/theme_lime_primary"/>-->
-
-            <!--<TextView-->
-            <!--style="@style/FontBlackNormal"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="咖啡棕"-->
-            <!--android:textColor="@color/theme_lime_primary"/>-->
-            <!--</LinearLayout>-->
-
-            <!--<View-->
-            <!--style="@style/LineHorizontal"-->
-            <!--android:layout_marginEnd="16dp"-->
-            <!--android:layout_marginStart="16dp"/>-->
 
             <LinearLayout
                 android:id="@+id/rlYellow"
@@ -359,6 +328,32 @@
                 style="@style/LineHorizontal"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:id="@+id/rlGrey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/ivGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_circle_primary"
+                    android:tint="@color/theme_grey_primary"/>
+
+                <TextView
+                    style="@style/FontBlackNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/egg_grey"
+                    android:textColor="@color/theme_grey_primary"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

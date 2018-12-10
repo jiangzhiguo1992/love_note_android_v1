@@ -22,38 +22,50 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
 
     @BindView(R.id.tb)
     Toolbar tb;
-    @BindView(R.id.ivRed)
-    ImageView ivRed;
     @BindView(R.id.rlRed)
     LinearLayout rlRed;
-    @BindView(R.id.ivPink)
-    ImageView ivPink;
+    @BindView(R.id.ivRed)
+    ImageView ivRed;
     @BindView(R.id.rlPink)
     LinearLayout rlPink;
-    @BindView(R.id.ivPurple)
-    ImageView ivPurple;
+    @BindView(R.id.ivPink)
+    ImageView ivPink;
     @BindView(R.id.rlPurple)
     LinearLayout rlPurple;
-    @BindView(R.id.ivBlue)
-    ImageView ivBlue;
+    @BindView(R.id.ivPurple)
+    ImageView ivPurple;
+    @BindView(R.id.rlIndigo)
+    LinearLayout rlIndigo;
+    @BindView(R.id.ivIndigo)
+    ImageView ivIndigo;
     @BindView(R.id.rlBlue)
     LinearLayout rlBlue;
-    @BindView(R.id.ivGreen)
-    ImageView ivGreen;
+    @BindView(R.id.ivBlue)
+    ImageView ivBlue;
+    @BindView(R.id.rlTeal)
+    LinearLayout rlTeal;
+    @BindView(R.id.ivTeal)
+    ImageView ivTeal;
     @BindView(R.id.rlGreen)
     LinearLayout rlGreen;
-    @BindView(R.id.ivYellow)
-    ImageView ivYellow;
+    @BindView(R.id.ivGreen)
+    ImageView ivGreen;
     @BindView(R.id.rlYellow)
     LinearLayout rlYellow;
-    @BindView(R.id.ivOrange)
-    ImageView ivOrange;
+    @BindView(R.id.ivYellow)
+    ImageView ivYellow;
     @BindView(R.id.rlOrange)
     LinearLayout rlOrange;
-    @BindView(R.id.ivBrown)
-    ImageView ivBrown;
+    @BindView(R.id.ivOrange)
+    ImageView ivOrange;
     @BindView(R.id.rlBrown)
     LinearLayout rlBrown;
+    @BindView(R.id.ivBrown)
+    ImageView ivBrown;
+    @BindView(R.id.rlGrey)
+    LinearLayout rlGrey;
+    @BindView(R.id.ivGrey)
+    ImageView ivGrey;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, ThemeActivity.class);
@@ -81,20 +93,27 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     protected void onFinish(Bundle state) {
     }
 
-    @OnClick({R.id.rlRed, R.id.rlPink, R.id.rlPurple, R.id.rlBlue, R.id.rlGreen, R.id.rlYellow, R.id.rlOrange, R.id.rlBrown})
+    @OnClick({R.id.rlRed, R.id.rlPink, R.id.rlPurple, R.id.rlIndigo, R.id.rlBlue,
+            R.id.rlTeal, R.id.rlGreen, R.id.rlYellow, R.id.rlOrange, R.id.rlBrown, R.id.rlGrey})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rlPink:
-                ThemeHelper.setTheme(ThemeHelper.THEME_PINK);
-                break;
             case R.id.rlRed:
                 ThemeHelper.setTheme(ThemeHelper.THEME_RED);
+                break;
+            case R.id.rlPink:
+                ThemeHelper.setTheme(ThemeHelper.THEME_PINK);
                 break;
             case R.id.rlPurple:
                 ThemeHelper.setTheme(ThemeHelper.THEME_PURPLE);
                 break;
+            case R.id.rlIndigo:
+                ThemeHelper.setTheme(ThemeHelper.THEME_INDIGO);
+                break;
             case R.id.rlBlue:
                 ThemeHelper.setTheme(ThemeHelper.THEME_BLUE);
+                break;
+            case R.id.rlTeal:
+                ThemeHelper.setTheme(ThemeHelper.THEME_TEAL);
                 break;
             case R.id.rlGreen:
                 ThemeHelper.setTheme(ThemeHelper.THEME_GREEN);
@@ -108,6 +127,9 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
             case R.id.rlBrown:
                 ThemeHelper.setTheme(ThemeHelper.THEME_BROWN);
                 break;
+            case R.id.rlGrey:
+                ThemeHelper.setTheme(ThemeHelper.THEME_GREY);
+                break;
         }
         refreshDataView();
     }
@@ -116,11 +138,14 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
         ivPink.setImageResource(R.drawable.ic_circle_primary);
         ivRed.setImageResource(R.drawable.ic_circle_primary);
         ivPurple.setImageResource(R.drawable.ic_circle_primary);
+        ivIndigo.setImageResource(R.drawable.ic_circle_primary);
         ivBlue.setImageResource(R.drawable.ic_circle_primary);
+        ivTeal.setImageResource(R.drawable.ic_circle_primary);
         ivGreen.setImageResource(R.drawable.ic_circle_primary);
         ivYellow.setImageResource(R.drawable.ic_circle_primary);
         ivOrange.setImageResource(R.drawable.ic_circle_primary);
         ivBrown.setImageResource(R.drawable.ic_circle_primary);
+        ivGrey.setImageResource(R.drawable.ic_circle_primary);
         // 获取已选择的theme
         int settingsTheme = SPHelper.getTheme();
         switch (settingsTheme) {
@@ -133,8 +158,14 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
             case ThemeHelper.THEME_PURPLE:
                 ivPurple.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
+            case ThemeHelper.THEME_INDIGO:
+                ivIndigo.setImageResource(R.drawable.ic_check_circle_primary);
+                break;
             case ThemeHelper.THEME_BLUE:
                 ivBlue.setImageResource(R.drawable.ic_check_circle_primary);
+                break;
+            case ThemeHelper.THEME_TEAL:
+                ivTeal.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
             case ThemeHelper.THEME_GREEN:
                 ivGreen.setImageResource(R.drawable.ic_check_circle_primary);
@@ -147,6 +178,9 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
                 break;
             case ThemeHelper.THEME_BROWN:
                 ivBrown.setImageResource(R.drawable.ic_check_circle_primary);
+                break;
+            case ThemeHelper.THEME_GREY:
+                ivGrey.setImageResource(R.drawable.ic_check_circle_primary);
                 break;
         }
     }

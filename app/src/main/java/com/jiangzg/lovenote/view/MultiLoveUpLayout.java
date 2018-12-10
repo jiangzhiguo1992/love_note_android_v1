@@ -67,66 +67,62 @@ public class MultiLoveUpLayout extends RelativeLayout {
 
         mRandom = new Random();
         mDrawables = new Drawable[12];
-        Drawable blue = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (blue != null) {
-            blue.setTint(ContextCompat.getColor(context, R.color.theme_blue_primary));
-        }
-        mDrawables[0] = blue;
-        Drawable brown = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (brown != null) {
-            brown.setTint(ContextCompat.getColor(context, R.color.theme_brown_primary));
-        }
-        mDrawables[1] = brown;
-        Drawable green = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (green != null) {
-            green.setTint(ContextCompat.getColor(context, R.color.theme_green_primary));
-        }
-        mDrawables[2] = green;
-        Drawable grey = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (grey != null) {
-            grey.setTint(ContextCompat.getColor(context, R.color.theme_grey_primary));
-        }
-        mDrawables[3] = grey;
-        Drawable indigo = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (indigo != null) {
-            indigo.setTint(ContextCompat.getColor(context, R.color.theme_indigo_primary));
-        }
-        mDrawables[4] = indigo;
-        Drawable lime = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (lime != null) {
-            lime.setTint(ContextCompat.getColor(context, R.color.theme_lime_primary));
-        }
-        mDrawables[5] = lime;
-        Drawable orange = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (orange != null) {
-            orange.setTint(ContextCompat.getColor(context, R.color.theme_orange_primary));
-        }
-        mDrawables[6] = orange;
-        Drawable pink = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (pink != null) {
-            pink.setTint(ContextCompat.getColor(context, R.color.theme_pink_primary));
-        }
-        mDrawables[7] = pink;
-        Drawable purple = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
-        if (purple != null) {
-            purple.setTint(ContextCompat.getColor(context, R.color.theme_purple_primary));
-        }
-        mDrawables[8] = purple;
+
         Drawable red = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
         if (red != null) {
             red.setTint(ContextCompat.getColor(context, R.color.theme_red_primary));
         }
-        mDrawables[9] = red;
+        mDrawables[0] = red;
+        Drawable pink = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (pink != null) {
+            pink.setTint(ContextCompat.getColor(context, R.color.theme_pink_primary));
+        }
+        mDrawables[1] = pink;
+        Drawable purple = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (purple != null) {
+            purple.setTint(ContextCompat.getColor(context, R.color.theme_purple_primary));
+        }
+        mDrawables[2] = purple;
+        Drawable indigo = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (indigo != null) {
+            indigo.setTint(ContextCompat.getColor(context, R.color.theme_indigo_primary));
+        }
+        mDrawables[3] = indigo;
+        Drawable blue = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (blue != null) {
+            blue.setTint(ContextCompat.getColor(context, R.color.theme_blue_primary));
+        }
+        mDrawables[4] = blue;
         Drawable teal = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
         if (teal != null) {
             teal.setTint(ContextCompat.getColor(context, R.color.theme_teal_primary));
         }
-        mDrawables[10] = teal;
+        mDrawables[5] = teal;
+        Drawable green = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (green != null) {
+            green.setTint(ContextCompat.getColor(context, R.color.theme_green_primary));
+        }
+        mDrawables[6] = green;
         Drawable yellow = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
         if (yellow != null) {
             yellow.setTint(ContextCompat.getColor(context, R.color.theme_yellow_primary));
         }
-        mDrawables[11] = yellow;
+        mDrawables[7] = yellow;
+        Drawable orange = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (orange != null) {
+            orange.setTint(ContextCompat.getColor(context, R.color.theme_orange_primary));
+        }
+        mDrawables[8] = orange;
+        Drawable brown = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (brown != null) {
+            brown.setTint(ContextCompat.getColor(context, R.color.theme_brown_primary));
+        }
+        mDrawables[9] = brown;
+        Drawable grey = ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_solid_primary);
+        if (grey != null) {
+            grey.setTint(ContextCompat.getColor(context, R.color.theme_grey_primary));
+        }
+        mDrawables[10] = grey;
 
         mInterpolators = new Interpolator[3];
         mInterpolators[0] = new AccelerateInterpolator();

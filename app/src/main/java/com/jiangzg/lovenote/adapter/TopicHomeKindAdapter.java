@@ -67,18 +67,17 @@ public class TopicHomeKindAdapter extends BaseQuickAdapter<PostKindInfo, BaseVie
 
     private List<Integer> getColorList() {
         List<Integer> colorList = new ArrayList<>();
-        int k1 = ContextCompat.getColor(mActivity, R.color.topic_kind_1);
-        int k2 = ContextCompat.getColor(mActivity, R.color.topic_kind_2);
-        int k3 = ContextCompat.getColor(mActivity, R.color.topic_kind_3);
-        int k4 = ContextCompat.getColor(mActivity, R.color.topic_kind_4);
-        int k5 = ContextCompat.getColor(mActivity, R.color.topic_kind_5);
-        int k6 = ContextCompat.getColor(mActivity, R.color.topic_kind_6);
-        colorList.add(k1);
-        colorList.add(k2);
-        colorList.add(k3);
-        colorList.add(k4);
-        colorList.add(k5);
-        colorList.add(k6);
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_indigo_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_green_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_red_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_teal_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_grey_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_purple_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_brown_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_yellow_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_blue_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_orange_accent));
+        colorList.add(ContextCompat.getColor(mActivity, R.color.theme_pink_accent));
         return colorList;
     }
 
