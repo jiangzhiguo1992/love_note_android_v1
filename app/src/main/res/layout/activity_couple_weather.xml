@@ -75,7 +75,7 @@
                         android:id="@+id/ivAvatarLeft"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        tools:background="@mipmap/ic_boy_circle"/>
+                        tools:background="@mipmap/img_boy_circle"/>
 
                     <ImageView
                         android:id="@+id/ivIconLeftDay"
@@ -174,7 +174,7 @@
                         android:id="@+id/ivAvatarRight"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        tools:background="@mipmap/ic_girl_circle"/>
+                        tools:background="@mipmap/img_girl_circle"/>
 
                     <ImageView
                         android:id="@+id/ivIconRightDay"

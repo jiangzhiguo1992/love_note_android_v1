@@ -14,7 +14,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="30dp"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_app_name"
+        android:src="@mipmap/img_app_name"
         android:tint="?attr/colorPrimary"/>
 
     <android.support.design.widget.TextInputLayout
@@ -29,7 +29,7 @@
             style="@style/FontBlackNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_phone_grey"
+            android:drawableStart="@mipmap/ic_phone_grey"
             android:drawablePadding="15dp"
             android:hint="@string/input_hint_phone"
             android:inputType="phone"

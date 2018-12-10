@@ -47,7 +47,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_girl_rect"/>
+                        android:src="@mipmap/img_girl_rect"/>
 
                     <ImageView
                         android:id="@+id/ivGirl"
@@ -73,7 +73,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@mipmap/ic_boy_rect"/>
+                        android:src="@mipmap/img_boy_rect"/>
 
                     <ImageView
                         android:id="@+id/ivBoy"

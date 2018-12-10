@@ -29,7 +29,7 @@
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="10dp"
-        tools:background="@mipmap/ic_boy_circle"/>
+        tools:background="@mipmap/img_boy_circle"/>
 
     <LinearLayout
         android:id="@+id/llContent"

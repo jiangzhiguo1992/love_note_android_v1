@@ -78,6 +78,6 @@
             android:id="@+id/ivAvatar"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            tools:background="@mipmap/ic_boy_circle"/>
+            tools:background="@mipmap/img_boy_circle"/>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

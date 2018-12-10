@@ -116,7 +116,7 @@
                     android:layout_height="match_parent"
                     android:visibility="gone"
                     app:actualImageScaleType="centerCrop"
-                    tools:background="@mipmap/ic_boy_rect"
+                    tools:background="@mipmap/img_boy_rect"
                     tools:visibility="visible"/>
 
                 <RelativeLayout

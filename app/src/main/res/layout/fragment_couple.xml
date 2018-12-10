@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/couple_bg_1"
+            android:src="@mipmap/bg_couple_1"
             android:visibility="gone"
             tools:visibility="visible"/>
 
@@ -137,7 +137,7 @@
                         android:id="@+id/ivAvatarLeft"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        tools:src="@mipmap/ic_boy_circle"/>
+                        tools:src="@mipmap/img_boy_circle"/>
 
                     <TextView
                         android:id="@+id/tvNameLeft"
@@ -175,7 +175,7 @@
                         android:id="@+id/ivAvatarRight"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        tools:src="@mipmap/ic_girl_circle"/>
+                        tools:src="@mipmap/img_girl_circle"/>
                 </LinearLayout>
 
                 <!-- 地址/天气 -->

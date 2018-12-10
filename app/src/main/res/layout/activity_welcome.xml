@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/welcome1"/>
+        android:src="@mipmap/bg_welcome_1"/>
 
     <com.jiangzg.lovenote.view.FrescoNativeView
         android:id="@+id/ivBg"
