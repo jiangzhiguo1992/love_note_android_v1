@@ -30,7 +30,7 @@
             style="@style/FontBlackNormal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_phone_grey"
+            android:drawableStart="@mipmap/ic_phone_grey"
             android:drawablePadding="15dp"
             android:hint="@string/input_hint_new_phone"
             android:inputType="phone"
