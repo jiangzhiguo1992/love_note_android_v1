@@ -185,6 +185,8 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                     ivShouFa.setVisibility(View.VISIBLE);
                     ivShouFa.setImageResource(R.mipmap.shoufa_xiaomi);
                     break;
+                case "tencent": // 应用宝
+                    break;
                 case "samsung": // 三星(不用！)
                     break;
                 case "meizu": // 魅族
@@ -194,8 +196,6 @@ public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
                 case "qh360": // 360
                     ivShouFa.setVisibility(View.VISIBLE);
                     ivShouFa.setImageResource(R.mipmap.shoufa_360);
-                    break;
-                case "tencent": // 应用宝
                     break;
                 case "ali": // 阿里
                     ivShouFa.setVisibility(View.VISIBLE);
