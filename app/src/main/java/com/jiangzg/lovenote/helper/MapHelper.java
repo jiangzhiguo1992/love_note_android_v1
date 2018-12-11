@@ -73,7 +73,7 @@ public class MapHelper {
         // myLocation
         MyLocationStyle myLocationStyle = new MyLocationStyle();
         myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE); // 只定位一次，没有方向，且将视角移动到地图中心点
-        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.drawable.ic_location_primary_40));
+        myLocationStyle.myLocationIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_location_on_grey_24dp));
         myLocationStyle.strokeWidth(Color.BLACK);
         myLocationStyle.strokeColor(5);
         myLocationStyle.showMyLocation(true); // 不仅定位，还要定位蓝点
@@ -111,7 +111,7 @@ public class MapHelper {
         if (aMap == null || (longitude == 0 && latitude == 0)) return null;
         LatLng latLng = new LatLng(latitude, longitude);
         // icon
-        VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.drawable.ic_location_primary_40, MyApp.get().getTheme());
+        VectorDrawableCompat vectorDrawable = VectorDrawableCompat.create(MyApp.get().getResources(), R.mipmap.ic_location_on_grey_24dp, MyApp.get().getTheme());
         Bitmap bitmap = ConvertUtils.drawable2Bitmap(vectorDrawable);
         BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(bitmap);
         // options

@@ -43,7 +43,7 @@ import retrofit2.Call;
  */
 public class WelcomeActivity extends BaseActivity<WelcomeActivity> {
 
-    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 3);
+    private static final long TransPageMillis = (long) (ConstantUtils.SEC * 2);
 
     @BindView(R.id.ivBg)
     FrescoNativeView ivBg;

@@ -69,7 +69,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
     protected void convert(BaseViewHolder helper, Audio item) {
         // data
         String avatar = UserHelper.getAvatar(couple, item.getUserId());
-        int playIcon = (playingIndex == helper.getLayoutPosition()) ? R.drawable.ic_pause_circle_primary : R.drawable.ic_play_circle_primary;
+        int playIcon = (playingIndex == helper.getLayoutPosition()) ? R.mipmap.ic_pause_circle_outline_white_48dp : R.mipmap.ic_play_circle_outline_white_48dp;
         TimeUnit timeUnit = TimeUnit.convertTime2Unit(TimeHelper.getJavaTimeByGo(item.getDuration()));
         String duration = timeUnit.getAllShow(true, true, true, true, true, true, year, month, dayT, hour, minute, second);
         duration = StringUtils.isEmpty(duration) ? "--" : duration;

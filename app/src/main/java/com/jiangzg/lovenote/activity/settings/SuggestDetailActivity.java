@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -360,9 +361,13 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // view
         tvFollow.setText(followCount);
         if (follow) {
-            ivFollow.setImageResource(R.drawable.ic_visibility_on_primary);
+            Drawable visibility = ContextCompat.getDrawable(mActivity, R.mipmap.ic_visibility_grey_18dp);
+            if (visibility != null) {
+                visibility.setTint(ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity)));
+                ivFollow.setImageDrawable(visibility);
+            }
         } else {
-            ivFollow.setImageResource(R.drawable.ic_visibility_off_grey);
+            ivFollow.setImageResource(R.mipmap.ic_visibility_off_grey_18dp);
         }
     }
 
@@ -374,8 +379,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         // view
         tvComment.setText(commentCount);
         if (isComment) {
-            int rId = ViewHelper.getColorPrimary(mActivity);
-            int colorPrimary = ContextCompat.getColor(mActivity, rId);
+            int colorPrimary = ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity));
             ivComment.setImageTintList(ColorStateList.valueOf(colorPrimary));
         } else {
             int colorGrey = ContextCompat.getColor(mActivity, R.color.icon_grey);

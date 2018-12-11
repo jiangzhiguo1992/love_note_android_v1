@@ -135,52 +135,52 @@ public class ThemeActivity extends BaseActivity<ThemeActivity> {
     }
 
     private void refreshDataView() {
-        ivPink.setImageResource(R.drawable.ic_circle_primary);
-        ivRed.setImageResource(R.drawable.ic_circle_primary);
-        ivPurple.setImageResource(R.drawable.ic_circle_primary);
-        ivIndigo.setImageResource(R.drawable.ic_circle_primary);
-        ivBlue.setImageResource(R.drawable.ic_circle_primary);
-        ivTeal.setImageResource(R.drawable.ic_circle_primary);
-        ivGreen.setImageResource(R.drawable.ic_circle_primary);
-        ivYellow.setImageResource(R.drawable.ic_circle_primary);
-        ivOrange.setImageResource(R.drawable.ic_circle_primary);
-        ivBrown.setImageResource(R.drawable.ic_circle_primary);
-        ivGrey.setImageResource(R.drawable.ic_circle_primary);
+        ivPink.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivRed.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivPurple.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivIndigo.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivBlue.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivTeal.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivGreen.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivYellow.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivOrange.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivBrown.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
+        ivGrey.setImageResource(R.mipmap.ic_brightness_1_grey_24dp);
         // 获取已选择的theme
         int settingsTheme = SPHelper.getTheme();
         switch (settingsTheme) {
             case ThemeHelper.THEME_PINK:
-                ivPink.setImageResource(R.drawable.ic_check_circle_primary);
+                ivPink.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_RED:
-                ivRed.setImageResource(R.drawable.ic_check_circle_primary);
+                ivRed.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_PURPLE:
-                ivPurple.setImageResource(R.drawable.ic_check_circle_primary);
+                ivPurple.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_INDIGO:
-                ivIndigo.setImageResource(R.drawable.ic_check_circle_primary);
+                ivIndigo.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_BLUE:
-                ivBlue.setImageResource(R.drawable.ic_check_circle_primary);
+                ivBlue.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_TEAL:
-                ivTeal.setImageResource(R.drawable.ic_check_circle_primary);
+                ivTeal.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_GREEN:
-                ivGreen.setImageResource(R.drawable.ic_check_circle_primary);
+                ivGreen.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_YELLOW:
-                ivYellow.setImageResource(R.drawable.ic_check_circle_primary);
+                ivYellow.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_ORANGE:
-                ivOrange.setImageResource(R.drawable.ic_check_circle_primary);
+                ivOrange.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_BROWN:
-                ivBrown.setImageResource(R.drawable.ic_check_circle_primary);
+                ivBrown.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
             case ThemeHelper.THEME_GREY:
-                ivGrey.setImageResource(R.drawable.ic_check_circle_primary);
+                ivGrey.setImageResource(R.mipmap.ic_check_circle_grey_24dp);
                 break;
         }
     }

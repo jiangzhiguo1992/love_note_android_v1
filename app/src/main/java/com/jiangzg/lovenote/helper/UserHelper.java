@@ -43,21 +43,6 @@ public class UserHelper {
         }
     }
 
-    // sex
-    public static int getSexResCircleSmall(User user) {
-        if (isEmpty(user)) return 0;
-        return getSexResCircleSmall(user.getSex());
-    }
-
-    public static int getSexResCircleSmall(int sex) {
-        if (sex == User.SEX_BOY) {
-            return R.mipmap.ic_sex_boy_circle;
-        } else if (sex == User.SEX_GIRL) {
-            return R.mipmap.ic_sex_girl_circle;
-        }
-        return 0;
-    }
-
     // 昵称
     public static String getMyName(User user) {
         if (isEmpty(user)) return "";

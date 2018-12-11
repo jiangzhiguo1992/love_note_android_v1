@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -78,8 +77,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     TextView tvPhoneLeft;
     @BindView(R.id.llUserInfoLeft)
     LinearLayout llUserInfoLeft;
-    @BindView(R.id.ivSexLeft)
-    ImageView ivSexLeft;
     @BindView(R.id.tvBirthLeft)
     TextView tvBirthLeft;
 
@@ -93,8 +90,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
     TextView tvPhoneRight;
     @BindView(R.id.llUserInfoRight)
     LinearLayout llUserInfoRight;
-    @BindView(R.id.ivSexRight)
-    ImageView ivSexRight;
     @BindView(R.id.tvBirthRight)
     TextView tvBirthRight;
 
@@ -315,8 +310,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taAvatar = UserHelper.getTaAvatar(me);
         String mePhone = me == null ? "" : me.getPhone();
         String taPhone = ta == null ? "" : ta.getPhone();
-        int meSexRes = UserHelper.getSexResCircleSmall(me);
-        int taSexRes = UserHelper.getSexResCircleSmall(ta);
         long meBirth = TimeHelper.getJavaTimeByGo(me == null ? 0 : me.getBirthday());
         long taBirth = TimeHelper.getJavaTimeByGo(ta == null ? 0 : ta.getBirthday());
         String meBirthShow = DateUtils.getString(meBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
@@ -329,8 +322,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvNameRight.setText(myName);
         tvPhoneLeft.setText(taPhone);
         tvPhoneRight.setText(mePhone);
-        if (taSexRes > 0) ivSexLeft.setImageResource(taSexRes);
-        if (meSexRes > 0) ivSexRight.setImageResource(meSexRes);
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
         tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.pair_holder_day), togetherDay));

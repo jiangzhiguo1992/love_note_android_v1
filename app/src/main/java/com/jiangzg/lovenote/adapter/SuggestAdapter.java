@@ -1,6 +1,7 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -112,9 +113,13 @@ public class SuggestAdapter extends BaseQuickAdapter<Suggest, BaseViewHolder> {
         helper.setText(R.id.tvFollow, followShow);
         helper.setText(R.id.tvComment, commentShow);
         if (follow) {
-            helper.setImageResource(R.id.ivFollow, R.drawable.ic_visibility_on_primary);
+            Drawable visibility = ContextCompat.getDrawable(mActivity, R.mipmap.ic_visibility_grey_18dp);
+            if (visibility != null) {
+                visibility.setTint(ContextCompat.getColor(mActivity, ViewHelper.getColorPrimary(mActivity)));
+                helper.setImageDrawable(R.id.ivFollow, visibility);
+            }
         } else {
-            helper.setImageResource(R.id.ivFollow, R.drawable.ic_visibility_off_grey);
+            helper.setImageResource(R.id.ivFollow, R.mipmap.ic_visibility_off_grey_18dp);
         }
         ImageView ivComment = helper.getView(R.id.ivComment);
         if (comment) {
