@@ -558,7 +558,7 @@
     <string name="current_channel_colon_space_holder" formatted="false">当前频道《%s》</string>
     <string name="save_channel_colon_space_holder" formatted="false">保存频道《%s》</string>
     <string name="add_image">添加图片</string>
-    <string name="add_text">添加文字</string>
+    <string name="add_text">添加文本</string>
     <string name="please_input_album_name">请输入相册名称</string>
     <string name="please_input_album_name_dont_over_holder_text" formatted="false">请输入相册名称，不得超过%d字</string>
     <string name="take_camera_in_colon_space_holder" formatted="false">拍摄于: %s</string>
