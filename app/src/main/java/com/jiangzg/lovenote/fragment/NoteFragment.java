@@ -153,7 +153,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         fitToolBar(tb);
         souvenirCountDownFormat = mActivity.getString(R.string.count_down_space_holder);
         // menu
-        tb.inflateMenu(R.menu.help_lock);
+        tb.inflateMenu(R.menu.help_lock_on);
         // srl
         srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -183,6 +183,13 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         RetrofitHelper.cancel(call);
         RxBus.unregister(ConsHelper.EVENT_LOCK_REFRESH, obLockRefresh);
         stopSouvenirCountDownTask();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // menu
+        refreshMenu();
     }
 
     @Override
@@ -311,6 +318,7 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                     lock.setLock(false);
                 }
                 souvenirLatest = data.getSouvenirLatest();
+                refreshMenu();
                 refreshNoteView();
             }
 
@@ -319,6 +327,12 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
                 srl.setRefreshing(false);
             }
         });
+    }
+
+    private void refreshMenu() {
+        boolean isLock = lock == null || lock.isLock();
+        tb.getMenu().clear();
+        tb.inflateMenu(isLock ? R.menu.help_lock_on : R.menu.help_lock_off);
     }
 
     private void refreshNoteView() {
