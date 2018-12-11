@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/menuHelp"
-        android:icon="@drawable/ic_help_circle_solid_white"
+        android:icon="@mipmap/ic_help_outline_white_24dp"
         android:title="@string/help_document"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menuSettings"
-        android:icon="@drawable/ic_settings_white"
+        android:icon="@mipmap/ic_settings_white_24dp"
         android:title="@string/settings"
         app:showAsAction="always"/>
 
