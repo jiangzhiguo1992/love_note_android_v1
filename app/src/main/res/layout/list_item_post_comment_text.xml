@@ -44,7 +44,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="10dp"
             android:visibility="gone"
-            tools:background="@mipmap/img_boy_circle"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
             tools:visibility="visible"/>
 
         <com.jiangzg.lovenote.view.FrescoAvatarView
@@ -53,7 +53,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="5dp"
             android:visibility="gone"
-            tools:background="@mipmap/img_girl_circle"
+            tools:background="@mipmap/ic_account_circle_grey_48dp"
             tools:visibility="visible"/>
 
         <LinearLayout

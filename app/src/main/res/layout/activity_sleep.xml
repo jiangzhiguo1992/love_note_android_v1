@@ -135,7 +135,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="10dp"
-                        tools:background="@mipmap/img_boy_circle"/>
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                     <TextView
                         android:id="@+id/tvStateLeft"
@@ -181,7 +181,7 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="10dp"
-                        tools:background="@mipmap/img_girl_circle"/>
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                     <TextView
                         android:id="@+id/tvStateRight"

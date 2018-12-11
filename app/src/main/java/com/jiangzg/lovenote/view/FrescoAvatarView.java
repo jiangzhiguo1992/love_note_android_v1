@@ -35,6 +35,7 @@ import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ProviderUtils;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.ScreenUtils;
+import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.FrescoHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -95,7 +96,8 @@ public class FrescoAvatarView extends SimpleDraweeView {
         hierarchy.setFadeDuration(300);
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setRoundingParams(RoundingParams.asCircle());
-        hierarchy.setPlaceholderImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
+        //hierarchy.setPlaceholderImage(new ImageLoadingCircleDrawable(), ScalingUtils.ScaleType.CENTER_CROP);
+        hierarchy.setPlaceholderImage(R.mipmap.ic_account_circle_grey_48dp);
         hierarchy.setProgressBarImage(new ImageProgressCircleDrawable(), ScalingUtils.ScaleType.CENTER_INSIDE);
     }
 

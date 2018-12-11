@@ -36,7 +36,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_margin="20dp"
-                        tools:background="@mipmap/img_boy_circle"/>
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
                     <TextView
                         android:id="@+id/tvVipInfo"
@@ -52,7 +52,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_margin="20dp"
-                        tools:background="@mipmap/img_girl_circle"/>
+                        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
                 </LinearLayout>
 
                 <LinearLayout

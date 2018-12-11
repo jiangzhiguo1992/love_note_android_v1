@@ -16,7 +16,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginEnd="10dp"
-        tools:background="@mipmap/img_boy_circle"/>
+        tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
     <TextView
         android:id="@+id/tvTime"

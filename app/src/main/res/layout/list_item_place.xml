@@ -14,7 +14,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:visibility="invisible"
-        tools:background="@mipmap/img_boy_circle"
+        tools:background="@mipmap/ic_account_circle_grey_48dp"
         tools:visibility="visible"/>
 
     <com.jiangzg.lovenote.view.FrescoAvatarView
@@ -25,7 +25,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:visibility="invisible"
-        tools:background="@mipmap/img_boy_circle"
+        tools:background="@mipmap/ic_account_circle_grey_48dp"
         tools:visibility="visible"/>
 
     <LinearLayout

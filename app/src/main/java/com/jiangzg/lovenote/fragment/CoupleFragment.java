@@ -286,8 +286,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         tvCoupleCountDown.setVisibility(View.GONE);
         llBottom.setVisibility(View.GONE);
         // 开始判断
-        User user = SPHelper.getMe();
-        Couple couple = user == null ? null : user.getCouple();
+        Couple couple = SPHelper.getCouple();
         if (UserHelper.isCoupleBreak(couple)) {
             // 已经分手，或者没有开始过
             ivBg.setVisibility(View.VISIBLE);
@@ -311,12 +310,22 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             if (couple != null) imageList.add(couple.getInviteeAvatar());
             OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_AVATAR, imageList);
             // 头像 + 名称
-            String myName = UserHelper.getMyName(user);
-            String taName = UserHelper.getTaName(user);
-            String myAvatar = UserHelper.getMyAvatar(user);
-            String taAvatar = UserHelper.getTaAvatar(user);
-            ivAvatarLeft.setData(taAvatar);
-            ivAvatarRight.setData(myAvatar);
+            User me = SPHelper.getMe();
+            User ta = SPHelper.getTa();
+            String myName = UserHelper.getMyName(me);
+            String taName = UserHelper.getTaName(me);
+            String myAvatar = UserHelper.getMyAvatar(me);
+            String taAvatar = UserHelper.getTaAvatar(me);
+            if (StringUtils.isEmpty(taAvatar)) {
+                ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));
+            } else {
+                ivAvatarLeft.setData(taAvatar);
+            }
+            if (StringUtils.isEmpty(myAvatar)) {
+                ivAvatarRight.setImageResource(UserHelper.getSexAvatarResId(me));
+            } else {
+                ivAvatarRight.setData(myAvatar);
+            }
             tvNameLeft.setText(taName);
             tvNameRight.setText(myName);
             refreshPlaceView();

@@ -136,7 +136,7 @@
                         android:id="@+id/ivAvatarLeft"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        tools:src="@mipmap/img_boy_circle"/>
+                        tools:src="@mipmap/ic_account_circle_grey_48dp"/>
 
                     <TextView
                         android:id="@+id/tvNameLeft"
@@ -174,7 +174,7 @@
                         android:id="@+id/ivAvatarRight"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        tools:src="@mipmap/img_girl_circle"/>
+                        tools:src="@mipmap/ic_account_circle_grey_48dp"/>
                 </LinearLayout>
 
                 <!-- 地址/天气 -->

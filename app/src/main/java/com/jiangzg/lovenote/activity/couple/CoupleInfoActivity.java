@@ -316,8 +316,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         String taBirthShow = DateUtils.getString(taBirth, ConstantUtils.FORMAT_POINT_Y_M_D);
         int togetherDay = SPHelper.getTogetherDay();
         // view
-        ivAvatarLeft.setData(taAvatar);
-        ivAvatarRight.setData(myAvatar);
+        if (StringUtils.isEmpty(taAvatar)) {
+            ivAvatarLeft.setImageResource(UserHelper.getSexAvatarResId(ta));
+        } else {
+            ivAvatarLeft.setData(taAvatar);
+        }
+        if (StringUtils.isEmpty(myAvatar)) {
+            ivAvatarRight.setImageResource(UserHelper.getSexAvatarResId(me));
+        } else {
+            ivAvatarRight.setData(myAvatar);
+        }
         tvNameLeft.setText(taName);
         tvNameRight.setText(myName);
         tvPhoneLeft.setText(taPhone);

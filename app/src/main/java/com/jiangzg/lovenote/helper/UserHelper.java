@@ -43,6 +43,18 @@ public class UserHelper {
         }
     }
 
+    // sexAvatar
+    public static int getSexAvatarResId(User user) {
+        if (isEmpty(user)) return R.mipmap.ic_account_circle_grey_48dp;
+        if (user.getSex() == User.SEX_BOY) {
+            return R.mipmap.img_boy_circle;
+        } else if (user.getSex() == User.SEX_GIRL) {
+            return R.mipmap.img_girl_circle;
+        } else {
+            return R.mipmap.ic_account_circle_grey_48dp;
+        }
+    }
+
     // 昵称
     public static String getMyName(User user) {
         if (isEmpty(user)) return "";
