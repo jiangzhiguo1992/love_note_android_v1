@@ -80,7 +80,7 @@ public class ConstantUtils {
      * ******************************正则 ****************************
      */
     /* 正则：数字 */
-    public static final String REGEX_NUMBER = "[0-9]*";
+    public static final String REGEX_NUMBER = "(-)?[0-9]*";
     /* 正则：邮政编码 */
     public static final String REGEX_POST_CODE = "[1-9]\\d{5}";
     /* 正则：密码  6-16位，数字和字母组合 */

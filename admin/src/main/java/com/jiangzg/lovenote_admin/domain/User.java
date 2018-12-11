@@ -38,19 +38,6 @@ public class User extends BaseObj implements Parcelable {
         return "人妖";
     }
 
-    public int getSexResCircleSmall() {
-        return getSexResCircleSmall(this.getSex());
-    }
-
-    public static int getSexResCircleSmall(int sex) {
-        if (sex == User.SEX_BOY) {
-            return R.mipmap.ic_sex_boy_circle;
-        } else if (sex == User.SEX_GIRL) {
-            return R.mipmap.ic_sex_girl_circle;
-        }
-        return 0;
-    }
-
     // ta的id
     public long getTaId() {
         Couple couple = getCouple();
