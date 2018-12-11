@@ -53,10 +53,10 @@
 
                 <ImageView
                     android:id="@+id/ivReport"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
-                    android:src="@drawable/ic_report_white"/>
+                    android:src="@mipmap/ic_report_grey_18dp"/>
 
                 <TextView
                     android:id="@+id/tvReportCount"
@@ -113,10 +113,10 @@
 
                 <ImageView
                     android:id="@+id/ivPoint"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
-                    android:src="@drawable/ic_point_up_grey"/>
+                    android:src="@mipmap/ic_thumb_up_grey_18dp"/>
 
                 <TextView
                     android:id="@+id/tvPointCount"

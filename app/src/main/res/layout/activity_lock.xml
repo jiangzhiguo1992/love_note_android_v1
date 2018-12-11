@@ -32,7 +32,8 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/ic_lock_close_primary"
+                    android:src="@mipmap/ic_lock_outline_grey_48dp"
+                    android:tint="?attr/colorPrimary"
                     android:visibility="gone"
                     tools:visibility="visible"/>
 
@@ -41,7 +42,8 @@
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/ic_lock_open_primary"
+                    android:src="@mipmap/ic_lock_open_grey_48dp"
+                    android:tint="?attr/colorPrimary"
                     android:visibility="gone"
                     tools:visibility="gone"/>
 
@@ -60,7 +62,7 @@
                         style="@style/FontGreyNormal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_lock_grey"
+                        android:drawableStart="@mipmap/ic_lock_grey_24dp"
                         android:drawablePadding="15dp"
                         android:hint="@string/input_hint_pwd"
                         android:inputType="numberPassword"
@@ -89,7 +91,7 @@
                             style="@style/FontGreyNormal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_verified_grey"
+                            android:drawableStart="@mipmap/ic_verified_user_grey_24dp"
                             android:drawablePadding="15dp"
                             android:hint="@string/input_hint_verify"
                             android:inputType="number"

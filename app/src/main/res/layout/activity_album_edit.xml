@@ -21,7 +21,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="30dp"
-        android:background="@drawable/shape_stroke_primary_r3"
+        android:background="@drawable/shape_stroke_grey_r3"
         android:hint="@string/please_input_album_name"
         android:maxLines="1"
         android:padding="10dp"
@@ -36,11 +36,10 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
-        android:background="@drawable/shape_stroke_primary_r3"
+        android:background="@drawable/shape_stroke_grey_r3"
         android:elevation="@dimen/elevation_normal"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_add_xi_grey"
-        android:tint="?attr/colorPrimary"
+        android:src="@mipmap/ic_add_grey_24dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 
@@ -58,5 +57,5 @@
         app:actualImageScaleType="centerCrop"
         tools:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher"
-        tools:visibility="visible"/>
+        tools:visibility="gone"/>
 </RelativeLayout>

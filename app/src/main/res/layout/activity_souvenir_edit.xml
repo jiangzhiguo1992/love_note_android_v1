@@ -64,9 +64,9 @@
                         style="@style/FontGreySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_time_circle_grey"
+                        android:drawableStart="@mipmap/ic_access_time_grey_18dp"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="8dp"
                         tools:text="2018-05-07"/>
                 </android.support.v7.widget.CardView>
 
@@ -91,9 +91,9 @@
                         style="@style/FontGreySmall"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_location_grey"
+                        android:drawableStart="@mipmap/ic_location_on_grey_18dp"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="8dp"
                         tools:text="北京市丰台区莲花路国投财富广场"/>
                 </android.support.v7.widget.CardView>
             </LinearLayout>

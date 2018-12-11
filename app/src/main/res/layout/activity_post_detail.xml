@@ -45,10 +45,10 @@
 
             <ImageView
                 android:id="@+id/ivPoint"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:src="@drawable/ic_point_up_grey"/>
+                android:src="@mipmap/ic_thumb_up_grey_18dp"/>
 
             <TextView
                 android:id="@+id/tvPoint"
@@ -77,10 +77,10 @@
 
             <ImageView
                 android:id="@+id/ivCollect"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:src="@drawable/ic_collect_grey"/>
+                android:src="@mipmap/ic_favorite_grey_18dp"/>
 
             <TextView
                 android:id="@+id/tvCollect"
@@ -109,10 +109,10 @@
 
             <ImageView
                 android:id="@+id/ivComment"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:src="@drawable/ic_comment_grey"/>
+                android:src="@mipmap/ic_insert_comment_grey_18dp"/>
 
             <TextView
                 android:id="@+id/tvComment"
@@ -140,10 +140,10 @@
             android:paddingBottom="10dp">
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
-                android:src="@drawable/ic_user_circle_grey"/>
+                android:src="@mipmap/ic_account_circle_grey_18dp"/>
 
             <TextView
                 style="@style/FontGreySmall"
@@ -178,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:src="@drawable/ic_cancel_grey"/>
+                android:src="@mipmap/ic_close_grey_24dp"/>
 
             <TextView
                 android:id="@+id/tvCommentLimit"

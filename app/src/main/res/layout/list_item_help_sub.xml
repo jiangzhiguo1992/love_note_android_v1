@@ -22,7 +22,7 @@
         style="@style/FontGreyNormal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_help_circle_stroke_grey"
+        android:drawableStart="@mipmap/ic_help_outline_grey_24dp"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:paddingStart="5dp"

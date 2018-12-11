@@ -57,10 +57,10 @@
                 tools:text="李乖乖的国庆游玩散步李乖乖的国庆游玩散步"/>
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:src="@drawable/ic_play_circle_white"/>
+                android:src="@mipmap/ic_play_circle_outline_white_48dp"/>
 
             <TextView
                 android:id="@+id/tvDuration"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
-                android:drawableStart="@drawable/ic_duration_15_white"
+                android:drawableStart="@mipmap/ic_av_timer_white_18dp"
                 android:drawablePadding="2dp"
                 android:gravity="center"
                 tools:text="12时36分36秒"/>
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:drawableEnd="@drawable/ic_time_circle_15_white"
+                android:drawableEnd="@mipmap/ic_access_time_white_18dp"
                 android:drawablePadding="2dp"
                 android:gravity="center"
                 tools:text="2017-03-06 13:00"/>
@@ -97,8 +97,8 @@
         android:layout_alignStart="@+id/cvVideo"
         android:layout_alignEnd="@+id/cvVideo"
         android:layout_marginTop="5dp"
-        android:drawableStart="@drawable/ic_location_15_white"
-        android:drawablePadding="5dp"
+        android:drawableStart="@mipmap/ic_location_on_white_18dp"
+        android:drawablePadding="6dp"
         android:gravity="start|center_vertical"
         android:maxLines="1"
         android:singleLine="true"

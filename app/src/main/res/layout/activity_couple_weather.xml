@@ -22,7 +22,7 @@
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:padding="13dp"
-            android:src="@drawable/ic_arrow_left_white"
+            android:src="@mipmap/ic_arrow_back_white_24dp"
             android:tint="?attr/colorPrimary"/>
 
         <TextView
@@ -44,9 +44,10 @@
             android:background="?attr/selectableItemBackground"
             android:foreground="?attr/selectableItemBackground"
             android:padding="13dp"
-            android:src="@drawable/ic_help_circle_solid_white"
+            android:src="@mipmap/ic_help_outline_white_24dp"
             android:tint="?attr/colorPrimary"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:visibility="visible"/>
 
         <LinearLayout
             android:id="@+id/llToady"

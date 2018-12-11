@@ -51,7 +51,7 @@
                     android:alpha="0.7"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/ic_help_circle_solid_white"/>
+                    app:srcCompat="@mipmap/ic_help_outline_white_24dp"/>
 
                 <ImageView
                     android:id="@+id/ivWallPaper"
@@ -62,8 +62,7 @@
                     android:alpha="0.7"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/ic_image_grey"/>
+                    app:srcCompat="@mipmap/ic_image_white_24dp"/>
             </RelativeLayout>
 
             <!-- 中部操作条 -->

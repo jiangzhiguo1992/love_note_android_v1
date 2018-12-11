@@ -56,7 +56,7 @@
                         android:background="@color/black_alpha_50"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
-                        app:srcCompat="@drawable/ic_done_primary"
+                        app:srcCompat="@mipmap/ic_done_white_48dp"
                         tools:visibility="visible"/>
                 </RelativeLayout>
 
@@ -82,7 +82,7 @@
                         android:background="@color/black_alpha_50"
                         android:scaleType="fitCenter"
                         android:visibility="gone"
-                        app:srcCompat="@drawable/ic_done_primary"
+                        app:srcCompat="@mipmap/ic_done_white_48dp"
                         tools:visibility="gone"/>
                 </RelativeLayout>
             </LinearLayout>

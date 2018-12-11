@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_add_xi_grey"
+        android:src="@mipmap/ic_add_grey_24dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 

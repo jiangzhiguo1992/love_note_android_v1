@@ -60,16 +60,13 @@
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_call_white"/>
-
                 <TextView
                     android:id="@+id/tvPhoneLeft"
                     style="@style/FontWhiteNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@mipmap/ic_call_white_18dp"
+                    android:drawablePadding="3dp"
                     android:gravity="center"
                     tools:text="18600757123"/>
             </LinearLayout>
@@ -86,19 +83,14 @@
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp">
 
-                <ImageView
-                    android:id="@+id/ivSexLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    tools:src="@mipmap/ic_sex_girl_circle"/>
-
                 <TextView
                     android:id="@+id/tvBirthLeft"
                     style="@style/FontWhiteNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:drawableStart="@mipmap/ic_cake_white_18dp"
+                    android:drawablePadding="6dp"
                     android:gravity="center"
                     tools:text="92.07.12"/>
             </LinearLayout>
@@ -146,16 +138,13 @@
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp">
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_call_white"/>
-
                 <TextView
                     android:id="@+id/tvPhoneRight"
                     style="@style/FontWhiteNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableStart="@mipmap/ic_call_white_18dp"
+                    android:drawablePadding="3dp"
                     android:gravity="center"
                     tools:text="18600757123"/>
             </LinearLayout>
@@ -172,19 +161,14 @@
                 android:paddingTop="7dp"
                 android:paddingBottom="7dp">
 
-                <ImageView
-                    android:id="@+id/ivSexRight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:scaleType="centerCrop"
-                    tools:src="@mipmap/ic_sex_boy_circle"/>
-
                 <TextView
                     android:id="@+id/tvBirthRight"
                     style="@style/FontWhiteNormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:drawableStart="@mipmap/ic_cake_white_18dp"
+                    android:drawablePadding="6dp"
                     android:gravity="center"
                     tools:text="92.07.12"/>
             </LinearLayout>

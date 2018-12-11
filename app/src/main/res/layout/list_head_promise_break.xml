@@ -21,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableStart="@drawable/ic_user_circle_15_grey"
+            android:drawableStart="@mipmap/ic_account_circle_grey_18dp"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             tools:text="承诺者: 一二三四五六"/>
@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableEnd="@drawable/ic_time_circle_15_grey"
+            android:drawableEnd="@mipmap/ic_access_time_grey_18dp"
             android:drawablePadding="5dp"
             android:gravity="end|center_vertical"
             tools:text="承诺时间: 2017年 4月 20日"/>

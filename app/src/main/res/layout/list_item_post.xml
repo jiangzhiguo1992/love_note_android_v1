@@ -167,8 +167,8 @@
                         android:layout_height="20dp"
                         android:layout_centerInParent="true"
                         android:elevation="@dimen/elevation_huge"
-                        android:src="@drawable/ic_heart_solid_pink"
-                        android:visibility="gone"/>
+                        android:src="@mipmap/ic_favorite_border_grey_18dp"
+                        android:tint="?attr/colorPrimary"/>
                 </RelativeLayout>
 
                 <LinearLayout
@@ -224,10 +224,10 @@
 
                     <ImageView
                         android:id="@+id/ivComment"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
-                        android:src="@drawable/ic_comment_grey"/>
+                        android:src="@mipmap/ic_insert_comment_grey_18dp"/>
 
                     <TextView
                         android:id="@+id/tvComment"
@@ -250,10 +250,10 @@
 
                     <ImageView
                         android:id="@+id/ivCollect"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
-                        android:src="@drawable/ic_collect_grey"/>
+                        android:src="@mipmap/ic_favorite_grey_18dp"/>
 
                     <TextView
                         android:id="@+id/tvCollect"
@@ -276,10 +276,10 @@
 
                     <ImageView
                         android:id="@+id/ivPoint"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="6dp"
-                        android:src="@drawable/ic_point_up_grey"/>
+                        android:src="@mipmap/ic_thumb_up_grey_18dp"/>
 
                     <TextView
                         android:id="@+id/tvPoint"

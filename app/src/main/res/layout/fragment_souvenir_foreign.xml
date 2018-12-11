@@ -4,7 +4,7 @@
     android:id="@+id/srl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jiangzg.lovenote.fragment.note.SouvenirListFragment">
+    tools:context="com.jiangzg.lovenote.fragment.note.SouvenirForeignFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -179,8 +179,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:drawableStart="@drawable/ic_edit_15_grey"
-            android:drawablePadding="5dp"
+            android:drawableStart="@mipmap/ic_edit_grey_18dp"
+            android:drawablePadding="10dp"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:padding="20dp"

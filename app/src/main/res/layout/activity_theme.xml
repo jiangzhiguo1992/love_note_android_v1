@@ -32,7 +32,7 @@
                     android:id="@+id/ivRed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_red_primary"/>
 
                 <TextView
@@ -63,7 +63,7 @@
                     android:id="@+id/ivPink"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_pink_primary"/>
 
                 <TextView
@@ -94,7 +94,7 @@
                     android:id="@+id/ivPurple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_purple_primary"/>
 
                 <TextView
@@ -125,7 +125,7 @@
                     android:id="@+id/ivIndigo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_indigo_primary"/>
 
                 <TextView
@@ -156,7 +156,7 @@
                     android:id="@+id/ivBlue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_blue_primary"/>
 
                 <TextView
@@ -187,7 +187,7 @@
                     android:id="@+id/ivTeal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_teal_primary"/>
 
                 <TextView
@@ -218,7 +218,7 @@
                     android:id="@+id/ivGreen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_green_primary"/>
 
                 <TextView
@@ -249,7 +249,7 @@
                     android:id="@+id/ivYellow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_yellow_primary"/>
 
                 <TextView
@@ -280,7 +280,7 @@
                     android:id="@+id/ivOrange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_orange_primary"/>
 
                 <TextView
@@ -311,7 +311,7 @@
                     android:id="@+id/ivBrown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_brown_primary"/>
 
                 <TextView
@@ -342,7 +342,7 @@
                     android:id="@+id/ivGrey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_circle_primary"
+                    android:src="@mipmap/ic_brightness_1_grey_24dp"
                     android:tint="@color/theme_grey_primary"/>
 
                 <TextView

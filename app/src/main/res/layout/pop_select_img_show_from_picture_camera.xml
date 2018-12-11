@@ -46,11 +46,11 @@
         android:paddingTop="14dp"
         android:paddingBottom="14dp">
 
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_gallery_grey"/>
+        <!--<ImageView-->
+        <!--android:layout_width="18dp"-->
+        <!--android:layout_height="18dp"-->
+        <!--android:layout_marginEnd="10dp"-->
+        <!--android:src="@drawable/ic_gallery_grey"/>-->
 
         <TextView
             style="@style/FontGreyNormal"
@@ -80,11 +80,11 @@
         android:paddingTop="14dp"
         android:paddingBottom="14dp">
 
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_camera_grey"/>
+        <!--<ImageView-->
+        <!--android:layout_width="18dp"-->
+        <!--android:layout_height="18dp"-->
+        <!--android:layout_marginEnd="10dp"-->
+        <!--android:src="@drawable/ic_camera_grey"/>-->
 
         <TextView
             style="@style/FontGreyNormal"
@@ -92,7 +92,6 @@
             android:layout_height="wrap_content"
             android:text="@string/take_picture"/>
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/llCancel"
@@ -109,17 +108,13 @@
         android:paddingTop="14dp"
         android:paddingBottom="14dp">
 
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_cancel_circle_grey"/>
-
         <TextView
             style="@style/FontGreyNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/ic_close_grey_24dp"
+            android:drawablePadding="10dp"
+            android:gravity="center"
             android:text="@string/cancel"/>
     </LinearLayout>
-
 </RelativeLayout>
