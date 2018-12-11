@@ -39,7 +39,7 @@
         android:background="@drawable/shape_stroke_grey_r3"
         android:elevation="@dimen/elevation_normal"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_add_grey_24dp"
+        android:src="@mipmap/ic_add_grey_48dp"
         android:visibility="gone"
         tools:visibility="visible"/>
 
