@@ -13,7 +13,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.settings.HelpActivity;
-import com.jiangzg.lovenote.activity.settings.SettingsActivity;
 import com.jiangzg.lovenote.activity.topic.PostCollectActivity;
 import com.jiangzg.lovenote.activity.topic.PostMineActivity;
 import com.jiangzg.lovenote.activity.topic.TopicMessageActivity;
@@ -22,11 +21,9 @@ import com.jiangzg.lovenote.base.BaseFragment;
 import com.jiangzg.lovenote.base.BasePagerFragment;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
-import com.jiangzg.lovenote.helper.SPHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
-import com.jiangzg.lovenote.model.entity.CommonCount;
 import com.jiangzg.lovenote.model.entity.PostKindInfo;
 import com.jiangzg.lovenote.model.entity.PostSubKindInfo;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
@@ -66,6 +63,8 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     protected void initView(@Nullable Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_topic), false);
         fitToolBar(tb);
+        // menu
+        tb.inflateMenu(R.menu.help_notice);
         // recycler
         recyclerHelper = new RecyclerHelper(rv)
                 .initLayoutManager(new LinearLayoutManager(mActivity))
@@ -96,30 +95,16 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        // menu
-        refreshMenu();
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuHelp: // 帮助
                 HelpActivity.goActivity(mFragment, HelpActivity.INDEX_TOPIC_HOME);
                 return true;
-            case R.id.menuSettings: // 设置
-                SettingsActivity.goActivity(mFragment);
+            case R.id.menuNotice: // 消息
+                TopicMessageActivity.goActivity(mFragment);
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void refreshMenu() {
-        CommonCount commonCount = SPHelper.getCommonCount();
-        boolean redPoint = (commonCount.getNoticeNewCount() > 0) || (commonCount.getVersionNewCount() > 0);
-        tb.getMenu().clear();
-        tb.inflateMenu(redPoint ? R.menu.help_settings_point : R.menu.help_settings);
     }
 
     private void initHead() {

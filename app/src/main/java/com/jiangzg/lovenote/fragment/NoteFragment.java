@@ -150,8 +150,6 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         ViewHelper.initTopBar(mActivity, tb, mActivity.getString(R.string.nav_note), false);
         fitToolBar(tb);
         souvenirCountDownFormat = mActivity.getString(R.string.count_down_space_holder);
-        // menu
-        tb.inflateMenu(R.menu.help_lock_on);
         // srl
         srl.setOnRefreshListener(this::refreshData);
         // souvenir

@@ -103,6 +103,7 @@
     <string name="all">全部</string>
     <string name="commit">提交</string>
     <string name="push">发布</string>
+    <string name="message">消息</string>
     <string name="publish">发表</string>
     <string name="take_picture">拍照</string>
     <string name="show">显示</string>
@@ -643,7 +644,7 @@
     <string name="coin_buy">金币购买</string>
     <string name="alipay_pay">支付宝支付</string>
     <string name="wechat_pay">微信支付</string>
-    <string name="pay_vip_goods_format" formatted="false">%s\n%s RMB</string>
+    <string name="pay_vip_goods_format" formatted="false">%s\n\n%s RMB</string>
     <string name="pay_coin_goods_format" formatted="false">%s\n%d\n%s RMB</string>
     <string name="pay_error">支付异常</string>
     <string name="pay_success_but_nothing">支付成功了，但是啥也没给？</string>
