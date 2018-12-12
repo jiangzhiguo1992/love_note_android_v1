@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -110,15 +110,12 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
     private void initHead() {
         if (recyclerHelper == null) return;
         View head = recyclerHelper.getViewHead();
-        Button btnMyPush = head.findViewById(R.id.btnMyPush);
-        Button btnMyCollect = head.findViewById(R.id.btnMyCollect);
-        Button btnMyMessage = head.findViewById(R.id.btnMyMessage);
+        LinearLayout llMyPush = head.findViewById(R.id.llMyPush);
+        LinearLayout llMyCollect = head.findViewById(R.id.llMyCollect);
         // 发布
-        btnMyPush.setOnClickListener(v -> PostMineActivity.goActivity(mFragment));
+        llMyPush.setOnClickListener(v -> PostMineActivity.goActivity(mFragment));
         // 收藏
-        btnMyCollect.setOnClickListener(v -> PostCollectActivity.goActivity(mFragment));
-        // 消息
-        btnMyMessage.setOnClickListener(v -> TopicMessageActivity.goActivity(mFragment));
+        llMyCollect.setOnClickListener(v -> PostCollectActivity.goActivity(mFragment));
     }
 
     private void refreshData() {
