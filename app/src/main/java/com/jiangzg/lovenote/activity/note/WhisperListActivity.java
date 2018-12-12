@@ -3,17 +3,20 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -29,7 +32,6 @@ import com.jiangzg.lovenote.adapter.WhisperAdapter;
 import com.jiangzg.lovenote.base.BaseActivity;
 import com.jiangzg.lovenote.helper.ApiHelper;
 import com.jiangzg.lovenote.helper.ConsHelper;
-import com.jiangzg.lovenote.helper.DialogHelper;
 import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.MediaPickHelper;
 import com.jiangzg.lovenote.helper.OssHelper;
@@ -49,7 +51,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnTextChanged;
 import retrofit2.Call;
 
 public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
@@ -70,13 +71,20 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     LinearLayout llAddImage;
     @BindView(R.id.llAddText)
     LinearLayout llAddText;
+    @BindView(R.id.rlComment)
+    RelativeLayout rlComment;
+    @BindView(R.id.tvCommentLimit)
+    TextView tvCommentLimit;
+    @BindView(R.id.etComment)
+    EditText etComment;
 
     private String channel;
     private int limitChannelLength;
     private RecyclerHelper recyclerHelper;
+    private BottomSheetBehavior behaviorComment;
     private Call<Result> callAdd;
-    private int page;
     private Call<Result> callGet;
+    private int page, limitContentLength;
 
     public static void goActivity(Activity from) {
         Intent intent = new Intent(from, WhisperListActivity.class);
@@ -110,8 +118,40 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .setAdapter()
                 .listenerRefresh(() -> getData(false))
                 .listenerMore(currentCount -> getData(true));
-        // input
+        // channel
+        etChannel.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                onChannelInput(s.toString());
+            }
+        });
         onChannelInput("");
+        // text
+        etComment.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                onCommentInput(s.toString());
+            }
+        });
+        commentShow(false);
+        etComment.setText("");
     }
 
     @Override
@@ -132,6 +172,15 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.help, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (behaviorComment.getState() != BottomSheetBehavior.STATE_HIDDEN) {
+            behaviorComment.setState(BottomSheetBehavior.STATE_HIDDEN);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -159,12 +208,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnTextChanged({R.id.etChannel})
-    public void afterTextChanged(Editable s) {
-        onChannelInput(s.toString());
-    }
-
-    @OnClick({R.id.btnChangeChannel, R.id.llAddImage, R.id.llAddText})
+    @OnClick({R.id.btnChangeChannel, R.id.llAddImage, R.id.llAddText,
+            R.id.ivCommentClose, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnChangeChannel: // 切换频道
@@ -175,7 +220,13 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 goPicture();
                 break;
             case R.id.llAddText: // 添加文字
-                showEditDialog();
+                commentShow(true);
+                break;
+            case R.id.ivCommentClose: // 评论关闭
+                commentShow(false);
+                break;
+            case R.id.ivAddCommit: // 评论提交
+                commitText();
                 break;
         }
     }
@@ -228,30 +279,40 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
         }
     }
 
-    // 文字添加
-    private void showEditDialog() {
-        int limitContentLength = SPHelper.getLimit().getWhisperContentLength();
-        String hint = String.format(Locale.getDefault(), getString(R.string.please_input_content_no_over_holder_text), limitContentLength);
-        MaterialDialog dialog = DialogHelper.getBuild(mActivity)
-                .cancelable(true)
-                .canceledOnTouchOutside(true)
-                .autoDismiss(true)
-                .content(getChannelShow())
-                .inputRange(1, limitContentLength)
-                .input(hint, "", false, (dialog1, input) -> {
-                })
-                .positiveText(R.string.send)
-                .negativeText(R.string.cancel)
-                .onPositive((dialog12, which) -> {
-                    EditText editText = dialog12.getInputEditText();
-                    if (editText != null) {
-                        String content = editText.getText().toString();
-                        Whisper body = ApiHelper.getWhisperBody(channel, false, content);
-                        api(body);
-                    }
-                })
-                .build();
-        DialogHelper.showWithAnim(dialog);
+    private void onCommentInput(String input) {
+        if (input == null) return;
+        if (limitContentLength <= 0) {
+            limitContentLength = SPHelper.getLimit().getWhisperContentLength();
+        }
+        int length = input.length();
+        if (length > limitContentLength) {
+            CharSequence charSequence = input.subSequence(0, limitContentLength);
+            etComment.setText(charSequence);
+            etComment.setSelection(charSequence.length());
+            length = charSequence.length();
+        }
+        String limitShow = String.format(Locale.getDefault(), getString(R.string.holder_sprit_holder), length, limitContentLength);
+        tvCommentLimit.setText(limitShow);
+    }
+
+    // 评论视图
+    private void commentShow(boolean show) {
+        if (behaviorComment == null) {
+            behaviorComment = BottomSheetBehavior.from(rlComment);
+        }
+        int state = show ? BottomSheetBehavior.STATE_COLLAPSED : BottomSheetBehavior.STATE_HIDDEN;
+        behaviorComment.setState(state);
+        if (!show) InputUtils.hideSoftInput(etComment);
+    }
+
+    private void commitText() {
+        String content = etComment.getText().toString().trim();
+        if (StringUtils.isEmpty(content)) {
+            ToastUtils.show(etComment.getHint());
+            return;
+        }
+        Whisper body = ApiHelper.getWhisperBody(channel, false, content);
+        api(body);
     }
 
     // 图片获取
@@ -279,6 +340,7 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
     }
 
     private void api(Whisper whisper) {
+        InputUtils.hideSoftInput(etComment);
         callAdd = new RetrofitHelper().call(API.class).noteWhisperAdd(whisper);
         MaterialDialog loading = getLoading(true);
         RetrofitHelper.enqueue(callAdd, loading, new RetrofitHelper.CallBack() {
@@ -286,7 +348,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
             public void onResponse(int code, String message, Result.Data data) {
                 if (recyclerHelper == null) return;
                 // editText
-                InputUtils.hideSoftInput(etChannel);
+                etComment.setText("");
+                commentShow(false);
                 // adapter
                 WhisperAdapter adapter = recyclerHelper.getAdapter();
                 adapter.addData(0, data.getWhisper());
