@@ -11,8 +11,8 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -56,8 +56,8 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
     RecyclerView rv;
     @BindView(R.id.etContent)
     EditText etContent;
-    @BindView(R.id.btnSend)
-    Button btnSend;
+    @BindView(R.id.ivSend)
+    ImageView ivSend;
 
     private RecyclerHelper recyclerHelper;
     private Observable<Word> obListItemDelete;
@@ -157,10 +157,10 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.btnSend})
+    @OnClick({R.id.ivSend})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.btnSend: // 发送
+            case R.id.ivSend: // 发送
                 wordPush();
                 break;
         }
@@ -168,9 +168,9 @@ public class WordListActivity extends BaseActivity<WordListActivity> {
 
     private void onContentInput(String input) {
         if (StringUtils.isEmpty(input)) {
-            btnSend.setEnabled(false);
+            ivSend.setEnabled(false);
         } else {
-            btnSend.setEnabled(true);
+            ivSend.setEnabled(true);
         }
         int length = input.length();
         if (length > limitContentLength) {
