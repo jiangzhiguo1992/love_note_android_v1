@@ -145,28 +145,4 @@
                 tools:visibility="visible"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnDraft"
-            style="@style/FontWhiteBig"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_press_solid_accent_dark"
-            android:text="@string/save_draft"/>
-
-        <Button
-            android:id="@+id/btnPublish"
-            style="@style/FontWhiteBig"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/selector_press_solid_dark_accent"
-            android:text="@string/publish"/>
-    </LinearLayout>
 </LinearLayout>
