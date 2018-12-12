@@ -71,8 +71,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     RelativeLayout rlBreak;
     @BindView(R.id.ivBreakClose)
     ImageView ivBreakClose;
-    @BindView(R.id.tvBreakCommit)
-    TextView tvBreakCommit;
+    @BindView(R.id.ivAddCommit)
+    ImageView ivAddCommit;
     @BindView(R.id.tvBreakHappen)
     TextView tvBreakHappen;
     @BindView(R.id.cvBreakHappen)
@@ -194,7 +194,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     @OnClick({R.id.llDel, R.id.llEdit, R.id.llAdd,
-            R.id.ivBreakClose, R.id.cvBreakHappen, R.id.tvBreakCommit})
+            R.id.ivBreakClose, R.id.cvBreakHappen, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llDel:
@@ -213,7 +213,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
             case R.id.cvBreakHappen:
                 showBreakTimePicker();
                 break;
-            case R.id.tvBreakCommit:
+            case R.id.ivAddCommit:
                 commitBreak();
                 break;
         }
