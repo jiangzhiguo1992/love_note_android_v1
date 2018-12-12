@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -24,6 +26,7 @@ import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.component.IntentFactory;
 import com.jiangzg.base.time.DateUtils;
 import com.jiangzg.base.view.BarUtils;
+import com.jiangzg.base.view.PopUtils;
 import com.jiangzg.base.view.ToastUtils;
 import com.jiangzg.lovenote.R;
 import com.jiangzg.lovenote.activity.common.BigImageActivity;
@@ -55,11 +58,12 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnLongClick;
 import retrofit2.Call;
 
 public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
 
+    @BindView(R.id.root)
+    LinearLayout root;
     @BindView(R.id.abl)
     AppBarLayout abl;
     @BindView(R.id.tb)
@@ -224,11 +228,15 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
+    @OnClick({R.id.ivAvatarRight, R.id.ivAvatarLeft, R.id.tvNameLeft, R.id.llPhoneLeft})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ivAvatarRight: // 右头像
+                String myAvatar = UserHelper.getMyAvatar(SPHelper.getMe());
+                BigImageActivity.goActivityByOss(mActivity, myAvatar, ivAvatarRight);
+                break;
             case R.id.ivAvatarLeft: // 左头像
-                MediaPickHelper.selectImage(mActivity, 1);
+                showLeftAvatarPop();
                 break;
             case R.id.tvNameLeft: // 修改ta的昵称
                 showNameInput();
@@ -237,19 +245,6 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 showDial();
                 break;
         }
-    }
-
-    @OnLongClick({R.id.ivAvatarLeft, R.id.ivAvatarRight})
-    public boolean onLongClick(View view) {
-        switch (view.getId()) {
-            case R.id.ivAvatarLeft: // 左头像
-                goBigImage(true);
-                break;
-            case R.id.ivAvatarRight: // 右头像
-                goBigImage(false);
-                break;
-        }
-        return false;
     }
 
     private void getTaData() {
@@ -328,15 +323,10 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.pair_holder_day), togetherDay));
     }
 
-    private void goBigImage(boolean left) {
-        User me = SPHelper.getMe();
-        String myAvatar = UserHelper.getMyAvatar(me);
-        String taAvatar = UserHelper.getTaAvatar(me);
-        String ossPath = left ? taAvatar : myAvatar;
-        if (StringUtils.isEmpty(ossPath)) return;
-        FrescoAvatarView iv = left ? ivAvatarLeft : ivAvatarRight;
-        if (iv == null) return;
-        BigImageActivity.goActivityByOss(mActivity, ossPath, iv);
+    private void showLeftAvatarPop() {
+        String taAvatar = UserHelper.getTaAvatar(SPHelper.getMe());
+        PopupWindow pop = ViewHelper.createShowPicturePop(mActivity, taAvatar);
+        PopUtils.show(pop, root, Gravity.CENTER);
     }
 
     // 修改名称对话框

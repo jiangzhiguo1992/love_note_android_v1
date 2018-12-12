@@ -359,6 +359,8 @@
     <string name="quick_pair_deblock_more_posture">快来和TA配对，解锁更多姿势</string>
     <string name="pair_info">配对信息</string>
     <string name="now_null_nickname">暂无爱称</string>
+    <string name="look_big_image">查看大图</string>
+    <string name="change_image">更换图片</string>
     <string name="pair_holder_day" formatted="false">第%d天</string>
     <string name="u_confirm_break">你确定要解除关系吗？</string>
     <string name="impulse_is_devil_3">冲动是魔鬼！冲动是魔鬼！冲动是魔鬼！</string>

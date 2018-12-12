@@ -147,7 +147,6 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         ivPicture.setClickListener(iv -> {
             List<Picture> data = PictureAdapter.this.getData();
             ArrayList<String> ossKeyList = ListHelper.getOssKeyListByPicture(data);
-            if (ossKeyList == null || ossKeyList.size() <= 0) return;
             int position = helper.getLayoutPosition();
             BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
         });

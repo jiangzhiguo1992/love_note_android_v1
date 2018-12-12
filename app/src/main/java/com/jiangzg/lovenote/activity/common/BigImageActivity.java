@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.BarUtils;
 import com.jiangzg.lovenote.R;
@@ -55,6 +56,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     private List<String> dataList;
 
     public static void goActivityByOss(Activity from, String ossPath, SimpleDraweeView view) {
+        if (StringUtils.isEmpty(ossPath)) return;
         Intent intent = new Intent(from, BigImageActivity.class);
         intent.putExtra("type", TYPE_OSS_SINGLE);
         intent.putExtra("imgOss", ossPath);
@@ -65,6 +67,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     }
 
     public static void goActivityByFile(Activity from, String filePath, SimpleDraweeView view) {
+        if (StringUtils.isEmpty(filePath)) return;
         Intent intent = new Intent(from, BigImageActivity.class);
         intent.putExtra("type", TYPE_FILE_SINGLE);
         intent.putExtra("imgFile", filePath);
@@ -75,6 +78,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     }
 
     public static void goActivityByOssList(Activity from, ArrayList<String> ossPathList, int startIndex, SimpleDraweeView view) {
+        if (ossPathList == null || ossPathList.size() <= 0) return;
         Intent intent = new Intent(from, BigImageActivity.class);
         intent.putExtra("type", TYPE_OSS_LIST);
         intent.putStringArrayListExtra("imgOssList", ossPathList);
@@ -86,6 +90,7 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
     }
 
     public static void goActivityByFileList(Activity from, ArrayList<String> filePathList, int startIndex, SimpleDraweeView view) {
+        if (filePathList == null || filePathList.size() <= 0) return;
         Intent intent = new Intent(from, BigImageActivity.class);
         intent.putExtra("type", TYPE_OSS_LIST);
         intent.putStringArrayListExtra("imgFileList", filePathList);
