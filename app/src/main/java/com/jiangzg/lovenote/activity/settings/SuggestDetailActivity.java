@@ -205,7 +205,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         onCommentInput(s.toString());
     }
 
-    @OnClick({R.id.llFollow, R.id.llComment, R.id.ivCommentClose, R.id.tvCommentCommit})
+    @OnClick({R.id.llFollow, R.id.llComment, R.id.ivCommentClose, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llFollow: // 关注
@@ -217,7 +217,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
             case R.id.ivCommentClose: // 评论关闭
                 commentShow(false);
                 break;
-            case R.id.tvCommentCommit: // 评论提交
+            case R.id.ivAddCommit: // 评论提交
                 comment();
                 break;
         }

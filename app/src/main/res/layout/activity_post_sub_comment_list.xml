@@ -123,16 +123,14 @@
                 android:layout_centerInParent="true"
                 tools:text="0/200"/>
 
-            <TextView
-                android:id="@+id/tvCommentCommit"
-                style="@style/FontPrimaryNormal"
+            <ImageView
+                android:id="@+id/ivAddCommit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:text="@string/commit"
-                android:textColor="@color/selector_text_press_primary_dark"/>
+                android:src="@mipmap/ic_near_me_grey_24dp"/>
         </RelativeLayout>
 
         <EditText

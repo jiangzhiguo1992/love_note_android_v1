@@ -81,8 +81,8 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
     ImageView ivAddClose;
     @BindView(R.id.tvAddLimit)
     TextView tvAddLimit;
-    @BindView(R.id.tvAddCommit)
-    TextView tvAddCommit;
+    @BindView(R.id.ivAddCommit)
+    ImageView ivAddCommit;
     @BindView(R.id.etContent)
     EditText etContent;
 
@@ -208,7 +208,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
         onContentInput(s.toString());
     }
 
-    @OnClick({R.id.llTop, R.id.llOrder, R.id.llAdd, R.id.ivAddClose, R.id.tvAddCommit})
+    @OnClick({R.id.llTop, R.id.llOrder, R.id.llAdd, R.id.ivAddClose, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llTop: // 置顶
@@ -227,7 +227,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
             case R.id.ivAddClose: // 评论关闭
                 addShow(false);
                 break;
-            case R.id.tvAddCommit: // 评论提交
+            case R.id.ivAddCommit: // 评论提交
                 push();
                 break;
         }

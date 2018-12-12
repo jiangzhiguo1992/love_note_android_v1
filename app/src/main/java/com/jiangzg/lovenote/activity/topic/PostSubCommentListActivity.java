@@ -81,8 +81,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
     ImageView ivCommentClose;
     @BindView(R.id.tvCommentLimit)
     TextView tvCommentLimit;
-    @BindView(R.id.tvCommentCommit)
-    TextView tvCommentCommit;
+    @BindView(R.id.ivAddCommit)
+    ImageView ivAddCommit;
     @BindView(R.id.etComment)
     EditText etComment;
 
@@ -244,7 +244,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         onCommentInput(s.toString());
     }
 
-    @OnClick({R.id.llComment, R.id.llJab, R.id.ivCommentClose, R.id.tvCommentCommit})
+    @OnClick({R.id.llComment, R.id.llJab, R.id.ivCommentClose, R.id.ivAddCommit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.llJab: // 戳ta
@@ -256,7 +256,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
             case R.id.ivCommentClose: // 评论关闭
                 commentShow(false);
                 break;
-            case R.id.tvCommentCommit: // 评论提交
+            case R.id.ivAddCommit: // 评论提交
                 commentPush();
                 break;
         }
