@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.adapter;
 
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -105,24 +103,21 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
         ivPicture.setBitmapListener(new FrescoView.BitmapListener() {
             @Override
             public void onBitmapSuccess(FrescoView iv, Bitmap bitmap) {
-                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(@NonNull Palette palette) {
-                        int rgb = 0;
-                        Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
-                        if (vibrantSwatch != null) {
-                            rgb = vibrantSwatch.getRgb();
-                        } else {
-                            Palette.Swatch mutedSwatch = palette.getMutedSwatch();
-                            if (mutedSwatch != null) {
-                                rgb = mutedSwatch.getRgb();
-                            }
+                Palette.from(bitmap).generate(palette -> {
+                    int rgb = 0;
+                    Palette.Swatch vibrantSwatch = palette.getVibrantSwatch();
+                    if (vibrantSwatch != null) {
+                        rgb = vibrantSwatch.getRgb();
+                    } else {
+                        Palette.Swatch mutedSwatch = palette.getMutedSwatch();
+                        if (mutedSwatch != null) {
+                            rgb = mutedSwatch.getRgb();
                         }
-                        if (rgb != 0) {
-                            helper.setBackgroundColor(R.id.llBottom, rgb);
-                        } else {
-                            helper.setBackgroundColor(R.id.llBottom, colorPrimary);
-                        }
+                    }
+                    if (rgb != 0) {
+                        helper.setBackgroundColor(R.id.llBottom, rgb);
+                    } else {
+                        helper.setBackgroundColor(R.id.llBottom, colorPrimary);
                     }
                 });
             }
@@ -149,15 +144,12 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
             }
         });
         // 点击全屏
-        ivPicture.setClickListener(new FrescoView.ClickListener() {
-            @Override
-            public void onSuccessClick(FrescoView iv) {
-                List<Picture> data = PictureAdapter.this.getData();
-                ArrayList<String> ossKeyList = ListHelper.getOssKeyListByPicture(data);
-                if (ossKeyList == null || ossKeyList.size() <= 0) return;
-                int position = helper.getLayoutPosition();
-                BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
-            }
+        ivPicture.setClickListener(iv -> {
+            List<Picture> data = PictureAdapter.this.getData();
+            ArrayList<String> ossKeyList = ListHelper.getOssKeyListByPicture(data);
+            if (ossKeyList == null || ossKeyList.size() <= 0) return;
+            int position = helper.getLayoutPosition();
+            BigImageActivity.goActivityByOssList(mActivity, ossKeyList, position, iv);
         });
         ivPicture.setData(content);
         // listener
@@ -308,12 +300,7 @@ public class PictureAdapter extends BaseQuickAdapter<Picture, BaseViewHolder> {
                 .content(R.string.confirm_delete_this_picture)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

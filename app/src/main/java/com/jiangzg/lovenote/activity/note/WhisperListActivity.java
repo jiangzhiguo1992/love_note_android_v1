@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.FileUtils;
 import com.jiangzg.base.common.StringUtils;
@@ -110,18 +108,8 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                });
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true));
         // input
         onChannelInput("");
     }
@@ -250,22 +238,16 @@ public class WhisperListActivity extends BaseActivity<WhisperListActivity> {
                 .autoDismiss(true)
                 .content(getChannelShow())
                 .inputRange(1, limitContentLength)
-                .input(hint, "", false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                    }
+                .input(hint, "", false, (dialog1, input) -> {
                 })
                 .positiveText(R.string.send)
                 .negativeText(R.string.cancel)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        EditText editText = dialog.getInputEditText();
-                        if (editText != null) {
-                            String content = editText.getText().toString();
-                            Whisper body = ApiHelper.getWhisperBody(channel, false, content);
-                            api(body);
-                        }
+                .onPositive((dialog12, which) -> {
+                    EditText editText = dialog12.getInputEditText();
+                    if (editText != null) {
+                        String content = editText.getText().toString();
+                        Whisper body = ApiHelper.getWhisperBody(channel, false, content);
+                        api(body);
                     }
                 })
                 .build();

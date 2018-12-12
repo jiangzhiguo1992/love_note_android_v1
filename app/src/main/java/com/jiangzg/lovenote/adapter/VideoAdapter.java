@@ -1,10 +1,8 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -140,12 +138,7 @@ public class VideoAdapter extends BaseMultiItemQuickAdapter<Video, BaseViewHolde
                 .content(R.string.confirm_delete_this_video)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

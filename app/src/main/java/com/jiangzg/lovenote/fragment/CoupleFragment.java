@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.Button;
@@ -62,7 +61,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
 
@@ -151,29 +149,16 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
         cvPlaceWeather.setVisibility(modelShow.isCouplePlace() ? View.VISIBLE : View.GONE);
         llWeather.setVerticalGravity(modelShow.isCoupleWeather() ? View.VISIBLE : View.GONE);
         // listener
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
+        srl.setOnRefreshListener(this::refreshData);
     }
 
     protected void loadData() {
         // event
-        obWallPaperRefresh = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, new Action1<WallPaper>() {
-            @Override
-            public void call(WallPaper wallPaper) {
-                refreshWallPaperView();
-            }
-        });
-        obCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, new Action1<Couple>() {
-            @Override
-            public void call(Couple couple) {
-                refreshView();
-                // oss 这里配对状态变化 oss也会变化
-                ApiHelper.ossInfoUpdate();
-            }
+        obWallPaperRefresh = RxBus.register(ConsHelper.EVENT_WALL_PAPER_REFRESH, wallPaper -> refreshWallPaperView());
+        obCoupleRefresh = RxBus.register(ConsHelper.EVENT_COUPLE_REFRESH, couple -> {
+            refreshView();
+            // oss 这里配对状态变化 oss也会变化
+            ApiHelper.ossInfoUpdate();
         });
         // refresh
         refreshData();
@@ -341,7 +326,7 @@ public class CoupleFragment extends BasePagerFragment<CoupleFragment> {
             tvAddWallPaper.setVisibility(View.VISIBLE);
             vpWallPaper.setVisibility(View.GONE);
             // 删除本地文件
-            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, new ArrayList<String>());
+            OssResHelper.refreshResWithDelNoExist(OssResHelper.TYPE_COUPLE_WALL, new ArrayList<>());
             return;
         }
         // 有图显示

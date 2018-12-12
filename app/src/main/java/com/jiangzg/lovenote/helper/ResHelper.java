@@ -100,14 +100,11 @@ public class ResHelper {
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                MyApp.get().getThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtils.d(ResHelper.class, "deleteFileInBackground", file.getAbsolutePath());
-                        FileUtils.deleteFile(file);
-                        // 发送删除广播
-                        BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
-                    }
+                MyApp.get().getThread().execute(() -> {
+                    LogUtils.d(ResHelper.class, "deleteFileInBackground", file.getAbsolutePath());
+                    FileUtils.deleteFile(file);
+                    // 发送删除广播
+                    BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
                 });
             }
 
@@ -125,16 +122,13 @@ public class ResHelper {
         PermUtils.requestPermissions(top, ConsHelper.REQUEST_APP_INFO, PermUtils.appInfo, new PermUtils.OnPermissionListener() {
             @Override
             public void onPermissionGranted(int requestCode, String[] permissions) {
-                MyApp.get().getThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (File file : fileList) {
-                            if (!FileUtils.isFileExists(file)) return;
-                            LogUtils.d(ResHelper.class, "deleteFileListInBackground", file.getAbsolutePath());
-                            FileUtils.deleteFile(file);
-                            // 发送删除广播
-                            BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
-                        }
+                MyApp.get().getThread().execute(() -> {
+                    for (File file : fileList) {
+                        if (!FileUtils.isFileExists(file)) return;
+                        LogUtils.d(ResHelper.class, "deleteFileListInBackground", file.getAbsolutePath());
+                        FileUtils.deleteFile(file);
+                        // 发送删除广播
+                        BroadcastUtils.refreshMediaFileDelete(ResHelper.PROVIDER_AUTH, file);
                     }
                 });
             }

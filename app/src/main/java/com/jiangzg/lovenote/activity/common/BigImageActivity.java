@@ -146,22 +146,17 @@ public class BigImageActivity extends BaseActivity<BigImageActivity> {
 
     private void initViewPager() {
         int showIndex = getIntent().getIntExtra("showIndex", 0);
-        BigImagePagerAdapter adapter = new BigImagePagerAdapter(mActivity, type, new BigImagePagerAdapter.onTapListener() {
-            @Override
-            public void onTab(View view, float x, float y) {
-                toggleScreenView();
-            }
-        });
+        BigImagePagerAdapter adapter = new BigImagePagerAdapter(mActivity, type, (view, x, y) -> toggleScreenView());
         // 根据type设置数据
         switch (type) {
             case TYPE_FILE_LIST:
                 List<String> imgFileList = getIntent().getStringArrayListExtra("imgFileList");
-                dataList.addAll(imgFileList == null ? new ArrayList<String>() : imgFileList);
+                dataList.addAll(imgFileList == null ? new ArrayList<>() : imgFileList);
                 adapter.setData(dataList);
                 break;
             case TYPE_OSS_LIST:
                 List<String> imgOssList = getIntent().getStringArrayListExtra("imgOssList");
-                dataList.addAll(imgOssList == null ? new ArrayList<String>() : imgOssList);
+                dataList.addAll(imgOssList == null ? new ArrayList<>() : imgOssList);
                 adapter.setData(dataList);
                 break;
             case TYPE_FILE_SINGLE:

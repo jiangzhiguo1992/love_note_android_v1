@@ -41,7 +41,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
@@ -128,16 +127,13 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null || souvenir == null) return;
-                souvenir.setLatitude(info.getLatitude());
-                souvenir.setLongitude(info.getLongitude());
-                souvenir.setAddress(info.getAddress());
-                souvenir.setCityId(info.getCityId());
-                refreshLocationView();
-            }
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+            if (info == null || souvenir == null) return;
+            souvenir.setLatitude(info.getLatitude());
+            souvenir.setLongitude(info.getLongitude());
+            souvenir.setAddress(info.getAddress());
+            souvenir.setCityId(info.getCityId());
+            refreshLocationView();
         });
     }
 
@@ -183,18 +179,15 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
     private void initTypeCheck() {
         if (souvenir == null) return;
-        rgType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (souvenir == null) return;
-                switch (checkedId) {
-                    case R.id.rbDone: // 送给我
-                        souvenir.setDone(true);
-                        break;
-                    case R.id.rbWish: // 送给ta
-                        souvenir.setDone(false);
-                        break;
-                }
+        rgType.setOnCheckedChangeListener((group, checkedId) -> {
+            if (souvenir == null) return;
+            switch (checkedId) {
+                case R.id.rbDone: // 送给我
+                    souvenir.setDone(true);
+                    break;
+                case R.id.rbWish: // 送给ta
+                    souvenir.setDone(false);
+                    break;
             }
         });
         if (souvenir.isDone()) {
@@ -206,12 +199,9 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
 
     private void showDatePicker() {
         if (souvenir == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(souvenir.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                souvenir.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(souvenir.getHappenAt()), time -> {
+            souvenir.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -277,7 +267,7 @@ public class SouvenirEditActivity extends BaseActivity<SouvenirEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
+                RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

@@ -28,7 +28,6 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment> {
 
@@ -66,18 +65,8 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
                 .initAdapter(new SouvenirAdapter(mFragment, done))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -91,32 +80,23 @@ public class SouvenirListFragment extends BasePagerFragment<SouvenirListFragment
     protected void loadData() {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new Action1<List<Souvenir>>() {
-            @Override
-            public void call(List<Souvenir> souvenirList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, souvenirList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, new Action1<Souvenir>() {
-            @Override
-            public void call(Souvenir souvenir) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), souvenir);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_DELETE, souvenir -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), souvenir);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, new Action1<Souvenir>() {
-            @Override
-            public void call(Souvenir souvenir) {
-                if (recyclerHelper == null || souvenir == null) return;
-                if (souvenir.isDone() == done) {
-                    // 没改变状态则刷新item
-                    ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
-                } else {
-                    // 改变done则刷新list,两个fragment都要刷
-                    RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<Souvenir>());
-                    RxBus.post(event);
-                }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SOUVENIR_LIST_ITEM_REFRESH, souvenir -> {
+            if (recyclerHelper == null || souvenir == null) return;
+            if (souvenir.isDone() == done) {
+                // 没改变状态则刷新item
+                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), souvenir);
+            } else {
+                // 改变done则刷新list,两个fragment都要刷
+                RxBus.Event<ArrayList<Souvenir>> event = new RxBus.Event<>(ConsHelper.EVENT_SOUVENIR_LIST_REFRESH, new ArrayList<>());
+                RxBus.post(event);
             }
         });
         // refresh

@@ -103,15 +103,12 @@ public class SignActivity extends BaseActivity<SignActivity> {
         cvSign.setMonthView(CalendarMonthView.class);
         cvSign.update();
         // calendar监听
-        cvSign.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
-            @Override
-            public void onYearChange(int year) {
-                if (selectYear == year) return;
-                selectYear = year;
-                selectMonth = -1;
-                selectDay = -1;
-                refreshTopDateShow();
-            }
+        cvSign.setOnYearChangeListener(year -> {
+            if (selectYear == year) return;
+            selectYear = year;
+            selectMonth = -1;
+            selectDay = -1;
+            refreshTopDateShow();
         });
         cvSign.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override

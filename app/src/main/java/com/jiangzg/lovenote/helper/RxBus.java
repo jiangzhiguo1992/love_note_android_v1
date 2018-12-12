@@ -25,13 +25,10 @@ public class RxBus {
 
     /* 注意:这个是即时发送消息的，没有注册这么一说 (可用于线程间的操作)*/
     public static <T> Observable<T> post(final T send, Subscriber<? super T> subscriber) {
-        Observable<T> observable = Observable.create(new Observable.OnSubscribe<T>() {
-            @Override
-            public void call(Subscriber<? super T> subscriber) {
-                // 这里可以做一些耗时操作
-                subscriber.onNext(send); // 发送事件
-                subscriber.onCompleted(); // 完成事件
-            }
+        Observable<T> observable = Observable.create(subscriber1 -> {
+            // 这里可以做一些耗时操作
+            subscriber1.onNext(send); // 发送事件
+            subscriber1.onCompleted(); // 完成事件
         });
         observable.subscribeOn(Schedulers.io()) // 执行线程
                 .onBackpressureBuffer() // 解决连续发送数据过快时的异常，toList也行

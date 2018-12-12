@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -61,7 +60,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class NoteFragment extends BasePagerFragment<NoteFragment> {
 
@@ -155,24 +153,16 @@ public class NoteFragment extends BasePagerFragment<NoteFragment> {
         // menu
         tb.inflateMenu(R.menu.help_lock_on);
         // srl
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
+        srl.setOnRefreshListener(this::refreshData);
         // souvenir
         refreshNoteView();
     }
 
     protected void loadData() {
         // event
-        obLockRefresh = RxBus.register(ConsHelper.EVENT_LOCK_REFRESH, new Action1<Lock>() {
-            @Override
-            public void call(Lock lock) {
-                NoteFragment.this.lock = lock;
-                refreshData();
-            }
+        obLockRefresh = RxBus.register(ConsHelper.EVENT_LOCK_REFRESH, lock -> {
+            NoteFragment.this.lock = lock;
+            refreshData();
         });
         // data
         refreshData();

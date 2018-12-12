@@ -48,7 +48,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class ShyActivity extends BaseActivity<ShyActivity> {
 
@@ -104,15 +103,12 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
         cvShy.setMonthView(CalendarMonthView.class);
         cvShy.update();
         // calendar监听
-        cvShy.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
-            @Override
-            public void onYearChange(int year) {
-                if (selectYear == year) return;
-                selectYear = year;
-                selectMonth = -1;
-                selectDay = -1;
-                refreshTopDateShow();
-            }
+        cvShy.setOnYearChangeListener(year -> {
+            if (selectYear == year) return;
+            selectYear = year;
+            selectMonth = -1;
+            selectDay = -1;
+            refreshTopDateShow();
         });
         cvShy.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
@@ -153,13 +149,10 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, new Action1<Shy>() {
-            @Override
-            public void call(Shy shy) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
-                refreshMonthData();
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SHY_LIST_ITEM_DELETE, shy -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), shy);
+            refreshMonthData();
         });
         // 设置当前日期
         refreshDateToCurrent();
@@ -315,12 +308,7 @@ public class ShyActivity extends BaseActivity<ShyActivity> {
     }
 
     private void showDatePicker() {
-        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                shyPush(TimeHelper.getGoTimeByJava(time));
-            }
-        });
+        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), time -> shyPush(TimeHelper.getGoTimeByJava(time)));
     }
 
     private void shyPush(long happenAt) {

@@ -1,11 +1,9 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.content.res.ColorStateList;
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -142,12 +140,7 @@ public class PostCommentAdapter extends BaseMultiItemQuickAdapter<PostComment, B
                 .content(R.string.confirm_del_comment)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delCommentApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> delCommentApi(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

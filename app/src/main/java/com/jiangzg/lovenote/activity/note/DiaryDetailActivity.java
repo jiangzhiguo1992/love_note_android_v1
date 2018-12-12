@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityTrans;
 import com.jiangzg.base.view.ToastUtils;
@@ -41,7 +39,6 @@ import java.util.Locale;
 import butterknife.BindView;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
 
@@ -111,12 +108,9 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, new Action1<Diary>() {
-            @Override
-            public void call(Diary diary) {
-                if (diary == null) return;
-                refreshData(diary.getId());
-            }
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_DIARY_DETAIL_REFRESH, diary -> {
+            if (diary == null) return;
+            refreshData(diary.getId());
         });
     }
 
@@ -216,12 +210,7 @@ public class DiaryDetailActivity extends BaseActivity<DiaryDetailActivity> {
                 .content(R.string.confirm_delete_this_diary)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi();
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

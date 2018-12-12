@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.view.Menu;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConvertUtils;
 import com.jiangzg.base.common.FileUtils;
@@ -107,15 +105,12 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
         ViewGroup.LayoutParams layoutParams = ivAlbum.getLayoutParams();
         int width = ScreenUtils.getScreenWidth(mActivity) - (ConvertUtils.dp2px(50) * 2);
         ivAlbum.setWidthAndHeight(width, layoutParams.height);
-        ivAlbum.setClickListener(new FrescoView.ClickListener() {
-            @Override
-            public void onSuccessClick(FrescoView iv) {
-                if (album == null) return;
-                if (!FileUtils.isFileEmpty(pictureFile)) {
-                    BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
-                } else if (!StringUtils.isEmpty(album.getCover())) {
-                    BigImageActivity.goActivityByOss(mActivity, album.getCover(), iv);
-                }
+        ivAlbum.setClickListener(iv -> {
+            if (album == null) return;
+            if (!FileUtils.isFileEmpty(pictureFile)) {
+                BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
+            } else if (!StringUtils.isEmpty(album.getCover())) {
+                BigImageActivity.goActivityByOss(mActivity, album.getCover(), iv);
             }
         });
     }
@@ -234,12 +229,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
                 .content(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        setCoverVisible(false);
-                    }
-                })
+                .onPositive((dialog1, which) -> setCoverVisible(false))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -300,7 +290,7 @@ public class AlbumEditActivity extends BaseActivity<AlbumEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Album>> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.Event<ArrayList<Album>> event = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 mActivity.finish();
             }

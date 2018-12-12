@@ -143,12 +143,9 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
 
     private void showDatePicker() {
         if (dream == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(dream.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                dream.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(dream.getHappenAt()), time -> {
+            dream.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -225,7 +222,7 @@ public class DreamEditActivity extends BaseActivity<DreamEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Dream>> event = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<Dream>());
+                RxBus.Event<ArrayList<Dream>> event = new RxBus.Event<>(ConsHelper.EVENT_DREAM_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // sp
                 SPHelper.setDraftDream(null);

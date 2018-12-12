@@ -43,7 +43,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
@@ -105,14 +104,11 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectAwardRule = RxBus.register(ConsHelper.EVENT_AWARD_RULE_SELECT, new Action1<AwardRule>() {
-            @Override
-            public void call(AwardRule awardRule) {
-                if (awardRule == null) return;
-                award.setAwardRuleId(awardRule.getId());
-                rule = awardRule;
-                refreshRuleView();
-            }
+        obSelectAwardRule = RxBus.register(ConsHelper.EVENT_AWARD_RULE_SELECT, awardRule -> {
+            if (awardRule == null) return;
+            award.setAwardRuleId(awardRule.getId());
+            rule = awardRule;
+            refreshRuleView();
         });
     }
 
@@ -174,18 +170,15 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
     private void initHappenCheck() {
         final User user = SPHelper.getMe();
-        rgHappenUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (award == null) return;
-                switch (checkedId) {
-                    case R.id.rbHappenMe: // 我的
-                        award.setHappenId(UserHelper.getMyId(user));
-                        break;
-                    case R.id.rbHappenTa: // Ta的
-                        award.setHappenId(UserHelper.getTaId(user));
-                        break;
-                }
+        rgHappenUser.setOnCheckedChangeListener((group, checkedId) -> {
+            if (award == null) return;
+            switch (checkedId) {
+                case R.id.rbHappenMe: // 我的
+                    award.setHappenId(UserHelper.getMyId(user));
+                    break;
+                case R.id.rbHappenTa: // Ta的
+                    award.setHappenId(UserHelper.getTaId(user));
+                    break;
             }
         });
         rbHappenMe.setChecked(true);
@@ -193,12 +186,9 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
 
     private void showDatePicker() {
         if (award == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(award.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                award.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(award.getHappenAt()), time -> {
+            award.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -241,7 +231,7 @@ public class AwardEditActivity extends BaseActivity<AwardEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Award>> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<Award>());
+                RxBus.Event<ArrayList<Award>> event = new RxBus.Event<>(ConsHelper.EVENT_AWARD_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

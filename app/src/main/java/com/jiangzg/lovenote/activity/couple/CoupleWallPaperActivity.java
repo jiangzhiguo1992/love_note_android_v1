@@ -81,12 +81,7 @@ public class CoupleWallPaperActivity extends BaseActivity<CoupleWallPaperActivit
                 .initAdapter(new WallPaperAdapter(mActivity))
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        refreshData();
-                    }
-                })
+                .listenerRefresh(this::refreshData)
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {

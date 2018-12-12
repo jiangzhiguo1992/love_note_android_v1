@@ -178,29 +178,23 @@ public class CoinBuyActivity extends BaseActivity<CoinBuyActivity> {
 
     // 支付宝
     private void startAliPay(final String orderInfo) {
-        PayHelper.payByAli(mActivity, orderInfo, new PayHelper.AliCallBack() {
-            @Override
-            public void onSuccess(PayHelper.PayAliResult result) {
-                if (result == null) return;
-                //String memo = result.getMemo();
-                String resultStatus = result.getResultStatus();
-                //PayAliResult.Result result1 = result.getResult();
-                if (resultStatus.equals(String.valueOf(PayHelper.PayAliResult.RESULT_STATUS_OK))) {
-                    checkPayResult();
-                }
+        PayHelper.payByAli(mActivity, orderInfo, result -> {
+            if (result == null) return;
+            //String memo = result.getMemo();
+            String resultStatus = result.getResultStatus();
+            //PayAliResult.Result result1 = result.getResult();
+            if (resultStatus.equals(String.valueOf(PayHelper.PayAliResult.RESULT_STATUS_OK))) {
+                checkPayResult();
             }
         });
     }
 
     // 微信
     private void startWeChatPay(WXOrder wxOrder) {
-        PayHelper.payByWX(mActivity, wxOrder, new PayHelper.WXCallBack() {
-            @Override
-            public void onSuccess(PayHelper.PayWxResult result) {
-                if (result == null) return;
-                if (result.getErrCode() == PayHelper.PayWxResult.CODE_OK) {
-                    checkPayResult();
-                }
+        PayHelper.payByWX(mActivity, wxOrder, result -> {
+            if (result == null) return;
+            if (result.getErrCode() == PayHelper.PayWxResult.CODE_OK) {
+                checkPayResult();
             }
         });
     }

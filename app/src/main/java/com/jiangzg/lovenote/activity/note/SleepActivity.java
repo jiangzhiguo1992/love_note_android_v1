@@ -52,7 +52,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SleepActivity extends BaseActivity<SleepActivity> {
 
@@ -122,15 +121,12 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
         cvSleep.setMonthView(CalendarMonthView.class);
         cvSleep.update();
         // calendar监听
-        cvSleep.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
-            @Override
-            public void onYearChange(int year) {
-                if (selectYear == year) return;
-                selectYear = year;
-                selectMonth = -1;
-                selectDay = -1;
-                refreshTopDateShow();
-            }
+        cvSleep.setOnYearChangeListener(year -> {
+            if (selectYear == year) return;
+            selectYear = year;
+            selectMonth = -1;
+            selectDay = -1;
+            refreshTopDateShow();
         });
         cvSleep.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
@@ -188,18 +184,15 @@ public class SleepActivity extends BaseActivity<SleepActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, new Action1<Sleep>() {
-            @Override
-            public void call(Sleep sleep) {
-                if (recyclerLeft != null) {
-                    ListHelper.removeObjInAdapter(recyclerLeft.getAdapter(), sleep);
-                }
-                if (recyclerRight != null) {
-                    ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
-                }
-                getLatestData();
-                refreshMonthData();
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SLEEP_LIST_ITEM_DELETE, sleep -> {
+            if (recyclerLeft != null) {
+                ListHelper.removeObjInAdapter(recyclerLeft.getAdapter(), sleep);
             }
+            if (recyclerRight != null) {
+                ListHelper.removeObjInAdapter(recyclerRight.getAdapter(), sleep);
+            }
+            getLatestData();
+            refreshMonthData();
         });
         // 设置当前日期
         refreshDateToCurrent();

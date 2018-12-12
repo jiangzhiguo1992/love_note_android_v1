@@ -47,7 +47,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PictureListActivity extends BaseActivity<PictureListActivity> {
 
@@ -138,18 +137,8 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getPictureList(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getPictureList(true);
-                    }
-                })
+                .listenerRefresh(() -> getPictureList(false))
+                .listenerMore(currentCount -> getPictureList(true))
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -209,36 +198,24 @@ public class PictureListActivity extends BaseActivity<PictureListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obAlbumRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, new Action1<Album>() {
-            @Override
-            public void call(Album a) {
-                if (album == null) return;
-                refreshAlbum(album.getId());
-            }
+        obAlbumRefresh = RxBus.register(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, a -> {
+            if (album == null) return;
+            refreshAlbum(album.getId());
         });
-        obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new Action1<List<Picture>>() {
-            @Override
-            public void call(List<Picture> pictureList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_REFRESH, pictureList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, new Action1<Picture>() {
-            @Override
-            public void call(Picture picture) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), picture);
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, new Action1<Picture>() {
-            @Override
-            public void call(Picture picture) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
-                if (album == null) return;
-                album.setPictureCount(album.getPictureCount() - 1);
-                refreshAlbumView();
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_PICTURE_LIST_ITEM_DELETE, picture -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), picture);
+            if (album == null) return;
+            album.setPictureCount(album.getPictureCount() - 1);
+            refreshAlbumView();
         });
         // refresh
         recyclerHelper.dataRefresh();

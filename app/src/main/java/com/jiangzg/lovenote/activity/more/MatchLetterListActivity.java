@@ -130,18 +130,8 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -277,12 +267,7 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
         tvCoinCount.setText(coinCount);
         tvPointCount.setText(pointCount);
         // listener
-        root.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MatchLetterActivity.goActivity(mActivity);
-            }
-        });
+        root.setOnClickListener(v -> MatchLetterActivity.goActivity(mActivity));
     }
 
     private void getData(final boolean more) {
@@ -320,19 +305,16 @@ public class MatchLetterListActivity extends BaseActivity<MatchLetterListActivit
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(newSelectList)
-                .itemsCallbackSingleChoice(orderIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length) {
-                            return true;
-                        }
-                        orderIndex = which;
-                        tvOrder.setText(ApiHelper.LIST_MATCH_ORDER_SHOW[orderIndex]);
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_MATCH_ORDER_TYPE.length) {
                         return true;
                     }
+                    orderIndex = which;
+                    tvOrder.setText(ApiHelper.LIST_MATCH_ORDER_SHOW[orderIndex]);
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);

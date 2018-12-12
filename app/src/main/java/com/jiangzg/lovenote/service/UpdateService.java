@@ -4,13 +4,10 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.common.ConstantUtils;
@@ -94,12 +91,7 @@ public class UpdateService extends Service {
                 .content(content)
                 .positiveText(R.string.update_now)
                 .negativeText(R.string.after_say)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        UpdateService.goService(top, versionList.get(0));
-                    }
-                })
+                .onPositive((dialog1, which) -> UpdateService.goService(top, versionList.get(0)))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -164,19 +156,11 @@ public class UpdateService extends Service {
                                 .content(R.string.need_check_some_perm_can_install)
                                 .positiveText(R.string.go_now)
                                 .negativeText(R.string.brutal_refuse)
-                                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                                    @Override
-                                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                        Intent intent = IntentFactory.getInstallSettings(AppInfo.get().getPackageName());
-                                        ActivityTrans.start(MyApp.get(), intent);
-                                    }
+                                .onPositive((dialog1, which) -> {
+                                    Intent intent = IntentFactory.getInstallSettings(AppInfo.get().getPackageName());
+                                    ActivityTrans.start(MyApp.get(), intent);
                                 })
-                                .dismissListener(new DialogInterface.OnDismissListener() {
-                                    @Override
-                                    public void onDismiss(DialogInterface dialog) {
-                                        UpdateService.this.stopSelf();
-                                    }
-                                })
+                                .dismissListener(dialog12 -> UpdateService.this.stopSelf())
                                 .build();
                         DialogHelper.showWithAnim(dialog);
                     }

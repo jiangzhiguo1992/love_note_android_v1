@@ -55,7 +55,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
@@ -120,16 +119,13 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null || video == null) return;
-                video.setLatitude(info.getLatitude());
-                video.setLongitude(info.getLongitude());
-                video.setAddress(info.getAddress());
-                video.setCityId(info.getCityId());
-                refreshLocationView();
-            }
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+            if (info == null || video == null) return;
+            video.setLatitude(info.getLatitude());
+            video.setLongitude(info.getLongitude());
+            video.setAddress(info.getAddress());
+            video.setCityId(info.getCityId());
+            refreshLocationView();
         });
     }
 
@@ -199,12 +195,9 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
 
     private void showDateTimePicker() {
         if (video == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(video.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                video.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(video.getHappenAt()), time -> {
+            video.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -253,25 +246,19 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             thumbFile = null;
             ResHelper.deleteFileInBackground(delFile);
         }
-        MyApp.get().getThread().execute(new Runnable() {
-            @Override
-            public void run() {
-                thumbFile = ResHelper.newImageCacheFile();
-                FileUtils.createFileByDeleteOldFile(thumbFile);
-                Bitmap videoThumbnail = ThumbnailUtils.createVideoThumbnail(videoFile.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND);
-                BitmapUtils.saveBitmap(videoThumbnail, thumbFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        loading.dismiss();
-                        if (FileUtils.isFileEmpty(thumbFile)) {
-                            return;
-                        }
-                        ivThumb.setVisibility(View.VISIBLE);
-                        ivThumb.setDataFile(thumbFile);
-                    }
-                });
-            }
+        MyApp.get().getThread().execute(() -> {
+            thumbFile = ResHelper.newImageCacheFile();
+            FileUtils.createFileByDeleteOldFile(thumbFile);
+            Bitmap videoThumbnail = ThumbnailUtils.createVideoThumbnail(videoFile.getAbsolutePath(), MediaStore.Images.Thumbnails.MINI_KIND);
+            BitmapUtils.saveBitmap(videoThumbnail, thumbFile.getAbsolutePath(), Bitmap.CompressFormat.JPEG, true);
+            MyApp.get().getHandler().post(() -> {
+                loading.dismiss();
+                if (FileUtils.isFileEmpty(thumbFile)) {
+                    return;
+                }
+                ivThumb.setVisibility(View.VISIBLE);
+                ivThumb.setDataFile(thumbFile);
+            });
         });
     }
 
@@ -342,7 +329,7 @@ public class VideoEditActivity extends BaseActivity<VideoEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Video>> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<Video>());
+                RxBus.Event<ArrayList<Video>> event = new RxBus.Event<>(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 mActivity.finish();
             }

@@ -173,29 +173,26 @@ public class MapHelper {
             @Override
             public void onRegeocodeSearched(final RegeocodeResult result, final int rCode) {
                 final int successCode = 1000; // 以后可能会变
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (rCode == successCode) {
-                            if (result != null && result.getRegeocodeAddress() != null) {
-                                RegeocodeAddress regeocodeAddress = result.getRegeocodeAddress();
-                                String province = regeocodeAddress.getProvince();
-                                String city = regeocodeAddress.getCity();
-                                String district = regeocodeAddress.getDistrict();
-                                String addressName = regeocodeAddress.getFormatAddress();
-                                LogUtils.d(MapHelper.class, "onRegeocodeSearched", province + "---" + city + "---" + district + "---" + addressName);
-                                if (callBack != null) {
-                                    callBack.onSuccess(regeocodeAddress);
-                                }
-                            } else {
-                                if (callBack != null) {
-                                    callBack.onFailed();
-                                }
+                MyApp.get().getHandler().post(() -> {
+                    if (rCode == successCode) {
+                        if (result != null && result.getRegeocodeAddress() != null) {
+                            RegeocodeAddress regeocodeAddress = result.getRegeocodeAddress();
+                            String province = regeocodeAddress.getProvince();
+                            String city = regeocodeAddress.getCity();
+                            String district = regeocodeAddress.getDistrict();
+                            String addressName = regeocodeAddress.getFormatAddress();
+                            LogUtils.d(MapHelper.class, "onRegeocodeSearched", province + "---" + city + "---" + district + "---" + addressName);
+                            if (callBack != null) {
+                                callBack.onSuccess(regeocodeAddress);
                             }
                         } else {
                             if (callBack != null) {
                                 callBack.onFailed();
                             }
+                        }
+                    } else {
+                        if (callBack != null) {
+                            callBack.onFailed();
                         }
                     }
                 });
@@ -259,12 +256,9 @@ public class MapHelper {
                     //如果搜索关键字明显为误输入，则可通过result.getSearchSuggestionKeywords()方法得到搜索关键词建议
                     final ArrayList<PoiItem> pois = poiResult.getPois();
                     LogUtils.d(MapHelper.class, "onPoiSearched", LogUtils.getListLog(pois));
-                    MyApp.get().getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (searchCallBack != null) {
-                                searchCallBack.onSuccess(pois);
-                            }
+                    MyApp.get().getHandler().post(() -> {
+                        if (searchCallBack != null) {
+                            searchCallBack.onSuccess(pois);
                         }
                     });
                 } else {

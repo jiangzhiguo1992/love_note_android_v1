@@ -31,11 +31,11 @@ import com.jiangzg.lovenote.helper.OssHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
 import com.jiangzg.lovenote.helper.SPHelper;
+import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.view.FrescoNativeView;
 
 import java.io.File;
@@ -122,12 +122,9 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         // imageView
         ViewGroup.LayoutParams layoutParams = ivImage.getLayoutParams();
         ivImage.setWidthAndHeight(ScreenUtils.getScreenWidth(mActivity), layoutParams.height);
-        ivImage.setSuccessClickListener(new FrescoNativeView.onSuccessClickListener() {
-            @Override
-            public void onClick(FrescoNativeView iv) {
-                if (!FileUtils.isFileEmpty(pictureFile)) {
-                    BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
-                }
+        ivImage.setSuccessClickListener(iv -> {
+            if (!FileUtils.isFileEmpty(pictureFile)) {
+                BigImageActivity.goActivityByFile(mActivity, pictureFile.getAbsolutePath(), iv);
             }
         });
     }
@@ -253,16 +250,13 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.please_select_classify)
                 .items(items)
-                .itemsCallbackSingleChoice(kindIndex - 1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        // 第一个忽略
-                        SuggestHelper.SuggestKind suggestKind = suggestKindList.get(which + 1);
-                        kind = suggestKind.getKind();
-                        tvKind.setText(suggestKind.getShow());
-                        DialogUtils.dismiss(dialog);
-                        return true;
-                    }
+                .itemsCallbackSingleChoice(kindIndex - 1, (dialog1, view, which, text) -> {
+                    // 第一个忽略
+                    SuggestHelper.SuggestKind suggestKind = suggestKindList.get(which + 1);
+                    kind = suggestKind.getKind();
+                    tvKind.setText(suggestKind.getShow());
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
@@ -315,7 +309,7 @@ public class SuggestAddActivity extends BaseActivity<SuggestAddActivity> {
         RetrofitHelper.enqueue(call, loading, new RetrofitHelper.CallBack() {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
-                RxBus.Event<ArrayList<Suggest>> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<Suggest>());
+                RxBus.Event<ArrayList<Suggest>> event = new RxBus.Event<>(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 mActivity.finish();
             }

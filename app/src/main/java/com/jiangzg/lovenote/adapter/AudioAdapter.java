@@ -1,9 +1,7 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.media.MediaPlayer;
-import android.support.annotation.NonNull;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -130,19 +128,13 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
                 return;
             }
             PlayerUtils.setData(mMediaPlayer, audioFile.getAbsolutePath());
-            PlayerUtils.play(mMediaPlayer, new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    int oldPlay = AudioAdapter.this.playingIndex;
-                    AudioAdapter.this.playingIndex = -1;
-                    AudioAdapter.this.notifyItemChanged(oldPlay);
-                }
-            }, null, new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
-                    return true;
-                }
+            PlayerUtils.play(mMediaPlayer, mp -> {
+                int oldPlay = AudioAdapter.this.playingIndex;
+                AudioAdapter.this.playingIndex = -1;
+                AudioAdapter.this.notifyItemChanged(oldPlay);
+            }, null, (mp, what, extra) -> {
+                ToastUtils.show(mActivity.getString(R.string.audio_load_fail));
+                return true;
             });
         } else {
             // 暂停
@@ -171,12 +163,7 @@ public class AudioAdapter extends BaseMultiItemQuickAdapter<Audio, BaseViewHolde
                 .content(R.string.confirm_delete_this_audio)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

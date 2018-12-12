@@ -16,7 +16,6 @@ import com.jiangzg.lovenote.model.entity.Broadcast;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -60,12 +59,9 @@ public class BroadcastBanner extends Banner {
         this.setViewPagerIsScroll(true); // 手动滑动
         this.setDelayTime(4000); // 轮播间隔
         this.start();
-        this.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                if (broadcastList == null || broadcastList.size() <= position) return;
-                goBroadcast(broadcastList.get(position));
-            }
+        this.setOnBannerListener(position -> {
+            if (broadcastList == null || broadcastList.size() <= position) return;
+            goBroadcast(broadcastList.get(position));
         });
     }
 

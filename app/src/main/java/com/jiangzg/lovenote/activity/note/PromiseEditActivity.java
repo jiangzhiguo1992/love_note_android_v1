@@ -166,18 +166,15 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
         }
         rgHappenUser.setVisibility(View.VISIBLE);
         final User user = SPHelper.getMe();
-        rgHappenUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (promise == null) return;
-                switch (checkedId) {
-                    case R.id.rbHappenMe: // 我的
-                        promise.setHappenId(UserHelper.getMyId(user));
-                        break;
-                    case R.id.rbHappenTa: // Ta的
-                        promise.setHappenId(UserHelper.getTaId(user));
-                        break;
-                }
+        rgHappenUser.setOnCheckedChangeListener((group, checkedId) -> {
+            if (promise == null) return;
+            switch (checkedId) {
+                case R.id.rbHappenMe: // 我的
+                    promise.setHappenId(UserHelper.getMyId(user));
+                    break;
+                case R.id.rbHappenTa: // Ta的
+                    promise.setHappenId(UserHelper.getTaId(user));
+                    break;
             }
         });
         long happenId = promise.getHappenId();
@@ -192,12 +189,9 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
 
     private void showDatePicker() {
         if (promise == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(promise.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                promise.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(promise.getHappenAt()), time -> {
+            promise.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -269,7 +263,7 @@ public class PromiseEditActivity extends BaseActivity<PromiseEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Promise>> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<Promise>());
+                RxBus.Event<ArrayList<Promise>> event = new RxBus.Event<>(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

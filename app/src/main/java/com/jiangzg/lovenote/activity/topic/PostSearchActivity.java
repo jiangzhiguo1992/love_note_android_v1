@@ -39,7 +39,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
 
@@ -89,18 +88,8 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -114,19 +103,13 @@ public class PostSearchActivity extends BaseActivity<PostSearchActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, new Action1<Post>() {
-            @Override
-            public void call(Post post) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_DELETE, post -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), post);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, new Action1<Post>() {
-            @Override
-            public void call(Post post) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_LIST_ITEM_REFRESH, post -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), post);
         });
     }
 

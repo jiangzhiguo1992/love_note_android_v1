@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -50,7 +48,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
@@ -153,16 +150,13 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null || food == null) return;
-                food.setLatitude(info.getLatitude());
-                food.setLongitude(info.getLongitude());
-                food.setAddress(info.getAddress());
-                food.setCityId(info.getCityId());
-                refreshLocationView();
-            }
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+            if (info == null || food == null) return;
+            food.setLatitude(info.getLatitude());
+            food.setLongitude(info.getLongitude());
+            food.setAddress(info.getAddress());
+            food.setCityId(info.getCityId());
+            refreshLocationView();
         });
     }
 
@@ -247,12 +241,9 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
         rv.setVisibility(View.VISIBLE);
         int spanCount = childCount > 3 ? 3 : childCount;
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
-        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-            @Override
-            public void onAdd() {
-                int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-                MediaPickHelper.selectImage(mActivity, maxCount);
-            }
+        imgAdapter.setOnAddClick(() -> {
+            int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
+            MediaPickHelper.selectImage(mActivity, maxCount);
         });
         if (food.getContentImageList() != null && food.getContentImageList().size() > 0) {
             imgAdapter.setOssData(food.getContentImageList());
@@ -267,12 +258,9 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
 
     private void showDatePicker() {
         if (food == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(food.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                food.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(food.getHappenAt()), time -> {
+            food.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -340,7 +328,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
-                ossData.addAll(ossPathList == null ? new ArrayList<String>() : ossPathList);
+                ossData.addAll(ossPathList == null ? new ArrayList<>() : ossPathList);
                 api(ossData);
             }
 
@@ -390,7 +378,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Food>> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<Food>());
+                RxBus.Event<ArrayList<Food>> event = new RxBus.Event<>(ConsHelper.EVENT_FOOD_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
@@ -409,12 +397,7 @@ public class FoodEditActivity extends BaseActivity<FoodEditActivity> {
                 .content(R.string.confirm_delete_this_food)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi();
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

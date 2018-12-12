@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -56,7 +54,6 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
 
@@ -149,12 +146,9 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, new Action1<Travel>() {
-            @Override
-            public void call(Travel travel) {
-                if (TravelDetailActivity.this.travel == null) return;
-                refreshTravel(TravelDetailActivity.this.travel.getId());
-            }
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_TRAVEL_DETAIL_REFRESH, travel -> {
+            if (TravelDetailActivity.this.travel == null) return;
+            refreshTravel(TravelDetailActivity.this.travel.getId());
         });
     }
 
@@ -418,12 +412,7 @@ public class TravelDetailActivity extends BaseActivity<TravelDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delTravel();
-                    }
-                })
+                .onPositive((dialog1, which) -> delTravel())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

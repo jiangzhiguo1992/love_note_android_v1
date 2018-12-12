@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -72,7 +70,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
 
@@ -177,18 +174,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getCommentData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getCommentData(true);
-                    }
-                })
+                .listenerRefresh(() -> getCommentData(false))
+                .listenerMore(currentCount -> getCommentData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -250,32 +237,18 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         orderIndex = 0;
         searchUserId = 0;
         // event
-        obPostDetailRefresh = RxBus.register(ConsHelper.EVENT_POST_DETAIL_REFRESH, new Action1<Long>() {
-            @Override
-            public void call(Long pid) {
-                refreshPost(pid, false);
-            }
+        obPostDetailRefresh = RxBus.register(ConsHelper.EVENT_POST_DETAIL_REFRESH, pid -> refreshPost(pid, false));
+        obPostCommentListRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, postComment -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obPostCommentListRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_REFRESH, new Action1<PostComment>() {
-            @Override
-            public void call(PostComment postComment) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obPostCommentListItemDelete = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, postComment -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), postComment);
         });
-        obPostCommentListItemDelete = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_DELETE, new Action1<PostComment>() {
-            @Override
-            public void call(PostComment postComment) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), postComment);
-            }
-        });
-        obPostCommentListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, new Action1<PostComment>() {
-            @Override
-            public void call(PostComment postComment) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), postComment);
-            }
+        obPostCommentListItemRefresh = RxBus.register(ConsHelper.EVENT_POST_COMMENT_LIST_ITEM_REFRESH, postComment -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), postComment);
         });
         // refresh 上面做过了
         //recyclerHelper.dataRefresh();
@@ -509,18 +482,8 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
         TextView tvCommentSort = head.findViewById(R.id.tvCommentSort);
         initCommentUserView();
         initCommentOrderView();
-        tvCommentUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCommentUserDialog();
-            }
-        });
-        tvCommentSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCommentSortDialog();
-            }
-        });
+        tvCommentUser.setOnClickListener(v -> showCommentUserDialog());
+        tvCommentSort.setOnClickListener(v -> showCommentSortDialog());
     }
 
     private void showCommentUserDialog() {
@@ -547,26 +510,23 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(showList)
-                .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (post == null || recyclerHelper == null) return true;
-                        switch (which) {
-                            case 1: // 楼主
-                                searchUserId = post.getUserId();
-                                break;
-                            case 2: // 我的
-                                searchUserId = me == null ? 0 : me.getId();
-                                break;
-                            default: // 全部
-                                searchUserId = 0;
-                                break;
-                        }
-                        initCommentUserView();
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
-                        return true;
+                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
+                    if (post == null || recyclerHelper == null) return true;
+                    switch (which) {
+                        case 1: // 楼主
+                            searchUserId = post.getUserId();
+                            break;
+                        case 2: // 我的
+                            searchUserId = me == null ? 0 : me.getId();
+                            break;
+                        default: // 全部
+                            searchUserId = 0;
+                            break;
                     }
+                    initCommentUserView();
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
@@ -578,19 +538,16 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_order_type)
                 .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
-                            return true;
-                        }
-                        orderIndex = which;
-                        initCommentOrderView();
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
                         return true;
                     }
+                    orderIndex = which;
+                    initCommentOrderView();
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
@@ -855,12 +812,7 @@ public class PostDetailActivity extends BaseActivity<PostDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delPost();
-                    }
-                })
+                .onPositive((dialog1, which) -> delPost())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

@@ -186,23 +186,20 @@ public class MultiLoveUpLayout extends RelativeLayout {
 
     // 开始添加爱心
     public void addLove() {
-        MyApp.get().getHandler().post(new Runnable() {
-            @Override
-            public void run() {
-                if (mDrawables == null) return;
-                final ImageView love = new ImageView(getContext());
-                love.setImageDrawable(mDrawables[mRandom.nextInt(mDrawables.length - 1)]);
-                addView(love, mLoveLayoutParams);
+        MyApp.get().getHandler().post(() -> {
+            if (mDrawables == null) return;
+            final ImageView love = new ImageView(getContext());
+            love.setImageDrawable(mDrawables[mRandom.nextInt(mDrawables.length - 1)]);
+            addView(love, mLoveLayoutParams);
 
-                AnimatorSet animatorSet = getAnimatorSet(love);
-                animatorSet.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        MultiLoveUpLayout.this.removeView(love);
-                    }
-                });
-                animatorSet.start();
-            }
+            AnimatorSet animatorSet = getAnimatorSet(love);
+            animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    MultiLoveUpLayout.this.removeView(love);
+                }
+            });
+            animatorSet.start();
         });
     }
 
@@ -239,15 +236,12 @@ public class MultiLoveUpLayout extends RelativeLayout {
         // 贝塞尔曲线动画
         ValueAnimator animator = ValueAnimator.ofObject(evaluator, pointF0, pointF3);
         animator.setDuration(2000);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                PointF pointF = (PointF) animation.getAnimatedValue();
-                // 控制属性的变化
-                love.setX(pointF.x);
-                love.setY(pointF.y);
-                love.setAlpha(1 - animation.getAnimatedFraction());
-            }
+        animator.addUpdateListener(animation -> {
+            PointF pointF = (PointF) animation.getAnimatedValue();
+            // 控制属性的变化
+            love.setX(pointF.x);
+            love.setY(pointF.y);
+            love.setAlpha(1 - animation.getAnimatedFraction());
         });
 
         return animator;

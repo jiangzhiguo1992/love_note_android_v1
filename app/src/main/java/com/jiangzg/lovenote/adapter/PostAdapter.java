@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote.adapter;
 
 import android.content.res.ColorStateList;
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -196,12 +194,7 @@ public class PostAdapter extends BaseQuickAdapter<Post, BaseViewHolder> {
                 .content(R.string.confirm_del_collect)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delCollect(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> delCollect(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

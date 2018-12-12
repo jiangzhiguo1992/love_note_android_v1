@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.helper;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
@@ -121,37 +120,34 @@ public class LocationHelper {
     }
 
     private static AMapLocationListener getLocationListener(final LocationCallBack callBack) {
-        return new AMapLocationListener() {
-            @Override
-            public void onLocationChanged(AMapLocation aMapLocation) {
-                if (aMapLocation == null) return;
-                if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
-                    // 定位成功回调信息，设置相关消息
-                    LogUtils.d(LocationHelper.class, "onLocationChanged", aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude() + " - " + aMapLocation.getAddress());
-                    LocationInfo info = LocationInfo.getInfo(); // 用来保存设备位置的对象
-                    info.setLongitude(aMapLocation.getLongitude()); // 经度
-                    info.setLatitude(aMapLocation.getLatitude()); // 纬度
-                    info.setCountry(aMapLocation.getCountry()); // 国家
-                    info.setProvince(aMapLocation.getProvince()); // 省份
-                    info.setCity(aMapLocation.getCity()); // 城市
-                    info.setDistrict(aMapLocation.getDistrict()); // 城区
-                    info.setStreet(aMapLocation.getStreet()); // 街道
-                    info.setCityId(aMapLocation.getCityCode()); // 城市编号
-                    // 只有wifi会返回此字段
-                    String address = aMapLocation.getAddress();
-                    if (StringUtils.isEmpty(address)) {
-                        address = info.getProvince() + info.getCity() + info.getDistrict() + info.getStreet();
-                    }
-                    info.setAddress(address);
-                    if (callBack != null) {
-                        callBack.onSuccess(info);
-                    }
-                } else {
-                    // 定位失败，打印相关信息
-                    LogUtils.w(LocationHelper.class, "onLocationChanged", "ErrCode: " + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
-                    if (callBack != null) {
-                        callBack.onFailed(aMapLocation.getErrorInfo());
-                    }
+        return aMapLocation -> {
+            if (aMapLocation == null) return;
+            if (aMapLocation.getErrorCode() == CODE_SUCCESS) {
+                // 定位成功回调信息，设置相关消息
+                LogUtils.d(LocationHelper.class, "onLocationChanged", aMapLocation.getLongitude() + " - " + aMapLocation.getLatitude() + " - " + aMapLocation.getAddress());
+                LocationInfo info = LocationInfo.getInfo(); // 用来保存设备位置的对象
+                info.setLongitude(aMapLocation.getLongitude()); // 经度
+                info.setLatitude(aMapLocation.getLatitude()); // 纬度
+                info.setCountry(aMapLocation.getCountry()); // 国家
+                info.setProvince(aMapLocation.getProvince()); // 省份
+                info.setCity(aMapLocation.getCity()); // 城市
+                info.setDistrict(aMapLocation.getDistrict()); // 城区
+                info.setStreet(aMapLocation.getStreet()); // 街道
+                info.setCityId(aMapLocation.getCityCode()); // 城市编号
+                // 只有wifi会返回此字段
+                String address = aMapLocation.getAddress();
+                if (StringUtils.isEmpty(address)) {
+                    address = info.getProvince() + info.getCity() + info.getDistrict() + info.getStreet();
+                }
+                info.setAddress(address);
+                if (callBack != null) {
+                    callBack.onSuccess(info);
+                }
+            } else {
+                // 定位失败，打印相关信息
+                LogUtils.w(LocationHelper.class, "onLocationChanged", "ErrCode: " + aMapLocation.getErrorCode() + ", errInfo:" + aMapLocation.getErrorInfo());
+                if (callBack != null) {
+                    callBack.onFailed(aMapLocation.getErrorInfo());
                 }
             }
         };

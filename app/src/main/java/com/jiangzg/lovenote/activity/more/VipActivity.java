@@ -42,7 +42,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class VipActivity extends BaseActivity<VipActivity> {
 
@@ -190,12 +189,7 @@ public class VipActivity extends BaseActivity<VipActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obRefresh = RxBus.register(ConsHelper.EVENT_VIP_INFO_REFRESH, new Action1<Vip>() {
-            @Override
-            public void call(Vip vip) {
-                refreshData();
-            }
-        });
+        obRefresh = RxBus.register(ConsHelper.EVENT_VIP_INFO_REFRESH, vip -> refreshData());
     }
 
     @Override

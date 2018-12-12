@@ -57,13 +57,10 @@ public class ImgSquareShowAdapter extends BaseQuickAdapter<String, BaseViewHolde
         layoutParams.height = imageHeight;
         ivShow.setLayoutParams(layoutParams);
         ivShow.setWidthAndHeight(imageWidth / 2, imageHeight / 2);
-        ivShow.setClickListener(new FrescoView.ClickListener() {
-            @Override
-            public void onSuccessClick(FrescoView iv) {
-                List<String> data = ImgSquareShowAdapter.this.getData();
-                ArrayList<String> pathList = new ArrayList<>(data);
-                BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
-            }
+        ivShow.setClickListener(iv -> {
+            List<String> data = ImgSquareShowAdapter.this.getData();
+            ArrayList<String> pathList = new ArrayList<>(data);
+            BigImageActivity.goActivityByOssList(mActivity, pathList, position, iv);
         });
         ivShow.setData(item);
         // limit

@@ -45,12 +45,7 @@ public class ViewHelper {
         }
         if (navBack) {
             //tb.setNavigationIcon(R.drawable.ab_android);
-            tb.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    activity.finish();
-                }
-            });
+            tb.setNavigationOnClickListener(v -> activity.finish());
         } else {
             tb.setTitleMarginStart(50);
         }

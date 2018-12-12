@@ -37,7 +37,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class VideoListActivity extends BaseActivity<VideoListActivity> {
 
@@ -99,18 +98,8 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -146,19 +135,13 @@ public class VideoListActivity extends BaseActivity<VideoListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_VIDEO_LIST_REFRESH, new Action1<List<Video>>() {
-            @Override
-            public void call(List<Video> videoList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_VIDEO_LIST_REFRESH, videoList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, new Action1<Video>() {
-            @Override
-            public void call(Video video) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), video);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_VIDEO_LIST_ITEM_DELETE, video -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), video);
         });
         // refresh
         recyclerHelper.dataRefresh();

@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -66,7 +64,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
@@ -336,65 +333,47 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obAddPlace = RxBus.register(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, new Action1<TravelPlace>() {
-            @Override
-            public void call(TravelPlace travelPlace) {
-                if (recyclerPlace == null) return;
-                List<TravelPlace> placeList = new ArrayList<>();
-                placeList.add(travelPlace);
-                recyclerPlace.dataAdd(placeList);
-                refreshAddView();
-            }
+        obAddPlace = RxBus.register(ConsHelper.EVENT_TRAVEL_EDIT_ADD_PLACE, travelPlace -> {
+            if (recyclerPlace == null) return;
+            List<TravelPlace> placeList = new ArrayList<>();
+            placeList.add(travelPlace);
+            recyclerPlace.dataAdd(placeList);
+            refreshAddView();
         });
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
-            @Override
-            public void call(Album album) {
-                if (recyclerAlbum == null) return;
-                List<Album> albumList = new ArrayList<>();
-                albumList.add(album);
-                recyclerAlbum.dataAdd(albumList);
-                refreshAddView();
-            }
+        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, album -> {
+            if (recyclerAlbum == null) return;
+            List<Album> albumList = new ArrayList<>();
+            albumList.add(album);
+            recyclerAlbum.dataAdd(albumList);
+            refreshAddView();
         });
-        obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, new Action1<Video>() {
-            @Override
-            public void call(Video video) {
-                if (recyclerVideo == null) return;
-                List<Video> videoList = new ArrayList<>();
-                videoList.add(video);
-                recyclerVideo.dataAdd(videoList);
-                refreshAddView();
-            }
+        obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, video -> {
+            if (recyclerVideo == null) return;
+            List<Video> videoList = new ArrayList<>();
+            videoList.add(video);
+            recyclerVideo.dataAdd(videoList);
+            refreshAddView();
         });
-        obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, new Action1<Food>() {
-            @Override
-            public void call(Food food) {
-                if (recyclerFood == null) return;
-                List<Food> foodList = new ArrayList<>();
-                foodList.add(food);
-                recyclerFood.dataAdd(foodList);
-                refreshAddView();
-            }
+        obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, food -> {
+            if (recyclerFood == null) return;
+            List<Food> foodList = new ArrayList<>();
+            foodList.add(food);
+            recyclerFood.dataAdd(foodList);
+            refreshAddView();
         });
-        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, new Action1<Movie>() {
-            @Override
-            public void call(Movie movie) {
-                if (recyclerMovie == null) return;
-                List<Movie> movieList = new ArrayList<>();
-                movieList.add(movie);
-                recyclerMovie.dataAdd(movieList);
-                refreshAddView();
-            }
+        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, movie -> {
+            if (recyclerMovie == null) return;
+            List<Movie> movieList = new ArrayList<>();
+            movieList.add(movie);
+            recyclerMovie.dataAdd(movieList);
+            refreshAddView();
         });
-        obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, new Action1<Diary>() {
-            @Override
-            public void call(Diary diary) {
-                if (recyclerDiary == null) return;
-                List<Diary> diaryList = new ArrayList<>();
-                diaryList.add(diary);
-                recyclerDiary.dataAdd(diaryList);
-                refreshAddView();
-            }
+        obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, diary -> {
+            if (recyclerDiary == null) return;
+            List<Diary> diaryList = new ArrayList<>();
+            diaryList.add(diary);
+            recyclerDiary.dataAdd(diaryList);
+            refreshAddView();
         });
     }
 
@@ -532,7 +511,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void refreshPlaceView() {
         if (travel == null || recyclerPlace == null) return;
-        List<TravelPlace> travelPlaces = travel.getTravelPlaceList() == null ? new ArrayList<TravelPlace>() : travel.getTravelPlaceList();
+        List<TravelPlace> travelPlaces = travel.getTravelPlaceList() == null ? new ArrayList<>() : travel.getTravelPlaceList();
         // 不能直接引用，得转移
         List<TravelPlace> placeList = new ArrayList<>(travelPlaces);
         recyclerPlace.dataNew(placeList, 0);
@@ -570,12 +549,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
 
     private void showDatePicker() {
         if (travel == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(travel.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                travel.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(travel.getHappenAt()), time -> {
+            travel.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -592,12 +568,9 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
                 .content(contentRes)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        adapter.remove(position);
-                        refreshAddView();
-                    }
+                .onPositive((dialog1, which) -> {
+                    adapter.remove(position);
+                    refreshAddView();
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
@@ -693,7 +666,7 @@ public class TravelEditActivity extends BaseActivity<TravelEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Travel>> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<Travel>());
+                RxBus.Event<ArrayList<Travel>> event = new RxBus.Event<>(ConsHelper.EVENT_TRAVEL_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

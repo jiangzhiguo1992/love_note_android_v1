@@ -2,11 +2,9 @@ package com.jiangzg.lovenote.helper;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.application.AppInfo;
 import com.jiangzg.base.application.AppUtils;
@@ -158,18 +156,8 @@ public class RetrofitHelper {
         }
         // 对话框
         if (loading != null) {
-            loading.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    cancel(call);
-                }
-            });
-            MyApp.get().getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    DialogUtils.show(loading);
-                }
-            });
+            loading.setOnDismissListener(dialog -> cancel(call));
+            MyApp.get().getHandler().post(() -> DialogUtils.show(loading));
         }
         // 开始请求
         call.enqueue(new Callback<Result>() {
@@ -251,12 +239,7 @@ public class RetrofitHelper {
                         .canceledOnTouchOutside(false)
                         .content(message)
                         .positiveText(R.string.i_want_feedback)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                SuggestAddActivity.goActivity(top);
-                            }
-                        })
+                        .onPositive((dialog, which) -> SuggestAddActivity.goActivity(top))
                         .negativeText(R.string.i_know)
                         .build();
                 DialogHelper.showWithAnim(dialogMsg);
@@ -269,12 +252,9 @@ public class RetrofitHelper {
                         .content(R.string.http_error_time_maybe_setting_wrong)
                         .positiveText(R.string.go_to_setting)
                         .negativeText(R.string.i_know)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                Intent netSettings = IntentFactory.getNetSettings();
-                                ActivityTrans.start(top, netSettings);
-                            }
+                        .onPositive((dialog, which) -> {
+                            Intent netSettings = IntentFactory.getNetSettings();
+                            ActivityTrans.start(top, netSettings);
                         })
                         .build();
                 DialogHelper.showWithAnim(dialog408);
@@ -294,12 +274,7 @@ public class RetrofitHelper {
                         .canceledOnTouchOutside(false)
                         .content(R.string.server_error)
                         .positiveText(R.string.i_know)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                AppUtils.appExit();
-                            }
-                        })
+                        .dismissListener(dialog -> AppUtils.appExit())
                         .build();
                 DialogHelper.showWithAnim(dialog500);
                 break;
@@ -310,12 +285,7 @@ public class RetrofitHelper {
                         .canceledOnTouchOutside(false)
                         .content(message + "\n" + SPHelper.getCommonConst().getOfficialGroup())
                         .positiveText(R.string.i_know)
-                        .dismissListener(new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialog) {
-                                AppUtils.appExit();
-                            }
-                        })
+                        .dismissListener(dialog -> AppUtils.appExit())
                         .build();
                 DialogHelper.showWithAnim(dialog503);
                 break;
@@ -326,12 +296,7 @@ public class RetrofitHelper {
                         .canceledOnTouchOutside(false)
                         .content(message)
                         .positiveText(R.string.i_want_feedback)
-                        .onPositive(new MaterialDialog.SingleButtonCallback() {
-                            @Override
-                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                SuggestAddActivity.goActivity(top);
-                            }
-                        })
+                        .onPositive((dialog, which) -> SuggestAddActivity.goActivity(top))
                         .negativeText(R.string.i_know)
                         .build();
                 DialogHelper.showWithAnim(dialogDef);
@@ -394,31 +359,23 @@ public class RetrofitHelper {
 
     /* 获取head */
     private Interceptor getHead(final HashMap<String, String> headParams) {
-        return new Interceptor() {
-            @NonNull
-            @Override
-            public okhttp3.Response intercept(@NonNull Chain chain) throws IOException {
-                Request.Builder builder = chain.request().newBuilder();
-                for (String key : headParams.keySet()) {
-                    builder.addHeader(key, headParams.get(key));
-                }
-                Request request = builder.build();
-                return chain.proceed(request);
+        return chain -> {
+            Request.Builder builder = chain.request().newBuilder();
+            for (String key : headParams.keySet()) {
+                builder.addHeader(key, headParams.get(key));
             }
+            Request request = builder.build();
+            return chain.proceed(request);
         };
     }
 
     /* 获取日志拦截器 */
     private Interceptor getLogInterceptor(HttpLoggingInterceptor.Level log) {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(
-                new HttpLoggingInterceptor.Logger() {
-                    @Override
-                    public void log(@NonNull String message) {
-                        String log = message.trim();
-                        if (StringUtils.isEmpty(log)) return;
-                        LogUtils.d(RetrofitHelper.class, "getLogInterceptor", log);
-                    }
-                });
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(message -> {
+            String log1 = message.trim();
+            if (StringUtils.isEmpty(log1)) return;
+            LogUtils.d(RetrofitHelper.class, "getLogInterceptor", log1);
+        });
         loggingInterceptor.setLevel(log);
         return loggingInterceptor;
     }

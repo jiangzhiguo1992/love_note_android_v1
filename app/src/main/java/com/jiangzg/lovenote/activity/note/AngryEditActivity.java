@@ -132,18 +132,15 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
 
     private void initHappenCheck() {
         final User user = SPHelper.getMe();
-        rgHappenUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (angry == null) return;
-                switch (checkedId) {
-                    case R.id.rbHappenMe: // 我的
-                        angry.setHappenId(UserHelper.getMyId(user));
-                        break;
-                    case R.id.rbHappenTa: // Ta的
-                        angry.setHappenId(UserHelper.getTaId(user));
-                        break;
-                }
+        rgHappenUser.setOnCheckedChangeListener((group, checkedId) -> {
+            if (angry == null) return;
+            switch (checkedId) {
+                case R.id.rbHappenMe: // 我的
+                    angry.setHappenId(UserHelper.getMyId(user));
+                    break;
+                case R.id.rbHappenTa: // Ta的
+                    angry.setHappenId(UserHelper.getTaId(user));
+                    break;
             }
         });
         rbHappenMe.setChecked(true);
@@ -151,12 +148,9 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
 
     private void showDatePicker() {
         if (angry == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                angry.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(angry.getHappenAt()), time -> {
+            angry.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -196,7 +190,7 @@ public class AngryEditActivity extends BaseActivity<AngryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Angry>> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_REFRESH, new ArrayList<Angry>());
+                RxBus.Event<ArrayList<Angry>> event = new RxBus.Event<>(ConsHelper.EVENT_ANGRY_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();

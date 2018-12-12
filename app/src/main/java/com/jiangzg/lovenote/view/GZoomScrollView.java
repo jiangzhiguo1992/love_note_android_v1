@@ -105,12 +105,9 @@ public class GZoomScrollView extends ScrollView implements View.OnTouchListener 
         // 属性动画(没有设置View？)
         ValueAnimator anim = ObjectAnimator.ofFloat(0.0F, 1.0F).setDuration((long) (distance * 0.7));
         // 动画监听(这里是用setLayoutParams来模仿属性动画吗)
-        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float cVal = (Float) animation.getAnimatedValue();
-                setZoom(distance - ((distance) * cVal));
-            }
+        anim.addUpdateListener(animation -> {
+            float cVal = (Float) animation.getAnimatedValue();
+            setZoom(distance - ((distance) * cVal));
         });
         anim.start();
     }

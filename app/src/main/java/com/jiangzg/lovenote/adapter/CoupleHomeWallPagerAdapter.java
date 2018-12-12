@@ -140,32 +140,29 @@ public class CoupleHomeWallPagerAdapter extends PagerAdapter {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mPager == null) return;
-                        if (ossKeyList == null || ossKeyList.size() <= 1) return;
-                        // 停止其他pager的动画
-                        stopOtherAnimation();
-                        // 随机展示
-                        final int nextInt = new Random().nextInt(ossKeyList.size());
-                        int shouldIndex = nextInt;
-                        if (nextInt == mPager.getCurrentItem()) {
-                            if (nextInt >= ossKeyList.size() - 1) {
-                                shouldIndex = 0;
-                            } else {
-                                shouldIndex = nextInt + 1;
-                            }
-                        }
-                        // 不要动画(倒退时，也会有动画)
-                        mPager.setCurrentItem(shouldIndex, false);
-                        // Animation
-                        View child = mPager.getChildAt(shouldIndex);
-                        if (child != null) {
-                            child.startAnimation(getAnimation());
+                MyApp.get().getHandler().post(() -> {
+                    if (mPager == null) return;
+                    if (ossKeyList == null || ossKeyList.size() <= 1) return;
+                    // 停止其他pager的动画
+                    stopOtherAnimation();
+                    // 随机展示
+                    final int nextInt = new Random().nextInt(ossKeyList.size());
+                    int shouldIndex = nextInt;
+                    if (nextInt == mPager.getCurrentItem()) {
+                        if (nextInt >= ossKeyList.size() - 1) {
+                            shouldIndex = 0;
                         } else {
-                            LogUtils.w(CoupleHomeWallPagerAdapter.class, "startAutoNext", "child == null");
+                            shouldIndex = nextInt + 1;
                         }
+                    }
+                    // 不要动画(倒退时，也会有动画)
+                    mPager.setCurrentItem(shouldIndex, false);
+                    // Animation
+                    View child = mPager.getChildAt(shouldIndex);
+                    if (child != null) {
+                        child.startAnimation(getAnimation());
+                    } else {
+                        LogUtils.w(CoupleHomeWallPagerAdapter.class, "startAutoNext", "child == null");
                     }
                 });
             }

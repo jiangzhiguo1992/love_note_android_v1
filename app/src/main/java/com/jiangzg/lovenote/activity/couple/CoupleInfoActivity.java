@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.couple;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.ConstantUtils;
 import com.jiangzg.base.common.FileUtils;
@@ -141,12 +139,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_primary, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreTransView())
                 .setAdapter()
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getCoupleStateList(true);
-                    }
-                });
+                .listenerMore(currentCount -> getCoupleStateList(true));
         // view
         setViewData();
     }
@@ -356,24 +349,16 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 .canceledOnTouchOutside(true)
                 .autoDismiss(true)
                 .title(R.string.modify_ta_name)
-                .input(hint, show, false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString());
-                    }
-                })
+                .input(hint, show, false, (dialog, input) -> LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString()))
                 .inputRange(1, coupleNameLength)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        // api
-                        EditText editText = dialog.getInputEditText();
-                        if (editText != null) {
-                            String modifyName = editText.getText().toString();
-                            apiCoupleInfo("", modifyName);
-                        }
+                .onPositive((dialog, which) -> {
+                    // api
+                    EditText editText = dialog.getInputEditText();
+                    if (editText != null) {
+                        String modifyName = editText.getText().toString();
+                        apiCoupleInfo("", modifyName);
                     }
                 })
                 .build();
@@ -437,12 +422,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
                 .content(R.string.impulse_is_devil_3)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        coupleStatus(ApiHelper.COUPLE_UPDATE_BAD);
-                    }
-                })
+                .onPositive((dialog1, which) -> coupleStatus(ApiHelper.COUPLE_UPDATE_BAD))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

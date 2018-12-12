@@ -1,7 +1,6 @@
 package com.jiangzg.lovenote.helper;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.alibaba.sdk.android.oss.ClientConfiguration;
@@ -10,7 +9,6 @@ import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
@@ -155,12 +153,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "compressJpeg", "source == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(source, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(source, ""));
             }
             return;
         }
@@ -224,12 +217,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadJpeg", "ossDirPath == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(source, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(source, ""));
             }
             return null;
         }
@@ -247,12 +235,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadAudio", "ossDirPath == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(source, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(source, ""));
             }
             return null;
         }
@@ -287,12 +270,7 @@ public class OssHelper {
             LogUtils.i(OssHelper.class, "uploadFile", "source == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(source, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(source, ""));
             }
             return null;
         }
@@ -304,37 +282,24 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadFile", "ossFilePath == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(source, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(source, ""));
             }
             return null;
         }
         LogUtils.i(OssHelper.class, "uploadFile", "ossFilePath = " + ossFilePath);
         // dialog
         if (progress != null && !progress.isShowing()) {
-            MyApp.get().getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    DialogHelper.showWithAnim(progress);
-                }
-            });
+            MyApp.get().getHandler().post(() -> DialogHelper.showWithAnim(progress));
         }
         // 构造上传请求
         String bucket = SPHelper.getOssInfo().getBucket();
         PutObjectRequest put = new PutObjectRequest(bucket, ossFilePath, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
-        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-            @Override
-            public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                //LogUtils.d(LOG_TAG, "uploadFile: currentSize: " + currentSize + " totalSize: " + totalSize);
-                if (progress != null && progress.isShowing()) {
-                    int percent = (int) (((float) currentSize / (float) totalSize) * 100);
-                    progress.setProgress(percent);
-                }
+        put.setProgressCallback((request, currentSize, totalSize) -> {
+            //LogUtils.d(LOG_TAG, "uploadFile: currentSize: " + currentSize + " totalSize: " + totalSize);
+            if (progress != null && progress.isShowing()) {
+                int percent = (int) (((float) currentSize / (float) totalSize) * 100);
+                progress.setProgress(percent);
             }
         });
         // 开始任务
@@ -346,12 +311,7 @@ public class OssHelper {
                 final String uploadKey = request.getObjectKey();
                 LogUtils.i(OssHelper.class, "uploadFile", "onSuccess: objectKey = " + uploadKey);
                 if (callBack != null) {
-                    MyApp.get().getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callBack.success(source, uploadKey);
-                        }
-                    });
+                    MyApp.get().getHandler().post(() -> callBack.success(source, uploadKey));
                 }
             }
 
@@ -382,23 +342,15 @@ public class OssHelper {
                 }
                 // 回调
                 if (callBack != null) {
-                    MyApp.get().getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callBack.failure(source, "");
-                        }
-                    });
+                    MyApp.get().getHandler().post(() -> callBack.failure(source, ""));
                 }
             }
         });
         // processDialog
         if (progress != null) {
-            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    LogUtils.i(OssHelper.class, "uploadFile", "cancel");
-                    taskCancel(task);
-                }
+            progress.setOnCancelListener(dialog -> {
+                LogUtils.i(OssHelper.class, "uploadFile", "cancel");
+                taskCancel(task);
             });
         }
         return task;
@@ -428,12 +380,7 @@ public class OssHelper {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
             DialogUtils.dismiss(progress);
             LogUtils.w(OssHelper.class, "compressJpegList", "currentIndex = " + currentIndex + " -- sourceList == null");
-            MyApp.get().getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    callBack.failure(sourceList, "");
-                }
-            });
+            MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
             return;
         }
         // ossDirPath
@@ -443,12 +390,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "compressJpegList", "currentIndex = " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(sourceList, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
             }
             return;
         }
@@ -460,26 +402,18 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "compressJpegList", "currentIndex = " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(sourceList, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
             }
             return;
         }
         // progress
         if (progress != null) {
-            MyApp.get().getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    String colonShow = MyApp.get().getString(R.string.are_compress_space_holder_holder);
-                    String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
-                    progress.setContent(progressShow);
-                    if (currentIndex <= 0) {
-                        DialogHelper.showWithAnim(progress);
-                    }
+            MyApp.get().getHandler().post(() -> {
+                String colonShow = MyApp.get().getString(R.string.are_compress_space_holder_holder);
+                String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
+                progress.setContent(progressShow);
+                if (currentIndex <= 0) {
+                    DialogHelper.showWithAnim(progress);
                 }
             });
         }
@@ -547,7 +481,7 @@ public class OssHelper {
                 .progress(false, 100)
                 .negativeText(R.string.cancel_upload)
                 .build();
-        return uploadJpegList(progress, ossDirPath, sourceList, 0, new ArrayList<String>(), callBack);
+        return uploadJpegList(progress, ossDirPath, sourceList, 0, new ArrayList<>(), callBack);
     }
 
     // 上传任务
@@ -559,12 +493,7 @@ public class OssHelper {
             ToastUtils.show(MyApp.get().getString(R.string.not_found_upload_file));
             DialogUtils.dismiss(progress);
             LogUtils.w(OssHelper.class, "uploadJpegList", "currentIndex = " + currentIndex + " -- sourceList == null");
-            MyApp.get().getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    callBack.failure(sourceList, "");
-                }
-            });
+            MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
             return null;
         }
         // ossDirPath
@@ -574,12 +503,7 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadJpegList", "currentIndex = " + currentIndex + " -- ossDirPath == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(sourceList, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
             }
             return null;
         }
@@ -592,26 +516,18 @@ public class OssHelper {
             LogUtils.w(OssHelper.class, "uploadJpegList", "currentIndex == " + currentIndex + " -- source == null");
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(sourceList, "");
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
             }
             return null;
         }
         // progress
         if (progress != null) {
-            MyApp.get().getHandler().post(new Runnable() {
-                @Override
-                public void run() {
-                    String colonShow = MyApp.get().getString(R.string.are_upload_space_holder_holder);
-                    String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
-                    progress.setContent(progressShow);
-                    if (currentIndex <= 0) {
-                        DialogHelper.showWithAnim(progress);
-                    }
+            MyApp.get().getHandler().post(() -> {
+                String colonShow = MyApp.get().getString(R.string.are_upload_space_holder_holder);
+                String progressShow = String.format(Locale.getDefault(), colonShow, currentIndex + 1, sourceList.size());
+                progress.setContent(progressShow);
+                if (currentIndex <= 0) {
+                    DialogHelper.showWithAnim(progress);
                 }
             });
         }
@@ -621,14 +537,11 @@ public class OssHelper {
         String bucket = SPHelper.getOssInfo().getBucket();
         PutObjectRequest put = new PutObjectRequest(bucket, objectKey, source.getAbsolutePath());
         // 异步上传时可以设置进度回调
-        put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
-            @Override
-            public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
-                //LogUtils.d(LOG_TAG, "uploadJpegList: currentSize: " + currentSize + " totalSize: " + totalSize);
-                if (progress != null && progress.isShowing()) {
-                    int percent = (int) (((float) currentSize / (float) totalSize) * 100);
-                    progress.setProgress(percent);
-                }
+        put.setProgressCallback((request, currentSize, totalSize) -> {
+            //LogUtils.d(LOG_TAG, "uploadJpegList: currentSize: " + currentSize + " totalSize: " + totalSize);
+            if (progress != null && progress.isShowing()) {
+                int percent = (int) (((float) currentSize / (float) totalSize) * 100);
+                progress.setProgress(percent);
             }
         });
         // 开始任务
@@ -646,12 +559,7 @@ public class OssHelper {
                     DialogUtils.dismiss(progress);
                     // 回调
                     if (callBack != null) {
-                        MyApp.get().getHandler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                callBack.success(sourceList, ossPathList);
-                            }
-                        });
+                        MyApp.get().getHandler().post(() -> callBack.success(sourceList, ossPathList));
                     }
                 }
             }
@@ -678,23 +586,15 @@ public class OssHelper {
                 }
                 // 回调
                 if (callBack != null) {
-                    MyApp.get().getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callBack.failure(sourceList, "");
-                        }
-                    });
+                    MyApp.get().getHandler().post(() -> callBack.failure(sourceList, ""));
                 }
             }
         });
         // processDialog
         if (progress != null) {
-            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    LogUtils.i(OssHelper.class, "uploadJpegList", "cancel");
-                    taskCancel(task);
-                }
+            progress.setOnCancelListener(dialog -> {
+                LogUtils.i(OssHelper.class, "uploadJpegList", "cancel");
+                taskCancel(task);
             });
         }
         return task;
@@ -717,12 +617,7 @@ public class OssHelper {
             }
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(objectKey);
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(objectKey));
             }
             return null;
         }
@@ -737,37 +632,24 @@ public class OssHelper {
             }
             // 回调
             if (callBack != null) {
-                MyApp.get().getHandler().post(new Runnable() {
-                    @Override
-                    public void run() {
-                        callBack.failure(objectKey);
-                    }
-                });
+                MyApp.get().getHandler().post(() -> callBack.failure(objectKey));
             }
             return null;
         }
         // 删除旧文件，并设置创建时间
         FileUtils.createFileByDeleteOldFile(target);
-        boolean lastModified = target.setLastModified(DateUtils.getCurrentLong());
+        //boolean lastModified = target.setLastModified(DateUtils.getCurrentLong());
         // dialog
-        MyApp.get().getHandler().post(new Runnable() {
-            @Override
-            public void run() {
-                DialogHelper.showWithAnim(progress);
-            }
-        });
+        MyApp.get().getHandler().post(() -> DialogHelper.showWithAnim(progress));
         // 构造下载文件请求，不是临时url，用key和secret访问，不用签名
         String bucket = SPHelper.getOssInfo().getBucket();
         GetObjectRequest get = new GetObjectRequest(bucket, objectKey);
         // 异步下载时可以设置进度回调
-        get.setProgressListener(new OSSProgressCallback<GetObjectRequest>() {
-            @Override
-            public void onProgress(GetObjectRequest request, long currentSize, long totalSize) {
-                //LogUtils.d(LOG_TAG, "downloadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
-                if (progress != null && progress.isShowing()) {
-                    int percent = (int) (((float) currentSize / (float) totalSize) * 100);
-                    progress.setProgress(percent);
-                }
+        get.setProgressListener((request, currentSize, totalSize) -> {
+            //LogUtils.d(LOG_TAG, "downloadObject: currentSize: " + currentSize + " totalSize: " + totalSize);
+            if (progress != null && progress.isShowing()) {
+                int percent = (int) (((float) currentSize / (float) totalSize) * 100);
+                progress.setProgress(percent);
             }
         });
         // 开始任务
@@ -786,12 +668,7 @@ public class OssHelper {
                 if (ok) {
                     // 解析成功
                     if (callBack != null) {
-                        MyApp.get().getHandler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                callBack.success(downloadKey);
-                            }
-                        });
+                        MyApp.get().getHandler().post(() -> callBack.success(downloadKey));
                     }
                 } else {
                     // toast
@@ -802,12 +679,7 @@ public class OssHelper {
                     ResHelper.deleteFileInBackground(target);
                     // 解析失败
                     if (callBack != null) {
-                        MyApp.get().getHandler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                callBack.failure(downloadKey);
-                            }
-                        });
+                        MyApp.get().getHandler().post(() -> callBack.failure(downloadKey));
                     }
                 }
             }
@@ -840,26 +712,18 @@ public class OssHelper {
                 }
                 // 回调
                 if (callBack != null) {
-                    MyApp.get().getHandler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            callBack.failure(downloadKey);
-                        }
-                    });
+                    MyApp.get().getHandler().post(() -> callBack.failure(downloadKey));
                 }
             }
         });
         // processDialog
         if (progress != null) {
-            progress.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    LogUtils.d(OssHelper.class, "downloadObject", "cancel");
-                    // 删除下载文件
-                    ResHelper.deleteFileInBackground(target);
-                    // 取消任务
-                    taskCancel(task);
-                }
+            progress.setOnCancelListener(dialog -> {
+                LogUtils.d(OssHelper.class, "downloadObject", "cancel");
+                // 删除下载文件
+                ResHelper.deleteFileInBackground(target);
+                // 取消任务
+                taskCancel(task);
             });
         }
         return task;

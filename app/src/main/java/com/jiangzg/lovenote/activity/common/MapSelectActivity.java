@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * 地址选择
@@ -148,13 +147,10 @@ public class MapSelectActivity extends BaseActivity<MapSelectActivity> {
             }
         });
         // 地图搜索
-        obMapSearch = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                // 修改选中位置
-                //setLocationSelect(info, true, true);
-                mActivity.finish();
-            }
+        obMapSearch = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+            // 修改选中位置
+            //setLocationSelect(info, true, true);
+            mActivity.finish();
         });
         // 传入的位置
         LocationInfo info = null;

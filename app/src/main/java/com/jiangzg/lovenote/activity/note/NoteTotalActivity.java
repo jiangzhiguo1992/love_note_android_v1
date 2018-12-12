@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -99,12 +98,7 @@ public class NoteTotalActivity extends BaseActivity<NoteTotalActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.statistics), true);
         srl.setEnabled(false);
         // srl
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
+        srl.setOnRefreshListener(this::refreshData);
     }
 
     @Override

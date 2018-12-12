@@ -19,11 +19,11 @@ import com.jiangzg.lovenote.helper.ListHelper;
 import com.jiangzg.lovenote.helper.RecyclerHelper;
 import com.jiangzg.lovenote.helper.RetrofitHelper;
 import com.jiangzg.lovenote.helper.RxBus;
+import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.helper.ViewHelper;
 import com.jiangzg.lovenote.model.api.API;
 import com.jiangzg.lovenote.model.api.Result;
 import com.jiangzg.lovenote.model.entity.Suggest;
-import com.jiangzg.lovenote.helper.SuggestHelper;
 import com.jiangzg.lovenote.view.GSwipeRefreshLayout;
 
 import java.util.List;
@@ -31,7 +31,6 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
 
@@ -76,18 +75,8 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -108,26 +97,17 @@ public class SuggestListActivity extends BaseActivity<SuggestListActivity> {
             ViewHelper.initTopBar(mActivity, tb, getString(R.string.my_push), true);
         }
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
-            @Override
-            public void call(List<Suggest> suggests) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
-            @Override
-            public void call(Suggest suggest) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
-            @Override
-            public void call(Suggest suggest) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
         // api
         recyclerHelper.dataRefresh();

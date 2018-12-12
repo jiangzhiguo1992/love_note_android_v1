@@ -97,12 +97,7 @@ public class LoginActivity extends BaseActivity<LoginActivity> {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.login), true);
         ViewHelper.setLineBottom(tvProtocol);
         // loginType
-        rgLoginType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                toggleLoginType();
-            }
-        });
+        rgLoginType.setOnCheckedChangeListener((group, checkedId) -> toggleLoginType());
         // 默认密码登录
         rbLoginPwd.setChecked(true);
     }

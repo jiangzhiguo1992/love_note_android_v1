@@ -214,18 +214,10 @@ public class RecyclerHelper {
         if (mRecycler == null || mAdapter == null || listener == null) return this;
         mMoreListener = listener;
         mAdapter.setEnableLoadMore(true);
-        mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mRecycler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mMoreListener == null || mAdapter == null) return;
-                        mMoreListener.onMore(mAdapter.getItemCount());
-                    }
-                });
-            }
-        }, mRecycler);
+        mAdapter.setOnLoadMoreListener(() -> mRecycler.post(() -> {
+            if (mMoreListener == null || mAdapter == null) return;
+            mMoreListener.onMore(mAdapter.getItemCount());
+        }), mRecycler);
         return this;
     }
 
@@ -239,18 +231,12 @@ public class RecyclerHelper {
     public RecyclerHelper listenerRefresh(RefreshListener listener) {
         if (mRefresh == null || listener == null) return this;
         mRefreshListener = listener;
-        mRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mRefresh == null) return;
-                mRefresh.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (mRefreshListener == null) return;
-                        mRefreshListener.onRefresh();
-                    }
-                });
-            }
+        mRefresh.setOnRefreshListener(() -> {
+            if (mRefresh == null) return;
+            mRefresh.post(() -> {
+                if (mRefreshListener == null) return;
+                mRefreshListener.onRefresh();
+            });
         });
         return this;
     }
@@ -261,15 +247,12 @@ public class RecyclerHelper {
      */
     public void dataRefresh() {
         if (mRefresh == null || mRefreshListener == null) return;
-        mRefresh.post(new Runnable() {
-            @Override
-            public void run() {
-                if (mRefresh != null) {
-                    mRefresh.setRefreshing(true); // 执行等待动画
-                }
-                if (mRefreshListener != null) {
-                    mRefreshListener.onRefresh();
-                }
+        mRefresh.post(() -> {
+            if (mRefresh != null) {
+                mRefresh.setRefreshing(true); // 执行等待动画
+            }
+            if (mRefreshListener != null) {
+                mRefreshListener.onRefresh();
             }
         });
     }

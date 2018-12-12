@@ -1,10 +1,8 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -79,12 +77,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
                 .content(R.string.confirm_del_comment)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delCommentApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> delCommentApi(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

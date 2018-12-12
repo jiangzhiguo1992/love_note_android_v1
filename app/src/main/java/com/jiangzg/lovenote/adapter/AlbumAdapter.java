@@ -1,6 +1,5 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -8,7 +7,6 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -190,12 +188,7 @@ public class AlbumAdapter extends BaseQuickAdapter<Album, BaseViewHolder> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.confirm_delete_this_album)
                 .positiveText(R.string.confirm)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delAlbumApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> delAlbumApi(position))
                 .negativeText(R.string.cancel)
                 .build();
         DialogHelper.showWithAnim(dialog);

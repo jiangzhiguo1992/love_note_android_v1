@@ -158,12 +158,9 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
 
     private void showDateTimePicker() {
         if (audio == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(audio.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                audio.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(audio.getHappenAt()), time -> {
+            audio.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -247,7 +244,7 @@ public class AudioEditActivity extends BaseActivity<AudioEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Audio>> event = new RxBus.Event<>(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new ArrayList<Audio>());
+                RxBus.Event<ArrayList<Audio>> event = new RxBus.Event<>(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 mActivity.finish();
             }

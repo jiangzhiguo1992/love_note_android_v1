@@ -3,15 +3,12 @@ package com.jiangzg.lovenote.activity.user;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.component.ActivityStack;
 import com.jiangzg.base.component.ActivityTrans;
@@ -77,40 +74,15 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
     protected void initView(Intent intent, Bundle state) {
         ViewHelper.initTopBar(mActivity, tb, getString(R.string.user_info), false);
         // 时间选择器
-        npYear.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return String.valueOf(value) + mActivity.getString(R.string.year);
-            }
-        });
-        npMonth.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return String.valueOf(value) + mActivity.getString(R.string.month);
-            }
-        });
-        npDay.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int value) {
-                return String.valueOf(value) + mActivity.getString(R.string.dayR);
-            }
-        });
+        npYear.setFormatter(value -> String.valueOf(value) + mActivity.getString(R.string.year));
+        npMonth.setFormatter(value -> String.valueOf(value) + mActivity.getString(R.string.month));
+        npDay.setFormatter(value -> String.valueOf(value) + mActivity.getString(R.string.dayR));
         setYeas();
         setMonths();
         setDays();
         // listener
-        npYear.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                setDays();
-            }
-        });
-        npMonth.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                setDays();
-            }
-        });
+        npYear.setOnValueChangedListener((picker, oldVal, newVal) -> setDays());
+        npMonth.setOnValueChangedListener((picker, oldVal, newVal) -> setDays());
     }
 
     @Override
@@ -184,12 +156,7 @@ public class UserInfoActivity extends BaseActivity<UserInfoActivity> {
                 .content(message)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        pushUserInfo(sex, birth);
-                    }
-                })
+                .onPositive((dialog1, which) -> pushUserInfo(sex, birth))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

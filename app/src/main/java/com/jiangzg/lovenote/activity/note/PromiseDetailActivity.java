@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -54,7 +52,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
 
@@ -130,18 +127,8 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getBreakData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getBreakData(true);
-                    }
-                })
+                .listenerRefresh(() -> getBreakData(false))
+                .listenerMore(currentCount -> getBreakData(true))
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -176,12 +163,9 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, new Action1<Promise>() {
-            @Override
-            public void call(Promise promise) {
-                if (PromiseDetailActivity.this.promise == null) return;
-                refreshPromise(PromiseDetailActivity.this.promise.getId());
-            }
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_DETAIL_REFRESH, promise -> {
+            if (PromiseDetailActivity.this.promise == null) return;
+            refreshPromise(PromiseDetailActivity.this.promise.getId());
         });
     }
 
@@ -336,12 +320,7 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delPromise();
-                    }
-                })
+                .onPositive((dialog1, which) -> delPromise())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -366,12 +345,9 @@ public class PromiseDetailActivity extends BaseActivity<PromiseDetailActivity> {
     }
 
     private void showBreakTimePicker() {
-        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                breakHappen = TimeHelper.getGoTimeByJava(time);
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, DateUtils.getCurrentLong(), time -> {
+            breakHappen = TimeHelper.getGoTimeByJava(time);
+            refreshDateView();
         });
     }
 

@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -49,7 +47,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
 
@@ -125,36 +122,20 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obGiftSelect = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, new Action1<Gift>() {
-            @Override
-            public void call(Gift gift) {
-                updateGift(gift);
+        obGiftSelect = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, this::updateGift);
+        obPromiseSelect = RxBus.register(ConsHelper.EVENT_PROMISE_SELECT, this::updatePromise);
+        obPromiseListDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
+            if (recyclerPromise == null) return;
+            ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
+            if (recyclerPromise.getAdapter().getData().size() <= 0) {
+                // 删除承诺
+                tvPromiseAdd.setVisibility(View.VISIBLE);
+                rvPromise.setVisibility(View.GONE);
             }
         });
-        obPromiseSelect = RxBus.register(ConsHelper.EVENT_PROMISE_SELECT, new Action1<Promise>() {
-            @Override
-            public void call(Promise promise) {
-                updatePromise(promise);
-            }
-        });
-        obPromiseListDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
-            @Override
-            public void call(Promise promise) {
-                if (recyclerPromise == null) return;
-                ListHelper.removeObjInAdapter(recyclerPromise.getAdapter(), promise);
-                if (recyclerPromise.getAdapter().getData().size() <= 0) {
-                    // 删除承诺
-                    tvPromiseAdd.setVisibility(View.VISIBLE);
-                    rvPromise.setVisibility(View.GONE);
-                }
-            }
-        });
-        obPromiseListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
-            @Override
-            public void call(Promise promise) {
-                if (recyclerPromise == null) return;
-                ListHelper.refreshObjInAdapter(recyclerPromise.getAdapter(), promise);
-            }
+        obPromiseListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
+            if (recyclerPromise == null) return;
+            ListHelper.refreshObjInAdapter(recyclerPromise.getAdapter(), promise);
         });
     }
 
@@ -303,12 +284,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 .content(R.string.confirm_delete_this_angry)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi();
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -341,12 +317,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 .content(R.string.confirm_remove_this_gift)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        updateGift(new Gift());
-                    }
-                })
+                .onPositive((dialog1, which) -> updateGift(new Gift()))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -359,12 +330,7 @@ public class AngryDetailActivity extends BaseActivity<AngryDetailActivity> {
                 .content(R.string.confirm_remove_this_promise)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        updatePromise(new Promise());
-                    }
-                })
+                .onPositive((dialog1, which) -> updatePromise(new Promise()))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

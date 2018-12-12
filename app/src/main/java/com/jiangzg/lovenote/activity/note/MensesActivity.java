@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -14,7 +13,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.haibin.calendarview.CalendarView;
 import com.haibin.calendarview.WeekView;
@@ -128,14 +126,11 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         cvMenses.setMonthView(CalendarMonthView.class);
         cvMenses.update();
         // calendar监听
-        cvMenses.setOnYearChangeListener(new CalendarView.OnYearChangeListener() {
-            @Override
-            public void onYearChange(int year) {
-                if (selectYear == year) return;
-                selectYear = year;
-                selectMonth = -1;
-                refreshTopDateShow();
-            }
+        cvMenses.setOnYearChangeListener(year -> {
+            if (selectYear == year) return;
+            selectYear = year;
+            selectMonth = -1;
+            refreshTopDateShow();
         });
         cvMenses.setOnCalendarSelectListener(new CalendarView.OnCalendarSelectListener() {
             @Override
@@ -284,13 +279,10 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
         } else {
             rbTa.setChecked(true);
         }
-        rgUser.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                isMine = (R.id.rbMe == checkedId);
-                refreshBottomView();
-                refreshMonthData();
-            }
+        rgUser.setOnCheckedChangeListener((group, checkedId) -> {
+            isMine = (R.id.rbMe == checkedId);
+            refreshBottomView();
+            refreshMonthData();
         });
     }
 
@@ -434,12 +426,7 @@ public class MensesActivity extends BaseActivity<MensesActivity> {
                 .content(R.string.confirm_del_the_day_menses)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(year, month, day);
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi(year, month, day))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

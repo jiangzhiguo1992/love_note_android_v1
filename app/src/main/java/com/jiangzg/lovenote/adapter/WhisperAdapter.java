@@ -50,12 +50,7 @@ public class WhisperAdapter extends BaseMultiItemQuickAdapter<Whisper, BaseViewH
         if (isImage) {
             tvContent.setVisibility(View.GONE);
             ivContent.setVisibility(View.VISIBLE);
-            ivContent.setClickListener(new FrescoView.ClickListener() {
-                @Override
-                public void onSuccessClick(FrescoView iv) {
-                    BigImageActivity.goActivityByOss(mActivity, content, iv);
-                }
-            });
+            ivContent.setClickListener(iv -> BigImageActivity.goActivityByOss(mActivity, content, iv));
             ivContent.setData(content);
         } else {
             tvContent.setVisibility(View.VISIBLE);

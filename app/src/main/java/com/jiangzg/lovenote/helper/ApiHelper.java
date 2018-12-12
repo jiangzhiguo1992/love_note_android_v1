@@ -5,11 +5,9 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.widget.EditText;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jiangzg.base.application.AppInfo;
@@ -231,12 +229,7 @@ public class ApiHelper {
             HomeActivity.goActivity(mActivity);
         } else {
             // 间隔时间太小
-            MyApp.get().getHandler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    HomeActivity.goActivity(mActivity);
-                }
-            }, totalWait - between);
+            MyApp.get().getHandler().postDelayed(() -> HomeActivity.goActivity(mActivity), totalWait - between);
         }
     }
 
@@ -256,12 +249,9 @@ public class ApiHelper {
 
             @Override
             public void onFailure(int code, String message, Result.Data data) {
-                MyApp.get().getHandler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        LogUtils.w(ApiHelper.class, "ossInfoUpdate", "oss更新失败");
-                        ossInfoUpdate(); // 重复更新
-                    }
+                MyApp.get().getHandler().postDelayed(() -> {
+                    LogUtils.w(ApiHelper.class, "ossInfoUpdate", "oss更新失败");
+                    ossInfoUpdate(); // 重复更新
                 }, ConstantUtils.MIN);
             }
         });
@@ -276,12 +266,7 @@ public class ApiHelper {
                 .content(R.string.confirm_del_this_work)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delMatchWorks(adapter, position);
-                    }
-                })
+                .onPositive((dialog1, which) -> delMatchWorks(adapter, position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -355,24 +340,16 @@ public class ApiHelper {
                 .canceledOnTouchOutside(true)
                 .autoDismiss(true)
                 .inputType(InputType.TYPE_CLASS_NUMBER)
-                .input(hint, "", false, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString());
-                    }
-                })
+                .input(hint, "", false, (dialog, input) -> LogUtils.i(CoupleInfoActivity.class, "onInput", input.toString()))
                 .inputRange(1, 10)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        // api
-                        EditText editText = dialog.getInputEditText();
-                        if (editText != null) {
-                            String input = editText.getText().toString();
-                            matchCoinApi(adapter, position, input);
-                        }
+                .onPositive((dialog, which) -> {
+                    // api
+                    EditText editText = dialog.getInputEditText();
+                    if (editText != null) {
+                        String input = editText.getText().toString();
+                        matchCoinApi(adapter, position, input);
                     }
                 })
                 .build();

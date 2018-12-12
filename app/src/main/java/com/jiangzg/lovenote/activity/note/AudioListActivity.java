@@ -39,7 +39,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class AudioListActivity extends BaseActivity<AudioListActivity> {
 
@@ -91,18 +90,8 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemChildClickListener() {
                     @Override
                     public void onSimpleItemChildClick(BaseQuickAdapter adapter, View view, int position) {
@@ -127,19 +116,13 @@ public class AudioListActivity extends BaseActivity<AudioListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_REFRESH, new Action1<List<Audio>>() {
-            @Override
-            public void call(List<Audio> audioList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_REFRESH, audioList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, new Action1<Audio>() {
-            @Override
-            public void call(Audio audio) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), audio);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_AUDIO_LIST_ITEM_DELETE, audio -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), audio);
         });
         // refresh
         recyclerHelper.dataRefresh();

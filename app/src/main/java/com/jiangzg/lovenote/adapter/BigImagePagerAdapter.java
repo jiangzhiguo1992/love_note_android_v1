@@ -13,8 +13,6 @@ import com.jiangzg.lovenote.view.FrescoBigView;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.relex.photodraweeview.OnPhotoTapListener;
-
 /**
  * Created by JiangZhiGuo on 2016-11-9.
  * describe BigImagePagerAdapter
@@ -86,12 +84,9 @@ public class BigImagePagerAdapter extends PagerAdapter {
                 break;
         }
         // 单击退出全屏图
-        ivBig.setOnPhotoTapListener(new OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float x, float y) {
-                if (tapListener != null) {
-                    tapListener.onTab(view, x, y);
-                }
+        ivBig.setOnPhotoTapListener((view, x, y) -> {
+            if (tapListener != null) {
+                tapListener.onTab(view, x, y);
             }
         });
         // addView

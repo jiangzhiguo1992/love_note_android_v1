@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.activity.note;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -13,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -64,7 +62,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeignActivity> {
 
@@ -330,75 +327,54 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectGift = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, new Action1<Gift>() {
-            @Override
-            public void call(Gift gift) {
-                if (recyclerGift == null) return;
-                List<Gift> giftList = new ArrayList<>();
-                giftList.add(gift);
-                recyclerGift.dataAdd(giftList);
-                refreshAddView();
-            }
+        obSelectGift = RxBus.register(ConsHelper.EVENT_GIFT_SELECT, gift -> {
+            if (recyclerGift == null) return;
+            List<Gift> giftList = new ArrayList<>();
+            giftList.add(gift);
+            recyclerGift.dataAdd(giftList);
+            refreshAddView();
         });
-        obSelectTravel = RxBus.register(ConsHelper.EVENT_TRAVEL_SELECT, new Action1<Travel>() {
-            @Override
-            public void call(Travel travel) {
-                if (recyclerTravel == null) return;
-                List<Travel> travelList = new ArrayList<>();
-                travelList.add(travel);
-                recyclerTravel.dataAdd(travelList);
-                refreshAddView();
-            }
+        obSelectTravel = RxBus.register(ConsHelper.EVENT_TRAVEL_SELECT, travel -> {
+            if (recyclerTravel == null) return;
+            List<Travel> travelList = new ArrayList<>();
+            travelList.add(travel);
+            recyclerTravel.dataAdd(travelList);
+            refreshAddView();
         });
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
-            @Override
-            public void call(Album album) {
-                if (recyclerAlbum == null) return;
-                List<Album> albumList = new ArrayList<>();
-                albumList.add(album);
-                recyclerAlbum.dataAdd(albumList);
-                refreshAddView();
-            }
+        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, album -> {
+            if (recyclerAlbum == null) return;
+            List<Album> albumList = new ArrayList<>();
+            albumList.add(album);
+            recyclerAlbum.dataAdd(albumList);
+            refreshAddView();
         });
-        obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, new Action1<Video>() {
-            @Override
-            public void call(Video video) {
-                if (recyclerVideo == null) return;
-                List<Video> videoList = new ArrayList<>();
-                videoList.add(video);
-                recyclerVideo.dataAdd(videoList);
-                refreshAddView();
-            }
+        obSelectVideo = RxBus.register(ConsHelper.EVENT_VIDEO_SELECT, video -> {
+            if (recyclerVideo == null) return;
+            List<Video> videoList = new ArrayList<>();
+            videoList.add(video);
+            recyclerVideo.dataAdd(videoList);
+            refreshAddView();
         });
-        obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, new Action1<Food>() {
-            @Override
-            public void call(Food food) {
-                if (recyclerFood == null) return;
-                List<Food> foodList = new ArrayList<>();
-                foodList.add(food);
-                recyclerFood.dataAdd(foodList);
-                refreshAddView();
-            }
+        obSelectFood = RxBus.register(ConsHelper.EVENT_FOOD_SELECT, food -> {
+            if (recyclerFood == null) return;
+            List<Food> foodList = new ArrayList<>();
+            foodList.add(food);
+            recyclerFood.dataAdd(foodList);
+            refreshAddView();
         });
-        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, new Action1<Movie>() {
-            @Override
-            public void call(Movie movie) {
-                if (recyclerMovie == null) return;
-                List<Movie> movieList = new ArrayList<>();
-                movieList.add(movie);
-                recyclerMovie.dataAdd(movieList);
-                refreshAddView();
-            }
+        obSelectMovie = RxBus.register(ConsHelper.EVENT_MOVIE_SELECT, movie -> {
+            if (recyclerMovie == null) return;
+            List<Movie> movieList = new ArrayList<>();
+            movieList.add(movie);
+            recyclerMovie.dataAdd(movieList);
+            refreshAddView();
         });
-        obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, new Action1<Diary>() {
-            @Override
-            public void call(Diary diary) {
-                if (recyclerDiary == null) return;
-                List<Diary> diaryList = new ArrayList<>();
-                diaryList.add(diary);
-                recyclerDiary.dataAdd(diaryList);
-                refreshAddView();
-            }
+        obSelectDiary = RxBus.register(ConsHelper.EVENT_DIARY_SELECT, diary -> {
+            if (recyclerDiary == null) return;
+            List<Diary> diaryList = new ArrayList<>();
+            diaryList.add(diary);
+            recyclerDiary.dataAdd(diaryList);
+            refreshAddView();
         });
     }
 
@@ -472,12 +448,9 @@ public class SouvenirEditForeignActivity extends BaseActivity<SouvenirEditForeig
                 .content(contentRes)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        adapter.remove(position);
-                        refreshAddView();
-                    }
+                .onPositive((dialog1, which) -> {
+                    adapter.remove(position);
+                    refreshAddView();
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);

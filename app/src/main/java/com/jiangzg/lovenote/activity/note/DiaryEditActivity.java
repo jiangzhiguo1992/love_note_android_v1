@@ -195,12 +195,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
         rv.setVisibility(View.VISIBLE);
         int spanCount = childCount > 3 ? 3 : childCount;
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
-        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-            @Override
-            public void onAdd() {
-                int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-                MediaPickHelper.selectImage(mActivity, maxCount);
-            }
+        imgAdapter.setOnAddClick(() -> {
+            int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
+            MediaPickHelper.selectImage(mActivity, maxCount);
         });
         if (diary.getContentImageList() != null && diary.getContentImageList().size() > 0) {
             imgAdapter.setOssData(diary.getContentImageList());
@@ -215,12 +212,9 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
 
     private void showDatePicker() {
         if (diary == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(diary.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                diary.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(diary.getHappenAt()), time -> {
+            diary.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -278,7 +272,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
-                ossData.addAll(ossPathList == null ? new ArrayList<String>() : ossPathList);
+                ossData.addAll(ossPathList == null ? new ArrayList<>() : ossPathList);
                 api(ossData);
             }
 
@@ -330,7 +324,7 @@ public class DiaryEditActivity extends BaseActivity<DiaryEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Diary>> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<Diary>());
+                RxBus.Event<ArrayList<Diary>> event = new RxBus.Event<>(ConsHelper.EVENT_DIARY_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // sp
                 SPHelper.setDraftDiary(null);

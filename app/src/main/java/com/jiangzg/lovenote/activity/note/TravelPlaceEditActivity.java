@@ -34,7 +34,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivity> {
 
@@ -86,16 +85,13 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null || place == null) return;
-                place.setLatitude(info.getLatitude());
-                place.setLongitude(info.getLongitude());
-                place.setAddress(info.getAddress());
-                place.setCityId(info.getCityId());
-                refreshLocationView();
-            }
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+            if (info == null || place == null) return;
+            place.setLatitude(info.getLatitude());
+            place.setLongitude(info.getLongitude());
+            place.setAddress(info.getAddress());
+            place.setCityId(info.getCityId());
+            refreshLocationView();
         });
     }
 
@@ -140,12 +136,9 @@ public class TravelPlaceEditActivity extends BaseActivity<TravelPlaceEditActivit
 
     private void showDatePicker() {
         if (place == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(place.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                place.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(place.getHappenAt()), time -> {
+            place.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 

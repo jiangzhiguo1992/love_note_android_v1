@@ -38,7 +38,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class CoinActivity extends BaseActivity<CoinActivity> {
 
@@ -96,30 +95,17 @@ public class CoinActivity extends BaseActivity<CoinActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getCoinListData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getCoinListData(true);
-                    }
-                });
+                .listenerRefresh(() -> getCoinListData(false))
+                .listenerMore(currentCount -> getCoinListData(true));
     }
 
     @Override
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obRefresh = RxBus.register(ConsHelper.EVENT_COIN_INFO_REFRESH, new Action1<Coin>() {
-            @Override
-            public void call(Coin coin) {
-                refreshData();
-                if (recyclerHelper != null) recyclerHelper.dataRefresh();
-            }
+        obRefresh = RxBus.register(ConsHelper.EVENT_COIN_INFO_REFRESH, coin -> {
+            refreshData();
+            if (recyclerHelper != null) recyclerHelper.dataRefresh();
         });
         // recyclerHelper
         recyclerHelper.dataRefresh();

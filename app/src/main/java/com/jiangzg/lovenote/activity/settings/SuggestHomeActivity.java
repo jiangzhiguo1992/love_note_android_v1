@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -45,7 +44,6 @@ import java.util.List;
 import butterknife.BindView;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
 
@@ -101,18 +99,8 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
                 .viewHeader(mActivity, R.layout.list_head_suggest_home)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -128,26 +116,17 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, new Action1<List<Suggest>>() {
-            @Override
-            public void call(List<Suggest> suggests) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_REFRESH, suggests -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, new Action1<Suggest>() {
-            @Override
-            public void call(Suggest suggest) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_DELETE, suggest -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, new Action1<Suggest>() {
-            @Override
-            public void call(Suggest suggest) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_LIST_ITEM_REFRESH, suggest -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), suggest);
         });
         // refresh
         recyclerHelper.dataRefresh();
@@ -193,30 +172,10 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         RadioGroup rgKind = head.findViewById(R.id.rgKind);
         RadioGroup rgStatus = head.findViewById(R.id.rgStatus);
         Button btnSearch = head.findViewById(R.id.btnSearch);
-        cvMy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE);
-            }
-        });
-        cvFollow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_FOLLOW);
-            }
-        });
-        cvAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SuggestAddActivity.goActivity(mActivity);
-            }
-        });
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerHelper.dataRefresh();
-            }
-        });
+        cvMy.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_MINE));
+        cvFollow.setOnClickListener(v -> SuggestListActivity.goActivity(mActivity, SuggestListActivity.ENTRY_FOLLOW));
+        cvAdd.setOnClickListener(v -> SuggestAddActivity.goActivity(mActivity));
+        btnSearch.setOnClickListener(v -> recyclerHelper.dataRefresh());
         // 动态组件拼装
         hsvStatus.setHorizontalScrollBarEnabled(false);
         hsvKind.setHorizontalScrollBarEnabled(false);
@@ -263,12 +222,9 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         button.setText(kind.getShow());
         ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
         button.setTextColor(colorStateList);
-        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    searchKind = kind.getKind();
-                }
+        button.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                searchKind = kind.getKind();
             }
         });
         return button;
@@ -295,12 +251,9 @@ public class SuggestHomeActivity extends BaseActivity<SuggestHomeActivity> {
         button.setText(status.getShow());
         ColorStateList colorStateList = ContextCompat.getColorStateList(mActivity, R.color.selector_text_check_primary_white);
         button.setTextColor(colorStateList);
-        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    searchStatus = status.getStatus();
-                }
+        button.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                searchStatus = status.getStatus();
             }
         });
         return button;

@@ -122,12 +122,9 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
             rvImage.setVisibility(View.VISIBLE);
             int spanCount = limitImagesCount > 3 ? 3 : limitImagesCount;
             ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, limitImagesCount);
-            imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-                @Override
-                public void onAdd() {
-                    int maxCount = limitImagesCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-                    MediaPickHelper.selectImage(mActivity, maxCount);
-                }
+            imgAdapter.setOnAddClick(() -> {
+                int maxCount = limitImagesCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
+                MediaPickHelper.selectImage(mActivity, maxCount);
             });
             if (recyclerHelper == null) {
                 recyclerHelper = new RecyclerHelper(rvImage)
@@ -228,18 +225,15 @@ public class PostAddActivity extends BaseActivity<PostAddActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.please_select_classify)
                 .items(subKindPushShowList)
-                .itemsCallbackSingleChoice(selectIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (post == null) return true;
-                        List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
-                        PostSubKindInfo subKindInfo = subKindPushList.get(which);
-                        if (subKindInfo != null) {
-                            refreshPostKind(subKindInfo.getKind());
-                        }
-                        DialogUtils.dismiss(dialog);
-                        return true;
+                .itemsCallbackSingleChoice(selectIndex, (dialog1, view, which, text) -> {
+                    if (post == null) return true;
+                    List<PostSubKindInfo> subKindPushList = ListHelper.getPostSubKindInfoListPush(kindInfo);
+                    PostSubKindInfo subKindInfo = subKindPushList.get(which);
+                    if (subKindInfo != null) {
+                        refreshPostKind(subKindInfo.getKind());
                     }
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);

@@ -35,7 +35,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
 
@@ -90,18 +89,8 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -125,19 +114,13 @@ public class AwardRuleListActivity extends BaseActivity<AwardRuleListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, new Action1<List<AwardRule>>() {
-            @Override
-            public void call(List<AwardRule> awardRuleList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_AWARD_RULE_LIST_REFRESH, awardRuleList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, new Action1<AwardRule>() {
-            @Override
-            public void call(AwardRule awardRule) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), awardRule);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_AWARD_RULE_LIST_ITEM_DELETE, awardRule -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), awardRule);
         });
         // refresh
         recyclerHelper.dataRefresh();

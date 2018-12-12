@@ -2,7 +2,6 @@ package com.jiangzg.lovenote.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -144,12 +143,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
         lineFeature.setVisibility(moreFeature ? View.VISIBLE : View.GONE);
         llFeature.setVisibility(moreFeature ? View.VISIBLE : View.GONE);
         // srl
-        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
+        srl.setOnRefreshListener(this::refreshData);
         // broadcast
         bb.initView(mActivity);
         initBroadcast(null);

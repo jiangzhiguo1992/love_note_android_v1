@@ -3,12 +3,10 @@ package com.jiangzg.lovenote.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.jiangzg.base.common.LogUtils;
 import com.jiangzg.base.component.ActivityStack;
@@ -180,12 +178,9 @@ public class HomeActivity extends BaseActivity<HomeActivity> {
     }
 
     private void initNavBottom() {
-        bnvBottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                changeFragment(item.getItemId());
-                return true;
-            }
+        bnvBottom.setOnNavigationItemSelectedListener(item -> {
+            changeFragment(item.getItemId());
+            return true;
         });
         bnvBottom.setSelectedItemId(menuIdArray[0]);
     }

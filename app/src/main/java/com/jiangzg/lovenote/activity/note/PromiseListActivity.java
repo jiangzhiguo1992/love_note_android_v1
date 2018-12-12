@@ -41,7 +41,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
 
@@ -112,18 +111,8 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -143,26 +132,17 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_REFRESH, new Action1<List<Promise>>() {
-            @Override
-            public void call(List<Promise> promiseList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_REFRESH, promiseList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, new Action1<Promise>() {
-            @Override
-            public void call(Promise promise) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), promise);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_DELETE, promise -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), promise);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, new Action1<Promise>() {
-            @Override
-            public void call(Promise promise) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), promise);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_PROMISE_LIST_ITEM_REFRESH, promise -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), promise);
         });
         // refresh
         recyclerHelper.dataRefresh();
@@ -239,19 +219,16 @@ public class PromiseListActivity extends BaseActivity<PromiseListActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_NOTE_SHOW)
-                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
-                            return true;
-                        }
-                        searchIndex = which;
-                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
                         return true;
                     }
+                    searchIndex = which;
+                    tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);

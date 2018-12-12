@@ -1,8 +1,5 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -52,12 +49,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
         FrescoView ivWallPaper = helper.getView(R.id.ivWallPaper);
         ivWallPaper.setAspectRatio(ratio);
         ivWallPaper.setWidthAndHeight(imageWidth / 2, imageHeight / 2);
-        ivWallPaper.setClickListener(new FrescoView.ClickListener() {
-            @Override
-            public void onSuccessClick(FrescoView iv) {
-                goImgScreen(helper.getLayoutPosition(), iv);
-            }
-        });
+        ivWallPaper.setClickListener(iv -> goImgScreen(helper.getLayoutPosition(), iv));
         // 优先加载本地文件
         ivWallPaper.setData(item);
     }
@@ -73,12 +65,7 @@ public class WallPaperAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delImgApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> delImgApi(position))
                 .negativeText(R.string.cancel)
                 .build();
         DialogHelper.showWithAnim(dialog);

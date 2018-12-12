@@ -38,7 +38,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class FoodListActivity extends BaseActivity<FoodListActivity> {
 
@@ -101,18 +100,8 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -147,26 +136,17 @@ public class FoodListActivity extends BaseActivity<FoodListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_FOOD_LIST_REFRESH, new Action1<List<Food>>() {
-            @Override
-            public void call(List<Food> foodList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_FOOD_LIST_REFRESH, foodList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, new Action1<Food>() {
-            @Override
-            public void call(Food food) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), food);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_FOOD_LIST_ITEM_DELETE, food -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), food);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, new Action1<Food>() {
-            @Override
-            public void call(Food food) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), food);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_FOOD_LIST_ITEM_REFRESH, food -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), food);
         });
         // refresh
         recyclerHelper.dataRefresh();

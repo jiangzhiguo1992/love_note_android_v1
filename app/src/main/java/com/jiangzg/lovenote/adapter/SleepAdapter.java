@@ -1,8 +1,5 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.support.annotation.NonNull;
-
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -58,12 +55,7 @@ public class SleepAdapter extends BaseQuickAdapter<Sleep, BaseViewHolder> {
                 .content(R.string.confirm_del_this_sleep)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

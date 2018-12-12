@@ -38,7 +38,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class MovieListActivity extends BaseActivity<MovieListActivity> {
 
@@ -101,18 +100,8 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -147,26 +136,17 @@ public class MovieListActivity extends BaseActivity<MovieListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_REFRESH, new Action1<List<Movie>>() {
-            @Override
-            public void call(List<Movie> movieList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_REFRESH, movieList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, new Action1<Movie>() {
-            @Override
-            public void call(Movie movie) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), movie);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_ITEM_DELETE, movie -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), movie);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, new Action1<Movie>() {
-            @Override
-            public void call(Movie movie) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), movie);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_MOVIE_LIST_ITEM_REFRESH, movie -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), movie);
         });
         // refresh
         recyclerHelper.dataRefresh();

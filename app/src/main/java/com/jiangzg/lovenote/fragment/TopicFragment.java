@@ -74,12 +74,7 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, false, false)
                 .viewHeader(mActivity, R.layout.list_head_topic)
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        refreshData();
-                    }
-                })
+                .listenerRefresh(this::refreshData)
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -134,26 +129,11 @@ public class TopicFragment extends BasePagerFragment<TopicFragment> {
         Button btnMyCollect = head.findViewById(R.id.btnMyCollect);
         Button btnMyMessage = head.findViewById(R.id.btnMyMessage);
         // 发布
-        btnMyPush.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PostMineActivity.goActivity(mFragment);
-            }
-        });
+        btnMyPush.setOnClickListener(v -> PostMineActivity.goActivity(mFragment));
         // 收藏
-        btnMyCollect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PostCollectActivity.goActivity(mFragment);
-            }
-        });
+        btnMyCollect.setOnClickListener(v -> PostCollectActivity.goActivity(mFragment));
         // 消息
-        btnMyMessage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TopicMessageActivity.goActivity(mFragment);
-            }
-        });
+        btnMyMessage.setOnClickListener(v -> TopicMessageActivity.goActivity(mFragment));
     }
 
     private void refreshData() {

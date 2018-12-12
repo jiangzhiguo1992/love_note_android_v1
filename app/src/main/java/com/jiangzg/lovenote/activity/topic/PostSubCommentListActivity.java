@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -22,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
@@ -62,7 +60,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListActivity> {
 
@@ -145,18 +142,8 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getSubCommentData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getSubCommentData(true);
-                    }
-                })
+                .listenerRefresh(() -> getSubCommentData(false))
+                .listenerMore(currentCount -> getSubCommentData(true))
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -200,12 +187,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
         page = 0;
         orderIndex = 0;
         // event
-        obPostCommentDetail = RxBus.register(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, new Action1<Long>() {
-            @Override
-            public void call(Long pcid) {
-                refreshPostComment(pcid, false);
-            }
-        });
+        obPostCommentDetail = RxBus.register(ConsHelper.EVENT_POST_COMMENT_DETAIL_REFRESH, pcid -> refreshPostComment(pcid, false));
         // refresh
         recyclerHelper.dataRefresh();
     }
@@ -394,29 +376,14 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 ivReport.setImageTintList(report ? colorStatePrimary : colorStateIconGrey);
             }
             // listener
-            llPoint.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    point(true);
-                }
-            });
-            llReport.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    report(true);
-                }
-            });
+            llPoint.setOnClickListener(v -> point(true));
+            llReport.setOnClickListener(v -> report(true));
         }
         // comment
         String commentUser = String.format(Locale.getDefault(), getString(R.string.all_space_brackets_holder_brackets), postComment.getSubCommentCount());
         tvCommentUser.setText(commentUser);
         initCommentOrderView();
-        tvCommentSort.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showCommentSortDialog();
-            }
-        });
+        tvCommentSort.setOnClickListener(v -> showCommentSortDialog());
         // bottom
         ivComment.setImageTintList(subComment ? colorStatePrimary : colorStateIconGrey);
     }
@@ -427,19 +394,16 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_order_type)
                 .items(ApiHelper.LIST_COMMENT_ORDER_SHOW)
-                .itemsCallbackSingleChoice(orderIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
-                            return true;
-                        }
-                        orderIndex = which;
-                        initCommentOrderView();
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(orderIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_COMMENT_ORDER_TYPE.length) {
                         return true;
                     }
+                    orderIndex = which;
+                    initCommentOrderView();
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
@@ -627,12 +591,7 @@ public class PostSubCommentListActivity extends BaseActivity<PostSubCommentListA
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delPostComment();
-                    }
-                })
+                .onPositive((dialog1, which) -> delPostComment())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

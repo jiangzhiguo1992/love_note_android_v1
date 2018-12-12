@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemLongClickListener;
@@ -61,7 +59,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
 
@@ -133,18 +130,8 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_grey, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getCommentData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getCommentData(true);
-                    }
-                })
+                .listenerRefresh(() -> getCommentData(false))
+                .listenerMore(currentCount -> getCommentData(true))
                 .listenerClick(new OnItemLongClickListener() {
                     @Override
                     public void onSimpleItemLongClick(BaseQuickAdapter adapter, View view, int position) {
@@ -168,12 +155,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obDetailRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, new Action1<Suggest>() {
-            @Override
-            public void call(Suggest suggest) {
-                refreshSuggest();
-            }
-        });
+        obDetailRefresh = RxBus.register(ConsHelper.EVENT_SUGGEST_DETAIL_REFRESH, suggest -> refreshSuggest());
         // refresh
         //recyclerHelper.dataRefresh();
         refreshSuggest();
@@ -322,12 +304,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
         } else {
             ivContent.setVisibility(View.VISIBLE);
             ivContent.setData(contentImgUrl);
-            ivContent.setClickListener(new FrescoView.ClickListener() {
-                @Override
-                public void onSuccessClick(FrescoView iv) {
-                    BigImageActivity.goActivityByOss(mActivity, contentImgUrl, iv);
-                }
-            });
+            ivContent.setClickListener(iv -> BigImageActivity.goActivityByOss(mActivity, contentImgUrl, iv));
         }
     }
 
@@ -471,12 +448,7 @@ public class SuggestDetailActivity extends BaseActivity<SuggestDetailActivity> {
                 .canceledOnTouchOutside(true)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        delSuggest();
-                    }
-                })
+                .onPositive((dialog1, which) -> delSuggest())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

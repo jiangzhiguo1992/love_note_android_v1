@@ -3,7 +3,6 @@ package com.jiangzg.lovenote.activity.note;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +15,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.jiangzg.base.common.StringUtils;
 import com.jiangzg.base.component.ActivityTrans;
@@ -212,18 +210,15 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
     private void initReceiveCheck() {
         if (gift == null) return;
         User user = SPHelper.getMe();
-        rgReceive.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (gift == null) return;
-                switch (checkedId) {
-                    case R.id.rbReceiveMe: // 送给我
-                        gift.setReceiveId(UserHelper.getMyId(user));
-                        break;
-                    case R.id.rbReceiveTa: // 送给ta
-                        gift.setReceiveId(UserHelper.getTaId(user));
-                        break;
-                }
+        rgReceive.setOnCheckedChangeListener((group, checkedId) -> {
+            if (gift == null) return;
+            switch (checkedId) {
+                case R.id.rbReceiveMe: // 送给我
+                    gift.setReceiveId(UserHelper.getMyId(user));
+                    break;
+                case R.id.rbReceiveTa: // 送给ta
+                    gift.setReceiveId(UserHelper.getTaId(user));
+                    break;
             }
         });
         long receiveId = gift.getReceiveId();
@@ -245,12 +240,9 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
         rv.setVisibility(View.VISIBLE);
         int spanCount = childCount > 3 ? 3 : childCount;
         ImgSquareEditAdapter imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, childCount);
-        imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-            @Override
-            public void onAdd() {
-                int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
-                MediaPickHelper.selectImage(mActivity, maxCount);
-            }
+        imgAdapter.setOnAddClick(() -> {
+            int maxCount = childCount - imgAdapter.getOssData().size() - imgAdapter.getFileData().size();
+            MediaPickHelper.selectImage(mActivity, maxCount);
         });
         if (gift.getContentImageList() != null && gift.getContentImageList().size() > 0) {
             imgAdapter.setOssData(gift.getContentImageList());
@@ -265,12 +257,9 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
 
     private void showDatePicker() {
         if (gift == null) return;
-        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(gift.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                gift.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDatePicker(mActivity, TimeHelper.getJavaTimeByGo(gift.getHappenAt()), time -> {
+            gift.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -314,7 +303,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
                 ImgSquareEditAdapter adapter = recyclerHelper.getAdapter();
                 if (adapter == null) return;
                 List<String> ossData = adapter.getOssData();
-                ossData.addAll(ossPathList == null ? new ArrayList<String>() : ossPathList);
+                ossData.addAll(ossPathList == null ? new ArrayList<>() : ossPathList);
                 api(ossData);
             }
 
@@ -364,7 +353,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Diary>> event = new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_REFRESH, new ArrayList<Diary>());
+                RxBus.Event<ArrayList<Diary>> event = new RxBus.Event<>(ConsHelper.EVENT_GIFT_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(event);
                 // finish
                 mActivity.finish();
@@ -383,12 +372,7 @@ public class GiftEditActivity extends BaseActivity<GiftEditActivity> {
                 .content(R.string.confirm_delete_this_gift)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        deleteApi();
-                    }
-                })
+                .onPositive((dialog1, which) -> deleteApi())
                 .build();
         DialogHelper.showWithAnim(dialog);
     }

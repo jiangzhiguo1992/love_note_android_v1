@@ -39,7 +39,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
 
@@ -110,18 +109,8 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -141,26 +130,17 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, new Action1<List<Diary>>() {
-            @Override
-            public void call(List<Diary> diaryList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_REFRESH, diaryList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, new Action1<Diary>() {
-            @Override
-            public void call(Diary diary) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), diary);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_DELETE, diary -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), diary);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, new Action1<Diary>() {
-            @Override
-            public void call(Diary diary) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), diary);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DIARY_LIST_ITEM_REFRESH, diary -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), diary);
         });
         // refresh
         recyclerHelper.dataRefresh();
@@ -222,19 +202,16 @@ public class DiaryListActivity extends BaseActivity<DiaryListActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_NOTE_SHOW)
-                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
-                            return true;
-                        }
-                        searchIndex = which;
-                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
                         return true;
                     }
+                    searchIndex = which;
+                    tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);

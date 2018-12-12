@@ -47,7 +47,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
@@ -148,12 +147,7 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             int pictureLimitCount = SPHelper.getLimit().getPicturePushCount();
             spanCount = pictureLimitCount > 3 ? 3 : pictureLimitCount;
             imgAdapter = new ImgSquareEditAdapter(mActivity, spanCount, pictureLimitCount);
-            imgAdapter.setOnAddClick(new ImgSquareEditAdapter.OnAddClickListener() {
-                @Override
-                public void onAdd() {
-                    goPicture();
-                }
-            });
+            imgAdapter.setOnAddClick(this::goPicture);
         }
         if (spanCount > 0) {
             rv.setVisibility(View.VISIBLE);
@@ -171,24 +165,18 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
     @Override
     protected void initData(Intent intent, Bundle state) {
         // event
-        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, new Action1<Album>() {
-            @Override
-            public void call(Album album) {
-                PictureEditActivity.this.isChangeAlbum = true;
-                PictureEditActivity.this.album = album;
-                PictureEditActivity.this.refreshAlbum();
-            }
+        obSelectAlbum = RxBus.register(ConsHelper.EVENT_ALBUM_SELECT, album -> {
+            PictureEditActivity.this.isChangeAlbum = true;
+            PictureEditActivity.this.album = album;
+            PictureEditActivity.this.refreshAlbum();
         });
-        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, new Action1<LocationInfo>() {
-            @Override
-            public void call(LocationInfo info) {
-                if (info == null || picture == null) return;
-                picture.setLatitude(info.getLatitude());
-                picture.setLongitude(info.getLongitude());
-                picture.setAddress(info.getAddress());
-                picture.setCityId(info.getCityId());
-                refreshLocationView();
-            }
+        obSelectMap = RxBus.register(ConsHelper.EVENT_MAP_SELECT, info -> {
+            if (info == null || picture == null) return;
+            picture.setLatitude(info.getLatitude());
+            picture.setLongitude(info.getLongitude());
+            picture.setAddress(info.getAddress());
+            picture.setCityId(info.getCityId());
+            refreshLocationView();
         });
     }
 
@@ -266,12 +254,9 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
 
     private void showDatePicker() {
         if (picture == null) return;
-        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(picture.getHappenAt()), new DialogHelper.OnPickListener() {
-            @Override
-            public void onPick(long time) {
-                picture.setHappenAt(TimeHelper.getGoTimeByJava(time));
-                refreshDateView();
-            }
+        DialogHelper.showDateTimePicker(mActivity, TimeHelper.getJavaTimeByGo(picture.getHappenAt()), time -> {
+            picture.setHappenAt(TimeHelper.getGoTimeByJava(time));
+            refreshDateView();
         });
     }
 
@@ -363,11 +348,11 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
                 String toast = String.format(Locale.getDefault(), mActivity.getString(R.string.success_push_holder_paper_picture), total);
                 ToastUtils.show(toast);
                 // event
-                RxBus.Event<ArrayList<Album>> eventListAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.Event<ArrayList<Album>> eventListAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(eventListAlbum);
                 RxBus.Event<Album> eventAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
                 RxBus.post(eventAlbum);
-                RxBus.Event<ArrayList<Picture>> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
+                RxBus.Event<ArrayList<Picture>> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(eventPicture);
                 // finish
                 mActivity.finish();
@@ -387,13 +372,13 @@ public class PictureEditActivity extends BaseActivity<PictureEditActivity> {
             @Override
             public void onResponse(int code, String message, Result.Data data) {
                 // event
-                RxBus.Event<ArrayList<Album>> eventListAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<Album>());
+                RxBus.Event<ArrayList<Album>> eventListAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_LIST_REFRESH, new ArrayList<>());
                 RxBus.post(eventListAlbum);
                 RxBus.Event<Album> eventAlbum = new RxBus.Event<>(ConsHelper.EVENT_ALBUM_DETAIL_REFRESH, album);
                 RxBus.post(eventAlbum);
                 Picture picture = data.getPicture();
                 if (isChangeAlbum) {
-                    RxBus.Event<ArrayList<Picture>> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<Picture>());
+                    RxBus.Event<ArrayList<Picture>> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_REFRESH, new ArrayList<>());
                     RxBus.post(eventPicture);
                 } else {
                     RxBus.Event<Picture> eventPicture = new RxBus.Event<>(ConsHelper.EVENT_PICTURE_LIST_ITEM_REFRESH, picture);

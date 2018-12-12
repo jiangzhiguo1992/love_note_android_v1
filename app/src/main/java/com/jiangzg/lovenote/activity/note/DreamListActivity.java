@@ -41,7 +41,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import retrofit2.Call;
 import rx.Observable;
-import rx.functions.Action1;
 
 public class DreamListActivity extends BaseActivity<DreamListActivity> {
 
@@ -99,18 +98,8 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 .viewEmpty(mActivity, R.layout.list_empty_white, true, true)
                 .viewLoadMore(new RecyclerHelper.MoreGreyView())
                 .setAdapter()
-                .listenerRefresh(new RecyclerHelper.RefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        getData(false);
-                    }
-                })
-                .listenerMore(new RecyclerHelper.MoreListener() {
-                    @Override
-                    public void onMore(int currentCount) {
-                        getData(true);
-                    }
-                })
+                .listenerRefresh(() -> getData(false))
+                .listenerMore(currentCount -> getData(true))
                 .listenerClick(new OnItemClickListener() {
                     @Override
                     public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -124,26 +113,17 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
     protected void initData(Intent intent, Bundle state) {
         page = 0;
         // event
-        obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, new Action1<List<Dream>>() {
-            @Override
-            public void call(List<Dream> dreamList) {
-                if (recyclerHelper == null) return;
-                recyclerHelper.dataRefresh();
-            }
+        obListRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_REFRESH, dreamList -> {
+            if (recyclerHelper == null) return;
+            recyclerHelper.dataRefresh();
         });
-        obListItemDelete = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, new Action1<Dream>() {
-            @Override
-            public void call(Dream dream) {
-                if (recyclerHelper == null) return;
-                ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), dream);
-            }
+        obListItemDelete = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_DELETE, dream -> {
+            if (recyclerHelper == null) return;
+            ListHelper.removeObjInAdapter(recyclerHelper.getAdapter(), dream);
         });
-        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, new Action1<Dream>() {
-            @Override
-            public void call(Dream dream) {
-                if (recyclerHelper == null) return;
-                ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), dream);
-            }
+        obListItemRefresh = RxBus.register(ConsHelper.EVENT_DREAM_LIST_ITEM_REFRESH, dream -> {
+            if (recyclerHelper == null) return;
+            ListHelper.refreshObjInAdapter(recyclerHelper.getAdapter(), dream);
         });
         // refresh
         recyclerHelper.dataRefresh();
@@ -214,19 +194,16 @@ public class DreamListActivity extends BaseActivity<DreamListActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_NOTE_SHOW)
-                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (recyclerHelper == null) return true;
-                        if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
-                            return true;
-                        }
-                        searchIndex = which;
-                        tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
-                        recyclerHelper.dataRefresh();
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (recyclerHelper == null) return true;
+                    if (which < 0 || which >= ApiHelper.LIST_NOTE_TYPE.length) {
                         return true;
                     }
+                    searchIndex = which;
+                    tvSearch.setText(ApiHelper.LIST_NOTE_SHOW[searchIndex]);
+                    recyclerHelper.dataRefresh();
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);

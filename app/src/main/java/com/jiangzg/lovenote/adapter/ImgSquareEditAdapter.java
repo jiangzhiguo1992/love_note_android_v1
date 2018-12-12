@@ -1,12 +1,10 @@
 package com.jiangzg.lovenote.adapter;
 
-import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -73,31 +71,18 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
             ivShow.setLayoutParams(layoutParams);
             if (layoutPosition < ossSize) {
                 // oss
-                ivShow.setClickListener(new FrescoView.ClickListener() {
-                    @Override
-                    public void onSuccessClick(FrescoView iv) {
-                        BigImageActivity.goActivityByOss(mActivity, item, iv);
-                    }
-                });
+                ivShow.setClickListener(iv -> BigImageActivity.goActivityByOss(mActivity, item, iv));
                 ivShow.setData(item);
             } else {
                 // file
-                ivShow.setClickListener(new FrescoView.ClickListener() {
-                    @Override
-                    public void onSuccessClick(FrescoView iv) {
-                        BigImageActivity.goActivityByFile(mActivity, item, iv);
-                    }
-                });
+                ivShow.setClickListener(iv -> BigImageActivity.goActivityByFile(mActivity, item, iv));
                 ivShow.setDataFile(FileUtils.getFileByPath(item));
             }
-            ivShow.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (ImgSquareEditAdapter.this.canDel) {
-                        showDeleteDialog(layoutPosition);
-                    }
-                    return true;
+            ivShow.setOnLongClickListener(v -> {
+                if (ImgSquareEditAdapter.this.canDel) {
+                    showDeleteDialog(layoutPosition);
                 }
+                return true;
             });
         } else {
             // add
@@ -106,12 +91,9 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
             CardView.LayoutParams layoutParams = (CardView.LayoutParams) ivAdd.getLayoutParams();
             layoutParams.height = imageHeight;
             ivAdd.setLayoutParams(layoutParams);
-            ivAdd.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (addClickListener != null) {
-                        addClickListener.onAdd();
-                    }
+            ivAdd.setOnClickListener(v -> {
+                if (addClickListener != null) {
+                    addClickListener.onAdd();
                 }
             });
         }
@@ -125,12 +107,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
                 .content(R.string.confirm_delete_this_image)
                 .positiveText(R.string.confirm_no_wrong)
                 .negativeText(R.string.i_think_again)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        ImgSquareEditAdapter.this.removeData(position);
-                    }
-                })
+                .onPositive((dialog1, which) -> ImgSquareEditAdapter.this.removeData(position))
                 .build();
         DialogHelper.showWithAnim(dialog);
     }
@@ -176,7 +153,7 @@ public class ImgSquareEditAdapter extends BaseQuickAdapter<String, BaseViewHolde
         if (limit <= 0) {
             // 不让添加图片
             addShow = false;
-            this.setNewData(new ArrayList<String>());
+            this.setNewData(new ArrayList<>());
             return;
         }
         int size = getData().size();

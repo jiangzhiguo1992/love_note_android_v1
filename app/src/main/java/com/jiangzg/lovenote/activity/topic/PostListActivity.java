@@ -177,30 +177,27 @@ public class PostListActivity extends BaseActivity<PostListActivity> {
                 .canceledOnTouchOutside(true)
                 .title(R.string.select_search_type)
                 .items(ApiHelper.LIST_TOPIC_SHOW)
-                .itemsCallbackSingleChoice(searchIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE.length) {
-                            return true;
-                        }
-                        searchIndex = which;
-                        tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchIndex]);
-                        RxBus.Event<Boolean> event;
-                        switch (ApiHelper.LIST_TOPIC_TYPE[searchIndex]) {
-                            case ApiHelper.LIST_TOPIC_OFFICIAL: // 官方
-                                event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
-                                break;
-                            case ApiHelper.LIST_TOPIC_WELL: // 精华
-                                event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
-                                break;
-                            default: // 普通
-                                event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_ALL, true);
-                                break;
-                        }
-                        RxBus.post(event);
-                        DialogUtils.dismiss(dialog);
+                .itemsCallbackSingleChoice(searchIndex, (dialog1, view, which, text) -> {
+                    if (which < 0 || which >= ApiHelper.LIST_TOPIC_TYPE.length) {
                         return true;
                     }
+                    searchIndex = which;
+                    tvSearch.setText(ApiHelper.LIST_TOPIC_SHOW[searchIndex]);
+                    RxBus.Event<Boolean> event;
+                    switch (ApiHelper.LIST_TOPIC_TYPE[searchIndex]) {
+                        case ApiHelper.LIST_TOPIC_OFFICIAL: // 官方
+                            event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_OFFICIAL, true);
+                            break;
+                        case ApiHelper.LIST_TOPIC_WELL: // 精华
+                            event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_WELL, true);
+                            break;
+                        default: // 普通
+                            event = new RxBus.Event<>(ConsHelper.EVENT_POST_SEARCH_ALL, true);
+                            break;
+                    }
+                    RxBus.post(event);
+                    DialogUtils.dismiss(dialog1);
+                    return true;
                 })
                 .build();
         DialogHelper.showWithAnim(dialog);
