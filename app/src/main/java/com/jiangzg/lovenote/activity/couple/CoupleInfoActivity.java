@@ -320,7 +320,7 @@ public class CoupleInfoActivity extends BaseActivity<CoupleInfoActivity> {
         tvPhoneRight.setText(mePhone);
         tvBirthLeft.setText(taBirthShow);
         tvBirthRight.setText(meBirthShow);
-        tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.pair_holder_day), togetherDay));
+        tvPairDays.setText(String.format(Locale.getDefault(), getString(R.string.holder_day), togetherDay));
     }
 
     private void showLeftAvatarPop() {

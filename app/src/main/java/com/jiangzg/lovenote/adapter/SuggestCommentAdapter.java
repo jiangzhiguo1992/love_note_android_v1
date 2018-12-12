@@ -48,7 +48,7 @@ public class SuggestCommentAdapter extends BaseQuickAdapter<SuggestComment, Base
         // data
         boolean official = item.isOfficial();
         boolean mine = item.isMine();
-        String floor = official ? mActivity.getString(R.string.official) : "";
+        String floor = official ? mActivity.getString(R.string.administrators) : "";
         String create = TimeHelper.getTimeShowLine_HM_MD_YMD_ByGo(item.getCreateAt());
         String top = String.format(Locale.getDefault(), mActivity.getString(R.string.holder_space_space_holder), floor, create);
         String contentText = item.getContentText();

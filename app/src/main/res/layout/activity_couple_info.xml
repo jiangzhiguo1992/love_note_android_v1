@@ -12,16 +12,29 @@
 
     <include layout="@layout/view_top_bar"/>
 
+    <TextView
+        android:id="@+id/tvPairDays"
+        style="@style/FontWhiteHuge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:drawableStart="@mipmap/ic_date_range_white_24dp"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:textStyle="italic"
+        tools:text="365天"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:padding="20dp">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -31,7 +44,6 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
                 tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
@@ -99,7 +111,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical">
@@ -109,7 +121,6 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="10dp"
                 tools:background="@mipmap/ic_account_circle_grey_48dp"/>
 
@@ -175,20 +186,10 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvPairDays"
-        style="@style/FontPrimaryHugeBold"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="30sp"
-        tools:text="第365天"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         tools:listitem="@layout/list_item_couple_state"/>
 </LinearLayout>
