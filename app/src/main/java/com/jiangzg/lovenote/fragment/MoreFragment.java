@@ -227,7 +227,7 @@ public class MoreFragment extends BasePagerFragment<MoreFragment> {
             case R.id.cvWish: // 许愿树
                 ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
-            case R.id.cvPlane: // 纸飞机
+            case R.id.cvPlane: // 明信片
                 ToastUtils.show(mActivity.getString(R.string.function_no_open_please_wait));
                 break;
         }

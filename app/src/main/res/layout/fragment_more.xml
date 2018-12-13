@@ -30,7 +30,7 @@
                     android:gravity="center"
                     android:text="@string/now_no_broadcast"
                     android:visibility="gone"
-                    tools:visibility="visible"/>
+                    tools:visibility="gone"/>
 
                 <com.jiangzg.lovenote.view.BroadcastBanner
                     android:id="@+id/bb"
@@ -94,12 +94,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_vip_red"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_vip_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -151,12 +154,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_coin_yellow_dark"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_coin_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -208,12 +214,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_sign_green"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_sign_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -301,12 +310,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_wife_brown_accent"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_wife_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -358,12 +370,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_letter_pink"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_letter_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -415,12 +430,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_topic_blue"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_discuss_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -462,7 +480,8 @@
                     android:layout_marginBottom="5dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    tools:visibility="visible">
 
                     <View
                         style="@style/LineHorizontal"
@@ -487,7 +506,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    android:weightSum="3">
+                    android:weightSum="3"
+                    tools:visibility="visible">
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cvWish"
@@ -510,12 +530,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_wish_tree_teal"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_wish_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -567,12 +590,15 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:padding="10dp">
+                            android:paddingStart="10dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:src="@drawable/ic_plane_purple_accent"/>
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@mipmap/ic_more_plane_24dp"/>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
